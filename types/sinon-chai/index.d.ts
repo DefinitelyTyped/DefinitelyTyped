@@ -1,5 +1,5 @@
-/// <reference types="chai" />
 /// <reference types="sinon" />
+/// <reference types="chai" />
 
 import * as Sinon from "sinon";
 
@@ -95,5 +95,4 @@ declare global {
 }
 
 declare const sinonChai: Chai.ChaiPlugin;
-declare namespace sinonChai {}
-export = sinonChai;
+export default sinonChai;

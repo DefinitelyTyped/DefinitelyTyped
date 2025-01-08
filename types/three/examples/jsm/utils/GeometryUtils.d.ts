@@ -1,4 +1,4 @@
-import { Vector3 } from '../../../src/Three.js';
+import { Vector3 } from "three";
 
 export function hilbert2D(
     center?: Vector3,

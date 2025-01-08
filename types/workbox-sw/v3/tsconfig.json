@@ -4,7 +4,7 @@
         "workbox-sw-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es2017",
         "lib": [
             "es2015",

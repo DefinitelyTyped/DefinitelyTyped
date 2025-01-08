@@ -1,4 +1,16 @@
-import { Shape, Loader, LoadingManager } from '../../../src/Three.js';
+import { Loader, LoadingManager, Shape } from "three";
+
+export interface FontData {
+    glyphs: Record<string, { ha: number; x_min: number; x_max: number; o?: string | undefined }>;
+    familyName: string;
+    ascender: number;
+    descender: number;
+    underlinePosition: number;
+    underlineThickness: number;
+    boundingBox: { yMin: number; xMin: number; yMax: number; xMax: number };
+    resolution: number;
+    original_font_information: Record<string, string>;
+}
 
 export class FontLoader extends Loader<Font> {
     constructor(manager?: LoadingManager);
@@ -10,18 +22,20 @@ export class FontLoader extends Loader<Font> {
         onError?: (err: unknown) => void,
     ): void;
 
-    parse(json: any): Font;
+    parse(json: FontData): Font;
 }
 
 export class Font {
-    constructor(jsondata: any);
+    readonly isFont: true;
 
     /**
      * @default 'Font'
      */
     type: string;
 
-    data: string;
+    data: FontData;
 
-    generateShapes(text: string, size: number): Shape[];
+    constructor(data: FontData);
+
+    generateShapes(text: string, size?: number): Shape[];
 }

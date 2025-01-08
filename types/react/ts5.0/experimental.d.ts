@@ -42,12 +42,6 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
-    // Need an interface to not cause ReactNode to be a self-referential type.
-    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
-        promises: PromiseLikeOfReactNode;
-    }
-
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
@@ -112,8 +106,13 @@ declare module "." {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    /**
+     * Warning: Only available in development builds.
+     */
+    function captureOwnerStack(): string | null;
 
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;

@@ -1,4 +1,4 @@
-import { Loader } from './Loader.js';
+import { Loader } from "./Loader.js";
 
 export const DefaultLoadingManager: LoadingManager;
 

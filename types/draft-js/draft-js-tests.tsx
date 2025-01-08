@@ -1,6 +1,5 @@
 import * as Immutable from "immutable";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import {
     CompositeDecorator,
@@ -379,11 +378,6 @@ const CodeBlockTypeControl = (props: { editorState: EditorState; onToggle: (bloc
         return null;
     }
 };
-
-ReactDOM.render(
-    <RichEditorExample />,
-    document.getElementById("target"),
-);
 
 const editorState = EditorState.createEmpty();
 

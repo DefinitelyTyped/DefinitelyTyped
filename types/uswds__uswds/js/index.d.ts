@@ -1,6 +1,7 @@
 import password from "./_usa-password";
 import accordion from "./usa-accordion";
 import banner from "./usa-banner";
+import button from "./usa-button";
 import characterCount from "./usa-character-count";
 import comboBox from "./usa-combo-box";
 import datePicker from "./usa-date-picker";
@@ -13,6 +14,7 @@ import inputMask from "./usa-input-mask";
 import inputPrefixSuffix from "./usa-input-prefix-suffix";
 import languageSelector from "./usa-language-selector";
 import modal from "./usa-modal";
+import range from "./usa-range";
 import search from "./usa-search";
 import skipnav from "./usa-skipnav";
 import table from "./usa-table";
@@ -23,6 +25,7 @@ import validator from "./usa-validation";
 export {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -36,6 +39,7 @@ export {
     modal,
     navigation,
     password,
+    range,
     search,
     skipnav,
     table,

@@ -1,6 +1,6 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
-import { MaterialParameters, Material } from './Material.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface SpriteMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -19,11 +19,6 @@ export class SpriteMaterial extends Material {
      * @defaultValue `true`
      */
     readonly isSpriteMaterial: true;
-
-    /**
-     * @default 'SpriteMaterial'
-     */
-    type: string;
 
     /**
      * @default new THREE.Color( 0xffffff )

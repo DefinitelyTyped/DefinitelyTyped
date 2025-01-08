@@ -1,4 +1,4 @@
-import { Scene } from '../../../src/Three.js';
+import { Scene } from "three";
 
 export class DebugEnvironment extends Scene {
     constructor();

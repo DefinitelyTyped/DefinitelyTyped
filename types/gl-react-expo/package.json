@@ -10,8 +10,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/gl-react-expo": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/gl-react-expo": "workspace:."
     },
     "owners": [
         {

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/reveal.js",
-    "version": "4.4.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/hakimel/reveal.js/"
     ],
@@ -14,16 +14,8 @@
             "githubUsername": "robertop87"
         },
         {
-            "name": "Nava2",
-            "githubUsername": "Nava2"
-        },
-        {
             "name": "JPtenBerge",
             "githubUsername": "JPtenBerge"
-        },
-        {
-            "name": "Keita Watanabe",
-            "githubUsername": "kwatanwa17"
         }
     ]
 }

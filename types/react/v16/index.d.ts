@@ -393,6 +393,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode> | null;
+
+        /**
+         * A name for this Suspense boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -1522,8 +1528,16 @@ declare namespace React {
         onPointerCancel?: PointerEventHandler<T> | undefined;
         onPointerCancelCapture?: PointerEventHandler<T> | undefined;
         onPointerEnter?: PointerEventHandler<T> | undefined;
+        /**
+         * @deprecated This event handler was always ignored by React. It was added by mistake to the types.
+         */
+        // Removing this breaks too many libraries to be worth it.
         onPointerEnterCapture?: PointerEventHandler<T> | undefined;
         onPointerLeave?: PointerEventHandler<T> | undefined;
+        /**
+         * @deprecated This event handler was always ignored by React. It was added by mistake to the types.
+         */
+        // Removing this breaks too many libraries to be worth it.
         onPointerLeaveCapture?: PointerEventHandler<T> | undefined;
         onPointerOver?: PointerEventHandler<T> | undefined;
         onPointerOverCapture?: PointerEventHandler<T> | undefined;
@@ -1555,7 +1569,7 @@ declare namespace React {
         onTransitionEndCapture?: TransitionEventHandler<T> | undefined;
     }
 
-    export interface CSSProperties extends CSS.Properties<(string & {}) | number> {
+    export interface CSSProperties extends CSS.Properties<string | number> {
         /**
          * The index signature was removed to enable closed typing for style
          * using CSSType. You're able to use type assertion or module augmentation
@@ -1847,6 +1861,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | undefined;
@@ -1885,7 +1900,6 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;
@@ -2304,9 +2318,10 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
+        content?: string | undefined;
         httpEquiv?: string | undefined;
-        name?: string | undefined;
         media?: string | undefined;
+        name?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {

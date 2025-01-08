@@ -1,4 +1,5 @@
 import * as itowns from "itowns";
+import * as THREE from "three";
 import { OpenSM } from "./jsonLayers";
 
 const placement = {

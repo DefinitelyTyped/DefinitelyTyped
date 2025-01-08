@@ -1,4 +1,4 @@
-import { Dashicon } from "@wordpress/components";
+import { IconType } from "@wordpress/components";
 import { StoreDescriptor } from "@wordpress/data";
 import { ShortcodeMatch } from "@wordpress/shortcode";
 import { ComponentType, ReactElement } from "react";
@@ -15,10 +15,7 @@ export interface BlocksStoreDescriptor extends StoreDescriptor {
     name: "core/blocks";
 }
 
-// eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@wordpress/blocks" {
-    const store: BlocksStoreDescriptor;
-}
+export const store: BlocksStoreDescriptor;
 
 export type AxialDirection = "horizontal" | "vertical";
 
@@ -37,7 +34,7 @@ export interface BlockIconNormalized {
     background?: string | undefined;
     foreground?: string | undefined;
     shadowColor?: string | undefined;
-    src: Dashicon.Icon | ReactElement | ComponentType;
+    src: IconType | ReactElement | ComponentType;
 }
 
 export type BlockIcon = BlockIconNormalized["src"] | BlockIconNormalized;

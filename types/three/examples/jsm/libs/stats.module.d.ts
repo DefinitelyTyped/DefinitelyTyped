@@ -1,3 +1,3 @@
-import Stats = require('stats.js');
+import Stats = require("stats.js");
 
 export default Stats;

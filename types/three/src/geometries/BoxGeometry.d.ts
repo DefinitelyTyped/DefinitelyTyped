@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * {@link BoxGeometry} is a geometry class for a rectangular cuboid with a given 'width', 'height', and 'depth'
@@ -39,7 +39,7 @@ export class BoxGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `BoxGeometry`
      */
-    override readonly type: string | 'BoxGeometry';
+    override readonly type: string | "BoxGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

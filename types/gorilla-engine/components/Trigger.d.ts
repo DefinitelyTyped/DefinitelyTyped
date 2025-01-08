@@ -9,7 +9,7 @@ declare namespace GorillaEngine.UI {
         };
         animation: LottieAnimation;
     }
-
+    // tslint:disable-next-line:no-empty-interface
     interface Trigger extends TriggerProps {}
     class Trigger extends Component {
         constructor(options: Partial<TriggerProps>);

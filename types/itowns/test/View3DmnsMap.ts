@@ -21,7 +21,7 @@ const view = new itowns.GlobeView(viewerDiv, placement);
 
 // Add one imagery layer to the scene. This layer's properties are defined in a json file, but it could be
 // defined as a plain js object. See `Layer` documentation for more info.
-itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config) {
+itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config: any) {
     config.source = new itowns.WMTSSource(config.source);
     view.addLayer(new itowns.ColorLayer("Ortho", config));
 });

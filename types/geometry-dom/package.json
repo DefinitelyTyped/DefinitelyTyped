@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/geometry-dom",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "geometry-dom",
     "projects": [
         "http://www.w3.org/TR/geometry-1/"
     ],

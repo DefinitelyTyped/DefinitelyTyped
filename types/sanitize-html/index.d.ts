@@ -19,7 +19,7 @@ declare namespace sanitize {
 
     type AllowedAttribute = string | { name: string; multiple?: boolean | undefined; values: string[] };
 
-    type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape";
+    type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape" | "completelyDiscard";
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IDefaults {
@@ -32,6 +32,7 @@ declare namespace sanitize {
         disallowedTagsMode: DisallowedTagsModes;
         enforceHtmlBoundary: boolean;
         selfClosing: string[];
+        nonBooleanAttributes: string[];
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -76,6 +77,7 @@ declare namespace sanitize {
          * @default true
          */
         enforceHtmlBoundary?: boolean | undefined;
+        nonBooleanAttributes?: string[];
     }
 
     const defaults: IDefaults;

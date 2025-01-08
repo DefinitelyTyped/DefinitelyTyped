@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/socketcluster-client",
-    "version": "16.0.9999",
+    "version": "19.1.9999",
     "projects": [
         "https://github.com/SocketCluster/socketcluster-client",
         "http://socketcluster.io"

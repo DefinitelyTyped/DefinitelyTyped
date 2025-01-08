@@ -1,4 +1,4 @@
-import { Light, Renderer } from '../../../src/Three.js';
+import { Light, WebGLRenderer } from "three";
 
 export interface Size {
     width: number;
@@ -12,13 +12,15 @@ export interface Position {
     set: (x: number, y: number) => void;
 }
 
-export class ShadowMapViewer {
-    constructor(light: Light);
-
+declare class ShadowMapViewer {
     enabled: boolean;
     size: Size;
     position: Position;
-    render(renderer: Renderer): void;
-    updateForWindowResize(): void;
-    update(): void;
+    render: (renderer: WebGLRenderer) => void;
+    updateForWindowResize: () => void;
+    update: () => void;
+
+    constructor(light: Light);
 }
+
+export { ShadowMapViewer };

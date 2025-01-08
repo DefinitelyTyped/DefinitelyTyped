@@ -584,9 +584,9 @@ declare namespace Mixpanel {
         /**
          * Should we track a page view on page load
          *
-         * @default true
+         * @default undefined
          */
-        track_pageview?: boolean | undefined;
+        track_pageview?: "url-with-path" | "url-with-path-and-query-string" | "full-url" | boolean | undefined;
         /**
          * Debug mode
          *

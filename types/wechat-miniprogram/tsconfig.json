@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "ES5",
         "noImplicitAny": true,
         "noImplicitThis": true,

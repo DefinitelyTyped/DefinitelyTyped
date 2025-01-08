@@ -119,6 +119,9 @@
     // $ExpectType Rectangle
     OO.ui.getViewportSpacing();
 
+    // $ExpectType HTMLElement
+    OO.ui.getTeleportTarget();
+
     // $ExpectType JQuery<HTMLDivElement>
     OO.ui.getDefaultOverlay();
 
@@ -580,7 +583,7 @@
     // $ExpectType LabelElement
     instance.setLabel("foo baz");
 
-    // $ExpectType void
+    // $ExpectType LabelElement
     instance.setLabelElement($("<span>"));
 
     // $ExpectType LabelElement
@@ -931,11 +934,11 @@
         editable: false,
     });
 
-    instance.focus(); // $ExpectType
+    instance.focus(); // $ExpectType void
 
-    instance.focus(1); // $ExpectType
+    instance.focus(1); // $ExpectType void
 
-    instance.focusFirstFocusable(); // $ExpectType
+    instance.focusFirstFocusable(); // $ExpectType void
 
     instance.isOutlined(); // $ExpectType boolean
 
@@ -1000,6 +1003,7 @@
     const instance = new OO.ui.ButtonInputWidget({
         type: "submit",
         useInputTag: false,
+        formNoValidate: false,
     });
 
     instance.setLabel("123"); // $ExpectType ButtonInputWidget
@@ -1318,6 +1322,68 @@
 
     // @ts-expect-error
     OO.ui.ComboBoxInputWidget.prototype.$field;
+}
+// #endregion
+
+// #region OO.ui.CopyTextLayout
+{
+    // $ExpectType ActionFieldLayout<TextInputWidget>
+    new OO.ui.CopyTextLayout.super(new OO.ui.TextInputWidget(), new OO.ui.ButtonWidget());
+
+    const instance = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+        },
+        button: {
+            flags: ["progressive"],
+        },
+    });
+
+    // $ExpectType TextInputWidget
+    instance.getField();
+
+    // $ExpectType void
+    instance.onButtonClick();
+
+    // $ExpectType void
+    instance.onInputFocus();
+
+    // $ExpectType void
+    instance.selectText();
+
+    instance.on("copy", success => {
+        success; // $ExpectType boolean
+    });
+
+    const instanceMultilineFalse = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+        },
+        button: {
+            flags: ["progressive"],
+        },
+        multiline: false,
+    });
+
+    // $ExpectType TextInputWidget
+    instanceMultilineFalse.getField();
+
+    const instanceMultilineTrue = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+            rows: 3,
+        },
+        button: {
+            flags: ["progressive"],
+        },
+        multiline: true,
+    });
+
+    // $ExpectType MultilineTextInputWidget
+    instanceMultilineTrue.getField();
 }
 // #endregion
 
@@ -2397,6 +2463,9 @@
 
     instance.isAutosizing(); // $ExpectType boolean
 
+    // $ExpectType NonNullRange
+    instance.getRange();
+
     instance.on("resize", () => {});
 }
 // #endregion
@@ -3174,6 +3243,10 @@
     // $ExpectType InputWidget
     new OO.ui.SelectFileInputWidget.super();
 
+    const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+    });
+
     const instance = new OO.ui.SelectFileInputWidget({
         accept: ["text/html"],
         multiple: true,
@@ -3184,30 +3257,17 @@
         icon: "upload",
     });
 
-    instance.getFilename(); // $ExpectType string
-}
-// #endregion
-
-// #region OO.ui.SelectFileWidget
-{
-    // $ExpectType SelectFileInputWidget
-    new OO.ui.SelectFileWidget.super();
-
-    const file = new File(["foo"], "foo.txt", {
-        type: "text/plain",
-    });
-
-    const instance = new OO.ui.SelectFileWidget();
-
     instance.getValue(); // $ExpectType File | File[] | null
 
-    instance.setValue([file]); // $ExpectType void
+    instance.setValue([file]); // $ExpectType SelectFileInputWidget
 
-    instance.setValue(null); // $ExpectType void
+    instance.setValue(null); // $ExpectType SelectFileInputWidget
 
     instance.loadAndGetImageUrl(file).then(url => {
         url; // $ExpectType string
     });
+
+    instance.getFilename(); // $ExpectType string
 }
 // #endregion
 

@@ -61,7 +61,7 @@ export interface RequestHandler<
         req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
         res: Response<ResBody, LocalsObj>,
         next: NextFunction,
-    ): void;
+    ): void | Promise<void>;
 }
 
 export type ErrorRequestHandler<
@@ -75,7 +75,7 @@ export type ErrorRequestHandler<
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
     res: Response<ResBody, LocalsObj>,
     next: NextFunction,
-) => void;
+) => void | Promise<void>;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -97,12 +97,16 @@ type GetRouteParameter<S extends string> = RemoveTail<
 >;
 
 // prettier-ignore
-export type RouteParameters<Route extends string> = string extends Route ? ParamsDictionary
+export type RouteParameters<Route extends string> = Route extends `${infer Required}{${infer Optional}}${infer Next}`
+    ? ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next>
+    : ParseRouteParameters<Route>;
+
+type ParseRouteParameters<Route extends string> = string extends Route ? ParamsDictionary
     : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string }
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when Express 5 is promoted to "latest"
                     : { [P in GetRouteParameter<Rest>]: string }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
@@ -244,13 +248,6 @@ export interface IRouter extends RequestHandler {
     param(name: string, handler: RequestParamHandler): this;
 
     /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-
-    /**
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
@@ -292,12 +289,23 @@ export interface IRouter extends RequestHandler {
     /**
      * Stack of configured routes
      */
-    stack: any[];
+    stack: ILayer[];
+}
+
+export interface ILayer {
+    route?: IRoute;
+    name: string | "<anonymous>";
+    params?: Record<string, any>;
+    keys: string[];
+    path?: string;
+    method: string;
+    regexp: RegExp;
+    handle: (req: Request, res: Response, next: NextFunction) => any;
 }
 
 export interface IRoute<Route extends string = string> {
     path: string;
-    stack: any;
+    stack: ILayer[];
     all: IRouterHandler<this, Route>;
     get: IRouterHandler<this, Route>;
     post: IRouterHandler<this, Route>;
@@ -327,16 +335,39 @@ export interface IRoute<Route extends string = string> {
 
 export interface Router extends IRouter {}
 
+/**
+ * Options passed down into `res.cookie`
+ * @link https://expressjs.com/en/api.html#res.cookie
+ */
 export interface CookieOptions {
+    /** Convenient option for setting the expiry time relative to the current time in **milliseconds**. */
     maxAge?: number | undefined;
+    /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
+    /** Expiry date of the cookie in GMT. If not specified (undefined), creates a session cookie. */
     expires?: Date | undefined;
+    /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;
+    /** Path for the cookie. Defaults to “/”. */
     path?: string | undefined;
+    /** Domain name for the cookie. Defaults to the domain name of the app. */
     domain?: string | undefined;
+    /** Marks the cookie to be used with HTTPS only. */
     secure?: boolean | undefined;
+    /** A synchronous function used for cookie value encoding. Defaults to encodeURIComponent. */
     encode?: ((val: string) => string) | undefined;
+    /**
+     * Value of the “SameSite” Set-Cookie attribute.
+     * @link https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00#section-4.1.1.
+     */
     sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+    /**
+     * Value of the “Priority” Set-Cookie attribute.
+     * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
+     */
+    priority?: "low" | "medium" | "high";
+    /** Marks the cookie to use partioned storage. */
+    partitioned?: boolean | undefined;
 }
 
 export interface ByteRange {
@@ -423,7 +454,7 @@ export interface Request<
      *     // Accept: text/*, application/json
      *     req.accepts('image/png');
      *     req.accepts('png');
-     *     // => undefined
+     *     // => false
      *
      *     // Accept: text/*;q=.5, application/json
      *     req.accepts(['html', 'json']);
@@ -492,21 +523,6 @@ export interface Request<
     accepted: MediaType[];
 
     /**
-     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
-     *
-     * Return the value of param `name` when present or `defaultValue`.
-     *
-     *  - Checks route placeholders, ex: _/user/:id_
-     *  - Checks body params, ex: id=12, {"id":12}
-     *  - Checks query string params, ex: ?id=12
-     *
-     * To utilize request bodies, `req.body`
-     * should be an object. This can be done by using
-     * the `connect.bodyParser()` middleware.
-     */
-    param(name: string, defaultValue?: any): string;
-
-    /**
      * Check if the incoming request contains the "Content-Type"
      * header field, and it contains the give mime `type`.
      *
@@ -537,14 +553,14 @@ export interface Request<
      * a reverse proxy that supplies https for you this
      * may be enabled.
      */
-    protocol: string;
+    readonly protocol: string;
 
     /**
      * Short-hand for:
      *
      *    req.protocol == 'https'
      */
-    secure: boolean;
+    readonly secure: boolean;
 
     /**
      * Return the remote address, or when
@@ -554,7 +570,7 @@ export interface Request<
      * Value may be undefined if the `req.socket` is destroyed
      * (for example, if the client disconnected).
      */
-    ip: string | undefined;
+    readonly ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse
@@ -564,7 +580,7 @@ export interface Request<
      * you would receive the array `["client", "proxy1", "proxy2"]`
      * where "proxy2" is the furthest down-stream.
      */
-    ips: string[];
+    readonly ips: string[];
 
     /**
      * Return subdomains as an array.
@@ -577,41 +593,41 @@ export interface Request<
      * If "subdomain offset" is not set, req.subdomains is `["ferrets", "tobi"]`.
      * If "subdomain offset" is 3, req.subdomains is `["tobi"]`.
      */
-    subdomains: string[];
+    readonly subdomains: string[];
 
     /**
      * Short-hand for `url.parse(req.url).pathname`.
      */
-    path: string;
+    readonly path: string;
 
     /**
-     * Parse the "Host" header field hostname.
+     * Contains the hostname derived from the `Host` HTTP header.
      */
-    hostname: string;
+    readonly hostname: string;
 
     /**
-     * @deprecated Use hostname instead.
+     * Contains the host derived from the `Host` HTTP header.
      */
-    host: string;
+    readonly host: string;
 
     /**
      * Check if the request is fresh, aka
      * Last-Modified and/or the ETag
      * still match.
      */
-    fresh: boolean;
+    readonly fresh: boolean;
 
     /**
      * Check if the request is stale, aka
      * "Last-Modified" and / or the "ETag" for the
      * resource has changed.
      */
-    stale: boolean;
+    readonly stale: boolean;
 
     /**
      * Check if the request was an _XMLHttpRequest_.
      */
-    xhr: boolean;
+    readonly xhr: boolean;
 
     // body: { username: string; password: string; remember: boolean; title: string; };
     body: ReqBody;
@@ -779,23 +795,6 @@ export interface Response<
     sendFile(path: string, options: SendFileOptions, fn?: Errback): void;
 
     /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, fn: Errback): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions, fn: Errback): void;
-
-    /**
      * Transfer the file at the given `path` as an attachment.
      *
      * Optionally providing an alternate attachment `filename`,
@@ -806,7 +805,7 @@ export interface Response<
      * The optional options argument passes through to the underlying
      * res.sendFile() call, and takes the exact same parameters.
      *
-     * This method uses `res.sendfile()`.
+     * This method uses `res.sendFile()`.
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
@@ -950,10 +949,6 @@ export interface Response<
     /**
      * Set the location header to `url`.
      *
-     * The given `url` can also be the name of a mapped url, for
-     * example by default express supports "back" which redirects
-     * to the _Referrer_ or _Referer_ headers or "/".
-     *
      * Examples:
      *
      *    res.location('/foo/bar').;
@@ -980,22 +975,17 @@ export interface Response<
      * defaulting to 302.
      *
      * The resulting `url` is determined by `res.location()`, so
-     * it will play nicely with mounted apps, relative paths,
-     * `"back"` etc.
+     * it will play nicely with mounted apps, relative paths, etc.
      *
      * Examples:
      *
-     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
-     *    res.redirect('http://example.com', 301);
      *    res.redirect('../login'); // /blog/post/1 -> /blog/login
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
-    /** @deprecated use res.redirect(status, url) instead */
-    redirect(url: string, status: number): void;
 
     /**
      * Render `view` with the given `options` and optional callback `fn`.
@@ -1123,13 +1113,6 @@ export interface Application<
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
-
-    /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
      * Return the app's absolute pathname

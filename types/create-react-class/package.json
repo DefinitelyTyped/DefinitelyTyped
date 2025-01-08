@@ -10,7 +10,6 @@
     },
     "devDependencies": {
         "@types/create-react-class": "workspace:.",
-        "@types/react-dom": "*",
         "@types/react-dom-factories": "*"
     },
     "owners": [

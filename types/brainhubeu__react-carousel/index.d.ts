@@ -1,5 +1,5 @@
 import * as React from "react";
-export type ImgProps = React.ReactComponentElement<"img">;
+export type ImgProps = ReactComponentElement<"img">;
 
 export interface DotsProps {
     number?: number | undefined;
@@ -21,7 +21,7 @@ export type CarouselPluginFunc = ({
 }: {
     options?: any;
     carouselProps: CarouselProps;
-    refs: Record<string, React.RefObject<HTMLElement>>;
+    refs: Record<string, React.RefObject<HTMLElement | null>>;
 }) => {
     plugin?: (() => void) | undefined;
     beforeCarouselItems?: (() => React.JSX.Element) | undefined;
@@ -68,3 +68,10 @@ export const centeredPlugin: CarouselPluginFunc;
 export const slidesToScrollPlugin: CarouselPluginFunc;
 export const arrowsPlugin: CarouselPluginFunc;
 export const fastSwipePlugin: CarouselPluginFunc;
+
+interface ReactComponentElement<
+    T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>,
+    P = Pick<React.ComponentProps<T>, Exclude<keyof React.ComponentProps<T>, "key" | "ref">>,
+> extends React.ReactElement<P, Exclude<T, number>> {}
+
+export {};

@@ -1,6 +1,10 @@
 import * as p from "node:process";
+import { finalization } from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import { constants } from "node:os";
+import { dlopen } from "node:process";
+import { fileURLToPath } from "node:url";
 
 {
     let eventEmitter: EventEmitter;
@@ -50,10 +54,11 @@ import EventEmitter = require("node:events");
 }
 
 {
-    const report = process.report!;
+    const report = process.report;
+    report.compact = true;
     report.directory = "asd";
     report.filename = "asdasd";
-    const rep: string = report.getReport(new Error());
+    report.getReport(new Error()); // $ExpectType object
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
@@ -63,11 +68,15 @@ import EventEmitter = require("node:events");
     dest = report.writeReport(new Error());
 }
 {
+    if (process.channel) {
+        process.channel.ref();
+        process.channel.unref();
+    }
     if (process.send) {
         let r: boolean = process.send("aMessage");
         r = process.send({ msg: "foo" }, {});
-        r = process.send({ msg: "foo" }, {}, { swallowErrors: true });
-        r = process.send({ msg: "foo" }, {}, { swallowErrors: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, {}, { keepOpen: true });
+        r = process.send({ msg: "foo" }, {}, { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
@@ -131,6 +140,24 @@ process.env.TZ = "test";
 }
 
 {
+    const module = { exports: {} };
+    dlopen(module, fileURLToPath(new URL("src", "process.ts")), constants.dlopen.RTLD_NOW);
+}
+
+{
+    process.getActiveResourcesInfo(); // $ExpectType string[]
+}
+
+{
+    process.permission.has("fs.read"); // $ExpectType boolean
+    process.permission.has("fs.read", "./README.md"); // $ExpectType boolean
+}
+
+{
+    process.throwDeprecation = true;
+}
+
+{
     // @ts-expect-error
     process.getgid();
     // $ExpectType number | undefined
@@ -176,10 +203,39 @@ process.env.TZ = "test";
         // $ExpectType number
         process.getuid();
     }
+
+    process.constrainedMemory(); // $ExpectType number
+    process.availableMemory(); // $ExpectType number
 }
 
 {
     if (!process.sourceMapsEnabled) {
         process.setSourceMapsEnabled(true);
     }
+}
+
+{
+    const fs = globalThis.process.getBuiltinModule("fs");
+    fs.constants.F_OK;
+}
+
+{
+    const myDisposableObject = {
+        dispose() {
+            // Free your resources synchronously
+        },
+    };
+
+    function onFinalize(obj: typeof myDisposableObject, event: string) {
+        // You can do whatever you want with the object
+        obj.dispose();
+    }
+
+    finalization.register(myDisposableObject, onFinalize);
+    finalization.registerBeforeExit(myDisposableObject, onFinalize);
+
+    // Do something
+
+    myDisposableObject.dispose();
+    finalization.unregister(myDisposableObject);
 }

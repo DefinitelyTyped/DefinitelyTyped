@@ -118,6 +118,7 @@ console.log(queryy.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
 sql = "SELECT * FROM ?? WHERE ?? = ?";
 const inserts = ["users", "id", userId];
 sql = mysql.format(sql, inserts);
+sql = mysql.format(sql);
 
 connection.config.queryFormat = function(query, values) {
     if (!values) return query;

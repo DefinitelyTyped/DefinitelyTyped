@@ -9,7 +9,6 @@
         "@types/jquery": "*"
     },
     "devDependencies": {
-        "@types/node": "*",
         "@types/zui": "workspace:."
     },
     "owners": [

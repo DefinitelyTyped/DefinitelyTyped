@@ -1,6 +1,6 @@
-import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from '../../../src/Three.js';
+import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from "three";
 
-import { Font } from '../loaders/FontLoader.js';
+import { Font } from "../loaders/FontLoader.js";
 
 export interface TextGeometryParameters extends ExtrudeGeometryOptions {
     font: Font;
@@ -16,8 +16,16 @@ export interface TextGeometryParameters extends ExtrudeGeometryOptions {
      * Thickness to extrude text.
      * Expects a `Float`.
      * @defaultValue `50`
+     * @deprecated THREE.TextGeometry: .height is now deprecated. Please use .depth instead
      */
     height?: number | undefined;
+
+    /**
+     * Thickness to extrude text.
+     * Expects a `Float`.
+     * @defaultValue `50`
+     */
+    depth?: number | undefined;
 
     /**
      * @override
@@ -100,7 +108,7 @@ export class TextGeometry extends ExtrudeGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `TextGeometry`
      */
-    override readonly type: string | 'TextGeometry';
+    override readonly type: string | "TextGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

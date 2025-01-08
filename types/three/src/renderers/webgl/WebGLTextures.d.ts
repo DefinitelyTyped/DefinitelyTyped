@@ -1,9 +1,9 @@
-import { WebGLExtensions } from './WebGLExtensions.js';
-import { WebGLState } from './WebGLState.js';
-import { WebGLProperties } from './WebGLProperties.js';
-import { WebGLCapabilities } from './WebGLCapabilities.js';
-import { WebGLUtils } from './WebGLUtils.js';
-import { WebGLInfo } from './WebGLInfo.js';
+import { WebGLCapabilities } from "./WebGLCapabilities.js";
+import { WebGLExtensions } from "./WebGLExtensions.js";
+import { WebGLInfo } from "./WebGLInfo.js";
+import { WebGLProperties } from "./WebGLProperties.js";
+import { WebGLState } from "./WebGLState.js";
+import { WebGLUtils } from "./WebGLUtils.js";
 
 export class WebGLTextures {
     constructor(

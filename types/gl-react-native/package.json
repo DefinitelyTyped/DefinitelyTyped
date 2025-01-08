@@ -11,8 +11,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/gl-react-native": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/gl-react-native": "workspace:."
     },
     "owners": [
         {

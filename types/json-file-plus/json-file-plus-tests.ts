@@ -48,7 +48,7 @@ jsonFile.remove("foo", err => {
     err; // $ExpectType Error | null
 });
 
-jsonFile.stringify(); // $ExpectType Buffer
+jsonFile.stringify(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 jsonFile.save(); // $ExpectType Promise<void>
 // $ExpectType Promise<void>

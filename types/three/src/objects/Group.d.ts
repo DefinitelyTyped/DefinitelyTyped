@@ -1,4 +1,4 @@
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 
 /**
  * Its purpose is to make working with groups of objects syntactically clearer.
@@ -34,10 +34,4 @@ export class Group<TEventMap extends Object3DEventMap = Object3DEventMap> extend
      * @defaultValue `true`
      */
     readonly isGroup: true;
-
-    /**
-     * @override
-     * @defaultValue `Group`
-     */
-    override readonly type: string | 'Group';
 }

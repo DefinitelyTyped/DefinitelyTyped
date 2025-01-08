@@ -127,6 +127,7 @@ export interface SearchBoxProps extends CommonWidgetProps {
     onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
     onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     onKeyDown?: ((event: React.KeyboardEvent<HTMLInputElement>) => any) | undefined;
+    onFocus?: ((event: React.FocusEvent<HTMLInputElement>) => any) | undefined;
 }
 /**
  * The SearchBox component displays a search box that lets the user search for a specific query.

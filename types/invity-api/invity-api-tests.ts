@@ -1,19 +1,23 @@
 import {
+    BuyProviderInfo,
     BuyTrade,
+    CryptoId,
+    ExchangeProviderInfo,
     ExchangeTrade,
-    P2pQuote,
-    P2pTradeRequest,
-    SavingsTrade,
-    SavingsTradeItem,
-    SavingsTradeKYCStatusSuccessfulResponse,
+    InfoResponse,
     SellFiatTrade,
+    WatchSellTradeResponse,
 } from "invity-api";
 
 const bt: BuyTrade = {
-    paymentMethodName: "Test",
+    paymentMethodName: "TestPay",
 };
 
-const et: ExchangeTrade = {};
+const et: ExchangeTrade = {
+    send: "bitcoin" as CryptoId,
+    receive: "ethereum" as CryptoId,
+    quoteId: "123",
+};
 
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
@@ -25,43 +29,60 @@ const sft: SellFiatTrade = {
     },
 };
 
-const svt: SavingsTrade = { exchange: "", reauthorizationUrl: "" };
-
-const savingsTradeItem: SavingsTradeItem = {
-    paymentMethodName: "Bank transfer",
-    id: "",
-    savingsTradeId: "",
-    exchange: "",
-    status: "InProgress",
-    receiveAddress: "",
-    fiatStringAmount: "",
-    fiatCurrency: "",
-    receiveStringAmount: "",
-    receiveCurrency: "",
-    paymentMethod: "bankTransfer",
-    created: "",
+const wstr: WatchSellTradeResponse = {
+    cryptoStringAmount: "",
 };
 
-const p2pQuote: P2pQuote = {
-    provider: "",
-    id: "",
-    assetCode: "",
-    title: "",
-    currency: "",
-    price: "",
-    amountRange: { maximum: "0", minimum: "0" },
-    paymentWindowMinutes: 0,
+const providerInfo: BuyProviderInfo = {
+    companyName: "Invity",
+    brandName: "UAB Invity Finance",
+    isActive: true,
+    logo: "logo.svg",
+    name: "invity",
+    tradedCoins: [],
+    tradedFiatCurrencies: [],
+    supportedCountries: [],
     paymentMethods: [],
-    confirmations: 0,
-    trader: { name: "", numberOfTrades: 0, onlineStatus: "OFFLINE", rating: "" },
-};
-const p2pTrade: P2pTradeRequest = {
-    quotesRequest: {
-        amount: "",
-        currency: "",
-        assetCode: "",
-    },
-    selectedQuote: p2pQuote,
 };
 
-const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: "InProgress" };
+const infoResponse: InfoResponse = {
+    platforms: {
+        ethereum: {
+            id: "ethereum",
+            name: "Ethereum",
+            nativeCoinSymbol: "eth",
+        },
+    },
+    coins: {
+        bitcoin: {
+            name: "",
+            symbol: "",
+            coingeckoId: "",
+            services: {
+                buy: true,
+                sell: true,
+                exchange: true,
+            },
+        },
+    },
+};
+
+const exchangeProviderInfo: ExchangeProviderInfo = {
+    name: "example",
+    companyName: "Example",
+    logo: "example-icon.jpg",
+    isActive: true,
+    isFixedRate: false,
+    isDex: true,
+    buyTickers: ["bitcoin", "ethereum"] as CryptoId[],
+    sellTickers: ["bitcoin", "ethereum"] as CryptoId[],
+    addressFormats: {
+        format: "legacy",
+    },
+    statusUrl: "https://example.com/txs/{{orderId}}",
+    kycUrl: "https://example.com/faq#kyc",
+    supportUrl: " https://support.example.com",
+    kycPolicy: "KYC is required...",
+    kycPolicyType: "KYC-norefund",
+    isRefundRequired: false,
+};

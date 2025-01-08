@@ -1,6 +1,13 @@
 #!/bin/bash -e
 
+if git diff --name-only HEAD^1 | grep -q -E 'types/(react|prop-types|scheduler)/'; then
+    echo "types/react and dependents will be installed; skipping hack"
+    pnpm install
+    exit 0
+fi
+
 if git diff --diff-filter=DR --name-only HEAD^1 | grep -q 'package.json'; then
+    echo "a package.json was removed; installing everything so dtslint-runner can run packages which now depend on npm instead"
     pnpm install
     exit 0
 fi

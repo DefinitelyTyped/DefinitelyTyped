@@ -145,19 +145,19 @@ import PQClean = require("pqclean");
     {
         // $ExpectType ClassicGenerateKeyPairResult
         const { publicKey, privateKey } = mceliece.keypair();
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         publicKey;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         privateKey;
 
         // $ExpectType ClassicGenerateKeyResult
         const { key, encryptedKey } = mceliece.generateKey(publicKey);
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         key;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         encryptedKey;
 
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         const receivedKey = mceliece.decryptKey(privateKey, encryptedKey);
     }
 
@@ -181,7 +181,7 @@ import PQClean = require("pqclean");
                 mceliece.decryptKey(privateKey, encryptedKey, (err, receivedKey) => {
                     // $ExpectType Error | null
                     err;
-                    // $ExpectType Buffer
+                    // $ExpectType Buffer || Buffer<ArrayBufferLike>
                     receivedKey;
                 });
             });
@@ -210,12 +210,12 @@ import PQClean = require("pqclean");
     {
         // $ExpectType ClassicGenerateKeyPairResult
         const { publicKey, privateKey } = falcon.keypair();
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         publicKey;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         privateKey;
 
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         const signature = falcon.sign(privateKey, message);
 
         // $ExpectType boolean
@@ -235,7 +235,7 @@ import PQClean = require("pqclean");
             falcon.sign(privateKey, message, (err, signature) => {
                 // $ExpectType Error | null
                 err;
-                // $ExpectType Buffer
+                // $ExpectType Buffer || Buffer<ArrayBufferLike>
                 signature;
 
                 // $ExpectType void

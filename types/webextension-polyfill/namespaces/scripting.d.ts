@@ -2,20 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.scripting
- *
- * Use the scripting API to execute script in different contexts.
- * Permissions: "scripting"
- *
- * Comments found in source JSON schema files:
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 import { ExtensionTypes } from "./extensionTypes";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.scripting
+ */
 export namespace Scripting {
     /**
      * Details of a script injection
@@ -26,7 +18,7 @@ export namespace Scripting {
          * These arguments must be JSON-serializable.
          * Optional.
          */
-        args?: any[];
+        args?: unknown[];
 
         /**
          * The path of the JS files to inject, relative to the extension's root directory. Exactly one of <code>files</code>
@@ -43,7 +35,7 @@ export namespace Scripting {
          * @param ...args The arguments
          * @returns The return value
          */
-        func?(...args: any[]): any;
+        func?(...args: unknown[]): unknown;
 
         /**
          * Details specifying the target into which to inject the script.
@@ -75,7 +67,7 @@ export namespace Scripting {
          * The result of the script execution.
          * Optional.
          */
-        result?: any;
+        result?: unknown;
 
         /**
          * The error property is set when the script execution failed. The value is typically an (Error)
@@ -83,7 +75,7 @@ export namespace Scripting {
          * if the script threw or rejected with such a value.
          * Optional.
          */
-        error?: any;
+        error?: unknown;
 
         /**
          * Whether the script should inject into all frames within the tab. Defaults to false.
@@ -152,9 +144,10 @@ export namespace Scripting {
     }
 
     /**
-     * The JavaScript world for a script to execute within. We currently only support the <code>'ISOLATED'</code> world.
+     * The JavaScript world for a script to execute within. <code>ISOLATED</code> is the default execution environment of
+     * content scripts, <code>MAIN</code> is the web page's execution environment.
      */
-    type ExecutionWorld = "ISOLATED";
+    type ExecutionWorld = "ISOLATED" | "MAIN";
 
     interface RegisteredContentScript {
         /**
@@ -191,11 +184,26 @@ export namespace Scripting {
         matches?: string[];
 
         /**
+         * If matchOriginAsFallback is true, then the code is also injected in about:, data:,
+         * blob: when their origin matches the pattern in 'matches', even if the actual document origin is opaque (due to the use
+         * of CSP sandbox or iframe sandbox). Match patterns in 'matches' must specify a wildcard path glob. By default it is <code>
+         * false</code>.
+         * Optional.
+         */
+        matchOriginAsFallback?: boolean;
+
+        /**
          * Specifies when JavaScript files are injected into the web page. The preferred and default value is <code>
          * document_idle</code>.
          * Optional.
          */
         runAt?: ExtensionTypes.RunAt;
+
+        /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExecutionWorld;
 
         /**
          * Specifies if this content script will persist into future sessions. This is currently NOT supported.

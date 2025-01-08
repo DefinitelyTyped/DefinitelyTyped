@@ -6,7 +6,6 @@
         "http://mandrill.com/"
     ],
     "dependencies": {
-        "@types/node": "*"
     },
     "devDependencies": {
         "@types/mandrill-api": "workspace:."

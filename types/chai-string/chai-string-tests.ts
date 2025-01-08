@@ -1,9 +1,8 @@
-var should = chai.should();
-var assert = chai.assert;
-var expect = chai.expect;
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
 import chai_string = require("chai-string");
-chai.use(chai_string);
+import("chai").then(({ use }) => use(chai_string));
 
 // Stub mocha functions
 const { describe, it, before, after, beforeEach, afterEach } = null as any as {

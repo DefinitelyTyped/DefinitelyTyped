@@ -49,7 +49,8 @@ function nodemailer_test() {
             return;
         }
         // create reusable transporter object using the default SMTP transport
-        const transporter = nodemailer.createTransport({
+        let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+        transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             secure: false, // true for 465, false for other ports
@@ -58,6 +59,9 @@ function nodemailer_test() {
                 pass: account.pass, // generated ethereal password
             },
         });
+
+        let transporterDefault: SMTPTransport.Options;
+        transporterDefault = transporter._defaults;
 
         // setup email data with unicode symbols
         const mailOptions: Mail.Options = {
@@ -98,7 +102,11 @@ function create_transport(): nodemailer.Transporter<SMTPTransport.SentMessageInf
             pass: "password",
         },
     };
-    const transporter = nodemailer.createTransport(smtpConfig);
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(smtpConfig);
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     return transporter;
 }
@@ -128,8 +136,13 @@ function message_more_advanced_fields_test() {
     };
 
     const htmlstream = fs.createReadStream("content.html");
-    const transport = nodemailer.createTransport();
-    transport.sendMail({ html: htmlstream }, err => {
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
+    transporter.sendMail({ html: htmlstream }, err => {
         if (err) {
             // check if htmlstream is still open and close it to clean up
         }
@@ -440,7 +453,11 @@ function smtp_single_connection_test() {
             pass: "password",
         },
     };
-    const transporter = nodemailer.createTransport(smtpConfig);
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(smtpConfig);
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Pooled connection
@@ -456,7 +473,11 @@ function smtp_pooled_connection_test() {
             pass: "password",
         },
     };
-    const transporter = nodemailer.createTransport(smtpConfig);
+    let transporter: nodemailer.Transporter<SMTPPool.SentMessageInfo, SMTPPool.Options>;
+    transporter = nodemailer.createTransport(smtpConfig);
+
+    let transporterDefault: SMTPPool.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Allow self-signed certificates
@@ -475,13 +496,22 @@ function smtp_self_signed_test() {
             rejectUnauthorized: false,
         },
     };
-    const transporter = nodemailer.createTransport(smtpConfig);
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(smtpConfig);
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Verify SMTP connection configuration
 
 function smtp_verify_test() {
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.verify((error, success) => {
         if (error) {
             console.log(error);
@@ -509,7 +539,12 @@ function smtp_envelope_test() {
 // transporter.close()
 
 function smtp_pool_close_test() {
-    const transporter = nodemailer.createTransport({ pool: true });
+    let transporter: nodemailer.Transporter<SMTPPool.SentMessageInfo, SMTPPool.Options>;
+    transporter = nodemailer.createTransport({ pool: true });
+
+    let transporterDefault: SMTPPool.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.close();
 }
 
@@ -517,7 +552,12 @@ function smtp_pool_close_test() {
 
 function smtp_pool_idle_test() {
     const messages = [{ raw: "list of messages" }];
-    const transporter = nodemailer.createTransport({ pool: true });
+    let transporter: nodemailer.Transporter<SMTPPool.SentMessageInfo, SMTPPool.Options>;
+    transporter = nodemailer.createTransport({ pool: true });
+
+    let transporterDefault: SMTPPool.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.on("idle", () => {
         // send next message from the pending queue
         while (transporter.isIdle() && messages.length) {
@@ -534,7 +574,8 @@ function smtp_test_account_test() {
     nodemailer.createTestAccount((err, account) => {
         if (!err) {
             // create reusable transporter object using the default SMTP transport
-            const transporter = nodemailer.createTransport({
+            let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+            transporter = nodemailer.createTransport({
                 host: "smtp.ethereal.email",
                 port: 587,
                 secure: false, // true for 465, false for other ports
@@ -543,6 +584,9 @@ function smtp_test_account_test() {
                     pass: account.pass, // generated ethereal password
                 },
             });
+
+            let transporterDefault: SMTPTransport.Options;
+            transporterDefault = transporter._defaults;
         }
     });
 }
@@ -550,7 +594,12 @@ function smtp_test_account_test() {
 // Use environment specific SMTP settings
 
 function smtp_info_test() {
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.sendMail({}).then((info: SMTPTransport.SentMessageInfo) => {
         console.log("Preview URL: " + nodemailer.getTestMessageUrl(info));
     });
@@ -561,7 +610,12 @@ function smtp_info_test() {
 // Using custom token handling
 
 function oauth2_token_handling_test() {
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
     const userTokens: { [key: string]: string } = {};
     transporter.set("oauth2_provision_cb", (user, renew, callback) => {
         const accessToken = userTokens[user];
@@ -576,7 +630,12 @@ function oauth2_token_handling_test() {
 // Token update notifications
 
 function oauth2_token_update_test() {
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.on("token", token => {
         console.log("A new access token was generated");
         console.log("User: %s", token.user);
@@ -588,7 +647,8 @@ function oauth2_token_update_test() {
 // Authenticate using existing token
 
 function oauth2_existing_token_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -598,12 +658,16 @@ function oauth2_existing_token_test() {
             accessToken: "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Custom handler
 
 function oauth2_custom_handler_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -612,6 +676,9 @@ function oauth2_custom_handler_test() {
             user: "user@example.com",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     const userTokens: { [key: string]: string } = {};
 
@@ -628,7 +695,8 @@ function oauth2_custom_handler_test() {
 // Set up 3LO authentication
 
 function oauth2_3lo_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -642,12 +710,16 @@ function oauth2_3lo_test() {
             expires: 1484314697598,
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Set up 2LO authentication
 
 function oauth2_2lo_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -660,12 +732,16 @@ function oauth2_2lo_test() {
             expires: 1484314697598,
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Provide authentication details with message options
 
 function oauth2_message_options_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -675,6 +751,9 @@ function oauth2_message_options_test() {
             clientSecret: "XxxxxXXxX0xxxxxxxx0XXxX0",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     const auth: SMTPConnection.AuthenticationTypeOAuth2 = {
         user: "user@example.com",
@@ -700,7 +779,8 @@ function oauth2_message_options_test() {
 }
 
 function oauth2_privision_cb_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -708,6 +788,9 @@ function oauth2_privision_cb_test() {
             type: "OAuth2",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     const userTokens: { [key: string]: string } = {};
 
@@ -745,7 +828,8 @@ function oauth2_xoauth2_test() {
         accessToken: "abc",
         timeout: 3600,
     });
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
             type: "OAUTH2",
@@ -754,6 +838,9 @@ function oauth2_xoauth2_test() {
             method: "XOAUTH2",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Set up custom authentication
@@ -761,7 +848,8 @@ function oauth2_xoauth2_test() {
 async function custom_auth_async_test() {
     const account = await nodemailer.createTestAccount();
 
-    const transporter = nodemailer.createTransport(
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(
         {
             host: account.smtp.host,
             port: account.smtp.port,
@@ -832,12 +920,16 @@ async function custom_auth_async_test() {
             },
         },
     );
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 async function custom_auth_cb_test() {
     const account = await nodemailer.createTestAccount();
 
-    const transporter = nodemailer.createTransport(
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(
         {
             host: account.smtp.host,
             port: account.smtp.port,
@@ -925,6 +1017,9 @@ async function custom_auth_cb_test() {
             },
         },
     );
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // 5. Sendmail transport
@@ -932,11 +1027,16 @@ async function custom_auth_cb_test() {
 // Send a message using specific binary
 
 function sendmail_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SendmailTransport.SentMessageInfo, SendmailTransport.Options>;
+    transporter = nodemailer.createTransport({
         sendmail: true,
         newline: "unix",
         path: "/usr/sbin/sendmail",
     });
+
+    let transporterDefault: SendmailTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.sendMail(
         {
             from: "sender@example.com",
@@ -981,11 +1081,15 @@ function ses_test() {
     aws.config.loadFromPath("config.json");
 
     // create Nodemailer SES transporter
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SESTransport.SentMessageInfo, SESTransport.Options>;
+    transporter = nodemailer.createTransport({
         SES: new aws.SES({
             apiVersion: "2010-12-01",
         }),
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     const options: SESTransport.MailOptions = {
         from: "sender@example.com",
@@ -1018,10 +1122,15 @@ function ses_test() {
 // Stream a message with windows-style newlines
 
 function stream_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<StreamTransport.SentMessageInfo, StreamTransport.Options>;
+    transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: "windows",
     });
+
+    let transporterDefault: StreamTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.sendMail(
         {
             from: "sender@example.com",
@@ -1046,12 +1155,17 @@ function stream_test() {
 // Create a buffer with unix-style newlines
 
 function stream_buffer_unix_newlines_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<StreamTransport.SentMessageInfo, StreamTransport.Options>;
+    transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: "unix",
         buffer: true,
         normalizeHeaderKey: key => key.toUpperCase(),
     });
+
+    let transporterDefault: StreamTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.sendMail(
         {
             from: "sender@example.com",
@@ -1073,10 +1187,15 @@ function stream_buffer_unix_newlines_test() {
 // Create a JSON encoded message object
 
 function json_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<JSONTransport.SentMessageInfo, JSONTransport.Options>;
+    transporter = nodemailer.createTransport({
         jsonTransport: true,
         skipEncoding: true,
     });
+
+    let transporterDefault: JSONTransport.Options;
+    transporterDefault = transporter._defaults;
+
     transporter.sendMail(
         {
             from: "sender@example.com",
@@ -1100,7 +1219,11 @@ function json_test() {
 // 'compile'
 
 function plugin_compile_test() {
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     function plugin(mail: typeof transporter.MailMessage, callback: (err?: Error | null) => void) {
         // if mail.data.html is a file or an url, it is returned as a Buffer
@@ -1139,7 +1262,11 @@ function plugin_stream_test() {
         done();
     };
 
-    const transporter = nodemailer.createTransport();
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport();
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     transporter.use("stream", (mail, callback) => {
         // apply output transformer to the raw message stream
@@ -1198,11 +1325,15 @@ function plugin_transport_example_test() {
         }
     }
 
-    const transporter = nodemailer.createTransport(
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport(
         new Transport({
             transportOptions: "bar",
         }),
     );
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 
     const options: MailOptions = {
         from: "sender",
@@ -1235,7 +1366,8 @@ function dkim_sign_all_test() {
 // Sign all messages with multiple keys
 
 function dkim_sign_multiple_keys_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.example.com",
         port: 465,
         secure: true,
@@ -1255,16 +1387,24 @@ function dkim_sign_multiple_keys_test() {
             cacheDir: false,
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Sign a specific message
 
 function dkim_sign_specific_message_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.example.com",
         port: 465,
         secure: true,
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
+
     const message: Mail.Options = {
         from: "sender@example.com",
         to: "recipient@example.com",
@@ -1281,7 +1421,8 @@ function dkim_sign_specific_message_test() {
 // Cache large messages for signing
 
 function dkim_cache_large_messages_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.example.com",
         port: 465,
         secure: true,
@@ -1293,12 +1434,16 @@ function dkim_cache_large_messages_test() {
             cacheTreshold: 100 * 1024,
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // Do not sign specific header keys
 
 function dkim_specific_header_key_test() {
-    const transporter = nodemailer.createTransport({
+    let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo, SMTPTransport.Options>;
+    transporter = nodemailer.createTransport({
         host: "smtp.example.com",
         port: 465,
         secure: true,
@@ -1309,6 +1454,9 @@ function dkim_specific_header_key_test() {
             skipFields: "message-id:date",
         },
     });
+
+    let transporterDefault: SMTPTransport.Options;
+    transporterDefault = transporter._defaults;
 }
 
 // 8. SMTP Connection
@@ -1572,23 +1720,50 @@ function mime_funcs_test() {
 // mime-node
 
 function mime_node_test() {
-    const mb = new MimeNode("text/plain", {
-        normalizeHeaderKey: key => key.toUpperCase(),
-    });
+    let mb: MimeNode;
+
+    // constructor
+    {
+        mb = new MimeNode();
+
+        mb = new MimeNode("text/plain");
+
+        mb = new MimeNode("text/plain", {});
+
+        mb = new MimeNode("text/plain", {
+            rootNode: mb,
+            parentNode: mb,
+            filename: "filename",
+            hostname: "hostname",
+            baseBoundary: "baseBoundary",
+            keepBcc: true,
+            newline: "win",
+            normalizeHeaderKey: key => key.toUpperCase(),
+            boundaryPrefix: "boundaryPrefix",
+            disableFileAccess: true,
+            disableUrlAccess: true,
+        });
+
+        mb = new MimeNode("text/plain", { textEncoding: "B" });
+        mb = new MimeNode("text/plain", { textEncoding: "Q" });
+    }
 
     const child = mb.createChild("multipart/mixed");
-    mb.appendChild(child);
-    child.replace(child);
+    mb = mb.appendChild(child);
+    mb = child.replace(child);
 
-    mb.setHeader("key", "value");
-    const value: string = mb.getHeader("key");
+    mb = mb.setHeader("key", "value");
 
-    mb.addHeader({
+    // $ExpectType string
+    mb.getHeader("key");
+
+    mb = mb.addHeader("key", "value1");
+    mb = mb.addHeader({
         key: "value4",
         key2: "value5",
     });
 
-    mb.setHeader([
+    mb = mb.setHeader([
         {
             key: "key",
             value: "value2",
@@ -1599,18 +1774,153 @@ function mime_node_test() {
         },
     ]);
 
-    mb.setHeader("key", ["value1", "value2", "value3"]);
+    mb = mb.setHeader("key", ["value1", "value2", "value3"]);
 
-    mb.setContent("abc");
+    mb = mb.setContent("abc");
 
-    mb.build((err, msg) => {
-        const msgAsString: string = msg.toString();
+    // $ExpectType void
+    mb.build((err, buf) => {
+        // $ExpectType Error | null
+        err;
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        buf;
     });
 
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+    mb.build();
+
+    // $ExpectType string
+    mb.getTransferEncoding();
+
+    // $ExpectType string
+    mb.buildHeaders();
+
+    {
+        // $ExpectType Readable
+        mb.createReadStream();
+
+        const options: stream.ReadableOptions = {};
+        // $ExpectType Readable
+        mb.createReadStream(options);
+    }
+
+    // $ExpectType void
+    mb.transform(new stream.Transform());
+
+    // $ExpectType void
     mb.processFunc(input => {
-        const isReadable: boolean = input.readable;
+        // $ExpectType Readable
+        input;
         return input;
     });
+
+    {
+        const outputStream = new stream.Readable();
+        const options: stream.ReadableOptions = {};
+
+        // $ExpectType void
+        mb.stream(outputStream, options, err => {
+            // $ExpectType Error | null | undefined
+            err;
+        });
+    }
+
+    {
+        let envelope: Mail.Envelope = {};
+        mb = mb.setEnvelope(envelope);
+    }
+
+    {
+        const addresses = mb.getAddresses();
+
+        // $ExpectType string[] | undefined
+        addresses.bcc;
+        // $ExpectType string[] | undefined
+        addresses.cc;
+        // $ExpectType string[] | undefined
+        addresses.from;
+        // $ExpectType string[] | undefined
+        addresses["reply-to"];
+        // $ExpectType string[] | undefined
+        addresses.sender;
+        // $ExpectType string[] | undefined
+        addresses.to;
+    }
+
+    {
+        const envelope = mb.getEnvelope();
+
+        // $ExpectType string | false
+        envelope.from;
+        // $ExpectType string[]
+        envelope.to;
+    }
+
+    // $ExpectType string
+    mb.messageId();
+
+    {
+        mb = mb.setRaw("raw");
+        mb = mb.setRaw(Buffer.from(""));
+        mb = mb.setRaw(new stream.Readable());
+    }
+
+    // $ExpectType string
+    mb.baseBoundary;
+
+    // $ExpectType string | false | undefined
+    mb.boundary;
+
+    // $ExpectType string
+    mb.boundaryPrefix;
+
+    // $ExpectType MimeNode[]
+    mb.childNodes;
+
+    // $ExpectType string | Buffer | Readable | undefined || string | Buffer<ArrayBufferLike> | Readable | undefined
+    mb.content;
+
+    // $ExpectType string | undefined
+    mb.contentType;
+
+    // $ExpectType Date
+    mb.date;
+
+    // $ExpectType boolean
+    mb.disableFileAccess;
+
+    // $ExpectType boolean
+    mb.disableUrlAccess;
+
+    // $ExpectType string | undefined
+    mb.filename;
+
+    // $ExpectType string | undefined
+    mb.hostname;
+
+    // $ExpectType boolean
+    mb.keepBcc;
+
+    // $ExpectType boolean | undefined
+    mb.multipart;
+
+    // $ExpectType string | undefined
+    mb.newline;
+
+    // $ExpectType number
+    mb.nodeCounter;
+
+    // $ExpectType ((key: string) => string) | undefined
+    mb.normalizeHeaderKey;
+
+    // $ExpectType MimeNode | undefined
+    mb.parentNode;
+
+    // $ExpectType MimeNode
+    mb.rootNode;
+
+    // $ExpectType "B" | "Q" | ""
+    mb.textEncoding;
 }
 
 // mime-types

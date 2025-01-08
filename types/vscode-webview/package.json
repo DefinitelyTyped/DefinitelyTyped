@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/vscode-webview",
     "version": "1.57.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "vscode-webview",
     "projects": [
         "https://code.visualstudio.com/api/extension-guides/webview"

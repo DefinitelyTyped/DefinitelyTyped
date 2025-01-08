@@ -2,7 +2,7 @@ import React from "react";
 import { createFragmentContainer, graphql, QueryRenderer } from "react-relay";
 import { createMockEnvironment, MockPayloadGenerator, unwrapContainer } from "relay-test-utils";
 
-// @ExpectType MockEnvironment
+// $ExpectType RelayMockEnvironment
 const environment = createMockEnvironment();
 
 environment.mock.resolveMostRecentOperation(operation => {
@@ -37,3 +37,47 @@ function TestQueryRenderer() {
         />
     );
 }
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type User = {
+    __typename?: "User";
+    id: string;
+    displayName?: string;
+};
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type TypeMap = {
+    ID: string;
+    Boolean: boolean;
+    Int: number;
+    Float: number;
+    User: User;
+};
+
+type MockResolvers = MockPayloadGenerator.MockResolvers<TypeMap>;
+type UserMockResolver = MockResolvers["User"];
+
+const userResolver: UserMockResolver = (context, generateId) => {
+    const id = generateId();
+
+    return {
+        id: (context.name || "") + String(id),
+        displayName: "User " + id,
+    };
+};
+
+const mockResolvers: MockResolvers = {
+    User: userResolver,
+};
+
+const rawMockResolvers: MockPayloadGenerator.MockResolvers = {
+    Int: () => 42,
+};
+
+environment.mock.resolveMostRecentOperation(operation =>
+    MockPayloadGenerator.generate(operation, mockResolvers, { mockClientData: true })
+);
+
+environment.mock.resolveMostRecentOperation(operation =>
+    MockPayloadGenerator.generate(operation, rawMockResolvers, { mockClientData: true })
+);

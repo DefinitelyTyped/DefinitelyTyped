@@ -4,9 +4,9 @@
  * applications. It can be accessed using:
  *
  * ```js
- * const repl = require('node:repl');
+ * import repl from 'node:repl';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/repl.js)
  */
 declare module "repl" {
     import { AsyncCompleter, Completer, Interface } from "node:readline";
@@ -41,8 +41,8 @@ declare module "repl" {
          * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
          * additional lines.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_default_evaluation
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_custom_evaluation_functions
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_default_evaluation
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_custom_evaluation_functions
          */
         eval?: REPLEval | undefined;
         /**
@@ -54,33 +54,33 @@ declare module "repl" {
          * If `true`, specifies that the default `writer` function should include ANSI color
          * styling to REPL output. If a custom `writer` function is provided then this has no
          * effect.
-         * Default: the REPL instance's `terminal` value.
+         * @default the REPL instance's `terminal` value
          */
         useColors?: boolean | undefined;
         /**
          * If `true`, specifies that the default evaluation function will use the JavaScript
          * `global` as the context as opposed to creating a new separate context for the REPL
          * instance. The node CLI REPL sets this value to `true`.
-         * Default: `false`.
+         * @default false
          */
         useGlobal?: boolean | undefined;
         /**
          * If `true`, specifies that the default writer will not output the return value of a
          * command if it evaluates to `undefined`.
-         * Default: `false`.
+         * @default false
          */
         ignoreUndefined?: boolean | undefined;
         /**
          * The function to invoke to format the output of each command before writing to `output`.
-         * Default: a wrapper for `util.inspect`.
+         * @default a wrapper for `util.inspect`
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_customizing_repl_output
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_customizing_repl_output
          */
         writer?: REPLWriter | undefined;
         /**
          * An optional function used for custom Tab auto completion.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#readline_use_of_the_completer_function
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/readline.html#readline_use_of_the_completer_function
          */
         completer?: Completer | AsyncCompleter | undefined;
         /**
@@ -95,7 +95,7 @@ declare module "repl" {
         /**
          * Stop evaluating the current piece of code when `SIGINT` is received, i.e. `Ctrl+C` is
          * pressed. This cannot be used together with a custom `eval` function.
-         * Default: `false`.
+         * @default false
          */
         breakEvalOnSigint?: boolean | undefined;
     }
@@ -130,7 +130,7 @@ declare module "repl" {
      * or directly using the JavaScript `new` keyword.
      *
      * ```js
-     * const repl = require('node:repl');
+     * import repl from 'node:repl';
      *
      * const options = { useColors: true };
      *
@@ -168,33 +168,33 @@ declare module "repl" {
         /**
          * A value indicating whether the REPL is currently in "editor mode".
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_commands_and_special_keys
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_commands_and_special_keys
          */
         readonly editorMode: boolean;
         /**
          * A value indicating whether the `_` variable has been assigned.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreAssigned: boolean;
         /**
          * The last evaluation result from the REPL (assigned to the `_` variable inside of the REPL).
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly last: any;
         /**
          * A value indicating whether the `_error` variable has been assigned.
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly underscoreErrAssigned: boolean;
         /**
          * The last error raised inside the REPL (assigned to the `_error` variable inside of the REPL).
          *
          * @since v9.8.0
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
          */
         readonly lastError: any;
         /**
@@ -246,18 +246,18 @@ declare module "repl" {
          *
          * `REPLServer` cannot be subclassed due to implementation specifics in NodeJS.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_class_replserver
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_class_replserver
          */
         private constructor();
         /**
          * The `replServer.defineCommand()` method is used to add new `.`\-prefixed commands
-         * to the REPL instance. Such commands are invoked by typing a `.` followed by the`keyword`. The `cmd` is either a `Function` or an `Object` with the following
+         * to the REPL instance. Such commands are invoked by typing a `.` followed by the `keyword`. The `cmd` is either a `Function` or an `Object` with the following
          * properties:
          *
          * The following example shows two new commands added to the REPL instance:
          *
          * ```js
-         * const repl = require('node:repl');
+         * import repl from 'node:repl';
          *
          * const replServer = repl.start({ prompt: '> ' });
          * replServer.defineCommand('sayhello', {
@@ -289,7 +289,7 @@ declare module "repl" {
         defineCommand(keyword: string, cmd: REPLCommandAction | REPLCommand): void;
         /**
          * The `replServer.displayPrompt()` method readies the REPL instance for input
-         * from the user, printing the configured `prompt` to a new line in the `output`and resuming the `input` to accept new input.
+         * from the user, printing the configured `prompt` to a new line in the `output` and resuming the `input` to accept new input.
          *
          * When multi-line input is being entered, an ellipsis is printed rather than the
          * 'prompt'.
@@ -297,14 +297,14 @@ declare module "repl" {
          * When `preserveCursor` is `true`, the cursor placement will not be reset to `0`.
          *
          * The `replServer.displayPrompt` method is primarily intended to be called from
-         * within the action function for commands registered using the`replServer.defineCommand()` method.
+         * within the action function for commands registered using the `replServer.defineCommand()` method.
          * @since v0.1.91
          */
         displayPrompt(preserveCursor?: boolean): void;
         /**
          * The `replServer.clearBufferedCommand()` method clears any command that has been
          * buffered but not yet executed. This method is primarily intended to be
-         * called from within the action function for commands registered using the`replServer.defineCommand()` method.
+         * called from within the action function for commands registered using the `replServer.defineCommand()` method.
          * @since v9.0.0
          */
         clearBufferedCommand(): void;
@@ -407,7 +407,7 @@ declare module "repl" {
      * If `options` is a string, then it specifies the input prompt:
      *
      * ```js
-     * const repl = require('node:repl');
+     * import repl from 'node:repl';
      *
      * // a Unix style prompt
      * repl.start('$ ');
@@ -418,7 +418,7 @@ declare module "repl" {
     /**
      * Indicates a recoverable error that a `REPLServer` can use to support multi-line input.
      *
-     * @see https://nodejs.org/dist/latest-v20.x/docs/api/repl.html#repl_recoverable_errors
+     * @see https://nodejs.org/dist/latest-v22.x/docs/api/repl.html#repl_recoverable_errors
      */
     class Recoverable extends SyntaxError {
         err: Error;

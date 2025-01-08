@@ -26,26 +26,7 @@ declare class sharedb extends EventEmitter {
         readonly [name: string]: ReadonlyProjection;
     };
 
-    constructor(options?: {
-        db?: any;
-        pubsub?: sharedb.PubSub;
-        extraDbs?: { [extraDbName: string]: sharedb.ExtraDB };
-        milestoneDb?: sharedb.MilestoneDB;
-        suppressPublish?: boolean;
-        maxSubmitRetries?: number;
-        doNotForwardSendPresenceErrorsToClient?: boolean;
-        errorHandler?: ErrorHandler;
-
-        presence?: boolean;
-        /**
-         * @deprecated disableDocAction was removed in v1.0
-         */
-        disableDocAction?: boolean;
-        /**
-         * @deprecated disableSpaceDelimitedActions was removed in v1.0
-         */
-        disableSpaceDelimitedActions?: boolean;
-    });
+    constructor(options?: sharedb.ShareDBOptions);
     /**
      * Creates a server-side connection to ShareDB.
      *
@@ -120,6 +101,28 @@ declare class sharedb extends EventEmitter {
 }
 
 declare namespace sharedb {
+    interface ShareDBOptions {
+        db?: any;
+        pubsub?: sharedb.PubSub;
+        extraDbs?: { [extraDbName: string]: sharedb.ExtraDB };
+        milestoneDb?: sharedb.MilestoneDB;
+        suppressPublish?: boolean;
+        maxSubmitRetries?: number;
+        doNotForwardSendPresenceErrorsToClient?: boolean;
+        doNotCommitNoOps?: boolean;
+        errorHandler?: ErrorHandler;
+
+        presence?: boolean;
+        /**
+         * @deprecated disableDocAction was removed in v1.0
+         */
+        disableDocAction?: boolean;
+        /**
+         * @deprecated disableSpaceDelimitedActions was removed in v1.0
+         */
+        disableSpaceDelimitedActions?: boolean;
+    }
+
     abstract class DB {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
@@ -219,7 +222,12 @@ declare namespace sharedb {
         private _removeStream(channel, stream): void;
     }
 
-    abstract class MilestoneDB {
+    interface MilestoneDBEventMap {
+        "error": (error: Error) => void;
+        "save": (collection: string, snapshot: Snapshot) => void;
+    }
+
+    abstract class MilestoneDB extends ShareDB.TypedEmitter<MilestoneDBEventMap> {
         close(callback?: BasicCallback): void;
         getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
         saveMilestoneSnapshot(collection: string, snapshot: Snapshot, callback?: BasicCallback): void;

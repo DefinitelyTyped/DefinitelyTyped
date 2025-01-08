@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/cordova-ionic",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "cordova-ionic",
     "projects": [
         "https://github.com/driftyco"
     ],

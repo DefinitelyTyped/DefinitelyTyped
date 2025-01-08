@@ -23,9 +23,9 @@ Vector = vstruct(
     ] as const,
 );
 
-Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }); // $ExpectType Buffer
-Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }, Buffer.alloc(100)); // $ExpectType Buffer
-Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }, Buffer.alloc(100), 10); // $ExpectType Buffer
+Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }, Buffer.alloc(100)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }, Buffer.alloc(100), 10); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 // @ts-expect-error
 Vector.encode({});
 
@@ -60,8 +60,8 @@ vstruct.DoubleBE; // $ExpectType Codec<number>
 vstruct.DoubleLE; // $ExpectType Codec<number>
 
 vstruct.Array(1, vstruct.String(10)); // $ExpectType Codec<string[]>
-vstruct.VarArray(vstruct.Int16BE, vstruct.Buffer(10)); // $ExpectType Codec<Buffer[]>
-// $ExpectType Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer | undefined>]>>
+vstruct.VarArray(vstruct.Int16BE, vstruct.Buffer(10)); // $ExpectType Codec<Buffer[]> || Codec<Buffer<ArrayBufferLike>[]>
+// $ExpectType Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer | undefined>]>> || Codec<CodecTypes<readonly [Codec<number>, Codec<Buffer<ArrayBuffer> | undefined>]>>
 const seq = vstruct.Sequence([vstruct.UInt32LE, vstruct.Value(vstruct.Buffer(1), Buffer.alloc(1))] as const);
 seq.encode([1, Buffer.alloc(10)]);
 seq.encode([1, undefined]);
@@ -70,10 +70,10 @@ seq.encode([Buffer.alloc(10), 1]);
 // @ts-expect-error
 seq.encode([1, "foo"]);
 
-vstruct.Buffer(1); // $ExpectType Codec<Buffer>
-vstruct.VarBuffer(vstruct.Int8); // $ExpectType Codec<Buffer>
+vstruct.Buffer(1); // $ExpectType Codec<Buffer> || Codec<Buffer<ArrayBufferLike>>
+vstruct.VarBuffer(vstruct.Int8); // $ExpectType Codec<Buffer> || Codec<Buffer<ArrayBufferLike>>
 
-vstruct.VarMap(vstruct.Int16LE, vstruct.String(1), vstruct.Buffer(1)); // $ExpectType Codec<Record<string, Buffer>>
+vstruct.VarMap(vstruct.Int16LE, vstruct.String(1), vstruct.Buffer(1)); // $ExpectType Codec<Record<string, Buffer>> || Codec<Record<string, Buffer<ArrayBufferLike>>>
 
 vstruct.String(1); // $ExpectType Codec<string>
 vstruct.String(1, "utf8"); // $ExpectType Codec<string>

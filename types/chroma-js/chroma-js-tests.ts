@@ -1,18 +1,15 @@
-import { Color } from "chroma-js";
-import chroma = require("chroma-js");
+import chroma, { Color, Scale } from "chroma-js";
 
 function test_chroma() {
     chroma("hotpink");
     chroma("#ff3399");
     chroma("F39");
     chroma(chroma("#ff3399"));
-    chroma.hex("#fff");
     chroma.valid(0);
     chroma.valid("");
     chroma.valid({});
     chroma.valid(null);
     chroma.valid(undefined);
-    chroma.valid("000", "hex");
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -130,6 +127,11 @@ function test_color() {
     chroma("teal").css();
     chroma("teal").alpha(0.5).css();
     chroma("teal").css("hsl");
+    chroma("teal").css("lab");
+    chroma("teal").css("lch");
+    chroma("teal").css("oklab");
+    chroma("teal").css("oklch");
+    chroma("teal").css("rgb");
     chroma("orange").rgb();
     chroma("orange").hsl();
     chroma("white").hsl();
@@ -187,6 +189,7 @@ function test_scale() {
     chroma.scale("Spectral");
     chroma.scale("Spectral").domain([1, 0]);
     chroma.brewer.OrRd;
+    chroma.brewer.Viridis;
     chroma.scale(["yellow", "008ae5"]).mode("lch");
 
     chroma.scale(["yellow", "008ae5"]).mode("lch").correctLightness();
@@ -237,6 +240,8 @@ function test_scale() {
 function test_types() {
     const color: chroma.Color = chroma("orange");
     const scale: chroma.Scale = chroma.scale("RdYlBu");
+    const scale1: Scale = scale.domain([1, 10]);
+    const minmax: number[] = scale.domain();
 }
 
 // the following should actually, pass, but TS can't disambiguate between a parameter

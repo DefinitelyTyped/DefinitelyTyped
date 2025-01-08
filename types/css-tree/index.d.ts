@@ -255,6 +255,10 @@ export interface MediaQueryListPlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
+export interface NestingSelector extends CssNodeCommon {
+    type: "NestingSelector";
+}
+
 export interface Nth extends CssNodeCommon {
     type: "Nth";
     nth: AnPlusB | Identifier;
@@ -426,6 +430,7 @@ export type CssNode =
     | MediaFeature
     | MediaQuery
     | MediaQueryList
+    | NestingSelector
     | Nth
     | NumberNode
     | Operator
@@ -492,6 +497,7 @@ export interface SyntaxParseError extends SyntaxError {
     input: string;
     offset: number;
     rawMessage: string;
+    formattedMessage: string;
 }
 
 export interface ParseOptions {
@@ -522,11 +528,24 @@ export interface GenerateHandlers {
 export interface GenerateOptions {
     sourceMap?: boolean | undefined;
     decorator?: ((handlers: GenerateHandlers) => GenerateHandlers) | undefined;
+    mode?: "safe" | "spec" | undefined;
 }
 
 export function generate(ast: CssNode, options?: GenerateOptions): string;
 
 export interface WalkContext {
+    /**
+     * Stops traversal. No visitor function will be invoked once this value is
+     * returned by a visitor.
+     */
+    break: symbol;
+    /**
+     * Prevent the current node from being iterated. No visitor function will be
+     * invoked for its properties or children nodes; note that this value only
+     * has an effect for enter visitor as leave visitor invokes after iterating
+     * over all node's properties and children.
+     */
+    skip: symbol;
     root: CssNode;
     stylesheet: StyleSheet | null;
     atrule: Atrule | null;
@@ -601,7 +620,19 @@ export type WalkOptions =
     | WalkOptionsVisit<WhiteSpace>
     | WalkOptionsNoVisit;
 
-export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+export const walk: {
+    (ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+    /**
+     * Stops traversal. No visitor function will be invoked once this value is returned by a visitor.
+     */
+    readonly break: symbol;
+    /**
+     * Prevent the current node from being iterated. No visitor function will be invoked for its properties or children
+     * nodes; note that this value only has an effect for enter visitor as leave visitor invokes after iterating over
+     * all node's properties and children.
+     */
+    readonly skip: symbol;
+};
 
 export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
 
@@ -876,8 +907,11 @@ export class Lexer {
     match(syntax: DSNode | string, value: CssNode | string): LexerMatchResult;
 }
 
+export const lexer: Lexer;
+
 export function fork(extension: {
     atrules?: Record<string, string> | undefined;
     properties?: Record<string, string> | undefined;
     types?: Record<string, string> | undefined;
+    cssWideKeywords?: Array<string> | undefined;
 }): { lexer: Lexer };

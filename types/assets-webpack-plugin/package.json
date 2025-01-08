@@ -6,8 +6,6 @@
         "https://github.com/ztoben/assets-webpack-plugin"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "tapable": "^2.2.1",
         "webpack": "^5"
     },
     "devDependencies": {
@@ -15,7 +13,7 @@
     },
     "owners": [
         {
-            "name": "Michael Strobel",
+            "name": "Michael Manzinger",
             "githubUsername": "kryops"
         }
     ]

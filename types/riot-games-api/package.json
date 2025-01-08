@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/riot-games-api",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "riot-games-api",
     "projects": [
         "https://developer.riotgames.com/"
     ],

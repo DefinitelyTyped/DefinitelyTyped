@@ -5,3 +5,5 @@ getEmoji("rage");
 
 // $ExpectType string[]
 emojiList;
+// $ExpectType string[]
+getEmoji.emojiList;

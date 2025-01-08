@@ -119,15 +119,19 @@ async function test() {
 }
 
 {
+    // $ExpectType void
     events.EventEmitter.setMaxListeners();
+    // $ExpectType void
     events.EventEmitter.setMaxListeners(42);
 
     const eventTarget = new EventTarget();
+    // $ExpectType void
     events.EventEmitter.setMaxListeners(42, eventTarget);
     // @ts-expect-error - ensure constructor does not return a constructor
     new eventTarget();
 
     const eventEmitter = new events.EventEmitter();
+    // $ExpectType void
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
 }
 
@@ -159,4 +163,21 @@ async function test() {
     emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
     emitter.triggerAsyncId; // $ExpectType number
     emitter.emitDestroy();
+}
+
+{
+    class MyEmitter extends events.EventEmitter {
+        addListener(event: string, listener: () => void): this {
+            return this;
+        }
+        listeners(event: string): Array<() => void> {
+            return [];
+        }
+        emit(event: string, ...args: any[]): boolean {
+            return true;
+        }
+        listenerCount(type: string): number {
+            return 0;
+        }
+    }
 }

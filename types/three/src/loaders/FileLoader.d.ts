@@ -1,5 +1,5 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 export class FileLoader extends Loader<string | ArrayBuffer> {
     constructor(manager?: LoadingManager);
@@ -11,9 +11,9 @@ export class FileLoader extends Loader<string | ArrayBuffer> {
         onError?: (err: unknown) => void,
     ): void;
 
-    mimeType: undefined | MimeType;
-    responseType: undefined | string;
+    mimeType: string | undefined;
+    responseType: string | undefined;
 
-    setMimeType(mimeType: MimeType): FileLoader;
+    setMimeType(mimeType: string): FileLoader;
     setResponseType(responseType: string): FileLoader;
 }

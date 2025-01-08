@@ -4,7 +4,7 @@ import Extent from "../Core/Geographic/Extent";
 import GlobeView from "../Core/Prefab/GlobeView";
 import CameraUtils from "../Utils/CameraUtils";
 
-// TODO: hidden properties
+// TODO: Define public API
 
 export enum CONTROL_EVENTS {
     PAN_CHANGED = "pan-changed",
@@ -23,14 +23,14 @@ interface GlobeControls {
     keyPanSpeed: number;
     minPolarAngle: number;
     maxPolarAngle: number;
-    // minAzimuthAngle: number;
-    // maxAzimuthAngle: number;
-    // handleCollision: boolean;
+    minAzimuthAngle: number;
+    maxAzimuthAngle: number;
+    handleCollision: boolean;
     enableDamping: boolean;
     dampingMoveFactor: number;
 }
 
-type GlobeControlsOptions = Partial<GlobeControls>;
+export type GlobeControlsOptions = Partial<GlobeControls>;
 
 declare class GlobeControls extends THREE.EventDispatcher<THREE.Event> {
     constructor(

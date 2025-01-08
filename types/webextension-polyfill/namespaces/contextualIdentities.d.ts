@@ -2,19 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.contextualIdentities
- *
- * Use the <code>browser.contextualIdentities</code> API to query and modify contextual identity, also called as containers.
- * Permissions: "contextualIdentities"
- *
- * Comments found in source JSON schema files:
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.contextualIdentities
+ */
 export namespace ContextualIdentities {
     /**
      * Represents information about a contextual identity.
@@ -157,7 +149,15 @@ export namespace ContextualIdentities {
         update(cookieStoreId: string, details: UpdateDetailsType): Promise<ContextualIdentity>;
 
         /**
-         * Deletes a contetual identity by its cookie Store ID.
+         * Reorder one or more contextual identities by their cookieStoreIDs to a given position.
+         *
+         * @param cookieStoreIds The ID or list of IDs of the contextual identity cookie stores.
+         * @param position The position the contextual identity should move to.
+         */
+        move(cookieStoreIds: string | string[], position: number): void;
+
+        /**
+         * Deletes a contextual identity by its cookie Store ID.
          *
          * @param cookieStoreId The ID of the contextual identity cookie store.
          */
@@ -165,22 +165,16 @@ export namespace ContextualIdentities {
 
         /**
          * Fired when a container is updated.
-         *
-         * @param changeInfo
          */
         onUpdated: Events.Event<(changeInfo: OnUpdatedChangeInfoType) => void>;
 
         /**
          * Fired when a new container is created.
-         *
-         * @param changeInfo
          */
         onCreated: Events.Event<(changeInfo: OnCreatedChangeInfoType) => void>;
 
         /**
          * Fired when a container is removed.
-         *
-         * @param changeInfo
          */
         onRemoved: Events.Event<(changeInfo: OnRemovedChangeInfoType) => void>;
     }

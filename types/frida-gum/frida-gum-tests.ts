@@ -87,6 +87,9 @@ Memory.alloc(1, { near: ptr(1234) });
 // @ts-expect-error
 Memory.alloc(1, { maxDistance: 42 });
 
+// $ExpectType string
+Memory.queryProtection(Process.mainModule.base);
+
 new NativeCallback(
     (a, b) => {
         return [0, NULL];
@@ -257,6 +260,12 @@ Interceptor.attach(puts, {
 
 Interceptor.flush();
 
+// $ExpectType void
+Interceptor.replace(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
+// $ExpectType NativePointer
+Interceptor.replaceFast(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
 const ccode = `
 #include <gum/gumstalker.h>
 
@@ -301,11 +310,29 @@ Stalker.follow(Process.getCurrentThreadId(), {
     },
     onEvent: cm.process,
     data: ptr(42),
+    transform(iterator: StalkerX86Iterator) {
+        let instruction = iterator.next();
+
+        if (instruction == null) {
+            return;
+        }
+
+        const startAddress = instruction.address;
+        do {
+            if (startAddress == ptr(0)) {
+                iterator.putChainingReturn();
+            }
+            iterator.keep();
+        } while ((instruction = iterator.next()) !== null);
+    },
 });
 
 const basicBlockStartAddress = ptr("0x400000");
 Stalker.invalidate(basicBlockStartAddress);
 Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
+
+// $ExpectType boolean
+Cloak.hasCurrentThread();
 
 const obj = new ObjC.Object(ptr("0x42"));
 
@@ -376,4 +403,20 @@ Java.perform(() => {
     Java.backtrace();
     // $ExpectType Backtrace
     Java.backtrace({ limit: 42 });
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareBreakpoint(0, puts);
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareBreakpoint(0);
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareWatchpoint(0, puts, 4, "rw");
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareWatchpoint(0);
 });

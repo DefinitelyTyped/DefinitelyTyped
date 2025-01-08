@@ -120,6 +120,13 @@ import * as wslib from "ws";
     });
 
     wss.close();
+
+    const addr = wss.address();
+
+    if (addr === null) {
+        // $ExpectType null
+        addr;
+    }
 }
 
 {
@@ -201,17 +208,18 @@ import * as wslib from "ws";
     const ws = new WebSocket("ws://www.host.com/path");
     // @ts-expect-error
     ws.addEventListener("other", () => {});
+    // @ts-expect-error
+    ws.removeEventListener("other", () => {});
 }
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    ws.addEventListener(
-        "message",
-        (event: WebSocket.MessageEvent) => {
-            console.log(event.data, event.target, event.type);
-        },
-        { once: true },
-    );
+    const listener = (event: WebSocket.MessageEvent) => console.log(event.data, event.target, event.type);
+    ws.addEventListener("message", listener, { once: true });
+    ws.removeEventListener("message", listener);
+
+    ws.addEventListener("open" as "open" | "close" | "error" | "message", console.log);
+    ws.removeEventListener("open" as "open" | "close" | "error" | "message", console.log);
 }
 
 {
@@ -466,5 +474,17 @@ declare module "ws" {
     Array.from(wss.clients).forEach(client => {
         // $ExpectType MyWebsocket
         client;
+    });
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path", {
+        finishRequest: (req, socket) => {
+            // $ExpectType IncomingMessage
+            req;
+
+            // $ExpectType WebSocket
+            socket;
+        },
     });
 }

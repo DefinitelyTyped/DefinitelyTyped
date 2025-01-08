@@ -5,3 +5,7 @@ env.config({
     path: "/foo/bar/baz.env",
     sample: "/foo/bar/qux.env",
 });
+
+env.config({
+    example: "./.my-env-example-filename",
+});

@@ -71,6 +71,16 @@ const isValidReply = twitter.regexen.validReply.test("@twitter");
 const isValid: boolean = twitter.isValidTweet(text);
 const isInvalid: boolean = twitter.isInvalidTweet(text);
 
+let isValidUrl: boolean = twitter.isValidUrl("https://example.com", null, null);
+isValidUrl = twitter.isValidUrl("https://example.com", null, true);
+isValidUrl = twitter.isValidUrl("https://example.com", null, false);
+isValidUrl = twitter.isValidUrl("https://example.com", true, null);
+isValidUrl = twitter.isValidUrl("https://example.com", true, true);
+isValidUrl = twitter.isValidUrl("https://example.com", true, false);
+isValidUrl = twitter.isValidUrl("https://example.com", false, null);
+isValidUrl = twitter.isValidUrl("https://example.com", false, true);
+isValidUrl = twitter.isValidUrl("https://example.com", false, false);
+
 const attributes: twitter.HtmlAttributes = {
     displayed: true,
     id: "foo",

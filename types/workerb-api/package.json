@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/workerb-api",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "workerb-api",
     "projects": [
         "https://workerb.io/"
     ],

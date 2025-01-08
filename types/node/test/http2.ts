@@ -19,6 +19,7 @@ import {
     IncomingHttpHeaders,
     IncomingHttpStatusHeader,
     OutgoingHttpHeaders,
+    performServerHandshake,
     SecureClientSessionOptions,
     SecureServerOptions,
     ServerHttp2Session,
@@ -420,7 +421,9 @@ import { URL } from "node:url";
         foo: number;
     }
 
-    class MyHttp2ServerResponse extends Http2ServerResponse {
+    class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest>
+        extends Http2ServerResponse<Request>
+    {
         bar: string;
     }
 
@@ -450,6 +453,43 @@ import { URL } from "node:url";
     }, reqListener);
     server = createSecureServer({ Http2ServerRequest: MyHttp2ServerRequest });
     server = createSecureServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
+}
+
+{
+    const http2Server: Http2Server = createServer((req, res) => {
+        res.setHeader("set-cookie", "a");
+        res.appendHeader("set-cookie", "b");
+        res.writeHead(200);
+        res.end("ok");
+    });
+
+    const http2SecureServer: Http2SecureServer = createSecureServer((req, res) => {
+        res.setHeader("set-cookie", "a");
+        res.appendHeader("set-cookie", "b");
+        res.writeHead(200);
+        res.end("ok");
+    });
+}
+
+{
+    let settings: Settings = {};
+
+    const serverOptions: ServerOptions = {
+        maxDeflateDynamicTableSize: 0,
+        maxSendHeaderBlockLength: 0,
+        paddingStrategy: 0,
+        peerMaxConcurrentStreams: 0,
+        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
+        settings,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
+        unknownProtocolTimeout: 123,
+    };
+
+    const http2Stream: Http2Stream = {} as any;
+    const duplex: Duplex = http2Stream;
+
+    performServerHandshake(duplex, serverOptions); // $ExpectType ServerHttp2Session<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
 }
 
 // constants
@@ -576,7 +616,13 @@ import { URL } from "node:url";
     str = consts.HTTP2_HEADER_ACCEPT_LANGUAGE;
     str = consts.HTTP2_HEADER_ACCEPT_RANGES;
     str = consts.HTTP2_HEADER_ACCEPT;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS;
     str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_EXPOSE_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_REQUEST_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_REQUEST_METHOD;
     str = consts.HTTP2_HEADER_AGE;
     str = consts.HTTP2_HEADER_ALLOW;
     str = consts.HTTP2_HEADER_AUTHORIZATION;

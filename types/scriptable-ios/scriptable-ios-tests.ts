@@ -58,8 +58,13 @@
     // $ExpectType Color
     Color.dynamic(c, Color.black());
 
-    // Optional alpha paramneter
+    // Optional alpha parameter
+    // $ExpectType Color
     new Color("ffffff");
+    // $ExpectType Color
+    new Color("ffffff", 0.5);
+    // @ts-expect-error
+    new Color("ffffff", "1");
 }
 
 {
@@ -79,6 +84,48 @@
     config.runsWithSiri;
     // $ExpectType "small" | "medium" | "large" | "extraLarge" | "accessoryRectangular" | "accessoryInline" | "accessoryCircular" | null
     config.widgetFamily;
+}
+
+{
+    // @ts-expect-error
+    new Data();
+    // $ExpectType Data
+    const d = Data.fromString("bla");
+    // @ts-expect-error
+    Data.fromString(42);
+    // $ExpectType Data
+    Data.fromFile("bla");
+    // @ts-expect-error
+    Data.fromFile(42);
+    // $ExpectType Data
+    Data.fromBase64String("bla");
+    // @ts-expect-error
+    Data.fromBase64String(42);
+    // $ExpectType Data
+    Data.fromJPEG(Image.fromFile("some-image.jpg"));
+    // @ts-expect-error
+    Data.fromJPEG("bla");
+    // @ts-expect-error
+    Data.fromJPEG(42);
+    // $ExpectType Data
+    Data.fromPNG(Image.fromFile("some-image.jpg"));
+    // @ts-expect-error
+    Data.fromPNG("bla");
+    // @ts-expect-error
+    Data.fromPNG(42);
+    // $ExpectType Data
+    Data.fromBytes([0, 1, 2, 3, 4, 5, 6]);
+    // @ts-expect-error
+    Data.fromBytes("bla");
+    // @ts-expect-error
+    Data.fromBytes([0, "1", 2, 3, 4, 5, 6]);
+
+    // $ExpectType string
+    d.toRawString();
+    // $ExpectType string
+    d.toBase64String();
+    // $ExpectType number[]
+    d.getBytes();
 }
 
 {

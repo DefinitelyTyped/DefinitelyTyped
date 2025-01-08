@@ -1,4 +1,4 @@
-import { diff, DiffOptions, diffString } from "json-diff";
+import { colorize, colorizeToCallback, diff, DiffOptions, diffString } from "json-diff";
 
 const options: DiffOptions = {
     verbose: true,
@@ -23,4 +23,26 @@ diffString({}, { Hello: "World" }, {});
 diffString({}, { Hello: "World" }, {
     ...options,
     color: true,
+});
+
+colorize(diff({}, { Hello: "World" }));
+
+colorizeToCallback(diff({}, { Hello: "World" }), {}, (color, line) => {
+    switch (color) {
+        case " ":
+            // do something
+
+            break;
+        case "-":
+            // do something
+
+            break;
+        case "+":
+            // do something
+
+            break;
+
+        default:
+            break;
+    }
 });

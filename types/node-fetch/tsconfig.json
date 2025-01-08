@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es6",
         "lib": [
             "es6"
@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "node-fetch-tests.ts"
+        "node-fetch-tests.ts",
+        "node-fetch-tests.mts"
     ]
 }

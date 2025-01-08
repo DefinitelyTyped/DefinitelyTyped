@@ -1,17 +1,21 @@
-import { Mesh, Texture, Color } from '../../../src/Three.js';
+import { Color, Mesh, Texture } from "three";
 
-export class LensflareElement {
-    constructor(texture: Texture, size?: number, distance?: number, color?: Color);
+declare class Lensflare extends Mesh {
+    readonly isLensflare: true;
+
+    constructor();
+
+    addElement: (element: LensflareElement) => void;
+    dispose: () => void;
+}
+
+declare class LensflareElement {
     texture: Texture;
     size: number;
     distance: number;
     color: Color;
+
+    constructor(texture: Texture, size?: number, distance?: number, color?: Color);
 }
 
-export class Lensflare extends Mesh {
-    constructor();
-    readonly isLensflare: true;
-
-    addElement(element: LensflareElement): void;
-    dispose(): void;
-}
+export { Lensflare, LensflareElement };

@@ -77,6 +77,23 @@ app.get("/:foo/:bar?", req => {
     req.params.bar; // $ExpectType string | undefined
 });
 
+// Express 5.0: Optional params
+app.get("/:foo/{:bar}", req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+});
+app.get("/:foo/{:bar/:baz}", req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+    req.params.baz; // $ExpectType string | undefined
+});
+app.get(`/app/:foo{/:bar}/:baz{/:qux}`, req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+    req.params.baz; // $ExpectType string
+    req.params.qux; // $ExpectType string | undefined
+});
+
 // Different delimiters
 app.get("/:foo/:bar-:baz/:qux", req => {
     req.params.foo; // $ExpectType string
@@ -223,6 +240,26 @@ app.route("/").post<never, { foo: string }, { bar: number }>((req, res) => {
 });
 
 // Cookies
+app.get("setCookie", (req, res) => {
+    res.cookie("key", "value", {
+        maxAge: 86400,
+        signed: true,
+        httpOnly: false,
+        secure: true,
+        domain: "example.com",
+        sameSite: "lax",
+        priority: "high",
+        partitioned: true,
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        priority: "random",
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        sameSite: "whatever",
+    });
+});
 app.get("/clearcookie", (req, res) => {
     res.clearCookie("auth"); // $ExpectType Response<any, Record<string, any>, number>
     res.clearCookie("auth", {
@@ -277,3 +314,32 @@ app.get("/file2.txt", (req, res) => {
 app.get("/:foo", req => {
     req.ip; // $ExpectType string | undefined
 });
+
+// Some fields are read-only
+app.get("/:readonly", req => {
+    // @ts-expect-error
+    req.protocol = "https";
+    // @ts-expect-error
+    req.secure = true;
+    // @ts-expect-error
+    req.ip = "127.0.0.1";
+    // @ts-expect-error
+    req.ips = [];
+    // @ts-expect-error
+    req.subdomains = [];
+    // @ts-expect-error
+    req.path = "/";
+    // @ts-expect-error
+    req.hostname = "example.com";
+    // @ts-expect-error
+    req.host = "example.com";
+    // @ts-expect-error
+    req.fresh = true;
+    // @ts-expect-error
+    req.stale = true;
+    // @ts-expect-error
+    req.xhr = true;
+});
+
+// Starting with Express 5 RequestHandler can be async
+app.get("/async", Promise.resolve);

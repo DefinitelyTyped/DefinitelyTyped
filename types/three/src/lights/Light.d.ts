@@ -1,6 +1,21 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { LightShadow } from './LightShadow.js';
-import { Object3D } from '../core/Object3D.js';
+import { JSONMeta, Object3D, Object3DJSON } from "../core/Object3D.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { LightShadow, LightShadowJSON } from "./LightShadow.js";
+
+export interface LightJSON extends Object3DJSON {
+    color: number;
+    intensity: number;
+
+    groundColor?: number;
+
+    distance?: number;
+    angle?: number;
+    decay?: number;
+    penumbra?: number;
+
+    shadow?: LightShadowJSON;
+    target?: string;
+}
 
 /**
  * Abstract base class for lights.
@@ -28,7 +43,7 @@ export abstract class Light<TShadowSupport extends LightShadow | undefined = Lig
      * @remarks Sub-classes will update this value.
      * @defaultValue `Light`
      */
-    override readonly type: string | 'Light';
+    override readonly type: string | "Light";
 
     /**
      * Color of the light. \
@@ -62,4 +77,6 @@ export abstract class Light<TShadowSupport extends LightShadow | undefined = Lig
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): void;
+
+    toJSON(meta?: JSONMeta): LightJSON;
 }

@@ -1,4 +1,4 @@
-import { Vector3, BufferGeometry } from '../../../src/Three.js';
+import { BufferGeometry, Vector3 } from "three";
 
 export class ParametricGeometry extends BufferGeometry {
     constructor(func?: (u: number, v: number, target: Vector3) => void, slices?: number, stacks?: number);

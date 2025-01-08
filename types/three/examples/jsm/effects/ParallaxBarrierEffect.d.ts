@@ -1,8 +1,11 @@
-import { Camera, Scene, WebGLRenderer } from '../../../src/Three.js';
+import { Camera, Scene, WebGLRenderer } from "three";
 
-export class ParallaxBarrierEffect {
+declare class ParallaxBarrierEffect {
+    setSize: (width: number, height: number) => void;
+    render: (scene: Scene, camera: Camera) => void;
+    dispose: () => void;
+
     constructor(renderer: WebGLRenderer);
-
-    render(scene: Scene, camera: Camera): void;
-    setSize(width: number, height: number): void;
 }
+
+export { ParallaxBarrierEffect };

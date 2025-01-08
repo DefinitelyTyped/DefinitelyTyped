@@ -548,7 +548,7 @@ declare namespace jwplayer {
         minDvrWindow?: number;
         preload?: Preload;
         recommendations?: string;
-        sources: Source[]; // This is a "shortened" version of allSources that only contains one item
+        sources?: Source[]; // This is a "shortened" version of allSources that only contains one item
         starttime?: number;
         tags?: string;
         title: string;
@@ -570,14 +570,14 @@ declare namespace jwplayer {
     }
 
     interface Source {
-        default: boolean;
+        default?: boolean;
         drm?: DRMConfig;
         file: string;
-        label: string;
+        label?: string;
         liveSyncDuration?: number;
         mimeType?: string;
         preload?: Preload;
-        type: string;
+        type?: string;
     }
 
     interface Track {
@@ -820,6 +820,7 @@ declare namespace jwplayer {
         play: PlayParam;
         playlist: PlaylistParam;
         playlistItem: PlaylistItemParam;
+        playlistComplete: PlaylistCompleteParam;
         ready: ReadyParam;
         resize: ResizeParam;
         visualQuality: VisualQualityParam;
@@ -1482,6 +1483,9 @@ declare namespace jwplayer {
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;
         playlistIndex?: number;
+        plugins?: {
+            [pluginUrl: string]: any;
+        };
         preload?: Preload;
         qualityLabels?: {
             [bandwidth: number]: string;
@@ -1664,7 +1668,11 @@ declare namespace jwplayer {
         playlistNext(): JWPlayer;
         playlistPrev(): JWPlayer;
         playToggle(): JWPlayer;
-        registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
+        registerPlugin(
+            pluginName: string,
+            playerMinimumVersion: string,
+            pluginClassOrFunction: (playerInstance: JWPlayer, pluginConfig: any, pluginDiv: HTMLElement) => void,
+        ): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
         removePlaylistItemCallback(): void;

@@ -1,10 +1,6 @@
-import mri = require("mri");
 import prettyQuick = require("pretty-quick");
 
-declare const args: mri.Argv;
-
 const prettyQuickResult = prettyQuick("./cwd", {
-    ...args,
     onFoundSinceRevision: (scm, revision) => {
         scm; // $ExpectType string
         revision; // $ExpectType string
@@ -30,6 +26,8 @@ const prettyQuickResult = prettyQuick("./cwd", {
     onExamineFile: file => {
         file; // $ExpectType string
     },
+
+    otherProp: "otherProp",
 });
 
 {

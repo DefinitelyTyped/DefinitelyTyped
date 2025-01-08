@@ -6,9 +6,6 @@ import regenerator = require("regenerator-runtime");
  */
 declare function expectType<T>(value: T): T;
 
-expectType<typeof regenerator>(regeneratorRuntime);
-expectType<typeof regeneratorRuntime>(regenerator);
-
 declare const number: number;
 declare const anyArray: object[];
 declare const anyArrayLike: ArrayLike<object>;
@@ -16,7 +13,7 @@ declare const anyIterable: Iterable<object>;
 declare const anyIterableIterator: IterableIterator<object>;
 declare const anyGenerator: Generator<object, object, object>;
 
-regenerator.values(anyArray); // $ExpectType IterableIterator<object>
+regenerator.values(anyArray); // $ExpectType IterableIterator<object> || ArrayIterator<object>
 expectType<Iterator<object>>(regenerator.values(anyIterable));
 regenerator.values(anyIterableIterator); // $ExpectType IterableIterator<object>
 regenerator.values(anyGenerator); // $ExpectType Generator<object, object, object>
@@ -124,14 +121,14 @@ declare const overloadedFunction: {
     <T>(...args: T[]): Generator<T>;
 };
 
-// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction
+// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction || { (): Generator<unknown, any, any>; <T>(...args: T[]): Generator<T, any, any>; } & GeneratorFunction
 regenerator.mark(overloadedFunction);
 
 declare const mappableIterator: IterableIterator<object> & {
     map: typeof IteratorMap;
 };
 
-// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined>
+// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined> || Generator<string | awrap<Promise<any>>, void, unknown> || Generator<string | awrap<Promise<any>>, void, any>
 const mappedIterator = mappableIterator.map(value => {
     value; // $ExpectType object
     return value instanceof Promise ? regenerator.awrap(value) : String(value);

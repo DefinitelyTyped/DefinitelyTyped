@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "jsx": "preserve",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],

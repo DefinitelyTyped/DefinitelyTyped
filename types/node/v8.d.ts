@@ -2,9 +2,9 @@
  * The `node:v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
  *
  * ```js
- * const v8 = require('node:v8');
+ * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -38,6 +38,18 @@ declare module "v8" {
         bytecode_and_metadata_size: number;
         external_script_source_size: number;
     }
+    interface HeapSnapshotOptions {
+        /**
+         * If true, expose internals in the heap snapshot.
+         * @default false
+         */
+        exposeInternals?: boolean;
+        /**
+         * If true, expose numeric values in artificial fields.
+         * @default false
+         */
+        exposeNumericValues?: boolean;
+    }
     /**
      * Returns an integer representing a version tag derived from the V8 version,
      * command-line flags, and detected CPU features. This is useful for determining
@@ -58,7 +70,7 @@ declare module "v8" {
     /**
      * Returns an object with the following properties:
      *
-     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the`--zap_code_space` option is enabled or not. This makes V8 overwrite heap
+     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the `--zap_code_space` option is enabled or not. This makes V8 overwrite heap
      * garbage with a bit pattern. The RSS footprint (resident set size) gets bigger
      * because it continuously touches all heap pages and that makes them less likely
      * to get swapped out by the operating system.
@@ -105,7 +117,7 @@ declare module "v8" {
      * Returns statistics about the V8 heap spaces, i.e. the segments which make up
      * the V8 heap. Neither the ordering of heap spaces, nor the availability of a
      * heap space can be guaranteed as the statistics are provided via the
-     * V8[`GetHeapSpaceStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#ac673576f24fdc7a33378f8f57e1d13a4) function and may change from one V8 version to the
+     * V8 [`GetHeapSpaceStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#ac673576f24fdc7a33378f8f57e1d13a4) function and may change from one V8 version to the
      * next.
      *
      * The value returned is an array of objects containing the following properties:
@@ -158,19 +170,63 @@ declare module "v8" {
      * after the VM has started may result in unpredictable behavior, including
      * crashes and data loss; or it may simply do nothing.
      *
-     * The V8 options available for a version of Node.js may be determined by running`node --v8-options`.
+     * The V8 options available for a version of Node.js may be determined by running `node --v8-options`.
      *
      * Usage:
      *
      * ```js
      * // Print GC events to stdout for one minute.
-     * const v8 = require('node:v8');
+     * import v8 from 'node:v8';
      * v8.setFlagsFromString('--trace_gc');
      * setTimeout(() => { v8.setFlagsFromString('--notrace_gc'); }, 60e3);
      * ```
      * @since v1.0.0
      */
     function setFlagsFromString(flags: string): void;
+    /**
+     * This is similar to the [`queryObjects()` console API](https://developer.chrome.com/docs/devtools/console/utilities#queryObjects-function)
+     * provided by the Chromium DevTools console. It can be used to search for objects that have the matching constructor on its prototype chain
+     * in the heap after a full garbage collection, which can be useful for memory leak regression tests. To avoid surprising results, users should
+     * avoid using this API on constructors whose implementation they don't control, or on constructors that can be invoked by other parties in the
+     * application.
+     *
+     * To avoid accidental leaks, this API does not return raw references to the objects found. By default, it returns the count of the objects
+     * found. If `options.format` is `'summary'`, it returns an array containing brief string representations for each object. The visibility provided
+     * in this API is similar to what the heap snapshot provides, while users can save the cost of serialization and parsing and directly filter the
+     * target objects during the search.
+     *
+     * Only objects created in the current execution context are included in the results.
+     *
+     * ```js
+     * import { queryObjects } from 'node:v8';
+     * class A { foo = 'bar'; }
+     * console.log(queryObjects(A)); // 0
+     * const a = new A();
+     * console.log(queryObjects(A)); // 1
+     * // [ "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     *
+     * class B extends A { bar = 'qux'; }
+     * const b = new B();
+     * console.log(queryObjects(B)); // 1
+     * // [ "B { foo: 'bar', bar: 'qux' }" ]
+     * console.log(queryObjects(B, { format: 'summary' }));
+     *
+     * // Note that, when there are child classes inheriting from a constructor,
+     * // the constructor also shows up in the prototype chain of the child
+     * // classes's prototoype, so the child classes's prototoype would also be
+     * // included in the result.
+     * console.log(queryObjects(A));  // 3
+     * // [ "B { foo: 'bar', bar: 'qux' }", 'A {}', "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     * ```
+     * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
+     * @since v20.13.0
+     * @experimental
+     */
+    function queryObjects(ctor: Function): number | string[];
+    function queryObjects(ctor: Function, options: { format: "count" }): number;
+    function queryObjects(ctor: Function, options: { format: "summary" }): string[];
     /**
      * Generates a snapshot of the current V8 heap and returns a Readable
      * Stream that may be used to read the JSON serialized representation.
@@ -187,14 +243,14 @@ declare module "v8" {
      *
      * ```js
      * // Print heap snapshot to the console
-     * const v8 = require('node:v8');
+     * import v8 from 'node:v8';
      * const stream = v8.getHeapSnapshot();
      * stream.pipe(process.stdout);
      * ```
      * @since v11.13.0
      * @return A Readable containing the V8 heap snapshot.
      */
-    function getHeapSnapshot(): Readable;
+    function getHeapSnapshot(options?: HeapSnapshotOptions): Readable;
     /**
      * Generates a snapshot of the current V8 heap and writes it to a JSON
      * file. This file is intended to be used with tools such as Chrome
@@ -212,12 +268,12 @@ declare module "v8" {
      * for a duration depending on the heap size.
      *
      * ```js
-     * const { writeHeapSnapshot } = require('node:v8');
-     * const {
+     * import { writeHeapSnapshot } from 'node:v8';
+     * import {
      *   Worker,
      *   isMainThread,
      *   parentPort,
-     * } = require('node:worker_threads');
+     * } from 'node:worker_threads';
      *
      * if (isMainThread) {
      *   const worker = new Worker(__filename);
@@ -246,10 +302,10 @@ declare module "v8" {
      * worker thread.
      * @return The filename where the snapshot was saved.
      */
-    function writeHeapSnapshot(filename?: string): string;
+    function writeHeapSnapshot(filename?: string, options?: HeapSnapshotOptions): string;
     /**
      * Get statistics about code and its metadata in the heap, see
-     * V8[`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
+     * V8 [`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
      * following properties:
      *
      * ```js
@@ -344,7 +400,7 @@ declare module "v8" {
         transferArrayBuffer(id: number, arrayBuffer: ArrayBuffer): void;
         /**
          * Reads the underlying wire format version. Likely mostly to be useful to
-         * legacy code reading old wire format versions. May not be called before`.readHeader()`.
+         * legacy code reading old wire format versions. May not be called before `.readHeader()`.
          */
         getWireFormatVersion(): number;
         /**
@@ -353,7 +409,7 @@ declare module "v8" {
          */
         readUint32(): number;
         /**
-         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]`with two 32-bit unsigned integer entries.
+         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]` with two 32-bit unsigned integer entries.
          * For use inside of a custom `deserializer._readHostObject()`.
          */
         readUint64(): [number, number];
@@ -389,7 +445,7 @@ declare module "v8" {
      * @since v8.0.0
      * @param buffer A buffer returned by {@link serialize}.
      */
-    function deserialize(buffer: NodeJS.TypedArray): any;
+    function deserialize(buffer: NodeJS.ArrayBufferView): any;
     /**
      * The `v8.takeCoverage()` method allows the user to write the coverage started by `NODE_V8_COVERAGE` to disk on demand. This method can be invoked multiple
      * times during the lifetime of the process. Each time the execution counter will
@@ -409,6 +465,13 @@ declare module "v8" {
      */
     function stopCoverage(): void;
     /**
+     * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * @experimental
+     * @since v18.10.0, v16.18.0
+     */
+    function setHeapSnapshotNearHeapLimit(limit: number): void;
+    /**
      * This API collects GC data in current thread.
      * @since v19.6.0, v18.15.0
      */
@@ -419,7 +482,7 @@ declare module "v8" {
          */
         start(): void;
         /**
-         * Stop collecting GC data and return an object.The content of object
+         * Stop collecting GC data and return an object. The content of object
          * is as follows.
          *
          * ```json
@@ -487,7 +550,7 @@ declare module "v8" {
          * Here's an example.
          *
          * ```js
-         * const { GCProfiler } = require('v8');
+         * import { GCProfiler } from 'node:v8';
          * const profiler = new GCProfiler();
          * profiler.start();
          * setTimeout(() => {
@@ -629,6 +692,116 @@ declare module "v8" {
      * @since v17.1.0, v16.14.0
      */
     const promiseHooks: PromiseHooks;
+    type StartupSnapshotCallbackFn = (args: any) => any;
+    interface StartupSnapshot {
+        /**
+         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
+         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
+         * @since v18.6.0, v16.17.0
+         */
+        addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
+         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
+         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
+         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
+         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
+         * @since v18.6.0, v16.17.0
+         */
+        setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Returns true if the Node.js instance is run to build a snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        isBuildingSnapshot(): boolean;
+    }
+    /**
+     * The `v8.startupSnapshot` interface can be used to add serialization and deserialization hooks for custom startup snapshots.
+     *
+     * ```bash
+     * $ node --snapshot-blob snapshot.blob --build-snapshot entry.js
+     * # This launches a process with the snapshot
+     * $ node --snapshot-blob snapshot.blob
+     * ```
+     *
+     * In the example above, `entry.js` can use methods from the `v8.startupSnapshot` interface to specify how to save information for custom objects
+     * in the snapshot during serialization and how the information can be used to synchronize these objects during deserialization of the snapshot.
+     * For example, if the `entry.js` contains the following script:
+     *
+     * ```js
+     * 'use strict';
+     *
+     * import fs from 'node:fs';
+     * import zlib from 'node:zlib';
+     * import path from 'node:path';
+     * import assert from 'node:assert';
+     *
+     * import v8 from 'node:v8';
+     *
+     * class BookShelf {
+     *   storage = new Map();
+     *
+     *   // Reading a series of files from directory and store them into storage.
+     *   constructor(directory, books) {
+     *     for (const book of books) {
+     *       this.storage.set(book, fs.readFileSync(path.join(directory, book)));
+     *     }
+     *   }
+     *
+     *   static compressAll(shelf) {
+     *     for (const [ book, content ] of shelf.storage) {
+     *       shelf.storage.set(book, zlib.gzipSync(content));
+     *     }
+     *   }
+     *
+     *   static decompressAll(shelf) {
+     *     for (const [ book, content ] of shelf.storage) {
+     *       shelf.storage.set(book, zlib.gunzipSync(content));
+     *     }
+     *   }
+     * }
+     *
+     * // __dirname here is where the snapshot script is placed
+     * // during snapshot building time.
+     * const shelf = new BookShelf(__dirname, [
+     *   'book1.en_US.txt',
+     *   'book1.es_ES.txt',
+     *   'book2.zh_CN.txt',
+     * ]);
+     *
+     * assert(v8.startupSnapshot.isBuildingSnapshot());
+     * // On snapshot serialization, compress the books to reduce size.
+     * v8.startupSnapshot.addSerializeCallback(BookShelf.compressAll, shelf);
+     * // On snapshot deserialization, decompress the books.
+     * v8.startupSnapshot.addDeserializeCallback(BookShelf.decompressAll, shelf);
+     * v8.startupSnapshot.setDeserializeMainFunction((shelf) => {
+     *   // process.env and process.argv are refreshed during snapshot
+     *   // deserialization.
+     *   const lang = process.env.BOOK_LANG || 'en_US';
+     *   const book = process.argv[1];
+     *   const name = `${book}.${lang}.txt`;
+     *   console.log(shelf.storage.get(name));
+     * }, shelf);
+     * ```
+     *
+     * The resulted binary will get print the data deserialized from the snapshot during start up, using the refreshed `process.env` and `process.argv` of the launched process:
+     *
+     * ```bash
+     * $ BOOK_LANG=es_ES node --snapshot-blob snapshot.blob book1
+     * # Prints content of book1.es_ES.txt deserialized from the snapshot.
+     * ```
+     *
+     * Currently the application deserialized from a user-land snapshot cannot be snapshotted again, so these APIs are only available to applications that are not deserialized from a user-land snapshot.
+     *
+     * @experimental
+     * @since v18.6.0, v16.17.0
+     */
+    const startupSnapshot: StartupSnapshot;
 }
 declare module "node:v8" {
     export * from "v8";

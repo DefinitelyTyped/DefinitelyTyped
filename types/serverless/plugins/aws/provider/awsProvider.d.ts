@@ -214,6 +214,9 @@ declare namespace Aws {
         cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
         useProviderTags?: boolean | undefined;
+        metrics?: boolean | undefined;
+        disableDefaultEndpoint?: boolean | undefined;
+        shouldStartNameWithService?: boolean | undefined;
     }
 
     interface Quota {
@@ -507,6 +510,7 @@ declare namespace Aws {
         type?: "dynamodb" | "kinesis" | undefined;
         filterPatterns?: FilterPattern[] | undefined;
         functionResponseType?: "ReportBatchItemFailures" | undefined;
+        parallelizationFactor?: number | undefined;
     }
 
     interface Msk {
@@ -715,6 +719,7 @@ declare namespace Aws {
         events?: Event[] | undefined;
         disableLogs?: boolean | undefined;
         url?: boolean | FunctionUrlConfig | undefined;
+        architecture?: "x86_64" | "arm64" | undefined;
     }
 
     interface AwsFunctionHandler extends AwsFunction {

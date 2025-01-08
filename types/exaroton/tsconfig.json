@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
+        "target": "ES6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

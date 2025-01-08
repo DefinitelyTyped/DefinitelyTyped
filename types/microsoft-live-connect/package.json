@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/microsoft-live-connect",
     "version": "5.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "microsoft-live-connect",
     "projects": [
         "http://msdn.microsoft.com/en-us/library/live/hh243643.aspx"
     ],

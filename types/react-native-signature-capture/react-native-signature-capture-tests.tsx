@@ -22,6 +22,7 @@ class RNSignatureExample extends React.Component {
                     showNativeButtons={false}
                     showTitleLabel={false}
                     viewMode={"portrait"}
+                    strokeColor="#FFFFFF"
                 />
 
                 <View style={{ flex: 1, flexDirection: "row" }}>

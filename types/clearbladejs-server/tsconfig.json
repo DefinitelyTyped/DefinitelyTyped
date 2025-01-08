@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES5",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -16,9 +16,5 @@
     "files": [
         "index.d.ts",
         "clearbladejs-server-tests.ts"
-    ],
-    "exclude": [
-        "**/clearbladejs-client/*",
-        "**/clearbladejs-node/*"
     ]
 }

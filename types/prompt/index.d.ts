@@ -16,6 +16,7 @@ declare namespace prompt {
         name?: string | undefined;
         raw?: [string, string] | undefined;
         hidden?: boolean;
+        replace?: string;
     };
 
     interface Properties {

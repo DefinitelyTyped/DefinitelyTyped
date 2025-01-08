@@ -11,7 +11,7 @@ declare namespace stringify {
         value: any;
     }
 
-    type Comparator = (a: Element, b: Element) => number;
+    type Comparator = (a: Element, b: Element, opts?: { get(k: string): any }) => number;
 
     type Replacer = (key: string, value: any) => any;
 

@@ -1,22 +1,21 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.10.9999",
-    "nonNpm": true,
+    "version": "22.10.9999",
+    "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"
     ],
+    "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json", "tsconfig.webworker.json"],
     "types": "index",
     "typesVersions": {
-        "<=4.8": {
-            "*": [
-                "ts4.8/*"
-            ]
+        "<=5.6": {
+            "*": ["ts5.6/*"]
         }
     },
     "dependencies": {
-        "undici-types": "~5.26.4"
+        "undici-types": "~6.20.0"
     },
     "devDependencies": {
         "@types/node": "workspace:."
@@ -87,10 +86,6 @@
             "githubUsername": "mohsen1"
         },
         {
-            "name": "Nicolas Even",
-            "githubUsername": "n-e"
-        },
-        {
             "name": "Nikita Galkin",
             "githubUsername": "galkin"
         },
@@ -157,10 +152,6 @@
         {
             "name": "Victor Perin",
             "githubUsername": "victorperin"
-        },
-        {
-            "name": "Yongsheng Zhang",
-            "githubUsername": "ZYSzys"
         },
         {
             "name": "NodeJS Contributors",

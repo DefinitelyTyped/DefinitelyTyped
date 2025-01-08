@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/farbtastic",
     "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "farbtastic",
     "projects": [
         "https://github.com/mattfarina/farbtastic"
     ],

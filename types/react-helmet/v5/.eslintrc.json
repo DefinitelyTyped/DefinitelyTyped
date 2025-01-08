@@ -1,7 +1,8 @@
 {
     "rules": {
         "@definitelytyped/prefer-declare-function": "off",
-        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
         "@definitelytyped/no-duplicate-imports": "off",
         "no-duplicate-imports": "off"
     }

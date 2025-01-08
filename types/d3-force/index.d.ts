@@ -465,7 +465,7 @@ export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends For
     strength(): number;
     /**
      * Set the force strength to the specified number in the range [0,1] and return this force.
-     * The default strength is 0.7.
+     * The default strength is 1.
      *
      * Overlapping nodes are resolved through iterative relaxation.
      * For each node, the other nodes that are anticipated to overlap at the next tick (using the anticipated positions [x + vx,y + vy]) are determined;

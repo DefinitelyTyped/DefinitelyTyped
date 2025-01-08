@@ -317,6 +317,7 @@ declare namespace facebook {
         appId?: string | undefined;
         version: string;
         cookie?: boolean | undefined;
+        localStorage?: boolean | undefined;
         status?: boolean | undefined;
         xfbml?: boolean | undefined;
         frictionlessRequests?: boolean | undefined;
@@ -333,6 +334,7 @@ declare namespace facebook {
         config_id?: string | undefined;
         response_type?: string | undefined;
         override_default_response_type?: boolean | undefined;
+        extras?: object | undefined;
     }
 
     ////////////////////////

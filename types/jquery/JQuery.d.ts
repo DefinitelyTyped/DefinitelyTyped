@@ -1574,25 +1574,25 @@ $( "div.test" ).bind({
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/blur/ }\`
+     * @see \`{@link https://api.jquery.com/blur-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.blur(fn)` use `.on("blur", fn)`. Instead of `.blur()` use `.trigger("blur")`.
      */
     blur<TData>(eventData: TData, handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, "blur">): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/blur/ }\`
+     * @see \`{@link https://api.jquery.com/blur-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.blur(fn)` use `.on("blur", fn)`. Instead of `.blur()` use `.trigger("blur")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
 ```javascript
 $( "p" ).blur();
@@ -1607,13 +1607,13 @@ $( "p" ).blur();
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/change/ }\`
+     * @see \`{@link https://api.jquery.com/change-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.change(fn)` use `.on("change", fn)`. Instead of `.change()` use `.trigger("change")`.
      */
     change<TData>(
         eventData: TData,
@@ -1622,13 +1622,13 @@ $( "p" ).blur();
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/change/ }\`
+     * @see \`{@link https://api.jquery.com/change-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.change(fn)` use `.on("change", fn)`. Instead of `.change()` use `.trigger("change")`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
 ```html
 <!doctype html>
@@ -1850,7 +1850,8 @@ $( "div" ).children( ".selected" ).css( "color", "blue" );
      */
     children<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
     children<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
-    children(selector?: JQuery.Selector): JQuery;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    children<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Remove from the queue all items that have not yet been run.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
@@ -2032,7 +2033,10 @@ $( "b" ).clone().prependTo( "p" );
      * @see \`{@link https://api.jquery.com/closest/ }\`
      * @since 1.4
      */
-    closest(selector: JQuery.Selector, context: Element): this;
+    closest<K extends keyof HTMLElementTagNameMap>(selector: K, context: Element): JQuery<HTMLElementTagNameMap[K]>;
+    closest<K extends keyof SVGElementTagNameMap>(selector: K, context: Element): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    closest<E extends Element = HTMLElement>(selector: JQuery.Selector, context: Element): JQuery<E>;
     /**
      * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
      * @param selector_selection_element _&#x40;param_ `selector_selection_element`
@@ -2115,7 +2119,15 @@ $( document ).on( "click", function( event ) {
 </html>
 ```
      */
-    closest(selector_selection_element: JQuery.Selector | Element | JQuery): this;
+    closest<K extends keyof HTMLElementTagNameMap>(
+        selector_selection_element: K | JQuery<K>,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    closest<K extends keyof SVGElementTagNameMap>(
+        selector_selection_element: K | JQuery<K>,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    closest<E extends Element = HTMLElement>(selector_selection_element: JQuery.Selector): JQuery<E>;
+    closest<E extends Element = HTMLElement>(selector_selection_element: E | JQuery<E>): JQuery<E>;
     /**
      * Get the children of each element in the set of matched elements, including text and comment nodes.
      * @see \`{@link https://api.jquery.com/contents/ }\`
@@ -2171,13 +2183,13 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/contextmenu/ }\`
+     * @see \`{@link https://api.jquery.com/contextmenu-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.contextmenu(fn)` use `.on("contextmenu", fn)`. Instead of `.contextmenu()` use `.trigger("contextmenu")`.
      */
     contextmenu<TData>(
         eventData: TData,
@@ -2186,13 +2198,13 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/contextmenu/ }\`
+     * @see \`{@link https://api.jquery.com/contextmenu-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.contextmenu(fn)` use `.on("contextmenu", fn)`. Instead of `.contextmenu()` use `.trigger("contextmenu")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
 ```javascript
 $( "p" ).contextmenu(function() {
@@ -2703,13 +2715,13 @@ $( "button" ).click(function() {
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/dblclick/ }\`
+     * @see \`{@link https://api.jquery.com/dblclick-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.dblclick(fn)` use `.on("dblclick", fn)`. Instead of `.dblclick()` use `.trigger("dblclick")`.
      */
     dblclick<TData>(
         eventData: TData,
@@ -2718,13 +2730,13 @@ $( "button" ).click(function() {
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/dblclick/ }\`
+     * @see \`{@link https://api.jquery.com/dblclick-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.dblclick(fn)` use `.on("dblclick", fn)`. Instead of `.dblclick()` use `.trigger("dblclick")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
 ```javascript
 $( "p" ).dblclick(function() {
@@ -4249,7 +4261,9 @@ $( "p" )
      */
     find<K extends keyof HTMLElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     find<K extends keyof SVGElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
-    find<E extends HTMLElement>(selector_element: JQuery.Selector | Element | E | JQuery<E>): JQuery<E>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    find<E extends Element = HTMLElement>(selector_element: JQuery.Selector): JQuery<E>;
+    find<E extends Element = HTMLElement>(selector_element: E | JQuery<E>): JQuery<E>;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
      * @param queue The name of the queue in which to stop animations.
@@ -4406,13 +4420,13 @@ $( "p span" ).first().addClass( "highlight" );
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/focus/ }\`
+     * @see \`{@link https://api.jquery.com/focus-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focus(fn)` use `.on("focus", fn)`. Instead of `.focus()` use `.trigger("focus")`.
      */
     focus<TData>(
         eventData: TData,
@@ -4421,13 +4435,13 @@ $( "p span" ).first().addClass( "highlight" );
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/focus/ }\`
+     * @see \`{@link https://api.jquery.com/focus-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focus(fn)` use `.on("focus", fn)`. Instead of `.focus()` use `.trigger("focus")`.
      * @example ​ ````Fire focus.
 ```html
 <!doctype html>
@@ -4478,13 +4492,13 @@ $( document ).ready(function() {
      * Bind an event handler to the "focusin" event.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/focusin/ }\`
+     * @see \`{@link https://api.jquery.com/focusin-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focusin(fn)` use `.on("focusin", fn)`. Instead of `.focusin()` use `.trigger("focusin")`.
      */
     focusin<TData>(
         eventData: TData,
@@ -4493,13 +4507,13 @@ $( document ).ready(function() {
     /**
      * Bind an event handler to the "focusin" event.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/focusin/ }\`
+     * @see \`{@link https://api.jquery.com/focusin-shorthand/ }\`
      * @since 1.4
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focusin(fn)` use `.on("focusin", fn)`. Instead of `.focusin()` use `.focusin("click")`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
 ```html
 <!doctype html>
@@ -4544,7 +4558,7 @@ $( "p" ).focusin(function() {
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focusout(fn)` use `.on("focusout", fn)`. Instead of `.focusout()` use `.trigger("focusout")`.
      */
     focusout<TData>(
         eventData: TData,
@@ -4559,7 +4573,7 @@ $( "p" ).focusin(function() {
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.focusout(fn)` use `.on("focusout", fn)`. Instead of `.focusout()` use `.trigger("focusout")`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
 ```html
 <!doctype html>
@@ -6031,13 +6045,13 @@ $( "li" ).click(function() {
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/keydown/ }\`
+     * @see \`{@link https://api.jquery.com/keydown-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keydown(fn)` use `.on("keydown", fn)`. Instead of `.keydown()` use `.trigger("keydown")`.
      */
     keydown<TData>(
         eventData: TData,
@@ -6046,13 +6060,13 @@ $( "li" ).click(function() {
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/keydown/ }\`
+     * @see \`{@link https://api.jquery.com/keydown-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keydown(fn)` use `.on("keydown", fn)`. Instead of `.keydown()` use `.trigger("keydown")`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
 ```html
 <!doctype html>
@@ -6123,13 +6137,13 @@ $( "#other" ).click(function() {
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/keypress/ }\`
+     * @see \`{@link https://api.jquery.com/keypress-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keypress(fn)` use `.on("keypress", fn)`. Instead of `.keypress()` use `.trigger("keypress")`.
      */
     keypress<TData>(
         eventData: TData,
@@ -6138,13 +6152,13 @@ $( "#other" ).click(function() {
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/keypress/ }\`
+     * @see \`{@link https://api.jquery.com/keypress-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keypress(fn)` use `.on("keypress", fn)`. Instead of `.keypress()` use `.trigger("keypress")`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
 ```html
 <!doctype html>
@@ -6221,7 +6235,7 @@ $( "#other" ).click(function() {
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keyup(fn)` use `.on("keyup", fn)`. Instead of `.keyup()` use `.trigger("keyup")`.
      */
     keyup<TData>(
         eventData: TData,
@@ -6236,7 +6250,7 @@ $( "#other" ).click(function() {
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.keyup(fn)` use `.on("keyup", fn)`. Instead of `.keyup()` use `.trigger("keyup")`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
 ```html
 <!doctype html>
@@ -6676,13 +6690,13 @@ $( "input" ).click(function() {
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mousedown/ }\`
+     * @see \`{@link https://api.jquery.com/mousedown-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mousedown(fn)` use `.on("mousedown", fn)`. Instead of `.mousedown()` use `.trigger("mousedown")`.
      */
     mousedown<TData>(
         eventData: TData,
@@ -6691,13 +6705,13 @@ $( "input" ).click(function() {
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mousedown/ }\`
+     * @see \`{@link https://api.jquery.com/mousedown-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mousedown(fn)` use `.on("mousedown", fn)`. Instead of `.mousedown()` use `.trigger("mousedown")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -6734,13 +6748,13 @@ $( "p" )
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseenter/ }\`
+     * @see \`{@link https://api.jquery.com/mouseenter-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseenter(fn)` use `.on("mouseenter", fn)`. Instead of `.mouseenter()` use `.trigger("mouseenter")`.
      */
     mouseenter<TData>(
         eventData: TData,
@@ -6749,13 +6763,13 @@ $( "p" )
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseenter/ }\`
+     * @see \`{@link https://api.jquery.com/mouseenter-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseenter(fn)` use `.on("mouseenter", fn)`. Instead of `.mouseenter()` use `.trigger("mouseenter")`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
     mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -6835,13 +6849,13 @@ $( "div.enterleave" )
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseleave/ }\`
+     * @see \`{@link https://api.jquery.com/mouseleave-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseleave(fn)` use `.on("mouseleave", fn)`. Instead of `.mouseleave()` use `.trigger("mouseleave")`.
      */
     mouseleave<TData>(
         eventData: TData,
@@ -6850,13 +6864,13 @@ $( "div.enterleave" )
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseleave/ }\`
+     * @see \`{@link https://api.jquery.com/mouseleave-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseleave(fn)` use `.on("mouseleave", fn)`. Instead of `.mouseleave()` use `.trigger("mouseleave")`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
 <!doctype html>
@@ -6934,13 +6948,13 @@ $( "div.enterleave" )
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mousemove/ }\`
+     * @see \`{@link https://api.jquery.com/mousemove-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mousemove(fn)` use `.on("mousemove", fn)`. Instead of `.mousemove()` use `.trigger("mousemove")`.
      */
     mousemove<TData>(
         eventData: TData,
@@ -6949,13 +6963,13 @@ $( "div.enterleave" )
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mousemove/ }\`
+     * @see \`{@link https://api.jquery.com/mousemove-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mousemove(fn)` use `.on("mousemove", fn)`. Instead of `.mousemove()` use `.trigger("mousemove")`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
 ```html
 <!doctype html>
@@ -7018,13 +7032,13 @@ $( "div" ).mousemove(function( event ) {
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseout/ }\`
+     * @see \`{@link https://api.jquery.com/mouseout-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseout(fn)` use `.on("mouseout", fn)`. Instead of `.mouseout()` use `.trigger("mouseout")`.
      */
     mouseout<TData>(
         eventData: TData,
@@ -7033,13 +7047,13 @@ $( "div" ).mousemove(function( event ) {
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseout/ }\`
+     * @see \`{@link https://api.jquery.com/mouseout-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseout(fn)` use `.on("mouseout", fn)`. Instead of `.mouseout()` use `.trigger("mouseout")`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
   mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
@@ -7119,13 +7133,13 @@ $( "div.enterleave" )
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseover/ }\`
+     * @see \`{@link https://api.jquery.com/mouseover-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseover(fn)` use `.on("mouseover", fn)`. Instead of `.mouseover()` use `.trigger("mouseover")`.
      */
     mouseover<TData>(
         eventData: TData,
@@ -7134,13 +7148,13 @@ $( "div.enterleave" )
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseover/ }\`
+     * @see \`{@link https://api.jquery.com/mouseover-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseover(fn)` use `.on("mouseover", fn)`. Instead of `.mouseover()` use `.trigger("mouseover")`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
 mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -7220,13 +7234,13 @@ $( "div.enterleave" )
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseup/ }\`
+     * @see \`{@link https://api.jquery.com/mouseup-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseup(fn)` use `.on("mouseup", fn)`. Instead of `.mouseup()` use `.trigger("mouseup")`.
      */
     mouseup<TData>(
         eventData: TData,
@@ -7235,13 +7249,13 @@ $( "div.enterleave" )
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/mouseup/ }\`
+     * @see \`{@link https://api.jquery.com/mouseup-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.mouseup(fn)` use `.on("mouseup", fn)`. Instead of `.mouseup()` use `.trigger("mouseup")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -7333,7 +7347,10 @@ $( "p" ).next( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    next(selector?: JQuery.Selector): this;
+    next<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    next<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    next<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -7414,7 +7431,10 @@ $( ":nth-child(1)" ).nextAll( "p" ).addClass( "after" );
 </html>
 ```
      */
-    nextAll(selector?: string): this;
+    nextAll<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    nextAll<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    nextAll<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -7465,7 +7485,19 @@ $( "#term-1" )
 </html>
 ```
      */
-    nextUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    nextUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    nextUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    nextUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Remove elements from the set of matched elements.
      * @param selector_function_selection _&#x40;param_ `selector_function_selection`
@@ -7839,7 +7871,7 @@ $( "*", document.body ).click(function( event ) {
 </html>
 ```
      */
-    offsetParent(): this;
+    offsetParent(): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -8819,7 +8851,10 @@ $( "p" ).parent( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    parent(selector?: JQuery.Selector): this;
+    parent<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    parent<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    parent<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -8934,7 +8969,7 @@ $( "span" ).click(function() {
     parents<K extends keyof HTMLElementTagNameMap>(selector: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     parents<K extends keyof SVGElementTagNameMap>(selector: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    parents<E extends HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
+    parents<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -8988,7 +9023,19 @@ $( "li.item-2" )
 </html>
 ```
      */
-    parentsUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    parentsUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    parentsUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    parentsUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
      * @see \`{@link https://api.jquery.com/position/ }\`
@@ -9244,7 +9291,10 @@ $( "p" ).prev( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    prev(selector?: JQuery.Selector): this;
+    prev<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    prev<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prev<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -9287,7 +9337,10 @@ $( "div:last" ).prevAll().addClass( "before" );
 </html>
 ```
      */
-    prevAll(selector?: JQuery.Selector): this;
+    prevAll<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    prevAll<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prevAll<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -9339,7 +9392,19 @@ $( "#term-3" ).prevUntil( term1, "dd" )
 </html>
 ```
      */
-    prevUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    prevUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    prevUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prevUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
      * @param type The type of queue that needs to be observed.
@@ -10341,13 +10406,13 @@ $( "button" ).on( "click", function() {
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/resize/ }\`
+     * @see \`{@link https://api.jquery.com/resize-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.resize(fn)` use `.on("resize", fn)`. Instead of `.resize()` use `.trigger("resize")`.
      */
     resize<TData>(
         eventData: TData,
@@ -10356,13 +10421,13 @@ $( "button" ).on( "click", function() {
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/resize/ }\`
+     * @see \`{@link https://api.jquery.com/resize-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.resize(fn)` use `.on("resize", fn)`. Instead of `.resize()` use `.trigger("resize")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
 ```javascript
 $( window ).resize(function() {
@@ -10379,13 +10444,13 @@ $( window ).resize(function() {
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/scroll/ }\`
+     * @see \`{@link https://api.jquery.com/scroll-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.scroll(fn)` use `.on("scroll", fn)`. Instead of `.scroll()` use `.trigger("scroll")`.
      */
     scroll<TData>(
         eventData: TData,
@@ -10394,13 +10459,13 @@ $( window ).resize(function() {
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/scroll/ }\`
+     * @see \`{@link https://api.jquery.com/scroll-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.scroll(fn)` use `.on("scroll", fn)`. Instead of `.scroll()` use `.trigger("scroll")`.
      * @example ​ ````To do something when your page is scrolled:
 ```html
 <!doctype html>
@@ -10609,13 +10674,13 @@ $( "p:last" ).text( "scrollTop:" + p.scrollTop() );
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/select/ }\`
+     * @see \`{@link https://api.jquery.com/select-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.select(fn)` use `.on("select", fn)`. Instead of `.select()` use `.trigger("select")`.
      */
     select<TData>(
         eventData: TData,
@@ -10624,13 +10689,13 @@ $( "p:last" ).text( "scrollTop:" + p.scrollTop() );
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/select/ }\`
+     * @see \`{@link https://api.jquery.com/select-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.select(fn)` use `.on("select", fn)`. Instead of `.select()` use `.trigger("select")`.
      * @example ​ ````To do something when text in input boxes is selected:
 ```html
 <!doctype html>
@@ -11068,7 +11133,10 @@ $( "p" ).siblings( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    siblings(selector?: JQuery.Selector): this;
+    siblings<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    siblings<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    siblings<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Reduce the set of matched elements to a subset specified by a range of indices.
      * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative,
@@ -11655,13 +11723,13 @@ $( "#toggle" ).on( "click", function() {
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/submit/ }\`
+     * @see \`{@link https://api.jquery.com/submit-shorthand/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.submit(fn)` use `.on("submit", fn)`. Instead of `.submit()` use `.trigger("submit")`.
      */
     submit<TData>(
         eventData: TData,
@@ -11670,13 +11738,13 @@ $( "#toggle" ).on( "click", function() {
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
-     * @see \`{@link https://api.jquery.com/submit/ }\`
+     * @see \`{@link https://api.jquery.com/submit-shorthand/ }\`
      * @since 1.0
      * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
-     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
+     * **Solution**: Instead of `.submit(fn)` use `.on("submit", fn)`. Instead of `.submit()` use `.trigger("submit")`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
 ```html
 <!doctype html>

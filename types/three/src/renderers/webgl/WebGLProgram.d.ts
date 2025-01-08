@@ -1,6 +1,5 @@
-import { WebGLRenderer } from '../WebGLRenderer.js';
-import { WebGLShader } from './WebGLShader.js';
-import { WebGLUniforms } from './WebGLUniforms.js';
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { WebGLUniforms } from "./WebGLUniforms.js";
 
 export class WebGLProgram {
     constructor(renderer: WebGLRenderer, cacheKey: string, parameters: object);

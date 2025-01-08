@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.elang",
     "version": "0.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.elang",
     "projects": [
         "https://github.com/sumegizoltan/ELang/"
     ],

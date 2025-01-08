@@ -1041,7 +1041,7 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  *
  * For images other than SVG, use a {@link ContentImage} instead.
  */
-export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<"svg"> {
+export interface ContentSvg extends ContentBase, ContentLink, ForbidOtherElementProperties<"svg"> {
     /**
      * Renders the given SVG content string as an image.
      *
@@ -1356,6 +1356,15 @@ export interface ContentQr extends ContentBase, ForbidOtherElementProperties<"qr
      * avoid problematic patterns in the resulting QR code.
      */
     mask?: number | undefined;
+
+    /**
+     * Padding on all sides of the QR code, specified as multiples of the size of a QR code pixel.
+     *
+     * The padding does not affect the size of the QR code itself, even if {@link fit} is specified.
+     *
+     * Defaults to `0`.
+     */
+    padding?: number | undefined;
 }
 
 /**
@@ -1855,6 +1864,21 @@ export interface StyleDictionary {
 export type PDFVersion = "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3";
 
 /**
+ * Supported PDF subsets.
+ */
+export type PDFSubset =
+    | "PDF/A-1"
+    | "PDF/A-1a"
+    | "PDF/A-1b"
+    | "PDF/A-2"
+    | "PDF/A-2a"
+    | "PDF/A-2b"
+    | "PDF/A-3"
+    | "PDF/A-3a"
+    | "PDF/A-3b"
+    | "PDF/UA";
+
+/**
  * Watermark that is rendered on top of each page.
  */
 export interface Watermark {
@@ -2135,6 +2159,25 @@ export interface TDocumentDefinitions {
     version?: PDFVersion | undefined;
 
     /**
+     * Subset of the PDF specification the document is created with.
+     */
+    subset?: PDFSubset | undefined;
+
+    /**
+     * Controls whether the document is marked as a tagged PDF.
+     *
+     * Defaults to `false`.
+     */
+    tagged?: boolean | undefined;
+
+    /**
+     * Controls whether the document title should be displayed in the window title of the PDF viewer.
+     *
+     * Defaults to `false`.
+     */
+    displayTitle?: boolean | undefined;
+
+    /**
      * Watermark that is rendered on top of each page.
      */
     watermark?: string | Watermark | undefined;
@@ -2143,6 +2186,11 @@ export interface TDocumentDefinitions {
      * Dictionary of reusable pattern definitions that can be referenced by their key.
      */
     patterns?: Record<string, Pattern> | undefined;
+
+    /**
+     * Document language as BCP 47 language tag, e.g. `en-US`.
+     */
+    language?: string | undefined;
 }
 
 /**

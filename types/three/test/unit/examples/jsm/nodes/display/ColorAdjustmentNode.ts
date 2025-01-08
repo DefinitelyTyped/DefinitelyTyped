@@ -5,25 +5,8 @@
  * between ShaderNode a normal node.
  */
 
-import {
-    dot,
-    mix,
-    ShaderNode,
-    vec3,
-    Node,
-    div,
-    add,
-    max,
-    mul,
-    sub,
-    mat3,
-    atan2,
-    sqrt,
-    cos,
-    sin,
-    TempNode,
-    float,
-} from 'three/examples/jsm/nodes/Nodes';
+import { add, atan2, cos, div, dot, float, mat3, max, mix, mul, ShaderNode, sin, sqrt, sub, vec3 } from "three/tsl";
+import { Node, TempNode } from "three/webgpu";
 
 const luminanceNode = new ShaderNode<{ color: Node }>(({ color }) => {
     const LUMA = vec3(0.2125, 0.7154, 0.0721);
@@ -59,15 +42,15 @@ const hueNode = new ShaderNode<{ color: Node; adjustment: Node }>(({ color, adju
 });
 
 class TestNode extends TempNode {
-    static SATURATION = 'saturation';
-    static VIBRANCE = 'vibrance';
-    static HUE = 'hue';
+    static SATURATION = "saturation";
+    static VIBRANCE = "vibrance";
+    static HUE = "hue";
     method: string;
     colorNode: Node;
     adjustmentNode: Node;
 
     constructor(method: string, colorNode: Node, adjustmentNode = float(1)) {
-        super('vec3');
+        super("vec3");
 
         this.method = method;
 

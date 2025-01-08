@@ -1,3 +1,6 @@
+/// <reference types="chai" />
+/// <reference types="sinon-chai" />
+
 // Ref: https://github.com/kmees/karma-sinon-chai#usage
 // Each of the different Chai assertion suites is available in the tests:
 assert.ok("everything", "everything is ok");

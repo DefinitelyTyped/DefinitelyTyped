@@ -1,11 +1,25 @@
 import which = require("which");
 
-const path = which.sync("cat"); // $ExpectType string
+which.sync("cat"); // $ExpectType string
 
-const promise: Promise<string> = which("cat");
-const promise1: Promise<string> = which("cat", { all: false });
-const promise2: Promise<string[]> = which("cat", { all: true });
-const promise3: Promise<string> = which("cat", { nothrow: true });
+// Rewrite proomise to promise6 but using ExpectType
+which("cat"); // $ExpectType Promise<string>
+which("cat", { all: false }); // $ExpectType Promise<string>
+which("cat", { all: true }); // $ExpectType Promise<readonly string[]>
+which("cat", { nothrow: true }); // $ExpectType Promise<string | null>
+which("cat", { all: true, nothrow: true }); // $ExpectType Promise<readonly string[] | null>
+
+// @ts-expect-error -- `alll` is not a valid option
+which("cat", { alll: true, nothrow: true }); // $ExpectError
+
+// @ts-expect-error -- 42 is not a boolean | undefined
+which("cat", { all: 42, nothrow: true }); // $ExpectError
+
+// If we cannot infer the exact value passed to `all` or `nothrow`, we should give both options.
+var b: boolean = Math.random() < 0.5;
+which("cat", { all: b }); // $ExpectType Promise<string | readonly string[]>
+which("cat", { nothrow: b }); // $ExpectType Promise<string | null>
+which("cat", { all: b, nothrow: b }); // $ExpectType Promise<string | readonly string[] | null>
 
 which("node")
     .then(resolvedPath => {

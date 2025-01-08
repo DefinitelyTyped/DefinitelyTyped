@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/pexrtc",
     "version": "26.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "PexRTC",
     "projects": [
         "https://docs.pexip.com/api_client/api_pexrtc.htm"

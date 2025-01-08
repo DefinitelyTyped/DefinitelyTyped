@@ -1,4 +1,4 @@
-import MapboxGeocoder, { GeocoderOptions, LngLatLiteral } from "mapbox__mapbox-gl-geocoder";
+import MapboxGeocoder from "mapbox__mapbox-gl-geocoder";
 
 const token = "token";
 
@@ -11,6 +11,14 @@ geocoder.query("Paris");
 
 // $ExpectType MapboxGeocoder
 geocoder.setProximity({ latitude: 12, longitude: 42 });
+// $ExpectType MapboxGeocoder
+geocoder.setProximity({ latitude: 12, longitude: 42 }, false);
+
+// $ExpectType MapboxGeocoder
+geocoder.setProximity("ip");
+
+// $ExpectType MapboxGeocoder
+geocoder.setProximity("ip", false);
 
 // $ExpectType LngLatLiteral
 geocoder.getProximity();
@@ -20,6 +28,15 @@ geocoder.setLanguage("en");
 
 // $ExpectType string
 geocoder.getLanguage();
+
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris");
+
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris", false);
+
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris", true);
 
 // $ExpectType void
 geocoder.clear();

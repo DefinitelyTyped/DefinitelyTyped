@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/postcss-env-function",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-function#readme"
+    ],
+    "dependencies": {
+        "postcss": "^8.4"
+    },
+    "devDependencies": {
+        "@types/postcss-env-function": "workspace:."
+    },
+    "exports": {
+        "types": {
+            "import": "./index.d.mts",
+            "default": "./index.d.ts"
+        }
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

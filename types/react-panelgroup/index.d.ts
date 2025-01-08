@@ -17,7 +17,9 @@ export interface PropTypes {
     panelColor?: string | undefined;
     direction?: "row" | "column" | undefined;
     panelWidths?: Array<PanelWidth | null> | undefined;
-    onUpdate?: ((data: PanelWidth) => void) | undefined;
+    onUpdate?: ((data: PanelWidth[]) => void) | undefined;
+    onResizeStart?: ((data: PanelWidth[]) => void) | undefined;
+    onResizeEnd?: ((data: PanelWidth[]) => void) | undefined;
 }
 
 /**

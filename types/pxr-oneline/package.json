@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/pxr-oneline",
+    "version": "1.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "The OneLine handles all the logic needed for a publisher to serve ads.",
+    "projects": [
+        "https://github.com/diogopxrnextday/pxr-advertising"
+    ],
+    "devDependencies": {
+        "@types/pxr-oneline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "PXR Advertising",
+            "githubUsername": "diogopxrnextday"
+        }
+    ]
+}

@@ -1,21 +1,30 @@
-import type PlanarControls from "../../Controls/PlanarControls";
-import Layer from "../../Layer/Layer";
 import Extent from "../Geographic/Extent";
-import View from "../View";
-// import PlanarLayer from "./Planar/PlanarLayer";
+import View, { ViewOptions } from "../View";
 
-// TODO
-export type PlanerViewOptions = any;
+import PlanarControls, { PlanarControlsOptions } from "../../Controls/PlanarControls";
+import Layer from "../../Layer/Layer";
+import CameraUtils from "../../Utils/CameraUtils";
 
-export default class PlanarView extends View {
+export interface PlanarViewOptions extends ViewOptions {
+    noControls?: boolean;
+    controls?: PlanarControlsOptions;
+    placement?: CameraUtils.CameraTransformOptions | Extent;
+    disableSkirt?: boolean; // TODO: Not documented
+    maxSubdivisionLevel?: number; // TODO: Not documented
+}
+
+declare class PlanarView extends View {
     constructor(
         viewerDiv: HTMLDivElement,
         extent: Extent,
-        options?: PlanerViewOptions,
+        options?: PlanarViewOptions,
     );
 
-    readonly isPlanarView: boolean;
+    readonly isPlanarView: true;
+
     controls?: PlanarControls;
     tileLayer: /* PlanarLayer */ any; // TODO
     addLayer<L extends Layer>(layer: L): Promise<L>;
 }
+
+export default PlanarView;

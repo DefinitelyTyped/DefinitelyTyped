@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/alpinejs/alpine"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "dependencies": {
         "@types/alpinejs": "*"
     },

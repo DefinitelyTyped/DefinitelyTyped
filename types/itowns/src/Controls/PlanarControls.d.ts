@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import PlanarView from "../Core/Prefab/PlanarView";
 
-// TODO: hidden property
+// TODO: Define public API
 
 // export enum keys {
 //     CTRL = 17,

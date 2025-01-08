@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/rasa-webchat": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/rasa-webchat": "workspace:."
     },
     "owners": [
         {

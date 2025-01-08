@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
+        "module": "node16",
         "moduleResolution": "NodeNext",
         "target": "es6",
         "noEmit": true

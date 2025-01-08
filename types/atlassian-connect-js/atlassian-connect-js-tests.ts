@@ -2,6 +2,7 @@ AP.defineGlobal({}); // $ExpectType void
 AP.defineModule("module", {}); // $ExpectType void
 AP.getLocation(location => console.log(location)); // $ExpectType void
 AP.resize("10px", "10px"); // $ExpectType void
+AP.resize(); // $ExpectType void
 AP.sizeToParent(true); // $ExpectType void
 AP.hideFooter(true); // $ExpectType void
 AP.addRequestMarshal(); // $ExpectType void
@@ -111,6 +112,10 @@ AP.history.back(); // $ExpectType void
 AP.history.forward(); // $ExpectType void
 AP.history.go(-2); // $ExpectType void
 AP.history.getState(); // $ExpectType string
+AP.history.getState("all", (state) => console.log(state)); // $ExpectType void
+AP.history.getState("hash", (state) => console.log(state)); // $ExpectType void
+AP.history.getState(undefined, (state) => console.log(state)); // $ExpectType void
+AP.history.getState("all", (state) => console.log(state)); // $ExpectType void
 AP.history.pushState(1); // $ExpectType void
 AP.history.pushState("page2"); // $ExpectType void
 AP.history.pushState({ state: "state" }, "title", "https://example.com"); // $ExpectType void
@@ -125,6 +130,8 @@ AP.jira.refreshIssuePage(); // $ExpectType void
 AP.jira.getWorkflowConfiguration(workflowConfiguration => console.log(workflowConfiguration)); // $ExpectType void
 AP.jira.isDashboardItemEditable(editable => console.log(editable)); // $ExpectType void
 AP.jira.openCreateIssueDialog(issues => console.log(issues), { pid: 1, issueType: 1, fields: { field1: "field" } }); // $ExpectType void
+AP.jira.openIssueDialog("key-1"); // $ExpectType void
+AP.jira.openIssueDialog("key-1", (issueKey) => console.log(issueKey)); // $ExpectType void
 AP.jira.setDashboardItemTitle("title"); // $ExpectType void
 AP.jira.initJQLEditor(); // $ExpectType void
 AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
@@ -132,6 +139,7 @@ AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
 AP.navigator.getLocation(location => console.log(location.target)); // $ExpectType void
+AP.navigator.getLocation(location => console.log(location.target === "contentcreate")); // $ExpectType void
 AP.navigator.getLocation(location => console.log(location.context)); // $ExpectType void
 AP.navigator.go("contentview", {}); // $ExpectType void
 AP.navigator.go("issue", {}); // $ExpectType void

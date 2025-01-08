@@ -1,3 +1,3 @@
-import GLSLDecoder from './GLSLDecoder.js';
+import GLSLDecoder from "./GLSLDecoder.js";
 
 export default class ShaderToyDecoder extends GLSLDecoder {}

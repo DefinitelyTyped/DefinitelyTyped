@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 // Import React Table
 import ReactTable, { Column, FinalState, Instance } from "react-table";
@@ -197,5 +196,3 @@ const Component = (props: {}) => {
         )
     );
 };
-
-ReactDOM.render(<Component />, document.getElementById("root"));

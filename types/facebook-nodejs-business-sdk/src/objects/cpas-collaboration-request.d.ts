@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CPASCollaborationRequest
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -21,5 +21,5 @@ export default class CPASCollaborationRequest extends AbstractCrudObject {
         brand: "BRAND";
         merchant: "MERCHANT";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CPASCollaborationRequest>;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASCollaborationRequest>;
 }

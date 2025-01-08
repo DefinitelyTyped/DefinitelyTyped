@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.jsignature",
     "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.jsignature",
     "projects": [
         "https://github.com/willowsystems/jSignature"
     ],

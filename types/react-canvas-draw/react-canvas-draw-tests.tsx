@@ -1,5 +1,5 @@
 import * as React from "react";
-import CanvasDraw from "react-canvas-draw";
+import CanvasDraw, { CanvasDrawProps } from "react-canvas-draw";
 
 const AllOptions: React.JSX.Element = (
     <CanvasDraw

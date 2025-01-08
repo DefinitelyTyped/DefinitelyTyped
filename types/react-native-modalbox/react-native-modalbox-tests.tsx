@@ -73,7 +73,9 @@ class Example extends React.Component<{}, State> {
 
                 <Modal
                     style={styles.modal}
-                    ref={(ref: Modal | null) => (this.modal1 = ref)}
+                    ref={(ref: Modal | null) => {
+                        this.modal1 = ref;
+                    }}
                     swipeToClose={this.state.swipeToClose}
                     onClosed={() => this.onClose()}
                     onOpened={() => this.onOpen()}
@@ -94,7 +96,9 @@ class Example extends React.Component<{}, State> {
                     style={[styles.modal, styles.modal2]}
                     backdrop={false}
                     position={"top"}
-                    ref={(ref: Modal | null) => (this.modal2 = ref)}
+                    ref={(ref: Modal | null) => {
+                        this.modal2 = ref;
+                    }}
                 >
                     <Text style={[styles.text, { color: "white" }]}>Modal on top</Text>
                 </Modal>
@@ -102,7 +106,9 @@ class Example extends React.Component<{}, State> {
                 <Modal
                     style={[styles.modal, styles.modal3]}
                     position={"center"}
-                    ref={(ref: Modal | null) => (this.modal3 = ref)}
+                    ref={(ref: Modal | null) => {
+                        this.modal3 = ref;
+                    }}
                     isDisabled={this.state.isDisabled}
                 >
                     <Text style={styles.text}>Modal centered</Text>
@@ -125,7 +131,9 @@ class Example extends React.Component<{}, State> {
                 <Modal
                     style={[styles.modal, styles.modal4]}
                     position={"bottom"}
-                    ref={(ref: Modal | null) => (this.modal6 = ref)}
+                    ref={(ref: Modal | null) => {
+                        this.modal6 = ref;
+                    }}
                     swipeArea={20}
                 >
                     <ScrollView>

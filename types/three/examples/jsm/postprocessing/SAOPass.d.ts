@@ -1,17 +1,17 @@
 import {
-    Scene,
     Camera,
+    Color,
+    ColorRepresentation,
     Material,
     MeshNormalMaterial,
+    Scene,
     ShaderMaterial,
-    Color,
     Vector2,
     WebGLRenderer,
     WebGLRenderTarget,
-    ColorRepresentation,
-} from '../../../src/Three.js';
+} from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export enum OUTPUT {
     Default,

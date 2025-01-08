@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/saturn-web",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Saturn SDK",
+    "projects": [
+        "https://saturnhq.io"
+    ],
+    "devDependencies": {
+        "@types/saturn-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sahil Gupta",
+            "githubUsername": "wrongsahil"
+        }
+    ]
+}

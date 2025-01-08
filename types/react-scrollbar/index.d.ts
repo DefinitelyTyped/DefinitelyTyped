@@ -1,8 +1,7 @@
 /// <reference types="react" />
 
-interface ScrollAreaProps {
+interface ScrollAreaProps extends React.RefAttributes<ScrollArea> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<ScrollArea> | undefined;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
     speed?: number | undefined;

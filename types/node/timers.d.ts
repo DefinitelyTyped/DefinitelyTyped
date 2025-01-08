@@ -1,12 +1,12 @@
 /**
  * The `timer` module exposes a global API for scheduling functions to
  * be called at some future period of time. Because the timer functions are
- * globals, there is no need to call `require('node:timers')` to use the API.
+ * globals, there is no need to import `node:timers` to use the API.
  *
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/timers.js)
  */
 declare module "timers" {
     import { Abortable } from "node:events";
@@ -43,12 +43,12 @@ declare module "timers" {
              * actions.
              *
              * By default, when an immediate is scheduled, the Node.js event loop will continue
-             * running as long as the immediate is active. The `Immediate` object returned by `setImmediate()` exports both `immediate.ref()` and `immediate.unref()`functions that can be used to
+             * running as long as the immediate is active. The `Immediate` object returned by `setImmediate()` exports both `immediate.ref()` and `immediate.unref()` functions that can be used to
              * control this default behavior.
              */
             class Immediate implements RefCounted {
                 /**
-                 * When called, requests that the Node.js event loop _not_ exit so long as the`Immediate` is active. Calling `immediate.ref()` multiple times will have no
+                 * When called, requests that the Node.js event loop _not_ exit so long as the `Immediate` is active. Calling `immediate.ref()` multiple times will have no
                  * effect.
                  *
                  * By default, all `Immediate` objects are "ref'ed", making it normally unnecessary
@@ -100,7 +100,7 @@ declare module "timers" {
                 /**
                  * When called, the active `Timeout` object will not require the Node.js event loop
                  * to remain active. If there is no other activity keeping the event loop running,
-                 * the process may exit before the `Timeout` object's callback is invoked. Calling`timeout.unref()` multiple times will have no effect.
+                 * the process may exit before the `Timeout` object's callback is invoked. Calling `timeout.unref()` multiple times will have no effect.
                  * @since v0.9.1
                  * @return a reference to `timeout`
                  */
@@ -138,7 +138,7 @@ declare module "timers" {
          * nor of their ordering. The callback will be called as close as possible to the
          * time specified.
          *
-         * When `delay` is larger than `2147483647` or less than `1`, the `delay`will be set to `1`. Non-integer delays are truncated to an integer.
+         * When `delay` is larger than `2147483647` or less than `1`, the `delay` will be set to `1`. Non-integer delays are truncated to an integer.
          *
          * If `callback` is not a function, a `TypeError` will be thrown.
          *

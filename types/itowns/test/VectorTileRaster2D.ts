@@ -31,7 +31,7 @@ const view = new itowns.PlanarView(viewerDiv, extent, {
 const mvtSource = new itowns.VectorTilesSource({
     style: "https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json",
     // We don't display mountains related data to ease visualisation
-    filter: (layer) => !layer["source-layer"].includes("oro_") && !layer["source-layer"].includes("parcellaire"),
+    filter: (layer: any) => !layer["source-layer"].includes("oro_") && !layer["source-layer"].includes("parcellaire"),
 });
 
 const mvtLayer = new itowns.ColorLayer("MVT", {

@@ -11,8 +11,7 @@
     },
     "devDependencies": {
         "@types/react-bootstrap-table2-paginator": "*",
-        "@types/react-bootstrap-table2-toolkit": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-bootstrap-table2-toolkit": "workspace:."
     },
     "owners": [
         {

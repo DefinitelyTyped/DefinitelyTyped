@@ -46,7 +46,7 @@ ES2015.Call<bigint, readonly [], string>(Object.prototype.toString, BigInt(Numbe
 ES2015.Call(Object.prototype.hasOwnProperty, [], ["length"] as const); // $ExpectType boolean
 ES2015.Call(Object.prototype.hasOwnProperty, any, args as IArguments & [PropertyKey]); // $ExpectType boolean
 
-// $ExpectType IterableIterator<number>
+// $ExpectType IterableIterator<number> || ArrayIterator<number>
 ES2015.GetIterator([1, 2, 3]);
 
 function* generable() {
@@ -103,7 +103,7 @@ if (ES2015.IteratorComplete(iteratorResult)) {
 
 const anyIterator = any as Iterator<unknown, unknown, unknown>;
 
-ES2015.GetMethod(anyIterator, "next"); // $ExpectType (...args: [] | [unknown]) => IteratorResult<unknown, unknown>
+ES2015.GetMethod(anyIterator, "next"); // $ExpectType (...args: [] | [unknown]) => IteratorResult<unknown, unknown> || (...[value]: [] | [unknown]) => IteratorResult<unknown, unknown>
 ES2015.GetMethod(anyIterator, "throw"); // $ExpectType ((e?: any) => IteratorResult<unknown, unknown>) | undefined
 ES2015.GetMethod(anyIterator, "return"); // $ExpectType ((value?: unknown) => IteratorResult<unknown, unknown>) | undefined
 
@@ -184,7 +184,7 @@ declare const Baz: {
     readonly prototype?: unknown | undefined;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 declare const Biz: { readonly prototype?: null | undefined } & Omit<Function, "prototype">;
 
 ES2015.GetPrototypeFromConstructor(Foo, "%Object.prototype%"); // $ExpectType Foo

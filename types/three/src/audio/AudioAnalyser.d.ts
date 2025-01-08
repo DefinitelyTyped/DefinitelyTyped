@@ -1,4 +1,4 @@
-import { Audio } from './Audio.js';
+import { Audio } from "./Audio.js";
 
 /**
  * Create a {@link AudioAnalyser} object, which uses an {@link https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode | AnalyserNode} to analyse audio data.

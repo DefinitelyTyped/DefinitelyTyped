@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/bootstrap-datepicker",
-    "version": "0.0.9999",
+    "version": "1.10.9999",
     "projects": [
         "https://github.com/eternicode/bootstrap-datepicker"
     ],

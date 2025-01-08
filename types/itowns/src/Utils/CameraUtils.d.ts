@@ -15,7 +15,7 @@ declare namespace _default {
         time?: number;
         proxy?: boolean;
         easing?: number;
-        callback?: any; // TODO: type callback
+        // callback?: any; // TODO: Not documented
         stopPlaceOnGroundAtEnd?: boolean;
     }
 

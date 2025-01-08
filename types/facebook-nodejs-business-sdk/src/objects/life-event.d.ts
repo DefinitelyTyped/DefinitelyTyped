@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * LifeEvent
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -15,8 +15,6 @@ export default class LifeEvent extends AbstractCrudObject {
         title: "title";
         updated_time: "updated_time";
     }>;
-    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<LifeEvent>;
+    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<LifeEvent>;
 }

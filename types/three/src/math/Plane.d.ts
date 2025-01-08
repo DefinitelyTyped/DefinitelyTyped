@@ -1,9 +1,9 @@
-import { Vector3 } from './Vector3.js';
-import { Sphere } from './Sphere.js';
-import { Line3 } from './Line3.js';
-import { Box3 } from './Box3.js';
-import { Matrix4 } from './Matrix4.js';
-import { Matrix3 } from './Matrix3.js';
+import { Box3 } from "./Box3.js";
+import { Line3 } from "./Line3.js";
+import { Matrix3 } from "./Matrix3.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Sphere } from "./Sphere.js";
+import { Vector3 } from "./Vector3.js";
 
 export class Plane {
     constructor(normal?: Vector3, constant?: number);

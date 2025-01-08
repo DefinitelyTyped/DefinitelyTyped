@@ -20,6 +20,7 @@ declare namespace GorillaEngine.UI {
         value: any;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface LevelMeter extends LevelMeterProps {}
 
     class LevelMeter extends Component {

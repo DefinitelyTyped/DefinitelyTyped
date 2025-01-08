@@ -1926,7 +1926,7 @@ declare namespace videojs {
          * @return The width when getting, zero if there is no width. Can be a string
          *           postpixed with '%' or 'px'.
          */
-        width(num: number, skipListeners?: number): void;
+        width(num: string | number, skipListeners?: number): void;
 
         width(): string | number;
     }
@@ -3865,7 +3865,7 @@ declare namespace videojs {
      *        A text label for the modal, primarily for accessibility.
      *
      * @param [pauseOnOpen=true]
-     *        If `true`, playback will will be paused if playing when
+     *        If `true`, playback will be paused if playing when
      *        the modal opens, and resumed when it closes.
      *
      * @param [temporary=true]

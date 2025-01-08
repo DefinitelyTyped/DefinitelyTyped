@@ -1,5 +1,5 @@
 import rdfUtilsFs = require("rdf-utils-fs");
-import { Stream } from "rdf-js";
+import { Stream } from "@rdfjs/types";
 import { URL } from "url";
 
 let fromFile: Stream = rdfUtilsFs.fromFile("./file/path");

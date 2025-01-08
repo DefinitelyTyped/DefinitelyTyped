@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-bootstrap-table-next": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-bootstrap-table-next": "workspace:."
     },
     "owners": [
         {

@@ -1,6 +1,6 @@
-import { Material, MaterialParameters } from './Material.js';
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface PointsMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -20,11 +20,6 @@ export class PointsMaterial extends Material {
      * @defaultValue `true`
      */
     readonly isPointsMaterial: true;
-
-    /**
-     * @default 'PointsMaterial'
-     */
-    type: string;
 
     /**
      * @default new THREE.Color( 0xffffff )

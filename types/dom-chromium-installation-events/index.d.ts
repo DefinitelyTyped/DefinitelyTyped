@@ -16,7 +16,8 @@ type BeforeInstallPromptEventPlatform =
     | "amazon";
 
 interface BeforeInstallPromptEvent extends Event {
-    prompt(): Promise<void>;
+    // https://wicg.github.io/manifest-incubations/#prompt-method
+    prompt(): Promise<PromptResponseObject>;
 
     readonly platforms: BeforeInstallPromptEventPlatform[];
     readonly userChoice: Promise<PromptResponseObject>;

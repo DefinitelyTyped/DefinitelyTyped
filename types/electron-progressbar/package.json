@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/electron-progressbar": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Samuel Corsi-House",
-            "githubUsername": "xenfo"
-        }
-    ]
+    "owners": []
 }

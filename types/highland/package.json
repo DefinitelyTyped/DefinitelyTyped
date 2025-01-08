@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/highland",
-    "version": "2.12.9999",
+    "version": "2.13.9999",
     "projects": [
         "http://highlandjs.org/"
     ],

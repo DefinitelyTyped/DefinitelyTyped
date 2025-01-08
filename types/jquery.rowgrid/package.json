@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.rowgrid",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.rowgrid",
     "projects": [
         "https://github.com/brunjo/rowGrid.js"
     ],

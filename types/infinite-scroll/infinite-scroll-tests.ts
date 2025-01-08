@@ -27,6 +27,17 @@ infScrollJQuery("getAbsolutePath");
 infScroll.option({ path: "/page/{{#}}" });
 infScrollJQuery("option", { path: "/page/{{#}}" });
 
+// Check the `checkLastPage` option, which can take either a boolean
+// or a string.
+infScroll.option({ checkLastPage: true });
+infScrollJQuery("option", { checkLastPage: true });
+infScroll.option({ checkLastPage: ".nextpage" });
+infScrollJQuery("option", { checkLastPage: ".nextpage" });
+// @ts-expect-error
+infScroll.option({ checkLastPage: 5 });
+// @ts-expect-error
+infScrollJQuery("option", { checkLastPage: 5 });
+
 infScroll.destroy();
 infScrollJQuery("destroy");
 

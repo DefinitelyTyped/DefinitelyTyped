@@ -3,9 +3,17 @@
  *~ Otherwise, delete this declaration.
  */
 import { Component } from "react";
-import { ViewProps } from "react-native";
+import { ColorValue, ViewProps } from "react-native";
 
 export interface SignatureCaptureProps extends ViewProps {
+    /**
+     * Sets the background color of the component.
+     * Defaults to white. May be 'transparent'.
+     *
+     * @default 'white'
+     */
+    backgroundColor?: ColorValue;
+
     /**
      * Make this props true, if you want to save the image file in external storage.
      * Warning: Image file will be visible in gallery or any other image browsing app
@@ -47,6 +55,13 @@ export interface SignatureCaptureProps extends ViewProps {
      * @default 500
      */
     maxSize?: number | undefined;
+
+    /**
+     * Sets the color of the signature. Defaults to black.
+     *
+     * @default "#000000"
+     */
+    strokeColor?: string | undefined;
 
     /**
      * Triggered when saveImage() is called, which return Base64 Encoded String and image file path.

@@ -36,6 +36,10 @@ newrelic.noticeError(new Error("bar"));
 newrelic.noticeError("bar");
 newrelic.noticeError("bar", { foo: "bar", baz: 1 });
 
+// setApplicationVersion()
+newrelic.setApplicationVersion("1.0.0");
+newrelic.setApplicationVersion(null);
+
 // setCustomAttribute()
 newrelic.setCustomAttribute("nodeId", "123");
 newrelic.setCustomAttribute("nodeId", 123);
@@ -56,6 +60,10 @@ newrelic.setPageViewName("/login", "https://www.myapp.com");
 // setCurrentRouteName()
 newrelic.setCurrentRouteName("/users/:id");
 newrelic.setCurrentRouteName(null);
+
+// setUserId()
+newrelic.setUserId("123");
+newrelic.setUserId(null);
 
 // --- NewRelic.BrowserInteraction methods -----------------------------------
 

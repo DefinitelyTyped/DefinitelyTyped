@@ -326,7 +326,8 @@ export declare class Request extends events.EventEmitter {
     public verbose: boolean;
     public canceled: boolean;
     public multiple: boolean;
-    public stream: any;
+    public stream: boolean;
+    public arrayRowMode: boolean;
     public constructor(connection?: ConnectionPool);
     public constructor(transaction: Transaction);
     public constructor(preparedStatement: PreparedStatement);

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/bootstrap.v3.datetimepicker",
     "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "bootstrap.v3.datetimepicker",
     "projects": [
         "http://eonasdan.github.io/bootstrap-datetimepicker"
     ],

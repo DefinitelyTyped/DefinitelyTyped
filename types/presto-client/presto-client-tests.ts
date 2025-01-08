@@ -2,13 +2,30 @@ import { Client, PrestoQueryError, PrestoRequestError } from "presto-client";
 
 const client = new Client({
     user: "test",
+    timeout: 60,
 });
+
+// $ExpectType string
+client.userAgent;
+
+// $ExpectType number
+client.port;
+
+// $ExpectType string
+client.source;
+
+// $ExpectType number
+client.checkInterval;
+
+// $ExpectType boolean
+client.enableVerboseStateCallback;
 
 client.execute({
     query: "SELECT count(*) as cnt FROM tblname WHERE ...",
     catalog: "hive",
     schema: "default",
     source: "nodejs-client",
+    timeout: 60,
     state: (error, query_id, stats) => {
         // do something with query stats
     },
@@ -25,6 +42,9 @@ client.execute({
     data: (error, data, columns, stats) => {
         // do something with data
     },
+    retry: () => {
+        // do something when query retries
+    },
     success: (error, stats) => {
         // do something now that query is done
     },
@@ -32,6 +52,9 @@ client.execute({
         // handle the error
     },
 });
+
+// $ExpectType (query_id: string, callback?: ((error: PrestoRequestError | null) => void) | undefined) => void
+client.kill;
 
 const requestError: PrestoRequestError = {
     message: "execution error:SQL statement is empty",

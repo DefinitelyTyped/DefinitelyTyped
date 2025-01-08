@@ -2,7 +2,7 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],

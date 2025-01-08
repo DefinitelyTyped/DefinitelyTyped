@@ -1,5 +1,4 @@
-import { htmlSafe, isHTMLSafe } from "@ember/template";
-import { SafeString } from "@ember/template/-private/handlebars";
+import { htmlSafe, isHTMLSafe, type SafeString } from "@ember/template";
 
 const handlebarsSafeString: SafeString = htmlSafe("lorem ipsum...");
 htmlSafe("lorem ipsum..."); // $ExpectType SafeString

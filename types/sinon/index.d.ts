@@ -1165,7 +1165,7 @@ declare namespace Sinon {
          */
         calledOnceWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: TArgs
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with matching arguments.

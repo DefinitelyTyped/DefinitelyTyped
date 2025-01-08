@@ -2,7 +2,7 @@ import * as geobuf from "geobuf";
 import { GeoJSON } from "geojson";
 import Pbf = require("pbf");
 
-geobuf.decode(new Pbf(Uint8Array.from([]))); // $ExpectType GeoJSON
+geobuf.decode(new Pbf(Uint8Array.from([]))); // $ExpectType GeoJSON || GeoJSON<Geometry, GeoJsonProperties>
 const geojson: GeoJSON = {
     type: "Feature",
     properties: {},
@@ -11,4 +11,4 @@ const geojson: GeoJSON = {
         coordinates: [-127, 19],
     },
 };
-geobuf.encode(geojson, new Pbf()); // $ExpectType Uint8Array
+geobuf.encode(geojson, new Pbf()); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>

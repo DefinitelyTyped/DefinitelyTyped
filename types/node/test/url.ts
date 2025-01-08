@@ -82,6 +82,37 @@ import * as url from "node:url";
     myURL = new url.URL("/foo", "https://example.org/");
     assert.equal(myURL.href, "https://example.org/foo");
     assert.equal(myURL.toJSON(), myURL.href);
+
+    myURL = new url.URL("https://example.org");
+    myURL = new url.URL(myURL);
+    assert.equal(myURL.hash, "");
+    assert.equal(myURL.host, "example.org");
+    assert.equal(myURL.hostname, "example.org");
+    assert.equal(myURL.href, "https://example.org/");
+    assert.equal(myURL.origin, "https://example.org");
+    assert.equal(myURL.password, "");
+    assert.equal(myURL.username, "");
+    assert.equal(myURL.pathname, "/");
+    assert.equal(myURL.port, "");
+    assert.equal(myURL.protocol, "https:");
+    assert.equal(myURL.search, "");
+    assert.equal(myURL.toJSON(), myURL.href);
+    assert(myURL.searchParams instanceof url.URLSearchParams);
+
+    myURL = new url.URL({ toString: () => "https://example.org" });
+    assert.equal(myURL.hash, "");
+    assert.equal(myURL.host, "example.org");
+    assert.equal(myURL.hostname, "example.org");
+    assert.equal(myURL.href, "https://example.org/");
+    assert.equal(myURL.origin, "https://example.org");
+    assert.equal(myURL.password, "");
+    assert.equal(myURL.username, "");
+    assert.equal(myURL.pathname, "/");
+    assert.equal(myURL.port, "");
+    assert.equal(myURL.protocol, "https:");
+    assert.equal(myURL.search, "");
+    assert.equal(myURL.toJSON(), myURL.href);
+    assert(myURL.searchParams instanceof url.URLSearchParams);
 }
 
 {
@@ -156,11 +187,17 @@ import * as url from "node:url";
 
 {
     let path: string = url.fileURLToPath("file://test");
+    path = url.fileURLToPath("file://test", { windows: false });
+    path = url.fileURLToPath("file://test", { windows: true });
     path = url.fileURLToPath(new url.URL("file://test"));
+    path = url.fileURLToPath(new url.URL("file://test"), { windows: false });
+    path = url.fileURLToPath(new url.URL("file://test"), { windows: true });
 }
 
 {
-    const path: url.URL = url.pathToFileURL("file://test");
+    let path: url.URL = url.pathToFileURL("file://test");
+    path = url.pathToFileURL("file://test", { windows: false });
+    path = url.pathToFileURL("file://test", { windows: true });
 }
 
 {
@@ -174,4 +211,12 @@ import * as url from "node:url";
     const dataUrl2: url.URL = new URL("file://test");
     const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
     const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
+}
+
+{
+    const isValid = url.URL.canParse("/foo", "https://example.org/");
+    isValid; // $ExpectType boolean
+
+    const parsedUrl = url.URL.parse("/foo", "https://example.org/");
+    parsedUrl; // $ExpectType URL | null
 }

@@ -1,6 +1,6 @@
-import { Color } from '../../math/Color.js';
-import { Vector2 } from '../../math/Vector2.js';
-import { Matrix3 } from '../../math/Matrix3.js';
+import { Color } from "../../math/Color.js";
+import { Matrix3 } from "../../math/Matrix3.js";
+import { Vector2 } from "../../math/Vector2.js";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IUniform<TValue = any> {
@@ -23,6 +23,7 @@ export const UniformsLib: {
     };
     envmap: {
         envMap: IUniform<unknown>;
+        envMapRotation: IUniform<Matrix3>;
         flipEnvMap: IUniform<number>;
         reflectivity: IUniform<number>;
         ior: IUniform<number>;
@@ -88,6 +89,7 @@ export const UniformsLib: {
         directionalLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -111,6 +113,7 @@ export const UniformsLib: {
         spotLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -132,6 +135,7 @@ export const UniformsLib: {
         pointLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};

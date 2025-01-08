@@ -1,7 +1,6 @@
 import { GLSL, Node, Shaders } from "gl-react";
 import { Surface } from "gl-react-headless";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 const shaders = Shaders.create({
     Test: {
@@ -24,4 +23,3 @@ const App = () => (
 
 const element = document.createElement("div");
 document.body.appendChild(element);
-ReactDOM.render(<App />, element);

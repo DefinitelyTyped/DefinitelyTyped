@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/resolve-path": "workspace:."
     },
-    "owners": [
-        {
-            "name": "fer22f",
-            "githubUsername": "fer22f"
-        }
-    ]
+    "owners": []
 }

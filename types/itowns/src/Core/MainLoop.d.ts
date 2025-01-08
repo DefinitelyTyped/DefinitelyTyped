@@ -17,14 +17,14 @@ export enum MAIN_LOOP_EVENTS {
 }
 
 // TODO: THREE.Event or MAIN_LOOP_EVENTS?
-// TODO: Missing types
 // TODO: Usefulness of THREE.EventDispatcher?
-export default class MainLoop extends THREE.EventDispatcher {
-    constructor(scheduler: any, engine: any);
-
+declare class MainLoop extends THREE.EventDispatcher {
     renderingState: RenderingState;
-    scheduler: any;
-    gfxEngine: any;
+    scheduler: any; // TODO
+    gfxEngine: any; // TODO
 
     scheduleViewUpdate(view: View, forceRedraw: boolean): void;
+    // step(view: any, timestamp: number): void; // TODO
 }
+
+export default MainLoop;

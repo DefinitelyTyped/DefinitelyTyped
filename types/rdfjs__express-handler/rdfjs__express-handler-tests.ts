@@ -1,8 +1,8 @@
 import express = require("express");
 import rdfHandler from "@rdfjs/express-handler";
 import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { DatasetCore, DatasetCoreFactory, Stream } from "rdf-js";
 
 const factory: DatasetCoreFactory = <any> {};
 const formats: {
@@ -21,6 +21,10 @@ app.use(rdfHandler({
 
 app.use(rdfHandler({
     baseIriFromRequest: true,
+}));
+
+app.use(rdfHandler({
+    sendTriples: true,
 }));
 
 app.use(rdfHandler({

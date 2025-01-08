@@ -1,8 +1,4 @@
-import * as PropTypes from "prop-types";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import * as DOM from "react-dom-factories";
-import * as ReactDOMServer from "react-dom/server";
 import "trusted-types";
 
 // NOTE: forward declarations for tests
@@ -32,18 +28,14 @@ interface Context {
     someValue?: string | null | undefined;
 }
 
-interface ChildContext {
-    someOtherValue: string;
-}
-
 interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-// use any for ClassAttribute type sine we're using string refs
+// use any for ClassAttribute type since we're using refs
 const props: Props & React.ClassAttributes<any> = {
     key: 42,
-    ref: "myComponent42",
+    ref: React.createRef(),
     hello: "world",
     foo: 42,
 };
@@ -85,6 +77,14 @@ declare const container: Element;
         }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        constructor(props: Props) {
+            super(props);
+            // This should ideally error since `props` should not be mutated, but it doesn't.
+            props.foo = 2;
+            // @ts-expect-error
+            this.props = { type: "foo" };
+        }
+
         render() {
             return null;
         }
@@ -120,32 +120,21 @@ declare const container: Element;
             };
         }
     }
+
+    class InferredConstructorProps extends React.Component<{ value: string }> {
+        // @ts-expect-error ts(7006) Ideally, this would infer the props type from the type parameter but has implicit any.
+        constructor(props) {
+            super(props);
+        }
+    }
 }
 
-class ModernComponent extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext>
-{
-    static propTypes: React.ValidationMap<Props> = {
-        hello: PropTypes.string.isRequired,
-        world: PropTypes.string,
-        foo: PropTypes.number.isRequired,
-    };
+class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
+    // deprecated. Kept for backwards compatibility.
+    static propTypes = {};
 
-    static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string,
-    };
-
-    static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string.isRequired,
-    };
-
+    contextType: React.Context<Context>;
     context: Context = {};
-
-    getChildContext() {
-        return {
-            someOtherValue: "foo",
-        };
-    }
 
     state = {
         inputValue: this.context.someValue,
@@ -164,13 +153,14 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
     private _input: HTMLInputElement | null;
 
     render() {
-        return DOM.div(
+        return React.createElement(
+            "div",
             null,
-            DOM.input({
+            React.createElement("input", {
                 ref: input => this._input = input,
                 value: this.state.inputValue ? this.state.inputValue : undefined,
             }),
-            DOM.input({
+            React.createElement("input", {
                 onChange: event => console.log(event.target),
             }),
         );
@@ -187,7 +177,10 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
 
 class ModernComponentArrayRender extends React.Component<Props> {
     render() {
-        return [DOM.h1({ key: "1" }, "1"), DOM.h1({ key: "2" }, "2")];
+        return [
+            React.createElement("h1", { key: "1" }, "1"),
+            React.createElement("h1", { key: "2" }, "2"),
+        ];
     }
 }
 
@@ -199,34 +192,19 @@ interface SCProps {
 }
 
 function FunctionComponent(props: SCProps) {
-    return props.foo ? DOM.div(null, props.foo) : null;
+    return props.foo ? React.createElement("div", null, props.foo) : null;
 }
-
-// tslint:disable-next-line:no-namespace
-namespace FunctionComponent {
-    export const displayName = "FunctionComponent";
-    export const defaultProps = { foo: 42 };
-}
+FunctionComponent.displayName = "FunctionComponent";
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
-    props => DOM.div(null, props.foo);
+    props => React.createElement("div", null, props.foo);
 FunctionComponent2.displayName = "FunctionComponent2";
-FunctionComponent2.defaultProps = {
-    foo: 42,
-};
 
-// React.createFactory
-const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> = factory(props);
+// allows null as props
+const FunctionComponent4: React.FunctionComponent = props => null;
 
-const functionComponentFactory: React.FunctionComponentFactory<SCProps> = React.createFactory(FunctionComponent);
-const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> = functionComponentFactory(props);
-
-const legacyStatelessComponentFactory: React.SFCFactory<SCProps> = React.createFactory(FunctionComponent);
-
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> = React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> = domFactory();
+const FunctionComponent5: React.FunctionComponent = () => false;
 
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
@@ -261,6 +239,15 @@ const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(Rea
     React.createElement("div"),
     React.createElement("div"),
 ]);
+// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
+const myElement = React.createElement(
+    class ComponentWithCustomInstanceMethods extends React.Component {
+        customInstanceMethod = () => "Dave";
+        render() {
+            return null;
+        }
+    },
+);
 
 const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
@@ -278,9 +265,13 @@ const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
+// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
+React.cloneElement(myElement);
 
 const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
-    ref: c => c && c.reset(),
+    ref: c => {
+        c && c.reset();
+    },
 });
 const clonedElement3: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
     key: "8eac7",
@@ -306,23 +297,9 @@ const clonedSvgElement: React.ReactSVGElement = React.cloneElement(svgElement, {
     className: "clonedVGElement",
 });
 
-// React.render
-const component: ModernComponent = ReactDOM.render(element, container);
-const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
-
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
-const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const domComponent: Element = ReactDOM.render(domElement, container);
-
 // Other Top-Level API
-const unmounted: boolean = ReactDOM.unmountComponentAtNode(container);
-const str: string = ReactDOMServer.renderToString(element);
-const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode as Element);
 const fragmentType: React.ComponentType = React.Fragment;
 
 // React.Profiler
@@ -349,6 +326,8 @@ const key = element.key;
 // Component API
 // --------------------------------------------------------------------------
 
+declare const component: InstanceType<typeof ModernComponent>;
+
 // modern
 const componentState: State = component.state;
 component.setState({ inputValue: "!!!" });
@@ -364,24 +343,33 @@ myComponent.reset();
 interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {
-    static create = React.createFactory(RefComponent);
+    static create(props: React.ClassAttributes<RefComponent>) {
+        return React.createElement(RefComponent);
+    }
     refMethod() {
     }
 }
 
 let componentRef: RefComponent | null = new RefComponent({});
-RefComponent.create({ ref: "componentRef" });
+RefComponent.create({
+    // @ts-expect-error -- string refs are no longer supported
+    ref: "componentRef",
+});
 // type of c should be inferred
-RefComponent.create({ ref: c => componentRef = c });
+RefComponent.create({
+    ref: c => {
+        componentRef = c;
+    },
+});
 componentRef.refMethod();
 
 let domNodeRef: Element | null;
-DOM.div({ ref: "domRef" });
+React.createElement("div", { ref: "domRef" });
 // type of node should be inferred
-DOM.div({ ref: node => domNodeRef = node });
+React.createElement("div", { ref: node => domNodeRef = node });
 
 let inputNodeRef: HTMLInputElement | null;
-DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
+React.createElement("input", { ref: node => inputNodeRef = node as HTMLInputElement });
 
 interface ForwardingRefComponentProps {
     hello: string;
@@ -399,19 +387,49 @@ const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React
 };
 React.forwardRef(ForwardRefRenderFunction);
 
-const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
-ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
+const ForwardRefRenderFunctionWithInferrence: React.ForwardRefExoticComponent<
+    ForwardingRefComponentProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef(
+    (
+        // $ExpectType Omit<ForwardingRefComponentProps & RefAttributes<HTMLDivElement>, "ref">
+        props,
+        // $ExpectType ForwardedRef<HTMLDivElement>
+        ref,
+    ) => null,
+);
+
+const ForwardRefRenderFunctionWithInferrence2: React.ComponentType<
+    ForwardingRefComponentProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef(
+    (
+        // $ExpectType Omit<ForwardingRefComponentProps & RefAttributes<HTMLDivElement>, "ref">
+        props,
+        // $ExpectType ForwardedRef<HTMLDivElement>
+        ref,
+    ) => null,
+);
+
+const ForwardRefRenderFunctionWithInferrence3: React.ComponentType<
+    ForwardingRefComponentProps & { ref: React.Ref<HTMLDivElement> }
+> = React.memo(
+    React.forwardRef(
+        (
+            // $ExpectType Omit<ForwardingRefComponentProps & { ref: Ref<HTMLDivElement>; }, "ref">
+            props,
+            // $ExpectType ForwardedRef<HTMLDivElement>
+            ref,
+        ) => null,
+    ),
+);
+
+// deprecated. Kept for backwards compatibility.
+ForwardingRefComponent.propTypes = {};
 
 // render function tests
-// need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null; propTypes?: {} | undefined } = () => null;
-// Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
-React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
-
 const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
+// Ideally this would error but since `defaultProps` is removed, it becomes an excess property.
+// Excess properties are generally allowed in TypeScript.
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
@@ -435,8 +453,11 @@ const ForwardingRefComponent2 = React.forwardRef<HTMLElement>((props, ref) => {
         ref(e: HTMLDivElement) {
             if (typeof ref === "function") {
                 ref(e);
-            } else if (ref) {
+            } else if (typeof ref === "object" && ref !== null) {
                 ref.current = e;
+            } else {
+                // $ExpectType null
+                ref;
             }
         },
     });
@@ -458,14 +479,14 @@ type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType
 // Attributes
 // --------------------------------------------------------------------------
 
-const children: any[] = ["Hello world", [null], DOM.span(null)];
+const children: any[] = ["Hello world", [null], React.createElement("span")];
 const divStyle: React.CSSProperties = { // CSSProperties
     flex: "1 1 main-size",
     backgroundImage: "url('hello.png')",
 };
 const htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
-    ref: "htmlComponent",
+    ref: React.createRef(),
     children,
     className: "test-attr",
     style: divStyle,
@@ -507,16 +528,17 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     "aria-label": "test",
     "aria-relevant": "additions removals",
 };
-DOM.div(htmlAttr);
-DOM.span(htmlAttr);
-DOM.input(htmlAttr);
+React.createElement("div", htmlAttr);
+React.createElement("span", htmlAttr);
+React.createElement("input", htmlAttr);
 
-DOM.svg(
+React.createElement(
+    "svg",
     {
         viewBox: "0 0 48 48",
         xmlns: "http://www.w3.org/2000/svg",
     },
-    DOM.rect({
+    React.createElement("rect", {
         className: "foobar",
         id: "foo",
         color: "black",
@@ -527,7 +549,7 @@ DOM.svg(
         strokeDasharray: "30%",
         strokeDashoffset: "20%",
     }),
-    DOM.rect({
+    React.createElement("rect", {
         x: 10,
         y: 22,
         width: 28,
@@ -535,7 +557,7 @@ DOM.svg(
         strokeDasharray: 30,
         strokeDashoffset: 20,
     }),
-    DOM.path({
+    React.createElement("path", {
         d: "M0,0V3H3V0ZM1,1V2H2V1Z",
         fill: "#999999",
         fillRule: "evenodd",
@@ -551,8 +573,8 @@ const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
         __html: trustedHtml,
     },
 };
-DOM.div(trustedTypesHTMLAttr);
-DOM.span(trustedTypesHTMLAttr);
+React.createElement("div", trustedTypesHTMLAttr);
+React.createElement("span", trustedTypesHTMLAttr);
 
 //
 // React.Children
@@ -563,16 +585,16 @@ const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
 const mappedChildrenArrayWithKnownChildren: number[] = React.Children.map(childrenArray, child => child.props.p);
 React.Children.forEach(children, child => {});
 const nChildren: number = React.Children.count(children);
-let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
+let onlyChild: React.ReactElement = React.Children.only(React.createElement("div")); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined>> = React.Children.toArray(children);
 
 declare const numberChildren: number[];
 declare const nodeChildren: React.ReactNode;
-declare const elementChildren: JSX.Element[];
-declare const mixedChildren: Array<JSX.Element | string>;
-declare const singlePluralChildren: JSX.Element | JSX.Element[];
-declare const renderPropsChildren: () => JSX.Element;
+declare const elementChildren: React.JSX.Element[];
+declare const mixedChildren: Array<React.JSX.Element | string>;
+declare const singlePluralChildren: React.JSX.Element | React.JSX.Element[];
+declare const renderPropsChildren: () => React.JSX.Element;
 
 // $ExpectType null
 const mappedChildrenArray0 = React.Children.map(null, num => num);
@@ -616,7 +638,7 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
         this.state = { value: "a" };
     }
     render() {
-        return DOM.textarea({
+        return React.createElement("textarea", {
             value: this.state.value,
             onChange: e => {
                 const target: HTMLTextAreaElement = e.target;
@@ -625,7 +647,7 @@ class SyntheticEventTargetValue extends React.Component<{}, { value: string }> {
     }
 }
 
-DOM.input({
+React.createElement("input", {
     onChange: event => {
         // `event.target` is guaranteed to be HTMLInputElement
         const target: HTMLInputElement = event.target;
@@ -703,8 +725,41 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const promise: React.ReactNode = Promise.resolve("React");
+
+    const asyncTests = async function asyncTests() {
+        const node: Awaited<React.ReactNode> = await Promise.resolve("React");
+    };
+
+    class RenderProps extends React.Component<{ children: React.ReactNode | ((data: string) => React.ReactNode) }> {
+        render() {
+            const { children } = this.props;
+            if (typeof children === "function") {
+                return children("data");
+            } else {
+                return children;
+            }
+        }
+    }
+    React.createElement(RenderProps, {
+        children: data => {
+            // $ExpectType string
+            data;
+            return null;
+        },
+    });
+    const RenderableContext = React.createContext<React.ReactNode>("HAL");
+    const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Should be supported.
+    let node: React.ReactNode = RenderableContext;
+    // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
+    node = NestedContext;
+
+    const NotRenderableContext = React.createContext(() => {});
+    // @ts-expect-error
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
@@ -722,6 +777,8 @@ React.createElement(Memoized2, { bar: "string" });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
+// deprecated. Kept for backwards compatibility.
+functionComponent.propTypes = {};
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
@@ -763,14 +820,19 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext) => {
         // $ExpectType any
         legacyContext;
         return null;
     };
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext: { foo: number }) => null;
+
+    // @ts-expect-error -- legacy context was removed
     Wrapper = class Exact extends React.Component<ExactProps> {
         constructor(props: ExactProps, legacyContext: { foo: number }) {
+            // @ts-expect-error -- legacy context was removed
             super(props, legacyContext);
         }
     };
@@ -797,4 +859,169 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
         // @ts-expect-error
         notImplemented: 5,
     };
+}
+
+function propsInferenceHelpersTests() {
+    const divRef: React.Ref<HTMLDivElement> = React.createRef();
+
+    function FunctionComponent(props: { value: string; optional?: number; ref: React.Ref<HTMLDivElement> }) {
+        return null;
+    }
+    const functionComponentProps: React.ComponentProps<typeof FunctionComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const functionComponentPropsWithRef: React.ComponentPropsWithRef<typeof FunctionComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const functionComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof FunctionComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedFunctionComponentProps extends React.ComponentPropsWithRef<typeof FunctionComponent> {
+        ref: React.Ref<HTMLDivElement>;
+        optional?: number;
+        value: string;
+    }
+
+    class ClassComponent extends React.Component<{ value: string; optional?: number }> {
+        render() {
+            return null;
+        }
+    }
+    const badClassComponentProps: React.ComponentProps<typeof ClassComponent> = {
+        // @ts-expect-error ts(2353) No ref typed currently.
+        ref: React.createRef<InstanceType<typeof ClassComponent>>(),
+        value: "string",
+    };
+    const classComponentProps: React.ComponentProps<typeof ClassComponent> = {
+        value: "string",
+    };
+    const classComponentPropsWithRef: React.ComponentPropsWithRef<typeof ClassComponent> = {
+        ref: React.createRef<InstanceType<typeof ClassComponent>>(),
+        value: "string",
+    };
+    const badClassComponentPropsWithRef: React.ComponentPropsWithRef<typeof ClassComponent> = {
+        // @ts-expect-error ts(2322) Wrong ref type
+        ref: (current: string) => {},
+        value: "string",
+    };
+    const classComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof ClassComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedClassComponentProps extends React.ComponentPropsWithRef<typeof ClassComponent> {
+        ref: React.Ref<InstanceType<typeof ClassComponent>>;
+        optional?: number;
+        value: string;
+    }
+
+    const ForwardRefComponent = React.forwardRef<HTMLDivElement, { value: string; optional?: number }>((props, ref) => {
+        return null;
+    });
+    const badForwardRefComponentProps: React.ComponentProps<typeof ForwardRefComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const forwardRefComponentProps: React.ComponentProps<typeof ForwardRefComponent> = {
+        value: "string",
+    };
+    const forwardRefComponentPropsWithRef: React.ComponentPropsWithRef<typeof ForwardRefComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const badForwardRefComponentPropsWithRef: React.ComponentPropsWithRef<typeof ForwardRefComponent> = {
+        // FIXME: Should be an error.
+        ref: (current: string) => {},
+        value: "string",
+    };
+    const forwardRefComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof ForwardRefComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedForwardRefComponentProps extends React.ComponentPropsWithRef<typeof ForwardRefComponent> {
+        ref: React.Ref<InstanceType<typeof ClassComponent>>;
+        optional?: number;
+        value: string;
+    }
+
+    type UnionProps = { type: string } & ({ value: string } | { children: string });
+    class UnionPropsClassComponent extends React.Component<UnionProps> {
+        render() {
+            return null;
+        }
+    }
+    function UnionPropsFunctionComponent(props: UnionProps) {
+        return null;
+    }
+    const UnionPropsForwardRefComponent = React.forwardRef<HTMLDivElement, UnionProps>((props, ref) => {
+        return null;
+    });
+
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentProps = React.ComponentProps<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps & RefAttributes<UnionPropsClassComponent>
+    type UnionPropsClassComponentPropsWithRef = React.ComponentPropsWithRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentPropsWithoutRef = React.ComponentPropsWithoutRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentProps = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentProps = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+}
+
+// act()
+{
+    // act() exposed from react
+    React.act(() => null);
+
+    React.act(() => {});
+    {
+        const result = React.act(() => "value");
+        result.then(x => {});
+    }
+    {
+        // tslint:disable-next-line no-void-expression
+        const result = React.act(() => {});
+        // @ts-expect-error
+        result.then;
+    }
+    const asyncCallbacks = async () => {
+        await React.act(async () => {});
+        await React.act(async () => null);
+        await React.act(async () => "value");
+        {
+            const result = React.act(async () => {});
+            result.then(x => {});
+        }
+    };
+}
+
+function cacheTest() {
+    const getLength = React.cache((a: string) => a.length);
+    const fooLength: number = getLength("foo");
+    getLength(
+        // @ts-expect-error -- number not assignable to string
+        133,
+    );
+
+    React.cache(
+        // @ts-expect-error implicit any
+        a => a,
+    );
 }

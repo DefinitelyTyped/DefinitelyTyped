@@ -1,4 +1,4 @@
-import { Mesh, Object3D, Vector3 } from '../../../src/Three.js';
+import { Mesh, Object3D, Vector3 } from "three";
 
 export interface AmmoPhysicsObject {
     addScene: (scene: Object3D) => void;

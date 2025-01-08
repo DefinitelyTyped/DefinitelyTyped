@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/applepayjs",
     "version": "14.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "applepayjs",
     "projects": [
         "https://developer.apple.com/reference/applepayjs"
     ],

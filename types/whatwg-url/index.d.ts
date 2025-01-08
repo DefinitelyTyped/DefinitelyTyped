@@ -18,6 +18,8 @@ export type IPv6Address = [number, number, number, number, number, number, numbe
 export class URL {
     constructor(url: string, base?: string | URL);
 
+    static canParse(url: string, base?: string): boolean;
+
     get href(): string;
     set href(V: string);
 
@@ -67,11 +69,12 @@ export class URLSearchParams {
             | string,
     );
 
+    get size(): number;
     append(name: string, value: string): void;
-    delete(name: string): void;
+    delete(name: string, value?: string): void;
     get(name: string): string | null;
     getAll(name: string): string[];
-    has(name: string): boolean;
+    has(name: string, value?: string): boolean;
     set(name: string, value: string): void;
     sort(): void;
 
@@ -88,13 +91,13 @@ export class URLSearchParams {
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(input: string, options?: { readonly baseURL?: string | undefined }): URLRecord | null;
+export function parseURL(input: string, options?: { readonly baseURL?: URLRecord | undefined }): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
-        baseURL?: string | undefined;
+        baseURL?: URLRecord | undefined;
         url?: URLRecord | undefined;
         stateOverride?: StateOverride | undefined;
     },
@@ -154,7 +157,7 @@ export function cannotHaveAUsernamePasswordPort(urlRecord: URLRecord): boolean;
 /** https://url.spec.whatwg.org/#percent-decode */
 export function percentDecodeBytes(buffer: TypedArray): Uint8Array;
 
-/** https://url.spec.whatwg.org/#percent-decode-string */
+/** https://url.spec.whatwg.org/#string-percent-decode */
 export function percentDecodeString(string: string): Uint8Array;
 
 export type TypedArray =

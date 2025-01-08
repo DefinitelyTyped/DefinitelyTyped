@@ -24,5 +24,6 @@ declare namespace GorillaEngine.UI {
     class BarStepEditor extends Component {
         constructor(options: Partial<BarStepEditorProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface BarStepEditor extends BarStepEditorProps {}
 }

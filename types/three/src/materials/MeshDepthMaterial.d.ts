@@ -1,6 +1,6 @@
-import { DepthPackingStrategies } from '../constants.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Texture } from '../textures/Texture.js';
+import { DepthPackingStrategies } from "../constants.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshDepthMaterialParameters extends MaterialParameters {
     map?: Texture | null | undefined;
@@ -21,11 +21,6 @@ export class MeshDepthMaterial extends Material {
      * @defaultValue `true`
      */
     readonly isMeshDepthMaterial: true;
-
-    /**
-     * @default 'MeshDepthMaterial'
-     */
-    type: string;
 
     /**
      * @default null
@@ -66,11 +61,6 @@ export class MeshDepthMaterial extends Material {
      * @default 1
      */
     wireframeLinewidth: number;
-
-    /**
-     * @default false
-     */
-    fog: boolean;
 
     setValues(parameters: MeshDepthMaterialParameters): void;
 }

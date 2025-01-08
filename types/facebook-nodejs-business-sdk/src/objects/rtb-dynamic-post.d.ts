@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * RTBDynamicPost
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -18,11 +18,7 @@ export default class RTBDynamicPost extends AbstractCrudObject {
         product_id: "product_id";
         title: "title";
     }>;
-    getComments(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getComments(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<RTBDynamicPost>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<RTBDynamicPost>;
 }

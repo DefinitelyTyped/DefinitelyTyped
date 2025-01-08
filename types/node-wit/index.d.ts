@@ -43,6 +43,7 @@ export interface WitOption {
     accessToken: string;
     actions?: any;
     logger?: log.Logger | undefined;
+    apiVersion?: number | undefined;
 }
 
 export interface MessageResponseEntity {
@@ -61,7 +62,7 @@ export interface MessageResponse {
     text: string;
     intents: WitIntent[];
     entities: any;
-    traits: any;
+    traits: { [key: string]: MessageResponseEntity[] };
 }
 
 export class Wit {

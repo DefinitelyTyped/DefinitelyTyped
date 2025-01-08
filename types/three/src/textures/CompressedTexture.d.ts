@@ -1,13 +1,19 @@
-import { Texture } from './Texture.js';
 import {
-    Mapping,
-    Wrapping,
     CompressedPixelFormat,
-    TextureDataType,
     MagnificationTextureFilter,
+    Mapping,
     MinificationTextureFilter,
-    ColorSpace,
-} from '../constants.js';
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
+import { Texture } from "./Texture.js";
+
+export interface CompressedTextureMipmap {
+    data: TypedArray;
+    width: number;
+    height: number;
+}
 
 /**
  * Creates a texture based on data in compressed form, for example from a {@link https://en.wikipedia.org/wiki/DirectDraw_Surface | DDS} file.
@@ -18,8 +24,8 @@ import {
 export class CompressedTexture extends Texture {
     /**
      * This creates a new {@link THREE.CompressedTexture | CompressedTexture} object.
-     * @param mipmaps The mipmaps array should contain objects with data, width and height.
-     * The mipmaps should be of the correct {@link format} and {@link type}. See {@link THREE.mipmaps}.
+     * @param mipmaps The mipmaps array should contain objects with data, width and height. The mipmaps should be of the
+     * correct format and type.
      * @param width The width of the biggest mipmap.
      * @param height The height of the biggest mipmap.
      * @param format The format used in the mipmaps. See {@link THREE.CompressedPixelFormat}.
@@ -33,10 +39,10 @@ export class CompressedTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        mipmaps: ImageData[],
-        width: number,
-        height: number,
-        format: CompressedPixelFormat,
+        mipmaps?: CompressedTextureMipmap[],
+        width?: number,
+        height?: number,
+        format?: CompressedPixelFormat,
         type?: TextureDataType,
         mapping?: Mapping,
         wrapS?: Wrapping,
@@ -44,7 +50,7 @@ export class CompressedTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -62,9 +68,10 @@ export class CompressedTexture extends Texture {
     set image(value: { width: number; height: number });
 
     /**
-     *  The mipmaps array should contain objects with data, width and height. The mipmaps should be of the correct {@link format} and {@link type}.
+     *  The mipmaps array should contain objects with data, width and height. The mipmaps should be of the correct
+     *  format and type.
      */
-    mipmaps: ImageData[];
+    mipmaps: CompressedTextureMipmap[] | undefined;
 
     /**
      * @override

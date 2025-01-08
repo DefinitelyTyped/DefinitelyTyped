@@ -60,6 +60,11 @@ declare namespace mapkit {
          * labels, controls, directions, and other text.
          */
         language?: string | undefined;
+
+        /**
+         * An array of strings specifying the MapKit JS libraries to load at initialization.
+         */
+        libraries?: readonly string[] | undefined;
     }
 
     /**
@@ -228,6 +233,10 @@ declare namespace mapkit {
              * A constant indicating a dark color scheme.
              */
             readonly Dark: string;
+            /**
+             * A constant indicating a color scheme that follows the current system setting.
+             */
+            readonly Adaptive: string;
         };
         /**
          * Constants representing the type of map to display.
@@ -576,6 +585,17 @@ declare namespace mapkit {
          * A Boolean value that determines whether the user location control is visible.
          */
         showsUserLocationControl?: boolean | undefined;
+
+        /**
+         * A value used to control how MapKit JS prioritizes loading map features. This
+         * can be used to optimize the user's initial map loading experience.
+         *
+         * Valid values include:
+         *  * `mapkit.Map.LoadPriorities.LandCover`: Prioritizes map tiles, land cover, and borders.
+         *  * `mapkit.Map.LoadPriorities.PointsOfInterest`: Prioritizes points of interest (POIs).
+         *  * `mapkit.Map.LoadPriorities.None`: No special prioritization.
+         */
+        loadPriority?: string | null;
     }
 
     /**
@@ -1350,11 +1370,12 @@ declare namespace mapkit {
          * @param options An object literal of options with which to initialize the
          * polygon.
          */
-        constructor(points: Coordinate[], options?: StylesOverlayOptions);
+        constructor(points: Coordinate[] | Coordinate[][], options?: StylesOverlayOptions);
         /**
          * One or more arrays of coordinates that define the polygon overlay shape.
          */
-        points: Coordinate[];
+        get points(): Coordinate[][];
+        set points(points: Coordinate[] | Coordinate[][]);
     }
 
     interface OverlayOptions {

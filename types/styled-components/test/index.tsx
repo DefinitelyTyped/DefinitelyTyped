@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 
 import styled, {
@@ -496,8 +495,12 @@ const ComponentWithTheme = withTheme(Component);
 <ThemeConsumer>{theme => <Component text="hi" theme={theme} />}</ThemeConsumer>;
 
 // should consider default props of a component
-const ComponentWithDefaultProps = ({ text }: WithThemeProps) => <div>{text}</div>;
-ComponentWithDefaultProps.defaultProps = { text: "hi" };
+class ComponentWithDefaultProps extends React.Component<WithThemeProps> {
+    static defaultProps = { text: "hi" };
+    render() {
+        return <div>{this.props.text}</div>;
+    }
+}
 const ComponentWithDefaultPropsAndTheme = withTheme(ComponentWithDefaultProps);
 <ComponentWithDefaultPropsAndTheme />;
 
@@ -546,10 +549,10 @@ const element = (
 
 const css2 = sheet2.getStyleElement();
 
-// Wrapping a node stream returned from renderToNodeStream with interleaveWithNodeStream
+// Wrapping a node stream returned from renderToPipeableStream with interleaveWithNodeStream
 
 const sheet3 = new ServerStyleSheet();
-const appStream = ReactDOMServer.renderToNodeStream(<Title>Hello world</Title>);
+const appStream = ReactDOMServer.renderToPipeableStream(<Title>Hello world</Title>);
 const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(appStream);
 
 /**
@@ -1137,25 +1140,6 @@ function validateDefaultProps() {
     // still respects the type of optionalProp
     // @ts-expect-error
     <StyledComponent requiredProp optionalProp={1} />;
-
-    // example of a simple helper that sets defaultProps and update the type
-    type WithDefaultProps<C, D> = C & { defaultProps: D };
-    function withDefaultProps<C, D>(component: C, defaultProps: D): WithDefaultProps<C, D> {
-        (component as WithDefaultProps<C, D>).defaultProps = defaultProps;
-        return component as WithDefaultProps<C, D>;
-    }
-
-    const OtherStyledComponent = withDefaultProps(
-        styled(MyComponent)`
-            color: red;
-        `,
-        { requiredProp: true },
-    );
-
-    <OtherStyledComponent />;
-
-    // @ts-expect-error
-    <OtherStyledComponent requiredProp="1" />;
 }
 
 interface WrapperProps {

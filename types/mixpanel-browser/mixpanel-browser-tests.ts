@@ -26,6 +26,18 @@ mixpanel.init("token", {
         groups: "",
     },
 });
+mixpanel.init("token", {
+    track_pageview: true,
+});
+mixpanel.init("token", {
+    track_pageview: "url-with-path",
+});
+mixpanel.init("token", {
+    track_pageview: "url-with-path-and-query-string",
+});
+mixpanel.init("token", {
+    track_pageview: "full-url",
+});
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();
 mixpanel.track("Registered", { Gender: "Male", Age: 21 });
@@ -95,6 +107,12 @@ mixpanel.init("YOUR PROJECT TOKEN", {
         const user_id = mixpanel.get_property("user_id");
     },
 });
+mixpanel.init("token", {
+    record_sessions_percent: 50,
+});
+mixpanel.start_session_recording();
+mixpanel.stop_session_recording();
+mixpanel.get_session_recording_properties();
 mixpanel.opt_in_tracking();
 mixpanel.opt_in_tracking({
     track_event_name: "User opted in",

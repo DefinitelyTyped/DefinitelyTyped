@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es6",
         "lib": [
             "es6"
@@ -21,6 +21,7 @@
         "test/ie.ts",
         "test/index.ts",
         "test/chrome.ts",
+        "test/chromium.ts",
         "test/edge.ts",
         "test/firefox.ts",
         "test/remote.ts",
@@ -29,6 +30,10 @@
         "test/session.ts",
         "test/virtual_authenticator.ts",
         "test/util.ts",
-        "test/error.ts"
+        "test/error.ts",
+        "test/bidi/urlPattern.ts",
+        "test/bidi/addInterceptParameters.ts",
+        "test/bidi/scriptTypes.ts",
+        "test/bidi/remoteValue.ts"
     ]
 }

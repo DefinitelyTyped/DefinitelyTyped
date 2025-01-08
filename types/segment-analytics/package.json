@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/segment-analytics",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "segment-analytics",
     "projects": [
         "https://segment.com/docs/libraries/analytics.js/"
     ],

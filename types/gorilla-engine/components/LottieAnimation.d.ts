@@ -32,5 +32,6 @@ declare namespace GorillaEngine.UI {
     class LottieAnimation extends Component {
         constructor(options: Partial<LottieAnimationProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface LottieAnimation extends LottieAnimationProps {}
 }

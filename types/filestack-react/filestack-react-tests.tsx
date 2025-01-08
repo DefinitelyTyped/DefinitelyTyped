@@ -1,10 +1,14 @@
-import type { ClientOptions, PickerFileMetadata, PickerOptions } from "filestack-js";
+import type { ClientOptions, PickerFileMetadata, PickerOptions, PickerResponse } from "filestack-js";
 import { client, PickerDropPane, PickerInline, PickerOverlay } from "filestack-react";
 import * as React from "react";
 
 const mockClientOptions: ClientOptions = {};
 const mockPickerOptions: PickerOptions = {};
 const mockApiKey = "API_KEY";
+
+const mockOnUploadDone = (result: PickerResponse) => {
+    /* do nothing */
+};
 
 const mockAction = (result: PickerFileMetadata) => {
     /* do nothing */
@@ -16,7 +20,7 @@ export const MockInline = () => (
         pickerOptions={mockPickerOptions}
         clientOptions={mockClientOptions}
         onSuccess={mockAction}
-        onUploadDone={mockAction}
+        onUploadDone={mockOnUploadDone}
         onError={mockAction}
     />
 );
@@ -27,7 +31,7 @@ export const MockOverlay = () => (
         pickerOptions={mockPickerOptions}
         clientOptions={mockClientOptions}
         onSuccess={mockAction}
-        onUploadDone={mockAction}
+        onUploadDone={mockOnUploadDone}
         onError={mockAction}
     />
 );
@@ -38,7 +42,7 @@ export const MockDropPane = () => (
         pickerOptions={mockPickerOptions}
         clientOptions={mockClientOptions}
         onSuccess={mockAction}
-        onUploadDone={mockAction}
+        onUploadDone={mockOnUploadDone}
         onError={mockAction}
     />
 );

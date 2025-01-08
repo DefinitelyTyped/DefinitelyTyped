@@ -1,14 +1,14 @@
 declare global {
-    const Access: Poool.Access;
-    const Audit: Poool.Audit;
+    var Access: Poool.Access;
+    var Audit: Poool.Audit;
     /**
      * Use PooolAccess just if you have done `Access.noConflict()` before
      */
-    const PooolAccess: Poool.Access;
+    var PooolAccess: Poool.Access;
     /**
      * Use PooolAudit just if you have done `Audit.noConflict()` before
      */
-    const PooolAudit: Poool.Audit;
+    var PooolAudit: Poool.Audit;
     interface Window {
         Access: Poool.Access;
         Audit: Poool.Audit;
@@ -302,7 +302,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        context?: string;
+        context?: string | string[];
         /**
          * Used to allocate a reader to a custom group previously created in Poool's Dashboard.
          *
@@ -641,24 +641,45 @@ export namespace Poool {
 
     type EventsList =
         | "identityAvailable"
+        | "onIdentityAvailable"
         | "lock"
+        | "onLock"
         | "ready"
+        | "onReady"
         | "paywallSeen"
+        | "onPaywallSeen"
         | "release"
+        | "onRelease"
         | "register"
+        | "onRegister"
         | "subscribeClick"
+        | "onSubscribeClick"
         | "loginClick"
+        | "onLoginClick"
         | "discoveryLinkClick"
+        | "onDiscoveryLinkClick"
         | "alternativeClick"
+        | "onAlternativeClick"
         | "error"
+        | "onError"
         | "outdatedBrowser"
+        | "onOutdatedBrowser"
         | "dataPolicyClick"
+        | "onDataPolicyClick"
         | "formSubmit"
+        | "onFormSubmit"
         | "facebookLoginClick"
+        | "onFacebookLoginClick"
         | "googleLoginClick"
+        | "onGoogleLoginClick"
         | "answer"
+        | "onAnswer"
         | "consent"
-        | "customButtonClick";
+        | "onConsent"
+        | "customButtonClick"
+        | "onCustomButtonClick"
+        | "externalLinkClick"
+        | "onExternalLinkClick";
 
     interface AccessConfig {
         /**
@@ -761,7 +782,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
-        (keyName: string, value: string): AccessFactory;
+        (keyName: string, value: string | number | boolean): AccessFactory;
         /**
          * Some texts inside the paywall benefit from predefined & automatically integrated variables, such as `{app_name}`.
          *
@@ -771,7 +792,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
-        (variables: { [key: string]: string }): AccessFactory;
+        (variables: { [key: string]: string | number | boolean }): AccessFactory;
     }
 
     interface AuditConfigOptions {
@@ -808,7 +829,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
-        context?: string;
+        context?: string | string[];
         /**
          * Used to allocate a reader to a custom group previously created in Poool's Dashboard.
          *
@@ -972,9 +993,9 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
         createPaywall(config: {
-            target?: string;
+            target?: string | HTMLElement;
             content?: string | HTMLElement;
-            pageType?: "premium" | "free";
+            pageType?: "premium" | "free" | "page";
             mode?: "hide" | "excerpt" | "custom";
             percent?: number;
         }): AccessFactory;
@@ -1023,6 +1044,10 @@ export namespace Poool {
 
     interface Audit {
         /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
+        /**
          * Initializes Audit using your app ID.
          *
          * @param key - Your poool app ID
@@ -1045,7 +1070,7 @@ export namespace Poool {
          * @param eventName - the event name
          * @param data - the event datas
          * @param options - the event options
-         * @returns the Audit instance
+         * @returns A Promise that fullfills with a boolean value indicating if the event has been correctly sent or not.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1059,7 +1084,7 @@ export namespace Poool {
                 beacons?: boolean;
                 [key: string]: any;
             },
-        ): Audit;
+        ): Promise<boolean>;
         config: AuditConfig;
         /**
          * Allows to set a callback to be called when a specific event is triggered
@@ -1094,6 +1119,10 @@ export namespace Poool {
     }
 
     interface Access {
+        /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
         /**
          * Creates a new Access instance (required to display paywalls) using your app ID.
          *

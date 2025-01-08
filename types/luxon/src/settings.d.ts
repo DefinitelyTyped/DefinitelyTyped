@@ -1,4 +1,11 @@
+import { WeekdayNumbers } from "./datetime";
 import { Zone, ZoneMaybeValid } from "./zone";
+
+export interface WeekSettings {
+    firstDay: WeekdayNumbers;
+    minimalDays: WeekdayNumbers;
+    weekend: WeekdayNumbers[];
+}
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.
@@ -65,6 +72,13 @@ export class Settings {
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
      */
     static resetCaches(): void;
+
+    /**
+     * Allows overriding the default locale week settings, i.e. the start of the week, the weekend and
+     * how many days are required in the first week of a year.
+     * Does not affect existing instances.
+     */
+    static defaultWeekSettings: WeekSettings | null;
 }
 
 /**

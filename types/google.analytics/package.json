@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/google.analytics",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google.analytics",
     "projects": [
         "https://developers.google.com/analytics/devguides/collection/gajs/",
         "https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference"

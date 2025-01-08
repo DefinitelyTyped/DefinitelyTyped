@@ -23,6 +23,7 @@ declare namespace GorillaEngine.UI {
         value: boolean;
         animation: LottieAnimation;
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Toggle extends ToggleProps {}
     class Toggle extends Component {
         constructor(options: Partial<ToggleProps>);

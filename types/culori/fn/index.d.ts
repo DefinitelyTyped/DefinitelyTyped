@@ -70,8 +70,7 @@ export {
     interpolatorSplineMonotoneClosed,
 } from "../src/interpolate/splineMonotone";
 
-export { clampChroma, clampRgb } from "../src/clamp";
-export { default as displayable } from "../src/displayable";
+export { clampChroma, clampGamut, clampRgb, displayable, inGamut, toGamut } from "../src/clamp";
 export { default as lerp } from "../src/interpolate/lerp";
 export { getMode, removeParser, useMode, useParser } from "../src/modes";
 export { default as nearest } from "../src/nearest";
@@ -182,7 +181,7 @@ export { default as convertYiqToRgb } from "../src/yiq/convertYiqToRgb";
 /* Types */
 
 export type { A98 } from "../src/a98/types";
-export { Color, Mode } from "../src/common";
+export { Color, Gamut, GamutMode, Mode } from "../src/common";
 export type { Cubehelix } from "../src/cubehelix/types";
 export type { Dlab } from "../src/dlab/types";
 export type { Dlch } from "../src/dlch/types";

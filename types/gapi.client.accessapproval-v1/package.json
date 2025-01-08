@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "Access Approval API v1",
     "projects": [
-        "https://cloud.google.com/cloud-provider-access-management/access-approval/docs"
+        "https://cloud.google.com/assured-workloads/access-approval/docs"
     ],
     "dependencies": {
         "@maxim_mazurok/gapi.client.accessapproval-v1": "latest"

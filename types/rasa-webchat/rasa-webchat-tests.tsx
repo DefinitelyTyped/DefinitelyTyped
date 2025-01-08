@@ -1,6 +1,5 @@
 import RasaWebchat, { RasaWebchatProps } from "rasa-webchat";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 const validProps: RasaWebchatProps = {
     title: "Welcome",
@@ -51,4 +50,4 @@ const validProps: RasaWebchatProps = {
     assistBackgoundColor: "",
 };
 
-ReactDOM.render(<RasaWebchat {...validProps} />, document.body);
+<RasaWebchat {...validProps} />;

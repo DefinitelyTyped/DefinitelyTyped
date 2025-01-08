@@ -34,6 +34,15 @@ declare namespace Tagify {
          * @default false
          */
         rightKey: boolean;
+
+        /**
+         * If `true`, pressing Tab key would only auto-complete (if a suggestion
+         * is highlighted), but will not convert the suggested value to a tag
+         * (like {@link AutoCompleteSettings.rightKey} does),
+         * unless clicked again (considering the `addTagOn` setting).
+         * @default false
+         */
+        tabKey: boolean;
     }
 
     /**
@@ -81,6 +90,17 @@ declare namespace Tagify {
         fuzzySearch: boolean;
 
         /**
+         * If set to `startsWith`, the suggestions list will be sorted with matched items
+         * which starts with the query shown first, and exact matches shown before all.
+         *
+         * If this setting is defined as a function, it receives the filtered items and
+         * the query, and it must return the sorted items.
+         *
+         * (default sorting order is same as the whitelist's)
+         */
+        sortby: "startsWith" | ((items: T[], query: string) => T[]);
+
+        /**
          * Enable searching for accented items in the whitelist without typing exact match.
          * @default true
          */
@@ -93,15 +113,28 @@ declare namespace Tagify {
         includeSelectedTags: boolean;
 
         /**
+         * Escape HTML entities in the suggestions' rendered text.
+         * @default true
+         */
+        escapeHTML: boolean;
+
+        /**
          * Controls where the dropdown menu is positioned.
          * @default 'all'
          */
         position: DropDownPosition;
 
         /**
+         * Dictates the dropdown's horizontal starting position. By default,
+         * it would be aligned with the left side of the Tagify component.
+         * @default false
+         */
+        RTL: boolean;
+
+        /**
          * When a suggestions list is shown, highlight the first item,
          * and also suggest it in the input (The suggestion can be accepted with → key).
-         * @default false
+         * @default true
          */
         highlightFirst: boolean;
 
@@ -145,7 +178,7 @@ declare namespace Tagify {
          * rendered). When `null`, appends to `document.body`.
          * @default null
          */
-        appendTarget: HTMLElement | null;
+        appendTarget: HTMLElement | (() => HTMLElement) | null;
 
         /**
          * If defined, will force the placement of the dropdown:
@@ -369,6 +402,12 @@ declare namespace Tagify {
         dropdownInital: string;
 
         /**
+         * Class name for selected dropdown items.
+         * @default tagify__dropdown__item--selected
+         */
+        dropdownItemSelected: string;
+
+        /**
          * @default 'tagify--loading'
          */
         scopeLoading: string;
@@ -552,6 +591,17 @@ declare namespace Tagify {
     }
 
     /**
+     * Data passed with beforeKeyDown hook {@link Hooks.beforeKeyDown}.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface BeforeKeyDownData<T extends BaseTagData = TagData> {
+        /**
+         * Tagify instance.
+         */
+        tagify: Tagify<T>;
+    }
+
+    /**
      * Promise-based hooks for async program flow scenarios at runtime.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
@@ -592,6 +642,16 @@ declare namespace Tagify {
          * this value gets added to Tagify. Without any value, the original paste value gets added.
          */
         beforePaste: (event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string | undefined>;
+
+        /**
+         * Hook invoked on any keydown event. It can be used to control the event flow.
+         * Called after keydown Tagify event.
+         * @param event Keyboard event
+         * @param data Data object with Tagify instance.
+         * @return Promise to control event flow. When the promise resolves, the key event handling
+         * will be proceeded. When the promise rejects, the key event handling will be aborted.
+         */
+        beforeKeyDown: (event: KeyboardEvent, data: BeforeKeyDownData<T>) => Promise<void>;
     }
 
     /**
@@ -698,6 +758,13 @@ declare namespace Tagify {
         userInput: boolean;
 
         /**
+         * Allow the component as a whole to receive focus. Set to `false` if implementations of Tagify
+         * without external border cause unwanted behaviour.
+         * @default true
+         */
+        focusable: boolean;
+
+        /**
          * An array of allowed tags.
          *
          * Also used for auto-completion when `autocomplete.enabled` is `true`.
@@ -717,6 +784,14 @@ declare namespace Tagify {
          * @default true
          */
         addTagOnBlur: boolean;
+
+        /**
+         * If the Tagify field (in normal mode) has any non-tag input in it, convert it to a tag on any of these events:
+         * - when the field loses focus (blur)
+         * - when the user presses Tab or Enter key
+         * @default ['blur', 'tab', 'enter']
+         */
+        addTagOn: string[];
 
         /**
          * If `true`, the native way of input's `onChange` event is kept,
@@ -1231,6 +1306,30 @@ declare namespace Tagify {
     interface RemoveEventData<T extends BaseTagData = TagData> extends TagEventData<T> {}
 
     /**
+     * Text pasted (not while editing a tag). The pasted text might or might not have been converted into tags,
+     * depending on if {@link TagifySettings.pasteAsTags} is set to `false`.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface PasteEventData<T extends BaseTagData = TagData> extends EventData<T> {
+        /**
+         * Clipboard event
+         */
+        event: ClipboardEvent;
+        /**
+         * Text content that have been pasted into Tagify.
+         */
+        pastedText: string;
+        /**
+         * The raw clipboard data transfer object as provided by the paste event.
+         */
+        clipboardData: DataTransfer;
+        /**
+         * List of HTML elements representing the tags that were added.
+         */
+        tagsElems: HTMLElement[];
+    }
+
+    /**
      * Map between the events that are triggered by tagify and the data provided
      * for each event.
      * @template T Type of the tag data. See the Tagify class for more details.
@@ -1348,6 +1447,12 @@ declare namespace Tagify {
          * A tag has been removed (use `removeTag` instead with jQuery).
          */
         remove: RemoveEventData<T>;
+
+        /**
+         * Text pasted (not while editing a tag). The pasted text might or might not have been converted into tags,
+         * depending on if {@link TagifySettings.pasteAsTags} is set to `false`.
+         */
+        paste: PasteEventData<T>;
     }
 
     // types for the tagify instance
@@ -1868,6 +1973,19 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         event: K,
         callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void,
     ): this;
+
+    /**
+     * Sets the placeholder's value.
+     * @param placeholder The new placeholder to set.
+     */
+    setPlaceholder(placeholder: string): void;
+
+    /**
+     * Places the caret at the start or the end of a node.
+     * @param start Indicates where to place it (start or end of the node).
+     * @param node  DOM node to place the caret at.
+     */
+    setRangeAtStartEnd(start: boolean, node: HTMLElement): void;
 }
 
 export = Tagify;

@@ -2,19 +2,20 @@
  * A stream is an abstract interface for working with streaming data in Node.js.
  * The `node:stream` module provides an API for implementing the stream interface.
  *
- * There are many stream objects provided by Node.js. For instance, a `request to an HTTP server` and `process.stdout` are both stream instances.
+ * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v22.x/api/http.html#class-httpincomingmessage)
+ * and [`process.stdout`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdout) are both stream instances.
  *
- * Streams can be readable, writable, or both. All streams are instances of `EventEmitter`.
+ * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v22.x/api/events.html#class-eventemitter).
  *
  * To access the `node:stream` module:
  *
  * ```js
- * const stream = require('node:stream');
+ * import stream from 'node:stream';
  * ```
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -41,14 +42,20 @@ declare module "stream" {
     import Readable = internal.Readable;
     import ReadableOptions = internal.ReadableOptions;
     interface ArrayOptions {
-        /** the maximum concurrent invocations of `fn` to call on the stream at once. **Default: 1**. */
+        /**
+         * The maximum concurrent invocations of `fn` to call on the stream at once.
+         * @default 1
+         */
         concurrency?: number;
-        /** allows destroying the stream if the signal is aborted. */
+        /** Allows destroying the stream if the signal is aborted. */
         signal?: AbortSignal;
     }
     class ReadableBase extends Stream implements NodeJS.ReadableStream {
         /**
          * A utility method for creating Readable Streams out of iterators.
+         * @since v12.3.0, v10.17.0
+         * @param iterable Object implementing the `Symbol.asyncIterator` or `Symbol.iterator` iterable protocol. Emits an 'error' event if a null value is passed.
+         * @param options Options provided to `new stream.Readable([options])`. By default, `Readable.from()` will set `options.objectMode` to `true`, unless this is explicitly opted out by setting `options.objectMode` to `false`.
          */
         static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
         /**
@@ -63,7 +70,7 @@ declare module "stream" {
          */
         readonly readableAborted: boolean;
         /**
-         * Is `true` if it is safe to call `readable.read()`, which means
+         * Is `true` if it is safe to call {@link read}, which means
          * the stream has not been destroyed or emitted `'error'` or `'end'`.
          * @since v11.4.0
          */
@@ -75,18 +82,18 @@ declare module "stream" {
          */
         readonly readableDidRead: boolean;
         /**
-         * Getter for the property `encoding` of a given `Readable` stream. The `encoding`property can be set using the `readable.setEncoding()` method.
+         * Getter for the property `encoding` of a given `Readable` stream. The `encoding` property can be set using the {@link setEncoding} method.
          * @since v12.7.0
          */
         readonly readableEncoding: BufferEncoding | null;
         /**
-         * Becomes `true` when `'end'` event is emitted.
+         * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v22.x/api/stream.html#event-end) event is emitted.
          * @since v12.9.0
          */
         readonly readableEnded: boolean;
         /**
          * This property reflects the current state of a `Readable` stream as described
-         * in the `Three states` section.
+         * in the [Three states](https://nodejs.org/docs/latest-v22.x/api/stream.html#three-states) section.
          * @since v9.4.0
          */
         readonly readableFlowing: boolean | null;
@@ -132,9 +139,10 @@ declare module "stream" {
          * specified using the `readable.setEncoding()` method or the stream is operating
          * in object mode.
          *
-         * The optional `size` argument specifies a specific number of bytes to read. If`size` bytes are not available to be read, `null` will be returned _unless_the stream has ended, in which
-         * case all of the data remaining in the internal
-         * buffer will be returned.
+         * The optional `size` argument specifies a specific number of bytes to read. If
+         * `size` bytes are not available to be read, `null` will be returned _unless_ the
+         * stream has ended, in which case all of the data remaining in the internal buffer
+         * will be returned.
          *
          * If the `size` argument is not specified, all of the data contained in the
          * internal buffer will be returned.
@@ -191,7 +199,7 @@ declare module "stream" {
          * ```
          *
          * A `Readable` stream in object mode will always return a single item from
-         * a call to `readable.read(size)`, regardless of the value of the`size` argument.
+         * a call to `readable.read(size)`, regardless of the value of the `size` argument.
          *
          * If the `readable.read()` method returns a chunk of data, a `'data'` event will
          * also be emitted.
@@ -206,9 +214,9 @@ declare module "stream" {
          * The `readable.setEncoding()` method sets the character encoding for
          * data read from the `Readable` stream.
          *
-         * By default, no encoding is assigned and stream data will be returned as`Buffer` objects. Setting an encoding causes the stream data
-         * to be returned as strings of the specified encoding rather than as `Buffer`objects. For instance, calling `readable.setEncoding('utf8')` will cause the
-         * output data to be interpreted as UTF-8 data, and passed as strings. Calling`readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
+         * By default, no encoding is assigned and stream data will be returned as `Buffer` objects. Setting an encoding causes the stream data
+         * to be returned as strings of the specified encoding rather than as `Buffer` objects. For instance, calling `readable.setEncoding('utf8')` will cause the
+         * output data to be interpreted as UTF-8 data, and passed as strings. Calling `readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
          * string format.
          *
          * The `Readable` stream will properly handle multi-byte characters delivered
@@ -245,7 +253,7 @@ declare module "stream" {
          * });
          * ```
          *
-         * The `readable.pause()` method has no effect if there is a `'readable'`event listener.
+         * The `readable.pause()` method has no effect if there is a `'readable'` event listener.
          * @since v0.9.4
          */
         pause(): this;
@@ -264,14 +272,14 @@ declare module "stream" {
          *   });
          * ```
          *
-         * The `readable.resume()` method has no effect if there is a `'readable'`event listener.
+         * The `readable.resume()` method has no effect if there is a `'readable'` event listener.
          * @since v0.9.4
          */
         resume(): this;
         /**
-         * The `readable.isPaused()` method returns the current operating state of the`Readable`. This is used primarily by the mechanism that underlies the`readable.pipe()` method. In most
-         * typical cases, there will be no reason to
-         * use this method directly.
+         * The `readable.isPaused()` method returns the current operating state of the `Readable`.
+         * This is used primarily by the mechanism that underlies the `readable.pipe()` method.
+         * In most typical cases, there will be no reason to use this method directly.
          *
          * ```js
          * const readable = new stream.Readable();
@@ -295,7 +303,7 @@ declare module "stream" {
          * the method does nothing.
          *
          * ```js
-         * const fs = require('node:fs');
+         * import fs from 'node:fs';
          * const readable = getReadableStreamSomehow();
          * const writable = fs.createWriteStream('file.txt');
          * // All the data from readable goes into 'file.txt',
@@ -333,7 +341,7 @@ declare module "stream" {
          * // Pull off a header delimited by \n\n.
          * // Use unshift() if we get too much.
          * // Call the callback with (error, header, stream).
-         * const { StringDecoder } = require('node:string_decoder');
+         * import { StringDecoder } from 'node:string_decoder';
          * function parseHeader(stream, callback) {
          *   stream.on('error', callback);
          *   stream.on('readable', onReadable);
@@ -373,16 +381,16 @@ declare module "stream" {
          * however it is best to simply avoid calling `readable.unshift()` while in the
          * process of performing a read.
          * @since v0.9.11
-         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array`, or `null`. For object mode
-         * streams, `chunk` may be any JavaScript value.
+         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must
+         * be a {string}, {Buffer}, {TypedArray}, {DataView} or `null`. For object mode streams, `chunk` may be any JavaScript value.
          * @param encoding Encoding of string chunks. Must be a valid `Buffer` encoding, such as `'utf8'` or `'ascii'`.
          */
         unshift(chunk: any, encoding?: BufferEncoding): void;
         /**
-         * Prior to Node.js 0.10, streams did not implement the entire `node:stream`module API as it is currently defined. (See `Compatibility` for more
+         * Prior to Node.js 0.10, streams did not implement the entire `node:stream` module API as it is currently defined. (See `Compatibility` for more
          * information.)
          *
-         * When using an older Node.js library that emits `'data'` events and has a {@link pause} method that is advisory only, the`readable.wrap()` method can be used to create a `Readable`
+         * When using an older Node.js library that emits `'data'` events and has a {@link pause} method that is advisory only, the `readable.wrap()` method can be used to create a `Readable`
          * stream that uses
          * the old stream as its data source.
          *
@@ -391,8 +399,8 @@ declare module "stream" {
          * libraries.
          *
          * ```js
-         * const { OldReader } = require('./old-api-module.js');
-         * const { Readable } = require('node:stream');
+         * import { OldReader } from './old-api-module.js';
+         * import { Readable } from 'node:stream';
          * const oreader = new OldReader();
          * const myReader = new Readable().wrap(oreader);
          *
@@ -414,7 +422,7 @@ declare module "stream" {
          * or exiting a `for await...of` iteration using a `break`, `return`, or `throw` will not destroy the stream.
          * **Default: `true`**.
          */
-        iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+        iterator(options?: { destroyOnReturn?: boolean }): NodeJS.AsyncIterator<any>;
         /**
          * This method allows mapping over the stream. The *fn* function will be called for every chunk in the stream.
          * If the *fn* function returns a promise - that promise will be `await`ed before being passed to the result stream.
@@ -565,8 +573,8 @@ declare module "stream" {
         ): Promise<T>;
         _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
         /**
-         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the readable
-         * stream will release any internal resources and subsequent calls to `push()`will be ignored.
+         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'` event (unless `emitClose` is set to `false`). After this call, the readable
+         * stream will release any internal resources and subsequent calls to `push()` will be ignored.
          *
          * Once `destroy()` has been called any further calls will be a no-op and no
          * further errors except from `_destroy()` may be emitted as `'error'`.
@@ -643,7 +651,7 @@ declare module "stream" {
         removeListener(event: "readable", listener: () => void): this;
         removeListener(event: "resume", listener: () => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
         /**
          * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
          * @since v20.4.0
@@ -731,7 +739,7 @@ declare module "stream" {
          * first argument. The `callback` is called asynchronously and before `'error'` is
          * emitted.
          *
-         * The return value is `true` if the internal buffer is less than the`highWaterMark` configured when the stream was created after admitting `chunk`.
+         * The return value is `true` if the internal buffer is less than the `highWaterMark` configured when the stream was created after admitting `chunk`.
          * If `false` is returned, further attempts to write data to the stream should
          * stop until the `'drain'` event is emitted.
          *
@@ -774,8 +782,8 @@ declare module "stream" {
          *
          * A `Writable` stream in object mode will always ignore the `encoding` argument.
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param [encoding='utf8'] The encoding, if `chunk` is a string.
          * @param callback Callback for when this chunk of data is flushed.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -798,15 +806,15 @@ declare module "stream" {
          *
          * ```js
          * // Write 'hello, ' and then end with 'world!'.
-         * const fs = require('node:fs');
+         * import fs from 'node:fs';
          * const file = fs.createWriteStream('example.txt');
          * file.write('hello, ');
          * file.end('world!');
          * // Writing more now is not allowed!
          * ```
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param encoding The encoding if `chunk` is a string
          * @param callback Callback for when the stream is finished.
          */
@@ -819,10 +827,10 @@ declare module "stream" {
          *
          * The primary intent of `writable.cork()` is to accommodate a situation in which
          * several small chunks are written to the stream in rapid succession. Instead of
-         * immediately forwarding them to the underlying destination, `writable.cork()`buffers all the chunks until `writable.uncork()` is called, which will pass them
+         * immediately forwarding them to the underlying destination, `writable.cork()` buffers all the chunks until `writable.uncork()` is called, which will pass them
          * all to `writable._writev()`, if present. This prevents a head-of-line blocking
          * situation where data is being buffered while waiting for the first small chunk
-         * to be processed. However, use of `writable.cork()` without implementing`writable._writev()` may have an adverse effect on throughput.
+         * to be processed. However, use of `writable.cork()` without implementing `writable._writev()` may have an adverse effect on throughput.
          *
          * See also: `writable.uncork()`, `writable._writev()`.
          * @since v0.11.2
@@ -832,7 +840,7 @@ declare module "stream" {
          * The `writable.uncork()` method flushes all data buffered since {@link cork} was called.
          *
          * When using `writable.cork()` and `writable.uncork()` to manage the buffering
-         * of writes to a stream, defer calls to `writable.uncork()` using`process.nextTick()`. Doing so allows batching of all`writable.write()` calls that occur within a given Node.js event
+         * of writes to a stream, defer calls to `writable.uncork()` using `process.nextTick()`. Doing so allows batching of all `writable.write()` calls that occur within a given Node.js event
          * loop phase.
          *
          * ```js
@@ -863,10 +871,10 @@ declare module "stream" {
          */
         uncork(): void;
         /**
-         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the writable
+         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'` event (unless `emitClose` is set to `false`). After this call, the writable
          * stream has ended and subsequent calls to `write()` or `end()` will result in
          * an `ERR_STREAM_DESTROYED` error.
-         * This is a destructive and immediate way to destroy a stream. Previous calls to`write()` may not have drained, and may trigger an `ERR_STREAM_DESTROYED` error.
+         * This is a destructive and immediate way to destroy a stream. Previous calls to `write()` may not have drained, and may trigger an `ERR_STREAM_DESTROYED` error.
          * Use `end()` instead of destroy if data should flush before close, or wait for
          * the `'drain'` event before destroying the stream.
          *
@@ -1061,8 +1069,8 @@ declare module "stream" {
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
              * which defaults to `true`.
              *
-             * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
-             * emitted.
+             * This can be changed manually to change the half-open behavior of an existing
+             * `Duplex` stream instance, but must be changed before the `'end'` event is emitted.
              * @since v0.9.4
              */
             allowHalfOpen: boolean;
@@ -1242,6 +1250,25 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
+        /**
+         * The utility function `duplexPair` returns an Array with two items,
+         * each being a `Duplex` stream connected to the other side:
+         *
+         * ```js
+         * const [ sideA, sideB ] = duplexPair();
+         * ```
+         *
+         * Whatever is written to one stream is made readable on the other. It provides
+         * behavior analogous to a network connection, where the data written by the client
+         * becomes readable by the server, and vice-versa.
+         *
+         * The Duplex streams are symmetrical; one or the other may be used without any
+         * difference in behavior.
+         * @param options A value to pass to both {@link Duplex} constructors,
+         * to set options such as buffering.
+         * @since v22.6.0
+         */
+        function duplexPair(options?: DuplexOptions): [Duplex, Duplex];
         type TransformCallback = (error?: Error | null, data?: any) => void;
         interface TransformOptions extends DuplexOptions {
             construct?(this: Transform, callback: (error?: Error | null) => void): void;
@@ -1283,7 +1310,7 @@ declare module "stream" {
         }
         /**
          * The `stream.PassThrough` class is a trivial implementation of a `Transform` stream that simply passes the input bytes across to the output. Its purpose is
-         * primarily for examples and testing, but there are some use cases where`stream.PassThrough` is useful as a building block for novel sorts of streams.
+         * primarily for examples and testing, but there are some use cases where `stream.PassThrough` is useful as a building block for novel sorts of streams.
          */
         class PassThrough extends Transform {}
         /**
@@ -1292,11 +1319,11 @@ declare module "stream" {
          * Attaches an AbortSignal to a readable or writeable stream. This lets code
          * control stream destruction using an `AbortController`.
          *
-         * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream, and `controller.error(new
-         * AbortError())` for webstreams.
+         * Calling `abort` on the `AbortController` corresponding to the passed `AbortSignal` will behave the same way as calling `.destroy(new AbortError())` on the
+         * stream, and `controller.error(new AbortError())` for webstreams.
          *
          * ```js
-         * const fs = require('node:fs');
+         * import fs from 'node:fs';
          *
          * const controller = new AbortController();
          * const read = addAbortSignal(
@@ -1363,20 +1390,18 @@ declare module "stream" {
          * ```
          * @since v15.4.0
          * @param signal A signal representing possible cancellation
-         * @param stream a stream to attach a signal to
+         * @param stream A stream to attach a signal to.
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
         /**
          * Returns the default highWaterMark used by streams.
-         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * Defaults to `65536` (64 KiB), or `16` for `objectMode`.
          * @since v19.9.0
-         * @param objectMode
          */
         function getDefaultHighWaterMark(objectMode: boolean): number;
         /**
          * Sets the default highWaterMark used by streams.
          * @since v19.9.0
-         * @param objectMode
          * @param value highWaterMark value
          */
         function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
@@ -1392,8 +1417,8 @@ declare module "stream" {
          * or has experienced an error or a premature close event.
          *
          * ```js
-         * const { finished } = require('node:stream');
-         * const fs = require('node:fs');
+         * import { finished } from 'node:stream';
+         * import fs from 'node:fs';
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1409,11 +1434,11 @@ declare module "stream" {
          * ```
          *
          * Especially useful in error handling scenarios where a stream is destroyed
-         * prematurely (like an aborted HTTP request), and will not emit `'end'`or `'finish'`.
+         * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides `promise version`.
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamfinishedstream-options).
          *
-         * `stream.finished()` leaves dangling event listeners (in particular`'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
+         * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
          * incorrect stream implementations) do not cause unexpected crashes.
          * If this is unwanted behavior then the returned cleanup function needs to be
@@ -1428,7 +1453,7 @@ declare module "stream" {
          * @since v10.0.0
          * @param stream A readable and/or writable stream.
          * @param callback A callback function that takes an optional error argument.
-         * @return A cleanup function which removes all registered listeners.
+         * @returns A cleanup function which removes all registered listeners.
          */
         function finished(
             stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
@@ -1476,9 +1501,9 @@ declare module "stream" {
          * properly cleaning up and provide a callback when the pipeline is complete.
          *
          * ```js
-         * const { pipeline } = require('node:stream');
-         * const fs = require('node:fs');
-         * const zlib = require('node:zlib');
+         * import { pipeline } from 'node:stream';
+         * import fs from 'node:fs';
+         * import zlib from 'node:zlib';
          *
          * // Use the pipeline API to easily pipe a series of streams
          * // together and get notified when the pipeline is fully done.
@@ -1499,7 +1524,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a `promise version`.
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *
@@ -1518,9 +1543,9 @@ declare module "stream" {
          * See the example below:
          *
          * ```js
-         * const fs = require('node:fs');
-         * const http = require('node:http');
-         * const { pipeline } = require('node:stream');
+         * import fs from 'node:fs';
+         * import http from 'node:http';
+         * import { pipeline } from 'node:stream';
          *
          * const server = http.createServer((req, res) => {
          *   const fileStream = fs.createReadStream('./fileNotExist.txt');
@@ -1539,7 +1564,7 @@ declare module "stream" {
         function pipeline<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
             source: A,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1549,7 +1574,7 @@ declare module "stream" {
             source: A,
             transform1: T1,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1561,7 +1586,7 @@ declare module "stream" {
             transform1: T1,
             transform2: T2,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1575,7 +1600,7 @@ declare module "stream" {
             transform2: T2,
             transform3: T3,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1591,11 +1616,11 @@ declare module "stream" {
             transform3: T3,
             transform4: T4,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline(
             streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
-            callback?: (err: NodeJS.ErrnoException | null) => void,
+            callback: (err: NodeJS.ErrnoException | null) => void,
         ): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,

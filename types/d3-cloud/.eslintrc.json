@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
         "@typescript-eslint/naming-convention": "off"

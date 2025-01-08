@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/atom",
     "version": "1.40.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Atom",
     "projects": [
         "https://github.com/atom/atom"

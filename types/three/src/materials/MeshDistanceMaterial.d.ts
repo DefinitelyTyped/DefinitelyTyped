@@ -1,6 +1,6 @@
-import { MaterialParameters, Material } from './Material.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Texture } from '../textures/Texture.js';
+import { Vector3 } from "../math/Vector3.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshDistanceMaterialParameters extends MaterialParameters {
     map?: Texture | null | undefined;
@@ -22,11 +22,6 @@ export class MeshDistanceMaterial extends Material {
      * @defaultValue `true`
      */
     readonly isMeshDistanceMaterial: true;
-
-    /**
-     * @default 'MeshDistanceMaterial'
-     */
-    type: string;
 
     /**
      * @default null
@@ -52,11 +47,6 @@ export class MeshDistanceMaterial extends Material {
      * @default 0
      */
     displacementBias: number;
-
-    /**
-     * @default false
-     */
-    fog: boolean;
 
     setValues(parameters: MeshDistanceMaterialParameters): void;
 }

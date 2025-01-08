@@ -3,9 +3,9 @@
     "name": "@types/gapi.client.dlp-v2",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Cloud Data Loss Prevention (DLP) API v2",
+    "nonNpmDescription": "Sensitive Data Protection (DLP) v2",
     "projects": [
-        "https://cloud.google.com/dlp/docs/"
+        "https://cloud.google.com/sensitive-data-protection/docs/"
     ],
     "dependencies": {
         "@maxim_mazurok/gapi.client.dlp-v2": "latest"

@@ -1,5 +1,6 @@
 export interface GeoJSONValidator {
-    (geoJSONObject: unknown, trace?: boolean | undefined): string[];
+    (geoJSONObject: unknown, trace?: false | undefined): boolean;
+    (geoJSONObject: unknown, trace: true): string[];
 }
 
 export const allTypes: {

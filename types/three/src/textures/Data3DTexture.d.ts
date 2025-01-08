@@ -1,10 +1,9 @@
-import { Texture } from './Texture.js';
-import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from '../constants.js';
-import { Texture3DImageData } from './types.js';
+import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from "../constants.js";
+import { TextureImageData } from "./DataTexture.js";
+import { Texture } from "./Texture.js";
 
 /**
  * Creates a three-dimensional texture from raw data, with parameters to divide it into width, height, and depth
- * @remarks Compatible only with {@link WebGL2RenderingContext | WebGL 2 Rendering Context}.
  * @example
  * ```typescript
  * This creates a[name] with repeating data, 0 to 255
@@ -94,4 +93,6 @@ export class Data3DTexture extends Texture {
     unpackAlignment: number;
 }
 
-export {};
+export interface Texture3DImageData extends TextureImageData {
+    depth: number;
+}

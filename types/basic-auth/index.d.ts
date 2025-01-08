@@ -2,7 +2,7 @@
 
 interface Request {
     headers?: {
-        authorization?: string;
+        authorization?: string | undefined;
     };
 }
 

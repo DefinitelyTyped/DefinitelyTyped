@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/insane",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bevacqua/insane"
+    ],
+    "devDependencies": {
+        "@types/insane": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Eduardo Cancino-Zarate",
+            "githubUsername": "ecancino"
+        },
+        {
+            "name": "Nicolás Bevacqua",
+            "githubUsername": "bevacqua"
+        }
+    ]
+}

@@ -354,6 +354,11 @@ export interface RecordProxy<T = {}> {
     ): [H] extends [never] ? RecordProxy[] | null
         : NonNullable<H> extends Array<infer U> ? Array<RecordProxy<U>> | (H extends null ? null : never)
         : never;
+    getOrCreateLinkedRecord<K extends keyof T>(
+        name: K,
+        typeName: string,
+        args?: Variables | null,
+    ): RecordProxy<NonNullable<T[K]>>;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
     getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
@@ -452,8 +457,11 @@ export type LogEvent =
          */
         resourceID: number;
         operation: OperationDescriptor;
+        // value from ProfilerContext
         profilerContext: unknown;
-        fetchPolicy: FetchPolicy;
+        // FetchPolicy from Relay Hooks
+        fetchPolicy: string;
+        // RenderPolicy from Relay Hooks
         renderPolicy: RenderPolicy;
         queryAvailability: OperationAvailability;
         shouldFetch: boolean;
@@ -463,6 +471,25 @@ export type LogEvent =
         resourceID: number;
         // value from ProfilerContext
         profilerContext: unknown;
+    }>
+    | Readonly<{
+        // Indicates FragmentResource is going to return a result that is missing data.
+        name: "fragmentresource.missing_data";
+        data: unknown;
+        fragment: ReaderFragment;
+        isRelayHooks: boolean;
+        // Are we reading this result from the fragment resource cache?
+        cached: boolean;
+    }>
+    | Readonly<{
+        /**
+         * Indicates getPendingOperationForFragment identified a pending operation.
+         * Useful for measuring how frequently RelayOperationTracker identifies a related operation on which to suspend.
+         */
+        name: "pendingoperation.found";
+        fragment: ReaderFragment;
+        fragmentOwner: RequestDescriptor;
+        pendingOperations: ReadonlyArray<RequestDescriptor>;
     }>
     | Readonly<{
         name: "network.info";
@@ -502,19 +529,19 @@ export type LogEvent =
         cacheConfig: CacheConfig;
     }>
     | Readonly<{
-        name: "execute.next";
+        name: "execute.next.start";
         executeId: number;
         response: GraphQLResponse;
-        duration: number;
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "execute.next.end";
+        executeId: number;
+        response: GraphQLResponse;
+        operation: OperationDescriptor;
     }>
     | Readonly<{
         name: "execute.async.module";
-        executeId: number;
-        operationName: string;
-        duration: number;
-    }>
-    | Readonly<{
-        name: "execute.flight.payload_deserialize";
         executeId: number;
         operationName: string;
         duration: number;
@@ -529,6 +556,22 @@ export type LogEvent =
         executeId: number;
     }>
     | Readonly<{
+        name: "execute.normalize.start";
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "execute.normalize.end";
+        operation: OperationDescriptor;
+    }>
+    | Readonly<{
+        name: "store.datachecker.start";
+        selector: NormalizationSelector;
+    }>
+    | Readonly<{
+        name: "store.datachecker.end";
+        selector: NormalizationSelector;
+    }>
+    | Readonly<{
         name: "store.publish";
         source: RecordSource;
         optimistic: boolean;
@@ -537,10 +580,24 @@ export type LogEvent =
         name: "store.snapshot";
     }>
     | Readonly<{
+        name: "store.lookup.start";
+        selector: SingularReaderSelector;
+    }>
+    | Readonly<{
+        name: "store.lookup.end";
+        selector: SingularReaderSelector;
+    }>
+    | Readonly<{
         name: "store.restore";
     }>
     | Readonly<{
-        name: "store.gc";
+        name: "store.gc.start";
+    }>
+    | Readonly<{
+        name: "store.gc.interrupted";
+    }>
+    | Readonly<{
+        name: "store.gc.end";
         references: DataIDSet;
     }>
     | Readonly<{
@@ -552,6 +609,8 @@ export type LogEvent =
         sourceOperation?: OperationDescriptor | undefined;
         updatedRecordIDs: DataIDSet;
         invalidatedRecordIDs: DataIDSet;
+        subscriptionsSize: number;
+        updatedOwners: Array<RequestDescriptor>;
     }>
     | Readonly<{
         name: "store.notify.subscription";
@@ -563,6 +622,16 @@ export type LogEvent =
         name: "entrypoint.root.consume";
         profilerContext: unknown;
         rootModuleID: string;
+    }>
+    | Readonly<{
+        name: "liveresolver.batch.start";
+    }>
+    | Readonly<{
+        name: "liveresolver.batch.end";
+    }>
+    | Readonly<{
+        name: "useFragment.subscription.missedUpdates";
+        hasDataChanges: boolean;
     }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
@@ -690,7 +759,7 @@ export interface Environment {
     /**
      * Returns an Observable of GraphQLResponse resulting from executing the
      * provided Query or Subscription operation responses, the result of which is
-     * then normalized and comitted to the publish queue.
+     * then normalized and committed to the publish queue.
      *
      * Note: Observables are lazy, so calling this method will do nothing until
      * the result is subscribed to:
@@ -722,9 +791,9 @@ export interface Environment {
 
     /**
      * Called by Relay when it encounters a missing field that has been annotated
-     * with `@required(action: LOG)`.
+     * with `@required(action: LOG)` or `@required(action: THROW)`.
      */
-    requiredFieldLogger: RequiredFieldLogger;
+    relayFieldLogger: RelayFieldLogger;
 }
 
 /**
@@ -922,29 +991,74 @@ export type MissingFieldHandler =
         ) => Array<DataID | null | undefined> | null | undefined;
     };
 
+type TRelayFieldErrorForDisplay = Readonly<{
+    path?: Readonly<string[] | number[]>;
+    severity?: "CRITICAL" | "ERROR" | "WARNING";
+}>;
+
+export type TRelayFieldError =
+    & TRelayFieldErrorForDisplay
+    & Readonly<{
+        message: string;
+    }>;
+
+type MissingExpectedDataLogEvent = Readonly<{
+    kind: "missing_expected_data.log";
+    owner: string;
+    fieldPath: string;
+}>;
+
+type MissingExpectedDataThrowEvent = Readonly<{
+    kind: "missing_expected_data.throw";
+    owner: string;
+    fieldPath: string;
+    handled: boolean;
+}>;
+
+type MissingRequiredFieldLogEvent = Readonly<{
+    kind: "missing_required_field.log";
+    owner: string;
+    fieldPath: string;
+}>;
+
+type MissingRequiredFieldThrowEvent = Readonly<{
+    kind: "missing_required_field.throw";
+    owner: string;
+    fieldPath: string;
+    handled: boolean;
+}>;
+
+type RelayResolverErrorEvent = Readonly<{
+    kind: "relay_resolver.error";
+    owner: string;
+    fieldPath: string;
+    error: Error;
+    shouldThrow: boolean;
+    handled: boolean;
+}>;
+
+type RelayFieldPayloadErrorEvent = Readonly<{
+    kind: "relay_field_payload.error";
+    owner: string;
+    fieldPath: string;
+    error: TRelayFieldError;
+    shouldThrow: boolean;
+    handled: boolean;
+}>;
+
+export type RelayFieldLoggerEvent =
+    | MissingExpectedDataLogEvent
+    | MissingExpectedDataThrowEvent
+    | MissingRequiredFieldLogEvent
+    | MissingRequiredFieldThrowEvent
+    | RelayResolverErrorEvent
+    | RelayFieldPayloadErrorEvent;
+
 /**
- * A handler for events related to @required fields or Relay Resolvers. Currently reports missing
- * fields with either `action: LOG` or `action: THROW` or when a Relay Resolver throws.
+ * A handler for events related to `@required` fields. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW`.
  */
-export type RequiredFieldLogger = (
-    arg:
-        | Readonly<{
-            kind: "missing_field.log";
-            owner: string;
-            fieldPath: string;
-        }>
-        | Readonly<{
-            kind: "missing_field.throw";
-            owner: string;
-            fieldPath: string;
-        }>
-        | Readonly<{
-            kind: "relay_resolver.error";
-            owner: string;
-            fieldPath: string;
-            error: Error;
-        }>,
-) => void;
+export type RelayFieldLogger = (event: RelayFieldLoggerEvent) => void;
 
 /**
  * The results of normalizing a query.
@@ -1070,3 +1184,40 @@ export type HasUpdatableSpread<TData = unknown> = Readonly<{
     " $data"?: TData | undefined;
     $updatableFragmentSpreads: FragmentType;
 }>;
+
+/**
+ * The return type of a Live Resolver. Models an external value which can
+ * be read lazily and which might change over time. The subscribe method
+ * returns a callback which should be called when the value _may_ have changed.
+ *
+ * While over-notification (subscription notifications when the read value has
+ * not actually changed) is suported, for performance reasons, it is recommended
+ * that the provider of the LiveState value confirms that the value has indeed
+ * change before notifying Relay of the change.
+ */
+export interface LiveState<T> {
+    /**
+     * Returns the current value of the live state.
+     */
+    read(): T;
+
+    /**
+     * Subscribes to changes in the live state. The state provider should
+     * call the callback when the value of the live state changes.
+     * If the returned unsubscribe function is invoked, the state provider
+     * should stop calling the callback for state updates.
+     */
+    subscribe(callback: () => void): () => void;
+}
+
+export function suspenseSentinel(): never;
+
+/**
+ * A placeholder type for the context that will be provided to resolvers.
+ * The actual type used will be determined by the `resolverContextType` type specified in your Relay project config.
+ *
+ * When set on the Relay Store, this context will be passed as the third argument to all resolvers (live and non-live).
+ *
+ * @see {@link https://relay.dev/docs/next/guides/relay-resolvers/context/#type-checking} for documentation on configuring resolverContextType
+ */
+export type ResolverContext = unknown;

@@ -4,9 +4,9 @@
  * it:
  *
  * ```js
- * const util = require('node:util');
+ * import util from 'node:util';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -108,9 +108,28 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
+    export interface StacktraceObject {
+        /**
+         * Returns the name of the function associated with this stack frame.
+         */
+        functionName: string;
+        /**
+         * Returns the name of the resource that contains the script for the
+         * function for this StackFrame.
+         */
+        scriptName: string;
+        /**
+         * Returns the number, 1-based, of the line for the associate function call.
+         */
+        lineNumber: number;
+        /**
+         * Returns the 1-based column offset on the line for the associated function call.
+         */
+        column: number;
+    }
     /**
      * The `util.format()` method returns a formatted string using the first argument
-     * as a `printf`\-like format string which can contain zero or more format
+     * as a `printf`-like format string which can contain zero or more format
      * specifiers. Each specifier is replaced with the converted value from the
      * corresponding argument. Supported specifiers are:
      *
@@ -121,7 +140,7 @@ declare module "util" {
      * // Returns: 'foo:%s'
      * ```
      *
-     * Values that are not part of the format string are formatted using`util.inspect()` if their type is not `string`.
+     * Values that are not part of the format string are formatted using `util.inspect()` if their type is not `string`.
      *
      * If there are more arguments passed to the `util.format()` method than the
      * number of specifiers, the extra arguments are concatenated to the returned
@@ -132,7 +151,7 @@ declare module "util" {
      * // Returns: 'foo:bar baz'
      * ```
      *
-     * If the first argument does not contain a valid format specifier, `util.format()`returns a string that is the concatenation of all arguments separated by spaces:
+     * If the first argument does not contain a valid format specifier, `util.format()` returns a string that is the concatenation of all arguments separated by spaces:
      *
      * ```js
      * util.format(1, 2, 3);
@@ -167,6 +186,52 @@ declare module "util" {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
+     * Returns an array of stacktrace objects containing the stack of
+     * the caller function.
+     *
+     * ```js
+     * const util = require('node:util');
+     *
+     * function exampleFunction() {
+     *   const callSites = util.getCallSite();
+     *
+     *   console.log('Call Sites:');
+     *   callSites.forEach((callSite, index) => {
+     *     console.log(`CallSite ${index + 1}:`);
+     *     console.log(`Function Name: ${callSite.functionName}`);
+     *     console.log(`Script Name: ${callSite.scriptName}`);
+     *     console.log(`Line Number: ${callSite.lineNumber}`);
+     *     console.log(`Column Number: ${callSite.column}`);
+     *   });
+     *   // CallSite 1:
+     *   // Function Name: exampleFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 5
+     *   // Column Number: 26
+     *
+     *   // CallSite 2:
+     *   // Function Name: anotherFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 22
+     *   // Column Number: 3
+     *
+     *   // ...
+     * }
+     *
+     * // A function to simulate another stack layer
+     * function anotherFunction() {
+     *   exampleFunction();
+     * }
+     *
+     * anotherFunction();
+     * ```
+     * @param frames Number of frames returned in the stacktrace.
+     * **Default:** `10`. Allowable range is between 1 and 200.
+     * @return An array of stacktrace objects
+     * @since v22.9.0
+     */
+    export function getCallSite(frames?: number): StacktraceObject[];
+    /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -200,7 +265,7 @@ declare module "util" {
      * timestamp.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.log('Timestamped message.');
      * ```
@@ -265,7 +330,7 @@ declare module "util" {
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
-     * passed that alter the result.`util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
+     * passed that alter the result. `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
      * an identifiable tag for an inspected value.
      *
      * ```js
@@ -287,7 +352,7 @@ declare module "util" {
      * Circular references point to their anchor by using a reference index:
      *
      * ```js
-     * const { inspect } = require('node:util');
+     * import { inspect } from 'node:util';
      *
      * const obj = {};
      * obj.a = [obj];
@@ -305,7 +370,7 @@ declare module "util" {
      * The following example inspects all properties of the `util` object:
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * console.log(util.inspect(util, { showHidden: true, depth: null }));
      * ```
@@ -313,7 +378,7 @@ declare module "util" {
      * The following example highlights the effect of the `compact` option:
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * const o = {
      *   a: [1, 2, [[
@@ -370,7 +435,7 @@ declare module "util" {
      * with no remaining strong references may be garbage collected at any time.
      *
      * ```js
-     * const { inspect } = require('node:util');
+     * import { inspect } from 'node:util';
      *
      * const obj = { a: 1 };
      * const obj2 = { b: 2 };
@@ -384,8 +449,8 @@ declare module "util" {
      * impact the result of `util.inspect()`.
      *
      * ```js
-     * const { inspect } = require('node:util');
-     * const assert = require('node:assert');
+     * import { inspect } from 'node:util';
+     * import assert from 'node:assert';
      *
      * const o1 = {
      *   b: [2, 3, 1],
@@ -412,7 +477,7 @@ declare module "util" {
      * numbers.
      *
      * ```js
-     * const { inspect } = require('node:util');
+     * import { inspect } from 'node:util';
      *
      * const thousand = 1_000;
      * const million = 1_000_000;
@@ -459,7 +524,7 @@ declare module "util" {
      * Returns `true` if the given `object` is an `Array`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isArray([]);
      * // Returns: true
@@ -476,7 +541,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isRegExp(/some regexp/);
      * // Returns: true
@@ -493,7 +558,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isDate(new Date());
      * // Returns: true
@@ -507,10 +572,10 @@ declare module "util" {
      */
     export function isDate(object: unknown): object is Date;
     /**
-     * Returns `true` if the given `object` is an `Error`. Otherwise, returns`false`.
+     * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isError(new Error());
      * // Returns: true
@@ -521,10 +586,10 @@ declare module "util" {
      * ```
      *
      * This method relies on `Object.prototype.toString()` behavior. It is
-     * possible to obtain an incorrect result when the `object` argument manipulates`@@toStringTag`.
+     * possible to obtain an incorrect result when the `object` argument manipulates `@@toStringTag`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      * const obj = { name: 'Error', message: 'an error occurred' };
      *
      * util.isError(obj);
@@ -538,19 +603,19 @@ declare module "util" {
      */
     export function isError(object: unknown): object is Error;
     /**
-     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and`extends` keywords to get language level inheritance support. Also note
+     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
      *
      * Inherit the prototype methods from one [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
-     * prototype of `constructor` will be set to a new object created from`superConstructor`.
+     * prototype of `constructor` will be set to a new object created from `superConstructor`.
      *
      * This mainly adds some input validation on top of`Object.setPrototypeOf(constructor.prototype, superConstructor.prototype)`.
      * As an additional convenience, `superConstructor` will be accessible
      * through the `constructor.super_` property.
      *
      * ```js
-     * const util = require('node:util');
-     * const EventEmitter = require('node:events');
+     * import util from 'node:util';
+     * import EventEmitter from 'node:events';
      *
      * function MyStream() {
      *   EventEmitter.call(this);
@@ -576,7 +641,7 @@ declare module "util" {
      * ES6 example using `class` and `extends`:
      *
      * ```js
-     * const EventEmitter = require('node:events');
+     * import EventEmitter from 'node:events';
      *
      * class MyStream extends EventEmitter {
      *   write(data) {
@@ -605,7 +670,7 @@ declare module "util" {
      * environment variable, then the returned function operates similar to `console.error()`. If not, then the returned function is a no-op.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo');
      *
      * debuglog('hello from foo [%d]', 123);
@@ -624,7 +689,7 @@ declare module "util" {
      * The `section` supports wildcard also:
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo-bar');
      *
      * debuglog('hi there, it\'s foo-bar [%d]', 2333);
@@ -644,7 +709,7 @@ declare module "util" {
      * unnecessary wrapping.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      * let debuglog = util.debuglog('internals', (debug) => {
      *   // Replace with a logging function that optimizes out
      *   // testing if the section is enabled
@@ -662,7 +727,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isBoolean(1);
      * // Returns: false
@@ -679,7 +744,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isBuffer({ length: 0 });
      * // Returns: false
@@ -693,10 +758,10 @@ declare module "util" {
      */
     export function isBuffer(object: unknown): object is Buffer;
     /**
-     * Returns `true` if the given `object` is a `Function`. Otherwise, returns`false`.
+     * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * function Foo() {}
      * const Bar = () => {};
@@ -716,7 +781,7 @@ declare module "util" {
      * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isNull(0);
      * // Returns: false
@@ -734,7 +799,7 @@ declare module "util" {
      * returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isNullOrUndefined(0);
      * // Returns: false
@@ -751,7 +816,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isNumber(false);
      * // Returns: false
@@ -771,7 +836,7 @@ declare module "util" {
      * Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isObject(5);
      * // Returns: false
@@ -790,7 +855,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isPrimitive(5);
      * // Returns: true
@@ -819,7 +884,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isString('');
      * // Returns: true
@@ -838,7 +903,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * util.isSymbol(5);
      * // Returns: false
@@ -855,7 +920,7 @@ declare module "util" {
      * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * const foo = undefined;
      * util.isUndefined(5);
@@ -874,14 +939,14 @@ declare module "util" {
      * such a way that it is marked as deprecated.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * exports.obsoleteFunction = util.deprecate(() => {
      *   // Do something here.
      * }, 'obsoleteFunction() is deprecated. Use newShinyFunction() instead.');
      * ```
      *
-     * When called, `util.deprecate()` will return a function that will emit a`DeprecationWarning` using the `'warning'` event. The warning will
+     * When called, `util.deprecate()` will return a function that will emit a `DeprecationWarning` using the `'warning'` event. The warning will
      * be emitted and printed to `stderr` the first time the returned function is
      * called. After the warning is emitted, the wrapped function is called without
      * emitting a warning.
@@ -890,7 +955,7 @@ declare module "util" {
      * the warning will be emitted only once for that `code`.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * const fn1 = util.deprecate(someFunction, someMessage, 'DEP0001');
      * const fn2 = util.deprecate(someOtherFunction, someOtherMessage, 'DEP0001');
@@ -907,10 +972,10 @@ declare module "util" {
      * stack trace are printed to `stderr` the first time the deprecated function is
      * called.
      *
-     * If the `--throw-deprecation` command-line flag is set, or the`process.throwDeprecation` property is set to `true`, then an exception will be
+     * If the `--throw-deprecation` command-line flag is set, or the `process.throwDeprecation` property is set to `true`, then an exception will be
      * thrown when the deprecated function is called.
      *
-     * The `--throw-deprecation` command-line flag and `process.throwDeprecation`property take precedence over `--trace-deprecation` and`process.traceDeprecation`.
+     * The `--throw-deprecation` command-line flag and `process.throwDeprecation` property take precedence over `--trace-deprecation` and `process.traceDeprecation`.
      * @since v0.8.0
      * @param fn The function that is being deprecated.
      * @param msg A warning message to display when the deprecated function is invoked.
@@ -941,10 +1006,10 @@ declare module "util" {
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the
-     * first argument will be the rejection reason (or `null` if the `Promise`resolved), and the second argument will be the resolved value.
+     * first argument will be the rejection reason (or `null` if the `Promise` resolved), and the second argument will be the resolved value.
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * async function fn() {
      *   return 'hello world';
@@ -968,7 +1033,7 @@ declare module "util" {
      *
      * Since `null` has a special meaning as the first argument to a callback, if a
      * wrapped function rejects a `Promise` with a falsy value as a reason, the value
-     * is wrapped in an `Error` with the original value stored in a field named`reason`.
+     * is wrapped in an `Error` with the original value stored in a field named `reason`.
      *
      * ```js
      * function fn() {
@@ -1070,8 +1135,8 @@ declare module "util" {
      * that returns promises.
      *
      * ```js
-     * const util = require('node:util');
-     * const fs = require('node:fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      * stat('.').then((stats) => {
@@ -1084,8 +1149,8 @@ declare module "util" {
      * Or, equivalently using `async function`s:
      *
      * ```js
-     * const util = require('node:util');
-     * const fs = require('node:fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      *
@@ -1097,10 +1162,10 @@ declare module "util" {
      * callStat();
      * ```
      *
-     * If there is an `original[util.promisify.custom]` property present, `promisify`will return its value, see `Custom promisified functions`.
+     * If there is an `original[util.promisify.custom]` property present, `promisify` will return its value, see `Custom promisified functions`.
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
-     * final argument in all cases. If `original` is not a function, `promisify()`will throw an error. If `original` is a function but its last argument is not
+     * final argument in all cases. If `original` is not a function, `promisify()` will throw an error. If `original` is a function but its last argument is not
      * an error-first callback, it will still be passed an error-first
      * callback as its last argument.
      *
@@ -1108,7 +1173,7 @@ declare module "util" {
      * work as expected unless handled specially:
      *
      * ```js
-     * const util = require('node:util');
+     * import util from 'node:util';
      *
      * class Foo {
      *   constructor() {
@@ -1174,6 +1239,115 @@ declare module "util" {
         const custom: unique symbol;
     }
     /**
+     * Stability: 1.1 - Active development
+     * Given an example `.env` file:
+     *
+     * ```js
+     * import { parseEnv } from 'node:util';
+     *
+     * parseEnv('HELLO=world\nHELLO=oh my\n');
+     * // Returns: { HELLO: 'oh my' }
+     * ```
+     * @param content The raw contents of a `.env` file.
+     * @since v20.12.0
+     */
+    export function parseEnv(content: string): object;
+    // https://nodejs.org/docs/latest/api/util.html#foreground-colors
+    type ForegroundColors =
+        | "black"
+        | "blackBright"
+        | "blue"
+        | "blueBright"
+        | "cyan"
+        | "cyanBright"
+        | "gray"
+        | "green"
+        | "greenBright"
+        | "grey"
+        | "magenta"
+        | "magentaBright"
+        | "red"
+        | "redBright"
+        | "white"
+        | "whiteBright"
+        | "yellow"
+        | "yellowBright";
+    // https://nodejs.org/docs/latest/api/util.html#background-colors
+    type BackgroundColors =
+        | "bgBlack"
+        | "bgBlackBright"
+        | "bgBlue"
+        | "bgBlueBright"
+        | "bgCyan"
+        | "bgCyanBright"
+        | "bgGray"
+        | "bgGreen"
+        | "bgGreenBright"
+        | "bgGrey"
+        | "bgMagenta"
+        | "bgMagentaBright"
+        | "bgRed"
+        | "bgRedBright"
+        | "bgWhite"
+        | "bgWhiteBright"
+        | "bgYellow"
+        | "bgYellowBright";
+    // https://nodejs.org/docs/latest/api/util.html#modifiers
+    type Modifiers =
+        | "blink"
+        | "bold"
+        | "dim"
+        | "doubleunderline"
+        | "framed"
+        | "hidden"
+        | "inverse"
+        | "italic"
+        | "overlined"
+        | "reset"
+        | "strikethrough"
+        | "underline";
+    /**
+     * Stability: 1.1 - Active development
+     *
+     * This function returns a formatted text considering the `format` passed.
+     *
+     * ```js
+     * import { styleText } from 'node:util';
+     * const errorMessage = styleText('red', 'Error! Error!');
+     * console.log(errorMessage);
+     * ```
+     *
+     * `util.inspect.colors` also provides text formats such as `italic`, and `underline` and you can combine both:
+     *
+     * ```js
+     * console.log(
+     *   util.styleText(['underline', 'italic'], 'My italic underlined message'),
+     * );
+     * ```
+     *
+     * When passing an array of formats, the order of the format applied is left to right so the following style
+     * might overwrite the previous one.
+     *
+     * ```js
+     * console.log(
+     *   util.styleText(['red', 'green'], 'text'), // green
+     * );
+     * ```
+     *
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v22.x/api/util.html#modifiers).
+     * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
+     * @param text The text to to be formatted.
+     * @since v20.12.0
+     */
+    export function styleText(
+        format:
+            | ForegroundColors
+            | BackgroundColors
+            | Modifiers
+            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+        text: string,
+    ): string;
+    /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *
      * ```js
@@ -1210,7 +1384,7 @@ declare module "util" {
          * incomplete byte sequences occurring at the end of the `input` are buffered
          * internally and emitted after the next call to `textDecoder.decode()`.
          *
-         * If `textDecoder.fatal` is `true`, decoding errors that occur will result in a`TypeError` being thrown.
+         * If `textDecoder.fatal` is `true`, decoding errors that occur will result in a `TypeError` being thrown.
          * @param input An `ArrayBuffer`, `DataView`, or `TypedArray` instance containing the encoded data.
          */
         decode(
@@ -1274,7 +1448,7 @@ declare module "util" {
     import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from "util";
     global {
         /**
-         * `TextDecoder` class is a global reference for `require('util').TextDecoder`
+         * `TextDecoder` class is a global reference for `import { TextDecoder } from 'node:util'`
          * https://nodejs.org/api/globals.html#textdecoder
          * @since v11.0.0
          */
@@ -1284,7 +1458,7 @@ declare module "util" {
         } ? TextDecoder
             : typeof _TextDecoder;
         /**
-         * `TextEncoder` class is a global reference for `require('util').TextEncoder`
+         * `TextEncoder` class is a global reference for `import { TextEncoder } from 'node:util'`
          * https://nodejs.org/api/globals.html#textencoder
          * @since v11.0.0
          */
@@ -1372,6 +1546,12 @@ declare module "util" {
          */
         allowPositionals?: boolean | undefined;
         /**
+         * If `true`, allows explicitly setting boolean options to `false` by prefixing the option name with `--no-`.
+         * @default false
+         * @since v22.4.0
+         */
+        allowNegative?: boolean | undefined;
+        /**
          * Return the parsed tokens. This is useful for extending the built-in behavior,
          * from adding additional checks through to reprocessing the tokens in different ways.
          * @default false
@@ -1402,15 +1582,23 @@ declare module "util" {
         string | boolean
     >;
 
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
+        & { -readonly [LongOption in keyof O]?: V[LongOption] }
+        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
+    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
-                    T["options"][LongOption]["multiple"],
-                    undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
-                    undefined | ExtractOptionValue<T, T["options"][LongOption]>
-                >;
-            }
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                        T["options"][LongOption]["multiple"],
+                        Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                        ExtractOptionValue<T, T["options"][LongOption]>
+                    >;
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
@@ -1589,7 +1777,7 @@ declare module "util" {
         toString(): string;
     }
     /**
-     * The `MIMEParams` API provides read and write access to the parameters of a`MIMEType`.
+     * The `MIMEParams` API provides read and write access to the parameters of a `MIMEType`.
      * @since v19.1.0, v18.13.0
      */
     export class MIMEParams {
@@ -1602,7 +1790,7 @@ declare module "util" {
          * Each item of the iterator is a JavaScript `Array`. The first item of the array
          * is the `name`, the second item of the array is the `value`.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): NodeJS.Iterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -1628,9 +1816,9 @@ declare module "util" {
          * //   bar
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): NodeJS.Iterator<string>;
         /**
-         * Sets the value in the `MIMEParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `MIMEParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
          *
          * ```js
@@ -1647,11 +1835,11 @@ declare module "util" {
         /**
          * Returns an iterator over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
+        values(): NodeJS.Iterator<string>;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+        [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
 }
 declare module "util/types" {
@@ -1965,11 +2153,11 @@ declare module "util/types" {
      * console.log(util.types.isNativeError(new MyError()));  // true
      * ```
      *
-     * A value being `instanceof` a native error class is not equivalent to `isNativeError()`returning `true` for that value. `isNativeError()` returns `true` for errors
-     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false`for these errors:
+     * A value being `instanceof` a native error class is not equivalent to `isNativeError()` returning `true` for that value. `isNativeError()` returns `true` for errors
+     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false` for these errors:
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      * const context = vm.createContext({});
      * const myError = vm.runInContext('new Error()', context);
      * console.log(util.types.isNativeError(myError)); // true

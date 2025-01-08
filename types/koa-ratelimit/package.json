@@ -6,9 +6,9 @@
         "https://github.com/koajs/ratelimit#readme"
     ],
     "dependencies": {
+        "@types/ioredis": "^4.28.10",
         "@types/koa": "*",
-        "@types/node": "*",
-        "ioredis": "^5.2.3"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/koa-ratelimit": "workspace:."

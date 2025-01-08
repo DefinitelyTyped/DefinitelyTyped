@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.menuaim",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.menuaim",
     "projects": [
         "https://github.com/kamens/jQuery-menu-aim"
     ],

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "reveal.esm.js-tests.ts",
         "reveal.js-tests.ts"
     ]
 }

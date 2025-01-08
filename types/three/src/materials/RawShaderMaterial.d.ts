@@ -1,4 +1,4 @@
-import { ShaderMaterialParameters, ShaderMaterial } from './ShaderMaterial.js';
+import { ShaderMaterial, ShaderMaterialParameters } from "./ShaderMaterial.js";
 
 export class RawShaderMaterial extends ShaderMaterial {
     constructor(parameters?: ShaderMaterialParameters);
@@ -9,6 +9,4 @@ export class RawShaderMaterial extends ShaderMaterial {
      * @defaultValue `true`
      */
     readonly isRawShaderMaterial: true;
-
-    override readonly type: 'RawShaderMaterial';
 }

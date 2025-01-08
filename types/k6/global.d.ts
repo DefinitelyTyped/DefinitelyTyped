@@ -6,8 +6,6 @@
  * others in both contexts. Comments note availability.
  */
 
-import { bytes } from ".";
-
 export {};
 
 // Available without importing
@@ -58,7 +56,7 @@ declare global {
      * Environment variables.
      * https://grafana.com/docs/k6/latest/using-k6/environment-variables/
      */
-    const __ENV: { [name: string]: string };
+    var __ENV: { [name: string]: string };
 
     // === VU logic only ===
     // ---------------------
@@ -67,11 +65,19 @@ declare global {
      * Current VU number.
      * https://grafana.com/docs/k6/latest/using-k6/execution-context-variables/
      */
-    const __VU: number;
+    var __VU: number;
 
     /**
      * Current iteration number.
      * https://grafana.com/docs/k6/latest/using-k6/execution-context-variables/
      */
-    const __ITER: number;
+    var __ITER: number;
+
+    interface ImportMeta {
+        /**
+         * Resolve a path to a URL string in the same way an import statement does.
+         * https://grafana.com/docs/k6/latest/javascript-api/import.meta/resolve/
+         */
+        resolve(specifier: string): string;
+    }
 }

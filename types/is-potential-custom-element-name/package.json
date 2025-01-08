@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-potential-custom-element-name",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/is-potential-custom-element-name"
+    ],
+    "devDependencies": {
+        "@types/is-potential-custom-element-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "1natsu",
+            "githubUsername": "1natsu172"
+        }
+    ]
+}

@@ -97,6 +97,48 @@ serverByType.on("request", (request, response, rinfo) => {
 
 serverByType.listen({ udp: 5344 });
 
+const serverOnAddress = DNS.createServer({
+    udp: true,
+    handle: (request, send, rinfo) => {
+        const response = Packet.createResponseFromRequest(request);
+        const [question] = request.questions;
+        const { name } = question;
+        response.answers.push({
+            name,
+            type: Packet.TYPE.A,
+            class: Packet.CLASS.IN,
+            ttl: 300,
+            address: "8.8.8.8",
+        });
+        response.answers.push({
+            name,
+            type: Packet.TYPE.CNAME,
+            class: Packet.CLASS.IN,
+            ttl: 300,
+            domain: "another-name.example.com",
+        });
+        response.answers.push({
+            name,
+            type: Packet.TYPE.TXT,
+            class: Packet.CLASS.IN,
+            ttl: 60,
+            data: "dnslink=/ipfs/123abc",
+        });
+        send(response);
+    },
+});
+
+serverOnAddress.on("request", (request, response, rinfo) => {
+    console.log(request.header.id, request.questions[0]);
+});
+
+serverOnAddress.listen({
+    udp: {
+        port: 5355,
+        address: "0.0.0.0",
+    },
+});
+
 const udpServer = new DNS.UDPServer((request, send, rinfo) => {
     const response = Packet.createResponseFromRequest(request);
     send(response);

@@ -1,15 +1,6 @@
 declare namespace mp {
     type LogLevel = "fatal" | "error" | "warn" | "info" | "v" | "debug" | "trace";
 
-    interface AddKeyBindingFlags {
-        repeatable?: boolean | undefined;
-        complex?: boolean | undefined;
-        event?: "down" | "repeat" | "up" | "press" | undefined;
-        is_mouse?: boolean | undefined;
-        key_name?: string | undefined;
-        key_text?: string | undefined;
-    }
-
     interface OSDOverlay {
         data: string;
         res_x: number;
@@ -35,11 +26,102 @@ declare namespace mp {
         is_dir: boolean;
     }
 
+    interface BaseCommandOpts {
+        args: string[];
+        playback_only?: boolean;
+        capture_size?: number;
+        detach?: boolean;
+        env?: string[];
+        stdin_data?: string;
+        passthrough_stdin?: boolean;
+    }
+
+    interface UnnamedCommandOpts extends BaseCommandOpts {
+        capture_stdout?: boolean;
+        capture_stderr?: boolean;
+    }
+
+    interface UncapturedNamedCommandOpts extends BaseCommandOpts {
+        name: string;
+        capture_stdout?: false;
+        capture_stderr?: false;
+    }
+
+    interface NamedCommandOptsWithStdout extends BaseCommandOpts {
+        name: string;
+        capture_stdout: true;
+        capture_stderr?: false;
+    }
+
+    interface NamedCommandOptsWithStderr extends BaseCommandOpts {
+        name: string;
+        capture_stderr: true;
+        capture_stdout?: false;
+    }
+
+    interface CapturedNamedOptsCommand extends BaseCommandOpts {
+        name: string;
+        capture_stdout: true;
+        capture_stderr: true;
+    }
+
+    interface UncapturedProcess {
+        status: number;
+        error_string: "" | "killed" | "init";
+        killed_by_us: boolean;
+    }
+
+    interface ProcessWithStdout extends UncapturedProcess {
+        stdout: string;
+    }
+
+    interface ProcessWithStderr extends UncapturedProcess {
+        stderr: string;
+    }
+
+    interface CapturedProcess extends UncapturedProcess {
+        stdout: string;
+        stderr: string;
+    }
+
+    interface UncomplexKeyBindingFlags {
+        repeatable?: boolean;
+        complex?: false;
+    }
+
+    interface ComplexKeyBindingFlags {
+        // Setting `repeatable` to `true` when `complex` is `true` doesn't make sense
+        // See also: https://github.com/mpv-player/mpv/pull/13452
+        repeatable?: false;
+        complex: true;
+    }
+
+    interface UserInputCommand {
+        event: "down" | "repeat" | "up" | "press";
+        is_mouse: boolean;
+        key_name?: string | undefined;
+        key_text?: string | undefined;
+    }
+
     function command(command: string): true | undefined;
 
     function commandv(...args: readonly string[]): true | undefined;
 
-    function command_native(table: unknown, def?: unknown): unknown;
+    function command_native(table: [string, ...unknown[]]): null | undefined; // `undefined` on error
+
+    function command_native<T>(table: [string, ...unknown[]], def: T): null | T; // `T` on error
+
+    function command_native(table: UnnamedCommandOpts): undefined;
+
+    function command_native<T>(table: UnnamedCommandOpts, def: T): T;
+
+    function command_native(table: UncapturedNamedCommandOpts, def?: unknown): UncapturedProcess;
+
+    function command_native(table: NamedCommandOptsWithStdout, def?: unknown): ProcessWithStdout;
+
+    function command_native(table: NamedCommandOptsWithStderr, def?: unknown): ProcessWithStderr;
+
+    function command_native(table: CapturedNamedOptsCommand, def?: unknown): CapturedProcess;
 
     function command_native_async(
         table: unknown,
@@ -71,9 +153,61 @@ declare namespace mp {
 
     function get_time(): number;
 
-    function add_key_binding(key: string, name?: string, fn?: () => void, flags?: AddKeyBindingFlags): void;
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_key_binding(key: string | undefined, fn: () => void, flags?: UncomplexKeyBindingFlags): void;
 
-    function add_forced_key_binding(key: string, name?: string, fn?: () => void, flags?: AddKeyBindingFlags): void;
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_key_binding(
+        key: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    function add_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    function add_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(key: string | undefined, fn: () => void, flags?: UncomplexKeyBindingFlags): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    function add_forced_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    function add_forced_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
 
     function remove_key_binding(name: string): void;
 

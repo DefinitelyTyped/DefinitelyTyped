@@ -15,6 +15,8 @@ Cookiebot.getScript("", true, () => {});
 Cookiebot.runScripts();
 Cookiebot.withdraw();
 Cookiebot.submitCustomConsent(true, true, true);
+Cookiebot.getDomainUrlParam("");
+Cookiebot.setOutOfRegion();
 
 window.Cookiebot?.show();
 window.Cookiebot?.hide();
@@ -23,6 +25,8 @@ window.Cookiebot?.getScript("", true, () => {});
 window.Cookiebot?.runScripts();
 window.Cookiebot?.withdraw();
 window.Cookiebot?.submitCustomConsent(true, true, true);
+window.Cookiebot?.getDomainUrlParam("");
+window.Cookiebot?.setOutOfRegion();
 
 window.addEventListener("CookiebotOnAccept", (event) => {
     event; // $ExpectType Event

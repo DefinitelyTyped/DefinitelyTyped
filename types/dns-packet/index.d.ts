@@ -347,6 +347,7 @@ export const RECURSION_DESIRED: number;
 export const RECURSION_AVAILABLE: number;
 export const AUTHENTIC_DATA: number;
 export const CHECKING_DISABLED: number;
+export const DNSSEC_OK: number;
 
 export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
 export namespace encode {

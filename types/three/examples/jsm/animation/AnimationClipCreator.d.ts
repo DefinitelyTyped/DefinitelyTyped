@@ -1,4 +1,4 @@
-import { AnimationClip, Vector3 } from '../../../src/Three.js';
+import { AnimationClip, Vector3 } from "three";
 
 export interface AnimationClipCreator {
     CreateRotationAnimation(period: number, axis: string): AnimationClip;

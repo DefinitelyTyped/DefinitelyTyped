@@ -40,6 +40,7 @@ declare class AGTransport {
         handlers?: AGTransport.TransportHandlers,
     );
 
+    computeURI(options?: ClientOptions): string;
     uri(): string;
 
     clearAllListeners(): void;

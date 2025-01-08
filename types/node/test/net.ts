@@ -1,5 +1,5 @@
 import { Socket } from "node:dgram";
-import { LookupAddress, LookupAllOptions } from "node:dns";
+import { LookupAddress, LookupOptions } from "node:dns";
 import * as net from "node:net";
 
 {
@@ -21,6 +21,7 @@ import * as net from "node:net";
     let server = net.createServer({
         keepAlive: true,
         keepAliveInitialDelay: 1000,
+        highWaterMark: 16384,
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
@@ -47,6 +48,13 @@ import * as net from "node:net";
     let _socket: net.Socket = new net.Socket({
         fd: 1,
         allowHalfOpen: false,
+        onread: {
+            buffer: Buffer.alloc(4 * 1024),
+            callback: (bytesWritten, buffer) => {
+                console.log(Buffer.from(buffer).toString("utf-8", 0, bytesWritten));
+                return true;
+            },
+        },
         readable: false,
         writable: false,
     });
@@ -68,6 +76,30 @@ import * as net from "node:net";
     _socket = _socket.end();
     _socket = _socket.destroy();
     _socket.destroySoon();
+}
+
+{
+    // lookup callback can be either an array of LookupAddress or a single address and family
+    const tcpConnectLookupAllOpts: net.TcpSocketConnectOpts = {
+        lookup: (
+            _hostname: string,
+            _options: LookupOptions,
+            callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
+        ): void => {
+            callback(null, [{ address: "", family: 1 }]);
+        },
+        port: 80,
+    };
+    const tcpConnectLookupOneOpts: net.TcpSocketConnectOpts = {
+        lookup: (
+            _hostname: string,
+            _options: LookupOptions,
+            callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        ): void => {
+            callback(null, "", 1);
+        },
+        port: 80,
+    };
 }
 
 {
@@ -109,7 +141,7 @@ import * as net from "node:net";
         localPort: 1234,
         lookup: (
             _hostname: string,
-            _options: LookupAllOptions,
+            _options: LookupOptions,
             _callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
         ): void => {
             // nothing
@@ -379,4 +411,5 @@ import * as net from "node:net";
     bl.addSubnet("127.0.0.1", 26, "ipv4");
     bl.addSubnet(sockAddr, 12);
     const res: boolean = bl.check("127.0.0.1", "ipv4") || bl.check(sockAddr);
+    bl.rules; // $ExpectType readonly string[]
 }

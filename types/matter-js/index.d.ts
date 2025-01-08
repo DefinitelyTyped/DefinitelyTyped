@@ -462,7 +462,7 @@ declare namespace Matter {
 
     export interface IBodyRenderOptionsSprite {
         /**
-         * An `String` that defines the path to the image to use as the sprite texture, if any.
+         * A `String` that defines the path to the image to use as the sprite texture, if any.
          */
         texture: string;
 
@@ -3831,7 +3831,7 @@ declare namespace Matter {
          * @param eventName
          * @param callback
          */
-        static off(obj: any, eventName: string, callback: (e: any) => void): void;
+        static off(obj: any, eventName: string, callback?: (e: any) => void): void;
 
         /**
          * Fires all the callbacks subscribed to the given object's eventName, in the order they subscribed, if any.
@@ -4003,7 +4003,7 @@ declare namespace Matter {
          * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
          * @returns {collision|null} A collision record if detected, otherwise null
          */
-        static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
+        static collides(bodyA: Body, bodyB: Body, pairs?: Pairs): Collision | null;
 
         /**
          * A reference to the pair using this collision record, if there is one.

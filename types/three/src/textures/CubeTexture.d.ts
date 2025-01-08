@@ -1,13 +1,12 @@
-import { Texture } from './Texture.js';
 import {
-    Wrapping,
-    PixelFormat,
-    TextureDataType,
+    CubeTextureMapping,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-    CubeTextureMapping,
-    ColorSpace,
-} from '../constants.js';
+    PixelFormat,
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * Creates a cube texture made up of six images.
@@ -52,7 +51,7 @@ export class CubeTexture extends Texture {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**

@@ -1,7 +1,7 @@
 const handleBeforeInstallPrompt = (event: BeforeInstallPromptEvent) => {
     // $ExpectType BeforeInstallPromptEventPlatform[]
     const platforms = event.platforms;
-    // $ExpectType Promise<void>
+    // $ExpectType Promise<PromptResponseObject>
     const promptResult = event.prompt();
     // $ExpectType Promise<PromptResponseObject>
     const userChoiceResult = event.userChoice;

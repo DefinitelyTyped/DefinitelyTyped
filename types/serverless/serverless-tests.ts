@@ -20,8 +20,10 @@ class CustomPlugin implements Plugin {
             options: {
                 option: {
                     usage: `description`,
-                    required: true,
+                    required: false,
                     shortcut: "o",
+                    type: "multiple" as "multiple",
+                    default: ["value1", "value2"],
                 },
             },
         },
@@ -33,10 +35,20 @@ class CustomPlugin implements Plugin {
 
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
+    configurationVariablesSources: Plugin.ConfigurationVariablesSources;
 
     constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             "command:start": () => {},
+        };
+        // Both sync and async variable resolvers are supported
+        this.configurationVariablesSources = {
+            sync: {
+                resolve: () => {},
+            },
+            async: {
+                resolve: async () => {},
+            },
         };
         this.variableResolvers = {
             echo: async (source) => source.slice(5),
@@ -321,6 +333,9 @@ const awsServerless: Aws.Serverless = {
                 },
             },
             useProviderTags: true,
+            metrics: true,
+            disableDefaultEndpoint: true,
+            shouldStartNameWithService: true,
         },
         usagePlan: {
             quota: {
@@ -433,6 +448,7 @@ const awsServerless: Aws.Serverless = {
     functions: {
         testFunction: {
             handler: "testhandler",
+            architecture: "x86_64",
             name: "testname",
             description: "testdescription",
             memorySize: 1,
@@ -736,6 +752,7 @@ const awsServerless: Aws.Serverless = {
                             },
                         ],
                         functionResponseType: "ReportBatchItemFailures",
+                        parallelizationFactor: 2,
                     },
                 },
                 {

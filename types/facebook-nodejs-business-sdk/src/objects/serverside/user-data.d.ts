@@ -31,6 +31,8 @@ export default class UserData {
     _madid: string;
     _anon_id: string;
     _app_user_id: string;
+    _ctwa_clid: string;
+    _page_id: string;
     /**
      * @param {String} email An email address, in lowercase.
      * @param {String} phone A phone number. Include only digits with country code, area code, and number.
@@ -56,9 +58,11 @@ export default class UserData {
      * @param {String} madid
      * @param {String} anon_id
      * @param {String} app_user_id
+     * @param {String} ctwa_clid ID of a conversation that was started on WhatsApp
+     * @param {String} page_id ID of the page that the ad is associated with
      */
-    constructor(email?: string, phone?: string, gender?: string, first_name?: string, last_name?: string, date_of_birth?: string, city?: string, state?: string, zip?: string, country?: string, external_id?: string, client_ip_address?: string, client_user_agent?: string, fbp?: string, fbc?: string, subscription_id?: string, fb_login_id?: string, lead_id?: string, dobd?: string, dobm?: string, doby?: string, madid?: string, anon_id?: string, app_user_id?: string);
-    static get Gender(): Record<any, any>;
+    constructor(email?: string, phone?: string, gender?: string, first_name?: string, last_name?: string, date_of_birth?: string, city?: string, state?: string, zip?: string, country?: string, external_id?: string, client_ip_address?: string, client_user_agent?: string, fbp?: string, fbc?: string, subscription_id?: string, fb_login_id?: string, lead_id?: string, dobd?: string, dobm?: string, doby?: string, madid?: string, anon_id?: string, app_user_id?: string, ctwa_clid?: string, page_id?: string);
+    static get Gender(): Record<string, any>;
     /**
      * Gets the email address for the user data field.
      * An email address, in lowercase.
@@ -252,16 +256,16 @@ export default class UserData {
      */
     set first_name(first_name: string);
     /**
-     * Gets the first names for the user data.
-     * first_name is first name in lowercase.
-     * Example: ['joe', 'mary']
-     */
+    * Gets the first names for the user data.
+    * first_name is first name in lowercase.
+    * Example: ['joe', 'mary']
+    */
     get first_names(): string[];
     /**
-     * Sets the first names for the user data.
-     * @param first_names is first name in lowercase.
-     * Example: ['joe', 'mary']
-     */
+    * Sets the first names for the user data.
+    * @param first_names is first name in lowercase.
+    * Example: ['joe', 'mary']
+    */
     set first_names(first_names: string[]);
     /**
      * Sets the first name for the user data.
@@ -695,14 +699,38 @@ export default class UserData {
      */
     setAppUserId(app_user_id: string): UserData;
     /**
+     *
+     */
+    get ctwa_clid(): string;
+    /**
+     *
+     */
+    set ctwa_clid(ctwa_clid: string);
+    /**
+     *
+     */
+    setCtwaClid(ctwa_clid: string): UserData;
+    /**
+     *
+     */
+    get page_id(): string;
+    /**
+     *
+     */
+    set page_id(page_id: string);
+    /**
+     *
+     */
+    setPageId(page_id: string): UserData;
+    /**
      * Returns the normalized payload for the user_data parameter.
      * @returns {Object} normalized user data payload.
      */
-    normalize(): Record<any, any>;
+    normalize(): Record<string, any>;
     /**
-     * Returns the deduped and normalized payload for the given array of values and the field.
-     * @returns {string[]} dedupped and normalized values.
-     */
+    * Returns the deduped and normalized payload for the given array of values and the field.
+    * @returns {string[]} dedupped and normalized values.
+    */
     normalizeAndHashMultiValues(arr: string[], fieldName: string): string[];
     /**
      * Returns the deduped payload for the given array of values.

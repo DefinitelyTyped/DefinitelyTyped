@@ -115,6 +115,8 @@ var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 var fooIterable: Iterable<Foo>;
 var fooIterator: Iterator<Foo>;
 
+var maybeFooStream: Highland.Stream<Foo | undefined>;
+
 var isBaz: (obj: Foo) => obj is Baz;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -215,6 +217,8 @@ fooArrStream = fooStream.batchWithTimeOrCount(10, 2);
 fooArrStream = fooStream.collect();
 
 fooStream = fooStream.compact();
+
+fooStream = maybeFooStream.compact();
 
 barStream = fooStream.consume(
     (
@@ -504,6 +508,8 @@ fooStream.toPromise<Promise<Foo>>(MyPromise);
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooStream = _.fromError(new Error());
+
 bool = _.isNil(x);
 
 bool = _.isStream(x);
@@ -519,6 +525,8 @@ _.log(str);
 _.log(str, num, foo);
 
 obj = _.nil;
+
+fooStream = _.of(foo);
 
 f = _.wrapCallback(func);
 f = _.wrapCallback(func, num);

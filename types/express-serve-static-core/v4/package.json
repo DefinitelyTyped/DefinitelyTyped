@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/express-serve-static-core",
+    "version": "4.19.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "express-serve-static-core",
+    "projects": [
+        "http://expressjs.com"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/qs": "*",
+        "@types/range-parser": "*",
+        "@types/send": "*"
+    },
+    "devDependencies": {
+        "@types/express-serve-static-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Satana Charuwichitratana",
+            "githubUsername": "micksatana"
+        },
+        {
+            "name": "Jose Luis Leon",
+            "githubUsername": "JoseLion"
+        },
+        {
+            "name": "David Stephens",
+            "githubUsername": "dwrss"
+        },
+        {
+            "name": "Shin Ando",
+            "githubUsername": "andoshin11"
+        }
+    ]
+}

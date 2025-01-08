@@ -11,7 +11,6 @@ import {
     resetServerContext,
     ResponderProvided,
 } from "react-beautiful-dnd";
-import * as ReactDOM from "react-dom";
 
 interface Item {
     id: string;
@@ -128,7 +127,5 @@ class App extends React.Component<{}, AppState> {
         );
     }
 }
-
-ReactDOM.render(<App />, document.getElementById("app"));
 
 resetServerContext();

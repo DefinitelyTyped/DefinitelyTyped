@@ -12,7 +12,6 @@ import BootstrapTable, {
     ROW_SELECT_SINGLE,
     RowSelectionType,
 } from "react-bootstrap-table-next";
-import { render } from "react-dom";
 
 interface Product {
     id: number;
@@ -159,167 +158,140 @@ const productColumns: Array<ColumnDescription<Product>> = [
 /**
  * Basic table test with custom header and cell formatters
  */
-render(
-    <BootstrapTable data={products} bootstrap4 striped={true} hover={true} keyField="id" columns={productColumns} />,
-    document.getElementById("app"),
-);
+<BootstrapTable data={products} bootstrap4 striped={true} hover={true} keyField="id" columns={productColumns} />;
 
 /**
  * Inline untyped columns test
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        striped={true}
-        hover={true}
-        keyField="id"
-        columns={[
-            { dataField: "id", align: "center", sort: true, text: "Product ID" },
-            { dataField: "name", align: "center", sort: true, text: "Product Name" },
-            {
-                isDummyField: true,
-                dataField: "",
-                sort: true,
-                formatter: () => <span>Dummy Field</span>,
-                text: "Dummy Columns",
-            },
-            {
-                dataField: "price",
-                sort: true,
-                formatter: priceFormatter,
-                text: "Product Price",
-                headerFormatter: priceHeaderFormatter,
-            },
-            /**
-             * test optional dataField for dummyFields
-             */
-            {
-                isDummyField: true,
-                dataField: "",
-                sort: true,
-                formatter: priceFormatter,
-                text: "Product Price",
-                headerFormatter: priceHeaderFormatter,
-            },
-        ]}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    striped={true}
+    hover={true}
+    keyField="id"
+    columns={[
+        { dataField: "id", align: "center", sort: true, text: "Product ID" },
+        { dataField: "name", align: "center", sort: true, text: "Product Name" },
+        {
+            isDummyField: true,
+            dataField: "",
+            sort: true,
+            formatter: () => <span>Dummy Field</span>,
+            text: "Dummy Columns",
+        },
+        {
+            dataField: "price",
+            sort: true,
+            formatter: priceFormatter,
+            text: "Product Price",
+            headerFormatter: priceHeaderFormatter,
+        },
+        /**
+         * test optional dataField for dummyFields
+         */
+        {
+            isDummyField: true,
+            dataField: "",
+            sort: true,
+            formatter: priceFormatter,
+            text: "Product Price",
+            headerFormatter: priceHeaderFormatter,
+        },
+    ]}
+/>;
 
 /**
  * Basic table with custom data indicator and caption
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        striped={true}
-        hover={true}
-        keyField="id"
-        noDataIndication={() => <div>No data available</div>}
-        caption={<span>Amazing table</span>}
-        columns={productColumns}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    striped={true}
+    hover={true}
+    keyField="id"
+    noDataIndication={() => <div>No data available</div>}
+    caption={<span>Amazing table</span>}
+    columns={productColumns}
+/>;
 
 /**
  * Basic table with function returning string noDataIndication
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        noDataIndication={() => "No data available"}
-        columns={productColumns}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    keyField="id"
+    noDataIndication={() => "No data available"}
+    columns={productColumns}
+/>;
 
 /**
  * Basic table with string noDataIndication
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        noDataIndication="No data available"
-        columns={productColumns}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    keyField="id"
+    noDataIndication="No data available"
+    columns={productColumns}
+/>;
 
 /**
  * Basic table with JSX element noDataIndication
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        noDataIndication={<div>No data available</div>}
-        columns={productColumns}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    keyField="id"
+    noDataIndication={<div>No data available</div>}
+    columns={productColumns}
+/>;
 
 /**
  * Basic table with custom data indicator and caption
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        columns={productColumns}
-        selectRow={{
-            mode: ROW_SELECT_SINGLE,
-        }}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    keyField="id"
+    columns={productColumns}
+    selectRow={{
+        mode: ROW_SELECT_SINGLE,
+    }}
+/>;
 
 /**
  * Basic table with custom checkbox in row selection column
  */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        columns={productColumns}
-        selectRow={{
-            mode: ROW_SELECT_MULTIPLE,
-            selectionRenderer({ rowKey, checked, disabled }) {
-                return <input key={rowKey} type="checkbox" checked={checked} disabled={disabled} />;
-            },
-        }}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    bootstrap4
+    keyField="id"
+    columns={productColumns}
+    selectRow={{
+        mode: ROW_SELECT_MULTIPLE,
+        selectionRenderer({ rowKey, checked, disabled }) {
+            return <input key={rowKey} type="checkbox" checked={checked} disabled={disabled} />;
+        },
+    }}
+/>;
 
 /**
  * Event handling table test
  */
-render(
-    <BootstrapTable
-        data={products}
-        rowEvents={{
-            onClick: (e, row, rowIndex) => {
-                typeof row.inStockStatus === "number";
-            },
-            onDoubleClick: (e, row, rowIndex) => {},
-            onMouseEnter: (e, row, rowIndex) => {},
-            onMouseLeave: (e, row, rowIndex) => {},
-        }}
-        keyField="id"
-        columns={productColumns}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable
+    data={products}
+    rowEvents={{
+        onClick: (e, row, rowIndex) => {
+            typeof row.inStockStatus === "number";
+        },
+        onDoubleClick: (e, row, rowIndex) => {},
+        onMouseEnter: (e, row, rowIndex) => {},
+        onMouseLeave: (e, row, rowIndex) => {},
+    }}
+    keyField="id"
+    columns={productColumns}
+/>;
 
 interface UserWithStringId {
     id: string;
@@ -335,22 +307,19 @@ const usersWithStringIds: UserWithStringId[] = [
 ];
 
 // test expandRow when string is key type
-render(
-    <BootstrapTable<UserWithStringId, string>
-        data={usersWithStringIds}
-        keyField="id"
-        columns={[
-            { text: "ID", dataField: "id" },
-            { text: "Name", dataField: "name" },
-        ]}
-        expandRow={{
-            renderer: (row: UserWithStringId) => <p>{row.description}</p>,
-            nonExpandable: ["2", "4"],
-            expanded: ["1", "3"],
-        }}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable<UserWithStringId, string>
+    data={usersWithStringIds}
+    keyField="id"
+    columns={[
+        { text: "ID", dataField: "id" },
+        { text: "Name", dataField: "name" },
+    ]}
+    expandRow={{
+        renderer: (row: UserWithStringId) => <p>{row.description}</p>,
+        nonExpandable: ["2", "4"],
+        expanded: ["1", "3"],
+    }}
+/>;
 
 interface UserWithNumberId {
     id: number;
@@ -366,40 +335,34 @@ const usersWithNumberIds: UserWithNumberId[] = [
 ];
 
 // test expandRow when key is of default type
-render(
-    <BootstrapTable<UserWithNumberId>
-        data={usersWithNumberIds}
-        keyField="id"
-        columns={[
-            { text: "ID", dataField: "id" },
-            { text: "Name", dataField: "name" },
-        ]}
-        expandRow={{
-            renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
-            nonExpandable: [2, 4],
-            expanded: [1, 3],
-        }}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable<UserWithNumberId>
+    data={usersWithNumberIds}
+    keyField="id"
+    columns={[
+        { text: "ID", dataField: "id" },
+        { text: "Name", dataField: "name" },
+    ]}
+    expandRow={{
+        renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
+        nonExpandable: [2, 4],
+        expanded: [1, 3],
+    }}
+/>;
 
 // test expandRow when key is of explicitly declared number type
-render(
-    <BootstrapTable<UserWithNumberId, number>
-        data={usersWithNumberIds}
-        keyField="id"
-        columns={[
-            { text: "ID", dataField: "id" },
-            { text: "Name", dataField: "name" },
-        ]}
-        expandRow={{
-            renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
-            nonExpandable: [2, 4],
-            expanded: [1, 3],
-        }}
-    />,
-    document.getElementById("app"),
-);
+<BootstrapTable<UserWithNumberId, number>
+    data={usersWithNumberIds}
+    keyField="id"
+    columns={[
+        { text: "ID", dataField: "id" },
+        { text: "Name", dataField: "name" },
+    ]}
+    expandRow={{
+        renderer: (row: UserWithNumberId) => <p>{row.description}</p>,
+        nonExpandable: [2, 4],
+        expanded: [1, 3],
+    }}
+/>;
 
 const expandRow: ExpandRowProps<Product> = {
     renderer: (row: Product) => {

@@ -60,6 +60,13 @@ let map = new mapboxgl.Map({
     interactive: true,
     attributionControl: true,
     customAttribution: "© YourCo",
+    performanceMetricsCollection: false,
+    respectPrefersReducedMotion: true,
+    config: {
+        basemap: {
+            lightPreset: "night",
+        },
+    },
     bearingSnap: 7,
     scrollZoom: true,
     maxBounds: [
@@ -75,7 +82,6 @@ let map = new mapboxgl.Map({
         "FullscreenControl.Enter": "Розгорнути на весь екран",
         "FullscreenControl.Exit": "Вийти з повоноеранного режиму",
     },
-    optimizeForTerrain: false,
 });
 
 /**
@@ -418,9 +424,22 @@ map.addSource("some id", videoSourceObj); // add
 map.removeSource("some id"); // remove
 
 /**
+ * Raster Source
+ */
+const rasterSource = map.getSource("tile-source") as mapboxgl.RasterSourceImpl;
+// $ExpectType void
+rasterSource.reload();
+// $ExpectType RasterSourceImpl
+rasterSource.setTiles(["a", "b"]);
+// $ExpectType RasterSourceImpl
+rasterSource.setUrl("https://github.com");
+
+/**
  * Vector Source
  */
 const vectorSource = map.getSource("tile-source") as mapboxgl.VectorSourceImpl;
+// $ExpectType void
+vectorSource.reload();
 // $ExpectType VectorSourceImpl
 vectorSource.setTiles(["a", "b"]);
 // $ExpectType VectorSourceImpl
@@ -712,6 +731,7 @@ const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once("load");
  * Marker
  */
 let marker = new mapboxgl.Marker(undefined, {
+    className: "test",
     element: undefined,
     offset: [10, 0],
     anchor: "bottom-right",
@@ -1548,6 +1568,13 @@ expectType<mapboxgl.Expression>([
     ["get", "quantity"],
     { "min-fraction-digits": 1, "max-fraction-digits": 1 },
 ]);
+expectType<mapboxgl.Expression>([
+    "hsla",
+    ["random", 200, 300, ["id"]],
+    80,
+    ["random", 70, 100, ["+", 2, ["id"]]],
+    1.0,
+]);
 const expression = expectType<mapboxgl.Expression>(["coalesce", ["get", "property"], ["get", "property"]]);
 
 /*
@@ -1650,6 +1677,7 @@ const backgroundPaint: mapboxgl.BackgroundPaint = {
     "background-pattern-transition": transition,
     "background-opacity": eitherType(0, expression),
     "background-opacity-transition": transition,
+    "background-emissive-strength": eitherType(0, expression),
 };
 
 const fillLayout: mapboxgl.FillLayout = {
@@ -1669,6 +1697,16 @@ const fillPaint: mapboxgl.FillPaint = {
     "fill-translate-anchor": eitherType("map", "viewport"),
     "fill-pattern": eitherType("#000", expression),
     "fill-pattern-transition": transition,
+    "fill-emissive-strength": eitherType(0, expression),
+    "fill-extrusion-ambient-occlusion-ground-attenuation": eitherType(0, expression),
+    "fill-extrusion-ambient-occlusion-ground-radius": eitherType(0, expression),
+    "fill-extrusion-ambient-occlusion-wall-radius": eitherType(0, expression),
+    "fill-extrusion-flood-light-color": eitherType("#000", styleFunction, expression),
+    "fill-extrusion-flood-light-ground-attenuation": eitherType(0, expression),
+    "fill-extrusion-flood-light-ground-radius": eitherType(0, expression),
+    "fill-extrusion-flood-light-intensity": eitherType(0, expression),
+    "fill-extrusion-flood-light-wall-radius": eitherType(0, expression),
+    "fill-extrusion-vertical-scale": eitherType(0, expression),
 };
 
 const fillExtrusionLayout: mapboxgl.FillExtrusionLayout = {
@@ -1721,6 +1759,7 @@ const linePaint: mapboxgl.LinePaint = {
     "line-pattern": eitherType("#000", expression),
     "line-pattern-transition": transition,
     "line-gradient": expression,
+    "line-emissive-strength": eitherType(0, expression),
 };
 
 const symbolLayout: mapboxgl.SymbolLayout = {
@@ -1785,6 +1824,8 @@ const symbolPaint: mapboxgl.SymbolPaint = {
     "icon-translate": eitherType([0], expression),
     "icon-translate-transition": transition,
     "icon-translate-anchor": eitherType("map", "viewport"),
+    "icon-emissive-strength": eitherType(0, styleFunction, expression),
+    "icon-image-cross-fade": eitherType(0, styleFunction, expression),
     "text-opacity": eitherType(0, styleFunction, expression),
     "text-opacity-transition": transition,
     "text-color": eitherType("#000", styleFunction, expression),
@@ -1798,6 +1839,7 @@ const symbolPaint: mapboxgl.SymbolPaint = {
     "text-translate": eitherType([0], expression),
     "text-translate-transition": transition,
     "text-translate-anchor": eitherType("map", "viewport"),
+    "text-emissive-strength": eitherType(0, styleFunction, expression),
 };
 
 const rasterLayout: mapboxgl.RasterLayout = {
@@ -1819,6 +1861,9 @@ const rasterPaint: mapboxgl.RasterPaint = {
     "raster-contrast-transition": transition,
     "raster-fade-duration": eitherType(0, expression),
     "raster-resampling": eitherType("linear", "nearest"),
+    "raster-color-mix": eitherType([0, 0, 0, 0], expression),
+    "raster-color-range": eitherType([0, 0], expression),
+    "raster-color": eitherType("#000", expression),
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
@@ -1846,6 +1891,7 @@ const circlePaint: mapboxgl.CirclePaint = {
     "circle-stroke-color-transition": transition,
     "circle-stroke-opacity": eitherType(0, styleFunction, expression),
     "circle-stroke-opacity-transition": transition,
+    "circle-emissive-strength": eitherType(0, styleFunction, expression),
 };
 
 const heatmapLayout: mapboxgl.HeatmapLayout = {
@@ -2040,3 +2086,15 @@ map.setProjection({ name: "globe" });
 
 // get projections
 expectType<mapboxgl.Projection>(map.getProjection());
+
+/**
+ * v3
+ */
+
+// set config property
+map.setConfigProperty("basemap", "lightPreset", "dusk");
+map.setConfigProperty("basemap", "showPointOfInterestLabels", false);
+
+// get config property
+map.getConfigProperty("basemap", "lightPreset");
+map.getConfigProperty("basemap", "showPointOfInterestLabels");

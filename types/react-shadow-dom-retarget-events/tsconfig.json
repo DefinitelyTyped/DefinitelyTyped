@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "dom",
             "es6"
@@ -11,12 +11,10 @@
         "types": [],
         "noEmit": true,
         "strictFunctionTypes": true,
-        "jsx": "react",
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-shadow-dom-retarget-events-tests.tsx"
+        "react-shadow-dom-retarget-events-tests.ts"
     ]
 }

@@ -2,7 +2,7 @@
 
 import tchecker = require("type-check");
 
-var typeCheck = (i1: string, i2: any, i3?: TypeCheck.Options) => {
+var typeCheck = (i1: string, i2: any, i3?: tchecker.Options) => {
     console.log(tchecker.typeCheck(i1, i2, i3));
 };
 var parseType = (i1: string) => {
@@ -62,7 +62,7 @@ typeCheck("RegExp{source: String, ...}", { source: "re" }); // false
 
 console.log("===>testing custom types");
 // Custom types:
-var opt = <TypeCheck.Options> {
+var opt = <tchecker.Options> {
     customTypes: {
         Even: {
             typeOf: "Number",
@@ -75,7 +75,7 @@ var opt = <TypeCheck.Options> {
 };
 typeCheck("Even", 2, opt); // true
 
-opt = <TypeCheck.Options> {
+opt = <tchecker.Options> {
     customTypes: {
         Odd: {
             typeOf: "Number",

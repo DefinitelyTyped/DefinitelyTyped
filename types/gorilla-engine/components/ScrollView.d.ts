@@ -11,5 +11,6 @@ declare namespace GorillaEngine.UI {
     class ScrollView extends Component {
         constructor(options: Partial<ScrollViewProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface ScrollView extends ScrollViewProps {}
 }

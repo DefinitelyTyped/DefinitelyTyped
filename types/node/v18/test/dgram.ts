@@ -135,7 +135,7 @@ sock = dgram.createSocket({
     lookup: dns.lookup,
 });
 sock = dgram.createSocket("udp6", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo; // $ExpectType RemoteInfo
 });
 sock.addMembership("233.252.0.0");
@@ -163,6 +163,8 @@ sock.dropMembership("233.252.0.0");
 sock.dropMembership("233.252.0.0", "192.0.2.1");
 sock.getRecvBufferSize(); // $ExpectType number
 sock.getSendBufferSize(); // $ExpectType number
+sock.getSendQueueSize(); // $ExpectType number
+sock.getSendQueueCount(); // $ExpectType number
 sock = sock.ref();
 sock.remoteAddress().address; // $ExpectType string
 sock.remoteAddress().family; // $ExpectType string
@@ -194,7 +196,7 @@ sock.on("error", (exception) => {
 });
 sock.on("listening", () => undefined);
 sock.on("message", (msg, rinfo) => {
-    msg; // $ExpectType Buffer
+    msg; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     rinfo.address; // $ExpectType string
     rinfo.family; // $ExpectType "IPv4" | "IPv6"
     rinfo.port; // $ExpectType number

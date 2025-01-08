@@ -31,4 +31,5 @@ declare namespace _default {
         options?: FetcherOptions,
     ): Promise<any>;
 }
+
 export default _default;

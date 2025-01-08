@@ -5,7 +5,6 @@ import {
     DragEvent,
     FocusEvent,
     InputHTMLAttributes,
-    ReactElement,
     SelectHTMLAttributes,
     TextareaHTMLAttributes,
 } from "react";

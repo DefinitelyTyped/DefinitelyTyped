@@ -19,8 +19,47 @@ declare namespace WebTorrent {
         peerId?: string | Buffer | undefined;
         tracker?: boolean | {} | undefined;
         dht?: boolean | {} | undefined;
+        lsd?: boolean | undefined;
         webSeeds?: boolean | undefined;
         utp?: boolean | undefined;
+        blocklist?: (string | Array<string | { start: string; end: string }>) | undefined;
+        downloadLimit?: number | undefined;
+        uploadLimit?: number | undefined;
+    }
+
+    interface ServerAddress {
+        port: number;
+        family: string;
+        address: string;
+    }
+
+    interface BrowserServerOptions {
+        controller: ServiceWorkerRegistration;
+    }
+
+    interface NodeServerOptions {
+        origin?: string;
+        pathname?: string;
+        hostname?: string;
+    }
+
+    interface ServerBase {
+        client: Instance;
+        pathname: string;
+        address(): ServerAddress;
+        close(cb?: () => void): void;
+        destroy(cb?: () => void): void;
+    }
+
+    interface NodeServer extends ServerBase {
+        opts: NodeServerOptions;
+    }
+
+    interface BrowserServer extends ServerBase {
+        opts: BrowserServerOptions;
+        registration: ServiceWorkerRegistration;
+        workerKeepAliveInterval: typeof setInterval | null;
+        workerPortCount: number;
     }
 
     interface TorrentOptions {
@@ -37,6 +76,7 @@ declare namespace WebTorrent {
         skipVerify?: boolean | undefined;
         preloadedStore?(): void;
         strategy?: string | undefined;
+        createdBy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
@@ -89,11 +129,19 @@ declare namespace WebTorrent {
         ): void;
 
         destroy(callback?: (err: Error | string) => void): void;
+        createServer(
+            opts?: BrowserServerOptions | NodeServerOptions,
+            force?: "browser" | "node",
+        ): NodeServer | BrowserServer;
 
         readonly torrents: Torrent[];
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(torrentId: Torrent | string | Buffer): Torrent | void;
+
+        throttleDownload(rate: number): boolean | undefined;
+
+        throttleUpload(rate: number): boolean | undefined;
 
         readonly downloadSpeed: number;
 
@@ -202,6 +250,8 @@ declare namespace WebTorrent {
         readonly downloaded: number;
 
         readonly progress: number;
+
+        get streamURL(): string;
 
         select(): void;
 

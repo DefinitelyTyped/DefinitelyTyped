@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@types/prop-types": "*",
-        "@types/scheduler": "*",
+        "@types/scheduler": "^0.16",
         "csstype": "^3.0.2"
     },
     "devDependencies": {

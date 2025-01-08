@@ -1,6 +1,5 @@
 // region Imports
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import Autosuggest = require("react-autosuggest");
 // endregion
 
@@ -296,8 +295,6 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestBasicTest />, document.getElementById("app"));
-
 interface LanguageGroup {
     title: string;
     languages: Language[];
@@ -509,8 +506,6 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestMultipleTest />, document.getElementById("app"));
-
 interface Person {
     first: string;
     last: string;
@@ -621,8 +616,6 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     }
     // endregion
 }
-
-ReactDOM.render(<ReactAutosuggestCustomTest />, document.getElementById("app"));
 
 const test: Autosuggest.InputProps<{ foo: string }> = {
     onChange: () => {},

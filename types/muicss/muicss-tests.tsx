@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import {
     Appbar,
@@ -160,5 +159,3 @@ class Test2 extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<Test />, document.getElementById("root"));

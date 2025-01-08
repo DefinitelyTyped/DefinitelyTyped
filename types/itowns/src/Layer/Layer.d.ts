@@ -1,10 +1,13 @@
 import * as THREE from "three";
 import Extent from "../Core/Geographic/Extent";
+import Style from "../Core/Style";
 import Source from "../Source/Source";
 import type { Strategy } from "./LayerUpdateStrategy";
 
 export interface LayerOptions {
     source: Source | false;
+    style?: Style;
+    // options: any;
     crs?: string;
     cacheLifeTime?: number;
     addLabelLayer?: {
@@ -19,10 +22,10 @@ export interface LayerOptions {
         type: Strategy;
         options?: any;
     };
-    // options: any;
     // mergeFeatures: boolean;
 }
 
+// TODO: Define public API
 export class Layer extends THREE.EventDispatcher<THREE.Event> {
     protected constructor(id: string, config: LayerOptions);
 
@@ -36,7 +39,8 @@ export class Layer extends THREE.EventDispatcher<THREE.Event> {
     frozen: boolean; // TODO: event
     // cache: Cache;
     // info: InfoLayer;
-    // options: any;
+    // options: unknown;
+
     addLabelLayer?: {
         performance: boolean;
         forceClampToTerrain: boolean;

@@ -7,11 +7,12 @@ import {
     Mesh,
     MeshBasicMaterial,
     PlaneGeometry,
-} from '../../../src/Three.js';
+} from "three";
 
-import { CSM } from './CSM.js';
+import { CSM } from "./CSM.js";
+import { CSMShadowNode } from "./CSMShadowNode.js";
 
-export class CSMHelper<TCSM extends CSM = CSM> extends Group {
+export class CSMHelper<TCSM extends CSM | CSMShadowNode = CSM | CSMShadowNode> extends Group {
     constructor(csm: TCSM);
     csm: TCSM;
     displayFrustum: boolean;

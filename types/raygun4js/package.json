@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/raygun4js",
-    "version": "2.13.9999",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/MindscapeHQ/raygun4js"
     ],
@@ -10,16 +10,8 @@
     },
     "owners": [
         {
-            "name": "Krishna Kapadia",
-            "githubUsername": "krishnakapadia"
-        },
-        {
-            "name": "Benjamin Harding",
-            "githubUsername": "BenjaminHarding"
-        },
-        {
-            "name": "Brian Surowiec",
-            "githubUsername": "xt0rted"
+            "name": "Hamish Taylor",
+            "githubUsername": "Hamish-taylor"
         }
     ]
 }

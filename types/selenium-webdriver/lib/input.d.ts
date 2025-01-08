@@ -1,4 +1,4 @@
-import { ILocation, WebDriver, WebElement } from "../";
+import { WebDriver, WebElement } from "../";
 import { Executor } from "./command";
 
 /**
@@ -116,6 +116,38 @@ export interface IDirection {
 }
 
 export const INTERNAL_COMPUTE_OFFSET_SCRIPT: string;
+
+/**
+ * Used with {@link ./webelement.WebElement#sendKeys WebElement#sendKeys} on
+ * file input elements (`<input type="file">`) to detect when the entered key
+ * sequence defines the path to a file.
+ *
+ * By default, {@linkplain ./webelement.WebElement WebElement's} will enter all
+ * key sequences exactly as entered. You may set a
+ * {@linkplain ./webdriver.WebDriver#setFileDetector file detector} on the
+ * parent WebDriver instance to define custom behavior for handling file
+ * elements. Of particular note is the
+ * {@link selenium-webdriver/remote.FileDetector}, which should be used when
+ * running against a remote
+ * [Selenium Server](https://selenium.dev/downloads/).
+ */
+export class FileDetector {
+    /**
+     * Handles the file specified by the given path, preparing it for use with
+     * the current browser. If the path does not refer to a valid file, it will
+     * be returned unchanged, otherwise a path suitable for use with the current
+     * browser will be returned.
+     *
+     * This default implementation is a no-op. Subtypes may override this function
+     * for custom tailored file handling.
+     *
+     * @param {!./webdriver.WebDriver} driver The driver for the current browser.
+     * @param {string} path The path to process.
+     * @return {!Promise<string>} A promise for the processed file path.
+     * @package
+     */
+    handleFile(driver: WebDriver, path: string): Promise<string>;
+}
 
 export class Device {
     constructor(type: string, id: string);

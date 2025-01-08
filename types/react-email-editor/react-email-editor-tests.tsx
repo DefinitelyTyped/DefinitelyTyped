@@ -47,11 +47,13 @@ const groupedMergeTag: GroupedMergeTag = {
 };
 const conditionalMergeTag: ConditionalMergeTag = {
     name: "Conditional",
-    rules: [{
-        name: "Rule 1",
-        before: "{{#if}}",
-        after: "{{/if}}",
-    }],
+    rules: [
+        {
+            name: "Rule 1",
+            before: "{{#if}}",
+            after: "{{/if}}",
+        },
+    ],
     mergeTags: [{ name: "Tag 1", value: "{tag_1}" }],
 };
 
@@ -81,27 +83,22 @@ class App extends React.Component {
 
     private readonly handleLoad = () => {
         if (this.editorRef.current) {
-            this.editorRef.current.loadBlank(
-                {
-                    backgroundColor: "#fff",
-                    contentWidth: "50%",
-                    contentAlign: "left",
-                    fontFamily: {
-                        label: "Helvetica",
-                        value: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-                    },
+            this.editorRef.current.loadBlank({
+                backgroundColor: "#fff",
+                contentWidth: "50%",
+                contentAlign: "left",
+                fontFamily: {
+                    label: "Helvetica",
+                    value: "'Helvetica Neue', Helvetica, Arial, sans-serif",
                 },
-            );
+            });
             this.editorRef.current.loadDesign({ body: { rows: [] } });
             this.editorRef.current.addEventListener("design:updated", () => console.log("design has been updated"));
-            this.editorRef.current.registerCallback(
-                "image",
-                (file: FileInfo, done: FileUploadDoneCallback) =>
-                    done({
-                        progress: 100,
-                        url: `http://example.com/${file.attachments[0].name}`,
-                    }),
-            );
+            this.editorRef.current.registerCallback("image", (file: FileInfo, done: FileUploadDoneCallback) =>
+                done({
+                    progress: 100,
+                    url: `http://example.com/${file.attachments[0].name}`,
+                }));
             this.editorRef.current.registerCallback(
                 "displayCondition",
                 (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
@@ -117,24 +114,23 @@ class App extends React.Component {
                         after: "after",
                     }),
             );
-            this.editorRef.current.setMergeTags([
-                simpleMergeTag,
-                groupedMergeTag,
-                conditionalMergeTag,
-            ]);
+            this.editorRef.current.setMergeTags([simpleMergeTag, groupedMergeTag, conditionalMergeTag]);
         }
     };
 
     private readonly handleClick = () => {
         if (this.editorRef.current) {
             this.editorRef.current.saveDesign((data: Design) => console.log("saved design", data));
-            this.editorRef.current.exportHtml(({ design, html }: HtmlExport) => {
-                console.log("exported design", design);
-                console.log("exported HTML: ", html);
-            }, {
-                cleanup: true,
-                minify: true,
-            });
+            this.editorRef.current.exportHtml(
+                ({ design, html }: HtmlExport) => {
+                    console.log("exported design", design);
+                    console.log("exported HTML: ", html);
+                },
+                {
+                    cleanup: true,
+                    minify: true,
+                },
+            );
         }
     };
 
@@ -196,13 +192,18 @@ class App extends React.Component {
                                 "custom.key": "Custom translation",
                             },
                         },
-                        displayConditions: [{
-                            type: "type",
-                            label: "label",
-                            description: "description",
-                            before: "before",
-                            after: "after",
-                        }],
+                        displayConditions: [
+                            {
+                                type: "type",
+                                label: "label",
+                                description: "description",
+                                before: "before",
+                                after: "after",
+                            },
+                        ],
+                        tabs: {
+                            blocks: { enabled: false },
+                        },
                     }}
                     tools={TOOLS_CONFIG}
                     appearance={{

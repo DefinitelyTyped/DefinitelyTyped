@@ -1,4 +1,4 @@
-import { Program } from './AST.js';
+import { Program } from "./AST.js";
 
 export default class GLSLDecoder {
     constructor();

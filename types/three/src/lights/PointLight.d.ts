@@ -1,6 +1,6 @@
-import { ColorRepresentation } from '../math/Color.js';
-import { Light } from './Light.js';
-import { PointLightShadow } from './PointLightShadow.js';
+import { ColorRepresentation } from "../math/Color.js";
+import { Light } from "./Light.js";
+import { PointLightShadow } from "./PointLightShadow.js";
 
 /**
  * A light that gets emitted from a single point in all directions

@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/remote-git-tags",
     "version": "4.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/sindresorhus/remote-git-tags"
     ],
