@@ -122,4 +122,29 @@ declare module "." {
         value: TaintableUniqueValue,
     ): void;
     function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
+
+    export interface ViewTransitionProps {
+        /**
+         * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
+         */
+        className?: string | undefined;
+        /**
+         * "auto" will automatically assign a view-transition-name to the inner DOM node.
+         * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
+         *
+         * A difference between this and the browser's built-in view-transition-name: auto is that switching the DOM nodes within the <ViewTransition> component preserves the same name so this example cross-fades between the DOM nodes instead of causing an exit and enter.
+         * @default "auto"
+         */
+        name?: "auto" | (string & {}) | undefined;
+        children?: ReactNode | undefined;
+    }
+
+    /**
+     * Opt-in for using {@link https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API View Transitions} in React.
+     * View Transitions only trigger for async updates like {@link startTransition}, {@link useDeferredValue}, Actions or <{@link Suspense}> revealing from fallback to content.
+     * Synchronous updates provide an opt-out but also guarantee that they commit immediately which View Transitions can't.
+     *
+     * @see {@link https://github.com/facebook/react/pull/31975}
+     */
+    export const unstable_ViewTransition: ExoticComponent<ViewTransitionProps>;
 }
