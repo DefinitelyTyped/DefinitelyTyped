@@ -1,5 +1,5 @@
 import { Options } from "toastify-js";
-import ToastifyEsm from "toastify-js/src/toastify-es"
+import ToastifyEsm from "toastify-js/src/toastify-es";
 import Toastify = require("toastify-js");
 
 Toastify({
