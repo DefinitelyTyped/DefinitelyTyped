@@ -14,15 +14,10 @@ export interface ViewHookInterface {
   reconnected?: () => void;
   disconnected?: () => void;
 
-  /**
-   * Binds the hook to JS commands.
-   *
-   * @returns {object} An object with methods to manipulate the DOM and execute JavaScript.
-   */
   js(): object;
-  pushEvent(event: string, payload: any, onReply?: OnReply): any; // DT
-  pushEventTo(phxTarget: any, event: string, payload: object, onReply?: OnReply): any; // DT
-  handleEvent(event: string, callback: any): CallbackRef; // DT
+  pushEvent(event: string, payload: any, onReply?: OnReply): any;
+  pushEventTo(phxTarget: any, event: string, payload: object, onReply?: OnReply): any;
+  handleEvent(event: string, callback: any): CallbackRef;
   removeHandleEvent(callbackRef: CallbackRef): void;
   upload(name: any, files: any): any;
   uploadTo(phxTarget: any, name: any, files: any): any;

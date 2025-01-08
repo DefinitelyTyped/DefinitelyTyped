@@ -52,6 +52,7 @@ import ViewHook from "./view_hook";
  * @returns {ViewHook} Returns the ViewHook instance for the custom element.
  */
 export function createHook(el: HTMLElement, callbacks?: object): ViewHook;
+
 export {
   Defaults,
   DomOptions,
@@ -66,3 +67,9 @@ export {
   UploadersOptions,
   ViewHookInterface,
 };
+
+declare global {
+  interface Window {
+    liveSocket?: LiveSocket;
+  }
+}

@@ -77,6 +77,8 @@ function test_socket() {
   };
 
   const liveSocket = new LiveSocket("/live", Socket, opts);
+  window.liveSocket = liveSocket;
+
   liveSocket.enableDebug();
   liveSocket.enableProfiling();
   liveSocket.connect();

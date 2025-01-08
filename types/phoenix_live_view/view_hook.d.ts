@@ -21,18 +21,11 @@ export default class ViewHook implements ViewHookInterface {
   __reconnected(): void;
   __disconnected(): void;
 
-  /**
-   * Binds the hook to JS commands.
-   *
-   * @param {ViewHook} hook - The ViewHook instance to bind.
-   *
-   * @returns {object} An object with methods to manipulate the DOM and execute JavaScript.
-   */
   js(): object;
   pushEvent(event: string, payload: any, onReply?: OnReply): any; // DT
   pushEventTo(phxTarget: any, event: string, payload: object, onReply?: OnReply): any; // DT
   handleEvent(event: string, callback: any): CallbackRef; // DT
-  removeHandleEvent(callbackRef: CallbackRef): void;
+  removeHandleEvent(callbackRef: CallbackRef): void; // DT
   upload(name: any, files: any): any;
   uploadTo(phxTarget: any, name: any, files: any): any;
   __cleanup__(): void;
