@@ -1980,7 +1980,6 @@ declare namespace chrome {
             visible?: boolean | undefined;
         }
 
-
         export interface UpdateProperties extends Omit<CreateProperties, 'id'> {}
 
         export interface MenuClickedEvent
@@ -1988,7 +1987,7 @@ declare namespace chrome {
         {}
 
         /**
-         * @Since Chrome 38.
+         * @since Chrome 38
          * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.
          */
         export var ACTION_MENU_TOP_LEVEL_LIMIT: number;
