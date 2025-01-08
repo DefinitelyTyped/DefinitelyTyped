@@ -142,26 +142,24 @@ function taintTests() {
 function viewTransitionTests() {
     const ViewTransition = React.unstable_ViewTransition;
 
-    // @ts-expect-error -- `group` is missing
     <ViewTransition />;
-    <ViewTransition group="normal" />;
-    <ViewTransition group="normal" className="enter-slide-in exit-fade-out update-cross-fade" />;
-    <ViewTransition group="normal" name="auto" />;
-    <ViewTransition group="normal" name="foo" />;
+    <ViewTransition className="enter-slide-in exit-fade-out update-cross-fade" />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
     // autocomplete should display "auto"
-    <ViewTransition group="normal" name="" />;
+    <ViewTransition name="" />;
 
-    <ViewTransition group="normal">
+    <ViewTransition>
         <div />
     </ViewTransition>;
 
     const Null = () => null;
-    <ViewTransition group="normal">
+    <ViewTransition>
         <Null />
     </ViewTransition>;
 
     const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
-    <ViewTransition group="normal">
+    <ViewTransition>
         <Div />
     </ViewTransition>;
 }

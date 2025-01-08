@@ -129,10 +129,6 @@ declare module "." {
          */
         className?: string | undefined;
         /**
-         * group="normal" is required for future compatibility reasons.
-         */
-        group: "normal";
-        /**
          * "auto" will automatically assign a view-transition-name to the inner DOM node.
          * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
          *
