@@ -68,4 +68,4 @@ export default PassNode;
 
 export const pass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;
 export const passTexture: (pass: PassNode, texture: Texture) => ShaderNodeObject<PassTextureNode>;
-export const depthPass: (scene: Scene, camera: Camera) => ShaderNodeObject<PassNode>;
+export const depthPass: (scene: Scene, camera: Camera, options?: RenderTargetOptions) => ShaderNodeObject<PassNode>;

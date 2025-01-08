@@ -62,10 +62,5 @@ export class MeshDepthMaterial extends Material {
      */
     wireframeLinewidth: number;
 
-    /**
-     * @default false
-     */
-    fog: boolean;
-
     setValues(parameters: MeshDepthMaterialParameters): void;
 }

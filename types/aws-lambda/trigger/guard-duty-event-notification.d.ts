@@ -19,7 +19,7 @@ export interface GuardDutyScanResultNotificationEventDetail {
     s3ObjectDetails: {
         bucketName: string;
         objectKey: string;
-        etag: string;
+        eTag: string;
         versionId: string;
         s3Throttled: boolean;
     };

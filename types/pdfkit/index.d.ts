@@ -606,6 +606,11 @@ declare namespace PDFKit.Mixins {
         initSubset(options: { subset: PDFSubsets }): void;
         endSubset(): void;
     }
+
+    interface PDFOutline {
+        initOutline(): void;
+        endOutline(): void;
+    }
 }
 
 declare namespace PDFKit {
@@ -705,7 +710,8 @@ declare namespace PDFKit {
             Mixins.PDFMarking,
             Mixins.PDFAttachment,
             Mixins.PDFMetadata,
-            Mixins.PDFSubset
+            Mixins.PDFSubset,
+            Mixins.PDFOutline
     {
         /**
          * PDF Version
@@ -749,6 +755,11 @@ declare namespace PDFKit {
         output(fn: any): void;
         end(): void;
         toString(): string;
+
+        /**
+         * The root outline
+         */
+        outline: PDFOutline;
     }
 }
 
@@ -876,6 +887,18 @@ declare namespace PDFKit {
     }
 }
 
+declare namespace PDFKit {
+    /**
+     * PDFKit data
+     */
+    interface PDFOutline {
+        document: PDFDocument;
+        children: PDFOutline[];
+        addItem(title: string, options?: { expanded?: boolean }): PDFOutline;
+        endOutline(): void;
+    }
+}
+
 declare module "pdfkit/js/structure_element" {
     var PDFStructureElement: PDFKit.PDFStructureElement;
     export = PDFStructureElement;
@@ -914,4 +937,9 @@ declare module "pdfkit/js/mixins/vector" {
 declare module "pdfkit/js/mixins/markings" {
     var PDFKitMarking: PDFKit.Mixins.PDFMarking;
     export = PDFKitMarking;
+}
+
+declare module "pdfkit/js/mixins/outline" {
+    var PDFKitOutline: PDFKit.Mixins.PDFOutline;
+    export = PDFKitOutline;
 }
