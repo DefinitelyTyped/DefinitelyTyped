@@ -159,6 +159,7 @@ provider.getServerlessDeploymentBucketName().then(bucketName => {});
 provider.getCredentials();
 
 // Test ApiGateway validator
+// Valid usage. "Method" is supposed to be recognized here.
 getHttp(
     {
         http: {
@@ -168,6 +169,66 @@ getHttp(
     },
     "myFunction",
 );
+// @ts-expect-error - confirm that "mehtod" triggers an error now
+getHttp(
+    {
+        http: {
+            path: "myPath",
+            mehtod: "get", // <-- old typo
+        },
+    },
+    "myFunction"
+);
+
+// Test "getHttp" using generic <T> to ensure return type is correct
+
+// Suppose we define a custom event shape
+type CustomEvent = {
+    path: string;
+    method: "get" | "post"; // Acceptable strings
+    extraData: number;       // Some random extra property
+  };
+  
+  // Pass a typed object into getHttp, expecting a typed object out
+  const customResult = getHttp<CustomEvent>(
+    {
+      http: {
+        path: "customPath",
+        method: "post",
+        extraData: 42,
+      },
+    },
+    "myFunction"
+  );
+
+
+// Because we used <CustomEvent>, 'customResult' we should have the same shape which is CustomEvent.
+customResult.path;       // string
+customResult.method;     // "get" | "post"
+customResult.extraData;  // number
+  
+// Proves that getHttp<T> is returning the typed structure and that .method and is present.
+
+// Test "getHttp" WITHOUT a generic used at all.
+
+const defaultResult = getHttp(
+    {
+      http: {
+        path: "somePath",
+        method: "get",
+      },
+    },
+    "myFunction"
+  );
+  
+  // 'defaultResult' possibly miht be a string OR with { path: string; method: HttpMethod; ... }
+  if (typeof defaultResult !== "string") {
+    defaultResult.path;   // string
+    defaultResult.method; // HttpMethod
+  }
+
+
+
 getHttp(
     {
         http: "GET mypath",
