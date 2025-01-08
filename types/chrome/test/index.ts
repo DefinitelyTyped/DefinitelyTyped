@@ -1266,19 +1266,23 @@ function testBrowserAcionSetTitle() {
     chrome.browserAction.setTitle(undefined);
 }
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForPromise() {
+// https://developer.chrome.com/docs/extensions/reference/api/action
+async function testAction() {
     await chrome.action.disable();
     await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
     const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
     const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
+    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
     const isEnabled1: boolean = await chrome.action.isEnabled();
     const isEnabled2: boolean = await chrome.action.isEnabled(0);
     await chrome.action.openPopup({ windowId: 1 });
@@ -1288,14 +1292,28 @@ async function testActionForPromise() {
     await chrome.action.setIcon({ path: { "16": "path/to/icon.png" } });
     await chrome.action.setPopup({ popup: "popup1" });
     await chrome.action.setTitle({ title: "title1" });
-}
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForCallback() {
-    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
-    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
+    chrome.action.onClicked.addListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.removeListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListeners();
+
+    chrome.action.onUserSettingsChanged.addListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.removeListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListeners();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
@@ -2827,6 +2845,35 @@ function testAccessibilityFeatures() {
     });
     chrome.accessibilityFeatures.caretHighlight.onChange.hasListeners(); // $ExpectType boolean
 
+    // cursorColor
+    chrome.accessibilityFeatures.cursorColor.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.cursorColor.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.hasListeners(); // $ExpectType boolean
+
     // cursorHighlight
     chrome.accessibilityFeatures.cursorHighlight.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
     chrome.accessibilityFeatures.cursorHighlight.get({ incognito: false }, (details) => { // $ExpectType void
@@ -2856,6 +2903,66 @@ function testAccessibilityFeatures() {
         details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
     });
     chrome.accessibilityFeatures.cursorHighlight.onChange.hasListeners(); // $ExpectType boolean
+
+    // dictation
+    chrome.accessibilityFeatures.dictation.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.dictation.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.hasListeners(); // $ExpectType boolean
+
+    // dockedMagnifier
+    chrome.accessibilityFeatures.dockedMagnifier.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.dockedMagnifier.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.hasListeners(); // $ExpectType boolean
 
     // focusHighlight
     chrome.accessibilityFeatures.focusHighlight.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>

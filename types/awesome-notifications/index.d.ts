@@ -24,7 +24,20 @@ declare namespace AWN {
     type AwnIconOptions =
         & Omit<AwnToastOptions<string>, "global">
         & Omit<AwnAsyncOptions<string>, "async-block">
-        & { enabled?: boolean };
+        & {
+            /**
+             * Defines visibility of icons for all toasts and popups.
+             */
+            enabled?: boolean;
+            /**
+             * Used internally to create first part of icon element.
+             */
+            prefix?: string;
+            /**
+             * Used internally to create second part of icon element.
+             */
+            suffix?: string;
+        };
 
     type AwnLabelOptions =
         & Omit<AwnToastOptions<string>, "global">

@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-ssh-tests.ts"
+        "express-sse-tests.ts"
     ]
 }

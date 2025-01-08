@@ -2817,6 +2817,10 @@
             "libraryName": "expect",
             "asOfVersion": "25.1.0"
         },
+        "jest-preset-stylelint": {
+            "libraryName": "jest-preset-stylelint",
+            "asOfVersion": "5.0.0"
+        },
         "jest-validate": {
             "libraryName": "jest-validate",
             "asOfVersion": "25.1.0"
@@ -3573,6 +3577,10 @@
             "libraryName": "metro-transform-worker",
             "asOfVersion": "0.76.3"
         },
+        "meyda": {
+            "libraryName": "meyda",
+            "asOfVersion": "5.3.0"
+        },
         "micro": {
             "libraryName": "micro",
             "asOfVersion": "10.0.0"
@@ -3868,6 +3876,10 @@
         "node-sql-parser": {
             "libraryName": "node-sql-parser",
             "asOfVersion": "1.1.0"
+        },
+        "node-ssh": {
+            "libraryName": "node-ssh",
+            "asOfVersion": "11.0.0"
         },
         "node-vault": {
             "libraryName": "node-vault",
@@ -4918,6 +4930,10 @@
         "react-countup": {
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
+        },
+        "react-cropper": {
+            "libraryName": "react-cropper",
+            "asOfVersion": "2.0.0"
         },
         "react-datepicker": {
             "libraryName": "react-datepicker",

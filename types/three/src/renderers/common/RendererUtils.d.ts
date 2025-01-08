@@ -6,6 +6,7 @@ import { RenderTarget } from "../../core/RenderTarget.js";
 import { Material } from "../../materials/Material.js";
 import { Color } from "../../math/Color.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
+import Node from "../../nodes/core/Node.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import { CubeTexture } from "../../textures/CubeTexture.js";
@@ -43,16 +44,27 @@ export interface RendererState {
 
 export function saveRendererState(renderer: Renderer, state?: RendererState): RendererState;
 
-export function resetRendererState(renderer: Renderer, state?: RendererState): RendererState;
+export function resetRendererState(renderer: Renderer, state: RendererState): RendererState;
 
 export function restoreRendererState(renderer: Renderer, state: RendererState): void;
 
-// renderer and scene state
+// scene state
 
-export interface RendererAndSceneState extends RendererState {
+export interface SceneState {
     background: Color | Texture | CubeTexture | null;
     backgroundNode: Node | null | undefined;
     overrideMaterial: Material | null;
+}
+
+export function saveSceneState(scene: Scene, state?: SceneState): SceneState;
+
+export function resetSceneState(scene: Scene, state: SceneState): SceneState;
+
+export function restoreSceneState(scene: Scene, state: SceneState): SceneState;
+
+// renderer and scene state
+
+export interface RendererAndSceneState extends RendererState, SceneState {
 }
 
 export function saveRendererAndSceneState(
@@ -61,6 +73,6 @@ export function saveRendererAndSceneState(
     state?: RendererAndSceneState,
 ): RendererAndSceneState;
 
-export function resetRendererAndSceneState(renderer: Renderer, state?: RendererAndSceneState): RendererAndSceneState;
+export function resetRendererAndSceneState(renderer: Renderer, state: RendererAndSceneState): RendererAndSceneState;
 
 export function restoreRendererAndSceneState(renderer: Renderer, state: RendererAndSceneState): void;
