@@ -61,6 +61,7 @@ function test_socket() {
     },
     hooks: MyHooks,
     uploaders: MyUploaders,
+    reconnectAfterMs: (tries: number) => tries * tries,
     metadata: MyMetadata,
   };
 
