@@ -160,6 +160,7 @@ provider.getCredentials();
 
 // Test ApiGateway validator
 // Valid usage. "Method" is supposed to be recognized here.
+// Valid usage. "method" is spelled correctly here:
 getHttp(
     {
         http: {
@@ -167,80 +168,81 @@ getHttp(
             method: "get",
         },
     },
-    "myFunction",
+    "myFunction"
 );
-// @ts-expect-error - confirm that "mehtod" triggers an error now
+
+// @ts-expect-error - confirm "mehtod" is invalid
 getHttp(
     {
         http: {
             path: "myPath",
-            mehtod: "get", // <-- old typo
+            mehtod: "get",
         },
     },
     "myFunction"
 );
 
-// Test "getHttp" using generic <T> to ensure return type is correct
-
-// Suppose we define a custom event shape
-type CustomEvent = {
+// 1) Convert "type" to an "interface" to satisfy ESLint rule
+interface CustomEvent {
     path: string;
-    method: "get" | "post"; // Acceptable strings
-    extraData: number;       // Some random extra property
-  };
-  
-  // Pass a typed object into getHttp, expecting a typed object out
-  const customResult = getHttp<CustomEvent>(
+    method: "get" | "post";
+    extraData: number;
+}
+
+// 2) We'll store the result in 'customResult'. Because getHttp returns a union
+//    ({ path: string; method: string } | T), we must type-guard before 'extraData' usage.
+const customResult = getHttp<CustomEvent>(
     {
-      http: {
-        path: "customPath",
-        method: "post",
-        extraData: 42,
-      },
+        http: {
+            path: "customPath",
+            method: "post",
+            extraData: 42,
+        },
     },
     "myFunction"
-  );
+);
+
+// Use a type-guard to confirm "extraData" is accessible:
+if (typeof customResult === "object" && "extraData" in customResult) {
+    customResult.extraData; // number
+    customResult.path;      // string
+    customResult.method;    // "get" | "post"
+}
+
+// could cast:
+// (customResult as CustomEvent).extraData; 
 
 
-// Because we used <CustomEvent>, 'customResult' we should have the same shape which is CustomEvent.
-customResult.path;       // string
-customResult.method;     // "get" | "post"
-customResult.extraData;  // number
-  
-// Proves that getHttp<T> is returning the typed structure and that .method and is present.
-
-// Test "getHttp" WITHOUT a generic used at all.
-
+// Test "getHttp" WITHOUT a generic:
 const defaultResult = getHttp(
     {
-      http: {
-        path: "somePath",
-        method: "get",
-      },
+        http: {
+            path: "somePath",
+            method: "get",
+        },
     },
     "myFunction"
-  );
-  
-  // 'defaultResult' possibly miht be a string OR with { path: string; method: HttpMethod; ... }
-  if (typeof defaultResult !== "string") {
+);
+
+// return union.
+if (typeof defaultResult !== "string") {
     defaultResult.path;   // string
-    defaultResult.method; // HttpMethod
-  }
+    defaultResult.method; // string
+}
 
-
-
+// Check some of the existing tests
 getHttp(
     {
         http: "GET mypath",
     },
-    "myFunction",
+    "myFunction"
 );
 getHttp(
     {
         // @ts-expect-error
         sqs: "arn",
     },
-    "myFunction",
+    "myFunction"
 );
 
 // Test entire Aws Serverless type
