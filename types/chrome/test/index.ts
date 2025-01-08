@@ -2580,7 +2580,7 @@ function testUserScripts() {
     chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
     chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
 
-    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+    const scripts = [
         {
             id: "scriptId1",
             js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
@@ -2592,14 +2592,26 @@ function testUserScripts() {
             matches: ["*://example.org/*"],
         },
     ];
+
+    const badScripts = [
+        {
+            id: "badScriptId",
+            matches: ["*://example.com/*"],
+        },
+    ];
+
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
+    // @ts-expect-error Missing required property 'js'.
+    chrome.userScripts.register(badScripts);
 
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
 
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
+    // @ts-expect-error Missing required property 'js'.
+    chrome.userScripts.update(badScripts);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
