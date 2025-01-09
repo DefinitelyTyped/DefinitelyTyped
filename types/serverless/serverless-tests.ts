@@ -171,7 +171,6 @@ getHttp(
     "myFunction"
 );
 
-// @ts-expect-error - confirm "mehtod" is invalid
 getHttp(
     {
         http: {
