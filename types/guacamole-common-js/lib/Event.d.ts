@@ -140,6 +140,5 @@ export namespace Event {
          * @returns true if any of the specified listeners were removed, false otherwise.
          */
         offEach(types: string[], listener: TargetListener): boolean;
-
     }
 }

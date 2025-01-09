@@ -123,7 +123,7 @@ new Guacamole.Client(tunnel).sendMouseState({ left: true });
 new Guacamole.Client(tunnel).sendTouchState(new Guacamole.Touch.State(), true);
 
 const listener: Guacamole.Event.TargetListener = (event: Guacamole.Event, target: Guacamole.Event.Target) => {};
-const target = new Guacamole.Event.Target()
+const target = new Guacamole.Event.Target();
 target.on("event-type", listener);
 target.onEach(["event-type"], listener);
 target.off("event-type", listener);
