@@ -27,7 +27,7 @@ export default class LiveSocket {
   hooks: any;
   uploaders: any;
   loaderTimeout: any;
-  reloadWithJitterTimer: NodeJS.Timeout | null;
+  reloadWithJitterTimer: number | null;
   maxReloads: any;
   reloadJitterMin: any;
   reloadJitterMax: any;

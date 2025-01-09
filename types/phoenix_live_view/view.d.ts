@@ -16,7 +16,7 @@ export default class View {
   ref: number;
   lastAckRef: any;
   childJoins: number;
-  loaderTimer: NodeJS.Timeout | null;
+  loaderTimer: number | null;
   pendingDiffs: any[];
   pendingForms: Set<any>;
   redirect: boolean;

@@ -6,8 +6,7 @@
     "https://github.com/phoenixframework/phoenix_live_view"
   ],
   "dependencies": {
-    "@types/phoenix": "*",
-    "@types/node": "*"
+    "@types/phoenix": "*"
   },
   "devDependencies": {
     "@types/phoenix_live_view": "workspace:."
