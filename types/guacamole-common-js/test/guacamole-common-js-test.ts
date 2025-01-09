@@ -123,6 +123,9 @@ new Guacamole.Client(tunnel).sendMouseState({ left: true });
 new Guacamole.Client(tunnel).sendTouchState(new Guacamole.Touch.State(), true);
 
 new Guacamole.Event.Target().on("event-type", (event: Guacamole.Event, target: Guacamole.Event.Target) => {});
+const listener: Guacamole.Event.TargetListener = (event: Guacamole.Event, target: Guacamole.Event.Target) => {};
+const target = new Guacamole.Event.Target()
+target.on("event-type", listener);
 
 declare const layout: Guacamole.OnScreenKeyboard.Layout;
 new Guacamole.OnScreenKeyboard(layout);

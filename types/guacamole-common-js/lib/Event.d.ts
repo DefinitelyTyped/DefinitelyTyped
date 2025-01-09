@@ -59,7 +59,7 @@ export namespace Event {
      *
      * @param target The object that dispatched the event.
      */
-    type TargetListener = (event: Event, target: Target) => void;
+    export type TargetListener = (event: Event, target: Target) => void;
 
     /**
      * An object which can dispatch {@link Event} objects. Listeners
