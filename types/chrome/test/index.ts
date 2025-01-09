@@ -2020,8 +2020,8 @@ function testContextMenusCreate() {
 }
 
 function testContextMenusRemove() {
-    chrome.contextMenus.remove(1);
-    chrome.contextMenus.remove(1, () => console.log("removed"));
+    chrome.contextMenus.remove(1); // $ExpectType Promise<void>
+    chrome.contextMenus.remove(1, () => console.log("removed"));// $ExpectType void
     // @ts-expect-error
     chrome.contextMenus.remove(1, (invalid: any) => console.log("removed"));
     chrome.contextMenus.remove("dummy-id");
@@ -2032,15 +2032,15 @@ function testContextMenusRemove() {
 }
 
 function testContextMenusRemoveAll() {
-    chrome.contextMenus.removeAll();
-    chrome.contextMenus.removeAll(() => console.log("removed all"));
+    chrome.contextMenus.removeAll(); // $ExpectType Promise<void>
+    chrome.contextMenus.removeAll(() => console.log("removed all")); // $ExpectType void
     // @ts-expect-error
     chrome.contextMenus.removeAll((invalid: any) => console.log("removed"));
 }
 
 function testContextMenusUpdate() {
-    chrome.contextMenus.update(1, { title: "Hello World!" });
-    chrome.contextMenus.update(1, { title: "Hello World!" }, () => console.log("updated"));
+    chrome.contextMenus.update(1, { title: "Hello World!" }); // $ExpectType Promise<void>
+    chrome.contextMenus.update(1, { title: "Hello World!" }, () => console.log("updated")); // $ExpectType void
     chrome.contextMenus.update(Math.random() > 0.5 ? "1" : 1, { title: "Hello World!" }, () => console.log("updated"));
     // @ts-expect-error
     chrome.contextMenus.update(1, { title: "Hello World!" }, (invalid: any) => console.log("updated"));

@@ -1980,25 +1980,7 @@ declare namespace chrome {
             visible?: boolean | undefined;
         }
 
-        export interface UpdateProperties {
-            documentUrlPatterns?: string[] | undefined;
-            checked?: boolean | undefined;
-            title?: string | undefined;
-            contexts?: ContextType[] | undefined;
-            /** Optional. @since Chrome 20  */
-            enabled?: boolean | undefined;
-            targetUrlPatterns?: string[] | undefined;
-            onclick?: Function | undefined;
-            /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-            parentId?: number | string;
-            type?: ContextItemType | undefined;
-            /**
-             * Optional.
-             * @since Chrome 62
-             * Whether the item is visible in the menu.
-             */
-            visible?: boolean | undefined;
-        }
+        export interface UpdateProperties extends Omit<CreateProperties, 'id'> {}
 
         export interface MenuClickedEvent
             extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void>
@@ -2012,9 +1994,14 @@ declare namespace chrome {
 
         /**
          * Removes all context menu items added by this extension.
+         * @since Chrome 123
+         */
+        export function removeAll(): Promise<void>;
+        /**
+         * Removes all context menu items added by this extension.
          * @param callback Called when removal is complete.
          */
-        export function removeAll(callback?: () => void): void;
+        export function removeAll(callback: () => void): void;
         /**
          * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
          * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
@@ -2025,15 +2012,29 @@ declare namespace chrome {
          * Updates a previously created context menu item.
          * @param id The ID of the item to update.
          * @param updateProperties The properties to update. Accepts the same values as the create function.
+         * @since Chrome 123
+         */
+        export function update(id: string | number, updateProperties: UpdateProperties): Promise<void>;
+        /**
+         * Updates a previously created context menu item.
+         * @param id The ID of the item to update.
+         * @param updateProperties The properties to update. Accepts the same values as the create function.
          * @param callback Called when the context menu has been updated.
          */
-        export function update(id: string | number, updateProperties: UpdateProperties, callback?: () => void): void;
+        export function update(id: string | number, updateProperties: UpdateProperties, callback: () => void): void;
+        /**
+         * Removes a context menu item.
+         * @param menuItemId The ID of the context menu item to remove.
+         * @since Chrome 123
+         */
+        export function remove(menuItemId: string | number): Promise<void>;
         /**
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
          * @param callback Called when the context menu has been removed.
          */
-        export function remove(menuItemId: string | number, callback?: () => void): void;
+        export function remove(menuItemId: string | number, callback: () => void): void;
+
 
         /**
          * @since Chrome 21
