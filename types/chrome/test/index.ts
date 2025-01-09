@@ -173,52 +173,6 @@ function printPage() {
     });
 }
 
-// https://developer.chrome.com/extensions/examples/extensions/catblock/background.js
-function catBlock() {
-    var loldogs: string[];
-    chrome.webRequest.onBeforeRequest.addListener(
-        function(info) {
-            console.log("Cat intercepted: " + info.url);
-            // Redirect the lolcat request to a random loldog URL.
-            var i = Math.round(Math.random() * loldogs.length);
-            return { redirectUrl: loldogs[i] };
-        },
-        // filters
-        {
-            urls: ["https://i.chzbgr.com/*"],
-            types: ["image"],
-        },
-        // extraInfoSpec
-        ["blocking"],
-    );
-}
-
-// webNavigation.onSendHeaders.addListener example
-function webRequestAddListenerMandatoryFilters() {
-    // @ts-expect-error
-    chrome.webRequest.onBeforeRequest.addListener(info => {});
-
-    chrome.webRequest.onSendHeaders.addListener(details => {
-        console.log(
-            (details.requestHeaders ?? [])[0].name,
-            details.documentId,
-            details.documentLifecycle,
-            details.frameType,
-            details.frameId,
-            details.initiator,
-            details.parentDocumentId,
-            details.parentFrameId,
-            details.requestId,
-            details.tabId,
-            details.timeStamp,
-            details.type,
-            details.url,
-        );
-    }, {
-        urls: ["<all_urls>"],
-    }, ["requestHeaders"]);
-}
-
 // webNavigation.onBeforeNavigate.addListener example
 function beforeRedditNavigation() {
     chrome.webNavigation.onBeforeNavigate.addListener(
@@ -286,22 +240,6 @@ function executeScriptFramed() {
 
     chrome.tabs.executeScript(tabId, { frameId, code });
     chrome.tabs.insertCSS(tabId, { frameId, code });
-}
-
-// for chrome.tabs.TAB_ID_NONE
-function realTabsOnly() {
-    chrome.webRequest.onBeforeRequest.addListener(
-        function(details) {
-            if (details.tabId === chrome.tabs.TAB_ID_NONE) {
-                console.log("Request not related to a tab. %o", details);
-                return;
-            }
-            // ...
-        },
-        {
-            urls: ["<all_urls>"],
-        },
-    );
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/proxy
@@ -2828,6 +2766,171 @@ function testPrintingMetrics() {
         jobInfo; // $ExpectType PrintJobInfo
     });
     chrome.printingMetrics.onPrintJobFinished.hasListeners();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/webRequest
+function testWebRequest() {
+    const filter: chrome.webRequest.RequestFilter = {
+        tabId: 1,
+        urls: ["https://example.com/*"],
+        types: ["main_frame"],
+        windowId: 2,
+    };
+    const extraInfoSpec = ["extraHeaders"];
+
+    const blockingResponse = {
+        cancel: true,
+        redirectUrl: "https://example.com",
+        requestHeaders: [{ name: "name", value: "value" }],
+    };
+
+    chrome.webRequest.MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES === 20;
+
+    chrome.webRequest.handlerBehaviorChanged(() => {}); // $ExpectType void
+    chrome.webRequest.handlerBehaviorChanged(); // $ExpectType Promise<void>
+    // @ts-expect-error
+    chrome.webRequest.handlerBehaviorChanged(() => {}).then(() => {});
+
+    chrome.webRequest.onAuthRequired.addListener(
+        ({ frameId }, asyncCallback) => {
+            frameId; // $ExpectType number
+            if (!asyncCallback) return;
+            asyncCallback(blockingResponse); // $ExpectType void
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onAuthRequired.removeListener(({ frameId }, asyncCallback) => {
+        frameId; // $ExpectType number
+        if (!asyncCallback) return;
+        asyncCallback(blockingResponse); // $ExpectType void
+    });
+    chrome.webRequest.onAuthRequired.hasListener(({ frameId }, asyncCallback) => {
+        frameId; // $ExpectType number
+        if (!asyncCallback) return;
+        asyncCallback(blockingResponse); // $ExpectType void
+    });
+    chrome.webRequest.onAuthRequired.hasListeners();
+
+    chrome.webRequest.onBeforeRedirect.addListener(
+        ({ frameId }) => {
+            frameId; // $ExpectType number
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onBeforeRedirect.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeRedirect.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeRedirect.hasListeners();
+
+    chrome.webRequest.onBeforeRequest.addListener(
+        ({ frameId }) => {
+            frameId; // $ExpectType number
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onBeforeRequest.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeRequest.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeRequest.hasListeners();
+
+    chrome.webRequest.onBeforeSendHeaders.addListener(
+        (details) => {
+            details; // $ExpectType WebRequestHeadersDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onBeforeSendHeaders.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeSendHeaders.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onBeforeSendHeaders.hasListeners();
+
+    chrome.webRequest.onCompleted.addListener(
+        (details) => {
+            details; // $ExpectType WebResponseCacheDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onCompleted.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onCompleted.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onCompleted.hasListeners();
+
+    chrome.webRequest.onErrorOccurred.addListener(
+        (details) => {
+            details; // $ExpectType WebResponseErrorDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onErrorOccurred.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onErrorOccurred.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onErrorOccurred.hasListeners();
+
+    chrome.webRequest.onHeadersReceived.addListener(
+        (details) => {
+            details; // $ExpectType WebResponseHeadersDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onHeadersReceived.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onHeadersReceived.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onHeadersReceived.hasListeners();
+
+    chrome.webRequest.onResponseStarted.addListener(
+        (details) => {
+            details; // $ExpectType WebResponseCacheDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onResponseStarted.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onResponseStarted.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onResponseStarted.hasListeners();
+
+    chrome.webRequest.onSendHeaders.addListener(
+        (details) => {
+            details; // $ExpectType WebRequestHeadersDetails
+        },
+        filter,
+        extraInfoSpec,
+    );
+    chrome.webRequest.onSendHeaders.removeListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onSendHeaders.hasListener(({ frameId }) => {
+        frameId; // $ExpectType number
+    });
+    chrome.webRequest.onSendHeaders.hasListeners();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/accessibilityFeatures

@@ -3807,8 +3807,12 @@ declare namespace chrome {
             originAndPathMatches?: string | undefined;
         }
 
-        export interface BaseEvent<T extends Function> {
-            addListener(callback: T, filter?: webRequest.RequestFilter): void;
+        export interface Event<T extends Function> {
+            /**
+             * Registers an event listener callback to an event.
+             * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+             */
+            addListener(callback: T): void;
             /**
              * Returns currently registered rules.
              * @param callback Called with registered rules.
@@ -3864,18 +3868,6 @@ declare namespace chrome {
              */
             removeListener(callback: T): void;
             hasListeners(): boolean;
-        }
-
-        /** An object which allows the addition and removal of listeners for a Chrome event. */
-        interface Event<T extends Function> extends BaseEvent<T> {
-            /**
-             * Registers an event listener callback to an event.
-             * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-             */
-            addListener(callback: T): void;
-        }
-        export interface EventWithRequiredFilterInAddListener<T extends Function> extends BaseEvent<T> {
-            addListener(callback: T, filter: webRequest.RequestFilter): void;
         }
 
         /** Description of a declarative rule for handling events. */
@@ -12036,6 +12028,12 @@ declare namespace chrome {
      * @since Chrome 17
      */
     export namespace webRequest {
+        interface WebRequestEvent<T extends Function, U extends string[]>
+            extends Omit<chrome.events.Event<T>, "addListener">
+        {
+            addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U): void;
+        }
+
         /** How the requested resource will be used. */
         export type ResourceType =
             | "main_frame"
@@ -12234,82 +12232,45 @@ declare namespace chrome {
             error: string;
         }
 
-        export interface WebRequestBodyEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebRequestBodyDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestBodyEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebRequestBodyDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebRequestHeadersSynchronousEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebRequestHeadersDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestHeadersSynchronousEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebRequestHeadersDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebRequestHeadersEvent
-            extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => void>
-        {
-            addListener(
-                callback: (details: WebRequestHeadersDetails) => void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestHeadersEvent = WebRequestEvent<
+            (details: WebRequestHeadersDetails) => void,
+            string[]
+        >;
 
-        export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
-            extends chrome.events.EventWithRequiredFilterInAddListener<(details: T) => void>
-        {
-            addListener(callback: (details: T) => void, filter: RequestFilter, opt_extraInfoSpec?: string[]): void;
-        }
+        export type _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> = WebRequestEvent<
+            (details: T) => void,
+            string[]
+        >;
 
-        export interface WebResponseHeadersEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebResponseHeadersDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebResponseHeadersEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebResponseHeadersDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> {}
+        export type WebResponseCacheEvent = _WebResponseHeadersEvent<WebResponseCacheDetails>;
 
-        export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
+        export type WebRedirectionResponseEvent = _WebResponseHeadersEvent<WebRedirectionResponseDetails>;
 
-        export interface WebAuthenticationChallengeEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
-            >
-        {
-            addListener(
-                callback: (
-                    details: WebAuthenticationChallengeDetails,
-                    callback?: (response: BlockingResponse) => void,
-                ) => void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebAuthenticationChallengeEvent = WebRequestEvent<
+            (
+                details: WebAuthenticationChallengeDetails,
+                callback?: (response: BlockingResponse) => void,
+            ) => void,
+            string[]
+        >;
 
         export interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 
@@ -12319,17 +12280,25 @@ declare namespace chrome {
          */
         export var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
-        /** Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often. */
-        export function handlerBehaviorChanged(callback?: Function): void;
+        /**
+         * Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         */
+        export function handlerBehaviorChanged(): Promise<void>;
+        export function handlerBehaviorChanged(callback: Function): void;
 
         /** Fired when a request is about to occur. */
-        export var onBeforeRequest: WebRequestBodyEvent;
+        export const onBeforeRequest: WebRequestBodyEvent;
+
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-        export var onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
+        export const onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
+
         /** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
-        export var onSendHeaders: WebRequestHeadersEvent;
+        export const onSendHeaders: WebRequestHeadersEvent;
+
         /** Fired when HTTP response headers of a request have been received. */
-        export var onHeadersReceived: WebResponseHeadersEvent;
+        export const onHeadersReceived: WebResponseHeadersEvent;
+
         /**
          * Fired when an authentication failure is received.
          * The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
@@ -12338,15 +12307,19 @@ declare namespace chrome {
          *
          * Requires the `webRequestAuthProvider` permission.
          */
-        export var onAuthRequired: WebAuthenticationChallengeEvent;
+        export const onAuthRequired: WebAuthenticationChallengeEvent;
+
         /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
-        export var onResponseStarted: WebResponseCacheEvent;
+        export const onResponseStarted: WebResponseCacheEvent;
+
         /** Fired when a server-initiated redirect is about to occur. */
-        export var onBeforeRedirect: WebRedirectionResponseEvent;
+        export const onBeforeRedirect: WebRedirectionResponseEvent;
+
         /** Fired when a request is completed. */
-        export var onCompleted: WebResponseCacheEvent;
+        export const onCompleted: WebResponseCacheEvent;
+
         /** Fired when an error occurs. */
-        export var onErrorOccurred: WebResponseErrorEvent;
+        export const onErrorOccurred: WebResponseErrorEvent;
     }
 
     ////////////////////
