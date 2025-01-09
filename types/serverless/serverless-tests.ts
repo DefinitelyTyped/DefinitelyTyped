@@ -168,7 +168,7 @@ getHttp(
             method: "get",
         },
     },
-    "myFunction"
+    "myFunction",
 );
 
 getHttp(
@@ -178,7 +178,7 @@ getHttp(
             mehtod: "get",
         },
     },
-    "myFunction"
+    "myFunction",
 );
 
 // 1) Convert "type" to an "interface" to satisfy ESLint rule
@@ -198,19 +198,18 @@ const customResult = getHttp<CustomEvent>(
             extraData: 42,
         },
     },
-    "myFunction"
+    "myFunction",
 );
 
 // Use a type-guard to confirm "extraData" is accessible:
 if (typeof customResult === "object" && "extraData" in customResult) {
     customResult.extraData; // number
-    customResult.path;      // string
-    customResult.method;    // "get" | "post"
+    customResult.path; // string
+    customResult.method; // "get" | "post"
 }
 
 // could cast:
-// (customResult as CustomEvent).extraData; 
-
+// (customResult as CustomEvent).extraData;
 
 // Test "getHttp" WITHOUT a generic:
 const defaultResult = getHttp(
@@ -220,12 +219,12 @@ const defaultResult = getHttp(
             method: "get",
         },
     },
-    "myFunction"
+    "myFunction",
 );
 
 // return union.
 if (typeof defaultResult !== "string") {
-    defaultResult.path;   // string
+    defaultResult.path; // string
     defaultResult.method; // string
 }
 
@@ -234,14 +233,14 @@ getHttp(
     {
         http: "GET mypath",
     },
-    "myFunction"
+    "myFunction",
 );
 getHttp(
     {
         // @ts-expect-error
         sqs: "arn",
     },
-    "myFunction"
+    "myFunction",
 );
 
 // Test entire Aws Serverless type
