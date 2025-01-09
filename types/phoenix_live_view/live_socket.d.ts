@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import SocketOptions from "./socket_options";
 
 export function isUsedInput(el: any): any;

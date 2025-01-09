@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import Rendered from "./rendered";
 
 export function prependFormDataKey(key: any, prefix: any): any;
