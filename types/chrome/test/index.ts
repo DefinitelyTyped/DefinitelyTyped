@@ -2021,7 +2021,7 @@ function testContextMenusCreate() {
 
 function testContextMenusRemove() {
     chrome.contextMenus.remove(1); // $ExpectType Promise<void>
-    chrome.contextMenus.remove(1, () => console.log("removed"));// $ExpectType void
+    chrome.contextMenus.remove(1, () => console.log("removed")); // $ExpectType void
     // @ts-expect-error
     chrome.contextMenus.remove(1, (invalid: any) => console.log("removed"));
     chrome.contextMenus.remove("dummy-id");

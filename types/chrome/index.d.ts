@@ -1980,7 +1980,7 @@ declare namespace chrome {
             visible?: boolean | undefined;
         }
 
-        export interface UpdateProperties extends Omit<CreateProperties, 'id'> {}
+        export interface UpdateProperties extends Omit<CreateProperties, "id"> {}
 
         export interface MenuClickedEvent
             extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void>
@@ -2034,7 +2034,6 @@ declare namespace chrome {
          * @param callback Called when the context menu has been removed.
          */
         export function remove(menuItemId: string | number, callback: () => void): void;
-
 
         /**
          * @since Chrome 21
