@@ -87,6 +87,12 @@ async function streamingClient() {
 
     // store.post
     const post: Promise<void> = fullOptions.store.post(stream);
+
+    // do not expose internal methods
+    // @ts-expect-error
+    fullOptions.store.read();
+    // @ts-expect-error
+    fullOptions.store.write();
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
