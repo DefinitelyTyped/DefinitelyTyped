@@ -163,3 +163,17 @@ ltiAdvanced.app.get("/any", (request: Request, response: Response) => {
     // $ExpectType IdToken | undefined
     response.locals.token;
 });
+
+ltiAdvanced.getPlatform("https://platform.url").then(async (platform) => {
+    if (!platform) return;
+
+    // $expectType string | boolean
+    const name = await platform?.[0]?.platformName();
+});
+
+ltiAdvanced.getPlatform("https://platform.url", "123").then(async (platform) => {
+    if (!platform) return;
+
+    // $expectType string | boolean
+    const name = await platform.platformName();
+});
