@@ -6584,10 +6584,6 @@ export interface ResponseBankingTransactionList {
          */
         isQueryParamUnsupported?: boolean | null;
         [k: string]: unknown;
-        /**
-         * true if "text" query parameter is not supported
-         */
-        isQueryParamUnsupported?: boolean | null;
     };
     [k: string]: unknown;
 }
