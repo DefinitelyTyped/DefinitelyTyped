@@ -1,6 +1,6 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
-import { Texture } from '../textures/Texture.js';
+import { Texture } from "../textures/Texture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 /**
  * Class for loading a texture.

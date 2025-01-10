@@ -141,8 +141,7 @@ export function getTweetLength(text: string, options?: TweetLengthOptions): numb
 export function isValidUsername(username: string): boolean;
 export function isValidList(usernameList: string): boolean;
 export function isValidHashtag(hashtag: string): boolean;
-// Note: unicodeDomainsa and requireProtocol can be null
-export function isValidUrl(url: string, unicodeDomains: boolean, requireProtocol: boolean): boolean;
+export function isValidUrl(url: string, unicodeDomains: null | boolean, requireProtocol: null | boolean): boolean;
 export function hasInvalidCharacters(text: string): boolean;
 export function isInvalidTweet(text: string, options?: ParseTweetOptions): boolean;
 export function isValidTweet(text: string, options?: ParseTweetOptions): boolean;

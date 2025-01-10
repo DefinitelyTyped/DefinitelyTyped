@@ -1,9 +1,8 @@
 import * as React from "react";
 
 declare namespace BreadcrumbItem {
-    export interface BreadcrumbItemProps {
+    export interface BreadcrumbItemProps extends React.RefAttributes<BreadcrumbItem> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<BreadcrumbItem> | undefined;
         active?: boolean | undefined;
         href?: string | undefined;
         title?: React.ReactNode | undefined;

@@ -72,6 +72,10 @@ service._executeSync();
 service._executeSync(
     ["test"],
 );
+// $ExpectType true
+service.closeSync();
+// $ExpectType void
+service.close();
 
 /** ibm.Database */
 new ibmdb.Database({

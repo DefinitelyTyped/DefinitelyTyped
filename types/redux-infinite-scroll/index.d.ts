@@ -1,4 +1,4 @@
-import { Component, HTMLProps } from "react";
+import { Component, HTMLProps, JSX } from "react";
 
 interface InfiniteScrollerProps {
     elementIsScrollable?: boolean | undefined;

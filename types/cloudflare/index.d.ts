@@ -61,10 +61,12 @@ declare namespace Cloudflare {
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
-    type DnsRecordByType<RecordType extends RecordTypes> = RecordType extends "MX" | "URI" ? DnsRecordWithPriority
-        : RecordType extends "SRV" ? SrvDnsRecord
-        : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
-        : DnsRecord;
+    type ExistingDnsRecordByType<RecordType extends RecordTypes> =
+        & (RecordType extends "MX" | "URI" ? DnsRecordWithPriority
+            : RecordType extends "SRV" ? SrvDnsRecord
+            : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
+            : DnsRecord)
+        & { id: string };
 
     interface DNSRecords {
         edit(zone_id: string, id: string, record: DnsRecord): ResponseObjectPromise;
@@ -95,7 +97,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordsBrowseResponse<RecordType extends RecordTypes> {
-        result: Array<DnsRecordByType<RecordType>> | null;
+        result: Array<ExistingDnsRecordByType<RecordType>> | null;
         result_info: {
             page: number;
             per_page: number;

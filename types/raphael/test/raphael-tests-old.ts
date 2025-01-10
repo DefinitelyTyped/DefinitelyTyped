@@ -47,7 +47,7 @@
 
     const butt3: import("raphael").RaphaelMatrix = Raphael.matrix(1, 0, 0, 1, 0, 0);
     const butt4: import("raphael").RaphaelMatrix = Raphael.matrix(1, 0, 0, 1, 0, 0);
-    let angle: number;
+    let angle: number = 0;
 
     butt3.translate(10, 181);
     butt4.translate(10, 245);

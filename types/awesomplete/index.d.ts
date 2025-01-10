@@ -47,6 +47,7 @@ declare namespace Awesomplete {
         sort?: boolean | SortFunction | undefined;
         item?(text: string, input: string, item_id: number): HTMLElement;
         replace?(suggestion: string | Suggestion): void;
+        container?(input: HTMLElement): HTMLElement;
     }
 }
 

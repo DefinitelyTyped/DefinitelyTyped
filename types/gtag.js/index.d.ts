@@ -97,6 +97,8 @@ declare namespace Gtag {
         value?: number | undefined;
         event_label?: string | undefined;
         event_category?: string | undefined;
+        /** @see {@link https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data#specify_different_transport_mechanisms specify_different_transport_mechanisms} */
+        transport_type?: "image" | "xhr" | "beacon" | undefined;
     }
 
     type Currency = string | number;
@@ -154,6 +156,8 @@ declare namespace Gtag {
      * @see {@link https://developers.google.com/tag-platform/devguides/consent consent}
      */
     interface ConsentParams {
+        ad_personalization?: "granted" | "denied" | undefined;
+        ad_user_data?: "granted" | "denied" | undefined;
         ad_storage?: "granted" | "denied" | undefined;
         analytics_storage?: "granted" | "denied" | undefined;
         functionality_storage?: "granted" | "denied" | undefined;

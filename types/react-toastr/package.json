@@ -7,7 +7,7 @@
         "https://tomchentw.github.io/react-toastr"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/react-toastr": "workspace:."

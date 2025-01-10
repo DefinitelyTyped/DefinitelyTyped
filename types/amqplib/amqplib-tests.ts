@@ -18,6 +18,12 @@ amqp.connect("amqp://localhost")
 
 amqp.connect("amqp://localhost")
     .then(connection => {
+        return connection.updateSecret(Buffer.from("newSecret"), "reason")
+            .finally(() => connection.close());
+    });
+
+amqp.connect("amqp://localhost")
+    .then(connection => {
         connection.connection.serverProperties.copyright; // $ExpectType string | undefined
         connection.connection.serverProperties.platform; // $ExpectType string
         connection.connection.serverProperties.information; // $ExpectType string
@@ -35,6 +41,7 @@ amqp.connect("amqp://localhost")
             .then(channel => {
                 return channel.consume("myQueue", newMsg => {
                     if (newMsg != null) {
+                        newMsg.properties.headers; // $ExpectType MessagePropertyHeaders | undefined
                         // test promise api properties
                         if (newMsg.properties.contentType === "application/json") {
                             console.log("New Message: " + newMsg.content.toString());
@@ -69,6 +76,16 @@ amqpcb.connect("amqp://localhost", (err, connection) => {
                         channel.sendToQueue("myQueue", new Buffer(msg));
                     }
                 });
+            }
+        });
+    }
+});
+
+amqpcb.connect("amqp://localhost", (err, connection) => {
+    if (!err) {
+        connection.updateSecret(Buffer.from(""), "reason", (err) => {
+            if (!err) {
+                connection.close();
             }
         });
     }

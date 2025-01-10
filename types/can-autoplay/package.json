@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/video-dev/can-autoplay"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "devDependencies": {
         "@types/can-autoplay": "workspace:."
     },

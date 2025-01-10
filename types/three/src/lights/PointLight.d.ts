@@ -1,6 +1,6 @@
-import { ColorRepresentation } from '../math/Color.js';
-import { Light } from './Light.js';
-import { PointLightShadow } from './PointLightShadow.js';
+import { ColorRepresentation } from "../math/Color.js";
+import { Light } from "./Light.js";
+import { PointLightShadow } from "./PointLightShadow.js";
 
 /**
  * A light that gets emitted from a single point in all directions
@@ -28,6 +28,13 @@ export class PointLight extends Light<PointLightShadow> {
      * @param decay The amount the light dims along the distance of the light. Expects a `Float`. Default `2`
      */
     constructor(color?: ColorRepresentation, intensity?: number, distance?: number, decay?: number);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link PointLight}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isPointLight: true;
 
     /**
      * @default 'PointLight'

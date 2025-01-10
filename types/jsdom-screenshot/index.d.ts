@@ -1,4 +1,4 @@
-import { LaunchOptions, Page, ScreenshotOptions, Viewport } from "puppeteer";
+import { LaunchOptions, Page, Request, ScreenshotOptions, Viewport } from "puppeteer";
 
 export interface GenerateImageOptions {
     launch?: LaunchOptions | undefined;
@@ -7,7 +7,8 @@ export interface GenerateImageOptions {
     debug?: boolean | undefined;
     waitUntilNetworkIdle?: boolean | undefined;
     viewport?: Viewport | undefined;
-    intercept?: VoidFunction | undefined;
+    intercept?: ((request: Request) => void) | undefined;
+    targetSelector?: string;
 }
 
 export function debug(element?: Element | Document): void;

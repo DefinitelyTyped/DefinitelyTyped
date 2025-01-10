@@ -19,7 +19,7 @@ font.registerFont("CustomFont", "path/to/font.ttf");
 font.registerFont("CustomFontWithBuffer", Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 text.widthOfString("Kila", { ellipsis: true });
 
-var doc = new PDFDocument({
+var doc: PDFKit.PDFDocument = new PDFDocument({
     compress: false,
     size: [526, 525],
     autoFirstPage: true,
@@ -30,6 +30,7 @@ var doc = new PDFDocument({
         printing: "lowResolution",
     },
     font: "Arial",
+    fontLayoutCache: true,
 });
 
 doc.addPage({
@@ -236,6 +237,11 @@ doc.image("path/to/image.png", {
 });
 
 doc.image("path/to/image.png", {
+    fit: [250, 300],
+    link: "http://google.com/",
+});
+
+doc.image("path/to/image.png", {
     cover: [250, 300],
 });
 
@@ -332,3 +338,21 @@ structureElement.add(structureContent);
 structureElement.setAttached();
 structureElement.setParent(doc.ref({}));
 structureElement.end();
+
+// Test optional info types can not be undefined in PDFDocument (See PullRequest 71195)
+const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
+    // @ts-expect-error
+    info: {
+        Producer: undefined,
+        Creator: undefined,
+        CreationDate: undefined,
+        Title: undefined,
+        Author: undefined,
+        Subject: undefined,
+        Keywords: undefined,
+        ModDate: undefined,
+    },
+});
+
+// Test outlines
+doc.outline.addItem("A");

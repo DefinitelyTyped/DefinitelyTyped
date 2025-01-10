@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CloudGame
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -15,5 +15,5 @@ export default class CloudGame extends AbstractCrudObject {
         playable_ad_status: "playable_ad_status";
         playable_ad_upload_time: "playable_ad_upload_time";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CloudGame>;
+    get(fields: string[], params?: Record<string, any>): Promise<CloudGame>;
 }

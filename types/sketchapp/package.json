@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/sketchapp",
     "version": "56.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "the SketchApp",
     "projects": [
         "https://github.com/xlayers/xlayers"

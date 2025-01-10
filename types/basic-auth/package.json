@@ -9,7 +9,8 @@
         "@types/node": "*"
     },
     "devDependencies": {
-        "@types/basic-auth": "workspace:."
+        "@types/basic-auth": "workspace:.",
+        "@types/koa": "*"
     },
     "owners": [
         {

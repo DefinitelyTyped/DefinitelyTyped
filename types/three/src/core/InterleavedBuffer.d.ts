@@ -1,6 +1,6 @@
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import { Usage } from '../constants.js';
-import { TypedArray } from './BufferAttribute.js';
+import { Usage } from "../constants.js";
+import { TypedArray } from "./BufferAttribute.js";
+import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
 
 /**
  * **"Interleaved"** means that multiple attributes, possibly of different types, (e.g., _position, normal, uv, color_) are packed into a single array buffer.
@@ -10,6 +10,8 @@ import { TypedArray } from './BufferAttribute.js';
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js | Source}
  */
 export class InterleavedBuffer {
+    readonly isInterleavedBuffer: true;
+
     /**
      * Create a new instance of {@link InterleavedBuffer}
      * @param array A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.
@@ -39,18 +41,6 @@ export class InterleavedBuffer {
      * @defaultValue {@link THREE.StaticDrawUsage | THREE.StaticDrawUsage}.
      */
     usage: Usage;
-
-    /**
-     * Object containing offset and count.
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /** @defaultValue `0` */
-        offset: number;
-        /** @defaultValue `-1` */
-        count: number;
-    };
 
     /**
      * This can be used to only update some components of stored data. Use the {@link .addUpdateRange} function to add
@@ -94,6 +84,18 @@ export class InterleavedBuffer {
      * @remarks This gets automatically assigned and shouldn't be edited.
      */
     uuid: string;
+
+    /**
+     * A callback function that is executed after the Renderer has transferred the geometry data to the GPU.
+     */
+    onUploadCallback: () => void;
+
+    /**
+     * Sets the value of the {@link onUploadCallback} property.
+     * @see {@link onUploadCallback}
+     * @param callback function that is executed after the Renderer has transferred the geometry data to the GPU.
+     */
+    onUpload(callback: () => void): this;
 
     /**
      * Calls {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set}( {@link value}, {@link offset} )

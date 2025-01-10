@@ -9,7 +9,6 @@
         "@types/prettier": "^2.0.0"
     },
     "devDependencies": {
-        "@types/mri": "*",
         "@types/pretty-quick": "workspace:."
     },
     "owners": [

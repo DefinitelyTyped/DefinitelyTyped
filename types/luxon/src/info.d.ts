@@ -1,3 +1,4 @@
+import { WeekdayNumbers } from "./datetime";
 import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from "./misc";
 import { Zone } from "./zone";
 
@@ -27,6 +28,11 @@ export interface Features {
      * Whether this environment supports relative time formatting
      */
     relative: boolean;
+
+    /**
+     * Whether this environment supports different weekdays for the start of the week based on the locale
+     */
+    localeWeek: boolean;
 }
 
 /**
@@ -63,6 +69,35 @@ export namespace Info {
      * @param input - the value to be converted
      */
     function normalizeZone(input?: string | Zone | number): Zone;
+
+    interface LocaleInput {
+        /**
+         * the locale code
+         */
+        locale?: string | null | undefined;
+        /**
+         * an existing locale object to use, instead of the locale code string
+         */
+        locObj?: object | null | undefined;
+    }
+
+    /**
+     * Get the weekday on which the week starts,
+     * according to the given locale.
+     */
+    function getStartOfWeek(input?: LocaleInput): WeekdayNumbers;
+
+    /**
+     * Get the minimum number of days necessary in a week before it is considered part of the next year,
+     * according to the given locale.
+     */
+    function getMinimumDaysInFirstWeek(input?: LocaleInput): WeekdayNumbers;
+
+    /**
+     * Get the weekdays which are considered the weekend,
+     * according to the given locale.
+     */
+    function getWeekendWeekdays(input?: LocaleInput): WeekdayNumbers[];
 
     /**
      * Return an array of standalone month names.

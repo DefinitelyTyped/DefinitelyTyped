@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/escape-quotes",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/escape-quotes"
+    ],
+    "devDependencies": {
+        "@types/escape-quotes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amin Yahyaabadi",
+            "githubUsername": "aminya"
+        }
+    ]
+}

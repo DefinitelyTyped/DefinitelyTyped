@@ -1,0 +1,10 @@
+export let imageprocess: typeof import("./AipImageProcess");
+export let imageSearch: typeof import("./AipImageSearch");
+export let imageClassify: typeof import("./AipImageClassify");
+export let contentCensor: typeof import("./AipContentCensor");
+export let face: typeof import("./AipFace");
+export let ocr: typeof import("./AipOcr");
+export let nlp: typeof import("./AipNlp");
+export let kg: typeof import("./AipKg");
+export let speech: typeof import("./AipSpeech");
+export let HttpClient: typeof import("./http/httpClient");

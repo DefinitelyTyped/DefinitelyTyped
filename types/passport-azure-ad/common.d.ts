@@ -9,6 +9,7 @@ export interface IBaseStrategyOption {
     loggingLevel?: "info" | "warn" | "error" | undefined;
     loggingNoPII?: boolean | undefined;
     clockSkew?: number | undefined;
+    proxy?: { port: string; host: string; protocol: "http" | "https" };
 }
 
 export interface ITokenPayload {

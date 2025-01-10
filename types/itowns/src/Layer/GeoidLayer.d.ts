@@ -2,6 +2,7 @@ import Layer, { LayerOptions } from "./Layer";
 
 export function geoidLayerIsVisible(tilelayer: any): boolean;
 
+// TODO: Define public API
 declare class GeoidLayer extends Layer {
     constructor(id: string, config?: LayerOptions);
 

@@ -55,14 +55,16 @@ const RouterServiceConsumer = Service.extend({
         router
             .on("routeWillChange", transition => {
                 const to = transition.to;
-                to.child; // $ExpectType RouteInfo | null
-                to.localName; // $ExpectType string
-                to.name; // $ExpectType string
-                to.paramNames; // $ExpectType string[]
-                to.params.foo; // $ExpectType string | undefined
-                to.parent; // $ExpectType RouteInfo | null
-                to.queryParams.foo; // $ExpectType string | undefined
-                to.find(info => info.name === "foo"); // $ExpectType RouteInfo | undefined
+                if (to) {
+                    to.child; // $ExpectType RouteInfo | null
+                    to.localName; // $ExpectType string
+                    to.name; // $ExpectType string
+                    to.paramNames; // $ExpectType string[]
+                    to.params.foo; // $ExpectType string | undefined
+                    to.parent; // $ExpectType RouteInfo | null
+                    to.queryParams.foo; // $ExpectType string | undefined
+                    to.find(info => info.name === "foo"); // $ExpectType RouteInfo | undefined
+                }
             })
             .on("routeDidChange", transition => {
                 const from = transition.from;

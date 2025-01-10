@@ -71,7 +71,7 @@ const wfsCartoSource = new itowns.WFSSource({
     format: "application/json",
 });
 
-const wfsCartoStyle = new itowns.Style({
+const wfsCartoStyle = {
     zoom: { min: 0, max: 20 },
     text: {
         field: "{toponyme}",
@@ -81,7 +81,7 @@ const wfsCartoStyle = new itowns.Style({
         haloColor: "rgba(20,20,20, 0.8)",
         haloWidth: 3,
     },
-});
+};
 
 const wfsCartoLayer = new itowns.LabelLayer("wfsCarto", {
     source: wfsCartoSource,

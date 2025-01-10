@@ -9,7 +9,10 @@ export interface FileSourceOptions extends SourceOptions {
 // fetchedData: T | fetcher(string, InitRequest): T | features: T
 
 declare class FileSource extends Source {
-    isFileSource: boolean;
+    // constructor(source: FileSourceOptions);
+
+    readonly isFileSource: true;
+
     fetchedData: any; // T
     whenReady: any; // Promise<T>
     zoom: {

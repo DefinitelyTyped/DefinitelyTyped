@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 declare namespace MobileMessagingCordova {
     type OS = "Android" | "iOS";
     type Gender = "Male" | "Female";

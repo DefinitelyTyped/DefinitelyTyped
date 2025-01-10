@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as React from "react";
 
 export interface ThemeProps<T> {
@@ -11,7 +9,10 @@ export type StyledProps<P> = ThemedStyledProps<P, any>;
 
 export type ThemedOuterStyledProps<P, T> = P & {
     theme?: T | undefined;
-    innerRef?: ((instance: any) => void) | React.RefObject<HTMLElement | SVGElement | React.Component> | undefined;
+    innerRef?:
+        | ((instance: any) => void)
+        | React.RefObject<HTMLElement | SVGElement | React.Component | null>
+        | undefined;
 };
 export type OuterStyledProps<P> = ThemedOuterStyledProps<P, any>;
 

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.base64",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.base64",
     "projects": [
         "https://github.com/yatt/jquery.base64/"
     ],

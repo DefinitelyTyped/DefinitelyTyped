@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/eventbusjs",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/krasimir/EventBus"
+    ],
+    "devDependencies": {
+        "@types/eventbusjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "long2014",
+            "githubUsername": "Longqin88888"
+        }
+    ]
+}

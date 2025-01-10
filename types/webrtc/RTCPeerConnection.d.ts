@@ -48,8 +48,8 @@ declare var RTCErrorEvent: {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidatepair
 interface RTCIceCandidatePair {
-    local?: RTCIceCandidate | undefined;
-    remote?: RTCIceCandidate | undefined;
+    local: RTCIceCandidate;
+    remote: RTCIceCandidate;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcofferansweroptions
@@ -127,7 +127,7 @@ interface RTCIceTransport extends EventTarget {
 }
 
 interface RTCDtlsTransportEventMap {
-    "error": Event;
+    "error": RTCErrorEvent;
     "statechange": Event;
 }
 
@@ -137,7 +137,7 @@ interface RTCDtlsTransport extends EventTarget {
     readonly iceTransport: RTCIceTransport;
     readonly state: RTCDtlsTransportState;
     getRemoteCertificates(): ArrayBuffer[];
-    onerror: DtlsTransportEventHandler<Event>;
+    onerror: DtlsTransportEventHandler<RTCErrorEvent>;
     onstatechange: DtlsTransportEventHandler<Event>;
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(
         type: K,
@@ -390,7 +390,7 @@ interface RTCPeerConnection extends EventTarget {
     setConfiguration(configuration: RTCConfiguration): void;
     close(): void;
 
-    onicecandidateerror: PeerConnectionEventHandler<Event>;
+    onicecandidateerror: PeerConnectionEventHandler<RTCPeerConnectionIceErrorEvent>;
     onconnectionstatechange: PeerConnectionEventHandler<Event>;
 
     // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions

@@ -10,7 +10,7 @@
         "@types/express": "*",
         "@types/express-serve-static-core": "*",
         "@types/rdfjs__sink-map": "*",
-        "rdf-js": "^4.0.2"
+        "@rdfjs/types": ">=1.0.0"
     },
     "devDependencies": {
         "@types/rdfjs__express-handler": "workspace:."

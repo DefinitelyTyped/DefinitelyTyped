@@ -198,6 +198,10 @@ braintree.client.create(
                 hostedFieldsInstance.tokenize(
                     {
                         vault: true,
+                        fieldsToTokenize: ["number", "cvv"],
+                        billingAddress: {
+                            postalCode: "12345",
+                        },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {
@@ -694,7 +698,8 @@ braintree.client.create(
 
                         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
                         verifyPayload.liabilityShifted; // boolean
-                        verifyPayload.liabilityShiftPossible; // boolean
+                        verifyPayload.liabilityShiftPossible;
+                        verifyPayload.threeDSecureInfo.status; // boolean
                     },
                 );
             },

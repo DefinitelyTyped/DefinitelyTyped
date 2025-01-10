@@ -115,7 +115,7 @@ export interface Parser<O extends object | undefined = undefined> {
 
     seek(length: number): Parser<O>;
 
-    endianess(endianess: Parser.Endianness): Parser<O>; /* [sic] */
+    endianness(endianness: Parser.Endianness): Parser<O>; /* [sic] */
 
     namely(alias: string): Parser<O>;
 

@@ -6,7 +6,7 @@
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
-import { createSecretKey, KeyObject } from "crypto";
+import { createPrivateKey, createPublicKey, createSecretKey, KeyObject } from "crypto";
 
 let token: string;
 let cert: Buffer;
@@ -50,6 +50,12 @@ token = jwt.sign(testObject, { key: privKey, passphrase: "keypwd" }, { algorithm
 // sign with secret key (KeyObject)
 secretKey = createSecretKey("shhhhh", "utf-8");
 token = jwt.sign(testObject, secretKey);
+
+// sign with expiresIn
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1d" });
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined });
 
 // sign with insecure key size
 token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });
@@ -292,3 +298,18 @@ jwt.decode(token, { complete: true });
 
 // $ExpectType Jwt | null
 jwt.decode(token, { complete: true, json: true });
+
+/**
+ * crypto.createPrivateKey and crypto.createPublicKey inputs
+ */
+
+{
+    let privateKey!: Parameters<typeof createPrivateKey>[0];
+    let publicKey!: Parameters<typeof createPublicKey>[0];
+
+    jwt.sign("", privateKey);
+    jwt.sign("", privateKey, () => {});
+    jwt.verify("", publicKey);
+    jwt.verify("", publicKey, () => {});
+    jwt.verify("", (header, done) => done(null, publicKey), () => {});
+}

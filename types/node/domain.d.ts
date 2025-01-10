@@ -9,10 +9,10 @@
  * Domains provide a way to handle multiple different IO operations as a
  * single group. If any of the event emitters or callbacks registered to a
  * domain emit an `'error'` event, or throw an error, then the domain object
- * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
+ * will be notified, rather than losing the context of the error in the `process.on('uncaughtException')` handler, or causing the program to
  * exit immediately with an error code.
  * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/domain.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/domain.js)
  */
 declare module "domain" {
     import EventEmitter = require("node:events");
@@ -29,7 +29,7 @@ declare module "domain" {
          */
         members: Array<EventEmitter | NodeJS.Timer>;
         /**
-         * The `enter()` method is plumbing used by the `run()`, `bind()`, and`intercept()` methods to set the active domain. It sets `domain.active` and`process.domain` to the domain, and implicitly
+         * The `enter()` method is plumbing used by the `run()`, `bind()`, and `intercept()` methods to set the active domain. It sets `domain.active` and `process.domain` to the domain, and implicitly
          * pushes the domain onto the domain
          * stack managed by the domain module (see {@link exit} for details on the
          * domain stack). The call to `enter()` delimits the beginning of a chain of
@@ -47,7 +47,7 @@ declare module "domain" {
          * The call to `exit()` delimits either the end of or an interruption to the chain
          * of asynchronous calls and I/O operations bound to a domain.
          *
-         * If there are multiple, nested domains bound to the current execution context,`exit()` will exit any domains nested within this domain.
+         * If there are multiple, nested domains bound to the current execution context, `exit()` will exit any domains nested within this domain.
          *
          * Calling `exit()` changes only the active domain, and does not alter the domain
          * itself. `enter()` and `exit()` can be called an arbitrary number of times on a
@@ -63,8 +63,8 @@ declare module "domain" {
          * This is the most basic way to use a domain.
          *
          * ```js
-         * const domain = require('node:domain');
-         * const fs = require('node:fs');
+         * import domain from 'node:domain';
+         * import fs from 'node:fs';
          * const d = domain.create();
          * d.on('error', (er) => {
          *   console.error('Caught error!', er);

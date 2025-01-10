@@ -1,4 +1,5 @@
 import { PNG } from "pngjs";
+import { PNG as BrowserPNG } from "pngjs/browser";
 import { createDeflate } from "zlib";
 import fs = require("fs");
 
@@ -23,7 +24,28 @@ const pngs = [
         skipRescale: false,
         width: 1,
     }),
-    new PNG({ filterType: [1, 2, 3] }),
+    new BrowserPNG(),
+    new BrowserPNG({ filterType: [1, 2, 3] }),
+    new BrowserPNG({}),
+    new BrowserPNG({ width: 1 }),
+    new BrowserPNG({ checkCRC: false }),
+    new BrowserPNG({ deflateChunkSize: 3 }),
+    new BrowserPNG({
+        bitDepth: 8,
+        checkCRC: true,
+        colorType: 4,
+        deflateChunkSize: 1,
+        deflateFactory: createDeflate,
+        deflateLevel: 1,
+        deflateStrategy: 1,
+        fill: false,
+        filterType: 4,
+        height: 1,
+        inputHasAlpha: false,
+        skipRescale: false,
+        width: 1,
+    }),
+    new BrowserPNG({ filterType: [1, 2, 3] }),
 ];
 
 const png = pngs[0];

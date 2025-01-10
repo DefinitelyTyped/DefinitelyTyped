@@ -5,6 +5,10 @@ generateImage({
     launch: { args: ["--no-sandbox"] },
 });
 
+generateImage({
+    intercept: (request) => request.continue(),
+});
+
 setDefaultOptions({
     debug: true,
 });

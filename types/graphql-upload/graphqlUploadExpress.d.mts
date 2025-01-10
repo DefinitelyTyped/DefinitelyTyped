@@ -1,9 +1,12 @@
-import { RequestHandler } from "express";
+import type { NextFunction, Request, Response } from "express";
+import type { ProcessRequestFunction, ProcessRequestOptions } from "./processRequest.mjs";
 
-export interface UploadOptions {
-    maxFieldSize?: number | undefined;
-    maxFileSize?: number | undefined;
-    maxFiles?: number | undefined;
-}
-
-export default function graphqlUploadExpress(uploadOptions?: UploadOptions): RequestHandler;
+export default function graphqlUploadExpress(
+    { processRequest, ...processRequestOptions }?: ProcessRequestOptions & {
+        processRequest?: ProcessRequestFunction;
+    },
+): (
+    request: Request,
+    response: Response,
+    next: NextFunction,
+) => void;

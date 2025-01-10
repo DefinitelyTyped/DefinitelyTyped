@@ -1,18 +1,5 @@
-// ==============================================================================
-// exports
-// ==============================================================================
+// Despite not having any definitions, this file must exist on DefinitelyTyped.
+// Currently, the tooling assumes that this file exists and performs extra lints,
+// as well as using it to figure out where things are.
 
-export { default as createUploadLink } from "./public/createUploadLink";
-export { default as formDataAppendFile } from "./public/formDataAppendFile";
-export { default as isExtractableFile } from "./public/isExtractableFile";
-export { default as ReactNativeFile } from "./public/ReactNativeFile";
-
-// ==============================================================================
-// declare
-// ==============================================================================
-
-declare global {
-    interface GlobalFetch {
-        fetch: WindowOrWorkerGlobalScope["fetch"];
-    }
-}
+export {};

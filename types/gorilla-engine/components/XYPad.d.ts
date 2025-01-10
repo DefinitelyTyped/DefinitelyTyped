@@ -12,6 +12,7 @@ declare namespace GorillaEngine.UI {
         thumbImage: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface XYPad extends XYPadProps {}
     class XYPad extends Component {
         constructor(options: Partial<XYPadProps>);

@@ -23,6 +23,8 @@ declare const Cookiebot: {
     runScripts(): void;
     withdraw(): void;
     submitCustomConsent(optinPreferences: boolean, optinStatistics: boolean, optinMarketing: boolean): void;
+    getDomainUrlParam(param: string): string;
+    setOutOfRegion(): void;
 };
 
 interface Window {

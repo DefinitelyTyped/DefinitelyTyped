@@ -18,6 +18,7 @@ declare namespace GoogleAppsScript {
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
+            setPersistValues(persistValues: boolean): Action;
         }
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)
@@ -315,6 +316,7 @@ declare namespace GoogleAppsScript {
              */
             newImageCropStyle(): ImageCropStyle;
             newKeyValue(): KeyValue;
+            newLinkPreview(): LinkPreview;
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
@@ -499,6 +501,32 @@ declare namespace GoogleAppsScript {
             setSwitch(switchToSet: Switch): KeyValue;
             setTopLabel(text: string): KeyValue;
         }
+
+        /**
+         * Card action that displays a link preview card and smart chip in the host app.
+         *
+         * const decoratedText = CardService.newDecoratedText()
+         *       .setTopLabel('Hello')
+         *       .setText('Hi!');
+         *
+         * const cardSection = CardService.newCardSection()
+         *       .addWidget(decoratedText);
+         *
+         * const card = CardService.newCardBuilder()
+         *       .addSection(cardSection)
+         *       .build();
+         *
+         * const linkPreview = CardService.newLinkPreview()
+         *       .setPreviewCard(card)
+         *       .setTitle('Smart chip title');
+         */
+
+        interface LinkPreview {
+            printJson(): string;
+            setLinkPreviewTitle(title: string): LinkPreview;
+            setPreviewCard(previewCard: Card): LinkPreview;
+            setTitle(title: string): LinkPreview;
+        }
         /**
          * An enum type that specifies the type of loading or progress indicator to display while an Action is being processed.
          */
@@ -544,6 +572,7 @@ declare namespace GoogleAppsScript {
          */
         enum OnClose {
             NOTHING,
+            RELOAD,
             RELOAD_ADD_ON,
         }
         /**
@@ -691,6 +720,7 @@ declare namespace GoogleAppsScript {
          *             .setUrl("https://www.google.com"));
          */
         interface TextButton {
+            setAltText(altText: string): TextButton;
             setAuthorizationAction(action: AuthorizationAction): TextButton;
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/node_redis",
     "version": "0.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "node_redis",
     "projects": [
         "https://github.com/mranney/node_redis"
     ],

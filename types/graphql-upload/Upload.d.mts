@@ -1,13 +1,8 @@
-import { ReadStream } from "fs-capacitor";
-
-export interface FileUpload {
-    filename: string;
-    mimetype: string;
-    encoding: string;
-    createReadStream(): ReadStream;
-}
+import type { FileUpload } from "./processRequest.mjs";
 
 export default class Upload {
     promise: Promise<FileUpload>;
-    file?: FileUpload;
+    resolve: (file: FileUpload) => void;
+    file: FileUpload | undefined;
+    reject: (reason?: any) => void;
 }

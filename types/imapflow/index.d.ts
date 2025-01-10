@@ -122,8 +122,14 @@ export class ImapFlow extends EventEmitter {
     fetch(
         range: SequenceString | number[] | SearchObject,
         query: FetchQueryObject,
-        options?: { uid?: boolean; changedSince: bigint },
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
+
+    fetchAll(
+        range: SequenceString | number[] | SearchObject,
+        query: FetchQueryObject,
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
+    ): Promise<FetchMessageObject[]>;
 }
 
 export interface ImapFlowOptions {
@@ -143,6 +149,16 @@ export interface ImapFlowOptions {
     logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
+    logRaw?: boolean;
+    proxy?: string;
+    qresync?: boolean;
+    maxIdleTime?: number;
+    missingIdleCommand?: string;
+    disableBinary?: boolean;
+    disableAutoEnable?: boolean;
+    connectionTimeout?: number;
+    greetingTimeout?: number;
+    socketTimeout?: number;
 }
 
 export interface AppendResonseObject {
@@ -196,7 +212,7 @@ export interface FetchMessageObject {
     source: Buffer;
     modseq: BigInt;
     emailId: string;
-    threadId: string;
+    threadId?: string;
     labels: Set<string>;
     size: number;
     flags: Set<string>;
@@ -291,7 +307,7 @@ export interface StatusObject {
     path: string;
     messages?: number;
     recent?: number;
-    uid?: number;
+    uidNext?: number;
     uidValidity?: bigint;
     unseen?: number;
     highestModseq?: bigint;

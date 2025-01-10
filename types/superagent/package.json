@@ -1,13 +1,15 @@
 {
     "private": true,
     "name": "@types/superagent",
-    "version": "4.1.9999",
+    "version": "8.1.9999",
     "projects": [
         "https://github.com/visionmedia/superagent"
     ],
     "dependencies": {
-        "@types/cookiejar": "*",
-        "@types/node": "*"
+        "@types/cookiejar": "^2.1.5",
+        "@types/methods": "^1.1.4",
+        "@types/node": "*",
+        "form-data": "^4.0.0"
     },
     "devDependencies": {
         "@types/superagent": "workspace:."
@@ -20,10 +22,6 @@
         {
             "name": "Michael Ledin",
             "githubUsername": "mxl"
-        },
-        {
-            "name": "Pap Lőrinc",
-            "githubUsername": "paplorinc"
         },
         {
             "name": "Shrey Jain",
@@ -56,6 +54,10 @@
         {
             "name": "LuckyWind_sck",
             "githubUsername": "LuckyWindsck"
+        },
+        {
+            "name": "David Tanner",
+            "githubUsername": "DavidTanner"
         }
     ]
 }

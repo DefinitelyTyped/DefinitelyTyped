@@ -17,5 +17,6 @@ declare namespace GorillaEngine.UI {
     class Slider extends Component {
         constructor(options: Partial<SliderProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Slider extends SliderProps {}
 }

@@ -6,7 +6,7 @@ import { getHttp } from "serverless/plugins/aws/package/compile/events/apiGatewa
 
 const options: Serverless.Options = {
     noDeploy: false,
-    stage: null,
+    stage: "prod",
     region: "",
 };
 
@@ -20,21 +20,35 @@ class CustomPlugin implements Plugin {
             options: {
                 option: {
                     usage: `description`,
-                    required: true,
+                    required: false,
                     shortcut: "o",
+                    type: "multiple" as "multiple",
+                    default: ["value1", "value2"],
                 },
             },
         },
     };
 
+    provider = "aws";
+
     customProp = {};
 
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
+    configurationVariablesSources: Plugin.ConfigurationVariablesSources;
 
     constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             "command:start": () => {},
+        };
+        // Both sync and async variable resolvers are supported
+        this.configurationVariablesSources = {
+            sync: {
+                resolve: () => {},
+            },
+            async: {
+                resolve: async () => {},
+            },
         };
         this.variableResolvers = {
             echo: async (source) => source.slice(5),
@@ -54,7 +68,6 @@ class CustomPlugin implements Plugin {
 }
 
 // Test a plugin with missing 'hooks' property
-// prettier-ignore
 // @ts-expect-error
 class BadPlugin implements Plugin {
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
@@ -320,6 +333,9 @@ const awsServerless: Aws.Serverless = {
                 },
             },
             useProviderTags: true,
+            metrics: true,
+            disableDefaultEndpoint: true,
+            shouldStartNameWithService: true,
         },
         usagePlan: {
             quota: {
@@ -432,6 +448,7 @@ const awsServerless: Aws.Serverless = {
     functions: {
         testFunction: {
             handler: "testhandler",
+            architecture: "x86_64",
             name: "testname",
             description: "testdescription",
             memorySize: 1,
@@ -735,6 +752,7 @@ const awsServerless: Aws.Serverless = {
                             },
                         ],
                         functionResponseType: "ReportBatchItemFailures",
+                        parallelizationFactor: 2,
                     },
                 },
                 {

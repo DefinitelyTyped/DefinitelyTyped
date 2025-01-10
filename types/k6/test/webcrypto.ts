@@ -1,6 +1,6 @@
-import { crypto } from "k6/experimental/webcrypto";
+import { crypto, CryptoKey, CryptoKeyPair } from "k6/experimental/webcrypto";
 
-const aesCryptoKey = crypto.subtle.generateKey(
+const aesCryptoKeyPromise = crypto.subtle.generateKey(
     {
         name: "AES-CBC",
         length: 256,
@@ -72,6 +72,11 @@ crypto.subtle.encrypt({ name: "AES-CBC" }, aesCryptoKey, null);
 // crypto.subtle.exportKey
 //
 
+aesCryptoKeyPromise.then((aesCryptoKey: CryptoKey) => {
+    crypto.subtle.exportKey("raw", aesCryptoKey);
+    crypto.subtle.exportKey("jwk", aesCryptoKey);
+});
+
 // @ts-expect-error
 crypto.subtle.exportKey();
 // @ts-expect-error
@@ -91,6 +96,61 @@ crypto.subtle.generateKey(8);
 //
 // crypto.subtle.importKey
 //
+
+crypto.subtle.importKey(
+    "raw",
+    new Uint8Array([
+        109,
+        151,
+        76,
+        33,
+        232,
+        253,
+        176,
+        90,
+        94,
+        40,
+        146,
+        227,
+        139,
+        208,
+        245,
+        139,
+        69,
+        215,
+        55,
+        197,
+        43,
+        122,
+        160,
+        178,
+        228,
+        104,
+        4,
+        115,
+        138,
+        159,
+        119,
+        49,
+    ]),
+    { name: "AES-GCM" },
+    true,
+    ["decrypt"],
+);
+
+crypto.subtle.importKey(
+    "jwk",
+    {
+        kty: "oct",
+        ext: true,
+        key_ops: ["decrypt", "encrypt"],
+        alg: "A256GCM",
+        k: "9Id_8iG6FkGOWmc1S203vGVnTExtpDGxdQN7v7OV9Uc",
+    },
+    { name: "AES-GCM" },
+    true,
+    ["decrypt"],
+);
 
 // @ts-expect-error
 crypto.subtle.importKey();
@@ -128,3 +188,33 @@ crypto.subtle.verify("HMAC", null);
 crypto.subtle.verify({ name: "HMAC" }, null);
 // @ts-expect-error
 crypto.subtle.verify({ name: "HMAC" }, aesCryptoKey, null);
+
+//
+// crypto.subtle.deriveBits
+//
+
+crypto.subtle.generateKey(
+    {
+        name: "ECDH",
+        namedCurve: "P-256",
+    },
+    true,
+    ["deriveKey", "deriveBits"],
+).then((cryptoKeyPair: CryptoKeyPair) => {
+    // $ExpectType Promise<ArrayBuffer>
+    crypto.subtle.deriveBits(
+        {
+            name: "ECDH",
+            public: cryptoKeyPair.publicKey,
+        },
+        cryptoKeyPair.privateKey,
+        256,
+    );
+});
+
+// @ts-expect-error
+crypto.subtle.deriveBits();
+// @ts-expect-error
+crypto.subtle.deriveBits(8);
+// @ts-expect-error
+crypto.subtle.deriveBits("ECDH", null);

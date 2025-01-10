@@ -1,4 +1,4 @@
-import { Vector3, Line3, Box3 } from '../../../src/Three.js';
+import { Box3, Line3, Vector3 } from "three";
 
 export class Capsule {
     constructor(start?: Vector3, end?: Vector3, radius?: number);

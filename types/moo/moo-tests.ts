@@ -102,3 +102,15 @@ moo.compile({
     ],
     // ...
 });
+
+// formatError
+lexer.reset(`"foo"`);
+
+let token = lexer.next();
+if (!token) {
+    lexer.formatError(token);
+    lexer.formatError(token, "No more tokens");
+} else {
+    lexer.formatError(token);
+    lexer.formatError(token, "Error message");
+}

@@ -22,7 +22,13 @@ objectInspect({ foo: "bar" }, { maxStringLength: 1 });
 objectInspect({ foo: "bar" }, { customInspect: true });
 
 // $ExpectType string
+objectInspect({ foo: "bar" }, { customInspect: "symbol" });
+
+// $ExpectType string
 objectInspect({ foo: "bar" }, { indent: 2 });
 
 // $ExpectType string
 objectInspect({ foo: "bar" }, { indent: "\t" });
+
+// $ExpectType string
+objectInspect({ foo: "bar" }, { numericSeparator: true });

@@ -277,6 +277,7 @@ export interface StopOver {
     cancelled?: boolean;
     departurePrognosisType?: PrognosisType;
     arrivalPrognosisType?: PrognosisType;
+    additional?: boolean;
 }
 /**
  * Trip – a vehicle stopping at a set of stops at specific times
@@ -305,7 +306,6 @@ export interface Trip {
     operator?: number;
     direction?: string;
     line?: Line;
-    reachable?: boolean;
     cancelled?: boolean;
     walking?: boolean;
     loadFactor?: string;
@@ -316,6 +316,10 @@ export interface Trip {
     alternatives?: readonly Alternative[];
     polyline?: FeatureCollection;
     remarks?: ReadonlyArray<Hint | Status | Warning>;
+    currentLocation?: Location;
+    departurePrognosisType?: PrognosisType;
+    arrivalPrognosisType?: PrognosisType;
+    checkin?: boolean;
     scheduledDays?: ScheduledDays;
 }
 export interface TripWithRealtimeData extends RealtimeDataUpdatedAt {

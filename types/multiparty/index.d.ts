@@ -12,13 +12,21 @@ export declare class Form extends events.EventEmitter {
      * @param request
      * @param callback
      */
-    parse(request: http.IncomingMessage, callback?: (error: Error, fields: any, files: any) => any): void;
+    parse(
+        request: http.IncomingMessage,
+        callback?: (
+            error: Error | null,
+            fields: Record<string, string[] | undefined>,
+            files: Record<string, File[] | undefined>,
+        ) => void,
+    ): void;
 
     on(event: "part", listener: (part: Part) => void): this;
     on(event: "close", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "progress", listener: (bytesReceived: number, bytesExpected: number) => void): this;
     on(event: "field", listener: (name: string, value: string) => void): this;
+    on(event: "file", listener: (name: string, value: File) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 

@@ -144,7 +144,7 @@ if (importMeta.webpack >= 5 && importMeta.webpackHot) {
     importMeta.webpackHot.removeStatusHandler(statusHandler);
 }
 
-if (importMeta.webpack >= 5 && importMeta.webpackContext) {
+if (importMeta.webpack >= 5) { // `import.meta.webpackContext` is only available there
     let context = importMeta.webpackContext("./somePath", {
         recursive: true,
         regExp: /some/,

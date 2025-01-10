@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "0.48.9999",
+    "version": "0.54.9999",
+    "type": "module",
     "projects": [
         "https://grafana.com/docs/k6/latest/"
     ],
@@ -24,10 +25,6 @@
         {
             "name": "Oleg Bespalov",
             "githubUsername": "olegbespalov"
-        },
-        {
-            "name": "Pepe Cano",
-            "githubUsername": "ppcano"
         },
         {
             "name": "Nicole van der Hoeven",

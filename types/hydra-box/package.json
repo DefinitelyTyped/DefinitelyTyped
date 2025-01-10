@@ -12,7 +12,7 @@
         "@types/express": "*",
         "@types/express-serve-static-core": "*",
         "@types/rdf-ext": "*",
-        "@types/rdf-loaders-registry": "*",
+        "@types/rdf-loaders-registry": "^0.3.0",
         "@types/rdfjs__express-handler": "*",
         "@types/set-link": "*"
     },

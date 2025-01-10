@@ -1191,7 +1191,7 @@ function test_data() {
     $("div").data("hidden") === true;
     $("div").data("options").name === "John";
     var value;
-    switch ($("button").index(this)) {
+    switch ($("button").index()) {
         case 0:
             value = $("div").data("blah");
             break;
@@ -1540,7 +1540,6 @@ function test_error() {
     jQuery.error("Oups");
     jQuery.error = (message?: string) => {
         console.error(message);
-        return this;
     };
 }
 
@@ -1699,7 +1698,8 @@ function test_fadeOut() {
         $(this).removeClass("hilite");
     });
     $("#btn1").click(function() {
-        function complete() {
+        /** Complete will still have the `this` context of fadeOut() */
+        function complete(this: HTMLElement) {
             $("<div/>").text(this.id).appendTo("#log");
         }
         $("#box1").fadeOut(1600, "linear", complete);
@@ -2739,12 +2739,12 @@ function test_fn_extend() {
     jQuery.fn.extend({
         check: function() {
             return this.each(function() {
-                this.checked = true;
+                $(this).prop("checked", true);
             });
         },
         uncheck: function() {
             return this.each(function() {
-                this.checked = false;
+                $(this).prop("checked", false);
             });
         },
     });
@@ -3247,7 +3247,7 @@ function test_merge() {
 }
 
 function test_prop() {
-    var $input = $(this);
+    var $input = $("input");
     $("p").html(
         ".attr('checked'): <b>" + $input.attr("checked") + "</b><br>"
             + ".prop('checked'): <b>" + $input.prop("checked") + "</b><br>"
@@ -3262,7 +3262,7 @@ function test_prop() {
     $("input[type='checkbox']").prop({
         disabled: true,
     });
-    var title: string = $("option:selected", this).prop("title");
+    var title: string = $("option:selected", $input).prop("title");
 }
 
 function test_val() {
@@ -3570,7 +3570,7 @@ function test_promise_then_change_type() {
         var def = $.Deferred<any>();
         var promise = def.promise(null);
 
-        def.rejectWith(this, [new Error()]);
+        def.rejectWith($("input"), [new Error()]);
 
         return promise;
     }

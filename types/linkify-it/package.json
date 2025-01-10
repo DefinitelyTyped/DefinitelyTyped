@@ -1,10 +1,20 @@
 {
     "private": true,
     "name": "@types/linkify-it",
-    "version": "3.0.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/markdown-it/linkify-it"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./build/index.cjs.d.ts"
+        },
+        "./*": {
+            "import": "./*",
+            "require": "./*"
+        }
+    },
     "devDependencies": {
         "@types/linkify-it": "workspace:."
     },

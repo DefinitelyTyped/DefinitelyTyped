@@ -13,10 +13,8 @@ import {
     Term,
     Variable,
 } from "@rdfjs/types";
-import * as clownface from "clownface";
 import { EventEmitter } from "events";
 import rdf from "rdf-ext";
-import ClownfaceFactory from "rdf-ext/ClownfaceFactory";
 import DataFactory, { DataFactoryExt } from "rdf-ext/DataFactory";
 import DatasetFactoryExt, { DatasetFactory } from "rdf-ext/DatasetFactory";
 import BlankNodeExt from "rdf-ext/lib/BlankNode";
@@ -451,25 +449,6 @@ type DatasetFoo = DatasetCore & {
     foo: "bar";
 };
 
-function testClownface() {
-    const anyPointer = rdf.clownface();
-    anyPointer.dataset; // $ExpectType DatasetExt
-
-    const dataset: DatasetFoo = <any> {};
-    const anyPointerExistingDataset = rdf.clownface({ dataset });
-    anyPointerExistingDataset.dataset; // $ExpectType DatasetFoo
-
-    const namedNode = rdf.clownface({ term: rdf.namedNode("foo") });
-    namedNode.dataset; // $ExpectType DatasetExt
-
-    const namedNodes = rdf.clownface({ term: [rdf.namedNode("foo"), rdf.namedNode("bar")] });
-    namedNodes.dataset; // $ExpectType DatasetExt
-
-    const other: clownface.MultiPointer<NamedNode | BlankNode, DatasetFoo> = <any> {};
-    const fromOther = rdf.clownface(other);
-    fromOther.dataset; // $ExpectType DatasetFoo
-}
-
 async function testFetch() {
     const formats: any = <any> {};
     const res = await rdf.fetch("foo");
@@ -529,7 +508,6 @@ function testScore() {
 
 function testBundledFactories() {
     const env = new Environment([
-        ClownfaceFactory,
         DatasetFactoryExt,
         DataFactory,
     ]);
@@ -537,7 +515,6 @@ function testBundledFactories() {
     const {
         dataset,
         quad,
-        clownface,
     } = env;
 }
 

@@ -89,6 +89,17 @@ const propTypes: PropTypesMap = {
     component: PropTypes.elementType.isRequired,
 };
 
+const strongIncorrectPropTypes: PropTypes.ValidationMap<{ foo: number | null }> = {
+    // @ts-expect-error
+    foo: PropTypes.number,
+};
+const strongCorrectPropTypes: PropTypes.ValidationMap<{ foo: number | null | undefined }> = {
+    foo: PropTypes.number,
+};
+const weakPropTypes: PropTypes.WeakValidationMap<{ foo: number | null }> = {
+    foo: PropTypes.number,
+};
+
 // JS checking
 const propTypesWithoutAnnotation = {
     any: PropTypes.any,

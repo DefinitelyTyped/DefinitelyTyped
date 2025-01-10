@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AsyncSession
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -21,5 +21,5 @@ export default class AsyncSession extends AbstractCrudObject {
         uri: "uri";
         user: "user";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<AsyncSession>;
+    get(fields: string[], params?: Record<string, any>): Promise<AsyncSession>;
 }

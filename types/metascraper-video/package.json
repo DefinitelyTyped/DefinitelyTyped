@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "metascraper": ">=5.14.8 <=5.40.0"
+        "metascraper": "^5.41.0"
     },
     "devDependencies": {
         "@types/metascraper-video": "workspace:."

@@ -96,6 +96,18 @@ declare namespace Cookies {
          * the Set-Cookie header when setting this cookie.
          */
         overwrite?: boolean | undefined;
+        /**
+         * a string indicating the cookie priority.
+         * This can be set to 'low', 'medium', or 'high'.
+         */
+        priority?: "low" | "medium" | "high" | undefined;
+        /**
+         * a boolean indicating whether to partition the cookie in Chrome
+         * for the CHIPS Update (false by default). If this is true,
+         * Cookies from embedded sites will be partitioned
+         * and only readable from the same top level site from which it was created.
+         */
+        partitioned?: boolean | undefined;
     }
 
     type CookieAttr = SetOption;
@@ -115,6 +127,8 @@ declare namespace Cookies {
         httpOnly: boolean;
         sameSite: boolean;
         overwrite: boolean;
+        priority: boolean;
+        partitioned: boolean;
 
         toString(): string;
         toHeader(): string;

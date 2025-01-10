@@ -5,6 +5,7 @@ declare namespace GorillaEngine.UI {
         onDroppedFile: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface DropZone extends DropZoneProps {}
 
     class DropZone extends Component {

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "Node16",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -14,6 +14,10 @@
     },
     "files": [
         "index.d.ts",
+        "dist/relationship.min.d.ts",
+        "dist/relationship.min.d.mts",
+        "dist/relationship-mode.min.d.ts",
+        "dist/relationship-mode.min.d.mts",
         "relationship.js-tests.ts"
     ]
 }

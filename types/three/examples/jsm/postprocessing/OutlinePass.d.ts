@@ -1,18 +1,18 @@
 import {
-    Vector2,
-    Scene,
     Camera,
-    Object3D,
     Color,
     Matrix4,
     MeshBasicMaterial,
     MeshDepthMaterial,
+    Object3D,
+    Scene,
     ShaderMaterial,
-    WebGLRenderTarget,
     Texture,
-} from '../../../src/Three.js';
+    Vector2,
+    WebGLRenderTarget,
+} from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class OutlinePass extends Pass {
     constructor(resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[]);
@@ -53,12 +53,12 @@ export class OutlinePass extends Pass {
     tempPulseColor2: Color;
     textureMatrix: Matrix4;
 
-    dispose(): void;
+    updateSelectionCache(): void;
     changeVisibilityOfSelectedObjects(bVisible: boolean): void;
     changeVisibilityOfNonSelectedObjects(bVisible: boolean): void;
     updateTextureMatrix(): void;
     getPrepareMaskMaterial(): ShaderMaterial;
     getEdgeDetectionMaterial(): ShaderMaterial;
-    getSeperableBlurMaterial(): ShaderMaterial;
+    getSeparableBlurMaterial(): ShaderMaterial;
     getOverlayMaterial(): ShaderMaterial;
 }

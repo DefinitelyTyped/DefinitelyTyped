@@ -35,7 +35,7 @@ import * as R from "ramda";
 (() => {
     const coll = [{ type: "BUY" }, { type: "SELL" }, { type: "BUY" }];
     const isBuy = R.propEq("BUY", "type");
-    R.filter(isBuy, coll); // [{ type: 'BUY' }, { type: 'BUY' }]
+    R.filter(isBuy, coll); // => [{ type: 'BUY' }, { type: 'BUY' }]
 });
 
 (() => {

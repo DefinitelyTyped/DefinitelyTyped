@@ -4,6 +4,6 @@ declare namespace getData {
     function isValidUrl(config: { url: string }): boolean;
 }
 
-declare function getData(): metascraper.RuleSet;
+declare function getData(): metascraper.Rules;
 
 export = getData;

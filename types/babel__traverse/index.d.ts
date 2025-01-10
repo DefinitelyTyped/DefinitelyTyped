@@ -299,7 +299,7 @@ export class Binding {
 export type Visitor<S = unknown> =
     & VisitNodeObject<S, Node>
     & {
-        [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type }>>;
+        [N in Node as N["type"]]?: VisitNode<S, N extends { type: N["type"] } ? N : never>;
     }
     & {
         [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
@@ -392,8 +392,8 @@ export class NodePath<T = Node> {
 
     buildCodeFrameError(msg: string, Error?: ErrorConstructor): Error;
 
-    traverse<T>(visitor: Visitor<T>, state: T): void;
-    traverse(visitor: Visitor): void;
+    traverse<T>(visitor: TraverseOptions<T>, state: T): void;
+    traverse(visitor: TraverseOptions): void;
 
     set(key: string, node: any): void;
 

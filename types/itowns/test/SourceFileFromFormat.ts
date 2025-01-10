@@ -19,7 +19,7 @@ const view = new itowns.GlobeView(viewerDiv, placement);
 // Add one imagery layer to the scene
 // This layer is defined in a json file but it could be defined as a plain js
 // object. See Layer* for more info.
-itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(json) {
+itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(json: any) {
     const config = {
         ...json,
         source: new itowns.WMTSSource(json.source),
@@ -39,10 +39,10 @@ const sourceFromFormat = new itowns.FileSource({
 view.addLayer(
     new itowns.ColorLayer("Urban Area", {
         source: sourceFromFormat,
-        style: new itowns.Style({
+        style: {
             fill: { color: "red", opacity: 0.5 },
             stroke: { color: "red" },
-        }),
+        },
     }),
 );
 
@@ -53,4 +53,9 @@ view.addEventListener(itowns.GLOBE_VIEW_EVENTS.GLOBE_INITIALIZED, () => {
     itowns.ColorLayersOrdering.moveLayerToIndex(view, "Ortho", 0);
     // Move the camera to visualize all data.
     view.controls?.lookAtCoordinate(sourceFromFormat.extent, false);
+});
+
+view.addEventListener(itowns.GLOBE_VIEW_EVENTS.COLOR_LAYERS_ORDER_CHANGED, (event) => {
+    event.previous.sequence; // $ExpectType string[]
+    event.new.sequence; // $ExpectType string[]
 });

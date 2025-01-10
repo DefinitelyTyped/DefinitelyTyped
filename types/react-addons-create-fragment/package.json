@@ -9,6 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
+        "@types/react-dom-factories": "*",
         "@types/react-addons-create-fragment": "workspace:."
     },
     "owners": [

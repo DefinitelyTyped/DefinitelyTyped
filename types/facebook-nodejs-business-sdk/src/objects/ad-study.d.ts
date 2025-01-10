@@ -1,7 +1,7 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
-import PrivateLiftStudyInstance from './private-lift-study-instance';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
+import PrivateLiftStudyInstance from "./private-lift-study-instance";
 /**
  * AdStudy
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -28,23 +28,18 @@ export default class AdStudy extends AbstractCrudObject {
         updated_time: "updated_time";
     }>;
     static get Type(): Readonly<{
+        backend_ab_testing: "BACKEND_AB_TESTING";
         continuous_lift_config: "CONTINUOUS_LIFT_CONFIG";
         geo_lift: "GEO_LIFT";
         lift: "LIFT";
         split_test: "SPLIT_TEST";
     }>;
-    getCells(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getCells(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getCells(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCheckPoint(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdStudy>;
-    getInstances(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getInstances(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstances(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createInstance(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PrivateLiftStudyInstance>;
-    getObjectives(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getObjectives(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getObjectives(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdStudy>;
-    update(fields: string[], params?: Record<any, any>): Promise<AdStudy>;
+    getCells(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCheckPoint(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
+    getInstances(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createInstance(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PrivateLiftStudyInstance>;
+    getObjectives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
+    update(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
 }

@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import View from "../Core/View";
 import Layer, { LayerOptions } from "./Layer";
 
@@ -5,6 +6,7 @@ export interface GeometryLayerOptions extends LayerOptions {
     visible?: boolean;
 }
 
+// TODO: Define public API
 declare class GeometryLayer extends Layer {
     constructor(
         id: string,

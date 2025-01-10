@@ -23,7 +23,7 @@ const c = nj.uint8([1, 2, 3] as number[]);
 
 const d = nj.array<number[]>([[2], [3, 4]]);
 
-nj.mod(nj.arange(7), false); // $ExpectType NdArray<number>[]
+nj.mod(nj.arange(7), nj.arange(8)); // $ExpectType NdArray<number>
 
 const e = nj.arange(5);
 e.slice(null, [null]);

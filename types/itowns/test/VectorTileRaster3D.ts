@@ -23,7 +23,7 @@ view.tileLayer.noTextureColor = new THREE.Color(0x95c1e1);
 // view.getLayerById('atmosphere').fog.enable = false; // TODO
 
 promises.push(
-    itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config) {
+    itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config: any) {
         config.source = new itowns.WMTSSource(config.source);
         const layer = new itowns.ColorLayer("Ortho", config);
         return view.addLayer(layer);
@@ -34,7 +34,7 @@ promises.push(
 const mvtSource = new itowns.VectorTilesSource({
     style: "https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json",
     // We don't display mountains related data to ease visualisation
-    filter: (layer) => !layer["source-layer"].includes("oro_") && !layer["source-layer"].includes("parcellaire"),
+    filter: (layer: any) => !layer["source-layer"].includes("oro_") && !layer["source-layer"].includes("parcellaire"),
 });
 
 const mvtLayer = new itowns.ColorLayer("MVT", {

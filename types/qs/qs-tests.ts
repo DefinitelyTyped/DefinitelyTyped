@@ -352,6 +352,59 @@ qs.parse("a=b&c=d", { delimiter: "&" });
     });
 });
 
+(() => {
+    var sparseArray = qs.parse("a[1]=2&a[3]=5", { allowSparse: true });
+    assert.deepEqual(sparseArray, { a: [, "2", , "5"] });
+});
+
+(() => {
+    var withEmptyArrays = qs.parse("foo[]&bar=baz", { allowEmptyArrays: true });
+    assert.deepEqual(withEmptyArrays, { foo: [], bar: "baz" });
+});
+
+(() => {
+    var withEmptyArrays = qs.stringify({ foo: [], bar: "baz" }, { allowEmptyArrays: true });
+    assert.deepEqual(withEmptyArrays, "foo[]&bar=baz");
+});
+
+(() => {
+    var withDots = qs.parse("name%252Eobj.first=John&name%252Eobj.last=Doe", { decodeDotInKeys: true });
+    assert.deepEqual(withDots, { "name.obj": { first: "John", last: "Doe" } });
+});
+
+(() => {
+    var withDots = qs.stringify({ "name.obj": { "first": "John", "last": "Doe" } }, {
+        allowDots: true,
+        encodeDotInKeys: true,
+    });
+    assert.equal(withDots, "name%252Eobj.first=John&name%252Eobj.last=Doe");
+});
+
+(() => {
+    var singleValueArray = qs.stringify({ foo: [null], bar: "baz" }, {
+        arrayFormat: "comma",
+        commaRoundTrip: true,
+        encode: false,
+        strictNullHandling: true,
+    });
+    assert.deepEqual(singleValueArray, "foo[]&bar=baz");
+});
+
+(() => {
+    assert.deepEqual(qs.parse("foo=bar&foo=baz"), { foo: ["bar", "baz"] });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "combine" }), { foo: ["bar", "baz"] });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "first" }), { foo: "bar" });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "last" }), { foo: "baz" });
+});
+
+(() => {
+    try {
+        qs.parse("a[b][c][d][e][f][g][h][i]=j", { depth: 1, strictDepth: true });
+    } catch (err) {
+        assert.strictEqual(err.message, "Input depth exceeded depth option of 1 and strictDepth is true");
+    }
+});
+
 declare const myQuery: { a: string; b?: string | undefined };
 const myQueryCopy: qs.ParsedQs = myQuery;
 

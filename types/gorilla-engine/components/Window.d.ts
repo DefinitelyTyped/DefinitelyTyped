@@ -6,6 +6,7 @@ declare namespace GorillaEngine.UI {
         uiScaleMin: number;
         uiScaleMax: number;
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Window extends WindowProps {}
     class Window extends Component {
         constructor(options: Partial<WindowProps>);

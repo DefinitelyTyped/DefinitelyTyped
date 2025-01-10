@@ -3,10 +3,7 @@ import * as THREE from "three";
 declare namespace _default {
     interface ParsingOptions {
         in?: {
-            colorDepth?: "auto" | 8 | 16;
-        };
-        out?: {
-            skip?: number;
+            colorDepth?: 8 | 16;
         };
     }
 

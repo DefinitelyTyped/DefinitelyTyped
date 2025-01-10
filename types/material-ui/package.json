@@ -7,13 +7,12 @@
         "http://material-ui.com"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/react-addons-linked-state-mixin": "*"
     },
     "devDependencies": {
         "@types/material-ui": "workspace:.",
         "@types/prop-types": "*",
-        "@types/react-dom": "*",
         "@types/react-tap-event-plugin": "*"
     },
     "owners": [

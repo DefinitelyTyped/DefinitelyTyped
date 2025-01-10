@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/mojang-gametest",
     "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mojang-gametest",
     "projects": [
         "https://docs.microsoft.com/minecraft/creator/"
     ],

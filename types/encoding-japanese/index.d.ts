@@ -33,7 +33,7 @@ export interface ConvertStringOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: "string";
-    fallback?: "html-entity" | "html-entity-hex";
+    fallback?: "html-entity" | "html-entity-hex" | "ignore" | "error";
     bom?: boolean | string | undefined;
 }
 
@@ -41,7 +41,7 @@ export interface ConvertArrayBufferOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: "arraybuffer";
-    fallback?: "html-entity" | "html-entity-hex";
+    fallback?: "html-entity" | "html-entity-hex" | "ignore" | "error";
     bom?: boolean | string | undefined;
 }
 
@@ -49,14 +49,14 @@ export interface ConvertArrayOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: "array";
-    fallback?: "html-entity" | "html-entity-hex";
+    fallback?: "html-entity" | "html-entity-hex" | "ignore" | "error";
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertUnknownOptions {
     to: Encoding;
     from?: Encoding | undefined;
-    fallback?: "html-entity" | "html-entity-hex";
+    fallback?: "html-entity" | "html-entity-hex" | "ignore" | "error";
     bom?: boolean | string | undefined;
 }
 
@@ -64,7 +64,7 @@ export function detect(data: IntArrayType | string, encodings?: Encoding | Encod
 export function convert(data: IntArrayType, to: Encoding, from?: Encoding): number[];
 export function convert(data: string, to: Encoding, from?: Encoding): string;
 export function convert(data: IntArrayType | string, options: ConvertStringOptions): string;
-export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
+export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): Uint16Array;
 export function convert(data: IntArrayType | string, options: ConvertArrayOptions): number[];
 export function convert(data: string, options: ConvertUnknownOptions): string;
 export function convert(data: IntArrayType, options: ConvertUnknownOptions): number[];

@@ -23,7 +23,7 @@ export function verify(signature: string, algorithm: Algorithm, secretOrKey: str
  * (Synchronous) Returns the decoded header, decoded payload,
  * and signature parts of the JWS Signature.
  */
-export function decode(signature: string, options?: DecodeOptions): Signature;
+export function decode(signature: string, options?: DecodeOptions): Signature | null;
 
 /**
  * (Synchronous) Validates that the signature seems to be a legitimate JWS signature.

@@ -1,5 +1,5 @@
+import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { BaseQuad, Quad, Sink, Stream } from "rdf-js";
 
 export interface SerializerOptions {
     module?: "commonjs" | "ts" | undefined;

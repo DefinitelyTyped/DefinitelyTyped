@@ -12,12 +12,20 @@
     },
     "owners": [
         {
-            "name": "grapswiz",
-            "githubUsername": "grapswiz"
+            "name": "Justin Poehnelt",
+            "githubUsername": "jpoehnelt"
         },
         {
-            "name": "Chives",
-            "githubUsername": "chivesrs"
+            "name": "Steve Bazyl",
+            "githubUsername": "sqrrrl"
+        },
+        {
+            "name": "Pierrick Voulet",
+            "githubUsername": "PierrickVoulet"
+        },
+        {
+            "name": "Vinay Vyas",
+            "githubUsername": "vinay-google"
         }
     ]
 }

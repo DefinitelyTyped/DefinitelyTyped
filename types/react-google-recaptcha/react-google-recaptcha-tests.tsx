@@ -32,3 +32,24 @@ const invisibleRecaptcha2: React.FC = () => {
 
     return <ReCAPTCHA2 ref={recaptchaRef} sitekey="xxx" size="invisible" grecaptcha={{}} className="mockclass" />;
 };
+
+const isolatedReacaptcha2: React.FC = () => {
+    const recaptchaRef = React.createRef<ReCAPTCHA2>();
+
+    const handleOnSubmit = async () => {
+        if (recaptchaRef.current) {
+            const token = await recaptchaRef.current.executeAsync();
+        }
+    };
+
+    return (
+        <ReCAPTCHA2
+            ref={recaptchaRef}
+            sitekey="xxx"
+            size="normal"
+            grecaptcha={{}}
+            className="mockclass"
+            isolated={true}
+        />
+    );
+};

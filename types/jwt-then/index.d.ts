@@ -18,9 +18,9 @@ export interface SignOptions {
      */
     algorithm?: string | undefined;
     keyid?: string | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** expressed in seconds or a string describing a time span [vercel/ms](https://github.com/vercel/ms).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** expressed in seconds or a string describing a time span [vercel/ms](https://github.com/vercel/ms).  Eg: 60, "2 days", "10h", "7d" */
     notBefore?: string | number | undefined;
     audience?: string | string[] | undefined;
     subject?: string | undefined;

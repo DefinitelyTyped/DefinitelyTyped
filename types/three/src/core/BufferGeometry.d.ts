@@ -1,19 +1,61 @@
-import { BufferAttribute } from './BufferAttribute.js';
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import { Box3 } from '../math/Box3.js';
-import { Sphere } from '../math/Sphere.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Quaternion } from '../math/Quaternion.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector3 } from '../math/Vector3.js';
-import { EventDispatcher } from './EventDispatcher.js';
-import { GLBufferAttribute } from './GLBufferAttribute.js';
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Quaternion } from "../math/Quaternion.js";
+import { Sphere } from "../math/Sphere.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3, Vector3Tuple } from "../math/Vector3.js";
+import IndirectStorageBufferAttribute from "../renderers/common/IndirectStorageBufferAttribute.js";
+import { BufferAttribute, BufferAttributeJSON } from "./BufferAttribute.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { GLBufferAttribute } from "./GLBufferAttribute.js";
+import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
 
 export type NormalBufferAttributes = Record<string, BufferAttribute | InterleavedBufferAttribute>;
 export type NormalOrGLBufferAttributes = Record<
     string,
     BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute
 >;
+
+export interface BufferGeometryJSON {
+    metadata?: { version: number; type: string; generator: string };
+
+    uuid: string;
+    type: string;
+
+    name?: string;
+    userData?: Record<string, unknown>;
+
+    data?: {
+        attributes: Record<string, BufferAttributeJSON>;
+
+        index?: { type: string; array: number[] };
+
+        morphAttributes?: Record<string, BufferAttributeJSON[]>;
+        morphTargetsRelative?: boolean;
+
+        groups?: GeometryGroup[];
+
+        boundingSphere?: { center: Vector3Tuple; radius: number };
+    };
+}
+
+export interface GeometryGroup {
+    /**
+     * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
+     * @remarks Expects a `Integer`
+     */
+    start: number;
+    /**
+     * Specifies how many vertices (or indices) are included.
+     * @remarks Expects a `Integer`
+     */
+    count: number;
+    /**
+     * Specifies the material array index to use.
+     * @remarks Expects a `Integer`
+     */
+    materialIndex?: number | undefined;
+}
 
 /**
  * A representation of mesh, line, or point geometry
@@ -104,7 +146,7 @@ export class BufferGeometry<
      * @remarks Sub-classes will update this value.
      * @defaultValue `BufferGeometry`
      */
-    readonly type: string | 'BufferGeometry';
+    readonly type: string | "BufferGeometry";
 
     /**
      * Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".
@@ -113,6 +155,8 @@ export class BufferGeometry<
      * @defaultValue `null`
      */
     index: BufferAttribute | null;
+
+    indirect: IndirectStorageBufferAttribute | null;
 
     /**
      * This hashmap has as id the name of the attribute to be set and as value the {@link THREE.BufferAttribute | buffer} to set it to. Rather than accessing this property directly,
@@ -144,23 +188,7 @@ export class BufferGeometry<
      * @remarks Use {@link addGroup | .addGroup} to add groups, rather than modifying this array directly.
      * @defaultValue `[]`
      */
-    groups: Array<{
-        /**
-         * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
-         * @remarks Expects a `Integer`
-         */
-        start: number;
-        /**
-         * Specifies how many vertices (or indices) are included.
-         * @remarks Expects a `Integer`
-         */
-        count: number;
-        /**
-         * Specifies the material array index to use.
-         * @remarks Expects a `Integer`
-         */
-        materialIndex?: number | undefined;
-    }>;
+    groups: GeometryGroup[];
 
     /**
      * Bounding box for the {@link THREE.BufferGeometry | BufferGeometry}, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
@@ -207,6 +235,10 @@ export class BufferGeometry<
      * @param index
      */
     setIndex(index: BufferAttribute | number[] | null): this;
+
+    setIndirect(indirect: IndirectStorageBufferAttribute | null): this;
+
+    getIndirect(): IndirectStorageBufferAttribute | null;
 
     /**
      * Sets an {@link attributes | attribute} to this geometry with the specified name.
@@ -327,20 +359,26 @@ export class BufferGeometry<
     center(): this;
 
     /**
-     * Sets the attributes for this BufferGeometry from an array of points.
-     * @param points
+     * Defines a geometry by creating a `position` attribute based on the given array of points. The array can hold
+     * instances of {@link Vector2} or {@link Vector3}. When using two-dimensional data, the `z` coordinate for all
+     * vertices is set to `0`.
+     *
+     * If the method is used with an existing `position` attribute, the vertex data are overwritten with the data from
+     * the array. The length of the array must match the vertex count.
      */
     setFromPoints(points: Vector3[] | Vector2[]): this;
 
     /**
-     * Computes bounding box of the geometry, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding box of the geometry, and updates the {@link .boundingBox} attribute. The bounding box is
+     * not computed by the engine; it must be computed by your app. You may need to recompute the bounding box if the
+     * geometry vertices are modified.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes bounding sphere of the geometry, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding sphere of the geometry, and updates the {@link .boundingSphere} attribute. The engine
+     * automatically computes the bounding sphere when it is needed, e.g., for ray casting or view frustum culling. You
+     * may need to recompute the bounding sphere if the geometry vertices are modified.
      */
     computeBoundingSphere(): void;
 
@@ -374,7 +412,7 @@ export class BufferGeometry<
     /**
      * Convert the buffer geometry to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      */
-    toJSON(): {};
+    toJSON(): BufferGeometryJSON;
 
     /**
      * Creates a clone of this BufferGeometry

@@ -7,7 +7,6 @@ import BootstrapTable, {
 } from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { CSVExport, InjectedSearchProps, Search } from "react-bootstrap-table2-toolkit";
-import { render } from "react-dom";
 
 interface Product {
     id: number;
@@ -91,17 +90,14 @@ const CustomSearch = (props: InjectedSearchProps) => {
     );
 };
 
-render(
-    <ToolkitProvider data={products} keyField="id" columns={productColumns}>
-        {({ baseProps, searchProps }) => (
-            <>
-                <CustomSearch {...searchProps} />
-                <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById("app"),
-);
+<ToolkitProvider data={products} keyField="id" columns={productColumns}>
+    {({ baseProps, searchProps }) => (
+        <>
+            <CustomSearch {...searchProps} />
+            <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit CSV export test
@@ -141,31 +137,28 @@ const csvColumns: Array<ColumnDescription<Product>> = [
     },
 ];
 
-render(
-    <ToolkitProvider
-        data={products}
-        keyField="id"
-        exportCSV={{
-            fileName: "custom.csv",
-            separator: "|",
-            ignoreHeader: true,
-            noAutoBOM: false,
-            blobType: "text/plain;charset=utf-8",
-            exportAll: true,
-            onlyExportSelection: true,
-            onlyExportFiltered: true,
-        }}
-        columns={productColumns}
-    >
-        {({ baseProps, searchProps }) => (
-            <>
-                <CustomSearch {...searchProps} />
-                <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById("app"),
-);
+<ToolkitProvider
+    data={products}
+    keyField="id"
+    exportCSV={{
+        fileName: "custom.csv",
+        separator: "|",
+        ignoreHeader: true,
+        noAutoBOM: false,
+        blobType: "text/plain;charset=utf-8",
+        exportAll: true,
+        onlyExportSelection: true,
+        onlyExportFiltered: true,
+    }}
+    columns={productColumns}
+>
+    {({ baseProps, searchProps }) => (
+        <>
+            <CustomSearch {...searchProps} />
+            <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit Search with ClearSearchButton
@@ -173,18 +166,15 @@ render(
 
 const { SearchBar, ClearSearchButton } = Search;
 
-render(
-    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
-        {({ baseProps, searchProps }) => (
-            <>
-                <SearchBar {...searchProps} />
-                <ClearSearchButton {...searchProps} />
-                <BootstrapTable {...baseProps} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById("app"),
-);
+<ToolkitProvider keyField="id" data={products} columns={productColumns} search>
+    {({ baseProps, searchProps }) => (
+        <>
+            <SearchBar {...searchProps} />
+            <ClearSearchButton {...searchProps} />
+            <BootstrapTable {...baseProps} />
+        </>
+    )}
+</ToolkitProvider>;
 
 /**
  * Toolkit CSVExport with ExportCSVButton
@@ -192,14 +182,11 @@ render(
 
 const { ExportCSVButton } = CSVExport;
 
-render(
-    <ToolkitProvider keyField="id" data={products} columns={productColumns} search>
-        {({ baseProps, csvProps }) => (
-            <>
-                <ExportCSVButton {...csvProps}>Export</ExportCSVButton>
-                <BootstrapTable {...baseProps} />
-            </>
-        )}
-    </ToolkitProvider>,
-    document.getElementById("app"),
-);
+<ToolkitProvider keyField="id" data={products} columns={productColumns} search>
+    {({ baseProps, csvProps }) => (
+        <>
+            <ExportCSVButton {...csvProps}>Export</ExportCSVButton>
+            <BootstrapTable {...baseProps} />
+        </>
+    )}
+</ToolkitProvider>;

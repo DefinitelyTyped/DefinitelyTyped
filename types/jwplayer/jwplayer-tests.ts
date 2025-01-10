@@ -12,6 +12,14 @@ const sliderCue: jwplayer.SliderCue = {
 const config: jwplayer.SetupConfig = {
     aspectratio: "16:9",
     autostart: true,
+    plugins: {
+        "//myexample.com/jwplayer/scripts/sampleScript.js": {
+            sampleFunction: () => {
+                console.log("from plugin: hello world");
+            },
+            name: "Dan Woon Acorn",
+        },
+    },
 };
 
 // $ExpectType JWPlayer
@@ -84,10 +92,12 @@ player
     .removeButton("testId")
     .on("adBlock", () => {})
     .on("adClick", e => e.client)
+    .on("playlistComplete", e => e.type)
     .once("beforePlay", () => {})
     .once("error", e => e.message)
     .off("adBlock")
     .off("adClick")
+    .off("playlistComplete")
     .playlistItem(1)
     .playlistNext()
     .playlistPrev()
@@ -216,7 +226,7 @@ player.playAd("testTag");
 player.playAd(["testTag", "testTag2", "testTag3"]);
 
 // $ExpectType void
-player.registerPlugin("testId", "testTarget", () => {});
+player.registerPlugin("testPluginName", "testPlayerMinimumVersion", (playerInstance, pluginConfig, pluginDiv) => {});
 
 // $ExpectType void
 player.removePlaylistItemCallback();

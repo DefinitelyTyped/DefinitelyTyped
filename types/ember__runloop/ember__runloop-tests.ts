@@ -15,8 +15,16 @@ import {
     schedule,
     scheduleOnce,
     throttle,
+    Timer,
 } from "@ember/runloop";
 import { Backburner, DebugInfo, DeferredActionQueues, QueueItem } from "@ember/runloop/-private/backburner";
+
+declare const timer: Timer;
+if (!(typeof timer === "string" || typeof timer === "number")) {
+    timer; // $ExpectType never
+}
+const timerString: Timer = "abc";
+const timerNumber: Timer = 123;
 
 // It will be the responsibility of each consuming package that needs access to the backburner property
 // to merge the private types in the public API.

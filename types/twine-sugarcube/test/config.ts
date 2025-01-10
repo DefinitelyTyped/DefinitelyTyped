@@ -22,13 +22,21 @@ Config.macros.typeVisitedPassages = b;
 
 Config.navigation.override = (passageName: string) => passageName + "anything";
 
-// @ts-expect-error
-Config.passages.descriptions = false;
-Config.passages.descriptions = true;
-Config.passages.descriptions = null;
-Config.passages.descriptions = function() {
-    return this.domId;
+Config.saves.descriptions = function(saveType) {
+    const base = `("turn") ${State.turns})`;
+
+    switch (saveType) {
+        case Save.Type.Auto:
+            return `${base} A browser auto save…`;
+        case Save.Type.Base64:
+            return `${base} A base64 save…`;
+        case Save.Type.Disk:
+            return `${base} A local disk save…`;
+        case Save.Type.Slot:
+            return `${base} A browser slot save…`;
+    }
 };
+
 Config.passages.displayTitles = false;
 Config.passages.nobr = true;
 Config.passages.onProcess = (passage) => passage.text;

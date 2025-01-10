@@ -14,6 +14,7 @@ export interface ElevationLayerOptions extends LayerOptions {
     colorTextureElevationMaxZ?: number;
 }
 
+// TODO: Define public API
 declare class ElevationLayer extends Layer {
     constructor(id: string, config?: ElevationLayerOptions);
 

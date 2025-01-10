@@ -2727,7 +2727,7 @@ export interface PlaceReview {
      */
     text: string;
     /** the time that the review was submitted, measured in the number of seconds since since midnight, January 1, 1970 UTC. */
-    time: string;
+    time: number;
 }
 
 export interface AspectRating {

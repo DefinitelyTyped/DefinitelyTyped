@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20231211
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/e9b791a4a49d911e5e04660c08dcd2039978813c
+// Tests for Google Publisher Tag 1.20241202
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/11a67de54de9180e5f3cf31c23c402f43071cdca
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -90,6 +90,15 @@ function test_googletag_commandArray_push() {
 // Test for googletag.CompanionAdsService.setRefreshUnfilledSlots
 function test_googletag_companionAdsService_setRefreshUnfilledSlots() {
     googletag.companionAds().setRefreshUnfilledSlots(true);
+}
+
+// Test for googletag.PrivacySettingsConfig.limitedAds
+function test_googletag_privacySettingsConfig_limitedAds() {
+    // Manually enable limited ads serving.
+    // GPT must be loaded from the limited ads URL to configure this setting.
+    googletag.pubads().setPrivacySettings({
+        limitedAds: true,
+    });
 }
 
 // Test for googletag.PrivacySettingsConfig.trafficSource
@@ -593,7 +602,7 @@ function test_googletag_slot_getSlotElementId() {
     const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!.addService(googletag.pubads());
 
     slot.getSlotElementId();
-    // Returns 'div-1'.
+    // Returns 'div'.
 }
 
 // Test for googletag.Slot.setForceSafeFrame
@@ -629,11 +638,47 @@ function test_googletag_slot_updateTargetingFromMap() {
     });
 }
 
+// Test for googletag.config.AdExpansionConfig
+function test_googletag_config_adExpansionConfig() {
+    // Enable ad slot expansion across the entire page.
+    googletag.setConfig({
+        adExpansion: { enabled: true },
+    });
+}
+
+// Test for googletag.config.PageSettingsConfig.threadYield
+function test_googletag_config_pageSettingsConfig_threadYield() {
+    // Disable yielding.
+    googletag.setConfig({ threadYield: "DISABLED" });
+
+    // Enable yielding for all slots.
+    googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
+
+    // Enable yielding only for slots outside of the viewport (default).
+    googletag.setConfig({ threadYield: null });
+}
+
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
 function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
     googletag.setConfig({
         privacyTreatments: { treatments: ["disablePersonalization"] },
+    });
+}
+
+// Test for googletag.config.PublisherProvidedSignalsConfig
+function test_googletag_config_publisherProvidedSignalsConfig() {
+    googletag.setConfig({
+        pps: {
+            taxonomies: {
+                "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
+                // '6' = 'Demographic | Age Range | 30-34'
+                // '626' = 'Interest | Sports | Darts'
+                "IAB_CONTENT_2_2": { values: ["48", "127"] },
+                // '48' = 'Books and Literature | Fiction'
+                // '127' = 'Careers | Job Search'
+            },
+        },
     });
 }
 
@@ -692,8 +737,25 @@ function test_googletag_config_interstitialConfig_triggers() {
     interstitialSlot.setConfig({
         interstitial: {
             triggers: {
+                navBar: enableTriggers,
                 unhideWindow: enableTriggers,
             },
+        },
+    });
+}
+
+// Test for googletag.config.InterstitialConfig.requireStorageAccess
+function test_googletag_config_interstitialConfig_requireStorageAccess() {
+    // Opt out of showing interstitials to users
+    // without local storage consent.
+    const interstitialSlot = googletag.defineOutOfPageSlot(
+        "/1234567/sports",
+        googletag.enums.OutOfPageFormat.INTERSTITIAL,
+    )!;
+
+    interstitialSlot.setConfig({
+        interstitial: {
+            requireStorageAccess: true, // defaults to false
         },
     });
 }
@@ -755,7 +817,6 @@ function test_googletag_events_slotRenderEndedEvent() {
         console.log("Creative Template ID:", event.creativeTemplateId);
         console.log("Is backfill?:", event.isBackfill);
         console.log("Is empty?:", event.isEmpty);
-        console.log("Label IDs:", event.labelIds);
         console.log("Line Item ID:", event.lineItemId);
         console.log("Size:", event.size);
         console.log("Slot content changed?", event.slotContentChanged);
@@ -880,6 +941,47 @@ function test_googletag_events_rewardedSlotReadyEvent() {
         if (userHasConsented) {
             event.makeRewardedVisible();
         }
+
+        if (slot === targetSlot) {
+            // Slot specific logic.
+        }
+    });
+}
+
+// Test for googletag.events.GameManualInterstitialSlotReadyEvent
+function test_googletag_events_gameManualInterstitialSlotReadyEvent() {
+    // This listener is called when a game manual interstitial slot is ready to
+    // be displayed.
+    const targetSlot = googletag.defineOutOfPageSlot(
+        "/1234567/example",
+        googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+    );
+    googletag.pubads().addEventListener("gameManualInterstitialSlotReady", event => {
+        const slot = event.slot;
+        console.log("Game manual interstital slot", slot.getSlotElementId(), "is ready to be displayed.");
+
+        // Replace with custom logic.
+        const displayGmiAd = true;
+        if (displayGmiAd) {
+            event.makeGameManualInterstitialVisible();
+        }
+
+        if (slot === targetSlot) {
+            // Slot specific logic.
+        }
+    });
+}
+
+// Test for googletag.events.GameManualInterstitialSlotClosedEvent
+function test_googletag_events_gameManualInterstitialSlotClosedEvent() {
+    // This listener is called when a game manual interstial slot is closed.
+    const targetSlot = googletag.defineOutOfPageSlot(
+        "/1234567/example",
+        googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
+    );
+    googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", event => {
+        const slot = event.slot;
+        console.log("Game manual interstital slot", slot.getSlotElementId(), "is closed.");
 
         if (slot === targetSlot) {
             // Slot specific logic.

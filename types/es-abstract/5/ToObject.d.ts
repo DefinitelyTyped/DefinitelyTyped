@@ -1,5 +1,4 @@
-// tslint:disable: ban-types
-// prettier-ignore
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
 declare function ToObject<T>(value: T): T extends object ? T
     : T extends null | undefined ? never
     : T extends string ? String

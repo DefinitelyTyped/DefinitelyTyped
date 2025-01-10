@@ -35,6 +35,12 @@ declare module 'meteor/meteor' {
         interface UserProfile {
             name?: string | undefined;
         }
+
+        interface UserServices {
+            google?: {
+                email: string;
+            }
+        }
     }
 }
 
@@ -929,7 +935,7 @@ namespace MeteorTests {
     var buffer: unknown;
 
     check(buffer, Match.Where(EJSON.isBinary));
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     buffer;
 
     /**
@@ -1108,7 +1114,7 @@ namespace MeteorTests {
         return '<h1>Some html here</h1>';
     };
     Accounts.emailTemplates.enrollAccount.from = function (user: Meteor.User) {
-        return 'asdf@asdf.com';
+        return user.services?.google?.email || 'asdf@asdf.com';
     };
     Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {
         return (
@@ -1298,7 +1304,7 @@ Meteor.absoluteUrl.defaultOptions = {
 Random.choice([1, 2, 3]); // $ExpectType number | undefined
 Random.choice('String'); // $ExpectType string
 
-EJSON.newBinary(5); // $ExpectType Uint8Array
+EJSON.newBinary(5); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
 // Connection
 Meteor.onConnection(connection => {

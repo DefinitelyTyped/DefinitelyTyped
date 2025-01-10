@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import FacebookLogin, {
     ReactFacebookFailureResponse,
     ReactFacebookLoginInfo,
@@ -23,98 +22,74 @@ const componentClicked = () => {
     console.log("component clicked");
 };
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={responseFacebook}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    callback={responseFacebook}
+/>;
 
-ReactDOM.render(
-    <FacebookLoginRender
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={responseFacebook}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLoginRender
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    callback={responseFacebook}
+/>;
 
-ReactDOM.render(
-    <FacebookLoginRender
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={responseFacebook}
-        render={(props: RenderProps) => <button onClick={props.onClick}>Facebook</button>}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLoginRender
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    callback={responseFacebook}
+    render={(props: RenderProps) => <button onClick={props.onClick}>Facebook</button>}
+/>;
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={loginInfoOrFailureResponse}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    callback={loginInfoOrFailureResponse}
+/>;
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={responseFacebook}
-        onFailure={failureResponseFacebook}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    callback={responseFacebook}
+    onFailure={failureResponseFacebook}
+/>;
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        cssClass="my-facebook-button-class"
-        icon="fa-facebook"
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    callback={responseFacebook}
+    cssClass="my-facebook-button-class"
+    icon="fa-facebook"
+/>;
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        cssClass="my-facebook-button-class"
-        icon={<div className="myIcon" />}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    callback={responseFacebook}
+    cssClass="my-facebook-button-class"
+    icon={<div className="myIcon" />}
+/>;
 
-ReactDOM.render(
-    <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        cssClass="my-facebook-button-class"
-        icon={<div className="myIcon" />}
-    />,
-    document.getElementById("demo"),
-);
+<FacebookLogin
+    appId="1088597931155576"
+    autoLoad={true}
+    fields="name,email,picture"
+    callback={responseFacebook}
+    cssClass="my-facebook-button-class"
+    icon={<div className="myIcon" />}
+/>;
 
 class MyComponent extends React.Component {
     private responseFacebook(response: ReactFacebookLoginInfo) {

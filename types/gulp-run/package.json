@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/MrBoolean/gulp-run"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "dependencies": {
         "@types/node": "*",
         "@types/vinyl": "*"

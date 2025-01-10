@@ -21,6 +21,10 @@ export const syntax: typeof csstree & {
      * Does the main task – compress an AST.
      */
     compress(ast: csstree.CssNode, options?: CompressOptions): { ast: csstree.CssNode };
+
+    // §16. Calculating a selector’s specificity
+    // https://www.w3.org/TR/selectors-4/#specificity-rules
+    specificity(simpleSelector: csstree.CssNode): [a: number, b: number, c: number];
 };
 
 export interface Result {

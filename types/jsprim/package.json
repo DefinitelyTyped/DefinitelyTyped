@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/joyent/node-jsprim#readme"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/json-schema": "*",
         "@types/verror": "*"

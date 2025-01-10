@@ -2,17 +2,16 @@
     "private": true,
     "name": "@types/node",
     "version": "16.18.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"
     ],
+    "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json"],
     "types": "index",
     "typesVersions": {
-        "<=4.8": {
-            "*": [
-                "ts4.8/*"
-            ]
+        "<=5.6": {
+            "*": ["ts5.6/*"]
         }
     },
     "devDependencies": {
@@ -82,10 +81,6 @@
         {
             "name": "Mohsen Azimi",
             "githubUsername": "mohsen1"
-        },
-        {
-            "name": "Nicolas Even",
-            "githubUsername": "n-e"
         },
         {
             "name": "Nikita Galkin",
@@ -162,10 +157,6 @@
         {
             "name": "Victor Perin",
             "githubUsername": "victorperin"
-        },
-        {
-            "name": "Yongsheng Zhang",
-            "githubUsername": "ZYSzys"
         },
         {
             "name": "NodeJS Contributors",

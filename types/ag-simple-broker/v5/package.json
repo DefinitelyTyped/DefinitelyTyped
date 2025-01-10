@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ag-simple-broker",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/ag-simple-broker"
+    ],
+    "dependencies": {
+        "@types/ag-channel": "*",
+        "@types/async-stream-emitter": "^6",
+        "@types/consumable-stream": "*",
+        "@types/socketcluster-server": "^18",
+        "@types/writable-consumable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/ag-simple-broker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

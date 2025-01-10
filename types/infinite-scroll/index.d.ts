@@ -24,7 +24,7 @@ declare namespace InfiniteScroll {
          * `last` event will be triggered when last page is reached
          * @default true
          */
-        checkLastPage?: boolean | undefined;
+        checkLastPage?: boolean | string | undefined;
         /**
          * Sets the Response body interface method,
          * on the response returned from fetch request

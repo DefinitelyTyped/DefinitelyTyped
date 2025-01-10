@@ -2,8 +2,8 @@ import fs = require("fs");
 import os = require("os");
 import path = require("path");
 import cp = require("child_process");
+import { mangleScopedPackage, suggestionsDir } from "@definitelytyped/utils";
 import { danger, fail, markdown } from "danger";
-const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join("/");
 const lines: string[] = [];
 const missingProperty = /module exports a property named '(.+?)', which is missing/;
 
@@ -38,7 +38,7 @@ if (fs.existsSync(suggestionsDir)) {
             if (Object.keys(missingProperties).length > 1) {
                 const originalJS = fileName.replace(".d.ts", ".js");
                 const unpkgURL = `https://unpkg.com/browse/${packageName}@latest/${originalJS}`;
-                const dtsName = packageName.replace("@", "").replace("/", "__");
+                const dtsName = `@types/${mangleScopedPackage(packageName)}`;
                 const dtsURL =
                     `https://github.com/DefinitelyTyped/DefinitelyTyped/blob/${danger.github.pr.head.sha}/types/${dtsName}/${fileName}`;
 

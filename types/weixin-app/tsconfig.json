@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -17,8 +17,5 @@
     "files": [
         "index.d.ts",
         "weixin-app-tests.ts"
-    ],
-    "exclude": [
-        ".prettierrc"
     ]
 }

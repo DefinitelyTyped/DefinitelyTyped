@@ -1,9 +1,8 @@
-import chai = require("chai");
 import chaiJWT = require("chai-jwt");
 import { readFileSync } from "fs";
 
-chai.use(chaiJWT);
-const expect = chai.expect;
+import("chai").then(chai => chai.use(chaiJWT));
+declare const expect: Chai.ExpectStatic;
 
 const validJWT =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzY29wZSI6InVwZGF0ZTpzb21ldGhpbmciLCJleHAiOjE0NzA3NjE3ODEsImlhdCI6MTQ3MDc2MDc5M30.1b4RC22Kpx4X4GWXU-Wgsk4IbeRGVD7tNW-tM-LzkVE";

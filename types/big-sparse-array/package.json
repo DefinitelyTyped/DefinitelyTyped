@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/big-sparse-array",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/big-sparse-array"
+    ],
+    "devDependencies": {
+        "@types/big-sparse-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

@@ -65,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         {
             name: "1",
             fetchType: 2002,
-            dbType: 2,
+            dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
             precision: 0,
             scale: -127,
@@ -455,7 +455,7 @@ const version4Tests = async () => {
 
     const messages = await queue.deqMany(5);
 
-    const lob = await connection.createLob(2);
+    const lob = await connection.createLob(oracledb.CLOB);
 
     await lob.getData();
 
@@ -675,4 +675,55 @@ export const v5Tests = async (): Promise<void> => {
 export const v5point1Tests = (): void => {
     console.log(defaultOracledb.DB_TYPE_JSON);
     defaultOracledb.dbObjectAsPojo = true;
+};
+
+export const fetchAsBufferTests = (): void => {
+    defaultOracledb.fetchAsBuffer = [oracledb.BLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [oracledb.DATE];
+};
+
+export const fetchAsStringTests = (): void => {
+    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [oracledb.STRING];
+};
+
+export const version6Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    const offset = 1, len = 100;
+    await lob.getData(offset);
+    await lob.getData(offset + 3, len);
+
+    console.log(defaultOracledb.DB_TYPE_VECTOR);
+    console.log(defaultOracledb.JsonId);
+
+    // pass random 12 byte value to JsonId which is generated
+    // by DB for SODA document.
+    const key = new oracledb.JsonId([102, 241, 117, 85, 174, 103, 204, 25, 15, 172, 252, 47]);
+    console.log(key.toJSON()); // 66f17555ae67cc190facfc2f
+
+    console.log("Testing createPool() with privilege parameter applicable for Thin mode...");
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        privilege: oracledb.SYSDBA,
+        homogeneous: true,
+        password: DB_PASSWORD,
+        poolIncrement: 1,
+        poolMax: 5,
+        poolMin: 3,
+        poolPingInterval: 60,
+        poolTimeout: 60,
+        queueTimeout: 60000,
+        user: DB_USER,
+    });
 };

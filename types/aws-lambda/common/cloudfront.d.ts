@@ -27,11 +27,24 @@ export interface CloudFrontCustomOrigin {
     sslProtocols: string[];
 }
 
-export interface CloudFrontS3Origin {
+export type CloudFrontS3Origin =
+    | CloudFrontS3OriginAuthMethodNone
+    | CloudFrontS3OriginAuthMethodOriginAccessIdentity;
+
+export interface CloudFrontS3OriginBase {
     authMethod: "origin-access-identity" | "none";
     customHeaders: CloudFrontHeaders;
     domainName: string;
     path: string;
+}
+
+export interface CloudFrontS3OriginAuthMethodNone extends CloudFrontS3OriginBase {
+    authMethod: "none";
+    region?: never;
+}
+
+export interface CloudFrontS3OriginAuthMethodOriginAccessIdentity extends CloudFrontS3OriginBase {
+    authMethod: "origin-access-identity";
     region: string;
 }
 

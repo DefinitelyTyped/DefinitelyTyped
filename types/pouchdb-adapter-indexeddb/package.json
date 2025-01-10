@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-adapter-indexeddb",
+    "version": "9.0.9999",
+    "projects": [
+        "https://pouchdb.com/",
+        "https://github.com/pouchdb/pouchdb"
+    ],
+    "dependencies": {
+        "@types/pouchdb-core": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-adapter-indexeddb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Strickland",
+            "githubUsername": "cstrickland-WE"
+        }
+    ]
+}

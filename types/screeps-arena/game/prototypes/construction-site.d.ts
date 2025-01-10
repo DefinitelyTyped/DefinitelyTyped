@@ -1,34 +1,23 @@
 declare module "game/prototypes" {
-    import { ERR_NOT_OWNER, OK, STRUCTURE_PROTOTYPES } from "game/constants";
-    export interface ConstructionSite extends GameObject {
-        readonly prototype: ConstructionSite;
+    /**
+     * A site of a structure which is currently under construction
+     */
+    export class ConstructionSite extends GameObject {
+        /** The current construction progress */
+        readonly progress?: number;
+
+        /** The total construction progress needed for the structure to be built */
+        readonly progressTotal?: number;
+
+        /** The structure that will be built (when the construction site is completed) */
+        readonly structure?: Structure;
+
+        /** Whether it is your construction site */
+        readonly my?: boolean;
 
         /**
-         * The current construction progress.
+         * Remove this construction site
          */
-        progress: number;
-        /**
-         * The total construction progress needed for the structure to be built.
-         */
-        progressTotal: number;
-
-        /**
-         * One of the STRUCTURE_PROTOTYPES entries
-         */
-        structurePrototypeName: string;
-
-        // TODO: ConstructionSite object now has a new property structure that links to the corresponding Structure object.
-        // It will be the live object instance that will appear when the construction site is completed. You can check what structure is being constructed using the instanceof operator:
-
-        /**
-         * Whether it is your construction site.
-         */
-        my: boolean;
-
-        remove(): ERR_NOT_OWNER | OK;
+        remove(): void;
     }
-
-    interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {}
-
-    export const ConstructionSite: ConstructionSiteConstructor;
 }

@@ -1,17 +1,17 @@
 import {
-    WebGLRenderer,
-    WebGLRenderTarget,
-    Texture,
     DataTexture,
-    Material,
-    ShaderMaterial,
-    Wrapping,
-    TextureFilter,
-    TextureDataType,
     IUniform,
     MagnificationTextureFilter,
+    Material,
     MinificationTextureFilter,
-} from '../../../src/Three.js';
+    ShaderMaterial,
+    Texture,
+    TextureDataType,
+    TextureFilter,
+    WebGLRenderer,
+    WebGLRenderTarget,
+    Wrapping,
+} from "three";
 
 export interface Variable {
     name: string;

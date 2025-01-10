@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from "rdf-js";
+import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from "@rdfjs/types";
 import { DatasetIndexed } from "./dataset";
 
 declare function datasetFactory<Q extends BaseQuad = Quad>(

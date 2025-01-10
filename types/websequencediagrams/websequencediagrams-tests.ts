@@ -3,7 +3,7 @@ import wsd = require("websequencediagrams");
 (async () => {
     const [buffer, mimeType] = await wsd.diagram("Alice->Bob: message", "modern-blue", "png");
     mimeType; // $ExpectType string
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
     // @ts-expect-error
     await wsd.diagram("Alice->Bob: message", "invalid");

@@ -1,7 +1,7 @@
 /**
  * The `timer` module exposes a global API for scheduling functions to
  * be called at some future period of time. Because the timer functions are
- * globals, there is no need to call `require('timers')` to use the API.
+ * globals, there is no need to import `node:timers` to use the API.
  *
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
@@ -85,24 +85,24 @@ declare module "timers" {
          */
         function setTimeout<TArgs extends any[]>(
             callback: (...args: TArgs) => void,
-            ms?: number,
+            delay?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setTimeout(callback: (args: void) => void, delay?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(
             callback: (...args: TArgs) => void,
-            ms?: number,
+            delay?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setInterval(callback: (args: void) => void, delay?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }

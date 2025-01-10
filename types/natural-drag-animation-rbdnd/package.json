@@ -10,8 +10,7 @@
         "@types/react-beautiful-dnd": "*"
     },
     "devDependencies": {
-        "@types/natural-drag-animation-rbdnd": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/natural-drag-animation-rbdnd": "workspace:."
     },
     "owners": [
         {

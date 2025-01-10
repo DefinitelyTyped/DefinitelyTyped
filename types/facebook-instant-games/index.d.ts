@@ -790,6 +790,7 @@ declare namespace FBInstant {
          * @throws INVALID_PARAM
          * @throws NETWORK_FAILURE
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         getStatsAsync(keys?: string[]): Promise<StatsObject>;
 
@@ -804,6 +805,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         setStatsAsync(stats: StatsObject): Promise<void>;
 
@@ -819,6 +821,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         incrementStatsAsync(increments: IncrementObject): Promise<StatsObject>;
 
@@ -870,6 +873,7 @@ declare namespace FBInstant {
          * this will reject. Otherwise, the promise will resolve when the game has switched into the specified context.
          *
          * @param id ID of the desired context.
+         * @param switchSilentlyIfSolo If switching into a solo context, set this to true to switch silently, with no confirmation dialog or toast. This only has an effect when switching into a solo context. (optional, default false)
          * @returns A promise that resolves when the game has switched into the specified context, or rejects otherwise.
          * @throws INVALID_PARAM
          * @throws SAME_CONTEXT
@@ -878,7 +882,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        switchAsync(id: string): Promise<void>;
+        switchAsync(id: string, switchSilentlyIfSolo?: boolean): Promise<void>;
 
         /**
          * Opens a context selection dialog for the player. If the player selects an available context, the client will attempt to switch into that context,
@@ -1405,11 +1409,6 @@ declare namespace FBInstant {
      */
     interface SharePayload {
         /**
-         * Indicates the intent of the share.
-         */
-        intent: Intent;
-
-        /**
          * A base64 encoded image to be shared.
          */
         image: string;
@@ -1428,6 +1427,11 @@ declare namespace FBInstant {
          * A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
          */
         data?: any;
+
+        /**
+         * An optional array to set sharing destinations in the share dialog. If not specified all available sharing destinations will be displayed
+         */
+        shareDestination?: ShareDestination[];
 
         /**
          * A flag indicating whether to switch the user into the new context created on sharing
@@ -2119,6 +2123,16 @@ declare namespace FBInstant {
     type UpdateAction = "CUSTOM" | "LEADERBOARD";
 
     /**
+     * A parameter that may be applied to a Share Async operation
+     *
+     * "NEWSFEED" - Enable share to newsfeed option
+     * "GROUP" - Enable share to official game group option.
+     * "COPY_LINK" - Enable copy the game link in clipboard
+     * "MESSENGER" - Enable share game to messenger option
+     */
+    type ShareDestination = "NEWSFEED" | "GROUP" | "COPY_LINK" | "MESSENGER";
+
+    /**
      * Represents the current platform that the user is playing on.
      */
     type Platform = "IOS" | "ANDROID" | "WEB" | "MOBILE_WEB";
@@ -2133,22 +2147,34 @@ declare namespace FBInstant {
 
     type ErrorCodeType =
         | "ADS_FREQUENT_LOAD"
-        | "ADS_NO_FILL"
         | "ADS_NOT_LOADED"
+        | "ADS_NO_FILL"
         | "ADS_TOO_MANY_INSTANCES"
+        | "ARENAS_NOT_FOUND"
         | "ANALYTICS_POST_EXCEPTION"
+        | "CAMERA_EFFECT_NOT_FOUND"
         | "CLIENT_REQUIRES_UPDATE"
         | "CLIENT_UNSUPPORTED_OPERATION"
+        | "DUPLICATE_POST"
+        | "GAMING_SQUAD_NOT_FOUND"
+        | "GROUP_NOT_LINKED"
         | "INVALID_OPERATION"
         | "INVALID_PARAM"
         | "LEADERBOARD_NOT_FOUND"
         | "LEADERBOARD_WRONG_CONTEXT"
+        | "LIVE_MATCH_NOT_FOUND"
+        | "LIVE_STREAMS_NOT_FOUND"
         | "NETWORK_FAILURE"
+        | "PAGE_NOT_LINKED"
+        | "PAYMENTS_NOT_INITIALIZED"
+        | "PAYMENTS_OPERATION_FAILURE"
         | "PENDING_REQUEST"
         | "RATE_LIMITED"
         | "SAME_CONTEXT"
+        | "TOURNAMENT_NOT_FOUND"
         | "UNKNOWN"
-        | "USER_INPUT";
+        | "USER_INPUT"
+        | "VIDEO_NOT_FOUND";
 
     /**
      * A function that will get called when user requested to capture a screenshot.

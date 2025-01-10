@@ -8,7 +8,7 @@ export as namespace structuredClone;
  *  like JSON stringify would behave. Symbol and Function will be discarded.
  * @returns a clone of the input value
  */
-declare function structuredClone<T>(any: T, options?: { lossy?: boolean }): T;
+declare function structuredClone<T>(any: T, options?: { json?: boolean; lossy?: boolean }): T;
 export = structuredClone;
 
 declare namespace structuredClone {
@@ -23,7 +23,7 @@ declare namespace structuredClone {
      *  like JSON stringify would behave. Symbol and Function will be discarded.
      * @returns an array of SerializedRecord
      */
-    function serialize(serializable: any, options?: { lossy?: boolean }): SerializedRecord;
+    function serialize(serializable: any, options?: { json?: boolean; lossy?: boolean }): SerializedRecord;
 
     /**
      * Deserialize the output.

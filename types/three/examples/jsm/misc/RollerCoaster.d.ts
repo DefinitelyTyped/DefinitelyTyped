@@ -1,4 +1,4 @@
-import { BufferGeometry, Mesh, Vector3 } from '../../../src/Three.js';
+import { BufferGeometry, Mesh, Vector3 } from "three";
 
 interface Curve {
     getPointAt(u: number): Vector3;

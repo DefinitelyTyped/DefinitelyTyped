@@ -9,6 +9,7 @@ import {
     AppModernization,
     AudioData,
     Backpack,
+    BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
@@ -22,8 +23,10 @@ import {
     IbmCloud,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    MagicWand,
     MovingDolly,
     RedHatApplications,
+    ShanghaiSkyline,
     SolarField,
     Spss,
     SystemsDevopsAnalyze,
@@ -69,3 +72,6 @@ import * as React from "react";
 <AdvocateMask />; // $ExpectType Element
 <UserMask />; // $ExpectType Element
 <Spss />; // $ExpectType Element
+<BentoBoxTray />; // $ExpectType Element
+<ShanghaiSkyline />; // $ExpectType Element
+<MagicWand />; // $ExpectType Element

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CollaborativeAdsShareSettings
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -12,5 +12,5 @@ export default class CollaborativeAdsShareSettings extends AbstractCrudObject {
         utm_medium: "utm_medium";
         utm_source: "utm_source";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CollaborativeAdsShareSettings>;
+    get(fields: string[], params?: Record<string, any>): Promise<CollaborativeAdsShareSettings>;
 }

@@ -1,4 +1,4 @@
-import { Vector3 } from './Vector3.js';
+import { Vector3 } from "./Vector3.js";
 
 export class SphericalHarmonics3 {
     constructor();

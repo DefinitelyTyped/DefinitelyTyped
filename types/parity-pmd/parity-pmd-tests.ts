@@ -10,7 +10,7 @@ const parsedContent: PMDMessage = parse(buffer);
 // $ExpectType PMDMessage
 parse(buffer);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 format(parsedContent);
 
 // Invalid type

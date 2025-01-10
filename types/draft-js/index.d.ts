@@ -505,7 +505,7 @@ declare namespace Draft {
                 ) => void;
                 component:
                     | React.Component
-                    | typeof React.Component
+                    | React.ComponentClass<any>
                     | ((props: DraftDecoratorComponentProps & P) => React.ReactNode);
                 props?: P | undefined;
             }

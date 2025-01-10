@@ -8,10 +8,14 @@ interface EncodeOptions {
     bracketedArray?: boolean;
 }
 
-export function decode(str: string): {
+interface DecodeOptions {
+    bracketedArray?: boolean;
+}
+
+export function decode(str: string, options?: DecodeOptions): {
     [key: string]: any;
 };
-export function parse(str: string): {
+export function parse(str: string, options?: DecodeOptions): {
     [key: string]: any;
 };
 export function encode(object: any, options?: EncodeOptions | string): string;

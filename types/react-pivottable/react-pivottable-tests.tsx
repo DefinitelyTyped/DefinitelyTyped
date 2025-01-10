@@ -46,11 +46,23 @@ class MyApp extends React.Component {
     render() {
         return (
             <>
-                <PivotTableUI data={data} onChange={e => console.log(e)} />
-                <PivotTableUI data={data2} onChange={e => console.log(e)} />;
-                <PivotTableUI data={data3} onChange={e => console.log(e)} />;
+                <PivotTableUI data={data} onChange={(e) => console.log(e)} />
+                <PivotTableUI data={data2} onChange={(e) => console.log(e)} />;
+                <PivotTableUI data={data3} onChange={(e) => console.log(e)} />;
                 <PivotTable data={data} renderers={{ render01: SomeRenderer }} rendererName={"render01"} />
                 <PivotTable data={data} renderers={passDefaultRenderers} rendererName={"render01"} />
+                <PivotTable
+                    data={data}
+                    // expect plotly options can be specified
+                    plotlyOptions={{}}
+                    plotlyConfig={{}}
+                    onRendererUpdate={() => {}}
+                    // expect table options can be specified
+                    tableColorScaleGenerator={(values) => (value) => ({})}
+                    tableOptions={{
+                        clickCallback: (e, value, filters, data) => {},
+                    }}
+                />
                 <DraggableAttribute
                     addValuesToFilter={addRemValuesToFilter}
                     removeValuesFromFilter={addRemValuesToFilter}

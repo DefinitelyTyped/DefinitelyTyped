@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/screeps/screeps"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "devDependencies": {
         "@types/screeps": "workspace:."
     },

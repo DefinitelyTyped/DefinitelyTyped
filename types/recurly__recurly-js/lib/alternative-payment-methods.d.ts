@@ -1,8 +1,9 @@
+import { Address } from './address';
 import { Emitter } from './emitter';
 
 export type AlternativePaymentMethodEvents = 'token' | 'error' | 'valid';
 
-export type AlternativePaymentMethodType = 'boleto';
+export type AlternativePaymentMethodType = 'boleto' | 'ideal' | 'sofort' | 'paypal' | 'cashapp' | 'bacs';
 
 export type ChannelType = 'iOS' | 'Android' | 'Web';
 
@@ -15,15 +16,15 @@ export type AdyenAlternativePaymentMethodOptions = {
   publicKey: string,
 
   /**
-   * Indicate a test or a live environment.
+   * Indicate a test or a live environment. Defaults to `"test"`.
    */
   env?: AdyenEnvironmentType,
 
   /**
-   * Show or hides a Pay Button for each payment method. Defaults to false.
+   * Show or hides a Pay Button for each payment method. Defaults to `false`.
    * When the button is disable you need to call the submit() function when the payment form is valid.
    */
-  showPayButton?: false,
+  showPayButton?: boolean,
 
   /**
    * Additional Adyen Configuration.
@@ -31,7 +32,14 @@ export type AdyenAlternativePaymentMethodOptions = {
   componentConfig?: { [key: string]: any }
 };
 
-export type AlternativePaymentMethodOptions = {
+export type CustomerOptions = {
+  /**
+   * The customer's billing address.
+   */
+  billingAddress?: Address;
+};
+
+export type AlternativePaymentMethodStartOptions = {
   /**
    * List of payment methods to be presented to the customer.
    */
@@ -63,34 +71,52 @@ export type AlternativePaymentMethodOptions = {
   countryCode: string;
 
   /**
-   * The customer's locale. This is used to set the language rendered in the UI.
+   * The customer's locale. This is used to set the language rendered in the UI. Defaults to `"en-US"`.
    */
   locale?: string;
 
   /**
    * The platform where a payment transaction takes place.
    * This field can be used for filtering out payment methods that are only available on specific platforms.
+   * Defaults to `"Web"`.
    */
   channel?: ChannelType,
 
   /**
    * Adyen options.
    */
-  adyen?: AdyenAlternativePaymentMethodOptions
+  adyen?: AdyenAlternativePaymentMethodOptions,
+
+  /**
+   * Sets additional customer fields on the generated token.
+   */
+  customer?: CustomerOptions,
+
+  /**
+   * The URL to return to after the shopper completes the payment.
+   */
+  returnURL?: string
+};
+
+export type AlternativePaymentMethodSubmitOptions = {
+  /**
+   * Sets the customer billing address on the generated token.
+   */
+  billingAddress?: Address;
 };
 
 export interface AlternativePaymentMethodsInstance extends Emitter<AlternativePaymentMethodEvents> {
   /**
    * Start the PaymentMethods and render the components.
    */
-  start: (data: AlternativePaymentMethodOptions) => Promise<void>;
+  start: () => Promise<void>;
 
   /**
    * Submit the customer payment information and produce a token.
    * Call this function only when the payment information provided by the customer is valid, by listening the 'valid' event.
    * The token can be retrieved through the 'token' event.
    */
-  submit: () => Promise<void>;
+  submit: (args: AlternativePaymentMethodSubmitOptions) => Promise<void>;
 
   /**
    * Some payment methods require additional action from the shopper such as: to scan a QR code,
@@ -101,4 +127,4 @@ export interface AlternativePaymentMethodsInstance extends Emitter<AlternativePa
   handleAction: (paymentResponse: any) => Promise<void>;
 }
 
-export type AlternativePaymentMethods = () => AlternativePaymentMethodsInstance;
+export type AlternativePaymentMethods = (config: AlternativePaymentMethodStartOptions) => AlternativePaymentMethodsInstance;

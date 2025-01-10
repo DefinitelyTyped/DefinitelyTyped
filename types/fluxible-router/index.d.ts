@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { FluxibleContext } from "fluxible";
 import * as React from "react";
 import BaseStore = require("fluxible/addons/BaseStore");

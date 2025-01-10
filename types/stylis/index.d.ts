@@ -38,6 +38,7 @@ export const FONT_FACE = "@font-face";
 export const COUNTER_STYLE = "@counter-style";
 export const FONT_FEATURE_VALUES = "@font-feature-values";
 export const LAYER = "@layer";
+export const SCOPE = "@scope";
 
 // Utility.js
 
@@ -111,7 +112,7 @@ export function node(
     length: number,
 ): Element;
 
-export function copy(value: string, root: Element, type: string): Element;
+export function copy(root: Element, props: Partial<Element>): Element;
 export function char(): number;
 export function next(): number;
 export function peek(): number;

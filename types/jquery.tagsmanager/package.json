@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.tagsmanager",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.tagsmanager",
     "projects": [
         "http://welldonethings.com/tags/manager"
     ],

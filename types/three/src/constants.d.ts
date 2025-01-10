@@ -37,12 +37,11 @@ export type ShadowMapType = typeof BasicShadowMap | typeof PCFShadowMap | typeof
 export const FrontSide: 0;
 export const BackSide: 1;
 export const DoubleSide: 2;
-export const TwoPassDoubleSide: 2;
 /**
  * Defines which side of faces will be rendered - front, back or both.
  * Default is {@link FrontSide}.
  */
-export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide | typeof TwoPassDoubleSide;
+export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide;
 
 // blending modes
 export const NoBlending: 0;
@@ -140,17 +139,21 @@ export const ReinhardToneMapping: 2;
 export const CineonToneMapping: 3;
 export const ACESFilmicToneMapping: 4;
 export const CustomToneMapping: 5;
+export const AgXToneMapping: 6;
+export const NeutralToneMapping: 7;
 export type ToneMapping =
     | typeof NoToneMapping
     | typeof LinearToneMapping
     | typeof ReinhardToneMapping
     | typeof CineonToneMapping
     | typeof ACESFilmicToneMapping
-    | typeof CustomToneMapping;
+    | typeof CustomToneMapping
+    | typeof AgXToneMapping
+    | typeof NeutralToneMapping;
 
 // Bind modes
-export const AttachedBindMode: 'attached';
-export const DetachedBindMode: 'detached';
+export const AttachedBindMode: "attached";
+export const DetachedBindMode: "detached";
 export type BindMode = typeof AttachedBindMode | typeof DetachedBindMode;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -333,6 +336,7 @@ export const HalfFloatType: 1016;
 export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
+export const UnsignedInt5999Type: 35902;
 
 export type AttributeGPUType = typeof FloatType | typeof IntType;
 
@@ -353,7 +357,8 @@ export type TextureDataType =
     | typeof HalfFloatType
     | typeof UnsignedShort4444Type
     | typeof UnsignedShort5551Type
-    | typeof UnsignedInt248Type;
+    | typeof UnsignedInt248Type
+    | typeof UnsignedInt5999Type;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pixel formats
@@ -361,7 +366,9 @@ export type TextureDataType =
 /** {@link AlphaFormat} discards the red, green and blue components and reads just the alpha component. */
 export const AlphaFormat: 1021;
 
-/** {@link RGBAFormat} discards the green and blue components and reads just the red component. (Can only be used with a WebGL 2 rendering context). */
+export const RGBFormat: 1022;
+
+/** {@link RGBAFormat} is the default and reads the red, green, blue and alpha components. */
 export const RGBAFormat: 1023;
 
 /**
@@ -392,29 +399,30 @@ export const DepthStencilFormat: 1027;
 
 /**
  * {@link RedFormat} discards the green and blue components and reads just the red component.
- * @remarks Can only be used with a WebGL 2 rendering context.
  */
 export const RedFormat: 1028;
 
 /**
  * {@link RedIntegerFormat} discards the green and blue components and reads just the red component.
  * The texels are read as integers instead of floating point.
- * @remarks Can only be used with a WebGL 2 rendering context.
  */
 export const RedIntegerFormat: 1029;
 
 /**
  * {@link RGFormat} discards the alpha, and blue components and reads the red, and green components.
- * @remarks Can only be used with a WebGL 2 rendering context.
  */
 export const RGFormat: 1030;
 
 /**
  * {@link RGIntegerFormat} discards the alpha, and blue components and reads the red, and green components.
  * The texels are read as integers instead of floating point.
- * @remarks Can only be used with a WebGL 2 rendering context.
  */
 export const RGIntegerFormat: 1031;
+
+/**
+ * {@link RGBIntegerFormat} discrads the alpha components and reads the red, green, and blue components.
+ */
+export const RGBIntegerFormat: 1032;
 
 /**
  * {@link RGBAIntegerFormat} reads the red, green, blue and alpha component
@@ -422,35 +430,15 @@ export const RGIntegerFormat: 1031;
  */
 export const RGBAIntegerFormat: 1033;
 
-export const _SRGBAFormat: 1035; // fallback for WebGL 1
-
 /**
- * Texture Pixel Formats Modes. Compatible only with {@link WebGLRenderingContext | WebGL 1 Rendering Context}.
+ * All Texture Pixel Formats Modes.
  * @remarks Note that the texture must have the correct {@link THREE.Texture.type} set, as described in  {@link TextureDataType}.
  * @see {@link WebGLRenderingContext.texImage2D} for details.
- * @see {@link WebGL2PixelFormat} and {@link PixelFormat}
  * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
  */
-export type WebGL1PixelFormat =
+export type PixelFormat =
     | typeof AlphaFormat
-    | typeof LuminanceFormat
-    | typeof LuminanceAlphaFormat
-    | typeof DepthFormat
-    | typeof DepthStencilFormat
-    | typeof RedFormat
-    | typeof RedIntegerFormat
-    | typeof RGFormat
-    | typeof _SRGBAFormat;
-
-/**
- * Texture Pixel Formats Modes. Compatible only with {@link WebGL2RenderingContext | WebGL 2 Rendering Context}.
- * @remarks Note that the texture must have the correct {@link THREE.Texture.type} set, as described in  {@link TextureDataType}.
- * @see {@link WebGLRenderingContext.texImage2D} for details.
- * @see {@link WebGL2PixelFormat} and {@link PixelFormat}
- * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
- */
-export type WebGL2PixelFormat =
-    | typeof AlphaFormat
+    | typeof RGBFormat
     | typeof RGBAFormat
     | typeof LuminanceFormat
     | typeof LuminanceAlphaFormat
@@ -460,17 +448,8 @@ export type WebGL2PixelFormat =
     | typeof RedIntegerFormat
     | typeof RGFormat
     | typeof RGIntegerFormat
-    | typeof RGBAIntegerFormat
-    | typeof _SRGBAFormat;
-
-/**
- * All Texture Pixel Formats Modes.
- * @remarks Note that the texture must have the correct {@link THREE.Texture.type} set, as described in  {@link TextureDataType}.
- * @see {@link WebGLRenderingContext.texImage2D} for details.
- * @see {@link WebGL1PixelFormat} and {@link WebGL2PixelFormat}
- * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
- */
-export type PixelFormat = WebGL1PixelFormat | WebGL2PixelFormat;
+    | typeof RGBIntegerFormat
+    | typeof RGBAIntegerFormat;
 
 /**
  * All Texture Pixel Formats Modes for {@link THREE.DepthTexture}.
@@ -696,25 +675,17 @@ export const TriangleFanDrawMode: 2;
 export type TrianglesDrawModes = typeof TrianglesDrawMode | typeof TriangleStripDrawMode | typeof TriangleFanDrawMode;
 
 ///////////////////////////////////////////////////////////////////////////////
-// Texture Encodings
-
-/** @deprecated Use {@link LinearSRGBColorSpace} or {@link NoColorSpace} in three.js r152+. */
-export const LinearEncoding: 3000;
-/** @deprecated Use {@link SRGBColorSpace} in three.js r152+. */
-export const sRGBEncoding: 3001;
-/**
- * Texture Encodings.
- * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
- * @deprecated Use {@link ColorSpace} in three.js r152+.
- */
-export type TextureEncoding = typeof LinearEncoding | typeof sRGBEncoding;
-
-///////////////////////////////////////////////////////////////////////////////
 // Depth packing strategies
 
 export const BasicDepthPacking: 3200;
 export const RGBADepthPacking: 3201;
-export type DepthPackingStrategies = typeof BasicDepthPacking | typeof RGBADepthPacking;
+export const RGBDepthPacking: 3202;
+export const RGDepthPacking: 3203;
+export type DepthPackingStrategies =
+    | typeof BasicDepthPacking
+    | typeof RGBADepthPacking
+    | typeof RGBDepthPacking
+    | typeof RGDepthPacking;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Normal Map types
@@ -723,25 +694,17 @@ export const TangentSpaceNormalMap: 0;
 export const ObjectSpaceNormalMap: 1;
 export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNormalMap;
 
-export const NoColorSpace: '';
-export const SRGBColorSpace: 'srgb';
-export const LinearSRGBColorSpace: 'srgb-linear';
-export const DisplayP3ColorSpace: 'display-p3';
-export const LinearDisplayP3ColorSpace = 'display-p3-linear';
+export const NoColorSpace: "";
+export const SRGBColorSpace: "srgb";
+export const LinearSRGBColorSpace: "srgb-linear";
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
-    | typeof LinearSRGBColorSpace
-    | typeof DisplayP3ColorSpace
-    | typeof LinearDisplayP3ColorSpace;
+    | typeof LinearSRGBColorSpace;
 
-export const LinearTransfer: 'linear';
-export const SRGBTransfer: 'srgb';
+export const LinearTransfer: "linear";
+export const SRGBTransfer: "srgb";
 export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
-
-export const Rec709Primaries: 'rec709';
-export const P3Primaries: 'p3';
-export type ColorSpacePrimaries = typeof Rec709Primaries | typeof P3Primaries;
 
 // Stencil Op types
 export const ZeroStencilOp: 0;
@@ -820,8 +783,8 @@ export type Usage =
     | typeof DynamicCopyUsage
     | typeof StreamCopyUsage;
 
-export const GLSL1: '100';
-export const GLSL3: '300 es';
+export const GLSL1: "100";
+export const GLSL3: "300 es";
 export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
 
 export const WebGLCoordinateSystem: 2000;
@@ -892,64 +855,64 @@ export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoord
  * {@link https://registry.khronos.org/OpenGL/specs/es/3.0/es_spec_3.0.pdf | OpenGL ES 3.0 Specification} For more in-depth information regarding internal formats.
  */
 export type PixelFormatGPU =
-    | 'ALPHA'
-    | 'RGB'
-    | 'RGBA'
-    | 'LUMINANCE'
-    | 'LUMINANCE_ALPHA'
-    | 'RED_INTEGER'
-    | 'R8'
-    | 'R8_SNORM'
-    | 'R8I'
-    | 'R8UI'
-    | 'R16I'
-    | 'R16UI'
-    | 'R16F'
-    | 'R32I'
-    | 'R32UI'
-    | 'R32F'
-    | 'RG8'
-    | 'RG8_SNORM'
-    | 'RG8I'
-    | 'RG8UI'
-    | 'RG16I'
-    | 'RG16UI'
-    | 'RG16F'
-    | 'RG32I'
-    | 'RG32UI'
-    | 'RG32F'
-    | 'RGB565'
-    | 'RGB8'
-    | 'RGB8_SNORM'
-    | 'RGB8I'
-    | 'RGB8UI'
-    | 'RGB16I'
-    | 'RGB16UI'
-    | 'RGB16F'
-    | 'RGB32I'
-    | 'RGB32UI'
-    | 'RGB32F'
-    | 'RGB9_E5'
-    | 'SRGB8'
-    | 'R11F_G11F_B10F'
-    | 'RGBA4'
-    | 'RGBA8'
-    | 'RGBA8_SNORM'
-    | 'RGBA8I'
-    | 'RGBA8UI'
-    | 'RGBA16I'
-    | 'RGBA16UI'
-    | 'RGBA16F'
-    | 'RGBA32I'
-    | 'RGBA32UI'
-    | 'RGBA32F'
-    | 'RGB5_A1'
-    | 'RGB10_A2'
-    | 'RGB10_A2UI'
-    | 'SRGB8_ALPHA8'
-    | 'SRGB8'
-    | 'DEPTH_COMPONENT16'
-    | 'DEPTH_COMPONENT24'
-    | 'DEPTH_COMPONENT32F'
-    | 'DEPTH24_STENCIL8'
-    | 'DEPTH32F_STENCIL8';
+    | "ALPHA"
+    | "RGB"
+    | "RGBA"
+    | "LUMINANCE"
+    | "LUMINANCE_ALPHA"
+    | "RED_INTEGER"
+    | "R8"
+    | "R8_SNORM"
+    | "R8I"
+    | "R8UI"
+    | "R16I"
+    | "R16UI"
+    | "R16F"
+    | "R32I"
+    | "R32UI"
+    | "R32F"
+    | "RG8"
+    | "RG8_SNORM"
+    | "RG8I"
+    | "RG8UI"
+    | "RG16I"
+    | "RG16UI"
+    | "RG16F"
+    | "RG32I"
+    | "RG32UI"
+    | "RG32F"
+    | "RGB565"
+    | "RGB8"
+    | "RGB8_SNORM"
+    | "RGB8I"
+    | "RGB8UI"
+    | "RGB16I"
+    | "RGB16UI"
+    | "RGB16F"
+    | "RGB32I"
+    | "RGB32UI"
+    | "RGB32F"
+    | "RGB9_E5"
+    | "SRGB8"
+    | "R11F_G11F_B10F"
+    | "RGBA4"
+    | "RGBA8"
+    | "RGBA8_SNORM"
+    | "RGBA8I"
+    | "RGBA8UI"
+    | "RGBA16I"
+    | "RGBA16UI"
+    | "RGBA16F"
+    | "RGBA32I"
+    | "RGBA32UI"
+    | "RGBA32F"
+    | "RGB5_A1"
+    | "RGB10_A2"
+    | "RGB10_A2UI"
+    | "SRGB8_ALPHA8"
+    | "SRGB8"
+    | "DEPTH_COMPONENT16"
+    | "DEPTH_COMPONENT24"
+    | "DEPTH_COMPONENT32F"
+    | "DEPTH24_STENCIL8"
+    | "DEPTH32F_STENCIL8";

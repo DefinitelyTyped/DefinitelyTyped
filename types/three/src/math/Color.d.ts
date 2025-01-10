@@ -1,11 +1,10 @@
-import { ColorSpace } from '../constants.js';
-import { Matrix3 } from './Matrix3.js';
-import { Vector3 } from './Vector3.js';
+import { Matrix3 } from "./Matrix3.js";
+import { Vector3 } from "./Vector3.js";
 
-import { BufferAttribute } from '../core/BufferAttribute.js';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
 
-export { SRGBToLinear } from './ColorManagement.js';
+export { SRGBToLinear } from "./ColorManagement.js";
 
 declare const _colorKeywords: {
     aliceblue: 0xf0f8ff;
@@ -173,12 +172,30 @@ export interface RGB {
 }
 
 /**
- * Represents a color. See also {@link ColorUtils}.
+ * Class representing a color.
  *
- * see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Color.js|src/math/Color.js}
+ * A Color instance is represented by RGB components in the linear <i>working color space</i>, which defaults to
+ * `LinearSRGBColorSpace`. Inputs conventionally using `SRGBColorSpace` (such as hexadecimals and CSS strings) are
+ * converted to the working color space automatically.
  *
- * @example
- * const color = new THREE.Color( 0xff0000 );
+ * ```
+ * // converted automatically from SRGBColorSpace to LinearSRGBColorSpace
+ * const color = new THREE.Color().setHex( 0x112233 );
+ * ```
+ *
+ * Source color spaces may be specified explicitly, to ensure correct conversions.
+ *
+ * ```
+ * // assumed already LinearSRGBColorSpace; no conversion
+ * const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5 );
+ *
+ * // converted explicitly from SRGBColorSpace to LinearSRGBColorSpace
+ * const color = new THREE.Color().setRGB( 0.5, 0.5, 0.5, SRGBColorSpace );
+ * ```
+ *
+ * If THREE.ColorManagement is disabled, no conversions occur. For details, see <i>Color management</i>.
+ *
+ * Iterating through a Color instance will yield its components (r, g, b) in the corresponding order.
  */
 export class Color {
     constructor(color?: ColorRepresentation);
@@ -187,19 +204,19 @@ export class Color {
     readonly isColor: true;
 
     /**
-     * Red channel value between 0 and 1. Default is 1.
+     * Red channel value between `0.0` and `1.0`. Default is `1`.
      * @default 1
      */
     r: number;
 
     /**
-     * Green channel value between 0 and 1. Default is 1.
+     * Green channel value between `0.0` and `1.0`. Default is `1`.
      * @default 1
      */
     g: number;
 
     /**
-     * Blue channel value between 0 and 1. Default is 1.
+     * Blue channel value between `0.0` and `1.0`. Default is `1`.
      * @default 1
      */
     b: number;
@@ -213,7 +230,7 @@ export class Color {
     setFromVector3(vector: Vector3): this;
 
     setScalar(scalar: number): Color;
-    setHex(hex: number, colorSpace?: ColorSpace): Color;
+    setHex(hex: number, colorSpace?: string): Color;
 
     /**
      * Sets this color from RGB values.
@@ -221,7 +238,7 @@ export class Color {
      * @param g Green channel value between 0 and 1.
      * @param b Blue channel value between 0 and 1.
      */
-    setRGB(r: number, g: number, b: number, colorSpace?: ColorSpace): Color;
+    setRGB(r: number, g: number, b: number, colorSpace?: string): Color;
 
     /**
      * Sets this color from HSL values.
@@ -231,20 +248,20 @@ export class Color {
      * @param s Saturation value channel between 0 and 1.
      * @param l Value channel value between 0 and 1.
      */
-    setHSL(h: number, s: number, l: number, colorSpace?: ColorSpace): Color;
+    setHSL(h: number, s: number, l: number, colorSpace?: string): Color;
 
     /**
      * Sets this color from a CSS context style string.
      * @param contextStyle Color in CSS context style format.
      */
-    setStyle(style: string, colorSpace?: ColorSpace): Color;
+    setStyle(style: string, colorSpace?: string): Color;
 
     /**
      * Sets this color from a color name.
      * Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
      * @param style Color name in X11 format.
      */
-    setColorName(style: string, colorSpace?: ColorSpace): Color;
+    setColorName(style: string, colorSpace?: string): Color;
 
     /**
      * Clones this color.
@@ -258,46 +275,46 @@ export class Color {
     copy(color: Color): this;
 
     /**
-     * Copies given color making conversion from sRGB to linear space.
+     * Copies given color making conversion from `SRGBColorSpace` to `LinearSRGBColorSpace`.
      * @param color Color to copy.
      */
     copySRGBToLinear(color: Color): Color;
 
     /**
-     * Copies given color making conversion from linear to sRGB space.
+     * Copies given color making conversion from `LinearSRGBColorSpace` to `SRGBColorSpace`.
      * @param color Color to copy.
      */
     copyLinearToSRGB(color: Color): Color;
 
     /**
-     * Converts this color from sRGB to linear space.
+     * Converts this color from `SRGBColorSpace` to `LinearSRGBColorSpace`.
      */
     convertSRGBToLinear(): Color;
 
     /**
-     * Converts this color from linear to sRGB space.
+     * Converts this color from `LinearSRGBColorSpace` to `SRGBColorSpace`.
      */
     convertLinearToSRGB(): Color;
 
     /**
      * Returns the hexadecimal value of this color.
      */
-    getHex(colorSpace?: ColorSpace): number;
+    getHex(colorSpace?: string): number;
 
     /**
      * Returns the string formated hexadecimal value of this color.
      */
-    getHexString(colorSpace?: ColorSpace): string;
+    getHexString(colorSpace?: string): string;
 
-    getHSL(target: HSL, colorSpace?: ColorSpace): HSL;
+    getHSL(target: HSL, colorSpace?: string): HSL;
 
-    getRGB(target: RGB, colorSpace?: ColorSpace): RGB;
+    getRGB(target: RGB, colorSpace?: string): RGB;
 
     /**
      * Returns the value of this color in CSS context style.
      * Example: rgb(r, g, b)
      */
-    getStyle(colorSpace?: ColorSpace): string;
+    getStyle(colorSpace?: string): string;
 
     offsetHSL(h: number, s: number, l: number): this;
 

@@ -281,14 +281,32 @@ sem = semver.coerce(str);
 sem = semver.coerce(strn);
 sem = semver.coerce(strn, { rtl: false });
 sem = semver.coerce(strn, { rtl: true });
+sem = semver.coerce(strn, { includePrerelease: false });
+sem = semver.coerce(strn, { includePrerelease: true });
+sem = semver.coerce(strn, { rtl: false, includePrerelease: false });
+sem = semver.coerce(strn, { rtl: false, includePrerelease: true });
+sem = semver.coerce(strn, { rtl: true, includePrerelease: false });
+sem = semver.coerce(strn, { rtl: true, includePrerelease: true });
 
 sem = semver.coerce(sem);
 sem = semver.coerce(sem, { rtl: false });
 sem = semver.coerce(sem, { rtl: true });
+sem = semver.coerce(sem, { includePrerelease: false });
+sem = semver.coerce(sem, { includePrerelease: true });
+sem = semver.coerce(sem, { rtl: false, includePrerelease: false });
+sem = semver.coerce(sem, { rtl: false, includePrerelease: true });
+sem = semver.coerce(sem, { rtl: true, includePrerelease: false });
+sem = semver.coerce(sem, { rtl: true, includePrerelease: true });
 
 sem = semver.coerce(1);
 sem = semver.coerce(2, { rtl: false });
 sem = semver.coerce(3, { rtl: true });
+sem = semver.coerce(4, { includePrerelease: false });
+sem = semver.coerce(5, { includePrerelease: true });
+sem = semver.coerce(6, { rtl: false, includePrerelease: false });
+sem = semver.coerce(7, { rtl: false, includePrerelease: true });
+sem = semver.coerce(8, { rtl: true, includePrerelease: false });
+sem = semver.coerce(9, { rtl: true, includePrerelease: true });
 
 sem = semver.coerce(anyVersion);
 sem = semver.coerce(anyVersion, { rtl: false });

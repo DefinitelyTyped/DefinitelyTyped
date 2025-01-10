@@ -6,7 +6,8 @@
         "https://github.com/SeleniumHQ/selenium"
     ],
     "dependencies": {
-        "@types/ws": "*"
+        "@types/ws": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/selenium-webdriver": "workspace:."
@@ -59,6 +60,10 @@
         {
             "name": "Shubh Sheth",
             "githubUsername": "shubhsheth"
+        },
+        {
+            "name": "Sri Harsha",
+            "githubUsername": "harsha509"
         }
     ]
 }

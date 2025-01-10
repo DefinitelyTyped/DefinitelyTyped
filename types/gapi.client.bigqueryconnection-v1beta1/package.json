@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "BigQuery Connection API v1beta1",
     "projects": [
-        "https://cloud.google.com/bigquery/"
+        "https://cloud.google.com/bigquery/docs/connections-api-intro"
     ],
     "dependencies": {
         "@maxim_mazurok/gapi.client.bigqueryconnection-v1beta1": "latest"

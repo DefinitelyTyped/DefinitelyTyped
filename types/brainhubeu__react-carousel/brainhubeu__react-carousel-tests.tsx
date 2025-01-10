@@ -5,6 +5,7 @@ import Carousel, {
     clickToChangePlugin,
     Dots,
     fastSwipePlugin,
+    type ImgProps,
     infinitePlugin,
     rtlPlugin,
     slidesToScrollPlugin,
@@ -18,7 +19,7 @@ interface MyCarouselProps {
 
 interface MyCarouselState {
     value: number;
-    slides: Array<React.ReactComponentElement<"img">>;
+    slides: ImgProps[];
 }
 
 class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {

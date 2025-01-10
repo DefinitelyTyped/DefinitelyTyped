@@ -1,4 +1,5 @@
 import { connect } from "net";
+import * as pg from "pg";
 import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages";
@@ -22,6 +23,8 @@ const client = new Client({
     application_name: "DefinitelyTyped",
     keepAlive: true,
 });
+client.setTypeParser(20, val => Number(val));
+client.getTypeParser(20);
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
@@ -29,6 +32,9 @@ const port: number = client.port;
 const host: string = client.host;
 const password: string | undefined = client.password;
 const ssl: boolean = client.ssl;
+
+const escapeIdentifier: (str: string) => string = pg.escapeIdentifier;
+const escapeLiteral: (str: string) => string = pg.escapeLiteral;
 
 client.on("notice", (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {
@@ -61,7 +67,7 @@ client.query("SELECT NOW()", (err, res) => {
     client.end();
 });
 
-client.query("SELECT $1::text as name", ["brianc"], (err, res) => {
+client.query("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, res) => {
     if (err) throw err;
     console.log(res);
     client.end();
@@ -69,18 +75,20 @@ client.query("SELECT $1::text as name", ["brianc"], (err, res) => {
 
 interface Person {
     name: string;
+    age: number;
 }
 
-client.query<Person, [string]>("SELECT $1::text as name", ["brianc"], (err, res) => {
+client.query<Person, [string, number]>("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, res) => {
     if (err) throw err;
-    console.log(res.rows[0].name);
+    console.log(res.rows[0].name, res.rows[0].age);
     client.end();
 });
 
 const query = {
     name: "get-name",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
+    rowMode: ["array"],
 };
 client.query(query, (err, res) => {
     if (err) {
@@ -100,7 +108,7 @@ client
         console.error(e.stack);
     });
 client
-    .query(query, ["brianc"])
+    .query(query, ["brianc", 99])
     .then(res => {
         console.log(res.rows);
         console.log(res.fields.map(f => f.name));
@@ -109,10 +117,10 @@ client
         console.error(e.stack);
     });
 
-const queryArrMode: QueryArrayConfig = {
+const queryArrMode: QueryArrayConfig<[string, number]> = {
     name: "get-name-array",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
     rowMode: "array",
 };
 client.query(queryArrMode, (err, res) => {
@@ -143,10 +151,10 @@ const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
 };
 
-const queryCustomTypes = {
+const queryCustomTypes: pg.QueryConfig<[string, number]> = {
     name: "get-name",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
     types: customTypes,
 };
 client.query(queryCustomTypes, (err, res) => {
@@ -201,7 +209,7 @@ const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
-// https://node-postgres.com/api/pool
+// https://node-postgres.com/apis/pool
 
 // no params ctor
 const poolParameterlessCtor = new Pool();
@@ -209,6 +217,12 @@ const poolParameterlessCtor = new Pool();
 const poolOne = new Pool({
     connectionString: "postgresql://dbuser:secretpassword@database.server.com:3211/mydb",
 });
+
+class MyClient extends Client {
+    constructor() {
+        super();
+    }
+}
 
 const pool = new Pool({
     host: "localhost",
@@ -222,13 +236,27 @@ const pool = new Pool({
     log: (...args) => {
         console.log.apply(console, args);
     },
+    "Client": MyClient,
 });
 console.log(pool.totalCount);
+console.log(pool.idleCount);
+console.log(pool.waitingCount);
+console.log(pool.expiredCount);
 pool.connect((err, client, done) => {
     if (err) {
         console.error("error fetching client from pool", err);
         return;
     }
+
+    // $ExpectType PoolOptions
+    pool.options;
+
+    // $ExpectType boolean
+    pool.ending;
+
+    // $ExpectType boolean
+    pool.ended;
+
     // @ts-expect-error
     client.query("SELECT");
     client?.query("SELECT $1::int AS number", ["1"], (err, result) => {
@@ -285,7 +313,7 @@ pool.on("remove", (client) => {
     client.release(true);
 })();
 
-pool.query("SELECT $1::text as name", ["brianc"], (err, result) => {
+pool.query("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, result) => {
     if (err) {
         console.error("Error executing query", err.stack);
         return;
@@ -293,10 +321,10 @@ pool.query("SELECT $1::text as name", ["brianc"], (err, result) => {
     console.log(result.rows[0].name);
 });
 
-pool.query("SELECT $1::text as name", ["brianc"])
+pool.query("SELECT $1::text as name, $2::float as age", ["brianc", 99])
     .then(res => console.log(res.rows[0].name))
     .catch(err => console.error("Error executing query", err.stack));
-pool.query({ text: "SELECT $1::text as name" }, ["brianc"])
+pool.query({ text: "SELECT $1::text as name, $2::float as age" }, ["brianc", 99])
     .then(res => console.log(res.rows[0].name))
     .catch(err => console.error("Error executing query", err.stack));
 

@@ -77,3 +77,4 @@ instance.on("response", (client, statusCode, resBytes, responseTime) => {
 instance.on("done", result => console.log(result.throughput.p99_99));
 instance.on("error", err => console.error(err));
 instance.on("reqError", err => console.error(err));
+instance.stop();

@@ -53,6 +53,8 @@ declare namespace OO.ui {
             useInputTag?: boolean;
 
             flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
+            /** Whether to use `formnovalidate` attribute. */
+            formNoValidate?: boolean;
         }
 
         interface Static

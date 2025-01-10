@@ -3,24 +3,25 @@ import {
     BufferAttribute,
     BufferGeometry,
     Camera,
+    FileLoader,
     Group,
+    ImageBitmapLoader,
     InterleavedBufferAttribute,
     Loader,
     LoadingManager,
+    Material,
     Mesh,
     MeshStandardMaterial,
     Object3D,
-    Material,
+    Skeleton,
     SkinnedMesh,
     Texture,
     TextureLoader,
-    FileLoader,
-    ImageBitmapLoader,
-    Skeleton,
-} from '../../../src/Three.js';
+} from "three";
 
-import { DRACOLoader } from './DRACOLoader.js';
-import { KTX2Loader } from './KTX2Loader.js';
+import { MeshoptDecoder } from "../libs/meshopt_decoder.module.js";
+import { DRACOLoader } from "./DRACOLoader.js";
+import { KTX2Loader } from "./KTX2Loader.js";
 
 export interface GLTF {
     animations: AnimationClip[];
@@ -40,16 +41,18 @@ export interface GLTF {
 }
 
 export class GLTFLoader extends Loader<GLTF> {
-    constructor(manager?: LoadingManager);
     dracoLoader: DRACOLoader | null;
+    ktx2Loader: KTX2Loader | null;
+    meshoptDecoder: typeof MeshoptDecoder | null;
 
-    setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
+    constructor(manager?: LoadingManager);
 
-    register(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
-    unregister(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
+    setDRACOLoader(dracoLoader: DRACOLoader): this;
+    setKTX2Loader(ktx2Loader: KTX2Loader | null): this;
+    setMeshoptDecoder(meshoptDecoder: typeof MeshoptDecoder | null): this;
 
-    setKTX2Loader(ktx2Loader: KTX2Loader): GLTFLoader;
-    setMeshoptDecoder(meshoptDecoder: /* MeshoptDecoder */ any): GLTFLoader;
+    register(callback: (parser: GLTFParser) => GLTFLoaderPlugin): this;
+    unregister(callback: (parser: GLTFParser) => GLTFLoaderPlugin): this;
 
     parse(
         data: ArrayBuffer | string,
@@ -61,7 +64,7 @@ export class GLTFLoader extends Loader<GLTF> {
     parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
-export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
+export type GLTFReferenceType = "materials" | "nodes" | "textures" | "meshes";
 
 export interface GLTFReference {
     materials?: number;
@@ -109,7 +112,8 @@ export class GLTFParser {
             texCoord?: number | undefined;
             extensions?: any;
         },
-    ) => Promise<void>;
+        colorSpace?: string | undefined,
+    ) => Promise<Texture | null>;
     assignFinalMaterial: (object: Mesh) => void;
     getMaterialType: () => typeof MeshStandardMaterial;
     loadMaterial: (materialIndex: number) => Promise<Material>;
@@ -131,6 +135,7 @@ export class GLTFParser {
 }
 
 export interface GLTFLoaderPlugin {
+    readonly name: string;
     beforeRoot?: (() => Promise<void> | null) | undefined;
     afterRoot?: ((result: GLTF) => Promise<void> | null) | undefined;
     loadNode?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;

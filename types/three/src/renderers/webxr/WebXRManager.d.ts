@@ -1,15 +1,16 @@
-// https://threejs.org/docs/#api/en/renderers/webxr/WebXRManager
-
 /// <reference types="webxr" />
 
-import { Vector4 } from '../../math/Vector4.js';
-import { ArrayCamera } from '../../cameras/ArrayCamera.js';
-import { PerspectiveCamera } from '../../cameras/PerspectiveCamera.js';
-import { EventDispatcher } from '../../core/EventDispatcher.js';
-import { XRTargetRaySpace, XRGripSpace, XRHandSpace } from './WebXRController.js';
+import { ArrayCamera } from "../../cameras/ArrayCamera.js";
+import { PerspectiveCamera } from "../../cameras/PerspectiveCamera.js";
+import { EventDispatcher } from "../../core/EventDispatcher.js";
+import { Vector4 } from "../../math/Vector4.js";
+import { Mesh } from "../../objects/Mesh.js";
+import { Texture } from "../../textures/Texture.js";
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { XRGripSpace, XRHandSpace, XRTargetRaySpace } from "./WebXRController.js";
 
 export type WebXRCamera = PerspectiveCamera & { viewport: Vector4 };
-export type WebXRArrayCamera = Omit<ArrayCamera, 'cameras'> & { cameras: [WebXRCamera, WebXRCamera] };
+export type WebXRArrayCamera = Omit<ArrayCamera, "cameras"> & { cameras: [WebXRCamera, WebXRCamera] };
 
 export interface WebXRManagerEventMap {
     sessionstart: {};
@@ -21,7 +22,10 @@ export interface WebXRManagerEventMap {
 }
 
 export class WebXRManager extends EventDispatcher<WebXRManagerEventMap> {
-    constructor(renderer: any, gl: WebGLRenderingContext);
+    /**
+     * @default true
+     */
+    cameraAutoUpdate: boolean;
 
     /**
      * @default false
@@ -33,44 +37,49 @@ export class WebXRManager extends EventDispatcher<WebXRManagerEventMap> {
      */
     isPresenting: boolean;
 
-    /**
-     * @default true
-     */
-    cameraAutoUpdate: boolean;
+    constructor(renderer: WebGLRenderer, gl: WebGLRenderingContext);
 
-    getController(index: number): XRTargetRaySpace;
+    getController: (index: number) => XRTargetRaySpace;
 
-    getControllerGrip(index: number): XRGripSpace;
+    getControllerGrip: (index: number) => XRGripSpace;
 
-    getHand(index: number): XRHandSpace;
+    getHand: (index: number) => XRHandSpace;
 
-    setFramebufferScaleFactor(value: number): void;
+    setFramebufferScaleFactor: (value: number) => void;
 
-    setReferenceSpaceType(value: XRReferenceSpaceType): void;
+    setReferenceSpaceType: (value: XRReferenceSpaceType) => void;
 
-    getReferenceSpace(): XRReferenceSpace | null;
+    getReferenceSpace: () => XRReferenceSpace | null;
 
-    setReferenceSpace(value: XRReferenceSpace): void;
+    setReferenceSpace: (value: XRReferenceSpace) => void;
 
-    getBaseLayer(): XRWebGLLayer | XRProjectionLayer;
+    getBaseLayer: () => XRWebGLLayer | XRProjectionLayer;
 
-    getBinding(): XRWebGLBinding;
+    getBinding: () => XRWebGLBinding;
 
-    getFrame(): XRFrame;
+    getFrame: () => XRFrame;
 
-    getSession(): XRSession | null;
+    getSession: () => XRSession | null;
 
-    setSession(value: XRSession | null): Promise<void>;
+    setSession: (value: XRSession | null) => Promise<void>;
 
-    getCamera(): WebXRArrayCamera;
+    getEnvironmentBlendMode: () => XREnvironmentBlendMode | undefined;
 
-    updateCamera(camera: PerspectiveCamera): void;
+    getDepthTexture: () => Texture | null;
 
-    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
+    updateCamera: (camera: PerspectiveCamera) => void;
 
-    getFoveation(): number | undefined;
+    getCamera: () => WebXRArrayCamera;
 
-    setFoveation(value: number): void;
+    getFoveation: () => number | undefined;
 
-    dispose(): void;
+    setFoveation: (value: number) => void;
+
+    hasDepthSensing: () => boolean;
+
+    getDepthSensingMesh: () => Mesh | null;
+
+    setAnimationLoop: (callback: XRFrameRequestCallback | null) => void;
+
+    dispose: () => void;
 }

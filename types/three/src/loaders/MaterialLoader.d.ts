@@ -1,16 +1,21 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
-import { Texture } from '../textures/Texture.js';
-import { Material } from '../materials/Material.js';
+import { Material } from "../materials/Material.js";
+import { Texture } from "../textures/Texture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 export class MaterialLoader extends Loader<Material> {
-    constructor(manager?: LoadingManager);
-
     /**
      * @default {}
      */
     textures: { [key: string]: Texture };
 
-    setTextures(textures: { [key: string]: Texture }): this;
+    constructor(manager?: LoadingManager);
+
     parse(json: unknown): Material;
+
+    setTextures(textures: { [key: string]: Texture }): this;
+
+    createMaterialFromType(type: string): Material;
+
+    static createMaterialFromType(type: string): Material;
 }

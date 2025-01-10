@@ -1,13 +1,12 @@
 {
     "private": true,
     "name": "@types/clamscan",
-    "version": "2.0.9999",
+    "version": "2.4.9999",
     "projects": [
         "https://github.com/kylefarris/clamscan"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "axios": "^0.24.0"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/clamscan": "workspace:."

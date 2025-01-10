@@ -2,22 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.history
- *
- * Use the <code>browser.history</code> API to interact with the browser's record of visited pages. You can add, remove,
- * and query for URLs in the browser's history. To override the history page with your own version, see $(topic:override)
- * [Override Pages].
- * Permissions: "history"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.history
+ */
 export namespace History {
     /**
      * The $(topic:transition-types)[transition type] for this visit from its referrer.
@@ -206,38 +196,28 @@ export namespace History {
     interface Static {
         /**
          * Searches the history for the last visit time of each page matching the query.
-         *
-         * @param query
          */
         search(query: SearchQueryType): Promise<HistoryItem[]>;
 
         /**
          * Retrieves information about visits to a URL.
-         *
-         * @param details
          */
         getVisits(details: GetVisitsDetailsType): Promise<VisitItem[]>;
 
         /**
          * Adds a URL to the history with a default visitTime of the current time and a default $(topic:transition-types)
          * [transition type] of "link".
-         *
-         * @param details
          */
         addUrl(details: AddUrlDetailsType): Promise<void>;
 
         /**
          * Removes all occurrences of the given URL from the history.
-         *
-         * @param details
          */
         deleteUrl(details: DeleteUrlDetailsType): Promise<void>;
 
         /**
          * Removes all items within the specified date range from the history.  Pages will not be removed from the history unless
          * all visits fall within the range.
-         *
-         * @param range
          */
         deleteRange(range: DeleteRangeRangeType): Promise<void>;
 
@@ -248,23 +228,17 @@ export namespace History {
 
         /**
          * Fired when a URL is visited, providing the HistoryItem data for that URL.  This event fires before the page has loaded.
-         *
-         * @param result
          */
         onVisited: Events.Event<(result: HistoryItem) => void>;
 
         /**
          * Fired when one or more URLs are removed from the history service.  When all visits have been removed the URL is purged
          * from history.
-         *
-         * @param removed
          */
         onVisitRemoved: Events.Event<(removed: OnVisitRemovedRemovedType) => void>;
 
         /**
          * Fired when the title of a URL is changed in the browser history.
-         *
-         * @param changed
          */
         onTitleChanged: Events.Event<(changed: OnTitleChangedChangedType) => void>;
     }

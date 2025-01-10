@@ -15,5 +15,13 @@ const mask = [firstLetter, digit, letter, " ", digit, letter, digit];
     <ReactInputMask mask="99/99/9999" placeholder="Enter birthdate" />
     <ReactInputMask mask="+7 (999) 999-99-99" />
     <ReactInputMask mask={mask} />
-    <ReactInputMask mask="+7 (999) 999-99-99" inputRef={(node) => ref = node} />
+    <ReactInputMask
+        mask="+7 (999) 999-99-99"
+        inputRef={(node) => {
+            ref = node;
+        }}
+    />
+    <ReactInputMask mask="+5\5 (99) 99999-9999">
+        {(inputProps: any) => <input {...inputProps} type="tel" />}
+    </ReactInputMask>
 </div>;

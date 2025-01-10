@@ -7,5 +7,6 @@ declare namespace GorillaEngine.UI {
     class TagBrowser extends Component {
         constructor(options: Partial<TagBrowserProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface TagBrowser extends TagBrowserProps {}
 }

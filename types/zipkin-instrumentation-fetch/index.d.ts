@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch = require("node-fetch");
 import { Tracer } from "zipkin";
 
 interface Options {

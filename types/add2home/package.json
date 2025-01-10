@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/add2home",
     "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "add2home",
     "projects": [
         "http://cubiq.org/add-to-home-screen"
     ],

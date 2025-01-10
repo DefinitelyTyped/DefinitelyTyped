@@ -709,7 +709,7 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
 });
 
 (() => {
-    function getAttribute(component: React.ReactElement | number | string): string | undefined {
+    function getAttribute(component: React.ReactElement<any> | number | string): string | undefined {
         if (typeof component !== "object") {
             return undefined;
         }

@@ -6,7 +6,7 @@
         "https://github.com/onemolegames/react-native-toast-native"
     ],
     "dependencies": {
-        "@types/react-native": "*"
+        "react-native": "*"
     },
     "devDependencies": {
         "@types/react": "*",

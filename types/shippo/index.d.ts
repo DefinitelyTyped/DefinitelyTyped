@@ -352,8 +352,9 @@ declare namespace Shippo {
     }
 
     interface Message {
+        source?: string;
         code?: string;
-        message: string;
+        text?: string;
     }
 
     interface Location {
@@ -471,9 +472,13 @@ declare namespace Shippo {
         address_from: Address | string;
         address_to: Address | string;
         address_return?: Address | string | undefined;
-        shipment_date?: string | undefined;
         parcels: Parcel[];
+        shipment_date?: string | undefined;
+        extra?: ShipmentExtras | undefined;
+        customs_declaration?: string | undefined;
         rates: Rate[];
+        carrier_accounts: string[];
+        messages: Message[];
         test?: boolean | undefined;
     }
 
@@ -653,7 +658,7 @@ declare namespace Shippo {
     interface Transaction extends Metadata {
         object_state: ObjectState;
         status: Transaction.Status;
-        rate: Rate;
+        rate: string;
         metadata: string;
         label_file_type: LabelFileType;
         test: boolean;
@@ -952,7 +957,25 @@ declare namespace Shippo {
         page?: number | undefined;
     }
 
-    interface Shippo {
+    interface TokenOptions {
+        shippoToken?: string;
+        oauthToken?: string;
+    }
+
+    type Token = string | TokenOptions;
+
+    interface ShippoBase {
+        setAuthScheme: (auth: string) => void;
+        setHost: (host: string, port?: string, protocol?: string) => void;
+        setProtocol: (protocol: string) => void;
+        setPort: (port: string) => void;
+        setToken: (token: Token) => void;
+        setTimeout: (timeout: number | null) => void;
+        set: (key: string, value: string | number | boolean) => void;
+        get: (key: string) => string | number | boolean | undefined;
+    }
+
+    interface Shippo extends ShippoBase {
         address: {
             create: (request: CreateAddressRequest) => Promise<Address>;
             validate: (id: string) => Promise<Address>;
@@ -1016,8 +1039,19 @@ declare namespace Shippo {
 }
 
 interface ShippoStatic {
-    (token: string): Shippo.Shippo;
-    new(token: string): Shippo.Shippo;
+    (token?: Shippo.Token): Shippo.Shippo;
+    new(token?: Shippo.Token): Shippo.Shippo;
+    // static constants
+    AUTH_SCHEME_SHIPPO: string;
+    AUTH_SCHEME_OAUTH: string;
+    DEFAULT_HOST: string;
+    DEFAULT_PROTOCOL: string;
+    DEFAULT_PORT: string;
+    DEFAULT_AUTH_SCHEME: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: string;
 }
 
 declare const Shippo: ShippoStatic;

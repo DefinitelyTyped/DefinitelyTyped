@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.gridster",
     "version": "0.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.gridster",
     "projects": [
         "https://github.com/jbaldwin/gridster"
     ],

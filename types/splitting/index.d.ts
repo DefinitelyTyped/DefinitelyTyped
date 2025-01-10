@@ -22,7 +22,7 @@ export as namespace Splitting;
  * ```
  * @see {@link <https://splitting.js.org/guide.html#basic-usage>}
  */
-declare function Splitting(options?: Splitting.Options): Splitting.Result;
+declare function Splitting(options?: Splitting.Options): Splitting.Result[];
 
 declare namespace Splitting {
     /**

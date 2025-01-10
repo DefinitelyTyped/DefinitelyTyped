@@ -44,6 +44,13 @@ class ImageGallery extends React.Component {
             onImageLoad: this.handleImageLoad,
         };
 
-        return <ReactImageGallery ref={r => (this.gallery = r)} {...props} />;
+        return (
+            <ReactImageGallery
+                ref={r => {
+                    this.gallery = r;
+                }}
+                {...props}
+            />
+        );
     }
 }

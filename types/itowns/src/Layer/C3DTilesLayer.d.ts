@@ -5,7 +5,7 @@ import type C3DTFeature from "../Core/3DTiles/C3DTFeature";
 import C3DTileset from "../Core/3DTiles/C3DTileset";
 import type Style from "../Core/Style";
 import type View from "../Core/View";
-import { PNTS_MODE } from "../Renderer/PointsMaterial";
+import { PNTS_MODE, PNTS_SHAPE, PNTS_SIZE_MODE } from "../Renderer/PointsMaterial";
 import type C3DTileSource from "../Source/C3DTilesSource";
 import GeometryLayer from "./GeometryLayer";
 
@@ -16,6 +16,10 @@ export interface C3DTilesLayerOptions {
     cleanupDelay?: number;
     registeredExtensions?: C3DTExtensions;
     pntsMode?: PNTS_MODE;
+    pntsShape?: PNTS_SHAPE;
+    pntsSizeMode?: PNTS_SIZE_MODE;
+    pntsMinAttenuatedSize?: number;
+    pntsMaxAttenuatedSize?: number;
     style?: Style;
 }
 
@@ -24,6 +28,7 @@ export enum C3DTILES_LAYER_EVENTS {
     ON_TILE_REQUESTED = "on-tile-requested",
 }
 
+// TODO: Define public API
 declare class C3DTilesLayer extends GeometryLayer {
     constructor(id: string, config: C3DTilesLayerOptions, view: View);
 
@@ -34,6 +39,12 @@ declare class C3DTilesLayer extends GeometryLayer {
     cleanupDelay: number;
     name?: string;
     registeredExtensions: C3DTExtensions;
+    pntsMode?: PNTS_MODE;
+    pntsShape?: PNTS_SHAPE;
+    // classification: any;
+    pntsSizeMode?: PNTS_SIZE_MODE;
+    pntsMinAttenuatedSize?: number;
+    pntsMaxAttenuatedSize?: number;
     tilesC3DTileFeatures: Map<number, Map<number, C3DTFeature>>;
     tileset: C3DTileset;
 

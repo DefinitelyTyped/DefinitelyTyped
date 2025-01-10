@@ -181,6 +181,13 @@ declare class Mocha {
     delay(): boolean;
 
     /**
+     * Fails test run if no tests encountered with exit-code 1.
+     *
+     * @see https://mochajs.org/api/mocha#failZero
+     */
+    failZero(failZero?: boolean): this;
+
+    /**
      * Tests marked only fail the suite
      *
      * @see https://mochajs.org/api/mocha#forbidOnly
@@ -381,14 +388,15 @@ declare namespace Mocha {
 
     // #region Test interface augmentations
 
-    interface HookFunction {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    interface HookFunction<T extends void | Hook = void> {
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
          * function is used as the name of the hook.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): void;
+        (fn: Func): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
@@ -396,21 +404,21 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): void;
+        (fn: AsyncFunc): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func): void;
+        (name: string, fn?: Func): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: AsyncFunc): void;
+        (name: string, fn?: AsyncFunc): T;
     }
 
     interface SuiteFunction {
@@ -610,7 +618,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#afterEach
      */
-    let afterEach: HookFunction;
+    let afterEach: HookFunction<Hook>;
 
     /**
      * Execute after running tests.
@@ -619,7 +627,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#after
      */
-    let after: HookFunction;
+    let after: HookFunction<Hook>;
 
     /**
      * Execute before each test case.
@@ -628,7 +636,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#beforeEach
      */
-    let beforeEach: HookFunction;
+    let beforeEach: HookFunction<Hook>;
 
     /**
      * Execute before running tests.
@@ -637,7 +645,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#before
      */
-    let before: HookFunction;
+    let before: HookFunction<Hook>;
 
     /**
      * Describe a "suite" containing nested suites and tests.
@@ -764,6 +772,8 @@ declare namespace Mocha {
             epilogue(): void;
 
             done?(failures: number, fn?: (failures: number) => void): void;
+
+            static consoleLog: (...data: any[]) => void;
         }
 
         namespace Base {
@@ -2313,6 +2323,9 @@ declare namespace Mocha {
         /** Report tests without running them? */
         dryRun?: boolean | undefined;
 
+        /** Fail test run if zero tests encountered. */
+        failZero?: boolean | undefined;
+
         /** Test filter given string. */
         fgrep?: string | undefined;
 
@@ -2600,7 +2613,7 @@ declare function run(): void;
  *
  * @see https://mochajs.org/api/global.html#before
  */
-declare var before: Mocha.HookFunction;
+declare var before: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute before running tests.
@@ -2618,7 +2631,7 @@ declare var suiteSetup: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#after
  */
-declare var after: Mocha.HookFunction;
+declare var after: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute after running tests.
@@ -2636,7 +2649,7 @@ declare var suiteTeardown: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#beforeEach
  */
-declare var beforeEach: Mocha.HookFunction;
+declare var beforeEach: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute before each test case.
@@ -2654,7 +2667,7 @@ declare var setup: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#afterEach
  */
-declare var afterEach: Mocha.HookFunction;
+declare var afterEach: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute after each test case.

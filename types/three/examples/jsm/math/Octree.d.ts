@@ -1,6 +1,6 @@
-import { Triangle, Box3, Ray, Sphere, Object3D } from '../../../src/Three.js';
+import { Box3, Layers, Object3D, Ray, Sphere, Triangle } from "three";
 
-import { Capsule } from './Capsule.js';
+import { Capsule } from "./Capsule.js";
 
 export class Octree {
     box: Box3 | null | undefined;
@@ -8,6 +8,7 @@ export class Octree {
 
     subTrees: Octree[];
     triangles: Triangle[];
+    layers: Layers;
 
     constructor(box?: Box3 | null);
 

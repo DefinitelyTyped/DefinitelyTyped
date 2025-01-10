@@ -1,4 +1,4 @@
-import { BufferGeometry, Loader, LoadingManager } from '../../../src/Three.js';
+import { BufferGeometry, Loader, LoadingManager } from "three";
 
 export class STLLoader extends Loader<BufferGeometry> {
     constructor(manager?: LoadingManager);

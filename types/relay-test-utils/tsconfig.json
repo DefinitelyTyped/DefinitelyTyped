@@ -5,7 +5,7 @@
         "test/classical.tsx"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"

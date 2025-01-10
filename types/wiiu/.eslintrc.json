@@ -1,7 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/no-const-enum": "off",
-        "@definitelytyped/dt-header": "off",
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/no-const-enum": "off"
     }
 }

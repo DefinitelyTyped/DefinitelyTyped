@@ -1,6 +1,9 @@
+/// <reference types="node" />
+
+import fs = require("node:fs");
+
 import imagemin from "imagemin";
 import upng from "imagemin-upng";
-import fs = require("fs");
 
 const buffer = fs.readFileSync("some-png.png");
 

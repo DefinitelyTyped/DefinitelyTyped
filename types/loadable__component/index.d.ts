@@ -48,8 +48,9 @@ export type LoadableComponent<Props> =
     & React.ComponentType<Props & ExtraComponentProps>
     & LoadableComponentMethods<Props>;
 
-export interface ExtraClassComponentProps<Component extends React.ComponentClass> extends ExtraComponentProps {
-    ref?: React.LegacyRef<InstanceType<Component>> | undefined;
+export interface ExtraClassComponentProps<Component extends React.ComponentClass>
+    extends ExtraComponentProps, React.RefAttributes<InstanceType<Component>>
+{
 }
 
 export type LoadableClassComponent<Component extends React.ComponentClass> =

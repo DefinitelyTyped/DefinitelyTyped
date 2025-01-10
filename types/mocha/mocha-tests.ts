@@ -499,6 +499,10 @@ function test_bdd_qunit_before() {
         this;
     });
 
+    before(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
     before("description", function(done) {
         // $ExpectType Done
         done;
@@ -550,6 +554,10 @@ function test_bdd_qunit_after() {
         // $ExpectType Context
         this;
     });
+
+    after(async function() {})
+        .timeout(1000)
+        .retries(1000);
 
     after("description", function(done) {
         // $ExpectType Done
@@ -603,6 +611,10 @@ function test_bdd_qunit_beforeEach() {
         this;
     });
 
+    beforeEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
     beforeEach("description", function(done) {
         // $ExpectType Done
         done;
@@ -654,6 +666,10 @@ function test_bdd_qunit_afterEach() {
         // $ExpectType Context
         this;
     });
+
+    afterEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
 
     afterEach("description", function(done) {
         // $ExpectType Done
@@ -921,6 +937,7 @@ function test_constructor_all_options() {
         delay: true,
         diff: true,
         dryRun: true,
+        failZero: true,
         fgrep: "test",
         forbidOnly: true,
         forbidPending: true,
@@ -948,6 +965,12 @@ function test_constructor_all_options() {
         require: ["./rootHooks.js"],
         isWorker: true,
     });
+}
+
+function test_instance_methods() {
+    let m: Mocha = new LocalMocha();
+
+    m = m.failZero(true);
 }
 
 function test_run(localMocha: LocalMocha) {
@@ -1122,6 +1145,9 @@ function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
 
     // $ExpectType number | undefined
     reporter.stats.duration;
+
+    // $ExpectType (...data: any[]) => void
+    LocalMocha.reporters.Base.consoleLog;
 }
 
 function test_runner_events(runner: LocalMocha.Runner) {

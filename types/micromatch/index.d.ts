@@ -289,6 +289,7 @@ declare namespace micromatch {
         isExtglob: boolean;
         isGlobstar: boolean;
         negated: boolean;
+        negatedExtglob: boolean;
     }
 
     interface ScanInfoToken {
@@ -353,7 +354,7 @@ interface Micromatch {
      * //=> ['a.a', 'a.aa']
      * ```
      */
-    match(list: readonly string[], pattern: string, options?: micromatch.Options): string[];
+    match(list: readonly string[], pattern: string | readonly string[], options?: micromatch.Options): string[];
 
     /**
      * Returns true if the specified `string` matches the given glob `pattern`.

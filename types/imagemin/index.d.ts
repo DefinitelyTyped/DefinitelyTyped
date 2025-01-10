@@ -12,7 +12,7 @@ declare namespace imagemin {
     function buffer(input: Buffer, options?: BufferOptions): Promise<Buffer>;
 }
 
-export type Plugin = (input: Buffer) => Promise<Buffer>;
+export type Plugin = (input: Uint8Array) => Promise<Uint8Array>;
 
 export interface Options {
     destination?: string | undefined;

@@ -134,7 +134,7 @@ conn.on("ready", () => {
     console.log("Client :: ready");
     conn.sftp((err: Error, sftp: ssh2.SFTPWrapper) => {
         if (err) throw err;
-        sftp.readdir("foo", (err: Error | undefined, list: ssh2.FileEntry[]) => {
+        sftp.readdir("foo", (err, list) => {
             if (err) throw err;
             console.dir(list);
             for (const item of list) {
@@ -376,8 +376,8 @@ new ssh2.Server({
             && ctx.key.algo === pubKey.type
             && buffersEqual(ctx.key.data, pubKeySSH)
         ) {
-            if (ctx.signature && ctx.blob) {
-                if (pubKey.verify(ctx.blob, ctx.signature)) {
+            if (ctx.signature && ctx.blob && ctx.hashAlgo) {
+                if (pubKey.verify(ctx.blob, ctx.signature, ctx.hashAlgo)) {
                     ctx.accept();
                 } else {
                     ctx.reject();
@@ -393,9 +393,9 @@ new ssh2.Server({
     }).on("ready", () => {
         console.log("Client authenticated!");
 
-        client.on("session", (accept: any, reject: any) => {
+        client.on("session", (accept, reject) => {
             var session = accept();
-            session.once("exec", (accept: any, reject: any, info: any) => {
+            session.once("exec", (accept, reject, info) => {
                 console.log("Client wants to execute: " + inspect(info.command));
                 var stream = accept();
                 stream.stderr.write("Oh no, the dreaded errors!\n");
@@ -552,4 +552,37 @@ new ssh2.HTTPSAgent({
     privateKey: fs.readFileSync("/here/is/my/key"),
 }, {
     srcIP: "127.0.0.1",
+});
+
+// Generate unencrypted ED25519 SSH key synchronously
+let keys = utils.generateKeyPairSync("ed25519");
+// ... use `keys.public` and `keys.private`
+
+// Generate unencrypted ECDSA SSH key synchronously with a comment set
+keys = utils.generateKeyPairSync("ecdsa", { bits: 256, comment: "node.js rules!" });
+// ... use `keys.public` and `keys.private`
+
+// Generate encrypted RSA SSH key asynchronously
+utils.generateKeyPair(
+    "rsa",
+    { bits: 2048, passphrase: "foobarbaz", cipher: "aes256-cbc" },
+    (err, keys) => {
+        if (err) throw err;
+        // ... use `keys.public` and `keys.private`
+    },
+);
+
+utils.generateKeyPairSync("ed25519", {
+    comment: "test",
+});
+
+// @ts-expect-error
+utils.generateKeyPairSync("e");
+
+// @ts-expect-error
+utils.generateKeyPairSync("ecdsa");
+
+utils.generateKeyPairSync("ed25519", {
+    // @ts-expect-error
+    bits: 1024,
 });

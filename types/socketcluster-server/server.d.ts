@@ -6,6 +6,7 @@ import WritableConsumableStream = require("writable-consumable-stream");
 import ConsumableStream = require("consumable-stream");
 import AGSimpleBroker = require("ag-simple-broker");
 import AuthEngine = require("ag-auth");
+import AGRequest = require("ag-request");
 
 import AGServerSocket = require("./serversocket");
 import AGAction = require("./action");
@@ -59,7 +60,7 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     };
     pendingClientsCount: number;
 
-    wsServer: WebSocket.Server;
+    wsServer: WebSocket.WebSocketServer;
 
     constructor(options?: AGServer.AGServerOptions);
 
@@ -109,7 +110,7 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     setCodecEngine(codecEngine: AGServer.CodecEngine): void;
     codec: AGServer.CodecEngine;
 
-    close(): Promise<void>;
+    close(keepSocketsOpen?: boolean): Promise<void>;
 
     getPath(): string;
     generateId(): string;
@@ -169,7 +170,7 @@ declare namespace AGServer {
 
         // This can be the name of an npm module or a path to a
         // Node.js module to use as the WebSocket server engine.
-        wsEngine?: string | { Server: WebSocket.Server };
+        wsEngine?: string | { Server: WebSocket.WebSocketServer };
 
         // Custom options to pass to the wsEngine when it is being
         // instantiated.
@@ -273,6 +274,8 @@ declare namespace AGServer {
         authEngine?: AuthEngineType;
         codecEngine?: CodecEngine;
         cloneData?: boolean;
+
+        requestCreator?: (socket: this, id: unknown, procedureName: string, data: unknown) => AGRequest;
 
         [additionalOptions: string]: any;
     }

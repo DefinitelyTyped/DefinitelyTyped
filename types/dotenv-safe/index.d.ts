@@ -14,6 +14,12 @@ export interface MissingEnvVarsError extends Error {
 
 export interface DotenvSafeOptions extends dotenv.DotenvConfigOptions {
     /**
+     * Path to environment file.
+     * @default ".env"
+     */
+    path?: string | undefined;
+
+    /**
      * Path to example environment file. (Option 1)
      * @default ".env.example"
      */

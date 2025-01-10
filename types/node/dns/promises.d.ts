@@ -1,7 +1,7 @@
 /**
  * The `dns.promises` API provides an alternative set of asynchronous DNS methods
  * that return `Promise` objects rather than using callbacks. The API is accessible
- * via `require('node:dns').promises` or `require('node:dns/promises')`.
+ * via `import { promises as dnsPromises } from 'node:dns'` or `import dnsPromises from 'node:dns/promises'`.
  * @since v10.6.0
  */
 declare module "dns/promises" {
@@ -43,24 +43,24 @@ declare module "dns/promises" {
      * integer, then it must be `4` or `6` – if `options` is not provided, then IPv4
      * and IPv6 addresses are both returned if found.
      *
-     * With the `all` option set to `true`, the `Promise` is resolved with `addresses`being an array of objects with the properties `address` and `family`.
+     * With the `all` option set to `true`, the `Promise` is resolved with `addresses` being an array of objects with the properties `address` and `family`.
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is the error code.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code` is the error code.
      * Keep in mind that `err.code` will be set to `'ENOTFOUND'` not only when
      * the host name does not exist but also when the lookup fails in other ways
      * such as no available file descriptors.
      *
-     * `dnsPromises.lookup()` does not necessarily have anything to do with the DNS
+     * [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options) does not necessarily have anything to do with the DNS
      * protocol. The implementation uses an operating system facility that can
      * associate names with addresses and vice versa. This implementation can have
      * subtle but important consequences on the behavior of any Node.js program. Please
-     * take some time to consult the `Implementation considerations section` before
+     * take some time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations) before
      * using `dnsPromises.lookup()`.
      *
      * Example usage:
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * const dnsPromises = dns.promises;
      * const options = {
      *   family: 6,
@@ -91,12 +91,12 @@ declare module "dns/promises" {
      * the operating system's underlying `getnameinfo` implementation.
      *
      * If `address` is not a valid IP address, a `TypeError` will be thrown.
-     * The `port` will be coerced to a number. If it is not a legal port, a `TypeError`will be thrown.
+     * The `port` will be coerced to a number. If it is not a legal port, a `TypeError` will be thrown.
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is the error code.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code` is the error code.
      *
      * ```js
-     * const dnsPromises = require('node:dns').promises;
+     * import dnsPromises from 'node:dns';
      * dnsPromises.lookupService('127.0.0.1', 22).then((result) => {
      *   console.log(result.hostname, result.service);
      *   // Prints: localhost ssh
@@ -119,7 +119,8 @@ declare module "dns/promises" {
      *
      * <omitted>
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code`
+     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v20.x/api/dns.html#error-codes).
      * @since v10.6.0
      * @param hostname Host name to resolve.
      * @param [rrtype='A'] Resource record type.
@@ -142,7 +143,7 @@ declare module "dns/promises" {
         rrtype: string,
     ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
     /**
-     * Uses the DNS protocol to resolve IPv4 addresses (`A` records) for the`hostname`. On success, the `Promise` is resolved with an array of IPv4
+     * Uses the DNS protocol to resolve IPv4 addresses (`A` records) for the `hostname`. On success, the `Promise` is resolved with an array of IPv4
      * addresses (e.g. `['74.125.79.104', '74.125.79.105', '74.125.79.106']`).
      * @since v10.6.0
      * @param hostname Host name to resolve.
@@ -151,7 +152,7 @@ declare module "dns/promises" {
     function resolve4(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
     function resolve4(hostname: string, options: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     /**
-     * Uses the DNS protocol to resolve IPv6 addresses (`AAAA` records) for the`hostname`. On success, the `Promise` is resolved with an array of IPv6
+     * Uses the DNS protocol to resolve IPv6 addresses (`AAAA` records) for the `hostname`. On success, the `Promise` is resolved with an array of IPv6
      * addresses.
      * @since v10.6.0
      * @param hostname Host name to resolve.
@@ -191,7 +192,7 @@ declare module "dns/promises" {
     /**
      * Uses the DNS protocol to resolve `CAA` records for the `hostname`. On success,
      * the `Promise` is resolved with an array of objects containing available
-     * certification authority authorization records available for the `hostname`(e.g. `[{critical: 0, iodef: 'mailto:pki@example.com'},{critical: 128, issue: 'pki.example.com'}]`).
+     * certification authority authorization records available for the `hostname` (e.g. `[{critical: 0, iodef: 'mailto:pki@example.com'},{critical: 128, issue: 'pki.example.com'}]`).
      * @since v15.0.0, v14.17.0
      */
     function resolveCaa(hostname: string): Promise<CaaRecord[]>;
@@ -203,13 +204,13 @@ declare module "dns/promises" {
      */
     function resolveCname(hostname: string): Promise<string[]>;
     /**
-     * Uses the DNS protocol to resolve mail exchange records (`MX` records) for the`hostname`. On success, the `Promise` is resolved with an array of objects
+     * Uses the DNS protocol to resolve mail exchange records (`MX` records) for the `hostname`. On success, the `Promise` is resolved with an array of objects
      * containing both a `priority` and `exchange` property (e.g.`[{priority: 10, exchange: 'mx.example.com'}, ...]`).
      * @since v10.6.0
      */
     function resolveMx(hostname: string): Promise<MxRecord[]>;
     /**
-     * Uses the DNS protocol to resolve regular expression-based records (`NAPTR`records) for the `hostname`. On success, the `Promise` is resolved with an array
+     * Uses the DNS protocol to resolve regular expression-based records (`NAPTR` records) for the `hostname`. On success, the `Promise` is resolved with an array
      * of objects with the following properties:
      *
      * * `flags`
@@ -233,13 +234,13 @@ declare module "dns/promises" {
      */
     function resolveNaptr(hostname: string): Promise<NaptrRecord[]>;
     /**
-     * Uses the DNS protocol to resolve name server records (`NS` records) for the`hostname`. On success, the `Promise` is resolved with an array of name server
+     * Uses the DNS protocol to resolve name server records (`NS` records) for the `hostname`. On success, the `Promise` is resolved with an array of name server
      * records available for `hostname` (e.g.`['ns1.example.com', 'ns2.example.com']`).
      * @since v10.6.0
      */
     function resolveNs(hostname: string): Promise<string[]>;
     /**
-     * Uses the DNS protocol to resolve pointer records (`PTR` records) for the`hostname`. On success, the `Promise` is resolved with an array of strings
+     * Uses the DNS protocol to resolve pointer records (`PTR` records) for the `hostname`. On success, the `Promise` is resolved with an array of strings
      * containing the reply records.
      * @since v10.6.0
      */
@@ -272,7 +273,7 @@ declare module "dns/promises" {
      */
     function resolveSoa(hostname: string): Promise<SoaRecord>;
     /**
-     * Uses the DNS protocol to resolve service records (`SRV` records) for the`hostname`. On success, the `Promise` is resolved with an array of objects with
+     * Uses the DNS protocol to resolve service records (`SRV` records) for the `hostname`. On success, the `Promise` is resolved with an array of objects with
      * the following properties:
      *
      * * `priority`
@@ -292,7 +293,7 @@ declare module "dns/promises" {
      */
     function resolveSrv(hostname: string): Promise<SrvRecord[]>;
     /**
-     * Uses the DNS protocol to resolve text queries (`TXT` records) for the`hostname`. On success, the `Promise` is resolved with a two-dimensional array
+     * Uses the DNS protocol to resolve text queries (`TXT` records) for the `hostname`. On success, the `Promise` is resolved with a two-dimensional array
      * of the text records available for `hostname` (e.g.`[ ['v=spf1 ip4:0.0.0.0 ', '~all' ] ]`). Each sub-array contains TXT chunks of
      * one record. Depending on the use case, these could be either joined together or
      * treated separately.
@@ -303,12 +304,14 @@ declare module "dns/promises" {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, the `Promise` is rejected with an `Error` object, where `err.code`is one of the `DNS error codes`.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code`
+     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v20.x/api/dns.html#error-codes).
      * @since v10.6.0
      */
     function reverse(ip: string): Promise<string[]>;
     /**
-     * Get the default value for `verbatim` in {@link lookup} and `dnsPromises.lookup()`. The value could be:
+     * Get the default value for `verbatim` in {@link lookup} and [dnsPromises.lookup()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
+     * The value could be:
      *
      * * `ipv4first`: for `verbatim` defaulting to `false`.
      * * `verbatim`: for `verbatim` defaulting to `true`.
@@ -335,7 +338,7 @@ declare module "dns/promises" {
      * progress.
      *
      * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
-     * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
+     * That is, if attempting to resolve with the first server provided results in a `NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
      * @since v10.6.0
@@ -343,28 +346,56 @@ declare module "dns/promises" {
      */
     function setServers(servers: readonly string[]): void;
     /**
-     * Set the default value of `verbatim` in `dns.lookup()` and `dnsPromises.lookup()`. The value could be:
+     * Set the default value of `order` in `dns.lookup()` and `{@link lookup}`. The value could be:
      *
-     * * `ipv4first`: sets default `verbatim` `false`.
-     * * `verbatim`: sets default `verbatim` `true`.
+     * * `ipv4first`: sets default `order` to `ipv4first`.
+     * * `ipv6first`: sets default `order` to `ipv6first`.
+     * * `verbatim`: sets default `order` to `verbatim`.
      *
-     * The default is `verbatim` and `dnsPromises.setDefaultResultOrder()` have
-     * higher priority than `--dns-result-order`. When using `worker threads`,`dnsPromises.setDefaultResultOrder()` from the main thread won't affect the
-     * default dns orders in workers.
+     * The default is `verbatim` and [dnsPromises.setDefaultResultOrder()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
+     * have higher priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
+     * When using [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), [`dnsPromises.setDefaultResultOrder()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
+     * from the main thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
-     * @param order must be `'ipv4first'` or `'verbatim'`.
+     * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
      */
-    function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
+    function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
+    // Error codes
+    const NODATA: "ENODATA";
+    const FORMERR: "EFORMERR";
+    const SERVFAIL: "ESERVFAIL";
+    const NOTFOUND: "ENOTFOUND";
+    const NOTIMP: "ENOTIMP";
+    const REFUSED: "EREFUSED";
+    const BADQUERY: "EBADQUERY";
+    const BADNAME: "EBADNAME";
+    const BADFAMILY: "EBADFAMILY";
+    const BADRESP: "EBADRESP";
+    const CONNREFUSED: "ECONNREFUSED";
+    const TIMEOUT: "ETIMEOUT";
+    const EOF: "EOF";
+    const FILE: "EFILE";
+    const NOMEM: "ENOMEM";
+    const DESTRUCTION: "EDESTRUCTION";
+    const BADSTR: "EBADSTR";
+    const BADFLAGS: "EBADFLAGS";
+    const NONAME: "ENONAME";
+    const BADHINTS: "EBADHINTS";
+    const NOTINITIALIZED: "ENOTINITIALIZED";
+    const LOADIPHLPAPI: "ELOADIPHLPAPI";
+    const ADDRGETNETWORKPARAMS: "EADDRGETNETWORKPARAMS";
+    const CANCELLED: "ECANCELLED";
+
     /**
      * An independent resolver for DNS requests.
      *
      * Creating a new resolver uses the default server settings. Setting
-     * the servers used for a resolver using `resolver.setServers()` does not affect
+     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetserversservers) does not affect
      * other resolvers:
      *
      * ```js
-     * const { Resolver } = require('node:dns').promises;
-     * const resolver = new Resolver();
+     * import { promises } from 'node:dns';
+     * const resolver = new promises.Resolver();
      * resolver.setServers(['4.4.4.4']);
      *
      * // This request will use the server at 4.4.4.4, independent of global settings.
@@ -400,6 +431,11 @@ declare module "dns/promises" {
      */
     class Resolver {
         constructor(options?: ResolverOptions);
+        /**
+         * Cancel all outstanding DNS queries made by this resolver. The corresponding
+         * callbacks will be called with an error with code `ECANCELLED`.
+         * @since v8.3.0
+         */
         cancel(): void;
         getServers: typeof getServers;
         resolve: typeof resolve;
@@ -416,6 +452,21 @@ declare module "dns/promises" {
         resolveSrv: typeof resolveSrv;
         resolveTxt: typeof resolveTxt;
         reverse: typeof reverse;
+        /**
+         * The resolver instance will send its requests from the specified IP address.
+         * This allows programs to specify outbound interfaces when used on multi-homed
+         * systems.
+         *
+         * If a v4 or v6 address is not specified, it is set to the default and the
+         * operating system will choose a local address automatically.
+         *
+         * The resolver will use the v4 local address when making requests to IPv4 DNS
+         * servers, and the v6 local address when making requests to IPv6 DNS servers.
+         * The `rrtype` of resolution requests has no impact on the local address used.
+         * @since v15.1.0, v14.17.0
+         * @param [ipv4='0.0.0.0'] A string representation of an IPv4 address.
+         * @param [ipv6='::0'] A string representation of an IPv6 address.
+         */
         setLocalAddress(ipv4?: string, ipv6?: string): void;
         setServers: typeof setServers;
     }

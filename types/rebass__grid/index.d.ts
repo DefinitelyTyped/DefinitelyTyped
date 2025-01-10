@@ -5,9 +5,8 @@ export {};
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-export interface BaseProps {
+export interface BaseProps extends React.RefAttributes<any> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<any> | undefined;
     as?: React.ElementType | undefined;
 }
 

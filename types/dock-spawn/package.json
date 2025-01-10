@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/dock-spawn",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dock-spawn",
     "projects": [
         "https://github.com/coderespawn/dock-spawn"
     ],

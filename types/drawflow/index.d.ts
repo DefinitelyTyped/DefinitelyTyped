@@ -433,6 +433,11 @@ export default class Drawflow {
     on(eventName: "nodeRemoved", callback: (event: number) => void): void;
     /**
      * @param eventName
+     * @param callback (event: id of Node df-* attributes changed.)
+     */
+    on(eventName: "nodeDataChanged", callback: (event: number) => void): void;
+    /**
+     * @param eventName
      * @param callback (event: id of Node)
      */
     on(eventName: "nodeSelected", callback: (event: number) => void): void;
@@ -625,6 +630,7 @@ export interface DrawflowConnection {
 }
 
 export interface DrawflowConnectionDetail {
+    output: string;
     input: string;
     node: string;
 }

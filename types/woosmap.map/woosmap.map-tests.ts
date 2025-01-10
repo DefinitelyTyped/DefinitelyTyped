@@ -42,6 +42,9 @@ map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.
 // $ExpectType void
 map.setZoom(12);
 
+// $ExpectType MVCArray<MapType>
+map.overlayMapTypes;
+
 /**
  * Marker
  */
@@ -302,11 +305,73 @@ const directionsRequest = expectType({
             location: new woosmap.map.LatLng(52.37342, 4.84631),
         },
     ],
+    optimizeWaypoints: true,
+    method: "distance",
+    language: "de",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
 }) as woosmap.map.DirectionRequest;
 
 let directionsService;
 directionsService = new woosmap.map.DirectionsService();
-directionsService.route(directionsRequest, (result, status) => {});
+directionsService.route(directionsRequest, (result, status) => {
+});
+
+const directionResult = expectType({
+    status: "OK",
+    routes: [
+        {
+            overview_polyline: {
+                points: "_ofiHkuiM??",
+            },
+            bounds: {
+                northeast: {
+                    lat: 48.862722,
+                    lng: 2.348541,
+                },
+                southwest: {
+                    lat: 48.862722,
+                    lng: 2.348541,
+                },
+            },
+            notice: "Has Tolls",
+            main_route_name: "Main Route",
+            recommended: true,
+            legs: [{
+                distance: {
+                    text: "1 m",
+                    value: 0,
+                },
+                duration: {
+                    text: "1 minute",
+                    value: 0,
+                },
+                start_location: {
+                    lat: 48.86288,
+                    lng: 2.34946,
+                },
+                end_location: {
+                    lat: 48.86289,
+                    lng: 2.34947,
+                },
+                start_waypoint: 0,
+                end_waypoint: 1,
+            }],
+            overview_path: [
+                {
+                    lat: 48.86272,
+                    lng: 2.34854,
+                },
+                {
+                    lat: 48.86272,
+                    lng: 2.34854,
+                },
+            ],
+        },
+    ],
+}) as woosmap.map.DirectionResult;
 
 /**
  * InfoWindow
@@ -341,9 +406,11 @@ map.flyTo(flyToOptions);
  * woosmap.map.event
  */
 // $ExpectType MapEventListener
-const listener = woosmap.map.event.addListener(map, "click", () => {});
+const listener = woosmap.map.event.addListener(map, "click", () => {
+});
 // $ExpectType MapEventListener
-woosmap.map.event.addListenerOnce(map, "click", () => {});
+woosmap.map.event.addListenerOnce(map, "click", () => {
+});
 woosmap.map.event.removeListener(listener); // $ExpectType void
 listener.remove(); // $ExpectType void
 
@@ -365,19 +432,26 @@ draw.add({
     features: [],
 });
 // $ExpectType void
-draw.addListener("draw.create", e => {});
+draw.addListener("draw.create", e => {
+});
 // $ExpectType void
-draw.addListener("draw.create", e => {});
+draw.addListener("draw.create", e => {
+});
 // $ExpectType void
-draw.addListener("draw.delete", e => {});
+draw.addListener("draw.delete", e => {
+});
 // $ExpectType void
-draw.addListener("draw.modechange", e => {});
+draw.addListener("draw.modechange", e => {
+});
 // $ExpectType void
-draw.addListener("draw.selectionchange", e => {});
+draw.addListener("draw.selectionchange", e => {
+});
 // $ExpectType void
-draw.addListener("draw.update", e => {});
+draw.addListener("draw.update", e => {
+});
 // @ts-expect-error
-draw.addListener("draw.unknown_event", e => {});
+draw.addListener("draw.unknown_event", e => {
+});
 // $ExpectType Drawing
 draw.delete("1");
 // $ExpectType Drawing
@@ -398,6 +472,194 @@ draw.changeMode("draw_point", {});
 draw.changeMode("custom_mode");
 // $ExpectType void
 draw.removeControl();
+
+/**
+ * Distance Service
+ */
+const distanceMatrixRequest = expectType({
+    origins: [{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }],
+    destinations: [{ lat: 52.52457, lng: 13.42347 }, { lat: 52.52457, lng: 13.42347 }],
+    travelMode: woosmap.map.TravelMode.DRIVING,
+    unitSystem: woosmap.map.UnitSystem.IMPERIAL,
+    method: "time",
+    elements: "duration_distance",
+    departureTime: new Date(),
+    language: "EN",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
+}) as woosmap.map.distance.DistanceMatrixRequest;
+
+let distanceService;
+distanceService = new woosmap.map.DistanceService();
+const promiseDistanceMatrix = distanceService.getDistanceMatrix(distanceMatrixRequest);
+promiseDistanceMatrix.then((result) => {
+    // $ExpectType DistanceMatrixResponse
+    result;
+});
+
+const distanceIsochroneRequest = expectType({
+    origin: { lat: 48.86288, lng: 2.34946 },
+    travelMode: woosmap.map.TravelMode.DRIVING,
+    unitSystem: woosmap.map.UnitSystem.IMPERIAL,
+    method: "time",
+    elements: "duration_distance",
+    language: "EN",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
+    value: 10,
+}) as woosmap.map.distance.DistanceIsochroneRequest;
+
+const promiseDistanceIsochrone = distanceService.getDistanceIsochrone(distanceIsochroneRequest);
+promiseDistanceIsochrone.then((result) => {
+    // $ExpectType DistanceIsochroneResponse
+    result;
+});
+
+/**
+ * Localities Service
+ */
+const localitiesAutocompleteRequest = expectType({
+    input: "10 downing street",
+    types: ["locality", "address"],
+    language: "EN",
+    components: { country: ["GB"] },
+    customDescription: "name,admin_1,admin_0",
+    radius: 500000,
+    location: { lat: 51.5007, lng: -0.1246 },
+}) as woosmap.map.localities.LocalitiesAutocompleteRequest;
+
+let localitiesService;
+localitiesService = new woosmap.map.LocalitiesService();
+const promiseLocalitiesAutocomplete = localitiesService.autocomplete(localitiesAutocompleteRequest);
+promiseLocalitiesAutocomplete.then((result) => {
+    // $ExpectType LocalitiesAutocompleteResponse
+    result;
+});
+
+const localitiesDetailsRequest = expectType({
+    public_id: "MkvnYy6K6oVGqeqfWJGO/6eCgqo=",
+    fields: "geometry",
+    cc_format: "alpha2",
+    language: "EN",
+}) as woosmap.map.localities.LocalitiesDetailsRequest;
+const promiseLocalitiesDetails = localitiesService.getDetails(localitiesDetailsRequest);
+promiseLocalitiesDetails.then((result) => {
+    // $ExpectType LocalitiesDetailsResponse
+    result;
+});
+const localitiesGeocodeRequest = expectType({
+    latLng: { lat: 51.5007, lng: -0.1246 },
+    components: { country: ["GB"] },
+}) as woosmap.map.localities.LocalitiesGeocodeRequest;
+const promiseLocalitiesGeocode = localitiesService.geocode(localitiesGeocodeRequest);
+promiseLocalitiesGeocode.then((result) => {
+    // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+
+/**
+ * Stores Service
+ */
+const storesSearchRequest = expectType({
+    latLng: { lat: 51.5007, lng: -0.1246 },
+    page: 2,
+    polyline: "OFKL#@@JB##1KZR",
+    query: "type:\"click_and_collect\"",
+    radius: 100000,
+    storesByPage: 5,
+    zone: true,
+}) as woosmap.map.stores.StoresSearchRequest;
+
+let storesService;
+storesService = new woosmap.map.StoresService();
+const promiseStoresSearch = storesService.search(storesSearchRequest);
+promiseStoresSearch.then((result) => {
+    // $ExpectType StoresSearchResponse
+    result;
+});
+
+const transitRequest = expectType({
+    origin: { lat: 43.6, lng: 3.883 },
+    destination: { lat: 43.6, lng: 3.883 },
+} as woosmap.map.transit.TransitRouteRequest);
+
+const _ = ({ origin: { lat: 43.6, lng: 3.883 } }) as woosmap.map.transit.TransitRouteRequest;
+const transitService = new woosmap.map.TransitService();
+const promiseTransitRoute = transitService.route(transitRequest);
+promiseTransitRoute.then((result) => {
+    // $ExpectType TransitRouteResponse
+    result;
+});
+
+/**
+ * Query
+ */
+const query1 = new woosmap.map.query.Query(
+    [new woosmap.map.query.Field("type", "myType")],
+    woosmap.map.query.BoolOperators.AND,
+    false,
+);
+// $ExpectType Query
+query1;
+const field1 = new woosmap.map.query.Field("type", "myType");
+// $ExpectType Field
+field1;
+const query2 = woosmap.map.query.and(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query2;
+const query3 = woosmap.map.query.or(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query3;
+const query4 = woosmap.map.query.not(new woosmap.map.query.Field("type", "myType"));
+// $ExpectType Query
+query4;
+const field2 = woosmap.map.query.F("type", "myType");
+// $ExpectType Field | Field[]
+field2;
+
+const imageMapTypeOptions = expectType({
+    url: "http://tile-server/{z}/{x}/{y}.png",
+    opacity: 0.5,
+    tileSize: new woosmap.map.Size(256, 256),
+}) as woosmap.map.ImageMapTypeOptions;
+
+const imageMapType = new woosmap.map.ImageMapType(imageMapTypeOptions);
+// $ExpectType ImageMapType
+imageMapType;
+
+map.overlayMapTypes.insertAt(0, imageMapType);
+
+/**
+ * DatasetsService Tests
+ */
+
+const datasetsService = new woosmap.map.DatasetsService("DEAD-BEEF");
+// $ExpectType DatasetsService
+datasetsService;
+
+const containsPromise = datasetsService.contains({ geometry: { type: "Point", coordinates: [0, 0] } });
+containsPromise.then((result) => {
+    // $ExpectType DatasetsSearchResponse
+    result;
+});
+
+// @ts-expect-error
+datasetsService.within({ geometry: { type: "Point", coordinates: [0, 0] } });
+
+datasetsService.intersects(
+    { geometry: { type: "Point", coordinates: [0, 0] }, where: "population:>10", buffer: 1000 },
+    { page: 10 },
+);
 
 /**
  * helper functions for testing purpose

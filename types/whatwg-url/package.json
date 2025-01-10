@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/whatwg-url",
-    "version": "11.0.9999",
+    "version": "13.0.9999",
     "projects": [
         "https://github.com/jsdom/whatwg-url#readme"
     ],

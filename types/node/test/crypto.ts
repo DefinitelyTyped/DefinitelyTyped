@@ -3,6 +3,11 @@ import assert = require("node:assert");
 import { promisify } from "node:util";
 
 {
+    // crypto hash copy with outputLength
+    const copied: crypto.Hash = crypto.createHash("shake256").copy({ outputLength: 128 });
+}
+
+{
     const copied: crypto.Hash = crypto.createHash("md5").copy().copy({
         encoding: "ascii",
     });
@@ -78,63 +83,6 @@ import { promisify } from "node:util";
     // update Hmac with base64url encoded string
     const message = Buffer.from("message").toString("base64url");
     crypto.createHmac("sha256", "key").update(message, "base64url").digest();
-}
-
-{
-    // crypto_cipher_decipher_string_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText = "This is the clear text.";
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    let cipherText: string = cipher.update(clearText, "utf8", "hex");
-    cipherText += cipher.final("hex");
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-    clearText2 += decipher.final("utf8");
-
-    assert.equal(clearText2, clearText);
-}
-
-{
-    // crypto_cipher_decipher_buffer_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    const cipherBuffers: Buffer[] = [];
-    cipherBuffers.push(cipher.update(clearText));
-    cipherBuffers.push(cipher.final());
-
-    const cipherText: Buffer = Buffer.concat(cipherBuffers);
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    const decipherBuffers: Buffer[] = [];
-    decipherBuffers.push(decipher.update(cipherText));
-    decipherBuffers.push(decipher.final());
-
-    const clearText2: Buffer = Buffer.concat(decipherBuffers);
-
-    assert.deepEqual(clearText2, clearText);
-}
-
-{
-    // crypto_cipher_decipher_dataview_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    const cipherBuffers: Buffer[] = [];
-    cipherBuffers.push(cipher.update(clearText));
-    cipherBuffers.push(cipher.final());
-
-    const cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    const decipherBuffers: Buffer[] = [];
-    decipherBuffers.push(decipher.update(cipherText));
-    decipherBuffers.push(decipher.final());
-
-    const clearText2: Buffer = Buffer.concat(decipherBuffers);
-
-    assert.deepEqual(clearText2, clearText);
 }
 
 {
@@ -241,7 +189,7 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
@@ -258,12 +206,12 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
     const decipher = crypto.createDecipheriv("aes-192-cbc", key, nonce);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
 }
@@ -627,6 +575,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const ecExplicit: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ec", {
+        namedCurve: "curve",
+        paramEncoding: "explicit",
+        publicKeyEncoding: {
+            format: "pem",
+            type: "pkcs1",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -689,6 +653,25 @@ import { promisify } from "node:util";
         "ec",
         {
             namedCurve: "curve",
+            publicKeyEncoding: {
+                format: "pem",
+                type: "pkcs1",
+            },
+            privateKeyEncoding: {
+                cipher: "some-cipher",
+                format: "pem",
+                passphrase: "secret",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "ec",
+        {
+            namedCurve: "curve",
+            paramEncoding: "explicit",
             publicKeyEncoding: {
                 format: "pem",
                 type: "pkcs1",
@@ -873,6 +856,14 @@ import { promisify } from "node:util";
 }
 
 {
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("ed25519");
+    privateKey; // $ExpectType KeyObject
+    publicKey; // $ExpectType KeyObject
+    privateKey.equals(publicKey); // $ExpectType boolean
+    publicKey.equals(privateKey); // $ExpectType boolean
+}
+
+{
     const { privateKey, publicKey } = crypto.generateKeyPairSync("ec", {
         namedCurve: "sect239k1",
     });
@@ -937,6 +928,11 @@ import { promisify } from "node:util";
     const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
     const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
     assert.equal(sharedSecret1, sharedSecret2);
+}
+
+{
+    crypto.hash("sha1", "Node.js");
+    crypto.hash("sha1", Buffer.from("Tm9kZS5qcw==", "base64"), "buffer");
 }
 
 {
@@ -1015,6 +1011,12 @@ import { promisify } from "node:util";
 
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
+
+    const bufS: Buffer = crypto.publicEncrypt(key, "hello");
+    const decS: Buffer = crypto.publicDecrypt(key, bufS);
+
+    const bufPS: Buffer = crypto.privateEncrypt(key, "hello");
+    const decpS: Buffer = crypto.privateDecrypt(key, bufPS);
 }
 
 // crypto.randomInt
@@ -1055,6 +1057,28 @@ import { promisify } from "node:util";
     }).then((signature: Buffer) => {});
     crypto.createSign("sha256").update(Buffer.from("asd")).sign({
         key,
+        dsaEncoding: "der",
+    });
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }, callback);
+    promisify(crypto.sign)("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }).then((signature: Buffer) => {});
+    crypto.createSign("sha256").update(Buffer.from("asd")).sign({
+        format: "jwk",
+        key: jwk,
         dsaEncoding: "der",
     });
 }
@@ -1112,6 +1136,47 @@ import { promisify } from "node:util";
     crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
         {
             key,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+        callback,
+    );
+    promisify(crypto.verify)(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    ).then((result: boolean) => {});
+    crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
+        {
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
@@ -1192,12 +1257,14 @@ import { promisify } from "node:util";
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
-    cert.raw; // $ExpectType Buffer
+    cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
+    cert.validFromDate; // $ExpectType Date
     cert.validTo; // $ExpectType string
+    cert.validToDate; // $ExpectType Date
 
     const checkOpts: crypto.X509CheckOptions = {
         multiLabelWildcards: true,
@@ -1369,7 +1436,7 @@ import { promisify } from "node:util";
 
     alice.generateKeys();
 
-    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     alicePublicKey = alice.getPublicKey(null);
     alicePublicKey = alice.getPublicKey(null, "compressed");
     alicePublicKey = alice.getPublicKey(undefined, "hybrid");
@@ -1377,7 +1444,7 @@ import { promisify } from "node:util";
     let bobPublicKey = bob.getPublicKey("hex"); // $ExpectType string
     bobPublicKey = bob.getPublicKey("hex", "compressed");
 
-    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer
+    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, "hex"));
 
     let bobSecret = bob.computeSecret(alicePublicKey, "hex"); // $ExpectType string
@@ -1393,12 +1460,12 @@ import { promisify } from "node:util";
 }
 
 {
-    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array
-    crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array
-    crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array
-    crypto.getRandomValues(new BigUint64Array(8)); // $ExpectType BigUint64Array
-    crypto.getRandomValues(new DataView(new ArrayBuffer(8))); // $ExpectType DataView
+    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array || Int16Array<ArrayBuffer>
+    crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array || Float32Array<ArrayBuffer>
+    crypto.getRandomValues(new BigUint64Array(8)); // $ExpectType BigUint64Array || BigUint64Array<ArrayBuffer>
+    crypto.getRandomValues(new DataView(new ArrayBuffer(8))); // $ExpectType DataView || DataView<ArrayBuffer>
     crypto.getRandomValues(new ArrayBuffer(8)); // $ExpectType ArrayBuffer
 }
 
@@ -1415,8 +1482,8 @@ import { promisify } from "node:util";
     b = crypto.subtle;
 
     crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
-    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));
     crypto.webcrypto.CryptoKey.name;
@@ -1479,4 +1546,12 @@ import { promisify } from "node:util";
     );
     subtle.verify({ name: "RSASSA-PKCS1-v1_5" }, key, buf, buf); // $ExpectType Promise<boolean>
     subtle.wrapKey("spki", key, key, { name: "AES-GCM", tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
+}
+
+{
+    let keyObject!: crypto.KeyObject;
+    keyObject.toCryptoKey("EdDSA", true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "EdDSA" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: "SHA-256" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: { name: "SHA-256" } }, true, ["sign"]); // $ExpectType CryptoKey
 }

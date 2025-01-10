@@ -31,12 +31,28 @@ response.message; // $ExpectType object
 response.status;
 response.trailers;
 
+// $ExpectType Promise<Response>
+client.asyncInvoke("main.RouteGuide/GetFeature", req, params);
+
 const params_with_string_timeout = {
     metadata: { "x-my-header": "k6test" },
     tags: { k6test: "yes" },
     timeout: "30",
 };
 client.invoke("main.RouteGuide/UpdateFeature", req, params_with_string_timeout);
+
+const stream = new grpc.Stream(client, "main.RouteGuide/GetFeature", params);
+
+stream.on("data", data => {
+    data; // $ExpectType object | GrpcError | undefined
+});
+
+stream.on("data", (_, metadata) => {
+    metadata; // $ExpectType StreamMessageMetadata
+});
+
+stream.write({ latitude: 410248224, longitude: -747127767 });
+stream.end();
 
 grpc.StatusOK;
 grpc.StatusCanceled;

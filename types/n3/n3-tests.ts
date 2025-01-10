@@ -90,6 +90,34 @@ function test_doc_rdf_to_triples_and_prefixes() {
     );
 }
 
+function test_doc_rdf_to_triples_and_prefixes_object_callback() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(
+        `@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        {
+            onQuad: () => {},
+        },
+    );
+}
+
+function test_doc_rdf_to_triples_and_prefixes_object_callback_on_comment() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(
+        `@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        {
+            onQuad: () => {},
+            onComment: () => {},
+            onPrefix: () => {},
+        },
+    );
+}
+
 function test_doc_rdf_to_triples_2() {
     const parser1: N3.Parser = new N3.Parser({ format: "N-Triples" });
     const parser2: N3.Parser = new N3.Parser({ format: "application/trig" });
@@ -502,3 +530,43 @@ function test_extract_lists() {
         console.log(value);
     });
 }
+
+function test_store_factory() {
+    const store = new N3.StoreFactory();
+    let dataset: N3.Store = store.dataset();
+    dataset = store.dataset([]);
+    const quads: N3.Quad[] = [];
+    dataset = store.dataset(quads);
+    const baseQuads: RDF.BaseQuad[] = [];
+    dataset = store.dataset(baseQuads);
+}
+
+function test_reasoner() {
+    const store = new N3.Store();
+    new N3.Reasoner(store).reason([{
+        premise: [
+            new N3.Quad(
+                new N3.Variable("?s"),
+                new N3.NamedNode("a"),
+                new N3.Variable("?o"),
+            ),
+            new N3.Quad(
+                new N3.Variable("?o"),
+                new N3.NamedNode("subClassOf"),
+                new N3.Variable("?o2"),
+            ),
+        ],
+        conclusion: [
+            new N3.Quad(
+                new N3.Variable("?s"),
+                new N3.NamedNode("a"),
+                new N3.Variable("?o2"),
+            ),
+        ],
+    }]);
+    new N3.Reasoner(store).reason(new N3.Store());
+    new N3.Reasoner(store).reason(new N3.Store<RDF.BaseQuad>());
+}
+
+export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
+export const df: RDF.DataFactory = N3.DataFactory;

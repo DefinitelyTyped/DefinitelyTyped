@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { Button, closeMenu, Menu, MenuItem, openMenu, Wrapper } from "react-aria-menubutton";
 
@@ -32,8 +31,6 @@ class MyMenuButton extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<MyMenuButton />, document.body);
 
 const words = [
     "pectinate",
@@ -108,8 +105,6 @@ class DemoOne extends React.Component<{}, DemoOneState> {
     }
 }
 
-ReactDOM.render(<DemoOne />, document.getElementById("demo-one"));
-
 closeMenu("");
 closeMenu("", { focusButton: true });
 
@@ -128,8 +123,6 @@ class ObjectMenuItem extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<ObjectMenuItem />, document.body);
 
 class MenuWithRenderProp extends React.Component {
     render() {

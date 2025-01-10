@@ -2,6 +2,7 @@ import {
     __internal,
     CacheConfig,
     commitLocalUpdate,
+    commitMutation,
     ConcreteRequest,
     ConnectionHandler,
     ConnectionInterface,
@@ -11,10 +12,14 @@ import {
     fetchQuery,
     FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRefetchMetadata,
     getRequest,
     graphql,
     isPromise,
+    LiveState,
     Network,
+    PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -23,12 +28,15 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     requestSubscription,
+    Result,
     ROOT_ID,
     ROOT_TYPE,
     Store,
+    suspenseSentinel,
     Variables,
 } from "relay-runtime";
 
+import type { HandlerProvider } from "relay-runtime/lib/handlers/RelayDefaultHandlerProvider";
 import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
 
 const source = new RecordSource();
@@ -38,6 +46,7 @@ const storeWithNullOptions = new Store(source, {
     operationLoader: null,
     gcReleaseBufferSize: null,
     queryCacheExpirationTime: null,
+    resolverContext: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -47,6 +56,11 @@ const storeWithOptions = new Store(source, {
     },
     gcReleaseBufferSize: 10,
     queryCacheExpirationTime: 1000,
+    resolverContext: {
+        customStore: {
+            nickName: "Lorem",
+        },
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -71,6 +85,28 @@ const network = Network.create(fetchFunction);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// Handler Provider
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const handlerProvider: HandlerProvider = (handle: string) => {
+    switch (handle) {
+        // Augment (or remove from) this list:
+        case "connection":
+            return ConnectionHandler;
+            // case 'viewer':
+            //     // ViewerHandler is special-cased and does not have an `update` method
+            //     return ViewerHandler;
+        case "custom":
+            return {
+                update(store, fieldPayload) {
+                    // Implementation
+                },
+            };
+    }
+    throw new Error(`handlerProvider: No handler provided for ${handle}`);
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
@@ -123,44 +159,66 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case "network.start":
-            case "network.complete":
-            case "network.error":
+            case "suspense.fragment":
+            case "suspense.query":
+            case "queryresource.fetch":
+            case "queryresource.retain":
+            case "fragmentresource.missing_data":
+            case "pendingoperation.found":
             case "network.info":
+            case "network.start":
+            case "network.next":
+            case "network.error":
+            case "network.complete":
             case "network.unsubscribe":
             case "execute.start":
-            case "queryresource.fetch":
+            case "execute.next.start":
+            case "execute.next.end":
+            case "execute.async.module":
+            case "execute.error":
+            case "execute.complete":
+            case "execute.normalize.start":
+            case "execute.normalize.end":
+            case "store.datachecker.start":
+            case "store.datachecker.end":
+            case "store.publish":
+            case "store.snapshot":
+            case "store.lookup.start":
+            case "store.lookup.end":
+            case "store.restore":
+            case "store.gc.start":
+            case "store.gc.interrupted":
+            case "store.gc.end":
+            case "store.notify.start":
+            case "store.notify.complete":
+            case "store.notify.subscription":
+            case "entrypoint.root.consume":
+            case "liveresolver.batch.start":
+            case "liveresolver.batch.end":
+            case "useFragment.subscription.missedUpdates":
             default:
                 break;
         }
     },
-    requiredFieldLogger: arg => {
-        if (arg.kind === "missing_field.log") {
+    relayFieldLogger: arg => {
+        if (arg.kind === "missing_required_field.log") {
             console.log(arg.fieldPath, arg.owner);
-        } else if (arg.kind === "missing_field.throw") {
+        } else if (arg.kind === "missing_required_field.throw") {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "relay_resolver.error"
+        } else if (arg.kind === "relay_resolver.error") {
+            console.log(arg.fieldPath, arg.owner);
+        } else if (arg.kind === "relay_field_payload.error") {
+            arg.kind;
             console.log(arg.fieldPath, arg.owner, arg.error);
+        } else if (arg.kind === "missing_expected_data.throw") {
+            arg.kind;
+            console.log(arg.fieldPath, arg.owner, arg.handled);
+        } else {
+            arg.kind; // $ExpectType "missing_expected_data.log"
+            console.log(arg.fieldPath, arg.owner);
         }
     },
 });
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// Handler Provider
-// ~~~~~~~~~~~~~~~~~~~~~
-
-function handlerProvider(handle: any) {
-    switch (handle) {
-        // Augment (or remove from) this list:
-        case "connection":
-            return ConnectionHandler;
-            // case 'viewer':
-            //     // ViewerHandler is special-cased and does not have an `update` method
-            //     return ViewerHandler;
-    }
-    throw new Error(`handlerProvider: No handler provided for ${handle}`);
-}
 
 // Updatable fragment.
 interface UserFragment_updatable$data {
@@ -181,6 +239,27 @@ interface UserQuery {
     response: UserQuery$data;
     variables: {};
 }
+
+commitMutation<{
+    response: { setUsername?: { name?: string | null } | null };
+    variables: { name: string };
+}>(environment, {
+    mutation: graphql`
+        mutation setUserName($name: String!) {
+            setUsername(name: $name) {
+                name
+            }
+        }
+    `,
+    variables: { name: "" },
+    updater(store, data) {
+        const newName = data?.setUsername?.name;
+        newName && store.get("userid")?.setValue(newName, "name");
+    },
+    onCompleted(_, errors) {
+        errors?.[0].path?.[0];
+    },
+});
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
@@ -278,6 +357,37 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
     root!.setValue("foo", "localKey");
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PreloadableConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+type FooQuery$variables = Record<PropertyKey, never>;
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery$data = {
+    readonly foo: string | null | undefined;
+};
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery = {
+    response: FooQuery$data;
+    variables: FooQuery$variables;
+};
+
+const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
+    kind: "PreloadableConcreteRequest",
+    params: {
+        operationKind: "query",
+        name: "FooQuery",
+        id: null,
+        cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+        text: "query FooQuery {\n  foo\n}\n",
+        metadata: {},
+    },
+};
+
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -549,6 +659,12 @@ const operationWithCacheConfig = createOperationDescriptor(request, variables, c
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
 
+__internal.fetchQueryDeduped(
+    environment,
+    operation.request.identifier,
+    () => environment.execute({ operation }),
+);
+
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -765,3 +881,65 @@ __internal.withProvidedVariables({
 });
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
+
+// ~~~~~~~~~~~~~~~~~~
+// Live Resolvers
+// ~~~~~~~~~~~~~~~~~~
+
+export function myLiveState(): LiveState<string> {
+    return {
+        read: () => {
+            if (Math.random() > 0.5) {
+                return suspenseSentinel();
+            }
+
+            return "VALUE";
+        },
+        subscribe: (callback) => {
+            callback();
+
+            const unsubscribe = () => {};
+
+            return unsubscribe;
+        },
+    };
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// @catch directive's Result
+// ~~~~~~~~~~~~~~~~~~
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleResult<T, E>(result: Result<T, E>) {
+    if (result.ok) {
+        const value: T = result.value;
+    } else {
+        const errors: readonly E[] = result.errors;
+    }
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// Metadata
+// ~~~~~~~~~~~~~~~~~~
+
+const refetchMetadata: {
+    fragmentRefPathInResponse: readonly (string | number)[];
+    identifierInfo:
+        | {
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
+        | null
+        | undefined;
+    refetchableRequest: ConcreteRequest;
+    refetchMetadata: {
+        operation: string | ConcreteRequest;
+        fragmentPathInResult: string[];
+        identifierInfo?:
+            | {
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
+            | null
+            | undefined;
+    };
+} = getRefetchMetadata(node.fragment, "getRefetchMetadata()");

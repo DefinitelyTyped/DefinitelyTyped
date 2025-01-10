@@ -43,6 +43,7 @@ declare namespace BMap {
         enableMassClear?: boolean | undefined;
         enableEditing?: boolean | undefined;
         enableClicking?: boolean | undefined;
+        icons?: IconSequence[] | undefined;
     }
     interface GroundOverlayOptions {
         opacity?: number | undefined;
@@ -107,7 +108,7 @@ declare namespace BMap {
         strokeWeight?: number | undefined;
     }
     class IconSequence {
-        constructor(symbol: symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
+        constructor(symbol: Symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
     }
     interface PointCollection extends Overlay {
         setPoints(points: Point[]): void;

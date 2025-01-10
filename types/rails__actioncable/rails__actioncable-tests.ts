@@ -30,6 +30,7 @@ logger.enabled = true;
  */
 const consumer = new Consumer("url"); // $ExpectType Consumer
 createConsumer("url"); // $ExpectType Consumer
+createConsumer(() => "url"); // $ExpectType Consumer
 
 consumer.url; // $ExpectType string
 

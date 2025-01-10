@@ -17,6 +17,7 @@ interface KeyboardEvent extends Event {}
 interface MouseEvent extends Event {}
 interface TouchEvent extends Event {}
 interface PointerEvent extends Event {}
+interface ToggleEvent extends Event {}
 interface TransitionEvent extends Event {}
 interface UIEvent extends Event {}
 interface WheelEvent extends Event {}
@@ -140,6 +141,7 @@ interface SVGPolygonElement extends SVGElement {}
 interface SVGPolylineElement extends SVGElement {}
 interface SVGRadialGradientElement extends SVGElement {}
 interface SVGRectElement extends SVGElement {}
+interface SVGSetElement extends SVGElement {}
 interface SVGStopElement extends SVGElement {}
 interface SVGSwitchElement extends SVGElement {}
 interface SVGSymbolElement extends SVGElement {}

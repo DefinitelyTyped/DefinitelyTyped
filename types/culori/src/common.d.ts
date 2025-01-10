@@ -23,6 +23,7 @@ import { P3 } from "./p3/types";
 import { Prophoto } from "./prophoto/types";
 import { Rec2020 } from "./rec2020/types";
 import { Rgb } from "./rgb/types";
+import { Xyb } from "./xyb/types";
 import { Xyz50 } from "./xyz50/types";
 import { Xyz65 } from "./xyz65/types";
 import { Yiq } from "./yiq/types";
@@ -53,13 +54,21 @@ export type Color =
     | Prophoto
     | Rec2020
     | Rgb
+    | Xyb
     | Xyz50
     | Xyz65
     | Yiq;
 
+export type Gamut =
+    | P3
+    | Rec2020
+    | Rgb;
+
 export type NonEmptyArray<T> = [T, ...T[]];
 
 export type Mode = Color["mode"];
+
+export type GamutMode = Gamut["mode"];
 
 export type FindColorByMode<M extends Mode, C extends Color = Color> = C extends { mode: M } ? C : never;
 

@@ -133,6 +133,7 @@ export namespace BundleAnalyzerPlugin {
         inaccurateSizes?: boolean | undefined;
         id?: number | null | undefined;
         isAsset?: boolean | undefined;
+        isInitialByEntrypoint?: Record<string, boolean> | undefined;
     }
 
     /** The json report that will be produced if `analyzerMode: 'json'` */

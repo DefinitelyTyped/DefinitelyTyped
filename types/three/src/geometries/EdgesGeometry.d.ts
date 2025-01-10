@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * This can be used as a helper object to view the edges of a {@link THREE.BufferGeometry | geometry}.
@@ -28,7 +28,7 @@ export class EdgesGeometry<TBufferGeometry extends BufferGeometry = BufferGeomet
      * @remarks Sub-classes will update this value.
      * @defaultValue `EdgesGeometry`
      */
-    override readonly type: string | 'EdgesGeometry';
+    override readonly type: string | "EdgesGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

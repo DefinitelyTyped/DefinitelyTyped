@@ -1,8 +1,8 @@
-import { expect, should, use } from "chai";
 import chaiLike = require("chai-like");
 
-should();
-use(chaiLike);
+declare const expect: Chai.ExpectStatic;
+
+import("chai").then(({ use }) => use(chaiLike));
 
 expect([{ a: 1, b: false, c: "hello", d: 4.5 }]).to.be.like([{ b: false, c: "hello", d: 4.5 }]);
 expect(123).to.not.be.like(456);

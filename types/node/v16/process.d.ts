@@ -583,7 +583,7 @@ declare module "process" {
                  *
                  * Calling `process.exit()` will force the process to exit as quickly as possible
                  * even if there are still asynchronous operations pending that have not yet
-                 * completed fully, including I/O operations to `process.stdout` and`process.stderr`.
+                 * completed fully, including I/O operations to `process.stdout` and `process.stderr`.
                  *
                  * In most situations, it is not actually necessary to call `process.exit()`explicitly. The Node.js process will exit on its own _if there is no additional_
                  * _work pending_ in the event loop. The `process.exitCode` property can be set to
@@ -1062,7 +1062,7 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'process';
@@ -1280,6 +1280,23 @@ declare module "process" {
                  */
                 uptime(): number;
                 hrtime: HRTime;
+                /**
+                 * If the Node.js process was spawned with an IPC channel, the process.channel property is a reference to the IPC channel.
+                 * If no IPC channel exists, this property is undefined.
+                 * @since v7.1.0
+                 */
+                channel?: {
+                    /**
+                     * This method makes the IPC channel keep the event loop of the process running if .unref() has been called before.
+                     * @since v7.1.0
+                     */
+                    ref(): void;
+                    /**
+                     * This method makes the IPC channel not keep the event loop of the process running, and lets it finish even while the channel is open.
+                     * @since v7.1.0
+                     */
+                    unref(): void;
+                };
                 /**
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.

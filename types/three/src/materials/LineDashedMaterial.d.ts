@@ -1,4 +1,4 @@
-import { LineBasicMaterial, LineBasicMaterialParameters } from './LineBasicMaterial.js';
+import { LineBasicMaterial, LineBasicMaterialParameters } from "./LineBasicMaterial.js";
 
 export interface LineDashedMaterialParameters extends LineBasicMaterialParameters {
     scale?: number | undefined;
@@ -10,9 +10,11 @@ export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
     /**
-     * @default 'LineDashedMaterial'
+     * Read-only flag to check if a given object is of type {@link LineDashedMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
      */
-    type: string;
+    readonly isLineDashedMaterial: true;
 
     /**
      * @default 1
@@ -28,7 +30,6 @@ export class LineDashedMaterial extends LineBasicMaterial {
      * @default 1
      */
     gapSize: number;
-    readonly isLineDashedMaterial: true;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }

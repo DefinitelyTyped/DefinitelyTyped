@@ -199,7 +199,7 @@ declare class SteamCommunity {
             /** Your session ID value. If you're using an external library, it'll know what to do with this. Otherwise, you can ignore it. */
             sessionID: string,
             /** An array containing your cookies. If you're using an external library, you'll need these. Otherwise, you can ignore them. */
-            cookies: [],
+            cookies: string[],
             /**
              * If your account is protected by Steam Guard, this is a string which can be passed to login as the steamguard property of details.
              * You should treat it as an opaque string, but currently it's YourSteamID||YourCookieValue.

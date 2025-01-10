@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ansi-html",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Tjatse/ansi-html"
+    ],
+    "devDependencies": {
+        "@types/ansi-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sherlock Doyle",
+            "githubUsername": "sherlockdoyle"
+        }
+    ]
+}

@@ -1,4 +1,34 @@
-import { Camera } from './Camera.js';
+import { JSONMeta, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Camera } from "./Camera.js";
+
+export interface PerspectiveCameraJSONObject extends Object3DJSONObject {
+    fov: number;
+    zoom: number;
+
+    near: number;
+    far: number;
+    focus: number;
+
+    aspect: number;
+
+    view?: {
+        enabled: boolean;
+        fullWidth: number;
+        fullHeight: number;
+        offsetX: number;
+        offsetY: number;
+        width: number;
+        height: number;
+    };
+
+    filmGauge: number;
+    filmOffset: number;
+}
+
+export interface PerspectiveCameraJSON extends Object3DJSON {
+    object: PerspectiveCameraJSONObject;
+}
 
 /**
  * Camera that uses {@link https://en.wikipedia.org/wiki/Perspective_(graphical) | perspective projection}.
@@ -40,7 +70,7 @@ export class PerspectiveCamera extends Camera {
      * @override
      * @defaultValue `PerspectiveCamera`
      */
-    override readonly type: string | 'PerspectiveCamera';
+    override readonly type: string | "PerspectiveCamera";
 
     /**
      * Gets or sets the zoom factor of the camera.
@@ -149,6 +179,18 @@ export class PerspectiveCamera extends Camera {
     getFilmHeight(): number;
 
     /**
+     * Computes the 2D bounds of the camera's viewable rectangle at a given distance along the viewing direction.
+     * Sets minTarget and maxTarget to the coordinates of the lower-left and upper-right corners of the view rectangle.
+     */
+    getViewBounds(distance: number, minTarget: Vector2, maxTarget: Vector2): void;
+
+    /**
+     * Computes the width and height of the camera's viewable rectangle at a given distance along the viewing direction.
+     * Copies the result into the target Vector2, where x is width and y is height.
+     */
+    getViewSize(distance: number, target: Vector2): Vector2;
+
+    /**
      * Sets an offset in a larger frustum.
      * @remarks
      * This is useful for multi-window or multi-monitor/multi-machine setups.
@@ -207,4 +249,6 @@ export class PerspectiveCamera extends Camera {
      * @deprecated Use {@link PerspectiveCamera.setFocalLength | .setFocalLength()} and {@link PerspectiveCamera.filmGauge | .filmGauge} instead.
      */
     setLens(focalLength: number, frameHeight?: number): void;
+
+    toJSON(meta?: JSONMeta): PerspectiveCameraJSON;
 }

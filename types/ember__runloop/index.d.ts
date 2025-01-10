@@ -5,6 +5,8 @@ import { EmberRunTimer } from "@ember/runloop/types";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import "@ember/runloop/-private/backburner";
 
+export type Timer = string | number;
+
 /**
  * Runs the passed target and method inside of a RunLoop, ensuring any
  * deferred actions including bindings and views updates are flushed at the

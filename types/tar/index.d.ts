@@ -22,13 +22,6 @@ export interface HeaderProperties {
     devmin?: number | undefined;
 }
 
-export interface ExtractOptions {
-    type?: string | undefined;
-    Directory?: boolean | undefined;
-    path?: string | undefined;
-    strip?: number | undefined;
-}
-
 export interface ParseStream extends NodeJS.ReadWriteStream {
     position: number;
 
@@ -241,6 +234,11 @@ export interface PackOptions {
      */
     gzip?: boolean | zlib.ZlibOptions;
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions;
+    /**
      * A function that gets called with (path, stat) for each entry being added.
      * Return true to add the entry to the archive, or false to omit it.
      */
@@ -307,7 +305,7 @@ export interface PackOptions {
      * Set to a Date object to force a specific mtime for everything added to
      * the archive. Overridden by noMtime.
      */
-    mtime?: number;
+    mtime?: Date;
 }
 
 /**
@@ -423,6 +421,12 @@ export interface CreateOptions {
     z?: boolean | zlib.ZlibOptions | undefined;
 
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions | undefined;
+
+    /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
@@ -477,6 +481,19 @@ export interface CreateOptions {
      * may be interpreted incorrectly.
      */
     noPax?: boolean | undefined;
+
+    /**
+     * Set to true to omit writing mtime values for entries. Note that this prevents using other mtime-based features
+     * like `tar.update` or the `keepNewer` option with the resulting tar archive. [Alias: m, no-mtime]
+     */
+    noMtime?: boolean | undefined;
+    m?: boolean | undefined;
+    "no-mtime"?: boolean | undefined;
+
+    /**
+     * Set to a Date object to force a specific mtime for everything added to the archive. Overridden by noMtime.
+     */
+    mtime?: Date;
 
     /**
      * A path portion to prefix onto the entries in the archive.
@@ -544,6 +561,20 @@ export interface ExtractOptions {
      * Alias for keep.
      */
     "keep-existing"?: boolean | undefined;
+
+    /**
+     * Allow absolute paths, paths containing .., and extracting
+     * through symbolic links. By default, / is stripped from
+     * absolute paths, .. paths are not extracted, and any file
+     * whose location would be modified by a symbolic link is not
+     * extracted.
+     */
+    preservePaths?: boolean | undefined;
+
+    /**
+     * Alias for presevePaths.
+     */
+    P?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -731,12 +762,6 @@ export interface ReplaceOptions {
     prefix?: string | undefined;
 
     /**
-     * Set to any truthy value to create a gzipped archive,
-     * or an object with settings for zlib.Gzip()
-     */
-    gzip?: boolean | zlib.ZlibOptions | undefined;
-
-    /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to emit the entry from the archive, or false to skip it.
      */
@@ -793,17 +818,19 @@ export interface FileOptions {
     f?: string | undefined;
 }
 
-export type RequiredFileOptions = {
-    /**
-     * Uses the given file as the input or output of this function.
-     */
-    file: string;
-} | {
-    /**
-     * Alias for file.
-     */
-    f: string;
-};
+export type RequiredFileOptions =
+    | {
+        /**
+         * Uses the given file as the input or output of this function.
+         */
+        file: string;
+    }
+    | {
+        /**
+         * Alias for file.
+         */
+        f: string;
+    };
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -886,10 +913,7 @@ export const x: typeof extract;
  * it.
  */
 export function list(options: ListOptions & RequiredFileOptions, fileList?: readonly string[]): Promise<void>;
-export function list(
-    options: ListOptions & RequiredFileOptions & { sync: true },
-    fileList?: readonly string[],
-): void;
+export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: readonly string[]): void;
 export function list(callback?: (err?: Error) => void): Parse;
 export function list(optionsOrFileList: ListOptions | readonly string[], callback?: (err?: Error) => void): Parse;
 export function list(options: ListOptions, fileList: readonly string[], callback?: (err?: Error) => void): Parse;

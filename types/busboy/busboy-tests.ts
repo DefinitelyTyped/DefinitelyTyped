@@ -21,7 +21,7 @@ const bb = busboy({
 
 bb.addListener("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.addListener("field", (name, value, info) => {
@@ -54,7 +54,7 @@ bb.on(Symbol("foo"), foo => {
 
 bb.on("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.on("field", (name, value, info) => {
@@ -87,7 +87,7 @@ bb.on(Symbol("foo"), foo => {
 
 bb.once("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.once("field", (name, value, info) => {
@@ -120,7 +120,7 @@ bb.once(Symbol("foo"), foo => {
 
 bb.removeListener("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.removeListener("field", (name, value, info) => {
@@ -153,7 +153,7 @@ bb.removeListener(Symbol("foo"), foo => {
 
 bb.off("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.off("field", (name, value, info) => {
@@ -186,7 +186,7 @@ bb.off(Symbol("foo"), foo => {
 
 bb.prependListener("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.prependListener("field", (name, value, info) => {
@@ -219,7 +219,7 @@ bb.prependListener(Symbol("foo"), foo => {
 
 bb.prependOnceListener("file", (name, stream, info) => {
     name; // $ExpectType string
-    stream; // $ExpectType Readable
+    stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
 });
 bb.prependOnceListener("field", (name, value, info) => {

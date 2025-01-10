@@ -5,6 +5,7 @@ import {
     copyFile,
     cp as cpAsync,
     FileHandle,
+    glob as globAsync,
     open as openAsync,
     watch as watchAsync,
     writeFile as writeFileAsync,
@@ -12,7 +13,7 @@ import {
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
-import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
+import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
 
 {
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
@@ -213,7 +214,7 @@ async function testPromisify() {
         console.log(event, filename);
     });
 
-    fs.watch("/tmp/foo-", {
+    const fsWatcher = fs.watch("/tmp/foo-", {
         recursive: true,
         persistent: true,
         encoding: "utf8",
@@ -221,6 +222,8 @@ async function testPromisify() {
     }, (event, filename) => {
         console.log(event, filename);
     });
+
+    fsWatcher.unref().ref().close();
 }
 
 {
@@ -465,6 +468,8 @@ async function testPromisify() {
 {
     fs.opendir("test", async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
+        dirEnt?.parentPath; // $ExpectType string | undefined
+        dirEnt?.path; // $ExpectType string | undefined
     });
 
     fs.opendir(Buffer.from("test"), async (err, dir) => {
@@ -527,26 +532,35 @@ async function testPromisify() {
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
+        signal: new AbortSignal(),
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
-    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     (await handle.read({
         buffer: new Uint32Array(),
         offset: 1,
         position: 2,
         length: 3,
-    })).buffer; // $ExpectType Uint32Array
+    })).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+    (await handle.read(
+        new Uint32Array(),
+    )).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+    (await handle.read(
+        new Uint32Array(),
+        { position: 1 },
+    )).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
 
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from("hurr"));
 
     await handle.write("hurr", 0, "utf-8");
     await handle.write(Buffer.from("hurr"), 0, 42, 10);
+    await handle.write(Buffer.from("hurr"), { position: 1 });
 
     handle.readableWebStream();
 
-    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterableIterator<string>
+    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, any, any>
 });
 
 {
@@ -580,6 +594,7 @@ async function testPromisify() {
         }(),
     );
     await writeFileAsync("test", process.stdin);
+    await writeFileAsync("test", "test", { flush: true });
 });
 
 {
@@ -829,8 +844,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
 {
     watchAsync("y33t"); // $ExpectType AsyncIterable<FileChangeInfo<string>>
-    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
-    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
+    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
+    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
 
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8" }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
 }
@@ -890,4 +905,145 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 (async () => {
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
+});
+
+// glob
+(async () => {
+    for await (const entry of globAsync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: true })) {
+        entry; // $ExpectType Dirent
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
+        entry; // $ExpectType Dirent | string
+    }
+
+    for await (
+        const entry of globAsync("**/*.js", {
+            exclude(fileName) {
+                fileName; // $ExpectType string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType string
+    }
+    for await (
+        const entry of globAsync("**/*.js", {
+            withFileTypes: true,
+            exclude(fileName) {
+                fileName; // $ExpectType Dirent
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent
+    }
+    for await (
+        const entry of globAsync("**/*.js", {
+            withFileTypes: Math.random() > 0.5,
+            exclude(fileName) {
+                fileName; // $ExpectType Dirent | string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent | string
+    }
+
+    glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob("**/*.js", { withFileTypes: true }, (err, matches) => {
+        matches; // $ExpectType Dirent[]
+    });
+    glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
+        matches; // $ExpectType Dirent[] | string[]
+    });
+
+    glob(
+        "**/*.js",
+        {
+            exclude: (fileName) => {
+                fileName; // $ExpectType string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType string[]
+        },
+    );
+    glob(
+        "**/*.js",
+        {
+            withFileTypes: true,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType Dirent[]
+        },
+    );
+    glob(
+        "**/*.js",
+        {
+            withFileTypes: Math.random() > 0.5,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent | string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType Dirent[] | string[]
+        },
+    );
+
+    for (const entry of globSync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for (const entry of globSync("**/*.js", { cwd: "/" })) {
+        entry; // $ExpectType string
+    }
+    for (const entry of globSync("**/*.js", { withFileTypes: true })) {
+        entry; // $ExpectType Dirent
+    }
+    for (const entry of globSync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
+        entry; // $ExpectType Dirent | string
+    }
+
+    for (
+        const entry of globSync("**/*.js", {
+            exclude: (fileName) => {
+                fileName; // $ExpectType string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType string
+    }
+    for (
+        const entry of globSync("**/*.js", {
+            withFileTypes: true,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent
+    }
+    for (
+        const entry of globSync("**/*.js", {
+            withFileTypes: Math.random() > 0.5,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent | string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent | string
+    }
 });

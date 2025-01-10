@@ -43,6 +43,11 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
+function ownerStacks() {
+    // $ExpectType string | null
+    const ownerStack = React.captureOwnerStack();
+}
+
 function useEvent() {
     // Implicit any
     // @ts-expect-error
@@ -70,20 +75,6 @@ function useEvent() {
             return String(event);
         }),
     );
-}
-
-// ReactNode tests
-{
-    // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement("div");
-    // @ts-expect-error
-    const emptyObject: React.ReactNode = {};
-    // @ts-expect-error
-    const plainObject: React.ReactNode = { dave: true };
-    const promise: React.ReactNode = Promise.resolve("React");
-    // @ts-expect-error plain objects are not allowed
-    <div>{{ dave: true }}</div>;
-    <div>{Promise.resolve("React")}</div>;
 }
 
 function elementTypeTests() {
@@ -146,4 +137,29 @@ function taintTests() {
         // @ts-expect-error Not a reference
         true,
     );
+}
+
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
+
+    <ViewTransition />;
+    <ViewTransition className="enter-slide-in exit-fade-out update-cross-fade" />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    // autocomplete should display "auto"
+    <ViewTransition name="" />;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
 }

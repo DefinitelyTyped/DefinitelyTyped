@@ -26,6 +26,8 @@ function s(
       50,
       50
     );
+    sketch.clear();
+    sketch.clear(1, 0.5, 0, 0);
   };
 }
 

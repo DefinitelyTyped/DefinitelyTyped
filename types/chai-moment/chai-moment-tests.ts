@@ -1,7 +1,9 @@
-import { assert, expect, use } from "chai";
 import chaiMoment = require("chai-moment");
 
-use(chaiMoment);
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
+
+import("chai").then(({ use }) => use(chaiMoment));
 
 const g: ChaiMoment.Granularity = "month";
 

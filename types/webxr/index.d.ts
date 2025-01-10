@@ -19,7 +19,7 @@ interface Navigator {
 }
 
 /**
- * WebGL Context Compatability
+ * WebGL Context Compatibility
  *
  * ref: https://immersive-web.github.io/webxr/#contextcompatibility
  */
@@ -58,7 +58,7 @@ type XRHandedness = "none" | "left" | "right";
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen";
+type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen" | "transient-pointer";
 
 /**
  * Eye types
@@ -267,6 +267,28 @@ interface XRInputSource {
 declare abstract class XRInputSource implements XRInputSource {}
 
 /**
+ * This Gamepad API interface represents hardware in the controller designed to provide haptic feedback to the user (if available), most commonly vibration hardware.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GamepadHapticActuator)
+ */
+interface GamepadHapticActuator {
+    /**
+     * The pulse() method of the GamepadHapticActuator interface makes the hardware pulse at a certain intensity for a specified duration.
+     * @remarks Repeated calls to pulse() override the previous calls if they are still ongoing.
+     * @param value A double representing the intensity of the pulse. This can vary depending on the hardware type, but generally takes a value between 0.0 (no intensity) and 1.0 (full intensity).
+     * @param duration A double representing the duration of the pulse, in milliseconds.
+     * @returns A promise that resolves with a value of true when the pulse has successfully completed.
+     *
+     * @remarks This feature should be documented in the Gamepad API, but it is not yet implemented in any browser thus missing there. However, it is commonly used in WebXR applications and causes issues for people if omitted.
+     */
+    pulse(value: number, duration: number): Promise<boolean>;
+}
+
+interface Gamepad {
+    readonly hapticActuators: readonly GamepadHapticActuator[];
+}
+
+/**
  * Represents a list of XRInputSources. It is used in favor of a frozen array type when the contents
  * of the list are expected to change over time, such as with the XRSession inputSources attribute.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourcearray-interface
@@ -387,7 +409,7 @@ interface XRSessionInit {
 }
 
 interface XRSessionEventMap {
-    inputsourceschange: XRInputSourceChangeEvent;
+    inputsourceschange: XRInputSourcesChangeEvent;
     end: XRSessionEvent;
     visibilitychange: XRSessionEvent;
     frameratechange: XRSessionEvent;
@@ -460,7 +482,7 @@ interface XRSession extends EventTarget {
     updateTargetFrameRate(rate: number): Promise<void>;
 
     onend: XRSessionEventHandler;
-    oninputsourceschange: XRInputSourceChangeEventHandler;
+    oninputsourceschange: XRInputSourcesChangeEventHandler;
     onselect: XRInputSourceEventHandler;
     onselectstart: XRInputSourceEventHandler;
     onselectend: XRInputSourceEventHandler;
@@ -546,13 +568,13 @@ declare abstract class XRView implements XRView {}
  * available to an XRSession.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
-interface XRInputSourceChangeEvent extends XRSessionEvent {
+interface XRInputSourcesChangeEvent extends XRSessionEvent {
     readonly removed: readonly XRInputSource[];
     readonly added: readonly XRInputSource[];
 }
 
-interface XRInputSourceChangeEventHandler {
-    (evt: XRInputSourceChangeEvent): any;
+interface XRInputSourcesChangeEventHandler {
+    (evt: XRInputSourcesChangeEvent): any;
 }
 
 // Experimental/Draft features
@@ -653,7 +675,22 @@ interface XRPlane {
     orientation: XRPlaneOrientation;
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
-    lastChangedTime: number;
+    lastChangedTime: DOMHighResTimeStamp;
+    semanticLabel?: string;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedPlanes attribute which contains
+     * all planes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update planes
+     * algorithm. If this attribute is accessed when the frame is not active,
+     * the user agent MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    readonly detectedPlanes?: XRPlaneSet;
 }
 
 declare abstract class XRPlane implements XRPlane {}
@@ -664,30 +701,47 @@ type XRMeshSet = Set<XRMesh>;
 interface XRMesh {
     meshSpace: XRSpace;
     vertices: Float32Array;
-    indices: Float32Array;
-    lastChangedTime: number;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
     semanticLabel?: string;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent
+     * MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-meshing/#mesh-set
+     */
+    readonly detectedMeshes?: XRMeshSet;
 }
 
 declare abstract class XRMesh implements XRMesh {}
 
 interface XRSession {
-    // Legacy
-    updateWorldTrackingState?: (options: {
-        planeDetectionState?: { enabled: boolean } | undefined;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    }) => void | undefined;
+    /**
+     * XRSession is extended to contain the initiateRoomCapture method which,
+     * if supported, will ask the XR Compositor to capture the current room layout.
+     * It is up to the XRCompositor if this will replace or augment the set of tracked planes.
+     * The user agent MAY also ignore this call, for instance if it doesn’t support a manual room
+     * capture more or if it determines that the room is already set up.
+     * The initiateRoomCapture method MUST only be able to be called once per XRSession.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    initiateRoomCapture?(): Promise<undefined>;
 }
 
-interface XRFrame {
-    worldInformation?:
-        | {
-            detectedPlanes?: XRPlaneSet | undefined;
-        }
-        | undefined;
-}
-
-// Hand Tracking
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
 type XRHandJoint =
     | "wrist"
     | "thumb-metacarpal"
@@ -715,6 +769,12 @@ type XRHandJoint =
     | "pinky-finger-phalanx-distal"
     | "pinky-finger-tip";
 
+/**
+ * The XRJointSpace interface is an {@link XRSpace} and represents the position and
+ * orientation of an {@link XRHand} joint.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrjointspace-interface
+ */
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
@@ -727,7 +787,13 @@ interface XRJointPose extends XRPose {
 
 declare abstract class XRJointPose implements XRJointPose {}
 
-interface XRHand extends Map<number, XRJointSpace> {
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
+interface XRHand extends Map<XRHandJoint, XRJointSpace> {
     readonly WRIST: number;
 
     readonly THUMB_METACARPAL: number;
@@ -835,6 +901,7 @@ interface XRCompositionLayer extends XRLayer {
     blendTextureSourceAlpha: boolean;
     chromaticAberrationCorrection?: boolean | undefined;
     readonly mipLevels: number;
+    quality: XRLayerQuality;
     readonly needsRedraw: boolean;
     destroy(): void;
 
@@ -872,6 +939,8 @@ declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 type XRTextureType = "texture" | "texture-array";
 
 type XRLayerLayout = "default" | "mono" | "stereo" | "stereo-left-right" | "stereo-top-bottom";
+
+type XRLayerQuality = "default" | "text-optimized" | "graphics-optimized";
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
@@ -1119,4 +1188,61 @@ interface XRSession {
 /**
  * END: WebXR DOM Overlays Module
  * https://immersive-web.github.io/dom-overlays/
+ */
+
+/**
+ * BEGIN: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
+ */
+
+type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
+
+type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
+
+interface XRDepthStateInit {
+    usagePreference: XRDepthUsage[];
+    dataFormatPreference: XRDepthDataFormat[];
+}
+
+interface XRSessionInit {
+    depthSensing?: XRDepthStateInit | undefined;
+}
+
+interface XRSession {
+    readonly depthUsage?: XRDepthUsage | undefined;
+    readonly depthDataFormat?: XRDepthDataFormat | undefined;
+}
+
+interface XRDepthInformation {
+    readonly width: number;
+    readonly height: number;
+
+    readonly normDepthBufferFromNormView: XRRigidTransform;
+    readonly rawValueToMeters: number;
+}
+
+interface XRCPUDepthInformation extends XRDepthInformation {
+    readonly data: ArrayBuffer;
+
+    getDepthInMeters(x: number, y: number): number;
+}
+
+interface XRFrame {
+    getDepthInformation(view: XRView): XRCPUDepthInformation | null | undefined;
+}
+
+interface XRWebGLDepthInformation extends XRDepthInformation {
+    readonly texture: WebGLTexture;
+
+    readonly textureType: XRTextureType;
+    readonly imageIndex?: number | null | undefined;
+}
+
+interface XRWebGLBinding {
+    getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
+}
+
+/**
+ * END: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
  */

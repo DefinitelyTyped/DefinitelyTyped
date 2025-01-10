@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, BufferGeometry } from '../../../src/Three.js';
+import { BufferGeometry, Loader, LoadingManager } from "three";
 
 export class DRACOLoader extends Loader<BufferGeometry> {
     constructor(manager?: LoadingManager);
@@ -11,6 +11,12 @@ export class DRACOLoader extends Loader<BufferGeometry> {
         url: string,
         onLoad?: (data: BufferGeometry) => void,
         onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): void;
+
+    parse(
+        buffer: ArrayBuffer,
+        onLoad?: (geometry: BufferGeometry) => void,
         onError?: (err: unknown) => void,
     ): void;
 

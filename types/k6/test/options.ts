@@ -126,3 +126,9 @@ const browserScenariosBad: Scenario[] = [
         },
     },
 ];
+
+const optionsWithCloud: Options = {
+    cloud: {
+        name: "My cloud test",
+    },
+};

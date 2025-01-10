@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gapi.youtube",
     "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.youtube",
     "projects": [
         "https://developers.google.com/youtube/v3/"
     ],

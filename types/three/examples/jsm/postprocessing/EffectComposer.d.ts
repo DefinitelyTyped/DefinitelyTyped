@@ -1,9 +1,9 @@
-import { Clock, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three.js';
+import { Clock, WebGLRenderer, WebGLRenderTarget } from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
-import { ShaderPass } from './ShaderPass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
+import { ShaderPass } from "./ShaderPass.js";
 
-export { FullScreenQuad } from './Pass.js';
+export { FullScreenQuad } from "./Pass.js";
 export { Pass };
 
 export class EffectComposer {

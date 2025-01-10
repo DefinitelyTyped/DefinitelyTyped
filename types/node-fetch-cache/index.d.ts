@@ -1,13 +1,13 @@
-import fetch, { Response } from "node-fetch";
+import fetch = require("node-fetch");
 
-declare class NFCResponse extends Response {
+declare class NFCResponse extends fetch.Response {
     ejectFromCache(): Promise<void>;
 }
 
 interface Cache {
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 interface MemoryCacheOptions {
@@ -18,7 +18,7 @@ export class MemoryCache implements Cache {
     constructor(options?: MemoryCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 interface FileSystemCacheOptions {
@@ -30,7 +30,7 @@ export class FileSystemCache implements Cache {
     constructor(options?: FileSystemCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 type FetchBuilder = (cache: Cache) => FetchCache;

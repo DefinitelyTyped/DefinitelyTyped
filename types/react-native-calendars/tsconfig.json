@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -11,12 +11,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "strictFunctionTypes": true,
-        "paths": {
-            "react-native": [
-                "../react-native/index.d.ts"
-            ]
-        }
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",

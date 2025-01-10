@@ -1,5 +1,6 @@
-import { Path } from "./state";
+import { AssignmentObject, JSONataExpression, Path, QueryLanguage } from "./state";
 
+// JSONPath style choice rules
 export interface ChoiceRuleComparison {
     Variable: string;
     BooleanEquals?: boolean;
@@ -43,30 +44,48 @@ export interface ChoiceRuleComparison {
     TimestampLessThanEqualsPath?: Path;
 }
 
+// JSONata style choice rule
+export interface JSONataChoiceRule {
+    Condition: boolean | JSONataExpression;
+    Next: string;
+    Comment?: string;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
+}
+
+// JSONPath style choice rules
 export interface ChoiceRuleNot {
     Not: ChoiceRuleComparison;
     Next: string;
     Comment?: string;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
 }
 
 export interface ChoiceRuleAnd {
     And: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
 }
 
 export interface ChoiceRuleOr {
     Or: ChoiceRuleComparison[];
     Next: string;
     Comment?: string;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
 }
 
 export interface ChoiceRuleSimple extends ChoiceRuleComparison {
     Next: string;
     Comment?: string;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
 }
 
-export type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
+export type ChoiceRule = JSONataChoiceRule | ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | ChoiceRuleOr;
 
 /**
  * The Choice State (identified by "Type":"Choice") adds branching logic to a state machine.
@@ -76,9 +95,18 @@ export type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | Choi
  */
 export interface Choice {
     Type: "Choice";
-    Choices: ChoiceRule[];
     Comment?: string;
+    Choices: ChoiceRule[];
+    Default?: string;
+
+    // Common fields
+    QueryLanguage?: QueryLanguage;
+    Assign?: AssignmentObject;
+
+    // JSONata style fields
+    Output?: JSONataExpression;
+
+    // JSONPath style fields
     InputPath?: Path | null;
     OutputPath?: Path | null;
-    Default?: string;
 }

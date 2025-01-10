@@ -1,6 +1,6 @@
-import { EventDispatcher } from './EventDispatcher.js';
-import { Uniform } from './Uniform.js';
-import { Usage } from '../constants.js';
+import { Usage } from "../constants.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { Uniform } from "./Uniform.js";
 
 /**
  * @see Example: {@link https://threejs.org/examples/#webgl2_ubo | WebGL2 / UBO}
@@ -15,11 +15,11 @@ export class UniformsGroup extends EventDispatcher<{ dispose: {} }> {
 
     usage: Usage;
 
-    uniforms: Uniform[];
+    uniforms: Array<Uniform | Uniform[]>;
 
-    add(uniform: Uniform): this;
+    add(uniform: Uniform | Uniform[]): this;
 
-    remove(uniform: Uniform): this;
+    remove(uniform: Uniform | Uniform[]): this;
 
     setName(name: string): this;
 

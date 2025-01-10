@@ -3,6 +3,7 @@ import Delaunator from "delaunator";
 // Zipped points [x0, y0, x1, y1, ...]
 const zippedPoints = [168, 180, 168, 178, 168, 179, 168, 181, 168, 183, 167, 183, 167, 184];
 const zipped = new Delaunator(zippedPoints);
+const zippedCoords = zipped.coords; // $ExpectType number[]
 
 // Default [x, y]
 const defaultPoints = [
@@ -42,10 +43,10 @@ Delaunator.from(
 Delaunator.from(customPoints, getX, getY);
 
 // To get the coordinates of all triangles, use:
-const triangles = d.triangles; // $ExpectType Uint32Array
-const halfedges = d.halfedges; // $ExpectType Int32Array
-const hull = d.hull; // $ExpectType Uint32Array
-const coords = d.coords; // $ExpectType ArrayLike<number> | Float64Array
+const triangles = d.triangles; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+const halfedges = d.halfedges; // $ExpectType Int32Array || Int32Array<ArrayBuffer>
+const hull = d.hull; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+const coords = d.coords; // $ExpectType Float64Array || Float64Array<ArrayBuffer>
 const coordinates: number[][][] = [];
 for (let i = 0; i < triangles.length; i += 3) {
     coordinates.push([defaultPoints[triangles[i]], defaultPoints[triangles[i + 1]], defaultPoints[triangles[i + 2]]]);
@@ -65,5 +66,5 @@ for (let i = 0; i < triangles.length; i += 3) {
 JSON.stringify(coordinates) === JSON.stringify(coordinates2);
 
 // update call
-(zipped.coords as Float64Array)[0] = 1;
+zipped.coords[0] = 1;
 zipped.update();

@@ -6,7 +6,7 @@ type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A)
 type ElementOf<T> = T extends Array<infer E> ? E : T;
 
 declare namespace BetterSqlite3 {
-    interface Statement<BindParameters extends unknown[]> {
+    interface Statement<BindParameters extends unknown[], Result = unknown> {
         database: Database;
         source: string;
         reader: boolean;
@@ -14,9 +14,9 @@ declare namespace BetterSqlite3 {
         busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
-        get(...params: BindParameters): unknown;
-        all(...params: BindParameters): unknown[];
-        iterate(...params: BindParameters): IterableIterator<unknown>;
+        get(...params: BindParameters): Result | undefined;
+        all(...params: BindParameters): Result[];
+        iterate(...params: BindParameters): IterableIterator<Result>;
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
@@ -42,7 +42,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface VirtualTableOptions {
-        rows: () => Generator;
+        rows: (...params: unknown[]) => Generator;
         columns: string[];
         parameters?: string[] | undefined;
         safeIntegers?: boolean | undefined;
@@ -56,9 +56,9 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare<BindParameters extends unknown[] | {} = unknown[]>(
+        prepare<BindParameters extends unknown[] | {} = unknown[], Result = unknown>(
             source: string,
-        ): BindParameters extends unknown[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        ): BindParameters extends unknown[] ? Statement<BindParameters, Result> : Statement<[BindParameters], Result>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
@@ -84,20 +84,21 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new(filename: string | Buffer, options?: Database.Options): Database;
-        (filename: string, options?: Database.Options): Database;
+        new(filename?: string | Buffer, options?: Database.Options): Database;
+        (filename?: string, options?: Database.Options): Database;
         prototype: Database;
-
-        SqliteError: typeof SqliteError;
+        SqliteError: SqliteErrorType;
     }
 }
 
-declare class SqliteError extends Error {
+declare class SqliteErrorClass extends Error {
     name: string;
     message: string;
     code: string;
     constructor(message: string, code: string);
 }
+
+type SqliteErrorType = typeof SqliteErrorClass;
 
 declare namespace Database {
     interface RunResult {
@@ -138,10 +139,10 @@ declare namespace Database {
         progress: (info: BackupMetadata) => number;
     }
 
-    type SqliteError = typeof SqliteError;
-    type Statement<BindParameters extends unknown[] | {} = unknown[]> = BindParameters extends unknown[]
-        ? BetterSqlite3.Statement<BindParameters>
-        : BetterSqlite3.Statement<[BindParameters]>;
+    type SqliteError = SqliteErrorType;
+    type Statement<BindParameters extends unknown[] | {} = unknown[], Result = unknown> = BindParameters extends
+        unknown[] ? BetterSqlite3.Statement<BindParameters, Result>
+        : BetterSqlite3.Statement<[BindParameters], Result>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;

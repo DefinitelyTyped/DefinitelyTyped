@@ -690,6 +690,30 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for postsave event arguments
+         */
+
+        interface PostSaveEventArguments {
+            /**
+             * Use this method to know information about a table being saved.
+             * It returns the table logical name, record ID, and table name if save was successful.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getentityreference}
+             */
+            getEntityReference(): LookupValue;
+
+            /** Use this method to know whether the save operation was successful or failed.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getissavesuccess}
+             */
+            getIsSaveSuccess(): boolean;
+
+            /**
+             * Use this method to know the error details on why save failed.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getsaveerrorinfo}
+             */
+            getSaveErrorInfo(): object;
+        }
+
+        /**
          * Interface for process stage change event arguments.
          */
         interface StageChangeEventArguments {
@@ -912,6 +936,19 @@ declare namespace Xrm {
         }
 
         /**
+         * Synchronous Form OnPostSave event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments External Link: Form OnPostSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
+         */
+        interface PostSaveEventContext extends EventContext {
+            /**
+             * Gets postsave-event arguments.
+             */
+            getEventArgs(): PostSaveEventArguments;
+        }
+
+        /**
          * Interface for a process stage change event context
          */
         interface StageChangeEventContext extends EventContext {
@@ -959,7 +996,7 @@ declare namespace Xrm {
         type SaveEventHandler = (context: SaveEventContext) => void;
         type SaveEventHandlerAsync = (context: SaveEventContextAsync) => PromiseLike<void>;
 
-        type PostSaveEventHandler = (context: EventContext) => void;
+        type PostSaveEventHandler = (context: PostSaveEventContext) => void;
 
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
         type StageChangeEventHandler = (context: StageChangeEventContext) => void;
@@ -1438,7 +1475,7 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/customize/actions External Link: Actions overview}
          * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/create-own-actions External Link: Create your own actions}
          */
-        invokeProcessAction(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<any>;
+        invokeProcessAction<T = any>(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<T>;
 
         /**
          * Opens a lookup control to select one or more items.
@@ -3074,6 +3111,22 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for UI elements which can have their available option values read.
+         */
+        interface UiCanGetOptionsElement {
+            /**
+             * Returns an array of option objects representing valid options available for a control,
+             * including a blank option and excluding any options that have been removed from the control
+             * using removeOption.
+             *
+             * @returns The array of option objects representing valid options where each option object has the following attributes:
+             *          text: String. Label of the option.
+             *          value: Number. Enumeration value of the option.
+             */
+            getOptions(): OptionSetValue[];
+        }
+
+        /**
          * Interface for UI elements which can have the visibility value read.
          */
         interface UiCanGetVisibleElement {
@@ -3552,7 +3605,7 @@ declare namespace Xrm {
          *
          * @see {@link StandardControl}
          */
-        interface OptionSetControl extends StandardControl {
+        interface OptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -3584,7 +3637,7 @@ declare namespace Xrm {
             removeOption(value: number): void;
         }
 
-        interface MultiSelectOptionSetControl extends StandardControl {
+        interface MultiSelectOptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -5225,6 +5278,17 @@ declare namespace Xrm {
             text: string;
         }
 
+        /**
+         * An object describing whether to open or save the file
+         */
+        interface OpenFileOptions {
+            /**
+             * If you do not specify this parameter, by default 1 (open) is passed.
+             * This parameter is only supported on Unified Interface
+             */
+            openMode?: XrmEnum.OpenFileOptions;
+        }
+
         interface DialogSizeOptions {
             /**
              * Height of the alert dialog in pixels.
@@ -5599,7 +5663,7 @@ declare namespace Xrm {
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: Navigation.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.
@@ -6041,7 +6105,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
+        retrieveRecord<T = any>(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<T>;
 
         /**
          * Retrieves a collection of entity records.
@@ -6059,11 +6123,11 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
          */
-        retrieveMultipleRecords(
+        retrieveMultipleRecords<T = any>(
             entityLogicalName: string,
             options?: string,
             maxPageSize?: number,
-        ): Async.PromiseLike<RetrieveMultipleResult>;
+        ): Async.PromiseLike<RetrieveMultipleResult<T>>;
 
         /**
          * Updates an entity record.
@@ -6095,11 +6159,11 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI RetrieveMultiple request response
      */
-    interface RetrieveMultipleResult {
+    interface RetrieveMultipleResult<T = any> {
         /**
          * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values as key: value pairs. The Id of the entity record is retrieved by default.
          */
-        entities: any[];
+        entities: T[];
         /**
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */

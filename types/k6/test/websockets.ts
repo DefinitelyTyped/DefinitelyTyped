@@ -1,5 +1,9 @@
-import { CompressionAlgorithm, EventName, WebSocket } from "k6/experimental/websockets";
+import { Blob, CompressionAlgorithm, EventName, WebSocket } from "k6/experimental/websockets";
 import { CookieJar } from "k6/http";
+
+let str: string;
+let ab: ArrayBuffer;
+let b: Blob;
 
 //
 // WebSocket constructor
@@ -32,6 +36,28 @@ new WebSocket("wss://test-api.k6.io/ws/crocochat/1", null, {
     compression: null,
 });
 
+new Blob();
+new Blob(["something"]);
+new Blob([new ArrayBuffer(2)]);
+new Blob([new Uint8Array(new ArrayBuffer(2))]);
+new Blob([new Uint8Array(new ArrayBuffer(2)), "something else"]);
+// @ts-expect-error
+new Blob([3]);
+
+new Blob(["something"], { type: "test" });
+
+const blob = new Blob(["something"]);
+
+(async () => { // this is required as top-level-await requires a lot more changes
+    await blob.text(); // $ExpectType string
+    await blob.arrayBuffer(); // $ExpectType ArrayBuffer
+    await blob.bytes(); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    blob.stream(); // $ExpectType ReadableStream
+    blob.slice(10, 2); // $ExpectType Blob
+    // @ts-expect-error
+    blob.slice(10, 2, "string");
+});
+
 const ws = new WebSocket("wss://test-api.k6.io/ws/crocochat/1");
 
 //
@@ -45,6 +71,8 @@ ws.send(5);
 ws.send("super secret information"); // $ExpectType void
 // @ts-expect-error
 ws.send("super secret information", 5);
+
+ws.send(blob);
 
 //
 // WebSocket.addEventListener

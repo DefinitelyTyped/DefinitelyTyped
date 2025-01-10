@@ -5,7 +5,6 @@
     "projects": [
         "https://alpinejs.dev/plugins/anchor"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "dependencies": {
         "@types/alpinejs": "*"
     },

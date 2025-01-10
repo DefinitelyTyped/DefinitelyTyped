@@ -1,4 +1,4 @@
-import * as superagent from "superagent";
+import { SuperAgentStatic } from "superagent";
 
 declare module "superagent" {
     interface Request {
@@ -6,6 +6,6 @@ declare module "superagent" {
     }
 }
 
-declare function superagentProxy(s: superagent.SuperAgentStatic): void;
+declare function superagentProxy(s: SuperAgentStatic): void;
 
 export = superagentProxy;

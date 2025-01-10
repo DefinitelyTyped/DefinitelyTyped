@@ -1,3 +1,5 @@
+// TODO: Public API?
+
 declare class ShaderChunkManager {
     constructor(target: any, path?: string); // TODO
 

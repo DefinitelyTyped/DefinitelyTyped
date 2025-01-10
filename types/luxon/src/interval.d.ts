@@ -1,5 +1,13 @@
 import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
-import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from "./datetime";
+import {
+    _UseLocaleWeekOption,
+    DateObjectUnits,
+    DateTime,
+    DateTimeOptions,
+    DiffOptions,
+    LocaleOptions,
+    ToISOTimeOptions,
+} from "./datetime";
 import { Duration, DurationLike, DurationMaybeValid, DurationUnit } from "./duration";
 
 export interface IntervalObject {
@@ -10,6 +18,8 @@ export interface IntervalObject {
 export type DateInput = DateTime | DateObjectUnits | Date;
 
 export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
+
+export type CountOptions = _UseLocaleWeekOption;
 
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
@@ -98,12 +108,12 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns an error code if this Interval is invalid, or null if the Interval is valid
      */
-    get invalidReason(): IfValid<string, null, IsValid>;
+    get invalidReason(): IfValid<null, string, IsValid>;
 
     /**
      * Returns an explanation of why this Interval became invalid, or null if the Interval is valid
      */
-    get invalidExplanation(): IfValid<string | null, null, IsValid>;
+    get invalidExplanation(): IfValid<null, string | null, IsValid>;
 
     /**
      * Returns the length of the Interval in the specified unit.
@@ -119,7 +129,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      *
      * @param unit - the unit of time to count. Defaults to 'milliseconds'.
      */
-    count(unit?: DurationUnit): IfValid<number, typeof NaN, IsValid>;
+    count(unit?: DurationUnit, opts?: CountOptions): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns whether this Interval's start and end are both in the same unit of time

@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 interface ClipboardProps {
-    render: (arg0: { copy: () => void }) => React.ReactNode;
+    render: (arg0: { copy: () => void }) => ReactNode;
     text: string;
     props?: object | undefined;
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type

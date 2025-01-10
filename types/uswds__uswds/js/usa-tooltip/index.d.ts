@@ -1,3 +1,5 @@
+type TooltipPosition = "top" | "right" | "bottom" | "left";
+
 interface TooltipContext {
     tooltipBody: HTMLSpanElement;
     position: string;
@@ -6,9 +8,9 @@ interface TooltipContext {
 }
 
 interface Tooltip {
-    init(root: HTMLElement | Document): void;
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    init(root?: HTMLElement | Document): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
     /**
      * Setup the tooltip component
      */
@@ -19,14 +21,14 @@ interface Tooltip {
         wrapper: HTMLSpanElement;
     };
     getTooltipElements(trigger: Element): {
-        trigger: Element;
+        trigger: HTMLElement;
         wrapper: HTMLElement;
         body: HTMLElement;
     };
     /**
      * Shows the tooltip
      */
-    show(tooltipTrigger: HTMLElement): void;
+    show(tooltipBody: HTMLElement, tooltipTrigger: HTMLElement, position: TooltipPosition): void;
     /**
      * Removes all the properties to show and position the tooltip,
      * and resets the tooltip position to the original intention

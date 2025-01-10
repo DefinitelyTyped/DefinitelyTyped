@@ -1,7 +1,7 @@
 import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Request, RequestHandler, Response } from "express";
-import { DatasetCore, DatasetCoreFactory, Stream } from "rdf-js";
 
 declare module "express-serve-static-core" {
     interface Request {
@@ -28,6 +28,7 @@ interface RdfHandlerOptions {
     formats?: Formats | undefined;
     defaultMediaType?: string | undefined;
     baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
+    sendTriples?: boolean | undefined;
 }
 
 interface RdfHandler {

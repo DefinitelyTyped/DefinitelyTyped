@@ -1,9 +1,11 @@
+import * as THREE from "three";
 import GeometryLayer from "./GeometryLayer";
 import Layer from "./Layer";
 // import { InfoTiledGeometryLayer } from "./InfoLayer";
 
 export type TiledGeometryLayerOptions = any;
 
+// TODO: Define public API
 declare class TiledGeometryLayer extends GeometryLayer {
     static hasEnoughTexturesToSubdivide(
         context: any,

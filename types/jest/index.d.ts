@@ -429,7 +429,7 @@ declare namespace jest {
     function useRealTimers(): typeof jest;
 
     interface MockOptions {
-        virtual?: boolean | undefined;
+        virtual?: boolean; // Intentionally omitted "| undefined" to maintain compatibility with @jest/globals
     }
 
     type MockableFunction = (...args: any[]) => any;
@@ -463,10 +463,8 @@ declare namespace jest {
         }
         & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
     type MaybeMockedDeep<T> = T extends MockableFunction ? MockedFunctionDeep<T>
-        : T extends object // eslint-disable-line @typescript-eslint/ban-types
-            ? MockedObjectDeep<T>
+        : T extends object ? MockedObjectDeep<T>
         : T;
-    // eslint-disable-next-line @typescript-eslint/ban-types
     type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
@@ -578,13 +576,13 @@ declare namespace jest {
          *
          * - `table`: Array of Arrays with the arguments that are passed into the test fn for each row.
          * - `name`: String the title of the test block.
-         * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
+         * - `fn`: Function the test to be run, this is the function that will receive the parameters in each row as function arguments.
          *
          * #### 2  `test.each table(name, fn)`
          *
          * - `table`: Tagged Template Literal
          * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
-         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         * - `fn`: Function the test to be run, this is the function that will receive the test data object.
          *
          * @example
          *
@@ -610,7 +608,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         /** Only runs the tests inside this `describe` for the current file */
         only: Describe;
@@ -1207,6 +1205,7 @@ declare namespace jest {
         new(...args: any[]): any;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     interface Mock<T = any, Y extends any[] = any, C = any> extends Function, MockInstance<T, Y, C> {
         new(...args: Y): T;
         (this: C, ...args: Y): T;

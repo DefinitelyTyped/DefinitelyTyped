@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/instafeed.js",
+    "version": "2.0.9999",
+    "projects": [
+        "https://instafeedjs.com"
+    ],
+    "devDependencies": {
+        "@types/instafeed.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luis Sousa",
+            "githubUsername": "IncognitaDev"
+        }
+    ]
+}

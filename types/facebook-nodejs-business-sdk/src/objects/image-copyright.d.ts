@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ImageCopyright
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -275,6 +275,6 @@ export default class ImageCopyright extends AbstractCrudObject {
         zm: "ZM";
         zw: "ZW";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<ImageCopyright>;
-    update(fields: string[], params?: Record<any, any>): Promise<ImageCopyright>;
+    get(fields: string[], params?: Record<string, any>): Promise<ImageCopyright>;
+    update(fields: string[], params?: Record<string, any>): Promise<ImageCopyright>;
 }

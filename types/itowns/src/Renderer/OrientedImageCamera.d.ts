@@ -1,14 +1,13 @@
 import * as THREE from "three";
 
-// declare class Distortion {
-//     constructor(size: any);
-//     size: any;
-//     pps: THREE.Vector2 | null;
-//     polynom: THREE.Vector4 | null;
-//     l1l2: THREE.Vector3 | null;
-//     setFromMicmacCalibration(distortion: any, imageYDown?: boolean): void;
-//     clone(): Distortion;
-// }
+declare class Distortion {
+    size: THREE.Vector2;
+    pps?: THREE.Vector2;
+    polynom?: THREE.Vector4;
+    l1l2?: THREE.Vector3;
+    setFromMicmacCalibration(distortion: any, imageYDown?: boolean): void;
+    clone(): Distortion;
+}
 
 declare class OrientedImageCamera extends THREE.PerspectiveCamera {
     constructor(
@@ -26,8 +25,7 @@ declare class OrientedImageCamera extends THREE.PerspectiveCamera {
     center: THREE.Vector2;
     skew: number;
     textureMatrixWorldInverse: THREE.Matrix4;
-    fov: number;
-    distortion: /* Distortion */ any; // TODO
+    distortion: Distortion;
     maskPath?: any;
     mask?: any;
 }

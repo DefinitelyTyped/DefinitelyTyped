@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor } from "react-draft-wysiwyg";
 
 const CustomStyleMapEditor = () => (
@@ -14,5 +13,3 @@ const CustomStyleMapEditor = () => (
         />
     </div>
 );
-
-ReactDOM.render(<CustomStyleMapEditor />, document.getElementById("target"));

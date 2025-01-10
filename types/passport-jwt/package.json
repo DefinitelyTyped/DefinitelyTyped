@@ -1,18 +1,19 @@
 {
     "private": true,
     "name": "@types/passport-jwt",
-    "version": "3.0.9999",
+    "version": "4.0.9999",
     "projects": [
         "https://github.com/themikenicholson/passport-jwt"
     ],
     "dependencies": {
-        "@types/express": "*",
         "@types/jsonwebtoken": "*",
         "@types/passport-strategy": "*"
     },
     "devDependencies": {
         "@types/passport": "*",
-        "@types/passport-jwt": "workspace:."
+        "@types/passport-jwt": "workspace:.",
+        "@types/express": "*",
+        "fastify": "*"
     },
     "owners": [
         {

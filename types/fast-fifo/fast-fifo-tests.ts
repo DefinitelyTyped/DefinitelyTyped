@@ -5,6 +5,7 @@ stringQueue.push("hello");
 stringQueue.shift(); // $ExpectType string | undefined
 stringQueue.isEmpty(); // $ExpectType boolean
 stringQueue.hwm; // $ExpectType number
+stringQueue.length; // $ExpectType number
 stringQueue.head; // $ExpectType FixedFIFO<string>
 stringQueue.tail; // $ExpectType FixedFIFO<string>
 stringQueue.head.buffer; // $ExpectType string[]
@@ -18,4 +19,4 @@ stringQueue.head.isEmpty(); // $ExpectType boolean
 
 const bufferQueue = new FIFO<Uint8Array>();
 bufferQueue.push(Uint8Array.from([0]));
-bufferQueue.shift(); // $ExpectType Uint8Array | undefined
+bufferQueue.shift(); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBuffer> | undefined

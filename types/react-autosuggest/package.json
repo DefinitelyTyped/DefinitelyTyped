@@ -10,8 +10,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-autosuggest": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-autosuggest": "workspace:."
     },
     "owners": [
         {

@@ -97,12 +97,25 @@ import { createContext } from "node:vm";
     const typedArray2 = new Float64Array(pooledBuffer);
 
     workerThreads.markAsUntransferable(pooledBuffer);
+    workerThreads.isMarkedAsUntransferable(pooledBuffer); // $ExpectType boolean
 
     const { port1 } = new workerThreads.MessageChannel();
     port1.postMessage(typedArray1, [typedArray1.buffer] as readonly workerThreads.TransferListItem[]);
 
     console.log(typedArray1);
     console.log(typedArray2);
+}
+
+{
+    const anyObject = { foo: "bar" };
+    workerThreads.markAsUncloneable(anyObject);
+    const { port1 } = new MessageChannel();
+    try {
+        // This will throw an error, because anyObject is not cloneable.
+        port1.postMessage(anyObject);
+    } catch (error) {
+        // error.name === 'DataCloneError'
+    }
 }
 
 {
@@ -146,4 +159,69 @@ import { createContext } from "node:vm";
     // Test module constructor, then global alias
     const mp1 = new workerThreads.MessagePort();
     const mp2 = new MessagePort();
+}
+
+{
+    // Test addEventListener, removeEventListener and dispatchEvent
+    if (workerThreads.isMainThread) {
+        const worker = new workerThreads.Worker(__filename);
+        const { port1, port2 } = new workerThreads.MessageChannel();
+        const events: string[] = [];
+
+        const customEvent = (event: Event) => events.push(event.type);
+
+        // addEventListener
+        port1.addEventListener("message", (event) => events.push(event.type));
+        port1.addEventListener("close", (event) => events.push(event.type));
+        port1.addEventListener("dispatch", (event) => events.push(event.type));
+        port1.addEventListener("custom_event", customEvent);
+
+        // emit custom_event
+        port1.emit("custom_event", "test");
+
+        // removeEventListener
+        port1.removeEventListener("custom_event", customEvent);
+        port1.emit("custom_event", "It won't emit as it has been removed");
+
+        // emit dispatch event
+        port1.dispatchEvent(new Event("dispatch"));
+
+        // emit message event
+        worker.postMessage({ port: port2 }, [port2]);
+        port1.postMessage("From main to parent");
+        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        worker.postMessageToThread(10, { port: port2 }, [port2]);
+        worker.postMessageToThread(10, { x: 100 }, 1000);
+        worker.postMessageToThread(10, { x: 100 });
+
+        // close event
+        setTimeout(() => {
+            port1.close();
+            port2.close();
+
+            assert.deepStrictEqual(events, [
+                "custom_event",
+                "dispatch",
+                "message",
+                "close",
+            ], "Main Events");
+        }, 250);
+    } else if (workerThreads.parentPort) {
+        const events: string[] = [];
+
+        workerThreads.parentPort.once("message", ({ port: parentPort }) => {
+            const port: workerThreads.MessagePort = parentPort;
+
+            port.addEventListener("message", (event) => {
+                events.push(event.type);
+                port.postMessage("From parent to main");
+            });
+
+            setTimeout(() => {
+                port.close();
+
+                assert.deepStrictEqual(events, ["message"], "Parent Events");
+            }, 125);
+        });
+    }
 }

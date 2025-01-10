@@ -1,5 +1,4 @@
 import * as React from "react";
-import { render } from "react-dom";
 import enhanceWithClickOutside = require("react-click-outside");
 
 interface Props {
@@ -37,5 +36,5 @@ class ComponentWithDecorator extends React.Component<Props, State> {
 
 const ClickOutsideStatefulComponent = enhanceWithClickOutside(StatefulComponent);
 
-render(<ClickOutsideStatefulComponent text="" />, document.getElementById("test"));
-render(<ComponentWithDecorator text="" />, document.getElementById("test"));
+<ClickOutsideStatefulComponent text="" />;
+<ComponentWithDecorator text="" />;

@@ -1,7 +1,4 @@
 export as namespace regeneratorRuntime;
-declare global {
-    var regeneratorRuntime: typeof import(".");
-}
 
 /**
  * The implementation of the generator.
@@ -162,7 +159,7 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
 
 export function wrap<T = undefined, TYield = unknown, TReturn = unknown, TNext = unknown>(
     innerFn: InnerFunction<T, TYield, TReturn, TNext>,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -173,7 +170,7 @@ export interface ResolvablePromiseConstructorLike extends PromiseConstructorLike
 }
 
 export class AsyncIterator<TYield = unknown, TReturn = unknown, TNext = unknown>
-    implements AsyncGenerator<TYield, TReturn, TNext>
+    implements globalThis.AsyncIterator<TYield, TReturn, TNext>
 {
     constructor(
         generator: Generator<
@@ -203,7 +200,7 @@ export function async<T = undefined, TYield = unknown, TReturn = unknown>(
 >;
 export function async<T = undefined, TReturn = unknown>(
     innerFn: InnerFunction<T, unknown, TReturn>,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -224,7 +221,7 @@ export function isGeneratorFunction(func: unknown): func is GeneratorFunction;
 
 export function keys(object: {}): () => IteratorResult<string, undefined>;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function mark<F extends Function>(genFun: F): F & GeneratorFunction;
 
 export function values<I extends Iterator<unknown, unknown, unknown>>(iterable: { [Symbol.iterator](): I }): I;

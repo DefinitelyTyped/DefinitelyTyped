@@ -19,7 +19,12 @@ class TestConsumer {
     sizeReporter?: ReactSizeReporterRef;
     render() {
         return (
-            <SizeReporter onSizeChange={() => {}} ref={ref => (ref ? (this.sizeReporter = ref) : undefined)}>
+            <SizeReporter
+                onSizeChange={() => {}}
+                ref={ref => {
+                    ref ? (this.sizeReporter = ref) : undefined;
+                }}
+            >
                 <div>CONTENT GOES HERE</div>
                 <div>AND HERE</div>
                 <button type="button" onClick={this.reattach}>

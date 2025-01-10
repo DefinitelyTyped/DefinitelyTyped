@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/ember__string",
     "version": "3.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "@ember/string",
     "projects": [
         "https://www.npmjs.com/package/@ember/string"
@@ -11,10 +11,6 @@
         "@types/ember__string": "workspace:."
     },
     "owners": [
-        {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
         {
             "name": "Krystan HuffMenne",
             "githubUsername": "gitKrystan"

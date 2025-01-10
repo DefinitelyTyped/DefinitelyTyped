@@ -18,3 +18,5 @@ export interface DiffStringOptions extends DiffOptions {
 
 export function diff(obj1: unknown, obj2: unknown, options?: DiffOptions): any;
 export function diffString(obj1: unknown, obj2: unknown, options?: DiffStringOptions): string;
+
+export { colorize, colorizeToCallback } from "./lib/colorize";
