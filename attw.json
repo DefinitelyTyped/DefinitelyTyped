@@ -193,7 +193,6 @@
         "kss",
         "leveldown",
         "lint-staged",
-        "loadable__webpack-plugin",
         "locutus",
         "luxon",
         "mapbox__mapbox-sdk",
