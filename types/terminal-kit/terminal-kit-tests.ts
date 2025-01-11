@@ -542,3 +542,10 @@ async function test() {
 }
 
 test();
+
+const ioterm = t.createTerminal({
+    stdin: process.stdin,
+    stdout: process.stdout,
+    stderr: process.stderr,
+})
+t.terminal("Hello world using I/Os!\n");
