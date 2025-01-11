@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/chroma-js",
-    "version": "0.5.10000",
+    "version": "0.5.9999",
     "projects": [
         "https://github.com/gka/chroma.js"
     ],
