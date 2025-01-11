@@ -1,5 +1,7 @@
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
 
+export { NewRelicConfig } from "./config";
+
 /**
  * Give the current transaction a custom name.
  *

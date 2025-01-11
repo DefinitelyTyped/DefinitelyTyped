@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
+        "config.d.ts",
         "newrelic-tests.ts"
     ]
 }
