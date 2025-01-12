@@ -141,3 +141,28 @@ function taintTests() {
         true,
     );
 }
+
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
+
+    <ViewTransition />;
+    <ViewTransition className="enter-slide-in exit-fade-out update-cross-fade" />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    // autocomplete should display "auto"
+    <ViewTransition name="" />;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
+}

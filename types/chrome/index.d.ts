@@ -1980,25 +1980,7 @@ declare namespace chrome {
             visible?: boolean | undefined;
         }
 
-        export interface UpdateProperties {
-            documentUrlPatterns?: string[] | undefined;
-            checked?: boolean | undefined;
-            title?: string | undefined;
-            contexts?: ContextType[] | undefined;
-            /** Optional. @since Chrome 20  */
-            enabled?: boolean | undefined;
-            targetUrlPatterns?: string[] | undefined;
-            onclick?: Function | undefined;
-            /** Optional. Note: You cannot change an item to be a child of one of its own descendants.  */
-            parentId?: number | string;
-            type?: ContextItemType | undefined;
-            /**
-             * Optional.
-             * @since Chrome 62
-             * Whether the item is visible in the menu.
-             */
-            visible?: boolean | undefined;
-        }
+        export interface UpdateProperties extends Omit<CreateProperties, "id"> {}
 
         export interface MenuClickedEvent
             extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void>
@@ -2012,9 +1994,14 @@ declare namespace chrome {
 
         /**
          * Removes all context menu items added by this extension.
+         * @since Chrome 123
+         */
+        export function removeAll(): Promise<void>;
+        /**
+         * Removes all context menu items added by this extension.
          * @param callback Called when removal is complete.
          */
-        export function removeAll(callback?: () => void): void;
+        export function removeAll(callback: () => void): void;
         /**
          * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
          * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
@@ -2025,15 +2012,28 @@ declare namespace chrome {
          * Updates a previously created context menu item.
          * @param id The ID of the item to update.
          * @param updateProperties The properties to update. Accepts the same values as the create function.
+         * @since Chrome 123
+         */
+        export function update(id: string | number, updateProperties: UpdateProperties): Promise<void>;
+        /**
+         * Updates a previously created context menu item.
+         * @param id The ID of the item to update.
+         * @param updateProperties The properties to update. Accepts the same values as the create function.
          * @param callback Called when the context menu has been updated.
          */
-        export function update(id: string | number, updateProperties: UpdateProperties, callback?: () => void): void;
+        export function update(id: string | number, updateProperties: UpdateProperties, callback: () => void): void;
+        /**
+         * Removes a context menu item.
+         * @param menuItemId The ID of the context menu item to remove.
+         * @since Chrome 123
+         */
+        export function remove(menuItemId: string | number): Promise<void>;
         /**
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
          * @param callback Called when the context menu has been removed.
          */
-        export function remove(menuItemId: string | number, callback?: () => void): void;
+        export function remove(menuItemId: string | number, callback: () => void): void;
 
         /**
          * @since Chrome 21
@@ -3487,15 +3487,15 @@ declare namespace chrome {
             id: string;
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-             * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 and ECDSA with namedCurve P-256 can be generated. Each key can be used for signing data at most once.
-             * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048 and ECDSA with `namedCurve` P-256. Each RSASSA-PKCS1-V1_5 and ECDSA key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              */
             subtleCrypto: SubtleCrypto;
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
              * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
-             * Only non-extractable RSASSA-PKCS1-V1_5 keys with modulusLength up to 2048 can be generated. Each key can be used for signing data at most once.
-             * Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048. Each RSASSA-PKCS1-V1_5 key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              * @since Chrome 97
              */
             softwareBackedSubtleCrypto: SubtleCrypto;
@@ -3807,8 +3807,12 @@ declare namespace chrome {
             originAndPathMatches?: string | undefined;
         }
 
-        export interface BaseEvent<T extends Function> {
-            addListener(callback: T, filter?: webRequest.RequestFilter): void;
+        export interface Event<T extends Function> {
+            /**
+             * Registers an event listener callback to an event.
+             * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
+             */
+            addListener(callback: T): void;
             /**
              * Returns currently registered rules.
              * @param callback Called with registered rules.
@@ -3864,18 +3868,6 @@ declare namespace chrome {
              */
             removeListener(callback: T): void;
             hasListeners(): boolean;
-        }
-
-        /** An object which allows the addition and removal of listeners for a Chrome event. */
-        interface Event<T extends Function> extends BaseEvent<T> {
-            /**
-             * Registers an event listener callback to an event.
-             * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
-             */
-            addListener(callback: T): void;
-        }
-        export interface EventWithRequiredFilterInAddListener<T extends Function> extends BaseEvent<T> {
-            addListener(callback: T, filter: webRequest.RequestFilter): void;
         }
 
         /** Description of a declarative rule for handling events. */
@@ -8345,7 +8337,7 @@ declare namespace chrome {
         export function connectNative(application: string): Port;
         /**
          * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.
-         * @since MV3
+         * @deprecated Background pages do not exist in MV3 extensions.
          */
         export function getBackgroundPage(): Promise<Window>;
         /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
@@ -12036,6 +12028,12 @@ declare namespace chrome {
      * @since Chrome 17
      */
     export namespace webRequest {
+        interface WebRequestEvent<T extends Function, U extends string[]>
+            extends Omit<chrome.events.Event<T>, "addListener">
+        {
+            addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U): void;
+        }
+
         /** How the requested resource will be used. */
         export type ResourceType =
             | "main_frame"
@@ -12234,82 +12232,45 @@ declare namespace chrome {
             error: string;
         }
 
-        export interface WebRequestBodyEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebRequestBodyDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestBodyEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebRequestBodyDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebRequestHeadersSynchronousEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebRequestHeadersDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestHeadersSynchronousEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebRequestHeadersDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebRequestHeadersEvent
-            extends chrome.events.EventWithRequiredFilterInAddListener<(details: WebRequestHeadersDetails) => void>
-        {
-            addListener(
-                callback: (details: WebRequestHeadersDetails) => void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebRequestHeadersEvent = WebRequestEvent<
+            (details: WebRequestHeadersDetails) => void,
+            string[]
+        >;
 
-        export interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails>
-            extends chrome.events.EventWithRequiredFilterInAddListener<(details: T) => void>
-        {
-            addListener(callback: (details: T) => void, filter: RequestFilter, opt_extraInfoSpec?: string[]): void;
-        }
+        export type _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> = WebRequestEvent<
+            (details: T) => void,
+            string[]
+        >;
 
-        export interface WebResponseHeadersEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                (details: WebResponseHeadersDetails) => BlockingResponse | void
-            >
-        {
-            addListener(
-                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-                callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebResponseHeadersEvent = WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: WebResponseHeadersDetails) => BlockingResponse | void,
+            string[]
+        >;
 
-        export interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> {}
+        export type WebResponseCacheEvent = _WebResponseHeadersEvent<WebResponseCacheDetails>;
 
-        export interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
+        export type WebRedirectionResponseEvent = _WebResponseHeadersEvent<WebRedirectionResponseDetails>;
 
-        export interface WebAuthenticationChallengeEvent extends
-            chrome.events.EventWithRequiredFilterInAddListener<
-                (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
-            >
-        {
-            addListener(
-                callback: (
-                    details: WebAuthenticationChallengeDetails,
-                    callback?: (response: BlockingResponse) => void,
-                ) => void,
-                filter: RequestFilter,
-                opt_extraInfoSpec?: string[],
-            ): void;
-        }
+        export type WebAuthenticationChallengeEvent = WebRequestEvent<
+            (
+                details: WebAuthenticationChallengeDetails,
+                callback?: (response: BlockingResponse) => void,
+            ) => void,
+            string[]
+        >;
 
         export interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 
@@ -12319,17 +12280,25 @@ declare namespace chrome {
          */
         export var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
 
-        /** Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often. */
-        export function handlerBehaviorChanged(callback?: Function): void;
+        /**
+         * Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         */
+        export function handlerBehaviorChanged(): Promise<void>;
+        export function handlerBehaviorChanged(callback: Function): void;
 
         /** Fired when a request is about to occur. */
-        export var onBeforeRequest: WebRequestBodyEvent;
+        export const onBeforeRequest: WebRequestBodyEvent;
+
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-        export var onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
+        export const onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
+
         /** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
-        export var onSendHeaders: WebRequestHeadersEvent;
+        export const onSendHeaders: WebRequestHeadersEvent;
+
         /** Fired when HTTP response headers of a request have been received. */
-        export var onHeadersReceived: WebResponseHeadersEvent;
+        export const onHeadersReceived: WebResponseHeadersEvent;
+
         /**
          * Fired when an authentication failure is received.
          * The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
@@ -12338,15 +12307,19 @@ declare namespace chrome {
          *
          * Requires the `webRequestAuthProvider` permission.
          */
-        export var onAuthRequired: WebAuthenticationChallengeEvent;
+        export const onAuthRequired: WebAuthenticationChallengeEvent;
+
         /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
-        export var onResponseStarted: WebResponseCacheEvent;
+        export const onResponseStarted: WebResponseCacheEvent;
+
         /** Fired when a server-initiated redirect is about to occur. */
-        export var onBeforeRedirect: WebRedirectionResponseEvent;
+        export const onBeforeRedirect: WebRedirectionResponseEvent;
+
         /** Fired when a request is completed. */
-        export var onCompleted: WebResponseCacheEvent;
+        export const onCompleted: WebResponseCacheEvent;
+
         /** Fired when an error occurs. */
-        export var onErrorOccurred: WebResponseErrorEvent;
+        export const onErrorOccurred: WebResponseErrorEvent;
     }
 
     ////////////////////
@@ -12797,37 +12770,74 @@ declare namespace chrome {
 
     export namespace declarativeNetRequest {
         /** Ruleset ID for the dynamic rules added by the extension. */
-        export const DYNAMIC_RULESET_ID: string;
+        export const DYNAMIC_RULESET_ID: "_dynamic";
 
-        /** Time interval within which MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules calls can be made, specified in minutes.
-         * Additional calls will fail immediately and set runtime.lastError.
-         * Note: getMatchedRules calls associated with a user gesture are exempt from the quota.
+        /**
+         * Time interval within which `MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules` calls can be made, specified in minutes.
+         * Additional calls will fail immediately and set {@link runtime.lastError}.
+         * Note: `getMatchedRules` calls associated with a user gesture are exempt from the quota.
          */
-        export const GETMATCHEDRULES_QUOTA_INTERVAL: number;
+        export const GETMATCHEDRULES_QUOTA_INTERVAL: 10;
 
-        /** The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
+        /**
+         * The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
          * Any rules above this limit will count towards the global rule limit.
+         * @since Chrome 89
          */
-        export const GUARANTEED_MINIMUM_STATIC_RULES: number;
+        export const GUARANTEED_MINIMUM_STATIC_RULES: 30000;
 
-        /** The number of times getMatchedRules can be called within a period of GETMATCHEDRULES_QUOTA_INTERVAL. */
-        export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: number;
+        /** The number of times `getMatchedRules` can be called within a period of `GETMATCHEDRULES_QUOTA_INTERVAL`. */
+        export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: 20;
+
+        /** The maximum number of dynamic rules that an extension can add. */
+        export const MAX_NUMBER_OF_DYNAMIC_RULES: 30000;
+
+        /**
+         * The maximum number of static `Rulesets` an extension can enable at any one time.
+         * @since Chrome 94
+         */
+        export const MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 50;
 
         /** The maximum number of combined dynamic and session scoped rules an extension can add. */
-        export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+        export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 5000;
 
-        /** The maximum number of regular expression rules that an extension can add.
+        /**
+         * The maximum number of regular expression rules that an extension can add.
          * This limit is evaluated separately for the set of dynamic rules and those specified in the rule resources file.
          */
-        export const MAX_NUMBER_OF_REGEX_RULES: number;
+        export const MAX_NUMBER_OF_REGEX_RULES: 1000;
 
-        /** The maximum number of static Rulesets an extension can specify as part of the "rule_resources" manifest key. */
-        export const MAX_NUMBER_OF_STATIC_RULESETS: number;
+        /**
+         * The maximum number of session scoped rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_SESSION_RULES: 5000;
 
-        /** Ruleset ID for the session-scoped rules added by the extension. */
-        export const SESSION_RULESET_ID: string;
+        /** The maximum number of static `Rulesets` an extension can specify as part of the `"rule_resources"` manifest key. */
+        export const MAX_NUMBER_OF_STATIC_RULESETS: 100;
 
-        /** This describes the HTTP request method of a network request.  */
+        /**
+         * The maximum number of "unsafe" dynamic rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 5000;
+
+        /**
+         * The maximum number of "unsafe" session scoped rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_UNSAFE_SESSION_RULES: 5000;
+
+        /**
+         * Ruleset ID for the session-scoped rules added by the extension.
+         * @since Chrome 90
+         */
+        export const SESSION_RULESET_ID: "_session";
+
+        /**
+         * This describes the HTTP request method of a network request.
+         * @since Chrome 91
+         */
         export enum RequestMethod {
             CONNECT = "connect",
             DELETE = "delete",
@@ -12837,6 +12847,7 @@ declare namespace chrome {
             PATCH = "patch",
             POST = "post",
             PUT = "put",
+            OTHER = "other",
         }
 
         /** This describes the resource type of the network request. */
@@ -12853,37 +12864,59 @@ declare namespace chrome {
             CSP_REPORT = "csp_report",
             MEDIA = "media",
             WEBSOCKET = "websocket",
+            WEBTRANSPORT = "webtransport",
+            WEBBUNDLE = "webbundle",
             OTHER = "other",
         }
 
         /** Describes the kind of action to take if a given RuleCondition matches. */
         export enum RuleActionType {
+            /** Block the network request. */
             BLOCK = "block",
+            /** Redirect the network request. */
             REDIRECT = "redirect",
+            /** Allow the network request. The request won't be intercepted if there is an allow rule which matches it. */
             ALLOW = "allow",
+            /** Upgrade the network request url's scheme to https if the request is http or ftp. */
             UPGRADE_SCHEME = "upgradeScheme",
+            /** Modify request/response headers from the network request. */
             MODIFY_HEADERS = "modifyHeaders",
+            /** Allow all requests within a frame hierarchy, including the frame request itself. */
             ALLOW_ALL_REQUESTS = "allowAllRequests",
         }
 
-        /** Describes the reason why a given regular expression isn't supported. */
+        /**
+         * Describes the reason why a given regular expression isn't supported.
+         * @since Chrome 87
+         */
         export enum UnsupportedRegexReason {
+            /** The regular expression is syntactically incorrect, or uses features not available in the RE2 syntax. */
             SYNTAX_ERROR = "syntaxError",
+            /** The regular expression exceeds the memory limit. */
             MEMORY_LIMIT_EXCEEDED = "memoryLimitExceeded",
         }
 
-        /** TThis describes whether the request is first or third party to the frame in which it originated.
+        /**
+         * This describes whether the request is first or third party to the frame in which it originated.
          * A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated.
          */
         export enum DomainType {
+            /** The network request is first party to the frame in which it originated. */
             FIRST_PARTY = "firstParty",
+            /* The network request is third party to the frame in which it originated. */
             THIRD_PARTY = "thirdParty",
         }
 
-        /** This describes the possible operations for a "modifyHeaders" rule. */
+        /**
+         * This describes the possible operations for a "modifyHeaders" rule.
+         * @since Chrome 86
+         */
         export enum HeaderOperation {
+            /** Adds a new entry for the specified header. This operation is not supported for request headers. */
             APPEND = "append",
+            /** Sets a new value for the specified header, removing any existing headers with the same name. */
             SET = "set",
+            /** Removes all entries for the specified header. */
             REMOVE = "remove",
         }
 
@@ -13752,7 +13785,7 @@ declare namespace chrome {
             id: string;
             /** Specifies wildcard patterns for pages this user script will be injected into. */
             includeGlobs?: string[];
-            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. */
+            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array.*/
             js: ScriptSource[];
             /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for ${ref:register}. */
             matches?: string[];
