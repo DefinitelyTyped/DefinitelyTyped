@@ -123,7 +123,15 @@ declare module "." {
     ): void;
     function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
 
+    export interface ViewTransitionInstance {
+        /**
+         * The {@link ViewTransitionProps name} that was used in the corresponding {@link ViewTransition} component or `"auto"` if the `name` prop was omitted.
+         */
+        name: string;
+    }
+
     export interface ViewTransitionProps {
+        children?: ReactNode | undefined;
         /**
          * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
          */
@@ -136,7 +144,7 @@ declare module "." {
          * @default "auto"
          */
         name?: "auto" | (string & {}) | undefined;
-        children?: ReactNode | undefined;
+        ref?: Ref<ViewTransitionInstance> | undefined;
     }
 
     /**
