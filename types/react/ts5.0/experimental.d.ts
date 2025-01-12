@@ -140,10 +140,30 @@ declare module "." {
          * "auto" will automatically assign a view-transition-name to the inner DOM node.
          * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
          *
-         * A difference between this and the browser's built-in view-transition-name: auto is that switching the DOM nodes within the <ViewTransition> component preserves the same name so this example cross-fades between the DOM nodes instead of causing an exit and enter.
+         * A difference between this and the browser's built-in view-transition-name: auto is that switching the DOM nodes within the `<ViewTransition>` component preserves the same name so this example cross-fades between the DOM nodes instead of causing an exit and enter.
          * @default "auto"
          */
         name?: "auto" | (string & {}) | undefined;
+        /**
+         * The `<ViewTransition>` or its parent Component is mounted and there's no other `<ViewTransition>` with the same name being deleted.
+         */
+        onEnter?: (instance: ViewTransitionInstance) => void;
+        /**
+         * The `<ViewTransition>` or its parent Component is unmounted and there's no other `<ViewTransition>` with the same name being deleted.
+         */
+        onExit?: (instance: ViewTransitionInstance) => void;
+        /**
+         *  There are no updates to the content inside this `<ViewTransition>` boundary itself but the boundary has resized or moved due to other changes to siblings.
+         */
+        onLayout?: (instance: ViewTransitionInstance) => void;
+        /**
+         * This `<ViewTransition>` is being mounted and another `<ViewTransition>` instance with the same name is being unmounted elsewhere.
+         */
+        onShare?: (instance: ViewTransitionInstance) => void;
+        /**
+         * The content of `<ViewTransition>` has changed either due to DOM mutations or because an inner child `<ViewTransition>` has resized.
+         */
+        onUpdate?: (instance: ViewTransitionInstance) => void;
         ref?: Ref<ViewTransitionInstance> | undefined;
     }
 

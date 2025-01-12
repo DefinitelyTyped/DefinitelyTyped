@@ -150,6 +150,29 @@ function viewTransitionTests() {
     <ViewTransition name="" />;
 
     <ViewTransition
+        onEnter={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onExit={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onLayout={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onShare={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onUpdate={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+    />;
+
+    <ViewTransition
         ref={current => {
             if (current !== null) {
                 // $ExpectType string
