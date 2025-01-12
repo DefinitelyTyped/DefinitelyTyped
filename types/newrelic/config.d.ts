@@ -34,6 +34,13 @@ declare module "./config" {
         compressed_content_encoding?: string;
 
         /**
+         * @deprecated
+         * @name NEW_RELIC_APDEX_T
+         * @default 0.100
+         */
+        apdex_t?: number;
+
+        /**
          * @name NEW_RELIC_CERTIFICATES
          */
         certificates?: string[];
@@ -350,9 +357,16 @@ declare module "./config" {
 
             /**
              * @name NEW_RELIC_TRANSACTION_EVENTS_MAX_SAMPLES_STORED
-             * @default 10000
+             * @default 10000 // v6 onwards
+             * @default 20000 // v5.x or lower
              */
             max_samples_stored?: number;
+
+            /**
+             * @name NEW_RELIC_TRANSACTION_EVENTS_MAX_SAMPLES_PER_MINUTE
+             * @default 20000
+             */
+            max_samples_per_minute?: number;
 
             attributes?: {
                 /**
@@ -464,6 +478,9 @@ declare module "./config" {
             };
         };
 
+        /**
+         * @deprecated
+         */
         cross_application_tracer?: {
             /**
              * @name NEW_RELIC_CROSS_APPLICATION_TRACER_ENABLED
