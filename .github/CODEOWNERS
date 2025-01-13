@@ -2036,6 +2036,7 @@
 /types/express-sitemap-xml/                               @ffflorian @peterblazejewicz
 /types/express-slow-down/                                 @jdforsythe @joshhendo
 /types/express-socket.io-session/                         @AylaJK
+/types/express-sse/                                       @powerleks
 /types/express-sslify/                                    @bengry
 /types/express-status-monitor/                            @alexanderson1993 @tecxar-prashant
 /types/express-to-koa/                                    @xiaohanzhang
@@ -3699,7 +3700,6 @@
 /types/jest-matcher-one-of/                               @joemitchard
 /types/jest-plugin-context/                               @jonasheinrich
 /types/jest-plugin-set/                                   @jonasheinrich
-/types/jest-preset-stylelint/                             @marcfallows
 /types/jest-sinon/                                        @seidelmartin
 /types/jest-specific-snapshot/                            @dawnmist
 /types/jest-when/                                         @aldentaylor @immanuel192 @gstamac @hipsterbrown @boginw
@@ -4988,7 +4988,6 @@
 /types/methods/                                           @cprecioso @michelbitter
 /types/metric-suffix/                                     @davidm77
 /types/metrostations/                                     @peterblazejewicz
-/types/meyda/                                             @eramdam @hughrawlinson
 /types/mfiles/                                            @avonwyss
 /types/mg-api-js/                                         @kadensharpin
 /types/micro-cors/                                        @CallumDenby @moonchanyong
@@ -5397,7 +5396,6 @@
 /types/node-snap7/                                        @heilingbrunner
 /types/node-sprite-generator/                             @Perlmint
 /types/node-ssdp/                                         @OrionNebula
-/types/node-ssh/                                          @yoursunny
 /types/node-ssha256/                                      @midgleyc
 /types/node-static/                                       @Morfent
 /types/node-statsd/                                       @alexturek @convoyinc
@@ -6391,7 +6389,6 @@
 /types/react-copy-write/                                  @samhh @davej
 /types/react-count-to/                                    @pwolaq
 /types/react-credit-cards/                                @vstrimaitis @olefrank @zzanol
-/types/react-cropper/                                     @bwlt @frisi
 /types/react-css-collapse/                                @dford07
 /types/react-css-modules/                                 @KostyaEsmukov @skirsdeda
 /types/react-css-transition-replace/                      @LKay
