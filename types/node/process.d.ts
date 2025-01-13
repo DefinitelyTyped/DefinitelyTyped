@@ -1676,7 +1676,7 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
-                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 * This API is available through the [--permission](https://nodejs.org/api/cli.html#--permission) flag.
                  *
                  * `process.permission` is an object whose methods are used to manage permissions for the current process.
                  * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).
