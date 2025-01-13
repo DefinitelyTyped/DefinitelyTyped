@@ -312,7 +312,10 @@ declare module "module" {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: Partial<LoadHookContext>) => LoadFnOutput | Promise<LoadFnOutput>,
+            nextLoad: (
+                url: string,
+                context?: Partial<LoadHookContext>,
+            ) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
         /**
          * `path` is the resolved path for the file for which a corresponding source map
