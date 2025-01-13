@@ -54,30 +54,17 @@ class MyComponent1 extends Component {
 }
 
 class MyComponent2 extends Component<HTMLVideoElement> {
-    config: MyComponentConfig;
-
-    constructor($root: Element | null, config?: MyComponentConfig) {
+    constructor($root: Element | null) {
         super($root);
 
-        if (this.$root instanceof HTMLVideoElement) {
-            this.config = config ?? MyComponent2.defaults;
-        }
+        this.$root instanceof HTMLVideoElement;
     }
 
     static moduleName = "MyComponent2";
-
-    static defaults: MyComponentConfig = {
-        hasConfig: true,
-    };
-}
-
-interface MyComponentConfig {
-    hasConfig: boolean;
 }
 
 new MyComponent1($root);
 new MyComponent2($root);
-new MyComponent2($root, MyComponent2.defaults);
 
 MyComponent1.checkSupport();
 MyComponent2.checkSupport();
@@ -211,10 +198,10 @@ createAll(MyComponent1, undefined, {
 });
 
 createAll(MyComponent2);
-createAll(MyComponent2, MyComponent2.defaults);
-createAll(MyComponent2, MyComponent2.defaults, document.body);
-createAll(MyComponent2, MyComponent2.defaults, console.error);
-createAll(MyComponent2, MyComponent2.defaults, {
+createAll(MyComponent2, undefined);
+createAll(MyComponent2, undefined, document.body);
+createAll(MyComponent2, undefined, console.error);
+createAll(MyComponent2, undefined, {
     scope: document.body,
     onError: console.error,
 });
