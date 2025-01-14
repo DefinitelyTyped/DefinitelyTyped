@@ -1,16 +1,10 @@
 {
-  "license": "MIT",
+  "private": true,
   "version": "1.0.0",
-  "main": "index.d.ts",
+  "nonNpm": "conflict",
   "name": "@types/notiad-sdk",
-  "author": "ykavras@gmail.com",
-  "description": "Types for Notiad SDK",
-  "files": [
-    "index.d.ts"
-  ],
-  "keywords": [
-    "sdk",
-    "notiad",
-    "types"
-  ]
+  "nonNpmDescription": "Types for Notiad SDK",
+  "owners": [{"name": "Yasir","githubUsername": "ykavras"}],
+  "projects":["https://d2qanjprnv2u8t.cloudfront.net/notiad-sdk.umd.js"]
 }
+
