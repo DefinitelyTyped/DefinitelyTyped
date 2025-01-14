@@ -205,10 +205,10 @@ declare module "node:test" {
      *
      * The `describe()` function is imported from the `node:test` module.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(name?: string, fn?: SuiteFn): Promise<void>;
-    function describe(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function describe(name?: string, fn?: SuiteFn): PromiseLike<void>;
+    function describe(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function describe(fn?: SuiteFn): PromiseLike<void>;
     namespace describe {
         /**
          * Shorthand for skipping a suite. This is the same as calling {@link describe} with `options.skip` set to `true`.
@@ -241,10 +241,10 @@ declare module "node:test" {
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(name?: string, fn?: TestFn): Promise<void>;
-    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(fn?: TestFn): Promise<void>;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function it(name?: string, fn?: TestFn): PromiseLike<void>;
+    function it(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function it(fn?: TestFn): PromiseLike<void>;
     namespace it {
         /**
          * Shorthand for skipping a test. This is the same as calling {@link it} with `options.skip` set to `true`.
