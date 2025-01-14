@@ -1,3 +1,5 @@
+import { type ObjectNested } from "./configuration.js";
+
 /**
  * Common helpers which do not require polyfill.
  *
@@ -73,10 +75,15 @@ export function isSupported($scope?: HTMLElement | null): boolean;
  * Check for an object
  *
  * @internal
- * @param {unknown} option - Option to check
- * @returns {boolean} Whether the option is an object
+ * @template {Partial<Record<keyof ObjectType, unknown>>} [ObjectType=ObjectNested]
+ * @param {unknown | ObjectType} option - Option to check
+ * @returns {option is ObjectType} Whether the option is an object
  */
-export function isObject(option: unknown): boolean;
+export function isObject<
+    ObjectType extends Partial<Record<keyof ObjectType, unknown>> = ObjectNested,
+>(
+    option: unknown,
+): option is ObjectType;
 
 /**
  * Format error message

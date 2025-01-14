@@ -28,13 +28,13 @@ export function normaliseString(
  * optionally expanding nested `i18n.field`
  *
  * @internal
- * @param {{ schema?: Schema, moduleName: string }} Component - Component class
+ * @param {{ schema?: Schema<ObjectNested>, moduleName: string }} Component - Component class
  * @param {DOMStringMap} dataset - HTML element dataset
  * @returns {ObjectNested} Normalised dataset
  */
 export function normaliseDataset(
     Component: {
-        schema?: Schema;
+        schema?: Schema<ObjectNested>;
         moduleName: string;
     },
     dataset: DOMStringMap,
@@ -67,28 +67,39 @@ export function mergeConfigs(
  * {@link https://ajv.js.org/packages/ajv-errors.html#single-message}
  *
  * @internal
- * @param {Schema} schema - Config schema
- * @param {{ [key: string]: unknown }} config - Component config
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
+ * @param {Schema<ConfigurationType>} schema - The schema of a component
+ * @param {ConfigurationType} config - Component config
  * @returns {string[]} List of validation errors
  */
-export function validateConfig(schema: Schema, config: {
-    [key: string]: unknown;
-}): string[];
+export function validateConfig<
+    ConfigurationType extends Partial<
+        Record<keyof ConfigurationType, unknown>
+    >,
+>(
+    schema: Schema<ConfigurationType>,
+    config: ConfigurationType,
+): string[];
 
 /**
  * Extracts keys starting with a particular namespace from dataset ('data-*')
  * object, removing the namespace in the process, normalising all values
  *
  * @internal
- * @param {Schema} schema - The schema of a component
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
+ * @param {Schema<ConfigurationType>} schema - The schema of a component
  * @param {DOMStringMap} dataset - The object to extract key-value pairs from
- * @param {string} namespace - The namespace to filter keys with
+ * @param {keyof ConfigurationType} namespace - The namespace to filter keys with
  * @returns {ObjectNested | undefined} Nested object with dot-separated key namespace removed
  */
-export function extractConfigByNamespace(
-    schema: Schema,
+export function extractConfigByNamespace<
+    ConfigurationType extends Partial<
+        Record<keyof ConfigurationType, unknown>
+    >,
+>(
+    schema: Schema<ConfigurationType>,
     dataset: DOMStringMap,
-    namespace: string,
+    namespace: keyof ConfigurationType,
 ): ObjectNested | undefined;
 
 export const configOverride: unique symbol;
@@ -98,11 +109,13 @@ export const configOverride: unique symbol;
  *
  * Centralises the behaviours shared by our components
  *
- * @template {ObjectNested} [ConfigurationType={}]
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} [ConfigurationType=ObjectNested]
  * @template {Element & { dataset: DOMStringMap }} [RootElementType=HTMLElement]
  */
 export abstract class ConfigurableComponent<
-    ConfigurationType extends ObjectNested = {},
+    ConfigurationType extends Partial<
+        Record<keyof ConfigurationType, unknown>
+    > = ObjectNested,
     RootElementType extends Element & {
         dataset: DOMStringMap;
     } = HTMLElement,
@@ -138,10 +151,10 @@ export abstract class ConfigurableComponent<
      * is used for indexing to prevent conflicts.
      *
      * @internal
-     * @param {ObjectNested} [param] - Configuration object
-     * @returns {ObjectNested} return - Configuration object
+     * @param {Partial<ConfigurationType>} [param] - Configuration object
+     * @returns {Partial<ConfigurationType>} return - Configuration object
      */
-    [configOverride](param?: ObjectNested): ObjectNested;
+    [configOverride](param?: Partial<ConfigurationType>): Partial<ConfigurationType>;
 }
 
 export type NestedKey = keyof ObjectNested;
@@ -153,13 +166,15 @@ export interface ObjectNested {
 /**
  * Schema for component config
  */
-export interface Schema {
+export interface Schema<
+    ConfigurationType extends Partial<
+        Record<keyof ConfigurationType, unknown>
+    >,
+> {
     /**
      * - Schema properties
      */
-    properties: {
-        [field: string]: SchemaProperty | undefined;
-    };
+    properties: Record<keyof ConfigurationType, SchemaProperty | undefined>;
 
     /**
      * - List of schema conditions
