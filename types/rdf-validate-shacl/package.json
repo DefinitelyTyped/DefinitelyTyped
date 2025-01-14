@@ -6,7 +6,7 @@
         "https://github.com/zazuko/rdf-validate-shacl#readme"
     ],
     "dependencies": {
-        "@rdfjs/types": "*",
+        "@rdfjs/types": "^1",
         "@types/clownface": "*",
         "@types/node": "*"
     },
