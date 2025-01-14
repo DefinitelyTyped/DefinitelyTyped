@@ -109,7 +109,7 @@ export type LogLevel = "debug" | "error" | "off";
  * Expression term definitions
  * @see https://facebook.github.io/watchman/docs/expr/allof.html
  */
-type Expression =
+export type Expression =
     | readonly ["allof", ...Expression[]]
     | readonly ["anyof", ...Expression[]]
     | readonly ["not", Expression]
