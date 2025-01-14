@@ -146,7 +146,14 @@ function viewTransitionTests() {
     const ViewTransition = React.unstable_ViewTransition;
 
     <ViewTransition />;
-    <ViewTransition className="enter-slide-in exit-fade-out update-cross-fade" />;
+    <ViewTransition
+        className="enter-slide-in exit-fade-out update-cross-fade"
+        enter="slide-from-left"
+        exit="slide-to-right"
+        layout="slide"
+        update="none"
+        share="cross-fade"
+    />;
     <ViewTransition name="auto" />;
     <ViewTransition name="foo" />;
     // autocomplete should display "auto"
