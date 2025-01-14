@@ -9003,12 +9003,6 @@ declare namespace chrome {
         export interface StorageArea {
             /**
              * Gets the amount of space (in bytes) being used by one or more items.
-             * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
-             * Parameter bytesInUse: Amount of space being used in storage, in bytes.
-             */
-            getBytesInUse(callback: (bytesInUse: number) => void): void;
-            /**
-             * Gets the amount of space (in bytes) being used by one or more items.
              * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
              * @return A Promise that resolves with a number
              * @since MV3
@@ -9024,6 +9018,12 @@ declare namespace chrome {
                 keys: keyof T | Array<keyof T> | null,
                 callback: (bytesInUse: number) => void,
             ): void;
+            /**
+             * Gets the amount of space (in bytes) being used by one or more items.
+             * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
+             * Parameter bytesInUse: Amount of space being used in storage, in bytes.
+             */
+            getBytesInUse(callback: (bytesInUse: number) => void): void;
             /**
              * Removes all items from storage.
              * @return A void Promise
@@ -9068,12 +9068,6 @@ declare namespace chrome {
              */
             remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>, callback: () => void): void;
             /**
-             * Gets the entire contents of storage.
-             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-             * Parameter items: Object with items in their key-value mappings.
-             */
-            get<T = { [key: string]: any }>(callback: (items: T) => void): void;
-            /**
              * Gets one or more items from storage.
              * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
              * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
@@ -9094,6 +9088,12 @@ declare namespace chrome {
                 keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
                 callback: (items: T) => void,
             ): void;
+            /**
+             * Gets the entire contents of storage.
+             * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+             * Parameter items: Object with items in their key-value mappings.
+             */
+            get<T = { [key: string]: any }>(callback: (items: T) => void): void;
             /**
              * Sets the desired access level for the storage area. The default will be only trusted contexts.
              * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
