@@ -1,6 +1,6 @@
 {
+  "nonNpm": true,
   "private": true,
-  "nonNpm": "conflict",
   "version": "1.0.9999",
   "name": "@types/notiad-sdk",
   "nonNpmDescription": "Types for Notiad SDK",
