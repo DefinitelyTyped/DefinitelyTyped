@@ -1,0 +1,16 @@
+{
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "index.d.ts",
+  "name": "@types/notiad-sdk",
+  "author": "ykavras@gmail.com",
+  "description": "Types for Notiad SDK",
+  "files": [
+    "index.d.ts"
+  ],
+  "keywords": [
+    "sdk",
+    "notiad",
+    "types"
+  ]
+}
