@@ -1465,6 +1465,10 @@
             "libraryName": "domelementtype",
             "asOfVersion": "2.0.1"
         },
+        "domhandler": {
+            "libraryName": "domhandler",
+            "asOfVersion": "3.1.0"
+        },
         "dompurify": {
             "libraryName": "dompurify",
             "asOfVersion": "3.2.0"
