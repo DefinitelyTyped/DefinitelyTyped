@@ -3729,6 +3729,10 @@
             "libraryName": "mri",
             "asOfVersion": "1.2.0"
         },
+        "mrz": {
+            "libraryName": "mrz",
+            "asOfVersion": "3.2.0"
+        },
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
             "asOfVersion": "0.7.2"
