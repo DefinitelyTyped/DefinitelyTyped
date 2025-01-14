@@ -38,7 +38,7 @@ client.command(
             fields: ["name", "size", "mtime_ms"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -55,7 +55,7 @@ client.command(
             fields: ["name", "type"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -72,7 +72,7 @@ client.command(
             ],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -85,7 +85,7 @@ client.command(
             fields: ["name", "exists"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -103,7 +103,7 @@ client.command(
             fields: ["name", "type", "size"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -119,7 +119,7 @@ client.command(
             ],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -137,7 +137,7 @@ client.command(
             relative_root: "src",
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.command(
@@ -154,7 +154,7 @@ client.command(
             fields: ["name", "size", "type"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 // Invalid expression
@@ -169,7 +169,7 @@ client.command(
             fields: ["name", "size", "mtime_ms"],
         },
     ],
-    () => {}
+    () => {},
 );
 
 client.on("subscription", (resp) => {

@@ -175,7 +175,7 @@ export class Client extends EventEmitter {
      */
     command(
         args: ["subscribe", string, string, SubscriptionConfig],
-        callback: CommandCallback<SubscribeResponse>
+        callback: CommandCallback<SubscribeResponse>,
     ): void;
 
     /**
@@ -219,7 +219,7 @@ export class Client extends EventEmitter {
         callback: CommandCallback<{
             version: string;
             config: Record<string, unknown>;
-        }>
+        }>,
     ): void;
 
     /**
@@ -233,7 +233,7 @@ export class Client extends EventEmitter {
         callback: CommandCallback<{
             version: string;
             sockname: string;
-        }>
+        }>,
     ): void;
 
     /**
@@ -339,17 +339,17 @@ export class Client extends EventEmitter {
         args:
             | ["version"]
             | [
-                  "version",
-                  {
-                      optional: string[];
-                      required: string[];
-                  }
-              ],
+                "version",
+                {
+                    optional: string[];
+                    required: string[];
+                },
+            ],
         callback: CommandCallback<{
             version: string;
             buildinfo: string;
             capabilities?: Record<string, boolean>;
-        }>
+        }>,
     ): void;
 
     /**
@@ -361,7 +361,7 @@ export class Client extends EventEmitter {
         args: ["list-capabilities"],
         callback: CommandCallback<{
             capabilities: Record<string, boolean>;
-        }>
+        }>,
     ): void;
 
     /**
@@ -381,8 +381,8 @@ export class Client extends EventEmitter {
                 | "watch-del"
                 | "watch-list"
             ),
-            ...any[]
-        ]
+            ...any[],
+        ],
     ): void;
 
     /**
