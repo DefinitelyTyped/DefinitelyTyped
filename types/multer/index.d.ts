@@ -1,4 +1,4 @@
-import { Request, RequestHandler } from "express";
+import { Request, RequestHandlerParams } from "express";
 import { Readable } from "stream";
 
 declare global {
@@ -83,7 +83,7 @@ declare namespace multer {
          *
          * @param fieldName Name of the multipart form field to process.
          */
-        single(fieldName: string): RequestHandler;
+        single(fieldName: string): RequestHandlerParams;
         /**
          * Returns middleware that processes multiple files sharing the same field
          * name.
@@ -95,7 +95,7 @@ declare namespace multer {
          * @param maxCount Optional. Maximum number of files to process. (default: Infinity)
          * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName`
          */
-        array(fieldName: string, maxCount?: number): RequestHandler;
+        array(fieldName: string, maxCount?: number): RequestHandlerParams;
         /**
          * Returns middleware that processes multiple files associated with the
          * given form fields.
@@ -107,7 +107,7 @@ declare namespace multer {
          * @param fields Array of `Field` objects describing multipart form fields to process.
          * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
          */
-        fields(fields: readonly Field[]): RequestHandler;
+        fields(fields: readonly Field[]): RequestHandlerParams;
         /**
          * Returns middleware that processes all files contained in the multipart
          * request.
@@ -115,13 +115,13 @@ declare namespace multer {
          * The `Request` object will be populated with a `files` array containing
          * an information object for each processed file.
          */
-        any(): RequestHandler;
+        any(): RequestHandlerParams;
         /**
          * Returns middleware that accepts only non-file multipart form fields.
          *
          * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if any file is encountered.
          */
-        none(): RequestHandler;
+        none(): RequestHandlerParams;
     }
 
     /**
