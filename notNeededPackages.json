@@ -2385,6 +2385,10 @@
             "libraryName": "hex-rgb",
             "asOfVersion": "4.1.0"
         },
+        "hexo": {
+            "libraryName": "hexo",
+            "asOfVersion": "7.0.0"
+        },
         "hibp": {
             "libraryName": "hibp",
             "asOfVersion": "7.3.0"
