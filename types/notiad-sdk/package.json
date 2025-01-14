@@ -1,10 +1,19 @@
 {
   "private": true,
-  "version": "1.0.0",
   "nonNpm": "conflict",
+  "version": "1.0.9999",
   "name": "@types/notiad-sdk",
   "nonNpmDescription": "Types for Notiad SDK",
-  "owners": [{"name": "Yasir","githubUsername": "ykavras"}],
-  "projects":["https://d2qanjprnv2u8t.cloudfront.net/notiad-sdk.umd.js"]
+  "owners": [
+    {
+      "name": "Yasir",
+      "githubUsername": "ykavras"
+    }
+  ],
+  "projects": [
+    "https://d2qanjprnv2u8t.cloudfront.net/notiad-sdk.umd.js"
+  ],
+  "devDependencies": {
+    "@types/notiad-sdk": "workspace:."
+  }
 }
-
