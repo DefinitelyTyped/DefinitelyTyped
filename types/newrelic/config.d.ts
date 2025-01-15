@@ -389,7 +389,7 @@ declare module "./config" {
 
             /**
              * @name NEW_RELIC_IGNORING_RULES
-             * @default ['^/socket.io/.@/xhr-polling/']
+             * @default ['^/socket.io/.*\/xhr-polling/']
              * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#rules_ignore
              */
             ignore?: (string | RegExp)[];
