@@ -23,6 +23,7 @@ import * as net from "node:net";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         highWaterMark: 16384,
+        blockList: new net.BlockList(),
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
