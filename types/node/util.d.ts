@@ -1321,8 +1321,6 @@ declare module "util" {
         | "strikethrough"
         | "underline";
     /**
-     * Stability: 1.1 - Active development
-     *
      * This function returns a formatted text considering the `format` passed.
      *
      * ```js
