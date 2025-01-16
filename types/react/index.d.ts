@@ -1508,13 +1508,13 @@ declare namespace React {
      * @example
      *
      * ```tsx
-     * type MyComponentRef = React.ElementRef<typeof MyComponent>;
+     * type MyComponentRef = React.ComponentRef<typeof MyComponent>;
      * ```
      *
      * @example
      *
      * ```tsx
-     * type DivRef = React.ElementRef<'div'>;
+     * type DivRef = React.ComponentRef<'div'>;
      * ```
      */
     type ComponentRef<T extends ElementType> = ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
