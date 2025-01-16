@@ -1008,6 +1008,14 @@ declare module "net" {
          * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
+        /**
+         * @since v22.13.0
+         * @param input An input string containing an IP address and optional port,
+         * e.g. `123.1.2.3:1234` or `[1::1]:1234`.
+         * @returns Returns a `SocketAddress` if parsing was successful.
+         * Otherwise returns `undefined`.
+         */
+        static parse(input: string): SocketAddress | undefined;
     }
 }
 declare module "node:net" {

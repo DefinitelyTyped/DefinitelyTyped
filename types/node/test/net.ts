@@ -405,6 +405,7 @@ import * as net from "node:net";
     sockAddr.family; // $ExpectType IPVersion
     sockAddr.flowlabel; // $ExpectType number
     sockAddr.port; // $ExpectType number
+    net.SocketAddress.parse("[1::1]:1234"); // $ExpectType SocketAddress | undefined
 
     const bl = new net.BlockList();
     bl.addAddress("127.0.0.1", "ipv4");
