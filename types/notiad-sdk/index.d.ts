@@ -2,25 +2,25 @@
  * Properties required to initialize the SDK.
  */
 export interface InitProps {
-  /** Unique identifier for the block where the SDK will operate. */
-  blockId: string;
+    /** Unique identifier for the block where the SDK will operate. */
+    blockId: string;
 }
 
 /**
  * Result of the handleShow promise.
  */
 export interface HandleShowPromiseResult {
-  /** Indicates whether the user watched until the end or closed the content in interstitial format. */
-  done: boolean;
+    /** Indicates whether the user watched until the end or closed the content in interstitial format. */
+    done: boolean;
 
-  /** Description of the emitted event. */
-  description: string;
+    /** Description of the emitted event. */
+    description: string;
 
-  /** Current state of the banner. */
-  state: "no-campaign" | "no-banners" | "destroy";
+    /** Current state of the banner. */
+    state: "no-campaign" | "no-banners" | "destroy";
 
-  /** Indicates whether the event was emitted due to an error. */
-  error: boolean;
+    /** Indicates whether the event was emitted due to an error. */
+    error: boolean;
 }
 
 /**
@@ -58,15 +58,15 @@ export function removeEventListener(): void;
 
 // Global declarations
 declare global {
-  interface Window {
-    /**
-     * Global object for accessing the Notiad SDK methods.
-     */
-    NotiadSDK: {
-      init: typeof init;
-      handleShow: typeof handleShow;
-      addEventListener: typeof addEventListener;
-      removeEventListener: typeof removeEventListener;
-    };
-  }
+    interface Window {
+        /**
+         * Global object for accessing the Notiad SDK methods.
+         */
+        NotiadSDK: {
+            init: typeof init;
+            handleShow: typeof handleShow;
+            addEventListener: typeof addEventListener;
+            removeEventListener: typeof removeEventListener;
+        };
+    }
 }
