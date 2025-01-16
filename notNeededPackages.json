@@ -4747,6 +4747,10 @@
             "libraryName": "randoma",
             "asOfVersion": "1.3.0"
         },
+        "range_check": {
+            "libraryName": "range_check",
+            "asOfVersion": "2.0.0"
+        },
         "raspi": {
             "libraryName": "raspi",
             "asOfVersion": "5.0.1"
