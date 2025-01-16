@@ -31,6 +31,12 @@ Module.Module === Module;
     const require: NodeJS.Require = module.require;
 }
 
+// Deprecated global aliases
+{
+    ({} as NodeModule) satisfies NodeJS.Module;
+    ({} as NodeRequire) satisfies NodeJS.Require;
+}
+
 // Top-level properties/functions
 {
     // $ExpectType readonly string[]
