@@ -11,6 +11,7 @@ import * as net from "node:net";
         port: 443,
         signal: abort.signal,
         timeout: 10E3,
+        blockList: new net.BlockList(),
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing

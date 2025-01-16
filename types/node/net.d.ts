@@ -65,6 +65,7 @@ declare module "net" {
          * @since v18.13.0
          */
         autoSelectFamilyAttemptTimeout?: number | undefined;
+        blockList?: BlockList | undefined;
     }
     interface IpcSocketConnectOpts {
         path: string;
