@@ -2213,6 +2213,10 @@
             "libraryName": "@google-cloud/text-to-speech",
             "asOfVersion": "2.0.0"
         },
+        "google-maps": {
+            "libraryName": "google-maps",
+            "asOfVersion": "4.0.0"
+        },
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
