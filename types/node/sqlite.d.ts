@@ -332,18 +332,23 @@ declare module "node:sqlite" {
         readonly sourceSQL: string;
     }
     /**
-     * Conflicting changes are omitted.
-     * @since v22.12.0
+     * @since v22.13.0
      */
-    const SQLITE_CHANGESET_OMIT: number;
-    /**
-     * Conflicting changes replace existing values.
-     * @since v22.12.0
-     */
-    const SQLITE_CHANGESET_REPLACE: number;
-    /**
-     * Abort when a change encounters a conflict and roll back databsase.
-     * @since v22.12.0
-     */
-    const SQLITE_CHANGESET_ABORT: number;
+    namespace constants {
+        /**
+         * Conflicting changes are omitted.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_OMIT: number;
+        /**
+         * Conflicting changes replace existing values.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_REPLACE: number;
+        /**
+         * Abort when a change encounters a conflict and roll back database.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_ABORT: number;
+    }
 }
