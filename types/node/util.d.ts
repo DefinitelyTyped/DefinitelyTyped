@@ -185,6 +185,13 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    interface GetCallSitesOptions {
+        /**
+         * Reconstruct the original location in the stacktrace from the source-map.
+         * Enabled by default with the flag `--enable-source-maps`.
+         */
+        sourceMap?: boolean | undefined;
+    }
     /**
      * Returns an array of call site objects containing the stack of
      * the caller function.
@@ -225,12 +232,40 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
+     *
+     * It is possible to reconstruct the original locations by setting the option `sourceMap` to `true`.
+     * If the source map is not available, the original location will be the same as the current location.
+     * When the `--enable-source-maps` flag is enabled, for example when using `--experimental-transform-types`,
+     * `sourceMap` will be true by default.
+     *
+     * ```ts
+     * import util from 'node:util';
+     *
+     * interface Foo {
+     *   foo: string;
+     * }
+     *
+     * const callSites = util.getCallSites({ sourceMap: true });
+     *
+     * // With sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 7
+     * // Column Number: 26
+     *
+     * // Without sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 2
+     * // Column Number: 26
+     * ```
      * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
      * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSites(frameCount?: number): CallSiteObject[];
+    export function getCallSites(frameCount?: number, options?: GetCallSitesOptions): CallSiteObject[];
+    export function getCallSites(options: GetCallSitesOptions): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.

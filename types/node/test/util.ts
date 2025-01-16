@@ -451,7 +451,7 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     // $ExpectType CallSiteObject[]
     util.getCallSites(100);
 
-    const callSites = util.getCallSites();
+    const callSites = util.getCallSites({ sourceMap: true });
 
     console.log("Call Sites:");
     callSites.forEach((callSite, index) => {
