@@ -16,7 +16,7 @@ export interface WebApi {
     ): any;
 
     /**
-     * Retrieves your account's Web API key, and registers one if needed. Usage of this method constitutes agreement to the Steam Web API terms of use.
+     * Creates a new Web API key for your account. Your account must be eligible for an API key, and must have a Steam Guard Mobile Authenticator. If you call this without having a Mobile Authenticator, you will get back error NoMobileDevice.
      *
      * @param options An object containing options for this request
      * @param callback A function to be called once the key is obtained.
@@ -26,7 +26,7 @@ export interface WebApi {
         callback: (
             /** If an error occurred, this is an Error object. The message property will be Access Denied if you attempt to retrieve an API key on a limited account. */
             err: CallbackError,
-            /** Your API key on success. */
+            /** Result object. */
             result: CreateWebApiKeyResult,
         ) => any,
     ): any;
