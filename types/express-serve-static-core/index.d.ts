@@ -1194,7 +1194,7 @@ export interface Application<
     listen(path: string, callback?: (error?: Error) => void): http.Server;
     listen(handle: any, listeningListener?: (error?: Error) => void): http.Server;
 
-    router: string;
+    router: Router;
 
     settings: any;
 
