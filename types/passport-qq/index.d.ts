@@ -10,12 +10,25 @@ export interface Options {
     scopeSeparator?: string;
 }
 
+export interface QQUserProfile {
+    ret: number;
+    msg: string;
+    nickname: string;
+    figureurl: string;
+    figureurl_1: string;
+    figureurl_2: string;
+    figureurl_qq_1: string;
+    figureurl_qq_2: string;
+    figureurl_qq: string;
+    gender: string;
+}
+
 export interface User extends Profile {
     provider: "qq";
     id: string;
-    nickanme: string;
+    nickname: string;
     _raw: string;
-    _json: object;
+    _json: QQUserProfile;
 }
 
 export type UserProfileCallback = (err: Error | null, user: User) => void;
