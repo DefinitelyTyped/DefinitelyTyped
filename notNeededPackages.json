@@ -1569,6 +1569,10 @@
             "libraryName": "electron-debug",
             "asOfVersion": "2.1.0"
         },
+        "electron-devtools-installer": {
+            "libraryName": "electron-devtools-installer",
+            "asOfVersion": "4.0.0"
+        },
         "electron-is-dev": {
             "libraryName": "electron-is-dev",
             "asOfVersion": "1.1.0"
