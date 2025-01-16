@@ -796,6 +796,12 @@ declare module "net" {
          * @since v15.0.0, v14.18.0
          */
         rules: readonly string[];
+        /**
+         * Returns `true` if the `value` is a `net.BlockList`.
+         * @since v22.13.0
+         * @param value Any JS value
+         */
+        static isBlockList(value: unknown): value is BlockList;
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
