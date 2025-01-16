@@ -7887,6 +7887,7 @@ declare namespace chrome {
             BACKGROUND = "BACKGROUND",
             OFFSCREEN_DOCUMENT = "OFFSCREEN_DOCUMENT",
             SIDE_PANEL = "SIDE_PANEL",
+            DEVELOPER_TOOLS = "DEVELOPER_TOOLS",
         }
         /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-OnInstalledReason */
         export enum OnInstalledReason {
