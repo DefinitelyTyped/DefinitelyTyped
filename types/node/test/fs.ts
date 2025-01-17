@@ -541,7 +541,7 @@ async function testPromisify() {
 
     readStream.addListener("close", () => {});
     readStream.addListener("aCustomEvent", () => {});
-   
+
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
     (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
