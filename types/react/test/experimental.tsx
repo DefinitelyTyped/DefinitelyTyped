@@ -149,6 +149,17 @@ function viewTransitionTests() {
     // autocomplete should display "auto"
     <ViewTransition name="" />;
 
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
+
     <ViewTransition>
         <div />
     </ViewTransition>;
