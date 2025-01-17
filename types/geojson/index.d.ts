@@ -37,8 +37,14 @@ export type BBox = [number, number, number, number] | [number, number, number, n
  * Array should contain between two and three elements.
  * The previous GeoJSON specification allowed more elements (e.g., which could be used to represent M values),
  * but the current specification only allows X, Y, and (optionally) Z to be defined.
+ *
+ * Note: the type will not be narrowed down to `[number, number] | [number, number, number]` due to marginal benefits and the large impact of breaking change.
  */
-export type Position = number[]; // [number, number] | [number, number, number];
+// See previous discussions on the type narrowing:
+// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/21590 (Nov 2017)
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67773 (Dec 2023)
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/71441 (Dec 2024)
+export type Position = number[];
 
 /**
  * The base GeoJSON object.
