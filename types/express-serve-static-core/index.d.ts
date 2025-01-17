@@ -1187,12 +1187,12 @@ export interface Application<
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
-    listen(port: number, hostname: string, callback?: () => void): http.Server;
-    listen(port: number, callback?: () => void): http.Server;
-    listen(callback?: () => void): http.Server;
-    listen(path: string, callback?: () => void): http.Server;
-    listen(handle: any, listeningListener?: () => void): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, callback?: (error?: Error) => void): http.Server;
+    listen(callback?: (error?: Error) => void): http.Server;
+    listen(path: string, callback?: (error?: Error) => void): http.Server;
+    listen(handle: any, listeningListener?: (error?: Error) => void): http.Server;
 
     router: string;
 

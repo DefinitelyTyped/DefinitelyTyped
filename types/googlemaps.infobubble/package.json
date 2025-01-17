@@ -8,7 +8,7 @@
         "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/"
     ],
     "dependencies": {
-        "@types/google-maps": "*"
+        "@types/google-maps": "<4"
     },
     "devDependencies": {
         "@types/googlemaps.infobubble": "workspace:."

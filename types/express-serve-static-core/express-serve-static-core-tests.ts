@@ -13,6 +13,9 @@ app.listen(3000);
 app.listen(3000, () => {
     // no-op error callback
 });
+app.listen(3000, (error) => {
+    error; // $ExpectType Error | undefined
+});
 
 app.get("/:foo", req => {
     req.params.foo; // $ExpectType string
