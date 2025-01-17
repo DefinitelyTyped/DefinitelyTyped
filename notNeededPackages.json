@@ -4447,6 +4447,10 @@
             "libraryName": "png-img",
             "asOfVersion": "4.0.4"
         },
+        "podcast": {
+            "libraryName": "podcast",
+            "asOfVersion": "2.0.0"
+        },
         "pollyjs__adapter": {
             "libraryName": "@pollyjs/adapter",
             "asOfVersion": "6.0.4"
