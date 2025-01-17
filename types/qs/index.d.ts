@@ -69,7 +69,7 @@ declare namespace QueryString {
         & IParseDynamicOptions<AllowDots>;
 
     interface ParsedQs {
-        [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
+        [key: string]: undefined | string | ParsedQs | (string | ParsedQs)[];
     }
 
     function stringify(obj: any, options?: IStringifyOptions<BooleanOptional>): string;

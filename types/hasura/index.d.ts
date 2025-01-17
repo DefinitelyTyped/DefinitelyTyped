@@ -33,7 +33,7 @@ export interface JSONBColumnBoolExp extends ColumnBoolExp<string> {
     _has_keys_any?: string | undefined;
 }
 
-type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false;
+type Equals<X, Y> = [X, Y, keyof X, keyof Y] extends [Y, X, keyof Y, keyof X] ? true : false;
 type ScalarType = string | number | boolean | ScalarJSON<unknown> | ScalarJSONB<unknown>;
 type ObjectType = Record<string, ScalarType | Record<string, ScalarType> | Array<Record<string, ScalarType>>>;
 export type ScalarJSON<T> = T & {

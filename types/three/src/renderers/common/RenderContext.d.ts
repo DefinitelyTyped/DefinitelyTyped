@@ -3,6 +3,14 @@ import { Vector4 } from "../../math/Vector4.js";
 import { DepthTexture } from "../../textures/DepthTexture.js";
 import { Texture } from "../../textures/Texture.js";
 import ClippingContext from "./ClippingContext.js";
+/**
+ * Any render or compute command is executed in a specific context that defines
+ * the state of the renderer and its backend. Typical examples for such context
+ * data are the current clear values or data from the active framebuffer. This
+ * module is used to represent these contexts as objects.
+ *
+ * @private
+ */
 declare class RenderContext {
     id: number;
     color: boolean;
@@ -36,8 +44,22 @@ declare class RenderContext {
     renderTarget?: RenderTarget | undefined;
     activeMipmapLevel?: number | undefined;
     occlusionQueryCount?: number | undefined;
+    /**
+     * Constructs a new render context.
+     */
     constructor();
+    /**
+     * Returns the cache key of this render context.
+     *
+     * @return {Number} The cache key.
+     */
     getCacheKey(): number;
 }
+/**
+ * Computes a cache key for the given render context.
+ *
+ * @param {RenderContext} renderContext - The render context.
+ * @return {Number} The cache key.
+ */
 export declare function getCacheKey(renderContext: RenderContext): number;
 export default RenderContext;

@@ -7,6 +7,8 @@ declare class WorkgroupInfoNode extends Node {
 
     readonly isWorkgroupInfoNode: true;
 
+    elementType: string;
+
     scope: string;
 
     constructor(scope: string, bufferType: string, bufferCount?: number);

@@ -138,3 +138,69 @@ function taintTests() {
         true,
     );
 }
+
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
+
+    <ViewTransition />;
+    <ViewTransition
+        className="enter-slide-in exit-fade-out update-cross-fade"
+        enter="slide-from-left"
+        exit="slide-to-right"
+        layout="slide"
+        update="none"
+        share="cross-fade"
+    />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    // autocomplete should display "auto"
+    <ViewTransition name="" />;
+
+    <ViewTransition
+        onEnter={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onExit={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onLayout={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onShare={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onUpdate={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+    />;
+
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
+}

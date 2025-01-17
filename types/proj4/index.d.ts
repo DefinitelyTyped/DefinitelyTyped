@@ -17,8 +17,8 @@ declare namespace proj4 {
     }
 
     interface Converter {
-        forward<T extends TemplateCoordinates>(coordinates: T): T;
-        inverse<T extends TemplateCoordinates>(coordinates: T): T;
+        forward<T extends TemplateCoordinates>(coordinates: T, enforceAxis?: boolean): T;
+        inverse<T extends TemplateCoordinates>(coordinates: T, enforceAxis?: boolean): T;
     }
 
     interface InterfaceProjection {
@@ -29,8 +29,8 @@ declare namespace proj4 {
         es: number;
         e: number;
         ep2: number;
-        forward(coordinates: TemplateCoordinates): number[];
-        inverse(coordinates: TemplateCoordinates): number[];
+        forward(coordinates: TemplateCoordinates, enforceAxis?: boolean): number[];
+        inverse(coordinates: TemplateCoordinates, enforceAxis?: boolean): number[];
     }
 
     interface ProjectionDefinition {

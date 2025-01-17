@@ -20,7 +20,7 @@ export class Flow {
     curveLengthArray: number[];
 
     object3D: Mesh;
-    splineTexure: DataTexture;
+    splineTexture: DataTexture;
     uniforms: SplineUniform;
 
     constructor(mesh: Mesh, numberOfCurves?: number);
