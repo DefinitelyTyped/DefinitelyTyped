@@ -13,8 +13,5 @@
             "name": "Lexi",
             "githubUsername": "KontrollFreek"
         }
-    ],
-    "dependencies": {
-        "windows-cpu": "^1.1.0"
-    }
+    ]
 }
