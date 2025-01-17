@@ -1,4 +1,4 @@
-/// <reference types="@types/node" />
+/// <reference types="node" />
 
 import Timestamp = require("./timestamp");
 

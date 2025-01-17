@@ -5,8 +5,10 @@
     "projects": [
         "https://github.com/opentimestamps/javascript-opentimestamps#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
-        "@types/node": "*",
         "@types/opentimestamps": "workspace:."
     },
     "owners": [
