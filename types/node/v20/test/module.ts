@@ -131,6 +131,11 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
         transferList: [someArrayBuffer],
     });
 
+    Module.register(specifier, {
+        data: someArrayBuffer,
+        transferList: [someArrayBuffer],
+    });
+
     interface TransferableData {
         number: number;
     }

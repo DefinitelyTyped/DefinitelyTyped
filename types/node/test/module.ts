@@ -134,6 +134,11 @@ Module.findSourceMap("/path/to/file.js", new Error()); // $ExpectType SourceMap 
         transferList: [someArrayBuffer],
     });
 
+    Module.register(specifier, {
+        data: someArrayBuffer,
+        transferList: [someArrayBuffer],
+    });
+
     interface TransferableData {
         number: number;
     }

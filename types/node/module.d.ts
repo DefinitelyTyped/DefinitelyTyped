@@ -283,7 +283,7 @@ declare module "module" {
         }
     }
     interface RegisterOptions<Data> {
-        parentURL: string | URL;
+        parentURL?: string | URL;
         data?: Data | undefined;
         transferList?: any[] | undefined;
     }

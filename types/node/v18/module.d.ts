@@ -252,7 +252,7 @@ declare module "module" {
         ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
     interface RegisterOptions<Data> {
-        parentURL: string | URL;
+        parentURL?: string | URL;
         data?: Data | undefined;
         transferList?: any[] | undefined;
     }
