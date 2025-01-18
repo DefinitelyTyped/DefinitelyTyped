@@ -1355,24 +1355,73 @@ async function testBrowserActionForPromise() {
     await chrome.browserAction.getPopup({});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/cookies
-async function testCookieForPromise() {
-    await chrome.cookies.getAllCookieStores();
-    await chrome.cookies.getAll({});
-    await chrome.cookies.getAll({ partitionKey: {} });
-    await chrome.cookies.set({ url: "url1" });
-    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
-    await chrome.cookies.remove({ url: "url1", name: "name1" });
-    await chrome.cookies.remove({
-        name: "test-cookie",
+// https://developer.chrome.com/docs/extensions/reference/api/cookies
+async function testCookie() {
+    const cookieDetails: chrome.cookies.CookieDetails = {
         url: "https://example.com",
+        name: "example",
         partitionKey: {
             topLevelSite: "https://example.com",
             hasCrossSiteAncestor: false,
         },
+    };
+
+    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.get(cookieDetails, (cookie) => {
+        cookie; // $ExpectType Cookie | null
     });
-    await chrome.cookies.get({ url: "url1", name: "name1" });
-    await chrome.cookies.get({ url: "url1", name: "name1", partitionKey: {} });
+    // @ts-expect-error
+    chrome.cookies.get(cookieDetails, () => {}).then(() => {});
+
+    chrome.cookies.getAll(cookieDetails); // $ExpectType Promise<Cookie[]>
+    chrome.cookies.getAll(cookieDetails, (cookies) => {
+        cookies; // $ExpectType Cookie[]
+    });
+    // @ts-expect-error
+    chrome.cookies.getAll(cookieDetails, () => {}).then(() => {});
+
+    chrome.cookies.getAllCookieStores(); // $ExpectType Promise<CookieStore[]>
+    chrome.cookies.getAllCookieStores((cookieStores) => {
+        cookieStores; // $ExpectType CookieStore[]
+    });
+    // @ts-expect-error
+    chrome.cookies.getAllCookieStores(() => {}).then(() => {});
+
+    const frameDetails: chrome.cookies.FrameDetails = {
+        tabId: 0,
+    };
+
+    chrome.cookies.getPartitionKey(frameDetails); // $ExpectType Promise<{ partitionKey: CookiePartitionKey }>
+    chrome.cookies.getPartitionKey(frameDetails, ({ partitionKey }) => {
+        partitionKey; // $ExpectType CookiePartitionKey
+    });
+    // @ts-expect-error
+    chrome.cookies.getPartitionKey(frameDetails, () => {}).then(() => {});
+
+    chrome.cookies.remove(cookieDetails); // $ExpectType Promise<CookieDetails>
+    chrome.cookies.remove(cookieDetails, (details) => {
+        details; // $ExpectType CookieDetails
+    });
+    // @ts-expect-error
+    chrome.cookies.remove(cookieDetails, () => {}).then(() => {});
+
+    chrome.cookies.set(cookieDetails); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetails, (cookie) => {
+        cookie; // $ExpectType Cookie | null
+    });
+    // @ts-expect-error
+    chrome.cookies.set(cookieDetails, () => {}).then(() => {});
+
+    chrome.cookies.onChanged.addListener((changeInfo) => {
+        changeInfo; // $ExpectType CookieChangeInfo
+    });
+    chrome.cookies.onChanged.removeListener((changeInfo) => {
+        changeInfo; // $ExpectType CookieChangeInfo
+    });
+    chrome.cookies.onChanged.hasListener((changeInfo) => {
+        changeInfo; // $ExpectType CookieChangeInfo
+    });
+    chrome.cookies.onChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/management
