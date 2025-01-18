@@ -420,6 +420,7 @@ declare function stackAlloc(size: number): number;
 declare function stackSave(): number;
 declare function stackRestore(ptr: number): void;
 
+declare function AsciiToString(ptr: number): string;
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;
