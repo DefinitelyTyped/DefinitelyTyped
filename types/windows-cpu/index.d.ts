@@ -48,3 +48,6 @@ export class WindowsCPU {
      */
     private _shellEscape(arg: string): string;
 }
+
+declare const _default: WindowsCPU;
+export default _default;
