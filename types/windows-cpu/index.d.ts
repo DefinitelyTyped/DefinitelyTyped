@@ -1,11 +1,11 @@
 /**
  * Public class for WindowsCPU
  */
-export class WindowsCPU {
+declare class WindowsCPU {
     /**
      * Access to uninstantiated WindowsCPU class
      */
-    WindowsCPU: WindowsCPU;
+    static WindowsCPU: { new(): WindowsCPU };
     /**
      * Path the `wmic` executable
      */
@@ -49,5 +49,5 @@ export class WindowsCPU {
     private _shellEscape(arg: string): string;
 }
 
-declare const _default: WindowsCPU;
-export default _default;
+declare const _default: WindowsCPU & { WindowsCPU: { new(): WindowsCPU } };
+export = _default;

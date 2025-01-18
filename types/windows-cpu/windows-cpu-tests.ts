@@ -1,8 +1,7 @@
-import cpu, { WindowsCPU } from "windows-cpu";
+import cpu from "windows-cpu";
 
-cpu.WindowsCPU; // $ExpectType WindowsCPU
 cpu.wmic; // $ExpectType string
-new WindowsCPU(); // $ExpectType WindowsCPU
+new cpu.WindowsCPU(); // $ExpectType WindowsCPU
 cpu.isSupported(); // $ExpectType boolean
 cpu.totalLoad(); // $ExpectType Promise<number[]>
 cpu.findLoad(); // $ExpectType Promise<{ load: number[] | 0, found: { pid: number, process: string, load: number }[] }>
