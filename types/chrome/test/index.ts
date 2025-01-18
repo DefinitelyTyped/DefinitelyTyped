@@ -822,6 +822,147 @@ async function testTtsVoice() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/ttsEngine
+function testTtsEngine() {
+    const TtsEvent: chrome.tts.TtsEvent = {
+        type: "start",
+    };
+
+    chrome.ttsEngine.LanguageInstallStatus.FAILED === "failed";
+    chrome.ttsEngine.LanguageInstallStatus.INSTALLED === "installed";
+    chrome.ttsEngine.LanguageInstallStatus.INSTALLING === "installing";
+    chrome.ttsEngine.LanguageInstallStatus.NOT_INSTALLED === "notInstalled";
+
+    chrome.ttsEngine.TtsClientSource.CHROMEFEATURE === "chromefeature";
+    chrome.ttsEngine.TtsClientSource.EXTENSION === "extension";
+
+    chrome.ttsEngine.VoiceGender.MALE === "male";
+    chrome.ttsEngine.VoiceGender.FEMALE === "female";
+
+    chrome.ttsEngine.updateLanguage({
+        lang: "en",
+        installStatus: "installed",
+    });
+    chrome.ttsEngine.updateLanguage({
+        lang: "en",
+        installStatus: chrome.ttsEngine.LanguageInstallStatus.INSTALLED,
+    });
+
+    chrome.ttsEngine.updateVoices([{ voiceName: "voice", lang: "en" }]);
+
+    chrome.ttsEngine.onInstallLanguageRequest.addListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onInstallLanguageRequest.removeListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onInstallLanguageRequest.hasListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onInstallLanguageRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onLanguageStatusRequest.addListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onLanguageStatusRequest.removeListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onLanguageStatusRequest.hasListener((requestor, lang) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+    });
+    chrome.ttsEngine.onLanguageStatusRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onPause.addListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onPause.removeListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onPause.hasListener(() => {}); // $ExpectType boolean
+    chrome.ttsEngine.onPause.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onResume.addListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onResume.removeListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onResume.hasListener(() => {}); // $ExpectType boolean
+    chrome.ttsEngine.onResume.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onSpeak.addListener((utterance, options, sendTtsEvent) => {
+        utterance; // $ExpectType string
+        options; // $ExpectType SpeakOptions
+        sendTtsEvent(TtsEvent);
+    });
+    chrome.ttsEngine.onSpeak.removeListener((utterance, options, sendTtsEvent) => {
+        utterance; // $ExpectType string
+        options; // $ExpectType SpeakOptions
+        sendTtsEvent(TtsEvent);
+    });
+    chrome.ttsEngine.onSpeak.hasListener((utterance, options, sendTtsEvent) => {
+        utterance; // $ExpectType string
+        options; // $ExpectType SpeakOptions
+        sendTtsEvent(TtsEvent);
+    });
+    chrome.ttsEngine.onSpeak.hasListeners(); // $ExpectType boolean
+
+    const audioBuffer: chrome.ttsEngine.AudioBuffer = {
+        audioBuffer: new ArrayBuffer(8),
+        charIndex: 0,
+        isLastBuffer: false,
+    };
+
+    chrome.ttsEngine.onSpeakWithAudioStream.addListener(
+        (utterance, options, audioStreamOptions, sendTtsAudio, sendError) => {
+            utterance; // $ExpectType string
+            options; // $ExpectType SpeakOptions
+            audioStreamOptions; // $ExpectType AudioStreamOptions
+            sendTtsAudio(audioBuffer);
+            sendError("error");
+        },
+    );
+    chrome.ttsEngine.onSpeakWithAudioStream.removeListener(
+        (utterance, options, audioStreamOptions, sendTtsAudio, sendError) => {
+            utterance; // $ExpectType string
+            options; // $ExpectType SpeakOptions
+            audioStreamOptions; // $ExpectType AudioStreamOptions
+            sendTtsAudio(audioBuffer);
+            sendError("error");
+        },
+    );
+    chrome.ttsEngine.onSpeakWithAudioStream.hasListener(
+        (utterance, options, audioStreamOptions, sendTtsAudio, sendError) => {
+            utterance; // $ExpectType string
+            options; // $ExpectType SpeakOptions
+            audioStreamOptions; // $ExpectType AudioStreamOptions
+            sendTtsAudio(audioBuffer);
+            sendError("error");
+        },
+    );
+    chrome.ttsEngine.onSpeakWithAudioStream.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onStop.addListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onStop.removeListener(() => {}); // $ExpectType void
+    chrome.ttsEngine.onStop.hasListener(() => {}); // $ExpectType boolean
+    chrome.ttsEngine.onStop.hasListeners(); // $ExpectType boolean
+
+    chrome.ttsEngine.onUninstallLanguageRequest.addListener((requestor, lang, uninstallOptions) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+        uninstallOptions; // $ExpectType LanguageUninstallOptions
+    });
+    chrome.ttsEngine.onUninstallLanguageRequest.removeListener((requestor, lang, uninstallOptions) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+        uninstallOptions; // $ExpectType LanguageUninstallOptions
+    });
+    chrome.ttsEngine.onUninstallLanguageRequest.hasListener((requestor, lang, uninstallOptions) => {
+        requestor; // $ExpectType TtsClient
+        lang; // $ExpectType string
+        uninstallOptions; // $ExpectType LanguageUninstallOptions
+    });
+    chrome.ttsEngine.onUninstallLanguageRequest.hasListeners(); // $ExpectType boolean
+}
+
 chrome.runtime.onInstalled.addListener((details) => {
     details; // $ExpectType InstalledDetails
     details.reason; // $ExpectType OnInstalledReason
