@@ -54,22 +54,22 @@ import ViewHook from "./view_hook";
 export function createHook(el: HTMLElement, callbacks?: object): ViewHook;
 
 export {
-  Defaults,
-  DomOptions,
-  EventMetadata,
-  Hook,
-  HooksOptions,
-  isUsedInput,
-  LiveSocket,
-  SocketOptions,
-  UploadEntry,
-  Uploader,
-  UploadersOptions,
-  ViewHookInterface,
+    Defaults,
+    DomOptions,
+    EventMetadata,
+    Hook,
+    HooksOptions,
+    isUsedInput,
+    LiveSocket,
+    SocketOptions,
+    UploadEntry,
+    Uploader,
+    UploadersOptions,
+    ViewHookInterface,
 };
 
 declare global {
-  interface Window {
-    liveSocket?: LiveSocket;
-  }
+    interface Window {
+        liveSocket?: LiveSocket;
+    }
 }
