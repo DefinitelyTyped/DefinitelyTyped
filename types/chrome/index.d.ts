@@ -2192,6 +2192,19 @@ declare namespace chrome {
             cause: string;
         }
 
+        /**
+         * Details to identify the frame.
+         * @since Chrome 132
+         */
+        export interface FrameDetails {
+            /** The unique identifier for the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID. */
+            documentId?: string;
+            /** The unique identifier for the frame within the tab. */
+            frameId?: number;
+            /* The unique identifier for the tab containing the frame. */
+            tabId?: number;
+        }
+
         export interface CookieChangedEvent extends chrome.events.Event<(changeInfo: CookieChangeInfo) => void> {}
 
         /**
@@ -2199,52 +2212,72 @@ declare namespace chrome {
          * Parameter cookieStores: All the existing cookie stores.
          */
         export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
+
         /**
          * Lists all existing cookie stores.
          * @return The `getAllCookieStores` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function getAllCookieStores(): Promise<CookieStore[]>;
+
+        /**
+         * The partition key for the frame indicated.
+         * Can return its result via Promise in Manifest V3
+         * @since Chrome 132
+         */
+        export function getPartitionKey(details: FrameDetails): Promise<{ partitionKey: CookiePartitionKey }>;
+        export function getPartitionKey(
+            details: FrameDetails,
+            callback: (details: { partitionKey: CookiePartitionKey }) => void,
+        ): void;
+
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
          * @param details Information to filter the cookies being retrieved.
          * Parameter cookies: All the existing, unexpired cookies that match the given cookie info.
          */
         export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
+
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
          * @param details Information to filter the cookies being retrieved.
          * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function getAll(details: GetAllDetails): Promise<Cookie[]>;
+
         /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
          * @param details Details about the cookie being set.
          * @return The `set` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function set(details: SetDetails): Promise<Cookie | null>;
+
         /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
          * @param details Details about the cookie being set.
          * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
          */
         export function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
+
         /**
          * Deletes a cookie by name.
          * @param details Information to identify the cookie to remove.
          * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function remove(details: CookieDetails): Promise<CookieDetails>;
+
         /**
          * Deletes a cookie by name.
          * @param details Information to identify the cookie to remove.
          */
         export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
+
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          * @param details Details to identify the cookie being retrieved.
          * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
          */
         export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
+
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          * @param details Details to identify the cookie being retrieved.
