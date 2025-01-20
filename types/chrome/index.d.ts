@@ -10207,18 +10207,12 @@ declare namespace chrome {
              * @since Chrome 18
              */
             openerTabId?: number | undefined;
-            /**
-             * Optional.
-             * The title of the tab. This property is only present if the extension's manifest includes the "tabs" permission.
-             */
+            /** The title of the tab. This property is only present if the extension has the `tabs` permission or has host permissions for the page. */
             title?: string | undefined;
-            /**
-             * Optional.
-             * The URL the tab is displaying. This property is only present if the extension's manifest includes the "tabs" permission.
-             */
+            /** The last committed URL of the main frame of the tab. This property is only present if the extension has the `tabs` permission or has host permissions for the page. May be an empty string if the tab has not yet committed. See also {@link Tab.pendingUrl}. */
             url?: string | undefined;
             /**
-             * The URL the tab is navigating to, before it has committed.
+             * The URL the tab is navigating to, before it has committed. This property is only present if the extension has the `tabs` permission or has host permissions for the page and there is a pending navigation.The URL the tab is navigating to, before it has committed.
              * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
              * @since Chrome 79
              */
@@ -10240,11 +10234,13 @@ declare namespace chrome {
              * @since Chrome 16
              */
             active: boolean;
-            /**
-             * Optional.
-             * The URL of the tab's favicon. This property is only present if the extension's manifest includes the "tabs" permission. It may also be an empty string if the tab is loading.
-             */
+            /** The URL of the tab's favicon. This property is only present if the extension has the `tabs` permission or has host permissions for the page. It may also be an empty string if the tab is loading. */
             favIconUrl?: string | undefined;
+            /**
+             * Whether the tab is frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+             * @since Chrome 132
+             */
+            frozen: boolean;
             /**
              * Optional.
              * The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID, for example when querying foreign tabs using the sessions API, in which case a session ID may be present. Tab ID can also be set to chrome.tabs.TAB_ID_NONE for apps and devtools windows.
@@ -10541,9 +10537,9 @@ declare namespace chrome {
              * @since Chrome 18
              */
             index?: number | undefined;
-            /** Optional. Match page titles against a pattern. */
+            /** Match page titles against a pattern. This property is ignored if the extension does not have the `tabs` permission or host permissions for the page. */
             title?: string | undefined;
-            /** Optional. Match tabs against one or more URL patterns. Note that fragment identifiers are not matched. */
+            /** Match tabs against one or more URL patterns. Fragment identifiers are not matched. This property is ignored if the extension does not have the `tabs` permission or host permissions for the page. */
             url?: string | string[] | undefined;
             /**
              * Optional. Whether the tabs are in the current window.
@@ -10558,6 +10554,11 @@ declare namespace chrome {
              * @since Chrome 54
              */
             discarded?: boolean | undefined;
+            /**
+             * Whether the tabs are frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+             * @since Chrome 132
+             */
+            frozen?: boolean;
             /**
              * Optional.
              * Whether the tabs can be discarded automatically by the browser when resources are low.
@@ -10643,6 +10644,11 @@ declare namespace chrome {
              * @since Chrome 27
              */
             favIconUrl?: string | undefined;
+            /**
+             * The tab's new frozen state.
+             * @since Chrome 132
+             */
+            frozen?: boolean;
             /**
              * The tab's new title.
              * @since Chrome 48
@@ -10843,26 +10849,26 @@ declare namespace chrome {
         export function move(tabIds: number[], moveProperties: MoveProperties, callback: (tabs: Tab[]) => void): void;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
-        export function update(updateProperties: UpdateProperties): Promise<Tab>;
+        export function update(updateProperties: UpdateProperties): Promise<Tab | undefined>;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param callback Optional.
-         * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
         export function update(updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param tabId Defaults to the selected tab of the current window.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
-        export function update(tabId: number, updateProperties: UpdateProperties): Promise<Tab>;
+        export function update(tabId: number, updateProperties: UpdateProperties): Promise<Tab | undefined>;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param tabId Defaults to the selected tab of the current window.
          * @param callback Optional.
-         * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
         export function update(tabId: number, updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
         /**
@@ -10952,13 +10958,13 @@ declare namespace chrome {
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function reload(tabId: number, reloadProperties?: ReloadProperties): Promise<void>;
+        export function reload(tabId: number): Promise<void>;
         /**
          * Reload a tab.
          * @since Chrome 16
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          */
-        export function reload(tabId: number, reloadProperties?: ReloadProperties, callback?: () => void): void;
+        export function reload(tabId: number, callback?: () => void): void;
         /**
          * Reload the selected tab of the current window.
          * @since Chrome 16
@@ -10970,6 +10976,17 @@ declare namespace chrome {
          * @since Chrome 16
          */
         export function reload(reloadProperties: ReloadProperties, callback: () => void): void;
+        /**
+         * Reload the selected tab of the current window.
+         * @since Chrome 16
+         * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+        export function reload(tabId: number, reloadProperties: ReloadProperties): Promise<void>;
+        /**
+         * Reload the selected tab of the current window.
+         * @since Chrome 16
+         */
+        export function reload(tabId: number, reloadProperties: ReloadProperties, callback: () => void): void;
         /**
          * Reload the selected tab of the current window.
          * @since Chrome 16
@@ -10993,7 +11010,7 @@ declare namespace chrome {
          * @since Chrome 23
          * @param tabId The ID of the tab which is to be duplicated.
          * @param callback Optional.
-         * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the duplicated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page.
          */
         export function duplicate(tabId: number, callback: (tab?: Tab) => void): void;
         /**

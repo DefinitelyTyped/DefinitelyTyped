@@ -1656,52 +1656,430 @@ function testSystemLog() {
     chrome.systemLog.add({ message: "" }, () => {}).then(() => {});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/tabs
-async function testTabsForPromise() {
-    await chrome.tabs.executeScript({});
-    await chrome.tabs.executeScript(0, {});
-    await chrome.tabs.get(0);
-    await chrome.tabs.getAllInWindow();
-    await chrome.tabs.getAllInWindow(0);
-    await chrome.tabs.getCurrent(); // $ExpectType Tab | undefined
-    await chrome.tabs.getSelected();
-    await chrome.tabs.getSelected(0);
-    await chrome.tabs.create({});
-    await chrome.tabs.duplicate(0); // $ExpectType Tab | undefined
-    await chrome.tabs.move(0, { index: 0 });
-    await chrome.tabs.move([0], { index: 0 });
-    await chrome.tabs.update({});
-    await chrome.tabs.update(0, {});
-    await chrome.tabs.remove(0);
-    await chrome.tabs.remove([0]);
-    await chrome.tabs.captureVisibleTab();
-    await chrome.tabs.captureVisibleTab(0);
-    await chrome.tabs.captureVisibleTab({});
-    await chrome.tabs.captureVisibleTab(0, {});
-    await chrome.tabs.reload(0, {});
-    await chrome.tabs.reload({});
-    await chrome.tabs.reload();
-    await chrome.tabs.insertCSS({});
-    await chrome.tabs.insertCSS(0, {});
-    await chrome.tabs.highlight({ tabs: 0 });
-    await chrome.tabs.query({});
-    await chrome.tabs.detectLanguage();
-    await chrome.tabs.detectLanguage(0);
-    await chrome.tabs.setZoom(0);
-    await chrome.tabs.setZoom(0, 0);
-    await chrome.tabs.getZoom();
-    await chrome.tabs.getZoom(0);
-    await chrome.tabs.setZoomSettings({});
-    await chrome.tabs.setZoomSettings(0, {});
-    await chrome.tabs.getZoomSettings();
-    await chrome.tabs.getZoomSettings(0);
-    await chrome.tabs.discard(0);
-    await chrome.tabs.goForward();
-    await chrome.tabs.goForward(0);
-    await chrome.tabs.goBack();
-    await chrome.tabs.goBack(0);
-    await chrome.tabs.group({});
-    await chrome.tabs.ungroup(0);
+// https://developer.chrome.com/docs/extensions/reference/api/tabs
+async function testTabs() {
+    const tabId = 0;
+    const windowId = 0;
+    const groupId = 0;
+    const frameId = 0;
+    const documentId = "id";
+
+    const windowCaptureOptions: chrome.tabs.CaptureVisibleTabOptions = {
+        quality: 100,
+        format: "jpeg",
+    };
+
+    chrome.tabs.captureVisibleTab(); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(windowId); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(windowCaptureOptions); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab((dataUrl) => {
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(windowId, (dataUrl) => {
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(windowCaptureOptions, (dataUrl) => {
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions, (dataUrl) => {
+        dataUrl; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.tabs.captureVisibleTab(windowCaptureOptions, windowId);
+    // @ts-expect-error
+    chrome.tabs.captureVisibleTab(() => {}).then(() => {});
+
+    const connectInfo: chrome.tabs.ConnectInfo = {
+        name: "name",
+        frameId,
+    };
+
+    chrome.tabs.connect(tabId); // $ExpectType Port
+    chrome.tabs.connect(tabId, connectInfo); // $ExpectType Port
+
+    const createProperties: chrome.tabs.CreateProperties = {
+        index: 0,
+    };
+
+    chrome.tabs.create(createProperties); // $ExpectType Promise<Tab>
+    chrome.tabs.create(createProperties, (tab) => {
+        tab; // $ExpectType Tab
+    });
+    // @ts-expect-error
+    chrome.tabs.create(() => {}).then(() => {});
+
+    chrome.tabs.detectLanguage(); // $ExpectType Promise<string>
+    chrome.tabs.detectLanguage(tabId); // $ExpectType Promise<string>
+    chrome.tabs.detectLanguage((language) => {
+        language; // $ExpectType string
+    });
+    chrome.tabs.detectLanguage(tabId, (language) => {
+        language; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.tabs.detectLanguage(() => {}).then(() => {});
+
+    chrome.tabs.discard(); // $ExpectType Promise<Tab>
+    chrome.tabs.discard(tabId); // $ExpectType Promise<Tab>
+    chrome.tabs.discard((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.discard(tabId, (tab) => {
+        tab; // $ExpectType Tab
+    });
+    // @ts-expect-error
+    chrome.tabs.discard(() => {}).then(() => {});
+
+    chrome.tabs.duplicate(tabId); // $ExpectType Promise<Tab | undefined>
+    chrome.tabs.duplicate(tabId, (tab) => {
+        tab; // $ExpectType Tab | undefined
+    });
+    // @ts-expect-error
+    chrome.tabs.duplicate(() => {}).then(() => {});
+
+    chrome.tabs.get(tabId); // $ExpectType Promise<Tab>
+    chrome.tabs.get(tabId, (tab) => {
+        tab; // $ExpectType Tab
+    });
+    // @ts-expect-error
+    chrome.tabs.get(() => {}).then(() => {});
+
+    chrome.tabs.getCurrent(); // $ExpectType Promise<Tab | undefined>
+    chrome.tabs.getCurrent((tab) => {
+        tab; // $ExpectType Tab | undefined
+    });
+    // @ts-expect-error
+    chrome.tabs.getCurrent(() => {}).then(() => {});
+
+    chrome.tabs.getZoom(); // $ExpectType Promise<number>
+    chrome.tabs.getZoom(tabId); // $ExpectType Promise<number>
+    chrome.tabs.getZoom((zoomFactor) => {
+        zoomFactor; // $ExpectType number
+    });
+    chrome.tabs.getZoom(tabId, (zoomFactor) => {
+        zoomFactor; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.tabs.getZoom(() => {}).then(() => {});
+
+    chrome.tabs.getZoomSettings(); // $ExpectType Promise<ZoomSettings>
+    chrome.tabs.getZoomSettings(tabId); // $ExpectType Promise<ZoomSettings>
+    chrome.tabs.getZoomSettings((zoomSettings) => {
+        zoomSettings; // $ExpectType ZoomSettings
+    });
+    chrome.tabs.getZoomSettings(tabId, (zoomSettings) => {
+        zoomSettings; // $ExpectType ZoomSettings
+    });
+    // @ts-expect-error
+    chrome.tabs.getZoomSettings(() => {}).then(() => {});
+
+    chrome.tabs.goBack(); // $ExpectType Promise<void>
+    chrome.tabs.goBack(tabId); // $ExpectType Promise<void>
+    chrome.tabs.goBack(() => {}); // $ExpectType void
+    chrome.tabs.goBack(tabId, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.goBack(() => {}).then(() => {});
+
+    chrome.tabs.goForward(); // $ExpectType Promise<void>
+    chrome.tabs.goForward(tabId); // $ExpectType Promise<void>
+    chrome.tabs.goForward(() => {}); // $ExpectType void
+    chrome.tabs.goForward(tabId, () => {}); // $ExpectType void
+
+    const groupOptions: chrome.tabs.GroupOptions = {
+        createProperties: {
+            windowId,
+        },
+        groupId,
+        tabIds: [tabId],
+    };
+
+    chrome.tabs.group(groupOptions); // $ExpectType Promise<number>
+    chrome.tabs.group(groupOptions, (groupId) => {
+        groupId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.tabs.group(() => {}).then(() => {});
+
+    const highlightInfo: chrome.tabs.HighlightInfo = {
+        windowId,
+        tabs: [tabId],
+    };
+
+    chrome.tabs.highlight(highlightInfo); // $ExpectType Promise<Window>
+    chrome.tabs.highlight(highlightInfo, (window) => {
+        window; // $ExpectType Window
+    });
+    // @ts-expect-error
+    chrome.tabs.highlight(() => {}).then(() => {});
+
+    const moveProperties: chrome.tabs.MoveProperties = {
+        index: 0,
+        windowId,
+    };
+
+    chrome.tabs.move(tabId, moveProperties); // $ExpectType Promise<Tab>
+    chrome.tabs.move([tabId], moveProperties); // $ExpectType Promise<Tab[]>
+    chrome.tabs.move(tabId, moveProperties, (tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.move([tabId], moveProperties, (tabs) => {
+        tabs; // $ExpectType Tab[]
+    });
+    // @ts-expect-error
+    chrome.tabs.move(() => {}).then(() => {});
+
+    const queryInfo: chrome.tabs.QueryInfo = {
+        active: true,
+        audible: true,
+        autoDiscardable: true,
+        currentWindow: true,
+        discarded: true,
+        frozen: true,
+        groupId,
+        highlighted: true,
+        index: 0,
+        lastFocusedWindow: true,
+        muted: true,
+        pinned: true,
+        status: "complete",
+        title: "title",
+        url: "url",
+        windowId,
+        windowType: "normal",
+    };
+
+    chrome.tabs.query(queryInfo); // $ExpectType Promise<Tab[]>
+    chrome.tabs.query(queryInfo, (tabs) => {
+        tabs; // $ExpectType Tab[]
+    });
+    // @ts-expect-error
+    chrome.tabs.query(() => {}).then(() => {});
+
+    const reloadProperties: chrome.tabs.ReloadProperties = {
+        bypassCache: true,
+    };
+
+    chrome.tabs.reload(); // $ExpectType Promise<void>
+    chrome.tabs.reload(tabId); // $ExpectType Promise<void>
+    chrome.tabs.reload(reloadProperties); // $ExpectType Promise<void>
+    chrome.tabs.reload(tabId, reloadProperties); // $ExpectType Promise<void>
+    chrome.tabs.reload(tabId, () => {}); // $ExpectType void
+    chrome.tabs.reload(reloadProperties, () => {}); // $ExpectType void
+    chrome.tabs.reload(tabId, reloadProperties, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.reload(() => {}).then(() => {});
+
+    chrome.tabs.remove(tabId); // $ExpectType Promise<void>
+    chrome.tabs.remove([tabId]); // $ExpectType Promise<void>
+    chrome.tabs.remove(tabId, () => {}); // $ExpectType void
+    chrome.tabs.remove([tabId], () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.remove(() => {}).then(() => {});
+
+    const message = "Hello World";
+
+    chrome.tabs.sendMessage(tabId, message); // $ExpectType Promise<any>
+    chrome.tabs.sendMessage(tabId, message, { frameId }); // $ExpectType Promise<any>
+    chrome.tabs.sendMessage(tabId, message, { documentId }); // $ExpectType Promise<any>
+    chrome.tabs.sendMessage(tabId, message, (response) => {
+        response; // $ExpectType any
+    });
+    chrome.tabs.sendMessage(tabId, message, { frameId }, (response) => {
+        response; // $ExpectType any
+    });
+    chrome.tabs.sendMessage(tabId, message, { documentId }, (response) => {
+        response; // $ExpectType any
+    });
+    chrome.tabs.sendMessage<string, number>(tabId, message); // $ExpectType Promise<number>
+    chrome.tabs.sendMessage<string, number>(tabId, message, (response) => {
+        response; // $ExpectType number
+    });
+    // @ts-expect-error message should be a number
+    chrome.tabs.sendMessage<number>(tabId, message);
+    // @ts-expect-error
+    chrome.tabs.sendMessage(() => {}).then(() => {});
+
+    const zoomFactor = 2;
+
+    chrome.tabs.setZoom(zoomFactor); // $ExpectType Promise<void>
+    chrome.tabs.setZoom(tabId, zoomFactor); // $ExpectType Promise<void>
+    chrome.tabs.setZoom(zoomFactor, () => {}); // $ExpectType void
+    chrome.tabs.setZoom(tabId, zoomFactor, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.setZoom(() => {}).then(() => {});
+
+    const zoomSettings: chrome.tabs.ZoomSettings = {
+        mode: "automatic",
+        scope: "per-origin",
+        defaultZoomFactor: 1,
+    };
+
+    chrome.tabs.setZoomSettings(zoomSettings); // $ExpectType Promise<void>
+    chrome.tabs.setZoomSettings(tabId, zoomSettings); // $ExpectType Promise<void>
+    chrome.tabs.setZoomSettings(zoomSettings, () => {}); // $ExpectType void
+    chrome.tabs.setZoomSettings(tabId, zoomSettings, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.setZoomSettings(() => {}).then(() => {});
+
+    chrome.tabs.ungroup(tabId); // $ExpectType Promise<void>
+    chrome.tabs.ungroup([tabId]); // $ExpectType Promise<void>
+    chrome.tabs.ungroup(tabId, () => {}); // $ExpectType void
+    chrome.tabs.ungroup([tabId], () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.ungroup(() => {}).then(() => {});
+
+    const updateProperties: chrome.tabs.UpdateProperties = {
+        active: true,
+        autoDiscardable: true,
+        highlighted: true,
+        muted: true,
+        openerTabId: tabId,
+        pinned: true,
+        url: "url",
+    };
+
+    chrome.tabs.update(updateProperties); // $ExpectType Promise<Tab | undefined>
+    chrome.tabs.update(tabId, updateProperties); // $ExpectType Promise<Tab | undefined>
+    chrome.tabs.update(updateProperties, (tab) => {
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.tabs.update(tabId, updateProperties, (tab) => {
+        tab; // $ExpectType Tab | undefined
+    });
+    // @ts-expect-error
+    chrome.tabs.update(() => {}).then(() => {});
+
+    chrome.tabs.onActivated.addListener((activeInfo) => {
+        activeInfo; // $ExpectType TabActiveInfo
+    });
+    chrome.tabs.onActivated.removeListener((activeInfo) => {
+        activeInfo; // $ExpectType TabActiveInfo
+    });
+    chrome.tabs.onActivated.hasListener((activeInfo) => {
+        activeInfo; // $ExpectType TabActiveInfo
+    });
+    chrome.tabs.onActivated.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onAttached.addListener((tabId, attachInfo) => {
+        tabId; // $ExpectType number
+        attachInfo; // $ExpectType TabAttachInfo
+    });
+    chrome.tabs.onAttached.removeListener((tabId, attachInfo) => {
+        tabId; // $ExpectType number
+        attachInfo; // $ExpectType TabAttachInfo
+    });
+    chrome.tabs.onAttached.hasListener((tabId, attachInfo) => {
+        tabId; // $ExpectType number
+        attachInfo; // $ExpectType TabAttachInfo
+    });
+    chrome.tabs.onAttached.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onCreated.addListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onCreated.removeListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onCreated.hasListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onDetached.addListener((tabId, detachInfo) => {
+        tabId; // $ExpectType number
+        detachInfo; // $ExpectType TabDetachInfo
+    });
+    chrome.tabs.onDetached.removeListener((tabId, detachInfo) => {
+        tabId; // $ExpectType number
+        detachInfo; // $ExpectType TabDetachInfo
+    });
+    chrome.tabs.onDetached.hasListener((tabId, detachInfo) => {
+        tabId; // $ExpectType number
+        detachInfo; // $ExpectType TabDetachInfo
+    });
+    chrome.tabs.onDetached.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onHighlighted.addListener((highlightInfo) => {
+        highlightInfo; // $ExpectType TabHighlightInfo
+    });
+    chrome.tabs.onHighlighted.removeListener((highlightInfo) => {
+        highlightInfo; // $ExpectType TabHighlightInfo
+    });
+    chrome.tabs.onHighlighted.hasListener((highlightInfo) => {
+        highlightInfo; // $ExpectType TabHighlightInfo
+    });
+    chrome.tabs.onHighlighted.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onMoved.addListener((tabId, moveInfo) => {
+        tabId; // $ExpectType number
+        moveInfo; // $ExpectType TabMoveInfo
+    });
+    chrome.tabs.onMoved.removeListener((tabId, moveInfo) => {
+        tabId; // $ExpectType number
+        moveInfo; // $ExpectType TabMoveInfo
+    });
+    chrome.tabs.onMoved.hasListener((tabId, moveInfo) => {
+        tabId; // $ExpectType number
+        moveInfo; // $ExpectType TabMoveInfo
+    });
+    chrome.tabs.onMoved.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
+        tabId; // $ExpectType number
+        removeInfo; // $ExpectType TabRemoveInfo
+    });
+    chrome.tabs.onRemoved.removeListener((tabId, removeInfo) => {
+        tabId; // $ExpectType number
+        removeInfo; // $ExpectType TabRemoveInfo
+    });
+    chrome.tabs.onRemoved.hasListener((tabId, removeInfo) => {
+        tabId; // $ExpectType number
+        removeInfo; // $ExpectType TabRemoveInfo
+    });
+    chrome.tabs.onRemoved.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onReplaced.addListener((addedTabId, removedTabId) => {
+        addedTabId; // $ExpectType number
+        removedTabId; // $ExpectType number
+    });
+    chrome.tabs.onReplaced.removeListener((addedTabId, removedTabId) => {
+        addedTabId; // $ExpectType number
+        removedTabId; // $ExpectType number
+    });
+    chrome.tabs.onReplaced.hasListener((addedTabId, removedTabId) => {
+        addedTabId; // $ExpectType number
+        removedTabId; // $ExpectType number
+    });
+    chrome.tabs.onReplaced.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+        tabId; // $ExpectType number
+        changeInfo; // $ExpectType TabChangeInfo
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onUpdated.removeListener((tabId, changeInfo, tab) => {
+        tabId; // $ExpectType number
+        changeInfo; // $ExpectType TabChangeInfo
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onUpdated.hasListener((tabId, changeInfo, tab) => {
+        tabId; // $ExpectType number
+        changeInfo; // $ExpectType TabChangeInfo
+        tab; // $ExpectType Tab
+    });
+    chrome.tabs.onUpdated.hasListeners(); // $ExpectType boolean
+
+    chrome.tabs.onZoomChange.addListener((zoomChangeInfo) => {
+        zoomChangeInfo; // $ExpectType ZoomChangeInfo
+    });
+    chrome.tabs.onZoomChange.removeListener((zoomChangeInfo) => {
+        zoomChangeInfo; // $ExpectType ZoomChangeInfo
+    });
+    chrome.tabs.onZoomChange.hasListener((zoomChangeInfo) => {
+        zoomChangeInfo; // $ExpectType ZoomChangeInfo
+    });
+    chrome.tabs.onZoomChange.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/tabGroups
@@ -1942,23 +2320,6 @@ function testRuntimeSendMessage() {
 function testRuntimeSendNativeMessage() {
     chrome.runtime.sendNativeMessage("application", console.log).then(() => {});
     chrome.runtime.sendNativeMessage("application", console.log, (num: number) => alert(num + 1));
-}
-
-function testTabsSendMessage() {
-    chrome.tabs.sendMessage(1, "Hello World!");
-    chrome.tabs.sendMessage(2, "Hello World!").then(() => {});
-    chrome.tabs.sendMessage(3, "Hello World!", console.log);
-    chrome.tabs.sendMessage(4, "Hello World!", {}).then(() => {});
-    chrome.tabs.sendMessage(5, "Hello World!", {}, console.log);
-    chrome.tabs.sendMessage(6, "Hello World!", { frameId: 1 }, console.log);
-    chrome.tabs.sendMessage(7, "Hello World!", { documentId: "id" }, console.log);
-    chrome.tabs.sendMessage(8, "Hello World!", { documentId: "id", frameId: 0 }, console.log);
-    chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
-    chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.tabs.sendMessage<number>(8, "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.tabs.sendMessage<string, string>(9, "Hello World!", (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
