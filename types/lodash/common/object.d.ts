@@ -1820,7 +1820,7 @@ declare module "../index" {
          *
          * @category Object
          * @param object The destination object.
-         * @param [sources] The source objects.
+         * @param [source] The source objects.
          * @returns Returns `object`.
          * @example
          *
