@@ -23,6 +23,7 @@ import {
     IbmCloud,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    MagicWand,
     MovingDolly,
     RedHatApplications,
     ShanghaiSkyline,
@@ -73,3 +74,4 @@ import * as React from "react";
 <Spss />; // $ExpectType Element
 <BentoBoxTray />; // $ExpectType Element
 <ShanghaiSkyline />; // $ExpectType Element
+<MagicWand />; // $ExpectType Element

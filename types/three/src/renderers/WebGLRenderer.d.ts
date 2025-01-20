@@ -26,13 +26,6 @@ import { WebGLState } from "./webgl/WebGLState.js";
 import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
 import { WebXRManager } from "./webxr/WebXRManager.js";
 
-export interface Renderer {
-    domElement: HTMLCanvasElement;
-
-    render(scene: Object3D, camera: Camera): void;
-    setSize(width: number, height: number, updateStyle?: boolean): void;
-}
-
 export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * A Canvas where the renderer draws its output.
@@ -115,7 +108,7 @@ export interface WebGLDebug {
  *
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
  */
-export class WebGLRenderer implements Renderer {
+export class WebGLRenderer {
     /**
      * parameters is an optional object with properties defining the renderer's behavior.
      * The constructor also accepts no parameters at all.
@@ -197,6 +190,13 @@ export class WebGLRenderer implements Renderer {
      * @default 1
      */
     toneMappingExposure: number;
+
+    /**
+     * The normalized resolution scale for the transmission render target, measured in percentage of viewport
+     * dimensions. Lowering this value can result in significant improvements to {@link MeshPhysicalMaterial}
+     * transmission performance. Default is `1`.
+     */
+    transmissionResolutionScale: number;
 
     info: WebGLInfo;
 
@@ -444,6 +444,7 @@ export class WebGLRenderer implements Renderer {
      * @param dstTexture Specifies the destination texture.
      * @param srcRegion Specifies the bounds
      * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @param srcLevel Specifies the source mipmap level of the texture.
      * @param dstLevel Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture(
@@ -451,6 +452,7 @@ export class WebGLRenderer implements Renderer {
         dstTexture: Texture,
         srcRegion?: Box2 | Box3 | null,
         dstPosition?: Vector2 | Vector3 | null,
+        srcLevel?: number,
         dstLevel?: number,
     ): void;
 

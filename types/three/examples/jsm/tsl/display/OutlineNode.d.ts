@@ -1,5 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
-import { Camera, Object3D, Scene } from "three/webgpu";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Camera, Node, Object3D, Scene, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 export interface OutlineNodeParams {
     selectedObjects?: Object3D[] | undefined;

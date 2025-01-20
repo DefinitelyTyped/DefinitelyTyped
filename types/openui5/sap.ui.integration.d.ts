@@ -1,4 +1,4 @@
-// For Library Version: 1.130.0
+// For Library Version: 1.131.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -251,6 +251,14 @@ declare module "sap/ui/integration/library" {
      * The parameters of the action.
      */
     parameters: object;
+    /**
+     * If visual separator should be rendered before the item.
+     */
+    startsSection: boolean;
+    /**
+     * The nested actions.
+     */
+    actions: any[];
   };
 
   /**
@@ -331,7 +339,10 @@ declare module "sap/ui/integration/ActionDefinition" {
 
   import { CardActionType } from "sap/ui/integration/library";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
 
   /**
    * Represents an action, which appears in the header of {@link sap.ui.integration.widgets.Card}. Useful
@@ -405,6 +416,18 @@ declare module "sap/ui/integration/ActionDefinition" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Adds some actionDefinition to the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addActionDefinition(
+      /**
+       * The actionDefinition to add; if empty, nothing is inserted
+       */
+      oActionDefinition: ActionDefinition
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -454,6 +477,13 @@ declare module "sap/ui/integration/ActionDefinition" {
       oListener?: object
     ): this;
     /**
+     * Destroys all the actionDefinitions in the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyActionDefinitions(): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -485,12 +515,20 @@ declare module "sap/ui/integration/ActionDefinition" {
       mParameters?: object
     ): this;
     /**
+     * Gets content of aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * Action Definitions which will appear as nested items in the menu. **Note**: The parent action definition
+     * will not fire a press anymore, it will only be used to hold the subitem.
+     */
+    getActionDefinitions(): ActionDefinition[];
+    /**
      * Gets current value of property {@link #getButtonType buttonType}.
      *
      * The type of the action button.
      *
      * Default value is `Transparent`.
      *
+     * @deprecated (since 1.130) - All `ActionDefinitions` are now rendered as menu items and don't have `buttonType`.
      *
      * @returns Value of property `buttonType`
      */
@@ -526,6 +564,18 @@ declare module "sap/ui/integration/ActionDefinition" {
      */
     getParameters(): object;
     /**
+     * Gets current value of property {@link #getStartsSection startsSection}.
+     *
+     * Defines whether a visual separator should be rendered before the item. **Note**: If an item is invisible
+     * its separator is also not displayed.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `startsSection`
+     */
+    getStartsSection(): boolean;
+    /**
      * Gets current value of property {@link #getText text}.
      *
      * The text of the action button.
@@ -557,6 +607,58 @@ declare module "sap/ui/integration/ActionDefinition" {
      */
     getVisible(): boolean;
     /**
+     * Checks for the provided `sap.ui.integration.ActionDefinition` in the aggregation {@link #getActionDefinitions actionDefinitions}.
+     * and returns its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfActionDefinition(
+      /**
+       * The actionDefinition whose index is looked for
+       */
+      oActionDefinition: ActionDefinition
+    ): int;
+    /**
+     * Inserts a actionDefinition into the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertActionDefinition(
+      /**
+       * The actionDefinition to insert; if empty, nothing is inserted
+       */
+      oActionDefinition: ActionDefinition,
+      /**
+       * The `0`-based index the actionDefinition should be inserted at; for a negative value of `iIndex`, the
+       * actionDefinition is inserted at position 0; for a value greater than the current size of the aggregation,
+       * the actionDefinition is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes a actionDefinition from the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     *
+     * @returns The removed actionDefinition or `null`
+     */
+    removeActionDefinition(
+      /**
+       * The actionDefinition to remove or its index or id
+       */
+      vActionDefinition: int | string | ActionDefinition
+    ): ActionDefinition | null;
+    /**
+     * Removes all the controls from the aggregation {@link #getActionDefinitions actionDefinitions}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllActionDefinitions(): ActionDefinition[];
+    /**
      * Sets a new value for property {@link #getButtonType buttonType}.
      *
      * The type of the action button.
@@ -565,6 +667,7 @@ declare module "sap/ui/integration/ActionDefinition" {
      *
      * Default value is `Transparent`.
      *
+     * @deprecated (since 1.130) - All `ActionDefinitions` are now rendered as menu items and don't have `buttonType`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -624,6 +727,25 @@ declare module "sap/ui/integration/ActionDefinition" {
        * New value for property `parameters`
        */
       oParameters: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStartsSection startsSection}.
+     *
+     * Defines whether a visual separator should be rendered before the item. **Note**: If an item is invisible
+     * its separator is also not displayed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStartsSection(
+      /**
+       * New value for property `startsSection`
+       */
+      bStartsSection?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getText text}.
@@ -705,6 +827,8 @@ declare module "sap/ui/integration/ActionDefinition" {
 
     /**
      * The type of the action button.
+     *
+     * @deprecated (since 1.130) - All `ActionDefinitions` are now rendered as menu items and don't have `buttonType`.
      */
     buttonType?:
       | (ButtonType | keyof typeof ButtonType)
@@ -726,6 +850,22 @@ declare module "sap/ui/integration/ActionDefinition" {
      * The parameters of the action.
      */
     parameters?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines whether a visual separator should be rendered before the item. **Note**: If an item is invisible
+     * its separator is also not displayed.
+     */
+    startsSection?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Action Definitions which will appear as nested items in the menu. **Note**: The parent action definition
+     * will not fire a press anymore, it will only be used to hold the subitem.
+     */
+    actionDefinitions?:
+      | ActionDefinition[]
+      | ActionDefinition
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the action button is pressed.

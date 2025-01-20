@@ -7,7 +7,7 @@
     ],
     "type": "module",
     "dependencies": {
-        "@rdfjs/types": "*",
+        "@rdfjs/types": "^1",
         "@types/rdfjs__data-model": "*",
         "@types/rdfjs__dataset": "*",
         "@types/rdfjs__environment": "*",

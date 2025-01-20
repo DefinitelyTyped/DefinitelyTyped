@@ -5,8 +5,8 @@
     "projects": [
         "http://facebook.github.io/react/"
     ],
-    "dependencies": {
-        "@types/react": "^15"
+    "peerDependencies": {
+        "@types/react": "^15.0.0"
     },
     "devDependencies": {
         "@types/react-dom": "workspace:."

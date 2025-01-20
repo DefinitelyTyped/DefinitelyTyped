@@ -76,80 +76,88 @@ export interface Transaction {
     setData(path: string, data: Buffer | null, version?: number): this;
     check(path: string, version?: number): this;
     remove(path: string, version?: number): this;
-    commit(callback: (error: Error | Exception, results: any) => void): void;
+    commit(callback: (error: Error | Exception | null, results: any) => void): void;
 }
 
 export interface Client extends EventEmitter {
     connect(): void;
     close(): void;
-    create(path: string, callback: (error: Error | Exception, path: string) => void): void;
+    create(path: string, callback: (error: Error | Exception | null, path: string) => void): void;
     create(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
     create(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
         dataOrAclsOrmode2: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
     create(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
         dataOrAclsOrmode2: Buffer | ACL[] | number,
         dataOrAclsOrmode3: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
-    remove(path: string, callback: (error: Error | Exception) => void): void;
-    remove(path: string, version: number, callback: (error: Error | Exception) => void): void;
-    exists(path: string, callback: (error: Error | Exception, stat: Stat) => void): void;
+    remove(path: string, callback: (error: Error | Exception | null) => void): void;
+    remove(path: string, version: number, callback: (error: Error | Exception | null) => void): void;
+    exists(path: string, callback: (error: Error | Exception | null, stat: Stat) => void): void;
     exists(
         path: string,
         watcher: (event: Event) => void,
-        callback: (error: Error | Exception, stat: Stat) => void,
+        callback: (error: Error | Exception | null, stat: Stat) => void,
     ): void;
-    getChildren(path: string, callback: (error: Error | Exception, children: string[], stat: Stat) => void): void;
+    getChildren(
+        path: string,
+        callback: (error: Error | Exception | null, children: string[], stat: Stat) => void,
+    ): void;
     getChildren(
         path: string,
         watcher: (event: Event) => void,
-        callback: (error: Error | Exception, children: string[], stat: Stat) => void,
+        callback: (error: Error | Exception | null, children: string[], stat: Stat) => void,
     ): void;
-    getData(path: string, callback: (error: Error | Exception, data: Buffer, stat: Stat) => void): void;
+    getData(path: string, callback: (error: Error | Exception | null, data: Buffer, stat: Stat) => void): void;
     getData(
         path: string,
         watcher: (event: Event) => void,
-        callback: (error: Error | Exception, data: Buffer, stat: Stat) => void,
+        callback: (error: Error | Exception | null, data: Buffer, stat: Stat) => void,
     ): void;
-    setData(path: string, data: Buffer | null, callback: (error: Error | Exception, stat: Stat) => void): void;
+    setData(path: string, data: Buffer | null, callback: (error: Error | Exception | null, stat: Stat) => void): void;
     setData(
         path: string,
         data: Buffer | null,
         version: number,
-        callback: (error: Error | Exception, stat: Stat) => void,
+        callback: (error: Error | Exception | null, stat: Stat) => void,
     ): void;
-    getACL(path: string, callback: (error: Error | Exception, acls: ACL[], stat: Stat) => void): void;
-    setACL(path: string, acls: ACL[], callback: (error: Error | Exception, stat: Stat) => void): void;
-    setACL(path: string, acls: ACL[], version: number, callback: (error: Error | Exception, stat: Stat) => void): void;
+    getACL(path: string, callback: (error: Error | Exception | null, acls: ACL[], stat: Stat) => void): void;
+    setACL(path: string, acls: ACL[], callback: (error: Error | Exception | null, stat: Stat) => void): void;
+    setACL(
+        path: string,
+        acls: ACL[],
+        version: number,
+        callback: (error: Error | Exception | null, stat: Stat) => void,
+    ): void;
     transaction(): Transaction;
-    mkdirp(path: string, callback: (error: Error | Exception, path: string) => void): void;
+    mkdirp(path: string, callback: (error: Error | Exception | null, path: string) => void): void;
     mkdirp(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
     mkdirp(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
         dataOrAclsOrmode2: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
     mkdirp(
         path: string,
         dataOrAclsOrmode1: Buffer | ACL[] | number,
         dataOrAclsOrmode2: Buffer | ACL[] | number,
         dataOrAclsOrmode3: Buffer | ACL[] | number,
-        callback: (error: Error | Exception, path: string) => void,
+        callback: (error: Error | Exception | null, path: string) => void,
     ): void;
     addAuthInfo(scheme: string, auth: Buffer): void;
     getState(): State;

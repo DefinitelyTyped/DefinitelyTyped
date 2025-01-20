@@ -147,6 +147,18 @@ container.start((err, data) => {
     // NOOP
 });
 
+container.exec({
+    Cmd: ["echo", "hello"],
+    AttachStdin: true,
+    AttachStdout: true,
+    AttachStderr: true,
+    Tty: true,
+    User: "root",
+    ConsoleSize: [80, 24],
+}, (err, data) => {
+    // NOOP
+});
+
 container.remove((err, data) => {
     // NOOP
 });
@@ -380,6 +392,14 @@ docker.createVolume({ Name: "volumeName" }, (err, volume) => {
     });
 
     volume.remove({ abortSignal: new AbortController().signal }, (err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ force: true }, (err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ force: true, abortSignal: new AbortController().signal }, (err, data) => {
         // NOOP
     });
 });

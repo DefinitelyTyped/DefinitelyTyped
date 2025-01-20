@@ -1,29 +1,34 @@
 /// <reference types="node" />
 
-export interface PhcFormatObject {
+export interface PhcShared {
+    /** Symbolic name for the function. */
     id: string;
+    /** The version of the function. */
     version?: number;
-    params?: Record<string, string | number>;
+    /** The salt as a binary buffer. */
     salt?: Buffer;
+    /** The hash as a binary buffer. */
     hash?: Buffer;
+}
+
+export interface PhcInput extends PhcShared {
+    /** Parameters of the function. */
+    params?: Record<string, string | number | Buffer>;
+}
+
+export interface PhcOutput extends PhcShared {
+    /** Parameters of the function. */
+    params?: Record<string, string | number>;
 }
 
 /**
  * Generates a PHC string using the data provided.
- * @param  {PhcFormatObject} opts Object that holds the data needed to generate the PHC
- * string.
- * @param  {string} opts.id Symbolic name for the function.
- * @param  {Number} [opts.version] The version of the function.
- * @param  {Object} [opts.params] Parameters of the function.
- * @param  {Buffer} [opts.salt] The salt as a binary buffer.
- * @param  {Buffer} [opts.hash] The hash as a binary buffer.
- * @return {string} The hash string adhering to the PHC format.
+ * @return The hash string adhering to the PHC format.
  */
-export function serialize(opts: PhcFormatObject): string;
+export function serialize(opts: PhcInput): string;
 
 /**
  * Parses data from a PHC string.
- * @param  {string} phcstr A PHC string to parse.
- * @return {Object} The object containing the data parsed from the PHC string.
+ * @return The object containing the data parsed from the PHC string.
  */
-export function deserialize(phcstr: string): PhcFormatObject;
+export function deserialize(phcstr: string): PhcOutput;

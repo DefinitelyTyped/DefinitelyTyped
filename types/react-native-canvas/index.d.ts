@@ -4,7 +4,7 @@ import { StyleProp, ViewStyle } from "react-native";
 export interface CanvasProps {
     baseUrl?: string | undefined;
     originWhitelist?: string[] | undefined;
-    ref: ((canvas: Canvas) => any) | React.RefObject<Canvas>;
+    ref: ((canvas: Canvas) => any) | React.RefObject<Canvas | null>;
     style?: StyleProp<ViewStyle> | undefined;
 }
 

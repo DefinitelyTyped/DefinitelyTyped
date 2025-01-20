@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/html-to-draftjs",
-    "version": "1.4.9999",
+    "version": "1.5.9999",
     "projects": [
         "https://github.com/jpuri/html-to-draftjs#readme"
     ],

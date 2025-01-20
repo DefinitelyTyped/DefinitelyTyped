@@ -3,7 +3,7 @@ import { Emitter } from './emitter';
 
 export type AlternativePaymentMethodEvents = 'token' | 'error' | 'valid';
 
-export type AlternativePaymentMethodType = 'boleto';
+export type AlternativePaymentMethodType = 'boleto' | 'ideal' | 'sofort' | 'paypal' | 'cashapp' | 'bacs';
 
 export type ChannelType = 'iOS' | 'Android' | 'Web';
 
@@ -16,15 +16,15 @@ export type AdyenAlternativePaymentMethodOptions = {
   publicKey: string,
 
   /**
-   * Indicate a test or a live environment.
+   * Indicate a test or a live environment. Defaults to `"test"`.
    */
   env?: AdyenEnvironmentType,
 
   /**
-   * Show or hides a Pay Button for each payment method. Defaults to false.
+   * Show or hides a Pay Button for each payment method. Defaults to `false`.
    * When the button is disable you need to call the submit() function when the payment form is valid.
    */
-  showPayButton?: false,
+  showPayButton?: boolean,
 
   /**
    * Additional Adyen Configuration.
@@ -71,13 +71,14 @@ export type AlternativePaymentMethodStartOptions = {
   countryCode: string;
 
   /**
-   * The customer's locale. This is used to set the language rendered in the UI.
+   * The customer's locale. This is used to set the language rendered in the UI. Defaults to `"en-US"`.
    */
   locale?: string;
 
   /**
    * The platform where a payment transaction takes place.
    * This field can be used for filtering out payment methods that are only available on specific platforms.
+   * Defaults to `"Web"`.
    */
   channel?: ChannelType,
 
@@ -89,7 +90,12 @@ export type AlternativePaymentMethodStartOptions = {
   /**
    * Sets additional customer fields on the generated token.
    */
-  customer?: CustomerOptions
+  customer?: CustomerOptions,
+
+  /**
+   * The URL to return to after the shopper completes the payment.
+   */
+  returnURL?: string
 };
 
 export type AlternativePaymentMethodSubmitOptions = {
@@ -103,7 +109,7 @@ export interface AlternativePaymentMethodsInstance extends Emitter<AlternativePa
   /**
    * Start the PaymentMethods and render the components.
    */
-  start: (data: AlternativePaymentMethodStartOptions) => Promise<void>;
+  start: () => Promise<void>;
 
   /**
    * Submit the customer payment information and produce a token.
@@ -121,4 +127,4 @@ export interface AlternativePaymentMethodsInstance extends Emitter<AlternativePa
   handleAction: (paymentResponse: any) => Promise<void>;
 }
 
-export type AlternativePaymentMethods = () => AlternativePaymentMethodsInstance;
+export type AlternativePaymentMethods = (config: AlternativePaymentMethodStartOptions) => AlternativePaymentMethodsInstance;

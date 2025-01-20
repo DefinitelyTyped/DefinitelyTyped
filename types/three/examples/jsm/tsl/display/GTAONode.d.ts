@@ -1,9 +1,11 @@
-import { Camera, Matrix4, Vector2 } from "three";
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Camera, Node, TempNode, TextureNode, UniformNode, Vector2 } from "three/webgpu";
 
 declare class GTAONode extends TempNode {
     depthNode: Node;
     normalNode: Node;
+
+    resolutionScale: number;
 
     radius: ShaderNodeObject<UniformNode<number>>;
     resolution: ShaderNodeObject<UniformNode<Vector2>>;
@@ -11,12 +13,7 @@ declare class GTAONode extends TempNode {
     distanceExponent: ShaderNodeObject<UniformNode<number>>;
     distanceFallOff: ShaderNodeObject<UniformNode<number>>;
     scale: ShaderNodeObject<UniformNode<number>>;
-    noiseNode: ShaderNodeObject<TextureNode>;
-
-    cameraProjectionMatrix: ShaderNodeObject<UniformNode<Matrix4>>;
-    cameraProjectionMatrixInverse: ShaderNodeObject<UniformNode<Matrix4>>;
-
-    SAMPLES: ShaderNodeObject<UniformNode<number>>;
+    samples: ShaderNodeObject<UniformNode<number>>;
 
     constructor(depthNode: Node, normalNode: Node, camera: Camera);
 

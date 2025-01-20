@@ -1,4 +1,5 @@
-import { LightsNode, Node, NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { LightsNode, Node } from "three/webgpu";
 
 export const circleIntersectsAABB: (
     circleCenter: NodeRepresentation,

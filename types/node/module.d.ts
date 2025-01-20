@@ -125,7 +125,14 @@ declare module "module" {
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
+        type ModuleFormat =
+            | "builtin"
+            | "commonjs"
+            | "commonjs-typescript"
+            | "json"
+            | "module"
+            | "module-typescript"
+            | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
@@ -196,7 +203,7 @@ declare module "module" {
             context: ResolveHookContext,
             nextResolve: (
                 specifier: string,
-                context?: ResolveHookContext,
+                context?: Partial<ResolveHookContext>,
             ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
@@ -236,7 +243,7 @@ declare module "module" {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
+            nextLoad: (url: string, context?: Partial<LoadHookContext>) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
         namespace constants {
             /**

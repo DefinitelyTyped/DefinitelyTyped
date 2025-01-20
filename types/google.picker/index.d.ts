@@ -236,7 +236,7 @@ declare namespace google {
             /**
              * A type representing the action taken by the user to dismiss the dialog.
              */
-            [Response.ACTION]: Action;
+            [Response.ACTION]: Action | string;
             /**
              * An array of `DocumentObject`s selected by the user.
              */
@@ -669,8 +669,6 @@ declare namespace google {
             CANCEL = "cancel",
             /** User has chosen at least one item. */
             PICKED = "picked",
-            /** The Google Picker dialog has finished loading. */
-            LOADED = "loaded",
             /** The Google Picker dialog has encountered an error. */
             ERROR = "error",
         }

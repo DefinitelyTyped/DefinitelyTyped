@@ -491,22 +491,40 @@ declare class Module {
     enumerateDependencies(): ModuleDependencyDetails[];
 
     /**
-     * Looks up the absolute address of the export named `exportName`.
+     * Looks up the absolute address of the export named `name`.
      *
      * Returns null if the export doesn't exist.
      *
-     * @param exportName Export name to find the address of.
+     * @param name Export name to find the address of.
      */
-    findExportByName(exportName: string): NativePointer | null;
+    findExportByName(name: string): NativePointer | null;
 
     /**
-     * Looks up the absolute address of the export named `exportName`.
+     * Looks up the absolute address of the export named `name`.
      *
      * Throws an exception if the export doesn't exist.
      *
-     * @param exportName Export name to find the address of.
+     * @param name Export name to find the address of.
      */
-    getExportByName(exportName: string): NativePointer;
+    getExportByName(name: string): NativePointer;
+
+    /**
+     * Looks up the absolute address of the symbol named `name`.
+     *
+     * Returns null if the symbol doesn't exist.
+     *
+     * @param name Symbol name to find the address of.
+     */
+    findSymbolByName(name: string): NativePointer | null;
+
+    /**
+     * Looks up the absolute address of the symbol named `name`.
+     *
+     * Throws an exception if the symbol doesn't exist.
+     *
+     * @param name Symbol name to find the address of.
+     */
+    getSymbolByName(name: string): NativePointer;
 
     /**
      * Loads the specified module.

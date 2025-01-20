@@ -146,3 +146,9 @@ let mytest = function(grunt: IGrunt) {
     };
     grunt.file.copy("./test.file", "./testcopy.file", opt);
 };
+let flagtest = function(grunt: IGrunt) {
+    grunt.registerTask("flagtest", function() {
+        // $ExpectType IFlag
+        const flags = this.flags;
+    });
+};
