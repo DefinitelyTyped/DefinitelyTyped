@@ -7,8 +7,6 @@
     "projects": [
         "https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference"
     ],
-    "nonNpm": "conflict",
-    "nonNpmDescription": "Dynamics 365 & Power Platform JavaScript Client API",
     "devDependencies": {
         "@types/xrm": "workspace:."
     },
