@@ -1,20 +1,15 @@
-// Type definitions for popoto 3.0
-// Project: https://popotojs.com/
-// Definitions by: Omar Almalol <https://github.com/alma3lol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { CypherViewer } from './cypherviewer';
-import { DataModel } from './dataModel';
-import { Graph, GraphSchema } from './graph';
-import { Logger } from './logger';
-import { Provider } from './provider';
-import { Query } from './query';
-import { QueryViewer } from './queryviewer';
-import { Result } from './result';
-import { Runner } from './runner';
-import { Taxonomy } from './taxonomy';
-import { Toolbar } from './toolbar';
-import { Tools } from './tools';
+import { CypherViewer } from "./cypherviewer";
+import { DataModel } from "./dataModel";
+import { Graph, GraphSchema } from "./graph";
+import { Logger } from "./logger";
+import { Provider } from "./provider";
+import { Query } from "./query";
+import { QueryViewer } from "./queryviewer";
+import { Result } from "./result";
+import { Runner } from "./runner";
+import { Taxonomy } from "./taxonomy";
+import { Toolbar } from "./toolbar";
+import { Tools } from "./tools";
 
 interface Popoto {
     /**

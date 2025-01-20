@@ -2,13 +2,13 @@
 
 import { ValidationError } from "meteor/mdg:validation-error";
 
-// $ExpectError
-new ValidationError([{ name: 'name' }]);
+// @ts-expect-error
+new ValidationError([{ name: "name" }]);
 
 const error = new ValidationError([{
-    name: 'name',
-    type: 'required'
-}], 'Name is required');
+    name: "name",
+    type: "required",
+}], "Name is required");
 
 // $ExpectType string | number
 error.error;

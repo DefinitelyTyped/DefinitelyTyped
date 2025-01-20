@@ -1,8 +1,8 @@
-import * as React from 'react';
 import {
     AccordionItem,
     AspectRatio,
     Button,
+    ButtonRenderIconRenderProps,
     Checkbox,
     CodeSnippet,
     CodeSnippetType,
@@ -12,13 +12,19 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    DataTableSkeleton,
     DatePickerInput,
     Dropdown,
+    FileUploader,
+    FileUploaderDropContainer,
+    FileUploaderItem,
     HeaderContainer,
     HeaderMenu,
     HeaderMenuItem,
-    FileUploader,
+    InlineLoading,
     Link,
+    Modal,
+    MultiSelect,
     NumberInput,
     NumberInputOnChangeDataVariant,
     NumberInputOnChangeDefaultVariant,
@@ -26,47 +32,42 @@ import {
     NumberInputOnClickDefaultVariant,
     NumberInputOnClickInputVariant,
     Row,
-    SecondaryButton,
-    Slider,
-    Tab,
-    Table,
-    TableBatchActions,
-    TableHeader,
-    TableRow,
-    Tag,
-    TileGroup,
-    Tooltip,
-    TooltipDefinition,
-    TextArea,
-    TextInput,
-    FileUploaderDropContainer,
-    FileUploaderItem,
-    MultiSelect,
-    Tabs,
     Search,
+    SecondaryButton,
     SideNav,
     SideNavItem,
     SideNavItems,
-    StructuredListWrapper,
-    StructuredListHead,
+    Slider,
     StructuredListBody,
-    StructuredListRow,
-    StructuredListInput,
     StructuredListCell,
+    StructuredListHead,
+    StructuredListInput,
+    StructuredListRow,
     StructuredListSkeleton,
-    ButtonRenderIconRenderProps,
-    Modal,
-    InlineLoading,
-    DataTableSkeleton,
+    StructuredListWrapper,
+    Tab,
+    Table,
+    TableBatchActions,
     TableCell,
+    TableHeader,
+    TableRow,
+    Tabs,
+    Tag,
+    TextArea,
+    TextInput,
+    TileGroup,
+    Tooltip,
+    TooltipDefinition,
     unstable_Heading as UnstableHeading,
     unstable_Section as UnstableSection,
 } from "carbon-components-react";
+import ComboBox from "carbon-components-react/lib/components/ComboBox";
 import { Dialog } from "carbon-components-react/lib/components/Dialog";
-import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
-import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
+import { Popover, PopoverContent } from "carbon-components-react/lib/components/Popover";
 import { Text } from "carbon-components-react/lib/components/Text";
+import UIShellLink from "carbon-components-react/lib/components/UIShell/Link";
+import * as React from "react";
 
 // test components for "as" props
 interface TestCompProps {
@@ -97,7 +98,7 @@ const accordionItemOne = (
         Lorem ipsum.
     </AccordionItem>
 );
-const accordionTitle = 'Hello World!';
+const accordionTitle = "Hello World!";
 const accordionItemTwo = (
     <AccordionItem title={accordionTitle} className="extra-class">
         Lorem ipsum.
@@ -108,24 +109,36 @@ const accordionItemTwo = (
 // AspectRatio
 //
 {
-    const AspectRatioCustomComp1: React.FC<{ someRandomProp: number, optionalProp?: string | undefined }> = () => <div/>;
+    const AspectRatioCustomComp1: React.FC<{ someRandomProp: number; optionalProp?: string | undefined }> = () => (
+        <div />
+    );
 
     const aspectRatioT1 = (
-        <AspectRatio onClick={evt => void evt.currentTarget} data-testid="test">Default</AspectRatio>
+        <AspectRatio onClick={evt => void evt.currentTarget} data-testid="test">
+            Default
+        </AspectRatio>
     );
     const aspectRatioT2 = (
-        // $ExpectError
-        <AspectRatio onClick={evt => void evt.currentTarget} data-testid="test" unknownProp="error">Default</AspectRatio>
+        // @ts-expect-error
+        <AspectRatio onClick={evt => void evt.currentTarget} data-testid="test" unknownProp="error">
+            Default
+        </AspectRatio>
     );
     const aspectRatioIntrinsicT1 = (
-        <AspectRatio as="section" onClick={(e) => {}}>IntrinsicElement</AspectRatio>
+        <AspectRatio as="section" onClick={e => {}}>
+            IntrinsicElement
+        </AspectRatio>
     );
     const aspectRatioCustomCompT1 = (
-        <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3}>Component</AspectRatio>
+        <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3}>
+            Component
+        </AspectRatio>
     );
     const aspectRatioCustomCompT2 = (
-        // $ExpectError
-        <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3} unknownProp={5}>Component</AspectRatio>
+        // @ts-expect-error
+        <AspectRatio as={AspectRatioCustomComp1} someRandomProp={3} unknownProp={5}>
+            Component
+        </AspectRatio>
     );
 }
 
@@ -133,7 +146,11 @@ const accordionItemTwo = (
 // Button
 //
 {
-    const buttonDefaultT1 = <Button onClick={event => event.preventDefault()} data-testid="btn">Basic Button</Button>;
+    const buttonDefaultT1 = (
+        <Button onClick={event => event.preventDefault()} data-testid="btn">
+            Basic Button
+        </Button>
+    );
 
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const SimpleButtonIcon = () => <div />;
@@ -152,12 +169,12 @@ const accordionItemTwo = (
     );
 
     const buttonDefaultT3 = (
-        // $ExpectError
+        // @ts-expect-error
         <Button unknownProp="error">Submit</Button>
     );
 
     const buttonIconT1 = <Button renderIcon={SimpleButtonIcon}>With Render Icon</Button>;
-// TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
+    // TODO: find a way to make this fail because someProp is required by the component but it will never be provided.
     const IconWithProps: React.FC<{ someProp: number; anotherProp?: string | undefined }> = () => <div />;
     const buttonIconT2 = <Button renderIcon={IconWithProps}>With Render Icon</Button>;
 
@@ -197,7 +214,7 @@ const accordionItemTwo = (
     );
 
     const buttonCustomRenderT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Button as={ButtonCustomRenderComp1} kind="danger" someProp={5} anotherProp="test" unknownProp={1}>
             Custom Render
         </Button>
@@ -223,12 +240,17 @@ const secondaryButtonT3 = (
 
 let codeSnippetType: CodeSnippetType = "inline";
 const inlineCodeSnippet = (
-    <CodeSnippet type="inline" onClick={e => e.preventDefault()}>
+    <CodeSnippet type="inline" onClick={e => e.preventDefault()} copyText="copy text">
         code
     </CodeSnippet>
 );
 const multiCodeSnippet = (
-    <CodeSnippet type="multi" maxCollapsedNumberOfRows={10} minExpandedNumberOfRows={3} onBlur={e => e.preventDefault()}>
+    <CodeSnippet
+        type="multi"
+        maxCollapsedNumberOfRows={10}
+        minExpandedNumberOfRows={3}
+        onBlur={e => e.preventDefault()}
+    >
         code
     </CodeSnippet>
 );
@@ -237,12 +259,23 @@ const codeSnippetTypeIsVariable = (
         code
     </CodeSnippet>
 );
+const codeSnippetNodes = (
+    <CodeSnippet
+        type="multi"
+        maxCollapsedNumberOfRows={10}
+        minExpandedNumberOfRows={3}
+        onBlur={e => e.preventDefault()}
+    >
+        <div>line 1</div>
+        <div>line 2</div>
+    </CodeSnippet>
+);
 
 interface Row1 extends DataTableRow {
     rowProp: string;
 }
 
-type Header1Key = 'h1' | 'h2' | 'h3';
+type Header1Key = "h1" | "h2" | "h3";
 interface Header1 extends DataTableHeader<Header1Key> {
     headerProp: number;
 }
@@ -254,55 +287,55 @@ interface ExtraStuff {
 
 const t1 = (
     <DataTable<Row1, Header1>
-        headers={[{ key: 'h1', header: <div />, headerProp: 2 }]}
-        rows={[{ id: 'r1', rowProp: 'row1' }]}
+        headers={[{ key: "h1", header: <div />, headerProp: 2 }]}
+        rows={[{ id: "r1", rowProp: "row1" }]}
     />
 );
 
 const t2 = (
     <DataTable<Row1, Header1>
         filterRows={data => {
-            const headers: ReadonlyArray<Header1> = data.headers;
-            const rowIds: ReadonlyArray<string> = data.rowIds;
+            const headers: readonly Header1[] = data.headers;
+            const rowIds: readonly string[] = data.rowIds;
             return [headers[0].key];
         }}
-        headers={[{ key: 'h1', header: <div />, headerProp: 2 }]}
-        rows={[{ id: 'r1', rowProp: 'row1' }]}
+        headers={[{ key: "h1", header: <div />, headerProp: 2 }]}
+        rows={[{ id: "r1", rowProp: "row1" }]}
         render={props => {
-            props.expandRow('asdf');
+            props.expandRow("asdf");
 
             let bap = props.getBatchActionProps();
             bap.onCancel();
             let x = bap.totalSelected;
 
-            let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: 'extra' });
+            let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: "extra" });
             let s = bap2.extra1;
 
-            let hp = props.getHeaderProps({ header: { key: 'h1', header: 'testh1', headerProp: 3 } });
+            let hp = props.getHeaderProps({ header: { key: "h1", header: "testh1", headerProp: 3 } });
             let k: Header1Key = hp.key;
 
             let hp2 = props.getHeaderProps<ExtraStuff>({
-                header: { key: 'h2', header: 'Test', headerProp: 3 },
-                extra1: 'asdf',
+                header: { key: "h2", header: "Test", headerProp: 3 },
+                extra1: "asdf",
             });
             k = hp.key;
             let e = hp2.extra1;
 
-            let hp3 = props.getHeaderProps({ header: { key: 'h3', header: 'testh1', headerProp: 5 }, someExtra: 2 });
+            let hp3 = props.getHeaderProps({ header: { key: "h3", header: "testh1", headerProp: 5 }, someExtra: 2 });
             let k3: Header1Key = hp.key;
             let someExtra = hp3.someExtra;
 
-            let rp = props.getRowProps({ row: { id: 'r1', rowProp: 'asdf' }, extra1: 'asdf' });
+            let rp = props.getRowProps({ row: { id: "r1", rowProp: "asdf" }, extra1: "asdf" });
             let rk: string = rp.key;
 
-            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1' }, extra1: 'asdf' });
+            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: "r1" }, extra1: "asdf" });
             rk = rp2.key;
             e = rp2.extra1;
 
             let sp = props.getSelectionProps();
             let c = sp.checked;
 
-            let sp2 = props.getSelectionProps({ extra1: 't2', extra3: 'asdf' });
+            let sp2 = props.getSelectionProps({ extra1: "t2", extra3: "asdf" });
             c = sp2.checked;
             e = sp2.extra1;
             e = sp2.extra3;
@@ -311,8 +344,8 @@ const t2 = (
             let size = tp.size;
 
             props.selectAll();
-            props.selectRow('qwerty');
-            props.sortBy('h3');
+            props.selectRow("qwerty");
+            props.sortBy("h3");
 
             props.headers.map(header => props.getHeaderProps({ header }));
             props.rows.map(row => props.getRowProps({ row }));
@@ -330,13 +363,13 @@ const t2 = (
 );
 
 // No types explicitly set on DataTable props
-const rowData1 = { id: '2', someRandomRowProp: 'test' };
+const rowData1 = { id: "2", someRandomRowProp: "test" };
 const t3 = (
     <DataTable
-        headers={[{ key: '1', header: 'Test', someRandomHeaderProp: 'test' }]}
+        headers={[{ key: "1", header: "Test", someRandomHeaderProp: "test" }]}
         rows={[rowData1]}
         render={data => {
-            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
+            let rowProps = data.getRowProps({ row: rowData1, extra1: "qwerty", ...rowData1 });
             let a = rowProps.extra1;
             let b = rowProps.someRandomRowProp;
             return <div />;
@@ -344,7 +377,7 @@ const t3 = (
     />
 );
 
-const headerData1 = { key: '1', header: 'Test', someRandomHeaderProp: 'test' };
+const headerData1 = { key: "1", header: "Test", someRandomHeaderProp: "test" };
 const t4 = (
     <DataTable
         headers={[headerData1]}
@@ -352,11 +385,11 @@ const t4 = (
         render={data => {
             let table = <Table {...data.getTableProps()}>Content</Table>;
             data.headers.map(header => (
-                <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
+                <TableHeader {...data.getHeaderProps({ header, randomAttr: "asdf" })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
                 <TableHeader
-                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}
+                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: "test" })}
                     translateWithId={(mId, args) => {
                         if (args) {
                             console.log(args.header);
@@ -372,15 +405,13 @@ const t4 = (
             ));
             data.rows.map(row => (
                 <TableRow {...data.getRowProps({ row })}>
-                    {row.cells.map(cell => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
+                    {row.cells.map(cell => <TableCell key={cell.id}>{cell.value}</TableCell>)}
                 </TableRow>
             ));
-            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
+            let rowProps = data.getRowProps({ row: rowData1, extra1: "qwerty", ...rowData1 });
             let batchActions = (
                 <TableBatchActions
-                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}
+                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: "Asdf" })}
                     translateWithId={(mId, args) => `${args ? args.totalSelected : 0}`}
                 >
                     Content
@@ -398,14 +429,14 @@ interface T5RowType extends DataTableRow {
     col2: number;
 }
 const t5RowItems: T5RowType[] = [
-    { id: 'row0', col1: 0, col2: 0 },
-    { id: 'row1', col1: 1, col2: 1 },
+    { id: "row0", col1: 0, col2: 0 },
+    { id: "row1", col1: 1, col2: 1 },
 ];
 const t5Headers: DataTableHeader[] = [
-    { key: 'col1', header: 'First column' },
-    { key: 'col2', header: 'Second column' },
+    { key: "col1", header: "First column" },
+    { key: "col2", header: "Second column" },
 ];
-const renderIconProp = <div/>;
+const renderIconProp = <div />;
 const t5 = (
     <DataTable
         rows={t5RowItems}
@@ -417,19 +448,22 @@ const t5 = (
                         <DataTable.TableBatchAction
                             tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
                             renderIcon={renderIconProp}
-                            onClick={() => {}}>
+                            onClick={() => {}}
+                        >
                             Delete
                         </DataTable.TableBatchAction>
                         <DataTable.TableBatchAction
                             tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
                             renderIcon={renderIconProp}
-                            onClick={() => {}}>
+                            onClick={() => {}}
+                        >
                             Save
                         </DataTable.TableBatchAction>
                         <DataTable.TableBatchAction
                             tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? 0 : -1}
                             renderIcon={renderIconProp}
-                            onClick={() => {}}>
+                            onClick={() => {}}
+                        >
                             Download
                         </DataTable.TableBatchAction>
                     </DataTable.TableBatchActions>
@@ -440,14 +474,19 @@ const t5 = (
                             onChange={renderProps.onInputChange}
                         />
                         <DataTable.TableToolbarMenu
-                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}>
-                            <DataTable.TableToolbarAction primaryFocus onClick={() => alert('Alert 1')}>
+                            tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                        >
+                            <DataTable.TableToolbarAction
+                                primaryFocus
+                                onClick={() =>
+                                    alert("Alert 1")}
+                            >
                                 Action 1
                             </DataTable.TableToolbarAction>
-                            <DataTable.TableToolbarAction onClick={() => alert('Alert 2')}>
+                            <DataTable.TableToolbarAction onClick={() => alert("Alert 2")}>
                                 Action 2
                             </DataTable.TableToolbarAction>
-                            <DataTable.TableToolbarAction onClick={() => alert('Alert 3')}>
+                            <DataTable.TableToolbarAction onClick={() => alert("Alert 3")}>
                                 Action 3
                             </DataTable.TableToolbarAction>
                         </DataTable.TableToolbarMenu>
@@ -455,7 +494,8 @@ const t5 = (
                             tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                             onClick={() => {}}
                             size="small"
-                            kind="primary">
+                            kind="primary"
+                        >
                             Add new
                         </Button>
                     </DataTable.TableToolbarContent>
@@ -509,7 +549,7 @@ const t5 = (
 
 // unstable_Heading
 {
-    const headingT1 = <UnstableHeading onClick={(e) => e.preventDefault()}>Heading Text</UnstableHeading>;
+    const headingT1 = <UnstableHeading onClick={e => e.preventDefault()}>Heading Text</UnstableHeading>;
 }
 
 // unstable_Section
@@ -526,16 +566,14 @@ const t5 = (
         </UnstableSection>
     );
     const sectionIntrinsicT2 = (
-        <UnstableSection
-            as="fieldset"
-            disabled
-            form="test"
-        >
+        <UnstableSection as="fieldset" disabled form="test">
             Text
         </UnstableSection>
     );
     const sectionComponentT1 = (
-        <UnstableSection as={TestComp2} someProp={5}>Text</UnstableSection>
+        <UnstableSection as={TestComp2} someProp={5}>
+            Text
+        </UnstableSection>
     );
 }
 
@@ -545,7 +583,7 @@ const t5 = (
         <Content
             className="test-class"
             data-testid="main-content"
-            onClick={(evt) => void evt.currentTarget}
+            onClick={evt => void evt.currentTarget}
             title="test-title"
         >
             <div />
@@ -558,7 +596,7 @@ const t5 = (
             className="test-class"
             data-testid="fieldset-content"
             form="form"
-            onClick={(evt) => void evt.currentTarget}
+            onClick={evt => void evt.currentTarget}
         >
             <div />
         </Content>
@@ -568,7 +606,7 @@ const t5 = (
 // UIShell - Link
 {
     const uisLinkT1 = <UIShellLink href="#test">Test</UIShellLink>;
-    const uisLinkT2 = <UIShellLink<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src"/>;
+    const uisLinkT2 = <UIShellLink<React.ImgHTMLAttributes<HTMLElement>> element="img" src="src" />;
     const uisLinkT3 = (
         <UIShellLink<TestCompProps> element={TestComp1} someProp={2}>
             ASDF
@@ -581,11 +619,11 @@ const t5 = (
     );
 
     interface TestCompPropsOverwrite {
-        element?: 'overwriteTest' | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        element?: "overwriteTest" | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
         someProp: string;
     }
 
-    const TestComp3 = (props: TestCompPropsOverwrite) => <div/>;
+    const TestComp3 = (props: TestCompPropsOverwrite) => <div />;
 
     const uisLinkT5 = (
         <UIShellLink<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">
@@ -624,9 +662,9 @@ const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer re
         </HeaderMenu>
     );
 
-    const testRef = React.useRef<HTMLElement | null>();
+    const testRef = React.useRef<HTMLElement>(null);
     const uisHeaderRefT1 = (
-        // $ExpectError
+        // @ts-expect-error
         <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={testRef}>
             <div />
         </HeaderMenu>
@@ -664,8 +702,8 @@ const dropdownItems = [
     },
     {
         id: "2",
-        name: "QWERTY"
-    }
+        name: "QWERTY",
+    },
 ];
 const dropdownItemCanBeElement = (
     <Dropdown
@@ -675,8 +713,12 @@ const dropdownItemCanBeElement = (
         titleText=""
         ariaLabel=""
         selectedItem={dropdownItems[1]}
-        itemToElement={item => <div>ID: {item.id}; Name: ${item.name}</div>}
-        itemToString={item => 'Selected: ' + item}
+        itemToElement={item => (
+            <div>
+                ID: {item.id}; Name: ${item.name}
+            </div>
+        )}
+        itemToString={item => "Selected: " + item}
     />
 );
 
@@ -684,37 +726,29 @@ const dropdownItemCanBeElement = (
 // Link
 //
 {
-    const LinkIcon1: React.FC = (props) => <div/>;
-    const LinkIcon2: React.FC<{ someProp?: number | undefined }> = (props) => <div/>;
+    const LinkIcon1: React.FC = props => <div />;
+    const LinkIcon2: React.FC<{ someProp?: number | undefined }> = props => <div />;
 
     const linkT1 = (
-        <Link href="href" inline renderIcon={LinkIcon1}>Text</Link>
+        <Link href="href" inline renderIcon={LinkIcon1}>
+            Text
+        </Link>
     );
     const linkT2 = (
-        <Link href="href" renderIcon={LinkIcon2}>Text</Link>
+        <Link href="href" renderIcon={LinkIcon2}>
+            Text
+        </Link>
     );
 }
 
 // Popover
 {
-    const popoverContentDivRef = React.useRef<HTMLDivElement | null>(null);
+    const popoverContentRef = React.useRef<HTMLSpanElement | null>(null);
     const popoverT1 = (
         <Popover open align="bottom" caret>
-            <PopoverContent ref={popoverContentDivRef}>Content</PopoverContent>
-        </Popover>
-    );
-
-    const popoverContentFieldSetRef = React.useRef<HTMLFieldSetElement | null>(null);
-    const popoverIntrinsicT1 = (
-        <Popover open={false}>
-            <PopoverContent as="fieldset" disabled form="test" ref={popoverContentFieldSetRef}>Content</PopoverContent>
-        </Popover>
-    );
-
-    const popoverContentCustomRef = React.useRef<{ someFn: () => void } | null>(null);
-    const popoverCustomComponentT1 = (
-        <Popover open>
-            <PopoverContent as={TestComp2} someProp={2} ref={popoverContentCustomRef}>Content</PopoverContent>
+            <PopoverContent ref={popoverContentRef} onClick={evt => {}}>
+                Content
+            </PopoverContent>
         </Popover>
     );
 }
@@ -722,7 +756,7 @@ const dropdownItemCanBeElement = (
 // TileGroup
 // Value nor name can be undefined
 let value: string | number = 5;
-let name = 'old name';
+let name = "old name";
 const tileGroupA = (
     <TileGroup
         name="my-tile-group-name"
@@ -734,7 +768,11 @@ const tileGroupA = (
 );
 
 // Tooltip
-const tooltipHasAlign = <Tooltip triggerText="tooltip" align="end" >tooltip</Tooltip>;
+const tooltipHasAlign = (
+    <Tooltip triggerText="tooltip" align="end">
+        tooltip
+    </Tooltip>
+);
 
 // TooltipDefinition
 const tooltipDefHasAlign = <TooltipDefinition tooltipText="my text" align="end" />;
@@ -753,10 +791,10 @@ const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" t
     const tabsRenderContentExample = (
         <Tabs>
             <Tab
-                renderAnchor={(props) => <div/>}
-                renderButton={(props) => <div/>}
+                renderAnchor={props => <div />}
+                renderButton={props => <div />}
                 renderContent={props => {
-                    const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                    const { "aria-hidden": ariaHidden, className, hidden, id, selected } = props;
                     return hidden ? null : (
                         <div id={id} className={className} aria-hidden={ariaHidden}>
                             Selected: {selected}
@@ -798,9 +836,7 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
         </StructuredListWrapper>
     );
 
-    const structuredListSkeletonT1 = (
-        <StructuredListSkeleton />
-    );
+    const structuredListSkeletonT1 = <StructuredListSkeleton />;
 }
 
 // Tag
@@ -825,17 +861,31 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
 {
     const TextT1 = <Text dir="ltr">Text</Text>;
 
-    // $ExpectError
-    const TextT2 = <Text dir="auto" unknownProp={3}>Text</Text>;
-
-    const TextIntrinsicT1 = (
-        <Text as="li" dir="auto" onClick={(evt: React.MouseEvent<HTMLLIElement>) => {}} value="test">Text</Text>
+    const TextT2 = (
+        // @ts-expect-error
+        <Text dir="auto" unknownProp={3}>
+            Text
+        </Text>
     );
 
-    const TextCustomCompT1 = <Text as={TestComp2} dir="rtl" someProp={5}>Text</Text>;
+    const TextIntrinsicT1 = (
+        <Text as="li" dir="auto" onClick={(evt: React.MouseEvent<HTMLLIElement>) => {}} value="test">
+            Text
+        </Text>
+    );
 
-    // $ExpectError
-    const TextCustomCompT2 = <Text as={TestComp2} dir="rtl" someProp={5} unknownProp={false}>Text</Text>;
+    const TextCustomCompT1 = (
+        <Text as={TestComp2} dir="rtl" someProp={5}>
+            Text
+        </Text>
+    );
+
+    const TextCustomCompT2 = (
+        // @ts-expect-error
+        <Text as={TestComp2} dir="rtl" someProp={5} unknownProp={false}>
+            Text
+        </Text>
+    );
 }
 
 // TextArea
@@ -872,11 +922,15 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
     );
 
     const numberInputOnChangeT2 = (
-        <NumberInput id="id" onChange={(evt, direction, value) => {
-            if (direction === "down") {
-                evt.preventDefault();
-            }
-        }} value="" />
+        <NumberInput
+            id="id"
+            onChange={(evt, direction, value) => {
+                if (direction === "down") {
+                    evt.preventDefault();
+                }
+            }}
+            value=""
+        />
     );
 
     const numberInputOnChangeT3 = (
@@ -906,7 +960,7 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
     const numberInputOnClickT3 = (
         <NumberInput
             id="id"
-            onClick={((evt) => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
+            onClick={(evt => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
             value=""
         />
     );
@@ -917,7 +971,7 @@ const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
 
 const fileUploaderDropContainer = (
     <FileUploaderDropContainer
-        accept={['image/jpeg', 'image/png']}
+        accept={["image/jpeg", "image/png"]}
         labelText="Drag and drop files here or click to upload"
         multiple
         name=""
@@ -944,8 +998,8 @@ const fileUploaderItem = (
 const multiSelect = (
     <MultiSelect
         id="clusters"
-        initialSelectedItems={['one']}
-        items={['one', 'two']}
+        initialSelectedItems={["one"]}
+        items={["one", "two"]}
         light
         titleText="Choose an item"
         itemToString={item => item || ""}
@@ -954,21 +1008,21 @@ const multiSelect = (
 );
 
 interface MultiSelectObjType1 {
-    id: number,
-    name: string,
-    someBoolProp?: boolean | undefined
+    id: number;
+    name: string;
+    someBoolProp?: boolean | undefined;
 }
 
-const MultiSelectItemComp: React.FC<MultiSelectObjType1> = () => <div/>;
+const MultiSelectItemComp: React.FC<MultiSelectObjType1> = () => <div />;
 
 const multiSelectObjs = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
         items={[
             { id: 1, name: "one" },
-            { id: 2, name: "two", someBoolProp: true }
+            { id: 2, name: "two", someBoolProp: true },
         ]}
-        itemToString={(item) => item.name || ""}
+        itemToString={item => item.name || ""}
         itemToElement={MultiSelectItemComp}
         onChange={({ selectedItems }) => {}}
     />
@@ -978,10 +1032,10 @@ const multiSelectObjsBadCustomComp = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
         items={[
-            { id: 1, name: 'one' },
-            { id: 2, name: 'two', someBoolProp: true },
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true },
         ]}
-        // $ExpectError
+        // @ts-expect-error
         itemToElement={TestComp2}
     />
 );
@@ -989,8 +1043,8 @@ const multiSelectObjsBadCustomComp = (
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
-        initialSelectedItems={['one']}
-        items={['one', 'two']}
+        initialSelectedItems={["one"]}
+        items={["one", "two"]}
         light
         placeholder="Filter"
         titleText="Choose an item"
@@ -1002,13 +1056,13 @@ const multiSelectFilterable = (
 const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
         id: 1,
-        name: "One"
+        name: "One",
     },
     {
         id: 2,
         name: "Two",
         someBoolProp: true,
-    }
+    },
 ];
 const multiSelectFilterableObj = (
     <MultiSelect.Filterable<MultiSelectObjType1>
@@ -1018,7 +1072,7 @@ const multiSelectFilterableObj = (
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item && item.name ? item.name : ""}
+        itemToString={item => (item && item.name ? item.name : "")}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -1039,7 +1093,7 @@ const multiSelectFilterableObj = (
     );
 
     const rowDefaultT3 = (
-        // $ExpectError
+        // @ts-expect-error
         <Row onClick={event => {}} data-testid="5" title="test-title" unknownProp={true}>
             Contents
         </Row>
@@ -1058,7 +1112,7 @@ const multiSelectFilterableObj = (
     );
 
     const rowCustomComp2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Row as={TestComp1} someProp={5} unknownProp="test">
             Content
         </Row>
@@ -1099,23 +1153,26 @@ const sideNavChildren = (
     </SideNav>
 );
 
-const modal = (
-    <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />
-);
+const modal = <Modal primaryButtonText={<InlineLoading />} secondaryButtonText={<InlineLoading />} />;
 
 // DataTableSkeleton
 const dataTableSkeleton = (
-    <DataTableSkeleton showHeader={true} showToolbar={true} columnCount={5} rowCount={6} compact={false} zebra={false} />
+    <DataTableSkeleton
+        showHeader={true}
+        showToolbar={true}
+        columnCount={5}
+        rowCount={6}
+        compact={false}
+        zebra={false}
+    />
 );
 
-const dataTableSkeletonBasic = (
-    <DataTableSkeleton />
-);
+const dataTableSkeletonBasic = <DataTableSkeleton />;
 
 // LayoutDirection
 {
     const layoutDirectionDefaultT1 = (
-        <LayoutDirection onClick={(event) => void event.currentTarget} data-testid="test-id" tabIndex={0}>
+        <LayoutDirection onClick={event => void event.currentTarget} data-testid="test-id" tabIndex={0}>
             Contents
         </LayoutDirection>
     );
@@ -1127,10 +1184,8 @@ const dataTableSkeletonBasic = (
     );
 
     const layoutDirectionDefaultT3 = (
-        // $ExpectError
-        <LayoutDirection unknownProp="true">
-            Contents
-        </LayoutDirection>
+        // @ts-expect-error
+        <LayoutDirection unknownProp="true">Contents</LayoutDirection>
     );
 
     const layoutDirectionCustomIntrinsic = (
@@ -1146,7 +1201,7 @@ const dataTableSkeletonBasic = (
     );
 
     const layoutDirectionCustomCompT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <LayoutDirection as={TestComp2} somethingElse={5}>
             Content
         </LayoutDirection>
@@ -1157,12 +1212,10 @@ const dataTableSkeletonBasic = (
 // Search
 //
 {
-    const searchT1 = (
-        <Search labelText="Search..." renderIcon={<svg></svg>} />
-    );
+    const searchT1 = <Search labelText="Search..." renderIcon={<svg></svg>} />;
 
     const searchT2 = (
-        // $ExpectError
+        // @ts-expect-error
         <Search labelText="Search..." renderIcon={TestComp2} />
     );
 }
@@ -1186,8 +1239,15 @@ const dataTableSkeletonBasic = (
     );
 
     const dialogCustomCompT2 = (
-        // $ExpectError
-        <Dialog as={TestComp2} aria-labelledby="test" onDismiss={() => {}} someProp={5} unknownProp="a" data-testid="test">
+        // @ts-expect-error
+        <Dialog
+            as={TestComp2}
+            aria-labelledby="test"
+            onDismiss={() => {}}
+            someProp={5}
+            unknownProp="a"
+            data-testid="test"
+        >
             Test
         </Dialog>
     );
@@ -1198,9 +1258,24 @@ const dataTableSkeletonBasic = (
 //
 {
     const inputRef = React.createRef<HTMLInputElement>();
-    <Checkbox
-        id=""
-        labelText=""
-        ref={inputRef}
-    />;
+    <Checkbox id="" labelText="" ref={inputRef} />;
+}
+
+//
+// ComboBox
+//
+{
+    const comboBoxWithMandatoryProps = <ComboBox id="cbId" items={["item 1", "item 2", "item 3"]} />;
+    const comboBoxWithOptionalProps = (
+        <ComboBox
+            id="someId"
+            light={false}
+            items={["item 1", "item 2", "item 3"]}
+            selectedItem={"item 1"}
+            placeholder={"filter..."}
+            titleText={"some title"}
+            invalid={false}
+            invalidText={"Please select one of the available items."}
+        />
+    );
 }

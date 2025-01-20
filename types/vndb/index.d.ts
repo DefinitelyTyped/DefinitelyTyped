@@ -1,11 +1,6 @@
-// Type definitions for vndb 0.1
-// Project: https://github.com/Permagate/vndb-reborn
-// Definitions by: Pragun Saini <https://github.com/PragunSaini>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import { TLSSocket } from 'tls';
+import { TLSSocket } from "tls";
 
 /**
  * Used for creating a connection to VNDB API

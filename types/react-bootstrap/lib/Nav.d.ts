@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Nav {
     export interface NavProps extends React.HTMLProps<Nav> {
@@ -21,5 +21,5 @@ declare namespace Nav {
         ulId?: string | undefined;
     }
 }
-declare class Nav extends React.Component<Nav.NavProps> { }
+declare class Nav extends React.Component<Nav.NavProps> {}
 export = Nav;

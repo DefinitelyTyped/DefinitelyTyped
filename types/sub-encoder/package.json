@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sub-encoder",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/holepunchto/sub-encoder#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sub-encoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

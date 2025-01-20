@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/mousetrap",
+    "version": "1.6.9999",
+    "projects": [
+        "http://craig.is/killing/mice"
+    ],
+    "devDependencies": {
+        "@types/mousetrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dániel Tar",
+            "githubUsername": "qcz"
+        },
+        {
+            "name": "Alan Choi",
+            "githubUsername": "alanhchoi"
+        },
+        {
+            "name": "Nic Barker",
+            "githubUsername": "nicbarker"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

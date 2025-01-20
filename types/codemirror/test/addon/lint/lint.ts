@@ -1,5 +1,5 @@
-import CodeMirror = require('codemirror');
-import { Annotation, LintStateOptions, UpdateLintingCallback } from 'codemirror/addon/lint/lint';
+import CodeMirror = require("codemirror");
+import { Annotation, LintStateOptions, UpdateLintingCallback } from "codemirror/addon/lint/lint";
 
 const asyncLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
     lint: {
@@ -9,21 +9,22 @@ const asyncLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
                 {
                     from: CodeMirror.Pos(0),
                     to: CodeMirror.Pos(1),
-                    message: 'test',
-                    severity: 'warning',
-                }
+                    message: "test",
+                    severity: "warning",
+                },
             ]);
-        }
-    }
+        },
+    },
 });
 
 const asyncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
     lint: {
         async: true,
         getAnnotations(content: string, callback, options: any, cm: CodeMirror.Editor) {
-            callback(cm); // $ExpectError
-        }
-    }
+            // @ts-expect-error
+            callback(cm);
+        },
+    },
 });
 
 const syncLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
@@ -33,12 +34,12 @@ const syncLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
                 {
                     from: CodeMirror.Pos(0),
                     to: CodeMirror.Pos(1),
-                    message: 'test',
-                    severity: 'warning',
-                }
+                    message: "test",
+                    severity: "warning",
+                },
             ];
-        }
-    }
+        },
+    },
 });
 
 const promiseLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
@@ -48,33 +49,33 @@ const promiseLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
                 {
                     from: CodeMirror.Pos(0),
                     to: CodeMirror.Pos(1),
-                    message: 'test',
-                    severity: 'warning',
-                }
+                    message: "test",
+                    severity: "warning",
+                },
             ]);
-        }
-    }
+        },
+    },
 });
 
 const syncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
-    // $ExpectError
+    // @ts-expect-error
     lint: {
         getAnnotations(content: string, options: any, cm: CodeMirror.Editor) {
             return null;
-        }
-    }
+        },
+    },
 });
 
 const lintStateOptions: LintStateOptions<any> = {
     async: true,
 };
 
-const asyncLintOptions: LintStateOptions<{foo: boolean}> = {
+const asyncLintOptions: LintStateOptions<{ foo: boolean }> = {
     async: true,
     getAnnotations: (
         content: string,
         updateLintingCallback: UpdateLintingCallback,
-        options: {foo: boolean},
+        options: { foo: boolean },
         codeMirror: CodeMirror.Editor,
     ) => {},
 };
@@ -90,12 +91,13 @@ const syncLintOptions: LintStateOptions<any> = {
     },
 };
 
-const customLintOptions: LintStateOptions<{foo: boolean}> = {
+const customLintOptions: LintStateOptions<{ foo: boolean }> = {
     async: false,
-    options: {}, // $ExpectError
+    // @ts-expect-error
+    options: {},
     getAnnotations: (
         content: string,
-        options: {foo: boolean},
+        options: { foo: boolean },
         codeMirror: CodeMirror.Editor,
     ): Annotation[] => {
         return [];
@@ -108,6 +110,6 @@ const annotation: Annotation = {
         line: 0,
     },
     to: CodeMirror.Pos(1),
-    message: 'test',
-    severity: 'warning',
+    message: "test",
+    severity: "warning",
 };

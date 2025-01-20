@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/swipeview",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "swipeview",
+    "projects": [
+        "http://cubiq.org/swipeview"
+    ],
+    "devDependencies": {
+        "@types/swipeview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

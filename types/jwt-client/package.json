@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jwt-client",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/pauldijou/jwt-client"
+    ],
+    "devDependencies": {
+        "@types/jwt-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timoteo Ponce",
+            "githubUsername": "timoteoponce"
+        }
+    ]
+}

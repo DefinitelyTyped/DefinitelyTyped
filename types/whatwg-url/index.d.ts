@@ -1,12 +1,4 @@
-// Type definitions for whatwg-url 8.2
-// Project: https://github.com/jsdom/whatwg-url#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
-/// <reference types="node"/>
-
+/// <reference lib="es2020"/>
 /** https://url.spec.whatwg.org/#url-representation */
 export interface URLRecord {
     scheme: string;
@@ -14,10 +6,9 @@ export interface URLRecord {
     password: string;
     host: string | number | IPv6Address | null;
     port: number | null;
-    path: string[];
+    path: string | string[];
     query: string | null;
     fragment: string | null;
-    cannotBeABaseURL?: boolean | undefined;
 }
 
 /** https://url.spec.whatwg.org/#concept-ipv6 */
@@ -26,6 +17,8 @@ export type IPv6Address = [number, number, number, number, number, number, numbe
 /** https://url.spec.whatwg.org/#url-class */
 export class URL {
     constructor(url: string, base?: string | URL);
+
+    static canParse(url: string, base?: string): boolean;
 
     get href(): string;
     set href(V: string);
@@ -76,11 +69,12 @@ export class URLSearchParams {
             | string,
     );
 
+    get size(): number;
     append(name: string, value: string): void;
-    delete(name: string): void;
+    delete(name: string, value?: string): void;
     get(name: string): string | null;
     getAll(name: string): string[];
-    has(name: string): boolean;
+    has(name: string, value?: string): boolean;
     set(name: string, value: string): void;
     sort(): void;
 
@@ -97,17 +91,13 @@ export class URLSearchParams {
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(
-    input: string,
-    options?: { readonly baseURL?: string | undefined; readonly encodingOverride?: string | undefined },
-): URLRecord | null;
+export function parseURL(input: string, options?: { readonly baseURL?: URLRecord | undefined }): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
-        baseURL?: string | undefined;
-        encodingOverride?: string | undefined;
+        baseURL?: URLRecord | undefined;
         url?: URLRecord | undefined;
         stateOverride?: StateOverride | undefined;
     },
@@ -133,7 +123,7 @@ export type StateOverride =
     | "file host"
     | "path start"
     | "path"
-    | "cannot-be-a-base-URL path"
+    | "opaque path"
     | "query"
     | "fragment";
 
@@ -142,6 +132,9 @@ export function serializeURL(urlRecord: URLRecord, excludeFragment?: boolean): s
 
 /** https://url.spec.whatwg.org/#concept-host-serializer */
 export function serializeHost(host: string | number | IPv6Address): string;
+
+/** https://url.spec.whatwg.org/#url-path-serializer */
+export function serializePath(urlRecord: URLRecord): string;
 
 /** https://url.spec.whatwg.org/#serialize-an-integer */
 export function serializeInteger(number: number): string;
@@ -155,8 +148,25 @@ export function setTheUsername(urlRecord: URLRecord, username: string): void;
 /** https://url.spec.whatwg.org/#set-the-password */
 export function setThePassword(urlRecord: URLRecord, password: string): void;
 
+/** https://url.spec.whatwg.org/#url-opaque-path */
+export function hasAnOpaquePath(urlRecord: URLRecord): boolean;
+
 /** https://url.spec.whatwg.org/#cannot-have-a-username-password-port */
 export function cannotHaveAUsernamePasswordPort(urlRecord: URLRecord): boolean;
 
 /** https://url.spec.whatwg.org/#percent-decode */
-export function percentDecode(buffer: Extract<NodeJS.TypedArray, ArrayLike<number>>): Buffer;
+export function percentDecodeBytes(buffer: TypedArray): Uint8Array;
+
+/** https://url.spec.whatwg.org/#string-percent-decode */
+export function percentDecodeString(string: string): Uint8Array;
+
+export type TypedArray =
+    | Uint8Array
+    | Uint8ClampedArray
+    | Uint16Array
+    | Uint32Array
+    | Int8Array
+    | Int16Array
+    | Int32Array
+    | Float32Array
+    | Float64Array;

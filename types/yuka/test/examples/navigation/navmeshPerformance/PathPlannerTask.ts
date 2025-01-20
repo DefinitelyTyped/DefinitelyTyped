@@ -15,7 +15,13 @@ export class PathPlannerTask extends Task {
     to: Vector3;
     callback: PathPlannerTaskCallback;
 
-    constructor(planner: PathPlanner, vehicle: CustomVehicle, from: Vector3, to: Vector3, callback: PathPlannerTaskCallback) {
+    constructor(
+        planner: PathPlanner,
+        vehicle: CustomVehicle,
+        from: Vector3,
+        to: Vector3,
+        callback: PathPlannerTaskCallback,
+    ) {
         super();
         this.callback = callback;
         this.planner = planner;

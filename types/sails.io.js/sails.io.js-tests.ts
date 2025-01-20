@@ -1,5 +1,5 @@
-import SocketIO = require('socket.io-client');
-import SailsIOJS = require('sails.io.js');
+import SocketIO = require("socket.io-client");
+import SailsIOJS = require("sails.io.js");
 const io = SailsIOJS(SocketIO);
 io.sails.autoConnect = true;
 io.sails.connect();
@@ -7,11 +7,11 @@ io.sails.connect("url");
 io.sails.connect("url", {});
 io.sails.connect("url", {
     initialConnectionHeaders: {
-        nosession: true
-    }
+        nosession: true,
+    },
 });
 io.sails.environment = "production";
-io.sails.headers = { "test": "1" };
+io.sails.headers = { test: "1" };
 io.sails.initialConnectionHeaders = { nosession: false };
 io.sails.path = "path";
 io.sails.query = "query";
@@ -24,8 +24,8 @@ io.sails.sdk = {
     language: "lang",
     platform: "node",
     version: "1.0",
-    versionString: "1.0"
-}
+    versionString: "1.0",
+};
 io.sails.strict = true;
 io.sails.transports = ["websocket", "polling"];
 io.sails.url = "url1";
@@ -64,25 +64,30 @@ io.socket.request({ url: "url" }, (data: number, jwr: any) => {
     podo.headers["test"] = "15";
     podo.statusCode = 200;
     jwr.toString().charAt(0);
-})
+});
 io.socket.isConnected() === true;
 io.socket.isConnecting() === true;
 io.socket.mightBeAboutToAutoConnect() === false;
-io.socket.on("connect", () => { })
-    .on("disconnect", () => {
-
-    })
-    .on("reconnecting", (num) => {
+io.socket
+    .on("connect", () => {})
+    .on("disconnect", () => {})
+    .on("reconnecting", num => {
         num = 15;
     })
     .on("reconnect", (transport, num) => {
         transport.toLowerCase();
         num = 16;
     })
-    .on("error", (err) => { })
-    .on("any", (a, b, c) => {
-
-    })
+    .on("error", err => {})
+    .on("any", (a, b, c) => {})
     .removeAllListeners()
-    .off("error", () => { })
+    .off("error", () => {})
     .replay();
+
+function jobReceived(resp: any) {
+    if (resp.done) {
+        io.socket.off("custom-event", jobReceived);
+    }
+}
+
+io.socket.on("custom-event", jobReceived);

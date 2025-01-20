@@ -67,9 +67,11 @@ export default class WaveSurfer extends Observer {
     getHeight(): number;
     getMute(): boolean;
     getPlaybackRate(): number;
-    getProgressColor(): string;
+    /** Get the fill color of the waveform behind the cursor. */
+    getProgressColor(channelIdx?: number | null): string;
     getVolume(): number;
-    getWaveColor(): CanvasGradient | string;
+    /** Get the fill color of the waveform after the cursor. */
+    getWaveColor(channelIdx?: number | null): CanvasGradient | string;
     init(): WaveSurfer;
     initPlugin(name: string): WaveSurfer;
     isPlaying(): boolean;
@@ -89,9 +91,12 @@ export default class WaveSurfer extends Observer {
     setMute(mute: boolean): void;
     setPlaybackRate(rate: number): void;
     setPlayEnd(position: number): void;
+    /** Set the fill color of the waveform behind the cursor. */
+    setProgressColor(color: string | CanvasGradient, channelIdx?: number | null): void;
     setSinkId(deviceId: string): Promise<any>;
     setVolume(newVolume: number): void;
-    setWaveColor(color: string | CanvasGradient): void;
+    /** Set the fill color of the waveform after the cursor. */
+    setWaveColor(color: string | CanvasGradient, channelIdx?: number | null): void;
     skip(offset: number): void;
     skipBackward(seconds?: number): void;
     skipForward(seconds?: number): void;

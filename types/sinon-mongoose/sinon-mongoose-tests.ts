@@ -1,5 +1,5 @@
 function testChain() {
-    sinon.stub().chain('exec');
+    sinon.stub().chain("exec");
 }
 
 testChain();

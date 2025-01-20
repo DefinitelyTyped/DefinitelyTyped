@@ -1,2 +1,2 @@
-import DefinePropertyOrThrow = require('../2018/DefinePropertyOrThrow');
+import DefinePropertyOrThrow = require("../2018/DefinePropertyOrThrow");
 export = DefinePropertyOrThrow;

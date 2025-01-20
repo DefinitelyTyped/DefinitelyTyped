@@ -1,23 +1,18 @@
-// Type definitions for imapflow 1.0
-// Project: https://imapflow.com/
-// Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'stream';
+import { EventEmitter } from "stream";
 
-export type Readable = import('stream').Readable;
+export type Readable = import("stream").Readable;
 
 export class ImapFlow extends EventEmitter {
     constructor(options: ImapFlowOptions);
     authenticated: string | boolean;
-    capabilities: string | boolean;
+    capabilities: Map<string, (boolean | number)>;
     emitLogs: boolean;
     enabled: Set<string>;
     id: string;
     idling: boolean;
-    mailbox: MailboxObject;
+    mailbox: MailboxObject | boolean;
     secureConnection: boolean;
     serverInfo: IdInfoObject;
     usable: boolean;
@@ -31,10 +26,11 @@ export class ImapFlow extends EventEmitter {
 
     connect(): Promise<void>;
     logout(): Promise<void>;
+    close(): void;
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number },
+        options?: { uid?: boolean; maxBytes?: number; chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
@@ -43,7 +39,13 @@ export class ImapFlow extends EventEmitter {
 
     idle(): Promise<boolean>;
 
-    list(): Promise<ListResponse>;
+    /**
+     * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
+     */
+    list(options?: {
+        statusQuery?: StatusQuery;
+        specialUseHints?: SpecialUseHints;
+    }): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
 
@@ -51,7 +53,7 @@ export class ImapFlow extends EventEmitter {
 
     mailboxCreate(path: string | any[]): Promise<MailboxCreateResponse>;
 
-    maiboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
+    mailboxDelete(path: string | any[]): Promise<MailboxDeleteResponse>;
 
     mailboxOpen(path: string | any[], options?: { readOnly?: boolean }): Promise<MailboxObject>;
 
@@ -108,20 +110,26 @@ export class ImapFlow extends EventEmitter {
     status(
         path: string,
         query: {
-            messages: boolean;
-            recent: boolean;
-            uidNext: boolean;
-            uidValidity: boolean;
-            unseen: boolean;
-            highestModseq: boolean;
+            messages?: boolean;
+            recent?: boolean;
+            uidNext?: boolean;
+            uidValidity?: boolean;
+            unseen?: boolean;
+            highestModseq?: boolean;
         },
     ): Promise<StatusObject>;
 
     fetch(
         range: SequenceString | number[] | SearchObject,
         query: FetchQueryObject,
-        options?: { uid?: boolean; changedSince: bigint },
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
+
+    fetchAll(
+        range: SequenceString | number[] | SearchObject,
+        query: FetchQueryObject,
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
+    ): Promise<FetchMessageObject[]>;
 }
 
 export interface ImapFlowOptions {
@@ -129,7 +137,8 @@ export interface ImapFlowOptions {
     port: number;
     auth: {
         user: string;
-        pass: string;
+        pass?: string;
+        accessToken?: string;
     };
     secure?: boolean;
     servername?: string;
@@ -140,6 +149,16 @@ export interface ImapFlowOptions {
     logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
+    logRaw?: boolean;
+    proxy?: string;
+    qresync?: boolean;
+    maxIdleTime?: number;
+    missingIdleCommand?: string;
+    disableBinary?: boolean;
+    disableAutoEnable?: boolean;
+    connectionTimeout?: number;
+    greetingTimeout?: number;
+    socketTimeout?: number;
 }
 
 export interface AppendResonseObject {
@@ -159,6 +178,7 @@ export interface CopyResponseObject {
 export interface DownloadObject {
     content: Readable;
     meta: {
+        expectedSize: number;
         contentType: string;
         charset?: string;
         disposition?: string;
@@ -192,7 +212,7 @@ export interface FetchMessageObject {
     source: Buffer;
     modseq: BigInt;
     emailId: string;
-    threadId: string;
+    threadId?: string;
     labels: Set<string>;
     size: number;
     flags: Set<string>;
@@ -211,7 +231,7 @@ export interface FetchQueryObject {
     internalDate?: boolean;
     size?: boolean;
     source?: boolean | object;
-    threadId?: string;
+    threadId?: boolean;
     labels?: boolean;
     headers?: boolean | string[];
     bodyParts?: string[];
@@ -285,12 +305,12 @@ export interface SearchObject {
 
 export interface StatusObject {
     path: string;
-    message?: number;
+    messages?: number;
     recent?: number;
-    uid?: number;
+    uidNext?: number;
     uidValidity?: bigint;
     unseen?: number;
-    highestModSeq?: bigint;
+    highestModseq?: bigint;
 }
 
 export interface IdInfoObject {
@@ -298,18 +318,19 @@ export interface IdInfoObject {
     version?: string;
     os?: string;
     vendor?: string;
-    ' support-url '?: string;
+    " support-url "?: string;
     date?: Date;
 }
 
 export interface ListResponse {
     path: string;
     name: string;
-    delimter: string;
+    delimiter: string;
     flags: Set<string>;
     specialUse: string;
     listed: boolean;
     subscribed: boolean;
+    status?: StatusObject;
 }
 
 export interface ListTreeResponse {
@@ -353,4 +374,20 @@ export interface Logger {
     info: (obj: object) => void;
     warn: (obj: object) => void;
     error: (obj: object) => void;
+}
+
+export interface StatusQuery {
+    messages?: boolean;
+    recent?: boolean;
+    uidNext?: boolean;
+    uidValidity?: boolean;
+    unseen?: boolean;
+    highestModseq?: boolean;
+}
+
+export interface SpecialUseHints {
+    sent: string;
+    trash: string;
+    junk: string;
+    drafts: string;
 }

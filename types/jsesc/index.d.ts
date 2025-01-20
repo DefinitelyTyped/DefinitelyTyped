@@ -1,11 +1,3 @@
-// Type definitions for jsesc 3.0
-// Project: https://github.com/mathiasbynens/jsesc
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Lyanbin <https://github.com/Lyanbin>
-//                 Colin Reeder <https://github.com/vpzomtrrfrt>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = jsesc;
 
 /**

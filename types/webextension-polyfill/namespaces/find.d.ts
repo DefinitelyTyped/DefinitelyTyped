@@ -1,14 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.find
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.find</code> API to interact with the browser's <code>Find</code> interface.
- * Permissions: "find"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace Find {
     interface RangeData {
@@ -131,6 +126,12 @@ export namespace Find {
          * Optional.
          */
         caseSensitive?: boolean;
+
+        /**
+         * Find only ranges with diacritic sensitive match.
+         * Optional.
+         */
+        matchDiacritics?: boolean;
 
         /**
          * Find only ranges that match entire word.

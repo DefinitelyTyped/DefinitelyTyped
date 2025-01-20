@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tmpl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/daaku/nodejs-tmpl"
+    ],
+    "devDependencies": {
+        "@types/tmpl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Saeed Seyfi",
+            "githubUsername": "saeedseyfi"
+        }
+    ]
+}

@@ -1,18 +1,12 @@
-/**
- * Namespace: browser.privacy.network
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.privacy</code> API to control usage of the features in the browser that can affect a user's
- * privacy.
- * Permissions: "privacy"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.privacy.network
+ */
 export namespace PrivacyNetwork {
     /**
      * The IP handling policy of WebRTC.
@@ -87,5 +81,11 @@ export namespace PrivacyNetwork {
          * defaulting to <code>never</code>.
          */
         httpsOnlyMode: Types.Setting;
+
+        /**
+         * Allow users to query the status of 'Global Privacy Control'. This setting's value is of type boolean,
+         * defaulting to <code>false</code>.
+         */
+        globalPrivacyControl: Types.Setting;
     }
 }

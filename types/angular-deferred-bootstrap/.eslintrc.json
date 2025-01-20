@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/naming-convention": "off"
+    }
+}

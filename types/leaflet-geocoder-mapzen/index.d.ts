@@ -1,21 +1,15 @@
-// Type definitions for leaflet-geocoder-mapzen 1.6
-// Project: https://github.com/mapzen/leaflet-geocoder
-// Definitions by: Leonard Lausen <https://github.com/leezu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Control {
         interface GeocoderStatic extends ClassStatic {
             /**
              * Creates a geocoder control.
              */
-            new (options?: GeocoderOptions): Geocoder;
+            new(options?: GeocoderOptions): Geocoder;
         }
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Geocoder extends Control {}
 
         interface GeocoderOptions {
@@ -51,7 +45,7 @@ declare module 'leaflet' {
              *
              * Default value: null.
              */
-            layers?: string | any[] | undefined ;
+            layers?: string | any[] | undefined;
 
             /**
              * An object of key-value pairs which will be serialized

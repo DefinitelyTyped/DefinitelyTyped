@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/shopify-buy",
+    "version": "2.17.9999",
+    "projects": [
+        "https://github.com/Shopify/js-buy-sdk#readme"
+    ],
+    "devDependencies": {
+        "@types/shopify-buy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Köhn",
+            "githubUsername": "openminder"
+        },
+        {
+            "name": "Stephen Traiforos",
+            "githubUsername": "straiforos"
+        },
+        {
+            "name": "Juan Manuel Incaurgarat",
+            "githubUsername": "kilinkis"
+        },
+        {
+            "name": "Chris Worman",
+            "githubUsername": "chrisworman-pela"
+        },
+        {
+            "name": "Maciej Baron",
+            "githubUsername": "MaciekBaron"
+        },
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

@@ -1,21 +1,17 @@
-// Type definitions for @parcel/watcher 2.0
-// Project: https://github.com/parcel-bundler/watcher#readme
-// Definitions by: Matt Kane <https://github.com/ascorbic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node"/>
 
 export class ParcelWatcherSubscription {
     unsubscribe(): Promise<void>;
 }
 
-export type ParcelWatcherEventType = 'create' | 'update' | 'delete';
+export type ParcelWatcherEventType = "create" | "update" | "delete";
 
 export interface ParcelWatcherEvent {
     type: ParcelWatcherEventType;
     path: string;
 }
 
-export type ParcelWatcherBackend = 'fs-events' | 'watchman' | 'inotify' | 'windows' | 'brute-force';
+export type ParcelWatcherBackend = "fs-events" | "watchman" | "inotify" | "windows" | "brute-force";
 
 export interface ParcelWatcherOptions {
     ignore?: string[] | undefined;

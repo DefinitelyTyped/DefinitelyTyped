@@ -3,7 +3,7 @@ declare class Subtag {
      * Get the subtag type (either 'language', 'extlang', 'script', 'region' or 'variant'). See
      * [RFC 5646 section 2.2](http://tools.ietf.org/html/rfc5646#section-2.2) for type definitions.
      */
-    type(): 'language' | 'extlang' | 'script' | 'region' | 'variant';
+    type(): "language" | "extlang" | "script" | "region" | "variant";
 
     /**
      * Returns an array of description strings (a subtag may have more than one description).
@@ -79,7 +79,6 @@ declare class Subtag {
     comments(): string[];
 
     /**
-     *
      * Return the subtag code formatted according to the case conventions defined in
      * [RFC 5646 section 2.1.1](http://tools.ietf.org/html/rfc5646#section-2.1.1).
      *

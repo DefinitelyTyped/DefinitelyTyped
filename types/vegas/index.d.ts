@@ -1,7 +1,3 @@
-// Type definitions for vegas 2.5
-// Project: http://vegas.jaysalvat.com
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="jquery" />
 
 /**
@@ -80,7 +76,7 @@ export interface Settings {
      * `repeat` the slide image is repeated.
      * @default true
      */
-    cover?: boolean | 'repeat' | undefined;
+    cover?: boolean | "repeat" | undefined;
 
     /**
      * Slide background color
@@ -286,70 +282,71 @@ export interface Support {
     readonly video: boolean;
 }
 
-export type AlignType = 'center' | 'top' | 'right' | 'bottom' | 'left' | number;
+export type AlignType = "center" | "top" | "right" | "bottom" | "left" | number;
 
 export type Transition =
-    | 'fade'
-    | 'fade2'
-    | 'blur'
-    | 'blur2'
-    | 'flash'
-    | 'flash2'
-    | 'negative'
-    | 'negative2'
-    | 'burn'
-    | 'burn2'
-    | 'slideLeft'
-    | 'slideLeft2'
-    | 'slideRight'
-    | 'slideRight2'
-    | 'slideUp'
-    | 'slideUp2'
-    | 'slideDown'
-    | 'slideDown2'
-    | 'zoomIn'
-    | 'zoomIn2'
-    | 'zoomOut'
-    | 'zoomOut2'
-    | 'swirlLeft'
-    | 'swirlLeft2'
-    | 'swirlRight'
-    | 'swirlRight2';
+    | "fade"
+    | "fade2"
+    | "blur"
+    | "blur2"
+    | "flash"
+    | "flash2"
+    | "negative"
+    | "negative2"
+    | "burn"
+    | "burn2"
+    | "slideLeft"
+    | "slideLeft2"
+    | "slideRight"
+    | "slideRight2"
+    | "slideUp"
+    | "slideUp2"
+    | "slideDown"
+    | "slideDown2"
+    | "zoomIn"
+    | "zoomIn2"
+    | "zoomOut"
+    | "zoomOut2"
+    | "swirlLeft"
+    | "swirlLeft2"
+    | "swirlRight"
+    | "swirlRight2";
 
-export type TransitionType = Transition | 'random' | Transition[];
+export type TransitionType = Transition | "random" | Transition[];
 
 export type Animation =
-    | 'kenburns'
-    | 'kenburnsLeft'
-    | 'kenburnsRight'
-    | 'kenburnsUp'
-    | 'kenburnsUpLeft'
-    | 'kenburnsUpRight'
-    | 'kenburnsDown'
-    | 'kenburnsDownLeft'
-    | 'kenburnsDownRight';
+    | "kenburns"
+    | "kenburnsLeft"
+    | "kenburnsRight"
+    | "kenburnsUp"
+    | "kenburnsUpLeft"
+    | "kenburnsUpRight"
+    | "kenburnsDown"
+    | "kenburnsDownLeft"
+    | "kenburnsDownRight";
 
-export type AnimationType = Animation | 'random' | Animation[];
+export type AnimationType = Animation | "random" | Animation[];
 
-export type Duration = 'auto' | number;
+export type Duration = "auto" | number;
 
 /** Function called when Vegas is applied to an element. */
-export type VegasInitEvent = 'vegasinit';
+export type VegasInitEvent = "vegasinit";
 
 export interface VegasInitHnalder<TElement>
-    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement> {}
+    extends JQuery.TriggeredEvent<TElement, undefined, HTMLElement, HTMLElement>
+{}
 
 /** Function called when Vegas starts to play the slideshow. */
-export type VegasPlay = 'vegasplay';
+export type VegasPlay = "vegasplay";
 
 /** Function called when Vegas pauses the slideshow. */
-export type VegasPause = 'vegaspause';
+export type VegasPause = "vegaspause";
 
 /** Function called when Vegas changes the slide. */
-export type VegasWalk = 'vegaswalk';
+export type VegasWalk = "vegaswalk";
 
 /** Function called when the Slideshow is completed (loop: false). */
-export type VegasEnd = 'vegasend';
+export type VegasEnd = "vegasend";
 
 declare global {
     interface JQuery<TElement = HTMLElement> {

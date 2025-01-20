@@ -1,1 +1,1 @@
-export { default } from '../HTML5toTouch';
+export { default } from "../HTML5toTouch";

@@ -1,4 +1,4 @@
-import { PusherUser } from './user';
+import { PusherUser } from "./user";
 
 export interface PusherReadCursor {
     position: number;

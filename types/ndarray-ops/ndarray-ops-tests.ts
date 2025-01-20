@@ -1,4 +1,4 @@
-import ndarray = require('ndarray');
+import ndarray = require("ndarray");
 import ops = require("ndarray-ops");
 
 const data = new Int32Array(2 * 2 * 2 + 10);
@@ -161,3 +161,9 @@ ops.random(arr2);
 ops.assign(arr2, arr2);
 ops.assigns(arr2, 2);
 ops.equals(arr1, arr2);
+
+// Not-numeric arrays
+const source = ndarray(["a", "b", "c", "d", "e", "f"], [2, 3]);
+const dest: ndarray.NdArray<string[]> = ndarray([], [2, 3]);
+
+ops.assign(dest, source);

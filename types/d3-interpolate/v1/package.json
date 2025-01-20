@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/d3-interpolate",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/d3/d3-interpolate/",
+        "https://d3js.org/d3-interpolate"
+    ],
+    "dependencies": {
+        "@types/d3-color": "^1"
+    },
+    "devDependencies": {
+        "@types/d3-hsv": "*",
+        "@types/d3-interpolate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

@@ -1,10 +1,4 @@
-// Type definitions for nodeunit
-// Project: https://github.com/caolan/nodeunit
-// Definitions by: Jeff Goddard <https://github.com/jedigo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nodeunit.d.ts
-
 
 export interface ITestCase {
     (testCase: { [property: string]: ITestBody | ITestGroup | void }): void;
@@ -15,7 +9,7 @@ export interface Test {
     done: ICallbackFunction;
     expect(num: number): void;
 
-    //assersions from node assert module
+    // assersions from node assert module
     fail(actual: any, expected: any, message: string, operator: string): void;
     assert(value: any, message: string): void;
     ok(value: any, message?: string): void;
@@ -29,7 +23,7 @@ export interface Test {
     doesNotThrow(block: any, error?: any, message?: string): void;
     ifError(value: any): void;
 
-    //assertion wrappers
+    // assertion wrappers
     equals(actual: any, expected: any, message?: string): void;
     same(actual: any, expected: any, message?: string): void;
 }

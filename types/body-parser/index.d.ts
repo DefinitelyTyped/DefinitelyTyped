@@ -1,27 +1,39 @@
-// Type definitions for body-parser 1.19
-// Project: https://github.com/expressjs/body-parser
-// Definitions by: Santi Albo <https://github.com/santialbo>
-//                 Vilic Vane <https://github.com/vilic>
-//                 Jonathan Häberle <https://github.com/dreampulse>
-//                 Gevik Babakhani <https://github.com/blendsdk>
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 Jason Walton <https://github.com/jwalton>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { NextHandleFunction } from 'connect';
-import * as http from 'http';
+import { NextHandleFunction } from "connect";
+import * as http from "http";
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
 
-/** @deprecated */
-declare function bodyParser(
-    options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded,
-): NextHandleFunction;
-
 declare namespace bodyParser {
+    interface BodyParser {
+        /**
+         * @deprecated  use individual json/urlencoded middlewares
+         */
+        (options?: OptionsJson & OptionsText & OptionsUrlencoded): NextHandleFunction;
+        /**
+         * Returns middleware that only parses json and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        json(options?: OptionsJson): NextHandleFunction;
+        /**
+         * Returns middleware that parses all bodies as a Buffer and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        raw(options?: Options): NextHandleFunction;
+
+        /**
+         * Returns middleware that parses all bodies as a string and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        text(options?: OptionsText): NextHandleFunction;
+        /**
+         * Returns middleware that only parses urlencoded bodies and only looks at requests
+         * where the Content-Type header matches the type option
+         */
+        urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
+    }
+
     interface Options {
         /** When set to true, then deflated (compressed) bodies will be inflated; when false, deflated bodies are rejected. Defaults to true. */
         inflate?: boolean | undefined;
@@ -44,7 +56,6 @@ declare namespace bodyParser {
 
     interface OptionsJson extends Options {
         /**
-         *
          * The reviver option is passed directly to JSON.parse as the second argument.
          */
         reviver?(key: string, value: any): any;
@@ -77,28 +88,8 @@ declare namespace bodyParser {
          */
         parameterLimit?: number | undefined;
     }
-
-    /**
-     * Returns middleware that only parses json and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function json(options?: OptionsJson): NextHandleFunction;
-    /**
-     * Returns middleware that parses all bodies as a Buffer and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function raw(options?: Options): NextHandleFunction;
-
-    /**
-     * Returns middleware that parses all bodies as a string and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function text(options?: OptionsText): NextHandleFunction;
-    /**
-     * Returns middleware that only parses urlencoded bodies and only looks at requests
-     * where the Content-Type header matches the type option
-     */
-    function urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
 }
+
+declare const bodyParser: bodyParser.BodyParser;
 
 export = bodyParser;

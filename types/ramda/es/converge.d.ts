@@ -1,2 +1,2 @@
-import { converge } from '../index';
+import { converge } from "../index.js";
 export default converge;

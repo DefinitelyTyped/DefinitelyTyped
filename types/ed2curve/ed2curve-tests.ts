@@ -1,5 +1,5 @@
-import * as ed2curve from 'ed2curve';
-import * as nacl from 'tweetnacl';
+import * as ed2curve from "ed2curve";
+import * as nacl from "tweetnacl";
 
 const myKeyPair = nacl.sign.keyPair();
 

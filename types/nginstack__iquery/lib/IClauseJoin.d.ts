@@ -1,34 +1,36 @@
 export = IClauseJoin;
 declare function IClauseJoin(
-    iQuery: any,
-    iQueryJoin: any,
+    iQuery: IQuery,
+    iQueryJoin: IQuery,
     type: string,
-    isRightTableAsSubquery: any
+    isRightTableAsSubquery: any,
 ): void;
 declare class IClauseJoin {
-    constructor(iQuery: any, iQueryJoin: any, type: string, isRightTableAsSubquery: any);
+    constructor(iQuery: IQuery, iQueryJoin: IQuery, type: string, isRightTableAsSubquery: any);
     private _iQuery;
     private _iQueryJoin;
     private _type;
     private _clausesOn;
     private rightTableAsSubQuery_;
     isRightTableAsSubquery: boolean;
-    iQuery: any;
-    iQueryJoin: any;
+    iQuery: IQuery;
+    iQueryJoin: IQuery;
     on(clause: any): IClauseJoin;
     private _addClause;
-    getClauseOn(index: number): any;
+    getClauseOn(index: number): IClauseWhere;
     getClausesOnCount(): number;
     getJoinSql(): string;
     getWhereSql(): string;
     getColumnsNames(): object;
 }
 declare namespace IClauseJoin {
-    export { RightTableAsSubQueryConfig };
+    export { IClauseWhere, IQuery, RightTableAsSubQueryConfig };
 }
+type IQuery = import("./IQuery");
+type IClauseWhere = import("./IClauseWhere");
 interface RightTableAsSubQueryConfig {
     isEnabled: boolean;
     clauseSelect: IClauseSelect;
     subQueryAlias: string;
 }
-import IClauseSelect = require('./IClauseSelect.js');
+import IClauseSelect = require("./IClauseSelect.js");

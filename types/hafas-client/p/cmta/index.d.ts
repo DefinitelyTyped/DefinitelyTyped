@@ -1,5 +1,3 @@
-export = cmtaProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const cmtaProfile: createClient.Profile;
+export const profile: Profile;

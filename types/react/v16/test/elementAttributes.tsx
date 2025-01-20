@@ -1,8 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
 const testCases = [
     <span />,
     <span accessKey="s" />,
+    <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
     <span contextMenu="menuId" />,
@@ -22,6 +23,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,
@@ -29,10 +31,10 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
     <div role="alertdialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
@@ -44,4 +46,16 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog
+        onCancel={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+        onClose={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+    >
+    </dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
 ];

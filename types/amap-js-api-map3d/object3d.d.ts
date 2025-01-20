@@ -32,7 +32,7 @@ declare namespace AMap {
             constructor(options: Prism.Options);
         }
 
-        class Wall extends Prism { }
+        class Wall extends Prism {}
 
         class Line extends Object3D {
             readonly geometry: Geometry3D.Line;
@@ -61,17 +61,19 @@ declare namespace AMap {
         }
 
         namespace MeshLine {
-            type Options = {
-                width?: number | undefined;
-                height?: number | number[] | undefined;
-                color?: string | number[] | undefined;
-            } & ({
-                unit?: 'meter' | undefined;
-                path: Array<[number, number]> | LngLat[];
-            } | {
-                unit: 'px';
-                path: Array<[number, number]> | Pixel[];
-            });
+            type Options =
+                & {
+                    width?: number | undefined;
+                    height?: number | number[] | undefined;
+                    color?: string | number[] | undefined;
+                }
+                & ({
+                    unit?: "meter" | undefined;
+                    path: Array<[number, number]> | LngLat[];
+                } | {
+                    unit: "px";
+                    path: Array<[number, number]> | Pixel[];
+                });
         }
         // inherit from WideLine
         class MeshLine extends Object3D {

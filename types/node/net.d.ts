@@ -1,22 +1,26 @@
 /**
  * > Stability: 2 - Stable
  *
- * The `net` module provides an asynchronous network API for creating stream-based
+ * The `node:net` module provides an asynchronous network API for creating stream-based
  * TCP or `IPC` servers ({@link createServer}) and clients
  * ({@link createConnection}).
  *
  * It can be accessed using:
  *
  * ```js
- * const net = require('net');
+ * import net from 'node:net';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/net.js)
  */
-declare module 'net' {
-    import * as stream from 'node:stream';
-    import { Abortable, EventEmitter } from 'node:events';
-    import * as dns from 'node:dns';
-    type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
+declare module "net" {
+    import * as stream from "node:stream";
+    import { Abortable, EventEmitter } from "node:events";
+    import * as dns from "node:dns";
+    type LookupFunction = (
+        hostname: string,
+        options: dns.LookupOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string | dns.LookupAddress[], family?: number) => void,
+    ) => void;
     interface AddressInfo {
         address: string;
         family: string;
@@ -25,27 +29,24 @@ declare module 'net' {
     interface SocketConstructorOpts {
         fd?: number | undefined;
         allowHalfOpen?: boolean | undefined;
+        onread?: OnReadOpts | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
+        signal?: AbortSignal;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
         /**
          * This function is called for every chunk of incoming data.
-         * Two arguments are passed to it: the number of bytes written to buffer and a reference to buffer.
-         * Return false from this function to implicitly pause() the socket.
+         * Two arguments are passed to it: the number of bytes written to `buffer` and a reference to `buffer`.
+         * Return `false` from this function to implicitly `pause()` the socket.
          */
-        callback(bytesWritten: number, buf: Uint8Array): boolean;
+        callback(bytesWritten: number, buffer: Uint8Array): boolean;
     }
-    interface ConnectOpts {
-        /**
-         * If specified, incoming data is stored in a single buffer and passed to the supplied callback when data arrives on the socket.
-         * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
-         * still be emitted as normal and methods like pause() and resume() will also behave as expected.
-         */
-        onread?: OnReadOpts | undefined;
-    }
-    interface TcpSocketConnectOpts extends ConnectOpts {
+    // TODO: remove empty ConnectOpts placeholder at next major @types/node version.
+    /** @deprecated */
+    interface ConnectOpts {}
+    interface TcpSocketConnectOpts {
         port: number;
         host?: string | undefined;
         localAddress?: string | undefined;
@@ -53,11 +54,23 @@ declare module 'net' {
         hints?: number | undefined;
         family?: number | undefined;
         lookup?: LookupFunction | undefined;
+        noDelay?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamily?: boolean | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamilyAttemptTimeout?: number | undefined;
     }
-    interface IpcSocketConnectOpts extends ConnectOpts {
+    interface IpcSocketConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = "opening" | "open" | "readOnly" | "writeOnly" | "closed";
     /**
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
@@ -74,6 +87,12 @@ declare module 'net' {
      */
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
+        /**
+         * Destroys the socket after all data is written. If the `finish` event was already emitted the socket is destroyed immediately.
+         * If the socket is still writable it implicitly calls `socket.end()`.
+         * @since v0.3.4
+         */
+        destroySoon(): void;
         /**
          * Sends data on the socket. The second parameter specifies the encoding in the
          * case of a string. It defaults to UTF8 encoding.
@@ -126,6 +145,14 @@ declare module 'net' {
          * @return The socket itself.
          */
         pause(): this;
+        /**
+         * Close the TCP connection by sending an RST packet and destroy the stream.
+         * If this TCP socket is in connecting status, it will send an RST packet and destroy this TCP socket once it is connected.
+         * Otherwise, it will call `socket.destroy` with an `ERR_SOCKET_CLOSED` Error.
+         * If this is not a TCP socket (for example, a pipe), calling this method will immediately throw an `ERR_INVALID_HANDLE_TYPE` Error.
+         * @since v18.3.0, v16.17.0
+         */
+        resetAndDestroy(): this;
         /**
          * Resumes reading after a call to `socket.pause()`.
          * @return The socket itself.
@@ -203,12 +230,21 @@ declare module 'net' {
          */
         unref(): this;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will_not_ let the program exit if it's the only socket left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will _not_ let the program exit if it's the only socket left (the default behavior).
          * If the socket is `ref`ed calling `ref` again will have no effect.
          * @since v0.9.1
          * @return The socket itself.
          */
         ref(): this;
+        /**
+         * This property is only present if the family autoselection algorithm is enabled in `socket.connect(options)`
+         * and it is an array of the addresses that have been attempted.
+         *
+         * Each address is a string in the form of `$IP:$PORT`.
+         * If the connection was successful, then the last address is the one that the socket is currently connected to.
+         * @since v19.4.0
+         */
+        readonly autoSelectFamilyAttemptedAddresses: string[];
         /**
          * This property shows the number of characters buffered for writing. The buffer
          * may contain strings whose length after encoding is not yet known. So this number
@@ -238,13 +274,19 @@ declare module 'net' {
          */
         readonly bytesWritten: number;
         /**
-         * If `true`,`socket.connect(options[, connectListener])` was
+         * If `true`, `socket.connect(options[, connectListener])` was
          * called and has not yet finished. It will stay `true` until the socket becomes
          * connected, then it is set to `false` and the `'connect'` event is emitted. Note
          * that the `socket.connect(options[, connectListener])` callback is a listener for the `'connect'` event.
          * @since v6.1.0
          */
         readonly connecting: boolean;
+        /**
+         * This is `true` if the socket is not connected yet, either because `.connect()`has not yet been called or because it is still in the process of connecting
+         * (see `socket.connecting`).
+         * @since v11.2.0, v10.16.0
+         */
+        readonly pending: boolean;
         /**
          * See `writable.destroyed` for further details.
          */
@@ -262,21 +304,44 @@ declare module 'net' {
          */
         readonly localPort?: number;
         /**
+         * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
+         * @since v18.8.0, v16.18.0
+         */
+        readonly localFamily?: string;
+        /**
+         * This property represents the state of the connection as a string.
+         *
+         * * If the stream is connecting `socket.readyState` is `opening`.
+         * * If the stream is readable and writable, it is `open`.
+         * * If the stream is readable and not writable, it is `readOnly`.
+         * * If the stream is not readable and writable, it is `writeOnly`.
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
+        /**
          * The string representation of the remote IP address. For example,`'74.125.127.100'` or `'2001:4860:a005::68'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
         readonly remoteAddress?: string | undefined;
         /**
-         * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`.
+         * The string representation of the remote IP family. `'IPv4'` or `'IPv6'`. Value may be `undefined` if
+         * the socket is destroyed (for example, if the client disconnected).
          * @since v0.11.14
          */
         readonly remoteFamily?: string | undefined;
         /**
-         * The numeric representation of the remote port. For example, `80` or `21`.
+         * The numeric representation of the remote port. For example, `80` or `21`. Value may be `undefined` if
+         * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
          */
         readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by `socket.setTimeout()`.
+         * It is `undefined` if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
         /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
@@ -287,80 +352,138 @@ declare module 'net' {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): void;
-        end(buffer: Uint8Array | string, callback?: () => void): void;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(buffer: Uint8Array | string, callback?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         /**
          * events.EventEmitter
          *   1. close
          *   2. connect
-         *   3. data
-         *   4. drain
-         *   5. end
-         *   6. error
-         *   7. lookup
-         *   8. timeout
+         *   3. connectionAttempt
+         *   4. connectionAttemptFailed
+         *   5. connectionAttemptTimeout
+         *   6. data
+         *   7. drain
+         *   8. end
+         *   9. error
+         *   10. lookup
+         *   11. ready
+         *   12. timeout
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: (hadError: boolean) => void): this;
-        addListener(event: 'connect', listener: () => void): this;
-        addListener(event: 'data', listener: (data: Buffer) => void): this;
-        addListener(event: 'drain', listener: () => void): this;
-        addListener(event: 'end', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        addListener(event: 'ready', listener: () => void): this;
-        addListener(event: 'timeout', listener: () => void): this;
+        addListener(event: "close", listener: (hadError: boolean) => void): this;
+        addListener(event: "connect", listener: () => void): this;
+        addListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
+        addListener(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        addListener(
+            event: "connectionAttemptTimeout",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        addListener(event: "data", listener: (data: Buffer) => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        addListener(event: "ready", listener: () => void): this;
+        addListener(event: "timeout", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close', hadError: boolean): boolean;
-        emit(event: 'connect'): boolean;
-        emit(event: 'data', data: Buffer): boolean;
-        emit(event: 'drain'): boolean;
-        emit(event: 'end'): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'lookup', err: Error, address: string, family: string | number, host: string): boolean;
-        emit(event: 'ready'): boolean;
-        emit(event: 'timeout'): boolean;
+        emit(event: "close", hadError: boolean): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "connectionAttempt", ip: string, port: number, family: number): boolean;
+        emit(event: "connectionAttemptFailed", ip: string, port: number, family: number): boolean;
+        emit(event: "connectionAttemptTimeout", ip: string, port: number, family: number): boolean;
+        emit(event: "data", data: Buffer): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "ready"): boolean;
+        emit(event: "timeout"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: (hadError: boolean) => void): this;
-        on(event: 'connect', listener: () => void): this;
-        on(event: 'data', listener: (data: Buffer) => void): this;
-        on(event: 'drain', listener: () => void): this;
-        on(event: 'end', listener: () => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        on(event: 'ready', listener: () => void): this;
-        on(event: 'timeout', listener: () => void): this;
+        on(event: "close", listener: (hadError: boolean) => void): this;
+        on(event: "connect", listener: () => void): this;
+        on(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
+        on(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        on(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
+        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        on(event: "ready", listener: () => void): this;
+        on(event: "timeout", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: (hadError: boolean) => void): this;
-        once(event: 'connect', listener: () => void): this;
-        once(event: 'data', listener: (data: Buffer) => void): this;
-        once(event: 'drain', listener: () => void): this;
-        once(event: 'end', listener: () => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        once(event: 'ready', listener: () => void): this;
-        once(event: 'timeout', listener: () => void): this;
+        once(event: "close", listener: (hadError: boolean) => void): this;
+        once(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
+        once(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        once(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
+        once(event: "connect", listener: () => void): this;
+        once(event: "data", listener: (data: Buffer) => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        once(event: "ready", listener: () => void): this;
+        once(event: "timeout", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: (hadError: boolean) => void): this;
-        prependListener(event: 'connect', listener: () => void): this;
-        prependListener(event: 'data', listener: (data: Buffer) => void): this;
-        prependListener(event: 'drain', listener: () => void): this;
-        prependListener(event: 'end', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependListener(event: 'ready', listener: () => void): this;
-        prependListener(event: 'timeout', listener: () => void): this;
+        prependListener(event: "close", listener: (hadError: boolean) => void): this;
+        prependListener(event: "connect", listener: () => void): this;
+        prependListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
+        prependListener(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        prependListener(
+            event: "connectionAttemptTimeout",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        prependListener(event: "data", listener: (data: Buffer) => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        prependListener(event: "ready", listener: () => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: (hadError: boolean) => void): this;
-        prependOnceListener(event: 'connect', listener: () => void): this;
-        prependOnceListener(event: 'data', listener: (data: Buffer) => void): this;
-        prependOnceListener(event: 'drain', listener: () => void): this;
-        prependOnceListener(event: 'end', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'lookup', listener: (err: Error, address: string, family: string | number, host: string) => void): this;
-        prependOnceListener(event: 'ready', listener: () => void): this;
-        prependOnceListener(event: 'timeout', listener: () => void): this;
+        prependOnceListener(event: "close", listener: (hadError: boolean) => void): this;
+        prependOnceListener(event: "connect", listener: () => void): this;
+        prependOnceListener(
+            event: "connectionAttempt",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        prependOnceListener(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        prependOnceListener(
+            event: "connectionAttemptTimeout",
+            listener: (ip: string, port: number, family: number) => void,
+        ): this;
+        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(
+            event: "lookup",
+            listener: (err: Error, address: string, family: string | number, host: string) => void,
+        ): this;
+        prependOnceListener(event: "ready", listener: () => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
         port?: number | undefined;
@@ -386,6 +509,39 @@ declare module 'net' {
          * @default false
          */
         pauseOnConnect?: boolean | undefined;
+        /**
+         * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
+         * @default false
+         * @since v16.5.0
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
+         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * @default false
+         * @since v16.5.0
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * If set to a positive number, it sets the initial delay before the first keepalive probe is sent on an idle socket.
+         * @default 0
+         * @since v16.5.0
+         */
+        keepAliveInitialDelay?: number | undefined;
+        /**
+         * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @since v18.17.0, v20.1.0
+         */
+        highWaterMark?: number | undefined;
+    }
+    interface DropArgument {
+        localAddress?: string;
+        localPort?: number;
+        localFamily?: string;
+        remoteAddress?: string;
+        remotePort?: number;
+        remoteFamily?: string;
     }
     /**
      * This class is used to create a TCP or `IPC` server.
@@ -410,7 +566,7 @@ declare module 'net' {
          *
          * All `listen()` methods can take a `backlog` parameter to specify the maximum
          * length of the queue of pending connections. The actual length will be determined
-         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn`on Linux. The default value of this parameter is 511 (not 512).
+         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn` on Linux. The default value of this parameter is 511 (not 512).
          *
          * All {@link Socket} are set to `SO_REUSEADDR` (see [`socket(7)`](https://man7.org/linux/man-pages/man7/socket.7.html) for
          * details).
@@ -426,7 +582,7 @@ declare module 'net' {
          * ```js
          * server.on('error', (e) => {
          *   if (e.code === 'EADDRINUSE') {
-         *     console.log('Address in use, retrying...');
+         *     console.error('Address in use, retrying...');
          *     setTimeout(() => {
          *       server.close();
          *       server.listen(PORT, HOST);
@@ -491,7 +647,7 @@ declare module 'net' {
          */
         getConnections(cb: (error: Error | null, count: number) => void): void;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will_not_ let the program exit if it's the only server left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
          * @since v0.9.1
          */
@@ -516,56 +672,68 @@ declare module 'net' {
          * Indicates whether or not the server is listening for connections.
          * @since v5.7.0
          */
-        listening: boolean;
+        readonly listening: boolean;
         /**
          * events.EventEmitter
          *   1. close
          *   2. connection
          *   3. error
          *   4. listening
+         *   5. drop
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connection', listener: (socket: Socket) => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'listening', listener: () => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "drop", listener: (data?: DropArgument) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'connection', socket: Socket): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'listening'): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "drop", data?: DropArgument): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'connection', listener: (socket: Socket) => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'listening', listener: () => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+        on(event: "drop", listener: (data?: DropArgument) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'connection', listener: (socket: Socket) => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'listening', listener: () => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "drop", listener: (data?: DropArgument) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "drop", listener: (data?: DropArgument) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "drop", listener: (data?: DropArgument) => void): this;
+        /**
+         * Calls {@link Server.close()} and returns a promise that fulfills when the server has closed.
+         * @since v20.5.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
-    type IPVersion = 'ipv4' | 'ipv6';
+    type IPVersion = "ipv4" | "ipv6";
     /**
      * The `BlockList` object can be used with some network APIs to specify rules for
      * disabling inbound or outbound access to specific IP addresses, IP ranges, or
      * IP subnets.
-     * @since v15.0.0
+     * @since v15.0.0, v14.18.0
      */
     class BlockList {
         /**
          * Adds a rule to block the given IP address.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address An IPv4 or IPv6 address.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
@@ -573,7 +741,7 @@ declare module 'net' {
         addAddress(address: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses from `start` (inclusive) to`end` (inclusive).
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param start The starting IPv4 or IPv6 address in the range.
          * @param end The ending IPv4 or IPv6 address in the range.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -582,7 +750,7 @@ declare module 'net' {
         addRange(start: SocketAddress, end: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses specified as a subnet mask.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param net The network IPv4 or IPv6 address.
          * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -606,12 +774,17 @@ declare module 'net' {
          * console.log(blockList.check('::ffff:7b7b:7b7b', 'ipv6')); // Prints: true
          * console.log(blockList.check('::ffff:123.123.123.123', 'ipv6')); // Prints: true
          * ```
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address The IP address to check
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
+        /**
+         * The list of rules added to the blocklist.
+         * @since v15.0.0, v14.18.0
+         */
+        rules: readonly string[];
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
@@ -637,11 +810,11 @@ declare module 'net' {
      *
      * The server can be a TCP server or an `IPC` server, depending on what it `listen()` to.
      *
-     * Here is an example of an TCP echo server which listens for connections
+     * Here is an example of a TCP echo server which listens for connections
      * on port 8124:
      *
      * ```js
-     * const net = require('net');
+     * import net from 'node:net';
      * const server = net.createServer((c) => {
      *   // 'connection' listener.
      *   console.log('client connected');
@@ -661,8 +834,8 @@ declare module 'net' {
      *
      * Test this by using `telnet`:
      *
-     * ```console
-     * $ telnet localhost 8124
+     * ```bash
+     * telnet localhost 8124
      * ```
      *
      * To listen on the socket `/tmp/echo.sock`:
@@ -675,8 +848,8 @@ declare module 'net' {
      *
      * Use `nc` to connect to a Unix domain socket server:
      *
-     * ```console
-     * $ nc -U /tmp/echo.sock
+     * ```bash
+     * nc -U /tmp/echo.sock
      * ```
      * @since v0.5.0
      * @param connectionListener Automatically set as a listener for the {@link 'connection'} event.
@@ -716,19 +889,67 @@ declare module 'net' {
     function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
     function createConnection(path: string, connectionListener?: () => void): Socket;
     /**
-     * Tests if input is an IP address. Returns `0` for invalid strings,
-     * returns `4` for IP version 4 addresses, and returns `6` for IP version 6
-     * addresses.
+     * Gets the current default value of the `autoSelectFamily` option of `socket.connect(options)`.
+     * The initial default value is `true`, unless the command line option`--no-network-family-autoselection` is provided.
+     * @since v19.4.0
+     */
+    function getDefaultAutoSelectFamily(): boolean;
+    /**
+     * Sets the default value of the `autoSelectFamily` option of `socket.connect(options)`.
+     * @param value The new default value.
+     * The initial default value is `true`, unless the command line option
+     * `--no-network-family-autoselection` is provided.
+     * @since v19.4.0
+     */
+    function setDefaultAutoSelectFamily(value: boolean): void;
+    /**
+     * Gets the current default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
+     * The initial default value is `250` or the value specified via the command line option `--network-family-autoselection-attempt-timeout`.
+     * @returns The current default value of the `autoSelectFamilyAttemptTimeout` option.
+     * @since v19.8.0, v18.8.0
+     */
+    function getDefaultAutoSelectFamilyAttemptTimeout(): number;
+    /**
+     * Sets the default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
+     * @param value The new default value, which must be a positive number. If the number is less than `10`, the value `10` is used instead. The initial default value is `250` or the value specified via the command line
+     * option `--network-family-autoselection-attempt-timeout`.
+     * @since v19.8.0, v18.8.0
+     */
+    function setDefaultAutoSelectFamilyAttemptTimeout(value: number): void;
+    /**
+     * Returns `6` if `input` is an IPv6 address. Returns `4` if `input` is an IPv4
+     * address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no leading zeroes. Otherwise, returns`0`.
+     *
+     * ```js
+     * net.isIP('::1'); // returns 6
+     * net.isIP('127.0.0.1'); // returns 4
+     * net.isIP('127.000.000.001'); // returns 0
+     * net.isIP('127.0.0.1/24'); // returns 0
+     * net.isIP('fhqwhgads'); // returns 0
+     * ```
      * @since v0.3.0
      */
     function isIP(input: string): number;
     /**
-     * Returns `true` if input is a version 4 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv4 address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no
+     * leading zeroes. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv4('127.0.0.1'); // returns true
+     * net.isIPv4('127.000.000.001'); // returns false
+     * net.isIPv4('127.0.0.1/24'); // returns false
+     * net.isIPv4('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv4(input: string): boolean;
     /**
-     * Returns `true` if input is a version 6 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv6 address. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv6('::1'); // returns true
+     * net.isIPv6('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv6(input: string): boolean;
@@ -754,30 +975,30 @@ declare module 'net' {
         port?: number | undefined;
     }
     /**
-     * @since v15.14.0
+     * @since v15.14.0, v14.18.0
      */
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly address: string;
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly family: IPVersion;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly port: number;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
     }
 }
-declare module 'node:net' {
-    export * from 'net';
+declare module "node:net" {
+    export * from "net";
 }

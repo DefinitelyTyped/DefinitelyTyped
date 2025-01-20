@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { Route } from '../routers';
+import * as React from "react";
+import type { Route } from "../routers";
 /**
  * Context which holds the route prop for a screen.
  */

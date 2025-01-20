@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/safe-flat",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jessie-codes/safe-flat"
+    ],
+    "devDependencies": {
+        "@types/safe-flat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GP",
+            "githubUsername": "paambaati"
+        }
+    ]
+}

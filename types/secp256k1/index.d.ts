@@ -1,15 +1,17 @@
-// Type definitions for secp256k1 4.0
-// Project: https://github.com/cryptocoinjs/secp256k1-node
-// Definitions by: Anler <https://github.com/anler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** Options for the `sign` function */
 export interface SignOptions {
     /** Nonce generator. By default it is rfc6979 */
-    noncefn?: ((message: Uint8Array, privateKey: Uint8Array, algo: Uint8Array | null,
-               data: Uint8Array | null, attempt: number) => Uint8Array) | undefined;
+    noncefn?:
+        | ((
+            message: Uint8Array,
+            privateKey: Uint8Array,
+            algo: Uint8Array | null,
+            data: Uint8Array | null,
+            attempt: number,
+        ) => Uint8Array)
+        | undefined;
 
     /**
      * Additional data for noncefn (RFC 6979 3.6) (32 bytes).
@@ -69,17 +71,29 @@ export function privateKeyTweakMul(privateKey: Uint8Array, tweak: Uint8Array): U
 /**
  * Compute the public key for a privateKey.
  */
-export function publicKeyCreate(privateKey: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyCreate(
+    privateKey: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Convert a publicKey to compressed or uncompressed form.
  */
-export function publicKeyConvert(publicKey: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyConvert(
+    publicKey: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Negates a public key in place.
  */
-export function publicKeyNegate(publicKey: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyNegate(
+    publicKey: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Verify an ECDSA publicKey.
@@ -89,17 +103,31 @@ export function publicKeyVerify(publicKey: Uint8Array): boolean;
 /**
  * Tweak a publicKey by adding tweak times the generator to it.
  */
-export function publicKeyTweakAdd(publicKey: Uint8Array, tweak: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyTweakAdd(
+    publicKey: Uint8Array,
+    tweak: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Tweak a publicKey by multiplying it by a tweak value.
  */
-export function publicKeyTweakMul(publicKey: Uint8Array, tweak: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyTweakMul(
+    publicKey: Uint8Array,
+    tweak: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Add a given publicKeys together.
  */
-export function publicKeyCombine(publicKeys: Uint8Array[], compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function publicKeyCombine(
+    publicKeys: Uint8Array[],
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Convert a signature to a normalized lower-S form.
@@ -125,7 +153,12 @@ export function signatureImport(signature: Uint8Array, output?: Uint8Array | ((l
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions, output?: Uint8Array | ((len: number) => Uint8Array)): {signature: Uint8Array, recid: number};
+export function ecdsaSign(
+    message: Uint8Array,
+    privateKey: Uint8Array,
+    options?: SignOptions,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): { signature: Uint8Array; recid: number };
 
 /**
  * Verify an ECDSA signature.
@@ -143,9 +176,20 @@ export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKe
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function ecdsaRecover(signature: Uint8Array, recid: number, message: Uint8Array, compressed?: boolean, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function ecdsaRecover(
+    signature: Uint8Array,
+    recid: number,
+    message: Uint8Array,
+    compressed?: boolean,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.
  */
-export function ecdh(publicKey: Uint8Array, privateKey: Uint8Array, opt?: ecdhOptions, output?: Uint8Array | ((len: number) => Uint8Array)): Uint8Array;
+export function ecdh(
+    publicKey: Uint8Array,
+    privateKey: Uint8Array,
+    opt?: ecdhOptions,
+    output?: Uint8Array | ((len: number) => Uint8Array),
+): Uint8Array;

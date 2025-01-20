@@ -1,11 +1,11 @@
-import { Context, Next } from 'koa';
-import { RateLimitOptions, TimeKeyObject } from '..';
-import Store = require('./Store');
+import { Context, Next } from "koa";
+import { RateLimitOptions, TimeKeyObject } from "..";
+import Store = require("./Store");
 
 declare class RateLimit {
     options: RateLimitOptions;
     store: Store;
-    get middleware(): RateLimit['_rateLimit'];
+    get middleware(): RateLimit["_rateLimit"];
 
     constructor(options?: Partial<RateLimitOptions>);
 
@@ -23,7 +23,7 @@ declare class RateLimit {
 
 declare const Export: {
     RateLimit: typeof RateLimit;
-    middleware(options?: Partial<RateLimitOptions>): RateLimit['_rateLimit'];
+    middleware(options?: Partial<RateLimitOptions>): RateLimit["_rateLimit"];
     defaultOptions(options?: Partial<RateLimitOptions>): void;
 };
 

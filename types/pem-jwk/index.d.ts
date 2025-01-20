@@ -1,8 +1,3 @@
-// Type definitions for pem-jwk 1.5
-// Project: https://github.com/dannycoates/pem-jwk
-// Definitions by: Alessio Paccoia <https://github.com/alessiopcc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RSA_JWK {
     kty: string;
     n: string;
@@ -15,5 +10,11 @@ export interface RSA_JWK {
     qi?: string | undefined;
 }
 
-export function pem2jwk(rsa_pem: string): RSA_JWK;
+export interface Extras {
+    [key: string]: Extras | string | boolean | number;
+}
+
+export type JWK<T extends Extras> = RSA_JWK & T;
+
+export function pem2jwk<T extends Extras>(rsa_pem: string, extras?: T): JWK<T>;
 export function jwk2pem(rsa_jwk: RSA_JWK): string;

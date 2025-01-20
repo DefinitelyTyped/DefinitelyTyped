@@ -1,16 +1,21 @@
-import { Mesh, BufferGeometry, ColorRepresentation, TextureEncoding, WebGLRenderTarget } from '../../../src/Three';
+import { BufferGeometry, ColorRepresentation, Mesh, PerspectiveCamera, ShaderMaterial, WebGLRenderTarget } from "three";
 
 export interface RefractorOptions {
-    color?: ColorRepresentation;
-    textureWidth?: number;
-    textureHeight?: number;
-    clipBias?: number;
-    shader?: object;
-    encoding?: TextureEncoding;
+    color?: ColorRepresentation | undefined;
+    textureWidth?: number | undefined;
+    textureHeight?: number | undefined;
+    clipBias?: number | undefined;
+    shader?: object | undefined;
+    multisample?: number | undefined;
 }
 
-export class Refractor extends Mesh {
+export class Refractor extends Mesh<BufferGeometry, ShaderMaterial> {
+    type: "Refractor";
+    camera: PerspectiveCamera;
+
     constructor(geometry?: BufferGeometry, options?: RefractorOptions);
 
     getRenderTarget(): WebGLRenderTarget;
+
+    dispose(): void;
 }

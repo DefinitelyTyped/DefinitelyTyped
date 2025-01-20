@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/mvdan-sh",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/mvdan/sh/tree/master/_js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mvdan-sh": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        },
+        {
+            "name": "Rossil2012",
+            "githubUsername": "Rossil2012"
+        }
+    ]
+}

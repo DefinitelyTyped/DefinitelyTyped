@@ -4,28 +4,28 @@ import fileinclude = require("gulp-file-include");
 function testA() {
     fileinclude({
         prefix: "@@",
-        basepath: "/home/"
-    })
+        basepath: "/home/",
+    });
 }
 
 function testB() {
-    gulp.task("fileinclude", function () {
+    gulp.task("fileinclude", function() {
         gulp.src(["index.html"])
             .pipe(fileinclude({
                 prefix: "@@",
-                basepath: "@file"
+                basepath: "@file",
             }))
             .pipe(gulp.dest("./"));
     });
 }
 
 function testC() {
-    gulp.task("fileinclude", function () {
+    gulp.task("fileinclude", function() {
         gulp.src(["index.html"])
             .pipe(fileinclude({
                 filters: {
-                    markdown: (x) => "nope"
-                }
+                    markdown: (x) => "nope",
+                },
             }))
             .pipe(gulp.dest("./"));
     });
@@ -34,11 +34,11 @@ function testC() {
 function testD() {
     fileinclude({
         context: {
-            arr: ["test1", "test2"]
-        }
+            arr: ["test1", "test2"],
+        },
     });
 }
 
 function testE() {
-    fileinclude('@@');
+    fileinclude("@@");
 }

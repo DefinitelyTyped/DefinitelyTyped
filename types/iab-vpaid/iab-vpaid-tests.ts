@@ -2,12 +2,12 @@ if (window.getVPAIDAd) {
     const ad = window.getVPAIDAd();
     ad.subscribe(() => {
         /* Record impression */
-    }, 'AdImpression');
+    }, "AdImpression");
     ad.subscribe((url, id, playerHandles) => {
         /* Handle click */
-    }, 'AdClickThru');
+    }, "AdClickThru");
     ad.subscribe(() => {
         /* Handle video midpoint */
-    }, 'AdVideoMidpoint');
+    }, "AdVideoMidpoint");
     ad.startAd();
 }

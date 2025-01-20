@@ -1,4 +1,4 @@
-import { Object3D, Scene, Camera } from '../../../src/Three';
+import { Camera, Object3D, Scene } from "three";
 
 export class CSS3DObject extends Object3D {
     constructor(element: HTMLElement);
@@ -12,8 +12,12 @@ export class CSS3DSprite extends CSS3DObject {
     constructor(element: HTMLElement);
 }
 
+export interface CSS3DParameters {
+    element?: HTMLElement;
+}
+
 export class CSS3DRenderer {
-    constructor();
+    constructor(parameters?: CSS3DParameters);
     domElement: HTMLElement;
 
     getSize(): { width: number; height: number };

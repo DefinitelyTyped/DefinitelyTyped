@@ -1,10 +1,5 @@
-// Type definitions for siren-parser 8.4
-// Project: https://github.com/Brightspace/node-siren-parser
-// Definitions by: Dillon Redding <https://github.com/dillonredding>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Link } from './Link';
-import { Action } from './Action';
+import { Action } from "./Action";
+import { Link } from "./Link";
 
 export default function(entity: string | object): Entity;
 
@@ -87,5 +82,5 @@ declare global {
     }
 }
 
-export { Link } from './Link';
-export { Action, Field, FieldType } from './Action';
+export { Action, Field, FieldType } from "./Action";
+export { Link } from "./Link";

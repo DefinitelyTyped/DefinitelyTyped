@@ -1,19 +1,19 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { TransitionStyle, OpaqueConfig } from 'react-motion';
+import { OpaqueConfig, TransitionStyle } from "react-motion";
 import {
     AnimatableStyles,
     AnimatedRoute,
     AnimatedSwitch,
     AnimatedSwitchProps,
     spring,
-    Styles
-} from 'react-router-transition';
+    Styles,
+} from "react-router-transition";
 
 const mapStyles: AnimatedSwitchProps["mapStyles"] = (styles) => {
     return {
         opacity: styles.opacity as number,
-        transform: `scale(${styles.scale})`
+        transform: `scale(${styles.scale})`,
     };
 };
 
@@ -28,7 +28,7 @@ const style1: Styles = { opacity: 0, scale: 1.2 };
 const style2: AnimatableStyles = { opacity: 0, scale: bounce(0.8) };
 // tslint:disable-next-line no-object-literal-type-assertion
 const style3 = { opacity: 1, scale: bounce(1) } as const;
-// $ExpectError
+// @ts-expect-error
 const style4: ReturnType<typeof spring> = style3;
 
 const ReactRouterTransitionTest: React.FC = () => {
@@ -36,7 +36,7 @@ const ReactRouterTransitionTest: React.FC = () => {
         <AnimatedSwitch
             atActive={style1}
             atLeave={style2}
-            // $ExpectError
+            // @ts-expect-error
             atEnter={style3}
             className="switch-wrapper"
             didLeave={(styleThatLeft: TransitionStyle) => {}}
@@ -61,7 +61,7 @@ const ReactRouterTransitionTest: React.FC = () => {
                 atLeave={style2}
                 atActive={style3}
                 runOnMount={true}
-                // $ExpectError
+                // @ts-expect-error
                 didLeave={(styleThatLeft: number) => {}}
                 exact
                 strict
@@ -74,7 +74,7 @@ const ReactRouterTransitionTest: React.FC = () => {
                 atLeave={style2}
                 atActive={style3}
                 runOnMount={true}
-                // $ExpectError
+                // @ts-expect-error
                 didLeave={(styleThatLeft: string) => {}}
                 exact
                 strict

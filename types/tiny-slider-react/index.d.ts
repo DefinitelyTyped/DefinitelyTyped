@@ -1,8 +1,3 @@
-// Type definitions for tiny-slider-react 0.3
-// Project: https://github.com/jechav/tiny-slider-react#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as React from "react";
 
 export interface CommonOptions {
@@ -217,6 +212,7 @@ export interface TinySliderSettings extends CommonOptions {
      * Callback to be run on initialization.
      * @defaultValue false
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onInit?: (() => void | false) | undefined;
 }
 
@@ -242,7 +238,7 @@ export interface TinySliderInfo {
     visibleNavIndexesCached?: number | undefined;
 }
 
-export interface TinySliderProps {
+export type TinySliderProps = React.PropsWithChildren<{
     settings?: TinySliderSettings | undefined;
     onClick?: ((slideClicked: number, info: string, event: Event) => void) | undefined;
     startIndex?: number | undefined;
@@ -252,7 +248,7 @@ export interface TinySliderProps {
     onTouchStart?: ((info: TinySliderInfo) => void) | undefined;
     onTouchMove?: ((info: TinySliderInfo) => void) | undefined;
     onTouchEnd?: ((info: TinySliderInfo) => void) | undefined;
-}
+}>;
 
 declare class TinySlider extends React.Component<TinySliderProps> {}
 

@@ -8,7 +8,7 @@ fs.writeFileSync("./test.xml", "<head><childOne>text</childOne><childTwo>text</c
 const readStreamOne = fs.createReadStream("./test.xml", "utf8");
 const readStreamTwo = fs.createReadStream("./test.xml", "utf8");
 
-// $ExpectType EventEmitter
+// $ExpectType EventEmitter<DefaultEventMap>
 const myFlow = flow(readStreamOne);
 
 const myOptions = {
@@ -19,18 +19,18 @@ const myOptions = {
     trim: false,
     normalize: true,
     cdataAsText: true,
-    strict: true
+    strict: true,
 };
 
-// $ExpectType EventEmitter
+// $ExpectType EventEmitter<DefaultEventMap>
 const myFlowWithOptions = flow(readStreamTwo, myOptions);
 
 // Create object to xml-ise
 const xmlTarget = {
     head: {
         childOne: "text",
-        childTwo: "text"
-    }
+        childTwo: "text",
+    },
 };
 
 // $ExpectType string
@@ -39,7 +39,7 @@ const xmlString = flow.toXml(xmlTarget);
 const xmlOptions = {
     indent: "\t",
     selfClosing: true,
-    escape: (s: string) => s
+    escape: (s: string) => s,
 };
 
 // $ExpectType string

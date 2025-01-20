@@ -12,11 +12,11 @@ const token: string = authenticator.generateToken(key);
 const verifyResult = authenticator.verifyToken(key, token);
 // Test return type of 'function verifyToken()'
 if (verifyResult) {
-  // interface VerifyResult
-  foo(verifyResult);
+    // interface VerifyResult
+    foo(verifyResult);
 } else {
-  // null
-  bar(verifyResult);
+    // null
+    bar(verifyResult);
 }
 
 // Test 'function generateTotpUri()'

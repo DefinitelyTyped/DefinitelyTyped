@@ -1,10 +1,4 @@
-// Type definitions for splunk-logging 0.9
-// Project: http://dev.splunk.com
-// Definitions by: Alex Brick <https://github.com/bricka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { CoreOptions as RequestOptions } from 'request';
+import { CoreOptions as RequestOptions } from "request";
 
 export interface Config {
     token: string;
@@ -12,7 +6,7 @@ export interface Config {
     host?: string | undefined;
     maxRetries?: number | undefined;
     path?: string | undefined;
-    protocol?: 'http' | 'https' | undefined;
+    protocol?: "http" | "https" | undefined;
     port?: number | undefined;
     url?: string | undefined;
     level?: string | undefined;
@@ -26,6 +20,7 @@ export interface SendContextMetadata {
     index?: string | undefined;
     source?: string | undefined;
     sourcetype?: string | undefined;
+    time?: number | undefined; // Milliseconds since epoch, e.g. with Date.now()
 }
 
 export interface SendContext {
@@ -41,7 +36,7 @@ export class Logger {
     error: (error: Error, context: SendContext) => void;
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
-    readonly serializedEventQueue: any[];
+    readonly serializedContextQueue: any[];
 
     constructor(config: Config);
 

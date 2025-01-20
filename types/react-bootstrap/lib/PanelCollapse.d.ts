@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace PanelCollapse {
     export interface PanelCollapseProps extends React.HTMLProps<PanelCollapse> {
@@ -12,5 +12,5 @@ declare namespace PanelCollapse {
         onExited?: Function | undefined;
     }
 }
-declare class PanelCollapse extends React.Component<PanelCollapse.PanelCollapseProps> { }
+declare class PanelCollapse extends React.Component<PanelCollapse.PanelCollapseProps> {}
 export = PanelCollapse;

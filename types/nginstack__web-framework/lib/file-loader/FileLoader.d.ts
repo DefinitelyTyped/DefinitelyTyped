@@ -30,16 +30,20 @@ declare class FileLoader {
     private getFileInfo_;
     authorizeDownload(
         files: string | number | DBKey | Array<string | number | DBKey>,
-        options: DownloadOptions | Record<any, any>
+        options: DownloadOptions | Record<any, any>,
     ): string;
     tryGetDownloadFile(downloadId: string): DownloadFile;
     purgeExpiredFiles(): void;
 }
 declare namespace FileLoader {
-    export { Request, FileInfoUpload, FileInfo };
+    export { FileInfo, FileInfoUpload, Request };
 }
-import UploadOptions = require('./UploadOptions.js');
-type Request = import('@nginstack/engine/lib/http/Request');
+import UploadOptions = require("./UploadOptions.js");
+import UploadedFile = require("./UploadedFile.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DownloadOptions = require("./DownloadOptions.js");
+import DownloadFile = require("./DownloadFile.js");
+type Request = import("@nginstack/engine/lib/http/Request");
 interface FileInfoUpload {
     fileId: string;
     name: string;
@@ -47,10 +51,6 @@ interface FileInfoUpload {
     lastModified: number;
     contentType: string;
 }
-import UploadedFile = require('./UploadedFile.js');
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import DownloadOptions = require('./DownloadOptions.js');
-import DownloadFile = require('./DownloadFile.js');
 interface FileInfo {
     name: string;
     filePath: string;

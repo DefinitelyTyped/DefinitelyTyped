@@ -1,1 +1,1 @@
-set('variableA', () => {});
+set("variableA", () => {});

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/d3-cloud",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jasondavies/d3-cloud"
+    ],
+    "dependencies": {
+        "@types/d3": "^3"
+    },
+    "devDependencies": {
+        "@types/d3-cloud": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hans windhoff",
+            "githubUsername": "hansrwindhoff"
+        },
+        {
+            "name": "locknono",
+            "githubUsername": "locknono"
+        }
+    ]
+}

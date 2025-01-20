@@ -1,22 +1,13 @@
-// Type definitions for @rdfjs/serializer-rdfjs 0.0
-// Project: https://github.com/rdfjs-base/serializer-rdfjs
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 
-import { EventEmitter } from 'events';
-import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
-
-declare namespace Serializer {
-    interface SerializerOptions {
-        module?: 'esm' | 'ts' | string | undefined;
-    }
+export interface SerializerOptions {
+    module?: "commonjs" | "ts" | undefined;
 }
 
-declare class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {
-    constructor(options?: Serializer.SerializerOptions);
+export default class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {
+    constructor(options?: SerializerOptions);
 
-    import(stream: Stream<Q>, options?: Serializer.SerializerOptions): EventEmitter;
+    import(stream: Stream<Q>, options?: SerializerOptions): EventEmitter;
     transform(quads: Iterable<Q>): string;
 }
-
-export = Serializer;

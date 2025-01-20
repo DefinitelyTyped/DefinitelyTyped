@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sanitizer",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/theSmaw/Caja-HTML-Sanitizer"
+    ],
+    "devDependencies": {
+        "@types/sanitizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dave Taylor",
+            "url": "http://davetayls.me"
+        }
+    ]
+}

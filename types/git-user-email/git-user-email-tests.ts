@@ -1,3 +1,3 @@
-import email = require('git-user-email');
+import email = require("git-user-email");
 
 email(); // $ExpectType string

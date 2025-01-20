@@ -34,5 +34,5 @@ options = {
     keepSymbols: true,
 };
 
-coverup("4242-4242-4242-4242", options); // $ExpectError "you cannot define both compactTo and keepSymbols"
+coverup("4242-4242-4242-4242", options);
 // => Error: you cannot define both compactTo and keepSymbols

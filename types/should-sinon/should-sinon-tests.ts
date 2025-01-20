@@ -1,5 +1,8 @@
+import sinon = require("sinon");
+import should = require("should");
+
 const callback = sinon.spy();
-const obj = { };
+const obj = {};
 
 callback.should.be.alwaysCalledOn(obj);
 callback.should.be.alwaysCalledWith(1, 2, 3);
@@ -22,3 +25,14 @@ callback.firstCall.should.be.calledThrice();
 callback.firstCall.should.be.calledTwice();
 callback.firstCall.should.be.calledWith(1, 2, 3);
 callback.firstCall.should.be.neverCalledWith(1, 2, 3);
+
+should(callback).should.be.alwaysCalledOn(obj);
+should(callback).should.be.alwaysCalledWith(1, 2, 3);
+should(callback).should.have.callCount(0);
+should(callback).should.be.called();
+should(callback).should.be.calledOn(obj);
+should(callback).should.be.calledOnce();
+should(callback).should.be.calledThrice();
+should(callback).should.be.calledTwice();
+should(callback).should.be.calledWith(1, 2, 3);
+should(callback).should.be.neverCalledWith(1, 2, 3);

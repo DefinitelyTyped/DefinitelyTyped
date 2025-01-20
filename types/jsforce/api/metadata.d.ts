@@ -1,6 +1,6 @@
-import { Callback, Connection } from '../connection';
-import { EventEmitter } from 'events';
-import { Stream } from 'stream';
+import { EventEmitter } from "events";
+import { Stream } from "stream";
+import { Callback, Connection } from "../connection";
 
 interface DeployResult {
     id: string;
@@ -110,17 +110,17 @@ interface RetrieveResult {
     fileProperties: FileProperties[];
     id: string;
     messages: RetrieveMessage[];
-    zipFile: string
+    zipFile: string;
 }
 
 interface SaveResult {
     success: boolean;
     fullName: string;
-    errors?: SaveError | Array<SaveError> | undefined
+    errors?: SaveError | SaveError[] | undefined;
 }
 
 interface SaveError {
-    fields: string|string[];
+    fields: string | string[];
     message: string;
     statusCode: string;
 }
@@ -145,27 +145,29 @@ interface AsyncResult {
 }
 
 interface DeployOptions {
-    allowMissingFiles?:    boolean | undefined;
+    allowMissingFiles?: boolean | undefined;
     autoUpdatePackage?: boolean | undefined;
-    checkOnly?:    boolean | undefined;
+    checkOnly?: boolean | undefined;
     ignoreWarnings?: boolean | undefined;
     performRetrieve?: boolean | undefined;
     purgeOnDelete?: boolean | undefined;
     rollbackOnError?: boolean | undefined;
     runAllTests?: boolean | undefined;
     runTests?: string[] | undefined;
-    singlePackage?:    boolean | undefined;
+    singlePackage?: boolean | undefined;
 }
 
 export class AsyncResultLocator<T> extends EventEmitter implements PromiseLike<T> {
-    check(callback?: Callback<T>): Promise<T>
+    check(callback?: Callback<T>): Promise<T>;
 
-    complete(callback?: Callback<T>): Promise<T>
+    complete(callback?: Callback<T>): Promise<T>;
 
     poll(interval: number, timeout: number): void;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null,
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(
+        onfulfilled?: ((value: T) => PromiseLike<TResult1> | TResult1) | null,
+        onrejected?: ((reason: any) => PromiseLike<TResult2> | TResult2) | null,
+    ): Promise<TResult1 | TResult2>;
 
     finally(onfinally?: () => void): Promise<T>;
 }
@@ -179,111 +181,107 @@ export class Metadata {
 
     constructor(conn: Connection);
 
-    checkDeployStatus(
-        id: string,
-        includeDetails?: boolean,
-        callback?: Callback<DeployResult>
-    ): Promise<DeployResult>;
+    checkDeployStatus(id: string, includeDetails?: boolean, callback?: Callback<DeployResult>): Promise<DeployResult>;
 
     checkRetrieveStatus(id: string, callback?: Callback<RetrieveResult>): Promise<RetrieveResult>;
 
     checkStatus(
         ids: string | string[],
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     create(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createAsync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createSync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     delete(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deleteAsync(
         type: string,
-        metadata: string | string[] | MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        metadata: string | string[] | MetadataInfo | MetadataInfo[],
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     deleteSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deploy(
         zipInput: Stream | Buffer | string,
         options: DeployOptions,
-        callback?: Callback<AsyncResult>
+        callback?: Callback<AsyncResult>,
     ): DeployResultLocator<AsyncResult>;
 
     describe(version?: string, callback?: Callback<DescribeMetadataResult>): Promise<DescribeMetadataResult>;
 
     list(
-        queries: ListMetadataQuery | Array<ListMetadataQuery>,
+        queries: ListMetadataQuery | ListMetadataQuery[],
         version?: string,
-        callback?: Callback<Array<FileProperties>>
-    ): Promise<Array<FileProperties>>;
+        callback?: Callback<FileProperties[]>,
+    ): Promise<FileProperties[]>;
 
     read(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     readSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     rename(
         type: string,
         oldFullName: string,
         newFullName: string,
-        callback?: Callback<SaveResult>
+        callback?: Callback<SaveResult>,
     ): Promise<SaveResult>;
 
     retrieve(request: RetrieveRequest, callback?: Callback<AsyncResult>): RetrieveResultLocator<AsyncResult>;
 
     update(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     updateAsync(
         type: string,
         updateMetadata: MetadataInfo,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     updateSync(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     upsert(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<UpsertResult | Array<UpsertResult>>
-    ): Promise<UpsertResult | Array<UpsertResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<UpsertResult | UpsertResult[]>,
+    ): Promise<UpsertResult | UpsertResult[]>;
 }

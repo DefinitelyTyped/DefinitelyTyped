@@ -1,8 +1,3 @@
-// Type definitions for wink-tokenizer 4.0
-// Project: http://winkjs.org/
-// Definitions by: Luca Lindhorst <https://github.com/lal12>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Tokenizer {
     /**
      * create a tokenizer instance
@@ -49,9 +44,22 @@ declare class Tokenizer {
 }
 
 declare namespace Tokenizer {
-    type Tag = "word" | "email" | "emoji" | "punctuation"
-        | "number" | "time" | "hashtag" | "mention" | "emoticon" | "ordinal"
-        | "quoted_phrase" | "url" | "symbol" | "currency" | "alien";
+    type Tag =
+        | "word"
+        | "email"
+        | "emoji"
+        | "punctuation"
+        | "number"
+        | "time"
+        | "hashtag"
+        | "mention"
+        | "emoticon"
+        | "ordinal"
+        | "quoted_phrase"
+        | "url"
+        | "symbol"
+        | "currency"
+        | "alien";
 
     interface Token {
         value: string;

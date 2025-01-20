@@ -1,12 +1,12 @@
-import Paginator = require('../utils/paginator');
-import Prompt = require('./base');
-import inquirer = require('../..');
-import { Interface as ReadlineInterface } from 'readline';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { Answers, ExpandQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
- * The question-options for the `ExpandPrompt<T>`.
+ * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
  */
-type Question = inquirer.ExpandQuestionOptions<inquirer.Answers>;
+type Question = ExpandQuestionOptions;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
@@ -46,7 +46,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
     protected answer: string;
 
     /**
-     * Initializes a new instance of the `ExpandPrompt<T>` class.
+     * Initializes a new instance of the {@link ExpandPrompt `ExpandPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -57,7 +57,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt to the screen.
@@ -118,7 +118,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param choices
      * The choices to validate.
      */
-    protected validateChoices(choices: ExpandPrompt<TQuestion>['opt']['choices']): void;
+    protected validateChoices(choices: ExpandPrompt<TQuestion>["opt"]["choices"]): void;
 
     /**
      * Generates the string-representation of the choices.
@@ -132,7 +132,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @returns
      * The string-representations of the choices.
      */
-    protected generateChoicesString(choices: ExpandPrompt<TQuestion>['opt']['choices'], defaultChoice: any): string;
+    protected generateChoicesString(choices: ExpandPrompt<TQuestion>["opt"]["choices"], defaultChoice: any): string;
 
     /**
      * Renders the choices.
@@ -143,7 +143,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param pointer
      * The value of the choice to select.
      */
-    protected renderChoices(choices: ExpandPrompt<TQuestion>['opt']['choices'], pointer: string): string;
+    protected renderChoices(choices: ExpandPrompt<TQuestion>["opt"]["choices"], pointer: string): string;
 }
 
-export = ExpandPrompt;
+export default ExpandPrompt;

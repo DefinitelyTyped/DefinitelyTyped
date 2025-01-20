@@ -1,9 +1,3 @@
-// Type definitions for AngularFire 0.8.2
-// Project: http://angularfire.com
-// Definitions by: Dénes Harmath <https://github.com/thSoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular"/>
 /// <reference types="firebase"/>
 
@@ -12,7 +6,7 @@ interface AngularFireService {
 }
 
 /**
- * @deprecated. Not possible with AngularFire 1.0+
+ * @deprecated Not possible with AngularFire 1.0+
  */
 interface AngularFire {
     $asArray(): AngularFireArray;
@@ -25,7 +19,11 @@ interface AngularFire {
     $update(key: string, data: Object): ng.IPromise<Firebase>;
     $update(data: any): ng.IPromise<Firebase>;
     $transaction(updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
-    $transaction(key:string, updateFn: (currentData: any) => any, applyLocally?: boolean): ng.IPromise<FirebaseDataSnapshot>;
+    $transaction(
+        key: string,
+        updateFn: (currentData: any) => any,
+        applyLocally?: boolean,
+    ): ng.IPromise<FirebaseDataSnapshot>;
 }
 
 /**
@@ -62,7 +60,10 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Function} reject
      * @returns a promise which resolves after initial data is downloaded from Firebase
      */
-    $loaded(resolve?: (x: AngularFireObject) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
+    $loaded(
+        resolve?: (x: AngularFireObject) => ng.IHttpPromise<{}>,
+        reject?: (err: any) => any,
+    ): ng.IPromise<AngularFireObject>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -76,7 +77,10 @@ interface AngularFireObject extends AngularFireSimpleObject {
      * @param {Function} reject
      * @returns a promise which resolves after initial data is downloaded from Firebase
      */
-    $loaded(resolve?: (x: AngularFireObject) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireObject>;
+    $loaded(
+        resolve?: (x: AngularFireObject) => ng.IPromise<{}>,
+        reject?: (err: any) => any,
+    ): ng.IPromise<AngularFireObject>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -245,7 +249,10 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Function} [reject]
      * @returns a promise
      */
-    $loaded(resolve?: (x: AngularFireArray) => ng.IHttpPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
+    $loaded(
+        resolve?: (x: AngularFireArray) => ng.IHttpPromise<{}>,
+        reject?: (err: any) => any,
+    ): ng.IPromise<AngularFireArray>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -259,7 +266,10 @@ interface AngularFireArray extends Array<AngularFireSimpleObject> {
      * @param {Function} [reject]
      * @returns a promise
      */
-    $loaded(resolve?: (x: AngularFireArray) => ng.IPromise<{}>, reject?: (err: any) => any): ng.IPromise<AngularFireArray>;
+    $loaded(
+        resolve?: (x: AngularFireArray) => ng.IPromise<{}>,
+        reject?: (err: any) => any,
+    ): ng.IPromise<AngularFireArray>;
 
     /**
      * The loaded method is invoked after the initial batch of data arrives from the server.
@@ -314,7 +324,6 @@ interface AngularFireSimpleObject {
     $value: any;
     [key: string]: any;
 }
-
 
 interface AngularFireAuthService {
     (firebase: Firebase): AngularFireAuth;
@@ -386,7 +395,7 @@ interface AngularFireAuth {
      * session persistence.
      * @return {Promise<Object>} A promise fulfilled with an object containing authentication data.
      */
-    $authWithOAuthToken(provider: string, credentials: Object|string, options?: Object): ng.IPromise<any>;
+    $authWithOAuthToken(provider: string, credentials: Object | string, options?: Object): ng.IPromise<any>;
 
     /**
      * Synchronously retrieves the current authentication data.

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pg-copy-streams",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/brianc/node-pg-copy-streams"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/pg": "*"
+    },
+    "devDependencies": {
+        "@types/pg-copy-streams": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Crowell",
+            "githubUsername": "fluggo"
+        }
+    ]
+}

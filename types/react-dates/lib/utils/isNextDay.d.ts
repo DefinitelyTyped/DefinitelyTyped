@@ -1,3 +1,3 @@
-import { isNextDay } from '../../index';
+import { isNextDay } from "../../index";
 
 export default isNextDay;

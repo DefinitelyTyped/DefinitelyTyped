@@ -1,4 +1,4 @@
-import convert = require('color-convert');
+import convert = require("color-convert");
 
 convert.rgb.hsv([1, 2, 3]);
 convert.rgb.hsv(1, 2, 3);
@@ -10,8 +10,8 @@ convert.rgb.hsv(1, 2, 3);
 convert.rgb.hex(123, 45, 67);
 convert.rgb.hex([123, 45, 67]);
 
-convert.hex.lab('DEADBF');
-convert.hex.lab.raw('DEADBF');
+convert.hex.lab("DEADBF");
+convert.hex.lab.raw("DEADBF");
 
 convert.rgb.cmyk(167, 255, 4);
 convert.rgb.cmyk.raw(167, 255, 4);
@@ -60,16 +60,16 @@ convert.cmyk.ansi16([30, 0, 50, 22]);
 convert.cmyk.ansi256([30, 0, 50, 22]);
 convert.cmyk.hex([30, 0, 50, 22]);
 
-convert.keyword.rgb('blue');
-convert.keyword.hsl('blue');
-convert.keyword.hsv('blue');
-convert.keyword.hwb('blue');
-convert.keyword.cmyk('blue');
-convert.keyword.lab('blue');
-convert.keyword.xyz('blue');
-convert.keyword.ansi16('purple');
-convert.keyword.ansi256('purple');
-convert.keyword.hex('blue');
+convert.keyword.rgb("blue");
+convert.keyword.hsl("blue");
+convert.keyword.hsv("blue");
+convert.keyword.hwb("blue");
+convert.keyword.cmyk("blue");
+convert.keyword.lab("blue");
+convert.keyword.xyz("blue");
+convert.keyword.ansi16("purple");
+convert.keyword.ansi256("purple");
+convert.keyword.hex("blue");
 
 convert.xyz.rgb([25, 40, 15]);
 convert.xyz.rgb([50, 100, 100]);
@@ -87,9 +87,9 @@ convert.lch.rgb([69, 65, 137]);
 convert.ansi16.rgb(103);
 convert.ansi256.rgb(175);
 
-convert.hex.rgb('ABCDEF');
-convert.hex.rgb('AABBCC');
-convert.hex.rgb('ABC');
+convert.hex.rgb("ABCDEF");
+convert.hex.rgb("AABBCC");
+convert.hex.rgb("ABC");
 
 convert.hcg.rgb([96, 39, 64]);
 convert.hcg.hsv([96, 39, 64]);
@@ -107,7 +107,7 @@ convert.rgb.hwb.raw([140, 200, 100]);
 convert.cmyk.rgb.raw([30, 0, 50, 22]);
 convert.rgb.cmyk.raw([140, 200, 100]);
 
-convert.keyword.rgb.raw('blue');
+convert.keyword.rgb.raw("blue");
 convert.rgb.keyword.raw([255, 228, 196]);
 
 convert.hsv.hsl.raw([96, 50, 78]);

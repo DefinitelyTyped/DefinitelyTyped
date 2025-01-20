@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/mem-fs-editor",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/SBoudrias/mem-fs-editor#readme"
+    ],
+    "dependencies": {
+        "@types/ejs": "*",
+        "@types/json-schema": "*",
+        "@types/mem-fs": "*",
+        "@types/node": "*",
+        "@types/vinyl": "*",
+        "globby": "^11.1.0"
+    },
+    "devDependencies": {
+        "@types/mem-fs-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "My Food Bag",
+            "githubUsername": "MyFoodBag"
+        },
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import SharedGroupPreferences, { SharedGroupPreferenceOptions } from 'react-native-shared-group-preferences';
+import SharedGroupPreferences, { SharedGroupPreferenceOptions } from "react-native-shared-group-preferences";
 
 const isAppInstalledAndroid = async (packageName: string) => {
     let appIsInstalled;

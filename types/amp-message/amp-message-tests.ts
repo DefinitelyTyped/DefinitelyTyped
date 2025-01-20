@@ -1,57 +1,57 @@
-import Message = require('amp-message');
+import Message = require("amp-message");
 
 // $ExpectType Message
-new Message(new Buffer('aaa'));
+new Message(new Buffer("aaa"));
 
 // $ExpectType Message
-new Message([new Buffer('aaa'), new Buffer('bbb')]);
+new Message([new Buffer("aaa"), new Buffer("bbb")]);
 
-const message = new Message([new Buffer('aaa'), new Buffer('bbb')]);
+const message = new Message([new Buffer("aaa"), new Buffer("bbb")]);
 
 // $ExpectType string
 message.inspect();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 message.toBuffer();
 
 // $ExpectType number
-message.push(new Buffer('ccc'));
+message.push(new Buffer("ccc"));
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | undefined || Buffer<ArrayBufferLike> | undefined
 message.pop();
 
-// $ExpectType Buffer | undefined
+// $ExpectType Buffer | undefined || Buffer<ArrayBufferLike> | undefined
 message.shift();
 
 // $ExpectType number
-message.unshift(new Buffer('ddd'));
+message.unshift(new Buffer("ddd"));
 
-// $ExpectError
+// @ts-expect-error
 new Message();
 
-// $ExpectError
+// @ts-expect-error
 new Message(1);
 
-// $ExpectError
+// @ts-expect-error
 new Message({});
 
-// $ExpectError
-new Message('aaa');
+// @ts-expect-error
+new Message("aaa");
 
-// $ExpectError
+// @ts-expect-error
 message.push(1);
 
-// $ExpectError
+// @ts-expect-error
 message.push({});
 
-// $ExpectError
-message.push('aaa');
+// @ts-expect-error
+message.push("aaa");
 
-// $ExpectError
+// @ts-expect-error
 message.unshift(1);
 
-// $ExpectError
+// @ts-expect-error
 message.unshift({});
 
-// $ExpectError
-message.unshift('aaa');
+// @ts-expect-error
+message.unshift("aaa");

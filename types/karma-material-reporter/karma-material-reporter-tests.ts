@@ -1,11 +1,11 @@
 /// <reference types="node" />
-import karma = require('karma');
+import karma = require("karma");
 
 module.exports = (config: karma.Config) => {
     config.set({
-        plugins: [require('karma-material-reporter')],
+        plugins: [require("karma-material-reporter")],
 
-        reporters: ['progress', 'material'],
+        reporters: ["progress", "material"],
         // configuration
         materialReporter: {
             serverPort: 3000,

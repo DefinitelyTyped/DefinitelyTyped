@@ -1,10 +1,4 @@
-// Type definitions for react-html-email 3.0
-// Project: https://github.com/chromakode/react-html-email#readme
-// Definitions by: Saiichi Hashimoto <https://github.com/saiichihashimoto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
-import type { CSSProperties, FunctionComponent, FunctionComponentElement, ReactElement, ReactNode } from 'react';
+import type { CSSProperties, FunctionComponent, FunctionComponentElement, ReactElement, ReactNode } from "react";
 
 export interface AProps {
     children?: ReactNode | undefined;
@@ -18,7 +12,7 @@ export interface AProps {
 export const A: FunctionComponent<AProps>;
 
 export interface BoxProps {
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
     bgcolor?: string | undefined;
     border?: string | undefined;
     cellPadding?: number | undefined;
@@ -26,14 +20,14 @@ export interface BoxProps {
     children?: ReactNode | undefined;
     height?: string | undefined;
     style?: CSSProperties | undefined;
-    valign?: 'top' | 'middle' | 'bottom' | undefined;
+    valign?: "top" | "middle" | "bottom" | undefined;
     width?: string | undefined;
 }
 
 export const Box: FunctionComponent<BoxProps>;
 
 export interface EmailProps {
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
     bgcolor?: string | undefined;
     bodyStyle?: CSSProperties | undefined;
     cellPadding?: number | undefined;
@@ -43,7 +37,7 @@ export interface EmailProps {
     lang?: string | undefined;
     style?: CSSProperties | undefined;
     title: string;
-    valign?: 'top' | 'middle' | 'bottom' | undefined;
+    valign?: "top" | "middle" | "bottom" | undefined;
     width?: string | undefined;
 }
 
@@ -60,12 +54,12 @@ export interface ImageProps {
 export const Image: FunctionComponent<ImageProps>;
 
 export interface ItemProps {
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
     bgcolor?: string | undefined;
     children?: ReactNode | undefined;
     className?: string | undefined;
     style?: CSSProperties | undefined;
-    valign?: 'top' | 'middle' | 'bottom' | undefined;
+    valign?: "top" | "middle" | "bottom" | undefined;
 }
 
 export const Item: FunctionComponent<ItemProps>;
@@ -83,6 +77,7 @@ export interface SpanProps {
 export const Span: FunctionComponent<SpanProps>;
 
 export function configStyleValidator(config: {
+    platforms?: string[] | undefined;
     strict?: boolean | undefined;
     warn?: boolean | undefined;
 }): void;

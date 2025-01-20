@@ -1,7 +1,7 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { Bulk, BulkOptions } from './bulk';
-import { Batch, BatchInfo } from './batch';
+import { Batch, BatchInfo } from "./batch";
+import { Bulk, BulkOptions } from "./bulk";
 
 export interface JobInfo {
     id: string;

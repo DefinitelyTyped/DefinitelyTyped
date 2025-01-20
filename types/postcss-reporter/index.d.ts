@@ -1,10 +1,4 @@
-// Type definitions for postcss-reporter 7.0
-// Project: https://github.com/postcss/postcss-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
-import { PluginCreator, Message } from 'postcss';
+import { Message, PluginCreator } from "postcss";
 
 declare namespace postcssReporter {
     /**
@@ -71,7 +65,7 @@ declare namespace postcssReporter {
          * To put them at the end, instead, use "last". To not bother sorting these, use "any".
          * @default 'first'
          */
-        positionless?: 'first' | 'last' | 'any' | undefined;
+        positionless?: "first" | "last" | "any" | undefined;
     }
 
     type PostCSSReporter = PluginCreator<Options>;

@@ -5,21 +5,27 @@ on:
     paths:
       - .github/workflows/support-window.yml
       - package.json
-      - scripts/support-window.ts
-      - scripts/tsconfig.json
+      - scripts/support-window.js
+      - scripts/jsconfig.json
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
+  schedule:
+    # Weekly at 16:00 UTC on Monday
+    - cron: '0 16 * * 1'
+permissions:
+  contents: read
+
 jobs:
-  build:
+  support-window:
+    permissions:
+      contents: write # for Git to git push
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        #with:
-        #  cache: npm
-      - run: npm install
-      - run: tsc --build scripts
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ./.github/actions/setup-for-scripts
+
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
@@ -33,10 +39,13 @@ jobs:
               | unique_by(.key)
               | from_entries
             ' > docs/support-window.json
+
       - name: Make SVG diagram
         run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
-      - run: git add docs/support-window.json docs/support-window.svg
-      - run: git config user.name .github/workflows/support-window.yml
-      - run: git config user.email bot@typescriptlang.org
-      - run: git diff --quiet --cached || git commit --message "[README] 🤖 Update support window diagram"
-      - run: git push
+
+      - uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5.1.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update support window'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

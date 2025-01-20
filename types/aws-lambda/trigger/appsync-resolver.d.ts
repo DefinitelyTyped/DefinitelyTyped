@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
     AppSyncResolverEvent<TArguments, TSource>,
@@ -11,13 +11,26 @@ export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<st
     TResult[]
 >;
 
-// See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
-export type AppSyncAuthorizerHander<TResolverContext = undefined> = Handler<
+/**
+ * @deprecated Use {@link AppSyncAuthorizerHandler}
+ */
+export type AppSyncAuthorizerHander<TResolverContext = undefined> = AppSyncAuthorizerHandler<TResolverContext>;
+
+/**
+ * See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
+ *
+ * @param TResolverContext type of the resolverContext object that you can return from the handler
+ */
+export type AppSyncAuthorizerHandler<TResolverContext = undefined> = Handler<
     AppSyncAuthorizerEvent,
     AppSyncAuthorizerResult<TResolverContext>
 >;
 
 export interface AppSyncResolverEventHeaders {
+    [name: string]: string | undefined;
+}
+
+export interface AppSyncAuthorizerEventHeaders {
     [name: string]: string | undefined;
 }
 
@@ -35,12 +48,16 @@ export type AppSyncIdentity =
  * @param TArguments type of the arguments
  * @param TSource type of the source
  */
+// Maintainer's note: Some of these properties are shared with the Amplify resolver.
+// It may be worth checking if changes here may be applicable there too.
 export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
     arguments: TArguments;
     identity?: AppSyncIdentity;
     source: TSource;
     request: {
         headers: AppSyncResolverEventHeaders;
+        /** The API's custom domain if used for the request. */
+        domainName: string | null;
     };
     info: {
         selectionSetList: string[];
@@ -60,8 +77,10 @@ export interface AppSyncAuthorizerEvent {
         accountId: string;
         requestId: string;
         queryString: string;
+        operationName?: string;
         variables: { [key: string]: any };
     };
+    requestHeaders: AppSyncAuthorizerEventHeaders;
 }
 
 export interface AppSyncAuthorizerResult<TResolverContext = undefined> {

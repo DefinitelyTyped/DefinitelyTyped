@@ -1,41 +1,61 @@
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStandardMaterial';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { MeshStandardMaterial, MeshStandardMaterialParameters } from "./MeshStandardMaterial.js";
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
-    clearcoat?: number | undefined;
+    anisotropyRotation?: number | undefined;
+    anisotropyMap?: Texture | null | undefined;
+
     clearcoatMap?: Texture | null | undefined;
     clearcoatRoughness?: number | undefined;
     clearcoatRoughnessMap?: Texture | null | undefined;
     clearcoatNormalScale?: Vector2 | undefined;
     clearcoatNormalMap?: Texture | null | undefined;
 
-    reflectivity?: number | undefined;
     ior?: number | undefined;
 
-    sheen?: number | undefined;
-    sheenTint?: Color | undefined;
-    sheenRoughness?: number | undefined;
+    reflectivity?: number | undefined;
 
-    transmission?: number | undefined;
+    iridescenceMap?: Texture | null | undefined;
+    iridescenceIOR?: number | undefined;
+    iridescenceThicknessRange?: [number, number] | undefined;
+    iridescenceThicknessMap?: Texture | null | undefined;
+
+    sheenColor?: ColorRepresentation | undefined;
+    sheenColorMap?: Texture | null | undefined;
+    sheenRoughness?: number | undefined;
+    sheenRoughnessMap?: Texture | null | undefined;
+
     transmissionMap?: Texture | null | undefined;
+
+    thickness?: number | undefined;
+    thicknessMap?: Texture | null | undefined;
     attenuationDistance?: number | undefined;
-    attenuationTint?: Color | undefined;
+    attenuationColor?: ColorRepresentation | undefined;
 
     specularIntensity?: number | undefined;
-    specularTint?: Color | undefined;
     specularIntensityMap?: Texture | null | undefined;
-    specularTintMap?: Texture | null | undefined;
+    specularColor?: ColorRepresentation | undefined;
+    specularColorMap?: Texture | null | undefined;
+
+    anisotropy?: number | undefined;
+    clearcoat?: number | undefined;
+    iridescence?: number | undefined;
+    dispersion?: number | undefined;
+    sheen?: number | undefined;
+    transmission?: number | undefined;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
     constructor(parameters?: MeshPhysicalMaterialParameters);
 
     /**
-     * @default 'MeshPhysicalMaterial'
+     * Read-only flag to check if a given object is of type {@link MeshPhysicalMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
      */
-    type: string;
+    readonly isMeshPhysicalMaterial: true;
 
     /**
      * @default { 'STANDARD': '', 'PHYSICAL': '' }
@@ -45,7 +65,12 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default 0
      */
-    clearcoat: number;
+    anisotropyRotation?: number;
+
+    /**
+     * @default null
+     */
+    anisotropyMap?: Texture | null;
 
     /**
      * @default null
@@ -73,24 +98,45 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     clearcoatNormalMap: Texture | null;
 
     /**
-     * @default 0.5
-     */
-    reflectivity: number;
-
-    /**
      * @default 1.5
      */
     ior: number;
 
     /**
-     * @default 0.0
+     * @default 0.5
      */
-    sheen: number;
+    get reflectivity(): number;
+    set reflectivity(reflectivity: number);
+
+    /**
+     * @default null
+     */
+    iridescenceMap: Texture | null;
+
+    /**
+     * @default 1.3
+     */
+    iridescenceIOR: number;
+
+    /**
+     * @default [100, 400]
+     */
+    iridescenceThicknessRange: [number, number];
+
+    /**
+     * @default null
+     */
+    iridescenceThicknessMap: Texture | null;
 
     /**
      * @default Color( 0x000000 )
      */
-    sheenTint: Color;
+    sheenColor: Color;
+
+    /**
+     * @default null
+     */
+    sheenColorMap: Texture | null;
 
     /**
      * @default 1.0
@@ -98,9 +144,9 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     sheenRoughness: number;
 
     /**
-     * @default 0
+     * @default null
      */
-    transmission: number;
+    sheenRoughnessMap: Texture | null;
 
     /**
      * @default null
@@ -125,7 +171,7 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default Color( 1, 1, 1 )
      */
-    attenuationTint: Color;
+    attenuationColor: Color;
 
     /**
      * @default 1.0
@@ -133,17 +179,53 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     specularIntensity: number;
 
     /**
-     * @default Color(1, 1, 1)
-     */
-    specularTint: Color;
-
-    /**
      * @default null
      */
     specularIntensityMap: Texture | null;
 
     /**
+     * @default Color(1, 1, 1)
+     */
+    specularColor: Color;
+
+    /**
      * @default null
      */
-    specularTintMap: Texture | null;
+    specularColorMap: Texture | null;
+
+    /**
+     * @default 0
+     */
+    get anisotropy(): number;
+    set anisotropy(value: number);
+
+    /**
+     * @default 0
+     */
+    get clearcoat(): number;
+    set clearcoat(value: number);
+
+    /**
+     * @default 0
+     */
+    get iridescence(): number;
+    set iridescence(value: number);
+
+    /**
+     * @default 0
+     */
+    get dispersion(): number;
+    set dispersion(value: number);
+
+    /**
+     * @default 0.0
+     */
+    get sheen(): number;
+    set sheen(value: number);
+
+    /**
+     * @default 0
+     */
+    get transmission(): number;
+    set transmission(value: number);
 }

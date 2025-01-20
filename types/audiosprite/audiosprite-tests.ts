@@ -1,7 +1,7 @@
-import * as audiosprite from 'audiosprite';
+import * as audiosprite from "audiosprite";
 
-const files = ['file1.mp3', 'file2.mp3'];
-const opts = {output: 'result'};
+const files = ["file1.mp3", "file2.mp3"];
+const opts = { output: "result" };
 
 audiosprite(files, opts, (err, obj) => {
     if (err) {
@@ -17,10 +17,10 @@ audiosprite(files, {
     export: "ogg,mp3",
     minlength: 9999,
     vbr: 9,
-    'vbr:vorbis': 10,
+    "vbr:vorbis": 10,
     logger: {
         debug(a) {
-        }
-    }
+        },
+    },
 }, (err, obj) => {
 });

@@ -1,5 +1,5 @@
-import { Callback } from './connection';
-import { Record } from './record';
+import { Callback } from "./connection";
+import { Record } from "./record";
 
 export class QuickAction {
     /**
@@ -21,7 +21,11 @@ export class QuickAction {
      * @param record Input record information for the action
      * @param callback Callback function
      */
-    execute<T>(contextId: string, record: Record<T>, callback?: Callback<QuickActionResult>): Promise<QuickActionResult>;
+    execute<T>(
+        contextId: string,
+        record: Record<T>,
+        callback?: Callback<QuickActionResult>,
+    ): Promise<QuickActionResult>;
 }
 
 // TODO: figure out the actual shape of this. the docs don't have it

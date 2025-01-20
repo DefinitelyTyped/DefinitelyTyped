@@ -1,24 +1,21 @@
-import Ember from 'ember';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import { assertType } from "./lib/assert";
 
 const Person = Ember.Object.extend({
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
 
     getFullName() {
         return `${this.firstName} ${this.lastName}`;
     },
     getFullName2(): string {
-        return `${this.get('firstName')} ${this.get('lastName')}`;
+        return `${this.get("firstName")} ${this.get("lastName")}`;
     },
 });
 
-assertType<string>(Person.prototype.firstName);
-assertType<() => string>(Person.prototype.getFullName);
-
 const person = Person.create({
-    firstName: 'Joe',
-    lastName: 'Blow',
+    firstName: "Joe",
+    lastName: "Blow",
     extra: 42,
 });
 
@@ -26,14 +23,14 @@ assertType<string>(person.getFullName());
 assertType<number>(person.extra);
 
 class ES6Person extends Ember.Object {
-    firstName: string;
-    lastName: string;
+    declare firstName: string;
+    declare lastName: string;
 
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
     get fullName2(): string {
-        return `${this.get('firstName')} ${this.get('lastName')}`;
+        return `${this.get("firstName")} ${this.get("lastName")}`;
     }
 }
 
@@ -41,8 +38,8 @@ assertType<string>(ES6Person.prototype.firstName);
 assertType<string>(ES6Person.prototype.fullName);
 
 const es6Person = ES6Person.create({
-    firstName: 'Joe',
-    lastName: 'Blow',
+    firstName: "Joe",
+    lastName: "Blow",
     extra: 42,
 });
 

@@ -1,19 +1,14 @@
-// Type definitions for scss-parser 1.0
-// Project: https://github.com/salesforce-ux/scss-parser
-// Definitions by: Wessel van der Linden <https://github.com/wesselvanderlinden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface InputStreamPosition {
-  cursor: number;
-  line: number;
-  column: number;
+    cursor: number;
+    line: number;
+    column: number;
 }
 
 export interface Node {
-  type: string;
-  value: string | Node[];
-  start?: InputStreamPosition | undefined;
-  end?: InputStreamPosition | undefined;
+    type: string;
+    value: string | Node[];
+    start?: InputStreamPosition | undefined;
+    end?: InputStreamPosition | undefined;
 }
 
 export function parse(css: string): Node;

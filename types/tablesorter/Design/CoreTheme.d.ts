@@ -5,54 +5,44 @@ export type CoreTheme =
     /**
      * Indicates the `Default`-theme.
      */
-    "default" |
-
+    | "default"
     /**
      * Indicates the `Bootstrap`-theme.
      */
-    "bootstrap" |
-
+    | "bootstrap"
     /**
      * Indicates the `Dropbox`-theme.
      */
-    "dropbox" |
-
+    | "dropbox"
     /**
      * Indicates the `jQuery UI`-theme.
      */
-    "jui" |
-
+    | "jui"
     /**
      * Indicates the `Metro Dark`-theme.
      */
-    "metro-dark" |
-
+    | "metro-dark"
     /**
      * Indicates the `Blackice`-theme.
      */
-    "blackice" |
-
+    | "blackice"
     /**
      * Indicates the `Blue`-theme.
      */
-    "blue" |
-
+    | "blue"
     /**
      * Indicates the `Dark`-theme.
      */
-    "dark" |
-
+    | "dark"
     /**
      * Indicates the `Green`-theme.
      */
-    "green" |
-
+    | "green"
     /**
      * Indicates the `Grey`-theme.
      */
-    "grey" |
-
+    | "grey"
     /**
      * Indicates the `Ice`-theme.
      */
-    "ice";
+    | "ice";

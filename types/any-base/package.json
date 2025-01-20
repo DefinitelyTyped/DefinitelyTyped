@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/any-base",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/HarasimowiczKamil/any-base#readme"
+    ],
+    "devDependencies": {
+        "@types/any-base": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yutak23",
+            "githubUsername": "yutak23"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package qlik-visualizationextensions 4.0
-// Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/Extensions/Content/extensions-introduction.htm
-// Definitions by: Konrad Mattheis <https://github.com/konne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare namespace BackendAPI {
@@ -2233,8 +2227,19 @@ declare namespace VariableAPI {
 }
 
 declare namespace VisualizationAPI {
-    type VisualizationType = "barchart" | "combochart" | "gauge" | "kpi" | "linechart" | "piechart" | "pivot-table" |
-        "scatterplot" | "table" | "treemap" | "extension" | "listbox";
+    type VisualizationType =
+        | "barchart"
+        | "combochart"
+        | "gauge"
+        | "kpi"
+        | "linechart"
+        | "piechart"
+        | "pivot-table"
+        | "scatterplot"
+        | "table"
+        | "treemap"
+        | "extension"
+        | "listbox";
 
     interface IVisualization {
         /**
@@ -2361,13 +2366,13 @@ declare namespace ExtensionAPI {
         // [""]:
     }
 
-    //#region IDefinition
+    // #region IDefinition
     type ExpressionType = "always" | "optional" | "";
 
     type func<T> = () => T;
     type valueOrfunc<T> = T | func<T>;
 
-    //#region Controls
+    // #region Controls
     interface ICustomControlOption {
         value: string;
         label: string;
@@ -2484,7 +2489,7 @@ declare namespace ExtensionAPI {
         defaultValue: string;
         show: valueOrfunc<boolean>;
     }
-    //#endregion
+    // #endregion
 
     interface IDefinition {
         type: "items";
@@ -2535,7 +2540,7 @@ declare namespace ExtensionAPI {
         max?: number | undefined;
     }
 
-    //#endregion
+    // #endregion
 }
 
 declare module "qlik" {

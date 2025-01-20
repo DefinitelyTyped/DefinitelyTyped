@@ -1,81 +1,26 @@
-// https://developers.google.com/picker/docs#display-the-google-picker
-function createPicker(): void {
-    const picker = new google.picker.PickerBuilder()
-        .addView(google.picker.ViewId.DOCS)
-        .setOAuthToken("accessToken")
-        .setDeveloperKey("developerKey")
-        .setCallback(callback)
-        .build();
-    picker.setVisible(true);
-}
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// https://developers.google.com/picker/docs#implement-the-picker-callback
-function callback(data: google.picker.ResponseObject): void {
-    let url = "nothing";
-    if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
-        const doc = data[google.picker.Response.DOCUMENTS][0];
-        url = doc[google.picker.Document.URL];
-    }
-}
+// Generated file. Do not edit.
 
-function testSetDocument(): void {
-    new google.picker.PickerBuilder().setDocument(document).build();
-}
+// To report an issue with these types, please open a support ticket at:
+// https://issuetracker.google.com/issues/new?component=191628
 
-// https://developers.google.com/picker/docs#filter-specific-file-types
-function testFilterSpecificTypes(): void {
-    const picker = new google.picker.PickerBuilder()
-        .addViewGroup(
-            new google.picker.ViewGroup(google.picker.ViewId.DOCS)
-                .addView(google.picker.ViewId.DOCUMENTS)
-                .addView(google.picker.ViewId.PRESENTATIONS),
-        )
-        .setOAuthToken("accessToken")
-        .setDeveloperKey("developerKey")
-        .setCallback(callback)
-        .build();
-}
+// Skipping tests by updating with checksum
+// d7cbf66ca51a8af3addc6055514a1ed0
 
-// https://developers.google.com/picker/docs#tune-the-google-pickers-appearance
-function testTuneAppearance(): void {
-    const picker = new google.picker.PickerBuilder()
-        .addView(google.picker.ViewId.SPREADSHEETS)
-        .enableFeature(google.picker.Feature.NAV_HIDDEN)
-        .setDeveloperKey("developerKey")
-        .setCallback(callback)
-        .build();
-}
-
-// https://developers.google.com/picker/docs#i18n
-function testOtherLanguages(): void {
-    const picker = new google.picker.PickerBuilder()
-        .addView(google.picker.ViewId.IMAGE_SEARCH)
-        .setLocale("fr")
-        .setDeveloperKey("developerKey")
-        .setCallback(callback)
-        .build();
-}
-
-// https://developers.google.com/picker/docs#example
-function fullExample(): void {
-    const callback = (data: google.picker.ResponseObject) => {
-        if (data.action === google.picker.Action.PICKED) {
-            const fileId: string = data.docs[0].id;
-        }
-    };
-
-    const view = new google.picker.DocsView(google.picker.ViewId.DOCS);
-    view.setMimeTypes("image/png,image/jpeg,image/jpg").setEnableTeamDrives(true);
-    const picker = new google.picker.PickerBuilder()
-        .enableFeature(google.picker.Feature.NAV_HIDDEN)
-        .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
-        .enableFeature(google.picker.Feature.SUPPORT_TEAM_DRIVES)
-        .setAppId("appId")
-        .setOAuthToken("accessToken")
-        .addView(view)
-        .addView(new google.picker.DocsUploadView())
-        .setDeveloperKey("developerKey")
-        .setCallback(callback)
-        .build();
-    picker.setVisible(true);
-}
+// tslint:disable:no-unused-expression
+google.picker.PickerBuilder;

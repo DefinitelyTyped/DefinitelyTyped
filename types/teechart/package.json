@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/teechart",
+    "version": "1.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "teechart",
+    "projects": [
+        "http://www.steema.com"
+    ],
+    "devDependencies": {
+        "@types/teechart": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steema Software",
+            "url": "https://steema.com/"
+        }
+    ]
+}

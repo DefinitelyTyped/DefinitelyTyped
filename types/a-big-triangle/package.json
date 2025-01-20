@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/a-big-triangle",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/a-big-triangle"
+    ],
+    "devDependencies": {
+        "@types/a-big-triangle": "workspace:."
+    },
+    "owners": []
+}

@@ -8,7 +8,7 @@ class TestPure extends React.PureComponent {
         super(props);
     }
     render() {
-        return (<div />);
+        return <div />;
     }
 }
 
@@ -21,7 +21,10 @@ const svgInlines = [
     <SVGInline svg={"<svg><g></g></svg>"} component={TestPure} />,
     <SVGInline svg={"<svg><g></g></svg>"} fill={"#663399"} />,
     <SVGInline svg={"<svg><g></g></svg>"} cleanup />,
-    <SVGInline svg={"<svg><g></g></svg>"} cleanup={["desc", "sketchMSPage", "sketchMSShapeGroup", "sketchMSLayerGroup"]} />,
+    <SVGInline
+        svg={"<svg><g></g></svg>"}
+        cleanup={["desc", "sketchMSPage", "sketchMSShapeGroup", "sketchMSLayerGroup"]}
+    />,
     <SVGInline svg={"<svg><g></g></svg>"} cleanupExceptions={["title"]} />,
     <SVGInline svg={"<svg><g></g></svg>"} width={"16"} />,
     <SVGInline svg={"<svg><g></g></svg>"} height={"32px"} />,

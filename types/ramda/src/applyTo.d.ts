@@ -1,2 +1,2 @@
-import { applyTo } from '../index';
+import { applyTo } from "../index";
 export default applyTo;

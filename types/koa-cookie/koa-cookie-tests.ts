@@ -1,5 +1,5 @@
-import Koa = require('koa');
-import cookie = require('koa-cookie');
+import Koa = require("koa");
+import cookie = require("koa-cookie");
 
 const app = new Koa();
 

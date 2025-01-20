@@ -1,8 +1,4 @@
-// Type definitions for @hapipal/toys 3.0
-// Project: https://github.com/hapipal/toys#readme
-// Definitions by: Tim Costa <https://github.com/timcosta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+import { Boom } from "@hapi/boom";
 import {
     Lifecycle,
     Plugin,
@@ -18,11 +14,10 @@ import {
     ServerExtOptions,
     ServerRealm,
     ServerRoute,
-} from '@hapi/hapi';
-import { Boom } from '@hapi/boom';
-import { EventEmitter } from 'events';
-import { Stream, FinishedOptions } from 'stream';
-import { AsyncLocalStorage } from 'async_hooks';
+} from "@hapi/hapi";
+import { AsyncLocalStorage } from "async_hooks";
+import { EventEmitter } from "events";
+import { FinishedOptions, Stream } from "stream";
 
 export function ext(method: Lifecycle.Method, options?: ServerExtOptions): RouteExtObject;
 export function onRequest(method: Lifecycle.Method, options?: ServerExtOptions): ServerExtEventsObject;
@@ -34,13 +29,15 @@ export function onPostHandler(method: Lifecycle.Method, options?: ServerExtOptio
 export function onPreResponse(method: Lifecycle.Method, options?: ServerExtOptions): ServerExtEventsObject;
 export function onPostResponse(method: Lifecycle.Method, options?: ServerExtOptions): ServerExtEventsObject;
 
-export type AssignRouteDefaults = (routes: Partial<ServerRoute> | Array<Partial<ServerRoute>>) => ServerRoute | ServerRoute[];
+export type AssignRouteDefaults = (
+    routes: Partial<ServerRoute> | Array<Partial<ServerRoute>>,
+) => ServerRoute | ServerRoute[];
 export function withRouteDefaults(defaults: Partial<ServerRoute>): AssignRouteDefaults;
 
 export interface ToysPreShorthand {
     [assignKey: string]: Lifecycle.Method;
 }
-export type ToysPreArg = (ToysPreShorthand | Lifecycle.Method);
+export type ToysPreArg = ToysPreShorthand | Lifecycle.Method;
 export function pre(options: ToysPreArg | ToysPreArg[]): RouteOptionsPreArray;
 
 export interface ReacherOptions {
@@ -61,7 +58,12 @@ export function transformer(transform: Transformer, options?: ReacherOptions): P
 
 export const noop: Plugin<any>;
 
-export function header(response: ResponseObject | Boom, name: string, value: string, options?: ResponseObjectHeaderOptions): void;
+export function header(
+    response: ResponseObject | Boom,
+    name: string,
+    value: string,
+    options?: ResponseObjectHeaderOptions,
+): void;
 export function getHeaders(response: ResponseObject | Boom): { [header: string]: string };
 
 export function code(response: ResponseObject | Boom, code: number): void;
@@ -84,7 +86,7 @@ export interface StreamOptions {
 }
 export function stream(stream: Stream, options?: StreamOptions & FinishedOptions): Promise<void>;
 
-export type TypesWithRealmsAndOptions = (Server | Request | ResponseToolkit | ServerRealm | ServerRoute);
+export type TypesWithRealmsAndOptions = Server | Request | ResponseToolkit | ServerRealm | ServerRoute;
 export function options(obj: TypesWithRealmsAndOptions): object;
 export function realm(obj: TypesWithRealmsAndOptions): object;
 

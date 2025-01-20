@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace PaginationFirst {
     export interface PaginationFirstProps extends React.HTMLProps<PaginationFirst> {
         disabled?: boolean | undefined;
     }
 }
-declare class PaginationFirst extends React.Component<PaginationFirst.PaginationFirstProps> { }
+declare class PaginationFirst extends React.Component<PaginationFirst.PaginationFirstProps> {}
 export = PaginationFirst;

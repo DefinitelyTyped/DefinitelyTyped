@@ -1,4 +1,4 @@
-import { Disposable, Package } from '../index';
+import { Disposable, Package } from "../index";
 
 /** Package manager for coordinating the lifecycle of Atom packages. */
 export interface PackageManager {

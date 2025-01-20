@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/eslint-config-prettier",
+    "version": "6.11.9999",
+    "projects": [
+        "https://github.com/prettier/eslint-config-prettier#readme"
+    ],
+    "devDependencies": {
+        "@types/eslint-config-prettier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}

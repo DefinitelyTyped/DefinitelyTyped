@@ -1,67 +1,25 @@
-// Type definitions for non-npm package Unist 2.0
-// Project: https://github.com/syntax-tree/unist
-// Definitions by: bizen241 <https://github.com/bizen241>
-//                 Jun Lu <https://github.com/lujun2>
-//                 Hernan Rajchert <https://github.com/hrajchert>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Ben Moon <https://github.com/GuiltyDolphin>
-//                 JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// ## Interfaces
 
 /**
- * Syntactic units in unist syntax trees are called nodes.
+ * Info associated with nodes by the ecosystem.
  *
- * @typeParam TData Information from the ecosystem. Useful for more specific {@link Node.data}.
- */
-export interface Node<TData extends object = Data> {
-    /**
-     * The variant of a node.
-     */
-    type: string;
-
-    /**
-     * Information from the ecosystem.
-     */
-    data?: TData | undefined;
-
-    /**
-     * Location of a node in a source document.
-     * Must not be present if a node is generated.
-     */
-    position?: Position | undefined;
-}
-
-/**
- * Information associated by the ecosystem with the node.
- * Space is guaranteed to never be specified by unist or specifications
+ * This space is guaranteed to never be specified by unist or specifications
  * implementing unist.
+ * But you can use it in utilities and plugins to store data.
+ *
+ * This type can be augmented to register custom data.
+ * For example:
+ *
+ * ```ts
+ * declare module 'unist' {
+ *   interface Data {
+ *     // `someNode.data.myId` is typed as `number | undefined`
+ *     myId?: number | undefined
+ *   }
+ * }
+ * ```
  */
-export interface Data {
-    [key: string]: unknown;
-}
-
-/**
- * Location of a node in a source file.
- */
-export interface Position {
-    /**
-     * Place of the first character of the parsed source region.
-     */
-    start: Point;
-
-    /**
-     * Place of the first character after the parsed source region.
-     */
-    end: Point;
-
-    /**
-     * Start column at each index (plus start line) in the source region,
-     * for elements that span multiple lines.
-     */
-    indent?: number[] | undefined;
-}
+export interface Data {}
 
 /**
  * One place in a source file.
@@ -83,32 +41,79 @@ export interface Point {
 }
 
 /**
- * Util for extracting type of {@link Node.data}
+ * Position of a node in a source document.
  *
- * @typeParam TNode Specific node type such as {@link Node} with {@link Data}, {@link Literal}, etc.
- *
- * @example `NodeData<Node<{ key: string }>>` -> `{ key: string }`
+ * A position is a range between two points.
  */
-export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TData> ? TData : never;
+export interface Position {
+    /**
+     * Place of the first character of the parsed source region.
+     */
+    start: Point;
+
+    /**
+     * Place of the first character after the parsed source region.
+     */
+    end: Point;
+}
+
+// ## Abstract nodes
 
 /**
- * Nodes containing other nodes.
+ * Abstract unist node that contains the smallest possible value.
  *
- * @typeParam ChildNode Node item of {@link Parent.children}
+ * This interface is supposed to be extended.
+ *
+ * For example, in HTML, a `text` node is a leaf that contains text.
  */
-export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
-    extends Node<TData> {
+export interface Literal extends Node {
     /**
-     * List representing the children of a node.
+     * Plain value.
      */
-    children: ChildNode[];
+    value: unknown;
 }
 
 /**
- * Nodes containing a value.
+ * Abstract unist node.
  *
- * @typeParam Value Specific value type of {@link Literal.value} such as `string` for `Text` node
+ * The syntactic unit in unist syntax trees are called nodes.
+ *
+ * This interface is supposed to be extended.
+ * If you can use {@link Literal} or {@link Parent}, you should.
+ * But for example in markdown, a `thematicBreak` (`***`), is neither literal
+ * nor parent, but still a node.
  */
-export interface Literal<Value = unknown, TData extends object = Data> extends Node<TData> {
-    value: Value;
+export interface Node {
+    /**
+     * Node type.
+     */
+    type: string;
+
+    /**
+     * Info from the ecosystem.
+     */
+    data?: Data | undefined;
+
+    /**
+     * Position of a node in a source document.
+     *
+     * Nodes that are generated (not in the original source document) must not
+     * have a position.
+     */
+    position?: Position | undefined;
+}
+
+/**
+ * Abstract unist node that contains other nodes (*children*).
+ *
+ * This interface is supposed to be extended.
+ *
+ * For example, in XML, an element is a parent of different things, such as
+ * comments, text, and further elements.
+ */
+export interface Parent extends Node {
+    /**
+     * List of children.
+     */
+    children: Node[];
 }

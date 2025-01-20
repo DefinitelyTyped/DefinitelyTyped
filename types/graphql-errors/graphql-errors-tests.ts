@@ -1,10 +1,5 @@
-import { GraphQLSchema, buildSchema } from 'graphql';
-import {
-    UserError,
-    maskErrors,
-    HandlerFunction,
-    setDefaultHandler
-} from 'graphql-errors';
+import { buildSchema, GraphQLSchema } from "graphql";
+import { HandlerFunction, maskErrors, setDefaultHandler, UserError } from "graphql-errors";
 
 // $ExpectType GraphQLSchema
 const schema: GraphQLSchema = buildSchema(`
@@ -12,7 +7,7 @@ const schema: GraphQLSchema = buildSchema(`
 `);
 
 const customHandler: HandlerFunction = err => {
-    return { ...err, message: 'Internal error' };
+    return { ...err, message: "Internal error" };
 };
 
 /**
@@ -25,8 +20,8 @@ maskErrors(schema);
 // $ExpectType void
 maskErrors(schema, customHandler);
 
-// $ExpectError
-maskErrors('schema');
+// @ts-expect-error
+maskErrors("schema");
 
 /**
  * Set callback function that modifies the errors
@@ -35,10 +30,10 @@ maskErrors('schema');
 // $ExpectType void
 setDefaultHandler(customHandler);
 
-// $ExpectError
+// @ts-expect-error
 setDefaultHandler();
 
-// $ExpectError
+// @ts-expect-error
 setDefaultHandler(err => {});
 
 /**

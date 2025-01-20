@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.simplepagination",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.simplepagination",
+    "projects": [
+        "https://github.com/flaviusmatis/simplePagination.js"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.simplepagination": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Natan Vivo",
+            "githubUsername": "nvivo"
+        }
+    ]
+}

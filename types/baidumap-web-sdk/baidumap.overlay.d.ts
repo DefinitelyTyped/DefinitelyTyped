@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -48,6 +43,7 @@ declare namespace BMap {
         enableMassClear?: boolean | undefined;
         enableEditing?: boolean | undefined;
         enableClicking?: boolean | undefined;
+        icons?: IconSequence[] | undefined;
     }
     interface GroundOverlayOptions {
         opacity?: number | undefined;
@@ -84,19 +80,19 @@ declare namespace BMap {
         getShadow(): void;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmousedown: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseup: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseout: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseover: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onremove: (event: { type: string, target: any }) => void;
-        oninfowindowclose: (event: { type: string, target: any }) => void;
-        oninfowindowopen: (event: { type: string, target: any }) => void;
-        ondragstart: (event: { type: string, target: any }) => void;
-        ondragging: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        ondragend: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onrightclick: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmousedown: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseup: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseout: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseover: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onremove: (event: { type: string; target: any }) => void;
+        oninfowindowclose: (event: { type: string; target: any }) => void;
+        oninfowindowopen: (event: { type: string; target: any }) => void;
+        ondragstart: (event: { type: string; target: any }) => void;
+        ondragging: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        ondragend: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onrightclick: (event: { type: string; target: any }) => void;
     }
     class Marker {
         constructor(point: Point, opts?: MarkerOptions);
@@ -112,15 +108,15 @@ declare namespace BMap {
         strokeWeight?: number | undefined;
     }
     class IconSequence {
-        constructor(symbol: symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
+        constructor(symbol: Symbol, offset?: string, repeat?: string, fixedRotation?: boolean);
     }
     interface PointCollection extends Overlay {
         setPoints(points: Point[]): void;
         setStyles(styles: PointCollectionOption): void;
         clear(): void;
-        onclick: (event: { type: string, target: any, point: Point }) => void;
-        onmouseover: (event: { type: string, target: any, point: Point }) => void;
-        onmouseout: (event: { type: string, target: any, point: Point }) => void;
+        onclick: (event: { type: string; target: any; point: Point }) => void;
+        onmouseover: (event: { type: string; target: any; point: Point }) => void;
+        onmouseout: (event: { type: string; target: any; point: Point }) => void;
     }
     class PointCollection {
         constructor(points: Point[], opts?: PointCollectionOption);
@@ -158,11 +154,11 @@ declare namespace BMap {
         disableCloseOnClick(): void;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclose: (event: { type: string, target: any, point: Point }) => void;
-        onopen: (event: { type: string, target: any, point: Point }) => void;
-        onmaximize: (event: { type: string, target: any }) => void;
-        onrestore: (event: { type: string, target: any }) => void;
-        onclickclose: (event: { type: string, target: any }) => void;
+        onclose: (event: { type: string; target: any; point: Point }) => void;
+        onopen: (event: { type: string; target: any; point: Point }) => void;
+        onmaximize: (event: { type: string; target: any }) => void;
+        onrestore: (event: { type: string; target: any }) => void;
+        onclickclose: (event: { type: string; target: any }) => void;
     }
     class InfoWindow {
         constructor(content: string | HTMLElement, opts?: InfoWindowOptions);
@@ -192,14 +188,14 @@ declare namespace BMap {
         getMap(): Map;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmousedown: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseup: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseout: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseover: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onremove: (event: { type: string, target: any }) => void;
-        onlineupdate: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmousedown: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseup: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseout: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseover: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onremove: (event: { type: string; target: any }) => void;
+        onlineupdate: (event: { type: string; target: any }) => void;
     }
     class Polygon {
         constructor(points: Point[], opts?: PolygonOptions);
@@ -253,7 +249,7 @@ declare namespace BMap {
         constructor(url: string, size: Size, opts?: IconOptions);
     }
     interface Label extends Overlay {
-        setStyle(styles: { [name: string]: string | number; }): void;
+        setStyle(styles: { [name: string]: string | number }): void;
         setContent(content: string): void;
         setPosition(position: Point): void;
         getPosition(): Point;
@@ -267,14 +263,14 @@ declare namespace BMap {
         getMap(): Map;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any }) => void;
-        onmousedown: (event: { type: string, target: any }) => void;
-        onmouseup: (event: { type: string, target: any }) => void;
-        onmouseout: (event: { type: string, target: any }) => void;
-        onmouseover: (event: { type: string, target: any }) => void;
-        onremove: (event: { type: string, target: any }) => void;
-        onrightclick: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any }) => void;
+        onmousedown: (event: { type: string; target: any }) => void;
+        onmouseup: (event: { type: string; target: any }) => void;
+        onmouseout: (event: { type: string; target: any }) => void;
+        onmouseover: (event: { type: string; target: any }) => void;
+        onremove: (event: { type: string; target: any }) => void;
+        onrightclick: (event: { type: string; target: any }) => void;
     }
     class Label {
         constructor(content: string, opts?: LabelOptions);
@@ -304,14 +300,14 @@ declare namespace BMap {
         getMap(): Map;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmousedown: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseup: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseout: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseover: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onremove: (event: { type: string, target: any }) => void;
-        onlineupdate: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmousedown: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseup: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseout: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseover: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onremove: (event: { type: string; target: any }) => void;
+        onlineupdate: (event: { type: string; target: any }) => void;
     }
     class Circle {
         constructor(center: Point, radius: number, opts?: CircleOptions);
@@ -389,14 +385,14 @@ declare namespace BMap {
         getMap(): Map;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmousedown: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseup: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseout: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onmouseover: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onremove: (event: { type: string, target: any }) => void;
-        onlineupdate: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmousedown: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseup: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseout: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onmouseover: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onremove: (event: { type: string; target: any }) => void;
+        onlineupdate: (event: { type: string; target: any }) => void;
     }
     class Polyline {
         constructor(points: Point[], opts?: PolylineOptions);
@@ -412,8 +408,8 @@ declare namespace BMap {
         getDisplayOnMinLevel(): number;
         setDispalyOnMaxLevel(level: number): void;
         getDispalyOnMaxLevel(): number;
-        onclick: (event: { type: string, target: any }) => void;
-        ondblclick: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        ondblclick: (event: { type: string; target: any }) => void;
     }
     class GroundOverlay {
         constructor(bounds: Bounds, opts?: GroundOverlayOptions);

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/semver-sort",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ragingwind/semver-sort"
+    ],
+    "devDependencies": {
+        "@types/semver-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        },
+        {
+            "name": "Dániel Tar",
+            "githubUsername": "qcz"
+        }
+    ]
+}

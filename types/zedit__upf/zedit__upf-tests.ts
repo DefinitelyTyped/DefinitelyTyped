@@ -1,4 +1,4 @@
-import { SortMode, GameMode } from 'xelib';
+import { GameMode, SortMode } from "xelib";
 
 // Check for UPF gloabls
 registerPatcher;
@@ -9,38 +9,49 @@ patcherUrl; // $ExpectType string
 xelib; // $ExpectType XELibModule
 
 // Check for xelib functions disallowed in modules
-xelib.Initialize(''); // $ExpectError
-xelib.Finalize(); // $ExpectError
-xelib.SetSortMode(SortMode.None); // $ExpectError
-xelib.ClearMessages(); // $ExpectError
-xelib.GetExceptionMessage(); // $ExpectError
-xelib.SetGamePath(''); // $ExpectError
-xelib.SetLanguage(''); // $ExpectError
-xelib.SetGameMode(GameMode.gmSSE); // $ExpectError
-xelib.GetLoadOrder(); // $ExpectError
-xelib.GetActivePlugins(); // $ExpectError
-xelib.LoadPlugins(); // $ExpectError
+// @ts-expect-error
+xelib.Initialize("");
+// @ts-expect-error
+xelib.Finalize();
+// @ts-expect-error
+xelib.SetSortMode(SortMode.None);
+// @ts-expect-error
+xelib.ClearMessages();
+// @ts-expect-error
+xelib.GetExceptionMessage();
+// @ts-expect-error
+xelib.SetGamePath("");
+// @ts-expect-error
+xelib.SetLanguage("");
+// @ts-expect-error
+xelib.SetGameMode(GameMode.gmSSE);
+// @ts-expect-error
+xelib.GetLoadOrder();
+// @ts-expect-error
+xelib.GetActivePlugins();
+// @ts-expect-error
+xelib.LoadPlugins();
 
 // Use all optional parameters
 registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         hide: true,
         templateUrl: patcherUrl,
         controller($scope) {
             $scope;
         },
         defaultSettings: {
-            patchFileName: 'zTest.esp',
+            patchFileName: "zTest.esp",
         },
     },
     requiredFiles() {
-        return ['foo.esp', 'bar.esp'];
+        return ["foo.esp", "bar.esp"];
     },
     getFilesToPatch(filenames) {
-        return filenames.filter(f => f !== 'baz.esp');
+        return filenames.filter(f => f !== "baz.esp");
     },
     execute(patchFile, helpers) {
         // Check types
@@ -56,7 +67,7 @@ registerPatcher({
             process: [
                 {
                     load: {
-                        signature: 'ARMA',
+                        signature: "ARMA",
                         overrides: true,
                         filter(record) {
                             record; // $ExpectType RecordHandle
@@ -89,7 +100,7 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {
             a: 1,
@@ -144,7 +155,7 @@ registerPatcher<{ a: number; b: string }>({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
@@ -164,7 +175,7 @@ registerPatcher<{ a: number; b: string }>({
                 locals; // $ExpectType { a: number; b: string; }
 
                 locals.a = 2;
-                locals.b = 'foo';
+                locals.b = "foo";
             },
             process: [
                 {
@@ -200,17 +211,17 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
-    requiredFiles: ['foo.esp'],
+    requiredFiles: ["foo.esp"],
     execute() {
         return {
             process: [
                 {
                     load: {
-                        signature: 'ARMA',
+                        signature: "ARMA",
                     },
                     patch() {},
                 },
@@ -224,7 +235,7 @@ registerPatcher({
     info,
     gameModes: [GameMode.gmSSE],
     settings: {
-        label: 'test',
+        label: "test",
         templateUrl: patcherUrl,
         defaultSettings: {},
     },
@@ -232,7 +243,7 @@ registerPatcher({
         process: [
             {
                 load: {
-                    signature: 'ARMA',
+                    signature: "ARMA",
                 },
                 patch() {},
             },

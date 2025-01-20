@@ -1,16 +1,14 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { CompressedTexture } from './../textures/CompressedTexture';
+import { CompressedTexture } from "../textures/CompressedTexture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
-export class CompressedTextureLoader extends Loader {
+export class CompressedTextureLoader extends Loader<CompressedTexture> {
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad: (texture: CompressedTexture) => void,
+        onLoad?: (data: CompressedTexture) => void,
         onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
+        onError?: (err: unknown) => void,
     ): CompressedTexture;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<CompressedTexture>;
 }

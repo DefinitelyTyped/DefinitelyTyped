@@ -1,3 +1,3 @@
-import prefix = require('global-prefix');
+import prefix = require("global-prefix");
 
 prefix; // $ExpectType string

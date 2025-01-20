@@ -3,7 +3,7 @@ import { Server } from "hapi";
 const server = new Server();
 
 server.route({
-    method: 'get',
+    method: "get",
     path: "/test",
     options: {
         ext: {
@@ -17,6 +17,6 @@ server.route({
                     return h.continue;
                 },
             }],
-        }
-    }
+        },
+    },
 });

@@ -1,6 +1,6 @@
-import JsReport = require('jsreport-core');
-import JsreportHtml2Xlsx = require('jsreport-html-to-xlsx');
-import JsreportXlsx = require('jsreport-xlsx');
+import JsReport = require("jsreport-core");
+import JsreportHtml2Xlsx = require("jsreport-html-to-xlsx");
+import JsreportXlsx = require("jsreport-xlsx");
 
 const jsreport = JsReport();
 jsreport.use(JsreportXlsx());
@@ -12,8 +12,8 @@ jsreport.use(JsreportHtml2Xlsx());
     const resp = await jsreport.render({
         template: {
             content,
-            engine: 'none',
-            recipe: 'xlsx'
-        }
+            engine: "none",
+            recipe: "xlsx",
+        },
     });
 })();

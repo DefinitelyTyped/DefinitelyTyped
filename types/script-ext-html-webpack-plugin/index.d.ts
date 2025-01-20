@@ -1,10 +1,4 @@
-// Type definitions for script-ext-html-webpack-plugin 2.1
-// Project: https://github.com/numical/script-ext-html-webpack-plugin
-// Definitions by: Dave Cardwell <https://github.com/davecardwell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Compiler, Plugin } from 'webpack';
+import { Compiler, Plugin } from "webpack";
 
 export = ScriptExtHtmlWebpackPlugin;
 
@@ -30,8 +24,8 @@ type ScriptMatchingPattern =
 type ScriptMatchingPatternPre =
     | ScriptMatchingPatternBase
     | ScriptMatchingPatternHash & {
-          chunks?: "initial" | "async" | "all" | undefined;
-      };
+        chunks?: "initial" | "async" | "all" | undefined;
+    };
 
 interface Custom {
     test: ScriptMatchingPattern;

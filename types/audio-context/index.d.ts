@@ -1,9 +1,3 @@
-// Type definitions for audio-context 1.0
-// Project: https://github.com/audiojs/audio-context
-// Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Options for your audio context:
  * @param sampleRate if specified, will set the context sampleRate.

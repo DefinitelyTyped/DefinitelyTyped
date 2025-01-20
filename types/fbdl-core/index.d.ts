@@ -1,8 +1,3 @@
-// Type definitions for fbdl-core 1.0
-// Project: https://github.com/Snowflake107/fbdl-core#readme
-// Definitions by: 1chiSensei <https://github.com/1chiSensei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

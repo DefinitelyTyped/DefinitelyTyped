@@ -1,68 +1,49 @@
 export = XMLStreamReader;
-declare function XMLStreamReader(doc: string): void;
+declare function XMLStreamReader(doc: string, options?: XMLStreamReaderOptions): void;
 declare class XMLStreamReader {
-    constructor(doc: string);
+    constructor(doc: string, options?: XMLStreamReaderOptions);
     close(): void;
-    raiseError(msg: string): void;
-    readElementText(behaviour?: any): string;
-    readNext(): any;
-    readNextStartElement(): boolean;
-    skipCurrentElement(): void;
-    addData(data: string): void;
-    atEnd: boolean;
-    errorString: string;
-    error: any;
-    hasError: boolean;
-    isCDATA: boolean;
-    isCharacters: boolean;
-    isComment: boolean;
-    isDTD: boolean;
-    isEndDocument: boolean;
-    isEndElement: boolean;
-    isEntityReference: boolean;
-    isProcessingInstruction: boolean;
-    processingInstructionData: string;
-    isStandaloneDocument: boolean;
-    isStartDocument: boolean;
-    isWhitespace: boolean;
-    lineNumber: number;
+    readNext(): TokenString;
+    readNextStartElement(): TokenString;
+    skipCurrentElement(): TokenString;
+    skipToNextStartElement(): TokenString;
+    tokenType: TokenString;
+    text: string;
+    error: string;
     name: string;
-    qualifiedName: string;
+    localName: string;
     namespaceUri: string;
-    dtdName: string;
-    dtdPublicId: string;
-    dtdSystemId: string;
-    documentVersion: string;
-    documentEncoding: string;
     prefix: string;
-    tokenType: any;
-    tokenString: string;
-    attributes: XmlStreamAttribute[];
-    namespaceDeclarations: XmlStreamNamespaceDeclaration[];
+    resolvedAttributes: ResolvedAttribute[];
+    attributes: any;
+    documentEncoding: string;
+    documentVersion: string;
+    standaloneDocument: boolean;
+    isDeclaration(): boolean;
+    isStartElement(): boolean;
+    isEndElement(): boolean;
+    isEmptyElement(): boolean;
+    isCharacters(): boolean;
+    isComment(): boolean;
+    isProcessingInstruction(): boolean;
+    isDTD(): boolean;
+    isCData(): boolean;
+    hasError(): boolean;
+    done: boolean;
 }
 declare namespace XMLStreamReader {
-    export {
-        parseFile,
-        TokenType,
-        ReadError,
-        ReadElementTextBehaviour,
-        XmlStreamAttribute,
-        XmlStreamNamespaceDeclaration,
-    };
+    export { parseFile, TokenString, XMLStreamReaderOptions, ResolvedAttribute };
 }
-interface XmlStreamAttribute {
-    isDefault: boolean;
+interface XMLStreamReaderOptions {
+    expandEmpty?: boolean;
+    trimText?: boolean;
+}
+type TokenString = import('./TokenType').TokenString;
+interface ResolvedAttribute {
     name: string;
-    namespaceUri: string;
+    localName: string;
     prefix: string;
-    qualifiedName: string;
+    namespaceUri: string;
     value: string;
 }
-interface XmlStreamNamespaceDeclaration {
-    namespaceUri: string;
-    prefix: string;
-}
-declare function parseFile(filePath: string): XMLStreamReader;
-import TokenType = require('./TokenType.js');
-import ReadError = require('./ReadError.js');
-import ReadElementTextBehaviour = require('./ReadElementTextBehaviour.js');
+declare function parseFile(filePath: string, options?: XMLStreamReaderOptions): XMLStreamReader;

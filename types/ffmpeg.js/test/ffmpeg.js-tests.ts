@@ -1,5 +1,5 @@
-import ffmpeg from 'ffmpeg.js/ffmpeg-mp4';
-import Worker from 'ffmpeg.js/ffmpeg-worker-webm';
+import ffmpeg from "ffmpeg.js/ffmpeg-mp4";
+import Worker from "ffmpeg.js/ffmpeg-worker-webm";
 import OnMessageOptions = Worker.OnMessageOptions;
 
 // test data
@@ -11,29 +11,33 @@ const testData = new Uint8Array(0);
 // test cases
 ffmpeg({
     arguments: ["-version"],
-    print: (data: string) => { stdout += data + "\n"; },
-    printErr: (data: string) => { stderr += data + "\n"; },
+    print: (data: string) => {
+        stdout += data + "\n";
+    },
+    printErr: (data: string) => {
+        stderr += data + "\n";
+    },
     onExit: () => {},
 });
 
 ffmpeg({
     MEMFS: [],
     TOTAL_MEMORY: 512 * 1024 * 1024,
-    arguments: ['-framerate'],
+    arguments: ["-framerate"],
     stdin: () => {},
     print: () => {},
     printErr: () => {},
-    onExit: (c: number) => (c)
+    onExit: (c: number) => c,
 });
 
 ffmpeg({
-    MEMFS: [{name: "test.webm", data: testData}],
+    MEMFS: [{ name: "test.webm", data: testData }],
     arguments: ["-i", "test.webm", "-c:v", "libvpx", "-an", "out.webm"],
     stdin: () => {},
 });
 
 ffmpeg({
-    mounts: [{type: "NODEFS", opts: {root: "."}, mountpoint: "/data"}],
+    mounts: [{ type: "NODEFS", opts: { root: "." }, mountpoint: "/data" }],
     arguments: ["-i", "/data/test.webm", "-c:v", "libvpx", "-an", "/data/out.webm"],
     stdin: () => {},
 });
@@ -42,7 +46,7 @@ worker.onmessage = (e: OnMessageOptions) => {
     const msg = e.data;
     switch (msg.type) {
         case "ready":
-            worker.postMessage({type: "run", arguments: ["-version"]});
+            worker.postMessage({ type: "run", arguments: ["-version"] });
             break;
         case "stdout":
             stdout += msg.data + "\n";

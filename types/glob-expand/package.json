@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/glob-expand",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/anodynos/node-glob-expand"
+    ],
+    "dependencies": {
+        "@types/glob": "~5.0.36"
+    },
+    "devDependencies": {
+        "@types/glob-expand": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

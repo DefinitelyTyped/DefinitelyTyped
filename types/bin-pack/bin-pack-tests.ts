@@ -4,5 +4,5 @@ import * as pack from "bin-pack";
 const packResult = pack([
     { width: 50, height: 50 },
     { width: 25, height: 25 },
-    { width: 25, height: 20 }
+    { width: 25, height: 20 },
 ]);

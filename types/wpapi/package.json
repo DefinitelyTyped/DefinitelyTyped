@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wpapi",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/wp-api/node-wpapi"
+    ],
+    "devDependencies": {
+        "@types/wpapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guo Yunhe",
+            "githubUsername": "guoyunhe"
+        }
+    ]
+}

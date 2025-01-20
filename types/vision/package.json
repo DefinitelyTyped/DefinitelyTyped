@@ -1,6 +1,29 @@
 {
     "private": true,
+    "name": "@types/vision",
+    "version": "5.3.9999",
+    "projects": [
+        "https://github.com/hapijs/vision"
+    ],
     "dependencies": {
+        "@types/hapi": "*",
         "handlebars": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/vision": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "Alexander James Phillips",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
 }

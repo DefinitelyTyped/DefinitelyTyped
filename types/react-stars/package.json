@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-stars",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/n49/react-stars"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-stars": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TingYuLC",
+            "githubUsername": "TingYuLC"
+        }
+    ]
+}

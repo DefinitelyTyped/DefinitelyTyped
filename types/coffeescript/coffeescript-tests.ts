@@ -9,18 +9,18 @@ const outputWithoutOptions = CoffeeScript.compile(coffeeScriptFn);
 const outputWithOptions = CoffeeScript.compile(coffeeScriptFn, {
     ast: false,
     bare: true,
-    filename: 'isUnique-polyfill.js',
+    filename: "isUnique-polyfill.js",
     header: true,
     inlineMap: true,
     sourceMap: false,
-    transpile: { presets: ["@babel/env"] }
+    transpile: { presets: ["@babel/env"] },
 });
 
 // $ExpectType CodeWithSourceMap
 const outputWithSourceMap = CoffeeScript.compile(coffeeScriptFn, { sourceMap: true });
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotZero = CoffeeScript.compile();
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotInvalidOptions = CoffeeScript.compile(coffeeScriptFn, { comments: true, indent: 2 });

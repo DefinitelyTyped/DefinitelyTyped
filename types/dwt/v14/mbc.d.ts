@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -9,16 +8,16 @@
 * Author: Dynamsoft Support Team
 */
 
-/** 
- 
+/**
+
 ## `constructor` MBC()
- 
+
 *Syntax:* `new MBC(license)`
- 
+
 | parameter | type | description |
 |  |  |  |
 | license | `String` | |
- 
+
 *example:*
 ```javascript
 // MBC without a license can be used for evaluation purposes. It is not stable for long time usage.
@@ -33,20 +32,20 @@ painter = new MBC('xxxxx');
 declare class MBC {
     /**
      * Tell this painter the directory where you place`cv-wasm.js` and`cv-wasm.wasm`.
-    
+
     * Syntax:* `MBC.cvFolder = 'js';`
      */
     cvFolder: string;
 
     /**
      * You should call`MBC.loadCvScriptAsync()` first before use`Free Transform` and`Brush` module.
-    
+
     * Syntax:* `MBC.loadCvScriptAsync(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback | `function(boolean bSuccess)` | |
-    
+
     @example
 ```javascript
 MBC.loadCvScriptAsync(function(bSuccess){
@@ -91,14 +90,14 @@ declare function KPainter(mbcKey?: string): void;
 
 interface KPainter {
     /**
-     * @example    
+     * @example
 ```javascript
 var painterDom = painter.getHtmlElement();
 painterDom.style.width = '100%';
 painterDom.style.height = '100%';
 document.getElementById('painter-container').appendChild(painterDom);
 ```
-    * 
+    *
     */
     getHtmlElement(): HTMLDivElement;
 
@@ -119,7 +118,8 @@ document.getElementById('painter-container').appendChild(painterDom);
 
     /**
      *
-@example```javascript
+@example
+```javascript
 // A way to access to inner data. Don't modify it if you are not sure.
 var imgOri = painter.getImage(true);
 // This image can be used in any place and free to modify it.
@@ -132,9 +132,10 @@ document.getElementById('image-container').appendChild(imgCopyed);
     getImage(isOri: boolean, index: number): HTMLImageElement;
 
     /**
-     * Binding a function that would be called when starting an expensive operation.    
-    * Syntax:* `function(){}`    
-@example```javascript
+     * Binding a function that would be called when starting an expensive operation.
+    * Syntax:* `function(){}`
+@example
+```javascript
 painter.onStartLoading = function(){
     document.getElementById('animation').show();
 };
@@ -144,10 +145,11 @@ painter.onStartLoading = function(){
 
     /**
      * Binding a function that would be called when finishing an expensive operation.
-    
+
     * Syntax:* `function(){}`
-    
-    @example```javascript
+
+    @example
+    ```javascript
     painter.onFinishLoading = function(){
         document.getElementById('animation').hide();
     };
@@ -180,9 +182,9 @@ painter.defaultFileInput.multiple = false;
 
     /**
      * Binding a function that would be called when`defaultFileInput` change by`showFileChooseWindow()`.
-    
+
     * Syntax:* `function(event, callback){}`
-    
+
     @example
 ```javascript
 painter.beforeAddImgFromFileChooseWindow = function(ev, callback){
@@ -205,9 +207,9 @@ painter.beforeAddImgFromFileChooseWindow = function(ev, callback){
 
     /**
      * Binding a function that would be called after adding image from`defaultFileInput`.
-    
+
     * Syntax:* `function(){}`
-    
+
     @example
 ```javascript
 painter.afterAddImgFromFileChooseWindow = function(bSuccess){
@@ -217,8 +219,8 @@ painter.afterAddImgFromFileChooseWindow = function(bSuccess){
      */
     afterAddImgFromFileChooseWindow: () => void;
 
-    /*** 
-     * Syntax:* `function(event, callback){}`    
+    /***
+     * Syntax:* `function(event, callback){}`
     @example
 ```javascript
 painter.beforeAddImgFromDropFile = function(ev, callback){
@@ -240,27 +242,27 @@ painter.beforeAddImgFromDropFile = function(ev, callback){
     beforeAddImgFromDropFile: () => any;
 
     /**
-     * 
+     *
      * Syntax:* `function(){}`
-    
+
     @example
 ```javascript
 painter.afterAddImgFromDropFile = function(bSuccess){
     if(bSuccess){console.log('The new image(s) has been added from dropping.');}
 };
 ```
-     * 
+     *
      */
     afterAddImgFromDropFile: () => void;
 
     /**
      * Syntax:* `.addImageAsync(imgData, callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | imgData | `Blob`, `HTMLCanvasElement`, `HTMLImageElement`, `String` * (url) *, `Array` * (a array of source)*, `FileList` | |
     | callback * (optional) * | `function(bSuccess)` | |
-    
+
     @example
 ```javascript
 painter.addImageAsync(image, function(bSuccess){
@@ -268,32 +270,35 @@ painter.addImageAsync(image, function(bSuccess){
 });
 ```
      */
-    addImageAsync(imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[], callback?: () => void): void;
+    addImageAsync(
+        imgData: Blob | HTMLCanvasElement | HTMLImageElement | string | string[],
+        callback?: () => void,
+    ): void;
 
     /**
     The image whose width or height larger than`addedImageMaxWH` would be compressed when adding.
-    
+
     * Syntax:* `.addedImageMaxWH = 4096;`
      */
     addedImageMaxWH: number;
 
     /**
      * Whether`changePage` to the new added image.
-    
+
     * Syntax:* `.isShowNewImgWhenAdd = true;`
      */
     isShowNewImgWhenAdd: boolean;
 
     /**
      * Update the`htmlElement` of a MBC instance.Should call it manually when the`htmlElement` resize.
-    
+
     * Syntax:* `.updateUIOnResize(isLazy, callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | isLazy * (optional) *| `boolean` | Default false.Set true to avoid to update too frequently. |
     | callback | `function()` | Callback of finish updating.Might abort the earlier callback when`isLazy` is true. |
-    
+
     @example
 ```javascript
 window.addEventListener('resize',function(){
@@ -307,28 +312,28 @@ window.addEventListener('resize',function(){
 
     /**
      * Binding a function that would be called when current image index or total length change.
-    
+
     * Syntax:* `function(Number curIndex, Number length){}`
-    
+
     @example
 ```javascript
 painter.onNumChange = function(curIndex, length){
     console.log('curIndex: '+curIndex+', length:'+length);
 };
-``` 
+```
     */
     onNumChange: (curIndex: number, length: number) => void;
 
     /**
      * Change index of the current page.Can only process in `Viewing` mode.
-    
+
     * Syntax:* `.changePage(cmd)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
     | cmd | `Number` * (index) *, `String` * ('f', 'p', 'n', 'l') * | Index number, or command string of 'f'(first), 'p'(pre), 'n'(next), 'l'(last). |
-    
+
     @example
 ```javascript
 document.getElementById('btn-first').addEventListener('click', function(){
@@ -352,22 +357,22 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
 
     /**
      * Delete a image.Can only process in `Viewing` mode.
-    
+
     * Syntax:* `.del(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
     | index * (optional) * | `Number` | Default current index. |
-    
+
      */
     del(index: number): boolean;
 
     /**
      * Get width of current image in the MBC instance.
-    
+
     * Syntax:* `.getWidth(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -377,9 +382,9 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
 
     /**
      * Get height of current image in the MBC instance.
-    
+
     * Syntax:* `.getHeight(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -389,9 +394,9 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
 
     /**
      * Get the image data in `Blob` type.
-    
+
     * Syntax:* `.getBlob(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -401,15 +406,15 @@ document.getElementById('btn-toThisPage').addEventListener('click', function(){
 
     /**
      * Download the image to users' local system. The function should be invoked directly by the user. Async invoking may have problems.
-    
+
     * Syntax:* `.download(filename, index)`
-    
+
             | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
     | filename * (optional) * | `String` | |
     | index * (optional) * | `Number` | Default current index. |
-    
+
     @example
 ```javascript
 document.getElementById('btn-download').addEventListener('click', function(){
@@ -423,14 +428,14 @@ document.getElementById('btn-download').addEventListener('click', function(){
 
     /**
      * Syntax:* `.bindThumbnailBox(container, funWrap, maxWH)`
-    
+
             | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
     | container | `HTMLElement` | |
     | funWrap * (optional) * | `HTMLElement function(HTMLCanvasElement cvs)` | |
     | maxWH * (optional) * | `Number` | Default 256. |
-    
+
     @example
 ```javascript
 painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'), function(cvs){
@@ -450,12 +455,12 @@ painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'), func
 
     /**
      * Syntax:* `.unbindThumbnailBox(container)`
-    
+
             | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
     | container | `HTMLElement` | |
-    
+
     @example
 ```javascript
 painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
@@ -465,33 +470,33 @@ painter.bindThumbnailBox(document.getElementById('div-thumbnailContainer'));
 
     // # Gesture
     /**
-     * 
+     *
     Set the zoom rate when user left double click.
-    
+
     * Syntax:* `.leftDoubleClickZoomRate = 2;`
-    
+
      */
     leftDoubleClickZoomRate: number;
 
     /**
      * Set the zoom rate when user right double click.
-    
+
     * Syntax:* `.rightDoubleClickZoomRate = 0.5;`
      */
     rightDoubleClickZoomRate: number;
 
     /**
      * Whether allow switch from last to first or from first to last by`touchmove` gesture.
-    
+
     * Syntax:* `.allowedTouchMoveSwitchImgOverBoundary = true;`
      */
     allowedTouchMoveSwitchImgOverBoundary: boolean;
 
     /**
      * Binding a function that would be called when the performence of the current image or canvas(in `Editing` mode) update.
-    
+
     * Syntax:* `function(){}`
-    
+
     @example
 ```javascript
 painter.onUpdateImgPosZoom(function(){
@@ -505,9 +510,9 @@ painter.onUpdateImgPosZoom(function(){
 
     /**
      * Get the zoom of current image or canvas(in `Editing` mode).
-    
+
     * Syntax:* `.getZoom()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -516,9 +521,9 @@ painter.onUpdateImgPosZoom(function(){
 
     /**
      * Set the zoom of current image or canvas(in `Editing` mode).
-    
+
     * Syntax:* `.setZoom(num, isRate)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | The finally effective zoom. |
@@ -530,30 +535,30 @@ painter.onUpdateImgPosZoom(function(){
     // # Basic Editor
     /**
     * The can - not - store step(freeTransform, brush) will generate a step image.If the step images' count over `stepImgsGCThreshold`, oldest not protected one would be GC.
-    
+
     * Syntax:* `.stepImgsGCThreshold = 10;`
      */
     stepImgsGCThreshold: number;
 
     /**
      * Add a protected step.Then this step would not be GC.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.addProtectedStep(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | index | `Number` | |
-    
+
     @example
 ```javascript
-    // sample code: save and give up editing about freeTransform mode 
+    // sample code: save and give up editing about freeTransform mode
 document.getElementById('btn-enterFreeTransformMode').addEventListener('click', function(){
     // pretect step when enter freeTransform mode
     painter.addProtectedStep(painter.getCurStep());
     // presume that `MBC.loadCvScriptAsync(callback)` has been called and success
     painter.enterFreeTransformModeAsync();
 });
- 
+
 document.getElementById('btn-saveFreeTransform').addEventListener('click', function(){
     // remove the the last pretect step
     var protectedSteps = painter.getProtectedSteps();
@@ -563,7 +568,7 @@ document.getElementById('btn-saveFreeTransform').addEventListener('click', funct
         painter.exitFreeTransformModeAsync();
     });
 });
- 
+
 document.getElementById('btn-giveUpFreeTransform').addEventListener('click', function(){
     // pretect step when enter freeTransform mode
     var protectedSteps = painter.getProtectedSteps();
@@ -582,21 +587,21 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Remove a protected step.Then this step can be GC.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.removeProtectedStep(index)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | index | `Number` | |
-    
+
      */
     removeProtectedStep(index: number): boolean;
 
     /**
      * Get All protected steps.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.getProtectedSteps()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Array` | A array of the protected numbers. |
@@ -605,9 +610,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Undo an editing step.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.undo(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback | `function(boolean bSuccess)` | |
@@ -616,9 +621,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Redo an editing step.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.redo(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback | `function(boolean bSuccess)` | |
@@ -627,9 +632,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Get count of editing steps.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.getStepCount()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -638,9 +643,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Get current editing step.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.getCurStep()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -649,9 +654,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Set current editing step.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.setCurStepAsync(index, callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | index | `Number` | |
@@ -661,9 +666,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Enter the`Editing` mode.
-    
+
     * Syntax:* `.enterEditAsync(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback | `function(boolean bSuccess)` | |
@@ -672,9 +677,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Leave the`Editing` mode without saving change.
-    
+
     * Syntax:* `.cancelEdit(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -683,9 +688,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Save change and leave the`Editing` mode.
-    
+
     * Syntax:* `.saveEditAsync(callback, isCover)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback | `function(boolean bSuccess)` | |
@@ -695,9 +700,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Rotate right.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.rotateRight()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -706,9 +711,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Rotate left.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.rotateLeft()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -717,9 +722,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Mirror.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.mirror()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -728,9 +733,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Flip.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.flip()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -739,9 +744,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Resize.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.resizeAsync(newWidth, newHeight, callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | newWidth | `Number` | |
@@ -752,9 +757,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Get width of current editing canvas.
-    
+
     * Syntax:* `.getEditWidth()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -763,9 +768,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      * Get height of current editing canvas.
-    
+
     * Syntax:* `.getEditHeight()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Number` | |
@@ -775,21 +780,21 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
     // # Crop
     /**
      * Whether show`Crop Rect` UI when enter`Editing` mode
-    
+
     * Syntax:* `.isAutoShowCropUI = true;`
      */
     isAutoShowCropUI: boolean;
 
     /**
     Show`Crop Rect`.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.showCropRect()`
      */
     showCropRect(): void;
 
     /**
      * Hide`Crop Rect`.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.hideCropRect()`
      */
     hideCropRect(): void;
@@ -798,9 +803,9 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
      * Default 0.
     0: touch / click moving inside`Crop Rect` will move the back canvas.
     1: touch / click moving inside`Crop Rect` will move the`Crop Rect`.
-    
+
     * Syntax:* `.setCropRectStyle(styleNo)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -810,23 +815,23 @@ document.getElementById('btn-giveUpFreeTransform').addEventListener('click', fun
 
     /**
      *     `Crop Rect` min width.
-    
+
     * Syntax:* `.cropRectMinW = 50;`
      */
     cropRectMinW: number;
 
     /**
         `Crop Rect` min height.
-    
+
     * Syntax:* `.cropRectMinH = 50;`
      */
     cropRectMinH: number;
 
     /**
      * Binding a function that would be called when the`Crop Rect` change.
-    
+
     * Syntax:* `function(){}`
-    
+
     @example
 ```javascript
 painter.onCropRectChange = function(){
@@ -839,10 +844,10 @@ painter.onCropRectChange = function(){
     onCropRectChange: () => void;
 
     /**
-     * 
+     *
      * Syntax:* `.setCropRectArea(left, top, right, bottom)`
     `Crop Rect` select an area.
-    
+
     | parameter | type | description |
     |  |  |  |
     | * (return value)* | `boolean` | |
@@ -855,25 +860,25 @@ painter.onCropRectChange = function(){
 
     /**
      * Syntax:* `.getCropRectArea(isAbsolute)`
-    
+
             | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Array` | A array of[left, top, right, bottom]. |
     | isAbsolute | `boolean` | Default`false`, get precentage(-50 % ~50 %) array. |
-    
+
      */
     getCropRectArea(isAbsolute: boolean): rectangle[];
 
     /**
      * Crop the selected area.Can only process in `Editing` mode.
-     
+
     * Syntax:* `.cropAsync(callback, array)`
-     
+
         | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function([left, top, right, bottom])` | |
     | array * (optional) * | `Array` | A array of[left, top, right, bottom]\(each - 0.5 ~0.5\).Default use an area accroding to`Crop Rect`. |
-     
+
      */
     cropAsync(callback?: () => void, array?: rectangle[]): void;
 
@@ -883,9 +888,9 @@ painter.onCropRectChange = function(){
      */
     /**
      * Detect a document.Would auto call`setFreeTransformCornerPos()` after detected.Can only process in `FreeTransform` mode.
-     
+
     * Syntax:* `.documentDetectAsync(callback, importSrc)`
-     
+
        | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function([[x0,y0], [x1,y1], [x2,y2], [x3,y3]])` | x0, y0...is from - 0.5 to 0.5. |
@@ -895,33 +900,33 @@ painter.onCropRectChange = function(){
 
     /**
      * Set the`FreeTransform` corner position.Can only process in `FreeTransform` mode.
-    
+
     * Syntax:* `.setFreeTransformCornerPos(cornerPoints)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | cornerPoints | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5. |
-    
+
      */
     setFreeTransformCornerPos(cornerPoints: cornerPoints): any;
 
     /**
      * Get the`FreeTransform` corner position.
-    
+
     * Syntax:* `.getFreeTransformCornerPos()`
-    
+
         | parameter | type | description |
     |  |  |  |
     | * (return value)* | `Array` | A array of[[x0, y0], [x1, y1], [x2, y2], [x3, y3]].x0, y0...is from - 0.5 to 0.5.|
-    
+
      */
     getFreeTransformCornerPos(): cornerPoints[];
 
     /**
      * Binding a function that would be called when the`FreeTransform` corner position change.
-    
+
     * Syntax:* `function()`
-    
+
     @example
 ```javascript
 painter.onFreeTransformCornerPosChange = function(){
@@ -932,19 +937,19 @@ painter.onFreeTransformCornerPosChange = function(){
     onFreeTransformCornerPosChange: () => void;
 
     /**
-     *     
+     *
      * `freeTransformAsync()` is a really expensive operation. `freeTransformMaxWH` would limit the max width and height of the result.
-    
+
     * Syntax:* `.freeTransformMaxWH = 2048;`
      */
     freeTransformMaxWH: number;
 
     /**
-     * 
+     *
     Transform the quadrilateral surround by the`FreeTransform` corner into a rectangle.Can only process in `FreeTransform` mode.
-    
+
     * Syntax:* `.freeTransformAsync(callback, cornerPoints, importSrc)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
@@ -954,11 +959,11 @@ painter.onFreeTransformCornerPosChange = function(){
     freeTransformAsync(callback?: () => void, cornerPoints?: cornerPoints[], importSrc?: any): any;
 
     /**
-     * 
+     *
     Enter`FreeTransform` mode.Can only process in `Editing` mode.
-    
+
     * Syntax:* `.enterFreeTransformModeAsync(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
@@ -967,9 +972,9 @@ painter.onFreeTransformCornerPosChange = function(){
 
     /**
      * Exist`FreeTransform` mode.
-    
+
     * Syntax:* `.exitFreeTransformModeAsync(callback)`
-    
+
         | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
@@ -982,11 +987,11 @@ painter.onFreeTransformCornerPosChange = function(){
     // ## `MediaStreamConstraints`.videoSettings
     /**
     A[MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints).
-    
+
     * reference:* [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)
-    
+
      * Syntax:* `.showVideo(callback, videoSettings)`
-    
+
     | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
@@ -996,20 +1001,21 @@ painter.onFreeTransformCornerPosChange = function(){
 
     /**
      * Syntax:* `.grabVideo()`
-     
+
     Grab a image from the video and return the image.
-     
+
     | parameter | type | description |
     |  |  |  |
     | * (return value)* | `HTMLCanvasElement` | |
         * Syntax:* `.grabVideo(true, callback)`
-     
+
     Grab a image from the video and auto add image to the painter.Can only process in `Viewing` mode.
-     
+
     | parameter | type | description |
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     grabVideo(isAutoAdd?: boolean, callback?: () => void): HTMLCanvasElement | void;
 
     /**
@@ -1019,7 +1025,7 @@ painter.onFreeTransformCornerPosChange = function(){
 
     /**
      * Syntax:* `function(canvas, callback){}`
-    
+
     @example
 ```javascript
 painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
@@ -1033,7 +1039,7 @@ painter.beforeAddImgFromGrabVideoBtn = function(canvas, callback){
 
     /**
      * Syntax:* `function(){}`
-    
+
     @example
 ```javascript
 painter.afterAddImgFromGrabVideoBtn = function(bSuccess){

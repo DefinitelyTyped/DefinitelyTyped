@@ -46,11 +46,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ExcludedTopicSelector
-            extends Base.Selector<ExcludedTopicIterator>,
+            extends
+                Base.Selector<ExcludedTopicIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

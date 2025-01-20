@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useSWUpdateChecker, withSWUpdateChecker, InjectedUpdateProps } from 'service-worker-updater';
+import * as React from "react";
+import { InjectedUpdateProps, useSWUpdateChecker, withSWUpdateChecker } from "service-worker-updater";
 
 const HookExample: React.FC = () => {
     const [hasUpdate, updateHandler] = useSWUpdateChecker();
@@ -28,4 +28,4 @@ class HOCExample extends React.Component<HOCExampleProps> {
 
 const DecoratedComponent = withSWUpdateChecker(HOCExample);
 
-const Demo: React.FC = () => (<DecoratedComponent n={45} />);
+const Demo: React.FC = () => <DecoratedComponent n={45} />;

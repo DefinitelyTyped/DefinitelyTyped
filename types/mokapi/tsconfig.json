@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "mokapi-tests.ts",
+        "test/faker-test.ts",
+        "test/global-test.ts",
+        "test/http-test.ts",
+        "test/kafka-test.ts",
+        "test/mustache-test.ts",
+        "test/yaml-test.ts"
+    ]
+}

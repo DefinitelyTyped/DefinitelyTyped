@@ -1,4 +1,10 @@
-import { baseComponent, baseComponentEventMap, baseComponentSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import {
+    baseComponent,
+    baseComponentEventMap,
+    baseComponentSettableProperties,
+    JetElementCustomEvent,
+    JetSetPropertyType,
+} from "..";
 export interface ojMenu extends baseComponent<ojMenuSettableProperties> {
     disabled: boolean;
     openOptions: ojMenu.OpenOptions;
@@ -14,7 +20,11 @@ export interface ojMenu extends baseComponent<ojMenuSettableProperties> {
     onOjBeforeOpen: ((event: ojMenu.ojBeforeOpen) => any) | null;
     onOjClose: ((event: ojMenu.ojClose) => any) | null;
     onOjOpen: ((event: ojMenu.ojOpen) => any) | null;
-    addEventListener<T extends keyof ojMenuEventMap>(type: T, listener: (this: HTMLElement, ev: ojMenuEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojMenuEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojMenuEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojMenuSettableProperties>(property: T): ojMenu[T];
     getProperty(property: string): any;
@@ -25,73 +35,85 @@ export interface ojMenu extends baseComponent<ojMenuSettableProperties> {
     refresh(): void;
 }
 export namespace ojMenu {
-    interface ojAction extends CustomEvent<{
-        [propName: string]: any;
-    }> {
+    interface ojAction extends
+        CustomEvent<{
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateEnd extends CustomEvent<{
-        element: Element;
-        action: 'open' | 'close';
-        [propName: string]: any;
-    }> {
+    interface ojAnimateEnd extends
+        CustomEvent<{
+            element: Element;
+            action: "open" | "close";
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateStart extends CustomEvent<{
-        action: 'open' | 'close';
-        element: Element;
-        endCallback: (() => void);
-        [propName: string]: any;
-    }> {
+    interface ojAnimateStart extends
+        CustomEvent<{
+            action: "open" | "close";
+            element: Element;
+            endCallback: () => void;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojBeforeOpen extends CustomEvent<{
-        openOptions: OpenOptions;
-        [propName: string]: any;
-    }> {
+    interface ojBeforeOpen extends
+        CustomEvent<{
+            openOptions: OpenOptions;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojClose extends CustomEvent<{
-        event: Event;
-        [propName: string]: any;
-    }> {
+    interface ojClose extends
+        CustomEvent<{
+            event: Event;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojOpen extends CustomEvent<{
-        event: Event;
-        [propName: string]: any;
-    }> {
+    interface ojOpen extends
+        CustomEvent<{
+            event: Event;
+            [propName: string]: any;
+        }>
+    {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OpenOptions = {
         display?: string | undefined;
         initialFocus?: string | undefined;
         launcher?: string | Element | undefined;
         position?: Position | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Position = {
         my?: PositionAlign | undefined;
         at?: PositionAlign | undefined;
         offset?: PositionPoint | undefined;
         of?: string | PositionPoint | undefined;
-        collision?: 'flip' | 'fit' | 'flipfit' | 'flipcenter' | 'none' | undefined;
+        collision?: "flip" | "fit" | "flipfit" | "flipcenter" | "none" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PositionAlign = {
-        vertical?: 'top' | 'bottom' | 'center' | undefined;
-        horizontal?: 'start' | 'end' | 'left' | 'center' | 'bottom' | undefined;
+        vertical?: "top" | "bottom" | "center" | undefined;
+        horizontal?: "start" | "end" | "left" | "center" | "bottom" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PositionPoint = {
         x?: number | undefined;
         y?: number | undefined;
     };
 }
 export interface ojMenuEventMap extends baseComponentEventMap<ojMenuSettableProperties> {
-    'ojAction': ojMenu.ojAction;
-    'ojAnimateEnd': ojMenu.ojAnimateEnd;
-    'ojAnimateStart': ojMenu.ojAnimateStart;
-    'ojBeforeOpen': ojMenu.ojBeforeOpen;
-    'ojClose': ojMenu.ojClose;
-    'ojOpen': ojMenu.ojOpen;
-    'disabledChanged': JetElementCustomEvent<ojMenu["disabled"]>;
-    'openOptionsChanged': JetElementCustomEvent<ojMenu["openOptions"]>;
+    "ojAction": ojMenu.ojAction;
+    "ojAnimateEnd": ojMenu.ojAnimateEnd;
+    "ojAnimateStart": ojMenu.ojAnimateStart;
+    "ojBeforeOpen": ojMenu.ojBeforeOpen;
+    "ojClose": ojMenu.ojClose;
+    "ojOpen": ojMenu.ojOpen;
+    "disabledChanged": JetElementCustomEvent<ojMenu["disabled"]>;
+    "openOptionsChanged": JetElementCustomEvent<ojMenu["openOptions"]>;
 }
 export interface ojMenuSettableProperties extends baseComponentSettableProperties {
     disabled: boolean;

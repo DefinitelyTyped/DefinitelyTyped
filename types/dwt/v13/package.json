@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/dwt",
+    "version": "13.4.9999",
+    "projects": [
+        "http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx"
+    ],
+    "devDependencies": {
+        "@types/dwt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xiao Ling",
+            "githubUsername": "yushulx"
+        },
+        {
+            "name": "Josh Hall",
+            "githubUsername": "jbh"
+        },
+        {
+            "name": "Lincoln Hu",
+            "githubUsername": "lincoln2018"
+        },
+        {
+            "name": "Tom Kent",
+            "githubUsername": "Tom-Dynamsoft"
+        }
+    ]
+}

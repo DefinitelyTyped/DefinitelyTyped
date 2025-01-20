@@ -1,7 +1,7 @@
-import Redlock = require('redlock');
-import { Lock } from 'redlock';
-import { RedisClient } from 'redis';
-import { using } from 'bluebird';
+import Redlock = require("redlock");
+import { using } from "bluebird";
+import { RedisClient } from "redis";
+import { Lock } from "redlock";
 
 let redlock: Redlock;
 const client: RedisClient = <RedisClient> {};
@@ -11,15 +11,15 @@ redlock = new Redlock([client]);
 redlock = new Redlock([client], {
     driftFactor: 0.1,
     retryCount: 2,
-    retryDelay: 3
+    retryDelay: 3,
 });
 
-redlock.acquire('resource', 30).then((lock: Lock) => {});
-redlock.acquire('resource', 30, (err: any, lock: Lock) => {});
-redlock.lock('resource', 30).then((lock: Lock) => {});
-redlock.lock('resource', 30, (err: any, lock: Lock) => {});
+redlock.acquire("resource", 30).then((lock: Lock) => {});
+redlock.acquire("resource", 30, (err: any, lock: Lock) => {});
+redlock.lock("resource", 30).then((lock: Lock) => {});
+redlock.lock("resource", 30, (err: any, lock: Lock) => {});
 
-using(redlock.disposer('resource', 30), (lock: Lock) => Promise.resolve());
+using(redlock.disposer("resource", 30), (lock: Lock) => Promise.resolve());
 
 redlock.release(lock);
 redlock.release(lock, (err: any) => {});

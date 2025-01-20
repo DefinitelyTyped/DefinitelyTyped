@@ -1,8 +1,4 @@
-// Type definitions for Apache Cordova WebSQL plugin
-// Project: https://github.com/MSOpenTech/cordova-plugin-websql
-// Definitions by: Microsoft Open Technologies Inc <http://msopentech.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies Inc
 // Licensed under the MIT license.
 
@@ -15,11 +11,13 @@ interface Window {
      * @param  size        Size, in bytes
      * @param  creationCallback Callback, that executed on database creation. Accepts Database object.
      */
-    openDatabase(name: string,
+    openDatabase(
+        name: string,
         version: string,
         displayname: string,
         size: number,
-        creationCallback?: (database: Database) => void): Database;
+        creationCallback?: (database: Database) => void,
+    ): Database;
 }
 
 interface Database {
@@ -29,18 +27,22 @@ interface Database {
      * @param errorCallback   Called, when Transaction fails.
      * @param successCallback Called, when transaction committed.
      */
-    transaction(callback: (transaction: SqlTransaction) => void,
+    transaction(
+        callback: (transaction: SqlTransaction) => void,
         errorCallback?: (error: SqlError) => void,
-        successCallback?: () => void): void;
+        successCallback?: () => void,
+    ): void;
     /**
      * Starts new transaction.
      * @param callback        Function, that will be called when transaction starts.
      * @param errorCallback   Called, when Transaction fails.
      * @param successCallback Called, when transaction committed.
      */
-    readTransaction(callback: (transaction: SqlTransaction) => void,
+    readTransaction(
+        callback: (transaction: SqlTransaction) => void,
         errorCallback?: (error: SqlError) => void,
-        successCallback?: () => void): void;
+        successCallback?: () => void,
+    ): void;
     name: string;
     version: string;
     displayName: string;
@@ -49,11 +51,13 @@ interface Database {
 
 declare var Database: {
     /** Constructor for Database object */
-    new(name: string,
+    new(
+        name: string,
         version: string,
         displayname: string,
         size: number,
-        creationCallback: (database: Database)=> void): Database;
+        creationCallback: (database: Database) => void,
+    ): Database;
 };
 
 interface SqlTransaction {
@@ -64,10 +68,12 @@ interface SqlTransaction {
      * @param successCallback Called in case of query has been successfully done.
      * @param errorCallback   Called, when query fails. Return false to continue transaction; true or no return to rollback.
      */
-    executeSql(sql: string,
+    executeSql(
+        sql: string,
         arguments?: any[],
         successCallback?: (transaction: SqlTransaction, resultSet: SqlResultSet) => void,
-        errorCallback?: (transaction: SqlTransaction, error: SqlError) => any): void;
+        errorCallback?: (transaction: SqlTransaction, error: SqlError) => any,
+    ): void;
 }
 
 declare var SqlTransaction: {

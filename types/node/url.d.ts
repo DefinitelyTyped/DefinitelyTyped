@@ -1,16 +1,16 @@
 /**
- * The `url` module provides utilities for URL resolution and parsing. It can be
- * accessed using:
+ * The `node:url` module provides utilities for URL resolution and parsing. It can
+ * be accessed using:
  *
  * ```js
- * import url from 'url';
+ * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/url.js)
  */
-declare module 'url' {
-    import { Blob } from 'node:buffer';
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+declare module "url" {
+    import { Blob as NodeBlob } from "node:buffer";
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
     interface UrlObject {
         auth?: string | null | undefined;
@@ -46,6 +46,22 @@ declare module 'url' {
     interface UrlWithStringQuery extends Url {
         query: string | null;
     }
+    interface FileUrlToPathOptions {
+        /**
+         * `true` if the `path` should be return as a windows filepath, `false` for posix, and `undefined` for the system default.
+         * @default undefined
+         * @since v22.1.0
+         */
+        windows?: boolean | undefined;
+    }
+    interface PathToFileUrlOptions {
+        /**
+         * `true` if the `path` should be return as a windows filepath, `false` for posix, and `undefined` for the system default.
+         * @default undefined
+         * @since v22.1.0
+         */
+        windows?: boolean | undefined;
+    }
     /**
      * The `url.parse()` method takes a URL string, parses it, and returns a URL
      * object.
@@ -54,13 +70,11 @@ declare module 'url' {
      *
      * A `URIError` is thrown if the `auth` property is present but cannot be decoded.
      *
-     * Use of the legacy `url.parse()` method is discouraged. Users should
-     * use the WHATWG `URL` API. Because the `url.parse()` method uses a
-     * lenient, non-standard algorithm for parsing URL strings, security
-     * issues can be introduced. Specifically, issues with [host name spoofing](https://hackerone.com/reports/678487) and
-     * incorrect handling of usernames and passwords have been identified.
+     * `url.parse()` uses a lenient, non-standard algorithm for parsing URL
+     * strings. It is prone to security issues such as [host name spoofing](https://hackerone.com/reports/678487) and incorrect handling of usernames and passwords. Do not use with untrusted
+     * input. CVEs are not issued for `url.parse()` vulnerabilities. Use the `WHATWG URL` API instead.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @deprecated Use the WHATWG URL API instead.
      * @param urlString The URL string to parse.
      * @param [parseQueryString=false] If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property
      * on the returned URL object will be an unparsed, undecoded string.
@@ -68,46 +82,26 @@ declare module 'url' {
      * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
-    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlString: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
-     * The URL object has both a `toString()` method and `href` property that return string serializations of the URL.
-     * These are not, however, customizable in any way. The `url.format(URL[, options])` method allows for basic
-     * customization of the output.
-     * Returns a customizable serialization of a URL `String` representation of a `WHATWG URL` object.
+     * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * import url from 'url';
-     * const myURL = new URL('https://a:b@測試?abc#foo');
-     *
-     * console.log(myURL.href);
-     * // Prints https://a:b@xn--g6w251d/?abc#foo
-     *
-     * console.log(myURL.toString());
-     * // Prints https://a:b@xn--g6w251d/?abc#foo
-     *
-     * console.log(url.format(myURL, { fragment: false, unicode: true, auth: false }));
-     * // Prints 'https://測試/?abc'
-     * ```
-     * @since v7.6.0
-     * @param urlObject A `WHATWG URL` object
-     * @param options
-     */
-    function format(urlObject: URL, options?: URLFormatOptions): string;
-    /**
-     * The `url.format()` method returns a formatted URL string derived from`urlObject`.
-     *
-     * ```js
-     * const url = require('url');
+     * import url from 'node:url';
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
      *   pathname: '/some/path',
      *   query: {
      *     page: 1,
-     *     format: 'json'
-     *   }
+     *     format: 'json',
+     *   },
      * });
      *
      * // => 'https://example.com/some/path?page=1&#x26;format=json'
@@ -122,55 +116,119 @@ declare module 'url' {
      * * Otherwise, if `urlObject.protocol` is not `undefined` and is not a string, an `Error` is thrown.
      * * For all string values of `urlObject.protocol` that _do not end_ with an ASCII
      * colon (`:`) character, the literal string `:` will be appended to `result`.
-     * * If either of the following conditions is true, then the literal string `//`will be appended to `result`:
+     * * If either of the following conditions is true, then the literal string `//` will be appended to `result`:
      *    * `urlObject.slashes` property is true;
-     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or`file`;
-     * * If the value of the `urlObject.auth` property is truthy, and either`urlObject.host` or `urlObject.hostname` are not `undefined`, the value of`urlObject.auth` will be coerced into a string
-     * and appended to `result`followed by the literal string `@`.
+     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or `file`;
+     * * If the value of the `urlObject.auth` property is truthy, and either `urlObject.host` or `urlObject.hostname` are not `undefined`, the value of `urlObject.auth` will be coerced into a string
+     * and appended to `result` followed by the literal string `@`.
      * * If the `urlObject.host` property is `undefined` then:
      *    * If the `urlObject.hostname` is a string, it is appended to `result`.
      *    * Otherwise, if `urlObject.hostname` is not `undefined` and is not a string,
      *    an `Error` is thrown.
-     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname`is not `undefined`:
+     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname` is not `undefined`:
      *          * The literal string `:` is appended to `result`, and
-     *          * The value of `urlObject.port` is coerced to a string and appended to`result`.
-     * * Otherwise, if the `urlObject.host` property value is truthy, the value of`urlObject.host` is coerced to a string and appended to `result`.
+     *          * The value of `urlObject.port` is coerced to a string and appended to `result`.
+     * * Otherwise, if the `urlObject.host` property value is truthy, the value of `urlObject.host` is coerced to a string and appended to `result`.
      * * If the `urlObject.pathname` property is a string that is not an empty string:
-     *    * If the `urlObject.pathname`_does not start_ with an ASCII forward slash
+     *    * If the `urlObject.pathname` _does not start_ with an ASCII forward slash
      *    (`/`), then the literal string `'/'` is appended to `result`.
      *    * The value of `urlObject.pathname` is appended to `result`.
      * * Otherwise, if `urlObject.pathname` is not `undefined` and is not a string, an `Error` is thrown.
-     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result`followed by the output of calling the
-     * `querystring` module's `stringify()`method passing the value of `urlObject.query`.
+     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result` followed by the output of calling the
+     * `querystring` module's `stringify()` method passing the value of `urlObject.query`.
      * * Otherwise, if `urlObject.search` is a string:
-     *    * If the value of `urlObject.search`_does not start_ with the ASCII question
+     *    * If the value of `urlObject.search` _does not start_ with the ASCII question
      *    mark (`?`) character, the literal string `?` is appended to `result`.
      *    * The value of `urlObject.search` is appended to `result`.
      * * Otherwise, if `urlObject.search` is not `undefined` and is not a string, an `Error` is thrown.
      * * If the `urlObject.hash` property is a string:
-     *    * If the value of `urlObject.hash`_does not start_ with the ASCII hash (`#`)
+     *    * If the value of `urlObject.hash` _does not start_ with the ASCII hash (`#`)
      *    character, the literal string `#` is appended to `result`.
      *    * The value of `urlObject.hash` is appended to `result`.
      * * Otherwise, if the `urlObject.hash` property is not `undefined` and is not a
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
+     * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
+     */
+    function format(urlObject: URL, options?: URLFormatOptions): string;
+    /**
+     * The `url.format()` method returns a formatted URL string derived from `urlObject`.
+     *
+     * ```js
+     * import url from 'node:url';
+     * url.format({
+     *   protocol: 'https',
+     *   hostname: 'example.com',
+     *   pathname: '/some/path',
+     *   query: {
+     *     page: 1,
+     *     format: 'json',
+     *   },
+     * });
+     *
+     * // => 'https://example.com/some/path?page=1&#x26;format=json'
+     * ```
+     *
+     * If `urlObject` is not an object or a string, `url.format()` will throw a `TypeError`.
+     *
+     * The formatting process operates as follows:
+     *
+     * * A new empty string `result` is created.
+     * * If `urlObject.protocol` is a string, it is appended as-is to `result`.
+     * * Otherwise, if `urlObject.protocol` is not `undefined` and is not a string, an `Error` is thrown.
+     * * For all string values of `urlObject.protocol` that _do not end_ with an ASCII
+     * colon (`:`) character, the literal string `:` will be appended to `result`.
+     * * If either of the following conditions is true, then the literal string `//` will be appended to `result`:
+     *    * `urlObject.slashes` property is true;
+     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or `file`;
+     * * If the value of the `urlObject.auth` property is truthy, and either `urlObject.host` or `urlObject.hostname` are not `undefined`, the value of `urlObject.auth` will be coerced into a string
+     * and appended to `result` followed by the literal string `@`.
+     * * If the `urlObject.host` property is `undefined` then:
+     *    * If the `urlObject.hostname` is a string, it is appended to `result`.
+     *    * Otherwise, if `urlObject.hostname` is not `undefined` and is not a string,
+     *    an `Error` is thrown.
+     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname` is not `undefined`:
+     *          * The literal string `:` is appended to `result`, and
+     *          * The value of `urlObject.port` is coerced to a string and appended to `result`.
+     * * Otherwise, if the `urlObject.host` property value is truthy, the value of `urlObject.host` is coerced to a string and appended to `result`.
+     * * If the `urlObject.pathname` property is a string that is not an empty string:
+     *    * If the `urlObject.pathname` _does not start_ with an ASCII forward slash
+     *    (`/`), then the literal string `'/'` is appended to `result`.
+     *    * The value of `urlObject.pathname` is appended to `result`.
+     * * Otherwise, if `urlObject.pathname` is not `undefined` and is not a string, an `Error` is thrown.
+     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result` followed by the output of calling the
+     * `querystring` module's `stringify()` method passing the value of `urlObject.query`.
+     * * Otherwise, if `urlObject.search` is a string:
+     *    * If the value of `urlObject.search` _does not start_ with the ASCII question
+     *    mark (`?`) character, the literal string `?` is appended to `result`.
+     *    * The value of `urlObject.search` is appended to `result`.
+     * * Otherwise, if `urlObject.search` is not `undefined` and is not a string, an `Error` is thrown.
+     * * If the `urlObject.hash` property is a string:
+     *    * If the value of `urlObject.hash` _does not start_ with the ASCII hash (`#`)
+     *    character, the literal string `#` is appended to `result`.
+     *    * The value of `urlObject.hash` is appended to `result`.
+     * * Otherwise, if the `urlObject.hash` property is not `undefined` and is not a
+     * string, an `Error` is thrown.
+     * * `result` is returned.
+     * @since v0.1.25
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
-     * manner similar to that of a Web browser resolving an anchor tag HREF.
+     * manner similar to that of a web browser resolving an anchor tag.
      *
      * ```js
-     * const url = require('url');
+     * import url from 'node:url';
      * url.resolve('/one/two/three', 'four');         // '/one/two/four'
      * url.resolve('http://example.com/', '/one');    // 'http://example.com/one'
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      *
-     * You can achieve the same result using the WHATWG URL API:
+     * To achieve the same result using the WHATWG URL API:
      *
      * ```js
      * function resolve(from, to) {
@@ -188,9 +246,9 @@ declare module 'url' {
      * resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
-     * @param from The Base URL being resolved against.
-     * @param to The HREF URL being resolved.
+     * @legacy Use the WHATWG URL API instead.
+     * @param from The base URL to use if `to` is a relative URL.
+     * @param to The target URL to resolve.
      */
     function resolve(from: string, to: string): string;
     /**
@@ -199,10 +257,8 @@ declare module 'url' {
      *
      * It performs the inverse operation to {@link domainToUnicode}.
      *
-     * This feature is only available if the `node` executable was compiled with `ICU` enabled. If not, the domain names are passed through unchanged.
-     *
      * ```js
-     * import url from 'url';
+     * import url from 'node:url';
      *
      * console.log(url.domainToASCII('español.com'));
      * // Prints xn--espaol-zwa.com
@@ -220,10 +276,8 @@ declare module 'url' {
      *
      * It performs the inverse operation to {@link domainToASCII}.
      *
-     * This feature is only available if the `node` executable was compiled with `ICU` enabled. If not, the domain names are passed through unchanged.
-     *
      * ```js
-     * import url from 'url';
+     * import url from 'node:url';
      *
      * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
      * // Prints español.com
@@ -240,7 +294,7 @@ declare module 'url' {
      * well as ensuring a cross-platform valid absolute path string.
      *
      * ```js
-     * import { fileURLToPath } from 'url';
+     * import { fileURLToPath } from 'node:url';
      *
      * const __filename = fileURLToPath(import.meta.url);
      *
@@ -260,13 +314,13 @@ declare module 'url' {
      * @param url The file URL string or URL object to convert to a path.
      * @return The fully-resolved platform-specific Node.js file path.
      */
-    function fileURLToPath(url: string | URL): string;
+    function fileURLToPath(url: string | URL, options?: FileUrlToPathOptions): string;
     /**
      * This function ensures that `path` is resolved absolutely, and that the URL
      * control characters are correctly encoded when converting into a File URL.
      *
      * ```js
-     * import { pathToFileURL } from 'url';
+     * import { pathToFileURL } from 'node:url';
      *
      * new URL('/foo#1', 'file:');           // Incorrect: file:///foo#1
      * pathToFileURL('/foo#1');              // Correct:   file:///foo%231 (POSIX)
@@ -278,17 +332,17 @@ declare module 'url' {
      * @param path The path to convert to a File URL.
      * @return The file URL object.
      */
-    function pathToFileURL(path: string): URL;
+    function pathToFileURL(path: string, options?: PathToFileUrlOptions): URL;
     /**
      * This utility function converts a URL object into an ordinary options object as
      * expected by the `http.request()` and `https.request()` APIs.
      *
      * ```js
-     * import { urlToHttpOptions } from 'url';
+     * import { urlToHttpOptions } from 'node:url';
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
      * console.log(urlToHttpOptions(myURL));
-     *
+     * /*
      * {
      *   protocol: 'https:',
      *   hostname: 'xn--g6w251d',
@@ -301,15 +355,32 @@ declare module 'url' {
      * }
      *
      * ```
-     * @since v15.7.0
+     * @since v15.7.0, v14.18.0
      * @param url The `WHATWG URL` object to convert to an options object.
      * @return Options object
      */
     function urlToHttpOptions(url: URL): ClientRequestArgs;
     interface URLFormatOptions {
+        /**
+         * `true` if the serialized URL string should include the username and password, `false` otherwise.
+         * @default true
+         */
         auth?: boolean | undefined;
+        /**
+         * `true` if the serialized URL string should include the fragment, `false` otherwise.
+         * @default true
+         */
         fragment?: boolean | undefined;
+        /**
+         * `true` if the serialized URL string should include the search query, `false` otherwise.
+         * @default true
+         */
         search?: boolean | undefined;
+        /**
+         * `true` if Unicode characters appearing in the host component of the URL string should be encoded directly as opposed to
+         * being Punycode encoded.
+         * @default false
+         */
         unicode?: boolean | undefined;
     }
     /**
@@ -319,7 +390,7 @@ declare module 'url' {
      *
      * In accordance with browser conventions, all properties of `URL` objects
      * are implemented as getters and setters on the class prototype, rather than as
-     * data properties on the object itself. Thus, unlike `legacy urlObject` s,
+     * data properties on the object itself. Thus, unlike `legacy urlObject`s,
      * using the `delete` keyword on any properties of `URL` objects (e.g. `delete myURL.protocol`, `delete myURL.pathname`, etc) has no effect but will still
      * return `true`.
      * @since v7.0.0, v6.13.0
@@ -329,10 +400,10 @@ declare module 'url' {
          * Creates a `'blob:nodedata:...'` URL string that represents the given `Blob` object and can be used to retrieve the `Blob` later.
          *
          * ```js
-         * const {
+         * import {
          *   Blob,
          *   resolveObjectURL,
-         * } = require('buffer');
+         * } from 'node:buffer';
          *
          * const blob = new Blob(['hello']);
          * const id = URL.createObjectURL(blob);
@@ -343,7 +414,7 @@ declare module 'url' {
          * console.log(otherBlob.size);
          * ```
          *
-         * The data stored by the registered `Blob` will be retained in memory until`URL.revokeObjectURL()` is called to remove it.
+         * The data stored by the registered `Blob` will be retained in memory until `URL.revokeObjectURL()` is called to remove it.
          *
          * `Blob` objects are registered within the current thread. If using Worker
          * Threads, `Blob` objects registered within one Worker will not be available
@@ -351,15 +422,39 @@ declare module 'url' {
          * @since v16.7.0
          * @experimental
          */
-        static createObjectURL(blob: Blob): string;
+        static createObjectURL(blob: NodeBlob): string;
         /**
-         * Removes the stored `Blob` identified by the given ID.
+         * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
+         * ID that isn't registered will silently fail.
          * @since v16.7.0
          * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
-        static revokeObjectURL(objectUrl: string): void;
-        constructor(input: string, base?: string | URL);
+        static revokeObjectURL(id: string): void;
+        /**
+         * Checks if an `input` relative to the `base` can be parsed to a `URL`.
+         *
+         * ```js
+         * const isValid = URL.canParse('/foo', 'https://example.org/'); // true
+         *
+         * const isNotValid = URL.canParse('/foo'); // false
+         * ```
+         * @since v19.9.0
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         */
+        static canParse(input: string, base?: string): boolean;
+        /**
+         * Parses a string as a URL. If `base` is provided, it will be used as the base URL for the purpose of resolving non-absolute `input` URLs.
+         * Returns `null` if `input` is not a valid.
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         * @since v22.1.0
+         */
+        static parse(input: string, base?: string): URL | null;
+        constructor(input: string | { toString: () => string }, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
          *
@@ -404,7 +499,7 @@ declare module 'url' {
          * // Prints example.org
          *
          * // Setting the hostname does not change the port
-         * myURL.hostname = 'example.com:82';
+         * myURL.hostname = 'example.com';
          * console.log(myURL.href);
          * // Prints https://example.com:81/foo
          *
@@ -433,9 +528,9 @@ declare module 'url' {
          * Getting the value of the `href` property is equivalent to calling {@link toString}.
          *
          * Setting the value of this property to a new value is equivalent to creating a
-         * new `URL` object using `new URL(value)`. Each of the `URL`object's properties will be modified.
+         * new `URL` object using `new URL(value)`. Each of the `URL` object's properties will be modified.
          *
-         * If the value assigned to the `href` property is not a valid URL, a `TypeError`will be thrown.
+         * If the value assigned to the `href` property is not a valid URL, a `TypeError` will be thrown.
          */
         href: string;
         /**
@@ -467,7 +562,7 @@ declare module 'url' {
          *
          * myURL.password = '123';
          * console.log(myURL.href);
-         * // Prints https://abc:123@example.com
+         * // Prints https://abc:123@example.com/
          * ```
          *
          * Invalid URL characters included in the value assigned to the `password` property
@@ -488,14 +583,14 @@ declare module 'url' {
          * // Prints https://example.org/abcdef?123
          * ```
          *
-         * Invalid URL characters included in the value assigned to the `pathname`property are `percent-encoded`. The selection of which characters
+         * Invalid URL characters included in the value assigned to the `pathname` property are `percent-encoded`. The selection of which characters
          * to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         pathname: string;
         /**
          * Gets and sets the port portion of the URL.
          *
-         * The port value may be a number or a string containing a number in the range`0` to `65535` (inclusive). Setting the value to the default port of the`URL` objects given `protocol` will
+         * The port value may be a number or a string containing a number in the range `0` to `65535` (inclusive). Setting the value to the default port of the `URL` objects given `protocol` will
          * result in the `port` value becoming
          * the empty string (`''`).
          *
@@ -594,7 +689,7 @@ declare module 'url' {
          * // Prints https://example.org/abc?abc=xyz
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `search`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `search` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         search: string;
@@ -611,14 +706,14 @@ declare module 'url' {
          * character, while `URLSearchParams` will always encode it:
          *
          * ```js
-         * const myUrl = new URL('https://example.org/abc?foo=~bar');
+         * const myURL = new URL('https://example.org/abc?foo=~bar');
          *
-         * console.log(myUrl.search);  // prints ?foo=~bar
+         * console.log(myURL.search);  // prints ?foo=~bar
          *
          * // Modify the URL via searchParams...
-         * myUrl.searchParams.sort();
+         * myURL.searchParams.sort();
          *
-         * console.log(myUrl.search);  // prints ?foo=%7Ebar
+         * console.log(myURL.search);  // prints ?foo=%7Ebar
          * ```
          */
         readonly searchParams: URLSearchParams;
@@ -635,7 +730,7 @@ declare module 'url' {
          * // Prints https://123:xyz@example.com/
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `username`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `username` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         username: string;
@@ -662,8 +757,11 @@ declare module 'url' {
          */
         toJSON(): string;
     }
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.iterator](): URLSearchParamsIterator<T>;
+    }
     /**
-     * The `URLSearchParams` API provides read and write access to the query of a`URL`. The `URLSearchParams` class can also be used standalone with one of the
+     * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
      * The `URLSearchParams` class is also available on the global object.
      *
@@ -707,22 +805,32 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | readonly string[]>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         /**
          * Append a new name-value pair to the query string.
          */
         append(name: string, value: string): void;
         /**
-         * Remove all name-value pairs whose name is `name`.
+         * If `value` is provided, removes all name-value pairs
+         * where name is `name` and value is `value`.
+         *
+         * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
-        delete(name: string): void;
+        delete(name: string, value?: string): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
-         * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
+         * Each item of the iterator is a JavaScript `Array`. The first item of the `Array` is the `name`, the second item of the `Array` is the `value`.
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): URLSearchParamsIterator<[string, string]>;
         /**
          * Iterates over each name-value pair in the query and invokes the given function.
          *
@@ -738,7 +846,10 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: this) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(
+            fn: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void,
+            thisArg?: TThis,
+        ): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -751,9 +862,15 @@ declare module 'url' {
          */
         getAll(name: string): string[];
         /**
-         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         * Checks if the `URLSearchParams` object contains key-value pair(s) based on `name` and an optional `value` argument.
+         *
+         * If `value` is provided, returns `true` when name-value pair with
+         * same `name` and `value` exists.
+         *
+         * If `value` is not provided, returns `true` if there is at least one name-value
+         * pair whose name is `name`.
          */
-        has(name: string): boolean;
+        has(name: string, value?: string): boolean;
         /**
          * Returns an ES6 `Iterator` over the names of each name-value pair.
          *
@@ -767,9 +884,9 @@ declare module 'url' {
          * //   foo
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): URLSearchParamsIterator<string>;
         /**
-         * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
          * append the name-value pair to the query string.
          *
@@ -788,6 +905,11 @@ declare module 'url' {
          * ```
          */
         set(name: string, value: string): void;
+        /**
+         * The total number of parameter entries.
+         * @since v19.8.0
+         */
+        readonly size: number;
         /**
          * Sort all existing name-value pairs in-place by their names. Sorting is done
          * with a [stable sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability), so relative order between name-value pairs
@@ -812,10 +934,39 @@ declare module 'url' {
         /**
          * Returns an ES6 `Iterator` over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): URLSearchParamsIterator<string>;
+        [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
+    }
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
+    global {
+        interface URLSearchParams extends _URLSearchParams {}
+        interface URL extends _URL {}
+        interface Global {
+            URL: typeof _URL;
+            URLSearchParams: typeof _URLSearchParams;
+        }
+        /**
+         * `URL` class is a global reference for `import { URL } from 'url'`
+         * https://nodejs.org/api/url.html#the-whatwg-url-api
+         * @since v10.0.0
+         */
+        var URL: typeof globalThis extends {
+            onmessage: any;
+            URL: infer T;
+        } ? T
+            : typeof _URL;
+        /**
+         * `URLSearchParams` class is a global reference for `import { URLSearchParams } from 'node:url'`
+         * https://nodejs.org/api/url.html#class-urlsearchparams
+         * @since v10.0.0
+         */
+        var URLSearchParams: typeof globalThis extends {
+            onmessage: any;
+            URLSearchParams: infer T;
+        } ? T
+            : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

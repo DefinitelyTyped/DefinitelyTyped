@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/jasmine-enzyme",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/formidablelabs/enzyme-matchers/packages/jasmine-enzyme"
+    ],
+    "dependencies": {
+        "@types/jasmine": "*",
+        "@types/react": "^16"
+    },
+    "devDependencies": {
+        "@types/enzyme": "*",
+        "@types/jasmine-enzyme": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Umar Bolatov",
+            "githubUsername": "bolatovumar"
+        },
+        {
+            "name": "Steve Gravrock",
+            "githubUsername": "sgravrock"
+        }
+    ]
+}

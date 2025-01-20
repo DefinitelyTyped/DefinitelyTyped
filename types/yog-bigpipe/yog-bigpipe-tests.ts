@@ -3,12 +3,12 @@ import yogBigpipe = require("yog-bigpipe");
 yogBigpipe();
 yogBigpipe({});
 yogBigpipe({
-    skipAnalysis: true
+    skipAnalysis: true,
 });
 
 yogBigpipe({
     tpl: {
-        _default: '',
-        quickling: '[test]'
-    }
+        _default: "",
+        quickling: "[test]",
+    },
 });

@@ -1,3 +1,23 @@
 {
-    "private": true
+    "private": true,
+    "name": "@types/iitc",
+    "version": "0.30.9999",
+    "projects": [
+        "https://github.com/IITC-CE/ingress-intel-total-conversion"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jqueryui": "*",
+        "@types/leaflet": "*",
+        "@types/spectrum": "*"
+    },
+    "devDependencies": {
+        "@types/iitc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "McBen",
+            "githubUsername": "McBen"
+        }
+    ]
 }

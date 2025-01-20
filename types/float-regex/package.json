@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/float-regex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/float-regex"
+    ],
+    "devDependencies": {
+        "@types/float-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anjun Wang",
+            "githubUsername": "wanganjun"
+        }
+    ]
+}

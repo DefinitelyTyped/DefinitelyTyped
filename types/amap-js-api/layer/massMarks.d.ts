@@ -1,14 +1,14 @@
 declare namespace AMap {
     namespace MassMarks {
         interface EventMap<I = MassMarks> {
-            click: UIEvent<'click', I>;
-            dblclick: UIEvent<'dblclick', I>;
-            mousedown: UIEvent<'mousedown', I>;
-            mouseup: UIEvent<'mouseup', I>;
-            mouseover: UIEvent<'mouseover', I>;
-            mouseout: UIEvent<'mouseout', I>;
-            touchstart: UIEvent<'touchstart', I>;
-            touchend: UIEvent<'touchend', I>;
+            click: UIEvent<"click", I>;
+            dblclick: UIEvent<"dblclick", I>;
+            mousedown: UIEvent<"mousedown", I>;
+            mouseup: UIEvent<"mouseup", I>;
+            mouseover: UIEvent<"mouseover", I>;
+            mouseout: UIEvent<"mouseout", I>;
+            touchstart: UIEvent<"touchstart", I>;
+            touchend: UIEvent<"touchend", I>;
         }
 
         interface Style {
@@ -90,7 +90,7 @@ declare namespace AMap {
         /**
          * 获取数据集
          */
-        getData(): Array<Pick<D, Exclude<keyof D, 'lnglat'>> & { lnglat: LngLat }>;
+        getData(): Array<Pick<D, Exclude<keyof D, "lnglat">> & { lnglat: LngLat }>;
         /**
          * 清除海量点
          */

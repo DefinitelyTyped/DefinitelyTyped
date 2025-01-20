@@ -1,13 +1,8 @@
-// Type definitions for Nodemailer 3.1.5
-// Project: https://github.com/andris9/Nodemailer
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
-import sesTransport = require("nodemailer-ses-transport")
+import sesTransport = require("nodemailer-ses-transport");
 
 /**
  * Transporter plugin
@@ -91,7 +86,7 @@ export interface AttachmentObject {
     /**
      * String, Buffer or a Stream contents for the attachment
      */
-    content: string|Buffer|NodeJS.ReadableStream;
+    content: string | Buffer | NodeJS.ReadableStream;
     /**
      * If set and content is string, then encodes the content to a Buffer using the specified encoding. Example values: base64, hex, 'binary' etc. Useful if you want to use binary attachments in a JSON formatted e-mail object.
      */
@@ -118,19 +113,19 @@ export interface SendMailOptions {
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the To: field
      */
-    to?: string|string[] | undefined;
+    to?: string | string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Cc: field
      */
-    cc?: string|string[] | undefined;
+    cc?: string | string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field
      */
-    bcc?: string|string[] | undefined;
+    bcc?: string | string[] | undefined;
     /**
-     * An e-mail address that will appear on the Reply-To: field
+     * Comma separated list or an array of e-mail addresses that will appear on the Reply-To: field
      */
-    replyTo?: string | undefined;
+    replyTo?: string | string[] | undefined;
     /**
      * The message-id this message is replying
      */
@@ -138,7 +133,7 @@ export interface SendMailOptions {
     /**
      * Message-id list (an array or space separated string)
      */
-    references?: string|string[] | undefined;
+    references?: string | string[] | undefined;
     /**
      * The subject of the e-mail
      */
@@ -146,11 +141,11 @@ export interface SendMailOptions {
     /**
      * The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    text?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
+    text?: string | Buffer | NodeJS.ReadableStream | AttachmentObject | undefined;
     /**
      * The HTML version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
      */
-    html?: string|Buffer|NodeJS.ReadableStream|AttachmentObject | undefined;
+    html?: string | Buffer | NodeJS.ReadableStream | AttachmentObject | undefined;
     /**
      * An object or array of additional header fields (e.g. {"X-Key-Name": "key value"} or [{key: "X-Key-Name", value: "val1"}, {key: "X-Key-Name", value: "val2"}])
      */
@@ -175,6 +170,10 @@ export interface SendMailOptions {
      * optional transfer encoding for the textual parts (defaults to 'quoted-printable')
      */
     encoding?: string | undefined;
+    /**
+     * optional convert data:images in the HTML content of message to embedded attachments
+     */
+    attachDataUrls?: boolean | undefined;
 }
 
 export interface SentMessageInfo {

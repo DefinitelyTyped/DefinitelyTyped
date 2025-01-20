@@ -1,9 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace dojox {
 
     namespace editor {
@@ -4240,7 +4234,7 @@ declare namespace dojox {
                  */
                 onShow(): void;
             }
-            module _SmileyPalette {
+            namespace _SmileyPalette {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/editor/plugins/_SmileyPalette.Emoticon.html
                  *

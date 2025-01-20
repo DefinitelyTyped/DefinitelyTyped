@@ -1,12 +1,3 @@
-// Type definitions for react-infinite-scroller 1.2
-// Project: https://github.com/CassetteRocks/react-infinite-scroller
-// Definitions by: Lauri Lavanti <https://github.com/Lapanti>,
-//                 Piotr Srebniak <https://github.com/psrebniak>
-//                 Brett Miller <https://github.com/WrathZA>
-//                 Yipeng Zhao <https://github.com/daggerjames>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 declare namespace InfiniteScroll {
@@ -18,7 +9,7 @@ declare namespace InfiniteScroll {
          * Name of the element that the component should render as.
          * Defaults to 'div'.
          */
-        element?: string | undefined;
+        element?: React.ReactNode | string | undefined;
         /**
          * Whether there are more items to be loaded. Event listeners are removed if false.
          * Defaults to false.

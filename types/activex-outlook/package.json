@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/activex-outlook",
+    "version": "14.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Outlook 14.0 Object Library - Outlook",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/vba/vba-outlook"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
+        "@types/activex-office": "*",
+        "@types/activex-stdole": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-outlook": "workspace:.",
+        "@types/activex-word": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

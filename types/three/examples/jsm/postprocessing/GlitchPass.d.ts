@@ -1,12 +1,12 @@
-import { ShaderMaterial, DataTexture } from '../../../src/Three';
+import { DataTexture, ShaderMaterial } from "three";
 
-import { Pass } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class GlitchPass extends Pass {
     constructor(dt_size?: number);
     uniforms: object;
     material: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     goWild: boolean;
     curF: number;
     randX: number;

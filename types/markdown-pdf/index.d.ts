@@ -1,8 +1,3 @@
-// Type definitions for MarkdownPDF (markdown-pdf) 9.0
-// Project: https://github.com/alanshaw/markdown-pdf
-// Definitions by: Ange PICARD <https://github.com/MonsieurMan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = MarkdownPDF;
 
 declare function MarkdownPDF(options?: MarkdownPDF.Options): MarkdownPDF.OptionsBuilder;
@@ -77,7 +72,7 @@ declare namespace MarkdownPDF {
          */
         path(path: string, callback?: () => void): void;
         /** Create a concat-stream and pipe output from markdown-pdf to it. The callback function cb will be invoked when the buffer has been created. */
-        buffer(opts: any, callback?: () => void): void;
+        buffer(opts: any, callback?: (err: any, buffer: ArrayBuffer) => void): void;
         /** Create a concat-stream and pipe output from markdown-pdf to it. The callback function cb will be invoked when the string has been created. */
         string(opts: any, callback?: () => void): void;
     }

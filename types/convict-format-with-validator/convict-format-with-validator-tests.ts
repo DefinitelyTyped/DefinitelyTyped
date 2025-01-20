@@ -1,4 +1,4 @@
-import convictValidators = require('convict-format-with-validator');
+import convictValidators = require("convict-format-with-validator");
 
 // $ExpectType string | undefined
 convictValidators.email.name;

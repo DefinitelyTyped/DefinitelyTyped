@@ -16,23 +16,22 @@
 
 import * as adlib from "adlib";
 
-const transform1: adlib.TransformFunction =
-    (key: string, value: any, settings: any, param?: any): any => {
-        return null;
-    };
+const transform1: adlib.TransformFunction = (key: string, value: any, settings: any, param?: any): any => {
+    return null;
+};
 
 const transformsList: adlib.TransformsList = {
-    firstXform: transform1
+    firstXform: transform1,
 };
 
 const template = {
-    value: '{{ instance.color }}'
+    value: "{{ instance.color }}",
 };
 
 const settings = {
     instance: {
-        color: 'red'
-    }
+        color: "red",
+    },
 };
 
 const interpolated = adlib.adlib(template, settings, transformsList);

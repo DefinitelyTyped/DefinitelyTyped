@@ -25,16 +25,17 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
+         * Creates an array with all falsey values removed. The values false, null, 0, 0n, "", undefined, and NaN are
          * falsey.
          *
          * @param array The array to compact.
          * @return Returns the new array of filtered values.
          */
-        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
+        compact<T>(array: List<T | Falsey> | null | undefined): T[];
     }
 
-    type Truthy<T> = T extends null | undefined | false | "" | 0 ? never : T;
+    type Falsey = null | undefined | false | "" | 0 | 0n;
+    type Truthy<T> = T extends Falsey ? never : T;
     interface Collection<T> {
         /**
          * @see _.compact
@@ -106,8 +107,8 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * Creates an array of unique array values not included in the other provided arrays using SameValueZero for
-         * equality comparisons.
+         * Creates an array of `array` values not included in the other provided arrays using SameValueZero for
+         * equality comparisons. The order and references of result values are determined by the first array.
          *
          * @param array The array to inspect.
          * @param values The arrays of values to exclude.
@@ -129,9 +130,9 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * This method is like _.difference except that it accepts iteratee which is invoked for each element of array
-         * and values to generate the criterion by which uniqueness is computed. The iteratee is invoked with one
-         * argument: (value).
+         * This method is like _.difference except that it accepts iteratee which is invoked for each element
+         * of array and values to generate the criterion by which they're compared. The order and references
+         * of result values are determined by the first array. The iteratee is invoked with one argument: (value).
          *
          * @param array The array to inspect.
          * @param values The values to exclude.
@@ -186,9 +187,9 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * Creates an array of unique `array` values not included in the other
-         * provided arrays using [`SameValueZero`](http://ecma-international.org/ecma-262/6.0/#sec-samevaluezero)
-         * for equality comparisons.
+         * This method is like _.difference except that it accepts comparator which is invoked to compare elements
+         * of array to values. The order and references of result values are determined by the first array. The
+         * comparator is invoked with two arguments: (arrVal, othVal).
          *
          * @category Array
          * @param [values] The arrays to inspect.
@@ -573,6 +574,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the first element of array.
          */
+        head<T>(array: readonly [T, ...unknown[]]): T;
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface String {
@@ -1449,6 +1451,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the slice of array.
          */
+        tail<T extends unknown[]>(array: readonly [unknown, ...T]): T;
         tail<T>(array: List<T> | null | undefined): T[];
     }
     interface Collection<T> {

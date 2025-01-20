@@ -1,3 +1,3 @@
-import getRes = require('get-res');
+import getRes = require("get-res");
 
 getRes(); // $ExpectType Promise<Resolution[]>

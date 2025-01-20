@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/cache-manager",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/BryanDonovan/node-cache-manager"
+    ],
+    "devDependencies": {
+        "@types/cache-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dominik Einkemmer",
+            "githubUsername": "dominikeinkemmer"
+        },
+        {
+            "name": "Eduard Marbach",
+            "githubUsername": "BlackDark"
+        },
+        {
+            "name": "Bryan Donovan",
+            "githubUsername": "BryanDonovan"
+        }
+    ]
+}

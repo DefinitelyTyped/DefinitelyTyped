@@ -1,15 +1,10 @@
-// Type definitions for react-currency-format 1.0
-// Project: https://github.com/mohitgupta8888/react-currency-format#readme
-// Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes } from 'react';
+import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes, JSX } from "react";
 
 declare namespace CurrencyFormat {
     /**
      * Available input type attributes which the component supports.
      */
-    type InputType = 'text' | 'tel';
+    type InputType = "text" | "tel";
 
     /**
      * A value object containing the formatted value, the original value and the float value.
@@ -23,12 +18,12 @@ declare namespace CurrencyFormat {
 
     // The component accepts all the props which can be given to a input or span based on displayType selected.
     type DisplayTypeInput = InputHTMLAttributes<HTMLInputElement> & {
-        displayType?: 'input';
+        displayType?: "input";
         customInput?: ComponentType<any>;
     };
 
     type DisplayTypeText = HTMLAttributes<HTMLSpanElement> & {
-        displayType?: 'text';
+        displayType?: "text";
         customInput?: never;
     };
 
@@ -36,26 +31,27 @@ declare namespace CurrencyFormat {
      * Props accepted by the component.
      * @see {@link https://github.com/mohitgupta8888/react-currency-format#props}
      */
-    type StrictProps = Partial<{
-        thousandSeparator: string | boolean;
-        thousandSpacing: '2' | '2s' | '3' | '4';
-        decimalSeparator: string;
-        decimalScale: number;
-        fixedDecimalScale: boolean;
-        allowNegative: boolean;
-        prefix: string;
-        suffix: string;
-        value: number | string | null;
-        isNumericString: boolean;
-        type: InputType;
-        format: string | ((unformatedInput: string) => string);
-        removeFormatting: (formattedValue: string) => string;
-        mask: string | string[];
-        onValueChange: (values: Values) => void;
-        isAllowed: (values: Values) => boolean;
-        renderText: (formattedValue: string) => JSX.Element;
-    }> &
-        (DisplayTypeText | DisplayTypeInput);
+    type StrictProps =
+        & Partial<{
+            thousandSeparator: string | boolean;
+            thousandSpacing: "2" | "2s" | "3" | "4";
+            decimalSeparator: string;
+            decimalScale: number;
+            fixedDecimalScale: boolean;
+            allowNegative: boolean;
+            prefix: string;
+            suffix: string;
+            value: number | string | null;
+            isNumericString: boolean;
+            type: InputType;
+            format: string | ((unformatedInput: string) => string);
+            removeFormatting: (formattedValue: string) => string;
+            mask: string | string[];
+            onValueChange: (values: Values) => void;
+            isAllowed: (values: Values) => boolean;
+            renderText: (formattedValue: string) => JSX.Element;
+        }>
+        & (DisplayTypeText | DisplayTypeInput);
 
     /**
      * Props accepted by the component and any other prop of the customInput.

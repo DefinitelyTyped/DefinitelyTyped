@@ -1,13 +1,14 @@
-import videojs from 'video.js';
-import qualityLevels, { QualityLevel, QualityLevelList, Representation } from 'videojs-contrib-quality-levels';
+import videojs from "video.js";
+import qualityLevels, { QualityLevel, QualityLevelList, Representation } from "videojs-contrib-quality-levels";
 
-const video = videojs('id');
+const video = videojs("id");
 let VERSION: string = qualityLevels.VERSION;
 
 function getterSetter(value: boolean): void;
 function getterSetter(): boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 function getterSetter(value?: boolean): boolean | void {
-    if (typeof value === 'undefined') return true;
+    if (typeof value === "undefined") return true;
 }
 
 video.ready(function() {
@@ -28,7 +29,7 @@ video.ready(function() {
     const enabled: boolean = level.enabled;
 
     const representation: Representation = {
-        id: 'id',
+        id: "id",
         width: 1920,
         height: 1080,
         bandwidth: 9999,
@@ -36,7 +37,7 @@ video.ready(function() {
     };
     const ql1: QualityLevel = list.addQualityLevel(representation);
     const ql2: QualityLevel | null = list.removeQualityLevel(representation);
-    const ql3: QualityLevel | null = list.getQualityLevelById('id');
+    const ql3: QualityLevel | null = list.getQualityLevelById("id");
 
     list.dispose();
 });

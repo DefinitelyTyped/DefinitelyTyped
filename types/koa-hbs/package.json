@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/koa-hbs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gilt/koa-hbs"
+    ],
     "dependencies": {
+        "@types/koa": "*",
         "handlebars": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/koa-hbs": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Jacob Malone",
+            "githubUsername": "jcbmln"
+        },
+        {
+            "name": "Mudkip",
+            "githubUsername": "mudkipme"
+        }
+    ]
 }

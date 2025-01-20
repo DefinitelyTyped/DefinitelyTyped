@@ -1,1 +1,0 @@
-export const NavBar: any;

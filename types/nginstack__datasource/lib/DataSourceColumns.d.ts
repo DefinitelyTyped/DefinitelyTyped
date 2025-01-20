@@ -1,10 +1,10 @@
 export = DataSourceColumns;
 declare function DataSourceColumns(
-    opt_dataSource?: any,
-    opt_colsDefs?: DataSourceColumnDef[]
+    opt_dataSource?: DataSource,
+    opt_colsDefs?: DataSourceColumnDef[],
 ): void;
 declare class DataSourceColumns {
-    constructor(opt_dataSource?: any, opt_colsDefs?: DataSourceColumnDef[]);
+    constructor(opt_dataSource?: DataSource, opt_colsDefs?: DataSourceColumnDef[]);
     private columnsArray_;
     private columnsByName_;
     private columnsByAlias_;
@@ -18,20 +18,20 @@ declare class DataSourceColumns {
         classKey: number,
         prefix: string,
         opt_options?:
-            | {
-                  includeFieldNames: string;
-                  excludeFieldNames: string;
-                  children: boolean;
-                  onlyVisible: boolean;
-                  onlyIncludedFieldNames: boolean;
-              }
             | Record<any, any>
+            | {
+                includeFieldNames: string;
+                excludeFieldNames: string;
+                children: boolean;
+                onlyVisible: boolean;
+                onlyIncludedFieldNames: boolean;
+            },
     ): void;
     importVisibleFields(
         classKey: number,
         fieldNamesPrefix?: string,
         includeFieldNames?: string,
-        excludeFieldNames?: string
+        excludeFieldNames?: string,
     ): void;
     parseDynColumnExpr(columnName: any): {
         derivedFrom: any;
@@ -51,8 +51,9 @@ declare class DataSourceColumns {
     getPostProcessingInfo(): any;
 }
 declare namespace DataSourceColumns {
-    export { DataSourceColumnDef, IQuery };
+    export { DataSource, DataSourceColumnDef, IQuery };
 }
-type DataSourceColumnDef = import('./DataSourceColumnDef');
-import DataSourceColumn = require('./DataSourceColumn.js');
-type IQuery = import('@nginstack/iquery/lib/IQuery');
+type DataSource = import("./DataSource");
+type DataSourceColumnDef = import("./DataSourceColumnDef");
+import DataSourceColumn = require("./DataSourceColumn.js");
+type IQuery = import("@nginstack/iquery/lib/IQuery");

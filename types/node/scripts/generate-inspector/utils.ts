@@ -1,25 +1,6 @@
 // Utility functions
 
-import { Documentable, Field, ObjectReference } from "./devtools-protocol-schema";
-
-/**
- * Returns a function suitable for Array#reduce that flattens an array of
- * arrays.
- * @param inBetween A value to insert between groups of flattened values
- */
-export function flattenArgs<T = string>(inBetween?: T): (acc: T[], next: T[]) => T[] {
-    if (inBetween != null) {
-        return (acc: T[], next: T[]) => {
-            if (acc.length > 0) {
-                return acc.concat([inBetween], next);
-            } else {
-                return acc.concat(next);
-            }
-        };
-    } else {
-        return (acc: T[], next: T[]) => acc.concat(next);
-    }
-}
+import { Command, Documentable, Field, ObjectReference } from "./devtools-protocol-schema";
 
 /**
  * Returns whether an array exists and has elements.
@@ -56,13 +37,15 @@ export function isObjectReference(t: Field): t is ObjectReference {
  */
 export const createDocs = ({ deprecated, description, experimental }: Documentable): string[] => {
     const hasDocs = !!description || deprecated || experimental;
-    return hasDocs ? filterNull([
-        "/**",
-        ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
-        deprecated ? " * @deprecated" : null,
-        experimental ? " * @experimental" : null,
-        " */",
-    ]) : [];
+    return hasDocs
+        ? filterNull([
+            "/**",
+            ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
+            deprecated ? " * @deprecated" : null,
+            experimental ? " * @experimental" : null,
+            " */",
+        ])
+        : [];
 };
 
 /**
@@ -89,7 +72,7 @@ export const substitute = (
             }
             return [line];
         })
-        .reduce(flattenArgs(), [])
+        .flat(1)
         .join("\n");
 };
 

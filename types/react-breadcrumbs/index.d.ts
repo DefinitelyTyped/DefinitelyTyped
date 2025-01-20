@@ -1,12 +1,5 @@
-// Type definitions for react-breadcrumbs 2.1
-// Project: https://github.com/svenanders/react-breadcrumbs
-// Definitions by: Guo Yunhe <https://github.com/guoyunhe>
-//                 Kohei Matsubara <https://github.com/matsuby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from "react";
 import { LocationDescriptor } from "history";
+import * as React from "react";
 
 declare module "react-breadcrumbs" {
     interface Crumbs {}
@@ -19,12 +12,12 @@ declare module "react-breadcrumbs" {
         wrapper?: React.FunctionComponent | React.ComponentClass | undefined;
     }
 
-    class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
+    class Breadcrumbs extends React.Component<React.PropsWithChildren<BreadcrumbsProps>> {}
 
     interface BreadcrumbProps {
         data: LocationDescriptor & { title?: React.ReactNode | undefined };
         hidden?: boolean | undefined;
     }
 
-    class Breadcrumb extends React.Component<BreadcrumbProps> {}
+    class Breadcrumb extends React.Component<React.PropsWithChildren<BreadcrumbProps>> {}
 }

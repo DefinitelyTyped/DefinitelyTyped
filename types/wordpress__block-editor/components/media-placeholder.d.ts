@@ -1,9 +1,11 @@
-// tslint:disable:no-unnecessary-generics
-import { Dashicon, DropZone } from '@wordpress/components';
-import { ComponentType, MouseEventHandler } from 'react';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { DropZone, IconType } from "@wordpress/components";
+import { ComponentProps, JSX, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {
-    interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {
+    type MediaPlaceholderMultipleAction = "add";
+
+    interface Props<T extends boolean> extends Pick<ComponentProps<typeof DropZone>, "onHTMLDrop"> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
          * to the upload window the browser use e.g: `image#<{(|,video#<{(|`.
@@ -45,7 +47,7 @@ declare namespace MediaPlaceholder {
         /**
          * Icon to display left of the title.
          */
-        icon?: Dashicon.Icon | JSX.Element | undefined;
+        icon?: IconType | undefined;
         /**
          * If `true`, the property changes the look of the placeholder to be adequate to scenarios
          * where new files are added to an already existing set of files, e.g., adding files to a
@@ -77,10 +79,11 @@ declare namespace MediaPlaceholder {
          */
         onError?(message: string): void;
         onSelectURL?(src: string): void;
-        multiple?: T | undefined;
+        multiple?: T | MediaPlaceholderMultipleAction | undefined;
         value?: T extends true ? number[] : number | undefined | undefined | undefined | undefined;
         onSelect(
-            value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
+            value: T extends true ? Array<{ id: number } & { [k: string]: any }>
+                : { id: number } & { [k: string]: any },
         ): void;
     }
     // type Props<T extends boolean> = BaseProps<T>;

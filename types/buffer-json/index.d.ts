@@ -1,8 +1,3 @@
-// Type definitions for buffer-json 2.0
-// Project: https://github.com/jprichardson/buffer-json
-// Definitions by: chroventer <https://github.com/chroventer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts a JavaScript object or value to a JSON string.
  * @param value The value to convert to a JSON string.

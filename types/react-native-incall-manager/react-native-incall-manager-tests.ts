@@ -24,15 +24,11 @@ InCallManager.setMicrophoneMute();
 
 InCallManager.setMicrophoneMute(false);
 
-InCallManager.checkRecordPermission();
-
-InCallManager.requestRecordPermission();
-
-InCallManager.getAudioUri("", "");
+InCallManager.getAudioUri("ringtone", "_DEFAULT_");
 
 InCallManager.startRingtone();
 
-InCallManager.startRingtone("", [], "", 0);
+InCallManager.startRingtone("", [], "playback", 0);
 
 InCallManager.stopRingtone();
 
@@ -41,3 +37,13 @@ InCallManager.setFlashOn();
 InCallManager.setFlashOn(true, 1);
 
 InCallManager.getIsWiredHeadsetPluggedIn();
+
+InCallManager.startProximitySensor();
+
+InCallManager.stopProximitySensor();
+
+InCallManager.chooseAudioRoute("EARPIECE");
+
+InCallManager.requestAudioFocus();
+
+InCallManager.abandonAudioFocus();

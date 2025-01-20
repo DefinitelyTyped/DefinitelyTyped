@@ -1,136 +1,185 @@
-/* eslint-disable camelcase */
 declare module "game/utils" {
-  import {
-    BuildableStructure,
-    DirectionConstant,
-    ERR_FULL,
-    ERR_INVALID_ARGS,
-    ERR_INVALID_TARGET,
-    TERRAIN_SWAMP,
-    TERRAIN_WALL
-  } from "game/constants";
-  import {
-    ConstructionSite,
-    GameObject,
-    Id,
-    RoomPosition,
-    _Constructor
-  } from "game/prototypes";
-  import { FindPathOpts, PathStep } from "game/path-finder";
+    import {
+        BOTTOM,
+        BOTTOM_LEFT,
+        BOTTOM_RIGHT,
+        ERR_FULL,
+        ERR_INVALID_ARGS,
+        ERR_INVALID_TARGET,
+        LEFT,
+        RIGHT,
+        TERRAIN_PLAIN,
+        TERRAIN_SWAMP,
+        TERRAIN_WALL,
+        TOP,
+        TOP_LEFT,
+        TOP_RIGHT,
+    } from "game/constants";
+    import { searchPath, SearchPathOptions } from "game/path-finder";
+    import { ConstructionSite, GameObject, Position, Structure } from "game/prototypes";
 
-  /**
-   * Get count of game ticks passed since the start of the game
-   */
-  export function getTime(): number;
-  /**
-   * Get an object with the specified unique ID.
-   */
-  export function getObjectById<T>(id: Id<T>): T | null;
-  /**
-   * Get all objects in the game.
-   */
-  export function getObjects(): GameObject[];
-  /**
-   * Get all objects in the game with the specified prototype, for example, all creeps
-   */
-  export function getObjectsByPrototype<T>(prototype: _Constructor<T>): T[];
-  /**
-   * Use this method to get heap statistics for your virtual machine
-   */
-  export function getHeapStatistics(): HeapStatistics;
-  /**
-   * Get linear direction by differences of x and y
-   */
-  export function getDirection(dx: number, dy: number): DirectionConstant;
+    export type Direction =
+        | typeof TOP
+        | typeof TOP_RIGHT
+        | typeof RIGHT
+        | typeof BOTTOM_RIGHT
+        | typeof BOTTOM
+        | typeof BOTTOM_LEFT
+        | typeof LEFT
+        | typeof TOP_LEFT;
+    export type Terrain =
+        | typeof TERRAIN_WALL
+        | typeof TERRAIN_SWAMP
+        | typeof TERRAIN_PLAIN;
 
-  /**
-   * Find an optimal path between fromPos and toPos. Unlike searchPath,
-   * findPath avoid all obstacles by default (unless costMatrix is specified).
-   * @param opts object containing additional options:
-   * ignore: array (objects which should be treated as obstacles during the search)
-   * Any options supported by searchPath method
-   */
-  export function findPath(
-    fromPos: RoomPosition,
-    toPos: RoomPosition,
-    opts?: FindPathOpts
-  ): PathStep[];
+    export type DoesZapCodeSpaceFlag = 0 | 1;
+    export interface HeapInfo {
+        total_heap_size: number;
+        total_heap_size_executable: number;
+        total_physical_size: number;
+        total_available_size: number;
+        used_heap_size: number;
+        heap_size_limit: number;
+        malloced_memory: number;
+        peak_malloced_memory: number;
+        does_zap_garbage: DoesZapCodeSpaceFlag;
+        number_of_native_contexts: number;
+        number_of_detached_contexts: number;
+        externally_allocated_size: number;
+    }
 
-  /**
-   * Get linear range between two objects. a and b may be any object containing x and y properties.
-   * @deprecated alias for getRange
-   */
-  export function getDistance(a: RoomPosition, b: RoomPosition): number;
+    export type FindPathOptions = SearchPathOptions & { ignore?: GameObject[] };
 
-  /**
-   * Get linear range between two objects. a and b may be any object containing x and y properties.
-   */
-  export function getRange(a: RoomPosition, b: RoomPosition): number;
+    /** {@link createConstructionSite} call result*/
+    export interface CreateConstructionSiteResult {
+        /** the instance of {@link ConstructionSite} created by this call */
+        object?: ConstructionSite | undefined;
 
-  /**
-   * Get an integer representation of the terrain at the given position.
-   * Returns TERRAIN_WALL, TERRAIN_SWAMP, or 0.
-   * @param pos pos should be an object containing x and y properties
-   */
-  export function getTerrainAt(
-    pos: RoomPosition
-  ): TERRAIN_WALL | TERRAIN_SWAMP | 0;
+        /** the error code */
+        error?: typeof ERR_INVALID_ARGS | typeof ERR_INVALID_TARGET | typeof ERR_FULL | undefined;
+    }
 
-  /**
-   * Find all positions from the given positions array within the specified linear range.
-   */
-  export function findInRange<T extends RoomPosition>(
-    fromPos: RoomPosition,
-    positions: T[],
-    range: number
-  ): T[];
+    /**
+     * Create new {@link ConstructionSite} at the specified location.
+     * @param pos The location as an object with x and y properties.
+     * @param structurePrototype A prototype that extends {@link GameObject}
+     * @returns a {@link CreateConstructionSiteResult} object with the call result
+     */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function createConstructionSite<T extends Structure>(
+        pos: Position,
+        structurePrototype: { new(): T },
+    ): CreateConstructionSiteResult;
 
-  /**
-   * Find a position with the shortest linear distance from the given position, or null otherwise.
-   */
-  export function findClosestByRange<T extends RoomPosition>(
-    fromPos: RoomPosition,
-    positions: T[]
-  ): T;
+    /**
+     * Find a position with the shortest path from the given position
+     * @param fromPos The position to search from. May be {@link GameObject} or any object containing x and y properties
+     * @param positions The positions to search among. An array of {@link GameObject} or any objects containing x and y properties
+     * @param options An object containing additional pathfinding flags
+     * @param options.costMatrix Custom navigation cost data
+     * @param options.plainCost Cost for walking on plain positions. The default is 2
+     * @param options.swampCost Cost for walking on swamp positions. The default is 10
+     * @param options.flee Instead of searching for a path to the goals this will search for a path away from the goals. The default is false
+     * @param options.maxOps The maximum allowed pathfinding operations. The default value is 50000
+     * @param options.maxCost The maximum allowed cost of the path returned. The default is Infinity
+     * @param options.heuristicWeight Weight from 1 to 9 to apply to the heuristic in the A* formula F = G + weight * H. The default value is 1.2
+     * @param options.ignore objects which should not be treated as obstacles during the search
+     * @returns the closest object from {@link positions}, or null if there was no valid positions
+     */
+    export function findClosestByPath<T extends Position>(
+        fromPos: Position,
+        positions: T[],
+        options?: FindPathOptions,
+    ): T;
 
-  /**
-   * Find a position with the shortest path from the given position, or null otherwise.
-   * @param opts object containing additional options:
-   * ignore: array (objects which should be treated as obstacles during the search)
-   * Any options supported by searchPath method
-   */
-  export function findClosestByPath<T extends RoomPosition>(
-    fromPos: RoomPosition,
-    positions: T[],
-    opts?: FindPathOpts
-  ): T;
+    /**
+     * Find a position with the shortest linear distance from the given position
+     * @param fromPos The position to search from. May be {@link GameObject} or any object containing x and y properties
+     * @param positions The positions to search among. An array of {@link GameObject} or any objects containing x and y properties
+     * @returns the closest object from {@link positions}
+     */
+    export function findClosestByRange<T extends Position>(fromPos: Position, positions: T[]): T;
 
-  /**
-   * Create new ConstructionSite at the specified location.
-   * @param x The X position.
-   * @param y The Y position.
-   * @param structurePrototype One of the following constants: StuctureExtension, StructureTower
-   * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
-   */
-  export function createConstructionSite(
-    x: number,
-    y: number,
-    structureType: _Constructor<BuildableStructure>
-  ): {
-    object?: ConstructionSite | undefined;
-    error?: ERR_INVALID_ARGS | ERR_INVALID_TARGET | ERR_FULL | undefined;
-  };
+    /**
+     * Find all objects in the specified linear range
+     * @param fromPos The origin position. May be {@link GameObject} or any object containing x and y properties
+     * @param positions The positions to search. An array of {@link GameObject} or any objects containing x and y properties
+     * @param range The range distance
+     * @returns an array with the objects found
+     */
+    export function findInRange<T extends Position>(fromPos: Position, positions: T[], range: number): T[];
 
-  export interface HeapStatistics {
-    total_heap_size: number;
-    total_heap_size_executable: number;
-    total_physical_size: number;
-    total_available_size: number;
-    used_heap_size: number;
-    heap_size_limit: number;
-    malloced_memory: number;
-    peak_malloced_memory: number;
-    does_zap_garbage: 0 | 1;
-    externally_allocated_size: number;
-  }
+    /**
+     * Find an optimal path between fromPos and toPos.
+     * Unlike {@link searchPath}, findPath avoid all obstacles by default (unless costMatrix is specified).
+     * @param fromPos The start position. May be {@link GameObject} or any object containing x and y properties.
+     * @param toPos The target position. May be {@link GameObject} or any object containing x and y properties.
+     * @param options An object containing additional pathfinding flags
+     * @param options.costMatrix Custom navigation cost data
+     * @param options.plainCost Cost for walking on plain positions. The default is 2
+     * @param options.swampCost Cost for walking on swamp positions. The default is 10
+     * @param options.flee Instead of searching for a path to the goals this will search for a path away from the goals. The default is false
+     * @param options.maxOps The maximum allowed pathfinding operations. The default value is 50000
+     * @param options.maxCost The maximum allowed cost of the path returned. The default is Infinity
+     * @param options.heuristicWeight Weight from 1 to 9 to apply to the heuristic in the A* formula F = G + weight * H. The default value is 1.2
+     * @param options.ignore objects which should not be treated as obstacles during the search
+     * @returns the path found as an array of objects containing x and y properties
+     */
+    export function findPath(fromPos: Position, toPos: Position, options?: FindPathOptions): Position[];
+
+    /**
+     * @returns CPU wall time elapsed in the current tick in nanoseconds
+     */
+    export function getCpuTime(): number;
+
+    /**
+     * Get linear direction by differences of x and y.
+     * @param dx The difference of X coordinate.
+     * @param dy The difference of Y coordinate.
+     * @returns a number representing one of the direction constants.
+     */
+    export function getDirection(dx: number, dy: number): Direction;
+
+    /**
+     * Use this method to get heap statistics for your virtual machine.
+     */
+    export function getHeapStatistics(): HeapInfo;
+
+    /**
+     * Get an object with the specified unique ID
+     * @param id The id property of the needed object. See {@link GameObject} prototype.
+     */
+    export function getObjectById(id: string): GameObject;
+
+    /**
+     * Get all game objects in the game
+     */
+    export function getObjects(): GameObject[];
+
+    /**
+     * Get all objects in the game with the specified prototype, for example, all creeps
+     * @param prototype A prototype that extends {@link GameObject}
+     * @returns Array of objects with the specified prototype
+     */
+    export function getObjectsByPrototype<T extends GameObject>(prototype: { new(): T }): T[];
+
+    /**
+     * Get linear range between two objects. a and b may be {@link GameObject} or any object containing x and y properties
+     * @param a The first of two objects. May be {@link GameObject} or any object containing x and y properties.
+     * @param b The second of two objects. May be {@link GameObject} or any object containing x and y properties.
+     * @returns a number of squares between two objects
+     */
+    export function getRange(a: Position, b: Position): number;
+
+    /**
+     * Get an integer representation of the terrain at the given position.
+     * @param pos The position as an object containing x and y properties.
+     * @returns either {@link TERRAIN_PLAIN}, {@link TERRAIN_WALL}, or {@link TERRAIN_SWAMP}
+     */
+    export function getTerrainAt(pos: Position): Terrain;
+
+    /**
+     * @returns the number of ticks passed from the start of the current game.
+     */
+    export function getTicks(): number;
 }

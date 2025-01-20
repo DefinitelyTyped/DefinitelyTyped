@@ -1,12 +1,3 @@
-// Type definitions for eureka-js-client 4.5
-// Project: https://github.com/jquatier/eureka-js-client
-// Definitions by: Ilko Hoffmann <https://github.com/Schnillz>
-//                 Karl O. <https://github.com/karl-run>
-//                 Tom Barton <https://github.com/tombarton>
-//                 Josh Sullivan <https://github.com/jpsullivan>
-//                 WayJam So <https://github.com/imsuwj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Eureka {
     constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig | EurekaClient.EurekaMiddlewareConfig);
     start(cb?: (err: Error, ...rest: any[]) => void): void;
@@ -16,9 +7,9 @@ export class Eureka {
 }
 
 export namespace EurekaClient {
-    type InstanceStatus = 'UP' | 'DOWN' | 'STARTING' | 'OUT_OF_SERVICE' | 'UNKNOWN';
-    type ActionType = 'ADDED' | 'MODIFIED' | 'DELETED';
-    type DataCenterName = 'Netflix' | 'Amazon' | 'MyOwn';
+    type InstanceStatus = "UP" | "DOWN" | "STARTING" | "OUT_OF_SERVICE" | "UNKNOWN";
+    type ActionType = "ADDED" | "MODIFIED" | "DELETED";
+    type DataCenterName = "Netflix" | "Amazon" | "MyOwn";
 
     interface EurekaConfig {
         requestMiddleware?: ((requestOpts: any, done: (opts: any) => void) => void) | undefined;
@@ -73,7 +64,7 @@ export namespace EurekaClient {
         ssl?: boolean | undefined;
         useDns?: boolean | undefined;
         preferSameZone?: boolean | undefined;
-        clusterRefreshInterval?: boolean | undefined;
+        clusterRefreshInterval?: number | undefined;
         fetchMetadata?: boolean | undefined;
         registerWithEureka?: boolean | undefined;
         useLocalMetadata?: boolean | undefined;
@@ -91,7 +82,7 @@ export namespace EurekaClient {
     }
     interface LegacyPortWrapper {
         $: number;
-        '@enabled': boolean;
+        "@enabled": boolean;
     }
     interface PortWrapper {
         enabled: boolean;
@@ -107,6 +98,6 @@ export namespace EurekaClient {
     }
     interface DataCenterInfo {
         name: DataCenterName;
-        '@class'?: string | undefined;
+        "@class"?: string | undefined;
     }
 }

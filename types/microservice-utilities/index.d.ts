@@ -1,9 +1,3 @@
-// Type definitions for microservice-utilities 0.3
-// Project: https://github.com/Cimpress-MCP/microservice-utilities.js
-// Definitions by: Daan Boerlage <https://github.com/runebaas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Authorizer
  */
@@ -42,14 +36,18 @@ export interface PlatformClientResponse<T> {
 }
 
 export class PlatformClient {
-    constructor(logFunction: (msg: any) => void, tokenResolverFunction?: () => Promise<string>, configuration?: PlatformClientConfiguration)
-    get<T>(url: string, headers?: { [s: string]: string; }, type?: string): Promise<PlatformClientResponse<T>>;
-    post<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    put<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    patch<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    delete <T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    head<T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    options<T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
+    constructor(
+        logFunction: (msg: any) => void,
+        tokenResolverFunction?: () => Promise<string>,
+        configuration?: PlatformClientConfiguration,
+    );
+    get<T>(url: string, headers?: { [s: string]: string }, type?: string): Promise<PlatformClientResponse<T>>;
+    post<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    put<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    patch<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    delete<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    head<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    options<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
 }
 /* tslint:enable:no-unnecessary-generics */
 

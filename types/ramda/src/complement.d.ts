@@ -1,2 +1,2 @@
-import { complement } from '../index';
+import { complement } from "../index";
 export default complement;

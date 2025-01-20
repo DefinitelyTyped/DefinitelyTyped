@@ -1,17 +1,12 @@
 declare module "game/prototypes" {
-  export interface Source extends GameObject {
-    readonly prototype: Source;
+    import { WORK } from "game/constants"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-    energy: number;
-    energyCapacity: number;
-    // TODO: fix toJSON
-    // toJSON() {
-    //   return Object.assign(super.toJSON(), {
-    //     energy: this.energy,
-    //     energyCapacity: this.energyCapacity
-    //   });
-    // }
-  }
+    /** An energy source object. Can be harvested by creeps with a {@link WORK} body part */
+    export class Source extends GameObject {
+        /** Current amount of energy in the source */
+        energy: number;
 
-  export const Source: _Constructor<Source>;
+        /** The maximum amount of energy in the source */
+        energyCapacity: number;
+    }
 }

@@ -1,17 +1,13 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
+import { Events } from "./events";
+import { Manifest } from "./manifest";
+
 /**
  * Namespace: browser.theme
- * Generated from Mozilla sources. Do not manually edit!
- *
- * The theme API allows customizing of visual elements of the browser.
- *
- * Comments found in source JSON schema files:
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Manifest } from "./manifest";
-import { Events } from "./events";
-
 export namespace Theme {
     /**
      * Info provided in the onUpdated listener.
@@ -42,7 +38,7 @@ export namespace Theme {
          *
          * @param windowId Optional. The window for which we want the theme.
          */
-        getCurrent(windowId?: number): Promise<any>;
+        getCurrent(windowId?: number): Promise<Manifest.ThemeType>;
 
         /**
          * Make complete updates to the theme. Resolves when the update has completed.

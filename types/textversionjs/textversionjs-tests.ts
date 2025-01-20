@@ -1,4 +1,4 @@
-import textVersion = require('textversionjs');
+import textVersion = require("textversionjs");
 
 // $ExpectType string
 textVersion("<h1>Hello World</h1><p>Hello World</p>");
@@ -9,5 +9,5 @@ textVersion("<h1>Hello World</h1><p>Hello World</p>");
     Hello World
 */
 
-// $ExpectError
+// @ts-expect-error
 textVersion(1);

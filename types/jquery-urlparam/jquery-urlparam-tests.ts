@@ -1,1 +1,1 @@
-console.log($.urlParam('variable'));
+console.log($.urlParam("variable"));

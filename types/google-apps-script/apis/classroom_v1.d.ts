@@ -1,8 +1,3 @@
-// Type definitions for Google Apps Script 2020-02-03
-// Project: https://developers.google.com/apps-script/
-// Generator: https://github.com/grant/google-apps-script-dts
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GoogleAppsScript {
     namespace Classroom {
         namespace Collection {
@@ -153,7 +148,9 @@ declare namespace GoogleAppsScript {
                     remove(courseId: string, id: string): void;
                 }
                 interface CourseWorkCollection {
-                    StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection | undefined;
+                    StudentSubmissions?:
+                        | Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection
+                        | undefined;
                     // Creates course work. The resulting course work (and corresponding student submissions) are associated with the Developer Console project of the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to make the request. Classroom API requests to modify course work and student submissions must be made with an OAuth client ID from the associated Developer Console project. This method returns the following error codes:
                     // *`PERMISSION_DENIED` if the requesting user is not permitted to access the requested course, create course work in the requested course, share a Drive attachment, or for access errors.
                     // *`INVALID_ARGUMENT` if the request is malformed.

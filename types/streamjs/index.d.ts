@@ -1,15 +1,10 @@
-// Type definitions for streamjs 1.5.0
-// Project: http://winterbe.github.io/streamjs/
-// Definitions by: Bence Eros <https://github.com/erosb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Stream<T> {
-    static from <T> (elems: T[]): Stream<T>;
+    static from<T>(elems: T[]): Stream<T>;
     static from(str: string): Stream<string>;
     static of<T>(...elems: T[]): Stream<T>;
-    static range (startInclusive: number, endExclusive: number): Stream<number>;
-    static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
-    static generate <T> (supplier: Stream.Supplier<T>): Stream<T>;
+    static range(startInclusive: number, endExclusive: number): Stream<number>;
+    static rangeClosed(startInclusive: number, endInclusive: number): Stream<number>;
+    static generate<T>(supplier: Stream.Supplier<T>): Stream<T>;
     static iterate<T>(seed: T, fn: Stream.Function<T, T>): Stream<T>;
 
     anyMatch(predicate: Stream.Predicate<T>): boolean;
@@ -41,7 +36,7 @@ declare class Stream<T> {
     groupingBy(mapper: Stream.Function<T, string>): Stream.GroupingResult<T>;
     groupingBy(path: string): Stream.GroupingResult<T>;
     indexBy(keyMapper: Stream.Function<T, string>, mergeFunction?: Stream.Accumulator<T>): Stream.Map<T>;
-    map <U> (mapper: Stream.Function<T, U>): Stream<U>;
+    map<U>(mapper: Stream.Function<T, U>): Stream<U>;
     max(): Stream.Optional<T>;
     max(comparator: Stream.Comparator<T>): Stream.Optional<T>;
     max(path: string): Stream.Optional<T>;
@@ -50,7 +45,7 @@ declare class Stream<T> {
     min(path: string): Stream.Optional<T>;
     noneMatch(predicate: (elem: T) => boolean): boolean;
     noneMatch(regexp: RegExp): boolean;
-    flatMap <U> (mapper: Stream.Function<T, U[]>): Stream<U>;
+    flatMap<U>(mapper: Stream.Function<T, U[]>): Stream<U>;
     iterator(): Stream.Iterator<T>;
     joining(): string;
     joining(delimiter: string): string;
@@ -93,14 +88,12 @@ declare class Stream<T> {
 }
 
 declare namespace Stream {
-
     export interface Map<T> {
-        [index: string]: T
+        [index: string]: T;
     }
 
-
     export interface Sample {
-        [index: string]: any
+        [index: string]: any;
     }
 
     export interface Accumulator<T> {
@@ -114,7 +107,7 @@ declare namespace Stream {
     }
 
     export interface Comparator<T> {
-        (e1: T, e2: T): number
+        (e1: T, e2: T): number;
     }
 
     export interface Consumer<T> {
@@ -126,7 +119,7 @@ declare namespace Stream {
     }
 
     export interface GroupingResult<T> {
-        [index: string]: T[]
+        [index: string]: T[];
     }
 
     export interface Iterator<T> {
@@ -145,7 +138,7 @@ declare namespace Stream {
     }
 
     export interface Supplier<T> {
-        (): T
+        (): T;
     }
 
     export class Optional<T> {

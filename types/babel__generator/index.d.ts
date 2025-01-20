@@ -1,14 +1,4 @@
-// Type definitions for @babel/generator 7.6
-// Project: https://github.com/babel/babel/tree/master/packages/babel-generator, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Johnny Estilles <https://github.com/johnnyestilles>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Cameron Yan <https://github.com/khell>
-//                 Lyanbin <https://github.com/Lyanbin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import * as t from '@babel/types';
+import * as t from "@babel/types";
 
 export interface GeneratorOptions {
     /**
@@ -48,7 +38,7 @@ export interface GeneratorOptions {
     /**
      * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
      */
-    compact?: boolean | 'auto' | undefined;
+    compact?: boolean | "auto" | undefined;
 
     /**
      * Should the output be minified. Defaults to `false`.
@@ -93,6 +83,12 @@ export interface GeneratorOptions {
     decoratorsBeforeExport?: boolean | undefined;
 
     /**
+     * The import attributes/assertions syntax to use.
+     * When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+     */
+    importAttributesKeyword?: "with" | "assert" | "with-legacy";
+
+    /**
      * Options for outputting jsesc representation.
      */
     jsescOption?: {
@@ -100,14 +96,14 @@ export interface GeneratorOptions {
          * The default value for the quotes option is 'single'. This means that any occurrences of ' in the input
          * string are escaped as \', so that the output can be used in a string literal wrapped in single quotes.
          */
-        quotes?: 'single' | 'double' | 'backtick' | undefined;
+        quotes?: "single" | "double" | "backtick" | undefined;
 
         /**
          * The default value for the numbers option is 'decimal'. This means that any numeric values are represented
          * using decimal integer literals. Other valid options are binary, octal, and hexadecimal, which result in
          * binary integer literals, octal integer literals, and hexadecimal integer literals, respectively.
          */
-        numbers?: 'binary' | 'octal' | 'decimal' | 'hexadecimal' | undefined;
+        numbers?: "binary" | "octal" | "decimal" | "hexadecimal" | undefined;
 
         /**
          * The wrap option takes a boolean value (true or false), and defaults to false (disabled). When enabled, the

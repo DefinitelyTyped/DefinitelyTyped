@@ -1,3 +1,3 @@
-import { Color } from './math/Color';
+export function createCanvasElement(): HTMLCanvasElement;
 
-export type ColorRepresentation = Color | string | number;
+export function probeAsync(gl: WebGLRenderingContext, sync: WebGLSync, interval: number): Promise<void>;

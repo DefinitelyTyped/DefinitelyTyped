@@ -1,4 +1,4 @@
-import Subtag = require('./Subtag');
+import Subtag = require("./Subtag");
 
 // These are really static integers assigned to Tag.
 declare enum ErrorCode {
@@ -53,7 +53,7 @@ declare class Tag {
      * For a definition of grandfathered and redundant tags, see
      * [RFC 5646 section 2.2.8](http://tools.ietf.org/html/rfc5646#section-2.2.8).
      */
-    type(): 'grandfathered' | 'redundant' | 'tag';
+    type(): "grandfathered" | "redundant" | "tag";
 
     /**
      * Returns an array of subtags making up the tag, as `Subtag` objects.
@@ -63,22 +63,22 @@ declare class Tag {
     /**
      * Shortcut for `tag.find('language')`.
      */
-    language(): Subtag;
+    language(): Subtag | undefined;
 
     /**
      * Shortcut for `tag.find('region')`.
      */
-    region(): Subtag;
+    region(): Subtag | undefined;
 
     /**
      * Shortcut for `tag.find('script')`.
      */
-    script(): Subtag;
+    script(): Subtag | undefined;
 
     /**
      * Find a subtag of the given type from those making up the tag.
      */
-    find(type: string): Subtag;
+    find(type: string): Subtag | undefined;
 
     /**
      * Returns `true` if the tag is valid, `false` otherwise.

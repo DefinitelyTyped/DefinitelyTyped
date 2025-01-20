@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/wordwrapjs",
+    "version": "5.1.9999",
+    "type": "module",
+    "exports": {
+        "import": "./index.d.ts",
+        "require": "./index.d.cts"
+    },
+    "projects": [
+        "https://github.com/75lb/wordwrapjs#readme"
+    ],
+    "devDependencies": {
+        "@types/wordwrapjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stoyan Karev",
+            "githubUsername": "stoyan-karev"
+        }
+    ]
+}

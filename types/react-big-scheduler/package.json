@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/react-big-scheduler",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/StephenChou1017/react-big-scheduler"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "moment": "^2.18.1"
-    }
+    },
+    "devDependencies": {
+        "@types/react-big-scheduler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Trent Jones",
+            "githubUsername": "FizzBuzz791"
+        }
+    ]
 }

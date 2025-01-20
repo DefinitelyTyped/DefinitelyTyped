@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/url-format-lax",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/url-format-lax"
+    ],
+    "devDependencies": {
+        "@types/url-format-lax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

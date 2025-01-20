@@ -1,89 +1,107 @@
-// Type definitions for busboy 0.3
-// Project: https://www.npmjs.com/package/busboy
-// Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as http from 'http';
-import { Readable, Writable } from 'stream';
-
-export = busboy;
-
-declare const busboy: busboy.BusboyConstructor;
+import { IncomingHttpHeaders } from "http";
+import { Readable, Writable } from "stream";
 
 declare namespace busboy {
+    interface Limits {
+        /**
+         * Max field name size (in bytes).
+         *
+         * @default 100
+         */
+        fieldNameSize?: number | undefined;
+
+        /**
+         * Max field value size (in bytes).
+         *
+         * @default 1048576 (1MB)
+         */
+        fieldSize?: number | undefined;
+
+        /**
+         * Max number of non-file fields.
+         *
+         * @default Infinity
+         */
+        fields?: number | undefined;
+
+        /**
+         * For multipart forms, the max file size (in bytes).
+         *
+         * @default Infinity
+         */
+        fileSize?: number | undefined;
+
+        /**
+         * For multipart forms, the max number of file fields.
+         *
+         * @default Infinity
+         */
+        files?: number | undefined;
+
+        /**
+         * For multipart forms, the max number of parts (fields + files).
+         *
+         * @default Infinity
+         */
+        parts?: number | undefined;
+
+        /**
+         * For multipart forms, the max number of header key-value pairs to parse.
+         *
+         * @default 2000 (same as node's http module)
+         */
+        headerPairs?: number | undefined;
+    }
+
     interface BusboyConfig {
         /**
          * These are the HTTP headers of the incoming request, which are used by individual parsers.
          */
-        headers: BusboyHeaders;
+        headers?: IncomingHttpHeaders | undefined;
+
         /**
-         * `highWaterMark` to use for this Busboy instance.
-         * @default WritableStream default.
+         * 'highWaterMark' to use for the parser stream
+         *
+         * @default stream.Writable
          */
         highWaterMark?: number | undefined;
+
         /**
-         * highWaterMark to use for file streams.
-         * @default ReadableStream default.
+         * 'highWaterMark' to use for individual file streams
+         *
+         * @default stream.Readable
          */
         fileHwm?: number | undefined;
+
         /**
          * Default character set to use when one isn't defined.
+         *
          * @default 'utf8'
          */
         defCharset?: string | undefined;
+
         /**
-         * If paths in the multipart 'filename' field shall be preserved.
+         * For multipart forms, the default character set to use for values of part header parameters (e.g. filename)
+         * that are not extended parameters (that contain an explicit charset
+         *
+         * @default 'latin1'
+         */
+        defParamCharset?: string | undefined;
+
+        /**
+         * If paths in filenames from file parts in a 'multipart/form-data' request shall be preserved.
+         *
          * @default false
          */
         preservePath?: boolean | undefined;
+
         /**
          * Various limits on incoming data.
          */
-        limits?:
-            | {
-                  /**
-                   * Max field name size (in bytes)
-                   * @default 100 bytes
-                   */
-                  fieldNameSize?: number | undefined;
-                  /**
-                   * Max field value size (in bytes)
-                   * @default 1MB
-                   */
-                  fieldSize?: number | undefined;
-                  /**
-                   * Max number of non-file fields
-                   * @default Infinity
-                   */
-                  fields?: number | undefined;
-                  /**
-                   * For multipart forms, the max file size (in bytes)
-                   * @default Infinity
-                   */
-                  fileSize?: number | undefined;
-                  /**
-                   * For multipart forms, the max number of file fields
-                   * @default Infinity
-                   */
-                  files?: number | undefined;
-                  /**
-                   * For multipart forms, the max number of parts (fields + files)
-                   * @default Infinity
-                   */
-                  parts?: number | undefined;
-                  /**
-                   * For multipart forms, the max number of header key=>value pairs to parse
-                   * @default 2000 (same as node's http)
-                   */
-                  headerPairs?: number | undefined;
-              }
-            | undefined;
+        limits?: Limits | undefined;
     }
-
-    type BusboyHeaders = { 'content-type': string } & http.IncomingHttpHeaders;
 
     interface Busboy extends Writable {
         addListener<Event extends keyof BusboyEvents>(event: Event, listener: BusboyEvents[Event]): this;
@@ -108,6 +126,20 @@ declare namespace busboy {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
+    interface Info {
+        encoding: string;
+        mimeType: string;
+    }
+
+    interface FileInfo extends Info {
+        filename: string;
+    }
+
+    interface FieldInfo extends Info {
+        nameTruncated: boolean;
+        valueTruncated: boolean;
+    }
+
     interface BusboyEvents {
         /**
          * Emitted for each new file form field found.
@@ -123,42 +155,45 @@ declare namespace busboy {
          * @param listener.transferEncoding Contains the 'Content-Transfer-Encoding' value for the file stream.
          * @param listener.mimeType Contains the 'Content-Type' value for the file stream.
          */
-        file: (
-            fieldname: string,
-            stream: Readable,
-            filename: string,
-            transferEncoding: string,
-            mimeType: string,
-        ) => void;
+        file: (name: string, stream: Readable & { truncated?: boolean }, info: FileInfo) => void;
+
         /**
          * Emitted for each new non-file field found.
          */
-        field: (
-            fieldname: string,
-            value: string,
-            fieldnameTruncated: boolean,
-            valueTruncated: boolean,
-            transferEncoding: string,
-            mimeType: string,
-        ) => void;
-        finish: () => void;
+        field: (name: string, value: string, info: FieldInfo) => void;
+
         /**
          * Emitted when specified `parts` limit has been reached. No more 'file' or 'field' events will be emitted.
          */
         partsLimit: () => void;
+
         /**
-         *  Emitted when specified `files` limit has been reached. No more 'file' events will be emitted.
+         * Emitted when specified `files` limit has been reached. No more 'file' events will be emitted.
          */
         filesLimit: () => void;
+
         /**
          * Emitted when specified `fields` limit has been reached. No more 'field' events will be emitted.
          */
         fieldsLimit: () => void;
-        error: (error: unknown) => void;
-    }
 
-    interface BusboyConstructor {
-        (options: BusboyConfig): Busboy;
-        new (options: BusboyConfig): Busboy;
+        error: (error: unknown) => void;
+
+        /**
+         * @deprecated
+         * @since 1.0
+         */
+        finish: () => void;
+
+        /**
+         * Use 'close' event instead of 'finish' event when you need to execute
+         *
+         * @since 1.0
+         */
+        close: () => void;
     }
 }
+
+declare function busboy(config: busboy.BusboyConfig): busboy.Busboy;
+
+export = busboy;

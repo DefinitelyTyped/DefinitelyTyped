@@ -1,5 +1,5 @@
-import { CallbackType, CharsetType, LoadCallbackType } from '../types';
-import { DecodedString } from './StringUtils';
+import { CallbackType, CharsetType, LoadCallbackType } from "../types";
+import { DecodedString } from "./StringUtils";
 
 export default class MediaFileReader {
     _isInitialized: boolean;
@@ -27,7 +27,7 @@ export default class MediaFileReader {
         offset: number,
         length: number,
         charset?: CharsetType,
-      ): DecodedString;
+    ): DecodedString;
     getCharAt(offset: number): string;
     getSynchsafeInteger32At(offset: number): number;
 }

@@ -1,19 +1,14 @@
-// Type definitions for clovelced-plugin-audiomanagement 1.0
-// Project: https://github.com/clovelCed/cordova-plugin-audiomanagement#readme
-// Definitions by: Marc Kassay <https://github.com/marckassay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum AudioMode {
     SILENT = 0,
     VIBRATE,
-    NORMAL
+    NORMAL,
 }
 
 export enum VolumeType {
     RING = 0,
     MUSIC,
     NOTIFICATION,
-    SYSTEM
+    SYSTEM,
 }
 
 /**
@@ -33,7 +28,10 @@ export function setAudioMode(mode: AudioMode, onSuccess: () => void, onError: (e
  * @param onError a callback when getting fails.
  * @returns void
  */
-export function getAudioMode(onSuccess: (results: { audioMode: AudioMode, label: string }) => void, onError: (error: any) => void): void;
+export function getAudioMode(
+    onSuccess: (results: { audioMode: AudioMode; label: string }) => void,
+    onError: (error: any) => void,
+): void;
 
 /**
  * Sets the specified `AudioManagement.VolumeType` for the device with the value from `volume`.
@@ -54,7 +52,11 @@ export function setVolume(type: VolumeType, volume: number, onSuccess: () => voi
  * @param onError a callback when getting fails.
  * @returns void
  */
-export function getVolume(type: VolumeType, onSuccess: (results: { volume: number }) => void, onError: (error: any) => void): void;
+export function getVolume(
+    type: VolumeType,
+    onSuccess: (results: { volume: number }) => void,
+    onError: (error: any) => void,
+): void;
 
 /**
  * Gets the specified `AudioManagement.VolumeType`'s maximum `volume` that the device is currently set to.
@@ -64,4 +66,8 @@ export function getVolume(type: VolumeType, onSuccess: (results: { volume: numbe
  * @param onError a callback when getting fails.
  * @returns void
  */
-export function getMaxVolume(type: VolumeType, onSuccess: (results: { maxVolume: number }) => void, onError: (error: any) => void): void;
+export function getMaxVolume(
+    type: VolumeType,
+    onSuccess: (results: { maxVolume: number }) => void,
+    onError: (error: any) => void,
+): void;

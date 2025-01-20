@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/doccookies",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "doccookies",
+    "projects": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/document.cookie"
+    ],
+    "devDependencies": {
+        "@types/doccookies": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jon Egerton",
+            "githubUsername": "jonegerton"
+        }
+    ]
+}

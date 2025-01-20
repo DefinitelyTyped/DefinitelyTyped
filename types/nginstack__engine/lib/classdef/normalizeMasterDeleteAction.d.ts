@@ -4,6 +4,7 @@ declare function _exports(
               ERROR: number;
               DELETE: number;
               UNLINK: number;
+              IGNORE: number;
           }
         | string
         | number
@@ -11,5 +12,6 @@ declare function _exports(
     ERROR: number;
     DELETE: number;
     UNLINK: number;
+    IGNORE: number;
 };
 export = _exports;

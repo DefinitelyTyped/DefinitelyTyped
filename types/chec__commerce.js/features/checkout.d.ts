@@ -1,12 +1,12 @@
-import Commerce = require('@chec/commerce.js');
-import { Live } from '../types/live';
-import { Price } from '../types/price';
-import { DiscountType } from '../types/discount';
-import { CheckoutToken } from '../types/checkout-token';
-import { CheckoutCapture } from '../types/checkout-capture';
-import { CheckoutCaptureResponse } from '../types/checkout-capture-response';
+import Commerce = require("../");
+import { CheckoutCapture } from "../types/checkout-capture";
+import { CheckoutCaptureResponse } from "../types/checkout-capture-response";
+import { CheckoutToken } from "../types/checkout-token";
+import { DiscountType } from "../types/discount";
+import { Live } from "../types/live";
+import { Price } from "../types/price";
 
-export type IdentifierType = 'product_id' | 'cart' | 'permalink';
+export type IdentifierType = "product_id" | "cart" | "permalink";
 
 export interface CheckPayWhatYouWantResponse {
     valid: boolean;
@@ -116,10 +116,18 @@ export class Checkout {
         token: string,
         data: { shipping_option_id: string; country: string; region?: string | undefined },
     ): Promise<CheckShippingOptionResponse>;
-    getShippingOptions(token: string, data: { country: string; region?: string | undefined }): Promise<GetShippingOptionsResponse>;
+    getShippingOptions(
+        token: string,
+        data: { country: string; region?: string | undefined },
+    ): Promise<GetShippingOptionsResponse[]>;
     setTaxZone(
         token: string,
-        data: { ip_address?: string | undefined; country?: string | undefined; region?: string | undefined; postal_zip_code?: string | undefined },
+        data: {
+            ip_address?: string | undefined;
+            country?: string | undefined;
+            region?: string | undefined;
+            postal_zip_code?: string | undefined;
+        },
     ): Promise<SetTaxZoneResponse>;
     checkQuantity(token: string, lineItemId: string, data: object): Promise<CheckQuantityResponse>;
     helperValidation(token: string): Promise<HelperValidationResponse>;

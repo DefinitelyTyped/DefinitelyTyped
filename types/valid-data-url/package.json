@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/valid-data-url",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/killmenot/valid-data-url"
+    ],
+    "devDependencies": {
+        "@types/valid-data-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jgeth",
+            "githubUsername": "jgeth"
+        }
+    ]
+}

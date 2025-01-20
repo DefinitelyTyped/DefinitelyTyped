@@ -202,7 +202,7 @@
 declare module "tty" {
     
 
-    module tty {
+    namespace tty {
         
         
         

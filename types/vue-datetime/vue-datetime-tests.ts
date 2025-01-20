@@ -1,22 +1,22 @@
-import Vue from 'vue';
-import VueDateTime from 'vue-datetime';
+import Vue from "vue";
+import VueDateTime from "vue-datetime";
 
 const options = [
     {
-        name: 'SomeName'
+        name: "SomeName",
     },
     {
-        name: 'SomeName2'
-    }
+        name: "SomeName2",
+    },
 ];
 
 new Vue({
-    el: '#app',
+    el: "#app",
     data: {
         value: null,
     },
     components: {
-        'vue-datetime': VueDateTime
+        "vue-datetime": VueDateTime,
     },
     methods: {
         optionConsumer(option: any) {
@@ -26,5 +26,5 @@ new Vue({
     <vue-datetime :value="value"
                 @input="optionConsumer">
     </vue-datetime>
-`
+`,
 });

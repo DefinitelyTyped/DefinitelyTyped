@@ -1,10 +1,10 @@
 // tslint:disable:no-mergeable-namespace no-namespace
 
-import { Options as TemplateOptions, Data as TemplateData } from 'ejs';
-import { JSONSchema7Type } from 'json-schema';
-import * as MemFs from 'mem-fs';
-import * as MemFsEditor from 'mem-fs-editor';
-import { Transform } from 'stream';
+import { Data as TemplateData, Options as TemplateOptions } from "ejs";
+import { JSONSchema7Type } from "json-schema";
+import * as MemFs from "mem-fs";
+import * as MemFsEditor from "mem-fs-editor";
+import { Transform } from "stream";
 
 declare const STORE: MemFs.Store;
 
@@ -29,8 +29,10 @@ namespace Editor.read {
         contents = EDITOR.read(FILE_PATH);
         contents = EDITOR.read(FILE_PATH, { raw: false });
         contents = EDITOR.read(FILE_PATH, { raw: false, defaults: STRING_DEFAULTS });
-        contents = EDITOR.read(FILE_PATH, { defaults: RAW_DEFAULTS }); // $ExpectError
-        contents = EDITOR.read(FILE_PATH, { raw: false, defaults: RAW_DEFAULTS }); // $ExpectError
+        // @ts-expect-error
+        contents = EDITOR.read(FILE_PATH, { defaults: RAW_DEFAULTS });
+        // @ts-expect-error
+        contents = EDITOR.read(FILE_PATH, { raw: false, defaults: RAW_DEFAULTS });
     }
 
     {
@@ -38,7 +40,8 @@ namespace Editor.read {
 
         contents = EDITOR.read(FILE_PATH, { raw: true });
         contents = EDITOR.read(FILE_PATH, { raw: true, defaults: RAW_DEFAULTS });
-        contents = EDITOR.read(FILE_PATH, { raw: true, defaults: STRING_DEFAULTS }); // $ExpectError
+        // @ts-expect-error
+        contents = EDITOR.read(FILE_PATH, { raw: true, defaults: STRING_DEFAULTS });
     }
 }
 

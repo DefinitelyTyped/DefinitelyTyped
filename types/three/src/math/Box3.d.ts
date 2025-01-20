@@ -1,10 +1,10 @@
-import { BufferAttribute } from './../core/BufferAttribute';
-import { Vector3 } from './Vector3';
-import { Object3D } from './../core/Object3D';
-import { Sphere } from './Sphere';
-import { Plane } from './Plane';
-import { Matrix4 } from './Matrix4';
-import { Triangle } from './Triangle';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { Object3D } from "../core/Object3D.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Plane } from "./Plane.js";
+import { Sphere } from "./Sphere.js";
+import { Triangle } from "./Triangle.js";
+import { Vector3 } from "./Vector3.js";
 
 export class Box3 {
     constructor(min?: Vector3, max?: Vector3);
@@ -25,7 +25,7 @@ export class Box3 {
     setFromBufferAttribute(bufferAttribute: BufferAttribute): this;
     setFromPoints(points: Vector3[]): this;
     setFromCenterAndSize(center: Vector3, size: Vector3): this;
-    setFromObject(object: Object3D): this;
+    setFromObject(object: Object3D, precise?: boolean): this;
     clone(): this;
     copy(box: Box3): this;
     makeEmpty(): this;
@@ -35,7 +35,7 @@ export class Box3 {
     expandByPoint(point: Vector3): this;
     expandByVector(vector: Vector3): this;
     expandByScalar(scalar: number): this;
-    expandByObject(object: Object3D): this;
+    expandByObject(object: Object3D, precise?: boolean): this;
     containsPoint(point: Vector3): boolean;
     containsBox(box: Box3): boolean;
     getParameter(point: Vector3, target: Vector3): Vector3;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsonp-body",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/node-modules/jsonp-body"
+    ],
+    "devDependencies": {
+        "@types/jsonp-body": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qingrong Ke",
+            "githubUsername": "keqingrong"
+        }
+    ]
+}

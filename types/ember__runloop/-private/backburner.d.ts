@@ -1,3 +1,5 @@
+import { EmberMethod, EmberMethodParams } from "ember/-private/type-utils";
+
 export interface QueueItem {
     method: string;
     target: object;
@@ -6,9 +8,18 @@ export interface QueueItem {
 }
 
 export interface DeferredActionQueues {
-    [index: string]: any;
+    [index: string]: unknown;
     queues: object;
-    schedule(queueName: string, target: any, method: any, args: any, onceFlag: boolean, stack: any): any;
+    schedule<T, M extends EmberMethod<T>>(
+        ...args: [
+            queueName: string,
+            target: T,
+            method: M,
+            ...methodArgs: EmberMethodParams<T, M>,
+            onceFlag: boolean,
+            stack: unknown,
+        ]
+    ): any;
     flush(fromAutorun: boolean): any;
 }
 
@@ -22,6 +33,7 @@ export interface DebugInfo {
 export interface Backburner {
     join(...args: any[]): void;
     on(...args: any[]): void;
+    off(...args: any[]): void;
     scheduleOnce(...args: any[]): void;
     schedule(queueName: string, target: object | null, method: () => void | string): void;
     ensureInstance(): void;

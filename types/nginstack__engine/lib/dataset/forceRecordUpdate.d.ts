@@ -1,9 +1,13 @@
-declare function _exports(
-    queryFunc: () => any,
-    updateFunc: (arg0: any) => any,
+export = forceRecordUpdate;
+declare function forceRecordUpdate(
+    queryFunc: () => DataSet,
+    updateFunc: (arg0: DataSet) => any,
     opt_options?: {
         context?: any;
         timeout?: number;
     }
-): any;
-export = _exports;
+): DataSet;
+declare namespace forceRecordUpdate {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

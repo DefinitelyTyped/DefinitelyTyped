@@ -3,11 +3,11 @@
  */
 export default class Label {
     /**
-     * @Default 'left'
+     * @default 'left'
      */
     align: string;
     /**
-     * @Default 1
+     * @default 1
      */
     alpha: number;
     /**

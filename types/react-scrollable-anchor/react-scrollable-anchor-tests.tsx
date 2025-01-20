@@ -1,12 +1,12 @@
-import * as React from 'react';
-import ScrollableAnchor, { goToAnchor, goToTop, removeHash, configureAnchors } from "react-scrollable-anchor";
+import * as React from "react";
+import ScrollableAnchor, { configureAnchors, goToAnchor, goToTop, removeHash } from "react-scrollable-anchor";
 
 /*
  * goToAnchor
  */
 // $ExpectType void
 goToAnchor("one");
-// $ExpectError
+// @ts-expect-error
 goToAnchor(1);
 
 /*
@@ -14,7 +14,7 @@ goToAnchor(1);
  */
 // $ExpectType void
 goToTop();
-// $ExpectError
+// @ts-expect-error
 goToTop(1);
 
 /*
@@ -22,7 +22,7 @@ goToTop(1);
  */
 // $ExpectType void
 removeHash();
-// $ExpectError
+// @ts-expect-error
 removeHash(1);
 
 /*
@@ -30,18 +30,22 @@ removeHash(1);
  */
 // $ExpectType void
 configureAnchors({ offset: 500, scrollDuration: 1000, keepLastAnchorHash: true });
-// $ExpectError
+// @ts-expect-error
 configureAnchors();
-// $ExpectError
+// @ts-expect-error
 configureAnchors({ wrongKey: 1 });
-// $ExpectError
-configureAnchors({ offset: 'string' });
-// $ExpectError
-configureAnchors({ scrollDuration: 'string' });
-// $ExpectError
+// @ts-expect-error
+configureAnchors({ offset: "string" });
+// @ts-expect-error
+configureAnchors({ scrollDuration: "string" });
+// @ts-expect-error
 configureAnchors({ keepLastAnchorHash: 3 });
 
-// $ExpectError
-<ScrollableAnchor><div>Test</div></ScrollableAnchor>;
+// @ts-expect-error
+<ScrollableAnchor>
+    <div>Test</div>
+</ScrollableAnchor>;
 
-<ScrollableAnchor id="anchorId"><div>Test</div></ScrollableAnchor>;
+<ScrollableAnchor id="anchorId">
+    <div>Test</div>
+</ScrollableAnchor>;

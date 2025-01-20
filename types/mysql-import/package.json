@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/mysql-import",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/pamblam/mysql-import#readme"
+    ],
+    "dependencies": {
+        "mysql2": "^2.3.3"
+    },
+    "devDependencies": {
+        "@types/mysql-import": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        },
+        {
+            "name": "Chiaki Abe",
+            "githubUsername": "doubutsunokarada"
+        }
+    ]
+}

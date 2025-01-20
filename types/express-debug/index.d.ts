@@ -1,9 +1,3 @@
-// Type definitions for express-debug 1.1.1
-// Project: https://github.com/devoidfury/express-debug
-// Definitions by: Federico Bond <https://github.com/federicobond>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import debug = require('express-debug');
@@ -11,10 +5,7 @@
 
  =============================================== */
 
-
-
-
-import express = require('express');
+import express = require("express");
 
 interface CustomPanel {
     name: string;
@@ -77,7 +68,6 @@ declare function debug(app: express.Application, settings?: {
      * default order, true for basic default sort, or a function to use for sort.
      */
     sort?: boolean | ((a: number, b: number) => number) | undefined;
-
 }): void;
 
 export = debug;

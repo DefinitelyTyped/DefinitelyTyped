@@ -1,8 +1,3 @@
-// Type definitions for Google Analytics (Classic and Universal)
-// Project: https://developers.google.com/analytics/devguides/collection/gajs/, https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
-// Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>, Tyler Murphy <https://github.com/tyler-murphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Tracker {
     _trackPageview(): void;
     _getName(): string;
@@ -19,7 +14,7 @@ declare class Tracker {
 }
 
 interface GoogleAnalyticsCode {
-    push(commandArray: Array<string|boolean|number>): void;
+    push(commandArray: Array<string | boolean | number>): void;
     push(func: Function): void;
 }
 
@@ -40,7 +35,7 @@ declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hitType
-    type HitType = 'pageview' | 'screenview' | 'event' | 'transaction' | 'item' | 'social' | 'exception' | 'timing';
+    type HitType = "pageview" | "screenview" | "event" | "transaction" | "item" | "social" | "exception" | "timing";
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
 
@@ -547,69 +542,86 @@ declare namespace UniversalAnalytics {
         q: any[];
 
         (
-            command: 'send',
-            hitType: 'event',
+            command: "send",
+            hitType: "event",
             eventCategory: string,
             eventAction: string,
             eventLabel?: string,
             eventValue?: number,
-            fieldsObject?: FieldsObject): void;
+            fieldsObject?: FieldsObject,
+        ): void;
         (
-            command: 'send',
-            hitType: 'event',
+            command: "send",
+            hitType: "event",
             fieldsObject: {
-                eventCategory: string,
-                eventAction: string,
-                eventLabel?: string | undefined,
-                eventValue?: number | undefined,
-                nonInteraction?: boolean | undefined
-            }): void;
+                eventCategory: string;
+                eventAction: string;
+                eventLabel?: string | undefined;
+                eventValue?: number | undefined;
+                nonInteraction?: boolean | undefined;
+            },
+        ): void;
         (
-            command: 'send',
+            command: "send",
             fieldsObject: {
-                hitType: HitType, // 'event'
-                eventCategory: string,
-                eventAction: string,
-                eventLabel?: string | undefined,
-                eventValue?: number | undefined,
-                nonInteraction?: boolean | undefined
-            }): void;
-        (command: 'send', hitType: 'pageview', page: string): void;
+                hitType: HitType; // 'event'
+                eventCategory: string;
+                eventAction: string;
+                eventLabel?: string | undefined;
+                eventValue?: number | undefined;
+                nonInteraction?: boolean | undefined;
+            },
+        ): void;
+        (command: "send", hitType: "pageview", page: string): void;
         (
-            command: 'send',
-            hitType: 'social',
+            command: "send",
+            hitType: "social",
             socialNetwork: string,
             socialAction: string,
-            socialTarget: string): void;
+            socialTarget: string,
+        ): void;
         (
-            command: 'send',
-            hitType: 'social',
+            command: "send",
+            hitType: "social",
             fieldsObject: {
-                socialNetwork: string,
-                socialAction: string,
-                socialTarget: string
-            }): void;
+                socialNetwork: string;
+                socialAction: string;
+                socialTarget: string;
+            },
+        ): void;
         (
-            command: 'send',
-            hitType: 'timing',
+            command: "send",
+            hitType: "timing",
             timingCategory: string,
             timingVar: string,
-            timingValue: number): void;
+            timingValue: number,
+        ): void;
         (
-            command: 'send',
-            hitType: 'timing',
+            command: "send",
+            hitType: "timing",
             fieldsObject: {
-                timingCategory: string,
-                timingVar: string,
-                timingValue: number
-            }): void;
-        (command: 'send', fieldsObject: FieldsObject): void;
+                timingCategory: string;
+                timingVar: string;
+                timingValue: number;
+            },
+        ): void;
+        (command: "send", fieldsObject: FieldsObject): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
-        (command: 'require', pluginName: string, pluginOptions?: any): void;
-        (command: 'provide', pluginName: string, pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void): void;
+        (command: "require", pluginName: string, pluginOptions?: any): void;
+        (
+            command: "provide",
+            pluginName: string,
+            pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void,
+        ): void;
 
-        (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: FieldsObject): void;
-        (command: 'remove'): void;
+        (
+            command: "create",
+            trackingId: string,
+            cookieDomain?: string,
+            name?: string,
+            fieldsObject?: FieldsObject,
+        ): void;
+        (command: "remove"): void;
 
         (command: string, ...fields: any[]): void;
 

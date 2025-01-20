@@ -1,2 +1,2 @@
-import ToPrimitive = require('es-to-primitive/es2015');
+import ToPrimitive = require("es-to-primitive/es2015");
 export = ToPrimitive;

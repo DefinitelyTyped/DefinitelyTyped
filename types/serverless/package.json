@@ -1,0 +1,57 @@
+{
+    "private": true,
+    "name": "@types/serverless",
+    "version": "3.12.9999",
+    "projects": [
+        "https://github.com/serverless/serverless#readme"
+    ],
+    "devDependencies": {
+        "@types/serverless": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hassan Khan",
+            "githubUsername": "hassankhan"
+        },
+        {
+            "name": "Jonathan M. Wilbur",
+            "githubUsername": "JonathanWilbur"
+        },
+        {
+            "name": "Alex Pavlenko",
+            "githubUsername": "a-pavlenko"
+        },
+        {
+            "name": "Frédéric Barthelet",
+            "githubUsername": "fredericbarthelet"
+        },
+        {
+            "name": "Bryan Hunter",
+            "githubUsername": "bryan-hunter"
+        },
+        {
+            "name": "Thomas Aribart",
+            "githubUsername": "thomasaribart"
+        },
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "G-Rath"
+        },
+        {
+            "name": "Abdullah Ali",
+            "githubUsername": "AbdullahAli"
+        },
+        {
+            "name": "François Farge",
+            "githubUsername": "fargito"
+        },
+        {
+            "name": "Bruno Bodian",
+            "githubUsername": "bacarybruno"
+        },
+        {
+            "name": "Toni Domazet",
+            "githubUsername": "domazet93"
+        }
+    ]
+}

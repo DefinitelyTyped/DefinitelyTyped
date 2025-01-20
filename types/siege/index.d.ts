@@ -1,12 +1,9 @@
-// Type definitions for siege 0.2
-// Project: https://github.com/kissjs/siege.js#readme
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-type Stringifiable = NodeJS.Dict<string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null>;
-type Method = 'GET' | 'POST';
+type Stringifiable = NodeJS.Dict<
+    string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null
+>;
+type Method = "GET" | "POST";
 
 interface Options {
     serve?: string | undefined;
@@ -33,7 +30,7 @@ interface ReportOptions {
         line?: string | undefined;
         c2mem?: string | undefined;
     } | undefined;
-    type?: 'json' | 'plain' | 'color' | undefined;
+    type?: "json" | "plain" | "color" | undefined;
 }
 
 declare class For<T> {

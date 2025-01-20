@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-native-sortable-list",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/gitim/react-native-sortable-list"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-sortable-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Sivolobov",
+            "githubUsername": "sivolobov"
+        },
+        {
+            "name": "Vince Maiuri",
+            "githubUsername": "RookY2K"
+        },
+        {
+            "name": "Soner Köksal",
+            "githubUsername": "renjfk"
+        }
+    ]
+}

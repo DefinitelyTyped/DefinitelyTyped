@@ -1,5 +1,5 @@
-import { ComponentType, MouseEventHandler } from 'react';
-import { Dashicon } from '@wordpress/components';
+import { Dashicon } from "@wordpress/components";
+import { ComponentProps, ComponentType, JSX, MouseEventHandler } from "react";
 
 declare namespace PluginBlockSettingsMenuItem {
     interface Props {
@@ -13,7 +13,7 @@ declare namespace PluginBlockSettingsMenuItem {
          * A dashicon slug, or a custom JSX element.
          * @defaultValue `"admin-plugins"`
          */
-        icon?: JSX.Element | Dashicon.Icon | undefined;
+        icon?: JSX.Element | ComponentProps<typeof Dashicon>["icon"] | undefined;
         /**
          * The menu item text.
          */

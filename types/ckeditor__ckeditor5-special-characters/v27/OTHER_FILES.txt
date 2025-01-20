@@ -1,3 +1,0 @@
-src/ui/charactergridview.d.ts
-src/ui/characterinfoview.d.ts
-src/ui/specialcharactersnavigationview.d.ts

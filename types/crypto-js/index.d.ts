@@ -1,11 +1,3 @@
-// Type definitions for crypto-js v4.0.0
-// Project: https://github.com/brix/crypto-js
-// Definitions by: Michael Zabka <https://github.com/misak113>
-//                 Max Lysenko <https://github.com/maximlysenko>
-//                 Brendan Early <https://github.com/mymindstorm>
-//                 Doma <https://github.com/SevenOutman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = CryptoJS;
 
 type WordArray = CryptoJS.lib.WordArray;
@@ -141,7 +133,7 @@ interface Hasher {
      *     var hash = hasher.finalize('message');
      *     var hash = hasher.finalize(wordArray);
      */
-    finalize(messaegUpdate?: WordArray | string): WordArray;
+    finalize(messageUpdate?: WordArray | string): WordArray;
 }
 
 interface HasherStatic {
@@ -641,7 +633,21 @@ declare global {
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607]);
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607], 6);
                  */
-                create(words?: number[], sigBytes?: number): WordArray;
+                create(
+                    words?:
+                        | number[]
+                        | ArrayBuffer
+                        | Uint8Array
+                        | Int8Array
+                        | Uint8ClampedArray
+                        | Int16Array
+                        | Uint16Array
+                        | Int32Array
+                        | Uint32Array
+                        | Float32Array
+                        | Float64Array,
+                    sigBytes?: number,
+                ): WordArray;
                 /**
                  * Creates a word array filled with random bytes.
                  *
@@ -968,7 +974,13 @@ declare global {
                  *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32);
                  *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32, 'saltsalt');
                  */
-                execute(password: string, keySize: number, ivSize: number, salt?: WordArray | string): CipherParams;
+                execute(
+                    password: string,
+                    keySize: number,
+                    ivSize: number,
+                    salt?: WordArray | string,
+                    hasher?: Hasher,
+                ): CipherParams;
             };
         }
 
@@ -1048,6 +1060,10 @@ declare global {
              * Base64 encoding strategy.
              */
             const Base64: Encoder;
+            /**
+             * Base64url encoding strategy.
+             */
+            const Base64url: Encoder;
         }
 
         /**
@@ -1702,6 +1718,16 @@ declare global {
          *     var plaintext  = CryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
          */
         export const RabbitLegacy: CipherHelper;
+
+        /**
+         * Shortcut functions to the cipher's object interface.
+         *
+         * @example
+         *
+         *     var ciphertext = CryptoJS.Blowfish.encrypt(message, key, cfg);
+         *     var plaintext  = CryptoJS.Blowfish.decrypt(ciphertext, key, cfg);
+         */
+        export const Blowfish: CipherHelper;
 
         /**
          * Derives a key from a password.

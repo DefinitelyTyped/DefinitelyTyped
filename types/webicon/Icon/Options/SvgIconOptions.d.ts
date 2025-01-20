@@ -1,6 +1,6 @@
+import { SvgIcon } from "../SvgIcon";
 import { ImageIconOptions } from "./ImageIconOptions";
 import { SizeableOptions } from "./SizeableOptions";
-import { SvgIcon } from "../SvgIcon";
 
 /**
  * Provides options for svg-icons.

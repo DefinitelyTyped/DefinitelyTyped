@@ -1,2 +1,2 @@
-import { uniq } from '../index';
+import { uniq } from "../index.js";
 export default uniq;

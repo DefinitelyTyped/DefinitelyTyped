@@ -1,10 +1,3 @@
-// Type definitions for loadjs 4.0
-// Project: https://github.com/muicss/loadjs
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Aziz Khambati <https://github.com/azizhk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 export as namespace loadjs;
 
 export = loadjs;
@@ -17,22 +10,22 @@ declare function loadjs(
 declare function loadjs(
     files: string | string[],
     bundleId: string,
-    optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn
+    optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn,
 ): void;
 
 declare function loadjs(
     files: string | string[],
     options: loadjs.LoadOptions & {
-        returnPromise: true
-    }
+        returnPromise: true;
+    },
 ): Promise<void>;
 
 declare function loadjs(
     files: string | string[],
     bundleId: string,
     options: loadjs.LoadOptions & {
-        returnPromise: true
-    }
+        returnPromise: true;
+    },
 ): Promise<void>;
 
 declare namespace loadjs {

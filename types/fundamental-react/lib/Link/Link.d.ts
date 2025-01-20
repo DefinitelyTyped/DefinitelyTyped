@@ -6,7 +6,7 @@ export type LinkProps = {
     disabled?: boolean | undefined;
     disableStyles?: boolean | undefined;
     ref?: React.Ref<HTMLAnchorElement> | undefined;
-} & React.HTMLAttributes<HTMLAnchorElement>;
+} & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 declare const Link: React.FunctionComponent<LinkProps> & {
     displayName: "Link";

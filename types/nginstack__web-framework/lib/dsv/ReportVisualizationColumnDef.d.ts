@@ -30,7 +30,7 @@ declare class ReportVisualizationColumnDef {
     expression: string;
 }
 declare namespace ReportVisualizationColumnDef {
-    export { mergeDuplicatedValues, DBKey, ColumnLinkDef };
+    export { ColumnLinkDef, DBKey, mergeDuplicatedValues };
 }
 interface ColumnLinkDef {
     label: string;
@@ -40,5 +40,5 @@ interface ColumnLinkDef {
     target: string;
     params: any;
 }
-declare var mergeDuplicatedValues: boolean;
-type DBKey = import('@nginstack/engine/lib/dbkey/DBKey');
+declare let mergeDuplicatedValues: boolean;
+type DBKey = import("@nginstack/engine/lib/dbkey/DBKey");

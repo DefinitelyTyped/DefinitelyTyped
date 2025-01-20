@@ -1,9 +1,3 @@
-// Type definitions for secure-random-password 0.2
-// Project: https://github.com/rackerlabs/secure-random-password
-// Definitions by: Bjørnar Snoksrud <https://github.com/bjornars>
-//                 GaspardFRDev <https://github.com/GaspardFRDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const lower: string;
 export const upper: string;
 

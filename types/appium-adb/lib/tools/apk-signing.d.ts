@@ -39,7 +39,7 @@ interface ApkSigning {
      * @throws If apksigner binary is not present on the local file system
      *                 or the return code is not equal to zero.
      */
-    executeApksigner(args?: ReadonlyArray<string>): Promise<string>;
+    executeApksigner(args?: readonly string[]): Promise<string>;
 
     /**
      * (Re)sign the given apk file on the local file system with the default certificate.

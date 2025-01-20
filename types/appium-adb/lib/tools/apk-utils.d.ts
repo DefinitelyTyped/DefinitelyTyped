@@ -1,12 +1,12 @@
-import { ExecOptions } from 'teen_process';
+import { TeenProcessExecOptions } from "teen_process";
 
 export type APP_INSTALL_STATE = typeof APP_INSTALL_STATE[keyof typeof APP_INSTALL_STATE];
 export const APP_INSTALL_STATE: {
-    UNKNOWN: 'unknown';
-    NOT_INSTALLED: 'notInstalled';
-    NEWER_VERSION_INSTALLED: 'newerVersionInstalled';
-    SAME_VERSION_INSTALLED: 'sameVersionInstalled';
-    OLDER_VERSION_INSTALLED: 'olderVersionInstalled';
+    UNKNOWN: "unknown";
+    NOT_INSTALLED: "notInstalled";
+    NEWER_VERSION_INSTALLED: "newerVersionInstalled";
+    SAME_VERSION_INSTALLED: "sameVersionInstalled";
+    OLDER_VERSION_INSTALLED: "olderVersionInstalled";
 };
 
 export interface StartAppOptions {
@@ -195,7 +195,7 @@ export interface AppInfo {
     versionName: string | null;
 }
 
-export const REMOTE_CACHE_ROOT = '/data/local/tmp/appium_cache';
+export const REMOTE_CACHE_ROOT = "/data/local/tmp/appium_cache";
 
 declare const apkUtilsMethods: ApkUtils;
 export default apkUtilsMethods;
@@ -295,7 +295,7 @@ interface ApkUtils {
      *                             for more details on this parameter.
      * @throws If there was a failure during application install.
      */
-    installFromDevicePath(apkPathOnDevice: string, opts?: ExecOptions): Promise<void>;
+    installFromDevicePath(apkPathOnDevice: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Caches the given APK at a remote location to speed up further APK deployments.
@@ -432,5 +432,23 @@ interface ApkUtils {
      */
     getPackageInfo(pkg: string): Promise<AppInfo>;
 
+    /**
+     * Fetches base.apk of the given package to the local file system
+     *
+     * @param pkg The package identifier (must be already installed on the device)
+     * @param tmpDir The destination folder path
+     * @returns Full path to the downloaded file
+     * @throws {Error} If there was an error while fetching the .apk
+     */
     pullApk(pkg: string, tmpDir: string): Promise<string>;
+
+    /**
+     * Activates the given application or launches it if necessary.
+     * The action literally simulates
+     * clicking the corresponding application icon on the dashboard.
+     *
+     * @param appId - Application package identifier
+     * @throws {Error} If the app cannot be activated
+     */
+    activateApp(appId: string): Promise<void>;
 }

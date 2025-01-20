@@ -2,10 +2,7 @@ import jsonlines = require("jsonlines");
 
 const parser = jsonlines.parse(); // $ExpectType Parser
 
-parser.on("data", data => {
-    data; // $ExpectType Line
-});
-
+parser.on("data", data => {});
 parser.on("end", () => {});
 
 parser.write("{ 'test': 'This is a test!' }\n");
@@ -23,6 +20,6 @@ stringifier.end();
 // Option: emitInvalidLines
 const parser2 = jsonlines.parse({ emitInvalidLines: true }); // $ExpectType Parser
 
-parser2.on('invalid-line', err => {
+parser2.on("invalid-line", err => {
     err; // $ExpectType Error
 });

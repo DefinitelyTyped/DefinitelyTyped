@@ -1,5 +1,5 @@
-import { Container_Arguments, Container } from './Container';
-import { Section } from './Section';
+import { Container, Container_Arguments } from "./Container";
+import { Section } from "./Section";
 
 export class Panel extends Container {
     embed(): void;

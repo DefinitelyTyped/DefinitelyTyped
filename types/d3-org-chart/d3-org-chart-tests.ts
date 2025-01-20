@@ -1,23 +1,29 @@
-import { OrgChart } from 'd3-org-chart';
+import { OrgChart } from "d3-org-chart";
 
 interface Person {
+    id: string;
     firstName: string;
     lastName: string;
 }
 
-const myData: Person[] = [{
-    firstName: 'Alice',
-    lastName: 'Smith'
-}, {
-    firstName: 'Bob',
-    lastName: 'Smith'
-}];
+const myData: Person[] = [
+    {
+        id: "1",
+        firstName: "Alice",
+        lastName: "Smith",
+    },
+    {
+        id: "2",
+        firstName: "Bob",
+        lastName: "Smith",
+    },
+];
 
 const chart = new OrgChart<Person>()
-    .container('#my-container')
+    .container("#my-container")
     .svgHeight(1000)
     .data(myData)
-    .nodeHeight(d => d.data.firstName === 'Alice' ? 200 : 100)
+    .nodeHeight(d => (d.data.firstName === "Alice" ? 200 : 100))
     .nodeWidth(d => {
         // $ExpectType HierarchyNode<Person>
         d;
@@ -25,27 +31,27 @@ const chart = new OrgChart<Person>()
         d.data;
         // $ExpectType string
         d.data.firstName;
-        // $ExpectError
+        // @ts-expect-error
         d.data.middleName;
-        // $ExpectError
+        // @ts-expect-error
         d.firstName;
         if (d.depth === 0) return 500;
         return 330;
     })
-    .nodeId(d => 'firstName' in d ? d.firstName : d.data.firstName)
+    .nodeId(d => ("firstName" in d ? d.firstName : d.data.firstName))
     .childrenMargin(d => 90)
     .compactMarginBetween(d => 65)
     .compactMarginPair(d => 100)
-    .neightbourMargin((a, b) => 50)
+    .neighbourMargin((a, b) => 50)
     .siblingsMargin(d => 100)
     .buttonContent(({ node, state }) => {
-        return `<div>Show ${node.children && node.children[0] ? node.children[0].data.firstName : ''}</div>`;
+        return `<div>Show ${node.children && node.children[0] ? node.children[0].data.firstName : ""}</div>`;
     })
     .nodeContent((d, i, arr, state) => {
         return `<div>#${i}: ${d.data.firstName} ${d.data.lastName}</div>`;
     })
     .nodeUpdate((d, i, arr) => {
-        if (d.data.firstName === 'Bob') {
+        if (d.data.firstName === "Bob") {
             console.log(`Updated Bob when there are ${i} nodes`);
         }
 
@@ -53,8 +59,13 @@ const chart = new OrgChart<Person>()
             console.log(`The last node (${d.data.firstName} ${d.data.lastName}) was updated`);
         }
     })
+    .onNodeClick((d) => {
+        if (d.id) {
+            console.log(`The node with id of ${d.id} selected`);
+        }
+    })
     .linkUpdate((d, i, arr) => {
-        if (d.data.firstName === 'Bob') {
+        if (d.data.firstName === "Bob") {
             console.log(`Updated Bob when there are ${i} nodes`);
         }
 
@@ -70,21 +81,40 @@ chart;
 // $ExpectType Person[] | null
 chart.data();
 
+// $ExpectType Person[] | null
+chart.getChartState().data;
+
 // $ExpectType OrgChart<Person>
-chart.nodeHeight((node) => node.data.firstName.length);
+chart.nodeHeight(node => node.data.firstName.length);
 
 // $ExpectType string
 chart.backgroundColor();
 
 chart
     .backgroundColor()
-    // $ExpectError
+    // @ts-expect-error
     .render();
 
 // $ExpectType OrgChart<Person>
-chart
-    .backgroundColor('#eee')
-    .render();
+chart.backgroundColor("#eee").render();
 
 // $ExpectType OrgChart<Person>
-chart.addNode({ firstName: 'Charlie', lastName: 'Brown' });
+chart.addNode({ id: "3", firstName: "Charlie", lastName: "Brown" });
+
+// $ExpectType OrgChart<Person>
+chart.expandAll();
+
+// $ExpectType OrgChart<Person>
+chart.collapseAll();
+
+// $ExpectType number
+chart.getChartState().lastTransform.x;
+
+// $ExpectType string[]
+chart.getChartState().svg.data();
+
+// $ExpectType Selection<SVGSVGElement, string, null, undefined>
+chart.getChartState().svg.on("wheel.zoom", null);
+
+// $ExpectType ZoomBehavior<Element, Person>
+chart.zoomBehavior();

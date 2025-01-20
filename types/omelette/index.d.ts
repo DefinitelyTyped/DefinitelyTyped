@@ -1,9 +1,3 @@
-// Type definitions for omelette 0.4
-// Project: https://github.com/f/omelette
-// Definitions by: Kamontat Chantrachirathumrong <https://github.com/kamontat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare var omelette: omelette.Omelette;
 
 export = omelette;
@@ -22,7 +16,7 @@ declare namespace omelette {
         next(fn: () => void): void;
 
         on(action: string, callback: Callback): void;
-        on(action: 'complete', callback: CallbackOnComplete): void;
+        on(action: "complete", callback: CallbackOnComplete): void;
 
         onAsync(actions: string, callback: CallbackAsync): void;
 
@@ -58,7 +52,9 @@ declare namespace omelette {
 
     type TemplateValue = TemplatePrimativeValue | Callback;
 
+    type TreeCallback<V> = () => V;
+
     interface TreeValue {
-        [key: string]: Choices;
+        [key: string]: TreeValue | Choices | TreeCallback<Choices>;
     }
 }

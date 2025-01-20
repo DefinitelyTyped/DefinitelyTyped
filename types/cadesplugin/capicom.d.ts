@@ -18,6 +18,31 @@ declare namespace CAPICOM {
         readonly Length: number;
     }
 
+    interface PrivateKey {
+        readonly ContainerName: string;
+        readonly KeySpec: CAPICOM_KEY_SPEC;
+        readonly ProviderName: string;
+        readonly ProviderType: CAPICOM_PROV_TYPE;
+        readonly UniqueContainerName: string;
+        ChangePin(): void;
+        CachePin: boolean;
+        KeyPin: string;
+    }
+
+    interface EKU {
+        Name: string;
+        OID: string;
+    }
+    interface EKUs {
+        readonly Count: number;
+        Item(index: number): EKU;
+    }
+    interface ExtendedKeyUsage {
+        readonly EKUs: EKUs;
+        IsCritical(): boolean;
+        IsPresent(): boolean;
+    }
+
     interface Certificate {
         readonly Version: number;
         readonly Thumbprint: string;
@@ -37,7 +62,11 @@ declare namespace CAPICOM {
 
         PublicKey(): PublicKey;
 
+        PrivateKey: PrivateKey;
+
         Export(EncodingType: CADES_Common.ValuesOf<CAPICOM_ENCODING_TYPE>): string;
+
+        ExtendedKeyUsage(): ExtendedKeyUsage;
     }
 
     interface CertificateStatus {
@@ -49,7 +78,11 @@ declare namespace CAPICOM {
 
         Item(index: number): Certificate;
 
-        Find(findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>, varCriteria?: any, bFindValidOnly?: boolean): Certificates;
+        Find(
+            findType: CADES_Common.ValuesOf<CAPICOM_CERTIFICATE_FIND_TYPE>,
+            varCriteria?: any,
+            bFindValidOnly?: boolean,
+        ): Certificates;
 
         Select(title?: string, displayString?: string, bMultiSelect?: boolean): Certificates;
     }
@@ -59,7 +92,11 @@ declare namespace CAPICOM {
         readonly Location: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>;
         readonly Name: string;
 
-        Open(location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>, name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>, openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>): void;
+        Open(
+            location?: CADES_Common.ValuesOf<CAPICOM_STORE_LOCATION>,
+            name?: CADES_Common.ValuesOf<CAPICOM_STORE_NAME>,
+            openMode?: CADES_Common.ValuesOf<CAPICOM_STORE_OPEN_MODE>,
+        ): void;
 
         Close(): void;
 

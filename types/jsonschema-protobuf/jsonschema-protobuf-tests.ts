@@ -1,4 +1,4 @@
-import toProtobuf from 'jsonschema-protobuf';
+import toProtobuf from "jsonschema-protobuf";
 
 // $ExpectType string
 toProtobuf(`
@@ -24,5 +24,5 @@ toProtobuf(`
 }`);
 
 // When the param is incorrect
-// $ExpectError
+// @ts-expect-error
 toProtobuf(1);

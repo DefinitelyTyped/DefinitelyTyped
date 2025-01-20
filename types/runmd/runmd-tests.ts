@@ -1,13 +1,13 @@
 /// <reference types="node" />
-import path = require('path');
-import { Options, render } from 'runmd';
+import path = require("path");
+import { Options, render } from "runmd";
 
 // $ExpectType string
-render('# Development', { lame: true, inputName: `test/${path.basename(__filename)}` });
+render("# Development", { lame: true, inputName: `test/${path.basename(__filename)}` });
 // $ExpectType string
-render('# Development', {});
+render("# Development", {});
 // $ExpectType string
-render('# Development');
+render("# Development");
 
 const options: Options = {
     lame: true,

@@ -1,27 +1,51 @@
-import {
-    Variables,
-    NormalizationField,
-    NormalizationOperation,
-    NormalizationSelection,
-    NormalizationLinkedField,
-    NormalizationScalarField,
-    OperationDescriptor,
-    GraphQLResponse,
-    NormalizationSplitOperation,
-} from 'relay-runtime';
+import { GraphQLResponse, GraphQLSingularResponse, OperationDescriptor } from "relay-runtime";
 
-interface MockResolverContext {
-    parentType?: string | undefined;
-    name?: string | undefined;
-    alias?: string | undefined;
-    path?: ReadonlyArray<string> | undefined;
-    args?: { [key: string]: any } | undefined;
-}
-type MockResolver = (context: MockResolverContext, generateId: () => number) => unknown;
-export interface MockResolvers {
-    [typeName: string]: MockResolver;
+export interface MockResolverContext {
+    readonly parentType: string | null | undefined;
+    readonly name: string | null | undefined;
+    readonly alias: string | null | undefined;
+    readonly path: readonly string[] | null | undefined;
+    readonly args: Record<string, unknown> | null | undefined;
 }
 
-export function generate(operation: OperationDescriptor, mockResolvers?: MockResolvers): GraphQLResponse;
+export type DeepPartial<T> = T extends object ? {
+        [P in keyof T]?: DeepPartial<T[P]>;
+    }
+    : T;
 
-export {};
+export type MockResolver<T = unknown> = (
+    context: MockResolverContext,
+    generateId: () => number,
+) => DeepPartial<T> | undefined;
+
+export type DefaultMockResolvers = Partial<{
+    ID: string;
+    Boolean: boolean;
+    Int: number;
+    Float: number;
+    [key: string]: unknown;
+}>;
+
+export type MockResolvers<
+    TypeMap extends DefaultMockResolvers = DefaultMockResolvers,
+> = {
+    [K in keyof TypeMap]?: MockResolver<TypeMap[K]>;
+};
+
+export function generate(
+    operation: OperationDescriptor,
+    mockResolvers?: MockResolvers | null,
+    options?: { mockClientData?: boolean } | null,
+): GraphQLSingularResponse;
+
+export function generateWithDefer(
+    operation: OperationDescriptor,
+    mockResolvers: MockResolvers | null,
+    options: { mockClientData?: boolean; generateDeferredPayload: true } | null,
+): readonly GraphQLSingularResponse[];
+
+export function generateWithDefer(
+    operation: OperationDescriptor,
+    mockResolvers?: MockResolvers | null,
+    options?: { mockClientData?: boolean; generateDeferredPayload?: false } | null,
+): GraphQLSingularResponse;

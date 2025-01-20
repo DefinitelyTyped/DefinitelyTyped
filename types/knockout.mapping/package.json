@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/knockout.mapping",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/SteveSanderson/knockout.mapping"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.mapping": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Mathias Lorenzen",
+            "githubUsername": "ffMathy"
+        },
+        {
+            "name": "Leonardo Lombardi",
+            "githubUsername": "ltlombardi"
+        }
+    ]
+}

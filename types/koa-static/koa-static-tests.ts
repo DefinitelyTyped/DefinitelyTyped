@@ -3,10 +3,10 @@ import serve = require("koa-static");
 
 const app = new Koa();
 
-app.use(serve('.', {
+app.use(serve(".", {
     index: false,
     defer: false,
-    extensions: ['html'],
+    extensions: ["html"],
 }));
 
 app.listen(80);

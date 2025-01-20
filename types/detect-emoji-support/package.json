@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detect-emoji-support",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/danalloway/detect-emoji-support"
+    ],
+    "devDependencies": {
+        "@types/detect-emoji-support": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Hanna",
+            "githubUsername": "adam-hanna"
+        }
+    ]
+}

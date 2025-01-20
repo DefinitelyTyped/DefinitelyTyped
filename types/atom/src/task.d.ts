@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** Run a node script in a separate process. */
 export class Task {

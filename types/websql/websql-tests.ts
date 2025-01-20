@@ -1,11 +1,23 @@
-
-
 interface DbState {
     database: Database;
     version: DOMString;
-    transaction: (callback: SQLTransactionCallback, errorCallback?: SQLTransactionErrorCallback, successCallback?: SQLVoidCallback) => void;
-    readTransaction: (callback: SQLTransactionCallback, errorCallback?: SQLTransactionErrorCallback, successCallback?: SQLVoidCallback) => void;
-    changeVersion: (oldVersion: DOMString, newVersion: DOMString, callback?: SQLTransactionCallback, errorCallback?: SQLTransactionErrorCallback, successCallback?: SQLVoidCallback) => void
+    transaction: (
+        callback: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ) => void;
+    readTransaction: (
+        callback: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ) => void;
+    changeVersion: (
+        oldVersion: DOMString,
+        newVersion: DOMString,
+        callback?: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ) => void;
 }
 
 interface SqlQuery {
@@ -18,20 +30,17 @@ interface Results {
     sqlResultSet: SQLResultSet;
 }
 
-
-(function () {
+(function() {
     var dbName: string = "websql-tests";
 
     // run the test
     createDatabase(dbName);
-
 
     function log(...msg: any[]) {
         if (console && console.log) {
             console.log.apply(console, msg);
         }
     }
-
 
     function createDatabase(name: string) {
         var tableOne = {
@@ -43,20 +52,20 @@ interface Results {
             columns: ["i_thing", "s_description", "d_decimal"],
         };
 
-        openDatabase(dbName, "1", dbName, 1024 * 1024, function (dbState) {
+        openDatabase(dbName, "1", dbName, 1024 * 1024, function(dbState) {
             createTables(dbState, [
                 { name: tableOne.name, columns: tableOne.columns },
                 { name: tableTwo.name, columns: tableTwo.columns },
-            ], function (res) {
+            ], function(res) {
                 writeRecords(dbState, [
                     { name: tableOne.name, data: createMockRecord(tableOne.columns) },
                     { name: tableOne.name, data: createMockRecord(tableOne.columns) },
                     { name: tableTwo.name, data: createMockRecord(tableTwo.columns) },
                     { name: tableTwo.name, data: createMockRecord(tableTwo.columns) },
                     { name: tableTwo.name, data: createMockRecord(tableTwo.columns) },
-                ], function (ress) {
+                ], function(ress) {
                     log(ress);
-                    readRecords(dbState, [tableOne.name, tableTwo.name], function (resss) {
+                    readRecords(dbState, [tableOne.name, tableTwo.name], function(resss) {
                         log(resss);
                     });
                 });
@@ -64,19 +73,23 @@ interface Results {
         });
     }
 
-
     function initDb(db: Database): DbState {
         return {
             database: db,
             version: db.version,
             transaction: db.transaction.bind(db),
             readTransaction: db.readTransaction.bind(db),
-            changeVersion: db.changeVersion.bind(db)
+            changeVersion: db.changeVersion.bind(db),
         };
     }
 
-
-    function openDatabase(name: string, version: string, displayName: string, estimatedSize: number, callback: (dbState: DbState) => void) {
+    function openDatabase(
+        name: string,
+        version: string,
+        displayName: string,
+        estimatedSize: number,
+        callback: (dbState: DbState) => void,
+    ) {
         estimatedSize = estimatedSize || (5 * 1024 * 1024);
 
         try {
@@ -97,12 +110,15 @@ interface Results {
         }
     }
 
-
-    function createTables(dbState: DbState, tableDefs: { name: string; columns: string[]; }[], callback: (rec: SQLResultSet[][]) => void) {
+    function createTables(
+        dbState: DbState,
+        tableDefs: Array<{ name: string; columns: string[] }>,
+        callback: (rec: SQLResultSet[][]) => void,
+    ) {
         var res: SQLResultSet[][] = [];
         var resI = 0, count = tableDefs.length;
         for (var i = 0; i < count; i++) {
-            createTable(dbState, tableDefs[i].name, tableDefs[i].columns, function (rec: SQLResultSet[]) {
+            createTable(dbState, tableDefs[i].name, tableDefs[i].columns, function(rec: SQLResultSet[]) {
                 res.push(rec);
                 resI++;
                 if (resI == count) {
@@ -112,26 +128,25 @@ interface Results {
         }
     }
 
-
     function createTable(dbState: DbState, name: string, columns: string[], callback: (rec: SQLResultSet[]) => void) {
         var sqls: SqlQuery[] = [];
         var colDefs = columns.map((col) => {
             var colType: string = null;
             var type = col.charAt(0);
             switch (type) {
-                case 'i':
-                case 'l':
+                case "i":
+                case "l":
                     colType = "INTEGER";
                     break;
-                case 'f':
-                case 'd':
+                case "f":
+                case "d":
                     colType = "REAL";
                     break;
-                case 'b':
-                case 'z':
+                case "b":
+                case "z":
                     colType = "INTEGER";
                     break;
-                case 's':
+                case "s":
                     colType = "TEXT";
                     break;
                 default:
@@ -142,7 +157,6 @@ interface Results {
         sqls.push({ sql: "CREATE TABLE IF NOT EXISTS " + name + " (" + colDefs.join(",") + ")", args: [] });
         execSqlStatements(dbState.transaction, sqls, callback);
     }
-
 
     /** column name prefixes
      * 'i', 'l' - integer
@@ -157,20 +171,25 @@ interface Results {
             var col = columns[i];
             var type = col.charAt(0);
             switch (type) {
-                case 'i':
-                case 'l':
+                case "i":
+                case "l":
                     rec[col] = parseInt((Math.random() * 1000000).toString());
                     break;
-                case 'f':
-                case 'd':
+                case "f":
+                case "d":
                     rec[col] = (Math.random() - 0.5) * 2000000;
                     break;
-                case 'b':
-                case 'z':
+                case "b":
+                case "z":
                     rec[col] = Math.random() > 0.5;
                     break;
-                case 's':
-                    rec[col] = String.fromCharCode.apply(String, new Array(Math.round(Math.random() * 21)).join(".").split("").map((k) => 65 + Math.round(Math.random() * 25)));
+                case "s":
+                    rec[col] = String.fromCharCode.apply(
+                        String,
+                        new Array(Math.round(Math.random() * 21)).join(".").split("").map((k) =>
+                            65 + Math.round(Math.random() * 25)
+                        ),
+                    );
                     break;
                 default:
                     rec[col] = null;
@@ -179,12 +198,15 @@ interface Results {
         return rec;
     }
 
-
-    function writeRecords(dbState: DbState, tableDefs: { name: string; data: any; }[], callback: (rec: SQLResultSet[][]) => void) {
+    function writeRecords(
+        dbState: DbState,
+        tableDefs: Array<{ name: string; data: any }>,
+        callback: (rec: SQLResultSet[][]) => void,
+    ) {
         var res: SQLResultSet[][] = [];
         var resI = 0, count = tableDefs.length;
         for (var i = 0; i < count; i++) {
-            writeRecord(dbState, tableDefs[i].name, tableDefs[i].data, function (rec: SQLResultSet[]) {
+            writeRecord(dbState, tableDefs[i].name, tableDefs[i].data, function(rec: SQLResultSet[]) {
                 res.push(rec);
                 resI++;
                 if (resI == count) {
@@ -194,14 +216,14 @@ interface Results {
         }
     }
 
-
     function writeRecord(dbState: DbState, tableName: string, record: any, callback: (rec: SQLResultSet[]) => void) {
         var props = Object.keys(record);
         var propCount = props.length;
         var args: ObjectArray = [];
         var sqlStatement = {
-            sql: "INSERT INTO " + tableName + " values(" + (new Array(propCount + 1).join("?").split("").join(",")) + ")",
-            args: args
+            sql: "INSERT INTO " + tableName + " values(" + (new Array(propCount + 1).join("?").split("").join(","))
+                + ")",
+            args: args,
         };
         for (var i = 0; i < propCount; i++) {
             var prop = props[i];
@@ -211,12 +233,11 @@ interface Results {
         execSqlStatements(dbState.transaction, [sqlStatement], callback);
     }
 
-
     function readRecords(dbState: DbState, tableNames: string[], callback: (rec: Results[]) => void) {
         var res: Results[] = [];
         var resI = 0, count = tableNames.length;
         for (var i = 0; i < count; i++) {
-            readRecord(dbState, tableNames[i], function (rec: Results) {
+            readRecord(dbState, tableNames[i], function(rec: Results) {
                 res.push(rec);
                 resI++;
                 if (resI == count) {
@@ -226,20 +247,18 @@ interface Results {
         }
     }
 
-
     function readRecord(dbState: DbState, tableName: string, callback: (rec: Results) => void) {
         var args: ObjectArray = [];
         var sqlStatement = {
             sql: "SELECT * FROM " + tableName,
-            args: args
+            args: args,
         };
 
-        execSqlStatements(dbState.transaction, [sqlStatement], function (rec: SQLResultSet[]) {
+        execSqlStatements(dbState.transaction, [sqlStatement], function(rec: SQLResultSet[]) {
             var resObjs: Results[] = resultSetToResults(rec);
             callback(resObjs[0]);
         });
     }
-
 
     function resultSetToResults(results: SQLResultSet[]) {
         var resObjs: Results[] = [];
@@ -248,7 +267,7 @@ interface Results {
             var sqlRsI = results[i];
             var resObj = {
                 data: resAry,
-                sqlResultSet: sqlRsI
+                sqlResultSet: sqlRsI,
             };
             resObjs.push(resObj);
             var rows = sqlRsI.rows;
@@ -261,7 +280,6 @@ interface Results {
         return resObjs;
     }
 
-
     function compareRecords(rec1: any, rec2: any): boolean {
         var props = Object.keys(rec1);
         for (var i = 0, size = props.length; i < size; i++) {
@@ -273,31 +291,32 @@ interface Results {
         return true;
     }
 
-
-    function execSqlStatements<T, U>(xactMethod: (callback: SQLTransactionCallback) => void, sqlStatement: SqlQuery[],
-            callback: (rs: SQLResultSet[]) => void) {
+    function execSqlStatements<T, U>(
+        xactMethod: (callback: SQLTransactionCallback) => void,
+        sqlStatement: SqlQuery[],
+        callback: (rs: SQLResultSet[]) => void,
+    ) {
         var results: SQLResultSet[] = [];
         var sqlCount = sqlStatement.length;
         var resI = 0;
 
         function execCommand(xact: SQLTransaction, sql: DOMString, args: ObjectArray) {
-            xact.executeSql(sql, args || [], function (xact: SQLTransaction, rs: SQLResultSet): void {
+            xact.executeSql(sql, args || [], function(xact: SQLTransaction, rs: SQLResultSet): void {
                 results.push(rs);
                 resI++;
                 if (resI === sqlCount) {
                     callback(results);
                 }
-            }, function (transaction, err) {
-                    log(err, transaction);
+            }, function(transaction, err) {
+                log(err, transaction);
                 return false;
             });
         }
 
-        xactMethod(function (xact: SQLTransaction): void {
+        xactMethod(function(xact: SQLTransaction): void {
             for (var i = 0; i < sqlCount; i++) {
                 execCommand(xact, sqlStatement[i].sql, sqlStatement[i].args);
             }
         });
     }
-
-} ());
+})();

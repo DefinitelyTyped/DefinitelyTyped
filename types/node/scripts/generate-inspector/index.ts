@@ -10,24 +10,25 @@ import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";
 import { substitute, trimRight } from "./utils";
 
-const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
-    https.get(url, res => {
-        if (res.statusCode !== 200) {
-            reject(new Error(`Failed to fetch ${url} w/ error code ${res.statusCode}`));
-            return;
-        }
-        const frames: Buffer[] = [];
-        res.on("data", (data: Buffer) => {
-            frames.push(data);
-        });
-        res.on("end", () => {
-            resolve(Buffer.concat(frames).toString("utf8"));
-        });
-        res.on("error", (err: Error) => {
-            reject(err);
+const httpsGet = (url: string) =>
+    new Promise<string>((resolve, reject) => {
+        https.get(url, res => {
+            if (res.statusCode !== 200) {
+                reject(new Error(`Failed to fetch ${url} w/ error code ${res.statusCode}`));
+                return;
+            }
+            const frames: Buffer[] = [];
+            res.on("data", (data: Buffer) => {
+                frames.push(data);
+            });
+            res.on("end", () => {
+                resolve(Buffer.concat(frames).toString("utf8"));
+            });
+            res.on("error", (err: Error) => {
+                reject(err);
+            });
         });
     });
-});
 
 // Input arguments
 const tag = process.argv[2] || process.version;
@@ -44,22 +45,25 @@ const INSPECTOR_PROTOCOL_LOCAL_DIR = "/tmp/inspector_protocol";
  */
 function writeProtocolsToFile(jsonProtocols: string[]) {
     const combinedProtocol: schema.Schema = {
-        version: { major: '', minor: '' }, // doesn't matter
-        domains: []
+        version: { major: "", minor: "" }, // doesn't matter
+        domains: [],
     };
     for (const json of jsonProtocols) {
         if (json) {
             try {
                 const protocol: schema.Schema = JSON.parse(json);
                 combinedProtocol.domains.push(...protocol.domains);
-            } catch(e) {
+            } catch (e) {
                 console.error(e, json);
                 process.exit(1);
             }
         }
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
-    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
+    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8").replace(
+        /{{VERSION}}/g,
+        tag.match(/^(v\d+)/)![1],
+    );
 
     const inspectorDts = substitute(template, substituteArgs).split("\n")
         .map(trimRight)
@@ -79,13 +83,15 @@ function convertPdlToJson(pdl: string): string {
         execSync(`git clone ${INSPECTOR_PROTOCOL_REMOTE} ${INSPECTOR_PROTOCOL_LOCAL_DIR}`);
     }
     writeFileSync("/tmp/inspector_protocol.pdl", pdl);
-    execSync(`${INSPECTOR_PROTOCOL_LOCAL_DIR}/convert_protocol_to_json.py /tmp/inspector_protocol.pdl /tmp/inspector_protocol.json`);
-    return readFileSync("/tmp/inspector_protocol.json", 'utf8');
+    execSync(
+        `${INSPECTOR_PROTOCOL_LOCAL_DIR}/convert_protocol_to_json.py /tmp/inspector_protocol.pdl /tmp/inspector_protocol.json`,
+    );
+    return readFileSync("/tmp/inspector_protocol.json", "utf8");
 }
 
-// "Main" -- get the V8 built-in inspector protocol definition, as well as the
+// 'Main' -- get the V8 built-in inspector protocol definition, as well as the
 // Node extensions, and then write this to inspector.d.ts.
 Promise.all([
     httpsGet(V8_PROTOCOL_URL),
-    httpsGet(NODE_PROTOCOL_URL).then(convertPdlToJson).catch(() => '')
+    httpsGet(NODE_PROTOCOL_URL).then(convertPdlToJson).catch(() => ""),
 ]).then(writeProtocolsToFile).catch(console.error);

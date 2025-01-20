@@ -1,37 +1,46 @@
-import React = require('react');
-import ReactRailsUJS = require('react_ujs');
-import { handleMount, mountComponents, unmountComponents, useContext } from 'react_ujs';
+import React = require("react");
+import ReactRailsUJS = require("react_ujs");
+import { handleMount, mountComponents, unmountComponents, useContext } from "react_ujs";
 
 function TestComponent() {
     return <div>Hello world</div>;
 }
 
 ReactRailsUJS.getConstructor = (className: string) => TestComponent;
-ReactRailsUJS.getConstructor = (className: string) => <TestComponent />; // $ExpectError
-ReactRailsUJS.getConstructor = (className: string) => <div />; // $ExpectError
+// @ts-expect-error
+ReactRailsUJS.getConstructor = (className: string) => <TestComponent />;
+// @ts-expect-error
+ReactRailsUJS.getConstructor = (className: string) => <div />;
 
-ReactRailsUJS.components[''] = TestComponent; // $ExpectError
-ReactRailsUJS.components[''] = <TestComponent />;
-ReactRailsUJS.components[''] = <div />;
+// @ts-expect-error
+ReactRailsUJS.components[""] = TestComponent;
+ReactRailsUJS.components[""] = <TestComponent />;
+ReactRailsUJS.components[""] = <div />;
 
 const components = [TestComponent];
 
 ReactRailsUJS.useContext(() => ({ default: TestComponent }));
 ReactRailsUJS.useContext((id: string) => components[id.length]);
-ReactRailsUJS.useContext((id: number) => components[id]); // $ExpectError
+// @ts-expect-error
+ReactRailsUJS.useContext((id: number) => components[id]);
 
 // useContext, mountComponents, etc. require ReactRailsUJS as the `this` context.
 ReactRailsUJS.useContext(() => ({ default: TestComponent }));
 ReactRailsUJS.mountComponents();
 ReactRailsUJS.unmountComponents();
-useContext(() => ({ default: TestComponent })); // $ExpectError
-mountComponents(); // $ExpectError
-unmountComponents(); // $ExpectError
+// @ts-expect-error
+useContext(() => ({ default: TestComponent }));
+// @ts-expect-error
+mountComponents();
+// @ts-expect-error
+unmountComponents();
 const a = { mountComponents };
-a.mountComponents(); // $ExpectError
+// @ts-expect-error
+a.mountComponents();
 
 handleMount();
 handleMount({ target: undefined });
 handleMount({ target: document });
-handleMount({ target: 1 }); // $ExpectError
-document.addEventListener('DOMContentLoaded', ReactRailsUJS.handleMount);
+// @ts-expect-error
+handleMount({ target: 1 });
+document.addEventListener("DOMContentLoaded", ReactRailsUJS.handleMount);

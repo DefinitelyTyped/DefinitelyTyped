@@ -1,5 +1,5 @@
 // used to add new page version (no widgets) /get page version properties
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPageVersionProperties {
     pageId: string;
     pageVersionId: string;
@@ -10,14 +10,14 @@ export interface IPageVersionProperties {
 }
 
 // used to update priority group for specific page version
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPageVersionPriorityGroup {
     pageVersionId: string;
     pageVersionPriorityGroup: string;
 }
 
 // used to get/update complete page version ==> properties + widgets
-// tslint:disable-next-line interface-name
-export interface IPageVersion extends IPageVersionProperties  {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export interface IPageVersion extends IPageVersionProperties {
     pageWidgets: any[];
 }

@@ -1,18 +1,12 @@
-// Type definitions for parse-full-name 1.2
-// Project: https://github.com/dschnelldavis/parse-full-name
-// Definitions by: n8 <https://github.com/n8Guy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export type partToReturn =
-    | 'title'
-    | 'first'
-    | 'middle'
-    | 'last'
-    | 'nick'
-    | 'suffix'
-    | 'error'
-    | 'all';
+    | "title"
+    | "first"
+    | "middle"
+    | "last"
+    | "nick"
+    | "suffix"
+    | "error"
+    | "all";
 
 export interface Name {
     title?: string | undefined;
@@ -37,5 +31,5 @@ export function parseFullName(
     partToReturn?: partToReturn,
     fixCase?: boolean | -1 | 0 | 1,
     stopOnError?: boolean | 0 | 1,
-    useLongLists?: boolean | 0 | 1
+    useLongLists?: boolean | 0 | 1,
 ): Name;

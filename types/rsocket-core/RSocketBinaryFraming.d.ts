@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import { Frame } from 'rsocket-types';
+import { Frame } from "rsocket-types";
 
-import { Encoders } from './RSocketEncoding';
+import { Encoders } from "./RSocketEncoding";
 
 /**
  * Reads a frame from a buffer that is prefixed with the frame length.

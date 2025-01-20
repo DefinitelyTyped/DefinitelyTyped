@@ -1,4 +1,5 @@
 import _ = require("../index");
+import { uniqueSymbol } from "./common";
 declare module "../index" {
     interface LoDashStatic {
         /**
@@ -1019,6 +1020,100 @@ declare module "../index" {
          */
         functionsIn(): CollectionChain<string>;
     }
+
+    type GetFieldTypeOfArrayLikeByKey<T extends unknown[], K> =
+        K extends number ? T[K]
+        : K extends `${infer N extends number}` ? T[N]
+        : K extends keyof T ? T[K] : undefined;
+
+    type GetFieldTypeOfStringByKey<T extends string, K> =
+        K extends number ? T[K]
+        : K extends `${infer N extends number}` ? T[N]
+        : K extends keyof T ? T[K]
+        : undefined;
+
+    type GetFieldTypeOfNarrowedByKey<T, K> =
+        T extends unknown[] ? GetFieldTypeOfArrayLikeByKey<T, K>
+        : T extends string ? GetFieldTypeOfStringByKey<T, K>
+        : K extends keyof T ? T[K]
+        : K extends number
+            ? `${K}` extends keyof T ? T[`${K}`] : undefined
+        : K extends `${infer N extends number}`
+            ? N extends keyof T ? T[N] : undefined
+        : undefined;
+
+    /** Internal. Assumes P is a dot-delimited path. */
+    type GetFieldTypeOfNarrowedByDotPath<T, P> =
+        P extends `${infer L}.${infer R}`
+        ? GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R, 'DotPath'>
+        : GetFieldTypeOfNarrowedByKey<T, P>;
+
+    /** Internal. This is a piece of GetFieldTypeOfNarrowedByLKR logic,
+     *  assuming that Lc isn't to be ignored, and does not end with dot. */
+    type GetFieldTypeOfNarrowedByLcKR<T, Lc, K, R> =
+        '' extends R
+            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>
+        : R extends `.${infer Rc}`
+            ? GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, Rc>
+            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, R>
+
+    /** Internal. Assumes T has been narrowed; L is a dot-delimited path,
+     *  and should be ignored if an empty string; K is a key name; and R is
+     *  a dot-delimetered path, to be ignored if an empty string. Also if
+     *  L has a tail dot, or R has a front dot, these dots should be discarded,
+     *  however when L or R is just a dot, they should be interpreted as empty
+     *  key name (rather than ignored). */
+    type GetFieldTypeOfNarrowedByLKR<T, L, K, R> =
+        '' extends L
+        ? '' extends R
+            ? GetFieldTypeOfNarrowedByKey<T, K>
+            : R extends `.${infer Rc}`
+                ? GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, Rc>
+                : GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, R>
+        : L extends `${infer Lc}.`
+            ? GetFieldTypeOfNarrowedByLcKR<T, Lc, K, R>
+            : GetFieldTypeOfNarrowedByLcKR<T, L, K, R>
+
+    /** Internal. Assumes T has been narrowed. */
+    type GetFieldTypeOfNarrowed<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
+        XT extends 'Key' ? GetFieldTypeOfNarrowedByKey<T, X>
+        : XT extends 'DotPath' ? GetFieldTypeOfNarrowedByDotPath<T, X>
+        : X extends `${infer L}['${infer K}']${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
+        : X extends `${infer L}["${infer K}"]${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
+        : X extends `${infer L}[${infer K}]${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
+        : GetFieldTypeOfNarrowedByDotPath<T, X>;
+
+    /** Internal. Assumes T has been narrowed to an object type. */
+    type GetFieldTypeOfObject<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
+        Extract<T, unknown[]> extends never
+        ? GetFieldTypeOfNarrowed<T, X, XT>
+        : GetFieldTypeOfNarrowed<Exclude<T, unknown[]>, X, XT>
+            | GetFieldTypeOfNarrowed<Extract<T, unknown[]>, X, XT>;
+
+    /** Internal. Assumes T has been narrowed to a primitive type. */
+    type GetFieldTypeOfPrimitive<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
+        Extract<T, string> extends never
+        ? T extends never ? never : undefined
+        : (Exclude<T, string> extends never ? never : undefined)
+            | GetFieldTypeOfNarrowed<Extract<T, string>, X, XT>;
+
+    /**
+     * Deduces the type of value at the path P of type T,
+     * so that _.get<T, P>(t: T, p: P): GetFieldType<T, P>.
+     * XT specifies the exact meaning of X:
+     * - 'Path' (default) - X is a path type to be fully parsed;
+     * - 'DotPath - X is a dot-delimitered path, without square (indexing) brackets;
+     * - 'Key' - X is a simple key, and needs no parsing.
+     */
+    type GetFieldType<T, X, XT extends 'DotPath' | 'Key' | 'Path' = 'Path'> =
+        Extract<T, object> extends never
+        ? GetFieldTypeOfPrimitive<T, X, XT>
+        : GetFieldTypeOfPrimitive<Exclude<T, object>, X, XT>
+            | GetFieldTypeOfObject<Extract<T, object>, X, XT>;
+
     interface LoDashStatic {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
@@ -1045,11 +1140,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1]>(object: TObject | null | undefined, path: [TKey1, TKey2]): TObject[TKey1][TKey2] | undefined;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>>(object: TObject | null | undefined, path: [TKey1, TKey2]): NonNullable<TObject[TKey1]>[TKey2] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2], undefined> | TDefault;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>, TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2], defaultValue: TDefault): Exclude<NonNullable<TObject[TKey1]>[TKey2], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1057,11 +1152,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): TObject[TKey1][TKey2][TKey3] | undefined;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>, TKey3 extends keyof NonNullable<NonNullable<TObject[TKey1]>[TKey2]>>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3]): NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3], undefined> | TDefault;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>, TKey3 extends keyof NonNullable<NonNullable<TObject[TKey1]>[TKey2]>, TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3], defaultValue: TDefault): Exclude<NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1069,11 +1164,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3]>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): TObject[TKey1][TKey2][TKey3][TKey4] | undefined;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>, TKey3 extends keyof NonNullable<NonNullable<TObject[TKey1]>[TKey2]>, TKey4 extends keyof NonNullable<NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3]>>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4]): NonNullable<NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3]>[TKey4] | undefined;
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof TObject[TKey1], TKey3 extends keyof TObject[TKey1][TKey2], TKey4 extends keyof TObject[TKey1][TKey2][TKey3], TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<TObject[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        get<TObject extends object, TKey1 extends keyof TObject, TKey2 extends keyof NonNullable<TObject[TKey1]>, TKey3 extends keyof NonNullable<NonNullable<TObject[TKey1]>[TKey2]>, TKey4 extends keyof NonNullable<NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3]>, TDefault>(object: TObject | null | undefined, path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<NonNullable<NonNullable<NonNullable<TObject[TKey1]>[TKey2]>[TKey3]>[TKey4], undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1097,7 +1192,15 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get(object: any, path: PropertyPath, defaultValue?: any): any;
+        get<TObject, TPath extends string>(data: TObject, path: TPath): string extends TPath ? any : GetFieldType<TObject, TPath>;
+        /**
+         * @see _.get
+         */
+        get<TObject, TPath extends string, TDefault = GetFieldType<TObject, TPath>>(data: TObject, path: TPath, defaultValue: TDefault): Exclude<GetFieldType<TObject, TPath>, null | undefined> | TDefault;
+         /**
+         * @see _.get
+         */
+         get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
     interface String {
         /**
@@ -1142,6 +1245,14 @@ declare module "../index" {
          * @see _.get
          */
         get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string>(path: TPath): string extends TPath ? any : GetFieldType<T, TPath>;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue: TDefault): Exclude<GetFieldType<T, TPath>, null | undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1229,6 +1340,14 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TPath extends string>(path: TPath): string extends TPath ? LoDashExplicitWrapper<any> : ExpChain<GetFieldType<T, TPath>>;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue: TDefault): ExpChain<Exclude<GetFieldType<T, TPath>, null | undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
         get(path: PropertyPath, defaultValue?: any): LoDashExplicitWrapper<any>;
     }
     interface CollectionChain<T> {
@@ -1266,6 +1385,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
+        has<T, K extends PropertyName>(object: T, path: K): object is T & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown} & {[uniqueSymbol]: unknown};
         has<T>(object: T, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
@@ -1519,6 +1639,10 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
+        mapValues<T, TResult>(array: T[], callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
+        /**
+         * @see _.mapValues
+         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues
@@ -1571,7 +1695,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Object<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
         /**
          * @see _.mapValues
          */
@@ -1639,7 +1763,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ObjectChain<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): ObjectChain<NumericDictionary<TResult>>;
         /**
          * @see _.mapValues
          */
@@ -2005,7 +2129,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialObject<T>;
+        pick<T>(object: T | null | undefined, ...props: Array<Many<PropertyPath>>): PartialObject<T>;
     }
     interface Object<T> {
         /**
@@ -2015,7 +2139,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick(...props: PropertyPath[]): Object<PartialObject<T>>;
+        pick(...props: Array<Many<PropertyPath>>): Object<PartialObject<T>>;
     }
     interface ObjectChain<T> {
         /**
@@ -2025,7 +2149,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick(...props: PropertyPath[]): ObjectChain<PartialObject<T>>;
+        pick(...props: Array<Many<PropertyPath>>): ObjectChain<PartialObject<T>>;
     }
     interface LoDashStatic {
         /**
@@ -2263,7 +2387,7 @@ declare module "../index" {
          * @param accumulator The custom accumulator value.
          * @return Returns the accumulated value.
          */
-        transform<T, TResult>(object: ReadonlyArray<T>, iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: readonly T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */

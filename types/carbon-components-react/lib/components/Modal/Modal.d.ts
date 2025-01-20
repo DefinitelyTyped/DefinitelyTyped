@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 type ExcludedAttributes = "role" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
@@ -10,37 +10,41 @@ export interface ModalSecondaryButtonConfig {
 }
 
 export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
-    alert?: boolean | undefined,
-    danger?: boolean | undefined,
+    alert?: boolean | undefined;
+    closeButtonLabel?: string | undefined;
+    danger?: boolean | undefined;
     /**
      * @deprecated
      */
-    focusTrap?: boolean | undefined,
+    focusTrap?: boolean | undefined;
     /**
      * @deprecated
      */
-    hasForm?: boolean | undefined,
-    hasScrollingContent?: boolean | undefined,
-    iconDescription?: string | undefined,
-    modalAriaLabel?: string | undefined,
-    modalHeading?: React.ReactNode | undefined,
-    modalLabel?: React.ReactNode | undefined,
-    open?: boolean | undefined,
-    onRequestClose?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void,
-    onRequestSubmit?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void,
-    onSecondarySubmit?: ModalProps["onRequestClose"] | undefined,
-    passiveModal?: boolean | undefined,
-    preventCloseOnClickOutside?: boolean | undefined,
-    primaryButtonDisabled?: boolean | undefined,
-    primaryButtonText?: React.ReactNode | undefined,
+    hasForm?: boolean | undefined;
+    hasScrollingContent?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    iconDescription?: string | undefined;
+    modalAriaLabel?: string | undefined;
+    modalHeading?: React.ReactNode | undefined;
+    modalLabel?: React.ReactNode | undefined;
+    open?: boolean | undefined;
+    onRequestClose?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void;
+    onRequestSubmit?(event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLDivElement>): void;
+    onSecondarySubmit?: ModalProps["onRequestClose"] | undefined;
+    passiveModal?: boolean | undefined;
+    preventCloseOnClickOutside?: boolean | undefined;
+    primaryButtonDisabled?: boolean | undefined;
+    primaryButtonText?: React.ReactNode | undefined;
     secondaryButtons?: readonly ModalSecondaryButtonConfig[] | undefined;
-    secondaryButtonText?: React.ReactNode | undefined,
-    selectorPrimaryFocus?: string | undefined,
-    selectorsFloatingMenus?: readonly string[] | undefined,
+    secondaryButtonText?: React.ReactNode | undefined;
+    selectorPrimaryFocus?: string | undefined;
+    selectorsFloatingMenus?: readonly string[] | undefined;
     size?: "xs" | "sm" | "md" | "lg" | undefined;
-    shouldSubmitOnEnter?: boolean | undefined,
+    shouldSubmitOnEnter?: boolean | undefined;
 }
 
-declare class Modal extends React.Component<ModalProps> { }
+declare class Modal extends React.Component<ModalProps> {}
 
 export default Modal;

@@ -1,0 +1,50 @@
+{
+    "private": true,
+    "name": "@types/qs",
+    "version": "6.9.9999",
+    "projects": [
+        "https://github.com/ljharb/qs"
+    ],
+    "devDependencies": {
+        "@types/power-assert": "*",
+        "@types/qs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman Korneev",
+            "githubUsername": "RWander"
+        },
+        {
+            "name": "Leon Yu",
+            "githubUsername": "leonyu"
+        },
+        {
+            "name": "Belinda Teh",
+            "githubUsername": "tehbelinda"
+        },
+        {
+            "name": "Melvin Lee",
+            "githubUsername": "zyml"
+        },
+        {
+            "name": "Arturs Vonda",
+            "githubUsername": "artursvonda"
+        },
+        {
+            "name": "Carlos Bonetti",
+            "githubUsername": "CarlosBonetti"
+        },
+        {
+            "name": "Dan Smith",
+            "githubUsername": "dpsmith3"
+        },
+        {
+            "name": "Hunter Perrin",
+            "githubUsername": "hperrin"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

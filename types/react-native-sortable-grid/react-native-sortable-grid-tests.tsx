@@ -1,10 +1,10 @@
-import * as React from 'react';
-import SortableGrid from 'react-native-sortable-grid';
-import { View, Text } from 'react-native';
+import * as React from "react";
+import { Text, View } from "react-native";
+import SortableGrid from "react-native-sortable-grid";
 
 export default class SortableGridExample extends React.Component {
     render() {
-        const items = ['A', 'B', 'C', 'D'];
+        const items = ["A", "B", "C", "D"];
 
         return (
             <SortableGrid

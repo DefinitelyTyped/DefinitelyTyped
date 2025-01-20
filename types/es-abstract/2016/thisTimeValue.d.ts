@@ -1,2 +1,2 @@
-import thisTimeValue = require('../2015/thisTimeValue');
+import thisTimeValue = require("../2015/thisTimeValue");
 export = thisTimeValue;

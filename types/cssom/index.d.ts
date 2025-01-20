@@ -1,8 +1,3 @@
-// Type definitions for cssom 0.4
-// Project: https://github.com/NV/CSSOM#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace CSSOM;
 
 /**

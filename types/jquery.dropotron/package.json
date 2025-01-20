@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery.dropotron",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.dropotron",
+    "projects": [
+        "https://github.com/n33/jquery.dropotron"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/jquery.dropotron": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

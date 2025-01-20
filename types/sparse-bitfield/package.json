@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sparse-bitfield",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/sparse-bitfield"
+    ],
+    "dependencies": {
+        "@types/memory-pager": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sparse-bitfield": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

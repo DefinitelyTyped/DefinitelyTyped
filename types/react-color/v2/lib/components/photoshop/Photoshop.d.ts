@@ -1,6 +1,6 @@
-import { Component, MouseEvent, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
+import { Component, CSSProperties, MouseEvent } from "react";
 import { Classes } from "reactcss";
+import { CustomPickerProps } from "../../..";
 
 export interface PhotoshopPickerStylesProps {
     picker: CSSProperties;
@@ -22,4 +22,4 @@ export interface PhotoshopPickerProps extends CustomPickerProps {
     className?: string | undefined;
 }
 
-export default class PhotoshopPicker extends Component<PhotoshopPickerProps> { }
+export default class PhotoshopPicker extends Component<PhotoshopPickerProps> {}

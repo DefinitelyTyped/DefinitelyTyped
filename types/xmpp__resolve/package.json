@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/xmpp__resolve",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/resolve"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/xmpp__connection": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__resolve": "workspace:.",
+        "@types/xmpp__xml": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

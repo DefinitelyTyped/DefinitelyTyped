@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
         "noEmit": true,
-        "module": "commonjs",
+        "module": "node16",
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "lib": [
             "es5"
@@ -16,10 +12,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true
     },
-    "baseUrl": "types",
-    "typeRoots": [
-        "types"
-    ],
     "files": [
         "index.d.ts",
         "test/app.ts",

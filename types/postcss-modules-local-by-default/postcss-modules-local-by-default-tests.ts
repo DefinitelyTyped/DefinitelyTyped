@@ -1,9 +1,9 @@
 import localByDefault = require("postcss-modules-local-by-default");
-import { Transformer } from "postcss";
+import postcss from "postcss";
 
-const ap1: Transformer = localByDefault();
+postcss([localByDefault()]);
 
-const ap2: Transformer = localByDefault({
+postcss([localByDefault({
     mode: "global",
     rewriteUrl: (global, url) => {
         url = url.trim();
@@ -17,5 +17,5 @@ const ap2: Transformer = localByDefault({
         }
 
         return url;
-    }
-});
+    },
+})]);

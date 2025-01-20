@@ -1,15 +1,13 @@
+import json = require("jsonstream");
 
-import json = require('jsonstream');
+export function foo(read: NodeJS.ReadableStream) {
+    read = read.pipe(json.parse("*"));
+    read = read.pipe(json.parse(["foo/*", "bar/*"]));
 
-var read: NodeJS.ReadableStream;
-var write: NodeJS.WritableStream;
+    read = json.stringify();
+    read = json.stringify(false);
+    read = json.stringify("{", ",", "}");
 
-read = read.pipe(json.parse('*'));
-read = read.pipe(json.parse(['foo/*', 'bar/*']));
-
-read = json.stringify();
-read = json.stringify(false);
-read = json.stringify('{', ',', '}');
-
-read = json.stringifyObject();
-read = json.stringifyObject('{', ',', '}');
+    read = json.stringifyObject();
+    read = json.stringifyObject("{", ",", "}");
+}

@@ -1,3 +1,3 @@
-import Aws = require('./plugins/aws/provider/awsProvider');
+import Aws = require("./plugins/aws/provider/awsProvider");
 
 export = Aws;

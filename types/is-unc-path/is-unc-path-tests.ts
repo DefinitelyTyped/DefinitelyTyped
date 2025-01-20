@@ -1,3 +1,3 @@
-import isUncPath = require('is-unc-path');
+import isUncPath = require("is-unc-path");
 
-isUncPath('\\/foo/bar'); // $ExpectType boolean
+isUncPath("\\/foo/bar"); // $ExpectType boolean

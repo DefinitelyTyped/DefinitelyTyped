@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uuid-readable",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Debdut/uuid-readable#readme"
+    ],
+    "devDependencies": {
+        "@types/uuid-readable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

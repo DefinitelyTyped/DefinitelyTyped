@@ -12,6 +12,7 @@ const webAuth = new auth0.WebAuth({
     redirectUri: "http://example.com/redirect",
     scope: "openid offline_access",
     audience: "http://audience.com/aud",
+    cookieDomain: "mine.auth0.com",
     leeway: 50,
     jwksURI: "./well-known/jwks.json",
     overrides: {
@@ -45,6 +46,8 @@ webAuth.authorize({
     language: "en",
     login_hint: "email@email.com",
     prompt: "login",
+    organization: "org_123",
+    invitation: "invitation_abc",
 });
 
 webAuth.parseHash((err, authResult) => {
@@ -82,8 +85,7 @@ webAuth.parseHash((err, authResult) => {
 webAuth.parseHash(
     {
         nonce: "asfd",
-        hash:
-            "#access_token=VjubIMBmpgQ2W2& \
+        hash: "#access_token=VjubIMBmpgQ2W2& \
             id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
             eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE \
             4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0. \
@@ -217,7 +219,8 @@ webAuth.client.login(
     },
 );
 
-webAuth.popup.buildPopupHandler(); // $ExpectError
+// @ts-expect-error
+webAuth.popup.buildPopupHandler();
 webAuth.popup.preload({});
 webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, result) => {
     if (err) /* handle error */ return;
@@ -250,14 +253,30 @@ webAuth.redirect.signupAndLogin(
         userMetadata: {
             foo: "bar",
         },
+        onRedirecting: () => {},
     },
     (err, data) => {
         if (err) /* handle error */ return;
         // do something with data
     },
 );
+// Get a Captcha object
+const captchaInputElement: HTMLInputElement = document.querySelector("input[name=\"captcha\"]");
+const captcha = webAuth.renderCaptcha(captchaInputElement, {
+    lang: "pl",
+    templates: {
+        error: error => {
+            return "error";
+        },
+        auth0: challenge => "auth0",
+        recaptcha_v2: challenge => "recaptcha_v2",
+    },
+});
 
-webAuth.login({ username: "bar", password: "foo", state: "1234" }, (err, data) => {});
+webAuth.login(
+    { username: "bar", password: "foo", state: "1234", onRedirecting: () => {}, captcha: captcha },
+    (err, data) => {},
+);
 
 // cross-origin verification
 webAuth.crossOriginVerification();
@@ -294,7 +313,7 @@ webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
     }
 });
 
-const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+const input: HTMLInputElement = document.querySelector("input[name=\"captcha\"]");
 // $ExpectType Captcha
 webAuth.renderCaptcha(input);
 // $ExpectType Captcha
@@ -331,7 +350,7 @@ webAuth.renderCaptcha(
 );
 
 // $ExpectType void
-webAuth.renderCaptcha(input).reload((err) => {
+webAuth.renderCaptcha(input).reload(err => {
     if (err) {
         // handle error
     }
@@ -345,9 +364,9 @@ const authentication = new auth0.Authentication({
     _sendTelemetry: false,
 });
 
-// $ExpectError
+// @ts-expect-error
 authentication.buildAuthorizeUrl({ state: "1234" });
-// $ExpectError
+// @ts-expect-error
 authentication.buildAuthorizeUrl();
 // $ExpectType string
 authentication.buildAuthorizeUrl({
@@ -402,13 +421,13 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup();
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({});
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({ connection: "bla", email: "blabla" });
-// $ExpectError
+// @ts-expect-error
 authentication.dbConnection.signup({ connection: "bla", email: "blabla", password: "123456" });
 authentication.dbConnection.signup(
     { connection: "bla", email: "blabla", password: "123456", username: "blabla" },
@@ -439,7 +458,7 @@ authentication.dbConnection.signup(
 );
 authentication.dbConnection.changePassword({ connection: "bla", email: "blabla" }, () => {});
 
-authentication.passwordless.start({ connection: "bla", send: "blabla" }, () => {});
+authentication.passwordless.start({ connection: "bla", send: "link" }, () => {});
 authentication.passwordless.verify(
     { connection: "bla", verificationCode: "asdfasd", email: "me@example.com" },
     () => {},
@@ -468,7 +487,10 @@ management.patchUserMetadata("asd", { role: "admin" }, (err, user) => {
 
 // tslint:disable-next-line: prefer-const
 let user: auth0.Auth0UserProfile;
-management.patchUserAttributes(); // $ExpectError
-management.patchUserAttributes("..."); // $ExpectError
-management.patchUserAttributes("...", {}); // $ExpectError
+// @ts-expect-error
+management.patchUserAttributes();
+// @ts-expect-error
+management.patchUserAttributes("...");
+// @ts-expect-error
+management.patchUserAttributes("...", {});
 management.patchUserAttributes("auth0|123", user, (err, user) => {}); // $ExpectType void

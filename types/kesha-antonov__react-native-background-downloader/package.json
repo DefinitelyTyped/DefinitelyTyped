@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/kesha-antonov__react-native-background-downloader",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/kesha-antonov/react-native-background-downloader"
+    ],
+    "devDependencies": {
+        "@types/kesha-antonov__react-native-background-downloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philip Su",
+            "githubUsername": "fivecar"
+        },
+        {
+            "name": "Adam Hunter",
+            "githubUsername": "adamrhunter"
+        },
+        {
+            "name": "Junseong Park",
+            "githubUsername": "Kweiza"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import { ReactChild } from 'react';
+import { ReactElement } from "react";
 
-import { Block, BlockInstance } from '../';
+import { Block, BlockInstance } from "../";
 
 /**
  * Given a block object, returns the Block's Inner HTML markup.
@@ -25,10 +25,10 @@ export function getBlockMenuDefaultClassName(blockName: string): string;
  * @param attributes - Block attributes.
  * @param innerBlocks - Nested blocks.
  */
-export function getSaveContent<T>(
+export function getSaveContent<T extends Record<string, any>>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: BlockInstance[]
+    innerBlocks?: BlockInstance[],
 ): string;
 
 /**
@@ -39,11 +39,11 @@ export function getSaveContent<T>(
  * @param attributes - Block attributes.
  * @param innerBlocks -  Nested blocks.
  */
-export function getSaveElement<T>(
+export function getSaveElement<T extends Record<string, any>>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
-    innerBlocks?: BlockInstance[]
-): ReactChild;
+    innerBlocks?: BlockInstance[],
+): ReactElement | number | string;
 
 /**
  * Takes a block or set of blocks and returns the serialized post content.

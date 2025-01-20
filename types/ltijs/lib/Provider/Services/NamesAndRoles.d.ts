@@ -1,4 +1,4 @@
-import { IdToken, UserInfo } from '../../IdToken';
+import { IdToken, UserInfo } from "../../IdToken";
 
 export interface MemberFilters {
     role?: string | undefined;

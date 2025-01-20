@@ -1,9 +1,5 @@
-// Type definitions for nat-upnp 1.1
-// Project: https://github.com/indutny/node-nat-upnp
-// Definitions by: SimplyLinn <https://github.com/SimplyLinn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Standard options that many options use.
@@ -13,16 +9,18 @@ export interface StandardOpts {
         | number
         | null
         | {
-              port?: number | undefined;
-              host?: string | undefined;
-          } | undefined;
+            port?: number | undefined;
+            host?: string | undefined;
+        }
+        | undefined;
     private?:
         | number
         | null
         | {
-              port?: number | undefined;
-              host?: string | undefined;
-          } | undefined;
+            port?: number | undefined;
+            host?: string | undefined;
+        }
+        | undefined;
     protocol?: string | undefined;
 }
 
@@ -36,7 +34,7 @@ export type RawResponse = Partial<
     Record<
         string,
         {
-            '@': { 'xmlns:u': string };
+            "@": { "xmlns:u": string };
             [key: string]: unknown;
         }
     >
@@ -75,7 +73,7 @@ export interface RawDevice {
 export interface Device {
     /**
      * Get the available services on the network device
-     * @param types List of service types to lookf or
+     * @param types List of service types to look for
      * @param callback
      */
     getService(
@@ -92,19 +90,17 @@ export interface Device {
      * @param info
      * @returns the available devices and services in array form
      */
-    parseDescription(info: {
-        device?: RawDevice | undefined;
-    }): {
+    parseDescription(info: { device?: RawDevice | undefined }): {
         services: RawService[];
         devices: RawDevice[];
     };
     /**
      * Perform a SSDP/UPNP request
      * @param action the action to perform
-     * @param args arguments of said action
+     * @param args key-value pair arguments of said action
      * @param callback Callback to be run when completed, or on error
      */
-    run(action: string, args: string[], callback: CB<RawResponse>): void;
+    run(action: string, args: Array<[string, string | number]>, callback: CB<RawResponse>): void;
 }
 
 // Note for the SSDP class/interface
@@ -223,7 +219,7 @@ export const ssdp: {
 export const utils: {
     getNamespace(
         data: {
-            '@'?: Record<string, string> | undefined;
+            "@"?: Record<string, string> | undefined;
         },
         uri: string,
     ): string;

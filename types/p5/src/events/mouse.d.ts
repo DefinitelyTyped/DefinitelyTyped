@@ -25,7 +25,7 @@ declare module '../../index' {
          *   default behaviors attached to various mouse
          *   events. To prevent any default behavior for this
          *   event, add "return false" to the end of the
-         *   method.
+         *   function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -42,7 +42,7 @@ declare module '../../index' {
          *   different default behaviors attached to various
          *   mouse events. To prevent any default behavior for
          *   this event, add "return false" to the end of the
-         *   method.
+         *   function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -56,7 +56,7 @@ declare module '../../index' {
          *   may have different default behaviors attached to
          *   various mouse events. To prevent any default
          *   behavior for this event, add "return false" to the
-         *   end of the method.
+         *   end of the function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -75,7 +75,7 @@ declare module '../../index' {
          *   Browsers may have different default behaviors
          *   attached to various mouse events. To prevent any
          *   default behavior for this event, add "return
-         *   false" to the end of the method.
+         *   false" to the end of the function.
          *   @param [event] optional MouseEvent callback
          *   argument.
          */
@@ -103,8 +103,8 @@ declare module '../../index' {
          *   touchpad. The event.delta property returns the
          *   amount the mouse wheel have scrolled. The values
          *   can be positive or negative depending on the
-         *   scroll direction (on OS X with "natural" scrolling
-         *   enabled, the signs are inverted).
+         *   scroll direction (on macOS with "natural"
+         *   scrolling enabled, the signs are inverted).
          *
          *
          *   Browsers may have different default behaviors
@@ -122,23 +122,37 @@ declare module '../../index' {
         mouseWheel(event?: object): void;
 
         /**
-         *   The function requestPointerLock() locks the pointer to
-         *   its current position and makes it invisible. Use [movedX]
-         *   and [movedY] to get the difference the mouse was moved
-         *   since the last call of draw.
-         *
-         *   Note that not all browsers support this feature. This enables
-         *   you to create experiences that aren't limited by the mouse
-         *   moving out of the screen even if it is repeatedly moved into
-         *   one direction. For example, a first person perspective experience.
+         *   The function requestPointerLock() locks the
+         *   pointer to its current position and makes it
+         *   invisible. Use movedX and movedY to get the
+         *   difference the mouse was moved since the last call
+         *   of draw. Note that not all browsers support this
+         *   feature. This enables you to create experiences
+         *   that aren't limited by the mouse moving out of the
+         *   screen even if it is repeatedly moved into one
+         *   direction. For example, a first person perspective
+         *   experience.
          */
         requestPointerLock(): void;
 
         /**
-         *   The function exitPointerLock() exits a previously triggered
-         *   pointer Lock for example to make ui elements usable etc.
+         *   The function exitPointerLock() exits a previously
+         *   triggered pointer Lock for example to make ui
+         *   elements usable etc
          */
         exitPointerLock(): void;
+
+        /**
+         *   The variable movedX contains the horizontal
+         *   movement of the mouse since the last frame
+         */
+        movedX: number;
+
+        /**
+         *   The variable movedY contains the vertical movement
+         *   of the mouse since the last frame
+         */
+        movedY: number;
 
         /**
          *   The system variable mouseX always contains the
@@ -221,24 +235,11 @@ declare module '../../index' {
         pwinMouseY: number;
 
         /**
-         *
-         * The variable movedX contains the horizontal movement of the mouse since the last frame
-         * @readOnly
-         */
-        readonly movedX: number;
-
-        /**
-         * The variable movedY contains the vertical movement of the mouse since the last frame
-         * @readOnly
-         */
-        readonly movedY: number;
-
-        /**
-         *   Processing automatically tracks if the mouse
-         *   button is pressed and which button is pressed. The
-         *   value of the system variable mouseButton is either
-         *   LEFT, RIGHT, or CENTER depending on which button
-         *   was pressed last. Warning: different browsers may
+         *   p5 automatically tracks if the mouse button is
+         *   pressed and which button is pressed. The value of
+         *   the system variable mouseButton is either LEFT,
+         *   RIGHT, or CENTER depending on which button was
+         *   pressed last. Warning: different browsers may
          *   track mouseButton differently.
          */
         mouseButton: UNKNOWN_P5_CONSTANT;

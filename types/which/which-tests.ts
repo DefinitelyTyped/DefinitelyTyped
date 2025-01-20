@@ -1,48 +1,47 @@
-import which = require('which');
+import which = require("which");
 
-which('cat', (err, path) => {
-    path; // $ExpectType string | undefined
-});
+which.sync("cat"); // $ExpectType string
 
-const path = which.sync('cat'); // $ExpectType string
+// Rewrite proomise to promise6 but using ExpectType
+which("cat"); // $ExpectType Promise<string>
+which("cat", { all: false }); // $ExpectType Promise<string>
+which("cat", { all: true }); // $ExpectType Promise<readonly string[]>
+which("cat", { nothrow: true }); // $ExpectType Promise<string | null>
+which("cat", { all: true, nothrow: true }); // $ExpectType Promise<readonly string[] | null>
 
-which('cat', { all: true }, (err, paths) => {
-    if (err) return;
-    if (paths) {
-        for (const path of paths) {
-            path; // $ExpectType string
-        }
-    }
-});
+// @ts-expect-error -- `alll` is not a valid option
+which("cat", { alll: true, nothrow: true }); // $ExpectError
 
-const promise: Promise<string> = which('cat');
-const promise1: Promise<string> = which('cat', { all: false });
-const promise2: Promise<string[]> = which('cat', { all: true });
+// @ts-expect-error -- 42 is not a boolean | undefined
+which("cat", { all: 42, nothrow: true }); // $ExpectError
 
-which('node')
+// If we cannot infer the exact value passed to `all` or `nothrow`, we should give both options.
+var b: boolean = Math.random() < 0.5;
+which("cat", { all: b }); // $ExpectType Promise<string | readonly string[]>
+which("cat", { nothrow: b }); // $ExpectType Promise<string | null>
+which("cat", { all: b, nothrow: b }); // $ExpectType Promise<string | readonly string[] | null>
+
+which("node")
     .then(resolvedPath => {
         resolvedPath; // $ExpectType string
     })
     .catch(er => {});
 
-async () => {
-    const path = await which('cat');
-};
+(async () => {
+    const path = await which("cat");
+});
 
-const paths = which.sync('cat', { all: true });
+const paths = which.sync("cat", { all: true });
 for (const path of paths) {
     path; // $ExpectType string
 }
 
-const paths2 = which.sync('cat', { all: true, nothrow: true });
+const paths2 = which.sync("cat", { all: true, nothrow: true });
 if (paths2 !== null) {
     for (const path of paths2) {
         path; // $ExpectType string
     }
 }
 
-const path2 = which.sync('cat', { path: 'replacement path', pathExt: 'replacement pathext' });
-which('cat', { path: 'replacement path', pathExt: 'replacement pathext' }, (err, path) => {
-    const a: string = path!;
-});
-which.sync('cat'); // $ExpectType string
+const path2 = which.sync("cat", { path: "replacement path", pathExt: "replacement pathext" });
+which.sync("cat"); // $ExpectType string

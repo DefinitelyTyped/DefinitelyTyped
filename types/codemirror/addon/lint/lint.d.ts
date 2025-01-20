@@ -1,4 +1,4 @@
-import * as CodeMirror from '../../';
+import * as CodeMirror from "../../";
 
 export interface BaseLintStateOptions<T> {
     /** debounce delay before linting onChange */
@@ -13,7 +13,11 @@ export interface BaseLintStateOptions<T> {
     selfContain?: boolean | undefined;
 
     /** callback after linter completes */
-    onUpdateLinting?(annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: CodeMirror.Editor): void;
+    onUpdateLinting?(
+        annotationsNotSorted: Annotation[],
+        annotations: Annotation[],
+        codeMirror: CodeMirror.Editor,
+    ): void;
 
     /**
      * Passing rules in `options` property prevents JSHint (and other linters) from complaining
@@ -22,7 +26,7 @@ export interface BaseLintStateOptions<T> {
     options?: T | undefined;
 
     /** controls display of lint tooltips */
-    tooltips?: boolean | 'gutter' | undefined;
+    tooltips?: boolean | "gutter" | undefined;
 }
 
 export interface SyncLintStateOptions<T> extends BaseLintStateOptions<T> {
@@ -41,7 +45,7 @@ export type LintStateOptions<T> = SyncLintStateOptions<T> | AsyncLintStateOption
 /**
  * A function that return errors found during the linting process.
  */
- export interface Linter<T> {
+export interface Linter<T> {
     (content: string, options: T, codeMirror: CodeMirror.Editor):
         | Annotation[]
         | PromiseLike<Annotation[]>;
@@ -78,7 +82,7 @@ export interface Annotation {
     to?: CodeMirror.Position | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     interface Editor {
         performLint: () => void;
     }

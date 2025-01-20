@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/jsen",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/bugventure/jsen"
+    ],
+    "devDependencies": {
+        "@types/jsen": "workspace:."
+    },
+    "owners": []
+}

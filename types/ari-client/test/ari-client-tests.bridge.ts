@@ -1,15 +1,14 @@
-import Ari, { Channel, Bridge, ChannelLeftBridge } from 'ari-client';
+import Ari, { Bridge, Channel, ChannelLeftBridge } from "ari-client";
 
 // TypeScript version of example published on project https://github.com/asterisk/node-ari-client.
 
 Ari.connect(
-    'http://ari.js:8088',
-    'user',
-    'secret',
-
+    "http://ari.js:8088",
+    "user",
+    "secret",
     (err, client) => {
         // use once to start the application
-        client.on('StasisStart', (event, incoming) => {
+        client.on("StasisStart", (event, incoming) => {
             incoming.answer(err => {
                 getOrCreateBridge(incoming);
             });
@@ -18,13 +17,13 @@ Ari.connect(
         const getOrCreateBridge = (channel: Channel) => {
             client.bridges.list((err: Error, bridges: Bridge[]) => {
                 let bridge = bridges.filter((candidate: Bridge) => {
-                    return candidate['bridge_type'] === 'holding';
+                    return candidate["bridge_type"] === "holding";
                 })[0];
 
                 if (!bridge) {
                     bridge = client.Bridge();
-                    bridge.create({ type: 'holding' }, (err: Error, bridge: Bridge) => {
-                        bridge.on('ChannelLeftBridge', (event, instances) => {
+                    bridge.create({ type: "holding" }, (err: Error, bridge: Bridge) => {
+                        bridge.on("ChannelLeftBridge", (event, instances) => {
                             cleanupBridge(event, instances, bridge);
                         });
                         joinHoldingBridgeAndPlayMoh(bridge, channel);
@@ -51,6 +50,6 @@ Ari.connect(
         };
 
         // can also use client.start(['app-name'...]) to start multiple applications
-        client.start('bridge-example');
+        client.start("bridge-example");
     },
 );

@@ -1,2 +1,2 @@
-import Call = require('../2016/Call');
+import Call = require("../2016/Call");
 export = Call;

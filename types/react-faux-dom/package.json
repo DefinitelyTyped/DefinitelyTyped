@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-faux-dom",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/Olical/react-faux-dom"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/d3": "*",
+        "@types/react-faux-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ali Taheri Moghaddar",
+            "githubUsername": "alitaheri"
+        },
+        {
+            "name": "Cleve Littlefield",
+            "githubUsername": "cleverguy25"
+        },
+        {
+            "name": "Michał Kostrzyński",
+            "githubUsername": "deviousm"
+        },
+        {
+            "name": "Hanai",
+            "githubUsername": "hanai"
+        }
+    ]
+}

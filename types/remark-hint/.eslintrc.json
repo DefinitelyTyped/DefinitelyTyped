@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "@definitelytyped/no-outside-dependencies": "off"
+    }
+}

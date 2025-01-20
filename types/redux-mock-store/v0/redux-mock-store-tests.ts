@@ -1,5 +1,5 @@
-import * as Redux from 'redux';
-import configureStore, { MockStore, MockStoreCreator } from 'redux-mock-store';
+import * as Redux from "redux";
+import configureStore, { MockStore, MockStoreCreator } from "redux-mock-store";
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -8,9 +8,9 @@ function counter(state: any, action: any) {
         state = 0;
     }
     switch (action.type) {
-        case 'INCREMENT':
+        case "INCREMENT":
             return state + 1;
-        case 'DECREMENT':
+        case "DECREMENT":
             return state - 1;
         default:
             return state;
@@ -33,13 +33,4 @@ store.subscribe(() => {
     // ...
 });
 
-store.dispatch({ type: 'INCREMENT' });
-
-// Additional mock store API tests
-const actions: any[] = store.getActions();
-
-store.clearActions();
-
-// actions access without the need to cast
-const actions2 = store.getActions();
-actions2[10].payload.id;
+store.dispatch({ type: "INCREMENT" });

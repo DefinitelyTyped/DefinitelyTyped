@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/smtpapi",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/sendgrid/smtpapi-nodejs"
+    ],
+    "devDependencies": {
+        "@types/smtpapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antonio Morales",
+            "githubUsername": "a-morales"
+        }
+    ]
+}

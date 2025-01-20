@@ -1,12 +1,7 @@
-import { Interface as ReadLineInterface } from 'readline';
-import { Observable } from 'rxjs';
-import inquirer = require('../..');
-import ScreenManager = require('../utils/screen-manager');
-
-/**
- * The question-options for the `Prompt<T>`.
- */
-type Question = inquirer.Question<inquirer.Answers>;
+import { Interface as ReadLineInterface } from "readline";
+import { Observable } from "rxjs";
+import inquirer, { Answers, Question } from "../../index.js";
+import ScreenManager from "../utils/screen-manager.js";
 
 /**
  * Represents a prompt.
@@ -23,7 +18,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     /**
      * Gets or sets an object which contains the answers.
      */
-    protected answers: inquirer.Answers;
+    protected answers: Answers;
 
     /**
      * Gets or sets the options of the prompt.
@@ -41,7 +36,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected screen: ScreenManager;
 
     /**
-     * Initializes a new instance of the `Prompt<T>` class.
+     * Initializes a new instance of the {@link Prompt `Prompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -50,9 +45,9 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
      * An object for performing read from and write to the console.
      *
      * @param answers
-     * The answer-object.
+     * The {@link Answers `Answers`}-object.
      */
-    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadLineInterface, answers: Answers);
 
     /**
      * @inheritdoc
@@ -68,10 +63,10 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected _run(callback: (callback: any) => void): void;
 
     /**
-     * Throws an error for a missing param.
+     * Throws an error for a missing parameter.
      *
      * @param name
-     * The name of the missing param.
+     * The name of the missing parameter.
      */
     protected throwParamError(name: string): void;
 
@@ -97,4 +92,4 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     protected getQuestion(): string;
 }
 
-export = Prompt;
+export default Prompt;

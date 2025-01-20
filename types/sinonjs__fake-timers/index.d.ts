@@ -1,32 +1,25 @@
-// Type definitions for @sinonjs/fake-timers 6.0
-// Project: https://github.com/sinonjs/fake-timers
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Rogier Schouten <https://github.com/rogierschouten>
-//                 Yishai Zehavi <https://github.com/zyishai>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Names of clock methods that may be faked by install.
  */
 export type FakeMethod =
-    | 'setTimeout'
-    | 'clearTimeout'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'Date'
-    | 'nextTick'
-    | 'hrtime'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback';
+    | "setTimeout"
+    | "clearTimeout"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "Date"
+    | "nextTick"
+    | "hrtime"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback"
+    | "performance"
+    | "queueMicrotask";
 
 /**
- * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
+ * Global methods available to every clock and also as standalone methods (inside `timers` global object).
  */
 export interface GlobalTimers<TTimerId extends TimerId> {
     /**
@@ -93,12 +86,17 @@ export interface NodeTimer {
     /**
      * Stub method call. Does nothing.
      */
-    ref(): void;
+    ref(): NodeTimer;
 
     /**
      * Stub method call. Does nothing.
      */
-    unref(): void;
+    unref(): NodeTimer;
+
+    /**
+     * Refreshes the timer.
+     */
+    refresh(): NodeTimer;
 }
 
 /**
@@ -114,6 +112,13 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
      * Current clock time.
      */
     now: number;
+
+    /**
+     * Mimics performance.now().
+     */
+    performance: {
+        now: () => number;
+    };
 
     /**
      * Don't know what this prop is for, but it was included in the clocks that `createClock` or
@@ -253,21 +258,14 @@ export interface FakeClock<TTimerId extends TimerId> extends GlobalTimers<TTimer
 /**
  * Fake clock for a browser environment.
  */
-export type BrowserClock = FakeClock<number> & {
-    /**
-     * Mimics performance.now().
-     */
-    performance: {
-        now: () => number;
-    };
-};
+export type BrowserClock = FakeClock<number>;
 
 /**
  * Fake clock for a Node environment.
  */
 export type NodeClock = FakeClock<NodeTimer> & {
     /**
-     * Mimicks process.hrtime().
+     * Mimics process.hrtime().
      *
      * @param prevTime   Previous system time to calculate time elapsed.
      * @returns High resolution real time as [seconds, nanoseconds].
@@ -326,18 +324,13 @@ export function createClock(now?: number | Date, loopLimit?: number): Clock;
 
 export interface FakeTimerInstallOpts {
     /**
-     * Installs fake timers onto the specified target context (default: global)
-     */
-    target?: any;
-
-    /**
      * Installs fake timers with the specified unix epoch (default: 0)
      */
     now?: number | Date | undefined;
 
     /**
-     * An array with explicit function names to hijack. When not set, @sinonjs/fake-timers will automatically fake all methods except nextTick
-     * e.g., FakeTimers.install({ toFake: ["setTimeout", "nextTick"]}) will fake only setTimeout and nextTick
+     * An array with names of global methods and APIs to fake. By default, `@sinonjs/fake-timers` does not replace `nextTick()` and `queueMicrotask()`.
+     * For instance, `FakeTimers.install({ toFake: ['setTimeout', 'nextTick'] })` will fake only `setTimeout()` and `nextTick()`
      */
     toFake?: FakeMethod[] | undefined;
 
@@ -357,6 +350,12 @@ export interface FakeTimerInstallOpts {
      * in the real system time (default: 20)
      */
     advanceTimeDelta?: number | undefined;
+
+    /**
+     * Tells FakeTimers to clear 'native' (i.e. not fake) timers by delegating to their respective handlers. These are not cleared by
+     * default, leading to potentially unexpected behavior if timers existed prior to installing FakeTimers. (default: false)
+     */
+    shouldClearNativeTimers?: boolean | undefined;
 }
 
 /**

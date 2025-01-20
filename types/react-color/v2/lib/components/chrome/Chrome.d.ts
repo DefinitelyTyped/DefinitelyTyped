@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { RenderersProps, CustomPickerProps } from "../../..";
 import { Classes } from "reactcss";
+import { CustomPickerProps, RenderersProps } from "../../..";
 
 export interface ChromePickerStylesProps {
     picker: CSSProperties;
@@ -32,4 +32,4 @@ export interface ChromePickerProps extends RenderersProps, CustomPickerProps {
     className?: string | undefined;
 }
 
-export default class ChromePicker extends Component<ChromePickerProps> { }
+export default class ChromePicker extends Component<ChromePickerProps> {}

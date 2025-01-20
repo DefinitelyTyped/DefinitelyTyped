@@ -3,7 +3,6 @@ declare function ProcessManager(): void;
 declare class ProcessManager {
     private errorHandler_;
     private controller_;
-    navTree: {};
     iVfs: DataSet;
     iClass: DataSet;
     publishedFileIds: {};
@@ -11,19 +10,26 @@ declare class ProcessManager {
     onBeforeRun: Event;
     onAfterRun: Event;
     ctrlChannel: ControlChannel;
-    private _environment;
+    private environment_;
     private openedTabs_;
     ctrlSessionId: any;
+    private lastUse_;
     private currentProcess_;
     pendingTaskCounter: any;
     private lastExpiredExportedFilesPurge_;
+    private inactivityTimeout_;
+    private inactiveSessionHandling_;
+    private lockedScreenTimeout_;
+    private debugSessionTimeouts_;
+    private logOutDueToInactivity_;
     private interface_count;
     private logger_;
+    private loadSessionSettings_;
     private processEventQueue_;
     private handleStartup;
     private handleUpdatePassword_;
     private handleHit;
-    private getSessionLocked;
+    private isScreenLocked;
     private setEvaluateCode;
     private _justToGroupEvaluator;
     private isENativeError;
@@ -49,31 +55,37 @@ declare class ProcessManager {
     private handleCloseTabCall;
     private finalize;
     private handleUpdateTaskCounter;
-    private handleGetNavtreeChildren;
     private handleExecuteAnchor;
+    private handleHistoryNavigation;
     private handleRefreshTabCall;
-    private handleSetControlSessionIdCall;
     private handleRunInteractionRequest;
     private handleGetFileRequest;
     private getFileContent;
     private getFileId;
     private purgeExpiredExportedFiles_;
-    private handleLoadNavTreeNodes_;
+    private getClientAddress_;
+    notifyUsage(lastUse?: number): void;
+    verifySessionTimeouts(): SessionTimeoutsInfo;
     private callHandlers;
     private requestHandlers;
     getCurrentProcess(): Process;
 }
 declare namespace ProcessManager {
-    export { getInstance, parseLayoutLinkContent, Event, DataSet, TabInfo };
+    export { Controller, DataSet, Event, getInstance, parseLayoutLinkContent, SessionTimeoutsInfo, TabInfo };
 }
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-type Event = import('@nginstack/engine/lib/event/Event');
-import ControlChannel = require('../ifp/ControlChannel.js');
-import Process = require('./Process.js');
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type Event = import("@nginstack/engine/lib/event/Event");
+import ControlChannel = require("../ifp/ControlChannel.js");
+import Process = require("./Process.js");
 declare function getInstance(): ProcessManager;
 declare function parseLayoutLinkContent(content: any): DBKey;
+type Controller = import("../messaging/Controller");
 interface TabInfo {
     processIds: string[];
     currentProcessId: string;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+interface SessionTimeoutsInfo {
+    inactivity: number;
+    lockedScreen: number;
+}
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

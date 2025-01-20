@@ -1,9 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const TriangleBlurShader: {
+    name: string;
     uniforms: {
-        texture: Uniform;
-        delta: Uniform;
+        texture: IUniform;
+        delta: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

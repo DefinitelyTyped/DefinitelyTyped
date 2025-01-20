@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/creditcardutils",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/faaez/creditcardutils#readme"
+    ],
+    "devDependencies": {
+        "@types/creditcardutils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Conaway",
+            "githubUsername": "SConaway"
+        }
+    ]
+}

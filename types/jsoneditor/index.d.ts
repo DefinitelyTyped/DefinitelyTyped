@@ -1,15 +1,6 @@
-// Type definitions for jsoneditor 9.5
-// Project: https://github.com/josdejong/jsoneditor
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Adam Vigneaux <https://github.com/adamvig>
-//                 Joep Kockelkorn <https://github.com/joepkockelkorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="ace" />
 
-import { Ajv, ErrorObject } from 'ajv';
+import { Ajv, ErrorObject } from "ajv";
 
 export type JSONPath = Array<string | number>;
 
@@ -19,15 +10,9 @@ export interface EditableNode {
     path: JSONPath;
 }
 
-export type NodeType = 'object' | 'array' | 'string' | 'auto';
+export type NodeType = "object" | "array" | "string" | "auto";
 
-export type JSONEditorMode = 'tree' | 'view' | 'form' | 'code' | 'text' | 'preview';
-
-export interface NodeName {
-    path: ReadonlyArray<string>;
-    type: NodeType;
-    size: number;
-}
+export type JSONEditorMode = "tree" | "view" | "form" | "code" | "text" | "preview";
 
 export interface ValidationError {
     path: JSONPath;
@@ -41,7 +26,7 @@ export interface FieldEditable {
 
 export interface BaseNode {
     editor: JSONEditor;
-    dom: { [key: string]: HTMLElement };
+    dom: Record<string, HTMLElement>;
     editable?: FieldEditable | undefined;
     parent: Node | null;
 }
@@ -58,7 +43,7 @@ export interface Node extends BaseNode {
     previousValue: NodeValue;
     visibleChilds: number;
     schema?: object | undefined;
-    enum?: null | ReadonlyArray<string> | undefined;
+    enum?: null | readonly string[] | undefined;
     id?: string | undefined;
     valueFieldHTML?: string | undefined;
     error?: ErrorObject | undefined;
@@ -70,7 +55,7 @@ export interface Node extends BaseNode {
     showMore?: BaseNode | undefined;
 }
 
-export type SchemaValidationErrorType = 'validation' | 'customValidation';
+export type SchemaValidationErrorType = "validation" | "customValidation";
 
 export interface SchemaValidationError {
     node: Node;
@@ -81,7 +66,7 @@ export interface SchemaValidationError {
 export interface ParseError {
     line: number;
     message: string;
-    type: 'error';
+    type: "error";
 }
 
 export interface Template {
@@ -94,27 +79,30 @@ export interface Template {
 
 export type AutoCompleteCompletion = null | string[] | { startFrom: number; options: string[] };
 
-export type AutoCompleteMatchingStrategy = 'start' | 'contain';
+export type AutoCompleteMatchingStrategy = "start" | "contain";
 
-export type AutoCompleteTrigger = 'keydown' | 'focus';
+export type AutoCompleteTrigger = "keydown" | "focus";
 
-export type AutoCompleteElementType = 'field' | 'value';
+export type AutoCompleteElementType = "field" | "value";
+
+export type AutoCompleteGetOptions = (
+    text: string,
+    path: JSONPath,
+    input: AutoCompleteElementType,
+    editor: JSONEditor,
+) => AutoCompleteCompletion | Promise<AutoCompleteCompletion>;
 
 export interface AutoCompleteOptions {
     /**
      * Pick one of the two strategies, or define a custom filter function.
-     *
-     * 'start': Match your input from the start, e.g. 'ap' matches 'apple' but 'pl' does not.
-     *
-     * 'contain': Contains the user's input or not, e.g. 'pl' matches 'apple' too.
+     * - 'start': Match your input from the start, e.g. 'ap' matches 'apple' but 'pl' does not.
+     * - 'contain': Contains the user's input or not, e.g. 'pl' matches 'apple' too.
      */
     filter?: AutoCompleteMatchingStrategy | ((query: string) => boolean) | undefined;
     /**
      * Indicate the way to trigger autocomplete menu.
-     *
-     * 'keydown': When you type something in the field or value, it will trigger autocomplete immediately.
-     *
-     * 'focus': When you focus in the field or value, it will trigger the autocomplete.
+     * - 'keydown': When you type something in the field or value, it will trigger autocomplete immediately.
+     * - 'focus': When you focus in the field or value, it will trigger the autocomplete.
      * @default 'keydown'
      */
     trigger?: AutoCompleteTrigger | undefined;
@@ -135,12 +123,7 @@ export interface AutoCompleteOptions {
      * @param input Can be 'field' or 'value' depending if the user is editing a field name or a value of a node.
      * @param editor The editor instance object that is being edited.
      */
-    getOptions?: ((
-        text: string,
-        path: JSONPath,
-        input: AutoCompleteElementType,
-        editor: JSONEditor,
-    ) => AutoCompleteCompletion | Promise<AutoCompleteCompletion>) | undefined;
+    getOptions?: AutoCompleteGetOptions | undefined;
 }
 
 export interface SelectionPosition {
@@ -167,45 +150,164 @@ export interface Color {
 export interface MenuItem {
     text: string;
     title: string;
-    type?: 'separator' | undefined;
+    type?: "separator" | undefined;
     className: string;
     submenu?: MenuItem[] | undefined;
     submenuTitle?: string | undefined;
     click?: (() => void) | undefined;
 }
 
-export type MenuItemNodeType = 'single' | 'append';
+export type MenuItemNodeType = "single" | "multiple" | "append";
 
 export interface MenuItemNode {
     type: MenuItemNodeType;
-    path: ReadonlyArray<string>;
-    paths: ReadonlyArray<ReadonlyArray<string>>;
+    path: readonly string[];
+    paths: ReadonlyArray<readonly string[]>;
 }
 
 export interface TimestampNode {
     field: string;
     value: string;
-    path: ReadonlyArray<string>;
+    path: readonly string[];
+}
+
+export interface QueryFilter {
+    field: string | "@";
+    relation: "==" | "!=" | "<" | "<=" | ">" | ">=";
+    value: string;
+}
+
+export interface QuerySort {
+    field: string | "@";
+    direction: "asc" | "desc";
+}
+
+export interface QueryProjection {
+    fields: string[];
 }
 
 export interface QueryOptions {
-    filter?: {
-        field: string | '@';
-        relation: '==' | '!=' | '<' | '<=' | '>' | '>=';
-        value: string;
-    } | undefined;
-    sort?: {
-        field: string | '@';
-        direction: 'asc' | 'desc';
-    } | undefined;
-    projection?: {
-        fields: string[];
-    } | undefined;
+    filter?: QueryFilter | undefined;
+    sort?: QuerySort | undefined;
+    projection?: QueryProjection | undefined;
 }
+
+export interface OnClassNameParams {
+    path: readonly string[];
+    field: string;
+    value: string;
+}
+
+export interface ExpandOptions {
+    path: readonly string[];
+    isExpand: boolean;
+    recursive: boolean;
+}
+
+export interface OnNodeNameParams {
+    path: readonly string[];
+    type: NodeType;
+    size: number;
+    value: any;
+}
+
+/** Obtained from master/src/js/i18n.js */
+export type TranslationKey =
+    | "actionsMenu"
+    | "appendSubmenuTitle"
+    | "appendText"
+    | "appendTitle"
+    | "appendTitleAuto"
+    | "array"
+    | "arrayType"
+    | "ascending"
+    | "ascendingTitle"
+    | "auto"
+    | "autoType"
+    | "cannotParseFieldError"
+    | "cannotParseValueError"
+    | "collapseAll"
+    | "compactTitle"
+    | "containsInvalidItems"
+    | "containsInvalidProperties"
+    | "default"
+    | "descending"
+    | "descendingTitle"
+    | "drag"
+    | "duplicateField"
+    | "duplicateFieldError"
+    | "duplicateKey"
+    | "duplicateText"
+    | "duplicateTitle"
+    | "empty"
+    | "examples"
+    | "expandAll"
+    | "expandTitle"
+    | "extract"
+    | "extractTitle"
+    | "formatTitle"
+    | "insert"
+    | "insertSub"
+    | "insertTitle"
+    | "modeCodeText"
+    | "modeCodeTitle"
+    | "modeEditorTitle"
+    | "modeFormText"
+    | "modeFormTitle"
+    | "modePreviewText"
+    | "modePreviewTitle"
+    | "modeTextText"
+    | "modeTextTitle"
+    | "modeTreeText"
+    | "modeTreeTitle"
+    | "modeViewText"
+    | "modeViewTitle"
+    | "object"
+    | "objectType"
+    | "ok"
+    | "openUrl"
+    | "redo"
+    | "removeField"
+    | "removeText"
+    | "removeTitle"
+    | "repairTitle"
+    | "searchNextResultTitle"
+    | "searchPreviousResultTitle"
+    | "searchTitle"
+    | "selectNode"
+    | "showAll"
+    | "showMore"
+    | "showMoreStatus"
+    | "sort"
+    | "sortAscending"
+    | "sortAscendingTitle"
+    | "sortDescending"
+    | "sortDescendingTitle"
+    | "sortDirectionLabel"
+    | "sortFieldLabel"
+    | "sortFieldTitle"
+    | "sortTitle"
+    | "sortTitleShort"
+    | "string"
+    | "stringType"
+    | "transform"
+    | "transformPreviewLabel"
+    | "transformQueryLabel"
+    | "transformQueryTitle"
+    | "transformTitle"
+    | "transformTitleShort"
+    | "transformWizardFilter"
+    | "transformWizardLabel"
+    | "transformWizardSelectFields"
+    | "transformWizardSortBy"
+    | "type"
+    | "typeTitle"
+    | "undo"
+    | "validationCannotMove";
 
 export interface JSONEditorOptions {
     /**
-     * Provide a custom version of the Ace editor and use this instead of the version that comes embedded with JSONEditor. Only applicable when mode is 'code'.
+     * Provide a custom version of the Ace editor and use this instead of the version that comes embedded with JSONEditor. Only applicable when mode is `code`.
      *
      * Note that when using the minimalist version of JSONEditor (which has Ace excluded), JSONEditor will try to load the Ace plugins `ace/mode/json` and `ace/ext/searchbox`.
      * These plugins must be loaded beforehand or be available in the folder of the Ace editor.
@@ -219,50 +321,52 @@ export interface JSONEditorOptions {
     /**
      * Set a callback function triggered when the contents of the JSONEditor change.
      * This callback does not pass the changed contents, use `get()` or `getText()` for that.
-     * Note that `get()` can throw an exception in mode 'text', 'code', or 'preview', when the editor contains invalid JSON.
+     * Note that `get()` can throw an exception in mode `text`, `code`, or `preview`, when the editor contains invalid JSON.
      * Will only be triggered on changes made by the user, not in case of programmatic changes via the functions `set`, `setText`, `update`, or `updateText`.
      * See also callback functions `onChangeJSON(json)` and `onChangeText(jsonString)`.
      */
     onChange?: (() => void) | undefined;
     /**
      * Set a callback function triggered when the contents of the JSONEditor change.
-     * Passes the changed JSON document. Only applicable when option mode is 'tree', 'form', or 'view'.
+     * Passes the changed JSON document. Only applicable when option mode is `tree`, `form`, or `view`.
      * The callback will only be triggered on changes made by the user, not in case of programmatic changes via the functions `set`, `setText`, `update`, or `updateText`.
-     * Also see the callback function `onChangeText(jsonString)`.
+     * @see onChangeText for more details
      */
     onChangeJSON?: ((json: any) => void) | undefined;
     /**
      * Set a callback function triggered when the contents of the JSONEditor change.
      * Passes the changed JSON document as a string.
      * The callback will only be triggered on changes made by the user, not in case of programmatic changes via the functions `set`, `setText`, `update`, or `updateText`.
-     * Also see the callback function `onChangeJSON(json)`.
+     * @see onChangeJSON for more details
      */
     onChangeText?: ((jsonString: string) => void) | undefined;
     /**
      * Set a callback function to add custom CSS classes to the rendered nodes.
-     * Only applicable when option mode is 'tree', 'form', or 'view'.
+     * Only applicable when option mode is `tree`, `form`, or `view`.
      * The function must either return a string containing CSS class names, or return undefined in order to do nothing for a specific node.
      * In order to update css classes when they depend on external state, you can call `editor.refresh()`.
      */
-    onClassName?: ((classNameParams: {
-        path: ReadonlyArray<string>;
-        field: string;
-        value: string;
-    }) => string | undefined) | undefined;
+    onClassName?: ((classNameParams: OnClassNameParams) => string | undefined) | undefined;
+    /**
+     * Set a callback function to be invoked when a node is expanded/collapsed (not programtically via APIs).
+     * Only applicable when option mode is `tree`, `form`, or `view`.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    onExpand?: (expandParams: ExpandOptions) => void | undefined;
     /**
      * Set a callback function to determine whether individual nodes are editable or readonly.
-     * Only applicable when option mode is 'tree', 'text', or 'code'.
-     * In case of mode 'tree', the callback is invoked as `editable(node)`, where the first parameter is a `Node`.
+     * Only applicable when option mode is `tree`, `text`, or `code`.
+     * In case of mode `tree`, the callback is invoked as `editable(node)`, where the first parameter is a `Node`.
      * The function must either return a boolean value to set both the nodes field and value editable or readonly,
      * or return `{ field: boolean; value: boolean }` to set the readonly attribute for field and value individually.
-     * In modes 'text' and 'code', the callback is invoked as `editable(node)` where node is an empty object (no field, value, or path).
+     * In modes `text` and `code`, the callback is invoked as `editable(node)` where node is an empty object (no field, value, or path).
      * In that case the function can return false to make the text or code editor completely readonly.
      */
     onEditable?: ((node: EditableNode | object) => boolean | FieldEditable) | undefined;
     /**
      * Set a callback function triggered when an error occurs.
      * Invoked with the error as first argument. The callback is only invoked
-     * for errors triggered by a users action, like switching from 'code' mode to 'tree' mode
+     * for errors triggered by a users action, like switching from `code` mode to `tree` mode
      * or clicking the Format button whilst the editor doesn't contain valid JSON.
      */
     onError?: ((error: Error) => void) | undefined;
@@ -276,19 +380,20 @@ export interface JSONEditorOptions {
      * The number inside can be customized. using onNodeName. The onNodeName function should return a string containing the name for the node.
      * If nothing is returned, the size (number of children) will be displayed.
      */
-    onNodeName?: ((nodeName: NodeName) => string | undefined) | undefined;
+    onNodeName?: ((nodeName: OnNodeNameParams) => string | undefined) | undefined;
     /**
      * Set a callback function for custom validation. Available in all modes.
      * On a change of the JSON, the callback function is invoked with the changed data.
      * The function should return an array with errors or null if there are no errors.
      * The function can also return a Promise resolving with the errors retrieved via an asynchronous validation (like sending a request to a server for validation).
-     * Also see the option `schema` for JSON schema validation.
+     * @see schema for JSON schema validation.
      */
     onValidate?: ((json: any) => ValidationError[] | Promise<ValidationError[]>) | undefined;
     /**
      * Set a callback function for validation and parse errors. Available in all modes.
      * On validation of the json, if errors of any kind were found this callback is invoked with the errors data.
      * On change, the callback will be invoked only if errors were changed.
+     * @param errors validation errors
      */
     onValidationError?: ((errors: ReadonlyArray<SchemaValidationError | ParseError>) => void) | undefined;
     /**
@@ -304,37 +409,42 @@ export interface JSONEditorOptions {
      */
     escapeUnicode?: boolean | undefined;
     /**
-     * If true, object keys in 'tree', 'view' or 'form' mode will be listed alphabetically instead by their insertion order.
+     * If true, object keys in `tree`, `view` or `form` mode will be listed alphabetically instead by their insertion order.
      * Sorting is performed using a natural sort algorithm, which makes it easier to see objects that have string numbers as keys.
      * @default false
      */
     sortObjectKeys?: boolean | undefined;
     /**
-     * Enables history, adds a button Undo and Redo to the menu of the JSONEditor. Only applicable when mode is 'tree', 'form', or 'preview'.
+     * If false, nodes can be dragged from any parent node to any other parent node. If true, nodes can only be dragged inside the same parent node, which effectively only allows reordering of nodes.
+     * By default, limitDragging is true when no JSON schema is defined, and false otherwise.
+     */
+    limitDragging?: boolean;
+    /**
+     * Enables history, adds a button Undo and Redo to the menu of the JSONEditor. Only applicable when mode is `tree`, `form`, or `preview`.
      * @default true
      */
     history?: boolean | undefined;
     /**
-     * Set the editor mode. Available values: 'tree', 'view', 'form', 'code', 'text', 'preview'.
-     * In 'view' mode, the data and datastructure is readonly. In 'form' mode, only the value can be changed, the data structure is readonly.
-     * Mode 'code' requires the Ace editor to be loaded on the page. Mode 'text' shows the data as plain text.
-     * The 'preview' mode can handle large JSON documents up to 500 MiB. It shows a preview of the data, and allows to transform, sort, filter, format, or compact the data.
+     * Set the editor mode. Available values: `tree`, `view`, `form`, `code`, `text`, `preview`.
+     * In `view` mode, the data and datastructure is readonly. In `form` mode, only the value can be changed, the data structure is readonly.
+     * Mode `code` requires the Ace editor to be loaded on the page. Mode `text` shows the data as plain text.
+     * The `preview` mode can handle large JSON documents up to 500 MiB. It shows a preview of the data, and allows to transform, sort, filter, format, or compact the data.
      * @default 'tree'
      */
     mode?: JSONEditorMode | undefined;
     /**
      * Create a box in the editor menu where the user can switch between the specified modes.
-     * @see mode.
+     * @see mode for configuration
      */
     modes?: JSONEditorMode[] | undefined;
     /**
-     * Initial field name for the root node. Can also be set using `setName(name)`. Only applicable when mode is 'tree', 'view', or 'form'.
+     * Initial field name for the root node. Can also be set using `setName(name)`. Only applicable when mode is `tree`, `view`, or `form`.
      * @default undefined
      */
     name?: string | undefined;
     /**
      * Validate the JSON object against a JSON schema. A JSON schema describes the structure that a JSON object must have, like required properties or the type that a value must have.
-     * Also see the option `onValidate` for custom validation.
+     * @see onValidate for custom validation.
      * @see http://json-schema.org/
      */
     schema?: object | undefined;
@@ -343,12 +453,19 @@ export interface JSONEditorOptions {
      */
     schemaRefs?: object | undefined;
     /**
-     * Enables a search box in the upper right corner of the JSONEditor. Only applicable when mode is 'tree', 'view', or 'form'.
+     * When enabled and schema is configured, the editor will suggest text completions based on the schema properties, examples and enums.
+     * - Limitation: the completions will be presented only for a valid json.
+     * - Only applicable when mode is `code`.
+     * @default false
+     */
+    allowSchemaSuggestions?: boolean | undefined;
+    /**
+     * Enables a search box in the upper right corner of the JSONEditor. Only applicable when mode is `tree`, `view`, or `form`.
      * @default true
      */
     search?: boolean | undefined;
     /**
-     * Number of indentation spaces. Only applicable when mode is 'code', 'text', or 'preview'.
+     * Number of indentation spaces. Only applicable when mode is `code`, `text`, or `preview`.
      * @default 2
      */
     indentation?: number | undefined;
@@ -362,7 +479,7 @@ export interface JSONEditorOptions {
      */
     templates?: Template[] | undefined;
     /**
-     * Providing this will enable this feature in your editor in 'tree' mode.
+     * Providing this will enable this feature in your editor in `tree` mode.
      */
     autocomplete?: AutoCompleteOptions | undefined;
     /**
@@ -372,28 +489,48 @@ export interface JSONEditorOptions {
     mainMenuBar?: boolean | undefined;
     /**
      * Adds navigation bar to the menu. The navigation bar visualizes the current position on the tree structure as well as allows breadcrumbs navigation.
-     * Only applicable when mode is 'tree', 'form' or 'view'.
+     * Only applicable when mode is `tree`, `form` or `view`.
      * @default true
      */
     navigationBar?: boolean | undefined;
     /**
      * Adds status bar to the bottom of the editor. The status bar shows the cursor position and a count of the selected characters.
-     * Only applicable when mode is 'code', 'text', or 'preview'.
+     * Only applicable when mode is `code`, `text`, or `preview`.
      * @default true
      */
     statusBar?: boolean | undefined;
     /**
-     * Set a callback function triggered when a text is selected in the JSONEditor. Only applicable when mode is 'code' or 'text'.
+     * Set a callback function triggered when a text is selected in the JSONEditor.
+     * Only applicable when mode is `code` or `text`.
+     * @param start Selection start position
+     * @param end Selected end position
+     * @param text selected text
      */
     onTextSelectionChange?: ((start: SelectionPosition, end: SelectionPosition, text: string) => void) | undefined;
     /**
-     * Set a callback function triggered when Nodes are selected in the JSONEditor. Only applicable when mode is 'tree'.
+     * Set a callback function triggered when Nodes are selected in the JSONEditor.
+     * Only applicable when mode is `tree`.
+     * @param start
+     * @param end
      */
     onSelectionChange?: ((start: SerializableNode, end: SerializableNode) => void) | undefined;
     /**
-     * Set a callback function that will be triggered when an event will occur in a JSON field or value. Only applicable when mode is 'form', 'tree' or 'view'.
+     * Set a callback function that will be triggered when an event will occur in a JSON field or value.
+     * Only applicable when mode is `form`, `tree` or `view`.
+     * @param node the Node where event has been triggered
+     * @param event the event fired
      */
-    onEvent?: ((node: EditableNode, event: string) => void) | undefined;
+    onEvent?: ((node: EditableNode, event: Event) => void) | undefined;
+    /**
+     * Callback method, triggered when the editor comes into focus
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    onFocus?: (event: Event) => void | undefined;
+    /**
+     * Callback method, triggered when the editor goes out of focus
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    onBlur?: (event: Event) => void | undefined;
     /**
      * When true, values containing a color name or color code will have a color picker rendered on their left side.
      * @default true
@@ -414,14 +551,14 @@ export interface JSONEditorOptions {
      * When the function returns a non-boolean value like null or undefined, JSONEditor will fallback on the built-in rules to determine whether or not to show a timestamp.
      * Whether a value is a timestamp can be determined implicitly based on the value, or explicitly based on field or path.
      * You can for example test whether a field name contains a string like: 'date' or 'time'.
-     * Only applicable for modes 'tree', 'form', and 'view'.
+     * Only applicable for modes `tree`, `form`, and `view`.
      * @default true
      * @example ({ field, value, path }) => field === 'dateCreated'
      */
     timestampTag?: boolean | ((node: TimestampNode) => boolean) | undefined;
     /**
      * Customizing the way formating the timestamp. Called when a value is timestamp after timestampTag. If it returns null, the timestamp would be formatted with default setting.
-     * Only applicable for modes 'tree', 'form', and 'view'.
+     * Only applicable for modes `tree`, `form`, and `view`.
      * @default value => new Date(value).toISOString()
      */
     timestampFormat?: ((node: TimestampNode) => string | null) | undefined;
@@ -435,11 +572,7 @@ export interface JSONEditorOptions {
      * All available fields for translation can be found in the source file `src/js/i18n.js`.
      * @example { 'pt-BR': { 'auto': 'Automático testing' }, 'en': { 'auto': 'Auto testing' } }
      */
-    languages?: {
-        [lang: string]: {
-            [key: string]: string;
-        };
-    } | undefined;
+    languages?: Record<string, Partial<Record<TranslationKey, string>>> | undefined;
     /**
      * The container element where modals (like for sorting and filtering) are attached:
      * an overlay will be created on top of this container, and the modal will be created in the center of this container.
@@ -453,17 +586,17 @@ export interface JSONEditorOptions {
      */
     popupAnchor?: HTMLElement | undefined;
     /**
-     * Enable sorting of arrays and object properties. Only applicable for mode 'tree'.
+     * Enable sorting of arrays and object properties. Only applicable for mode `tree`.
      * @default true
      */
     enableSort?: boolean | undefined;
     /**
-     * Enable filtering, sorting, and transforming JSON using a {@link https://jmespath.org/|JMESPath} query. Only applicable for mode 'tree'.
+     * Enable filtering, sorting, and transforming JSON using a {@link https://jmespath.org/|JMESPath} query. Only applicable for mode `tree`.
      * @default true
      */
     enableTransform?: boolean | undefined;
     /**
-     * Number of children allowed for a given node before the 'show more/show all' message appears (in 'tree', 'view', or 'form' modes).
+     * Number of children allowed for a given node before the 'show more/show all' message appears (in `tree`, `view`, or `form` modes).
      * @default 100
      */
     maxVisibleChilds?: number | undefined;
@@ -484,11 +617,6 @@ export interface JSONEditorOptions {
      * The text can contain HTML code like a link to a web page.
      */
     queryDescription?: string | undefined;
-    /**
-     * If false, nodes can be dragged from any parent node to any other parent node. If true, nodes can only be dragged inside the same parent node, which effectively only allows reordering of nodes.
-     * By default, limitDragging is true when no JSON schema is defined, and false otherwise.
-     */
-    limitDragging?: boolean;
 }
 
 export default class JSONEditor {
@@ -501,7 +629,7 @@ export default class JSONEditor {
      */
     constructor(container: HTMLElement, options?: JSONEditorOptions, json?: any);
     /**
-     * Collapse all fields. Only applicable for mode 'tree', 'view', and 'form'.
+     * Collapse all fields. Only applicable for mode `tree`, `view`, and `form`.
      */
     collapseAll(): void;
     /**
@@ -509,15 +637,22 @@ export default class JSONEditor {
      */
     destroy(): void;
     /**
-     * Expand all fields. Only applicable for mode 'tree', 'view', and 'form'.
+     * Expand all fields. Only applicable for mode `tree`, `view`, and `form`.
      */
     expandAll(): void;
+    /**
+     * Expand/collapse a given JSON node. Only applicable for mode 'tree', 'view' and 'form'.
+     * @param expandParams.path Path for the node to expand / collapse
+     * @param expandParams.isExpand Whether to expand the node (else collapse)
+     * @param expandParams.recursive Whether to expand/collapse child nodes recursively
+     */
+    expand(options: ExpandOptions): void;
     /**
      * Set focus to the JSONEditor.
      */
     focus(): void;
     /**
-     * Get JSON data. This method throws an exception when the editor does not contain valid JSON, which can be the case when the editor is in mode 'code', 'text', or 'preview'.
+     * Get JSON data. This method throws an exception when the editor does not contain valid JSON, which can be the case when the editor is in mode `code`, `text`, or `preview`.
      */
     get(): any;
     /**
@@ -536,16 +671,16 @@ export default class JSONEditor {
      */
     getNodesByRange(start: { path: JSONPath }, end: { path: JSONPath }): SerializableNode[];
     /**
-     * Get the current selected nodes. Only applicable for mode 'tree'.
+     * Get the current selected nodes. Only applicable for mode `tree`.
      */
     getSelection(): { start: SerializableNode; end: SerializableNode };
     /**
-     * Get JSON data as string. Returns the contents of the editor as string. When the editor is in mode 'text', 'code' or 'preview', the returned text is returned as-is.
+     * Get JSON data as string. Returns the contents of the editor as string. When the editor is in mode `text`, `code` or `preview`, the returned text is returned as-is.
      * For the other modes, the returned text is a compacted string. In order to get the JSON formatted with a certain number of spaces, use `JSON.stringify(JSONEditor.get(), null, 2)`.
      */
     getText(): string;
     /**
-     * Get the current selected text with the selection range. Only applicable for mode 'text' and 'code'.
+     * Get the current selected text with the selection range. Only applicable for mode `text` and `code`.
      */
     getTextSelection(): { start: SelectionPosition; end: SelectionPosition; text: string };
     /**
@@ -554,51 +689,67 @@ export default class JSONEditor {
     refresh(): void;
     /**
      * Set JSON data. Resets the state of the editor (expanded nodes, search, selection).
-     * @see update()
+     * @see update for more details
      * @param json JSON data to be displayed in the JSONEditor
      */
     set(json: any): void;
     /**
-     * Switch mode. Mode 'code' requires the Ace editor.
+     * Switch mode. Mode `code` requires the Ace editor.
      */
     setMode(mode: JSONEditorMode): void;
     /**
      * Set a field name for the root node.
+     * @param name Field name of the root node. If undefined, the current name will be removed.
      */
     setName(name?: string): void;
     /**
      * Set a JSON schema for validation of the JSON object. See also option `schema`. See http://json-schema.org/ for more information on the JSON schema definition.
+     * @param schema A JSON schema.
+     * @param schemaRefs Schemas that are referenced using the `$ref` property from the JSON schema, the object structure in the form of `{ reference_key: schemaObject }`
      */
     setSchema(schema: object, schemaRefs?: object): void;
     /**
-     * Set selection for a range of nodes, Only applicable for mode 'tree'.
-     * If no parameters sent - the current selection will be removed, if exists.
-     * For single node selection send only the start parameter.
-     * If the nodes are not from the same level the first common parent will be selected.
+     * Set selection for a range of nodes. Only applicable for mode `tree`.
+     * - If no parameters sent - the current selection will be removed, if exists.
+     * - For single node selection send only the start parameter.
+     * - If the nodes are not from the same level the first common parent will be selected.
+     * @param start Path for the start node
+     * @param end Path for the end node
      */
     setSelection(start: { path: JSONPath }, end: { path: JSONPath }): void;
     /**
-     * Set text data in the editor. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode 'tree', 'view', or 'form'.
+     * Set text data in the editor. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode `tree`, `view`, or `form`.
+     * @param jsonString Contents of the editor as string.
      */
     setText(jsonString: string): void;
     /**
-     * Set text selection for a range, Only applicable for mode 'text' and 'code'.
+     * Set text selection for a range, Only applicable for mode `text` and `code`.
+     * @param start Position for selection start
+     * @param end Position for selection end
      */
     setTextSelection(start: SelectionPosition, end: SelectionPosition): void;
     /**
-     * Replace JSON data when the new data contains changes. In modes 'tree', 'form', and 'view', the state of the editor will be maintained (expanded nodes, search, selection). See also `set`.
+     * Replace JSON data when the new data contains changes. In modes `tree`, `form`, and `view`, the state of the editor will be maintained (expanded nodes, search, selection). See also `set`.
+     * @param json JSON data to be displayed in the JSONEditor.
      */
     update(json: any): void;
     /**
-     * Replace text data when the new data contains changes. In modes 'tree', 'form', and 'view', the state of the editor will be maintained (expanded nodes, search, selection).
-     * Also see `setText()`. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode 'tree', 'view', or 'form'.
+     * Replace text data when the new data contains changes. In modes `tree`, `form`, and `view`, the state of the editor will be maintained (expanded nodes, search, selection).
+     * @see setText for more details
+     * @param jsonString Contents of the editor as string.
      */
     updateText(jsonString: string): void;
     /**
      * Validate the JSON document against the configured JSON schema or custom validator. See also the `onValidationError` callback.
-     * Returns a promise which resolves with the current validation errors, or an empty list when there are no errors.
+     * @returns a promise which resolves with the current validation errors, or an empty list when there are no errors.
      */
     validate(): Promise<ReadonlyArray<SchemaValidationError | ParseError>>;
+
+    /**
+     * (UNDOCUMENTED)
+     * Points to the AceEditor instance for the current JsonEditor instance
+     */
+    aceEditor: AceAjax.Editor;
 
     /**
      * An array with the names of all known options.

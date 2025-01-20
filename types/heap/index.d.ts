@@ -1,10 +1,4 @@
-// Type definitions for heap 0.2.6
-// Project: https://github.com/qiao/heap.js
-// Definitions by: Ryan McNamara <https://github.com/ryan10132>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Heap<T> {
-
     // Constructor
 
     constructor(cmp?: (a: T, b: T) => number);
@@ -16,12 +10,12 @@ declare class Heap<T> {
     insert(item: T): void;
 
     // Pop the smallest item off the heap and return it.
-    pop(): T;
+    pop(): T | undefined;
 
     // Return the smallest item of the heap.
-    peek(): T;
-    top(): T;
-    front(): T;
+    peek(): T | undefined;
+    top(): T | undefined;
+    front(): T | undefined;
 
     // Pop and return the current smallest value, and add the new item.
     // This is more efficient than pop() followed by push(), and can be more appropriate when using a fixed size heap.
@@ -37,6 +31,13 @@ declare class Heap<T> {
     // Update the position of the given item in the heap. This function should be called every time the item is being modified.
     updateItem(item: T): void;
 
+    // Determine whether the given item is in the heap.
+    contains(item: T): boolean;
+    has(item: T): boolean;
+
+    // Clear the heap.
+    clear(): void;
+
     // Determine whether the heap is empty.
     empty(): boolean;
 
@@ -47,8 +48,8 @@ declare class Heap<T> {
     toArray(): T[];
 
     // Return a clone of the heap. (note: the internal data is a shallow copy of the original one)
-    clone(): Heap<T>
-    copy(): Heap<T>
+    clone(): Heap<T>;
+    copy(): Heap<T>;
 
     // Static Methods
 
@@ -76,7 +77,6 @@ declare class Heap<T> {
 
     // Find the n smallest elements in a dataset.
     static nsmallest<T>(array: T[], n: number, cmp?: (a: T, b: T) => number): T[];
-
 }
 
 export = Heap;

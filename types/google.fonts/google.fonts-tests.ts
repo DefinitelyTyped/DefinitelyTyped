@@ -6,10 +6,10 @@ function test(list: google.fonts.WebfontList) {
         f.family,
         f.kind,
         f.subsets.length,
-        f.version
+        f.version,
     ];
 
     const urls = f.variants.map(
-        v => f.files[v]
+        v => f.files[v],
     );
 }

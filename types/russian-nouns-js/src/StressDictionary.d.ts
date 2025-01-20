@@ -1,6 +1,6 @@
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Lemma, LemmaOptions } from './Lemma';
+import { Lemma, LemmaOptions } from "./Lemma";
 
 export default class StressDictionary {
     data: {};

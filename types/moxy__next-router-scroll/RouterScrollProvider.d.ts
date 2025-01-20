@@ -1,6 +1,6 @@
-import { NextScrollBehaviorContext } from './scroll-behavior';
-import { ShouldUpdateScroll } from 'scroll-behavior';
-import { ReactChildren } from 'react';
+import { JSX, ReactNode } from "react";
+import { ShouldUpdateScroll } from "scroll-behavior";
+import { NextScrollBehaviorContext } from "./scroll-behavior";
 export default ScrollBehaviorProvider;
 declare function ScrollBehaviorProvider({
     disableNextLinkScroll,
@@ -20,6 +20,6 @@ declare namespace ScrollBehaviorProvider {
     namespace propTypes {
         const disableNextLinkScroll: boolean;
         const shouldUpdateScroll: any;
-        const children: ReactChildren;
+        const children: ReactNode;
     }
 }

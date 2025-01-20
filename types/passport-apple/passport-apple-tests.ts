@@ -1,14 +1,14 @@
+import { Request } from "express";
 import AppleStrategy, {
+    AppleAuthorizationParams,
     AuthenticateOptions,
     AuthenticateOptionsWithRequest,
-    AppleAuthorizationParams,
-    DecodedIdToken,
     Profile,
+    Strategy,
     VerifyCallback,
     VerifyFunction,
     VerifyFunctionWithRequest,
-} from 'passport-apple';
-import { Request } from 'express';
+} from "passport-apple";
 
 const authenticateOptions: AuthenticateOptions = {
     clientID: "",
@@ -17,6 +17,7 @@ const authenticateOptions: AuthenticateOptions = {
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
+    passReqToCallback: false,
 };
 
 const authenticateOptionsWithRequest: AuthenticateOptionsWithRequest = {
@@ -26,29 +27,27 @@ const authenticateOptionsWithRequest: AuthenticateOptionsWithRequest = {
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-    passReqToCallback: true
 };
-
-const decodedIdToken: DecodedIdToken = { sub: '1' };
 
 const verifyFunction: VerifyFunction = (
     accessToken: string,
     refreshToken: string,
-    decodedIdToken: DecodedIdToken,
+    idToken: string,
     profile: Profile,
-    verifyCallback: VerifyCallback
+    verifyCallback: VerifyCallback,
 ) => {
-    verifyCallback(new Error('unimplemented'));
+    verifyCallback(new Error("unimplemented"));
 };
 
 const VerifyFunctionWithRequest: VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
     refreshToken: string,
-    decodedIdToken: DecodedIdToken,
+    idToken: string,
     profile: Profile,
-    verifyCallback: VerifyCallback) => {
-    verifyCallback(new Error('unimplemented'));
+    verifyCallback: VerifyCallback,
+) => {
+    verifyCallback(new Error("unimplemented"));
 };
 
 const appleStrategy = new AppleStrategy({
@@ -58,20 +57,20 @@ const appleStrategy = new AppleStrategy({
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-}, (accessToken, refreshToken, decodedIdToken, profile, cb) => {
-    cb(null, decodedIdToken);
+    passReqToCallback: false,
+}, (accessToken, refreshToken, idToken, profile, cb) => {
+    cb(null, {});
 });
 
-const appleStrategyWithRequest = new AppleStrategy({
+const appleStrategyWithRequest = new Strategy({
     clientID: "",
     teamID: "",
     callbackURL: "",
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-    passReqToCallback: true,
-}, (req, accessToken, refreshToken, decodedIdToken, profile, cb) => {
-    cb(null, decodedIdToken);
+}, (req, accessToken, refreshToken, idToken, profile, cb) => {
+    cb(null, {});
 });
 
 const AppleAuthorizationParams: AppleAuthorizationParams = appleStrategy.authorizationParams({});

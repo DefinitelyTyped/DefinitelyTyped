@@ -1,0 +1,58 @@
+{
+    "private": true,
+    "name": "@types/auth0",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/auth0/node-auth0"
+    ],
+    "devDependencies": {
+        "@types/auth0": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Ian Howe",
+            "githubUsername": "ianhowe76"
+        },
+        {
+            "name": "Anthony Messerschmidt",
+            "githubUsername": "CatGuardian"
+        },
+        {
+            "name": "Meng Bernie Sung",
+            "githubUsername": "MengRS"
+        },
+        {
+            "name": "Léo Haddad Carneiro",
+            "githubUsername": "Scoup"
+        },
+        {
+            "name": "Isabela Morais",
+            "githubUsername": "isabela-morais"
+        },
+        {
+            "name": "Raimondo Butera",
+            "githubUsername": "rbutera"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Dan Ursin",
+            "githubUsername": "danursin"
+        },
+        {
+            "name": "Nathan Hardy",
+            "githubUsername": "nhardy"
+        },
+        {
+            "name": "Nicholas Molen",
+            "githubUsername": "robotastronaut"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        }
+    ]
+}

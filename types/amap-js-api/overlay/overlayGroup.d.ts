@@ -1,5 +1,4 @@
-type ReferOverlayOptions<O> =
-    O extends AMap.BezierCurve ? AMap.BezierCurve.Options
+type ReferOverlayOptions<O> = O extends AMap.BezierCurve ? AMap.BezierCurve.Options
     : O extends AMap.Polyline ? AMap.Polyline.Options
     : O extends AMap.Circle ? AMap.Circle.Options
     : O extends AMap.Ellipse ? AMap.Ellipse.Options

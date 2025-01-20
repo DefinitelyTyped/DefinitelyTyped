@@ -16,34 +16,34 @@ interface SomeTestResult {
     someTestResultProp: string;
 }
 
-const batchFunction = (sources: ReadonlyArray<SomeTestSource>) => {
+const batchFunction = (sources: readonly SomeTestSource[]) => {
     const someTestResult: SomeTestResult = {
-        someTestResultProp: "Hello"
+        someTestResultProp: "Hello",
     };
 
     return sources.map(source => someTestResult);
 };
 
-const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
+const asyncBatchFunction = async (sources: readonly SomeTestSource[]) => {
     return new Promise<SomeTestResult[]>(resolve => {
         const res = [
             {
-                someTestResultProp: ""
-            }
+                someTestResultProp: "",
+            },
         ];
         resolve(res);
     });
 };
 
 const asyncBatchFunctionWhenTReturnIsArray = async (
-    sources: ReadonlyArray<SomeTestSource>
+    sources: readonly SomeTestSource[],
 ) => {
     const sourceBatches = sources.map(() => {
         return new Promise<SomeTestResult[]>(resolve => {
             const res = [
                 {
-                    someTestResultProp: ""
-                }
+                    someTestResultProp: "",
+                },
             ];
             resolve(res);
         });
@@ -79,7 +79,9 @@ const withSourceAndArgsAndResultTyped = createBatchResolver<
     SomeTestSource,
     SomeTestResult,
     SomeTestArgs
->(async (sources, args, _) => {
+>(async (sources, args, _, info) => {
+    // $ExpectType GraphQLResolveInfo
+    const verifyInfo = info;
     // $ExpectType ReadonlyArray<SomeTestSource>
     const verifySources = sources;
     // $ExpectType string
@@ -116,5 +118,5 @@ const withResultIsArray = createBatchResolver<SomeTestSource, SomeTestResult[]>(
         const verifySources = sources;
 
         return asyncBatchFunctionWhenTReturnIsArray(sources);
-    }
+    },
 );

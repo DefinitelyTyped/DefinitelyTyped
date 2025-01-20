@@ -1,4 +1,4 @@
-import ospath = require('ospath');
+import ospath = require("ospath");
 
 const data: string = ospath.data();
 const desktop: string = ospath.desktop();

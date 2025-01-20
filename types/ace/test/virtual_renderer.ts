@@ -1,5 +1,5 @@
 const aceVirtualRendererTests = {
-    "test: screen2text the column should be rounded to the next character edge": function () {
+    "test: screen2text the column should be rounded to the next character edge": function() {
         var el = document.createElement("div");
 
         if (!el.getBoundingClientRect) {
@@ -15,7 +15,7 @@ const aceVirtualRendererTests = {
 
         var renderer = new AceAjax.VirtualRenderer(el);
         renderer.setPadding(0);
-        renderer.setScrollMargin(0,0,0,0)
+        renderer.setScrollMargin(0, 0, 0, 0);
         renderer.setSession(new AceAjax.EditSession("1234"));
 
         var r = renderer.scroller.getBoundingClientRect();
@@ -33,7 +33,27 @@ const aceVirtualRendererTests = {
         testPixelToText(14, 0, 0, 1);
         testPixelToText(15, 0, 0, 2);
         document.body.removeChild(el);
-    }
+    },
 
+    "test: use cursor layer": function() {
+        var el = document.createElement("div");
+
+        if (!el.getBoundingClientRect) {
+            console.log("Skipping test: This test only runs in the browser");
+            return;
+        }
+
+        el.style.left = "20px";
+        el.style.top = "30px";
+        el.style.width = "300px";
+        el.style.height = "100px";
+        document.body.appendChild(el);
+
+        var renderer = new AceAjax.VirtualRenderer(el);
+        renderer.$cursorLayer.setBlinking(true);
+        renderer.$cursorLayer.setBlinkInterval(100);
+
+        document.body.removeChild(el);
+    },
     // change tab size after setDocument (for text layer)
 };

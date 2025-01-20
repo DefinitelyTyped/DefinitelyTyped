@@ -1,11 +1,3 @@
-// Type definitions for D3JS d3-polygon module 3.0
-// Project: https://github.com/d3/d3-polygon/, https://d3js.org/d3-polygon
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
 /**

@@ -1,50 +1,48 @@
-// Type definitions for non-npm package Hast 2.3
-// Project: https://github.com/syntax-tree/hast
-// Definitions by: lukeggchapman <https://github.com/lukeggchapman>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
-import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } from 'unist';
-
-export { UnistNode as Node };
+// ## Interfaces
 
 /**
- * This map registers all node types that may be used as top-level content in the document.
+ * Info associated with hast nodes by the ecosystem.
  *
- * These types are accepted inside `root` nodes.
+ * This space is guaranteed to never be specified by unist or hast.
+ * But you can use it in utilities and plugins to store data.
  *
- * This interface can be augmented to register custom node types.
+ * This type can be augmented to register custom data.
+ * For example:
  *
- * @example
+ * ```ts
  * declare module 'hast' {
- *   interface RootContentMap {
- *     // Allow using raw nodes defined by `rehype-raw`.
- *     raw: Raw;
+ *   interface Data {
+ *     // `someNode.data.myId` is typed as `number | undefined`
+ *     myId?: number | undefined
  *   }
  * }
+ * ```
  */
-export interface RootContentMap {
-    comment: Comment;
-    doctype: DocType;
-    element: Element;
-    text: Text;
+export interface Data extends UnistData {}
+
+/**
+ * Info associated with an element.
+ */
+export interface Properties {
+    [PropertyName: string]: boolean | number | string | null | undefined | Array<string | number>;
 }
 
+// ## Content maps
+
 /**
- * This map registers all node types that may be used as content in an element.
+ * Union of registered hast nodes that can occur in {@link Element}.
  *
- * These types are accepted inside `element` nodes.
+ * To register mote custom hast nodes, add them to {@link ElementContentMap}.
+ * They will be automatically added here.
+ */
+export type ElementContent = ElementContentMap[keyof ElementContentMap];
+
+/**
+ * Registry of all hast nodes that can occur as children of {@link Element}.
  *
- * This interface can be augmented to register custom node types.
- *
- * @example
- * declare module 'hast' {
- *   interface RootContentMap {
- *     custom: Custom;
- *   }
- * }
+ * For a union of all {@link Element} children, see {@link ElementContent}.
  */
 export interface ElementContentMap {
     comment: Comment;
@@ -52,111 +50,233 @@ export interface ElementContentMap {
     text: Text;
 }
 
-export type Content = RootContent | ElementContent;
-
+/**
+ * Union of registered hast nodes that can occur in {@link Root}.
+ *
+ * To register custom hast nodes, add them to {@link RootContentMap}.
+ * They will be automatically added here.
+ */
 export type RootContent = RootContentMap[keyof RootContentMap];
 
-export type ElementContent = ElementContentMap[keyof ElementContentMap];
+/**
+ * Registry of all hast nodes that can occur as children of {@link Root}.
+ *
+ * > 👉 **Note**: {@link Root} does not need to be an entire document.
+ * > it can also be a fragment.
+ *
+ * For a union of all {@link Root} children, see {@link RootContent}.
+ */
+export interface RootContentMap {
+    comment: Comment;
+    doctype: Doctype;
+    element: Element;
+    text: Text;
+}
+
+// ### Special content types
 
 /**
- * Node in hast containing other nodes.
+ * Union of registered hast nodes that can occur in {@link Root}.
+ *
+ * @deprecated Use {@link RootContent} instead.
  */
-export interface Parent extends UnistParent {
+export type Content = RootContent;
+
+/**
+ * Union of registered hast literals.
+ *
+ * To register custom hast nodes, add them to {@link RootContentMap} and other
+ * places where relevant.
+ * They will be automatically added here.
+ */
+export type Literals = Extract<Nodes, UnistLiteral>;
+
+/**
+ * Union of registered hast nodes.
+ *
+ * To register custom hast nodes, add them to {@link RootContentMap} and other
+ * places where relevant.
+ * They will be automatically added here.
+ */
+export type Nodes = Root | RootContent;
+
+/**
+ * Union of registered hast parents.
+ *
+ * To register custom hast nodes, add them to {@link RootContentMap} and other
+ * places where relevant.
+ * They will be automatically added here.
+ */
+export type Parents = Extract<Nodes, UnistParent>;
+
+// ## Abstract nodes
+
+/**
+ * Abstract hast node.
+ *
+ * This interface is supposed to be extended.
+ * If you can use {@link Literal} or {@link Parent}, you should.
+ * But for example in HTML, a `Doctype` is neither literal nor parent, but
+ * still a node.
+ *
+ * To register custom hast nodes, add them to {@link RootContentMap} and other
+ * places where relevant (such as {@link ElementContentMap}).
+ *
+ * For a union of all registered hast nodes, see {@link Nodes}.
+ */
+export interface Node extends UnistNode {
     /**
-     * List representing the children of a node.
+     * Info from the ecosystem.
      */
-    children: Content[];
+    data?: Data | undefined;
 }
 
 /**
- * Nodes in hast containing a value.
+ * Abstract hast node that contains the smallest possible value.
+ *
+ * This interface is supposed to be extended if you make custom hast nodes.
+ *
+ * For a union of all registered hast literals, see {@link Literals}.
  */
-export interface Literal extends UnistLiteral {
+export interface Literal extends Node {
+    /**
+     * Plain-text value.
+     */
     value: string;
 }
 
 /**
- * Root represents a document.
- * Can be used as the rood of a tree, or as a value of the
- * content field on a 'template' Element, never as a child.
+ * Abstract hast node that contains other hast nodes (*children*).
+ *
+ * This interface is supposed to be extended if you make custom hast nodes.
+ *
+ * For a union of all registered hast parents, see {@link Parents}.
  */
-export interface Root extends Parent {
+export interface Parent extends Node {
     /**
-     * Represents this variant of a Node.
-     */
-    type: 'root';
-
-    /**
-     * List representing the children of a node.
+     * List of children.
      */
     children: RootContent[];
 }
 
-/**
- * Element represents an HTML Element.
- */
-export interface Element extends Parent {
-    /**
-     * Represents this variant of a Node.
-     */
-    type: 'element';
-
-    /**
-     * Represents the element’s local name.
-     */
-    tagName: string;
-
-    /**
-     * Represents information associated with the element.
-     */
-    properties?: Properties | undefined;
-
-    /**
-     * If the tagName field is 'template', a content field can be present.
-     */
-    content?: Root | undefined;
-
-    /**
-     * List representing the children of a node.
-     */
-    children: ElementContent[];
-}
+// ## Concrete nodes
 
 /**
- * Represents information associated with an element.
- */
-export interface Properties {
-    [PropertyName: string]: boolean | number | string | null | undefined | Array<string | number>;
-}
-
-/**
- * Represents an HTML DocumentType.
- */
-export interface DocType extends UnistNode {
-    /**
-     * Represents this variant of a Node.
-     */
-    type: 'doctype';
-
-    name: string;
-}
-
-/**
- * Represents an HTML Comment.
+ * HTML comment.
  */
 export interface Comment extends Literal {
     /**
-     * Represents this variant of a Literal.
+     * Node type of HTML comments in hast.
      */
-    type: 'comment';
+    type: "comment";
+    /**
+     * Data associated with the comment.
+     */
+    data?: CommentData | undefined;
 }
 
 /**
- * Represents an HTML Text.
+ * Info associated with hast comments by the ecosystem.
+ */
+export interface CommentData extends Data {}
+
+/**
+ * HTML document type.
+ */
+export interface Doctype extends UnistNode {
+    /**
+     * Node type of HTML document types in hast.
+     */
+    type: "doctype";
+    /**
+     * Data associated with the doctype.
+     */
+    data?: DoctypeData | undefined;
+}
+
+/**
+ * Info associated with hast doctypes by the ecosystem.
+ */
+export interface DoctypeData extends Data {}
+
+/**
+ * HTML element.
+ */
+export interface Element extends Parent {
+    /**
+     * Node type of elements.
+     */
+    type: "element";
+    /**
+     * Tag name (such as `'body'`) of the element.
+     */
+    tagName: string;
+    /**
+     * Info associated with the element.
+     */
+    properties: Properties;
+    /**
+     * Children of element.
+     */
+    children: ElementContent[];
+    /**
+     * When the `tagName` field is `'template'`, a `content` field can be
+     * present.
+     */
+    content?: Root | undefined;
+    /**
+     * Data associated with the element.
+     */
+    data?: ElementData | undefined;
+}
+
+/**
+ * Info associated with hast elements by the ecosystem.
+ */
+export interface ElementData extends Data {}
+
+/**
+ * Document fragment or a whole document.
+ *
+ * Should be used as the root of a tree and must not be used as a child.
+ *
+ * Can also be used as the value for the content field on a `'template'` element.
+ */
+export interface Root extends Parent {
+    /**
+     * Node type of hast root.
+     */
+    type: "root";
+    /**
+     * Children of root.
+     */
+    children: RootContent[];
+    /**
+     * Data associated with the hast root.
+     */
+    data?: RootData | undefined;
+}
+
+/**
+ * Info associated with hast root nodes by the ecosystem.
+ */
+export interface RootData extends Data {}
+
+/**
+ * HTML character data (plain text).
  */
 export interface Text extends Literal {
     /**
-     * Represents this variant of a Literal.
+     * Node type of HTML character data (plain text) in hast.
      */
-    type: 'text';
+    type: "text";
+    /**
+     * Data associated with the text.
+     */
+    data?: TextData | undefined;
 }
+
+/**
+ * Info associated with hast texts by the ecosystem.
+ */
+export interface TextData extends Data {}

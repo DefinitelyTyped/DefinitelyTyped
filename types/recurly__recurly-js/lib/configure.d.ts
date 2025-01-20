@@ -9,6 +9,10 @@ export type RecurlyOptions = {
   fraud?: {
     kount?: {
       dataCollector?: boolean;
+      form?: HTMLElement,
+      udf?: {
+        [key: string]: string | number;
+      }
     };
     braintree?: {
       deviceData?: string;
@@ -20,6 +24,10 @@ export type RecurlyOptions = {
   risk?: {
     threeDSecure?: {
       preflightDeviceDataCollector?: boolean;
+      proactive?: {
+        enabled: true;
+        gatewayCode: string;
+      }
     }
   };
 

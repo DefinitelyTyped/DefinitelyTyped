@@ -1,17 +1,12 @@
-/**
- * Namespace: browser.declarativeContent
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>chrome.declarativeContent</code> API to take actions depending on the content of a page,
- * without requiring permission to read the page's content.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.declarativeContent
+ */
 export namespace DeclarativeContent {
     /**
      * See <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">https://developer.mozilla.
@@ -41,8 +36,8 @@ export namespace DeclarativeContent {
         css?: string[];
 
         /**
-         * Matches if the bookmarked state of the page is equal to the specified value. Requres the <a href='declare_permissions'>
-         * bookmarks permission</a>.
+         * Matches if the bookmarked state of the page is equal to the specified value. Requres the <a
+         * href='/docs/extensions/develop/concepts/declare-permissions'>bookmarks permission</a>.
          * Optional.
          */
         isBookmarked?: boolean;
@@ -54,11 +49,12 @@ export namespace DeclarativeContent {
     type ShowPageAction = never;
 
     /**
-     * Declarative event action that shows the extension's toolbar action ($(ref:pageAction page action)
-     * or $(ref:browserAction browser action)) while the corresponding conditions are met.
-     * This action can be used without <a href="declare_permissions#host-permissions">host permissions</a>.
-     * If the extension has the <a href="activeTab.html">activeTab</a> permission, clicking the page action grants access to
-     * the active tab.
+     * A declarative event action that sets the extension's toolbar $(ref:action action) to an enabled state while the
+     * corresponding conditions are met. This action can be used without <a
+     * href="/docs/extensions/develop/concepts/declare-permissions#host-permissions">host permissions</a>.
+     * If the extension has the <a href="/docs/extensions/develop/concepts/activeTab">activeTab</a> permission,
+     * clicking the page action grants access to the active tab.<p>On pages where the conditions are not met the extension's
+     * toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.</p>
      */
     interface ShowAction {
         [s: string]: unknown;
@@ -67,11 +63,12 @@ export namespace DeclarativeContent {
     /**
      * Declarative event action that sets the n-<abbr title="device-independent pixel">dip</abbr>
      * square icon for the extension's $(ref:pageAction page action) or $(ref:browserAction browser action)
-     * while the corresponding conditions are met. This action can be used without <a href="declare_permissions.
-     * html#host-permissions">host permissions</a>, but the extension must have a page or browser action.<p>
-     * Exactly one of <code>imageData</code> or <code>path</code> must be specified. Both are dictionaries mapping a number of
-     * pixels to an image representation. The image representation in <code>imageData</code> is an <a href="https://developer.
-     * mozilla.org/en-US/docs/Web/API/ImageData">ImageData</a> object; for example, from a <code>canvas</code> element,
+     * while the corresponding conditions are met. This action can be used without <a
+     * href="/docs/extensions/develop/concepts/declare-permissions#host-permissions">host permissions</a>,
+     * but the extension must have a page or browser action.<p>Exactly one of <code>imageData</code> or <code>path</code>
+     * must be specified. Both are dictionaries mapping a number of pixels to an image representation.
+     * The image representation in <code>imageData</code> is an <a href="https://developer.mozilla.
+     * org/en-US/docs/Web/API/ImageData">ImageData</a> object; for example, from a <code>canvas</code> element,
      * while the image representation in <code>path</code> is the path to an image file relative to the extension's manifest.
      * If <code>scale</code> screen pixels fit into a device-independent pixel, the <code>scale * n</code> icon is used.
      * If that scale is missing, another image is resized to the required size.</p>
@@ -166,13 +163,13 @@ export namespace DeclarativeContent {
     }
 
     interface Static {
-        PageStateMatcher: { new (options?: PageStateMatcher): PageStateMatcher };
+        PageStateMatcher: { new(options?: PageStateMatcher): PageStateMatcher };
 
-        ShowAction: { new (options?: ShowAction): ShowAction };
+        ShowAction: { new(options?: ShowAction): ShowAction };
 
-        SetIcon: { new (options?: SetIcon): SetIcon };
+        SetIcon: { new(options?: SetIcon): SetIcon };
 
-        RequestContentScript: { new (options?: RequestContentScript): RequestContentScript };
+        RequestContentScript: { new(options?: RequestContentScript): RequestContentScript };
 
         onPageChanged: RuleEvent<PageStateMatcher, RequestContentScript | SetIcon | ShowPageAction | ShowAction>;
     }

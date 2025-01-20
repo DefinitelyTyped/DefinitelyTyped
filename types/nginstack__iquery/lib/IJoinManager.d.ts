@@ -16,5 +16,5 @@ declare class IJoinManager {
         simpleColumnsNames: any[];
     };
 }
-import IQuery = require('./IQuery.js');
-import IClauseJoin = require('./IClauseJoin.js');
+import IQuery = require("./IQuery.js");
+import IClauseJoin = require("./IClauseJoin.js");

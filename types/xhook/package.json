@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xhook",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/jpillora/xhook#readme"
+    ],
+    "devDependencies": {
+        "@types/xhook": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sudarsan Balaji",
+            "githubUsername": "artfuldev"
+        }
+    ]
+}

@@ -2,7 +2,7 @@ declare module 'meteor/tracker' {
     /**
      * The namespace for Tracker-related methods.
      */
-    module Tracker {
+    namespace Tracker {
         function Computation(): void;
         /**
          * A Computation object represents code that is repeatedly rerun

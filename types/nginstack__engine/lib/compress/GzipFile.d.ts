@@ -4,15 +4,18 @@ declare class GzipFile {
     constructor(fileName: string, mode: string, level: number);
     write(content: string): void;
     writeln(content: string): void;
-    read(opt_count?: number): string;
-    readln(): void;
+    read(size?: number): string;
+    readln(): string;
     clear(): void;
     flush(): void;
     close(): void;
-    position: any;
-    size: any;
-    NO_COMPRESSION: any;
-    BEST_SPEED: any;
-    BEST_COMPRESSION: any;
-    DEFAULT_COMPRESSION: any;
+    position: number;
+    eof: boolean;
+    size: number;
+}
+declare namespace GzipFile {
+    let NO_COMPRESSION: number;
+    let BEST_SPEED: number;
+    let BEST_COMPRESSION: number;
+    let DEFAULT_COMPRESSION: number;
 }

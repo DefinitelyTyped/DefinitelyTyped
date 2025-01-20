@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/hapi__shot",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/hapijs/shot"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/hapi__shot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
+}

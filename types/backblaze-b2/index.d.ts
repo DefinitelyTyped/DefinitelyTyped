@@ -1,8 +1,3 @@
-// Type definitions for backblaze-b2 1.5
-// Project: https://github.com/yakovkhalinsky/backblaze-b2
-// Definitions by: Rohith Bhaskaran <https://github.com/rohithb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export as namespace BackBlazeB2;
@@ -22,14 +17,14 @@ interface CommonArgs {
 }
 
 interface StandardApiResponse {
-    status: string;
+    status: number;
     statusText: string;
     headers: any;
     config: any;
     request: any;
     data: any;
 }
-type BucketType = 'allPublic' | 'allPrivate';
+type BucketType = "allPublic" | "allPrivate";
 
 interface CreateBucketOpts extends CommonArgs {
     bucketName: string;
@@ -109,11 +104,11 @@ interface GetDownloadAuthorizationOpts extends CommonArgs {
      * Authorization validity : 0 to 604800
      */
     validDurationInSeconds: number;
-    b2ContentDisposition: string;
+    b2ContentDisposition?: string;
 }
 
 interface DownloadFileOpts extends CommonArgs {
-    responseType: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream';
+    responseType: "arraybuffer" | "blob" | "document" | "json" | "text" | "stream";
     onDownloadProgress?: UploadProgressFn | null | undefined;
 }
 

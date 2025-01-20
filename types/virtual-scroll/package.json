@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/virtual-scroll",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ayamflow/virtual-scroll"
+    ],
+    "devDependencies": {
+        "@types/virtual-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Baudouin",
+            "githubUsername": "LeonBaudouin"
+        },
+        {
+            "name": "Bastien Robert",
+            "githubUsername": "bastienrobert"
+        }
+    ]
+}

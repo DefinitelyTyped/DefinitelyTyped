@@ -1,111 +1,56 @@
-// Type definitions for vinyl-fs 2.4
-// Project: https://github.com/gulpjs/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 remisery <https://github.com/remisery>
-//                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare global {
     namespace NodeJS {
         interface WritableStream {
-            write(buffer: any/* Vinyl.File */, cb?: (err?: Error | null) => void): boolean;
+            write(buffer: any, /* Vinyl.File */ cb?: (err?: Error | null) => void): boolean;
         }
     }
 }
 
-import * as _events from 'events';
-import * as File from 'vinyl';
-import * as globStream from 'glob-stream';
+import * as _events from "events";
+import * as globStream from "glob-stream";
+import * as File from "vinyl";
 
 export interface SrcOptions extends globStream.Options {
-    /** Prevents stream from emitting an error when file not found. */
-    allowEmpty?: boolean | undefined;
-
-    /** Specifies the working directory the folder is relative to */
-    cwd?: string | undefined;
-
-    /**
-     * Specifies the folder relative to the cwd
-     * This is used to determine the file names when saving in .dest()
-     * Default: where the glob begins
-     */
-    base?: string | undefined;
-
     /**
      * Setting this to false will make file.contents a paused stream
      * If true it will buffer the file contents
      * Default: true
      */
-    buffer?: boolean | undefined;
-
-    /**
-     * The mode the directory should be created with.
-     * Default: the process mode
-     */
-    dirMode?: number | undefined;
-
-    /**
-     * Whether or not you want globs to match on dot files or not
-     * (e.g., `.gitignore`).
-     */
-    dot?: boolean | undefined;
-
-    /**
-     * Whether or not to recursively resolve symlinks to their targets.
-     * Setting to `false` to preserve them as symlinks and make `file.symlink`
-     * equal the original symlink's target path.
-     * Default: true
-     */
-    followSymlinks?: boolean | undefined;
+    buffer?: boolean | ((file: File) => boolean) | undefined;
 
     /**
      * Setting this to false will ignore the contents of the file and disable
      * writing to disk to speed up operations
      * Default: true
      */
-    read?: boolean | undefined;
-
-    /**
-     * Whether or not the symlink should be relative or absolute.
-     * Default: false
-     */
-    relative?: boolean | undefined;
+    read?: boolean | ((file: File) => boolean) | undefined;
 
     /** Only find files that have been modified since the time specified */
-    since?: Date | number | undefined;
+    since?: Date | number | ((file: File) => Date | number) | undefined;
 
     /**
-     * Causes the BOM to be stripped on UTF-8 encoded files. Set to `false`
-     * if you need the BOM for some reason.
+     * Causes the BOM to be removed on UTF-8 encoded files. Set to false if you need the BOM for some reason.
+     * Default: true
      */
-    stripBOM?: boolean | undefined;
+    removeBOM?: boolean | ((file: File) => boolean) | undefined;
 
-    /**
-     * Setting this to true will create a duplex stream, one that passes
-     * through items and emits globbed files.
-     * Default: false
-     */
-    passthrough?: boolean | undefined;
+    /** Optionally transcode from the given encoding. The default is 'utf8'. */
+    encoding?: string | false | ((file: File) => string | false) | undefined;
 
     /**
      * Setting this to true will enable sourcemaps.
      * Default: false
      */
-    sourcemaps?: boolean | undefined;
+    sourcemaps?: boolean | ((file: File) => boolean) | undefined;
 
     /**
      * Whether or not to recursively resolve symlinks to their targets. Setting to false to
      * preserve them as symlinks and make file.symlink equal the original symlink's target path.
      * Default: false
      */
-    resolveSymlinks?: boolean | undefined;
-    /**
-     * Causes the BOM to be removed on UTF-8 encoded files. Set to false if you need the BOM for some reason.
-     * Default: true
-     */
-    removeBOM?: boolean | undefined;
+    resolveSymlinks?: boolean | ((file: File) => boolean) | undefined;
 }
 
 export interface DestOptions {
@@ -113,35 +58,41 @@ export interface DestOptions {
      * Specify the working directory the folder is relative to
      * Default is process.cwd()
      */
-    cwd?: string | undefined;
+    cwd?: string | ((file: File) => string) | undefined;
 
     /**
      * Specify the mode the files should be created with
      * Default is the mode of the input file (file.stat.mode)
      * or the process mode if the input file has no mode property
      */
-    mode?: number | string | undefined;
+    mode?: number | ((file: File) => number) | undefined;
 
     /** Specify the mode the directory should be created with. Default is the process mode */
-    dirMode?: number | string | undefined;
+    dirMode?: number | ((file: File) => number) | undefined;
 
     /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
-    overwrite?: boolean | undefined;
+    overwrite?: boolean | ((file: File) => boolean) | undefined;
+
+    /** Whether or not new data should be appended after existing file contents (if any). Default is false, to always replace existing contents */
+    append?: boolean | ((file: File) => boolean) | undefined;
+
+    /** Optionally transcode to the given encoding. The default is 'utf8'. */
+    encoding?: string | false | ((file: File) => string | false) | undefined;
 
     /**
      * Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
      * specified as true. Specifying a string path will write external sourcemaps at the given path.
      */
-    sourcemaps?: true | string | undefined;
+    sourcemaps?: boolean | string | ((file: File) => string | false | undefined) | undefined;
 
     /**
      * When creating a symlink, whether or not the created symlink should be relative. If false,
      * the symlink will be absolute. Note: This option will be ignored if a junction is being created.
      */
-    relativeSymlinks?: boolean | undefined;
+    relativeSymlinks?: boolean | ((file: File) => boolean) | undefined;
 
     /* When creating a symlink, whether or not a directory symlink should be created as a junction. */
-    useJunctions?: boolean | undefined;
+    useJunctions?: boolean | ((file: File) => boolean) | undefined;
 }
 
 /**
@@ -151,7 +102,7 @@ export interface DestOptions {
  * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
  * @param opt Options Vinyl source options, changes the way the files are read, found, or stored in the vinyl stream
  */
-export function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+export function src(globs: string | string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will save the vinyl File to disk at the folder/cwd specified.
@@ -160,20 +111,9 @@ export function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteS
  * cwd, base, and path will be overwritten to match the folder
  * stat.mode will be overwritten if you used a mode parameter
  * contents will have it's position reset to the beginning if it is a stream
- * @param folder destination folder
+ * @param folder destination folder or a function that takes in a file and returns a folder path
  */
-export function dest(folder: string, opt?: DestOptions): NodeJS.ReadWriteStream;
-
-/**
- * On write the stream will save the vinyl File to disk at the folder/cwd specified.
- * After writing the file to disk, it will be emitted from the stream so you can keep piping these around.
- * The file will be modified after being written to this stream:
- * cwd, base, and path will be overwritten to match the folder
- * stat.mode will be overwritten if you used a mode parameter
- * contents will have it's position reset to the beginning if it is a stream
- * @param getFolderPath function that takes in a file and returns a folder path
- */
-export function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteStream;
+export function dest(folder: string | ((file: File) => string), opt?: DestOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will create a symbolic link (i.e. symlink) on disk at the folder/cwd specified.
@@ -181,39 +121,28 @@ export function dest(getFolderPath: (file: File) => string): NodeJS.ReadWriteStr
  * The file will be modified after being written to this stream:
  * cwd, base, and path will be overwritten to match the folder
  */
-export function symlink(folder: string, opts?: {
+export function symlink(folder: string | ((File: File) => string), opts?: {
     /**
      * Specify the working directory the folder is relative to
      * Default is process.cwd()
      */
-    cwd?: string | undefined;
-
-    /** Specify the mode the directory should be created with. Default is the process mode */
-    mode?: number | string | undefined;
+    cwd?: string | ((file: File) => string) | undefined;
 
     /**
      * Specify the mode the directory should be created with
      * Default is the process mode
      */
-    dirMode?: number | undefined
-}): NodeJS.ReadWriteStream;
+    dirMode?: number | ((file: File) => number) | undefined;
 
-/**
- * On write the stream will create a symbolic link (i.e. symlink) on disk at the folder/cwd generated from getFolderPath.
- * After creating the symbolic link, it will be emitted from the stream so you can keep piping these around.
- * The file will be modified after being written to this stream:
- * cwd, base, and path will be overwritten to match the folder
- */
-export function symlink(getFolderPath: (File: File) => string, opts?: {
-    /**
-     * Specify the working directory the folder is relative to
-     * Default is process.cwd()
-     */
-    cwd?: string | undefined;
+    /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
+    overwrite?: boolean | ((file: File) => boolean) | undefined;
 
     /**
-     * Specify the mode the directory should be created with
-     * Default is the process mode
+     * Specify whether the symlink should be relative or absolute.
+     * Default is false.
      */
-    dirMode?: number | undefined
+    relativeSymlinks?: boolean | ((file: File) => boolean) | undefined;
+
+    /* When creating a symlink, whether or not a directory symlink should be created as a junction. */
+    useJunctions?: boolean | ((file: File) => boolean) | undefined;
 }): NodeJS.ReadWriteStream;

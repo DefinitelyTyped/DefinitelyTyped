@@ -9,7 +9,7 @@ function test_pjax() {
     $.pjax();
     $.pjax({
         url: "hello.html",
-        container: "#main"
+        container: "#main",
     });
 }
 
@@ -47,11 +47,11 @@ function test_defauluts() {
         maxCacheLength: 20,
         version: $.noop,
         scrollTo: 0,
-        type: 'GET',
-        dataType: 'html',
+        type: "GET",
+        dataType: "html",
         container: "#pjax-container",
         url: "https://jquery.com/",
-        target: <EventTarget>undefined,
+        target: <EventTarget> undefined,
         fragment: "#pjax-response",
     };
 }
@@ -61,9 +61,9 @@ function test_support() {
 }
 
 function test_events() {
-    $(document).on('pjax:popstate', function(e) {
-        if (e.direction === 'back') {
-            console.log('pjax:popstate is OK');
+    $(document).on("pjax:popstate", function(e) {
+        if (e.direction === "back") {
+            console.log("pjax:popstate is OK");
         }
     });
 }

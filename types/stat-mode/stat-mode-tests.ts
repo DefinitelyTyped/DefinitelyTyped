@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import fs = require('fs');
-import Mode = require('stat-mode');
+import fs = require("fs");
+import Mode = require("stat-mode");
 
-fs.stat('/bin/echo', (err, stat) => {
+fs.stat("/bin/echo", (err, stat) => {
     if (err) throw err;
 
     const mode = new Mode(stat);

@@ -9,11 +9,11 @@ export type DatePickerProps = CalendarBaseProps & {
     enableRangeSelection?: boolean | undefined;
     inputProps?: { [x: string]: any } | undefined;
     locale?: string | undefined;
-    onBlur?: (({date, formattedDate}: {date: Date, formattedDate: string}) => void) | undefined;
+    onBlur?: (({ date, formattedDate }: { date: Date; formattedDate: string }) => void) | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
-        text?: string | undefined
-    } | undefined
+        state?: "error" | "warning" | "information" | "success" | undefined;
+        text?: string | undefined;
+    } | undefined;
 } & { [x: string]: any };
 
 declare class DatePicker extends React.Component<DatePickerProps> {}

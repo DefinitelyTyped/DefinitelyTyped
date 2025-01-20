@@ -1,11 +1,3 @@
-// Type definitions for bitcore-lib-cash 8.23
-// Project: https://github.com/bitpay/bitcore/packages/bitcore-lib-cash
-// Definitions by: James Cramer <https://github.com/jcramer>
-//                 Jt Freeman <https://github.com/blockparty-sh>
-//                 Rosco Kalis <https://github.com/rkalis>
-//                 Jason Dreyzehner <https://github.com/bitjson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
@@ -19,7 +11,7 @@ export namespace crypto {
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
-        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: 'little'): boolean;
+        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: "little"): boolean;
     }
 
     namespace Hash {
@@ -274,7 +266,7 @@ export namespace Transaction {
             subscript: Script,
             inputSatoshis: crypto.BN,
             flags: number,
-            signingMethod: 'ecdsa' | 'schnorr'
+            signingMethod: "ecdsa" | "schnorr",
         ): crypto.Signature;
     }
 }
@@ -311,7 +303,11 @@ export class Transaction {
     fee(amount: number): this;
     feePerKb(amount: number): this;
     feePerByte(amount: number): this;
-    sign(privateKey: Array<PrivateKey | string> | PrivateKey | string, sigtype?: number | null, signingMethod?: string): this;
+    sign(
+        privateKey: Array<PrivateKey | string> | PrivateKey | string,
+        sigtype?: number | null,
+        signingMethod?: string,
+    ): this;
     getSignatures(
         privKey: PrivateKey | string,
         sigtype?: number,

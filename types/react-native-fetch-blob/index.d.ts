@@ -1,15 +1,16 @@
-// Type definitions for react-native-fetch-blob 0.10
-// Project: https://github.com/wkh237/react-native-fetch-blob#readme
-// Definitions by: MNB <https://github.com/MNBuyskih>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const RNFetchBlob: RNFetchBlobStatic;
 export type RNFetchBlob = RNFetchBlobStatic;
 export default RNFetchBlob;
 
 interface RNFetchBlobStatic {
-    fetch(method: Methods, url: string, headers?: { [key: string]: string }, body?: any
-        | null): StatefulPromise<FetchBlobResponse>;
+    fetch(
+        method: Methods,
+        url: string,
+        headers?: { [key: string]: string },
+        body?:
+            | any
+            | null,
+    ): StatefulPromise<FetchBlobResponse>;
     base64: { encode(input: string): string; decode(input: string): string };
     android: AndroidApi;
     ios: IOSApi;
@@ -382,8 +383,22 @@ export interface FS {
 
     slice(src: string, dest: string, start: number, end: number): Promise<void>;
     asset(path: string): string;
-    df(): Promise<{ free: number, total: number }>;
+    df(): Promise<RNFetchBlobDf>;
 }
+
+export interface RNFetchBlobDfIOS {
+    free?: number;
+    total?: number;
+}
+
+export interface RNFetchBlobDfAndroid {
+    external_free?: string;
+    external_total?: string;
+    internal_free?: string;
+    internal_total?: string;
+}
+
+export type RNFetchBlobDf = RNFetchBlobDfIOS & RNFetchBlobDfAndroid;
 
 export interface Dirs {
     DocumentDir: string;
@@ -424,7 +439,7 @@ export interface RNFetchBlobReadStream {
 
 type Encoding = "utf8" | "ascii" | "base64";
 
-/* tslint:disable-next-line interface-name*/
+/* eslint-disable-next-line @typescript-eslint/naming-convention*/
 export interface IOSApi {
     /**
      * Open a file in {@link https://developer.apple.com/reference/uikit/uidocumentinteractioncontroller UIDocumentInteractionController},
@@ -470,7 +485,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    progress(config: { count?: number | undefined, interval?: number | undefined }, callback: (received: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    progress(
+        config: { count?: number | undefined; interval?: number | undefined },
+        callback: (received: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * Add an event listener with custom configuration.
@@ -480,7 +498,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    uploadProgress(config: { count?: number | undefined, interval?: number | undefined }, callback: (sent: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    uploadProgress(
+        config: { count?: number | undefined; interval?: number | undefined },
+        callback: (sent: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * An IOS only API, when IOS app turns into background network tasks will be terminated after ~180 seconds,

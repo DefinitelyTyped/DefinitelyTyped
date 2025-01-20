@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-native-fbsdk",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/facebook/react-native-fbsdk"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-fbsdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "Thibault Malbranche",
+            "githubUsername": "titozzz"
+        },
+        {
+            "name": "Stuart Forrest",
+            "githubUsername": "stuartforrest-infinity"
+        }
+    ]
+}

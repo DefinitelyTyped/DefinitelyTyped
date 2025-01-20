@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/parse-conflict-json",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/npm/parse-conflict-json#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/parse-conflict-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

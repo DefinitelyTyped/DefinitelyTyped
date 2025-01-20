@@ -1,5 +1,4 @@
-
-import swiz = require('swiz');
+import swiz = require("swiz");
 
 var chain: swiz.IChain;
 var sw: swiz.Swiz;
@@ -21,7 +20,7 @@ var fieldArr: swiz.struct.IField[];
 var opts: swiz.ISwizOptions = {
     stripNulls: bool,
     stripSerializerType: bool,
-    for: str
+    for: str,
 };
 
 var obj: swiz.struct.IObj = {
@@ -29,7 +28,7 @@ var obj: swiz.struct.IObj = {
     options: objOpts,
     singular: str,
     plural: str,
-    fields: fieldArr
+    fields: fieldArr,
 };
 
 var field: swiz.struct.IField = {
@@ -44,13 +43,13 @@ var field: swiz.struct.IField = {
     enumerated: bool,
     ignorePublic: bool,
     filterFrom: strArr,
-    coerceTo: value
+    coerceTo: value,
 };
 
 var objOpts: swiz.struct.IObjOptions = {
     singular: str,
     plural: str,
-    fields: fieldArr
+    fields: fieldArr,
 };
 
 var fieldOpts: swiz.struct.IFieldOptions = {
@@ -63,7 +62,7 @@ var fieldOpts: swiz.struct.IFieldOptions = {
     enumerated: value,
     ignorePublic: bool,
     filterFrom: strArr,
-    coerceTo: str
+    coerceTo: str,
 };
 
 var valid: swiz.IValidator;
@@ -72,21 +71,17 @@ valid.func(value, value, callback);
 str = valid.help;
 
 sw = new swiz.Swiz(defs, opts);
-sw.buildObject(value,  (err: any, result: any) => {
-
+sw.buildObject(value, (err: any, result: any) => {
 });
 value = sw.buildObjectSync(value);
 str = sw.serializeJson(value);
 str = sw.serializeXml(value);
 value = sw.deserializeXml(str);
 sw.serialize(swiz.SERIALIZATION.SERIALIZATION_JSON, num, ser, (err: any, str: string) => {
-
 });
 sw.serializeForPagination(swiz.SERIALIZATION.SERIALIZATION_JSON, valueArr, value, (err: any, str: string) => {
-
 });
 sw.deserialize(swiz.SERIALIZATION.SERIALIZATION_JSON, num, str, (err: any, result: any) => {
-
 });
 field = sw.getFieldDefinition(str, str);
 

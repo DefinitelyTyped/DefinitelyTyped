@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/graceful-fs",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/isaacs/node-graceful-fs"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/graceful-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

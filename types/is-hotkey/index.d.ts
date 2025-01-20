@@ -1,10 +1,4 @@
-// Type definitions for is-hotkey 0.1
-// Project: https://github.com/ianstormtaylor/is-hotkey#readme
-// Definitions by: Pierre-Marc Airoldi <https://github.com/petester42>
-//                 Alex Kondratyuk <https://github.com/lynxtaa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-interface KeyboardEventLike {
+export interface KeyboardEventLike {
     key: string;
     which: number;
     altKey: boolean;
@@ -30,23 +24,23 @@ export interface HotKey {
  * Is hotkey?
  */
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
+    hotkey: string | readonly string[],
     options?: HotKeyOptions,
 ): (event: KeyboardEventLike) => boolean;
 
-export function isHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
+    hotkey: string | readonly string[],
     options: HotKeyOptions,
     event: KeyboardEventLike,
 ): boolean;
 
-export function isCodeHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEventLike) => boolean;
-export function isCodeHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isCodeHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isCodeHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
-export function isKeyHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEventLike) => boolean;
-export function isKeyHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isKeyHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isKeyHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 /**
  * Parse.

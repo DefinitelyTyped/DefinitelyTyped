@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/unity-webapi",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "unity-webapi",
+    "projects": [
+        "https://launchpad.net/libunity-webapps"
+    ],
+    "devDependencies": {
+        "@types/unity-webapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Vrbanac",
+            "githubUsername": "jmvrbanac"
+        }
+    ]
+}

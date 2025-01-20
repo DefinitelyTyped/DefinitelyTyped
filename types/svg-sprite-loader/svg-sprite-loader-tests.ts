@@ -1,7 +1,7 @@
-import SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+import SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
 new SpriteLoaderPlugin();
 
 new SpriteLoaderPlugin({ plainSprite: true });
 
-new SpriteLoaderPlugin({ spriteAttrs: { testAttr: 'testValue' } });
+new SpriteLoaderPlugin({ spriteAttrs: { testAttr: "testValue" } });

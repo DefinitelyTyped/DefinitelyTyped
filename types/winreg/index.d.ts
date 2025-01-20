@@ -1,17 +1,9 @@
-// Type definitions for Winreg v1.2.0
-// Project: http://fresc81.github.io/node-winreg/
-// Definitions by: RX14 <https://github.com/RX14>, BobBuehler <https://github.com/BobBuehler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Winreg: WinregStatic;
 
 interface WinregStatic {
     /**
      * Creates a registry object, which provides access to a single registry key.
      * Note: This class is returned by a call to ```require('winreg')```.
-     *
-     * @public
-     * @class
      *
      * @param {@link Options} options - the options
      *
@@ -22,7 +14,7 @@ interface WinregStatic {
      *       key:  '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
      *     });
      */
-    new (options: Winreg.Options): Winreg.Registry;
+    new(options: Winreg.Options): Winreg.Registry;
 
     /**
      * Registry hive key HKEY_LOCAL_MACHINE.
@@ -56,7 +48,7 @@ interface WinregStatic {
     /**
      * Collection of available registry hive keys.
      */
-    HIVES: Array<string>;
+    HIVES: string[];
 
     /**
      * Registry value type STRING.
@@ -110,7 +102,7 @@ interface WinregStatic {
     /**
      * Collection of available registry value types.
      */
-    REG_TYPES: Array<string>;
+    REG_TYPES: string[];
 
     /**
      * The name of the default value. May be used instead of the empty string literal for better readability.
@@ -147,37 +139,31 @@ declare namespace Winreg {
     export interface Registry {
         /**
          * The hostname.
-         * @readonly
          */
         host: string;
 
         /**
          * The hive id.
-         * @readonly
          */
         hive: string;
 
         /**
          * The registry key name.
-         * @readonly
          */
         key: string;
 
         /**
          * The full path to the registry key.
-         * @readonly
          */
         path: string;
 
         /**
          * The registry hive architecture ('x86' or 'x64').
-         * @readonly
          */
         arch: string;
 
         /**
          * Creates a new {@link Registry} instance that points to the parent registry key.
-         * @readonly
          */
         parent: Registry;
 
@@ -188,7 +174,7 @@ declare namespace Winreg {
          * @param {array=} cb.items - an array of {@link RegistryItem} objects
          * @returns {Registry} this registry key object
          */
-        values(cb: (err: Error, result: Array<Winreg.RegistryItem>) => void): Registry;
+        values(cb: (err: Error, result: Winreg.RegistryItem[]) => void): Registry;
 
         /**
          * Retrieve all subkeys from this registry key.
@@ -197,7 +183,7 @@ declare namespace Winreg {
          * @param {array=} cb.items - an array of {@link Registry} objects
          * @returns {Registry} this registry key object
          */
-        keys(cb: (err: Error, result: Array<Registry>) => void): Registry;
+        keys(cb: (err: Error, result: Registry[]) => void): Registry;
 
         /**
          * Gets a named value from this registry key.
@@ -291,43 +277,36 @@ declare namespace Winreg {
     export interface RegistryItem {
         /**
          * The hostname.
-         * @readonly
          */
         host: string;
 
         /**
          * The hive id.
-         * @readonly
          */
         hive: string;
 
         /**
          * The registry key.
-         * @readonly
          */
         key: string;
 
         /**
          * The value name.
-         * @readonly
          */
         name: string;
 
         /**
          * The value type.
-         * @readonly
          */
         type: string;
 
         /**
          * The value.
-         * @readonly
          */
         value: string;
 
         /**
          * The hive architecture.
-         * @readonly
          */
         arch: string;
     }

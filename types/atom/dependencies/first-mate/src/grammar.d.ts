@@ -1,4 +1,4 @@
-import { Disposable } from '../../../index';
+import { Disposable } from "../../../index";
 
 /** Grammar that tokenizes lines of text. */
 export interface Grammar {

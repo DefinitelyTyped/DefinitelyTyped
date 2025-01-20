@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-auto-increment",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/codetunnel/mongoose-auto-increment"
+    ],
     "dependencies": {
-        "@types/mongoose": "^4.1.12"
-    }
+        "@types/node": "*",
+        "mongoose": "^6.3.0"
+    },
+    "devDependencies": {
+        "@types/mongoose-auto-increment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        }
+    ]
 }

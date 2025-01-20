@@ -1,16 +1,10 @@
-// Type definitions for ng-tags-input for 3.2
-// Project: https://github.com/mbenford/ngTagsInput
-// Definitions by: George Pap <https://github.com/GiorgosPap>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type ITagsInputParams = angular.ngTagsInput.TagsInputParams;
 export type IAutocompleteParams = angular.ngTagsInput.AutocompleteParams;
 export type ITagsInputConfigurationProvider = angular.ngTagsInput.TagsInputConfigurationProvider;
 
-declare module 'angular' {
+declare module "angular" {
     namespace ngTagsInput {
         interface TagsInputParams {
             ngModel?: string | undefined;

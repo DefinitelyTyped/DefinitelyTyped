@@ -1,4 +1,4 @@
-import * as UPNG from 'upng-js';
+import * as UPNG from "upng-js";
 
 declare const buffer: ArrayBuffer;
 

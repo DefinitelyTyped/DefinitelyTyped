@@ -1,4 +1,4 @@
-import oversmash from 'oversmash';
+import oversmash from "oversmash";
 
 oversmash().options; // $ExpectType CallerOptions
 

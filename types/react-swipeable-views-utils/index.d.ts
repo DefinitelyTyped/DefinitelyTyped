@@ -1,36 +1,26 @@
-// Type definitions for react-swipeable-views-utils 0.13
-// Project: https://github.com/oliviertassinari/react-swipeable-views#react-swipeable-views
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-//                 Robert Nisipeanu <https://github.com/robertnisipeanu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+import { PropInjector } from "@material-ui/types";
+import * as React from "react";
+import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from "react-swipeable-views";
 
-import * as React from 'react';
-import { ConsistentWith, Omit, PropInjector } from '@material-ui/types';
-import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from 'react-swipeable-views';
+export interface WithIndex {
+    index?: number;
+    onChangeIndex?: OnChangeIndexCallback;
+}
 
-export interface WithAutoPlay {
-    index: number;
-    onChangeIndex: OnChangeIndexCallback;
+export interface WithAutoPlay extends WithIndex {
     onSwitching?: OnSwitchingCallback | undefined;
 }
-export interface WithAutoPlayProps {
+export interface WithAutoPlayProps extends WithIndex {
     autoplay?: boolean | undefined;
-    direction?: 'incremental' | 'decremental' | undefined;
-    index: number;
+    direction?: "incremental" | "decremental" | undefined;
     interval?: number | undefined;
-    onChangeIndex: OnChangeIndexCallback;
     slideCount?: number | undefined;
 }
 
-export interface WithVirtualize {
-    index: number;
-    onChangeIndex: OnChangeIndexCallback;
+export interface WithVirtualize extends WithIndex {
     slideRenderer: (render: SlideRendererCallback) => React.ReactNode;
 }
-export interface WithVirtualizeProps {
-    index: number;
-    onChangeIndex: OnChangeIndexCallback;
+export interface WithVirtualizeProps extends WithIndex {
     onTransitionEnd?: OnTransitionEndCallback | undefined;
     overscanSlideAfter?: number | undefined;
     overscanSlideBefore?: number | undefined;
@@ -43,14 +33,10 @@ export interface SlideRenderProps {
     key: number;
 }
 
-export interface WithBindKeyboard {
-    index: number;
-    onChangeIndex: OnChangeIndexCallback;
-}
-export interface WithBindKeyboardProps {
+export type WithBindKeyboard = WithIndex;
+
+export interface WithBindKeyboardProps extends WithIndex {
     axis?: "x" | "x-reverse" | "y" | "y-reverse" | undefined;
-    index: number;
-    onChangeIndex: OnChangeIndexCallback;
     slidecount?: number | undefined;
 }
 

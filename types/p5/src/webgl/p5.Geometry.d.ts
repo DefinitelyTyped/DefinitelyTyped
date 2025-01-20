@@ -7,14 +7,20 @@ declare module '../../index' {
         /**
          *   p5 Geometry class
          *
-         *   @param [detailX] number of vertices on horizontal
-         *   surface
-         *   @param [detailY] number of vertices on horizontal
-         *   surface
+         *   @param [detailX] number of vertices along the
+         *   x-axis.
+         *   @param [detailY] number of vertices along the
+         *   y-axis.
          *   @param [callback] function to call upon object
          *   instantiation.
          */
         constructor(detailX?: number, detailY?: number, callback?: (...args: any[]) => any);
+
+        /**
+         *   computes faces for geometry objects based on the
+         *   vertices.
+         *   @chainable
+         */
         computeFaces(): Geometry;
 
         /**

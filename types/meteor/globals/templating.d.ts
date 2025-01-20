@@ -2,7 +2,8 @@ declare var Template: TemplateStatic & {
     [index: string]: any | Blaze.Template;
 };
 
-declare interface TemplateStatic<D = any, T = Blaze.TemplateInstance<D>> extends Blaze.TemplateStatic<D, T> {
+declare interface TemplateStatic<D = any, T = Blaze.TemplateInstance<D>>
+    extends Blaze.TemplateStatic<D, T> {
     new (viewName?: string, renderFunction?: Function): Blaze.Template;
     body: Blaze.Template;
 }

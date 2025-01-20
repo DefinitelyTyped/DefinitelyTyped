@@ -6,15 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "paths": {
-            "svgo": ["svgo/v1"]
-        },
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

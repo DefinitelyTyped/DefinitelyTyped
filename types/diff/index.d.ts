@@ -1,21 +1,12 @@
-// Type definitions for diff 5.0
-// Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 szdc <https://github.com/szdc>
-//                 moc-yuto <https://github.com/moc-yuto>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Diff;
 
-export type Callback = (err: undefined, value?: Change[]) => void;
+export type Callback<T> = (value: T) => void;
 
-export interface CallbackOptions {
+export interface CallbackOptions<T> {
     /**
-     * Callback to call with the result instead of returning the result directly.
+     * if provided, the diff will be computed in async mode to avoid blocking the event loop while the diff is calculated. The value of the `callback` option should be a function and will be passed the computed diff or patch as its first argument.
      */
-    callback: Callback;
+    callback: Callback<T>;
 }
 
 export interface BaseOptions {
@@ -24,6 +15,16 @@ export interface BaseOptions {
      * @default false
      */
     ignoreCase?: boolean | undefined;
+
+    /**
+     * a number specifying the maximum edit distance to consider between the old and new texts. If the edit distance is higher than this, jsdiff will return `undefined` instead of a diff. You can use this to limit the computational cost of diffing large, very different texts by giving up early if the cost will be huge. Works for functions that return change objects and also for `structuredPatch`, but not other patch-generation functions.
+     */
+    maxEditLength?: number | undefined;
+
+    /**
+     * if `true`, the array of change objects returned will contain one change object per token (e.g. one per line if calling `diffLines`), instead of runs of consecutive tokens that are all added / all removed / all conserved being combined into a single change object.
+     */
+    oneChangePerToken?: boolean | undefined;
 }
 
 export interface WordsOptions extends BaseOptions {
@@ -31,9 +32,23 @@ export interface WordsOptions extends BaseOptions {
      * `true` to ignore leading and trailing whitespace. This is the same as `diffWords()`.
      */
     ignoreWhitespace?: boolean | undefined;
+
+    /**
+     * An optional [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) object (which must have a `granularity` of `'word'`) for `diffWords` to use to split the text into words.
+     *
+     * By default, `diffWords` does not use an `Intl.Segmenter`, just some regexes for splitting text into words. This will tend to give worse results than `Intl.Segmenter` would, but ensures the results are consistent across environments; `Intl.Segmenter` behaviour is only loosely specced and the implementations in browsers could in principle change dramatically in future. If you want to use `diffWords` with an `Intl.Segmenter` but ensure it behaves the same whatever environment you run it in, use an `Intl.Segmenter` polyfill instead of the JavaScript engine's native `Intl.Segmenter` implementation.
+     *
+     * Using an `Intl.Segmenter` should allow better word-level diffing of non-English text than the default behaviour. For instance, `Intl.Segmenter`s can generally identify via built-in dictionaries which sequences of adjacent Chinese characters form words, allowing word-level diffing of Chinese. By specifying a language when instantiating the segmenter (e.g. `new Intl.Segmenter('sv', {granularity: 'word'})`) you can also support language-specific rules, like treating Swedish's colon separated contractions (like *k:a* for *kyrka*) as single words; by default this would be seen as two words separated by a colon.
+     */
+    intlSegmenter?: Intl.Segmenter | undefined;
 }
 
 export interface LinesOptions extends BaseOptions {
+    /**
+     * `true` to ignore a missing newline character at the end of the last line when comparing it to other lines. (By default, the line `'b\n'` in text `'a\nb\nc'` is not considered equal to the line `'b'` in text `'a\nb'`; this option makes them be considered equal.) Ignored if `ignoreWhitespace` or `newlineIsToken` are also true.
+     */
+    ignoreNewlineAtEof?: boolean | undefined;
+
     /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffTrimmedLines()`.
      */
@@ -79,6 +94,11 @@ export interface PatchOptions extends LinesOptions {
 
 export interface ApplyPatchOptions {
     /**
+     * If `true`, and if the file to be patched consistently uses different line endings to the patch (i.e. either the file always uses Unix line endings while the patch uses Windows ones, or vice versa), then `applyPatch` will behave as if the line endings in the patch were the same as those in the source file. (If `false`, the patch will usually fail to apply in such circumstances since lines deleted in the patch won't be considered to match those in the source file.) Defaults to `true`.
+     */
+    autoConvertLineEndings?: boolean | undefined;
+
+    /**
      * Number of lines that are allowed to differ before rejecting a patch.
      * @default 0
      */
@@ -90,12 +110,14 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: ((
-        lineNumber: number,
-        line: string,
-        operation: '-' | ' ',
-        patchContent: string
-    ) => boolean) | undefined;
+    compareLine?:
+        | ((
+            lineNumber: number,
+            line: string,
+            operation: "-" | " ",
+            patchContent: string,
+        ) => boolean)
+        | undefined;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -111,13 +133,13 @@ export interface Change {
      */
     value: string;
     /**
-     * `true` if the value was inserted into the new string.
+     * true if the value was inserted into the new string, otherwise false
      */
-    added?: boolean | undefined;
+    added: boolean;
     /**
-     * `true` if the value was removed from the old string.
+     * true if the value was removed from the old string, otherwise false
      */
-    removed?: boolean | undefined;
+    removed: boolean;
 }
 
 export interface ArrayChange<T> {
@@ -142,19 +164,18 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
-    linedelimiters: string[];
 }
 
 export interface BestPath {
     newPos: number;
-    componenets: Change[];
+    components: Change[];
 }
 
 export class Diff {
     diff(
         oldString: string,
         newString: string,
-        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>)
+        options?: Callback<Change[]> | (ArrayOptions<any, any> & Partial<CallbackOptions<Change[]>>),
     ): Change[];
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
@@ -163,18 +184,20 @@ export class Diff {
         basePath: BestPath,
         newString: string,
         oldString: string,
-        diagonalPath: number
+        diagonalPath: number,
     ): number;
 
-    equals(left: any, right: any): boolean;
+    equals(left: any, right: any, options: any): boolean;
 
     removeEmpty(array: any[]): any[];
 
-    castInput(value: any): any;
+    castInput(value: any, options: any): any;
 
-    join(chars: string[]): string;
+    join(tokens: string[]): string;
 
-    tokenize(value: string): any; // return types are string or string[]
+    tokenize(value: string, options: any): any; // return types are string or string[]
+
+    postProcess(changes: Change[], options: any): Change[];
 }
 
 /**
@@ -186,7 +209,7 @@ export function diffChars(oldStr: string, newStr: string, options?: BaseOptions)
 export function diffChars(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -198,7 +221,7 @@ export function diffWords(oldStr: string, newStr: string, options?: WordsOptions
 export function diffWords(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback<Change[]> | (WordsOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -209,12 +232,12 @@ export function diffWords(
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options?: WordsOptions
+    options?: WordsOptions,
 ): Change[];
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback<Change[]> | (WordsOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -226,7 +249,7 @@ export function diffLines(oldStr: string, newStr: string, options?: LinesOptions
 export function diffLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback<Change[]> | (LinesOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -238,7 +261,7 @@ export function diffTrimmedLines(oldStr: string, newStr: string, options?: Lines
 export function diffTrimmedLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback<Change[]> | (LinesOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -250,7 +273,7 @@ export function diffSentences(oldStr: string, newStr: string, options?: BaseOpti
 export function diffSentences(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -262,7 +285,7 @@ export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): 
 export function diffCss(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -274,12 +297,12 @@ export function diffCss(
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options?: JsonOptions
+    options?: JsonOptions,
 ): Change[];
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options: Callback | (JsonOptions & CallbackOptions)
+    options: Callback<Change[]> | (JsonOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -290,7 +313,7 @@ export function diffJson(
 export function diffArrays<TOld, TNew>(
     oldArr: TOld[],
     newArr: TNew[],
-    options?: ArrayOptions<TOld, TNew>
+    options?: ArrayOptions<TOld, TNew>,
 ): Array<ArrayChange<TOld | TNew>>;
 
 /**
@@ -310,8 +333,17 @@ export function createTwoFilesPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
+export function createTwoFilesPatch(
+    oldFileName: string,
+    newFileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<string>,
+): void;
 
 /**
  * Creates a unified diff patch.
@@ -329,8 +361,16 @@ export function createPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
+export function createPatch(
+    fileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<string>,
+): void;
 
 /**
  * This method is similar to `createTwoFilesPatch()`, but returns a data structure suitable for further processing.
@@ -351,20 +391,29 @@ export function structuredPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): ParsedDiff;
+export function structuredPatch(
+    oldFileName: string,
+    newFileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<ParsedDiff>,
+): void;
 
 /**
  * Applies a unified diff patch.
  *
  * @param patch May be a string diff or the output from the `parsePatch()` or `structuredPatch()` methods.
- * @returns A string containing new version of provided data.
+ * @returns A string containing new version of provided data. false when failed
  */
 export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
-    options?: ApplyPatchOptions
-): string;
+    options?: ApplyPatchOptions,
+): string | false;
 
 /**
  * Applies one or more patches.
@@ -386,7 +435,7 @@ export function applyPatches(patch: string | ParsedDiff[], options: ApplyPatches
  *
  * @returns A JSON object representation of the a patch, suitable for use with the `applyPatch()` method.
  */
-export function parsePatch(diffStr: string, options?: { strict?: boolean | undefined }): ParsedDiff[];
+export function parsePatch(uniDiff: string): ParsedDiff[];
 
 /**
  * Converts a list of changes to a serialized XML format.
@@ -400,4 +449,17 @@ export function convertChangesToDMP(changes: Change[]): Array<[1 | 0 | -1, strin
 
 export function merge(mine: string, theirs: string, base: string): ParsedDiff;
 
+/**
+ * Returns a new structured patch which when applied will undo the original `patch`.
+ * `patch` may be either a single structured patch object (as returned by `structuredPatch`) or an array of them (as returned by `parsePatch`).
+ */
+export function reversePatch(patch: ParsedDiff | ParsedDiff[]): ParsedDiff;
+
 export function canonicalize(obj: any, stack: any[], replacementStack: any[]): any;
+
+/**
+ * creates a unified diff patch.
+ * patch may be either a single structured patch object (as returned by structuredPatch)
+ * or an array of them (as returned by parsePatch).
+ */
+export function formatPatch(patch: ParsedDiff | ParsedDiff[]): string;

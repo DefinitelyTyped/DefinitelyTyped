@@ -1,8 +1,3 @@
-// Type definitions for varint 6.0
-// Project: https://github.com/chrisdickinson/varint#readme
-// Definitions by: David Brockman Smoliansky <https://github.com/dbrockman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 export const encode: {
@@ -10,26 +5,13 @@ export const encode: {
      * Encodes `num` into `buffer` starting at `offset`. returns `buffer`, with the encoded varint written into it.
      * `varint.encode.bytes` will now be set to the number of bytes modified.
      */
-    (num: number, buffer: Buffer, offset?: number): Buffer;
-
-    /**
-     * Encodes `num` into `bytes` starting at `offset`. returns `bytes`, with the encoded varint written into it.
-     * `varint.encode.bytes` will now be set to the number of bytes modified.
-     */
-    (num: number, bytes: Uint8Array, offset?: number): Uint8Array;
-
-    /**
-     * Encodes `num` into `array` starting at `offset`. returns `array`, with the encoded varint written into it.
-     * If `array` is not provided, it will default to a new array.
-     * `varint.encode.bytes` will now be set to the number of bytes modified.
-     */
-    (num: number, array?: number[], offset?: number): number[];
+    <TBuf extends Uint8Array | number[] = number[]>(num: number, buffer?: TBuf, offset?: number): TBuf;
 
     /**
      * Similar to `decode.bytes` when encoding a number it can be useful to know how many bytes where written (especially if you pass an output array).
      * You can access this via `varint.encode.bytes` which holds the number of bytes written in the last encode.
      */
-    bytes: number;
+    bytes: number | undefined;
 };
 
 export const decode: {
@@ -43,7 +25,7 @@ export const decode: {
      * If you also require the length (number of bytes) that were required to decode the integer you can access it via `varint.decode.bytes`.
      * This is an integer property that will tell you the number of bytes that the last .decode() call had to use to decode.
      */
-    bytes: number;
+    bytes: number | undefined;
 };
 
 /**

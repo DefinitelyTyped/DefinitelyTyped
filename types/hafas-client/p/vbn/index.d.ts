@@ -1,5 +1,3 @@
-export = vbnProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const vbnProfile: createClient.Profile;
+export const profile: Profile;

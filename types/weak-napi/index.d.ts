@@ -1,9 +1,3 @@
-// Type definitions for weak-napi 2.0
-// Project: https://github.com/node-ffi-napi/weak-napi
-// Definitions by: Hieu Lam <https://github.com/lamhieu-vk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 declare class WeakRef<T> {}

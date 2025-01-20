@@ -1,14 +1,7 @@
-// Type definitions for pngjs 6.0
-// Project: https://github.com/lukeapage/pngjs
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Florian Imdahl <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Duplex } from 'stream';
-import { createDeflate } from 'zlib';
+import { Duplex } from "stream";
+import { createDeflate } from "zlib";
 
 export class PNG extends Duplex {
     static adjustGamma(src: PNG): void;
@@ -48,10 +41,10 @@ export class PNG extends Duplex {
         deltaY?: number,
     ): PNG;
 
-    on(event: 'metadata', callback: (this: PNG, metadata: Metadata) => void): this;
-    on(event: 'parsed', callback: (this: PNG, data: Buffer) => void): this;
-    on(event: 'error', callback: (this: PNG, error: Error) => void): this;
-    on(event: 'close', callback: (this: PNG) => void): this;
+    on(event: "metadata", callback: (this: PNG, metadata: Metadata) => void): this;
+    on(event: "parsed", callback: (this: PNG, data: Buffer) => void): this;
+    on(event: "error", callback: (this: PNG, error: Error) => void): this;
+    on(event: "close", callback: (this: PNG) => void): this;
     on(event: string, callback: (this: PNG, ...args: any[]) => void): this;
 
     pack(): PNG;

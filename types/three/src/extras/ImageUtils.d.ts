@@ -1,31 +1,32 @@
-import { Mapping } from '../constants';
-import { Texture } from '../textures/Texture';
-
-export namespace ImageUtils {
-    function getDataURL(image: any): string;
+/**
+ * A class containing utility functions for images.
+ * @see {@link https://threejs.org/docs/index.html#api/en/extras/ImageUtils | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/ImageUtils.js | Source}
+ */
+declare class ImageUtils {
+    /**
+     * Returns a data URI containing a representation of the given image.
+     * @param image The image object.
+     */
+    static getDataURL(
+        image: HTMLImageElement | HTMLCanvasElement | CanvasImageSource | ImageBitmap | ImageData,
+    ): string;
 
     /**
-     * @deprecated
+     * Converts the given sRGB image data to linear color space.
+     * @param image
      */
-    let crossOrigin: string;
+    static sRGBToLinear(image: HTMLImageElement | HTMLCanvasElement | ImageBitmap): HTMLCanvasElement;
 
     /**
-     * @deprecated Use {@link TextureLoader THREE.TextureLoader()} instead.
+     * Converts the given sRGB image data to linear color space.
+     * @param image
      */
-    function loadTexture(
-        url: string,
-        mapping?: Mapping,
-        onLoad?: (texture: Texture) => void,
-        onError?: (message: string) => void,
-    ): Texture;
-
-    /**
-     * @deprecated Use {@link CubeTextureLoader THREE.CubeTextureLoader()} instead.
-     */
-    function loadTextureCube(
-        array: string[],
-        mapping?: Mapping,
-        onLoad?: (texture: Texture) => void,
-        onError?: (message: string) => void,
-    ): Texture;
+    static sRGBToLinear(image: ImageData): {
+        data: ImageData["data"];
+        width: ImageData["width"];
+        height: ImageData["height"];
+    };
 }
+
+export { ImageUtils };

@@ -1,16 +1,10 @@
-// Type definitions for sat.js
-// Project: https://github.com/jriecken/sat-js
-// Definitions by: Hou Chunlei <https://github.com/omni360>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SAT {
-
     /**
      * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.
      */
     export class Vector {
         /**
-         * @class Vector has two properties
+         * Vector has two properties
          * @param {number} x The x-coordinate of the Vector.
          * @param {number} y The y-coordinate of the Vector.
          */
@@ -63,7 +57,6 @@ declare namespace SAT {
         translate(x: number, y: number): Polygon;
         getAABB(): Polygon;
         getCentroid(): Vector;
-
     }
     export class Box {
         constructor(pos?: Vector, width?: number, height?: number);
@@ -138,7 +131,6 @@ declare namespace SAT {
      * @return {boolean}           return {true} if there is a collision. {false} otherwise.
      */
     export function testPolygonPolygon(a: Polygon, b: Polygon, response?: Response): boolean;
-
 }
 
 declare module "sat" {

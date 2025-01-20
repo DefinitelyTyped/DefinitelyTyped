@@ -1,20 +1,11 @@
-// Type definitions for express-session 1.17
-// Project: https://github.com/expressjs/session
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-//                 Jacob Bogers <https://github.com/jacobbogers>
-//                 Naoto Yokoyama <https://github.com/builtinnya>
-//                 Ryan Cannon <https://github.com/ry7n>
-//                 Tom Spencer <https://github.com/fiznool>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import express = require('express');
-import { EventEmitter } from 'events';
+import express = require("express");
+import { CipherKey } from "crypto";
+import { EventEmitter } from "events";
 
 declare global {
     namespace Express {
+        type SessionStore = session.Store & { generate: (req: Request) => void };
+
         // Inject additional properties on express.Request
         interface Request {
             /**
@@ -31,6 +22,13 @@ declare global {
              * Even though this property isn't marked as optional, it won't exist until you use the `express-session` middleware
              */
             sessionID: string;
+
+            /**
+             * The Store in use.
+             * Even though this property isn't marked as optional, it won't exist until you use the `express-session` middleware
+             * The function `generate` is added by express-session
+             */
+            sessionStore: SessionStore;
         }
     }
 }
@@ -42,22 +40,24 @@ declare function session(options?: session.SessionOptions): express.RequestHandl
 declare namespace session {
     interface SessionOptions {
         /**
-         * This is the secret used to sign the session cookie. This can be either a string for a single secret, or an array of multiple secrets.
-         * If an array of secrets is provided, **only the first element will be used to sign** the session ID cookie,
-         *   while **all the elements will be considered when verifying the signature** in requests.
-         * The secret itself should be not easily parsed by a human and would best be a random set of characters
+         * This is the secret used to sign the session ID cookie.
+         * The secret can be any type of value that is supported by Node.js `crypto.createHmac` (like a string or a Buffer).
+         * This can be either a single secret, or an array of multiple secrets.
+         * If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests.
+         * The secret itself should be not easily parsed by a human and would best be a random set of characters.
          *
-         * Best practices may include:
-         * - The use of environment variables to store the secret, ensuring the secret itself does not exist in your repository.
-         * - Periodic updates of the secret, while ensuring the previous secret is in the array.
+         * A best practice may include:
+         * * The use of environment variables to store the secret, ensuring the secret itself does not exist in your repository.
+         * * Periodic updates of the secret, while ensuring the previous secret is in the array.
          *
          * Using a secret that cannot be guessed will reduce the ability to hijack a session to only guessing the session ID (as determined by the `genid` option).
          *
          * Changing the secret value will invalidate all existing sessions.
-         * In order to rotate the secret without invalidating sessions, provide an array of secrets,
-         *   with the new secret as first element of the array, and including previous secrets as the later elements.
+         * In order to rotate the secret without invalidating sessions, provide an array of secrets, with the new secret as first element of the array, and including previous secrets as the later elements.
+         *
+         * Note HMAC-256 is used to sign the session ID. For this reason, the secret should contain at least 32 bytes of entropy.
          */
-        secret: string | string[];
+        secret: CipherKey | CipherKey[];
 
         /**
          * Function to call to generate a new session ID. Provide a function that returns a string that will be used as a session ID.
@@ -149,7 +149,7 @@ declare namespace session {
          * - `keep`: The session in the store will be kept, but modifications made during the request are ignored and not saved.
          * @default 'keep'
          */
-        unset?: 'destroy' | 'keep' | undefined;
+        unset?: "destroy" | "keep" | undefined;
     }
 
     class Session {
@@ -208,7 +208,6 @@ declare namespace session {
      *         views: number;
      *     }
      * }
-     *
      */
     interface SessionData {
         cookie: Cookie;
@@ -226,6 +225,32 @@ declare namespace session {
          */
         maxAge?: number | undefined;
 
+        /**
+         * Specifies the `boolean` value for the [`Partitioned` `Set-Cookie`](https://tools.ietf.org/html/draft-cutler-httpbis-partitioned-cookies/)
+         * attribute. When truthy, the `Partitioned` attribute is set, otherwise it is not.
+         * By default, the `Partitioned` attribute is not set.
+         *
+         * **Note** This is an attribute that has not yet been fully standardized, and may
+         * change in the future. This also means many clients may ignore this attribute until
+         * they understand it.
+         */
+        partitioned?: boolean | undefined;
+
+        /**
+         * Specifies the `string` to be the value for the [`Priority` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+         *
+         * - `'low'` will set the `Priority` attribute to `Low`.
+         * - `'medium'` will set the `Priority` attribute to `Medium`, the default priority when not set.
+         * - `'high'` will set the `Priority` attribute to `High`.
+         *
+         * More information about the different priority levels can be found in
+         * [the specification](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+         *
+         * **Note** This is an attribute that has not yet been fully standardized, and may change in the future.
+         * This also means many clients may ignore this attribute until they understand it.
+         */
+        priority?: "low" | "medium" | "high" | undefined;
+
         signed?: boolean | undefined;
 
         /**
@@ -237,7 +262,7 @@ declare namespace session {
          * @deprecated The `expires` option should not be set directly; instead only use the `maxAge` option
          * @see maxAge
          */
-        expires?: Date | undefined;
+        expires?: Date | null | undefined;
 
         /**
          * Specifies the boolean value for the `HttpOnly Set-Cookie` attribute. When truthy, the `HttpOnly` attribute is set, otherwise it is not.
@@ -275,7 +300,7 @@ declare namespace session {
          *
          * Please see the [README](https://github.com/expressjs/session) for an example of using secure cookies in production, but allowing for testing in development based on NODE_ENV.
          */
-        secure?: boolean | 'auto' | undefined;
+        secure?: boolean | "auto" | undefined;
 
         encode?: ((val: string) => string) | undefined;
 
@@ -292,27 +317,29 @@ declare namespace session {
          * **Note:** This is an attribute that has not yet been fully standardized, and may change in the future.
          * This also means many clients may ignore this attribute until they understand it.
          */
-        sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
     }
 
     class Cookie implements CookieOptions {
         /** Returns the original `maxAge` (time-to-live), in milliseconds, of the session cookie. */
-        originalMaxAge: number;
+        originalMaxAge: number | null;
 
         maxAge?: number | undefined;
         signed?: boolean | undefined;
-        expires?: Date | undefined;
+        expires?: Date | null | undefined;
         httpOnly?: boolean | undefined;
         path?: string | undefined;
         domain?: string | undefined;
-        secure?: boolean | 'auto' | undefined;
-        sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+        secure?: boolean | "auto" | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
     }
 
     abstract class Store extends EventEmitter {
         regenerate(req: express.Request, callback: (err?: any) => any): void;
+
         load(sid: string, callback: (err: any, session?: SessionData) => any): void;
-        createSession(req: express.Request, session: SessionData): void;
+
+        createSession(req: express.Request, session: SessionData): Session & SessionData;
 
         /**
          * Gets the session from the store given a session ID and passes it to `callback`.
@@ -325,15 +352,15 @@ declare namespace session {
         /** Upsert a session in the store given a session ID and `SessionData` */
         abstract set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
 
-        /** Destroys the dession with the given session ID. */
+        /** Destroys the session with the given session ID. */
         abstract destroy(sid: string, callback?: (err?: any) => void): void;
 
         /** Returns all sessions in the store */
         // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/38783, https://github.com/expressjs/session/pull/700#issuecomment-540855551
-        all?(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData; } | null) => void): void;
+        all?(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData } | null) => void): void;
 
         /** Returns the amount of sessions in the store. */
-        length?(callback: (err: any, length: number) => void): void;
+        length?(callback: (err: any, length?: number) => void): void;
 
         /** Delete all sessions from the store. */
         clear?(callback?: (err?: any) => void): void;
@@ -348,12 +375,17 @@ declare namespace session {
      */
     class MemoryStore extends Store {
         get(sid: string, callback: (err: any, session?: SessionData | null) => void): void;
+
         set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
+
         destroy(sid: string, callback?: (err?: any) => void): void;
 
-        all(callback: (err: any, obj?: { [sid: string]: SessionData; } | null) => void): void;
-        length(callback: (err: any, length: number) => void): void;
+        all(callback: (err: any, obj?: { [sid: string]: SessionData } | null) => void): void;
+
+        length(callback: (err: any, length?: number) => void): void;
+
         clear(callback?: (err?: any) => void): void;
+
         touch(sid: string, session: SessionData, callback?: () => void): void;
     }
 }

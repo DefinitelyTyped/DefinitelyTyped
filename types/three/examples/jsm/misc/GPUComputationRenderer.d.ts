@@ -1,21 +1,24 @@
 import {
-    WebGLRenderer,
-    RenderTarget,
-    Texture,
     DataTexture,
+    IUniform,
+    MagnificationTextureFilter,
     Material,
+    MinificationTextureFilter,
     ShaderMaterial,
-    Wrapping,
-    TextureFilter,
+    Texture,
     TextureDataType,
-} from '../../../src/Three';
+    TextureFilter,
+    WebGLRenderer,
+    WebGLRenderTarget,
+    Wrapping,
+} from "three";
 
 export interface Variable {
     name: string;
     initialValueTexture: Texture;
     material: ShaderMaterial;
     dependencies: Variable[];
-    renderTargets: RenderTarget[];
+    renderTargets: WebGLRenderTarget[];
     wrapS: number;
     wrapT: number;
     minFilter: number;
@@ -33,18 +36,20 @@ export class GPUComputationRenderer {
     init(): string | null;
     compute(): void;
 
-    getCurrentRenderTarget(variable: Variable): RenderTarget;
-    getAlternateRenderTarget(variable: Variable): RenderTarget;
+    getCurrentRenderTarget(variable: Variable): WebGLRenderTarget;
+    getAlternateRenderTarget(variable: Variable): WebGLRenderTarget;
     addResolutionDefine(materialShader: ShaderMaterial): void;
+    createShaderMaterial(computeFragmentShader: string, uniforms?: { [uniform: string]: IUniform }): ShaderMaterial;
     createRenderTarget(
         sizeXTexture: number,
         sizeYTexture: number,
         wrapS: Wrapping,
         wrapT: number,
-        minFilter: TextureFilter,
-        magFilter: TextureFilter,
-    ): RenderTarget;
+        minFilter: MinificationTextureFilter,
+        magFilter: MagnificationTextureFilter,
+    ): WebGLRenderTarget;
     createTexture(): DataTexture;
-    renderTexture(input: Texture, output: Texture): void;
-    doRenderTarget(material: Material, output: RenderTarget): void;
+    renderTexture(input: Texture, output: WebGLRenderTarget): void;
+    doRenderTarget(material: Material, output: WebGLRenderTarget): void;
+    dispose(): void;
 }

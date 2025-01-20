@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/whoops",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/Kikobeats/whoops"
+    ],
+    "devDependencies": {
+        "@types/whoops": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

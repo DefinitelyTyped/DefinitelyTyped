@@ -5,6 +5,9 @@ declare const unknown: unknown;
 declare const globalObject: {
     URL: typeof whatwgUrl.URL;
     URLSearchParams: typeof whatwgUrl.URLSearchParams;
+    String: String; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    Number: Number; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    TypeError: TypeError;
 };
 
 URL.install(globalObject, ["Window"]);
@@ -40,14 +43,14 @@ URLSearchParams.createImpl(globalObject, [
 
 if (URL.is(unknown)) {
     unknown; // $ExpectType URL
-    const impl = URL.convert(unknown);
+    const impl = URL.convert(globalObject, unknown);
 
     impl; // $ExpectType URLImpl
 }
 
 if (URLSearchParams.is(unknown)) {
     unknown; // $ExpectType URLSearchParams
-    const impl = URLSearchParams.convert(unknown);
+    const impl = URLSearchParams.convert(globalObject, unknown);
 
     impl; // $ExpectType URLSearchParamsImpl
 }
@@ -64,20 +67,14 @@ URL.setup<whatwgUrl.URL>(Object.create(globalObject.URL.prototype), globalObject
 URL.setup<whatwgUrl.URL>(Object.create(globalObject.URL.prototype), globalObject, ["foo", "https://example.org"]); // $ExpectType URL
 
 // $ExpectType URLSearchParams
-URLSearchParams.setup<whatwgUrl.URLSearchParams>(
-    Object.create(globalThis.URLSearchParams.prototype),
-    globalObject,
-    ["?foo=bar&baz=biz"],
-);
+URLSearchParams.setup<whatwgUrl.URLSearchParams>(Object.create(whatwgUrl.URLSearchParams.prototype), globalObject, [
+    "?foo=bar&baz=biz",
+]);
 
 // $ExpectType URLSearchParams
-URLSearchParams.setup<whatwgUrl.URLSearchParams>(
-    Object.create(globalThis.URLSearchParams.prototype),
-    globalObject,
+URLSearchParams.setup<whatwgUrl.URLSearchParams>(Object.create(whatwgUrl.URLSearchParams.prototype), globalObject, [
     [
-        [
-            ["foo", "bar"],
-            ["baz", "biz"],
-        ],
+        ["foo", "bar"],
+        ["baz", "biz"],
     ],
-);
+]);

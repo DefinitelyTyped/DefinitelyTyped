@@ -1,5 +1,5 @@
-import * as React from 'react';
-import loadable, { lazy, loadableReady } from '@loadable/component';
+import loadable, { lazy, loadableReady } from "@loadable/component";
+import * as React from "react";
 
 interface TestProps {
     foo: string;
@@ -30,7 +30,7 @@ async function importClassComponentLoader() {
 }
 
 const lib = {
-    getTestObj: () => ({ bar: 'bar', foo: 'foo' }),
+    getTestObj: () => ({ bar: "bar", foo: "foo" }),
 };
 
 function defaultImportLibLoader() {
@@ -219,5 +219,5 @@ function importLibLoader() {
     loadableReady().then(() => {});
 
     // Should allow passing options with namespace
-    loadableReady(() => {}, { namespace: 'foo' });
+    loadableReady(() => {}, { namespace: "foo" });
 }

@@ -89,11 +89,13 @@ declare namespace GoogleAdsScripts {
         interface ProductGroupOperation extends Base.Operation<ProductGroup> {}
 
         interface ProductGroupSelector
-            extends Base.Selector<ProductGroupIterator>,
+            extends
+                Base.Selector<ProductGroupIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

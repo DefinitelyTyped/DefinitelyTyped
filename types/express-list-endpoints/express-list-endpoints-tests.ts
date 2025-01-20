@@ -1,8 +1,8 @@
-import express = require('express');
-import listEndpoints = require('express-list-endpoints');
+import express = require("express");
+import listEndpoints = require("express-list-endpoints");
 
 const app = express();
-app.get('/', (_, res) => {
+app.get("/", (_, res) => {
     res.sendStatus(200);
 });
 

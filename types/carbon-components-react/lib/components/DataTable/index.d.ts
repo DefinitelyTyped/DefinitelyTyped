@@ -28,9 +28,9 @@ export * from "./TableBatchActions";
 export * from "./TableBody";
 export * from "./TableCell";
 export * from "./TableContainer";
+export * from "./TableExpandedRow";
 export * from "./TableExpandHeader";
 export * from "./TableExpandRow";
-export * from "./TableExpandedRow";
 export * from "./TableHead";
 export * from "./TableHeader";
 export * from "./TableRow";
@@ -39,8 +39,8 @@ export * from "./TableSelectRow";
 export * from "./TableToolbar";
 export * from "./TableToolbarAction";
 export * from "./TableToolbarContent";
-export * from "./TableToolbarSearch";
 export * from "./TableToolbarMenu";
+export * from "./TableToolbarSearch";
 
 export {
     Table,
@@ -50,9 +50,9 @@ export {
     TableBody,
     TableCell,
     TableContainer,
+    TableExpandedRow,
     TableExpandHeader,
     TableExpandRow,
-    TableExpandedRow,
     TableHead,
     TableHeader,
     TableRow,
@@ -61,8 +61,8 @@ export {
     TableToolbar,
     TableToolbarAction,
     TableToolbarContent,
-    TableToolbarSearch,
     TableToolbarMenu,
+    TableToolbarSearch,
 };
 
 export default DataTable;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wuzzy",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/xupit3r/wuzzy#readme"
+    ],
+    "devDependencies": {
+        "@types/wuzzy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Ladd",
+            "githubUsername": "TLadd"
+        }
+    ]
+}

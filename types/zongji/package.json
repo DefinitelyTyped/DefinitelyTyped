@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/zongji",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/nevill/zongji"
+    ],
+    "dependencies": {
+        "@types/mysql": "*"
+    },
+    "devDependencies": {
+        "@types/zongji": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Hayes",
+            "githubUsername": "ejhayes"
+        }
+    ]
+}

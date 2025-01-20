@@ -1,11 +1,5 @@
-// Type definitions for material-ui-phone-number 2.2
-// Project: https://github.com/alexplumb/material-ui-phone-number
-// Definitions by: Bassem (NextGLabs) <https://github.com/nextglabs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
-import * as React from "react";
 import { TextFieldProps } from "@material-ui/core";
+import * as React from "react";
 
 export interface MaterialUiPhoneNumberProps extends Omit<TextFieldProps, "onChange"> {
     ref?: any;

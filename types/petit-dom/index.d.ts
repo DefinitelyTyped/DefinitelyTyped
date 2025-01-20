@@ -1,9 +1,3 @@
-// Type definitions for Petit-Dom 0.2
-// Project: https://github.com/yelouafi/petit-dom
-// Definitions by: James Messinger <https://github.com/JamesMessinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Creates a VNode of the specified HTML Element type and with the
  * specified properties and contents.
@@ -98,7 +92,7 @@ export namespace PetitDom {
     };
 
     interface IntrinsicProps {
-        content?: Content | ReadonlyArray<Content> | undefined;
+        content?: Content | readonly Content[] | undefined;
         key?: Key | undefined;
     }
 
@@ -107,22 +101,28 @@ export namespace PetitDom {
     type ShouldUpdate<P extends ComponentProps> = (
         newProps: P,
         oldProps: P,
-        newContent: ReadonlyArray<VNode>,
-        oldContent: ReadonlyArray<VNode>
+        newContent: readonly VNode[],
+        oldContent: readonly VNode[],
     ) => boolean;
 
     interface FunctionComponent<P extends ComponentProps> {
-        (props: P, content: ReadonlyArray<Content>): FunctionComponentNode<P>;
+        (props: P, content: readonly Content[]): FunctionComponentNode<P>;
         shouldUpdate?: ShouldUpdate<P> | undefined;
     }
 
     interface ComponentClass<P extends ComponentProps> {
-        new(props: P, content: ReadonlyArray<Content>): Component<P>;
+        new(props: P, content: readonly Content[]): Component<P>;
     }
 
     interface Component<P extends ComponentProps> {
-        mount(props: P, content: ReadonlyArray<VNode>): Element;
-        patch(element: Element, newProps: P, oldProps: P, newContent: ReadonlyArray<VNode>, oldContent: ReadonlyArray<VNode>): Element;
+        mount(props: P, content: readonly VNode[]): Element;
+        patch(
+            element: Element,
+            newProps: P,
+            oldProps: P,
+            newContent: readonly VNode[],
+            oldContent: readonly VNode[],
+        ): Element;
         unmount(element: Element): void;
     }
 
@@ -131,7 +131,7 @@ export namespace PetitDom {
         readonly type: any;
         readonly key: Key | null;
         readonly props: any;
-        readonly content: ReadonlyArray<VNode>;
+        readonly content: readonly VNode[];
     }
 
     interface ElementNode<T extends keyof DomElements, E extends DomElements[T]> extends VNode {
@@ -154,34 +154,42 @@ export namespace PetitDom {
         readonly props: P & IntrinsicProps;
     }
 
-    interface DomElements extends HTMLElementTagNameMap, Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">> {
+    interface DomElements
+        extends
+            HTMLElementTagNameMap,
+            Pick<SVGElementTagNameMap, Exclude<keyof SVGElementTagNameMap, "a" | "script" | "style" | "title">>
+    {
         "main": HTMLElement;
     }
 }
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
-        interface Element extends PetitDom.VNode { }
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface Element extends PetitDom.VNode {}
 
-        interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> { }
+        interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> {}
 
-        // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicClassAttributes<T> extends PetitDom.Props { }
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface IntrinsicClassAttributes<T> extends PetitDom.Props {}
 
-        // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends PetitDom.IntrinsicProps { }
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface IntrinsicAttributes extends PetitDom.IntrinsicProps {}
 
-        interface ElementAttributesProperty { props: PetitDom.Props; }
+        interface ElementAttributesProperty {
+            props: PetitDom.Props;
+        }
 
-        interface ElementChildrenAttribute { content: PetitDom.VNode[]; }
+        interface ElementChildrenAttribute {
+            content: PetitDom.VNode[];
+        }
 
         type IntrinsicElements = {
             [P in keyof PetitDom.DomElements]:
-            PetitDom.Props<PetitDom.DomElements[P]> &
-            {
-                content?: PetitDom.Content | ReadonlyArray<PetitDom.Content> | undefined;
-            };
+                & PetitDom.Props<PetitDom.DomElements[P]>
+                & {
+                    content?: PetitDom.Content | readonly PetitDom.Content[] | undefined;
+                };
         };
     }
 }

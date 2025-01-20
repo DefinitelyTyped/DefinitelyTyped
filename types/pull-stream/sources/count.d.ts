@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Create a stream that outputs 0 ... `max`. By default, `max` = `Infinity`.

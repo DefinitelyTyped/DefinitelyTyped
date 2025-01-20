@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/webpack-env",
+    "version": "1.18.9999",
+    "projects": [
+        "https://github.com/webpack/webpack"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/webpack-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "use-strict",
+            "githubUsername": "use-strict"
+        },
+        {
+            "name": "rhonsby",
+            "githubUsername": "rhonsby"
+        }
+    ]
+}

@@ -1,9 +1,9 @@
 export = PasswordResetService;
 declare function PasswordResetService(): void;
 declare class PasswordResetService {
-    requestAdministratorPasswordReset(expiresIn: number): any;
+    requestAdministratorPasswordReset(expiresIn: number): AdministratorPasswordResetRequest;
     resetAdministratorPassword(requestKey: number, authCode: string, newPassword: string): void;
-    sendPasswordResetMail(
+    sendPasswordResetEmail(
         userKey: DBKey | number,
         options: {
             senderName?: string;
@@ -15,6 +15,7 @@ declare class PasswordResetService {
     resetPassword(userKey: DBKey | number, confirmationCode: string, newPassword: string): void;
 }
 declare namespace PasswordResetService {
-    export { DBKey };
+    export { DBKey, AdministratorPasswordResetRequest };
 }
 type DBKey = import('../dbkey/DBKey');
+type AdministratorPasswordResetRequest = import('./AdministratorPasswordResetRequest');

@@ -1,5 +1,19 @@
-import * as React from 'react';
-import { Cat, Planet, Mug, Browser, Backpack, Ghost, File, SpeechBubble, KawaiiMood, KawaiiProps, IceCream, Chocolate, Folder } from 'react-kawaii';
+import * as React from "react";
+import {
+    Backpack,
+    Browser,
+    Cat,
+    Chocolate,
+    File,
+    Folder,
+    Ghost,
+    IceCream,
+    KawaiiMood,
+    KawaiiProps,
+    Mug,
+    Planet,
+    SpeechBubble,
+} from "react-kawaii";
 
 const PlanetExample = () => <Planet size={200} mood="blissful" color="#FDA7DC" />;
 const MugExample = () => <Mug size={200} mood="ko" color="rebeccapurple" />;
@@ -13,12 +27,12 @@ const CatExample = () => <Cat />;
 const ChocolateExample = () => <Chocolate />;
 const FolderExample = () => <Folder />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidMoodNumber: KawaiiMood = 5;
 
-// $ExpectError
-const invalidMoodString: KawaiiMood = '';
+// @ts-expect-error
+const invalidMoodString: KawaiiMood = "";
 
 // This is defined on one line to avoid the position of the error moving between TS2/3
-// $ExpectError
-const invalidProps: KawaiiProps = { size: '200px' };
+// @ts-expect-error
+const invalidProps: KawaiiProps = { size: "200px" };

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/xrm",
+    "version": "6.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Javascript APIs available in Microsoft Dataverse/PowerApps model-driven apps and Dynamics 365 Customer Engagement (previously known as CRM).",
+    "projects": [
+        "http://msdn.microsoft.com/en-us/library/gg328255.aspx"
+    ],
+    "devDependencies": {
+        "@types/xrm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Berry",
+            "githubUsername": "6ix4our"
+        }
+    ]
+}

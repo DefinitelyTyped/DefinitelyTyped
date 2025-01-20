@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-tags",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/peterp/react-native-tags#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-tags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "IdaszakDaniel",
+            "githubUsername": "IdaszakDaniel"
+        }
+    ]
+}

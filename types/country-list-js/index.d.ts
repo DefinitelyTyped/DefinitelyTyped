@@ -1,8 +1,3 @@
-// Type definitions for country-list-js 3.1
-// Project: https://github.com/i-rocky/country-list-js
-// Definitions by: Digory Doolittle <https://github.com/digorydoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Province {
     name: string;
     alias: string[] | null;
@@ -45,14 +40,14 @@ export interface Cache {
 }
 
 export type CountryRecordMember =
-    | 'name'
-    | 'region'
-    | 'capital'
-    | 'continent'
-    | 'dialing_code'
-    | 'code'
-    | 'currency'
-    | 'provinces';
+    | "name"
+    | "region"
+    | "capital"
+    | "continent"
+    | "dialing_code"
+    | "code"
+    | "currency"
+    | "provinces";
 
 export function names(): string[];
 

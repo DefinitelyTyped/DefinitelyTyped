@@ -1,3 +1,0 @@
-FlowableMapOperator.d.ts
-FlowableRequestOperator.d.ts
-FlowableTakeOperator.d.ts

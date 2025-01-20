@@ -76,7 +76,7 @@ myStoredValue2.foo2; // baz
 amplify.request.define("ajaxExample1", "ajax", {
     url: "/myApiUrl",
     dataType: "json",
-    type: "GET"
+    type: "GET",
 });
 
 // later in code
@@ -90,7 +90,7 @@ amplify.request.define("ajaxExample2", "ajax", {
     url: "/myApiUrl",
     dataType: "json",
     type: "GET",
-    cache: "persist"
+    cache: "persist",
 });
 
 // later in code
@@ -107,38 +107,32 @@ amplify.request("ajaxExample2", data => {
 
 amplify.request.define("ajaxRESTFulExample", "ajax", {
     url: "/myRestFulApi/{type}/{id}",
-    type: "GET"
+    type: "GET",
 });
 
 // later in code
-amplify.request("ajaxRESTFulExample",
-    {
-        type: "foo",
-        id: "bar"
-    },
-    data => {
-        // /myRESTFulApi/foo/bar was the URL used
-        data.foo; // bar
-    }
-    );
+amplify.request("ajaxRESTFulExample", {
+    type: "foo",
+    id: "bar",
+}, data => {
+    // /myRESTFulApi/foo/bar was the URL used
+    data.foo; // bar
+});
 
 // POST data with Ajax
 
 amplify.request.define("ajaxPostExample", "ajax", {
     url: "/myRestFulApi",
-    type: "POST"
+    type: "POST",
 });
 
 // later in code
-amplify.request("ajaxPostExample",
-    {
-        type: "foo",
-        id: "bar"
-    },
-    data => {
-        data.foo; // bar
-    }
-    );
+amplify.request("ajaxPostExample", {
+    type: "foo",
+    id: "bar",
+}, data => {
+    data.foo; // bar
+});
 // Using data maps
 
 //  When searching Twitter, the key for the search phrase is q.If we want a more descriptive name, such as term, we can use a data map:
@@ -147,8 +141,8 @@ amplify.request.define("twitter-search", "ajax", {
     url: "http://search.twitter.com/search.json",
     dataType: "jsonp",
     dataMap: {
-        term: "q"
-    }
+        term: "q",
+    },
 });
 
 amplify.request("twitter-search", { term: "amplifyjs" });
@@ -192,12 +186,12 @@ declare module "amplify" {
 amplify.request.decoders.appEnvelope = appEnvelopeDecoder;
 
 // but you can also just add it via an index
-amplify.request.decoders['appEnvelopeStr'] = appEnvelopeDecoder;
+amplify.request.decoders["appEnvelopeStr"] = appEnvelopeDecoder;
 
 amplify.request.define("decoderExample", "ajax", {
     url: "/myAjaxUrl",
     type: "POST",
-    decoder: "appEnvelope"
+    decoder: "appEnvelope",
 });
 
 amplify.request({
@@ -207,7 +201,7 @@ amplify.request({
     },
     error(message, level) {
         alert("always handle errors with alerts.");
-    }
+    },
 });
 
 // POST with caching and single - use decoder
@@ -230,7 +224,7 @@ amplify.request.define("decoderSingleExample", "ajax", {
                 error(data.message, "fatal");
                 break;
         }
-    }
+    },
 });
 
 amplify.request({
@@ -240,7 +234,7 @@ amplify.request({
     },
     error: (message, level) => {
         alert("always handle errors with alerts.");
-    }
+    },
 });
 // Handling Status
 
@@ -257,5 +251,5 @@ amplify.request({
     success: (data, status) => {
     },
     error: (data, status) => {
-    }
+    },
 });

@@ -1,7 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "prefer-const": false,
-        "void-return": false
-    }
-}

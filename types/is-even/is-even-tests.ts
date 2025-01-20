@@ -1,4 +1,4 @@
-import isEven from 'is-even';
+import isEven from "is-even";
 
 isEven(0);
-isEven('1');
+isEven("1");

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package W3C Generic Sensor API 1.0
-// Project: https://www.w3.org/TR/generic-sensor/
-// Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Explainer: https://www.w3.org/TR/motion-sensors/
 
 declare class SensorErrorEvent extends Event {
@@ -17,6 +11,7 @@ interface SensorErrorEventInit extends EventInit {
 
 declare class Sensor extends EventTarget {
     readonly activated: boolean;
+    readonly hasReading: boolean;
     readonly timestamp?: number | undefined; // Should be DOMHighResTimeStamp.
     start(): void;
     stop(): void;
@@ -25,7 +20,11 @@ declare class Sensor extends EventTarget {
     onactivate: (this: this, ev: Event) => any;
     onerror: (this: this, ev: SensorErrorEvent) => any;
 
-    addEventListener(type: "reading" | "activate", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "reading" | "activate",
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
@@ -40,10 +39,10 @@ interface MotionSensorOptions extends SensorOptions {
 // Accelerometer: https://www.w3.org/TR/accelerometer/
 
 declare class Accelerometer extends Sensor {
-  constructor(options?: MotionSensorOptions);
-  readonly x?: number | undefined;
-  readonly y?: number | undefined;
-  readonly z?: number | undefined;
+    constructor(options?: MotionSensorOptions);
+    readonly x?: number | undefined;
+    readonly y?: number | undefined;
+    readonly z?: number | undefined;
 }
 
 declare class LinearAccelerationSensor extends Accelerometer {
@@ -97,4 +96,11 @@ declare class AbsoluteOrientationSensor extends OrientationSensor {
 
 declare class RelativeOrientationSensor extends OrientationSensor {
     constructor(options?: MotionSensorOptions);
+}
+
+// Ambient Light Sensor: https://www.w3.org/TR/ambient-light/
+
+declare class AmbientLightSensor extends Sensor {
+    constructor(options?: SensorOptions);
+    readonly illuminance?: number | undefined;
 }

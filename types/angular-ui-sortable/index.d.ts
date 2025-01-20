@@ -1,22 +1,18 @@
-// Type definitions for angular.ui.sortable module 0.13
-// Project: https://github.com/angular-ui/ui-sortable
-// Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="angular" />
 /// <reference types="jqueryui" />
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
 // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+type Omit<T, K extends keyof T> = Pick<
+    T,
+    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+>;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui {
-
         interface UISortableOptions<T> extends SortableOptions<T> {
-            'ui-floating'?: 'auto' | boolean | undefined;
+            "ui-floating"?: "auto" | boolean | undefined;
         }
 
         interface UISortableProperties<T> {
@@ -33,7 +29,7 @@ declare module 'angular' {
             /**
              * Holds the array that is specified by the `ng-model` attribute of the [`droptarget`](#droptarget) ui-sortable element.
              */
-            droptargetModel: Array<T>;
+            droptargetModel: T[];
 
             /**
              * Holds the original index of the item dragged.
@@ -59,12 +55,12 @@ declare module 'angular' {
             /**
              * Holds the ui-sortable element that the dragged item originated from.
              */
-            source: ng.IAugmentedJQuery
+            source: ng.IAugmentedJQuery;
 
             /**
              * Holds the array that is specified by the `ng-model` of the [`source`](#source) ui-sortable element.
              */
-            sourceModel: Array<T>;
+            sourceModel: T[];
 
             /**
              * Can be called inside the `update` callback, in order to prevent/revert a sorting.
@@ -83,11 +79,11 @@ declare module 'angular' {
             isCustomHelperUsed(): Boolean;
         }
 
-        interface UISortableUIItem<T> extends Omit<ng.IAugmentedJQuery, 'sortable'> {
+        interface UISortableUIItem<T> extends Omit<ng.IAugmentedJQuery, "sortable"> {
             sortable: UISortableProperties<T>;
         }
 
-        interface UISortableUIParams<T> extends Omit<SortableUIParams, 'item'> {
+        interface UISortableUIParams<T> extends Omit<SortableUIParams, "item"> {
             item: UISortableUIItem<T>;
         }
 

@@ -1,5 +1,5 @@
-import PanelGroup, { PanelWidth } from "react-panelgroup";
 import * as React from "react";
+import PanelGroup, { PanelWidth } from "react-panelgroup";
 
 const test1 = (
     <PanelGroup>
@@ -37,7 +37,7 @@ const test4 = (
         panelWidths={[
             { size: 100, minSize: 50, resize: "dynamic" },
             { minSize: 100, resize: "stretch" },
-            { size: 100, minSize: 50, resize: "dynamic" }
+            { size: 100, minSize: 50, resize: "dynamic" },
         ]}
     >
         <div>panel 1</div>
@@ -60,9 +60,25 @@ const test5 = (
     </PanelGroup>
 );
 
-const test6: PanelWidth = {
+const test6 = (
+    <PanelGroup
+        direction="column"
+        borderColor="#FFF"
+        panelColor="#FFF"
+        spacing={12}
+        onUpdate={data => {}}
+        onResizeStart={data => {}}
+        onResizeEnd={data => {}}
+    >
+        <div>panel 1</div>
+        <div>panel 2</div>
+        <div>panel 3</div>
+    </PanelGroup>
+);
+
+const test7: PanelWidth = {
     size: 100,
     minSize: 100,
     resize: "fixed",
-    snap: [50, 75]
+    snap: [50, 75],
 };

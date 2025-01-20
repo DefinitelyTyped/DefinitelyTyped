@@ -28,7 +28,7 @@ const map5 = new maptalks.Map("map", {
             urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
             subdomains: ["a", "b", "c", "d"],
             attribution:
-                '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+                "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
         }),
         new maptalks.WMSTileLayer("wms", {
             urlTemplate: "https:// demo.boundlessgeo.com/geoserver/ows",
@@ -186,7 +186,7 @@ new maptalks.Map("map1", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 
@@ -258,7 +258,11 @@ function createMagCircle(imageData: ImageData, size: number) {
     const magImg = document.createElement("canvas");
     const magCircle = document.createElement("canvas");
 
-    magImg.width = magImg.height = magCircle.width = magCircle.height = size;
+    magImg.width =
+        magImg.height =
+        magCircle.width =
+        magCircle.height =
+            size;
     const canvasRenderContext = magImg.getContext("2d");
     if (canvasRenderContext) {
         canvasRenderContext.putImageData(imageData, 0, 0);
@@ -344,7 +348,7 @@ const map28 = new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
         tileSystem: [1, -1, -20037508.34, 20037508.34], //  tile system
         minZoom: 1,
         maxZoom: 20,
@@ -354,7 +358,7 @@ const baseLayer = new maptalks.TileLayer("base", {
     urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     subdomains: ["a", "b", "c", "d"],
     attribution:
-        '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+        "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
 });
 
 // generate tile url
@@ -403,7 +407,7 @@ const map30 = new maptalks.Map("map", {
     zoom: 11,
     attribution: {
         content:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>, &copy ESRI',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>, &copy ESRI",
     },
     baseLayer: new maptalks.TileLayer("base", {
         urlTemplate:
@@ -417,7 +421,7 @@ map30.addLayer(
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 );
 
@@ -427,27 +431,27 @@ const tileLayer = new maptalks.TileLayer("carto", {
     //  fragment shader from webglfundamentals.org
     //  https:// webglfundamentals.org/webgl/lessons/webgl-image-processing.html
     fragmentShader: [
-        "precision mediump float;" +
-            "uniform sampler2D u_image;" +
-            "uniform vec2 u_textureSize;" +
-            "uniform float u_kernel[9];" +
-            "uniform float u_opacity;" +
-            "uniform float u_kernelWeight;" +
-            "varying vec2 v_texCoord;" +
-            "void main() {" +
-            "vec2 onePixel = vec2(1.0, 1.0) / u_textureSize;" +
-            "vec4 colorSum =" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2(-1, -1)) * u_kernel[0] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 0, -1)) * u_kernel[1] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 1, -1)) * u_kernel[2] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2(-1,  0)) * u_kernel[3] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 0,  0)) * u_kernel[4] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 1,  0)) * u_kernel[5] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2(-1,  1)) * u_kernel[6] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 0,  1)) * u_kernel[7] +" +
-            "texture2D(u_image, v_texCoord + onePixel * vec2( 1,  1)) * u_kernel[8] ;" +
-            "gl_FragColor = vec4((colorSum / u_kernelWeight).rgb, 1) * u_opacity;" +
-            "}",
+        "precision mediump float;"
+        + "uniform sampler2D u_image;"
+        + "uniform vec2 u_textureSize;"
+        + "uniform float u_kernel[9];"
+        + "uniform float u_opacity;"
+        + "uniform float u_kernelWeight;"
+        + "varying vec2 v_texCoord;"
+        + "void main() {"
+        + "vec2 onePixel = vec2(1.0, 1.0) / u_textureSize;"
+        + "vec4 colorSum ="
+        + "texture2D(u_image, v_texCoord + onePixel * vec2(-1, -1)) * u_kernel[0] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 0, -1)) * u_kernel[1] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 1, -1)) * u_kernel[2] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2(-1,  0)) * u_kernel[3] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 0,  0)) * u_kernel[4] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 1,  0)) * u_kernel[5] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2(-1,  1)) * u_kernel[6] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 0,  1)) * u_kernel[7] +"
+        + "texture2D(u_image, v_texCoord + onePixel * vec2( 1,  1)) * u_kernel[8] ;"
+        + "gl_FragColor = vec4((colorSum / u_kernelWeight).rgb, 1) * u_opacity;"
+        + "}",
     ].join("\n"),
 });
 
@@ -697,7 +701,7 @@ const map215 = new maptalks.Map("map", {
     baseLayer: new maptalks.TileLayer("base", {
         urlTemplate: "http:// online{s}.map5.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&scaler=1&p=1",
         subdomains: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        attribution: '&copy; <a target="_blank" href="http:// map5.baidu.com">Baidu</a>',
+        attribution: "&copy; <a target=\"_blank\" href=\"http:// map5.baidu.com\">Baidu</a>",
     }),
 });
 
@@ -766,7 +770,7 @@ new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 const geometries33333 = maptalks.GeoJSON.toGeometry("");
@@ -797,7 +801,7 @@ new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 new maptalks.Map("map", {
@@ -809,7 +813,7 @@ new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
 
         //  css filter
         cssFilter: "sepia(100%) invert(90%)",
@@ -926,7 +930,7 @@ const map35 = new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 
@@ -1334,15 +1338,16 @@ function onEvent(param: any) {
     events.push(param);
     let content = "";
     for (let i = events.length - 1; i >= 0; i--) {
-        content +=
-            events[i].type +
-            `on
-            ${events[i].coordinate
-                .toArray()
-                .map((c: Coordinate) => {
-                    return c.toFixed(5);
-                })
-                .join()}
+        content += events[i].type
+            + `on
+            ${
+                events[i].coordinate
+                    .toArray()
+                    .map((c: Coordinate) => {
+                        return c.toFixed(5);
+                    })
+                    .join()
+            }
             <br>`;
     }
     const ele = document.getElementById("events");
@@ -1904,7 +1909,7 @@ new maptalks.Marker(map5.getCenter(), {
 new maptalks.ui.UIMarker([-0.113049, 51.49856], {
     draggable: true,
     single: false,
-    content: '<div class="text_marker">HTML Marker</div>',
+    content: "<div class=\"text_marker\">HTML Marker</div>",
 });
 marker2.addTo(map5).show();
 new maptalks.Marker(map5.getCenter(), {
@@ -1974,7 +1979,7 @@ const marker55 = new maptalks.Marker(
     center, // .add(-0.018,0.007).toArray(),
     {
         symbol: {
-            textFaceName: '"microsoft yahei",arial,sans-serif',
+            textFaceName: "\"microsoft yahei\",arial,sans-serif",
             textName: "MapTalks",
             textFill: "#34495e",
             textHorizontalAlignment: "right",
@@ -2122,7 +2127,7 @@ const layerOrder = ["earth", "landuse", "water", "roads", "building"];
 //  draw mapzen's geojson vector tile with CanvasTileLayer
 const canvasTile = new maptalks.CanvasTileLayer("tile", {
     urlTemplate: "https:// tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.json?api_key=mapzen-cGRKZj",
-    attribution: '&copy; <a href="https:// mapzen.com/" target="_blank">mapzen</a>',
+    attribution: "&copy; <a href=\"https:// mapzen.com/\" target=\"_blank\">mapzen</a>",
 });
 canvasTile.drawTile = (canvas, tileContext, onComplete) => {
     maptalks.Ajax.getJSON(tileContext.url, (err: any, data: any) => {
@@ -2277,7 +2282,7 @@ const layer616 = new maptalks.TileLayer("light", {
     urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
     subdomains: ["a", "b", "c", "d"],
     attribution:
-        '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+        "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     //  force layer to render when map is zooming and moving
     forceRenderOnMoving: true,
     forceRenderOnZooming: true,
@@ -2366,7 +2371,7 @@ const map71 = new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 function dragOn() {
@@ -2534,6 +2539,22 @@ const areaTool = new maptalks.AreaTool({
     language: "",
 }).addTo(map5);
 
+class GreetingMarker extends maptalks.Marker {}
+maptalks.DrawTool.registerMode("GreetingMarker", {
+    action: ["click", "dblclick"],
+    create: (projection, coords, event) => {
+        console.log(projection, coords, event);
+        return new maptalks.Marker([121.470058, 31.231311]);
+    },
+    update: (projection, path, geometry, event) => {
+        console.log(projection, path, geometry, event);
+    },
+    generate: (geometry, extraData) => {
+        console.log(geometry, extraData);
+        return new GreetingMarker([121.470058, 31.231311]);
+    },
+});
+
 const drawTool = new maptalks.DrawTool({
     mode: "Point",
 })
@@ -2587,7 +2608,7 @@ const toolbar = new maptalks.control.Toolbar({
 const marker56 = new maptalks.Marker(center.add(-0.018, 0.007).toArray(), {
     draggable: true,
     symbol: {
-        textFaceName: '"microsoft yahei",arial,sans-serif',
+        textFaceName: "\"microsoft yahei\",arial,sans-serif",
         textName: "Try to Drag Us",
         textFill: "#34495e",
         textHorizontalAlignment: "right",
@@ -2964,7 +2985,7 @@ new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
     layers: [
         new maptalks.VectorLayer("v0", [new maptalks.Marker(cc)]),
@@ -2983,7 +3004,7 @@ const map1 = new maptalks.Map("map1", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 const newLayer = new maptalks.VectorLayer("v").addTo(map1);
@@ -3045,7 +3066,7 @@ const map = new maptalks.Map("map", {
         urlTemplate: "https:// {s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
-            '&copy; <a href="http:// osm.org">OpenStreetMap</a> contributors, &copy; <a href="https:// carto.com/">CARTO</a>',
+            "&copy; <a href=\"http:// osm.org\">OpenStreetMap</a> contributors, &copy; <a href=\"https:// carto.com/\">CARTO</a>",
     }),
 });
 
@@ -3067,7 +3088,7 @@ function toolbarc(text: string) {
     return toolbar;
 }
 
-toolbarc('<div class="attr">Click to add Marker, right click to clear</div>').addTo(map5);
+toolbarc("<div class=\"attr\">Click to add Marker, right click to clear</div>").addTo(map5);
 
 class CustomTool extends maptalks.MapTool {
     onEnable() {

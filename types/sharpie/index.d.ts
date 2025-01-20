@@ -1,9 +1,5 @@
-// Type definitions for sharpie 4.5
-// Project: https://github.com/kapouer/sharpie#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RequestHandler } from 'express-serve-static-core';
-import sharpModule = require('sharp');
+import { RequestHandler } from "express-serve-static-core";
+import sharpModule = require("sharp");
 
 /**
  * A simple express middleware for resizing images using sharp and pipes.
@@ -41,16 +37,17 @@ declare namespace sharpie {
             | false
             | string[]
             | {
-                  [hostname: string]: boolean;
-              }
-            | ((hostname: string) => boolean) | undefined;
+                [hostname: string]: boolean;
+            }
+            | ((hostname: string) => boolean)
+            | undefined;
         /**
          * Since version 3.4 it is possible to use imagemagick to convert to ico file format
          */
         im?: string | undefined;
         /**
          * the sizes of the favicon in ico format, separated by a comma
-         * @defautl '64,32,16'
+         * @default '64,32,16'
          */
         sizes?: string | undefined;
         signs?: {

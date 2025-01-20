@@ -11,12 +11,12 @@ import {
     GameEntity,
     LeftShoulderFuzzySet,
     RightShoulderFuzzySet,
-    TriangularFuzzySet
+    TriangularFuzzySet,
 } from "yuka";
 
 export class Soldier extends GameEntity {
-    private readonly assaultRifle: {visible: boolean};
-    private readonly shotgun: {visible: boolean};
+    private readonly assaultRifle: { visible: boolean };
+    private readonly shotgun: { visible: boolean };
     private ammoShotgun: number;
     private ammoAssaultRifle: number;
     private zombie: GameEntity | null;
@@ -25,8 +25,8 @@ export class Soldier extends GameEntity {
 
     constructor() {
         super();
-        this.assaultRifle = {visible: true};
-        this.shotgun = {visible: true};
+        this.assaultRifle = { visible: true };
+        this.shotgun = { visible: true };
         this.ammoShotgun = 12;
         this.ammoAssaultRifle = 30;
         this.zombie = null;
@@ -46,7 +46,7 @@ export class Soldier extends GameEntity {
 
     start(): this {
         if (this.manager) {
-            this.zombie = this.manager.getEntityByName('zombie');
+            this.zombie = this.manager.getEntityByName("zombie");
         }
 
         return this;
@@ -67,15 +67,17 @@ export class Soldier extends GameEntity {
         if (this.zombie) {
             const distance = this.position.distanceTo(this.zombie.position);
 
-            fuzzyModuleShotGun.fuzzify('distanceToTarget', distance);
-            fuzzyModuleAssaultRifle.fuzzify('distanceToTarget', distance);
+            fuzzyModuleShotGun.fuzzify("distanceToTarget", distance);
+            fuzzyModuleAssaultRifle.fuzzify("distanceToTarget", distance);
         }
 
-        fuzzyModuleShotGun.fuzzify('ammoStatus', this.ammoShotgun);
-        fuzzyModuleAssaultRifle.fuzzify('ammoStatus', this.ammoAssaultRifle);
+        fuzzyModuleShotGun.fuzzify("ammoStatus", this.ammoShotgun);
+        fuzzyModuleAssaultRifle.fuzzify("ammoStatus", this.ammoAssaultRifle);
 
-        const desirabilityShotgun = (this.ammoShotgun === 0) ? 0 : fuzzyModuleShotGun.defuzzify('desirability');
-        const desirabilityAssaultRifle = (this.ammoAssaultRifle === 0) ? 0 : fuzzyModuleAssaultRifle.defuzzify('desirability');
+        const desirabilityShotgun = (this.ammoShotgun === 0) ? 0 : fuzzyModuleShotGun.defuzzify("desirability");
+        const desirabilityAssaultRifle = (this.ammoAssaultRifle === 0)
+            ? 0
+            : fuzzyModuleAssaultRifle.defuzzify("desirability");
 
         if (desirabilityShotgun > desirabilityAssaultRifle) {
             this.assaultRifle.visible = false;
@@ -102,8 +104,8 @@ export class Soldier extends GameEntity {
         distanceToTarget.add(targetMedium);
         distanceToTarget.add(targetFar);
 
-        fuzzyModuleShotGun.addFLV('distanceToTarget', distanceToTarget);
-        fuzzyModuleAssaultRifle.addFLV('distanceToTarget', distanceToTarget);
+        fuzzyModuleShotGun.addFLV("distanceToTarget", distanceToTarget);
+        fuzzyModuleAssaultRifle.addFLV("distanceToTarget", distanceToTarget);
 
         // FLV desirability
 
@@ -117,8 +119,8 @@ export class Soldier extends GameEntity {
         desirability.add(desirable);
         desirability.add(veryDesirable);
 
-        fuzzyModuleShotGun.addFLV('desirability', desirability);
-        fuzzyModuleAssaultRifle.addFLV('desirability', desirability);
+        fuzzyModuleShotGun.addFLV("desirability", desirability);
+        fuzzyModuleAssaultRifle.addFLV("desirability", desirability);
 
         // FLV ammo status shotgun
 
@@ -132,7 +134,7 @@ export class Soldier extends GameEntity {
         ammoStatusShotgun.add(okayShot);
         ammoStatusShotgun.add(loadsShot);
 
-        fuzzyModuleShotGun.addFLV('ammoStatus', ammoStatusShotgun);
+        fuzzyModuleShotGun.addFLV("ammoStatus", ammoStatusShotgun);
 
         // FLV ammo status assault rifle
 
@@ -146,7 +148,7 @@ export class Soldier extends GameEntity {
         ammoStatusAssaultRifle.add(okayAssault);
         ammoStatusAssaultRifle.add(loadsAssault);
 
-        fuzzyModuleAssaultRifle.addFLV('ammoStatus', ammoStatusAssaultRifle);
+        fuzzyModuleAssaultRifle.addFLV("ammoStatus", ammoStatusAssaultRifle);
 
         // rules shotgun
 

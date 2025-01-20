@@ -1,12 +1,6 @@
-// Type definitions for postcss-url 8.0
-// Project: https://github.com/postcss/postcss-url
-// Definitions by: Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
-import { Plugin } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace url {
     type CustomTransformFunction = (
@@ -57,7 +51,7 @@ declare namespace url {
              */
             file?: string | undefined;
         },
-    ) => string;
+    ) => string | Promise<string>;
     type CustomHashFunction = (file: Buffer) => string;
     type CustomFilterFunction = (file: string) => boolean;
 
@@ -67,7 +61,7 @@ declare namespace url {
          *
          * @default 'rebase'
          */
-        url?: 'copy' | 'inline' | 'rebase' | CustomTransformFunction | undefined;
+        url?: "copy" | "inline" | "rebase" | CustomTransformFunction | undefined;
 
         /**
          * Specify the maximum file size to inline (in kilobytes).
@@ -130,25 +124,27 @@ declare namespace url {
         /**
          * Hash options
          */
-        hashOptions?: {
-            /**
-             * Hashing method or custom function.
-             */
-            method?: 'xxhash32' | 'xxhash64' | CustomHashFunction | undefined;
+        hashOptions?:
+            | {
+                /**
+                 * Hashing method or custom function.
+                 */
+                method?: "xxhash32" | "xxhash64" | CustomHashFunction | undefined;
 
-            /**
-             * Shrink hast to certain length.
-             */
-            shrink?: number | undefined;
+                /**
+                 * Shrink hast to certain length.
+                 */
+                shrink?: number | undefined;
 
-            /**
-             * Append the original filename in resulting filename.
-             */
-            append?: boolean | undefined;
-        } | undefined;
+                /**
+                 * Append the original filename in resulting filename.
+                 */
+                append?: boolean | undefined;
+            }
+            | undefined;
     }
 
-    type Url = Plugin<Options | Options[]>;
+    type Url = PluginCreator<Options | Options[]>;
 }
 
 declare const url: url.Url;

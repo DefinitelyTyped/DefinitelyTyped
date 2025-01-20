@@ -1,13 +1,6 @@
-// Type definitions for waterline 0.13
-// Project: https://github.com/balderdashy/waterline
-// Definitions by: Alexandro Libertino <https://github.com/arvitaly>
-//                 Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
-import BluebirdPromise = require('bluebird');
+import BluebirdPromise = require("bluebird");
 declare namespace Waterline {
     type Adapter = Object;
 
@@ -59,21 +52,34 @@ declare namespace Waterline {
 
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
     export type LifecycleCallbacks = {
-        beforeValidate?: { (vaues: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
-        beforeCreate?: { (values: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
+        beforeValidate?:
+            | Array<{ (vaues: any, next: Function): void }>
+            | { (vaues: any, next: Function): void }
+            | undefined;
+        beforeCreate?:
+            | Array<{ (values: any, next: Function): void }>
+            | { (vaues: any, next: Function): void }
+            | undefined;
         afterCreate?:
-        | { (newlyCreatedRecord: any, next: Function): void }[]
-        | { (newlyCreatedRecord: any, next: Function): void } | undefined;
+            | Array<{ (newlyCreatedRecord: any, next: Function): void }>
+            | { (newlyCreatedRecord: any, next: Function): void }
+            | undefined;
         beforeUpdate?:
-        | { (valuesToUpdate: any, next: Function): void }[]
-        | { (valuesToUpdate: any, next: Function): void } | undefined;
+            | Array<{ (valuesToUpdate: any, next: Function): void }>
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
         afterUpdate?:
-        | { (valuesToUpdate: any, next: Function): void }[]
-        | { (valuesToUpdate: any, next: Function): void } | undefined;
-        beforeDestroy?: { (criteria: any, next: Function): void }[] | { (valuesToUpdate: any, next: Function): void } | undefined;
+            | Array<{ (valuesToUpdate: any, next: Function): void }>
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
+        beforeDestroy?:
+            | Array<{ (criteria: any, next: Function): void }>
+            | { (valuesToUpdate: any, next: Function): void }
+            | undefined;
         afterDestroy?:
-        | { (destroyedInstance: any, next: Function): void }[]
-        | { (destroyedInstance: any, next: Function): void } | undefined;
+            | Array<{ (destroyedInstance: any, next: Function): void }>
+            | { (destroyedInstance: any, next: Function): void }
+            | undefined;
     };
 
     export type CollectionDefinition = LifecycleCallbacks & {
@@ -81,7 +87,7 @@ declare namespace Waterline {
         connection?: string | undefined;
         identity?: string | undefined;
         tableName?: string | undefined;
-        migrate?: 'alter' | 'drop' | 'safe' | undefined;
+        migrate?: "alter" | "drop" | "safe" | undefined;
         schema?: boolean | undefined;
         types?: any;
         datastore?: string | undefined;
@@ -100,18 +106,18 @@ declare namespace Waterline {
 
     // Data types https://github.com/balderdashy/waterline-docs/blob/master/models/data-types-attributes.md#data-types
     export type AttributeType =
-        | 'string'
-        | 'text'
-        | 'number'
-        | 'integer'
-        | 'float'
-        | 'date'
-        | 'time'
-        | 'datetime'
-        | 'boolean'
-        | 'binary'
-        | 'array'
-        | 'json';
+        | "string"
+        | "text"
+        | "number"
+        | "integer"
+        | "float"
+        | "date"
+        | "time"
+        | "datetime"
+        | "boolean"
+        | "binary"
+        | "array"
+        | "json";
 
     export type Attribute =
         | string
@@ -139,7 +145,7 @@ declare namespace Waterline {
         primaryKey?: boolean | undefined;
         unique?: boolean | undefined;
         required?: boolean | undefined;
-        enum?: Array<T> | undefined;
+        enum?: T[] | undefined;
         size?: number | undefined;
         columnName?: string | undefined;
         index?: boolean | undefined;
@@ -151,57 +157,57 @@ declare namespace Waterline {
     };
 
     export type StringAttribute = BaseAttribute<string> & {
-        type: 'string';
+        type: "string";
     };
 
     export type EmailAttribute = BaseAttribute<string> & {
-        type: 'email';
+        type: "email";
     };
 
     export type TextAttribute = BaseAttribute<string> & {
-        type: 'text';
+        type: "text";
     };
 
     export type IntegerAttribute = BaseAttribute<number> & {
-        type: 'integer';
+        type: "integer";
         autoIncrement?: boolean | undefined;
     };
 
     export type NumberAttribute = BaseAttribute<number> & {
-        type: 'number';
+        type: "number";
         autoIncrement?: boolean | undefined;
     };
 
     export type FloatAttribute = BaseAttribute<number> & {
-        type: 'float';
+        type: "float";
     };
 
     export type DateAttribute = BaseAttribute<Date> & {
-        type: 'date';
+        type: "date";
     };
 
     export type TimeAttribute = BaseAttribute<Date> & {
-        type: 'time';
+        type: "time";
     };
 
     export type DatetimeAttribute = BaseAttribute<Date> & {
-        type: 'datetime';
+        type: "datetime";
     };
 
     export type BooleanAttribute = BaseAttribute<boolean> & {
-        type: 'boolean';
+        type: "boolean";
     };
 
     export type BinaryAttribute = BaseAttribute<any> & {
-        type: 'binary';
+        type: "binary";
     };
 
     export type ArrayAttribute = BaseAttribute<any> & {
-        type: 'array';
+        type: "array";
     };
 
     export type JsonAttribute = BaseAttribute<any> & {
-        type: 'json';
+        type: "json";
     };
 
     export type OneToOneAttribute = BaseAttribute<any> & {
@@ -257,7 +263,9 @@ declare namespace Waterline {
         where(condition: any): QueryBuilder<T>;
         limit(lim: number): QueryBuilder<T>;
         skip(num: number): QueryBuilder<T>;
-        sort(criteria: string | { [attribute: string]: string } | { [attribute: string]: string }[]): QueryBuilder<T>;
+        sort(
+            criteria: string | { [attribute: string]: string } | Array<{ [attribute: string]: string }>,
+        ): QueryBuilder<T>;
         paginate(pagination?: { page: number; limit: number }): QueryBuilder<T>;
         populate(association: string): QueryBuilder<T>;
         populate(association: string, filter: any): QueryBuilder<T>;
@@ -325,7 +333,10 @@ declare interface WaterlineStatic {
         extend: (params: Waterline.CollectionDefinition) => Waterline.CollectionClass;
     };
     new(): Waterline.Waterline;
-    start<CB extends (err: Error | undefined, orm: Waterline.Waterline) => unknown>(options: Waterline.StartOptions, done: CB): CB;
+    start<CB extends (err: Error | undefined, orm: Waterline.Waterline) => unknown>(
+        options: Waterline.StartOptions,
+        done: CB,
+    ): CB;
     stop<CB extends (err: Error | undefined) => unknown>(orm: Waterline.Waterline, done: CB): ReturnType<CB>;
 }
 

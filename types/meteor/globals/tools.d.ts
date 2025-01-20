@@ -1,4 +1,4 @@
-declare module App {
+declare namespace App {
     function accessRule(
         pattern: string,
         options?: {
@@ -49,7 +49,7 @@ declare function execFileSync(
     },
 ): String;
 
-declare module Assets {
+declare namespace Assets {
     function getBinary(assetPath: string, asyncCallback?: Function): EJSON | undefined;
 
     function getText(assetPath: string, asyncCallback?: Function): string | undefined;
@@ -57,11 +57,11 @@ declare module Assets {
     function absoluteFilePath(assetPath: string): string;
 }
 
-declare module Cordova {
+declare namespace Cordova {
     function depends(dependencies: { [id: string]: string }): void;
 }
 
-declare module Npm {
+declare namespace Npm {
     function depends(dependencies: { [id: string]: string }): void;
 
     function require(name: string): any;

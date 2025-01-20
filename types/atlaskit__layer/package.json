@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/atlaskit__layer",
+    "version": "3.1.9999",
+    "projects": [
+        "https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/",
+        "https://bitbucket.org/atlassian/atlaskit-mk-2"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/atlaskit__layer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lee Standen",
+            "githubUsername": "lstanden"
+        }
+    ]
+}

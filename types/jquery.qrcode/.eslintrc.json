@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
+    }
+}

@@ -1,8 +1,3 @@
-// Type definitions for nano-cache 1.1
-// Project: https://github.com/akhoury/nano-cache
-// Definitions by: Ross Coundon <https://github.com/rcoundon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface SIZE {
     GB: number;
     MB: number;
@@ -54,7 +49,7 @@ declare class NanoCache {
     constructor(options?: Options);
     get(key: unknown): unknown;
     set(key: unknown, value: unknown, options?: Options): void;
-    delete(key: unknown): unknown;
+    del(key: unknown): unknown;
     clear(): void;
     clearExpired(): void;
     isTTLExpired(key: unknown): boolean;

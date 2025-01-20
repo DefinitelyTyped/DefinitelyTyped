@@ -1,20 +1,34 @@
-import { ColorDescType as Color } from "../util/colorTypes";
-import Document from "./Document";
-import Layer from "./Layer";
-import { ActionSet, Action } from "./Actions";
-import Documents from "./collections/Documents";
+import { Action, ActionSet } from "./Actions";
+import { Documents } from "./collections/Documents";
+import { TextFonts } from "./collections/TextFonts";
+import { ColorSampler } from "./ColorSampler";
+import * as Constants from "./Constants";
+import { Document } from "./Document";
+import { Guide } from "./Guide";
+import { Layer } from "./Layer";
+import { LayerComp } from "./LayerComp";
+import { PathPointInfo } from "./objects/PathPointInfo";
+import { SolidColor } from "./objects/SolidColor";
+import { SubPathInfo } from "./objects/SubPathInfo";
 import { Tool } from "./objects/Tool";
-import { DocumentCreateOptions } from "./objects/CreateOptions";
+import { Preferences } from "./preferences/Preferences";
+import { Selection } from "./Selection";
+import { DocumentCreateOptions } from "./types/DocumentTypes";
 /**
- * The top level application object, root of our DOM
+ * The top level application object, root of the Photoshop DOM
  *
- * ```
+ * ```javascript
  * const app = require('photoshop').app
  * ```
  *
- * From here, you can access open documents, tools, UI elements and run commands or menu items.
+ * From here you can access open documents, tools, UI elements and run commands or menu items.
  */
 export declare class Photoshop {
+    /**
+     * @ignore
+     */
+    constructor();
+    private currentDialogMode;
     /**
      * @ignore
      * Allows for polyfills into the Document class
@@ -37,87 +51,160 @@ export declare class Photoshop {
     Action: typeof Action;
     /**
      * @ignore
+     * Allows for polyfills into the Guide class
+     */
+    Guide: typeof Guide;
+    /**
+     * @ignore
      * Allows for polyfills into the Application object
      */
     Photoshop: typeof Photoshop;
+    /**
+     * @ignore
+     * Allows for polyfills into the LayerComp class
+     */
+    LayerComp: typeof LayerComp;
+    /**
+     * @ignore
+     * Allows for polyfills into the Selection class
+     */
+    Selection: typeof Selection;
+    /**
+     * @ignore
+     */
+    PathPointInfo: typeof PathPointInfo;
+    /**
+     * @ignore
+     */
+    SubPathInfo: typeof SubPathInfo;
+    /**
+     * @ignore
+     * Allows for polyfills into the Application object
+     */
+    ColorSampler: typeof ColorSampler;
+    /**
+     * The class name of the referenced object: *"Photoshop"*.
+     * @minVersion 23.0
+     */
+    get typename(): "Photoshop";
     /**
      * @ignore
      * Disabled validation checks, use at your own risk!
      */
     set validation(enable: boolean);
     /**
-     * The current active document
+     * @ignore
+     * Exposes SolidColor class for constructing objects
+     */
+    SolidColor: typeof SolidColor;
+    /**
+     * Contains Photoshop preferences grouped into several categories similar to the Preferences dialog.
+     * @minVersion 24.0
+     */
+    get preferences(): Preferences;
+    /**
+     * The dialog mode for the application, which controls what types of
+     * dialogs should be displayed when your code is interacting with Photoshop.
+     * @minVersion 23.0
+     */
+    get displayDialogs(): Constants.DialogModes;
+    set displayDialogs(mode: Constants.DialogModes);
+    /**
+     * The current document that has the application's focus.
+     * @minVersion 23.0
      */
     get activeDocument(): Document;
     /**
-     * Set the current active document to be given one
+     * Set the current active document to the provided Document.
+     * @minVersion 23.0
      */
     set activeDocument(doc: Document);
     /**
+     * List of installed color profiles, for RGB and Gray modes.
+     * @param colorMode Specify which color mode's profiles to list. (default: "RGB", options: "Gray")
+     * @minVersion 24.1
+     */
+    getColorProfiles(colorMode?: string): string[];
+    /**
      * Current selected tool. For now, the Tool class is an object with
-     * only an `id` field. In the future, we aim to provide tools with their own classes
+     * only an `id` field. In the future, we aim to provide tools with their own classes.
+     * @minVersion 23.0
      */
     get currentTool(): Tool;
     /**
-     * Returns the action tree shown in Actions panel, as an array of ActionSets, each containing actions
+     * Returns the action tree shown in Actions panel, as an array of ActionSets, each containing Actions.
+     * @minVersion 23.0
      */
     get actionTree(): ActionSet[];
     /**
-     * A list of the documents currently open
+     * A list of the documents currently open.
+     * @minVersion 23.0
      */
     get documents(): Documents;
     /**
-     * The default foreground color (used to paint, fill, and stroke selections)
+     * The foreground color (used to paint, fill, and stroke selections). [(24.2)](/ps_reference/changelog#other-fixes)
+     *
+     * @minVersion 23.0
      */
-    get foregroundColor(): Color;
+    get foregroundColor(): SolidColor;
+    set foregroundColor(color: SolidColor);
     /**
-     * The default background color and color style for documents.
-     */
-    get backgroundColor(): Color;
-    /**
-     * A callback for event notifications in Photoshop. This will cause your plugin to get a notification
-     * on every event the user is doing, so it may slow things down. But it will be helpful to figure out
-     * different descriptors
+     * Convert the given value from one unit to another. Available units are:
+     * Constants.Units.{CM, MM, INCHES, PIXELS, POINTS, PICAS}.
+     * Use [[Document.resolution]] when converting from or to PIXELS.
+     * For example, use this routine for converting a document's width from pixels to inches.
      *
      * ```javascript
-     * app.eventNotifier = (event, descriptor) => {
-     *    console.log(event, JSON.stringify(descriptor, null, ' '));
-     * }
-     * ```
+     * // convert the current document's width to inches
+     * const exportDoc = psApp.activeDocument;
+     * let widthInInches = psApp.convertUnits(exportDoc.width,
+     *                                        Constants.Units.PIXELS,
+     *                                        Constant.Units.INCHES,
+     *                                        exportDoc.resolution);
      *
-     * > This is temporary while we are in Alpha, we are working on a more structured notification system
-     * > This setter will not function outside developer mode
+     * ```
+     * @param fromValue The value that is to be converted.
+     * @param fromUnits The unit that the fromValue is in. Use [[Constants.Units]] for valid values.
+     * @param toUnits The unit that the return value is in. Use [[Constants.Units]] for valid values.
+     * @param resolution The pixels per inch value to use when converting to and from pixel values.
+     * @minVersion 23.4
      */
-    set eventNotifier(handler: (event: string, descriptor: object) => void);
+    convertUnits(fromValue: number, fromUnits: Constants.Units, toUnits: Constants.Units, resolution?: number): number;
     /**
-     * @ignore
+     * The background color and color style for documents. [(24.2)](/ps_reference/changelog#other-fixes)
+     *
+     * @minVersion 23.0
      */
-    _eventHandler: (event: string, descriptor: object) => void;
+    get backgroundColor(): SolidColor;
+    set backgroundColor(color: SolidColor);
     /**
-     * @ignore
+     * The fonts installed on this system.
+     * @minVersion 23.0
      */
-    constructor();
+    get fonts(): TextFonts;
     /**
-     * Shows an alert in Photoshop with the given message
+     * Shows an alert in Photoshop with the given message.
+     * @minVersion 23.0
      */
     showAlert(message: string): Promise<void>;
     /**
      * At the heart of all our APIs is batchPlay. It is the evolution of executeAction. It accepts
      * ActionDescriptors deserialized from JS objects, and can play multiple descriptors sequentially
      * without updating the UI. This API is subject to change and may be accessible in other ways in the future.
-     *
+     * @minVersion 23.0
      */
-    batchPlay(commands: any, options: any): Promise<import("./CoreModules").ActionDescriptor[]>;
+    batchPlay(commands: any, options: any): Promise<Array<import("./CoreModules").ActionDescriptor>>;
     /**
-     * Brings application to focus, useful when your script ends, or requires an input
+     * Brings application to focus, useful when your script ends, or requires an input.
+     * @minVersion 23.0
      */
     bringToFront(): void;
     /**
-     * Opens the specified document and returns it's model
+     * Opens the specified document and returns the model
      *
-     * > (0.4.0) Please note that this API now requires you to provide a UXPFileEntry
-     *
-     * @async
+     * > *Note that this API requires a
+     * [UXPFileEntry](../../../uxp-api/reference-js/Modules/uxp/Persistent%20File%20Storage/File/)
+     * object as its argument.
      *
      * ```javascript
      * // Open a file given entry
@@ -127,6 +214,8 @@ export declare class Photoshop {
      * // Show open file dialog
      * const document = await app.open();
      * ```
+     * @async
+     * @minVersion 23.0
      */
     open(entry?: File): Promise<Document>;
     /**
@@ -143,9 +232,6 @@ export declare class Photoshop {
      * resolution 300 pixels per inch, mode: @RGBColorMode and a fill of white with
      * no transparency.
      *
-     * @param options @DocumentCreateOptions
-     *
-     * @async
      * ```javascript
      * // "Default Photoshop Size" 7x5 inches at 300ppi
      * let newDoc1 = await app.documents.add();
@@ -158,9 +244,13 @@ export declare class Photoshop {
      * });
      * let newDoc3 = await app.documents.add({preset: "My Default Size 1"});
      * ```
+     *
+     * @param options @DocumentCreateOptions
+     * @async
+     * @minVersion 23.0
      */
     createDocument(options?: DocumentCreateOptions): Promise<Document | null>;
 }
 /** @ignore */
-declare const photoshop: Photoshop;
-export default photoshop;
+declare const app: Photoshop;
+export default app;

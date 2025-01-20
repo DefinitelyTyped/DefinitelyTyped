@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/angular-bootstrap-lightbox",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/compact/angular-bootstrap-lightbox"
+    ],
+    "devDependencies": {
+        "@types/angular-bootstrap-lightbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roland Zwaga",
+            "githubUsername": "rolandzwaga"
+        }
+    ]
+}

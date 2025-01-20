@@ -1,12 +1,6 @@
-// Type definitions for auth-header 1.0
-// Project: https://github.com/izaakschroeder/auth-header
-// Definitions by: ForbesLindesay <https://github.com/ForbesLindesay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 type Params =
-    | Array<[string, string | ReadonlyArray<string>]>
-    | {[key: string]: string | ReadonlyArray<string>};
+    | Array<[string, string | readonly string[]]>
+    | { [key: string]: string | readonly string[] };
 export { Params };
 
 export interface TokenOptions {
@@ -17,7 +11,7 @@ export interface TokenOptions {
 
 export interface Token {
     scheme: string;
-    params: {[key: string]: string | string[]};
+    params: { [key: string]: string | string[] };
     token: null | string | string[];
 }
 

@@ -1,11 +1,3 @@
-// Type definitions for js 0.7
-// Project: https://two.js.org
-// Definitions by: Carlos Precioso <https://github.com/cprecioso>
-//                 Konstantin <https://github.com/demkonst>
-//                 Levente <https://github.com/leventefabry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 type _Object = Two.Object;
 
 declare class Two {
@@ -26,43 +18,43 @@ declare class Two {
     update(): this;
     render(): this;
     add(...objects: Two.Object[]): this;
-    add(objects: ReadonlyArray<Two.Object>): this;
+    add(objects: readonly Two.Object[]): this;
     remove(...objects: Two.Object[]): this;
-    remove(objects: ReadonlyArray<Two.Object>): this;
+    remove(objects: readonly Two.Object[]): this;
     clear(): this;
     makeLine(x1: number, y1: number, x2: number, y2: number): Two.Line;
     makeRectangle(
         x: number,
         y: number,
         width: number,
-        height: number
+        height: number,
     ): Two.Rectangle;
     makeRoundedRectangle(
         x: number,
         y: number,
         width: number,
         height: number,
-        radius: number
+        radius: number,
     ): Two.RoundedRectangle;
     makeCircle(x: number, y: number, radius: number): Two.Circle;
     makeEllipse(
         x: number,
         y: number,
         width: number,
-        height: number
+        height: number,
     ): Two.Ellipse;
     makeStar(
         ox: number,
         oy: number,
         or: number,
         ir: number,
-        sides: number
+        sides: number,
     ): Two.Star;
     makePolygon(
         x: number,
         y: number,
         radius: number,
-        sides: number
+        sides: number,
     ): Two.Polygon;
     makeArcSegment(
         ox: number,
@@ -71,20 +63,20 @@ declare class Two {
         or: number,
         sa: number,
         ea: number,
-        res?: number
+        res?: number,
     ): Two.ArcSegment;
     makeCurve(...coords: Array<number | boolean>): Two.Path;
-    makeCurve(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
+    makeCurve(points: readonly Two.Vector[], open?: boolean): Two.Path;
     makePath(...coords: Array<number | boolean>): Two.Path;
-    makePath(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
-    makeGroup(objects: ReadonlyArray<Two.Object>): Two.Group;
+    makePath(points: readonly Two.Vector[], open?: boolean): Two.Path;
+    makeGroup(objects: readonly Two.Object[]): Two.Group;
     makeGroup(...objects: Two.Object[]): Two.Group;
     makeText(message: string, x: number, y: number, styles: any): Two.Text;
     interpret(svgNode: SVGElement): Two.Group;
     bind(event: string, callback: (...args: any[]) => void): this;
     unbind(
         event: string | null,
-        callback: ((...args: any[]) => void) | null
+        callback: ((...args: any[]) => void) | null,
     ): this;
 
     static Array: typeof Float32Array | typeof Array;
@@ -107,7 +99,7 @@ declare namespace Two {
     enum Types {
         svg,
         webgl,
-        canvas
+        canvas,
     }
 
     const Properties: any[];
@@ -122,7 +114,7 @@ declare namespace Two {
         remove,
         render,
         resize,
-        update
+        update,
     }
 
     enum Commands {
@@ -130,7 +122,7 @@ declare namespace Two {
         line,
         curve,
         arc,
-        close
+        close,
     }
 
     const Resolution: number;
@@ -147,10 +139,10 @@ declare namespace Two {
 
     class Path {
         constructor(
-            vertices: ReadonlyArray<Vector>,
+            vertices: readonly Vector[],
             closed: boolean,
             curved: boolean,
-            manual?: boolean
+            manual?: boolean,
         );
 
         id: number;
@@ -201,7 +193,7 @@ declare namespace Two {
             y: number,
             width: number,
             height: number,
-            radius?: number
+            radius?: number,
         );
     }
 
@@ -215,7 +207,7 @@ declare namespace Two {
             oy: number,
             or: number,
             ir?: number,
-            sides?: number
+            sides?: number,
         );
     }
 
@@ -235,7 +227,7 @@ declare namespace Two {
             or: number,
             sa: number,
             ea: number,
-            res?: number
+            res?: number,
         );
     }
 
@@ -261,9 +253,9 @@ declare namespace Two {
         center(): this;
         addTo(group: Group): this;
         add(...objects: _Object[]): this;
-        add(objects: ReadonlyArray<_Object>): this;
+        add(objects: readonly _Object[]): this;
         remove(...objects: _Object[]): this;
-        remove(objects: ReadonlyArray<_Object>): this;
+        remove(objects: readonly _Object[]): this;
         getBoundingClientRect(shallow?: boolean): BoundingClientRect;
         noFill(): this;
         noStroke(): this;
@@ -271,11 +263,12 @@ declare namespace Two {
         static MakeObservable(obj: any): any;
     }
 
-    interface BoundingClientRect
-        extends Record<
+    interface BoundingClientRect extends
+        Record<
             "top" | "left" | "right" | "bottom" | "width" | "height",
             number
-        > {}
+        >
+    {}
 
     type Object = Path | Group | Text;
 
@@ -317,7 +310,7 @@ declare namespace Two {
             ly: number,
             rx: number,
             ry: number,
-            command: Commands | string
+            command: Commands | string,
         );
 
         command: Commands | string;
@@ -347,7 +340,7 @@ declare namespace Two {
             y1: number,
             x2: number,
             y2: number,
-            stops: ReadonlyArray<Stop>
+            stops: readonly Stop[],
         );
 
         left: Vector;
@@ -363,9 +356,9 @@ declare namespace Two {
             x: number,
             y: number,
             radius: number,
-            stops: ReadonlyArray<Stop>,
+            stops: readonly Stop[],
             fx?: number,
-            fy?: number
+            fy?: number,
         );
 
         center: Vector;

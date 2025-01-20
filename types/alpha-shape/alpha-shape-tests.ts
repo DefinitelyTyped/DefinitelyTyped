@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import alphaShape = require('alpha-shape');
+import alphaShape = require("alpha-shape");
 
 const sites: number[][] = [];
 

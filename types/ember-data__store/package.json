@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/ember-data__store",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/emberjs/data"
+    ],
+    "dependencies": {
+        "@types/ember-data": "*"
+    },
+    "devDependencies": {
+        "@types/ember-data__model": "*",
+        "@types/ember-data__store": "workspace:.",
+        "@types/ember__array": "*"
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Chris Thoburn",
+            "githubUsername": "runspired"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

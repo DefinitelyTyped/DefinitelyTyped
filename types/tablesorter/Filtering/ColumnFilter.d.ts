@@ -5,14 +5,12 @@ export type ColumnFilter =
     /**
      * Indicates disabled filtering.
      */
-    "false" |
-
+    | "false"
     /**
      * Indicates filtering on parsed data.
      */
-    "parsed" |
-
+    | "parsed"
     /**
      * Indicates filtering on raw data.
      */
-    "default";
+    | "default";

@@ -1,9 +1,9 @@
-// Type definitions for @airbnb/node-memwatch 2.0
-// Project: https://github.com/airbnb/node-memwatch#readme
-// Definitions by: Tyler Levine <https://github.com/tylerlevine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
+
+import { EventEmitter } from "events";
 
 export interface GcStats {
+    gc_ts: number; // timestamp
     gcScavengeCount: number;
     gcScavengeTime: number; // nanoseconds
     gcMarkSweepCompactCount: number;
@@ -33,8 +33,8 @@ export interface HeapChangeDetails {
     what: string;
     size_bytes: number;
     size: string;
-    '+': number;
-    '-': number;
+    "+": number;
+    "-": number;
 }
 
 export interface HeapChange {
@@ -51,7 +51,7 @@ export interface HeapDiffResult {
     change: HeapChange;
 }
 
-export function on(event: 'stats', callback: (stats: GcStats) => void): void;
+export function on(event: "stats", callback: (stats: GcStats) => void): EventEmitter;
 
 export class HeapDiff {
     end(): HeapDiffResult;

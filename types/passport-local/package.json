@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-local",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-local"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-strategy": "*"
+    },
+    "devDependencies": {
+        "@types/passport-local": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        }
+    ]
+}

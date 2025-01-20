@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/refresh-fetch",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/vlki/refresh-fetch"
+    ],
+    "devDependencies": {
+        "@types/refresh-fetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Lisenkov",
+            "githubUsername": "AlexLisenkov"
+        },
+        {
+            "name": "Pieter Braam",
+            "githubUsername": "ppbraam"
+        }
+    ]
+}

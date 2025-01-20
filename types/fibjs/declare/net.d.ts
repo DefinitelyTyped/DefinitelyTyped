@@ -202,7 +202,7 @@
 declare module "net" {
     
 
-    module net {
+    namespace net {
         
         /**
          * 

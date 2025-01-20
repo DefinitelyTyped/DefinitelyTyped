@@ -1,13 +1,15 @@
 const params: ReCaptchaV2.Parameters = {
-  sitekey: "mySuperSecretKey",
-  theme: "light",
-  type: "image",
-  size: "normal",
-  tabindex: 5,
-  isolated: false,
-  callback: (response: string) => { },
-  "expired-callback": () => { },
-  "error-callback": () => { },
+    sitekey: "mySuperSecretKey",
+    theme: "light",
+    type: "image",
+    hl: "en-US",
+    size: "normal",
+    action: "signup",
+    tabindex: 5,
+    isolated: false,
+    callback: (response: string) => {},
+    "expired-callback": () => {},
+    "error-callback": () => {},
 };
 
 const size1: ReCaptchaV2.Size = "compact";
@@ -19,12 +21,12 @@ const badge2: ReCaptchaV2.Badge = "bottomright";
 const badge3: ReCaptchaV2.Badge = "inline";
 
 const invisibleParams1: ReCaptchaV2.Parameters = {
-  sitekey: "siteKey",
-  badge: badge1,
+    sitekey: "siteKey",
+    badge: badge1,
 };
 
 const invisibleParams2: ReCaptchaV2.Parameters = {
-  badge: badge2,
+    badge: badge2,
 };
 
 const id1: number = grecaptcha.render("foo");
@@ -51,13 +53,13 @@ grecaptcha.execute(id1);
 grecaptcha.enterprise.execute();
 grecaptcha.enterprise.execute(id1);
 
-grecaptcha.execute('foo', { action: 'bar' }).then((token: string) => {});
-grecaptcha.enterprise.execute('foo', { action: 'bar' }).then((token: string) => {});
+grecaptcha.execute("foo", { action: "bar" }).then((token: string) => {});
+grecaptcha.enterprise.execute("foo", { action: "bar" }).then((token: string) => {});
 
-// $ExpectError
-grecaptcha.execute('foo', { action: 'bar' }).catch(() => {});
-// $ExpectError
-grecaptcha.enterprise.execute('foo', { action: 'bar' }).catch(() => {});
+// @ts-expect-error
+grecaptcha.execute("foo", { action: "bar" }).catch(() => {});
+// @ts-expect-error
+grecaptcha.enterprise.execute("foo", { action: "bar" }).catch(() => {});
 
 grecaptcha.ready(() => {});
 grecaptcha.enterprise.ready(() => {});

@@ -1,9 +1,9 @@
-import loadIcons = require('loadicons');
+import loadIcons = require("loadicons");
 
-loadIcons('sprite.svg', (error, svg) => {
+loadIcons("sprite.svg", (error, svg) => {
     if (error) {
-        console.error('Everything failed because ' + error);
+        console.error("Everything failed because " + error);
     } else {
-        console.log('SVG loaded!', svg);
+        console.log("SVG loaded!", svg);
     }
 });

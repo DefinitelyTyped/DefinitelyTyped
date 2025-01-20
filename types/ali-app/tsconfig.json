@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "esnext",
             "dom"
@@ -9,10 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -21,8 +17,5 @@
     "files": [
         "index.d.ts",
         "ali-app-tests.ts"
-    ],
-    "exclude": [
-        ".prettierrc"
     ]
 }

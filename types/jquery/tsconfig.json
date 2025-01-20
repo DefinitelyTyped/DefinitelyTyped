@@ -10,10 +10,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -27,6 +23,7 @@
         "test/jquery-no-window-module-tests.ts",
         "test/jquery-window-module-tests.ts",
         "test/jquery-slim-no-window-module-tests.ts",
-        "test/jquery-slim-window-module-tests.ts"
+        "test/jquery-slim-window-module-tests.ts",
+        "test/val.ts"
     ]
 }

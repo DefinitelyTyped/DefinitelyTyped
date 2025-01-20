@@ -1,12 +1,12 @@
-import { AI } from './game/AI';
-import { Deck } from './game/Deck';
-import { Player } from './game/Player';
-import { ACTIONS } from './monteCarloSimulation/BlackjackEnvironment';
+import { AI } from "./game/AI";
+import { Deck } from "./game/Deck";
+import { Player } from "./game/Player";
+import { ACTIONS } from "./monteCarloSimulation/BlackjackEnvironment";
 
 const PLAYERS = Object.freeze({
     HUMAN: 0,
     AI: 1,
-    DEALER: 2
+    DEALER: 2,
 });
 
 let activePlayer: number = PLAYERS.HUMAN;
@@ -27,35 +27,35 @@ dealCards();
 const querySelectorSave = (selector: string): HTMLDivElement => {
     const element = document.querySelector(selector);
     if (!(element instanceof HTMLDivElement)) {
-        throw new Error('Not found');
+        throw new Error("Not found");
     }
 
     return element;
 };
 
-const buttonStick: Element = querySelectorSave('#button-stick');
-const buttonHit: Element = querySelectorSave('#button-hit');
-const buttonRestart: Element = querySelectorSave('#button-restart');
-const status = querySelectorSave('#status');
-const dealerCards = querySelectorSave('#dealer-cards');
-const aiCards = querySelectorSave('#ai-cards');
-const humanCards = querySelectorSave('#human-cards');
-const aiWinsElement = querySelectorSave('#ai-wins');
-const humanWinsElement = querySelectorSave('#human-wins');
+const buttonStick: Element = querySelectorSave("#button-stick");
+const buttonHit: Element = querySelectorSave("#button-hit");
+const buttonRestart: Element = querySelectorSave("#button-restart");
+const status = querySelectorSave("#status");
+const dealerCards = querySelectorSave("#dealer-cards");
+const aiCards = querySelectorSave("#ai-cards");
+const humanCards = querySelectorSave("#human-cards");
+const aiWinsElement = querySelectorSave("#ai-wins");
+const humanWinsElement = querySelectorSave("#human-wins");
 
-buttonStick.addEventListener('pointerup', () => {
+buttonStick.addEventListener("pointerup", () => {
     activePlayer = PLAYERS.AI;
 
     updateGame();
 });
 
-buttonHit.addEventListener('pointerup', () => {
+buttonHit.addEventListener("pointerup", () => {
     human.addCard(deck.nextCard());
 
     updateGame();
 });
 
-buttonRestart.addEventListener('pointerup', () => {
+buttonRestart.addEventListener("pointerup", () => {
     gameOver = false;
     activePlayer = PLAYERS.HUMAN;
     dealCards();
@@ -124,19 +124,19 @@ function updateUI() {
 
     switch (activePlayer) {
         case PLAYERS.HUMAN:
-            buttonStick.classList.remove('disabled');
-            buttonHit.classList.remove('disabled');
-            status.innerText = 'Your turn!';
+            buttonStick.classList.remove("disabled");
+            buttonHit.classList.remove("disabled");
+            status.innerText = "Your turn!";
             break;
         case PLAYERS.AI:
-            buttonStick.classList.add('disabled');
-            buttonHit.classList.add('disabled');
-            status.innerText = 'AI turn!';
+            buttonStick.classList.add("disabled");
+            buttonHit.classList.add("disabled");
+            status.innerText = "AI turn!";
             break;
         case PLAYERS.DEALER:
-            buttonStick.classList.add('disabled');
-            buttonHit.classList.add('disabled');
-            status.innerText = 'Dealer turn!';
+            buttonStick.classList.add("disabled");
+            buttonHit.classList.add("disabled");
+            status.innerText = "Dealer turn!";
             break;
     }
 
@@ -144,27 +144,27 @@ function updateUI() {
     if (gameOver) {
         // human
         if (human.isBust()) {
-            status.innerText = 'You loose!';
+            status.innerText = "You loose!";
         } else if (human.getSum() === dealer.getSum()) {
-            status.innerText = 'Draw!';
+            status.innerText = "Draw!";
         } else if (human.getSum() > dealer.getSum() || dealer.isBust()) {
-            status.innerText = 'You win!';
+            status.innerText = "You win!";
             humanWins++;
         } else {
-            status.innerText = 'You loose!';
+            status.innerText = "You loose!";
         }
 
         // ai
 
         if (ai.isBust()) {
-            status.innerText += ' AI looses!';
+            status.innerText += " AI looses!";
         } else if (ai.getSum() === dealer.getSum()) {
-            status.innerText += ' AI Draw!';
+            status.innerText += " AI Draw!";
         } else if (ai.getSum() > dealer.getSum() || dealer.isBust()) {
-            status.innerText += ' AI wins!';
+            status.innerText += " AI wins!";
             aiWins++;
         } else {
-            status.innerText += ' AI looses!';
+            status.innerText += " AI looses!";
         }
     }
 
@@ -173,7 +173,7 @@ function updateUI() {
 }
 
 function updateCards(player: Player, domElement: Element) {
-    domElement.innerHTML = '';
+    domElement.innerHTML = "";
     const cards = player.getCards();
     for (const card of cards) {
         domElement.appendChild(card.getMarkup());

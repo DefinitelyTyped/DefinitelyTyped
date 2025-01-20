@@ -1,4 +1,4 @@
-import * as lunr from 'lunr';
+import * as lunr from "lunr";
 
 function basic_test() {
     const index = lunr(function() {
@@ -6,21 +6,20 @@ function basic_test() {
         this.field("body");
         this.field("content", {
             boost: 2,
-            extractor: (doc: object) => "oof"
+            extractor: (doc: object) => "oof",
         });
         this.ref("id");
         this.add({
             id: 1,
             title: "Foo",
-            body: "Foo foo foo!"
-        },
-        {
-            boost: 2
+            body: "Foo foo foo!",
+        }, {
+            boost: 2,
         });
         this.add({
             id: 2,
             title: "Bar",
-            body: "Bar bar bar!"
+            body: "Bar bar bar!",
         });
         this.use((builder: lunr.Builder) => builder.field("text"));
     });
@@ -29,11 +28,11 @@ function basic_test() {
 
     index.query(q => {
         q.term(
-            lunr.tokenizer('search terms'),
+            lunr.tokenizer("search terms"),
             {
                 wildcard: lunr.Query.wildcard.TRAILING,
-                presence: lunr.Query.presence.REQUIRED
-            }
+                presence: lunr.Query.presence.REQUIRED,
+            },
         );
     });
 }

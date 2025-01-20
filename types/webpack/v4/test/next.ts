@@ -3,7 +3,7 @@
 /**
  * Tests for the `next` (v5) version of webpack
  */
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 let configuration: webpack.Configuration = {
     stats: {
@@ -13,6 +13,6 @@ let configuration: webpack.Configuration = {
 
 configuration = {
     stats: {
-        preset: 'none',
+        preset: "none",
     },
 };

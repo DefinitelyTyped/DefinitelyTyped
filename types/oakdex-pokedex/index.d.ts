@@ -1,8 +1,3 @@
-// Type definitions for oakdex-pokedex 0.4
-// Project: https://github.com/jalyna/oakdex-pokedex
-// Definitions by: Jalyna Schroeder <https://github.com/jalyna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Translations {
     de: string;
     en: string;
@@ -69,7 +64,7 @@ export interface PokemonVariation {
         power?: number[] | undefined;
         stamina?: number[] | undefined;
         skill?: number[] | undefined;
-        jump?: number[] | undefined
+        jump?: number[] | undefined;
     } | undefined;
     abilities?: string[] | undefined;
     image_suffix?: string | undefined;
@@ -179,7 +174,7 @@ export interface Move {
     affected_by_kings_rock: boolean;
     in_battle_properties?: {
         increased_critical_hit_ratio?: boolean | undefined;
-        status_conditions?: MoveStatusCondition[] | undefined
+        status_conditions?: MoveStatusCondition[] | undefined;
     } | undefined;
     stat_modifiers?: MoveStatModifier[] | undefined;
 }

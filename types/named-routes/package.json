@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/named-routes",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/alubbe/named-routes#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/named-routes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philipp Katz",
+            "githubUsername": "qqilihq"
+        }
+    ]
+}

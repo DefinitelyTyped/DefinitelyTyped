@@ -1,9 +1,13 @@
-import { po, mo } from 'gettext-parser';
+import { mo, po } from "gettext-parser";
 
 let parsed = po.parse("foo", "utf-8");
 let compiled = po.compile(parsed, {});
 parsed = po.parse(Buffer.from("bar"));
 compiled = po.compile(parsed, { anyOption: false });
+const stream = po.createParseStream(Buffer.from("bar"));
+stream.on("data", (data) => {
+    console.log(data);
+});
 
 parsed = mo.parse(compiled, "wrong-charset");
 compiled = mo.compile(parsed, { noOption: 3 });

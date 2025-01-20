@@ -15,11 +15,32 @@ declare class DBBackup {
         password?: string
     );
     backup(ignoredTables: string): void;
-    restore(options: number): void;
     partialBackup(initialLogDate: Date, ignoredTables: string): void;
+    restore(options: number): RestoreResult;
 }
 declare namespace DBBackup {
-    const IGNORE_DUPLICATED_KEYS: any;
-    const IGNORE_EXISTING_TABLES: any;
-    const MERGE_ILOG_TABLE: any;
+    export {
+        IGNORE_DUPLICATED_KEYS,
+        IGNORE_EXISTING_TABLES,
+        MERGE_ILOG_TABLE,
+        DRY_RUN,
+        RestoredTable,
+        RestoreResult,
+    };
+}
+declare let IGNORE_DUPLICATED_KEYS: number;
+declare let IGNORE_EXISTING_TABLES: number;
+declare let MERGE_ILOG_TABLE: number;
+declare let DRY_RUN: number;
+interface RestoredTable {
+    name: string;
+    recordCount: number;
+    merged: boolean;
+    ignored: boolean;
+    ignoredKeys: number[];
+}
+interface RestoreResult {
+    success: boolean;
+    error: string;
+    tables: RestoredTable[];
 }

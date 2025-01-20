@@ -1,10 +1,3 @@
-// Type definitions for react-timeago 4.1
-// Project: https://github.com/nmn/react-timeago
-// Definitions by: Konstantin Lebedev <https://github.com/koss-lebedev>
-//                 Mike Martin <https://github.com/mcmar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 
 declare namespace ReactTimeago {
@@ -24,10 +17,10 @@ declare namespace ReactTimeago {
         unit: Unit,
         suffix: Suffix,
         epochMiliseconds: number,
-        nextFormatter?: Formatter
+        nextFormatter?: Formatter,
     ) => React.ReactNode;
 
-    interface ReactTimeagoProps<T extends React.ComponentType | keyof JSX.IntrinsicElements = 'time'> {
+    interface ReactTimeagoProps<T extends React.ElementType> {
         readonly live?: boolean | undefined;
         readonly minPeriod?: number | undefined;
         readonly maxPeriod?: number | undefined;
@@ -40,9 +33,10 @@ declare namespace ReactTimeago {
 }
 
 declare class ReactTimeago<
-    T extends React.ComponentType | keyof JSX.IntrinsicElements
+    T extends React.ElementType<P>,
+    P = React.ComponentProps<T>,
 > extends React.Component<
-    ReactTimeago.ReactTimeagoProps<T> & React.ComponentProps<T>
+    ReactTimeago.ReactTimeagoProps<T> & P
 > {}
 
 export = ReactTimeago;

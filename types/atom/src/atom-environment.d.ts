@@ -19,7 +19,7 @@ import {
     ViewRegistry,
     WindowLoadSettings,
     Workspace,
-} from '../index';
+} from "../index";
 
 /**
  *  Atom global for dealing with packages, themes, menus, and the window.
@@ -120,7 +120,7 @@ export interface AtomEnvironment {
      *  Gets the release channel of the Atom application.
      *  Returns the release channel, which can be 'dev', 'nightly', 'beta', or 'stable'.
      */
-    getReleaseChannel(): 'dev' | 'nightly' | 'beta' | 'stable';
+    getReleaseChannel(): "dev" | "nightly" | "beta" | "stable";
 
     /** Returns a boolean that is true if the current version is an official release. */
     isReleasedVersion(): boolean;
@@ -137,7 +137,7 @@ export interface AtomEnvironment {
     // Managing the Atom Window
     /** Open a new Atom window using the given options. */
     open(params?: {
-        pathsToOpen: ReadonlyArray<string>;
+        pathsToOpen: readonly string[];
         newWindow?: boolean | undefined;
         devMode?: boolean | undefined;
         safeMode?: boolean | undefined;
@@ -204,7 +204,14 @@ export interface AtomEnvironment {
     getWindowDimensions(): { x: number; y: number; width: number; height: number };
 
     /** Set the dimensions of the window. */
-    setWindowDimensions(dimensions: { x?: number | undefined; y?: number | undefined; width?: number | undefined; height?: number | undefined }): Promise<object>;
+    setWindowDimensions(
+        dimensions: {
+            x?: number | undefined;
+            y?: number | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+        },
+    ): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
@@ -237,7 +244,9 @@ export interface AtomEnvironment {
      *
      *  Returns the chosen button index number if the buttons option was an array.
      */
-    confirm(options: { message: string; detailedMessage?: string | undefined; buttons?: ReadonlyArray<string> | undefined }): void;
+    confirm(
+        options: { message: string; detailedMessage?: string | undefined; buttons?: readonly string[] | undefined },
+    ): void;
 
     /**
      *  A flexible way to open a dialog akin to an alert dialog. If a callback
@@ -286,10 +295,10 @@ export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
 
 export interface ConfirmationOptions {
     /** The type of the confirmation prompt. */
-    type?: 'none' | 'info' | 'error' | 'question' | 'warning' | undefined;
+    type?: "none" | "info" | "error" | "question" | "warning" | undefined;
 
     /** The text for the buttons. */
-    buttons?: ReadonlyArray<string> | undefined;
+    buttons?: readonly string[] | undefined;
 
     /** The index for the button to be selected by default in the prompt. */
     defaultId?: number | undefined;

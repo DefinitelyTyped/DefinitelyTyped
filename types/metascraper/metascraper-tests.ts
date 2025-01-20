@@ -1,3 +1,3 @@
-import metascraper = require('metascraper');
+import metascraper = require("metascraper");
 
-metascraper([])({ html: '', url: 'https://example.com' });
+metascraper([])({ html: "", url: "https://example.com" });

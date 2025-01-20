@@ -12,10 +12,10 @@ class ExampleExtension implements ScratchExtension {
                 arguments: {
                     input: {
                         type: Scratch.ArgumentType.STRING,
-                        defaultValue: "Hello World"
-                    }
-                }
-            }]
+                        defaultValue: "Hello World",
+                    },
+                },
+            }],
         };
     }
 

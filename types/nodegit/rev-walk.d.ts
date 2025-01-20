@@ -1,14 +1,14 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Commit } from './commit';
-import { Diff } from './diff';
+import { Commit } from "./commit";
+import { Diff } from "./diff";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
 
 export namespace Revwalk {
     const enum SORT {
         NONE = 0,
         TOPOLOGICAL = 1,
         TIME = 2,
-        REVERSE = 4
+        REVERSE = 4,
     }
     interface HistoryEntry {
         commit: Commit;

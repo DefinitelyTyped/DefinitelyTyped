@@ -1,8 +1,3 @@
-// Type definitions for ccapture.js 1.1
-// Project: https://github.com/spite/ccapture.js#readme
-// Definitions by: Sam Alexander <https://github.com/samalexander>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class CCapture {
     constructor(settings: CCapture.Settings);
 

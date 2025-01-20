@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/command-exists-promise",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/raftario/command-exists"
+    ],
+    "devDependencies": {
+        "@types/command-exists-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cellv2",
+            "githubUsername": "Cellv2"
+        }
+    ]
+}

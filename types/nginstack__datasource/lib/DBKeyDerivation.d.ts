@@ -1,3 +1,3 @@
 export type exports = string;
-declare const IMAGE: string;
+declare let IMAGE: string;
 export {};

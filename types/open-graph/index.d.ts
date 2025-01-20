@@ -1,9 +1,3 @@
-// Type definitions for open-graph 0.2
-// Project: https://github.com/samholmes/node-open-graph
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="cheerio" />
 
 declare namespace og {
@@ -40,12 +34,10 @@ declare namespace og {
         /** An image URL which should represent your object within the graph. */
         image?: string | string[] | ImageVideoMetadata | undefined;
         /** The locale these tags are marked up in. Of the format `language_TERRITORY`. Default is `en_US`. */
-        locale?:
-            | string | string[]
-            | {
-                  /** An array of other locales this page is available in. */
-                  alternate?: string | string[] | undefined;
-              } | undefined;
+        locale?: string | string[] | {
+            /** An array of other locales this page is available in. */
+            alternate?: string | string[] | undefined;
+        } | undefined;
         /** If your object is part of a larger web site, the name which should be displayed for the overall site. e.g., "IMDb". */
         site_name?: string | string[] | undefined;
         /** The title of your object as it should appear within the graph, e.g., "The Rock". */

@@ -1,6 +1,7 @@
-import { Price } from './price';
-import { ProductVariantGroup } from './product-variant-group';
-import { Asset } from './asset';
+import { Asset } from "./asset";
+import { Price } from "./price";
+import { ProductAttribute } from "./product-attribute";
+import { ProductVariantGroup } from "./product-variant-group";
 
 export interface Product {
     id: string;
@@ -74,5 +75,6 @@ export interface Product {
     }>;
     assets: Asset[];
     image: Asset | null;
+    attributes: ProductAttribute[];
     related_products: any[];
 }

@@ -1,15 +1,11 @@
-// Type definitions for walk 2.3
-// Project: https://git.coolaj86.com/coolaj86/fs-walk.js
-// Definitions by: Pontus Östlund <https://github.com/poppa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stats } from "fs";
 
 export interface WalkStats extends Stats {
     name: string;
-    type: "file"
+    type:
+        | "file"
         | "directory"
         | "symbolicLink"
         | "blockDevice"
@@ -42,32 +38,35 @@ export type WalkNext = () => void;
 export type WalkStatEventCallback = (
     base: string,
     names: WalkStats,
-    next: WalkNext) => void;
+    next: WalkNext,
+) => void;
 
 export type WalkStatArrayEventCallback = (
     base: string,
     names: WalkStats[],
-    next: WalkNext) => void;
+    next: WalkNext,
+) => void;
 
 export type WalkNamesEventCallback = (
     base: string,
     names: string[],
-    next: WalkNext) => void;
+    next: WalkNext,
+) => void;
 
-export type WalkStatArrayEvent
-    = 'files'
-    | 'directories'
-    | 'errors'
-    | 'nodeError'
-    | 'directoryError';
+export type WalkStatArrayEvent =
+    | "files"
+    | "directories"
+    | "errors"
+    | "nodeError"
+    | "directoryError";
 
-export type WalkStatEvent = 'file' | 'directory';
+export type WalkStatEvent = "file" | "directory";
 
 export interface Walker {
-    on(event: 'names', cb: WalkNamesEventCallback): void;
+    on(event: "names", cb: WalkNamesEventCallback): void;
     on(event: WalkStatArrayEvent, cb: WalkStatArrayEventCallback): void;
     on(event: WalkStatEvent, cb: WalkStatEventCallback): void;
-    on(event: 'end', cb: () => void): void;
+    on(event: "end", cb: () => void): void;
     pause(): void;
     resume(): void;
 }

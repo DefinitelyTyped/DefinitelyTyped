@@ -9,39 +9,43 @@ declare namespace SemanticUI {
         /**
          * Disable callbacks temporarily. This is useful if you need to adjust scroll position and do not want to trigger callbacks during the position change.
          */
-        (behavior: 'disable callbacks'): JQuery;
+        (behavior: "disable callbacks"): JQuery;
         /**
          * Re-enable callbacks
          */
-        (behavior: 'enable callbacks'): JQuery;
+        (behavior: "enable callbacks"): JQuery;
         /**
          * Returns whether element is on screen
          */
-        (behavior: 'is on screen'): boolean;
+        (behavior: "is on screen"): boolean;
         /**
          * Returns whether element is off screen
          */
-        (behavior: 'is off screen'): boolean;
+        (behavior: "is off screen"): boolean;
         /**
          * Returns number of pixels passed in current element from top of element
          */
-        (behavior: 'get pixels passed'): number;
+        (behavior: "get pixels passed"): number;
         /**
          * Returns element calculations as object
          */
-        (behavior: 'get element calculations'): Visibility.ElementCalculations;
+        (behavior: "get element calculations"): Visibility.ElementCalculations;
         /**
          * Returns screen calculations as object
          */
-        (behavior: 'get screen calculations'): Visibility.ScreenCalculations;
+        (behavior: "get screen calculations"): Visibility.ScreenCalculations;
         /**
          * Returns screen size as object
          */
-        (behavior: 'get screen size'): Visibility.ScreenSize;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value?: undefined): VisibilitySettings._Impl[K];
-        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value: VisibilitySettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: VisibilitySettings): JQuery;
+        (behavior: "get screen size"): Visibility.ScreenSize;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof VisibilitySettings>(
+            behavior: "setting",
+            name: K,
+            value?: undefined,
+        ): VisibilitySettings._Impl[K];
+        <K extends keyof VisibilitySettings>(behavior: "setting", name: K, value: VisibilitySettings._Impl[K]): JQuery;
+        (behavior: "setting", value: VisibilitySettings): JQuery;
         (settings?: VisibilitySettings): JQuery;
     }
 
@@ -51,48 +55,51 @@ declare namespace SemanticUI {
     type VisibilitySettings = VisibilitySettings.Param;
 
     namespace VisibilitySettings {
-        type Param = (Pick<_Impl, 'once'> |
-            Pick<_Impl, 'continuous'> |
-            Pick<_Impl, 'type'> |
-            Pick<_Impl, 'initialCheck'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'refreshOnLoad'> |
-            Pick<_Impl, 'refreshOnResize'> |
-            Pick<_Impl, 'checkOnRefresh'> |
-            Pick<_Impl, 'zIndex'> |
-            Pick<_Impl, 'offset'> |
-            Pick<_Impl, 'includeMargin'> |
-            Pick<_Impl, 'throttle'> |
-            Pick<_Impl, 'observeChanges'> |
-            Pick<_Impl, 'transition'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'onTopVisible'> |
-            Pick<_Impl, 'onTopPassed'> |
-            Pick<_Impl, 'onBottomVisible'> |
-            Pick<_Impl, 'onPassing'> |
-            Pick<_Impl, 'onBottomPassed'> |
-            Pick<_Impl, 'onTopVisibleReverse'> |
-            Pick<_Impl, 'onTopPassedReverse'> |
-            Pick<_Impl, 'onBottomVisibleReverse'> |
-            Pick<_Impl, 'onPassingReverse'> |
-            Pick<_Impl, 'onBottomPassedReverse'> |
-            Pick<_Impl, 'onOnScreen'> |
-            Pick<_Impl, 'onOffScreen'> |
-            Pick<_Impl, 'onLoad'> |
-            Pick<_Impl, 'onAllLoaded'> |
-            Pick<_Impl, 'onFixed'> |
-            Pick<_Impl, 'onUnfixed'> |
-            Pick<_Impl, 'onUpdate'> |
-            Pick<_Impl, 'onRefresh'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "once">
+                | Pick<_Impl, "continuous">
+                | Pick<_Impl, "type">
+                | Pick<_Impl, "initialCheck">
+                | Pick<_Impl, "context">
+                | Pick<_Impl, "refreshOnLoad">
+                | Pick<_Impl, "refreshOnResize">
+                | Pick<_Impl, "checkOnRefresh">
+                | Pick<_Impl, "zIndex">
+                | Pick<_Impl, "offset">
+                | Pick<_Impl, "includeMargin">
+                | Pick<_Impl, "throttle">
+                | Pick<_Impl, "observeChanges">
+                | Pick<_Impl, "transition">
+                | Pick<_Impl, "duration">
+                | Pick<_Impl, "onTopVisible">
+                | Pick<_Impl, "onTopPassed">
+                | Pick<_Impl, "onBottomVisible">
+                | Pick<_Impl, "onPassing">
+                | Pick<_Impl, "onBottomPassed">
+                | Pick<_Impl, "onTopVisibleReverse">
+                | Pick<_Impl, "onTopPassedReverse">
+                | Pick<_Impl, "onBottomVisibleReverse">
+                | Pick<_Impl, "onPassingReverse">
+                | Pick<_Impl, "onBottomPassedReverse">
+                | Pick<_Impl, "onOnScreen">
+                | Pick<_Impl, "onOffScreen">
+                | Pick<_Impl, "onLoad">
+                | Pick<_Impl, "onAllLoaded">
+                | Pick<_Impl, "onFixed">
+                | Pick<_Impl, "onUnfixed">
+                | Pick<_Impl, "onUpdate">
+                | Pick<_Impl, "onRefresh">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Functionality
@@ -114,7 +121,7 @@ declare namespace SemanticUI {
              *
              * @default false
              */
-            type: false | 'image' | 'fixed';
+            type: false | "image" | "fixed";
             /**
              * Whether visibility conditions should be checked immediately on init
              *
@@ -381,8 +388,9 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'fixed'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "fixed">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -395,8 +403,9 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'method'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "method">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

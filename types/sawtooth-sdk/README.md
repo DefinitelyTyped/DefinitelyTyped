@@ -44,7 +44,6 @@ If a new protobuf is added to the SDK, follow these steps to re-generate the def
 
     ```
      // tslint:disable:member-access
-     // tslint:disable:no-padding
      // tslint:disable:interface-name
      // tslint:disable:no-unnecessary-qualifier
      // tslint:disable:no-empty-interface
@@ -66,7 +65,7 @@ To assert that an expression is of a given type, use `$ExpectType`. To assert th
 // $ExpectType PublicKey
 const signerPubKey = signer.getPublicKey();
 
-// $ExpectError PrivateKey
+// @ts-expect-error PrivateKey
 const signerPubKey = signer.getPublicKey();
 ```
 

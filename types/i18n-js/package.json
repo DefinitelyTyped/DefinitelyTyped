@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/i18n-js",
+    "version": "3.8.9999",
+    "projects": [
+        "https://github.com/fnando/i18n-js"
+    ],
+    "devDependencies": {
+        "@types/i18n-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yuya Tanaka",
+            "githubUsername": "ypresto"
+        }
+    ]
+}

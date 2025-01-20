@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/handlebars-webpack-plugin",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/sagold/handlebars-webpack-plugin"
+    ],
     "dependencies": {
+        "@types/html-webpack-plugin": "*",
+        "@types/webpack": "^4",
         "handlebars": ">=4.0.3"
-    }
+    },
+    "devDependencies": {
+        "@types/handlebars-webpack-plugin": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "odas0R",
+            "githubUsername": "Odas0R"
+        }
+    ]
 }

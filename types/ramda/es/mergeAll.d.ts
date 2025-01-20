@@ -1,2 +1,2 @@
-import { mergeAll } from '../index';
+import { mergeAll } from "../index.js";
 export default mergeAll;

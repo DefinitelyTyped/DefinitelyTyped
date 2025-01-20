@@ -5,9 +5,13 @@ export class Test extends React.Component {
     render() {
         return (
             <QrReader
-                onError={(err) => { console.log(err); }}
-                onScan={(data) => { console.log(data); }}
-                facingMode={'user'}
+                onError={(err) => {
+                    console.log(err);
+                }}
+                onScan={(data) => {
+                    console.log(data);
+                }}
+                facingMode={"user"}
             />
         );
     }
@@ -24,17 +28,19 @@ const test: React.FC = () => {
 
     qrRef.current!.openImageDialog();
 
-    return <>
-        <div>
-            <QrReader
-                ref={qrRef}
-                delay={300}
-                facingMode={"environment"}
-                showViewFinder={false}
-                onError={handleError}
-                onScan={handleScan}
-                style={{ width: '90%', height: '90%' }}
-            />
-        </div>
-    </>;
+    return (
+        <>
+            <div>
+                <QrReader
+                    ref={qrRef}
+                    delay={300}
+                    facingMode={"environment"}
+                    showViewFinder={false}
+                    onError={handleError}
+                    onScan={handleScan}
+                    style={{ width: "90%", height: "90%" }}
+                />
+            </div>
+        </>
+    );
 };

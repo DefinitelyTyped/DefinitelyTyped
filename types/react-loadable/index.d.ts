@@ -1,13 +1,3 @@
-// Type definitions for react-loadable 5.5
-// Project: https://github.com/thejameskyle/react-loadable#readme
-// Definitions by: Jessica Franco <https://github.com/Jessidhia>
-//                 Oden S. <https://github.com/odensc>
-//                 Ian Ker-Seymer <https://github.com/ianks>
-//                 Tomek Łaziuk <https://github.com/tlaziuk>
-//                 Ian Mobley <https://github.com/iMobs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="react" />
 
 declare namespace LoadableExport {
@@ -110,7 +100,7 @@ declare namespace LoadableExport {
          * An object containing functions which return promises, which resolve to an object to be passed to `render` on success.
          */
         loader: {
-            [P in keyof Exports]: () => Promise<Exports[P]>
+            [P in keyof Exports]: () => Promise<Exports[P]>;
         };
         /**
          * If you want to customize what gets rendered from your loader you can also pass `render`.
@@ -150,8 +140,12 @@ declare namespace LoadableExport {
     }
 
     interface Loadable {
-        <Props, Exports extends object>(options: Options<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
-        Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
+        <Props, Exports extends object>(
+            options: Options<Props, Exports>,
+        ): React.ComponentType<Props> & LoadableComponent;
+        Map<Props, Exports extends { [key: string]: any }>(
+            options: OptionsWithMap<Props, Exports>,
+        ): React.ComponentType<Props> & LoadableComponent;
 
         /**
          * This will call all of the LoadableComponent.preload methods recursively until they are all
@@ -188,7 +182,7 @@ declare namespace LoadableExport {
 
 declare const LoadableExport: LoadableExport.Loadable;
 
-/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
+/* eslint-disable-next-line @definitelytyped/no-declare-current-package */
 declare module "react-loadable" {
     export = LoadableExport;
 }

@@ -1,9 +1,4 @@
-// Type definitions for url-assembler 2.1
-// Project: https://github.com/Floby/node-url-assembler
-// Definitions by: Wolfgang Faust <https://github.com/wolfgang42>
-//                 Alice Pote <https://github.com/alicewriteswrongs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import * as qs from 'qs';
+import * as qs from "qs";
 
 interface UrlAssembler {
     template(template: string): UrlAssembler;
@@ -17,13 +12,14 @@ interface UrlAssembler {
     valueOf(): string;
     toJSON(): string;
     qsConfig(config: qs.IStringifyOptions): UrlAssembler;
+    pathname: string;
 }
 
 interface UrlAssemblerConstructor {
     (baseUrl?: string): UrlAssembler;
     (urlAssembler: UrlAssembler): UrlAssembler;
-    new (baseUrl?: string): UrlAssembler;
-    new (urlAssembler: UrlAssembler): UrlAssembler;
+    new(baseUrl?: string): UrlAssembler;
+    new(urlAssembler: UrlAssembler): UrlAssembler;
 }
 
 declare const UrlAssembler: UrlAssemblerConstructor;

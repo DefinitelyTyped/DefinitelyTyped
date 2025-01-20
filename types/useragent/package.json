@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/useragent",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/3rd-Eden/useragent"
+    ],
+    "devDependencies": {
+        "@types/useragent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

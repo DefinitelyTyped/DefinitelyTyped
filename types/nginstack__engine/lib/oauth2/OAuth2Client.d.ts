@@ -38,6 +38,7 @@ interface OAuth2ClientConstructorOptions {
     revocationEndpoint?: string;
     deviceAuthorizationEndpoint?: string;
 }
+declare function encryptClientSecret(secret: string): string;
 interface AuthorizationRequestOptions {
     redirectUri: string;
     scopes?: string | string[];
@@ -70,4 +71,3 @@ interface DeviceAuthorizationResponse {
     deviceCode: string;
     expiresIn: number;
 }
-declare function encryptClientSecret(secret: string): string;

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-htmlview",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/jsdf/react-native-htmlview"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-htmlview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "Kiruse",
+            "githubUsername": "Kiruse"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/coverup",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jsonmaur/coverup"
+    ],
+    "devDependencies": {
+        "@types/coverup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vadim Belorussov",
+            "githubUsername": "bevalorous"
+        }
+    ]
+}

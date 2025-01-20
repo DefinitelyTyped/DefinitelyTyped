@@ -1,10 +1,4 @@
-// Type definitions for svg-intersections 0.4
-// Project: https://github.com/effektif/svg-intersections#readme
-// Definitions by: xWiiLLz <https://github.com/xWiiLLz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-export type SvgElements = 'line' | 'rect' | 'circle' | 'ellipse' | 'polygon' | 'polyline' | 'path';
+export type SvgElements = "line" | "rect" | "circle" | "ellipse" | "polygon" | "polyline" | "path";
 
 // Svg element properties
 export interface LineProps {
@@ -46,15 +40,14 @@ export interface PathProps {
     d: string;
 }
 
-export type SvgProperties<T extends SvgElements> =
-    T extends 'line' ? LineProps :
-    T extends 'rect' ? RectProps :
-    T extends 'circle' ? CircleProps :
-    T extends 'ellipse' ? EllipseProps :
-    T extends 'polygon' ? PolygonProps :
-    T extends 'polyline' ? PolylineProps :
-    T extends 'path' ? PathProps :
-    never;
+export type SvgProperties<T extends SvgElements> = T extends "line" ? LineProps
+    : T extends "rect" ? RectProps
+    : T extends "circle" ? CircleProps
+    : T extends "ellipse" ? EllipseProps
+    : T extends "polygon" ? PolygonProps
+    : T extends "polyline" ? PolylineProps
+    : T extends "path" ? PathProps
+    : never;
 
 export interface Shape {
     type: string;

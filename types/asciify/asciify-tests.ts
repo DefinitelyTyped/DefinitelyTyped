@@ -1,9 +1,33 @@
+import asciify from "asciify";
 
+// $ExpectType void
+asciify("Whoa", function(err, result) {
+    // $ExpectType any
+    err;
+    // $ExpectType string
+    result;
+});
 
-import asciify = require('asciify');
+// $ExpectType void
+asciify("Whoa", "3-d", function(err, result) {
+    // $ExpectType any
+    err;
+    // $ExpectType string
+    result;
+});
 
-asciify('Whoa', function(err, result){console.log(result)});
-asciify('Whoa', '3-d', function(err, result){console.log(result)});
-asciify('Whoa', {font:'3-d'}, function(err, result){console.log(result)});
+// $ExpectType void
+asciify("Whoa", { font: "3-d" }, function(err, result) {
+    // $ExpectType any
+    err;
+    // $ExpectType string
+    result;
+});
 
-asciify.getFonts(function(err, fonts) { fonts.slice(0); });
+// $ExpectType void
+asciify.getFonts(function(err, fonts) {
+    // $ExpectType Error
+    err;
+    // $ExpectType string[]
+    fonts;
+});

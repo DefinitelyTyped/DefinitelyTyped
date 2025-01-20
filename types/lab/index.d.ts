@@ -1,8 +1,3 @@
-// Type definitions for lab 11.1.0
-// Project: https://github.com/hapijs/lab
-// Definitions by: Prashant Tiwari <https://github.com/prashaantt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** The test script. */
 export function script(options?: ScriptOptions): Lab & ExperimentAlt & TestAlt;
 /** Access the configured assertion library. */
@@ -184,4 +179,4 @@ type ExperimentWithOptionsArgs = (desc: string, options: ExperimentOptions, cb: 
 
 type TestArgs = (desc: string, cb: TestCallback) => {};
 
-type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {}
+type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {};

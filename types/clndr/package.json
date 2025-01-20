@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/clndr",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/kylestetz/CLNDR"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "moment": ">=2.8.3"
-    }
+    },
+    "devDependencies": {
+        "@types/clndr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jasperjn",
+            "githubUsername": "jasperjn"
+        }
+    ]
 }

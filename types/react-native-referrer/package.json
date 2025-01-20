@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/react-native-referrer",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/JeandeCampredon/react-native-referrer"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-referrer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Chown",
+            "githubUsername": "christianchown"
+        }
+    ]
+}

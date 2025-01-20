@@ -1,8 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace dojox {
 
     /**
@@ -98,7 +93,7 @@ declare namespace dojox {
          * @param initialData
          */
         interface Streamer { (input: Function, output: Function, interval: number, minimum: number, initialData: any[]): void }
-        module _base {
+        namespace _base {
         }
 
     }

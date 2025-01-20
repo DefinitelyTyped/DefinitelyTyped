@@ -1,10 +1,10 @@
-import bytewise = require('bytewise');
+import bytewise = require("bytewise");
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 bytewise.encode([1, 2, 3]);
 
 // $ExpectType any
-bytewise.decode(bytewise.encode([1, 2 , 3]));
+bytewise.decode(bytewise.encode([1, 2, 3]));
 
-// $ExpectType Buffer
-bytewise.encode(bytewise.sorts.array.bound.lower(['123', -1, 0x123, Buffer.from('test')]));
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
+bytewise.encode(bytewise.sorts.array.bound.lower(["123", -1, 0x123, Buffer.from("test")]));

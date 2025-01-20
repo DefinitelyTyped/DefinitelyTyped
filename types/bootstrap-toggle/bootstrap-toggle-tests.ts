@@ -1,4 +1,4 @@
-import 'bootstrap-toggle';
+import "bootstrap-toggle";
 
 const $elem = $("#toggle");
 
@@ -9,24 +9,24 @@ $elem.bootstrapToggle({});
 
 $elem.bootstrapToggle({
     // Defaults from source project
-    on: 'On',
-    off: 'Off',
-    onstyle: 'primary',
-    offstyle: 'default',
-    size: 'normal',
-    style: '',
+    on: "On",
+    off: "Off",
+    onstyle: "primary",
+    offstyle: "default",
+    size: "normal",
+    style: "",
     width: null,
-    height: null
+    height: null,
 });
 
 $elem.bootstrapToggle({
     width: 100,
-    height: 100
+    height: 100,
 });
 
 $elem.bootstrapToggle({
     width: "100%",
-    height: "100%"
+    height: "100%",
 });
 
 // Methods

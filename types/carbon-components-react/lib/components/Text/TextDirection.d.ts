@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { TextDirection } from './TextDirectionContext';
+import * as React from "react";
+import { TextDirection } from "./TextDirectionContext";
 
 export interface TextDirectionProps {
     children?: React.ReactNode | undefined;

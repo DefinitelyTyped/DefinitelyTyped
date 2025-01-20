@@ -1,8 +1,6 @@
-/// <reference types="node" />
-import { Result, RunOptions, Spec } from 'axe-core';
-import { AxeAnalysis, AxeBuilder, BuilderOptions } from 'axe-webdriverjs';
-import fs = require('fs');
-import { Builder, WebDriver } from 'selenium-webdriver';
+import { Result, RunOptions, Spec } from "axe-core";
+import { AxeAnalysis, AxeBuilder, BuilderOptions } from "axe-webdriverjs";
+import { Builder, WebDriver } from "selenium-webdriver";
 
 const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: BuilderOptions) => {
     const [builderCalled, builderNewed, ...builders] = [
@@ -31,7 +29,7 @@ const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: Bu
         .analyze((err: Error | null, internalResults: AxeAnalysis) => {});
 
     const deprecatedAnalysis: AxeAnalysis = await AxeBuilder(webDriver).analyze(
-        (internalResults: AxeAnalysis) => {}
+        (internalResults: AxeAnalysis) => {},
     );
 
     const inapplicable: Result[] = analysis.inapplicable;
@@ -42,8 +40,8 @@ const inTest = async (webDriver: WebDriver, source?: string, builderOptions?: Bu
     const violations: Result[] = analysis.violations;
 };
 
-const driver = new Builder().forBrowser('firefox').build();
-const axeSource = fs.readFileSync('./axe-1.0.js', 'utf8');
+const driver = new Builder().forBrowser("firefox").build();
+const axeSource = "some string literal";
 const axeBuilderOptions: BuilderOptions = {
     logIframeErrors: false,
 };

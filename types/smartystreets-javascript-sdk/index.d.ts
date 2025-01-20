@@ -1,19 +1,13 @@
-// Type definitions for smartystreets-javascript-sdk 1.6
-// Project: https://github.com/smartystreets/smartystreets-javascript-sdk
-// Definitions by: Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 // <reference types="node" />
 
-import { Request } from 'express';
+import { Request } from "express";
 export namespace core {
     class Batch<T> {
         constructor();
         lookups: T[];
         add(lookup: T): void;
         lookupsHasRoomForLookup(): boolean;
-        lenght(): number;
+        length(): number;
         getByIndex(index: number): T;
         getByInputId(inputId: string): T[];
         clear(): void;
@@ -68,6 +62,10 @@ export namespace core {
         buildUsExtractClient(): Client<usExtract.Lookup, usExtract.Lookup>;
         buildInternationalStreetClient(): Client<internationalStreet.Lookup, internationalStreet.Lookup>;
         buildUsReverseGeoClient(): Client<usReverseGeo.Lookup, usReverseGeo.Lookup>;
+        buildInternationalAddressAutocompleteClient(): Client<
+            internationalAddressAutocomplete.Lookup,
+            internationalAddressAutocomplete.Lookup
+        >;
     }
 
     namespace buildClient {
@@ -92,6 +90,9 @@ export namespace core {
         function usReverseGeo(
             credentials: StaticCredentials | SharedCredentials,
         ): Client<usReverseGeo.Lookup, usReverseGeo.Lookup>;
+        function internationalAddressAutocomplete(
+            credentials: StaticCredentials | SharedCredentials,
+        ): Client<internationalAddressAutocomplete.Lookup, internationalAddressAutocomplete.Lookup>;
     }
 
     namespace Errors {
@@ -146,7 +147,7 @@ export namespace usStreet {
              * Freeform input can be up to 100 characters but only the first 50 will be considered for the street portion of the address. Freeform inputs should NOT include any form of country
              * information (like "USA").
              */
-            street1?: string,
+            street?: string,
             /**
              * Any extra address information
              * @example Leave it on the front porch.
@@ -171,9 +172,12 @@ export namespace usStreet {
             urbanization?: string,
             /**
              * The match output strategy to be employed for this lookup. Valid values are:
-             * - strict  The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
-             * - invalid  The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
-             * https://smartystreets.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
+             * - **strict**  - The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
+             * - **invalid**  - The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
+             * https://www.smarty.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
+             * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address
+             * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license.
+             * Note: A freeform address, that we can't find a match for, will respond with an empty array, "[]".
              *
              * Notes:
              *
@@ -216,14 +220,17 @@ export namespace usStreet {
         /** City, state, and ZIP Code combined */
         lastLine: string;
         /** The name of the person or company at this address */
-        adressee: string;
+        addressee: string;
         /** The neighborhood (only Puerto Rican addresses) */
         urbanization: string;
         /**
          * The match output strategy to be employed for this lookup. Valid values are:
-         * - strict  The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
-         * - invalid  The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
-         * https://smartystreets.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
+         * - **strict**  - The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
+         * - **invalid**  - The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
+         * https://www.smarty.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
+         * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address
+         * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license.
+         * Note: A freeform address, that we can't find a match for, will respond with an empty array, "[]".
          *
          * Notes:
          *
@@ -233,7 +240,15 @@ export namespace usStreet {
          */
         match: string;
         /**
-         * The maximum number of addresses returned when the input is ambiguous
+         * The output format to be employed for this lookup, with an appropriate product subscription. Valid values are:
+         * - **default** - The API will return the address in the default format.
+         * - **project-usa** - The API will return the address in Project US@ format.
+         * @default default
+         */
+        format: string;
+        /**
+         * The maximum number of addresses returned when the input is ambiguous.
+         * Max Value: 10
          * @default 1
          */
         maxCandidates: number;
@@ -245,7 +260,7 @@ export namespace usStreet {
     /**
      * A match candidate
      *
-     * https://smartystreets.com/docs/cloud/us-street-api#root
+     * https://www.smarty.com/docs/cloud/us-street-api#root
      */
     class Candidate {
         constructor(responseData: any);
@@ -280,6 +295,11 @@ export namespace usStreet {
         lastLine: string;
         /** 12-digit POSTNET™ barcode; consists of 5-digit ZIP Code, 4-digit add-on code, 2-digit delivery point, and 1-digit check digit. */
         deliveryPointBarcode: string;
+        /**
+         * Smarty's unique identifier for an address. This identifier will only be displayed when an address is submitted with the match parameter
+         * set to "enhanced," with an appropriate product subscription.
+         */
+        smartyKey?: string;
         /** @see Component */
         components: Component;
         /** @see Metadata */
@@ -365,6 +385,17 @@ export namespace usStreet {
          */
         dpvMatchCode?: string | undefined;
         /**
+         * When an address is submitted with the match parameter set to "enhanced," this field will contain additional information about the result. Multiple values may be present, separated by commas.
+         * Additional values will be added from time to time. The current possible values are:
+         * - **none** — No address match was found.
+         * - **non-postal-match** — A match was found within additional, non-postal address data.
+         * - **postal-match** — A match was found within postal address data.
+         * - **missing-secondary** — The address should have a secondary (e.g., apartment), but none was found in the input.
+         * - **unknown-secondary** — The provided secondary information did not match a known secondary within the address data.
+         * - **ignored-input** — The provided input contained information that was not used for a match.
+         */
+        enhancedMatch?: string;
+        /**
          * Indicates which changes were made to the input address. Footnotes are delimited by a # character. See the [footnotes](https://smartystreets.com/docs/cloud/us-street-api#footnotes) table
          * below for details.
          */
@@ -400,6 +431,14 @@ export namespace usStreet {
          * - **[blank]** — No LACSLink lookup attempted.
          */
         lacsLinkIndicator: any;
+        /**
+         * Indicates that a delivery point is listed as "no-stat" by the USPS. Technically, that means the USPS is temporarily declaring the address undeliverable.
+         * In practice, however, the USPS is often several months behind in removing addresses from the "no-stat" list, so only rely on this data point if you are fully aware of its weaknesses and limitations.
+         * - **Y** — USPS lists the address as "no-stat."
+         * - **N** — USPS does not list the address as "no-stat."
+         * - **[blank]** — Address was not submitted for "no-stat" verification.
+         */
+        noStat: string;
         /**
          * Indicates that a delivery point was active in the past but is currently vacant (in most cases, unoccupied over 90 days) and is not receiving deliveries. This status is often obtained when
          * mail receptacles aren't being emptied and are filling up, so mail is held at the post office for a certain number of days before the delivery point is marked vacant.
@@ -437,6 +476,13 @@ export namespace usStreet {
          * congressional district. These include Alaska, Delaware, Montana, North Dakota, South Dakota, Vermont, Wyoming, Washington DC, Virgin Islands, and other territories.
          */
         congressionalDistrict: string;
+        /***
+         * The license ID for the geographic coordinate returned.
+         * - **SmartyStreets** - Results with this coordinate license are provided with an open/unrestricted license. Attribution is optional.
+         * - **SmartyStreets Proprietary** - Smarty hereby grants a limited, worldwide, non-exclusive, non-transferable (except as authorized herein), revocable license to use this geocoding
+         * coordinate consisting of latitude and longitude values and associated metadata for internal business use purposes only and for the duration of the term stated for the online subscription.
+         */
+        coordinateLicense: string;
         /**
          * The [5-digit county FIPS (Federal Information Processing Standards) code](https://smartystreets.com/articles/county-fips-codes). It is a combination of a [2-digit state FIPS code](
          * https://bit.ly/3pYZfbr) and a [3-digit county code](https://smartystreets.com/articles/county-fips-codes#how-to-read-a-county-fips-code) assigned by the NIST (National Institute of
@@ -1162,5 +1208,94 @@ export namespace usReverseGeo {
         distance: number;
         address: ResultAddress;
         coordinate: ResultCoordinate;
+    }
+}
+
+export namespace internationalAddressAutocomplete {
+    class Lookup {
+        constructor(search: string, country: string);
+        result: Suggestion[];
+        /**
+         * Required. The part of the address that has already been typed. Maximum length is 128 bytes.
+         */
+        search: string;
+        /**
+         * Required. The ISO3 Alpha-3 country code where the desired address is located.
+         * Only uppercase values are allowed.
+         * See [supported country codes](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#supported-country-codes). Maximum length is 3 bytes.
+         */
+        country: string;
+        /**
+         * Maximum number of address suggestions to return; range [1, 10].
+         */
+        maxResults: number;
+        /**
+         * When using geolocation=geocodes, and latitude/longitude,
+         * this field specifies the radius in MILES from the geocode point.
+         */
+        distance: number;
+        /**
+         * Use the client's IP address to limit results to the surrounding area.
+         *
+         * The possible options are:
+         * 1. adminarea - Limit results to the client's administrative area (state, province, etc.).
+         * 2. locality - Limit results to the client's locality (city).
+         * 3. postalcode - Limit results to the postal code where the client's IP address is registered.
+         * 4. geocodes - Limit results to an area surrounding the lat/lon where the user's IP address is registered. See also distance.
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         */
+        geolocation: "adminarea" | "locality" | "postalcode" | "geocodes";
+        /**
+         * Limit the results to only the administrative area provided.
+         * An administrative area is like a state in the United States, a province in Canada, or region in France.
+         * Please use the correct postal name for the administrative area (e.g. use "NSW" instead of "New South Wales").
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         * @example 'NSW'
+         */
+        includeOnlyAdministrativeArea: string;
+        /**
+         * Limit the results to only the locality provided.
+         * A locality is a significant population center (i.e. city, town, or village).
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         * @example 'Paris'
+         */
+        includeOnlyLocality: string;
+        /**
+         * Limit the results to only the postal code provided.
+         * When this parameter is used, no include_only_administrative_area and/or include_only_locality parameters can be used.
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         * @example '29200'
+         */
+        includeOnlyPostalCode: string;
+        /**
+         * Limit the results to the surrounding area specified by latitude and longitude. See also distance
+         *
+         * Notes: This must be used with the longitude parameter.
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         * @example '-2.0234'
+         */
+        latitude: string;
+        /**
+         * Limit the results to the surrounding area specified by latitude and longitude. See also distance
+         *
+         * Notes: This must be used with the latitude parameter.
+         *
+         * See [filtering](https://www.smarty.com/docs/cloud/international-address-autocomplete-api#pro-filtering) for more information.
+         * @example '44.0234'
+         */
+        longitude: string;
+    }
+    class Suggestion {
+        constructor(responseData: any);
+        street: string;
+        locality: string;
+        administrativeArea: string;
+        postalCode: string;
+        countryIso3: number;
     }
 }

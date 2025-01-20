@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ncp",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/AvianFlu/ncp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ncp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "bartvds"
+        },
+        {
+            "name": "Benoit Lemaire",
+            "githubUsername": "belemaire"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

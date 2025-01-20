@@ -1,4 +1,4 @@
-import { DiffFile } from './diff-file';
+import { DiffFile } from "./diff-file";
 
 export class DiffDelta {
     status: () => number;

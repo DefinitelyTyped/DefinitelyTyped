@@ -107,4 +107,15 @@ export function zoomOut(element: Element, options?: {
     axis?: string | undefined;
     transformOrigin?: string | undefined;
 }): Promise<boolean>;
-export type AnimationMethods = 'collapse' | 'expand' | 'fadeIn' | 'fadeOut' | 'flipIn' | 'flipOut' | 'ripple' | 'slideIn' | 'slideOut' | 'zoomIn' | 'zoomOut';
+export type AnimationMethods =
+    | "collapse"
+    | "expand"
+    | "fadeIn"
+    | "fadeOut"
+    | "flipIn"
+    | "flipOut"
+    | "ripple"
+    | "slideIn"
+    | "slideOut"
+    | "zoomIn"
+    | "zoomOut";

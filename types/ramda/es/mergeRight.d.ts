@@ -1,2 +1,2 @@
-import { mergeRight } from '../index';
+import { mergeRight } from "../index.js";
 export default mergeRight;

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/nodeunit",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/caolan/nodeunit"
+    ],
+    "devDependencies": {
+        "@types/nodeunit": "workspace:."
+    },
+    "owners": []
+}

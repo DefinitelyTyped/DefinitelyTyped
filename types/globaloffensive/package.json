@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/globaloffensive",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-globaloffensive"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/steam-user": "*",
+        "@types/steamid": "*"
+    },
+    "devDependencies": {
+        "@types/globaloffensive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "joshuajeschek",
+            "githubUsername": "joshuajeschek"
+        }
+    ]
+}

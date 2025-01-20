@@ -1,4 +1,4 @@
-import randomBoolean = require('random-boolean');
+import randomBoolean = require("random-boolean");
 
 // $ExpectType boolean
 randomBoolean();

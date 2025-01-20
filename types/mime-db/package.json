@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/mime-db",
+    "version": "1.43.9999",
+    "projects": [
+        "https://github.com/jshttp/mime-db"
+    ],
+    "devDependencies": {
+        "@types/mime-db": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

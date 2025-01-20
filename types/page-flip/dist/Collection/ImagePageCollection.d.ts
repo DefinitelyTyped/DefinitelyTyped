@@ -1,6 +1,6 @@
-import { Render } from '../Render/Render';
-import { PageCollection } from './PageCollection';
-import { PageFlip } from '../PageFlip';
+import { PageFlip } from "../PageFlip";
+import { Render } from "../Render/Render";
+import { PageCollection } from "./PageCollection";
 /**
  * Сlass representing a collection of pages as images on the canvas
  */

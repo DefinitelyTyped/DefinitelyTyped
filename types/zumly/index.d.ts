@@ -1,15 +1,10 @@
-// Type definitions for zumly 0.9
-// Project: https://zumly.org
-// Definitions by: edwinork <https://github.com/edwinork>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Zumly powers your apps with a zoomable user interface (ZUI) taste.
  */
 declare class zumly {
     /**
      * Creates a Zumly instance
-     * @params options
+     * @param options
      * @example
      *  new Zumly({
      *  mount: '.mount',
@@ -19,7 +14,6 @@ declare class zumly {
      *   contact,
      *   ...
      *  }
-     *
      */
     constructor(options: zumly.Options);
 
@@ -45,9 +39,9 @@ declare namespace zumly {
         // Custom transitions
         transitions?: {
             // Effects for background views
-            effects: Array<'blur' | 'sepia' | 'saturate'>;
+            effects: Array<"blur" | "sepia" | "saturate">;
             // How new injected view is adapted. String. Default 'width'
-            cover: 'height' | 'width';
+            cover: "height" | "width";
             // Transition duration. Default '1s'
             duration: string;
             // Transition ease. Default 'ease-in-out'

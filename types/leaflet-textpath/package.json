@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/leaflet-textpath",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/makinacorpus/Leaflet.TextPath"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/geojson": "*",
+        "@types/leaflet-textpath": "workspace:."
+    },
+    "owners": []
+}

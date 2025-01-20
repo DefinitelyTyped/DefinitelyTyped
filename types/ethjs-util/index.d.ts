@@ -1,8 +1,3 @@
-// Type definitions for ethjs-util 0.1
-// Project: https://github.com/ethjs/ethjs-util#readme
-// Definitions by: tomonari-t <https://github.com/tomoari-t>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export function isHexPrefixed(str: string): boolean;

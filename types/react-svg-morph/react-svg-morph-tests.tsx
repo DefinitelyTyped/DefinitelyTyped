@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { MorphReplace } from 'react-svg-morph';
+import * as React from "react";
+import { MorphReplace } from "react-svg-morph";
 
 class Checked extends React.Component {
     render() {

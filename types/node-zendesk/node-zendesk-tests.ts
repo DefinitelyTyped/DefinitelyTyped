@@ -1,4 +1,4 @@
-import { Attachments, Client, createClient, ZendeskCallback, ZendeskID } from "node-zendesk";
+import { Attachments, Client, createClient } from "node-zendesk";
 import * as path from "path";
 
 const client: Client = createClient({
@@ -9,6 +9,10 @@ const client: Client = createClient({
 
 const zendeskCallback = () => {};
 
+const listPayload = client.organizations.list(() => {});
+listPayload.next_page; // $ExpectType string | null
+listPayload.previous_page; // $ExpectType string | null
+
 /** Job Statuses Methods */
 client.jobstatuses.show(123, zendeskCallback);
 client.jobstatuses.show(123).then(zendeskCallback);
@@ -18,6 +22,31 @@ client.jobstatuses.watch(123, 2, 3).then(zendeskCallback);
 /** Macros Methods */
 client.macros.applyTicket(123, 123, zendeskCallback);
 client.macros.applyTicket(123, 123).then(zendeskCallback);
+
+/** Organizations Methods */
+client.organizations.list(zendeskCallback);
+client.organizations.list().then(zendeskCallback);
+client.organizations.show(123, zendeskCallback);
+client.organizations.show(123).then(zendeskCallback);
+client.organizations.create({ organization: { name: "foo" } }, zendeskCallback);
+client.organizations.create({ organization: { name: "foo" } }).then(zendeskCallback);
+client.organizations.createMany({ organizations: [{ name: "foo" }, { name: "bar" }] }, zendeskCallback);
+client.organizations.createMany({ organizations: [{ name: "foo" }, { name: "bar" }] }).then(zendeskCallback);
+client.organizations.update(123, { organization: { notes: "foo" } }, zendeskCallback);
+client.organizations.update(123, { organization: { notes: "foo" } }).then(zendeskCallback);
+client.organizations.updateMany(
+    { organizations: [{ id: 123, notes: "foo" }, { id: 456, notes: "bar" }] },
+    zendeskCallback,
+);
+client.organizations.updateMany({ organizations: [{ id: 123, notes: "foo" }, { id: 456, notes: "bar" }] }).then(
+    zendeskCallback,
+);
+client.organizations.delete(123, zendeskCallback);
+client.organizations.delete(123).then(zendeskCallback);
+client.organizations.search({ external_id: 123 }, zendeskCallback);
+client.organizations.search({ external_id: 123 }).then(zendeskCallback);
+client.organizations.autocomplete({ name: "foo" }, zendeskCallback);
+client.organizations.autocomplete({ name: "foo" }).then(zendeskCallback);
 
 /** Requests Methods */
 client.requests.list(zendeskCallback);
@@ -58,7 +87,7 @@ client.attachments.upload(
     },
 );
 
-const { r2: { upload: { token }} } = await (async () => {
+const { r2: { upload: { token } } } = await (async () => {
     const r1: Attachments.ShowResponseModel = await client.attachments.show(1);
     const r2: Attachments.UploadResponseModel = await client.attachments.upload("/path/to/file", {
         filename: "filename",
@@ -66,8 +95,12 @@ const { r2: { upload: { token }} } = await (async () => {
     const r3: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.alloc(8), {
         filename: "filename",
     });
+    const r4: Attachments.UploadResponseModel = await client.attachments.upload(Buffer.from("Test"), {
+        filename: "filename",
+        binary: true,
+    });
 
-    return { r1, r2, r3 };
+    return { r1, r2, r3, r4 };
 })();
 
 /** Tickets Methods */
@@ -95,9 +128,13 @@ client.tickets.show(123, zendeskCallback);
 client.tickets.show(123).then(zendeskCallback);
 client.tickets.showMany([123, 234], zendeskCallback);
 client.tickets.showMany([123, 234]).then(zendeskCallback);
-client.tickets.create({ ticket: { comment: {
-  uploads: [token]
-} } }, zendeskCallback);
+client.tickets.create({
+    ticket: {
+        comment: {
+            uploads: [token],
+        },
+    },
+}, zendeskCallback);
 client.tickets.create({ ticket: { comment: {} } }).then(zendeskCallback);
 client.tickets.create({ ticket: { comment: {}, requester: { name: "" } } }).then(zendeskCallback);
 client.tickets.createMany({ tickets: [{ comment: {} }] }, zendeskCallback);
@@ -127,6 +164,33 @@ client.tickets.exportAudit(123, zendeskCallback);
 client.tickets.exportAudit(123).then(zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"], zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"]).then(zendeskCallback);
+
+/** Ticket Fields */
+client.ticketfields.create(
+    {
+        type: "subject",
+        title: "Subject",
+        description: "This is the agent only description for the subject field",
+        position: 0,
+        active: true,
+        key: "subject",
+    },
+    zendeskCallback,
+);
+
+/** Groups Methods */
+client.groups.list(zendeskCallback);
+client.groups.list().then(zendeskCallback);
+client.groups.assignable(zendeskCallback);
+client.groups.assignable().then(zendeskCallback);
+client.groups.show(123, zendeskCallback);
+client.groups.show(123).then(zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }, zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }).then(zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }, zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }).then(zendeskCallback);
+client.groups.delete(123, zendeskCallback);
+client.groups.delete(123).then(zendeskCallback);
 
 /** Users Methods */
 client.users.auth(zendeskCallback);

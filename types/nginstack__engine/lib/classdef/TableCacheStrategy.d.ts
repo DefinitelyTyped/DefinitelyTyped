@@ -1,5 +1,5 @@
 export type exports = string;
-declare const ALWAYS: string;
-declare const NEVER: string;
-declare const ON_DEMAND: string;
+declare let ALWAYS: string;
+declare let NEVER: string;
+declare let ON_DEMAND: string;
 export {};

@@ -1,5 +1,3 @@
-
-
 {
     let $facebookProvider: angular.ngFacebook.IFacebookProvider;
 
@@ -8,7 +6,7 @@
         .setPermissions(["email", "user_friends"])
         .setPermissions("user_friends")
         .setCustomInit({
-            xfbml: true
+            xfbml: true,
         })
         .setVersion("v2.2");
 
@@ -36,16 +34,16 @@
 
     let authResponse: {} = $facebook.getAuthResponse();
 
-    $facebook.getLoginStatus().then(status => { });
-    $facebook.getLoginStatus(true).then(status => { });
+    $facebook.getLoginStatus().then(status => {});
+    $facebook.getLoginStatus(true).then(status => {});
 
-    $facebook.logout().then(() => { });
-    $facebook.login().then(() => { });
+    $facebook.logout().then(() => {});
+    $facebook.login().then(() => {});
 
-    $facebook.api("/me").then(user => { });
+    $facebook.api("/me").then(user => {});
     $facebook.api("/me", "get");
     $facebook.api("/me", { param: 1 });
     $facebook.api("/me", "get", { param: 1 });
 
-    $facebook.cachedApi("'/me/friends").then(friends => { });
+    $facebook.cachedApi("'/me/friends").then(friends => {});
 }

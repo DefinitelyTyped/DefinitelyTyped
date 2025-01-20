@@ -1,10 +1,5 @@
-// Type definitions for @cerner/terra-functional-testing 2.5
-// Project: https://github.com/cerner/terra-toolkit/tree/main/packages/terra-functional-testing
-// Definitions by: Juzer Zarif <https://github.com/juzerzarif>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Suite } from 'mocha';
-import { RunOptions } from 'axe-core';
+import { RunOptions } from "axe-core";
+import { Suite } from "mocha";
 
 export {};
 
@@ -13,28 +8,28 @@ type AxeOptions = RunOptions;
 
 declare global {
     namespace Terra {
-        type FormFactor = 'tiny' | 'small' | 'medium' | 'large' | 'huge' | 'enormous';
+        type FormFactor = "tiny" | "small" | "medium" | "large" | "huge" | "enormous";
 
         type Locale =
-            | 'en'
-            | 'en-AU'
-            | 'en-CA'
-            | 'en-US'
-            | 'en-GB'
-            | 'es'
-            | 'es-US'
-            | 'es-ES'
-            | 'de'
-            | 'fr'
-            | 'fr-FR'
-            | 'nl'
-            | 'nl-BE'
-            | 'pt'
-            | 'pt-BR'
-            | 'sv'
-            | 'sv-SE';
+            | "en"
+            | "en-AU"
+            | "en-CA"
+            | "en-US"
+            | "en-GB"
+            | "es"
+            | "es-US"
+            | "es-ES"
+            | "de"
+            | "fr"
+            | "fr-FR"
+            | "nl"
+            | "nl-BE"
+            | "pt"
+            | "pt-BR"
+            | "sv"
+            | "sv-SE";
 
-        type Theme = 'terra-default-theme' | 'orion-fusion-theme' | 'clinical-lowlight-theme';
+        type Theme = "terra-default-theme" | "orion-fusion-theme" | "clinical-lowlight-theme";
 
         interface FormFactorDimensions {
             height: number;
@@ -61,7 +56,7 @@ declare global {
             /**
              * The axe rules to use to assert accessibility
              */
-            rules?: AxeOptions['rules'];
+            rules?: AxeOptions["rules"];
             /**
              * The mismatch tolerance for the screenshot comparison
              */
@@ -117,7 +112,7 @@ declare global {
         function viewports(...sizes: FormFactor[]): FormFactorDimensions[];
 
         const serviceOptions: {
-            selector: '[data-terra-test-content] *:first-child';
+            selector: "[data-terra-test-content] *:first-child";
             theme: Theme;
             formFactor: FormFactor;
             locale: Locale;
@@ -132,13 +127,13 @@ declare global {
                  *
                  * Reference: https://github.com/cerner/terra-framework/issues/991
                  */
-                'scrollable-region-focusable': { enabled: false };
+                "scrollable-region-focusable": { enabled: false };
                 /**
                  * True for all themes except clinical-lowlight-theme.
                  * The lowlight theme adheres to a non-default color contrast ratio and fails the default ratio check.
                  * The color-contrast ratio check is disabled for lowlight theme testing.
                  */
-                'color-contrast': { enabled: boolean };
+                "color-contrast": { enabled: boolean };
             };
         };
 
@@ -170,7 +165,7 @@ declare global {
              * @param testName - The required test case name.
              * @param options - The visual regression test options. Options include mismatchTolerance and selector
              */
-            screenshot: (testName: string, options?: Omit<ValidationOptions, 'rules'>) => void;
+            screenshot: (testName: string, options?: Omit<ValidationOptions, "rules">) => void;
         };
     }
 }

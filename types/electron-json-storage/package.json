@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/electron-json-storage",
+    "version": "4.5.9999",
+    "projects": [
+        "https://github.com/electron-userland/electron-json-storage"
+    ],
+    "devDependencies": {
+        "@types/electron-json-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        },
+        {
+            "name": "nrlquaker",
+            "githubUsername": "nrlquaker"
+        },
+        {
+            "name": "John Woodruff",
+            "githubUsername": "jbw91"
+        }
+    ]
+}

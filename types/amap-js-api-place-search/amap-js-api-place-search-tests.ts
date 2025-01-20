@@ -12,27 +12,27 @@ const placeSearch = new AMap.PlaceSearch();
 new AMap.PlaceSearch({});
 // $ExpectType PlaceSearch
 new AMap.PlaceSearch({
-    city: '深圳',
+    city: "深圳",
     citylimit: true,
     children: 1,
-    type: '餐饮服务',
-    lang: 'zh_cn',
+    type: "餐饮服务",
+    lang: "zh_cn",
     pageSize: 10,
     pageIndex: 10,
-    extensions: 'all',
+    extensions: "all",
     map,
     panel: div,
     showCover: true,
-    renderStyle: 'newpc',
-    autoFitView: true
+    renderStyle: "newpc",
+    autoFitView: true,
 });
 
 // $ExpectType void
-placeSearch.search('keyword', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+placeSearch.search("keyword", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
-    if (typeof result !== 'string') {
+    if (typeof result !== "string") {
         // $ExpectType string
         result.info;
         // $ExpectType PoiList
@@ -67,7 +67,7 @@ placeSearch.search('keyword', (status, result) => {
         poi.tel;
         // $ExpectType string
         poi.type;
-        if ('website' in poi) {
+        if ("website" in poi) {
             // $ExpectType string
             poi.adcode;
             // $ExpectType string
@@ -168,7 +168,7 @@ placeSearch.search('keyword', (status, result) => {
                 // $ExpectType string
                 discount.provider;
             }
-            if (poi.deep_type === 'CINEMA') {
+            if (poi.deep_type === "CINEMA") {
                 // $ExpectType Cinema
                 const cinema = poi.cinema;
                 // $ExpectType string
@@ -186,7 +186,7 @@ placeSearch.search('keyword', (status, result) => {
                 // $ExpectType PoiPhoto[]
                 cinema.photos;
             }
-            if (poi.deep_type === 'DINING') {
+            if (poi.deep_type === "DINING") {
                 // $ExpectType Dining
                 const dining = poi.dining;
                 // $ExpectType string
@@ -228,7 +228,7 @@ placeSearch.search('keyword', (status, result) => {
                 // $ExpectType PoiPhoto[]
                 dining.photos;
             }
-            if (poi.deep_type === 'SCENIC') {
+            if (poi.deep_type === "SCENIC") {
                 // $ExpectType Scenic
                 const scenic = poi.scenic;
                 // $ExpectType string
@@ -258,7 +258,7 @@ placeSearch.search('keyword', (status, result) => {
                 // $ExpectType PoiPhoto[]
                 scenic.photos;
             }
-            if (poi.deep_type === 'HOTEL') {
+            if (poi.deep_type === "HOTEL") {
                 // $ExpectType Hotel
                 const hotel = poi.hotel;
                 // $ExpectType string
@@ -306,32 +306,32 @@ placeSearch.search('keyword', (status, result) => {
 });
 
 // $ExpectType void
-placeSearch.searchNearBy('keyword', lnglat, 10, (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+placeSearch.searchNearBy("keyword", lnglat, 10, (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
 });
 // $ExpectType void
-placeSearch.searchNearBy('keyword', lnglatTuple, 10, () => { });
+placeSearch.searchNearBy("keyword", lnglatTuple, 10, () => {});
 
 // $ExpectType void
-placeSearch.searchInBounds('keyword', bounds, (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+placeSearch.searchInBounds("keyword", bounds, (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
 });
 // $ExpectType void
-placeSearch.searchInBounds('keyword', polygon, () => { });
+placeSearch.searchInBounds("keyword", polygon, () => {});
 
 // $ExpectType void
-placeSearch.getDetails('id', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+placeSearch.getDetails("id", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
 });
 
 // $ExpectType void
-placeSearch.setType('type');
+placeSearch.setType("type");
 // $ExpectType void
 placeSearch.setType();
 
@@ -351,7 +351,7 @@ placeSearch.setPageSize(1);
 placeSearch.setPageSize();
 
 // $ExpectType void
-placeSearch.setCity('city');
+placeSearch.setCity("city");
 // $ExpectType void
 placeSearch.setCity();
 
@@ -368,24 +368,24 @@ placeSearch.clear();
 
 // $ExpectType void
 placeSearch.poiOnAMAP({
-    id: 'id',
+    id: "id",
 });
 // $ExpectType void
 placeSearch.poiOnAMAP({
     location: lnglat,
-    id: 'id',
-    name: 'name'
+    id: "id",
+    name: "name",
 });
 
 // $ExpectType void
 placeSearch.detailOnAMAP({
-    id: 'id',
+    id: "id",
 });
 // $ExpectType void
 placeSearch.detailOnAMAP({
     location: lnglat,
-    id: 'id',
-    name: 'name'
+    id: "id",
+    name: "name",
 });
 
 // $ExpectType void
@@ -394,7 +394,7 @@ placeSearch.open();
 // $ExpectType void
 placeSearch.close();
 
-placeSearch.on('complete', (event: AMap.PlaceSearch.EventMap['complete']) => {
+placeSearch.on("complete", (event: AMap.PlaceSearch.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType string
@@ -407,7 +407,7 @@ placeSearch.on('complete', (event: AMap.PlaceSearch.EventMap['complete']) => {
     event.cityList;
 });
 
-placeSearch.on('listElementClick', (event: AMap.PlaceSearch.EventMap['listElementClick']) => {
+placeSearch.on("listElementClick", (event: AMap.PlaceSearch.EventMap["listElementClick"]) => {
     // $ExpectType MouseEvent
     event.event;
     // $ExpectType string
@@ -420,7 +420,7 @@ placeSearch.on('listElementClick', (event: AMap.PlaceSearch.EventMap['listElemen
     event.listElement;
 });
 
-placeSearch.on('markerClick', (event: AMap.PlaceSearch.EventMap['markerClick']) => {
+placeSearch.on("markerClick", (event: AMap.PlaceSearch.EventMap["markerClick"]) => {
     const markerEvent = event.event;
     // $ExpectType Marker<any>
     markerEvent.target;

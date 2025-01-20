@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/escape-regexp",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/escape-regexp"
+    ],
+    "devDependencies": {
+        "@types/escape-regexp": "workspace:."
+    },
+    "owners": []
+}

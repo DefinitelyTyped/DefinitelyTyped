@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "name": "@types/tape",
+    "version": "5.8.9999",
+    "exports": {
+        ".": "./index.d.ts",
+        "./lib/default_stream": "./lib/default_stream.d.ts",
+        "./lib/results": "./lib/results.d.ts",
+        "./lib/test": "./lib/test.d.ts",
+        "./package.json": "./package.json"
+    },
+    "projects": [
+        "https://github.com/ljharb/tape"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@ljharb/through": "*",
+        "mock-property": "*"
+    },
+    "devDependencies": {
+        "@types/tape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Haoqun Jiang",
+            "githubUsername": "sodatea"
+        },
+        {
+            "name": "Dennis Schwartz",
+            "githubUsername": "DennisSchwartz"
+        },
+        {
+            "name": "Michael Henretty",
+            "githubUsername": "mikehenrty"
+        },
+        {
+            "name": "Rafał Ostrowski",
+            "githubUsername": "rostrowski"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

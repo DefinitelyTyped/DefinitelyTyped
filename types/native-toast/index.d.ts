@@ -1,14 +1,9 @@
-// Type definitions for native-toast 2.0
-// Project: https://github.com/egoist/native-toast
-// Definitions by: Michael Nahkies <https://github.com/mnahkies>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const toast: {
-    (options: toast.ToastOptions): toast.Toast,
-    success: (options: toast.ToastOptions) => toast.Toast,
-    warning: (options: toast.ToastOptions) => toast.Toast,
-    info: (options: toast.ToastOptions) => toast.Toast,
-    error: (options: toast.ToastOptions) => toast.Toast,
+    (options: toast.ToastOptions): toast.Toast;
+    success: (options: toast.ToastOptions) => toast.Toast;
+    warning: (options: toast.ToastOptions) => toast.Toast;
+    info: (options: toast.ToastOptions) => toast.Toast;
+    error: (options: toast.ToastOptions) => toast.Toast;
 };
 
 export = toast;
@@ -16,7 +11,17 @@ export = toast;
 declare namespace toast {
     interface ToastOptions {
         message?: string | undefined;
-        position?: "center" | "west" | "east" | "south" | "south-west" | "south-east" | "north" | "north-west" | "north-east" | undefined;
+        position?:
+            | "center"
+            | "west"
+            | "east"
+            | "south"
+            | "south-west"
+            | "south-east"
+            | "north"
+            | "north-west"
+            | "north-east"
+            | undefined;
         timeout?: number | undefined;
         el?: HTMLElement | undefined;
         rounded?: boolean | undefined;

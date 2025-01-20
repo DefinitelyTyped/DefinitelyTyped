@@ -1,5 +1,3 @@
-
-
 function test_expect() {
     expect();
     expect(1);
@@ -44,13 +42,13 @@ function test_equal() {
 }
 
 function test_eql() {
-    expect({ a: 'b' }).to.eql({ a: 'b' });
+    expect({ a: "b" }).to.eql({ a: "b" });
 }
 
 function test_a() {
     // string
-    expect(5).to.be.a('number');
-    expect([]).to.be.an('array');
+    expect(5).to.be.a("number");
+    expect([]).to.be.an("array");
 
     // constructors
     expect(5).to.be.a(Number);
@@ -58,20 +56,20 @@ function test_a() {
 }
 
 function test_match() {
-    expect('1.2.3').to.match(/[0-9]+\.[0-9]+\.[0-9]+/);
+    expect("1.2.3").to.match(/[0-9]+\.[0-9]+\.[0-9]+/);
 }
 
 function test_contain() {
     // string
-    expect('hello world').to.contain('world');
-    expect('hello world').to.string('world');
+    expect("hello world").to.contain("world");
+    expect("hello world").to.string("world");
     // any
     expect([1, 2]).to.contain(1);
     expect([1, 2]).to.string(1);
 }
 
 function test_length() {
-    expect([1,2,3]).to.have.length(3);
+    expect([1, 2, 3]).to.have.length(3);
 }
 
 function test_empty() {
@@ -79,22 +77,22 @@ function test_empty() {
 }
 
 function test_property() {
-    expect(window).to.have.property('expect');
-    expect(window).to.have.property('expect', expect);
+    expect(window).to.have.property("expect");
+    expect(window).to.have.property("expect", expect);
 }
 
 function test_key() {
-    expect({ a: 'b' }).to.have.key('a');
-    expect({ a: 'b' }).to.include.key('a');
-    expect({ a: 'b', c: 'd' }).to.only.have.keys('a', 'c');
-    expect({ a: 'b', c: 'd' }).to.only.have.keys(['a', 'c']);
-    expect({ a: 'b', c: 'd' }).to.not.only.have.key('a');
+    expect({ a: "b" }).to.have.key("a");
+    expect({ a: "b" }).to.include.key("a");
+    expect({ a: "b", c: "d" }).to.only.have.keys("a", "c");
+    expect({ a: "b", c: "d" }).to.only.have.keys(["a", "c"]);
+    expect({ a: "b", c: "d" }).to.not.only.have.key("a");
 }
 
 function test_throwException() {
     var fn = () => {};
     expect(fn).to.throwError();
-    expect(fn).to.throwException(function (e) {
+    expect(fn).to.throwException(function(e) {
         expect(e).to.be.a(SyntaxError);
     });
     expect(fn).to.throwException(/matches the exception message/);
@@ -104,7 +102,7 @@ function test_throwException() {
 function test_withArgs() {
     var fn = () => {};
     expect(fn).withArgs().to.throwException();
-    expect(fn).withArgs(true, 1, '').to.throwException();
+    expect(fn).withArgs(true, 1, "").to.throwException();
 }
 
 function test_within() {
@@ -123,5 +121,5 @@ function test_lessThan() {
 
 function test_fail() {
     expect().fail();
-    expect().fail('Custom failure message');
+    expect().fail("Custom failure message");
 }

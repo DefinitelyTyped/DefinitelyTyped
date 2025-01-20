@@ -114,8 +114,8 @@
         // squashing function and bias
         A.set({
             squash: Neuron.squash.TANH,
-            bias: 0
-        })
+            bias: 0,
+        });
 
         // neurons
         // -------
@@ -136,13 +136,13 @@
     const A = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     const B = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     // project
@@ -155,7 +155,7 @@
     const C = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
     const connection = A.project(B);
     C.gate(connection, Layer.gateType.INPUT); // now C's output layer gates the connection between A's output layer and B's input layer (input gate)
@@ -172,7 +172,7 @@
     let myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     myNetwork.activate([1, 0, 1, 0]); // [0.5200553602396137, 0.4792707231811006]
@@ -190,7 +190,7 @@
     myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     // train the network
@@ -237,19 +237,19 @@
     const trainingSet = [
         {
             input: [0, 0],
-            output: [0]
+            output: [0],
         },
         {
             input: [0, 1],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 0],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 1],
-            output: [0]
+            output: [0],
         },
     ];
 
@@ -264,7 +264,7 @@
     myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     // create a worker
@@ -275,7 +275,7 @@
         myWorker.postMessage({
             action: "activate",
             input: input,
-            memoryBuffer: myNetwork.optimized.memory
+            memoryBuffer: myNetwork.optimized.memory,
         }, [myNetwork.optimized.memory.buffer]);
     }
 
@@ -285,12 +285,12 @@
             action: "propagate",
             target: target,
             rate: learningRate,
-            memoryBuffer: myNetwork.optimized.memory
+            memoryBuffer: myNetwork.optimized.memory,
         }, [myNetwork.optimized.memory.buffer]);
     }
 
     // train the worker
-    myWorker.onmessage = function (e) {
+    myWorker.onmessage = function(e) {
         // give control of the memory back to the network - this is mandatory!
         myNetwork.optimized.ownership(e.data.memoryBuffer);
 
@@ -318,7 +318,7 @@
             propagateWorker(trainingSet[index].output);
             index++;
         }
-    }
+    };
 
     // kick it
     let index = 0;
@@ -337,13 +337,13 @@
     myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     const standalone = myNetwork.standalone();
 
-    myNetwork.activate([1, 0, 1, 0]);  // [0.5466397925108878, 0.5121246668637663]
-    standalone([1, 0, 1, 0]);   // [0.5466397925108878, 0.5121246668637663]
+    myNetwork.activate([1, 0, 1, 0]); // [0.5466397925108878, 0.5121246668637663]
+    standalone([1, 0, 1, 0]); // [0.5466397925108878, 0.5121246668637663]
 
     // clone
     // -----
@@ -357,13 +357,13 @@
     myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 
     const clone = myNetwork.clone();
 
-    myNetwork.activate([1, 0, 1, 0]);  // [0.5466397925108878, 0.5121246668637663]
-    clone.activate([1, 0, 1, 0]);   // [0.5466397925108878, 0.5121246668637663]
+    myNetwork.activate([1, 0, 1, 0]); // [0.5466397925108878, 0.5121246668637663]
+    clone.activate([1, 0, 1, 0]); // [0.5466397925108878, 0.5121246668637663]
 
     // neurons
     // -------
@@ -383,7 +383,7 @@
     myNetwork.set({
         input: inputLayer,
         hidden: [hiddenLayer],
-        output: outputLayer
+        output: outputLayer,
     });
 }
 
@@ -410,17 +410,17 @@
 
     // Hopfield
     // --------
-    const hopfield = new Architect.Hopfield(10) // create a network for 10-bit patterns
+    const hopfield = new Architect.Hopfield(10); // create a network for 10-bit patterns
 
     // teach the network two different patterns
     hopfield.learn([
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
-    ])
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    ]);
 
     // feed new patterns to the network and it will return the most similar to the ones it was trained to remember
-    hopfield.feed([0, 1, 0, 1, 0, 1, 0, 1, 1, 1]) // [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
-    hopfield.feed([1, 1, 1, 1, 1, 0, 0, 1, 0, 0]) // [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
+    hopfield.feed([0, 1, 0, 1, 0, 1, 0, 1, 1, 1]); // [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+    hopfield.feed([1, 1, 1, 1, 1, 0, 0, 1, 0, 0]); // [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]
 }
 
 // Trainer
@@ -428,27 +428,27 @@
 {
     // train
     // -----
-    let myNetwork = new Architect.Perceptron(2, 2, 1)
-    let trainer = new Trainer(myNetwork)
+    let myNetwork = new Architect.Perceptron(2, 2, 1);
+    let trainer = new Trainer(myNetwork);
 
     let trainingSet = [
         {
             input: [0, 0],
-            output: [0]
+            output: [0],
         },
         {
             input: [0, 1],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 0],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 1],
-            output: [0]
+            output: [0],
         },
-    ]
+    ];
 
     trainer.train(trainingSet);
 
@@ -461,13 +461,14 @@
         cost: Trainer.cost.CROSS_ENTROPY,
         schedule: {
             every: 500, // repeat this task every 500 iterations
-            do: function (data: Synaptic.Trainer.TrainingScheduleDoData) {
+            do: function(data: Synaptic.Trainer.TrainingScheduleDoData) {
                 // custom log
                 console.log("error", data.error, "iterations", data.iterations, "rate", data.rate);
-                if (data.error > .5)
+                if (data.error > .5) {
                     return true; // abort/stop training
-            }
-        }
+                }
+            },
+        },
     };
 
     trainer.train(trainingSet, traningOptions);
@@ -476,32 +477,32 @@
     // ----------
     trainer = new Trainer(myNetwork);
     trainer.trainAsync(trainingSet, traningOptions)
-        .then((results: any) => console.log('done!', results))
+        .then((results: any) => console.log("done!", results));
 
-    myNetwork = new Architect.Perceptron(2, 2, 1)
-    trainer = new Trainer(myNetwork)
+    myNetwork = new Architect.Perceptron(2, 2, 1);
+    trainer = new Trainer(myNetwork);
 
     trainingSet = [
         {
             input: [0, 0],
-            output: [0]
+            output: [0],
         },
         {
             input: [0, 1],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 0],
-            output: [1]
+            output: [1],
         },
         {
             input: [1, 1],
-            output: [0]
+            output: [0],
         },
-    ]
+    ];
 
     trainer.trainAsync(trainingSet)
-        .then((results: any) => console.log('done!', results))
+        .then((results: any) => console.log("done!", results));
 
     // test
     // ----
@@ -517,7 +518,7 @@
         targets: [2, 4],
         distractors: [3, 5],
         prompts: [0, 1],
-        length: 10
+        length: 10,
     });
 
     // ERG

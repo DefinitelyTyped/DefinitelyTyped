@@ -1,10 +1,3 @@
-// Type definitions for angular-strap 2.3
-// Project: http://mgcrea.github.io/angular-strap/
-// Definitions by: Sam Herrmann <https://github.com/samherrmann>
-//                 Matthias Kannwischer <https://github.com/mkannwischer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare namespace mgcrea.ngStrap {
@@ -180,7 +173,7 @@ declare namespace mgcrea.ngStrap {
             trigger?: string | undefined;
             title?: string | undefined;
             html?: boolean | undefined;
-            delay?: number | { show: number; hide: number} | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
             container?: string | boolean | undefined;
             target?: string | ng.IAugmentedJQuery | boolean | undefined;
             template?: string | undefined;
@@ -257,7 +250,11 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace typeahead {
-        type ITypeaheadService = (element: ng.IAugmentedJQuery, controller: any, config?: ITypeaheadOptions) => ITypeahead;
+        type ITypeaheadService = (
+            element: ng.IAugmentedJQuery,
+            controller: any,
+            config?: ITypeaheadOptions,
+        ) => ITypeahead;
 
         interface ITypeaheadProvider {
             defaults: ITypeaheadOptions;
@@ -299,7 +296,11 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace datepicker {
-        type IDatepickerService = (element: ng.IAugmentedJQuery, controller: any, config?: IDatepickerOptions) => IDatepicker;
+        type IDatepickerService = (
+            element: ng.IAugmentedJQuery,
+            controller: any,
+            config?: IDatepickerOptions,
+        ) => IDatepicker;
 
         interface IDatepickerProvider {
             defaults: IDatepickerOptions;
@@ -358,7 +359,11 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace timepicker {
-        type ITimepickerService = (element: ng.IAugmentedJQuery, controller: any, config?: ITimepickerOptions) => ITimepicker;
+        type ITimepickerService = (
+            element: ng.IAugmentedJQuery,
+            controller: any,
+            config?: ITimepickerOptions,
+        ) => ITimepicker;
 
         interface ITimepickerProvider {
             defaults: ITimepickerOptions;
@@ -372,7 +377,7 @@ declare namespace mgcrea.ngStrap {
             placement?: string | undefined;
             trigger?: string | undefined;
             html?: boolean | undefined;
-            delay?: number | { show: number; hide: number; } | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
             container?: string | boolean | undefined;
             template?: string | undefined;
             onShow?(timepicker: ITimepicker): void;
@@ -425,28 +430,28 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ISelectOptions {
-          animation?: string | undefined;
-          placement?: string | undefined;
-          trigger?: string | undefined;
-          html?: boolean | undefined;
-          delay?: number | { show: number; hide: number; } | undefined;
-          container?: string | boolean | undefined;
-          template?: string | undefined;
-          toggle?: boolean | undefined;
-          onShow?(select: ISelect): void;
-          onBeforeShow?(select: ISelect): void;
-          onHide?(select: ISelect): void;
-          onBeforeHide?(select: ISelect): void;
-          multiple?: boolean | undefined;
-          allNoneButtons?: boolean | undefined;
-          allText?: string | undefined;
-          noneText?: string | undefined;
-          maxLength?: number | undefined;
-          maxLengthHtml?: string | undefined;
-          sort?: boolean | undefined;
-          placeholder?: string | undefined;
-          iconCheckmark?: string | undefined;
-          id?: string | undefined;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
+            container?: string | boolean | undefined;
+            template?: string | undefined;
+            toggle?: boolean | undefined;
+            onShow?(select: ISelect): void;
+            onBeforeShow?(select: ISelect): void;
+            onHide?(select: ISelect): void;
+            onBeforeHide?(select: ISelect): void;
+            multiple?: boolean | undefined;
+            allNoneButtons?: boolean | undefined;
+            allText?: string | undefined;
+            noneText?: string | undefined;
+            maxLength?: number | undefined;
+            maxLengthHtml?: string | undefined;
+            sort?: boolean | undefined;
+            placeholder?: string | undefined;
+            iconCheckmark?: string | undefined;
+            id?: string | undefined;
         }
     }
 
@@ -511,18 +516,18 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IDropdownOptions {
-          animation?: string | undefined;
-          placement?: string | undefined;
-          trigger?: string | undefined;
-          html?: boolean | undefined;
-          delay?: number | { show: number; hide: number; } | undefined;
-          container?: string | boolean | undefined;
-          template?: string | undefined;
-          templateUrl?: string | undefined;
-          onShow?(dropdown: IDropdown): void;
-          onBeforeShow?(dropdown: IDropdown): void;
-          onHide?(dropdown: IDropdown): void;
-          onBeforeHide?(dropdown: IDropdown): void;
+            animation?: string | undefined;
+            placement?: string | undefined;
+            trigger?: string | undefined;
+            html?: boolean | undefined;
+            delay?: number | { show: number; hide: number } | undefined;
+            container?: string | boolean | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            onShow?(dropdown: IDropdown): void;
+            onBeforeShow?(dropdown: IDropdown): void;
+            onHide?(dropdown: IDropdown): void;
+            onBeforeHide?(dropdown: IDropdown): void;
         }
     }
 

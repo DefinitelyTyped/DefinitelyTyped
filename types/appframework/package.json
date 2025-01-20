@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/appframework",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "appframework",
+    "projects": [
+        "http://app-framework-software.intel.com/"
+    ],
+    "devDependencies": {
+        "@types/appframework": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kyo_ago",
+            "githubUsername": "kyo-ago"
+        }
+    ]
+}

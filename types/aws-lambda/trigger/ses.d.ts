@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type SESHandler = Handler<SESEvent, void>;
 
@@ -32,23 +32,23 @@ export interface SESMail {
 }
 
 export interface SESReceiptStatus {
-    status: 'PASS' | 'FAIL' | 'GRAY' | 'PROCESSING_FAILED' | 'DISABLED';
+    status: "PASS" | "FAIL" | "GRAY" | "PROCESSING_FAILED" | "DISABLED";
 }
 
 export interface SESReceiptS3Action {
-    type: 'S3';
+    type: "S3";
     topicArn?: string | undefined;
     bucketName: string;
     objectKey: string;
 }
 
 export interface SESReceiptSnsAction {
-    type: 'SNS';
+    type: "SNS";
     topicArn: string;
 }
 
 export interface SESReceiptBounceAction {
-    type: 'Bounce';
+    type: "Bounce";
     topicArn?: string | undefined;
     smtpReplyCode: string;
     statusCode: string;
@@ -57,19 +57,19 @@ export interface SESReceiptBounceAction {
 }
 
 export interface SESReceiptLambdaAction {
-    type: 'Lambda';
+    type: "Lambda";
     topicArn?: string | undefined;
     functionArn: string;
     invocationType: string;
 }
 
 export interface SESReceiptStopAction {
-    type: 'Stop';
+    type: "Stop";
     topicArn?: string | undefined;
 }
 
 export interface SESReceiptWorkMailAction {
-    type: 'WorkMail';
+    type: "WorkMail";
     topicArn?: string | undefined;
     organizationArn: string;
 }
@@ -83,8 +83,14 @@ export interface SESReceipt {
     spfVerdict: SESReceiptStatus;
     dkimVerdict: SESReceiptStatus;
     dmarcVerdict: SESReceiptStatus;
-    dmarcPolicy?: 'none' | 'quarantine' | 'reject' | undefined;
-    action: SESReceiptS3Action | SESReceiptSnsAction | SESReceiptBounceAction | SESReceiptLambdaAction | SESReceiptStopAction | SESReceiptWorkMailAction;
+    dmarcPolicy?: "none" | "quarantine" | "reject" | undefined;
+    action:
+        | SESReceiptS3Action
+        | SESReceiptSnsAction
+        | SESReceiptBounceAction
+        | SESReceiptLambdaAction
+        | SESReceiptStopAction
+        | SESReceiptWorkMailAction;
 }
 
 export interface SESMessage {

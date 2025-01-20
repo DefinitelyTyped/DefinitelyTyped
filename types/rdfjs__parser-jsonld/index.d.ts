@@ -1,24 +1,20 @@
-// Type definitions for @rdfjs/parser-jsonld 1.2
-// Project: https://github.com/rdfjs-base/parser-jsonld
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { BaseQuad, DataFactory, Quad, Sink, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
+import { Context } from "jsonld/jsonld-spec.js";
 
-import { Context } from 'jsonld/jsonld-spec';
-import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
-import { EventEmitter } from 'events';
-
-declare namespace Parser {
-    interface ParserOptions {
-        baseIRI?: string | undefined;
-        context?: Context | undefined;
-        factory?: DataFactory | undefined;
-    }
+export interface DocumentLoader {
+    load(url: string): Promise<unknown>;
 }
 
-declare class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {
-    constructor(options?: Parser.ParserOptions);
-
-    import(stream: EventEmitter, options?: Parser.ParserOptions): Stream<Q>;
+export interface ParserOptions {
+    baseIRI?: string | undefined;
+    context?: Context | undefined;
+    factory?: DataFactory | undefined;
+    documentLoader?: DocumentLoader | undefined;
 }
 
-export = Parser;
+export default class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {
+    constructor(options?: ParserOptions);
+
+    import(stream: EventEmitter, options?: ParserOptions): Stream<Q>;
+}

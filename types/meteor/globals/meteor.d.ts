@@ -1,5 +1,5 @@
 declare type global_Error = Error;
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in client environment. */
     var isClient: boolean;
@@ -36,16 +36,31 @@ declare module Meteor {
         address: string;
         verified: boolean;
     }
+    /**
+     * UserProfile is left intentionally underspecified here, to allow you
+     * to override it in your application (but keep in mind that the default
+     * Meteor configuration allows users to write directly to their user
+     * record's profile field)
+     */
+    interface UserProfile {}
+
+    /**
+     * UserServices is left intentionally underspecified to allow overriding in your application.
+     */
+    interface UserServices {}
+
     interface User {
         _id: string;
         username?: string | undefined;
         emails?: UserEmail[] | undefined;
         createdAt?: Date | undefined;
-        profile?: any;
-        services?: any;
+        profile?: UserProfile;
+        services?: UserServices;
     }
 
     function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
+
+    function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<User | null>;
 
     function userId(): string | null;
     var users: Mongo.Collection<User>;
@@ -130,18 +145,27 @@ declare module Meteor {
     function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
     /**
-     * Invokes a method passing any number of arguments.
+     * Invokes a method with a sync stub, passing any number of arguments.
      * @param name Name of method to invoke
      * @param args Optional method arguments
      */
     function call(name: string, ...args: any[]): any;
+
+    /**
+     * Invokes a method with an async stub, passing any number of arguments.
+     * @param name Name of method to invoke
+     * @param args Optional method arguments
+     */
+    function callAsync(name: string, ...args: any[]): Promise<any>;
 
     function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
         name: string,
         args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean | undefined;
-            onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            onResultReceived?:
+                | ((error: global_Error | Meteor.Error | undefined, result?: Result) => void)
+                | undefined;
             /**
              * (Client only) if true, don't send this method again on reload, simply call the callback an error with the error code 'invocation-failed'.
              */
@@ -225,7 +249,7 @@ declare module Meteor {
      * @param func A function that takes a callback as its final parameter
      * @param context Optional `this` object against which the original function will be invoked
      */
-    function wrapAsync(func: Function, context?: Object): any;
+    function wrapAsync<T extends Function>(func: T, context?: ThisParameterType<T>): Function;
 
     function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
 
@@ -251,13 +275,12 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
-        requestPermissions?: ReadonlyArray<string> | undefined;
+        requestPermissions?: readonly string[] | undefined;
         requestOfflineToken?: Boolean | undefined;
         forceApprovalPrompt?: Boolean | undefined;
-        loginUrlParameters?: Object | undefined;
         redirectUrl?: string | undefined;
         loginHint?: string | undefined;
         loginStyle?: string | undefined;
@@ -279,7 +302,16 @@ declare module Meteor {
     ): void;
 
     function loginWithGoogle(
-        options?: Meteor.LoginWithExternalServiceOptions,
+        options?: Meteor.LoginWithExternalServiceOptions & {
+            /** Google login accepts additional login parameters based on
+             * https://developers.google.com/identity/openid-connect/openid-connect#authenticationuriparameters.
+             * However, there's only one parameter that must be set
+             * directly; all others can be set using Meteor's standard OAuth
+             * login parameters */
+            loginUrlParameters?: {
+                include_granted_scopes: boolean;
+            },
+        },
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
@@ -298,11 +330,9 @@ declare module Meteor {
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
 
-    function loggingIn(): boolean;
-
     function loginWith<ExternalService>(
         options?: {
-            requestPermissions?: ReadonlyArray<string> | undefined;
+            requestPermissions?: readonly string[] | undefined;
             requestOfflineToken?: boolean | undefined;
             loginUrlParameters?: Object | undefined;
             userEmail?: string | undefined;
@@ -313,7 +343,7 @@ declare module Meteor {
     ): void;
 
     function loginWithPassword(
-        user: Object | string,
+        user: { username: string } | { email: string } | { id: string } | string,
         password: string,
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
@@ -322,6 +352,8 @@ declare module Meteor {
         token: string,
         callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
     ): void;
+
+    function loggingIn(): boolean;
 
     function loggingOut(): boolean;
 
@@ -378,14 +410,14 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Connection **/
     interface Connection {
         id: string;
         close: () => void;
         onClose: (callback: () => void) => void;
         clientAddress: string;
-        httpHeaders: Object;
+        httpHeaders: Record<string, string>;
     }
 
     function onConnection(callback: (connection: Connection) => void): void;
@@ -399,7 +431,7 @@ declare module Meteor {
      */
     function publish(
         name: string | null,
-        func: (this: Subscription, ...args: any[]) => void,
+        func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>> | Promise<void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>>>,
         options?: { is_auto: boolean },
     ): void;
 
@@ -413,7 +445,7 @@ declare interface Subscription {
      * @param id The new document's ID.
      * @param fields The fields in the new document.  If `_id` is present it is ignored.
      */
-    added(collection: string, id: string, fields: Object): void;
+    added(collection: string, id: string, fields: Record<string, unknown>): void;
     /**
      * Call inside the publish function. Informs the subscriber that a document in the record set has been modified.
      * @param collection The name of the collection that contains the changed document.
@@ -421,7 +453,7 @@ declare interface Subscription {
      * @param fields The fields in the document that have changed, together with their new values.  If a field is not present in `fields` it was left unchanged; if it is present in `fields` and
      * has a value of `undefined` it was removed from the document.  If `_id` is present it is ignored.
      */
-    changed(collection: string, id: string, fields: Object): void;
+    changed(collection: string, id: string, fields: Record<string, unknown>): void;
     /** Access inside the publish function. The incoming connection for this subscription. */
     connection: Meteor.Connection;
     /**
@@ -450,11 +482,16 @@ declare interface Subscription {
      * Access inside the publish function. The incoming connection for this subscription.
      */
     stop(): void;
+    /**
+     * Call inside the publish function. Allows subsequent methods or subscriptions for the client of this subscription
+     * to begin running without waiting for the publishing to become ready.
+     */
+    unblock(): void;
     /** Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in. */
     userId: string | null;
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in development environment. */
     var isDevelopment: boolean;

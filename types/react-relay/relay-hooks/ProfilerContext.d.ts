@@ -2,7 +2,7 @@
 // the RelayProfiler during the render phase of these components. Allows
 // collecting metrics for a specific part of your application.
 
-import { Context } from 'react';
+import { Context } from "react";
 
 export interface ProfilerContextType {
     wrapPrepareQueryResource: <T>(cb: () => T) => T;

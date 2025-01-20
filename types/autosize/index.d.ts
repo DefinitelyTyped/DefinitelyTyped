@@ -1,12 +1,3 @@
-// Type definitions for autosize 4.0
-// Project: http://www.jacklmoore.com/autosize/
-// Definitions by: Aaron T. King <https://github.com/kingdango>
-//                 keika299 <https://github.com/keika299>
-//                 NeekSandhu <https://github.com/NeekSandhu>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = autosize;
 export as namespace autosize;
 

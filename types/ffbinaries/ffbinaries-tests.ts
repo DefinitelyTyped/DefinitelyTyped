@@ -1,8 +1,8 @@
 import ffbinaries = require("ffbinaries");
 
 ffbinaries.detectPlatform();
-ffbinaries.detectPlatform({ type: 'darwin', arch: 'x64' });
-ffbinaries.detectPlatform({ type: 'will return null', arch: 'x64' });
+ffbinaries.detectPlatform({ type: "darwin", arch: "x64" });
+ffbinaries.detectPlatform({ type: "will return null", arch: "x64" });
 
 ffbinaries.downloadBinaries(
     ["ffmpeg", "ffprobe", "ffplay", "ffserver"],
@@ -30,23 +30,26 @@ ffbinaries.downloadBinaries(
             case "DONE_FROM_CACHE":
                 result.filename;
                 result.path;
-                result.size; // $ExpectError
+                // @ts-expect-error
+                result.size;
                 result.status;
                 break;
             case "FILE_EXISTS":
                 result.filename;
                 result.path;
-                result.size; // $ExpectError
+                // @ts-expect-error
+                result.size;
                 result.status;
                 break;
             default:
                 const _: never = result;
         }
-    }
+    },
 );
 
 const ffmpegLocated = ffbinaries.locateBinariesSync(["ffmpeg"], { ensureExecutable: true, paths: ["."] });
-ffmpegLocated.ffprobe; // $ExpectError
+// @ts-expect-error
+ffmpegLocated.ffprobe;
 if (ffmpegLocated.ffmpeg.found) {
     ffmpegLocated.ffmpeg.isExecutable; // $ExpectType boolean
     ffmpegLocated.ffmpeg.version; // $ExpectType string
@@ -61,7 +64,8 @@ const multipleLocated = ffbinaries.locateBinariesSync(["ffmpeg", "ffplay"]);
 multipleLocated.ffmpeg;
 multipleLocated.ffplay;
 
-ffbinaries.locateBinariesSync(["ffmpeg", "not a component"]); // $ExpectError
+// @ts-expect-error
+ffbinaries.locateBinariesSync(["ffmpeg", "not a component"]);
 
 ffbinaries.getVersionData("1.2.3", (error, data) => {
     error; // $ExpectType string | null

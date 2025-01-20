@@ -1,4 +1,4 @@
-import Item = require('./item');
+import Item = require("./item");
 
 export = SymbolicLink;
 

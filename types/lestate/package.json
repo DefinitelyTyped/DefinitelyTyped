@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "@types/lestate",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "lestate",
+    "projects": [
+        "https://github.com/LeTools/LeState"
+    ],
+    "devDependencies": {
+        "@types/lestate": "workspace:."
+    },
+    "owners": []
+}

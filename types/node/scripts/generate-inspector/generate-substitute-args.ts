@@ -1,56 +1,78 @@
 import * as schema from "./devtools-protocol-schema";
 import { createListeners } from "./event-emitter";
-import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference, filterNull } from "./utils";
+import { capitalize, createDocs, filterNull, hasElements, isObjectReference } from "./utils";
 
 const INDENT = "    ";
 
 // Turns a type into a type representing an array of that type
 const arrify = (typeString: string) => {
-  return typeString === '{}' ? `Array<${typeString}>` : `${typeString}[]`;
-}
+    return typeString === "{}" ? `Array<${typeString}>` : `${typeString}[]`;
+};
 
 // Converts DevTools type to TS type
 const createTypeString = (type: schema.Field, domain?: string): string => {
-    return isObjectReference(type) ? type.$ref :
-        type.type === "any"                ? "any" :
-        type.type === "integer"            ? "number" :
-        type.type === "number"             ? "number" :
-        type.type === "boolean"            ? "boolean" :
-        type.type === "string"             ? "string" :
-        type.type === "array"              ? arrify(createTypeString(type.items, domain)) :
-        type.type === "object"             ? "{}" : "never"; // "never" has yet to be observed
+    return isObjectReference(type)
+        ? type.$ref
+        : type.type === "any"
+        ? "any"
+        : type.type === "integer"
+        ? "number"
+        : type.type === "number"
+        ? "number"
+        : type.type === "boolean"
+        ? "boolean"
+        : type.type === "string"
+        ? "string"
+        : type.type === "array"
+        ? arrify(createTypeString(type.items, domain))
+        : type.type === "object"
+        ? "{}"
+        : "never"; // 'never' has yet to be observed
 };
 
 // Helper for createInterface -- constructs a list of interface fields
 const createFieldsForInterface = (fields: schema.Parameter[], domain: string): string[] => {
-    return fields ? [
-        ...fields
-            .map(prop => [
-                ...createDocs(prop),
-                `${prop.name}${prop.optional ? "?" : ""}: ${createTypeString(prop, domain)};`,
-            ])
-            .reduce(flattenArgs(), []),
-    ] : [];
+    return fields
+        ? [
+            ...fields
+                .map(prop => [
+                    ...createDocs(prop),
+                    `${prop.name}${prop.optional ? "?" : ""}: ${createTypeString(prop, domain)}${
+                        prop.optional && (!("type" in prop) || prop.type !== "any") ? " | undefined" : ""
+                    };`,
+                ])
+                .flat(1),
+        ]
+        : [];
 };
 
 // Create an interface or type definition (the latter if the given type isn't an object)
 const createTypeDefinition = (type: schema.Type, domain: string): string[] => {
     return [
         ...createDocs(type),
-        ...(type.type === "object" ? [
-            `interface ${type.id} {`,
-            ...createFieldsForInterface(type.properties || [], domain)
-                .map(line => `${INDENT}${line}`),
-            "}",
-        ] : [`type ${type.id} = ${createTypeString(type)};`]),
+        ...(type.type === "object"
+            ? [
+                `interface ${type.id} {`,
+                ...createFieldsForInterface(type.properties || [], domain)
+                    .map(line => `${INDENT}${line}`),
+                "}",
+            ]
+            : [`type ${type.id} = ${createTypeString(type)};`]),
     ];
 };
 
-// Helper for for createPostFunctions -- returns the type of a callback
+// Helper for createPostFunctions -- returns the type of a callback
 const createCallbackString = (commandName: string, returns: schema.Parameter[], domain: string): string => {
-    return hasElements(returns) ?
-        `(err: Error | null, params: ${domain}.${capitalize(commandName)}ReturnType) => void` :
-        `(err: Error | null) => void`;
+    return hasElements(returns)
+        ? `(err: Error | null, params: ${domain}.${capitalize(commandName)}ReturnType) => void`
+        : `(err: Error | null) => void`;
+};
+
+// Helper for createPostPromiseFunction -- returns the type of a returned Promise
+const createPromiseString = (commandName: string, returns: schema.Parameter[], domain: string): string => {
+    return hasElements(returns)
+        ? `Promise<${domain}.${capitalize(commandName)}ReturnType>`
+        : "Promise<void>";
 };
 
 // Create declarations for overloads of Session#post
@@ -61,12 +83,12 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     if (hasElements(command.parameters || [])) {
         const parts = [
             `${fnName}(`,
-            `method: "${domain}.${command.name}", `,
+            `method: '${domain}.${command.name}', `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
         ];
-        const joined = parts.join('');
+        const joined = parts.join("");
         if ((joined.length + 8) > 200) {
             parts[1] = INDENT + parts[1];
             parts[2] = INDENT + parts[2];
@@ -78,10 +100,30 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     }
     result.push([
         `${fnName}(`,
-        `method: "${domain}.${command.name}", `,
+        `method: '${domain}.${command.name}', `,
         `callback?: ${callbackStr}`,
         "): void;",
     ].join(""));
+    return result;
+};
+const createPostPromiseFunction = (command: schema.Command, domain: string): string[] => {
+    const fnName = "post";
+    const promiseStr = createPromiseString(command.name, command.returns || [], domain);
+    const result = createDocs(command);
+    if (hasElements(command.parameters || [])) {
+        result.push([
+            `${fnName}(`,
+            `method: '${domain}.${command.name}', `,
+            `params?: ${domain}.${capitalize(command.name)}ParameterType`,
+            `): ${promiseStr};`,
+        ].join(""));
+    } else {
+        result.push([
+            `${fnName}(`,
+            `method: '${domain}.${command.name}'`,
+            `): ${promiseStr};`,
+        ].join(""));
+    }
     return result;
 };
 
@@ -128,50 +170,71 @@ export const generateSubstituteArgs = (protocol: schema.Schema): NodeJS.Dict<str
                     return result;
                 }),
             ]));
-            return typePool.length > 0 ? [
-                `namespace ${item.domain} {`,
-                ...typePool
-                    .map(type => createTypeDefinition(type, item.domain))
-                    .reduce(flattenArgs(""))
-                    .map(line => `${INDENT}${line}`),
-                "}",
-            ] : [];
-        }).reduce(flattenArgs(""), []);
+            return typePool.length > 0
+                ? [
+                    `namespace ${item.domain} {`,
+                    ...typePool
+                        .map(type => createTypeDefinition(type, item.domain))
+                        .flat(1)
+                        .map(line => `${INDENT}${line}`),
+                    "}",
+                ]
+                : [];
+        }).flat(1);
+
+    const importNamespaces: string[] = protocol.domains
+        .map(item => `${item.domain},`);
 
     const postOverloads: string[] = protocol.domains
-        .map(item => (item.commands || [])
-            .map(command => createPostFunctions(command, item.domain))
-            .reduce(flattenArgs(""), []))
-        .reduce(flattenArgs(""), []);
+        .map(item =>
+            (item.commands || [])
+                .map(command => createPostFunctions(command, item.domain))
+                .flat(1)
+        )
+        .flat(1);
 
-    const eventOverloads: string[] = createListeners(protocol.domains
-        .map(item => {
-            if (!item.events || item.events.length === 0) {
-                return [];
-            }
-            return item.events
-                .map(event => ({
-                    comment: createDocs(event),
-                    name: `${item.domain}.${event.name}`,
-                    args: hasElements(event.parameters) ? [{
-                        name: "message",
-                        type: `InspectorNotification<${item.domain}.${capitalize(event.name)}EventDataType>`,
-                    }] : [],
-                }));
-        })
-        .reduce((acc, next) => acc.concat(next), [{
-            comment: [
-                "/**",
-                " * Emitted when any notification from the V8 Inspector is received.",
-                " */",
-            ],
-            name: "inspectorNotification",
-            args: [{ name: "message", type: "InspectorNotification<{}>" }],
-        }]));
+    const postPromiseOverloads: string[] = protocol.domains
+        .map(item =>
+            (item.commands || [])
+                .map(command => createPostPromiseFunction(command, item.domain))
+                .flat(1)
+        )
+        .flat(1);
+
+    const eventOverloads: string[] = createListeners(
+        protocol.domains
+            .map(item => {
+                if (!item.events || item.events.length === 0) {
+                    return [];
+                }
+                return item.events
+                    .map(event => ({
+                        comment: createDocs(event),
+                        name: `${item.domain}.${event.name}`,
+                        args: hasElements(event.parameters)
+                            ? [{
+                                name: "message",
+                                type: `InspectorNotification<${item.domain}.${capitalize(event.name)}EventDataType>`,
+                            }]
+                            : [],
+                    }));
+            })
+            .reduce((acc, next) => acc.concat(next), [{
+                comment: [
+                    "/**",
+                    " * Emitted when any notification from the V8 Inspector is received.",
+                    " */",
+                ],
+                name: "inspectorNotification",
+                args: [{ name: "message", type: "InspectorNotification<object>" }],
+            }]),
+    );
 
     return {
         interfaceDefinitions,
+        importNamespaces,
         postOverloads,
+        postPromiseOverloads,
         eventOverloads,
     };
 };

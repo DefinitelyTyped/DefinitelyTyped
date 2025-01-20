@@ -1,21 +1,23 @@
 /**
+ * WIP. For now, only contains an id field. In the future, this may become a class.
  *
  * @targetfolder objects
  * @optionobject
- */
-/**
- * WIP. For now, only contains an id field. In the future, this may become a class.
+ * @minVersion 23.0
  */
 export declare class Tool {
+    private _id;
     /**
-     * Name of the newly created layer
+     * Name of the tool.
+     * @minVersion 23.0
      */
-    id: string;
+    get id(): string;
+    set id(name: string);
     /**
-     * The class name of the referenced object
-     * @default "Tool"
+     * The class name of the referenced object: *"Tool"*.
+     * @minVersion 23.0
      */
-    readonly typename: string;
+    get typename(): "Tool";
     /** @ignore */
     constructor();
 }

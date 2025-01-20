@@ -1,9 +1,3 @@
-// Type definitions for ssb-keys 7.2
-// Project: https://github.com/ssbc/ssb-keys
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 /**
@@ -74,7 +68,7 @@ export function verifyObj(keys: Keys, hmac_key: string, obj: { signature: string
  *
  * `recipients` must be an array of feed ids. your own feed id should be included.
  */
-export function box(content: object | string | boolean | number, recipients: ReadonlyArray<string>): string;
+export function box(content: object | string | boolean | number, recipients: readonly string[]): string;
 
 /**
  * decrypt a message encrypted with `box`. If the `boxed` successfully decrypted, the parsed JSON is returned, if not, `undefined` is returned.

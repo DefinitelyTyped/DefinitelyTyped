@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface CompactPickerStylesProps {
     Compact?: CSSProperties | undefined;
@@ -14,4 +14,4 @@ export interface CompactPickerProps extends CustomPickerProps {
     onSwatchHover?(color: ColorState, event: MouseEvent): void;
 }
 
-export default class CompactPicker extends Component<CompactPickerProps> { }
+export default class CompactPicker extends Component<CompactPickerProps> {}

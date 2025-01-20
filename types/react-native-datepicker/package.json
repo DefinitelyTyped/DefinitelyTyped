@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/react-native-datepicker",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/xgfe/react-native-datepicker"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "react-native": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react-native-datepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Baskin",
+            "githubUsername": "jacobbaskin"
+        },
+        {
+            "name": "Cheng Gibson",
+            "githubUsername": "nossbigg"
+        }
+    ]
 }

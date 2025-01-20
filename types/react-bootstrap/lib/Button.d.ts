@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Button {
     export interface ButtonProps extends React.HTMLProps<Button> {
@@ -12,5 +12,5 @@ declare namespace Button {
         disabled?: boolean | undefined;
     }
 }
-declare class Button extends React.Component<Button.ButtonProps> { }
+declare class Button extends React.Component<Button.ButtonProps> {}
 export = Button;

@@ -1,26 +1,20 @@
-// Type definitions for non-npm package dynmap 3.1
-// Project: https://github.com/webbukkit/dynmap
-// Definitions by: Munin M. <https://github.com/SNDST00M>
-//                 Mike Primm <https://github.com/mikeprimm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-import * as L from 'leaflet';
-import 'jquery';
-import 'jquery-mousewheel';
+import * as L from "leaflet";
+import "jquery";
+import "jquery-mousewheel";
 
 export as namespace Dynmap;
 export {};
 
 declare global {
     // js/hdmap.js
-    interface HDProjection extends Omit<DynmapProjection, 'fromLocationToLatLng' | 'fromLatLngToLocation'> {
+    interface HDProjection extends Omit<DynmapProjection, "fromLocationToLatLng" | "fromLatLngToLocation"> {
         fromLocationToLatLng(location: Location): L.LatLng;
         fromLatLngToLocation(location: L.LatLng): Location;
     }
-    interface HDMapType extends Omit<WorldMap, 'getTileName'> {
-        projection: DynmapTileLayer['projection'];
-        options: WorldMap['options'];
-        initialize(options: WorldMap['options']): void;
+    interface HDMapType extends Omit<WorldMap, "getTileName"> {
+        projection: DynmapTileLayer["projection"];
+        options: WorldMap["options"];
+        initialize(options: WorldMap["options"]): void;
         getTileName(coords: Location): string;
         zoomprefix(amount: number): string;
     }
@@ -32,11 +26,11 @@ declare global {
     // js/dynmaputils.js
     function loadjs(url: string, completed: () => void): void;
     function loadcss(url: string, completed: () => void): void;
-    function splitArgs(s: string): Record<string, string>;
+    function splitArgs(s: string): Record<string, string | undefined>;
     function swtch(
         value: string | number | symbol,
         options: Record<string | number | symbol, unknown | null | unknown[]>,
-        defaultOption: any
+        defaultOption: any,
     ): unknown;
 
     interface JQuery {
@@ -45,7 +39,7 @@ declare global {
          *
          * @param height New scroll height of element (not implemented).
          */
-        scrollHeight(height?: number): Element['scrollHeight'];
+        scrollHeight(height?: number): Element["scrollHeight"];
     }
 
     function namedReplace(str: string, obj: Record<string | number | symbol, unknown | null | unknown[]>): string;
@@ -58,7 +52,7 @@ declare global {
     var dynmapversion: `${string}-${string}`;
 
     // js/markers.js
-    var dynmapmarkersets: Record<string, MarkerSet> | undefined;
+    var dynmapmarkersets: Record<string, MarkerSet | undefined> | undefined;
 
     // standalone/config.js
     var config: StandaloneConfiguration;
@@ -81,12 +75,12 @@ declare global {
         player: string,
         size: string,
         completed: () => HTMLImageElement,
-        failed: () => void
+        failed: () => void,
     ): void;
     function getMinecraftHead(
         player: string,
         size: string,
-        completed: () => HTMLImageElement
+        completed: () => HTMLImageElement,
     ): void;
     function getMinecraftTime<S = number, D = boolean>(servertime: S): {
         servertime: S;
@@ -99,7 +93,7 @@ declare global {
     };
 
     // js/map.js
-    function chat_encoder(message: ChatMessage): string | ChatMessage['text'];
+    function chat_encoder(message: ChatMessage): string | ChatMessage["text"];
 
     var componentconstructors: ComponentRecord;
     var maptypes: Record<string, WorldMap | undefined>;
@@ -107,7 +101,7 @@ declare global {
     var dynmap: DynMap;
 }
 
-declare module 'leaflet' {
+declare module "leaflet" {
     interface CustomMarkerOptions extends MarkerOptions {
         clickable: true;
         draggable: false;
@@ -122,7 +116,7 @@ declare module 'leaflet' {
     interface CustomIconOptions extends DivIconOptions {
         elementCreator: () => HTMLDivElement;
         shadowCreator: () => void;
-        className: '';
+        className: "";
     }
     class CustomIcon extends DivIcon {
         constructor(options?: CustomIconOptions);
@@ -134,7 +128,7 @@ declare module 'leaflet' {
 // js/dynmaputils.js
 
 declare class DynmapProjection extends L.Class {
-    initialize(options: WorldMap['options']): void;
+    initialize(options: WorldMap["options"]): void;
     fromLocationToLatLng(location: Location): never;
     fromLatLngToLocation(location: LatLng): null;
 }
@@ -160,8 +154,8 @@ export interface TileInformation {
 declare class DynmapTileLayer extends L.TileLayer {
     constructor(options: L.TileLayerOptions);
     projection?: L.Projection;
-    _namedTiles: Record<string, HTMLImageElement>;
-    _cachedTileUrls: Record<string, string>;
+    _namedTiles: Record<string, HTMLImageElement | undefined>;
+    _cachedTileUrls: Record<string, string | undefined>;
     _loadQueue: HTMLImageElement[];
     _loadingTiles: HTMLImageElement[];
     options: L.TileLayerOptions & {
@@ -207,7 +201,7 @@ export interface SidebarUtils {
         content: Content;
         downBtn: JQuery<HTMLButtonElement>;
     };
-    createListSection(labelText: string): ReturnType<SidebarUtils['createSection']>;
+    createListSection(labelText: string): ReturnType<SidebarUtils["createSection"]>;
     createScrollButton(up: boolean, target: JQuery<HTMLDivElement>): JQuery<HTMLDivElement>;
 }
 
@@ -218,9 +212,9 @@ export interface SidebarUtils {
 export type JQuerySuccessHandlerFn = (request: XMLHttpRequest) => void;
 
 export type JQueryErrorHandlerFn = (
-    status: XMLHttpRequest['status'],
-    statusText: XMLHttpRequest['statusText'],
-    request: XMLHttpRequest
+    status: XMLHttpRequest["status"],
+    statusText: XMLHttpRequest["statusText"],
+    request: XMLHttpRequest,
 ) => void;
 
 // js/minecraft.js
@@ -243,7 +237,7 @@ export type Component<Data extends Record<string | number | symbol, unknown | nu
 export class WorldMap extends DynmapTileLayer {
     constructor(options: WorldMapOptions);
     dynmap: DynMap;
-    options: WorldMapConfiguration & DynmapTileLayer['options'] & WorldMapOptions;
+    options: WorldMapConfiguration & DynmapTileLayer["options"] & WorldMapOptions;
     _currentzoom: number;
     _limitedUpdate: L.LeafletEventHandlerFn;
 }
@@ -279,7 +273,7 @@ export interface ComponentRecord {
 export interface GlobalMap extends L.Map {
     _container: HTMLDivElement;
     _controlContainer: HTMLElement;
-    _controlCorners: Record<string, HTMLElement>;
+    _controlCorners: Record<string, HTMLElement | undefined>;
     _handlers: L.Handler[];
     _initialTopLeftPoint: L.Point;
     _layers: Record<string, L.Layer>;
@@ -287,7 +281,7 @@ export interface GlobalMap extends L.Map {
     _layersMinZoom: number;
     _loaded: boolean;
     _mapPane: HTMLElement;
-    _panes: Record<string, HTMLElement>;
+    _panes: Record<string, HTMLElement | undefined>;
     _size: L.Point;
     _sizeChanged: boolean;
     _tileLayersNum: number;
@@ -295,17 +289,17 @@ export interface GlobalMap extends L.Map {
     _tilePane: HTMLElement;
     _zoom: number;
     _zoomAnimated: boolean;
-    _zoomBoundLayers: Record<string, L.Layer>;
+    _zoomBoundLayers: Record<string, L.Layer | undefined>;
     boxZoom: L.Handler;
     doubleClickZoom: L.Handler;
     dragging: L.Handler;
     keyboard: L.Handler & {
-        _panKeys: Record<number, [number, number]>;
+        _panKeys: Record<number, [number, number] | undefined>;
         _zoomKeys: Record<number, 1 | -1>;
     };
     options: L.MapOptions;
     scrollWheelZoom: L.Handler & {
-        _delta: number
+        _delta: number;
     };
     tap?: L.Handler;
     touchZoom: L.Handler;
@@ -333,6 +327,7 @@ declare class DynMap {
     missedupdates: number;
     nocompass: boolean;
     nogui: boolean;
+    options: Options;
     playerfield?: JQuery<HTMLLegendElement> | null;
     playerlist?: JQuery<HTMLUListElement> | null;
     players: Record<string | number | symbol, unknown | null | unknown[]>;
@@ -342,14 +337,14 @@ declare class DynMap {
     servertime: number;
     sidebar?: JQuery<HTMLDivElement> | null;
     sidebarPanel?: JQuery<HTMLDivElement> | null;
-    sidebarSections: Array<ReturnType<SidebarUtils['createListSection']>>;
+    sidebarSections: Array<ReturnType<SidebarUtils["createListSection"]>>;
     worldlist?: JQuery<HTMLUListElement>;
     worlds: Record<string, World | undefined>;
     formatUrl(name: string, options: Options): string;
     configure(configuration: Configuration): void;
     initialize(): void;
     updateSidebarHeight(): void;
-    getProjection: NonNullable<DynMap['maptype']>['getProjection'];
+    getProjection: NonNullable<DynMap["maptype"]>["getProjection"];
     selectMapAndPan(map: WorldMap, location: Location, completed?: () => void): void;
     selectMap(map: WorldMap, completed?: () => void): void;
     selectWorldAndPan(world: World, location: Location, completed?: () => void): void;
@@ -358,7 +353,7 @@ declare class DynMap {
     panToLayerPoint(point: L.Point, completed?: () => void): void;
     panToLatLng(latlng: LatLng, completed?: () => void): void;
     update(): void;
-    getTileUrl(tileName: keyof DynMap['registeredTiles']): DynMap['registeredTiles'][keyof DynMap['registeredTiles']];
+    getTileUrl(tileName: keyof DynMap["registeredTiles"]): DynMap["registeredTiles"][keyof DynMap["registeredTiles"]];
     addPlayer(player: Player, update: Player): void;
     removePlayer(player: Player): void;
     followPlayer(player: Player): void;
@@ -375,11 +370,12 @@ declare class DynMap {
 }
 
 export interface ComponentConfiguration {
-    [index: string]: boolean | number | string;
+    [index: string]: boolean | number | string | undefined;
     type: string;
 }
 
 export interface WorldConfiguration {
+    append_to_world?: string;
     center: Location;
     extrazoomout: number;
     maps: WorldMapConfiguration[];
@@ -391,17 +387,36 @@ export interface WorldConfiguration {
 }
 
 export type WorldMapConversion = [
-    number, number, number,
-    number, number, number,
-    number, number, number
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
 ];
 
-export type CompassDirection = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
+export type CompassDirection = "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
 
-export type ImageFormat =  (
-    | 'jpg' | 'jpg-q75' | 'jpg-q80' | 'jpg-q85' | 'jpg-q90' | 'jpg-q95' | 'jpg-q100' | 'png'
-    | 'webp' | 'webp-l' | 'webp-q75' | 'webp-q80' | 'webp-q85' | 'webp-q90' | 'webp-q95' | 'webp-q100'
-);
+export type ImageFormat =
+    | "jpg"
+    | "jpg-q75"
+    | "jpg-q80"
+    | "jpg-q85"
+    | "jpg-q90"
+    | "jpg-q95"
+    | "jpg-q100"
+    | "png"
+    | "webp"
+    | "webp-l"
+    | "webp-q75"
+    | "webp-q80"
+    | "webp-q85"
+    | "webp-q90"
+    | "webp-q95"
+    | "webp-q100";
 
 export interface WorldMapConfiguration {
     azimuth: number;
@@ -411,8 +426,8 @@ export interface WorldMapConfiguration {
     bigmap: boolean;
     boostzoom: number;
     compassview: CompassDirection;
-    icon?: L.CustomIcon | null;
-    'image-format': ImageFormat;
+    icon?: string | L.CustomIcon | null;
+    "image-format": ImageFormat;
     inclination: number;
     lighting: string;
     maptoworld: WorldMapConversion;
@@ -431,7 +446,7 @@ export interface WorldMapConfiguration {
 }
 
 export interface WorldMapOptions {
-    append_to_world?: boolean;
+    append_to_world?: string;
     title?: string;
     icon?: string;
     dynmap?: WorldMap;
@@ -450,27 +465,28 @@ export interface Configuration extends StandaloneConfiguration {
     defaultmap?: string;
     defaultworld?: string;
     dynmapversion?: string;
-    error?: 'login-required' | string;
+    error?: "login-required" | string;
     grayplayerswhenhidden?: boolean;
     hidey?: boolean;
     joinmessage?: string;
     jsonfile?: boolean;
-    'login-enabled'?: boolean;
+    "login-enabled"?: boolean;
     loginrequired?: boolean;
     maxcount?: number;
-    'msg-chatnotallowed'?: string;
-    'msg-chatrequireslogin'?: string;
-    'msg-hiddennamejoin'?: string;
-    'msg-hiddennamequit'?: string;
-    'msg-maptypes'?: string;
-    'msg-players'?: string;
-    'quitmessage'?: string;
-    label?: string | 'x,y,z';
+    "msg-chatnotallowed"?: string;
+    "msg-chatrequireslogin"?: string;
+    "msg-hiddennamejoin"?: string;
+    "msg-hiddennamequit"?: string;
+    "msg-maptypes"?: string;
+    "msg-players"?: string;
+    "quitmessage"?: string;
+    label?: string | "x,y,z";
     linkurl?: string;
     logourl?: string;
     position?: L.ControlPosition;
     scrollback?: boolean;
     showlabel?: boolean;
+    showlayercontrol?: SidebarState;
     showmessage?: boolean;
     showplayerfacesinmenu?: boolean;
     sidebaropened?: SidebarState;
@@ -479,21 +495,23 @@ export interface Configuration extends StandaloneConfiguration {
     title?: string;
     type?: string;
     updaterate?: number;
-    'webchat-interval'?: number;
-    'webchat-requires-login'?: boolean;
-    'webprefix'?: string;
+    "webchat-interval"?: number;
+    "webchat-requires-login"?: boolean;
+    "webprefix"?: string;
     worlds?: WorldConfiguration[];
     visiblelines?: number;
 }
 
-export type SidebarState = boolean | 'true' | 'false' | 'pinned';
+export type SidebarState = boolean | "true" | "false" | "pinned";
 
 export interface Options extends Configuration {
     container?: string;
     defaultmap?: string;
     defaultworld?: string;
     defaultzoom?: number;
-    'msg-maptypes'?: string;
+    followmap?: string;
+    followzoom?: string;
+    "msg-maptypes"?: string;
     sidebaropened?: SidebarState;
     showDynmapLayerControl?: SidebarState;
     title?: string;
@@ -554,12 +572,12 @@ export interface MarkerLine {
     our_layer: L.Layer;
     timestamp: number;
     weight: number;
-    x: number;
-    y: number;
-    z: number;
+    x: number[];
+    y: number[];
+    z: number[];
 }
 
-interface MarkerCircle {
+export interface MarkerCircle {
     color: HexColor;
     desc?: string;
     fillcolor: HexColor;
@@ -575,12 +593,12 @@ interface MarkerCircle {
     x: number;
     xr: number;
     y: number;
-    yr: number;
     z: number;
+    zr: number;
 }
 
 export interface MarkerLayerGroup extends L.LayerGroup {
-    _layers: Record<number, L.Layer>;
+    _layers: Record<number, L.Layer | undefined>;
 }
 
 export interface Marker {
@@ -590,7 +608,7 @@ export interface Marker {
     label: string;
     markup: boolean;
     maxzoom: number;
-    mixzoom: number;
+    minzoom: number;
     our_layer: L.Layer;
     timestamp: number;
     x: number;
@@ -600,10 +618,10 @@ export interface Marker {
 
 export interface MarkerSet {
     areas: {
-        [aname: string]: MarkerArea;
+        [aname: string]: MarkerArea | undefined;
     };
     circles: {
-        [cname: string]: MarkerCircle;
+        [cname: string]: MarkerCircle | undefined;
     };
     hide: boolean;
     id: string;
@@ -614,9 +632,9 @@ export interface MarkerSet {
     minzoom: number;
     showlabels: boolean;
     timestamp: number;
-    markers: Record<string, Marker>;
+    markers: Record<string, Marker | undefined>;
     lines: {
-        [lname: string]: MarkerLine;
+        [lname: string]: MarkerLine | undefined;
     };
 }
 

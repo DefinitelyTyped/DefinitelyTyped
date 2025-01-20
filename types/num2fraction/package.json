@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/num2fraction",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/yisibl/num2fraction#readme"
+    ],
+    "devDependencies": {
+        "@types/num2fraction": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sergey12313",
+            "githubUsername": "sergey12313"
+        }
+    ]
+}

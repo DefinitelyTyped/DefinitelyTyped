@@ -1,18 +1,14 @@
-// Type definitions for Redux Mock Store 0.0.1
-// Project: https://github.com/arnaudbenard/redux-mock-store
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as Redux from "redux";
 
-import * as Redux from 'redux';
+declare namespace reduxMockStore {
+    type MockStore<T> = Redux.Store<T>;
+    type MockStoreCreator<T = {}> = (state?: T) => MockStore<T>;
 
-export interface MockStore<T> extends Redux.Store<T> {
-    getActions(): any[];
-    clearActions(): void;
+    interface ConfigureStore {
+        <T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
+    }
 }
 
-export type MockStoreCreator<T = {}> = (state?: T) => MockStore<T>;
+declare const reduxMockStore: reduxMockStore.ConfigureStore;
 
-declare function createMockStore<T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
-
-export default createMockStore;
+export = reduxMockStore;

@@ -1,12 +1,12 @@
 /// <reference types="node" />
 
-import { Transport, TransportOptions } from '../..';
+import { Transport, TransportOptions } from "../..";
 
-import * as shared from '../shared';
+import * as shared from "../shared";
 
-import Mail = require('../mailer');
-import MailMessage = require('../mailer/mail-message');
-import MimeNode = require('../mime-node');
+import Mail = require("../mailer");
+import MailMessage = require("../mailer/mail-message");
+import MimeNode = require("../mime-node");
 
 declare namespace SendmailTransport {
     type MailOptions = Mail.Options;

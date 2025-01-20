@@ -4,14 +4,14 @@ import { CodePipelineCloudWatchEvent, CodePipelineEvent } from "aws-lambda";
 
 /* CodePipeline events https://docs.aws.amazon.com/codepipeline/latest/userguide/actions-invoke-lambda-function.html#actions-invoke-lambda-function-json-event-example */
 const CodePipelineEvent: CodePipelineEvent = {
-    'CodePipeline.job': {
-        id: '11111111-abcd-1111-abcd-111111abcdef',
-        accountId: '111111111111',
+    "CodePipeline.job": {
+        id: "11111111-abcd-1111-abcd-111111abcdef",
+        accountId: "111111111111",
         data: {
             actionConfiguration: {
                 configuration: {
-                    FunctionName: 'MyLambdaFunctionForAWSCodePipeline',
-                    UserParameters: 'some-input-such-as-a-URL',
+                    FunctionName: "MyLambdaFunctionForAWSCodePipeline",
+                    UserParameters: "some-input-such-as-a-URL",
                 },
             },
             inputArtifacts: [
@@ -19,18 +19,18 @@ const CodePipelineEvent: CodePipelineEvent = {
                     location: {
                         s3Location: {
                             bucketName:
-                                'the name of the bucket configured as the pipeline artifact store in Amazon S3, for example codepipeline-us-east-2-1234567890',
-                            objectKey: 'the name of the application, for example CodePipelineDemoApplication.zip',
+                                "the name of the bucket configured as the pipeline artifact store in Amazon S3, for example codepipeline-us-east-2-1234567890",
+                            objectKey: "the name of the application, for example CodePipelineDemoApplication.zip",
                         },
-                        type: 'S3',
+                        type: "S3",
                     },
                     revision: null,
-                    name: 'ArtifactName',
+                    name: "ArtifactName",
                 },
             ],
             outputArtifacts: [],
             artifactCredentials: {
-                secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+                secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
                 sessionToken: `MIICiTCCAfICCQD6m7oRw0uXOjANBgkqhkiG9w
  0BAQUFADCBiDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAldBMRAwDgYDVQQHEwdTZ
  WF0dGxlMQ8wDQYDVQQKEwZBbWF6b24xFDASBgNVBAsTC0lBTSBDb25zb2xlMRIw
@@ -46,32 +46,32 @@ const CodePipelineEvent: CodePipelineEvent = {
  KyExzyLwaxlAoo7TJHidbtS4J5iNmZgXL0FkbFFBjvSfpJIlJ00zbhNYS5f6Guo
  EDmFJl0ZxBHjJnyp378OD8uTs7fLvjx79LjSTbNYiytVbZPQUQ5Yaxu2jXnimvw
  3rrszlaEXAMPLE=`,
-                accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
+                accessKeyId: "AKIAIOSFODNN7EXAMPLE",
             },
-            continuationToken: 'A continuation token if continuing job',
+            continuationToken: "A continuation token if continuing job",
         },
     },
 };
 
-CodePipelineEvent['CodePipeline.job'].data.encryptionKey = { type: 'KMS', id: 'key' };
+CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: "KMS", id: "key" };
 
 /* CodePipeline CloudWatch Events
  * see https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html
  * Their documentation says that detail.version is a string, but it is actually an integer
  */
 const CodePipelineCloudWatchEvent: CodePipelineCloudWatchEvent = {
-    version: '0',
-    id: 'event_Id',
-    'detail-type': 'CodePipeline Pipeline Execution State Change',
-    source: 'aws.codepipeline',
-    account: 'Pipeline_Account',
-    time: 'TimeStamp',
-    region: 'us-east-1',
-    resources: ['arn:aws:codepipeline:us-east-1:account_ID:myPipeline'],
+    version: "0",
+    id: "event_Id",
+    "detail-type": "CodePipeline Pipeline Execution State Change",
+    source: "aws.codepipeline",
+    account: "Pipeline_Account",
+    time: "TimeStamp",
+    region: "us-east-1",
+    resources: ["arn:aws:codepipeline:us-east-1:account_ID:myPipeline"],
     detail: {
-        pipeline: 'myPipeline',
+        pipeline: "myPipeline",
         version: 1,
-        state: 'STARTED',
-        'execution-id': 'execution_Id',
+        state: "STARTED",
+        "execution-id": "execution_Id",
     },
 };

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/pdf-parse",
+    "version": "1.1.9999",
+    "projects": [
+        "https://gitlab.com/autokent/pdf-parse"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/pdf-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philipp Katz",
+            "githubUsername": "qqilihq"
+        }
+    ]
+}

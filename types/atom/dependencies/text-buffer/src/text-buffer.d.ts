@@ -1,4 +1,4 @@
-import { ReadStream, WriteStream } from 'fs';
+import { ReadStream, WriteStream } from "fs";
 import {
     Disposable,
     FileSavedEvent,
@@ -6,7 +6,7 @@ import {
     HistoryTransactionOptions,
     HistoryTraversalOptions,
     TextEditOptions,
-} from '../../../index';
+} from "../../../index";
 import {
     FindMarkerOptions,
     Marker,
@@ -16,15 +16,15 @@ import {
     Range,
     RangeCompatible,
     TextChange,
-} from './text-buffer';
+} from "./text-buffer";
 
-export * from './display-marker';
-export * from './display-marker-layer';
-export * from './helpers';
-export * from './marker';
-export * from './marker-layer';
-export * from './point';
-export * from './range';
+export * from "./display-marker";
+export * from "./display-marker-layer";
+export * from "./helpers";
+export * from "./marker";
+export * from "./marker-layer";
+export * from "./point";
+export * from "./range";
 
 /**
  *  A mutable text container with undo/redo support and the ability to
@@ -284,7 +284,13 @@ export class TextBuffer {
 
     // Markers
     /** Create a layer to contain a set of related markers. */
-    addMarkerLayer(options?: { maintainHistory?: boolean | undefined; persistent?: boolean | undefined; role?: string | undefined }): MarkerLayer;
+    addMarkerLayer(
+        options?: {
+            maintainHistory?: boolean | undefined;
+            persistent?: boolean | undefined;
+            role?: string | undefined;
+        },
+    ): MarkerLayer;
 
     /**
      *  Get a MarkerLayer by id.
@@ -300,7 +306,7 @@ export class TextBuffer {
         range: RangeCompatible,
         properties?: {
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): Marker;
@@ -309,7 +315,7 @@ export class TextBuffer {
     markPosition(
         position: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): Marker;

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/logstub",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/OutOfSyncStudios/logstub#readme"
+    ],
+    "devDependencies": {
+        "@types/bunyan": "*",
+        "@types/logstub": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

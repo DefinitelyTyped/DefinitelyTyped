@@ -1,32 +1,21 @@
-// Type definitions for blessed 0.1
-// Project: https://github.com/chjj/blessed
-// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
-//                 Steve Kellock <https://github.com/skellock>
-//                 Max Brauer <https://github.com/mamachanko>
-//                 Nathan Rajlich <https://github.com/TooTallNate>
-//                 Daniel Berlanga <https://github.com/danikaze>
-//                 Jeff Huijsmans <https://github.com/jeffhuys>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { Writable, Readable } from "stream";
 import * as child_process from "child_process";
+import { EventEmitter } from "events";
+import { Readable, Writable } from "stream";
 
 export interface IBlessedProgramOptions {
-  input?: Readable | undefined;
-  output?: Writable | undefined;
-  log?: string | undefined;
-  dump?: boolean | undefined;
-  zero?: boolean | undefined;
-  buffer?: boolean | undefined;
-  terminal?: string | undefined;
-  term?: string | undefined;
-  tput?: string | undefined;
-  debug?: boolean | undefined;
-  resizeTimeout?: boolean | undefined;
+    input?: Readable | undefined;
+    output?: Writable | undefined;
+    log?: string | undefined;
+    dump?: boolean | undefined;
+    zero?: boolean | undefined;
+    buffer?: boolean | undefined;
+    terminal?: string | undefined;
+    term?: string | undefined;
+    tput?: string | undefined;
+    debug?: boolean | undefined;
+    resizeTimeout?: boolean | undefined;
 }
 
 export class BlessedProgram extends EventEmitter {
@@ -68,11 +57,11 @@ export class BlessedProgram extends EventEmitter {
     listen(): void;
     destroy(): void;
 
-    key(key: string|string[], listener: Function): void;
-    onceKey(key: string|string[], listener: Function): void;
+    key(key: string | string[], listener: Function): void;
+    onceKey(key: string | string[], listener: Function): void;
 
-    unKey(key: string|string[], listener: Function): void;
-    removeKey(key: string|string[], listener: Function): void;
+    unKey(key: string | string[], listener: Function): void;
+    removeKey(key: string | string[], listener: Function): void;
 
     bindMouse(): void;
     enableGpm(): void;
@@ -448,8 +437,18 @@ export namespace Widgets {
 
         type TMouseAction = "mousedown" | "mouseup" | "mousemove";
 
+        interface TStyleBorder {
+            bg?: string | undefined;
+            fg?: string | undefined;
+        }
+
+        interface Effects {
+            bg?: string;
+            fg?: string;
+            border?: TStyleBorder | undefined;
+        }
+
         interface TStyle {
-            type?: string | undefined;
             bg?: string | undefined;
             fg?: string | undefined;
             ch?: string | undefined;
@@ -459,9 +458,9 @@ export namespace Widgets {
             inverse?: boolean | undefined;
             invisible?: boolean | undefined;
             transparent?: boolean | undefined;
-            border?: "line" | "bg" | TBorder | undefined;
-            hover?: boolean | undefined;
-            focus?: boolean | undefined;
+            border?: TStyleBorder;
+            hover?: Effects | undefined;
+            focus?: Effects | undefined;
             label?: string | undefined;
             track?: { bg?: string | undefined; fg?: string | undefined } | undefined;
             scrollbar?: { bg?: string | undefined; fg?: string | undefined } | undefined;
@@ -639,7 +638,7 @@ export namespace Widgets {
         readTerminfo(term: string): string;
         parseTerminfo(
             data: any,
-            file: string
+            file: string,
         ): {
             header: {
                 dataSize: number;
@@ -1412,7 +1411,7 @@ export namespace Widgets {
             file: string,
             args: string[],
             options: NodeChildProcessExecOptions,
-            callback: (...args: any[]) => void
+            callback: (...args: any[]) => void,
         ): child_process.ChildProcess;
 
         /**
@@ -2270,10 +2269,10 @@ export namespace Widgets {
         options: BigTextOptions;
     }
 
-    interface ListElementStyle {
+    type ListElementStyle = {
         selected?: any;
         item?: any;
-    }
+    } & Types.TStyle;
 
     interface ListOptions<TStyle extends ListElementStyle> extends BoxOptions {
         /**
@@ -2386,7 +2385,7 @@ export namespace Widgets {
         /**
          * Sets the list items to multiple strings.
          */
-        setItems(items: BlessedElement[]): void;
+        setItems(items: BlessedElement[] | string[]): void;
 
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
@@ -2520,7 +2519,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],
@@ -2532,7 +2531,7 @@ export namespace Widgets {
 
         /**
          * Set rows in table. Array of arrays of strings.
-         * @example:
+         * @example
          *
          * table.setData([
          *      [ 'Animals',  'Foods'  ],

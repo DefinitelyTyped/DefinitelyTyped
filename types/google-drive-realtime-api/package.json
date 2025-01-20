@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/google-drive-realtime-api",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google-drive-realtime-api",
+    "projects": [
+        "https://developers.google.com/google-apps/realtime/"
+    ],
+    "devDependencies": {
+        "@types/google-drive-realtime-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dustin Wehr",
+            "url": "http://cs.toronto.edu/~wehr"
+        }
+    ]
+}

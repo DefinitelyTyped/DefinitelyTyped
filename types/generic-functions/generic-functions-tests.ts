@@ -1,11 +1,11 @@
-import g = require('generic-functions');
+import g = require("generic-functions");
 
 var tvShow: Object = {
-  seasons: 2,
-  show: "Better Call Saul"
+    seasons: 2,
+    show: "Better Call Saul",
 };
 
-console.log(g.strcmp("foo", "foo"));  // => true
+console.log(g.strcmp("foo", "foo")); // => true
 console.log(g.icstrcmp("BAR", "bar")); // => true
 console.log(g.strendswith("file.pdf", "pdf")); // => true
 console.log(g.icstrendswith("file.PDF", "pdf")); // => true

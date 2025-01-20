@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ember__ordered-set",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/emberjs/ember-ordered-set"
+    ],
+    "devDependencies": {
+        "@types/ember__ordered-set": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

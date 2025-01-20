@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/psl",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/wrangr/psl#readme"
+    ],
+    "devDependencies": {
+        "@types/psl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

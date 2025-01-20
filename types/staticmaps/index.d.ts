@@ -1,10 +1,4 @@
-// Type definitions for staticmaps 1.5
-// Project: https://github.com/StephanGeorg/staticmaps#readme
-// Definitions by: Olivier Kamers <https://github.com/olivierkamers>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
+import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from "sharp";
 
 declare class StaticMaps {
     constructor(options: StaticMaps.StaticMapsOptions);
@@ -14,20 +8,42 @@ declare class StaticMaps {
     addMultiPolygon: (options: StaticMaps.AddMultiPolygonOptions) => void;
     addMarker: (options: StaticMaps.AddMarkerOptions) => void;
     addText: (options: StaticMaps.AddTextOptions) => void;
-    render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
+    addCircle: (options: StaticMaps.AddCircleOptions) => void;
+    render: (center?: readonly number[], zoom?: number) => Promise<void>;
     image: StaticMapsImage;
 }
 
 declare class StaticMapsImage {
-    constructor();
-
     image: Buffer;
     save: (fileName?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<void>;
     buffer: (mime?: string, outputOptions?: OutputOptions | PngOptions | JpegOptions | WebpOptions) => Promise<Buffer>;
 }
 
 declare namespace StaticMaps {
-    type ZoomLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23;
+    type ZoomLevel =
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12
+        | 13
+        | 14
+        | 15
+        | 16
+        | 17
+        | 18
+        | 19
+        | 20
+        | 21
+        | 22
+        | 23;
 
     interface StaticMapsOptions {
         width: number;
@@ -40,7 +56,8 @@ declare namespace StaticMaps {
          * Subdomains of tile server
          * @default []
          */
-        subdomains?: string[] | undefined;
+        tileSubdomains?: string[] | undefined;
+        tileLayers?: LayerConfig[] | undefined;
         tileRequestTimeout?: number | undefined;
         tileRequestHeader?: object | undefined;
         /**
@@ -51,20 +68,27 @@ declare namespace StaticMaps {
         /**
          * Defines the range of zoom levels to try
          */
-        zoomRange?: {
-            min?: ZoomLevel | undefined;
-            max?: ZoomLevel | undefined;
-        } | undefined;
+        zoomRange?:
+            | {
+                min?: ZoomLevel | undefined;
+                max?: ZoomLevel | undefined;
+            }
+            | undefined;
         /** @deprecated Use zoomRange.max instead: */
         maxZoom?: number | undefined;
         reverseY?: boolean | undefined;
     }
+
+    type ResizeMode = keyof FitEnum;
 
     interface AddMarkerOptions {
         coord: [number, number];
         img: string;
         height: number;
         width: number;
+        drawHeight?: number | undefined;
+        drawWidth?: number | undefined;
+        resizeMode?: ResizeMode | undefined;
         offsetX?: number | undefined;
         offsetY?: number | undefined;
     }
@@ -103,10 +127,32 @@ declare namespace StaticMaps {
         offsetY?: number | undefined;
     }
 
-    type TextAnchor =
-        | 'start'
-        | 'middle'
-        | 'end';
+    type TextAnchor = "start" | "middle" | "end";
+
+    interface AddCircleOptions {
+        coord: [number, number];
+        radius: number;
+        /**
+         * Stroke color of the circle
+         * @default '#000000BB'
+         */
+        color?: string | undefined;
+        /**
+         * Stroke width of circle
+         * @default 3
+         */
+        width?: number | undefined;
+        /**
+         * Fill color of the circle
+         * @default '#AA0000BB'
+         */
+        fill?: string | undefined;
+    }
+
+    interface LayerConfig {
+        tileUrl: string;
+        tileSubdomains?: string[] | undefined;
+    }
 }
 
 export = StaticMaps;

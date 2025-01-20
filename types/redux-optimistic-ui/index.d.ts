@@ -1,9 +1,3 @@
-// Type definitions for redux-optimistic-ui 0.4.0
-// Project: https://github.com/mattkrick/redux-optimistic-ui
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="redux" />
 
 declare module "redux-optimistic-ui" {
@@ -33,7 +27,6 @@ declare module "redux-optimistic-ui" {
      */
     export function optimistic<TState>(reducer: Reducer<TState>): Reducer<OptimisticState<TState>>;
 
-
     /**
      * Returns your current state or state if it wasn't enhanced yet
      */
@@ -50,30 +43,26 @@ declare module "redux-optimistic-ui" {
             optimistic: {
                 /**
                  * Type, BEGIN, COMMIT or REVERT
-                 *
-                 * @type {string}
                  */
                 type: string;
                 /**
                  * Transaction id. Id should be unique for each optimistic action
-                 *
-                 * @type {number}
                  */
                 id: number;
-            }
-        }
+            };
+        };
     }
 
     /**
      * Start optimistic action
      */
-    export const BEGIN = '@@optimist/BEGIN';
+    export const BEGIN = "@@optimist/BEGIN";
     /**
      * Finish optimistic action and commit results
      */
-    export const COMMIT = '@@optimist/COMMIT';
+    export const COMMIT = "@@optimist/COMMIT";
     /**
      * Revert optimistic action
      */
-    export const REVERT = '@@optimist/REVERT';
+    export const REVERT = "@@optimist/REVERT";
 }

@@ -27,15 +27,15 @@ zipcodes.lookupByState("CA"); // $ExpectType ZipCode[]
 
 zipcodes.distance(zipA.zip, zipB.zip); // $ExpectType number | null
 
-zipcodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[]
-zipcodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[]
-zipcodes.radius(95014, 50); // $ExpectType ZipCode[] | string[]
+zipcodes.radius(zipA.zip, 1, true); // $ExpectType ZipCode[] | string[] || string[] | ZipCode[]
+zipcodes.radius(zipA.zip, 1, false); // $ExpectType ZipCode[] | string[] || string[] | ZipCode[]
+zipcodes.radius(95014, 50); // $ExpectType ZipCode[] | string[] || string[] | ZipCode[]
 
 zipcodes.toMiles(3); // $ExpectType number
 
 zipcodes.toKilometers(3); // $ExpectType number
 
-zipcodes.lookupByCoords(37.323, -122.0527); // $ExpectType string | null
+zipcodes.lookupByCoords(37.323, -122.0527); // $ExpectType ZipCode | null
 
 zipcodes.random(); // $ExpectType ZipCode
 

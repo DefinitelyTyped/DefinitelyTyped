@@ -1,6 +1,6 @@
-import Choices = require('../objects/choices');
+import Choices from "../objects/choices.js";
 
-type Direction = 'up' | 'down';
+type Direction = "up" | "down";
 interface Options {
     choices: Choices;
     loop?: boolean;
@@ -20,4 +20,4 @@ interface Options {
  */
 declare function incrementListIndex(current: number, dir: Direction, opt: Options): number;
 
-export = incrementListIndex;
+export default incrementListIndex;

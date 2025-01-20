@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface DocOrEditor {
         /**
          * This method can be used to implement search/replace functionality.

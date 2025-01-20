@@ -1,16 +1,3 @@
-// Type definitions for Knockout v3.4.0
-// Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>,
-//                 Igor Oleinikov <https://github.com/Igorbek>,
-//                 Clément Bourgeois <https://github.com/moonpyk>,
-//                 Matt Brooks <https://github.com/EnableSoftware>,
-//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
-//                 Mathias Lorenzen <https://github.com/ffMathy>,
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-//                 Retsam <https://github.com/Retsam>
-//                 Rey Pena <https://github.com/ReyPena>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface KnockoutSubscribableFunctions<T> {
     /**
      * Notify subscribers of knockout "change" event. This doesn't actually change the observable value.
@@ -42,16 +29,16 @@ interface KnockoutObservableFunctions<T> {
 // The functions of observable arrays that don't mutate the array
 interface KnockoutReadonlyObservableArrayFunctions<T> {
     /**
-      * Returns the index of the first occurrence of a value in an array.
-      * @param searchElement The value to locate in the array.
-      * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
-      */
+     * Returns the index of the first occurrence of a value in an array.
+     * @param searchElement The value to locate in the array.
+     * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+     */
     indexOf(searchElement: T, fromIndex?: number): number;
     /**
-      * Returns a section of an array.
-      * @param start The beginning of the specified portion of the array.
-      * @param end The end of the specified portion of the array.
-      */
+     * Returns a section of an array.
+     * @param start The beginning of the specified portion of the array.
+     * @param end The end of the specified portion of the array.
+     */
     slice(start: number, end?: number): T[];
 }
 // The functions of observable arrays that mutate the array
@@ -152,7 +139,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
 interface KnockoutSubscribableStatic {
     fn: KnockoutSubscribableFunctions<any>;
 
-    new <T>(): KnockoutSubscribable<T>;
+    new<T>(): KnockoutSubscribable<T>;
 }
 
 interface KnockoutSubscription {
@@ -188,10 +175,10 @@ interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
      * Customizes observables basic functionality.
      * @param requestedExtenders Name of the extender feature and its value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
-    extend(requestedExtenders: { [key: string]: any; }): KnockoutSubscribable<T>;
+    extend(requestedExtenders: { [key: string]: any }): KnockoutSubscribable<T>;
     /**
-    * Gets total number of subscribers.
-    */
+     * Gets total number of subscribers.
+     */
     getSubscriptionsCount(): number;
     /**
      * Gets number of subscribers of a particular event.
@@ -246,7 +233,7 @@ interface KnockoutComputed<T> extends KnockoutReadonlyComputed<T>, KnockoutObser
      * Customizes observables basic functionality.
      * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
-    extend(requestedExtenders: { [key: string]: any; }): KnockoutComputed<T>;
+    extend(requestedExtenders: { [key: string]: any }): KnockoutComputed<T>;
 }
 
 interface KnockoutObservableArrayStatic {
@@ -259,9 +246,15 @@ interface KnockoutObservableArrayStatic {
  * While all observable arrays are writable at runtime, this type is analogous to the native ReadonlyArray type:
  * casting an observable array to this type expresses the intention that it shouldn't be mutated.
  */
-interface KnockoutReadonlyObservableArray<T> extends KnockoutReadonlyObservable<ReadonlyArray<T>>, KnockoutReadonlyObservableArrayFunctions<T> {
+interface KnockoutReadonlyObservableArray<T>
+    extends KnockoutReadonlyObservable<readonly T[]>, KnockoutReadonlyObservableArrayFunctions<T>
+{
     // NOTE: Keep in sync with KnockoutObservableArray<T>, see note on KnockoutObservableArray<T>
-    subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
+    subscribe(
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
+        target: any,
+        event: "arrayChange",
+    ): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
     subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
@@ -273,12 +266,16 @@ interface KnockoutReadonlyObservableArray<T> extends KnockoutReadonlyObservable<
     So it extends KnockoutObservable<T[]> and duplicates the subscribe definitions, which should be kept in sync
 */
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
-    subscribe(callback: (newValue: KnockoutArrayChange<T>[]) => void, target: any, event: "arrayChange"): KnockoutSubscription;
+    subscribe(
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
+        target: any,
+        event: "arrayChange",
+    ): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target: any, event: "beforeChange"): KnockoutSubscription;
     subscribe(callback: (newValue: T[]) => void, target?: any, event?: "change"): KnockoutSubscription;
     subscribe<U>(callback: (newValue: U) => void, target: any, event: string): KnockoutSubscription;
 
-    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservableArray<T>;
+    extend(requestedExtenders: { [key: string]: any }): KnockoutObservableArray<T>;
 }
 
 interface KnockoutObservableStatic {
@@ -286,8 +283,8 @@ interface KnockoutObservableStatic {
 
     <T>(value: T): KnockoutObservable<T>;
     <T>(value: any): KnockoutObservable<T>;
-    <T = any>(value: null): KnockoutObservable<T | null>
-    <T = any>(): KnockoutObservable<T | undefined>
+    <T = any>(value: null): KnockoutObservable<T | null>;
+    <T = any>(): KnockoutObservable<T | undefined>;
 }
 
 /**
@@ -301,8 +298,8 @@ interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, Knockou
      * Returns the current value of the computed observable without creating a dependency.
      */
     peek(): T;
-    valueHasMutated?: { (): void; } | undefined;
-    valueWillMutate?: { (): void; } | undefined;
+    valueHasMutated?: { (): void } | undefined;
+    valueWillMutate?: { (): void } | undefined;
 }
 
 interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
@@ -313,7 +310,7 @@ interface KnockoutObservable<T> extends KnockoutReadonlyObservable<T> {
      * Customizes observables basic functionality.
      * @param requestedExtenders Name of the extender feature and it's value, e.g. { notify: 'always' }, { rateLimit: 50 }
      */
-    extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
+    extend(requestedExtenders: { [key: string]: any }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedOptions<T> {
@@ -370,15 +367,20 @@ interface KnockoutBindingContext {
      * Clones the current Binding Context, adding extra properties to it.
      * @param properties object with properties to be added in the binding context.
      */
-    extend(properties: { [key: string]: any; } | (() => { [key: string]: any; })): KnockoutBindingContext;
+    extend(properties: { [key: string]: any } | (() => { [key: string]: any })): KnockoutBindingContext;
     /**
-     * This returns a new binding context whose viewmodel is the first parameter and whose $parentContext is the current bindingContext. 
+     * This returns a new binding context whose viewmodel is the first parameter and whose $parentContext is the current bindingContext.
      * @param dataItemOrAccessor The binding context of the children.
      * @param dataItemAlias An alias for the data item in descendant contexts.
      * @param extendCallback Function to be called.
      * @param options Further options.
      */
-    createChildContext(dataItemOrAccessor: any, dataItemAlias?: string, extendCallback?: Function, options?: { "exportDependencies": boolean }): any;
+    createChildContext(
+        dataItemOrAccessor: any,
+        dataItemAlias?: string,
+        extendCallback?: Function,
+        options?: { "exportDependencies": boolean },
+    ): any;
 }
 
 interface KnockoutAllBindingsAccessor {
@@ -388,11 +390,30 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
-    after?: Array<string> | undefined;
-    init?: ((element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; }) | undefined;
-    update?: ((element: E, valueAccessor: () => V, allBindingsAccessor: KnockoutAllBindingsAccessor, viewModel: VM, bindingContext: KnockoutBindingContext) => void) | undefined;
+    after?: string[] | undefined;
+    init?:
+        | ((
+            element: E,
+            valueAccessor: () => V,
+            allBindingsAccessor: KnockoutAllBindingsAccessor,
+            viewModel: VM,
+            bindingContext: KnockoutBindingContext,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => void | { controlsDescendantBindings: boolean })
+        | undefined;
+    update?:
+        | ((
+            element: E,
+            valueAccessor: () => V,
+            allBindingsAccessor: KnockoutAllBindingsAccessor,
+            viewModel: VM,
+            bindingContext: KnockoutBindingContext,
+        ) => void)
+        | undefined;
     options?: any;
-    preprocess?: ((value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string) | undefined;
+    preprocess?:
+        | ((value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string)
+        | undefined;
     [s: string]: any;
 }
 
@@ -441,16 +462,16 @@ interface KnockoutMemoization {
     parseMemoText(memoText: string): string;
 }
 
-interface KnockoutVirtualElement { }
+interface KnockoutVirtualElement {}
 
 interface KnockoutVirtualElements {
-    allowedBindings: { [bindingName: string]: boolean; };
+    allowedBindings: { [bindingName: string]: boolean };
     emptyNode(node: KnockoutVirtualElement): void;
     firstChild(node: KnockoutVirtualElement): KnockoutVirtualElement;
     insertAfter(container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node): void;
     nextSibling(node: KnockoutVirtualElement): Node;
     prepend(node: KnockoutVirtualElement, toInsert: Node): void;
-    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; }): void;
+    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number; [index: number]: Node }): void;
     childNodes(node: KnockoutVirtualElement): Node[];
 }
 
@@ -459,7 +480,7 @@ interface KnockoutExtenders {
     notify(target: any, notifyWhen: string): any;
 
     rateLimit(target: any, timeout: number): any;
-    rateLimit(target: any, options: { timeout: number; method?: string | undefined; }): any;
+    rateLimit(target: any, options: { timeout: number; method?: string | undefined }): any;
 
     trackArrayChanges(target: any): any;
 }
@@ -597,10 +618,9 @@ interface KnockoutTemplateAnonymous extends KnockoutTemplateSourcesDomElement {
 }
 
 interface KnockoutTemplateSources {
-
     domElement: {
-        prototype: KnockoutTemplateSourcesDomElement
-        new(element: Element): KnockoutTemplateSourcesDomElement
+        prototype: KnockoutTemplateSourcesDomElement;
+        new(element: Element): KnockoutTemplateSourcesDomElement;
     };
 
     anonymousTemplate: {
@@ -614,7 +634,6 @@ interface KnockoutTemplateSources {
 //////////////////////////////////
 
 interface KnockoutNativeTemplateEngine extends KnockoutTemplateEngine {
-
     renderTemplateSource(templateSource: Object, bindingContext?: KnockoutBindingContext, options?: Object): any[];
 }
 
@@ -623,12 +642,16 @@ interface KnockoutNativeTemplateEngine extends KnockoutTemplateEngine {
 //////////////////////////////////
 
 interface KnockoutTemplateEngine {
-
     createJavaScriptEvaluatorBlock(script: string): string;
 
     makeTemplateSource(template: any, templateDocument?: Document): any;
 
-    renderTemplate(template: any, bindingContext: KnockoutBindingContext, options: Object, templateDocument: Document): any;
+    renderTemplate(
+        template: any,
+        bindingContext: KnockoutBindingContext,
+        options: Object,
+        templateDocument: Document,
+    ): any;
 
     isTemplateRewritten(template: any, templateDocument: Document): boolean;
 
@@ -659,9 +682,17 @@ interface KnockoutStatic {
 
     applyBindings(viewModelOrBindingContext?: any, rootNode?: any): void;
     applyBindingsToDescendants(viewModelOrBindingContext: any, rootNode: any): void;
-    applyBindingAccessorsToNode(node: Node, bindings: (bindingContext: KnockoutBindingContext, node: Node) => {}, bindingContext: KnockoutBindingContext): void;
+    applyBindingAccessorsToNode(
+        node: Node,
+        bindings: (bindingContext: KnockoutBindingContext, node: Node) => {},
+        bindingContext: KnockoutBindingContext,
+    ): void;
     applyBindingAccessorsToNode(node: Node, bindings: {}, bindingContext: KnockoutBindingContext): void;
-    applyBindingAccessorsToNode(node: Node, bindings: (bindingContext: KnockoutBindingContext, node: Node) => {}, viewModel: any): void;
+    applyBindingAccessorsToNode(
+        node: Node,
+        bindings: (bindingContext: KnockoutBindingContext, node: Node) => {},
+        viewModel: any,
+    ): void;
     applyBindingAccessorsToNode(node: Node, bindings: {}, viewModel: any): void;
     applyBindingsToNode(node: Node, bindings: any, viewModelOrBindingContext?: any): any;
 
@@ -781,7 +812,6 @@ interface KnockoutStatic {
     //////////////////////////////////
 
     templateEngine: {
-
         prototype: KnockoutTemplateEngine;
 
         new(): KnockoutTemplateEngine;
@@ -792,9 +822,16 @@ interface KnockoutStatic {
     //////////////////////////////////
 
     templateRewriting: {
-
-        ensureTemplateIsRewritten(template: Node, templateEngine: KnockoutTemplateEngine, templateDocument: Document): any;
-        ensureTemplateIsRewritten(template: string, templateEngine: KnockoutTemplateEngine, templateDocument: Document): any;
+        ensureTemplateIsRewritten(
+            template: Node,
+            templateEngine: KnockoutTemplateEngine,
+            templateDocument: Document,
+        ): any;
+        ensureTemplateIsRewritten(
+            template: string,
+            templateEngine: KnockoutTemplateEngine,
+            templateDocument: Document,
+        ): any;
 
         memoizeBindingAttributeSyntax(htmlString: string, templateEngine: KnockoutTemplateEngine): any;
 
@@ -806,7 +843,6 @@ interface KnockoutStatic {
     //////////////////////////////////
 
     nativeTemplateEngine: {
-
         prototype: KnockoutNativeTemplateEngine;
 
         new(): KnockoutNativeTemplateEngine;
@@ -819,7 +855,6 @@ interface KnockoutStatic {
     //////////////////////////////////
 
     jqueryTmplTemplateEngine: {
-
         prototype: KnockoutTemplateEngine;
 
         renderTemplateSource(templateSource: Object, bindingContext: KnockoutBindingContext, options: Object): Node[];
@@ -835,19 +870,91 @@ interface KnockoutStatic {
 
     setTemplateEngine(templateEngine: KnockoutNativeTemplateEngine | undefined): void;
 
-    renderTemplate(template: Function, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
-    renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
-    renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
-    renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
-    renderTemplate(template: Function, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
-    renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
-    renderTemplate(template: Function, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
-    renderTemplate(template: any, dataOrBindingContext: any, options: Object, targetNodeOrNodeArray: Node[], renderMode: string): any;
+    renderTemplate(
+        template: Function,
+        dataOrBindingContext: KnockoutBindingContext,
+        options: Object,
+        targetNodeOrNodeArray: Node,
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: any,
+        dataOrBindingContext: KnockoutBindingContext,
+        options: Object,
+        targetNodeOrNodeArray: Node,
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: Function,
+        dataOrBindingContext: any,
+        options: Object,
+        targetNodeOrNodeArray: Node,
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: any,
+        dataOrBindingContext: any,
+        options: Object,
+        targetNodeOrNodeArray: Node,
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: Function,
+        dataOrBindingContext: KnockoutBindingContext,
+        options: Object,
+        targetNodeOrNodeArray: Node[],
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: any,
+        dataOrBindingContext: KnockoutBindingContext,
+        options: Object,
+        targetNodeOrNodeArray: Node[],
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: Function,
+        dataOrBindingContext: any,
+        options: Object,
+        targetNodeOrNodeArray: Node[],
+        renderMode: string,
+    ): any;
+    renderTemplate(
+        template: any,
+        dataOrBindingContext: any,
+        options: Object,
+        targetNodeOrNodeArray: Node[],
+        renderMode: string,
+    ): any;
 
-    renderTemplateForEach(template: Function, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: any, arrayOrObservableArray: any[], options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: Function, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
-    renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
+    renderTemplateForEach(
+        template: Function,
+        arrayOrObservableArray: any[],
+        options: Object,
+        targetNode: Node,
+        parentBindingContext: KnockoutBindingContext,
+    ): any;
+    renderTemplateForEach(
+        template: any,
+        arrayOrObservableArray: any[],
+        options: Object,
+        targetNode: Node,
+        parentBindingContext: KnockoutBindingContext,
+    ): any;
+    renderTemplateForEach(
+        template: Function,
+        arrayOrObservableArray: KnockoutObservable<any>,
+        options: Object,
+        targetNode: Node,
+        parentBindingContext: KnockoutBindingContext,
+    ): any;
+    renderTemplateForEach(
+        template: any,
+        arrayOrObservableArray: KnockoutObservable<any>,
+        options: Object,
+        targetNode: Node,
+        parentBindingContext: KnockoutBindingContext,
+    ): any;
 
     /**
      * Executes a callback function inside a computed observable, without creating a dependecy between it and the observables inside the function.
@@ -877,7 +984,13 @@ interface KnockoutStatic {
         Note that if you need to write to the viewModel without an observable property,
         you need to set ko.expressionRewriting.twoWayBindings[key] = true; *before* the binding evaluation.
         */
-        writeValueToProperty: (property: KnockoutObservable<any> | any, allBindings: KnockoutAllBindingsAccessor, key: string, value: any, checkIfDifferent?: boolean) => void;
+        writeValueToProperty: (
+            property: KnockoutObservable<any> | any,
+            allBindings: KnockoutAllBindingsAccessor,
+            key: string,
+            value: any,
+            checkIfDifferent?: boolean,
+        ) => void;
     };
 
     /////////////////////////////////
@@ -885,14 +998,13 @@ interface KnockoutStatic {
     bindingProvider: {
         instance: KnockoutBindingProvider;
         new(): KnockoutBindingProvider;
-    }
+    };
 
     /////////////////////////////////
     // selectExtensions.js
     /////////////////////////////////
 
     selectExtensions: {
-
         readValue(element: HTMLElement): any;
 
         writeValue(element: HTMLElement, value: any, allowUnset?: boolean): void;
@@ -905,9 +1017,9 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     options: {
-        deferUpdates: boolean,
+        deferUpdates: boolean;
 
-        useOnlyNativeEvents: boolean
+        useOnlyNativeEvents: boolean;
     };
 
     /////////////////////////////////
@@ -926,7 +1038,7 @@ interface KnockoutStatic {
 interface KnockoutBindingProvider {
     nodeHasBindings(node: Node): boolean;
     getBindings(node: Node, bindingContext: KnockoutBindingContext): {};
-    getBindingAccessors?(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string; };
+    getBindingAccessors?(node: Node, bindingContext: KnockoutBindingContext): { [key: string]: string };
 }
 
 interface KnockoutComputedContext {
@@ -948,7 +1060,7 @@ interface KnockoutComputedContext {
 //
 declare namespace KnockoutComponentTypes {
     type ViewModel = ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
-    
+
     interface Config<T> {
         viewModel?: T | undefined;
         template: string | Node[] | DocumentFragment | TemplateElement | AMDModule;
@@ -1001,7 +1113,11 @@ declare namespace KnockoutComponentTypes {
          * Define this if: you want to take control over how component configurations are interpreted, e.g., if you do not want to use the standard 'viewModel/template' pair format.
          * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
          */
-        loadComponent?(componentName: string, config: ComponentConfig, callback: (result: Definition | null) => void): void;
+        loadComponent?(
+            componentName: string,
+            config: ComponentConfig,
+            callback: (result: Definition | null) => void,
+        ): void;
         /**
          * Define this if: you want to use custom logic to supply DOM nodes for a given template configuration (e.g., using an ajax request to fetch a template by URL).
          * @see {@link https://knockoutjs.com/documentation/component-loaders.html}
@@ -1017,18 +1133,20 @@ declare namespace KnockoutComponentTypes {
 
     interface Definition {
         template: Node[];
-        createViewModel?(params: any, options: { element: Node; }): any;
+        createViewModel?(params: any, options: { element: Node }): any;
     }
 }
 
 interface KnockoutComponents {
-
     /**
      * Registers a component, in the default component loader, to be used by name in the component binding.
      * @param componentName Component name. Will be used for your custom HTML tag name.
      * @param config Component configuration.
      */
-    register<T = KnockoutComponentTypes.ViewModel>(componentName: string, config: KnockoutComponentTypes.Config<T> | KnockoutComponentTypes.EmptyConfig): void;
+    register<T = KnockoutComponentTypes.ViewModel>(
+        componentName: string,
+        config: KnockoutComponentTypes.Config<T> | KnockoutComponentTypes.EmptyConfig,
+    ): void;
     /**
      * Determine if a component with the specified name is already registered in the default component loader.
      * @param componentName Component name.
@@ -1049,7 +1167,7 @@ interface KnockoutComponents {
      * Clears the cache knockout creates to speed up component loading, for a given component.
      * @param componentName Component name.
      */
-    clearCachedDefinition(componentName: string): void
+    clearCachedDefinition(componentName: string): void;
     defaultLoader: KnockoutComponentTypes.Loader;
     loaders: KnockoutComponentTypes.Loader[];
     /**

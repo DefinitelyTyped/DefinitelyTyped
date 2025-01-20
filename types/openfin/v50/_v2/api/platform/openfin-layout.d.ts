@@ -1,10 +1,10 @@
 /// <reference types="resize-observer-browser"/>
 
-import { Fin, Window, ChannelClient, View } from '../../main';
-import { ResizableView, ViewState } from './resizable-view';
-import { Platform } from './platform';
-import { ViewComponent } from './utils';
-import { ViewDetached } from '../events/window';
+import { ChannelClient, Fin, View, Window } from "../../main";
+import { ViewDetached } from "../events/window";
+import { Platform } from "./platform";
+import { ResizableView, ViewState } from "./resizable-view";
+import { ViewComponent } from "./utils";
 export declare class LayoutManager {
     private fin;
     client: ChannelClient;
@@ -35,13 +35,17 @@ export declare class LayoutManager {
     setTabBody: (container: GoldenLayout.Container, message: string) => void;
     updateButtonDisplay: () => void;
     onItemCreated: (item: GoldenLayout.ContentItem) => Promise<void>;
-    handleOutOfWindowDrop: (e: {
-        screenY: number;
-        screenX: number;
-    }, parentTab: GoldenLayout.Tab, dimensions: {
-        width: any;
-        height: any;
-    }) => Promise<void>;
+    handleOutOfWindowDrop: (
+        e: {
+            screenY: number;
+            screenX: number;
+        },
+        parentTab: GoldenLayout.Tab,
+        dimensions: {
+            width: any;
+            height: any;
+        },
+    ) => Promise<void>;
     onTabDrag: (dragListener: GoldenLayout.EventEmitter, parentTab: GoldenLayout.Tab) => Promise<void>;
     addView: (viewConfig: ViewState) => Promise<View>;
     removeView: (viewConfig: any) => Promise<View>;

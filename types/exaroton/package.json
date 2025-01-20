@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/exaroton",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/exaroton/node-exaroton-api"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/ws": "*",
+        "got": "^11.8.2"
+    },
+    "devDependencies": {
+        "@types/exaroton": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maximilian Hofmann",
+            "githubUsername": "maxiicodes"
+        }
+    ]
+}

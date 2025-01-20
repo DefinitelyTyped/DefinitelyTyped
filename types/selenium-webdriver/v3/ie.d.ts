@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 /**
  * A WebDriver client for Microsoft's Internet Explorer.
@@ -13,7 +13,10 @@ export class Driver extends webdriver.WebDriver {
      *     or {@code null} to use the currently active flow.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: webdriver.Capabilities | Options, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(
+        opt_config?: webdriver.Capabilities | Options,
+        opt_flow?: webdriver.promise.ControlFlow,
+    ): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this

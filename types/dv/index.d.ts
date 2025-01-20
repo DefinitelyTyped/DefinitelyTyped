@@ -1,9 +1,3 @@
-// Type definitions for dv 2.1
-// Project: https://github.com/creatale/node-dv
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 export interface Box {
@@ -52,8 +46,8 @@ export class Image {
     /**
      * Creates an image from a Buffer object, that contains the PNG/JPG encoded image.
      */
-    constructor(type: 'png' | 'jpg', buffer: Buffer);
-    constructor(type: 'rgba' | 'rgb' | 'gray', buffer: Buffer, width: number, height: number);
+    constructor(type: "png" | "jpg", buffer: Buffer);
+    constructor(type: "rgba" | "rgb" | "gray", buffer: Buffer, width: number, height: number);
 
     readonly width: number;
     readonly height: number;
@@ -87,7 +81,7 @@ export class Image {
      * If the images are monochrome, dispatches to Leptonica's pixSubtract and is equivalent to a.and(b.invert()).
      * For grayscale images, returns the pixelwise subtraction of b from a, clipped at zero.
      * For color, the entire RGB value is subtracted instead of doing channelwise subtraction (ask Leptonica why).
-     * @example:
+     * @example
      * redness = colorImage.toGray(1, 0, 0).subtract(colorImage.toGray(0, 0.5, 0.5))
      */
     subtract(otherImage: Image): Image;
@@ -136,7 +130,7 @@ export class Image {
     /**
      * Computes the horizontal or vertical projection of an 1bpp or 8bpp image.
      */
-    projection(mode: 'horizontal' | 'vertical'): number[];
+    projection(mode: "horizontal" | "vertical"): number[];
     /**
      * Sets the specified value to each pixel set in the mask.
      */
@@ -186,7 +180,7 @@ export class Image {
      * This can act as a simple color filter: 'max' maps colored pixels towards white,
      * while 'min' maps colored pixels towards black.
      */
-    toGray(selector: 'min' | 'max'): Image;
+    toGray(selector: "min" | "max"): Image;
     /**
      * Converts a grayscale image to a color image.
      */
@@ -221,11 +215,11 @@ export class Image {
     /**
      * Applies morphological thinning of type (fg or bg) with the specified connectivitiy (4 or 8) and maxIterations (0 to iterate until complete).
      */
-    thin(type: 'fg' | 'bg', connectivity: number, maxIterations: number): Image;
+    thin(type: "fg" | "bg", connectivity: number, maxIterations: number): Image;
     /**
      * Scales an 8bpp image for maximum dynamic range. scale must be either log or linear.
      */
-    maxDynamicRange(scale: 'log' | 'linear'): Image;
+    maxDynamicRange(scale: "log" | "linear"): Image;
     /**
      * Applies Otsu's Method for computing the threshold of a grayscale image.
      * It computes a threshold for each tile of the specified size and performs the threshold operation,
@@ -233,7 +227,13 @@ export class Image {
      * The smooth size controls the a convolution kernel applied to threshold array (use 0 for no smoothing).
      * The score factor controls the fraction of the max. Otsu score (typically 0.1; use 0.0 for standard Otsu).
      */
-    otsuAdaptiveThreshold(tileWidth: number, tileHeight: number, smoothWidth: number, smoothHeight: number, scoreFactor: number): Image;
+    otsuAdaptiveThreshold(
+        tileWidth: number,
+        tileHeight: number,
+        smoothWidth: number,
+        smoothHeight: number,
+        scoreFactor: number,
+    ): Image;
     /**
      * Detects Line Segments with the specified accuracy (3 is a good start). The number of found line segments can be limited using maxLineSegments (0 is unlimited).
      */
@@ -267,24 +267,50 @@ export class Image {
      * Draws a filled rectangle to this image in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
      */
     fillBox(box: Box, r: number, g: number, b: number, fraction?: number): this;
-    fillBox(x: number, y: number, width: number, height: number, r: number, g: number, b: number, fraction?: number): this;
+    fillBox(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        r: number,
+        g: number,
+        b: number,
+        fraction?: number,
+    ): this;
     /**
      * !!! Note: this function actually changes the image!
      * Draws a rectangle to this image with the specified border. The possible pixel manipulating operations are set, clear and flip.
      */
-    drawBox(box: Box, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
-    drawBox(x: number, y: number, width: number, height: number, borderWidth: number, operation: 'set' | 'clear' | 'flip'): this;
+    drawBox(box: Box, borderWidth: number, operation: "set" | "clear" | "flip"): this;
+    drawBox(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        borderWidth: number,
+        operation: "set" | "clear" | "flip",
+    ): this;
     /**
      * !!! Note: this function actually changes the image!
      * Draws a rectangle to this image with the specified border in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
      */
     drawBox(box: Box, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
-    drawBox(x: number, y: number, width: number, height: number, borderWidth: number, red: number, green: number, blue: number, frac?: number): this;
+    drawBox(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        borderWidth: number,
+        red: number,
+        green: number,
+        blue: number,
+        frac?: number,
+    ): this;
     /**
      * !!! Note: this function actually changes the image!
      * Draws a line between p1 and p2 to this image with the specified line width. The possible pixel manipulating operations are set, clear and flip.
      */
-    drawLine(p1: Point, p2: Point, width: number, operation: 'set' | 'clear' | 'flip'): this;
+    drawLine(p1: Point, p2: Point, width: number, operation: "set" | "clear" | "flip"): this;
     /**
      * !!! Note: this function actually changes the image!
      * Draws a line between p1 and p2 to this image with the specified line width in the specified color with an optional blending parameter (0.0: transparent; 1.0: no transparency).
@@ -304,7 +330,7 @@ export class Image {
      * Specifying png returns a PNG encoded image as buffer.
      * Specifying jpg returns a JPG encoded image as buffer.
      */
-    toBuffer(format?: 'raw' | 'png' | 'jpg'): Buffer;
+    toBuffer(format?: "raw" | "png" | "jpg"): Buffer;
 }
 
 export interface Rect {
@@ -370,10 +396,20 @@ export class Tesseract {
     /**
      * Accessor for the page segmentation mode.
      */
-    pageSegMode: 'osd_only' | 'auto_osd' | 'auto_only' | 'auto'
-        | 'single_column' | 'single_block_vert_text' | 'single_block'
-        | 'single_line' | 'single_word' | 'circle_word' | 'single_char'
-        | 'sparse_text' | 'sparse_text_osd';
+    pageSegMode:
+        | "osd_only"
+        | "auto_osd"
+        | "auto_only"
+        | "auto"
+        | "single_column"
+        | "single_block_vert_text"
+        | "single_block"
+        | "single_line"
+        | "single_word"
+        | "circle_word"
+        | "single_char"
+        | "sparse_text"
+        | "sparse_text_osd";
     [key: string]: unknown;
 
     /**
@@ -411,8 +447,8 @@ export class Tesseract {
     /**
      * Returns text in the specified format. Valid formats are: plain, unlv.
      */
-    findText(format: 'plain' | 'unlv', withConfidence?: boolean): string;
-    findText(format: 'hocr' | 'box', pageNumber: number): string;
+    findText(format: "plain" | "unlv", withConfidence?: boolean): string;
+    findText(format: "hocr" | "box", pageNumber: number): string;
 }
 
 export interface Barcodeformat {
@@ -461,7 +497,19 @@ export class ZXing {
     /**
      * enotes the barcodes type.
      */
-    readonly type: 'None' | 'QR_CODE' | 'DATA_MATRIX' | 'PDF_417' | 'UPC_E' | 'UPC_A' | 'EAN_8' | 'EAN_13' | 'CODE_128' | 'CODE_39' | 'ITF' | 'AZTEC';
+    readonly type:
+        | "None"
+        | "QR_CODE"
+        | "DATA_MATRIX"
+        | "PDF_417"
+        | "UPC_E"
+        | "UPC_A"
+        | "EAN_8"
+        | "EAN_13"
+        | "CODE_128"
+        | "CODE_39"
+        | "ITF"
+        | "AZTEC";
     /**
      * denotes the stringified data read from the barcode.
      */

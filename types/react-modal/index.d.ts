@@ -1,18 +1,3 @@
-// Type definitions for react-modal 3.13
-// Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
-//                 Drew Noakes <https://github.com/drewnoakes>,
-//                 Thomas B Homburg <https://github.com/homburg>,
-//                 Tatu Tamminen <https://github.com/ttamminen>,
-//                 Uwe Wiemer <https://github.com/hallowatcher>,
-//                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
-//                 Justin Powell <https://github.com/jpowell>
-//                 Juwan Wheatley <https://github.com/fiberjw>
-//                 Nitzan Mousan <https://github.com/nitzanmo>
-//                 dkrk <https://github.com/grgr-dkrk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export = ReactModal;
@@ -36,7 +21,7 @@ declare namespace ReactModal {
         /** Identifies the element (or elements) that describes the object. */
         describedby?: string | undefined;
         /** Indicates whether an element is modal when displayed. */
-        modal?: boolean | 'false' | 'true' | undefined;
+        modal?: boolean | "false" | "true" | undefined;
     }
 
     /** Describes overlay and content element references passed to onAfterOpen function */
@@ -131,9 +116,13 @@ declare namespace ReactModal {
         overlayRef?: ((instance: HTMLDivElement) => void) | undefined;
 
         /* Custom Overlay element. */
-        overlayElement?: ((props: React.ComponentPropsWithRef<"div">, contentEl: React.ReactElement) => React.ReactElement) | undefined;
+        overlayElement?:
+            | ((props: React.ComponentPropsWithRef<"div">, contentEl: React.ReactElement) => React.ReactElement)
+            | undefined;
         /* Custom Content element. */
-        contentElement?: ((props: React.ComponentPropsWithRef<"div">, children: React.ReactNode) => React.ReactElement) | undefined;
+        contentElement?:
+            | ((props: React.ComponentPropsWithRef<"div">, children: React.ReactNode) => React.ReactElement)
+            | undefined;
 
         /* String value of data-test-id attibute to be applied to to the modal content. */
         testId?: string | undefined;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/qrcodejs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/llyys/qrcodejs"
+    ],
+    "devDependencies": {
+        "@types/qrcodejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

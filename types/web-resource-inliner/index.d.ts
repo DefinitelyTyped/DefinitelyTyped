@@ -1,10 +1,4 @@
-// Type definitions for web-resource-inliner 4.2
-// Project: https://github.com/jrit/web-resource-inliner#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { CoreOptions, RequiredUriUrl } from 'request';
+import { CoreOptions, RequiredUriUrl } from "request";
 
 export function html(options: Options, callback: Callback): string;
 export function css(options: Options, callback: Callback): string;
@@ -77,7 +71,7 @@ export interface Options {
      *
      * For example, the tests cases in this package are in test/cases/ so their relative paths start by referring to that folder,
      * but the root of this project and where npm test runs from is 2 folders up, so relativeTo is set to test/cases/ in test/spec.js.
-     * Likewise, with href="content.css" and a relativeTo of http://github.com/ the resource retrieved would be http://github.com/content.css.
+     * Likewise, with href="content.css" and a relativeTo of https://github.com/ the resource retrieved would be https://github.com/content.css.
      *
      * @default ""
      */
@@ -111,9 +105,11 @@ export interface Options {
      *
      * See the [list of available options](https://www.npmjs.com/package/request#request-options-callback).
      */
-    requestTransform?: ((
-        requestOptions: RequiredUriUrl & CoreOptions
-    ) => RequiredUriUrl & CoreOptions) | undefined;
+    requestTransform?:
+        | ((
+            requestOptions: RequiredUriUrl & CoreOptions,
+        ) => RequiredUriUrl & CoreOptions)
+        | undefined;
     /**
      * Allows to make changes to scripts before they are inlined, such as minifying.
      *

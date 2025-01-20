@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pbf2json",
+    "version": "6.6.9999",
+    "projects": [
+        "https://github.com/pelias/pbf2json"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pbf2json": "workspace:.",
+        "@types/through2": "*"
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import BaseRangeError from './base/RangeError';
+import BaseRangeError from "./base/RangeError";
 
 declare class RangeError extends BaseRangeError {
     constructor(reason?: string, options?: { cause?: unknown });

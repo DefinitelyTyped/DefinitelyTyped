@@ -1,11 +1,3 @@
-// Type definitions for node-gcm 1.0.2
-// Project: https://www.npmjs.org/package/node-gcm
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-//                 BWYou <https://github.com/yousky/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 export interface INotificationOptions {
     title: string;
     body?: string | undefined;
@@ -49,7 +41,6 @@ export declare class Message {
     addNotification(key: string, value: INotificationOptions): void;
 }
 
-
 export interface ISenderOptions {
     proxy?: any;
     maxSockets?: number | undefined;
@@ -61,12 +52,12 @@ export interface ISenderSendOptions {
 }
 
 export interface IRecipient {
-    to?: string | undefined,
-    topic?: string | undefined,
-    condition?: string | undefined,
-    notificationKey?: string | undefined,
-    registrationIds?: string[] | undefined,
-    registrationTokens?: string[] | undefined
+    to?: string | undefined;
+    topic?: string | undefined;
+    condition?: string | undefined;
+    notificationKey?: string | undefined;
+    registrationIds?: string[] | undefined;
+    registrationTokens?: string[] | undefined;
 }
 
 export declare class Sender {
@@ -74,21 +65,40 @@ export declare class Sender {
     key: string;
     options: ISenderOptions;
 
-    send(message: Message, registrationIds: string | string[] | IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
-    send(message: Message, registrationIds: string | string[] | IRecipient, retries: number, callback: (err: any, resJson: IResponseBody) => void): void;
-    send(message: Message, registrationIds: string | string[] | IRecipient, options: ISenderSendOptions, callback: (err: any, resJson: IResponseBody) => void): void;
-    sendNoRetry(message: Message, registrationIds: string | string[] | IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        callback: (err: any, resJson: IResponseBody) => void,
+    ): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        retries: number,
+        callback: (err: any, resJson: IResponseBody) => void,
+    ): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        options: ISenderSendOptions,
+        callback: (err: any, resJson: IResponseBody) => void,
+    ): void;
+    sendNoRetry(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        callback: (err: any, resJson: IResponseBody) => void,
+    ): void;
 }
-
 
 export interface IResponseBody {
     success: number;
     failure: number;
     canonical_ids: number;
     multicast_id?: number | undefined;
-    results?: {
-        message_id?: string | undefined;
-        registration_id?: string | undefined;
-        error?: string | undefined;
-    }[] | undefined;
+    results?:
+        | Array<{
+            message_id?: string | undefined;
+            registration_id?: string | undefined;
+            error?: string | undefined;
+        }>
+        | undefined;
 }

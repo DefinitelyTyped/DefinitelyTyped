@@ -1,11 +1,3 @@
-// Type definitions for d3JS d3-time-format module 2.3
-// Project: https://github.com/d3/d3-time-format/, https://d3js.org/d3-time-format
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 2.3.0
 
 /**
@@ -126,7 +118,7 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    parse(specifier: string): (dateString: string) => (Date | null);
+    parse(specifier: string): (dateString: string) => Date | null;
     /**
      * Equivalent to locale.format (TimeLocaleObject.format), except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
      *
@@ -138,7 +130,7 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    utcParse(specifier: string): (dateString: string) => (Date | null);
+    utcParse(specifier: string): (dateString: string) => Date | null;
 }
 
 /**
@@ -174,7 +166,7 @@ export function timeFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function timeParse(specifier: string): (dateString: string) => (Date | null);
+export function timeParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * Equivalent to timeFormat, except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
@@ -192,7 +184,7 @@ export function utcFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function utcParse(specifier: string): (dateString: string) => (Date | null);
+export function utcParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * The full ISO 8601 UTC time formatter. Where available, this method will use Date.toISOString to format.

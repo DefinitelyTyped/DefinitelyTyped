@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fetch.io",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/haoxins/fetch.io"
+    ],
+    "devDependencies": {
+        "@types/fetch.io": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "newraina",
+            "githubUsername": "newraina"
+        }
+    ]
+}

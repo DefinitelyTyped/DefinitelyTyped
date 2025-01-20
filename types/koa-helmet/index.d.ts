@@ -1,12 +1,5 @@
-// Type definitions for koa-helmet 6.0
-// Project: https://github.com/venables/koa-helmet#readme
-// Definitions by: Nick Simmons <https://github.com/nsimmons>
-//                 Jan Dolezel <https://github.com/dolezel>
-//                 John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import helmet = require('helmet');
-import { Middleware, Context } from 'koa';
+import helmet = require("helmet");
+import { Context, Middleware } from "koa";
 
 type HelmetOptions = Required<Parameters<typeof helmet>>[0];
 
@@ -43,16 +36,16 @@ declare namespace koaHelmet {
     interface KoaHelmet {
         (options?: HelmetOptions): Middleware;
         contentSecurityPolicy(options?: KoaHelmetContentSecurityPolicyConfiguration): Middleware;
-        dnsPrefetchControl(options?: HelmetOptions['dnsPrefetchControl']): Middleware;
-        expectCt(options?: HelmetOptions['expectCt']): Middleware;
-        frameguard(options?: HelmetOptions['frameguard']): Middleware;
-        hidePoweredBy(options?: HelmetOptions['hidePoweredBy']): Middleware;
-        hsts(options?: HelmetOptions['hsts']): Middleware;
-        ieNoOpen(options?: HelmetOptions['ieNoOpen']): Middleware;
-        noSniff(options?: HelmetOptions['noSniff']): Middleware;
-        permittedCrossDomainPolicies(options?: HelmetOptions['permittedCrossDomainPolicies']): Middleware;
-        referrerPolicy(options?: HelmetOptions['referrerPolicy']): Middleware;
-        xssFilter(options?: HelmetOptions['xssFilter']): Middleware;
+        dnsPrefetchControl(options?: HelmetOptions["dnsPrefetchControl"]): Middleware;
+        expectCt(options?: HelmetOptions["expectCt"]): Middleware;
+        frameguard(options?: HelmetOptions["frameguard"]): Middleware;
+        hidePoweredBy(options?: HelmetOptions["hidePoweredBy"]): Middleware;
+        hsts(options?: HelmetOptions["hsts"]): Middleware;
+        ieNoOpen(options?: HelmetOptions["ieNoOpen"]): Middleware;
+        noSniff(options?: HelmetOptions["noSniff"]): Middleware;
+        permittedCrossDomainPolicies(options?: HelmetOptions["permittedCrossDomainPolicies"]): Middleware;
+        referrerPolicy(options?: HelmetOptions["referrerPolicy"]): Middleware;
+        xssFilter(options?: HelmetOptions["xssFilter"]): Middleware;
     }
 }
 

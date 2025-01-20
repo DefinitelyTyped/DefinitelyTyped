@@ -1,6 +1,6 @@
 import * as ESTree from "estree";
 import { Server } from "../tern";
-export { };
+export {};
 
 // #### Context ####
 interface ContextConstructor {
@@ -127,7 +127,7 @@ interface TypeConstructor {
 export const Type: TypeConstructor;
 export type Type = Obj | Prim;
 
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IType extends ANull {
     /** The origin file of the type. */
     origin: string;
@@ -213,9 +213,11 @@ export interface AVal extends ANull {
     gatherProperties(f: (...args: any[]) => void, depth: number): void;
     originNode?: ESTree.Node | undefined;
     /** An object mapping the object’s known properties to AVals. Don’t manipulate this directly (ever), only use it if you have to iterate over the properties. */
-    props: Partial<Readonly<{
-        [key: string]: AVal;
-    }>>;
+    props: Partial<
+        Readonly<{
+            [key: string]: AVal;
+        }>
+    >;
     readonly types: Type[];
     readonly propertyOf?: Obj | undefined;
 }
@@ -284,28 +286,55 @@ export interface Scope extends Obj {
  * object if successful, where `node` is AST node, and `state` is the scope at that point.
  * Returns `null` if unsuccessful.
  */
-export function findExpressionAt(ast: ESTree.Program, start: number | undefined, end: number, scope?: Scope): { node: ESTree.Node, state: Scope } | null;
+export function findExpressionAt(
+    ast: ESTree.Program,
+    start: number | undefined,
+    end: number,
+    scope?: Scope,
+): { node: ESTree.Node; state: Scope } | null;
 /**
  * Similar to `findExpressionAt`, except that it will return the innermost expression
  * node that spans the given range, rather than only exact matches.
  */
-export function findExpressionAround(ast: ESTree.Program, start: number | undefined, end: number, scope?: Scope): { node: ESTree.Node, state: Scope } | null;
+export function findExpressionAround(
+    ast: ESTree.Program,
+    start: number | undefined,
+    end: number,
+    scope?: Scope,
+): { node: ESTree.Node; state: Scope } | null;
 /** Similar to `findExpressionAround`, except that it use the same AST walker as `findExpressionAt`. */
-export function findClosestExpression(ast: ESTree.Program, start: number | undefined, end: number, scope?: Scope): { node: ESTree.Node, state: Scope } | null;
+export function findClosestExpression(
+    ast: ESTree.Program,
+    start: number | undefined,
+    end: number,
+    scope?: Scope,
+): { node: ESTree.Node; state: Scope } | null;
 /** Determine an expression for the given node and scope (as returned by the functions above). Will return an `AVal` or plain `Type`. */
-export function expressionType(expr: { node: ESTree.Node, state: Scope | null }): AVal | Type;
+export function expressionType(expr: { node: ESTree.Node; state: Scope | null }): AVal | Type;
 /** Find the scope at a given position in the syntax tree. The `scope` parameter can be used to override the scope used for code that isn’t wrapped in any function. */
 export function scopeAt(ast: ESTree.Program, pos: number, scope?: Scope): Scope;
 /**
  * Will traverse the given syntax tree, using `scope` as the starting scope, looking for references to variable `name` that
  * resolve to scope `refScope`, and call `f` with the node of the reference and its local scope for each of them.
  */
-export function findRefs(ast: ESTree.Program, scope: Scope, name: string, refScope: Scope, f: (Node: ESTree.Node, Scope: Scope) => void): void;
+export function findRefs(
+    ast: ESTree.Program,
+    scope: Scope,
+    name: string,
+    refScope: Scope,
+    f: (Node: ESTree.Node, Scope: Scope) => void,
+): void;
 /**
  * Analogous to `findRefs`, but used to look for references to a specific property instead. Whereas `findRefs`
  * is precise, this is dependent on type inference, and thus can not be relied on to be precise.
  */
-export function findPropRefs(ast: ESTree.Program, scope: Scope, objType: Obj, propName: string, f: (Node: ESTree.Node) => void): void;
+export function findPropRefs(
+    ast: ESTree.Program,
+    scope: Scope,
+    objType: Obj,
+    propName: string,
+    f: (Node: ESTree.Node) => void,
+): void;
 /** Whenever infer guesses a type through fuzzy heuristics (through `getType` or `expressionType`), it sets a flag. `didGuess` tests whether the guessing flag is set. */
 export function didGuess(): boolean;
 /** Whenever infer guesses a type through fuzzy heuristics (through `getType` or `expressionType`), it sets a flag. `resetGuessing` resets the guessing flag. */

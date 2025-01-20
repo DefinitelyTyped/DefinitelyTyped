@@ -1,7 +1,7 @@
-import ErrorSubclass from 'error-subclass';
+import ErrorSubclass from "error-subclass";
 
 class ExampleError extends ErrorSubclass {
-    static displayName = 'ExampleError';
+    static displayName = "ExampleError";
 }
 
-throw new ExampleError('Something went wrong!');
+throw new ExampleError("Something went wrong!");

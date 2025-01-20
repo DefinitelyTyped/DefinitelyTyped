@@ -1,17 +1,12 @@
-/**
- * Namespace: browser.idle
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.idle</code> API to detect when the machine's idle state changes.
- * Permissions: "idle"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.idle
+ */
 export namespace Idle {
     type IdleState = "active" | "idle" | "locked";
 
@@ -35,8 +30,6 @@ export namespace Idle {
         /**
          * Fired when the system changes to an active or idle state. The event fires with "idle" if the the user has not generated
          * any input for a specified number of seconds, and "active" when the user generates input on an idle system.
-         *
-         * @param newState
          */
         onStateChanged: Events.Event<(newState: IdleState) => void>;
     }

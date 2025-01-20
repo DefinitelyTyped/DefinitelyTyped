@@ -9,10 +9,12 @@ declare namespace GoogleAdsScripts {
         interface CampaignSnippetIterator extends Base.Iterator<CampaignSnippet> {}
 
         interface CampaignSnippetSelector
-            extends Base.Selector<CampaignSnippetIterator>,
+            extends
+                Base.Selector<CampaignSnippetIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

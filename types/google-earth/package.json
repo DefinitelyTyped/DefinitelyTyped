@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/google-earth",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google-earth",
+    "projects": [
+        "https://developers.google.com/earth/"
+    ],
+    "devDependencies": {
+        "@types/google-earth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilia Choly",
+            "githubUsername": "icholy"
+        }
+    ]
+}

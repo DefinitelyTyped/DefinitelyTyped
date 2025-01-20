@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/git-branch-is",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/kevinoid/git-branch-is"
+    ],
+    "devDependencies": {
+        "@types/git-branch-is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

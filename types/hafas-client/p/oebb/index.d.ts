@@ -1,5 +1,3 @@
-export = oebbProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const oebbProfile: createClient.Profile;
+export const profile: Profile;

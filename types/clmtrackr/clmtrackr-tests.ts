@@ -11,7 +11,7 @@ ctracker.init({
     scoreThreshold: 0.50,
     stopOnConvergence: false,
     /** object with parameters for facedetection : */
-    faceDetection: { useWebWorkers: true}
+    faceDetection: { useWebWorkers: true },
 });
 
 const video = document.getElementsByTagName("video")[0];

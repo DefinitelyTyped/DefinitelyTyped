@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/inflection",
+    "version": "1.13.9999",
+    "projects": [
+        "https://github.com/dreamerslab/node.inflection"
+    ],
+    "devDependencies": {
+        "@types/inflection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shogo Iwano",
+            "githubUsername": "shiwano"
+        }
+    ]
+}

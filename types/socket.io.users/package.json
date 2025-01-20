@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/socket.io.users",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nodets/socket.io.users"
+    ],
     "dependencies": {
+        "@types/express": "*",
+        "@types/express-session": "*",
         "@types/socket.io": "2.1.13"
-    }
+    },
+    "devDependencies": {
+        "@types/socket.io.users": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Makis Maropoulos",
+            "githubUsername": "kataras"
+        }
+    ]
 }

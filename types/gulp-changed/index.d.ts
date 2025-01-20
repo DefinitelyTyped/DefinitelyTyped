@@ -1,8 +1,3 @@
-// Type definitions for gulp-changed
-// Project: https://github.com/sindresorhus/gulp-changed
-// Definitions by: Thomas Corbière <https://github.com/tomc974>, Jordy van Dortmont <https://github.com/jordyvandortmont>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 /// <reference types="vinyl" />
 
@@ -12,11 +7,10 @@ import File = require("vinyl");
 interface IComparator {
     /**
      * @param stream Should be used to queue sourceFile if it passes some comparison
-     * @param callback Should be called when done
      * @param sourceFile File to operate on
      * @param destPath Destination for sourceFile as an absolute path
      */
-    (stream: Transform, callback: Function, sourceFile: File, destPath: string): void;
+    (stream: Transform, sourceFile: File, destPath: string): void;
 }
 
 interface IDestination {
@@ -40,7 +34,7 @@ interface IOptions {
      * @default changed.compareLastModifiedTime
      */
     hasChanged?: IComparator | undefined;
-    
+
     /**
      * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
      */
@@ -51,7 +45,7 @@ interface IGulpChanged {
     (destination: string | IDestination, options?: IOptions): NodeJS.ReadWriteStream;
 
     compareLastModifiedTime: IComparator;
-    compareSha1Digest: IComparator;
+    compareContents: IComparator;
 }
 
 declare const changed: IGulpChanged;

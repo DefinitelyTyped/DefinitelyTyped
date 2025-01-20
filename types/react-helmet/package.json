@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/react-helmet",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/nfl/react-helmet"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-helmet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Bremer",
+            "githubUsername": "evanbb"
+        },
+        {
+            "name": "Isman Usoh",
+            "githubUsername": "isman-usoh"
+        },
+        {
+            "name": "Yui T.",
+            "githubUsername": "yuit"
+        },
+        {
+            "name": "Yamagishi Kazutoshi",
+            "githubUsername": "ykzts"
+        },
+        {
+            "name": "Andriy2",
+            "githubUsername": "Andriy2"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

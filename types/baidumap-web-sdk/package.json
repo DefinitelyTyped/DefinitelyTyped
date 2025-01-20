@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/baidumap-web-sdk",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "baidumap-web-sdk-browser",
+    "projects": [
+        "http://lbsyun.baidu.com/index.php?title=jspopular3.0"
+    ],
+    "devDependencies": {
+        "@types/baidumap-web-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Codemonk",
+            "url": "http://www.youxianxueche.com/"
+        },
+        {
+            "name": "ipcjs",
+            "githubUsername": "ipcjs"
+        }
+    ]
+}

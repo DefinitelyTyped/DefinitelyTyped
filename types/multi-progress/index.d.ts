@@ -1,12 +1,7 @@
-// Type definitions for multi-progress 2.0
-// Project: https://github.com/pitaj/multi-progress
-// Definitions by: David Brett <https://github.com/DHBrett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import ProgressBar = require('progress');
-import { Stream } from 'stream';
+import ProgressBar = require("progress");
+import { Stream } from "stream";
 
 export as namespace MultiProgress;
 
@@ -17,7 +12,7 @@ declare class MultiProgress {
      * Create a new @see MultiProgress with the given stream, or stderr by default
      * @param stream A stream to write the progress bars to
      */
-    constructor(stream?: Stream)
+    constructor(stream?: Stream);
 
     /**
      * Add a new bar

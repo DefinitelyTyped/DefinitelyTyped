@@ -1,32 +1,32 @@
 import {
+    commaLists,
+    commaListsAnd,
+    commaListsOr,
+    createTag,
     html,
-    safeHtml,
+    id,
+    inlineArrayTransformer,
+    inlineLists,
     oneLine,
+    oneLineCommaLists,
+    oneLineCommaListsAnd,
+    oneLineCommaListsOr,
+    oneLineInlineLists,
     oneLineTrim,
+    replaceResultTransformer,
+    replaceStringTransformer,
+    replaceSubstitutionTransformer,
+    safeHtml,
+    splitStringTransformer,
     stripIndent,
     stripIndents,
-    inlineLists,
-    oneLineInlineLists,
-    commaLists,
-    commaListsOr,
-    commaListsAnd,
-    oneLineCommaLists,
-    oneLineCommaListsOr,
-    oneLineCommaListsAnd,
-    id,
-    TemplateTag,
-    trimResultTransformer,
     stripIndentTransformer,
-    replaceResultTransformer,
-    replaceSubstitutionTransformer,
-    inlineArrayTransformer,
-    splitStringTransformer,
-    createTag,
+    TemplateTag,
     TemplateTransformer,
-    replaceStringTransformer,
-} from 'common-tags';
+    trimResultTransformer,
+} from "common-tags";
 
-const userMessages = ['hi', 'what are you up to?', '<script>alert("something evil")</script>'];
+const userMessages = ["hi", "what are you up to?", "<script>alert(\"something evil\")</script>"];
 html`
     <div class="chat-list">
         <ul>
@@ -46,7 +46,7 @@ oneLineTrim`
   ?utm_source=designernews.co
 `;
 
-const verb = 'notice';
+const verb = "notice";
 stripIndent`
   This is a multi-line string.
   You'll ${verb} that it is indented.
@@ -62,53 +62,53 @@ stripIndents`
 `;
 
 inlineLists`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 oneLineInlineLists`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 commaLists`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 commaListsOr`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 commaListsAnd`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 oneLineCommaLists`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 oneLineCommaListsOr`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
 oneLineCommaListsAnd`
-  I like ${['apples', 'bananas', 'watermelons']}
+  I like ${["apples", "bananas", "watermelons"]}
   They're good!
 `;
 
-id`hello ${'world'}`;
+id`hello ${"world"}`;
 
 oneLine(String.raw)`
   foo
   bar\nbaz
 `;
 
-stripIndent('  foo\n    bar');
+stripIndent("  foo\n    bar");
 
 const doNothing = createTag();
 doNothing`foo bar`;
@@ -122,28 +122,28 @@ const substitutionReplacer = (oldValue: string, newValue: string): TemplateTrans
     },
 });
 
-const replaceFizzWithBuzz = createTag(substitutionReplacer('fizz', 'buzz'));
-replaceFizzWithBuzz`foo bar ${'fizz'}`;
+const replaceFizzWithBuzz = createTag(substitutionReplacer("fizz", "buzz"));
+replaceFizzWithBuzz`foo bar ${"fizz"}`;
 
 createTag();
-createTag(substitutionReplacer('fizz', 'buzz'));
-createTag(substitutionReplacer('fizz', 'buzz'), substitutionReplacer('foo', 'bar'));
-createTag([substitutionReplacer('fizz', 'buzz'), substitutionReplacer('foo', 'bar')]);
+createTag(substitutionReplacer("fizz", "buzz"));
+createTag(substitutionReplacer("fizz", "buzz"), substitutionReplacer("foo", "bar"));
+createTag([substitutionReplacer("fizz", "buzz"), substitutionReplacer("foo", "bar")]);
 new TemplateTag();
-new TemplateTag(substitutionReplacer('fizz', 'buzz'));
-new TemplateTag(substitutionReplacer('fizz', 'buzz'), substitutionReplacer('foo', 'bar'));
-new TemplateTag([substitutionReplacer('fizz', 'buzz'), substitutionReplacer('foo', 'bar')]);
+new TemplateTag(substitutionReplacer("fizz", "buzz"));
+new TemplateTag(substitutionReplacer("fizz", "buzz"), substitutionReplacer("foo", "bar"));
+new TemplateTag([substitutionReplacer("fizz", "buzz"), substitutionReplacer("foo", "bar")]);
 
 const tt: TemplateTransformer<{ foo: string }> = {
     getInitialContext() {
-        return { foo: 'bar' };
+        return { foo: "bar" };
     },
     onString(str, context) {
         // $ExpectType string
         str;
         // $ExpectType { foo: string; }
         context;
-        return '';
+        return "";
     },
     onSubstitution(substitution, resultSoFar, context) {
         // $ExpectType string
@@ -152,14 +152,14 @@ const tt: TemplateTransformer<{ foo: string }> = {
         resultSoFar;
         // $ExpectType { foo: string; }
         context;
-        return '';
+        return "";
     },
     onEndResult(endResult, context) {
         // $ExpectType string
         endResult;
         // $ExpectType { foo: string; }
         context;
-        return '';
+        return "";
     },
 };
 
@@ -187,56 +187,56 @@ new TemplateTag({
 });
 
 createTag(trimResultTransformer());
-createTag(trimResultTransformer(''));
-createTag(trimResultTransformer('start'));
-createTag(trimResultTransformer('end'));
-createTag(trimResultTransformer('left'));
-createTag(trimResultTransformer('right'));
+createTag(trimResultTransformer(""));
+createTag(trimResultTransformer("start"));
+createTag(trimResultTransformer("end"));
+createTag(trimResultTransformer("left"));
+createTag(trimResultTransformer("right"));
 
 createTag(stripIndentTransformer());
-createTag(stripIndentTransformer('initial'));
-createTag(stripIndentTransformer('all'));
+createTag(stripIndentTransformer("initial"));
+createTag(stripIndentTransformer("all"));
 
-createTag(replaceResultTransformer('foo', 'bar'));
-createTag(replaceResultTransformer(/baz/g, 'bar'));
+createTag(replaceResultTransformer("foo", "bar"));
+createTag(replaceResultTransformer(/baz/g, "bar"));
 createTag(
     replaceResultTransformer(/baz/g, (substring, ...matches) => {
         // $ExpectType string
         substring;
         // $ExpectType any[]
         matches;
-        return '';
-    })
+        return "";
+    }),
 );
 
-createTag(replaceSubstitutionTransformer('foo', 'bar'));
-createTag(replaceSubstitutionTransformer(/baz/g, 'bar'));
+createTag(replaceSubstitutionTransformer("foo", "bar"));
+createTag(replaceSubstitutionTransformer(/baz/g, "bar"));
 createTag(
     replaceSubstitutionTransformer(/baz/g, (substring, ...matches) => {
         // $ExpectType string
         substring;
         // $ExpectType any[]
         matches;
-        return '';
-    })
+        return "";
+    }),
 );
 
-createTag(replaceStringTransformer('foo', 'bar'));
-createTag(replaceStringTransformer(/baz/g, 'bar'));
+createTag(replaceStringTransformer("foo", "bar"));
+createTag(replaceStringTransformer(/baz/g, "bar"));
 createTag(
     replaceStringTransformer(/baz/g, (substring, ...matches) => {
         // $ExpectType string
         substring;
         // $ExpectType any[]
         matches;
-        return '';
-    })
+        return "";
+    }),
 );
 
 createTag(inlineArrayTransformer());
 createTag(inlineArrayTransformer({}));
-createTag(inlineArrayTransformer({ separator: 'foo' }));
-createTag(inlineArrayTransformer({ conjunction: 'bar' }));
+createTag(inlineArrayTransformer({ separator: "foo" }));
+createTag(inlineArrayTransformer({ conjunction: "bar" }));
 createTag(inlineArrayTransformer({ serial: true }));
 
-createTag(splitStringTransformer('foo'));
+createTag(splitStringTransformer("foo"));

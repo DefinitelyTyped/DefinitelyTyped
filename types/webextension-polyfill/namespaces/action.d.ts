@@ -1,19 +1,13 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
+import { Events } from "./events";
+import { Tabs } from "./tabs";
+
 /**
  * Namespace: browser.action
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use browser actions to put icons in the main browser toolbar, to the right of the address bar. In addition to its icon,
- * a browser action can also have a tooltip, a badge, and a popup.
- * Permissions: "manifest:action", "manifest:browser_action"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
-import { Tabs } from "./tabs";
-import { Events } from "./events";
-
 export namespace Action {
     /**
      * Specifies to which tab or window the value should be set, or from which one it should be retrieved.
@@ -75,6 +69,18 @@ export namespace Action {
         title: string | null;
     }
 
+    /**
+     * The collection of user-specified settings relating to an extension's action.
+     */
+    interface GetUserSettingsCallbackUserSettingsType {
+        /**
+         * Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e.,
+         * whether the extension has been 'pinned' by the user).
+         * Optional.
+         */
+        isOnToolbar?: boolean;
+    }
+
     interface SetIconDetailsType extends Details {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set.
@@ -120,86 +126,80 @@ export namespace Action {
         color: ColorValue;
     }
 
+    /**
+     * An object with information about the popup to open.
+     */
+    interface OpenPopupOptionsType {
+        /**
+         * Defaults to the $(topic:current-window)[current window].
+         * Optional.
+         */
+        windowId?: number;
+    }
+
     type OnClickDataModifiersItemEnum = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
     interface Static {
         /**
          * Sets the title of the browser action. This shows up in the tooltip.
-         *
-         * @param details
          */
         setTitle(details: SetTitleDetailsType): Promise<void>;
 
         /**
          * Gets the title of the browser action.
-         *
-         * @param details
          */
         getTitle(details: Details): Promise<string>;
+
+        /**
+         * Returns the user-specified settings relating to an extension's action.
+         */
+        getUserSettings(): Promise<GetUserSettingsCallbackUserSettingsType>;
 
         /**
          * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data
          * from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b>
          * property must be specified.
-         *
-         * @param details
          */
         setIcon(details: SetIconDetailsType): Promise<void>;
 
         /**
          * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
-         *
-         * @param details
          */
         setPopup(details: SetPopupDetailsType): Promise<void>;
 
         /**
          * Gets the html document set as the popup for this browser action.
-         *
-         * @param details
          */
         getPopup(details: Details): Promise<string>;
 
         /**
          * Sets the badge text for the browser action. The badge is displayed on top of the icon.
-         *
-         * @param details
          */
         setBadgeText(details: SetBadgeTextDetailsType): Promise<void>;
 
         /**
          * Gets the badge text of the browser action. If no tab nor window is specified is specified,
          * the global badge text is returned.
-         *
-         * @param details
          */
         getBadgeText(details: Details): Promise<string>;
 
         /**
          * Sets the background color for the badge.
-         *
-         * @param details
          */
         setBadgeBackgroundColor(details: SetBadgeBackgroundColorDetailsType): Promise<void>;
 
         /**
          * Gets the background color of the browser action badge.
-         *
-         * @param details
          */
         getBadgeBackgroundColor(details: Details): Promise<ColorArray>;
 
         /**
          * Sets the text color for the badge.
-         *
-         * @param details
          */
         setBadgeTextColor(details: SetBadgeTextColorDetailsType): void;
 
         /**
          * Gets the text color of the browser action badge.
-         *
-         * @param details
          */
         getBadgeTextColor(details: Details): void;
 
@@ -219,20 +219,19 @@ export namespace Action {
 
         /**
          * Checks whether the browser action is enabled.
-         *
-         * @param details
          */
         isEnabled(details: Details): Promise<boolean>;
 
         /**
-         * Opens the extension popup window in the active window.
+         * Opens the extension popup window in the specified window.
+         *
+         * @param options Optional. An object with information about the popup to open.
          */
-        openPopup(): Promise<void>;
+        openPopup(options?: OpenPopupOptionsType): Promise<void>;
 
         /**
          * Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.
          *
-         * @param tab
          * @param info Optional.
          */
         onClicked: Events.Event<(tab: Tabs.Tab, info: OnClickData | undefined) => void>;

@@ -7,11 +7,11 @@ declare class Controller {
     createUniqueId(location: Location): string;
     private locationFromId_;
     sendMessage(targetId: string, message: any): void;
-    initSlaveComponent(
+    initClientComponent(
         ownerId: string | null,
         componentName: string,
-        masterId: string | null,
-        props: any
+        pairId: string | null,
+        props: any,
     ): string;
     registerComponent(component: any): void;
     unregisterComponent(component: any): void;
@@ -24,10 +24,10 @@ declare class Controller {
         messages: Array<{
             targetId: string;
             message: any;
-        }>
+        }>,
     ): void;
 }
 declare namespace Controller {
     function getInstance(): Controller;
 }
-import Location = require('./Location.js');
+import Location = require("./Location.js");

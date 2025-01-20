@@ -8,7 +8,7 @@ declare class Promise {
     private logger_;
     private resolve_;
     private reject_;
-    then(onFulfilled: (arg0: any) => any, onRejected: (arg0: any) => any): Promise;
+    then(onFulfilled: (arg0: any) => any, onRejected: ((arg0: any) => any) | null): Promise;
     catch(onRejected: (arg0: any) => any): Promise;
     finally(handler: (arg0: any) => any): Promise;
 }

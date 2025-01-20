@@ -4,7 +4,7 @@
 
 import { MovingEntity, Ray, Vector3 } from "yuka";
 import { Player } from "./Player";
-import world from './World';
+import world from "./World";
 
 const intersectionPoint = new Vector3();
 const normal = new Vector3();
@@ -53,7 +53,7 @@ export class Bullet extends MovingEntity {
                 const validDistance = ray.origin.squaredDistanceTo(this.position);
                 if (distanceToIntersection <= validDistance) {
                     // inform game entity about hit
-                    this.owner.sendMessage(obstacle, 'hit');
+                    this.owner.sendMessage(obstacle, "hit");
                     // remove bullet from world
                     world.remove(this);
                 }

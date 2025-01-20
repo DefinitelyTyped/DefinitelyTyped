@@ -1,17 +1,7 @@
-// Type definitions for should-sinon 0.0
-// Project: https://github.com/shouldjs/sinon
-// Definitions by: AryloYeung <https://github.com/Arylo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as s from "should";
 
-import * as s from 'sinon';
-import should = require('should');
-
-declare module 'sinon' {
-    interface SinonSpyCallApi {
-        should: ShouldSinonAssertion;
-    }
-    interface ShouldSinonAssertion extends should.Assertion {
+declare module "should" {
+    interface Assertion {
         /**
          * Assert stub was called with given object as this always. So if you call stub several times
          * all should be with the same object
@@ -88,4 +78,13 @@ declare module 'sinon' {
          */
         threw(ex: string | Error): void;
     }
+}
+
+// keep backwards compat with earlier DefinitelyTyped release which made these
+// types available
+declare module "sinon" {
+    interface SinonSpyCallApi {
+        should: ShouldSinonAssertion;
+    }
+    type ShouldSinonAssertion = should.Assertion;
 }

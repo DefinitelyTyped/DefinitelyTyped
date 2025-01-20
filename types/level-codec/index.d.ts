@@ -1,8 +1,3 @@
-// Type definitions for level-codec 9.0
-// Project: https://github.com/Level/codec
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CodecEncoder {
     encode: (val: any) => any;
     decode: (val: any) => any;
@@ -25,7 +20,7 @@ export interface Codec {
     valueAsBuffer(opts?: CodecOptions): any;
 }
 export interface CodecConstructor {
-    new (options?: CodecOptions): Codec;
+    new(options?: CodecOptions): Codec;
     (options?: CodecOptions): Codec;
 }
 

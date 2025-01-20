@@ -1,8 +1,3 @@
-// Type definitions for cuint 0.2
-// Project: https://github.com/pierrec/js-cuint
-// Definitions by:  Lukas Tetzlaff <https://github.com/ltetzlaff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Uint {
     // Math
     add(x: this): this;
@@ -54,9 +49,9 @@ export interface UintConstructor<T extends Uint> {
     (text: string, radix?: number): T;
 
     // called as a constructor:
-    new (low: number, high?: number): T;
+    new(low: number, high?: number): T;
     // tslint:disable-next-line:unified-signatures
-    new (text: string, radix?: number): T;
+    new(text: string, radix?: number): T;
 
     prototype: T;
 }
@@ -66,7 +61,7 @@ export interface Uint64Constructor<T extends Uint> extends UintConstructor<T> {
     (a00: number, a16: number, a32: number, a48: number): T;
 
     // called as constructor:
-    new (a00: number, a16: number, a32: number, a48: number): T;
+    new(a00: number, a16: number, a32: number, a48: number): T;
 }
 
 export const UINT64: Uint64Constructor<Uint>;

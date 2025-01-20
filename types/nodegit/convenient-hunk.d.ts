@@ -1,4 +1,4 @@
-import { DiffLine } from './diff-line';
+import { DiffLine } from "./diff-line";
 
 export class ConvenientHunk {
     /**

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/epiceditor",
+    "version": "0.2.9999",
+    "projects": [
+        "http://epiceditor.com/"
+    ],
+    "devDependencies": {
+        "@types/epiceditor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

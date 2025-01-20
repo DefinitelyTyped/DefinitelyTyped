@@ -5,7 +5,7 @@ const dp = $("#picker").datetimepicker().data("DateTimePicker");
 function test_cases() {
     $("#datetimepicker").datetimepicker();
     $("#datetimepicker").datetimepicker({
-        minDate: "2012-12-31"
+        minDate: "2012-12-31",
     });
 
     $("#datetimepicker").data("DateTimePicker").maxDate("2012-12-31");
@@ -49,15 +49,15 @@ function test_format() {
     let momentFormat = moment.ISO_8601;
 
     $("#picker").datetimepicker({
-        format: boolFormat
+        format: boolFormat,
     });
 
     $("#picker").datetimepicker({
-        format: strFormat
+        format: strFormat,
     });
 
     $("#picker").datetimepicker({
-        format: momentFormat
+        format: momentFormat,
     });
 
     dp.format(boolFormat);
@@ -76,15 +76,15 @@ function test_extraFormats() {
     let mixFormats = ["YYYYMMDD", moment.ISO_8601];
 
     $("#picker").datetimepicker({
-        extraFormats: boolFormat
+        extraFormats: boolFormat,
     });
 
     $("#picker").datetimepicker({
-        extraFormats: strFormats
+        extraFormats: strFormats,
     });
 
     $("#picker").datetimepicker({
-        extraFormats: mixFormats
+        extraFormats: mixFormats,
     });
 
     dp.extraFormats(boolFormat);
@@ -102,11 +102,11 @@ function test_timeZone() {
     let strFormats = "Africa/Abidjan";
 
     $("#picker").datetimepicker({
-        timeZone: nullTz
+        timeZone: nullTz,
     });
 
     $("#picker").datetimepicker({
-        timeZone: strFormats
+        timeZone: strFormats,
     });
 
     dp.timeZone(nullTz);
@@ -122,15 +122,15 @@ function test_widgetParent() {
     let jquery = $("#element");
 
     $("#picker").datetimepicker({
-        widgetParent: nullW
+        widgetParent: nullW,
     });
 
     $("#picker").datetimepicker({
-        widgetParent: str
+        widgetParent: str,
     });
 
     $("#picker").datetimepicker({
-        widgetParent: jquery
+        widgetParent: jquery,
     });
 
     dp.widgetParent(nullW);
@@ -166,7 +166,7 @@ function test_parseInputDate() {
     $("#picker").datetimepicker();
 
     $("#picker").datetimepicker({
-        parseInputDate: inputParser
+        parseInputDate: inputParser,
     });
 
     undef = dp.parseInputDate() as undefined;

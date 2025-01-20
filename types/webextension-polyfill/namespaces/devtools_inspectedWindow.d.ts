@@ -1,15 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.devtools.inspectedWindow
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>chrome.devtools.inspectedWindow</code> API to interact with the inspected window: obtain the tab ID for
- * the inspected page, evaluate the code in the context of the inspected window, reload the page,
- * or obtain the list of resources within the page.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace DevtoolsInspectedWindow {
     /**
@@ -53,7 +47,7 @@ export namespace DevtoolsInspectedWindow {
          * contains the array of the values that may be substituted into the description string to provide more information about
          * the cause of the error.
          */
-        details: any[];
+        details: unknown[];
 
         /**
          * Set if the evaluated code produces an unhandled exception.
@@ -106,7 +100,7 @@ export namespace DevtoolsInspectedWindow {
          * @param options Optional. The options parameter can contain one or more options.
          * @returns A function called when evaluation completes.
          */
-        eval(expression: string, options?: EvalOptionsType): Promise<[any, EvalCallbackExceptionInfoType]>;
+        eval(expression: string, options?: EvalOptionsType): Promise<[unknown, EvalCallbackExceptionInfoType]>;
 
         /**
          * Reloads the inspected page.

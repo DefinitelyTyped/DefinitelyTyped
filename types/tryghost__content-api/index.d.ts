@@ -1,11 +1,3 @@
-// Type definitions for @tryghost/content-api 1.3
-// Project: https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api
-// Definitions by: Kevin Nguyen <https://github.com/knguyen0125>
-//                 Anton Van Eechaute <https://github.com/antonve>
-//                 Yashar Moradi <https://github.com/maveric1977>
-//                 Oliver Emery <https://github.com/thrymgjol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type ArrayOrValue<T> = T | T[];
 export type Nullable<T> = T | null;
 
@@ -51,8 +43,7 @@ export interface Twitter {
     twitter_description?: Nullable<string> | undefined;
 }
 
-export interface SocialMedia extends Facebook, Twitter {
-}
+export interface SocialMedia extends Facebook, Twitter {}
 
 export interface Settings extends Metadata, CodeInjection, SocialMedia {
     title?: string | undefined;
@@ -66,14 +57,18 @@ export interface Settings extends Metadata, CodeInjection, SocialMedia {
     timezone?: string | undefined;
     ghost_head?: Nullable<string> | undefined;
     ghost_foot?: Nullable<string> | undefined;
-    navigation?: Array<{
-        label: string;
-        url: string;
-    }> | undefined;
-    secondary_navigation?: Array<{
-        label: string;
-        url: string;
-    }> | undefined;
+    navigation?:
+        | Array<{
+            label: string;
+            url: string;
+        }>
+        | undefined;
+    secondary_navigation?:
+        | Array<{
+            label: string;
+            url: string;
+        }>
+        | undefined;
     url?: string | undefined;
 }
 
@@ -87,28 +82,35 @@ export interface Author extends Identification, Metadata {
     facebook?: Nullable<string> | undefined;
     twitter?: Nullable<string> | undefined;
     url?: Nullable<string> | undefined;
-    count?: {
-        posts: number;
-    } | undefined;
+    count?:
+        | {
+            posts: number;
+        }
+        | undefined;
 }
 
-export type TagVisibility = 'public' | 'internal';
+export type TagVisibility = "public" | "internal";
 
-export interface Tag extends Identification, Metadata {
+export interface Tag extends Identification, Metadata, SocialMedia {
     name?: string | undefined;
     description?: Nullable<string> | undefined;
     feature_image?: Nullable<string> | undefined;
     visibility?: TagVisibility | undefined;
     url?: string | undefined;
-    count?: {
-        posts: number;
-    } | undefined;
+    canonical_url?: Nullable<string> | undefined;
+    accent_color?: Nullable<string> | undefined;
+    count?:
+        | {
+            posts: number;
+        }
+        | undefined;
 }
 
 export interface PostOrPage extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia {
     // Identification
     uuid?: string | undefined;
     comment_id?: string | undefined;
+    featured?: boolean | undefined;
 
     // Post or Page
     title?: string | undefined;
@@ -117,7 +119,8 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
     // Image
     feature_image?: Nullable<string> | undefined;
-    featured?: boolean | undefined;
+    feature_image_alt?: Nullable<string> | undefined;
+    feature_image_caption?: Nullable<string> | undefined;
 
     // Dates
     created_at?: string | undefined;
@@ -147,11 +150,11 @@ export interface PostOrPage extends Identification, Excerpt, CodeInjection, Meta
 
 export type GhostData = PostOrPage | Author | Tag | Settings;
 
-export type IncludeParam = 'authors' | 'tags' | 'count.posts';
+export type IncludeParam = "authors" | "tags" | "count.posts";
 
 export type FieldParam = string;
 
-export type FormatParam = 'html' | 'plaintext';
+export type FormatParam = "html" | "plaintext";
 
 export type FilterParam = string;
 
@@ -176,21 +179,22 @@ export interface BrowseFunction<T> {
 }
 
 export interface ReadFunction<T> {
-    (data: { id: Nullable<string> } | { slug: Nullable<string> }, options?: Params, memberToken?: Nullable<string>): Promise<T>;
+    (
+        data: { id: Nullable<string> } | { slug: Nullable<string> },
+        options?: Params,
+        memberToken?: Nullable<string>,
+    ): Promise<T>;
 }
 
 interface BrowseResults<T> extends Array<T> {
     meta: { pagination: Pagination };
 }
 
-export interface PostsOrPages extends BrowseResults<PostOrPage> {
-}
+export interface PostsOrPages extends BrowseResults<PostOrPage> {}
 
-export interface Authors extends BrowseResults<Author> {
-}
+export interface Authors extends BrowseResults<Author> {}
 
-export interface Tags extends BrowseResults<Tag> {
-}
+export interface Tags extends BrowseResults<Tag> {}
 
 export interface SettingsResponse extends Settings {
     meta: any;
@@ -203,19 +207,34 @@ export interface GhostError {
     }>;
 }
 
+export interface MakeRequestOptions {
+    url: string;
+    method: string;
+    params: {
+        [key: string]: any;
+    };
+    headers: {
+        [key: string]: any;
+    };
+}
+
 export interface GhostContentAPIOptions {
     url: string;
     /**
      * Version of GhostContentAPI
+     * Should be in 'v{major}.{minor}' format.
      *
-     * Supported Versions: 'v2', 'v3', 'canary'
+     * Deprecated options: 'v2', 'v3', 'v4', 'v5', 'canary'
      */
-    version: 'v2' | 'v3' | 'canary';
+    version: string;
     key: string;
     /** @deprecated since version v2 */
     host?: string | undefined;
     /** @default "ghost" */
     ghostPath?: string | undefined;
+    makeRequest?: (
+        options: MakeRequestOptions,
+    ) => Promise<any>;
 }
 
 export interface GhostAPI {

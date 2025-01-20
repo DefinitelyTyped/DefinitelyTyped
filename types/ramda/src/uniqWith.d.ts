@@ -1,2 +1,2 @@
-import { uniqWith } from '../index';
+import { uniqWith } from "../index";
 export default uniqWith;

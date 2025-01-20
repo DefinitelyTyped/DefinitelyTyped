@@ -1,4 +1,21 @@
 {
     "private": true,
-    "dependencies": {}
+    "name": "@types/react-native-zss-rich-text-editor",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/wix/react-native-zss-rich-text-editor"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-zss-rich-text-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Naveen Ithappu",
+            "githubUsername": "naveen-ithappu"
+        }
+    ]
 }

@@ -5,7 +5,22 @@
 import * as oauth2lib from "simple-oauth2";
 
 // Set the configuration settings
-const credentials: oauth2lib.ModuleOptions = {
+const credentials_1: oauth2lib.ModuleOptions = {
+    client: {
+        id: "<client-id>",
+        secret: "<client-secret>",
+    },
+    auth: {
+        tokenHost: "https://api.oauth.com",
+    },
+    http: {
+        json: false,
+    },
+};
+
+const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials_1);
+
+const credentials_2: oauth2lib.ModuleOptions = {
     client: {
         id: "<client-id>",
         secret: "<client-secret>",
@@ -14,11 +29,22 @@ const credentials: oauth2lib.ModuleOptions = {
         tokenHost: "https://api.oauth.com",
     },
 };
+const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials_2);
 
-const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials);
-const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials);
+const credentials_3: oauth2lib.ModuleOptions = {
+    client: {
+        id: "<client-id>",
+        secret: "<client-secret>",
+    },
+    auth: {
+        tokenHost: "https://api.oauth.com",
+    },
+    http: {
+        json: "strict",
+    },
+};
 const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
-  credentials
+    credentials_3,
 );
 
 // Test custom `idParamName`
@@ -26,6 +52,19 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
     const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode({
         client: { id: "x", secret: "x", idParamName: "foobar" },
         auth: { tokenHost: "x" },
+        http: {
+            baseUrl: undefined,
+            beforeRedirect(redirectMethod, statusCode, location, resHeaders, redirectOptions, next) {
+                // noop
+            },
+            json: true,
+        },
+        options: {
+            bodyFormat: "form",
+            authorizationMethod: "body",
+            credentialsEncodingMode: "loose",
+            scopeSeparator: ",",
+        },
     });
     oauth2AuthorizationCode.authorizeURL({ foobar: "x" });
 }
@@ -66,15 +105,29 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
 
 // #Password Credentials Flow
 (async () => {
-    const tokenConfig = {
+    const tokenConfig1 = {
+        username: "username",
+        password: "password",
+    };
+
+    const tokenConfig2 = {
         username: "username",
         password: "password",
         scope: ["<scope1>", "<scope2>"],
     };
 
+    const tokenConfig3 = {
+        username: "username",
+        password: "password",
+        scope: "<scope1>",
+    };
+
     // Save the access token
     try {
-        const result = await oauth2ResourceOwnerPassword.getToken(tokenConfig);
+        let result = await oauth2ResourceOwnerPassword.getToken(tokenConfig1);
+        result = await oauth2ResourceOwnerPassword.getToken(tokenConfig2);
+        result = await oauth2ResourceOwnerPassword.getToken(tokenConfig3);
+
         const accessToken = oauth2ResourceOwnerPassword.createToken(result.token);
     } catch (error) {
         console.log("Access Token Error", error.message);
@@ -96,16 +149,26 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
 
 // #Access Token object
 async function TestFnAccessTokenObject(
-  oauthSubject:
-    | oauth2lib.AuthorizationCode
-    | oauth2lib.ClientCredentials
-    | oauth2lib.ResourceOwnerPassword
+    oauthSubject:
+        | oauth2lib.AuthorizationCode
+        | oauth2lib.ClientCredentials
+        | oauth2lib.ResourceOwnerPassword,
 ) {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {
         access_token: "<access-token>",
         refresh_token: "<refresh-token>",
         expires_in: "7200",
+    };
+
+    const httpOptions: oauth2lib.WreckHttpOptions = {
+        json: false,
+        redirects: 0,
+        headers: {
+            "some-header": "value",
+            "other-header": "other-value",
+            testNum: 123,
+        },
     };
 
     // Create the access token wrapper
@@ -115,6 +178,14 @@ async function TestFnAccessTokenObject(
     if (accessToken.expired()) {
         try {
             accessToken = await accessToken.refresh();
+
+            accessToken = await accessToken.refresh({ scope: "scope1" });
+
+            accessToken = await accessToken.refresh({ scope: ["<scope1>", "<scope2>"] });
+
+            accessToken = await accessToken.refresh({ scope: ["<scope1>", "<scope2>"] }, httpOptions);
+
+            console.log("Token refreshed");
         } catch (error) {
             console.log("Error refreshing access token: ", error.message);
         }
@@ -125,9 +196,12 @@ async function TestFnAccessTokenObject(
         // Revoke only the access token
         await accessToken.revoke("access_token");
 
+        await accessToken.revoke("access_token", httpOptions);
         // Session ended. But the refresh_token is still valid.
         // Revoke the refresh token
         await accessToken.revoke("refresh_token");
+
+        await accessToken.revoke("refresh_token", httpOptions);
 
         console.log("Token revoked");
     } catch (error) {
@@ -139,6 +213,8 @@ async function TestFnAccessTokenObject(
     try {
         // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
         await accessToken.revokeAll();
+
+        await accessToken.revokeAll(httpOptions);
     } catch (error) {
         console.log("Error revoking token: ", error.message);
     }

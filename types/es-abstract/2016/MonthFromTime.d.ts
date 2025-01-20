@@ -1,2 +1,2 @@
-import MonthFromTime = require('../2015/MonthFromTime');
+import MonthFromTime = require("../2015/MonthFromTime");
 export = MonthFromTime;

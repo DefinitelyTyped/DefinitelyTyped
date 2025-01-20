@@ -8,15 +8,15 @@ const defaultProps: ReactCreditCardProps = {
     expiry: "04/18",
     focused: "number",
     issuer: "visa",
-    locale: {valid: "valid through"},
+    locale: { valid: "valid through" },
     name: "Name Surname",
     number: "4111111111111111",
-    placeholders: {name: "YOUR NAME"},
-    preview: true
+    placeholders: { name: "YOUR NAME" },
+    preview: true,
 };
 
 class CardTest extends React.Component {
     render() {
-        return (<Card {...defaultProps} />);
+        return <Card {...defaultProps} />;
     }
 }

@@ -1,7 +1,7 @@
 // https://github.com/SBRK/react-gamepad/blob/master/README.md
 
-import Gamepad, { Button, Axis, layouts } from 'react-gamepad';
-import * as React from 'react';
+import * as React from "react";
+import Gamepad, { Axis, Button, layouts } from "react-gamepad";
 
 // Usage example
 
@@ -23,11 +23,11 @@ class App extends React.Component {
     }
 
     buttonDownHandler(buttonName: Button): void {
-        console.log(buttonName, 'down');
+        console.log(buttonName, "down");
     }
 
     buttonUpHandler(buttonName: Button): void {
-        console.log(buttonName, 'up');
+        console.log(buttonName, "up");
     }
 
     render() {
@@ -63,9 +63,8 @@ console.log(<App />);
     onB={() => {}}
     onX={() => {}}
     onY={() => {}}
-    // These are mentioned in the README and default props but are never used.
-    // onStart={() => {}}
-    // onBack={() => {}}
+    onStart={() => {}}
+    onBack={() => {}}
     onLT={() => {}}
     onRT={() => {}}
     onLB={() => {}}

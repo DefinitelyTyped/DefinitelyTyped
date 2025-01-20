@@ -202,7 +202,7 @@
 declare module "string_decoder" {
     
 
-    module string_decoder {
+    namespace string_decoder {
         
         
         

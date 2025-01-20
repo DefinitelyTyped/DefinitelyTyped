@@ -1,10 +1,3 @@
-// Type definitions for swaggerize-express 4.x
-// Project: https://github.com/krakenjs/swaggerize-express
-// Definitions by: TANAKA Koichi <https://github.com/mugeso>
-//                 Nick Morton <https://github.com/nickmorton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
  import express = require('express');
  import swaggerize = require('swaggerize-express');
@@ -16,211 +9,211 @@
  });
  =============================================== */
 
-import express = require('express');
+import express = require("express");
 declare function swaggerize(options: swaggerize.Options): express.RequestHandler;
 
 declare namespace swaggerize {
-    export module Swagger {
+    export namespace Swagger {
         export interface ApiDefinition {
-            swagger: string
-            info: InfoObject
-            host?: string | undefined
-            basePath?: string | undefined
-            schemes?: string[] | undefined
-            consumes?: MimeTypes | undefined
-            produces?: MimeTypes | undefined
-            paths: PathsObject
-            definitions?: DefinitionsObject | undefined
-            parameters?: ParametersDefinitionsObject | undefined
-            responses?: ResponsesDefinitionsObject | undefined
-            securityDefinitions?: SecurityDefinitionsObject | undefined
-            security?: SecurityRequirementObject[] | undefined
-            tags?: TagObject[] | undefined
-            externalDocs?: ExternalDocumentationObject | undefined
+            swagger: string;
+            info: InfoObject;
+            host?: string | undefined;
+            basePath?: string | undefined;
+            schemes?: string[] | undefined;
+            consumes?: MimeTypes | undefined;
+            produces?: MimeTypes | undefined;
+            paths: PathsObject;
+            definitions?: DefinitionsObject | undefined;
+            parameters?: ParametersDefinitionsObject | undefined;
+            responses?: ResponsesDefinitionsObject | undefined;
+            securityDefinitions?: SecurityDefinitionsObject | undefined;
+            security?: SecurityRequirementObject[] | undefined;
+            tags?: TagObject[] | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
         }
 
-        type MimeTypes = string[]
+        type MimeTypes = string[];
 
         export interface InfoObject {
-            title: string
-            description?: string | undefined
-            termsOfService?: string | undefined
-            contact?: ContactObject | undefined
-            license?: LicenseObject | undefined
-            version: string
+            title: string;
+            description?: string | undefined;
+            termsOfService?: string | undefined;
+            contact?: ContactObject | undefined;
+            license?: LicenseObject | undefined;
+            version: string;
         }
 
         export interface ContactObject {
-            name?: string | undefined
-            url?: string | undefined
-            email?: string | undefined
+            name?: string | undefined;
+            url?: string | undefined;
+            email?: string | undefined;
         }
 
         export interface LicenseObject {
-            name: string
-            url?: string | undefined
+            name: string;
+            url?: string | undefined;
         }
 
         export interface PathsObject {
-            [index: string]: PathItemObject | any
+            [index: string]: PathItemObject | any;
         }
 
         export interface PathItemObject {
-            $ref?: string | undefined
-            get?: OperationObject | undefined
-            put?: OperationObject | undefined
-            post?: OperationObject | undefined
-            'delete'?: OperationObject | undefined
-            options?: OperationObject | undefined
-            head?: OperationObject | undefined
-            patch?: OperationObject | undefined
-            parameters?: Parameters | undefined
+            $ref?: string | undefined;
+            get?: OperationObject | undefined;
+            put?: OperationObject | undefined;
+            post?: OperationObject | undefined;
+            "delete"?: OperationObject | undefined;
+            options?: OperationObject | undefined;
+            head?: OperationObject | undefined;
+            patch?: OperationObject | undefined;
+            parameters?: Parameters | undefined;
         }
 
         export interface OperationObject {
-            tags?: string[] | undefined
-            summary?: string | undefined
-            description?: string | undefined
-            externalDocs?: ExternalDocumentationObject | undefined
-            operationId?: string | undefined
-            consumes?: MimeTypes | undefined
-            produces?: MimeTypes | undefined
-            parameters?: Parameters | undefined
-            responses: ResponsesObject
-            schemes?: string[] | undefined
-            deprecated?: boolean | undefined
-            security?: SecurityRequirementObject[] | undefined
+            tags?: string[] | undefined;
+            summary?: string | undefined;
+            description?: string | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
+            operationId?: string | undefined;
+            consumes?: MimeTypes | undefined;
+            produces?: MimeTypes | undefined;
+            parameters?: Parameters | undefined;
+            responses: ResponsesObject;
+            schemes?: string[] | undefined;
+            deprecated?: boolean | undefined;
+            security?: SecurityRequirementObject[] | undefined;
         }
 
         export interface DefinitionsObject {
-            [index: string]: SchemaObject
+            [index: string]: SchemaObject;
         }
 
         export interface ResponsesObject {
-            [index: string]: Response | any
-            'default': Response
+            [index: string]: Response | any;
+            "default": Response;
         }
 
-        type Response = ResponseObject | ReferenceObject
+        type Response = ResponseObject | ReferenceObject;
 
         export interface ResponsesDefinitionsObject {
-            [index: string]: ResponseObject
+            [index: string]: ResponseObject;
         }
 
         export interface ResponseObject {
-            description: string
-            schema?: SchemaObject | undefined
-            headers?: HeadersObject | undefined
-            examples?: ExampleObject | undefined
+            description: string;
+            schema?: SchemaObject | undefined;
+            headers?: HeadersObject | undefined;
+            examples?: ExampleObject | undefined;
         }
 
         export interface HeadersObject {
-            [index: string]: HeaderObject
+            [index: string]: HeaderObject;
         }
 
         export interface HeaderObject extends ItemsObject {
         }
 
         export interface ExampleObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityDefinitionsObject {
-            [index: string]: SecuritySchemeObject
+            [index: string]: SecuritySchemeObject;
         }
 
         export interface SecuritySchemeObject {
-            type: string
-            description?: string | undefined
-            name: string
-            'in': string
-            flow: string
-            authorizationUrl: string
-            tokenUrl: string
-            scopes: ScopesObject
+            type: string;
+            description?: string | undefined;
+            name: string;
+            "in": string;
+            flow: string;
+            authorizationUrl: string;
+            tokenUrl: string;
+            scopes: ScopesObject;
         }
 
         export interface ScopesObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityRequirementObject {
-            [index: string]: string[]
+            [index: string]: string[];
         }
 
         export interface TagObject {
-            name: string
-            description?: string | undefined
-            externalDocs?: ExternalDocumentationObject | undefined
+            name: string;
+            description?: string | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
         }
 
         export interface ItemsObject {
-            type: string
-            format?: string | undefined
-            items?: ItemsObject | undefined
-            collectionFormat?: string | undefined
-            'default'?: any
-            maximum?: number | undefined
-            exclusiveMaximum: boolean
-            minimum?: number | undefined
-            exclusiveMinimum?: boolean | undefined
-            maxLength?: number | undefined
-            minLength?: number | undefined
-            pattern?: string | undefined
-            maxItems?: number | undefined
-            minItems?: number | undefined
-            uniqueItems?: boolean | undefined
-            'enum'?: any[] | undefined
-            multipleOf?: number | undefined
+            type: string;
+            format?: string | undefined;
+            items?: ItemsObject | undefined;
+            collectionFormat?: string | undefined;
+            "default"?: any;
+            maximum?: number | undefined;
+            exclusiveMaximum: boolean;
+            minimum?: number | undefined;
+            exclusiveMinimum?: boolean | undefined;
+            maxLength?: number | undefined;
+            minLength?: number | undefined;
+            pattern?: string | undefined;
+            maxItems?: number | undefined;
+            minItems?: number | undefined;
+            uniqueItems?: boolean | undefined;
+            "enum"?: any[] | undefined;
+            multipleOf?: number | undefined;
         }
 
         export interface ParametersDefinitionsObject {
-            [index: string]: ParameterObject
+            [index: string]: ParameterObject;
         }
 
-        type Parameters = (ParameterObject | ReferenceObject)[]
+        type Parameters = Array<ParameterObject | ReferenceObject>;
 
         export interface ParameterObject {
-            name: string
-            'in': string
-            description?: string | undefined
-            required?: boolean | undefined
+            name: string;
+            "in": string;
+            description?: string | undefined;
+            required?: boolean | undefined;
         }
 
         export interface InBodyParameterObject extends ParameterObject {
-            schema: SchemaObject
+            schema: SchemaObject;
         }
 
         export interface GeneralParameterObject extends ParameterObject, ItemsObject {
-            allowEmptyValue?: boolean | undefined
+            allowEmptyValue?: boolean | undefined;
         }
 
         export interface ReferenceObject {
-            $ref: string
+            $ref: string;
         }
 
         export interface ExternalDocumentationObject {
-            [index: string]: any
-            description?: string | undefined
-            url: string
+            [index: string]: any;
+            description?: string | undefined;
+            url: string;
         }
 
         export interface SchemaObject extends IJsonSchema {
-            [index: string]: any
-            discriminator?: string | undefined
-            readOnly?: boolean | undefined
-            xml?: XMLObject | undefined
-            externalDocs: ExternalDocumentationObject
-            example: any
+            [index: string]: any;
+            discriminator?: string | undefined;
+            readOnly?: boolean | undefined;
+            xml?: XMLObject | undefined;
+            externalDocs: ExternalDocumentationObject;
+            example: any;
         }
 
         export interface XMLObject {
-            [index: string]: any
-            name?: string | undefined
-            namespace?: string | undefined
-            prefix?: string | undefined
-            attribute?: boolean | undefined
-            wrapped?: boolean | undefined
+            [index: string]: any;
+            name?: string | undefined;
+            namespace?: string | undefined;
+            prefix?: string | undefined;
+            attribute?: boolean | undefined;
+            wrapped?: boolean | undefined;
         }
     }
 
@@ -229,61 +222,61 @@ declare namespace swaggerize {
     }
 
     export interface Options {
-        api: Swagger.ApiDefinition
-        docspath: string
-        handlers: string | RouteSegment
+        api: Swagger.ApiDefinition;
+        docspath: string;
+        handlers: string | RouteSegment;
     }
 
     export interface IConfig {
-        api: Swagger.ApiDefinition
-        routes: express.IRoute[]
+        api: Swagger.ApiDefinition;
+        routes: express.IRoute[];
     }
 
     export interface SwaggerizedExpress extends express.Express {
-        swagger: IConfig
+        swagger: IConfig;
     }
 }
 
 interface IJsonSchema {
-    id?: string | undefined
-    $schema?: string | undefined
-    title?: string | undefined
-    description?: string | undefined
-    multipleOf?: number | undefined
-    maximum?: number | undefined
-    exclusiveMaximum?: boolean | undefined
-    minimum?: number | undefined
-    exclusiveMinimum?: boolean | undefined
-    maxLength?: number | undefined
-    minLength?: number | undefined
-    pattern?: string | undefined
-    additionalItems?: boolean | IJsonSchema | undefined
-    items?: IJsonSchema | IJsonSchema[] | undefined
-    maxItems?: number | undefined
-    minItems?: number | undefined
-    uniqueItems?: boolean | undefined
-    maxProperties?: number | undefined
-    minProperties?: number | undefined
-    required?: string[] | undefined
-    additionalProperties?: boolean | IJsonSchema | undefined
+    id?: string | undefined;
+    $schema?: string | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    multipleOf?: number | undefined;
+    maximum?: number | undefined;
+    exclusiveMaximum?: boolean | undefined;
+    minimum?: number | undefined;
+    exclusiveMinimum?: boolean | undefined;
+    maxLength?: number | undefined;
+    minLength?: number | undefined;
+    pattern?: string | undefined;
+    additionalItems?: boolean | IJsonSchema | undefined;
+    items?: IJsonSchema | IJsonSchema[] | undefined;
+    maxItems?: number | undefined;
+    minItems?: number | undefined;
+    uniqueItems?: boolean | undefined;
+    maxProperties?: number | undefined;
+    minProperties?: number | undefined;
+    required?: string[] | undefined;
+    additionalProperties?: boolean | IJsonSchema | undefined;
     definitions?: {
-        [name: string]: IJsonSchema
-    } | undefined
+        [name: string]: IJsonSchema;
+    } | undefined;
     properties?: {
-        [name: string]: IJsonSchema
-    } | undefined
+        [name: string]: IJsonSchema;
+    } | undefined;
     patternProperties?: {
-        [name: string]: IJsonSchema
-    } | undefined
+        [name: string]: IJsonSchema;
+    } | undefined;
     dependencies?: {
-        [name: string]: IJsonSchema | string[]
-    } | undefined
-    'enum'?: any[] | undefined
-    type?: string | string[] | undefined
-    allOf?: IJsonSchema[] | undefined
-    anyOf?: IJsonSchema[] | undefined
-    oneOf?: IJsonSchema[] | undefined
-    not?: IJsonSchema | undefined
+        [name: string]: IJsonSchema | string[];
+    } | undefined;
+    "enum"?: any[] | undefined;
+    type?: string | string[] | undefined;
+    allOf?: IJsonSchema[] | undefined;
+    anyOf?: IJsonSchema[] | undefined;
+    oneOf?: IJsonSchema[] | undefined;
+    not?: IJsonSchema | undefined;
 }
 
 export = swaggerize;

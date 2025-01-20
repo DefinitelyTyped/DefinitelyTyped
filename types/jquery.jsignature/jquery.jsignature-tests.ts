@@ -1,9 +1,8 @@
 /*
  * Taken from the tests section on jSignature
  */
-$(document).ready(function () {
-
-    var $sigdiv = $('#signature');
+$(document).ready(function() {
+    var $sigdiv = $("#signature");
 
     $sigdiv.jSignature();
 
@@ -12,5 +11,4 @@ $(document).ready(function () {
     var data = $sigdiv.jSignature("getData", "svgbase64");
 
     $sigdiv.jSignature("setData", "data:" + data);
-
 });

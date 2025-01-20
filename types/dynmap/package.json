@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/dynmap",
+    "version": "3.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dynmap",
+    "projects": [
+        "https://github.com/webbukkit/dynmap"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jquery-mousewheel": "*",
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/dynmap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Primm",
+            "githubUsername": "mikeprimm"
+        }
+    ]
+}

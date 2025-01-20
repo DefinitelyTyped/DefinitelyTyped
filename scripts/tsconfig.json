@@ -1,16 +1,11 @@
 {
-    "exclude": ["fix-tslint.ts", "update-config"],
     "compilerOptions": {
-        "target": "es6",
+        "target": "es2023",
+        "module": "nodenext",
         "strict": true,
-        "baseUrl": "../types",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "typeRoots": [
-            "../types"
-        ],
-        "types": [],
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true
-    }
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true
+    },
+    "include": ["**/*.js"]
 }

@@ -1,10 +1,3 @@
-// Type definitions for scrivito 1.22
-// Project: https://www.scrivito.com/
-// Definitions by:  Julian Krieger <https://github.com/juliankrieger>
-//                  Eric Eifler <https://github.com/eric-the-viking>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import * as React from "react";
 
 /**
@@ -137,7 +130,7 @@ export class ContentTag extends React.Component<ContentTagProps, any> {}
 
 export class CurrentPage extends React.Component<{}, any> {}
 
-interface ImageTagProps extends React.HTMLAttributes<HTMLImageElement> {
+interface ImageTagProps extends Omit<React.HTMLAttributes<HTMLImageElement>, "content"> {
     attribute?: string | undefined;
     content: Binary | Obj | Widget;
     alt?: string | undefined;
@@ -232,6 +225,7 @@ interface EditingConfig {
     title?: string | undefined;
     thumbnail?: string | undefined;
     description?: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     titleForContent?: ((instance: Obj | Widget) => string | void) | undefined;
     descriptionForContent?: ((instance: Obj | Widget) => string) | undefined;
     attributes?: EditingConfigAttributes | undefined;
@@ -583,7 +577,10 @@ export function getClass(name: string): ObjClass | WidgetClass | null;
 export function isEditorLoggedIn(): boolean;
 export function isInPlaceEditingActive(): boolean;
 export function load<T>(functionToLoad: () => T): Promise<T>;
-export function navigateTo(target: (() => Obj | Link) | Obj | Link, options?: { hash?: string | undefined; params?: any }): void;
+export function navigateTo(
+    target: (() => Obj | Link) | Obj | Link,
+    options?: { hash?: string | undefined; params?: any },
+): void;
 export function openDialog(name: string): void;
 export function preload(preloadDump: any): Promise<{ dumpLoaded: boolean }>;
 export function provideComponent(className: string, component: WidgetComponent | ObjComponent): void;
@@ -601,7 +598,10 @@ export function renderPage(page: Obj, renderFunction: () => void): Promise<{ res
 export function setVisitorIdToken(idToken: string): void;
 export function updateContent(): void;
 export function updateMenuExtensions(): void;
-export function urlFor(target: Obj | Binary | Link, options?: { query?: string | undefined; hash?: string | undefined }): string;
+export function urlFor(
+    target: Obj | Binary | Link,
+    options?: { query?: string | undefined; hash?: string | undefined },
+): string;
 export function useHistory(history: History): void;
 export function validationResultsFor(model: Obj | Widget, attribute: string): ValidationResult[];
 export function isComparisonActive(): boolean;
@@ -617,10 +617,10 @@ type AttributeKeys<T extends WidgetClassOptions | ObjClassOptions> = {
 };
 
 export type {
+    AttributeKeys,
     AttributeOptions,
     AttributeProps,
     AttributeValue,
-    AttributeKeys,
     BackgroundImageBackgroundProp,
     BackgroundImageTagProps,
     ChildListTagProps,
@@ -640,10 +640,10 @@ export type {
     ObjComponentProps,
     OptimizeDefinition,
     PropertiesGroup,
+    SiteContext,
     WidgetClassOptions,
     WidgetComponentProps,
     WidgetTagProps,
-    SiteContext,
 };
 
 // Disables automatic exports

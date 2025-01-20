@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/merge-ranges",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jwarby/merge-ranges#readme"
+    ],
+    "devDependencies": {
+        "@types/merge-ranges": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Javier García Nieto",
+            "githubUsername": "BERENGENITA"
+        }
+    ]
+}

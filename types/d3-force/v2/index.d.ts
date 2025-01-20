@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-force module 2.1
-// Project: https://github.com/d3/d3-force/, https://d3js.org/d3-force
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 2.1.1
 
 // -----------------------------------------------------------------------
@@ -61,7 +52,6 @@ export interface SimulationNodeDatum {
  * The optional properties contained in this data structure are internally assigned
  * by when initializing with ForceLink.links(...)
  *
- *
  * IMPORTANT: The source and target properties may be internally mutated in type during the
  * ForceLink initialization process (possibly being changed from a node index in the nodes array,
  * or a node id string to the simulation node object which was mapped in using the current
@@ -95,9 +85,11 @@ export interface SimulationLinkDatum<NodeDatum extends SimulationNodeDatum> {
  *
  * The first generic refers to the type of the datum associated with a node in the simulation.
  * The second generic refers to the type of the datum associated with a link in the simulation, if applicable.
- *
  */
-export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined> {
+export interface Simulation<
+    NodeDatum extends SimulationNodeDatum,
+    LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined,
+> {
     /**
      * Restart the simulation’s internal timer and return the simulation.
      * In conjunction with simulation.alphaTarget or simulation.alpha, this method can be used to “reheat” the simulation during interaction,
@@ -245,7 +237,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      *
      * @param name Name of the registered force.
      */
-    force<F extends Force<NodeDatum, LinkDatum>>(name: string): F| undefined;
+    force<F extends Force<NodeDatum, LinkDatum>>(name: string): F | undefined;
     /**
      * Remove a previously registered force.
      *
@@ -293,7 +285,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * The type must be one of the following: "tick" (after each tick of the simulation’s internal timer) or
      * "end" (after the simulation’s timer stops when alpha < alphaMin).
      */
-    on(typenames: 'tick' | 'end' | string): ((this: Simulation<NodeDatum, LinkDatum>) => void) | undefined;
+    on(typenames: "tick" | "end" | string): ((this: Simulation<NodeDatum, LinkDatum>) => void) | undefined;
     /**
      * Remove the current event listeners for the specified typenames, if any, return the simulation.
      *
@@ -303,7 +295,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * "end" (after the simulation’s timer stops when alpha < alphaMin).
      * @param listener Use null to remove the listener.
      */
-    on(typenames: 'tick' | 'end' | string, listener: null): this;
+    on(typenames: "tick" | "end" | string, listener: null): this;
     /**
      * Set the event listener for the specified typenames and return this simulation.
      * If an event listener was already registered for the same type and name,
@@ -324,7 +316,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * "end" (after the simulation’s timer stops when alpha < alphaMin).
      * @param listener An event listener function which is invoked with the this context of the simulation.
      */
-    on(typenames: 'tick' | 'end' | string, listener: (this: this) => void): this;
+    on(typenames: "tick" | "end" | string, listener: (this: this) => void): this;
 }
 
 /**
@@ -339,7 +331,9 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
  *
  * @param nodesData Optional array of nodes data, defaults to empty array.
  */
-export function forceSimulation<NodeDatum extends SimulationNodeDatum>(nodesData?: NodeDatum[]): Simulation<NodeDatum, undefined>;
+export function forceSimulation<NodeDatum extends SimulationNodeDatum>(
+    nodesData?: NodeDatum[],
+): Simulation<NodeDatum, undefined>;
 /**
  * Create a new simulation with the specified array of nodes and no forces.
  * If nodes is not specified, it defaults to the empty array.
@@ -353,7 +347,10 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum>(nodesData
  *
  * @param nodesData Optional array of nodes data, defaults to empty array.
  */
-export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>>(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
+export function forceSimulation<
+    NodeDatum extends SimulationNodeDatum,
+    LinkDatum extends SimulationLinkDatum<NodeDatum>,
+>(nodesData?: NodeDatum[]): Simulation<NodeDatum, LinkDatum>;
 
 // ----------------------------------------------------------------------
 // Forces
@@ -369,7 +366,10 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum
  *
  * Forces may optionally implement force.initialize to receive the simulation’s array of nodes.
  */
-export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined> {
+export interface Force<
+    NodeDatum extends SimulationNodeDatum,
+    LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined,
+> {
     /**
      * Apply this force, optionally observing the specified alpha.
      * Typically, the force is applied to the array of nodes previously passed to force.initialize,
@@ -574,7 +574,9 @@ export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: numb
  * @param radius A radius accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
  * The function returns a radius.
  */
-export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: (node: NodeDatum, i: number, nodes: NodeDatum[]) => number): ForceCollide<NodeDatum>;
+export function forceCollide<NodeDatum extends SimulationNodeDatum>(
+    radius: (node: NodeDatum, i: number, nodes: NodeDatum[]) => number,
+): ForceCollide<NodeDatum>;
 
 // Link ----------------------------------------------------------------
 
@@ -585,7 +587,9 @@ export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: (nod
  * The first generic refers to the type of data for a node.
  * The second generic refers to the type of data for a link.
  */
-export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>> extends Force<NodeDatum, LinkDatum> {
+export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>>
+    extends Force<NodeDatum, LinkDatum>
+{
     /**
      * Supplies the array of nodes and random source to this force. This method is called when a force is bound to a simulation via simulation.force
      * and when the simulation’s nodes change via simulation.nodes.
@@ -596,7 +600,6 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
 
     /**
      * Return the current array of links, which defaults to the empty array.
-     *
      */
     links(): LinkDatum[];
     /**
@@ -621,7 +624,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
     /**
      * Return the current node id accessor, which defaults to the numeric node.index.
      */
-    id(): (node: NodeDatum, i: number, nodesData: NodeDatum[]) => (string | number);
+    id(): (node: NodeDatum, i: number, nodesData: NodeDatum[]) => string | number;
     /**
      * Set the node id accessor to the specified function and return this force.
      *
@@ -635,7 +638,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * being passed the node, the zero-based index of the node in the node array, and the node array. It returns a string or number to represent the node id which can be used
      * for matching link source and link target strings during the ForceLink initialization.
      */
-    id(id: (node: NodeDatum, i: number, nodesData: NodeDatum[]) => (string | number)): this;
+    id(id: (node: NodeDatum, i: number, nodesData: NodeDatum[]) => string | number): this;
 
     /**
      * Return the current distance accessor, which defaults to implying a default distance of 30.
@@ -722,7 +725,10 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
  * The first generic refers to the type of data for a node.
  * The second generic refers to the type of data for a link.
  */
-export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum extends SimulationLinkDatum<NodeDatum>>(): ForceLink<NodeDatum, LinksDatum>;
+export function forceLink<
+    NodeDatum extends SimulationNodeDatum,
+    LinksDatum extends SimulationLinkDatum<NodeDatum>,
+>(): ForceLink<NodeDatum, LinksDatum>;
 /**
  * Creates a new link force with the specified links array.
  *
@@ -734,7 +740,9 @@ export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum exte
  *
  * @param links An array of link data.
  */
-export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum extends SimulationLinkDatum<NodeDatum>>(links: LinksDatum[]): ForceLink<NodeDatum, LinksDatum>;
+export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum extends SimulationLinkDatum<NodeDatum>>(
+    links: LinksDatum[],
+): ForceLink<NodeDatum, LinksDatum>;
 
 // Many Body ----------------------------------------------------------------
 
@@ -990,7 +998,9 @@ export function forceX<NodeDatum extends SimulationNodeDatum>(x: number): ForceX
  * @param x A x-coordinate accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
  * The function returns the x-coordinate.
  */
-export function forceX<NodeDatum extends SimulationNodeDatum>(x: (d: NodeDatum, i: number, data: NodeDatum[]) => number): ForceX<NodeDatum>;
+export function forceX<NodeDatum extends SimulationNodeDatum>(
+    x: (d: NodeDatum, i: number, data: NodeDatum[]) => number,
+): ForceX<NodeDatum>;
 
 /**
  * The y-positioning force pushes nodes towards a desired position along the given dimension with a configurable strength.
@@ -1116,7 +1126,9 @@ export function forceY<NodeDatum extends SimulationNodeDatum>(y: number): ForceY
  * @param y A y-coordinate accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
  * The function returns the y-coordinate.
  */
-export function forceY<NodeDatum extends SimulationNodeDatum>(y: (d: NodeDatum, i: number, data: NodeDatum[]) => number): ForceY<NodeDatum>;
+export function forceY<NodeDatum extends SimulationNodeDatum>(
+    y: (d: NodeDatum, i: number, data: NodeDatum[]) => number,
+): ForceY<NodeDatum>;
 
 /**
  * The radial force is similar to the x- and y-positioning forces, except it pushes nodes towards the closest point on a given circle.
@@ -1277,5 +1289,8 @@ export interface ForceRadial<NodeDatum extends SimulationNodeDatum> extends Forc
  *
  * The generic refers to the type of data for a node.
  */
-export function forceRadial<NodeDatum extends SimulationNodeDatum>(radius: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
-    x?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number), y?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number)): ForceRadial<NodeDatum>;
+export function forceRadial<NodeDatum extends SimulationNodeDatum>(
+    radius: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
+    x?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
+    y?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
+): ForceRadial<NodeDatum>;

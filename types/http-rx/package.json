@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/http-rx",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/JasonRammoray/HttpRx"
+    ],
     "dependencies": {
+        "@types/request": "*",
         "rxjs": "^6.2.0"
-    }
+    },
+    "devDependencies": {
+        "@types/http-rx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "L2jLiga",
+            "githubUsername": "L2jLiga"
+        }
+    ]
 }

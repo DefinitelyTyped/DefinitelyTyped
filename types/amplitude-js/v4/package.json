@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/amplitude-js",
+    "version": "4.4.9999",
+    "projects": [
+        "https://github.com/amplitude/Amplitude-Javascript"
+    ],
+    "devDependencies": {
+        "@types/amplitude-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        },
+        {
+            "name": "Kimmo Hintikka",
+            "githubUsername": "HintikkaKimmo"
+        }
+    ]
+}

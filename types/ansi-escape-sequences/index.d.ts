@@ -1,14 +1,36 @@
-// Type definitions for ansi-escape-sequences 4.0
-// Project: https://github.com/75lb/ansi-escape-sequences#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-export type Style = 'reset'|'bold'|'italic'|'underline'|'fontDefault'|'font2'|
-    'font3'|'font4'|'font5'|'font6'|'imageNegative'|'imagePositive'|'black'|
-    'red'|'green'|'yellow'|'blue'|'magenta'|'cyan'|'white'|'grey'|'gray'|
-    'bg-black'|'bg-red'|'bg-green'|'bg-yellow'|'bg-blue'|'bg-magenta'|'bg-cyan'|
-    'bg-white'|'bg-grey'|'bg-gray';
+export type Style =
+    | "reset"
+    | "bold"
+    | "italic"
+    | "underline"
+    | "fontDefault"
+    | "font2"
+    | "font3"
+    | "font4"
+    | "font5"
+    | "font6"
+    | "imageNegative"
+    | "imagePositive"
+    | "black"
+    | "red"
+    | "green"
+    | "yellow"
+    | "blue"
+    | "magenta"
+    | "cyan"
+    | "white"
+    | "grey"
+    | "gray"
+    | "bg-black"
+    | "bg-red"
+    | "bg-green"
+    | "bg-yellow"
+    | "bg-blue"
+    | "bg-magenta"
+    | "bg-cyan"
+    | "bg-white"
+    | "bg-grey"
+    | "bg-gray";
 
 /**
  * Various formatting styles (aka Select Graphic Rendition codes).
@@ -16,7 +38,7 @@ export type Style = 'reset'|'bold'|'italic'|'underline'|'fontDefault'|'font2'|
  * @example
  * console.log(ansi.style.red + 'this is red' + ansi.style.reset)
  */
-export const style: {[K in Style]: string};
+export const style: { [K in Style]: string };
 
 /**
  * Returns an ansi sequence setting one or more effects.
@@ -30,7 +52,7 @@ export const style: {[K in Style]: string};
  * > ansi.styles([ 'green', 'underline' ])
  * '\u001b[32;4m'
  */
-export function styles(styles: Style|ReadonlyArray<Style>): string;
+export function styles(styles: Style | readonly Style[]): string;
 
 /**
  * A convenience function, applying the provided styles to the input string and
@@ -55,7 +77,9 @@ export function styles(styles: Style|ReadonlyArray<Style>): string;
  * '\u001b[32;1mwhat?\u001b[0m'
  */
 export function format(
-    str: string, styles?: Style|ReadonlyArray<Style>): string;
+    str: string,
+    styles?: Style | readonly Style[],
+): string;
 
 /**
  * cursor-related sequences
@@ -137,12 +161,12 @@ export namespace erase {
      * If n is 2, clear entire screen. If n is 3, clear entire screen and delete
      * all lines saved in the scrollback buffer (some terminals only).
      */
-    function display(n?: 0|1|2|3): string;
+    function display(n?: 0 | 1 | 2 | 3): string;
 
     /**
      * Erases part of the line. If n is zero (or missing), clear from cursor to
      * the end of the line. If n is one, clear from cursor to beginning of the
      * line. If n is two, clear entire line. Cursor position does not change.
      */
-    function inLine(n?: 0|1|2): string;
+    function inLine(n?: 0 | 1 | 2): string;
 }

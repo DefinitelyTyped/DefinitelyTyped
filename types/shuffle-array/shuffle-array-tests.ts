@@ -1,4 +1,4 @@
-import shuffle = require('shuffle-array');
+import shuffle = require("shuffle-array");
 
 // shuffle()
 const a = [1, 2, 3, 4, 5];
@@ -11,7 +11,7 @@ result = shuffle(a, { copy: true, rng: () => 0 });
 const opts: shuffle.ShuffleOptions = { copy: false };
 result = shuffle(a, opts);
 
-const b = ['aaa', 'bbb', 'ccc'];
+const b = ["aaa", "bbb", "ccc"];
 let result2: string | string[];
 result2 = shuffle.pick(b);
 result2 = shuffle.pick(b, {});

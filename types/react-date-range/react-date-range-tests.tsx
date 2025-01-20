@@ -1,16 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 import {
-    Range,
-    RangeKeyDict,
     Calendar,
+    createStaticRanges,
     DateRange,
-    StaticRange,
-    InputRange,
-    DefinedRange,
     DateRangePicker,
     defaultInputRanges,
     defaultStaticRanges,
-} from 'react-date-range';
+    DefinedRange,
+    InputRange,
+    Range,
+    RangeKeyDict,
+    StaticRange,
+} from "react-date-range";
 
 // =============================================================================
 // Calendar Component
@@ -29,17 +30,17 @@ class ReactCalendar extends React.Component<any, any> {
         return (
             <div>
                 <Calendar
-                    ariaLabels={{ yearPicker: 'year-aria' }}
+                    ariaLabels={{ yearPicker: "year-aria" }}
                     calendarFocus="backwards"
                     className="customClassName"
-                    classNames={{ dateDisplay: 'dateDisplayCustom' }}
+                    classNames={{ dateDisplay: "dateDisplayCustom" }}
                     color="yellow"
                     date={new Date()}
                     dateDisplayFormat="MM/DD/YY"
                     dayContentRenderer={date => <span>{date.toISOString()}</span>}
                     dayDisplayFormat="dd"
                     direction="vertical"
-                    disabledDates={[new Date('2021-10-16')]}
+                    disabledDates={[new Date("2021-10-16")]}
                     disabledDay={date => date.getDate() === 10}
                     displayMode="date"
                     dragSelectionEnabled
@@ -48,8 +49,8 @@ class ReactCalendar extends React.Component<any, any> {
                     fixedHeight={false}
                     focusedRange={[0, 0]}
                     initialFocusedRange={[0, 1]}
-                    maxDate={new Date('2021-10-31')}
-                    minDate={new Date('2021-10-01')}
+                    maxDate={new Date("2021-10-31")}
+                    minDate={new Date("2021-10-01")}
                     monthDisplayFormat="MMM"
                     months={2}
                     navigatorRenderer={() => <span>Nav</span>}
@@ -58,15 +59,15 @@ class ReactCalendar extends React.Component<any, any> {
                     onRangeFocusChange={focusedRange => console.log(focusedRange)}
                     onShownDateChange={date => console.log(date)}
                     preventSnapRefocus
-                    preview={{ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }}
-                    rangeColors={['red', 'blue', 'yellow']}
+                    preview={{ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }}
+                    rangeColors={["red", "blue", "yellow"]}
                     ranges={[]}
                     scroll={{ enabled: true }}
                     showDateDisplay
                     showMonthAndYearPickers
                     showMonthArrow
                     showPreview
-                    shownDate={new Date('2021-10-10')}
+                    shownDate={new Date("2021-10-10")}
                     startDatePlaceholder="Start Date"
                     updateRange={range => console.log(range)}
                     weekdayDisplayFormat="E"
@@ -82,9 +83,9 @@ class ReactCalendar extends React.Component<any, any> {
 // =============================================================================
 
 const range: Range = {
-    startDate: new Date('2020-11-01'),
-    endDate: new Date('2020-11-30'),
-    key: 'selection',
+    startDate: new Date("2020-11-01"),
+    endDate: new Date("2020-11-30"),
+    key: "selection",
 };
 
 class ReactDatePicker extends React.Component<any, any> {
@@ -100,17 +101,17 @@ class ReactDatePicker extends React.Component<any, any> {
         return (
             <div>
                 <DateRange
-                    ariaLabels={{ yearPicker: 'year-aria' }}
+                    ariaLabels={{ yearPicker: "year-aria" }}
                     calendarFocus="backwards"
                     className="customClassName"
-                    classNames={{ dateDisplay: 'dateDisplayCustom' }}
+                    classNames={{ dateDisplay: "dateDisplayCustom" }}
                     color="yellow"
                     date={new Date()}
                     dateDisplayFormat="MM/DD/YY"
                     dayContentRenderer={date => <span>{date.toISOString()}</span>}
                     dayDisplayFormat="dd"
                     direction="vertical"
-                    disabledDates={[new Date('2021-10-16')]}
+                    disabledDates={[new Date("2021-10-16")]}
                     disabledDay={date => date.getDate() === 10}
                     displayMode="date"
                     dragSelectionEnabled
@@ -119,8 +120,8 @@ class ReactDatePicker extends React.Component<any, any> {
                     fixedHeight={false}
                     focusedRange={[0, 0]}
                     initialFocusedRange={[0, 1]}
-                    maxDate={new Date('2021-10-31')}
-                    minDate={new Date('2021-10-01')}
+                    maxDate={new Date("2021-10-31")}
+                    minDate={new Date("2021-10-01")}
                     monthDisplayFormat="MMM"
                     months={2}
                     navigatorRenderer={() => <span>Nav</span>}
@@ -129,15 +130,15 @@ class ReactDatePicker extends React.Component<any, any> {
                     onRangeFocusChange={focusedRange => console.log(focusedRange)}
                     onShownDateChange={date => console.log(date)}
                     preventSnapRefocus
-                    preview={{ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }}
-                    rangeColors={['red', 'blue', 'yellow']}
+                    preview={{ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }}
+                    rangeColors={["red", "blue", "yellow"]}
                     ranges={[range]}
                     scroll={{ enabled: true }}
                     showDateDisplay
                     showMonthAndYearPickers
                     showMonthArrow
                     showPreview
-                    shownDate={new Date('2021-10-10')}
+                    shownDate={new Date("2021-10-10")}
                     startDatePlaceholder="Start Date"
                     updateRange={range => console.log(range)}
                     weekdayDisplayFormat="E"
@@ -155,16 +156,23 @@ class ReactDatePicker extends React.Component<any, any> {
 // =============================================================================
 
 const staticRange: StaticRange = {
-    range: () => ({ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }),
-    isSelected: range => range?.key === 'selected',
-    label: 'Example static range',
+    range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
+    isSelected: range => range?.key === "selected",
+    label: "Example static range",
     hasCustomRendering: true,
 };
 
+const createdStaticRanges = createStaticRanges([
+    {
+        range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
+        label: "Example created static range",
+    },
+]);
+
 const inputRange: InputRange = {
-    range: () => ({ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }),
-    getCurrentValue: range => range?.startDate?.getTime() || '',
-    label: 'Example static range',
+    range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
+    getCurrentValue: range => range?.startDate?.getTime() || "",
+    label: "Example static range",
 };
 
 class ReactDefinedDateRange extends React.Component<any, any> {
@@ -187,10 +195,10 @@ class ReactDefinedDateRange extends React.Component<any, any> {
                     inputRanges={[inputRange, defaultInputRanges[0]]}
                     onChange={this.handleChange}
                     onPreviewChange={preview => console.log(preview)}
-                    rangeColors={['red', 'blue', 'yellow']}
+                    rangeColors={["red", "blue", "yellow"]}
                     ranges={[range]}
                     renderStaticRangeLabel={staticRange => <span>{staticRange?.label}</span>}
-                    staticRanges={[staticRange, defaultStaticRanges[0]]}
+                    staticRanges={[staticRange, defaultStaticRanges[0], ...createdStaticRanges]}
                 />
             </div>
         );
@@ -202,9 +210,9 @@ class ReactDefinedDateRange extends React.Component<any, any> {
 // =============================================================================
 
 const customizedKeyRange: Range = {
-    startDate: new Date('2020-11-01'),
-    endDate: new Date('2020-11-30'),
-    key: 'customizedKey',
+    startDate: new Date("2020-11-01"),
+    endDate: new Date("2020-11-30"),
+    key: "customizedKey",
 };
 
 class ReactDateRangePicker extends React.Component<any, any> {
@@ -220,17 +228,17 @@ class ReactDateRangePicker extends React.Component<any, any> {
         return (
             <div>
                 <DateRangePicker
-                    ariaLabels={{ yearPicker: 'year-aria' }}
+                    ariaLabels={{ yearPicker: "year-aria" }}
                     calendarFocus="backwards"
                     className="customClassName"
-                    classNames={{ dateDisplay: 'dateDisplayCustom' }}
+                    classNames={{ dateDisplay: "dateDisplayCustom" }}
                     color="yellow"
                     date={new Date()}
                     dateDisplayFormat="MM/DD/YY"
                     dayContentRenderer={date => <span>{date.toISOString()}</span>}
                     dayDisplayFormat="dd"
                     direction="vertical"
-                    disabledDates={[new Date('2021-10-16')]}
+                    disabledDates={[new Date("2021-10-16")]}
                     disabledDay={date => date.getDate() === 10}
                     displayMode="date"
                     dragSelectionEnabled
@@ -239,8 +247,8 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     fixedHeight={false}
                     focusedRange={[0, 0]}
                     initialFocusedRange={[0, 1]}
-                    maxDate={new Date('2021-10-31')}
-                    minDate={new Date('2021-10-01')}
+                    maxDate={new Date("2021-10-31")}
+                    minDate={new Date("2021-10-01")}
                     monthDisplayFormat="MMM"
                     months={2}
                     navigatorRenderer={() => <span>Nav</span>}
@@ -249,15 +257,15 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     onRangeFocusChange={focusedRange => console.log(focusedRange)}
                     onShownDateChange={date => console.log(date)}
                     preventSnapRefocus
-                    preview={{ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }}
-                    rangeColors={['red', 'blue', 'yellow']}
+                    preview={{ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }}
+                    rangeColors={["red", "blue", "yellow"]}
                     ranges={[customizedKeyRange]}
                     scroll={{ enabled: true }}
                     showDateDisplay
                     showMonthAndYearPickers
                     showMonthArrow
                     showPreview
-                    shownDate={new Date('2021-10-10')}
+                    shownDate={new Date("2021-10-10")}
                     startDatePlaceholder="Start Date"
                     updateRange={range => console.log(range)}
                     weekdayDisplayFormat="E"
@@ -268,7 +276,7 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     headerContent={<header>Header</header>}
                     inputRanges={[inputRange, defaultInputRanges[0]]}
                     renderStaticRangeLabel={staticRange => <span>{staticRange?.label}</span>}
-                    staticRanges={[staticRange, defaultStaticRanges[0]]}
+                    staticRanges={[staticRange, defaultStaticRanges[0], ...createdStaticRanges]}
                 />
             </div>
         );

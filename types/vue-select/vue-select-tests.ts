@@ -1,36 +1,40 @@
-import Vue from 'vue';
-import VueSelect, { VueSelectInstance, VueSelectProps } from 'vue-select';
+import Vue from "vue";
+import VueSelect, { VueSelectInstance, VueSelectProps } from "vue-select";
 
 const options = [
     {
-        name: 'SomeName'
+        name: "SomeName",
     },
     {
-        name: 'SomeName2'
-    }
+        name: "SomeName2",
+    },
 ];
 
-const calculatePosition: VueSelectProps['calculatePosition'] = (dropdownList, component, {top, left, width}) => {
+const calculatePosition: VueSelectProps["calculatePosition"] = (dropdownList, component, { top, left, width }) => {
     dropdownList.style.top = top;
     dropdownList.style.left = left;
     dropdownList.style.width = width;
 };
 
+const components: VueSelectProps["components"] = {
+    Deselect: undefined,
+};
+
 new Vue({
-    el: '#app',
+    el: "#app",
     data: {
         options,
         value: null,
     },
     components: {
-        'vue-select': VueSelect
+        "vue-select": VueSelect,
     },
     methods: {
         getOptionLabel(option: any) {
             if (option && option.name) {
                 return option.name;
             }
-            return '';
+            return "";
         },
         optionConsumer(option: any) {
         },
@@ -50,7 +54,7 @@ new Vue({
         optionsFilter(options: any[], search: string) {
             return true;
         },
-        calculatePosition
+        calculatePosition,
     },
     template: `
     <vue-select :filterable="false"
@@ -85,5 +89,5 @@ new Vue({
                 @search="onSearch"
                 @input="optionConsumer">
     </vue-select>
-`
+`,
 });

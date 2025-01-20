@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pbkdf2",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/crypto-browserify/pbkdf2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pbkdf2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timon Engelke",
+            "githubUsername": "timonegk"
+        }
+    ]
+}

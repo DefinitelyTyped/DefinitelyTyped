@@ -1,16 +1,9 @@
-// Type definitions for @architect/sandbox 3.3
-// Project: https://github.com/architect/sandbox#readme
-// Definitions by: Francis Gulotta <https://github.com/reconbot>
-//                 Scott Willeke <https://github.com/activescott>
-//                 Ryan Block <https://github.com/ryanblock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Callback, StartOptions } from "./shared";
+export { Callback, StartOptions };
 
-import { StartOptions, Callback } from "./shared";
-export { StartOptions, Callback };
-
-export { events } from './events';
-export { http } from './http';
-export { tables } from './tables';
+export { events } from "./events";
+export { http } from "./http";
+export { tables } from "./tables";
 
 /**
  * Starts the Sandbox; first checks that ports are available to consume, prints a banner, loads Architect and userland environment variables, hydrates application dependencies, and starts various

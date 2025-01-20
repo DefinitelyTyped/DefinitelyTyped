@@ -1,17 +1,7 @@
-// Type definitions for react-router-navigation 1.0
-// Project: https://github.com/LeoLeBras/react-router-navigation#readme
-// Definitions by: Kalle Ott <https://github.com/kaoDev>
-//                 John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component, ReactNode, ReactElement, ComponentClass } from "react";
-import { StyleProp, ViewProps, ViewStyle, TextStyle } from "react-native";
+import { Component, ComponentClass, ReactElement, ReactNode } from "react";
+import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
+import { NavigationTransitionProps, NavigationTransitionSpec } from "react-navigation";
 import { RouteProps } from "react-router-navigation-core";
-import {
-    NavigationTransitionProps,
-    NavigationTransitionSpec
-} from "react-navigation";
 
 /**
  * Navigation
@@ -45,10 +35,12 @@ export interface NavBarProps {
 
 export interface NavigationProps extends NavBarProps {
     cardStyle?: StyleProp<ViewStyle> | undefined;
-    configureTransition?: ((
-        transitionProps: NavigationTransitionProps,
-        prevTransitionProps?: NavigationTransitionProps
-    ) => NavigationTransitionSpec) | undefined;
+    configureTransition?:
+        | ((
+            transitionProps: NavigationTransitionProps,
+            prevTransitionProps?: NavigationTransitionProps,
+        ) => NavigationTransitionSpec)
+        | undefined;
     onTransitionStart?: ((...args: any[]) => void) | undefined;
     onTransitionEnd?: ((...args: any[]) => void) | undefined;
 }
@@ -87,10 +79,12 @@ export interface TabBarProps {
 export interface TabsProps extends TabBarProps {
     // <Tabs /> only:
     initialLayout?: { width?: number | undefined; height?: number | undefined } | undefined;
-    configureTransition?: ((
-        transitionProps: NavigationTransitionProps,
-        prevTransitionProps?: NavigationTransitionProps
-    ) => NavigationTransitionSpec) | undefined;
+    configureTransition?:
+        | ((
+            transitionProps: NavigationTransitionProps,
+            prevTransitionProps?: NavigationTransitionProps,
+        ) => NavigationTransitionSpec)
+        | undefined;
 }
 
 export interface TabProps extends RouteProps, TabBarProps {
@@ -123,7 +117,7 @@ export class BottomNavigation extends Component<
 
     renderNavigationBar: (
         sceneProps: TabSubViewProps,
-        props: TabSubViewProps
+        props: TabSubViewProps,
     ) => ReactNode;
 
     renderSceneView: (sceneProps: TabSubViewProps) => ReactNode;
@@ -152,11 +146,11 @@ export class Navigation extends Component<NavigationComponentProps> {
 
     renderHeader: (
         sceneProps: CardSubViewProps,
-        props: CardSubViewProps
+        props: CardSubViewProps,
     ) => ReactNode;
 
     renderSceneComponent: (
-        sceneProps: CardSubViewProps
+        sceneProps: CardSubViewProps,
     ) => ComponentClass<any> | undefined;
 }
 
@@ -180,7 +174,7 @@ export class Tabs extends Component<
 
     renderTabBar: (
         sceneProps: TabSubViewProps,
-        props: TabSubViewProps
+        props: TabSubViewProps,
     ) => ReactElement | null;
 
     renderScene: (sceneProps: TabSubViewProps) => ReactElement | null;

@@ -60,7 +60,7 @@ new union(buffer, undefined);
 // $ExpectType UnionObject<Record<string, any>>
 new union(buffer, { ival: number });
 
-declare const int32tofloat32: ref_union.UnionType<{ ival: ref.Type<number>, fval: ref.Type<number> }>;
+declare const int32tofloat32: ref_union.UnionType<{ ival: ref.Type<number>; fval: ref.Type<number> }>;
 
 // $ExpectType { ival: Field<number>; fval: Field<number>; }
 int32tofloat32.fields;

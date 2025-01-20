@@ -21,7 +21,7 @@ const browser = (() => {
     }
 })();
 
-// $ExpectError
+// @ts-expect-error
 if (browser === "safari") {
     // There's no way to differentiate Safari from Chrome using just prefixes
 }

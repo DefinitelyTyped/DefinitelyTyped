@@ -1,4 +1,4 @@
-import { Options } from './index';
+import { Options } from "./index";
 
 /**
  * @deprecated * **THIS API IS DEPRECATED. USE pacote.tarball() INSTEAD**

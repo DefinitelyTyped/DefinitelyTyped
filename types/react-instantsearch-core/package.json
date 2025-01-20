@@ -1,7 +1,39 @@
 {
     "private": true,
+    "name": "@types/react-instantsearch-core",
+    "version": "6.26.9999",
+    "projects": [
+        "https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "algoliasearch": ">=4",
         "algoliasearch-helper": ">=3"
-    }
+    },
+    "devDependencies": {
+        "@types/react-instantsearch-core": "workspace:.",
+        "@types/react-instantsearch-dom": "*"
+    },
+    "owners": [
+        {
+            "name": "Gordon Burgett",
+            "githubUsername": "gburgett"
+        },
+        {
+            "name": "Justin Powell",
+            "githubUsername": "jpowell"
+        },
+        {
+            "name": "David Furlong",
+            "githubUsername": "davidfurlong"
+        },
+        {
+            "name": "Haroen Viaene",
+            "githubUsername": "haroenv"
+        },
+        {
+            "name": "Samuel Vaillant",
+            "githubUsername": "samouss"
+        }
+    ]
 }

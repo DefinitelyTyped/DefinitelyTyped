@@ -1,11 +1,5 @@
-// Type definitions for DateJS - SugarPak Extensions
-// Project: http://www.datejs.com/
-// Definitions by: David Khristepher Santos <https://github.com/rupertavery>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** SugarPak.js - Domain Specific Language -  Syntactical Sugar */
 declare namespace sugarpak {
-
     export interface IAddOrientation {
         millisecond(): Date;
         second(): Date;
@@ -120,8 +114,6 @@ declare namespace sugarpak {
         week(date?: Date): boolean;
         month(date?: Date): boolean;
         year(date?: Date): boolean;
-
-
     }
 
     export interface IDatePartComparer {
@@ -175,7 +167,6 @@ declare namespace sugarpak {
         minute: number;
         hour: number;
     }
-
 }
 
 interface Date {
@@ -263,7 +254,6 @@ interface DateConstructor {
     oct(): Date;
     nov(): Date;
     dec(): Date;
-
 }
 
 interface Number extends sugarpak.IDateElement {

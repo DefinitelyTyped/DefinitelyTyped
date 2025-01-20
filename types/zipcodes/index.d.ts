@@ -1,10 +1,3 @@
-// Type definitions for zipcodes 8.0
-// Project: https://github.com/davglass/zipcodes#readme
-// Definitions by: Brayden Lopez <https://github.com/headdetect>
-//                 Dobes Vandermeer <https://github.com/dobesv>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace ZipCodes;
 
 export interface ZipCode {
@@ -37,6 +30,6 @@ export function toMiles(kilos: number): number;
 
 export function toKilometers(miles: number): number;
 
-export function lookupByCoords(lat: number, lon: number): string | null;
+export function lookupByCoords(lat: number, lon: number): ZipCode | null;
 
 export function random(): ZipCode;

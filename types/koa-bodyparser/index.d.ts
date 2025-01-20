@@ -1,13 +1,3 @@
-// Type definitions for koa-bodyparser 4.3
-// Project: https://github.com/koajs/body-parser
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Anup Kishore <https://github.com/anup-2s>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-//                 Alexi Maschas <https://github.com/amaschas>
-//                 Pirasis Leelatanon <https://github.com/1pete>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import bodyParser = require("koa-bodyparser");
@@ -22,7 +12,7 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        body?: any;
+        body?: unknown;
         rawBody: string;
     }
 }
@@ -39,7 +29,7 @@ declare namespace bodyParser {
         /**
          * requested encoding. Default is utf-8 by co-body
          */
-        encode?: string | undefined;
+        encoding?: string | undefined;
 
         /**
          * limit of the urlencoded body. If the body ends up being larger than this limit
@@ -76,9 +66,9 @@ declare namespace bodyParser {
          * support extend types
          */
         extendTypes?: {
-            json?: string[] | undefined;
-            form?: string[] | undefined;
-            text?: string[] | undefined;
+            json?: string[] | string | undefined;
+            form?: string[] | string | undefined;
+            text?: string[] | string | undefined;
         } | undefined;
 
         /**

@@ -1,20 +1,10 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { BufferGeometry } from './../core/BufferGeometry';
-import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { InstancedBufferGeometry } from "../core/InstancedBufferGeometry.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
-export class BufferGeometryLoader extends Loader {
+export class BufferGeometryLoader extends Loader<InstancedBufferGeometry | BufferGeometry> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (bufferGeometry: InstancedBufferGeometry | BufferGeometry) => void,
-        onProgress?: (request: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(
-        url: string,
-        onProgress?: (event: ProgressEvent) => void,
-    ): Promise<InstancedBufferGeometry | BufferGeometry>;
-    parse(json: any): InstancedBufferGeometry | BufferGeometry;
+    parse(json: unknown): InstancedBufferGeometry | BufferGeometry;
 }

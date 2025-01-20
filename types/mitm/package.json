@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mitm",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/moll/node-mitm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mitm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alejandro Sánchez",
+            "githubUsername": "alejo90"
+        }
+    ]
+}

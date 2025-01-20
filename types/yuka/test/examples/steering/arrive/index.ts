@@ -10,8 +10,8 @@ animate();
 
 function init() {
     // game setup
-    target.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
-    vehicle.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    target.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
+    vehicle.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const arriveBehavior = new YUKA.ArriveBehavior(target.position, 2.5, 0.1);
     vehicle.steering.add(arriveBehavior);
@@ -30,7 +30,7 @@ function animate() {
     entityManager.update(delta);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }
 

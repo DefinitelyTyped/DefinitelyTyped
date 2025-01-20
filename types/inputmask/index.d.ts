@@ -1,19 +1,11 @@
-// Type definitions for inputmask 5.0
-// Project: https://github.com/RobinHerbots/Inputmask
-// Definitions by: Daniel Mester Pirttijarvi <https://github.com/dmester>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // The documentation is mainly copied from the source repo README.
 
 declare namespace Inputmask {
-    type Range = { start: string, end: string } | [string, string];
+    type Range = { start: string; end: string } | [string, string];
 
-    type PositionCaretOnClick =
-        "none" | "lvp" | "radixFocus" | "select" | "ignore";
+    type PositionCaretOnClick = "none" | "lvp" | "radixFocus" | "select" | "ignore";
 
-    type InputMode =
-        "verbatim" | "none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url";
+    type InputMode = "verbatim" | "none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url";
 
     type Casing = "upper" | "lower" | "title";
 
@@ -147,12 +139,14 @@ declare namespace Inputmask {
         /**
          * Callback to implement autocomplete on certain keys for example.
          */
-        onKeyDown?: ((
-            event: KeyboardEvent,
-            buffer: string[],
-            caretPos: { begin: number; end: number },
-            opts: Options,
-        ) => void) | undefined;
+        onKeyDown?:
+            | ((
+                event: KeyboardEvent,
+                buffer: string[],
+                caretPos: { begin: number; end: number },
+                opts: Options,
+            ) => void)
+            | undefined;
         /**
          * Executes before masking the initial value to allow preprocessing of the initial value.
          */
@@ -167,7 +161,9 @@ declare namespace Inputmask {
          * Executes before writing to the masked element. Use this to do some extra processing of the input. This can
          * be useful when implementing an alias, ex. decimal alias, autofill the digits when leaving the inputfield.
          */
-        onBeforeWrite?: ((event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => CommandObject) | undefined;
+        onBeforeWrite?:
+            | ((event: KeyboardEvent, buffer: string[], caretPos: number, opts: Options) => CommandObject)
+            | undefined;
         /**
          * Executes after unmasking to allow post-processing of the unmaskedvalue.
          *
@@ -270,16 +266,18 @@ declare namespace Inputmask {
         /**
          * Hook to postValidate the result from `isValid`. Useful for validating the entry as a whole.
          */
-        postValidation?: ((
-            buffer: string[],
-            pos: number,
-            char: string,
-            currentResult: boolean,
-            opts: Options,
-            maskset: any,
-            strict: boolean,
-            fromCheckval: boolean,
-        ) => boolean | CommandObject) | undefined;
+        postValidation?:
+            | ((
+                buffer: string[],
+                pos: number,
+                char: string,
+                currentResult: boolean,
+                opts: Options,
+                maskset: any,
+                strict: boolean,
+                fromCheckval: boolean,
+            ) => boolean | CommandObject)
+            | undefined;
         /**
          * Hook to preValidate the input. Useful for validating regardless of the definition.
          *
@@ -288,16 +286,18 @@ declare namespace Inputmask {
          * When returning a command object the actions are executed and further validation is stopped. If you want to
          * continue further validation, you need to add the `rewritePosition` action.
          */
-        preValidation?: ((
-            buffer: string[],
-            pos: number,
-            char: string,
-            isSelection: boolean,
-            opts: Options,
-            maskset: any,
-            caretPos: { begin: number; end: number },
-            strict: boolean,
-        ) => boolean | CommandObject) | undefined;
+        preValidation?:
+            | ((
+                buffer: string[],
+                pos: number,
+                char: string,
+                isSelection: boolean,
+                opts: Options,
+                maskset: any,
+                caretPos: { begin: number; end: number },
+                strict: boolean,
+            ) => boolean | CommandObject)
+            | undefined;
         /**
          * The `staticDefinitionSymbol` option is used to indicate that the static entries in the mask can match a
          * certain definition. Especially useful with alternators so that static element in the mask can match
@@ -421,7 +421,7 @@ declare namespace Inputmask {
          *
          * @default { front: "-", back: "" }
          */
-        negationSymbol?: { front: string, back: string } | undefined;
+        negationSymbol?: { front: string; back: string } | undefined;
         /**
          * Define a prefix.
          *
@@ -523,16 +523,41 @@ declare namespace Inputmask {
          */
         inputFormat?: string | undefined;
         /**
+         * Strip leading zeroes
+         *
+         * @default true
+         */
+        stripLeadingZeroes?: boolean | undefined;
+        /**
+         * Substitude the radixpoint to allow , for . and vice versa
+         *
+         * @default true
+         */
+        substituteRadixPoint?: boolean | undefined;
+        /**
          * Format of the unmasked value. This is only effective when used with the datetime alias.
          */
         outputFormat?: string | undefined;
-
+        /**
+         * Visual format when the input looses focus
+         */
+        displayFormat?: string | undefined;
         /**
          * Add new definitions to this inputmask.
          */
-        definitions?: {
-            [key: string]: Definition;
-        } | undefined;
+        definitions?:
+            | {
+                [key: string]: Definition;
+            }
+            | undefined;
+        /**
+         * Enable/disable prefilling of the year.
+         * Although you can just over type the proposed value without deleting, many seems to see a problem with the year prediction.
+         * This options is to disable this feature.
+         *
+         * @default true
+         */
+        prefillYear?: boolean | undefined;
     }
 
     interface Instance {
@@ -649,7 +674,7 @@ declare namespace Inputmask {
          * * `true` => refresh validPositions from the complete buffer .
          * * `{ start: , end: }` => refresh from start to end.
          */
-        refreshFromBuffer?: true | { start: number, end: number } | undefined;
+        refreshFromBuffer?: true | { start: number; end: number } | undefined;
         /**
          * Rewrite the maskPos within the isvalid function.
          */
@@ -677,13 +702,13 @@ declare namespace Inputmask {
          * @param maskOrAlias A mask pattern or a reference to a predefined alias.
          * @param opts Mask options.
          */
-        new (maskOrAlias: string, opts?: Options): Instance;
+        new(maskOrAlias: string, opts?: Options): Instance;
         /**
          * Creates a new Inputmask instance.
          *
          * @param opts Mask options.
          */
-        new (opts?: Options): Instance;
+        new(opts?: Options): Instance;
 
         /**
          * Extends the default inputmask options.
@@ -692,15 +717,11 @@ declare namespace Inputmask {
         /**
          * Extends the set of available definitions.
          */
-        extendDefinitions(definitions: {
-            [key: string]: Definition,
-        }): void;
+        extendDefinitions(definitions: { [key: string]: Definition }): void;
         /**
          * Extends the set of available mask aliases.
          */
-        extendAliases(aliases: {
-            [key: string]: Options,
-        }): void;
+        extendAliases(aliases: { [key: string]: Options }): void;
         /**
          * Instead of masking an input element it is also possible to use the inputmask for formatting given values.
          * Think of formatting values to show in jqGrid or on other elements then inputs.

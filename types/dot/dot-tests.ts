@@ -16,14 +16,14 @@ const pagetmplwithcustomizableheader = `<h2>Here is the page with customized hea
 
 const def = {
     header: headertmpl,
-    customheader: customizableheadertmpl
+    customheader: customizableheadertmpl,
 };
 const data = {
     title: "My title",
-    name: "My name"
+    name: "My name",
 };
 
-doT.templateSettings.varname = 'test';
+doT.templateSettings.varname = "test";
 
 let pagefn = doT.template(pagetmpl, undefined, def);
 const content = pagefn(data);

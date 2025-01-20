@@ -10,7 +10,7 @@ declare interface StaticFiles {
         type: string;
     };
 }
-declare module WebApp {
+declare namespace WebApp {
     var defaultArch: string;
     var clientPrograms: {
         [key: string]: {
@@ -27,8 +27,18 @@ declare module WebApp {
     var connectApp: connect.Server;
     function suppressConnectErrors(): void;
     function onListening(callback: Function): void;
+
+    type RuntimeConfigHookCallback = (options: {
+        arch: 'web.browser' | 'web.browser.legacy' | 'web.cordova';
+        request: http.IncomingMessage;
+        encodedCurrentConfig: string;
+        updated: boolean;
+    }) => string | undefined | null | false;
+    function addRuntimeConfigHook(callback: RuntimeConfigHookCallback): void;
+    function decodeRuntimeConfig(rtimeConfigString: string): unknown;
+    function encodeRuntimeConfig(rtimeConfig: unknown): string;
 }
-declare module WebAppInternals {
+declare namespace WebAppInternals {
     var NpmModules: {
         [key: string]: {
             version: string;

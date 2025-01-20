@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/find-node-modules",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/callumacrae/find-node-modules"
+    ],
+    "devDependencies": {
+        "@types/find-node-modules": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artem Klyuev",
+            "githubUsername": "ArtemKlyuev"
+        }
+    ]
+}

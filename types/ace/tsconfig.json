@@ -9,10 +9,6 @@
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -35,6 +31,7 @@
         "test/range_list.ts",
         "test/search.ts",
         "test/selection.ts",
+        "test/split.ts",
         "test/token_iterator.ts",
         "test/virtual_renderer.ts"
     ]

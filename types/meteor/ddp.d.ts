@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 declare module 'meteor/ddp' {
-    module DDP {
+    namespace DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
             call(method: string, ...parameters: any[]): any;
@@ -27,7 +27,7 @@ declare module 'meteor/ddp' {
         function connect(url: string): DDPStatic;
     }
 
-    module DDPCommon {
+    namespace DDPCommon {
         interface MethodInvocationOptions {
             userId: string | null;
             setUserId?: ((newUserId: string) => void) | undefined;

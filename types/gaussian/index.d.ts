@@ -1,8 +1,3 @@
-// Type definitions for gaussian 1.1
-// Project: https://github.com/errcw/gaussian
-// Definitions by: Scott Cooper <https://github.com/scttcper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function gaussian(mean: number, variance: number): gaussian.Gaussian;
 
 export = gaussian;
@@ -64,6 +59,6 @@ declare namespace gaussian {
         /**
          * generates given number of samples of the distribution
          */
-        random(x: number): number[];
+        random(x: number, randFn?: () => number): number[];
     }
 }

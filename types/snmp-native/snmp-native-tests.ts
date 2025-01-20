@@ -1,22 +1,22 @@
 import {
-    defaultOptions,
-    DataTypes,
-    PduTypes,
-    Errors,
-    Versions,
-    Session,
-    encode,
-    parse,
     compareOids,
+    DataTypes,
+    defaultOptions,
+    encode,
+    Errors,
+    Packet,
+    parse,
+    PduTypes,
+    Session,
     VarBind,
-    Packet
-} from 'snmp-native';
+    Versions,
+} from "snmp-native";
 
 // defaultOptions
 
 const v_host: string | undefined = defaultOptions.host;
 const v_community: string | undefined = defaultOptions.community;
-const v_family: 'udp4' | 'udp6' | undefined = defaultOptions.family;
+const v_family: "udp4" | "udp6" | undefined = defaultOptions.family;
 const v_port: number | undefined = defaultOptions.port;
 const v_bindPort: number | undefined = defaultOptions.bindPort;
 const v_timeouts: number[] | undefined = defaultOptions.timeouts;
@@ -24,22 +24,22 @@ const v_timeouts: number[] | undefined = defaultOptions.timeouts;
 // Session
 
 const options = {
-    host: 'localhost',
-    community: 'public',
+    host: "localhost",
+    community: "public",
     port: 161,
     timeouts: [1000, 2000, 3000],
 };
 
 const session = new Session({
     ...options,
-    family: 'udp6',
+    family: "udp6",
     bindPort: 19840,
     msgReceived(message, rinfo) {
         const v_message: Buffer = message;
 
         const { address, family, port, size } = rinfo;
         const v_address: string = address;
-        const v_family: 'IPv4' | 'IPv6' = family;
+        const v_family: "IPv4" | "IPv6" = family;
         const v_port: number = port;
         const v_size: number = size;
     },
@@ -47,7 +47,7 @@ const session = new Session({
 
 // Session methods
 
-const str_oid = '.1.3.6.1.4.1.1.2.3.4';
+const str_oid = ".1.3.6.1.4.1.1.2.3.4";
 const arr_oid = [1, 3, 6, 1, 4, 1, 1, 2, 3, 4];
 const oids = [str_oid, arr_oid];
 
@@ -62,30 +62,30 @@ function callback(err: Error | null, varbinds: VarBind[]): void {
     const v_valueHex: string | undefined = vb.valueHex;
 }
 
-session.get({ oid: str_oid, }, callback);
-session.get({ oid: arr_oid, }, callback);
-session.get({ oid: arr_oid, ...options, }, callback);
+session.get({ oid: str_oid }, callback);
+session.get({ oid: arr_oid }, callback);
+session.get({ oid: arr_oid, ...options }, callback);
 
-session.getNext({ oid: str_oid, }, callback);
-session.getNext({ oid: arr_oid, }, callback);
-session.getNext({ oid: arr_oid, ...options, }, callback);
+session.getNext({ oid: str_oid }, callback);
+session.getNext({ oid: arr_oid }, callback);
+session.getNext({ oid: arr_oid, ...options }, callback);
 
-session.getSubtree({ oid: str_oid, }, callback);
-session.getSubtree({ oid: arr_oid, }, callback);
-session.getSubtree({ oid: arr_oid, combinedTimeout: 10, }, callback);
-session.getSubtree({ oid: arr_oid, combinedTimeout: 10, ...options, }, callback);
+session.getSubtree({ oid: str_oid }, callback);
+session.getSubtree({ oid: arr_oid }, callback);
+session.getSubtree({ oid: arr_oid, combinedTimeout: 10 }, callback);
+session.getSubtree({ oid: arr_oid, combinedTimeout: 10, ...options }, callback);
 
-session.getAll({ oids, }, callback);
-session.getAll({ oids, combinedTimeout: 10, }, callback);
-session.getAll({ oids, combinedTimeout: 10, abortOnError: true, }, callback);
-session.getAll({ oids, combinedTimeout: 10, abortOnError: true, ...options, }, callback);
+session.getAll({ oids }, callback);
+session.getAll({ oids, combinedTimeout: 10 }, callback);
+session.getAll({ oids, combinedTimeout: 10, abortOnError: true }, callback);
+session.getAll({ oids, combinedTimeout: 10, abortOnError: true, ...options }, callback);
 
-session.set({ oid: str_oid, type: 2, value: 10, });
-session.set({ oid: arr_oid, type: 2, value: 10, }, callback);
-session.set({ oid: arr_oid, type: 2, value: 10, }, callback);
-session.set({ oid: arr_oid, type: 2, value: 10, ...options, }, callback);
-session.set({ oid: arr_oid, value: null, }, callback);
-session.set({ oid: arr_oid, type: null, }, callback);
+session.set({ oid: str_oid, type: 2, value: 10 });
+session.set({ oid: arr_oid, type: 2, value: 10 }, callback);
+session.set({ oid: arr_oid, type: 2, value: 10 }, callback);
+session.set({ oid: arr_oid, type: 2, value: 10, ...options }, callback);
+session.set({ oid: arr_oid, value: null }, callback);
+session.set({ oid: arr_oid, type: null }, callback);
 
 session.close();
 
@@ -95,7 +95,7 @@ const v_compare: -1 | 0 | 1 = compareOids(str_oid, arr_oid);
 
 // parse
 
-const vp: Packet = parse(Buffer.from(''));
+const vp: Packet = parse(Buffer.from(""));
 const pdu = vp.pdu;
 
 const vp_version: 0 | 1 = vp.version;
@@ -111,7 +111,7 @@ const p_varbinds: VarBind[] = pdu.varbinds;
 const varbinds: VarBind[] = [];
 const packet: Packet = {
     version: 0,
-    community: 'public',
+    community: "public",
     pdu: {
         varbinds,
         type: 1,

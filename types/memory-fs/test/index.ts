@@ -1,21 +1,21 @@
-import MemoryFileSystem = require('memory-fs');
+import MemoryFileSystem = require("memory-fs");
 
 const fs = new MemoryFileSystem({});
 
-fs.existsSync('./kd/sdkfj');
+fs.existsSync("./kd/sdkfj");
 
-fs.writeFile('hello', 'hahahahah', function (err) {
-    if(err){
+fs.writeFile("hello", "hahahahah", function(err) {
+    if (err) {
         console.log(err.message);
     }
 });
 
-fs.writeFile('hello', 'hahahahah', 'utf-8', function (err) {
-    if(err){
+fs.writeFile("hello", "hahahahah", "utf-8", function(err) {
+    if (err) {
         console.log(err.message);
     }
 });
 
-fs.createReadStream('hello');
+fs.createReadStream("hello");
 
-fs.createWriteStream('hello');
+fs.createWriteStream("hello");

@@ -1,16 +1,16 @@
-import { count } from '@wordpress/wordcount';
+import { count } from "@wordpress/wordcount";
 
 // $ExpectType number
-count('hello world', 'words');
+count("hello world", "words");
 
 // $ExpectType number
-count('hello world', 'characters_excluding_spaces', {});
+count("hello world", "characters_excluding_spaces", {});
 
 // $ExpectType number
-count('hello world', 'characters_including_spaces', {
+count("hello world", "characters_including_spaces", {
     HTMLRegExp: /foo/,
-    astralRegExp: new RegExp('foo'),
+    astralRegExp: new RegExp("foo"),
     l10n: {
-        shortcodes: ['foo', 'bar'],
+        shortcodes: ["foo", "bar"],
     },
 });

@@ -1,17 +1,17 @@
-import { Variable } from 'rdf-js';
-import { PropType } from './_PropType';
+import { Variable } from "@rdfjs/types";
+import { PropType } from "./_PropType.js";
 
-interface VariableExt extends Variable {
-  toCanonical(): string;
-  toJSON(): {
-    value: PropType<Variable, 'value'>;
-    termType: PropType<Variable, 'termType'>;
-  };
+export interface VariableExt extends Variable {
+    toCanonical(): string;
+    toJSON(): {
+        value: PropType<Variable, "value">;
+        termType: PropType<Variable, "termType">;
+    };
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-declare class VariableExt {
+export class VariableExt {
     constructor(name: string);
 }
 
-export = VariableExt;
+export default VariableExt;

@@ -1,15 +1,3 @@
-// Type definitions for non-npm package Google Pay API 0.6
-// Project: https://developers.google.com/pay/api/web/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
-//                 Radu Raicea <https://github.com/Radu-Raicea>,
-//                 Filip Stanis <https://github.com/fstanis>
-//                 Alexandre Couret <https://github.com/ozotek>
-//                 Sergi Ferriz <https://github.com/mumpo>
-//                 Soc Sieng <https://github.com/socsieng>
-//                 Jose L Ugia <https://github.com/JlUgia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * Spec for the Google Pay APIs.
  */
@@ -404,7 +392,7 @@ declare namespace google.payments.api {
          * If omitted, a shipping address from any supported country may be
          * returned.
          */
-        allowedCountryCodes: string[];
+        allowedCountryCodes?: string[];
 
         /**
          * Whether a phone number is additionally required from the buyer for
@@ -793,6 +781,17 @@ declare namespace google.payments.api {
         allowCreditCards?: false | true | undefined;
 
         /**
+         * Set to `true` to request assuranceDetails.
+         *
+         * If omitted, defaults to `false`.
+         *
+         * You may set if you need object provides information about the validation performed on the returned payment data.
+         *
+         * @default false
+         */
+        assuranceDetailsRequired?: boolean | undefined;
+
+        /**
          * Whether a billing address is required from the buyer.
          *
          * If omitted, defaults to `false`.
@@ -822,6 +821,38 @@ declare namespace google.payments.api {
          * parameters are needed to complete a transaction.
          */
         cardNetworkParameters?: CardNetworkParameters[] | undefined;
+
+        /**
+         * You might require the card verification code (CVC) value of a card in order to process a transaction
+         * for various regulations, security requirements, or acquirers’ requirements. By default,
+         * the CVC isn't requested from the user in Google Pay during checkout since it's required and verified
+         * in the initial card acquisition. If you want CVC to be present in the payment token,
+         * communicate with your point of contact from Google to turn this feature on.
+         *
+         * @default false
+         */
+        cvcRequired?: boolean | undefined;
+    }
+
+    /**
+     * Assurance details about what validation has been performed on the returned payment credentials so that appropriate instrument risk checks can be applied.
+     *
+     *  Note: If both cardHolderAuthenticated and accountVerified are true, you don’t need to step up the returned credentials.
+     *  If both aren’t, we recommend you to run the same risk checks and , authentication including 3D Secure flow if applicable.
+     */
+    interface AssuranceDetails {
+        /**
+         * If true, indicates that Cardholder possession validation has been performed on returned payment credential.
+         */
+        accountVerified?: boolean | undefined;
+
+        /**
+         * If true, indicates that identification and verifications (ID&V) was performed on the returned payment credential.
+         *
+         * If false, the same risk-based authentication can be performed as you would for card transactions.
+         * This risk-based authentication can include, but not limited to, step-up with 3D Secure protocol if applicable.
+         */
+        cardHolderAuthenticated?: boolean | undefined;
     }
 
     /**
@@ -1090,6 +1121,17 @@ declare namespace google.payments.api {
      * method.
      */
     interface CardInfo {
+        /*
+         *  AssuranceDetails
+         *
+         *  This object provides information about what validation
+         *  has been performed on the returned payment credentials
+         *  so that appropriate instrument risk checks can be applied.
+         *
+         *  To receive this object, set assuranceDetailsRequired: true inside CardParameters
+         */
+        assuranceDetails?: AssuranceDetails | undefined;
+
         /**
          * The card network.
          *
@@ -1370,7 +1412,9 @@ declare namespace google.payments.api {
      * These parameters will be used to tokenize/transmit the
      * payment method returned to you in a format you can charge or reference.
      */
-    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
+    type PaymentMethodTokenizationSpecification =
+        | PaymentGatewayTokenizationSpecification
+        | DirectTokenizationSpecification;
 
     /**
      * Payment method tokenization type enum string.
@@ -1453,7 +1497,17 @@ declare namespace google.payments.api {
      * - `VISA`:
      *   Visa card network.
      */
-    type CardNetwork = "AMEX" | "DISCOVER" | "ELECTRON" | "ELO" | "ELO_DEBIT" | "INTERAC" | "JCB" | "MAESTRO" | "MASTERCARD" | "VISA";
+    type CardNetwork =
+        | "AMEX"
+        | "DISCOVER"
+        | "ELECTRON"
+        | "ELO"
+        | "ELO_DEBIT"
+        | "INTERAC"
+        | "JCB"
+        | "MAESTRO"
+        | "MASTERCARD"
+        | "VISA";
 
     /**
      * Card authentication method enum string.
@@ -1705,7 +1759,13 @@ declare namespace google.payments.api {
      * - `OTHER_ERROR`:
      *   A catch all for error not fitting anywhere else.
      */
-    type ErrorReason = "SHIPPING_ADDRESS_INVALID" | "SHIPPING_ADDRESS_UNSERVICEABLE" | "SHIPPING_OPTION_INVALID" | "OFFER_INVALID" | "PAYMENT_DATA_INVALID" | "OTHER_ERROR";
+    type ErrorReason =
+        | "SHIPPING_ADDRESS_INVALID"
+        | "SHIPPING_ADDRESS_UNSERVICEABLE"
+        | "SHIPPING_OPTION_INVALID"
+        | "OFFER_INVALID"
+        | "PAYMENT_DATA_INVALID"
+        | "OTHER_ERROR";
 
     /**
      * Enum strings for the state of the transaction.
@@ -1751,6 +1811,15 @@ declare namespace google.payments.api {
          * @default "buy"
          */
         buttonType?: ButtonType | undefined;
+
+        /**
+         * Specifies the button corner radius in pixels. The minimum is 0 and the
+         * maximum depends on the height of the button. If the height is 40px (default height) then
+         * the maximum value for the buttonRadius is 20.
+         *
+         * @default 4
+         */
+        buttonRadius?: number | undefined;
 
         /**
          * Determines how the button's size should change relative to the
@@ -2041,7 +2110,6 @@ declare namespace google.payments.api {
      * viewer's browser matches an [available
      * language](https://developers.google.com/pay/api/web/guides/brand-guidelines#payment-buttons-assets).
      *
-     *
      * Options:
      *
      * - `book`:
@@ -2074,7 +2142,17 @@ declare namespace google.payments.api {
      * - `short`:
      *   Same as "plain".
      */
-    type ButtonType = "book" | "buy" | "checkout" | "donate" | "order" | "pay" | "plain" | "subscribe" | "long" | "short";
+    type ButtonType =
+        | "book"
+        | "buy"
+        | "checkout"
+        | "donate"
+        | "order"
+        | "pay"
+        | "plain"
+        | "subscribe"
+        | "long"
+        | "short";
 
     /**
      * Supported methods for controlling the size of the Google Pay button.
@@ -2149,7 +2227,9 @@ declare namespace google.payments.api {
          * shipping options and transaction info. Don't intentionally return
          * reject if possible.*
          */
-        (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
+        (
+            intermediatePaymentData: IntermediatePaymentData,
+        ) => Promise<PaymentDataRequestUpdate> | PaymentDataRequestUpdate;
 
     /**
      * This object contains details about errors returned by client JavaScript
@@ -2177,5 +2257,9 @@ declare namespace google.payments.api {
      * - `INTERNAL_ERROR`:
      *   General server error.
      */
-    type PaymentsErrorStatusCode = "BUYER_ACCOUNT_ERROR" | "DEVELOPER_ERROR" | "MERCHANT_ACCOUNT_ERROR" | "INTERNAL_ERROR";
+    type PaymentsErrorStatusCode =
+        | "BUYER_ACCOUNT_ERROR"
+        | "DEVELOPER_ERROR"
+        | "MERCHANT_ACCOUNT_ERROR"
+        | "INTERNAL_ERROR";
 }

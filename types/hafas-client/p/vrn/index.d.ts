@@ -1,5 +1,3 @@
-export = vrnProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const vrnProfile: createClient.Profile;
+export const profile: Profile;

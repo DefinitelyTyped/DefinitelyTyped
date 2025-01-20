@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/react-native-video-player",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/cornedor/react-native-video-player.git"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-video": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-video-player": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junseong Park",
+            "githubUsername": "Kweiza"
+        },
+        {
+            "name": "mike castleman",
+            "githubUsername": "mlc"
+        }
+    ]
+}

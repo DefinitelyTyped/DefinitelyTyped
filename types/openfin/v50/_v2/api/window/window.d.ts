@@ -1,14 +1,14 @@
-import { Base } from '../base';
-import { Identity } from '../../identity';
-import { Application } from '../application/application';
-import Transport from '../../transport/transport';
-import { WindowEvents } from '../events/window';
-import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
-import { WindowOption } from './windowOption';
-import { EntityType } from '../frame/frame';
-import { ExternalWindow } from '../external-window/external-window';
-import { WebContents } from '../webcontents/webcontents';
-import { View } from '../view/view';
+import { Identity } from "../../identity";
+import { AnchorType, Bounds, Transition, TransitionOptions } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Application } from "../application/application";
+import { Base } from "../base";
+import { WindowEvents } from "../events/window";
+import { ExternalWindow } from "../external-window/external-window";
+import { EntityType } from "../frame/frame";
+import { View } from "../view/view";
+import { WebContents } from "../webcontents/webcontents";
+import { WindowOption } from "./windowOption";
 /**
  * @lends Window
  */
@@ -61,7 +61,7 @@ export interface CloseEventShape {
 export interface WindowInfo {
     canNavigateBack: boolean;
     canNavigateForward: boolean;
-    preloadScripts: Array<any>;
+    preloadScripts: any[];
     title: string;
     url: string;
 }
@@ -84,7 +84,7 @@ export interface PrinterInfo {
     isDefault: boolean;
 }
 interface Margins {
-    marginType?: ('default' | 'none' | 'printableArea' | 'custom') | undefined;
+    marginType?: ("default" | "none" | "printableArea" | "custom") | undefined;
     top?: number | undefined;
     bottom?: number | undefined;
     left?: number | undefined;
@@ -106,7 +106,7 @@ export interface PrintOptions {
     collate?: boolean | undefined;
     copies?: number | undefined;
     pageRanges?: Record<string, number> | undefined;
-    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge') | undefined;
+    duplexMode?: ("simplex" | "shortEdge" | "longEdge") | undefined;
     dpi?: Dpi | undefined;
 }
 interface WindowMovementOptions {
@@ -120,75 +120,70 @@ export interface FindInPageOptions {
     medialCapitalAsWordStart?: boolean | undefined;
 }
 /**
- * @typedef { object } Margins
- * @property { string } [marginType]
+ * [marginType]
  * Can be `default`, `none`, `printableArea`, or `custom`. If `custom` is chosen,
  * you will also need to specify `top`, `bottom`, `left`, and `right`.
  *
- * @property { number } [top] The top margin of the printed web page, in pixels.
- * @property { number } [bottom] The bottom margin of the printed web page, in pixels.
- * @property { number } [left] The left margin of the printed web page, in pixels.
- * @property { number } [right] The right margin of the printed web page, in pixels.
-*/
+ * [top] The top margin of the printed web page, in pixels.
+ * [bottom] The bottom margin of the printed web page, in pixels.
+ * [left] The left margin of the printed web page, in pixels.
+ * [right] The right margin of the printed web page, in pixels.
+ */
 /**
- * @typedef { object } Dpi
- * @property { number } [horizontal] The horizontal dpi
- * @property { number } [vertical] The vertical dpi
-*/
+ * [horizontal] The horizontal dpi
+ * [vertical] The vertical dpi
+ */
 /**
- * @typedef { object } PrintOptions
- * @property { boolean } [silent=false] Don't ask user for print settings.
- * @property { boolean } [printBackground=false] Prints the background color and image of the web page.
- * @property { string } [deviceName=''] Set the printer device name to use.
- * @property { boolean } [color=true] Set whether the printed web page will be in color or grayscale.
- * @property { Margins } [margins] Set margins for the printed web page
- * @property { boolean } [landscape=false] Whether the web page should be printed in landscape mode.
- * @property { number } [scaleFactor] The scale factor of the web page.
- * @property { number } [pagesPerSheet] The number of pages to print per page sheet.
- * @property { boolean } [collate] Whether the web page should be collated.
+ * [silent=false] Don't ask user for print settings.
+ * [printBackground=false] Prints the background color and image of the web page.
+ * [deviceName=''] Set the printer device name to use.
+ * [color=true] Set whether the printed web page will be in color or grayscale.
+ * [margins] Set margins for the printed web page
+ * [landscape=false] Whether the web page should be printed in landscape mode.
+ * [scaleFactor] The scale factor of the web page.
+ * [pagesPerSheet] The number of pages to print per page sheet.
+ * [collate] Whether the web page should be collated.
  * @property { number } [copies] The number of copies of the web page to print.
  * @property { Record<string, number> } [pageRanges] The page range to print. Should have two keys: from and to.
  * @property { string } [duplexMode] Set the duplex mode of the printed web page. Can be simplex, shortEdge, or longEdge.
  * @property { Dpi } [dpi] Set dpi for the printed web page
  */
 /**
-* PrinterInfo interface
-* @typedef { object } PrinterInfo
-* @property { string } name Printer Name
-* @property { string } description Printer Description
-* @property { number } status Printer Status
-* @property { boolean } isDefault Indicates that system's default printer
-*/
+ * PrinterInfo interface
+ * name Printer Name
+ * description Printer Description
+ * status Printer Status
+ * isDefault Indicates that system's default printer
+ */
 /**
- * @typedef {object} Window~options
  * @summary Window creation options.
- * @desc This is the options object required by {@link Window.create Window.create}.
+ * @description This is the options object required by {@link Window.create Window.create}.
  *
  * Note that `name` is the only required property — albeit the `url` property is usually provided as well
  * (defaults to `"about:blank"` when omitted).
  *
  * _This jsdoc typedef mirrors the `WindowOptions` TypeScript interface in `@types/openfin`._
  *
- * @property {object} [accelerator]
+ * [accelerator]
  * Enable keyboard shortcuts for devtools, zoom, reload, and reload ignoring cache.
  *
- * @property {boolean} [accelerator.devtools=false]
+ * [accelerator.devtools=false]
  * If `true`, enables the devtools keyboard shortcut:<br>
  * `Ctrl` + `Shift` + `I` _(Toggles Devtools)_
  *
- * @property {boolean} [accelerator.reload=false]
+ * [accelerator.reload=false]
  * If `true`, enables the reload keyboard shortcuts:<br>
  * `Ctrl` + `R` _(Windows)_<br>
  * `F5` _(Windows)_<br>
  * `Command` + `R` _(Mac)_
  *
- * @property {boolean} [accelerator.reloadIgnoringCache=false]
+ * [accelerator.reloadIgnoringCache=false]
  * If `true`, enables the reload-from-source keyboard shortcuts:<br>
  * `Ctrl` + `Shift` + `R` _(Windows)_<br>
  * `Shift` + `F5` _(Windows)_<br>
  * `Command` + `Shift` + `R` _(Mac)_
  *
- * @property {boolean} [accelerator.zoom=false]
+ * [accelerator.zoom=false]
  * If `true`, enables the zoom keyboard shortcuts:<br>
  * `Ctrl` + `+` _(Zoom In)_<br>
  * `Ctrl` + `Shift` + `+` _(Zoom In)_<br>
@@ -197,7 +192,7 @@ export interface FindInPageOptions {
  * `Ctrl` + `Scroll` _(Zoom In & Out)_<br>
  * `Ctrl` + `0` _(Restore to 100%)_
  *
- * @property {object} [alphaMask] - _Experimental._  _Updatable._
+ * [alphaMask] - _Experimental._  _Updatable._
  * <br>
  * alphaMask turns anything of matching RGB value transparent.
  * <br>
@@ -208,8 +203,8 @@ export interface FindInPageOptions {
  * * Windows Aero must be enabled
  * * Won't make visual sense on Pixel-pushed environments such as Citrix
  * * Not supported on rounded corner windows
- * @property {number} [alphaMask.red=-1] 0-255
- * @property {number} [alphaMask.green=-1] 0-255
+ * [alphaMask.red=-1] 0-255
+ * [alphaMask.green=-1] 0-255
  * @property {number} [alphaMask.blue=-1] 0-255
  *
  * @property {boolean} [alwaysOnTop=false] - _Updatable._
@@ -403,68 +398,59 @@ export interface FindInPageOptions {
  * When set to `false`, the window will appear immediately without waiting for content to be loaded.
  */
 /**
- * @typedef { object } Area
- * @property { number } height Area's height
- * @property { number } width Area's width
- * @property { number } x X coordinate of area's starting point
- * @property { number } y Y coordinate of area's starting point
+ * height Area's height
+ * width Area's width
+ * x X coordinate of area's starting point
+ * y Y coordinate of area's starting point
  */
 /**
- * @typedef { object } WindowMovementOptions
- * @property { boolean } moveIndependently - Move a window independently of its group or along with its group. Defaults to false.
+ * moveIndependently - Move a window independently of its group or along with its group. Defaults to false.
  */
 /**
- * @typedef {object} FindInPageOptions
- * @property {boolean} [forward=true] Whether to search forward or backward.
- * @property {boolean} [findNext=false] Whether the operation is first request or a follow up.
- * @property {boolean} [matchCase=false] Whether search should be case-sensitive.
- * @property {boolean} [wordStart=false] Whether to look only at the start of words.
- * @property {boolean} [medialCapitalAsWordStart=false]
+ * [forward=true] Whether to search forward or backward.
+ * [findNext=false] Whether the operation is first request or a follow up.
+ * [matchCase=false] Whether search should be case-sensitive.
+ * [wordStart=false] Whether to look only at the start of words.
+ * [medialCapitalAsWordStart=false]
  * When combined with wordStart, accepts a match in the middle of a word if the match begins with an uppercase letter followed by a<br>
  * lowercase or non-letter. Accepts several other intra-word matches.
  */
 /**
- * @typedef {object} Transition
- * @property {Opacity} opacity - The Opacity transition
- * @property {Position} position - The Position transition
- * @property {Size} size - The Size transition
-*/
+ * opacity - The Opacity transition
+ * position - The Position transition
+ * size - The Size transition
+ */
 /**
- * @typedef {object} TransitionOptions
- * @property {boolean} interrupt - This option interrupts the current animation. When false it pushes
+ * interrupt - This option interrupts the current animation. When false it pushes
 this animation onto the end of the animation queue.
- * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
+ * relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
  */
 /**
- * @typedef {object} Size
- * @property {number} duration - The total time in milliseconds this transition should take.
- * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
- * @property {number} width - Optional if height is present. Defaults to the window's current width.
- * @property {number} height - Optional if width is present. Defaults to the window's current height.
+ * duration - The total time in milliseconds this transition should take.
+ * relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
+ * width - Optional if height is present. Defaults to the window's current width.
+ * height - Optional if width is present. Defaults to the window's current height.
  */
 /**
- * @typedef {object} Position
- * @property {number} duration - The total time in milliseconds this transition should take.
- * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
- * @property {number} left - Defaults to the window's current left position in virtual screen coordinates.
- * @property {number} top - Defaults to the window's current top position in virtual screen coordinates.
+ * duration - The total time in milliseconds this transition should take.
+ * relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
+ * left - Defaults to the window's current left position in virtual screen coordinates.
+ * top - Defaults to the window's current top position in virtual screen coordinates.
  */
 /**
- * @typedef {object} Opacity
- * @property {number} duration - The total time in milliseconds this transition should take.
- * @property {boolean} relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
- * @property {number} opacity - This value is clamped from 0.0 to 1.0.
-*/
+ * duration - The total time in milliseconds this transition should take.
+ * relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
+ * opacity - This value is clamped from 0.0 to 1.0.
+ */
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
- * @typedef { object } Bounds
- * @property { number } height Get the application height bound
- * @property { number } width Get the application width bound
- * @property { number } top Get the application top bound
- * @property { number } left Get the application left bound
- * @property { number } right Get the application right bound
- * @property { number } bottom Get the application bottom bound
+ * height Get the application height bound
+ * width Get the application width bound
+ * top Get the application top bound
+ * left Get the application left bound
+ * right Get the application right bound
+ * bottom Get the application bottom bound
  */
 /**
  * @classdesc A basic window that wraps a native HTML window. Provides more fine-grained
@@ -472,7 +458,6 @@ this animation onto the end of the animation queue.
  * By default a window does not show upon instantiation; instead the window's show() method
  * must be invoked manually. The new window appears in the same process as the parent window.
  * It has the ability to listen for <a href="tutorial-Window.EventEmitter.html">window specific events</a>.
- * @class
  * @alias Window
  * @hideconstructor
  */
@@ -570,19 +555,19 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Gives focus to the window.
      * @return {Promise.<void>}
      * @function focus
-     * @emits focused
+     * @fires focused
      * @memberOf Window
      * @instance
      * @tutorial Window.focus
      */
     /**
-    * Returns the zoom level of the window.
-    * @function getZoomLevel
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial Window.getZoomLevel
-    */
+     * Returns the zoom level of the window.
+     * @function getZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.getZoomLevel
+     */
     /**
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
@@ -649,30 +634,30 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.stopNavigation
      */
     /**
-    * Reloads the window current page
-    * @function reload
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.reload
-    */
+     * Reloads the window current page
+     * @function reload
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.reload
+     */
     /**
-    * Prints the window's web page
-    * @param { PrintOptions } [options] Printer Options
-    * @function print
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.print
-    */
+     * Prints the window's web page
+     * @param { PrintOptions } [options] Printer Options
+     * @function print
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.print
+     */
     /**
-    * Returns an array with all system printers
-    * @function getPrinters
-    * @memberOf Window
-    * @instance
-    * @return { Promise.Array.<PrinterInfo> }
-    * @tutorial Window.getPrinters
-    */
+     * Returns an array with all system printers
+     * @function getPrinters
+     * @memberOf Window
+     * @instance
+     * @return { Promise.Array.<PrinterInfo> }
+     * @tutorial Window.getPrinters
+     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -681,12 +666,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<Array<FrameInfo>>}
      * @tutorial Window.getAllFrames
      */
-    getAllFrames(): Promise<Array<FrameInfo>>;
+    getAllFrames(): Promise<FrameInfo[]>;
     /**
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Centers the window on its current screen.
@@ -726,7 +711,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<void>}
      * @tutorial Window.close
-    */
+     */
     close(force?: boolean): Promise<void>;
     /**
      * Returns the native OS level Id.
@@ -736,12 +721,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getNativeId(): Promise<string>;
     /**
-    * Retrieves window's attached views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Window.getCurrentViews
-    */
-    getCurrentViews(): Promise<Array<View>>;
+     * Retrieves window's attached views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Window.getCurrentViews
+     */
+    getCurrentViews(): Promise<View[]>;
     disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.
@@ -894,7 +879,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.resizeBy
      */
-    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, options?: WindowMovementOptions): Promise<void>;
+    resizeBy(
+        deltaWidth: number,
+        deltaHeight: number,
+        anchor: AnchorType,
+        options?: WindowMovementOptions,
+    ): Promise<void>;
     /**
      * Resizes the window to the specified dimensions.
      * @param { number } width The change in the width of the window
@@ -921,7 +911,7 @@ export declare class _Window extends WebContents<WindowEvents> {
     setAsForeground(): Promise<void>;
     /**
      * Sets the window's size and position.
-     * @property { Bounds } bounds This is a * @type {string} name - name of the window.object that holds the propertys of
+     * bounds This is a * @type {string} name - name of the window.object that holds the propertys of
      * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.setBounds

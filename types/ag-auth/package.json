@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ag-auth",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/ag-auth"
+    ],
+    "dependencies": {
+        "@types/jsonwebtoken": "*"
+    },
+    "devDependencies": {
+        "@types/ag-auth": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

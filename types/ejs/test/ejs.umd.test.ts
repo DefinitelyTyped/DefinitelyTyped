@@ -49,25 +49,25 @@ expectType<{
 /** @see https://github.com/mde/ejs#options */
 const renderOptions: ejs.Options = {
     beautify: true,
-    filename: './index.ejs',
-    views: ['dir1', 'dir2'],
+    filename: "./index.ejs",
+    views: ["dir1", "dir2"],
 };
 
 const fileNameIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
     expectType<string>(originalPath);
     expectType<string>(parsedPath);
 
-    return { filename: '/some/path/to/file' };
+    return { filename: "/some/path/to/file" };
 };
 
 const templateIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
     expectType<string>(originalPath);
     expectType<string>(parsedPath);
 
-    return { template: 'template data' };
+    return { template: "template data" };
 };
 
-// $ExpectError
+// @ts-expect-error
 const brokenIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
     expectType<string>(originalPath);
     expectType<string>(parsedPath);

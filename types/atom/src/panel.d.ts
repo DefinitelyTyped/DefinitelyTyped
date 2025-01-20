@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /**
  *  A container representing a panel on the edges of the editor window. You

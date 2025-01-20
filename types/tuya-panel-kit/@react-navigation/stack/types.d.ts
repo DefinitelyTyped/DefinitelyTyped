@@ -1,8 +1,18 @@
-import type * as React from 'react';
-import type { Animated, StyleProp, TextStyle, ViewStyle, LayoutChangeEvent } from 'react-native';
-import type { EdgeInsets } from 'react-native-safe-area-context';
-import type { NavigationProp, ParamListBase, Descriptor, Route, NavigationHelpers, StackNavigationState, StackActionHelpers, RouteProp } from '../native';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+import type * as React from "react";
+import type { Animated, LayoutChangeEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
+import type { EdgeInsets } from "react-native-safe-area-context";
+import type {
+    Descriptor,
+    NavigationHelpers,
+    NavigationProp,
+    ParamListBase,
+    Route,
+    RouteProp,
+    StackActionHelpers,
+    StackNavigationState,
+} from "../native";
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationEventMap = {
     /**
      * Event which fires when a transition animation starts.
@@ -39,23 +49,33 @@ export declare type StackNavigationEventMap = {
         data: undefined;
     };
 };
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackNavigationHelpers = NavigationHelpers<ParamListBase, StackNavigationEventMap> & StackActionHelpers<ParamListBase>;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal max-line-length
-export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> = NavigationProp<ParamList, RouteName, StackNavigationState<ParamList>, StackNavigationOptions, StackNavigationEventMap> & StackActionHelpers<ParamList>;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackNavigationHelpers =
+    & NavigationHelpers<ParamListBase, StackNavigationEventMap>
+    & StackActionHelpers<ParamListBase>;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackNavigationProp<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> =
+    & NavigationProp<
+        ParamList,
+        RouteName,
+        StackNavigationState<ParamList>,
+        StackNavigationOptions,
+        StackNavigationEventMap
+    >
+    & StackActionHelpers<ParamList>;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackScreenProps<ParamList extends ParamListBase, RouteName extends keyof ParamList = string> = {
     navigation: StackNavigationProp<ParamList, RouteName>;
     route: RouteProp<ParamList, RouteName>;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Layout = {
     width: number;
     height: number;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type GestureDirection = 'horizontal' | 'horizontal-inverted' | 'vertical' | 'vertical-inverted';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type GestureDirection = "horizontal" | "horizontal-inverted" | "vertical" | "vertical-inverted";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Scene<T> = {
     /**
      * Current route object,
@@ -85,11 +105,11 @@ export declare type Scene<T> = {
         previous?: Animated.AnimatedInterpolation | undefined;
     };
 };
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackHeaderMode = 'float' | 'screen' | 'none';
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackCardMode = 'card' | 'modal';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackHeaderMode = "float" | "screen" | "none";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackCardMode = "card" | "modal";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderOptions = {
     /**
      * String or a function that returns a React Element to be used by the header.
@@ -102,7 +122,7 @@ export declare type StackHeaderOptions = {
      * How to align the the header title.
      * Defaults to `center` on iOS and `left` on Android.
      */
-    headerTitleAlign?: 'left' | 'center' | undefined;
+    headerTitleAlign?: "left" | "center" | undefined;
     /**
      * Style object for the title component.
      */
@@ -160,9 +180,11 @@ export declare type StackHeaderOptions = {
     /**
      * Function which returns a React Element to display on the right side of the header.
      */
-    headerRight?: ((props: {
-        tintColor?: string | undefined;
-    }) => React.ReactNode) | undefined;
+    headerRight?:
+        | ((props: {
+            tintColor?: string | undefined;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the container of the `headerRight` component, for example to add padding.
      */
@@ -172,7 +194,7 @@ export declare type StackHeaderOptions = {
      * It receives the `tintColor` in in the options object as an argument. object.
      * Defaults to Image component with a the default back icon image for the platform (a chevron on iOS and an arrow on Android).
      */
-    headerBackImage?: StackHeaderLeftButtonProps['backImage'] | undefined;
+    headerBackImage?: StackHeaderLeftButtonProps["backImage"] | undefined;
     /**
      * Color for material ripple (Android >= 5.0 only).
      */
@@ -182,9 +204,11 @@ export declare type StackHeaderOptions = {
      * This is useful for using backgrounds such as an image or a gradient.
      * You can use this with `headerTransparent` to render a blur view, for example, to create a translucent header.
      */
-    headerBackground?: ((props: {
-        style: StyleProp<ViewStyle>;
-    }) => React.ReactNode) | undefined;
+    headerBackground?:
+        | ((props: {
+            style: StyleProp<ViewStyle>;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the header. You can specify a custom background color here, for example.
      */
@@ -202,13 +226,13 @@ export declare type StackHeaderOptions = {
      */
     headerStatusBarHeight?: number | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderProps = {
     /**
      * Mode of the header: `float` renders a single floating header across all screens,
      * `screen` renders separate headers for each screen.
      */
-    mode: 'float' | 'screen';
+    mode: "float" | "screen";
     /**
      * Layout of the screen.
      */
@@ -234,13 +258,18 @@ export declare type StackHeaderProps = {
      */
     styleInterpolator: StackHeaderStyleInterpolator;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackDescriptor = Descriptor<ParamListBase, string, StackNavigationState<ParamListBase>, StackNavigationOptions>;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackDescriptor = Descriptor<
+    ParamListBase,
+    string,
+    StackNavigationState<ParamListBase>,
+    StackNavigationOptions
+>;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackDescriptorMap = {
     [key: string]: StackDescriptor;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationOptions = StackHeaderOptions & Partial<TransitionPreset> & {
     /**
      * String that can be displayed in the header as a fallback for `headerTitle`.
@@ -267,9 +296,11 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
     /**
      * Function that returns a React Element to display as a overlay for the card.
      */
-    cardOverlay?: ((props: {
-        style: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
-    }) => React.ReactNode) | undefined;
+    cardOverlay?:
+        | ((props: {
+            style: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Style object for the card in stack.
      * You can provide a custom background color to use instead of the default background here.
@@ -290,7 +321,7 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
      * The type of animation to use when this screen replaces another screen. Defaults to `push`.
      * When `pop` is used, the `pop` animation is applied to the screen being replaced.
      */
-    animationTypeForReplace?: 'push' | 'pop' | undefined;
+    animationTypeForReplace?: "push" | "pop" | undefined;
     /**
      * Whether you can use gestures to dismiss this screen. Defaults to `true` on iOS, `false` on Android.
      * Not supported on Web.
@@ -334,7 +365,7 @@ export declare type StackNavigationOptions = StackHeaderOptions & Partial<Transi
      */
     detachPreviousScreen?: boolean | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackNavigationConfig = {
     mode?: StackCardMode | undefined;
     headerMode?: StackHeaderMode | undefined;
@@ -350,7 +381,7 @@ export declare type StackNavigationConfig = {
      */
     detachInactiveScreens?: boolean | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderLeftButtonProps = {
     /**
      * Whether the button is disabled.
@@ -368,9 +399,11 @@ export declare type StackHeaderLeftButtonProps = {
     /**
      * Function which returns a React Element to display custom image in header's back button.
      */
-    backImage?: ((props: {
-        tintColor: string;
-    }) => React.ReactNode) | undefined;
+    backImage?:
+        | ((props: {
+            tintColor: string;
+        }) => React.ReactNode)
+        | undefined;
     /**
      * Tint color for the header.
      */
@@ -422,7 +455,7 @@ export declare type StackHeaderLeftButtonProps = {
      */
     style?: StyleProp<ViewStyle> | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderTitleProps = {
     /**
      * Callback to trigger when the size of the title element changes.
@@ -445,15 +478,15 @@ export declare type StackHeaderTitleProps = {
      */
     style?: Animated.WithAnimatedValue<StyleProp<TextStyle>> | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TransitionSpec = {
-    animation: 'spring';
-    config: Omit<Animated.SpringAnimationConfig, 'toValue' | keyof Animated.AnimationConfig>;
+    animation: "spring";
+    config: Omit<Animated.SpringAnimationConfig, "toValue" | keyof Animated.AnimationConfig>;
 } | {
-    animation: 'timing';
-    config: Omit<Animated.TimingAnimationConfig, 'toValue' | keyof Animated.AnimationConfig>;
+    animation: "timing";
+    config: Omit<Animated.TimingAnimationConfig, "toValue" | keyof Animated.AnimationConfig>;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardInterpolationProps = {
     /**
      * Values for the current screen.
@@ -509,7 +542,7 @@ export declare type StackCardInterpolationProps = {
         left: number;
     };
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardInterpolatedStyle = {
     /**
      * Interpolated style for the container view wrapping the card.
@@ -528,9 +561,9 @@ export declare type StackCardInterpolatedStyle = {
      */
     shadowStyle?: any;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackCardStyleInterpolator = (props: StackCardInterpolationProps) => StackCardInterpolatedStyle;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderInterpolationProps = {
     /**
      * Values for the current screen (the screen which owns this header).
@@ -573,7 +606,7 @@ export declare type StackHeaderInterpolationProps = {
         leftLabel?: Layout | undefined;
     };
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type StackHeaderInterpolatedStyle = {
     /**
      * Interpolated style for the label of the left button (back button label).
@@ -596,9 +629,11 @@ export declare type StackHeaderInterpolatedStyle = {
      */
     backgroundStyle?: any;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare type StackHeaderStyleInterpolator = (props: StackHeaderInterpolationProps) => StackHeaderInterpolatedStyle;
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare type StackHeaderStyleInterpolator = (
+    props: StackHeaderInterpolationProps,
+) => StackHeaderInterpolatedStyle;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TransitionPreset = {
     /**
      * The direction of swipe gestures, `horizontal` or `vertical`.

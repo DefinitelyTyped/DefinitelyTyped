@@ -1,13 +1,7 @@
-// Type definitions for passport-google-oauth 1.0.3
-// Project: https://github.com/jaredhanson/passport-google-oauth
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="passport"/>
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 interface Profile extends passport.Profile {
     gender: string;
@@ -40,8 +34,8 @@ declare class OAuthStrategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     name: string;
     authenticate(req: express.Request, options?: Object): void;
@@ -76,8 +70,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     constructor(
         options: IOAuth2StrategyOptionWithRequest,
@@ -86,8 +80,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
 
     name: string;

@@ -1,5 +1,3 @@
-
-
 var callback = () => {};
 var domNode = document.createElement("div");
 
@@ -15,13 +13,13 @@ $(document).ready(function() {
 // Create color pickers in the selected objects
 $("#colorpicker").farbtastic();
 
-// Optional callback using a callback function 
+// Optional callback using a callback function
 $("#colorpicker").farbtastic(callback);
-$("#colourpicker").farbtastic(function (color) {
+$("#colourpicker").farbtastic(function(color) {
     console.log(typeof color === "string");
 });
 
-// Optional callback using a DOM node 
+// Optional callback using a DOM node
 $("#colorpicker").farbtastic(domNode);
 
 // Optional callback using a jQuery object
@@ -42,7 +40,7 @@ $.farbtastic(domNode, callback);
 $.farbtastic($("#color"), callback);
 $.farbtastic("#color", callback);
 
-// Optional callback using a DOM node 
+// Optional callback using a DOM node
 $.farbtastic(domNode, domNode);
 $.farbtastic($("#color"), domNode);
 $.farbtastic("#color", domNode);
@@ -61,13 +59,13 @@ $.farbtastic("#color", "#color");
 $("#colorpicker").farbtastic({
     callback: (color) => {
         console.log(color);
-    }
+    },
 });
 $.farbtastic(domNode, {
-    width: 500
+    width: 500,
 });
 $.farbtastic($("#color"), {
-    wheelWidth: 300
+    wheelWidth: 300,
 });
 $.farbtastic("#color", {});
 
@@ -83,7 +81,9 @@ $.farbtastic("#colorpicker").setHSL([0.1, 0.2, 0.3]);
 
 // Advanced Usage: Properties
 $.farbtastic("#colorpicker").color === "#aabbcc";
-$.farbtastic("#colorpicker").hsl === [0.1, 0.2, 0.3];
+$.farbtastic("#colorpicker").hsl[0] === 0.1;
+$.farbtastic("#colorpicker").hsl[1] === 0.2;
+$.farbtastic("#colorpicker").hsl[2] === 0.3;
 $.farbtastic("#colorpicker").linked === $("#colorpicker");
 $.farbtastic("#colorpicker").linked === callback;
 
@@ -96,5 +96,4 @@ $("#colorpicker")
 $.farbtastic("#colorpicker")
     .linkTo(domNode)
     .setColor("#000000")
-    .setHSL([0, 0, 0]);            
-            
+    .setHSL([0, 0, 0]);

@@ -3,12 +3,14 @@ import bcrypt = require("bcrypt");
 bcrypt.genSaltSync(); // $ExpectType string
 bcrypt.genSaltSync(10); // $ExpectType string
 bcrypt.genSaltSync(10, "b"); // $ExpectType string
-bcrypt.genSaltSync(10, "c"); // $ExpectError
+// @ts-expect-error
+bcrypt.genSaltSync(10, "c");
 
 bcrypt.genSalt(); // $ExpectType Promise<string>
 bcrypt.genSalt(10); // $ExpectType Promise<string>
 bcrypt.genSalt(10, "b"); // $ExpectType Promise<string>
-bcrypt.genSalt(10, "c"); // $ExpectError
+// @ts-expect-error
+bcrypt.genSalt(10, "c");
 
 // $ExpectType void
 bcrypt.genSalt((err, salt) => {
@@ -25,7 +27,7 @@ bcrypt.genSalt(10, "b", (err, salt) => {
     err; // $ExpectType Error | undefined
     salt; // $ExpectType string
 });
-// $ExpectError
+// @ts-expect-error
 bcrypt.genSalt(10, "c", (err, salt) => {
     err; // $ExpectType Error | undefined
     salt; // $ExpectType string

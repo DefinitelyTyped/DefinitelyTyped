@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/nodemailer",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/nodemailer/nodemailer",
+        "https://nodemailer.com"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/nodemailer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        },
+        {
+            "name": "Daniel Chao",
+            "githubUsername": "bioball"
+        }
+    ]
+}

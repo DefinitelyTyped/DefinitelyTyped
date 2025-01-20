@@ -1,9 +1,3 @@
-// Type definitions for vmap 2.2
-// Project: https://github.com/dailymotion/vmap-js#readme
-// Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare namespace VMAP {
     /**
      * Provides information about an ad break
@@ -16,7 +10,7 @@ declare namespace VMAP {
         /**
          * Identifies whether the ad break allows "linear", "nonlinear" or "display" ads
          */
-        breakType: 'linear' | 'nonlinear' | 'display';
+        breakType: "linear" | "nonlinear" | "display";
         /**
          * An optional string identifier for the ad break
          */
@@ -50,7 +44,7 @@ declare namespace VMAP {
         /**
          * The name of the event to track for the element. Can be one of breakStart, breakEnd or error
          */
-        event: 'breakStart' | 'breakEnd' | 'error';
+        event: "breakStart" | "breakEnd" | "error";
         /**
          * The URI of the tracker
          */

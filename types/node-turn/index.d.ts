@@ -1,35 +1,53 @@
-// Type definitions for node-turn 0.0
-// Project: https://github.com/Atlantis-Software/node-turn#readme
-// Definitions by: Johannes Garz <https://github.com/garzj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-type TurnDebugLevel = 'OFF' | 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | 'ALL';
+import { EventEmitter } from "events";
 
-type TurnAuthMech = 'none' | 'short-term' | 'long-term';
+type TurnDebugLevel = "OFF" | "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | "ALL";
 
-interface TurnOptions {
-    listeningPort?: number;
-    listeningIps?: string[];
-    relayIps?: string[];
-    externalIps?: string | { [localIp: string]: string };
-    minPort?: number;
-    maxPort?: number;
-    authMech?: TurnAuthMech;
-    credentials?: { [user: string]: string };
-    real?: string;
-    debugLevel?: TurnDebugLevel;
-    maxAllocateLifetime?: number;
-    defaultAllocatetLifetime?: number;
-    debug?: (debugLevel: TurnDebugLevel, message: string) => void;
+type TurnAuthMech = "none" | "short-term" | "long-term";
+
+interface TurnCredentials {
+    [user: string]: string;
 }
 
-declare class Turn {
-    constructor(options: TurnOptions);
+interface TurnProps {
+    listeningPort: number;
+    listeningIps: string[];
+    relayIps: string[];
+    externalIps: string | { [localIp: string]: string } | null;
+    minPort: number;
+    maxPort: number;
+    authMech: TurnAuthMech;
+    realm: string;
+    maxAllocateLifetime: number;
+    defaultAllocatetLifetime: number;
+    debugLevel: TurnDebugLevel;
+
+    log: (...args: any[]) => void;
+    debug: (debugLevel: TurnDebugLevel, message: string) => void;
+}
+
+interface TurnOptions extends Partial<TurnProps> {
+    credentials?: TurnCredentials;
+}
+
+interface TurnServer extends Readonly<TurnProps> {}
+
+declare class TurnServer extends EventEmitter {
+    constructor(options?: TurnOptions);
 
     start(): void;
     stop(): void;
     addUser(username: string, password: string): void;
     removeUser(username: string): void;
+
+    readonly software: string;
+
+    readonly staticCredentials: TurnCredentials;
 }
 
-export = Turn;
+declare namespace TurnServer {
+    export { TurnAuthMech, TurnCredentials, TurnDebugLevel, TurnOptions, TurnProps };
+}
+
+export = TurnServer;

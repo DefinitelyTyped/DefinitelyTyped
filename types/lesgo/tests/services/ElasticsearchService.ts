@@ -1,5 +1,5 @@
-import { URL } from "url";
 import ElasticsearchService from "lesgo/services/ElasticsearchService";
+import { URL } from "url";
 
 const elasticSearch = new ElasticsearchService({
     index: "lesgo",

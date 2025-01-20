@@ -16,7 +16,7 @@ $("#alert").on("close.bs.alert", () => {});
 // Button
 // --------------------------------------------------------------------------------------
 
-// $ExpectError
+// @ts-expect-error
 $("#button").button();
 
 // $ExpectType JQuery<HTMLElement>
@@ -51,7 +51,7 @@ $("#carousel").carousel({
     keyboard: true,
     slide: false,
     pause: "hover",
-    ride: 'carousel',
+    ride: "carousel",
     wrap: true,
     touch: false,
 });
@@ -127,8 +127,9 @@ $("#dropdown").dropdown({
 
 $("#dropdown").dropdown({
     offset(offsets: Bootstrap.OffsetsExtend) {
-        if (!this.flip)
+        if (!this.flip) {
             return { popper: { left: 100 } };
+        }
         return {};
     },
 });
@@ -170,8 +171,8 @@ $("#modal").modal({
     backdrop: "static",
 });
 
-$("#modal").on('hidePrevented.bs.modal', e => {
-    const {data, target: modal} = e;
+$("#modal").on("hidePrevented.bs.modal", e => {
+    const { data, target: modal } = e;
 });
 
 // --------------------------------------------------------------------------------------
@@ -191,11 +192,11 @@ $("#popover").popover({});
 $("#popover").popover({
     animation: false,
     container: "#container",
-    delay: {show: 500, hide: 100},
+    delay: { show: 500, hide: 100 },
     html: true,
     placement: "auto",
     selector: "[rel=\"popover\"]",
-    template: '<div class="popover empty" role="popover"></div>',
+    template: "<div class=\"popover empty\" role=\"popover\"></div>",
     title: "Hello world",
     trigger: "hover focus",
     offset: 10,
@@ -204,7 +205,7 @@ $("#popover").popover({
     sanitize: false,
     whiteList: {
         h1: [],
-        img: ['src', 'alt', 'title', 'width', 'height'],
+        img: ["src", "alt", "title", "width", "height"],
     },
     sanitizeFn: (x: string) => x.replace("<", ""),
 });
@@ -220,6 +221,22 @@ $("#popover").popover({
 
 $("#popover").popover({
     sanitizeFn: null,
+});
+
+$("#popover").popover({
+    content: document.createElement("p"),
+});
+
+$("#popover").popover({
+    content: () => document.createElement("p"),
+});
+
+$("#popover").popover({
+    content: $("<p>Content</p>"),
+});
+
+$("#popover").popover({
+    content: () => $("<p>Content</p>"),
 });
 
 // --------------------------------------------------------------------------------------
@@ -241,7 +258,7 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
-    target: document.getElementById("navbar-example2") as HTMLElement
+    target: document.getElementById("navbar-example2") as HTMLElement,
 });
 
 $("#scrollspy").scrollspy({
@@ -249,7 +266,7 @@ $("#scrollspy").scrollspy({
 });
 
 $("#scrollspy").scrollspy({
-    method: "position"
+    method: "position",
 });
 
 // --------------------------------------------------------------------------------------
@@ -300,12 +317,12 @@ $("#tooltip").on("hide.bs.tooltip", () => {});
 $("#tooltip").tooltip({
     animation: false,
     container: "#container",
-    customClass: 'custom-class',
-    delay: {show: 500, hide: 100},
+    customClass: "custom-class",
+    delay: { show: 500, hide: 100 },
     html: true,
     placement: "auto",
     selector: "[rel=\"tooltip\"]",
-    template: '<div class="tooltip empty" role="tooltip"></div>',
+    template: "<div class=\"tooltip empty\" role=\"tooltip\"></div>",
     title: "Hello world",
     trigger: "hover focus",
     offset: 10,
@@ -314,17 +331,17 @@ $("#tooltip").tooltip({
     sanitize: false,
     whiteList: {
         h1: [],
-        img: ['src', 'alt', 'title', 'width', 'height'],
+        img: ["src", "alt", "title", "width", "height"],
     },
     sanitizeFn: (x: string) => x.replace("<", ""),
     popperConfig: {
-        placement: 'bottom',
+        placement: "bottom",
     },
 });
 
 $("#tooltip").tooltip({
     container: document.getElementById("#container") as HTMLElement,
-    customClass: () => 'a b',
+    customClass: () => "a b",
 });
 
 $("#tooltip").tooltip({
@@ -346,7 +363,7 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     placement(this, tooltip, trigger) {
-        // $ExpectError
+        // @ts-expect-error
         console.log(this.config.content); // only for PopoverOption, not TooltipOption
         return "left";
     },
@@ -380,4 +397,20 @@ $("#tooltip").tooltip({
 
 $("#tooltip").tooltip({
     sanitizeFn: null,
+});
+
+$("#tooltip").tooltip({
+    title: document.createElement("p"),
+});
+
+$("#tooltip").tooltip({
+    title: () => document.createElement("p"),
+});
+
+$("#tooltip").tooltip({
+    title: $("<p>Title</p>"),
+});
+
+$("#tooltip").tooltip({
+    title: () => $("<p>Title</p>"),
 });

@@ -1,8 +1,13 @@
-import SemVer = require('../classes/semver');
-import semver = require('../index');
+import SemVer = require("../classes/semver");
+import semver = require("../index");
+
+declare namespace inc {
+    /** Base number to be used for the prerelease identifier */
+    type IdentifierBase = "0" | "1";
+}
 
 /**
- * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
+ * Return the version incremented by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if it's not valid.
  */
 declare function inc(
     version: string | SemVer,
@@ -10,6 +15,11 @@ declare function inc(
     optionsOrLoose?: boolean | semver.Options,
     identifier?: string,
 ): string | null;
-declare function inc(version: string | SemVer, release: semver.ReleaseType, identifier?: string): string | null;
+declare function inc(
+    version: string | SemVer,
+    release: semver.ReleaseType,
+    identifier?: string,
+    identifierBase?: inc.IdentifierBase | false,
+): string | null;
 
 export = inc;

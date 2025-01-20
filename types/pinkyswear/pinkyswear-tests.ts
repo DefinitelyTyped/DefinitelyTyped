@@ -1,5 +1,3 @@
-
-
 var promise: PinkySwear.Promise = pinkySwear();
 
 promise.then(function(value) {
@@ -15,9 +13,9 @@ promise(true, [42]);
 promise = pinkySwear();
 
 promise.then(function(...values: any[]) {
-    console.log("Success with value " + values.join(',') + "1");
+    console.log("Success with value " + values.join(",") + "1");
 }, function(...values: any[]) {
-    console.log("Failure with value " + values.join(',') + "!");
+    console.log("Failure with value " + values.join(",") + "!");
 });
 
 promise(false, [6, 6, 6]);
@@ -34,7 +32,7 @@ function promiseTimeout(timeoutMs: number) {
     return prom;
 }
 
-console.log('Starting timeout now.');
+console.log("Starting timeout now.");
 promiseTimeout(5000).then(function() {
-    console.log('5s have passed.');
+    console.log("5s have passed.");
 });

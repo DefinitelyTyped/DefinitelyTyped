@@ -1,14 +1,3 @@
-// Type definitions for convict 6.1
-// Project: https://github.com/mozilla/node-convict
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Vesa Poikajärvi <https://github.com/vesse>
-//                 Eli Young <https://github.com/elyscape>
-//                 Suntharesan Mohan <https://github.com/msuntharesan>
-//                 Igor Strebezhev <https://github.com/xamgore>
-//                 Peter Somogyvari <https://github.com/petermetz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /// <reference types="node" />
 
 declare namespace convict {
@@ -97,7 +86,7 @@ declare namespace convict {
     };
 
     interface InternalSchema<T> {
-        properties: {
+        _cvtProperties: {
             [K in keyof T]: T[K] extends object ? InternalSchema<T[K]> : { default: T[K] };
         };
     }
@@ -110,22 +99,18 @@ declare namespace convict {
     // Taken from https://twitter.com/diegohaz/status/1309489079378219009
     type PathImpl<T, K extends keyof T> = K extends string
         ? T[K] extends Record<string, any>
-            ? T[K] extends ArrayLike<any>
-                ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
-                : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
-            : K
+            ? T[K] extends ArrayLike<any> ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
+            : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
+        : K
         : never;
 
     type Path<T> = PathImpl<T, keyof T> | keyof T;
 
     type PathValue<T, P extends Path<T>> = P extends `${infer K}.${infer Rest}`
-        ? K extends keyof T
-            ? Rest extends Path<T[K]>
-                ? PathValue<T[K], Rest>
-                : never
+        ? K extends keyof T ? Rest extends Path<T[K]> ? PathValue<T[K], Rest>
             : never
-        : P extends keyof T
-        ? T[P]
+        : never
+        : P extends keyof T ? T[P]
         : never;
 
     interface Config<T> {
@@ -149,6 +134,11 @@ declare namespace convict {
          * @returns true if the property name is defined, or false otherwise
          */
         has<K extends Path<T>>(name: K): boolean;
+
+        /**
+         * Resets a property to its default value as defined in the schema
+         */
+        reset<K extends Path<T>>(name: K): void;
 
         /**
          * Sets the value of name to value. name can use dot notation to reference

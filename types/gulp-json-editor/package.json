@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-json-editor",
+    "version": "2.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/gulp-json-editor"
+    ],
+    "dependencies": {
+        "@types/js-beautify": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-json-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Juras",
+            "githubUsername": "peterjuras"
+        }
+    ]
+}

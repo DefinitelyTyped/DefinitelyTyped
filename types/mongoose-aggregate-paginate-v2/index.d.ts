@@ -1,26 +1,22 @@
-// Type definitions for mongoose-aggregate-paginate-v2 1.0
-// Project: https://github.com/webgangster/mongoose-aggregate-paginate-v2
-// Definitions by: Alexandre Croteau <https://github.com/acrilex1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
 //
 // Based on type declarations for mongoose-paginate-v2 1.3.
 //
 // Thanks to knyuwork <https://github.com/knyuwork>
 // and LiRen Tu <https://github.com/tuliren> for their contribution
 
-declare module 'mongoose' {
-    interface CustomLabels {
-        totalDocs?: string | undefined;
-        limit?: string | undefined;
-        page?: string | undefined;
-        totalPages?: string | undefined;
-        docs?: string | undefined;
-        nextPage?: string | undefined;
-        prevPage?: string | undefined;
-        pagingCounter?: string | undefined;
-        hasPrevPage?: string | undefined;
-        hasNextPage?: string | undefined;
+declare module "mongoose" {
+    interface CustomLabels<T = string | undefined | boolean> {
+        totalDocs?: T | undefined;
+        docs?: T | undefined;
+        limit?: T | undefined;
+        page?: T | undefined;
+        nextPage?: T | undefined;
+        prevPage?: T | undefined;
+        hasNextPage?: T | undefined;
+        hasPrevPage?: T | undefined;
+        totalPages?: T | undefined;
+        pagingCounter?: T | undefined;
+        meta?: T | undefined;
     }
 
     interface PaginateOptions {
@@ -33,6 +29,7 @@ declare module 'mongoose' {
         pagination?: boolean | undefined;
         allowDiskUse?: boolean | undefined;
         countQuery?: object | undefined;
+        useFacet?: boolean | undefined;
     }
 
     interface QueryPopulateOptions {
@@ -65,8 +62,8 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface AggregatePaginateModel<T extends Document> extends Model<T> {
-        aggregatePaginate(
+    interface AggregatePaginateModel<D> extends Model<D> {
+        aggregatePaginate<T>(
             query?: Aggregate<T[]>,
             options?: PaginateOptions,
             callback?: (err: any, result: AggregatePaginateResult<T>) => void,
@@ -76,7 +73,7 @@ declare module 'mongoose' {
     function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): AggregatePaginateModel<any>;
 }
 
-import mongoose = require('mongoose');
+import mongoose = require("mongoose");
 declare function mongooseAggregatePaginate(schema: mongoose.Schema): void;
 export = mongooseAggregatePaginate;
 declare namespace _ {

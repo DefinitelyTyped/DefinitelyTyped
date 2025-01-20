@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-html-to-pdf",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/christopherdro/react-native-html-to-pdf"
+    ],
+    "devDependencies": {
+        "@types/react-native-html-to-pdf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "euZebe",
+            "githubUsername": "euzebe"
+        }
+    ]
+}

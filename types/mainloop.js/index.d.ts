@@ -1,8 +1,3 @@
-// Type definitions for MainLoop.js v1.0.3
-// Project: https://github.com/IceCreamYou/MainLoop.js
-// Definitions by: Isaac Sukin <http://isaacsukin.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Interface for the MainLoop.js global.
  *

@@ -1,19 +1,20 @@
 import {
     after as importedAfter,
-    before as importedBefore,
     afterEach as importedAfterEach,
+    before as importedBefore,
     beforeEach as importedBeforeEach,
     describe as importedDescribe,
     it as importedIt,
+    xdescribe as importedXDescribe,
     xit as importedXit,
-} from 'mocha';
+} from "mocha";
 
-import LocalMocha = require('mocha');
+import LocalMocha = require("mocha");
 
 // Warning!!
 // Don't refer node.d.ts!!
 // See #22510.
-(): number => setTimeout(() => 0, 0);
+((): number => setTimeout(() => 0, 0));
 
 declare let number: number;
 declare let boolean: boolean;
@@ -22,17 +23,17 @@ declare let stringOrUndefined: string | undefined;
 declare let any: any;
 
 // Use module augmentation to add a third-party interface or reporter
-declare module 'mocha' {
+declare module "mocha" {
     interface InterfaceContributions {
-        'third-party-interface': never;
+        "third-party-interface": never;
     }
     interface ReporterContributions {
-        'third-party-reporter': never;
+        "third-party-reporter": never;
     }
 }
 
-const thirdPartyInterface: Mocha.Interface = 'third-party-interface';
-const thirdPartyReporter: Mocha.Reporter = 'third-party-reporter';
+const thirdPartyInterface: Mocha.Interface = "third-party-interface";
+const thirdPartyReporter: Mocha.Reporter = "third-party-reporter";
 
 // Lazy tests of compatibility between imported and global functions; should be identical
 const _after: typeof after = importedAfter;
@@ -45,6 +46,8 @@ const _beforeEach: typeof beforeEach = importedBeforeEach;
 const _beforeEach2: typeof importedBeforeEach = beforeEach;
 const _describe: typeof describe = importedDescribe;
 const _describe2: typeof importedDescribe = describe;
+const _xdescribe: typeof xdescribe = importedXDescribe;
+const _xdescribe2: typeof importedXDescribe = xdescribe;
 const _it: typeof it = importedIt;
 const _it2: typeof importedIt = it;
 const _xit: typeof xit = importedXit;
@@ -52,19 +55,19 @@ const _xit2: typeof importedXit = xit;
 
 function test_bdd_describe() {
     // $ExpectType Suite
-    describe('something', function() {
+    describe("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType Suite
-    describe.only('something', function() {
+    describe.only("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType void | Suite
-    describe.skip('something', function() {
+    describe.skip("something", function() {
         // $ExpectType Suite
         this;
     });
@@ -72,19 +75,19 @@ function test_bdd_describe() {
 
 function test_bdd_context() {
     // $ExpectType Suite
-    context('something', function() {
+    context("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType Suite
-    context.only('something', function() {
+    context.only("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType void | Suite
-    context.skip('something', function() {
+    context.skip("something", function() {
         // $ExpectType Suite
         this;
     });
@@ -92,7 +95,7 @@ function test_bdd_context() {
 
 function test_bdd_xdescribe() {
     // $ExpectType void | Suite
-    xdescribe('something', function() {
+    xdescribe("something", function() {
         // $ExpectType Suite
         this;
     });
@@ -100,7 +103,7 @@ function test_bdd_xdescribe() {
 
 function test_bdd_xcontext() {
     // $ExpectType void | Suite
-    xcontext('something', function() {
+    xcontext("something", function() {
         // $ExpectType Suite
         this;
     });
@@ -108,19 +111,19 @@ function test_bdd_xcontext() {
 
 function test_tdd_suite() {
     // $ExpectType Suite
-    suite('something', function() {
+    suite("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType Suite
-    suite.only('something', function() {
+    suite.only("something", function() {
         // $ExpectType Suite
         this;
     });
 
     // $ExpectType void | Suite
-    suite.skip('something', function() {
+    suite.skip("something", function() {
         // $ExpectType Suite
         this;
     });
@@ -128,10 +131,10 @@ function test_tdd_suite() {
 
 function test_qunit_suite() {
     // $ExpectType Suite
-    suite('some context');
+    suite("some context");
 
     // $ExpectType Suite
-    suite.only('some context');
+    suite.only("some context");
 }
 
 function test_bdd_it() {
@@ -151,7 +154,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it('does something', function(done) {
+    it("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -160,7 +163,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it('does something', async function() {
+    it("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -181,7 +184,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it.only('does something', function(done) {
+    it.only("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -190,7 +193,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it.only('does something', async function() {
+    it.only("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -211,7 +214,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it.skip('does something', function(done) {
+    it.skip("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -220,7 +223,7 @@ function test_bdd_it() {
     });
 
     // $ExpectType Test
-    it.skip('does something', async function() {
+    it.skip("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -246,7 +249,7 @@ function test_bdd_xit() {
     });
 
     // $ExpectType Test
-    xit('does something', function(done) {
+    xit("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -255,7 +258,7 @@ function test_bdd_xit() {
     });
 
     // $ExpectType Test
-    xit('does something', async function() {
+    xit("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -278,7 +281,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify('does something', function(done) {
+    specify("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -287,7 +290,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify('does something', async function() {
+    specify("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -308,7 +311,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify.only('does something', function(done) {
+    specify.only("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -317,7 +320,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify.only('does something', async function() {
+    specify.only("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -338,7 +341,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify.skip('does something', function(done) {
+    specify.skip("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -347,7 +350,7 @@ function test_bdd_specify() {
     });
 
     // $ExpectType Test
-    specify.skip('does something', async function() {
+    specify.skip("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -373,7 +376,7 @@ function test_bdd_xspecify() {
     });
 
     // $ExpectType Test
-    xspecify('does something', function(done) {
+    xspecify("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -382,7 +385,7 @@ function test_bdd_xspecify() {
     });
 
     // $ExpectType Test
-    xspecify('does something', async function() {
+    xspecify("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -405,7 +408,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test('does something', function(done) {
+    test("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -414,7 +417,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test('does something', async function() {
+    test("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -435,7 +438,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test.only('does something', function(done) {
+    test.only("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -444,7 +447,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test.only('does something', async function() {
+    test.only("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -465,7 +468,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test.skip('does something', function(done) {
+    test.skip("does something", function(done) {
         // $ExpectType Done
         done;
 
@@ -474,7 +477,7 @@ function test_tdd_qunit_test() {
     });
 
     // $ExpectType Test
-    test.skip('does something', async function() {
+    test.skip("does something", async function() {
         // $ExpectType Context
         this;
     });
@@ -496,14 +499,18 @@ function test_bdd_qunit_before() {
         this;
     });
 
-    before('description', function(done) {
+    before(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
+    before("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    before('description', async function() {
+    before("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -522,14 +529,14 @@ function test_tdd_setup() {
         this;
     });
 
-    setup('description', function(done) {
+    setup("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    setup('description', async function() {
+    setup("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -548,14 +555,18 @@ function test_bdd_qunit_after() {
         this;
     });
 
-    after('description', function(done) {
+    after(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
+    after("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    after('description', async function() {
+    after("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -574,14 +585,14 @@ function test_tdd_teardown() {
         this;
     });
 
-    teardown('description', function(done) {
+    teardown("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    teardown('description', async function() {
+    teardown("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -600,14 +611,18 @@ function test_bdd_qunit_beforeEach() {
         this;
     });
 
-    beforeEach('description', function(done) {
+    beforeEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
+    beforeEach("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    beforeEach('description', async function() {
+    beforeEach("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -626,14 +641,14 @@ function test_tdd_suiteSetup() {
         this;
     });
 
-    suiteSetup('description', function(done) {
+    suiteSetup("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    suiteSetup('description', async function() {
+    suiteSetup("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -652,14 +667,18 @@ function test_bdd_qunit_afterEach() {
         this;
     });
 
-    afterEach('description', function(done) {
+    afterEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
+    afterEach("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    afterEach('description', async function() {
+    afterEach("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -678,14 +697,14 @@ function test_tdd_suiteTeardown() {
         this;
     });
 
-    suiteTeardown('description', function(done) {
+    suiteTeardown("description", function(done) {
         // $ExpectType Done
         done;
         // $ExpectType Context
         this;
     });
 
-    suiteTeardown('description', async function() {
+    suiteTeardown("description", async function() {
         // $ExpectType Context
         this;
     });
@@ -739,16 +758,16 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
 
 function test_reporter_string(localMocha: LocalMocha) {
     // $ExpectType BrowserMocha
-    mocha.reporter('html');
+    mocha.reporter("html");
 
-    const m: Mocha = localMocha.reporter('html');
+    const m: Mocha = localMocha.reporter("html");
 }
 
 function test_reporter_function(localMocha: LocalMocha) {
     // $ExpectType BrowserMocha
-    mocha.reporter(class extends LocalMocha.reporters.Base { });
+    mocha.reporter(class extends LocalMocha.reporters.Base {});
 
-    const m: Mocha = localMocha.reporter(class extends LocalMocha.reporters.Base { });
+    const m: Mocha = localMocha.reporter(class extends LocalMocha.reporters.Base {});
 }
 
 function test_browser_mocha_setup_slow_option() {
@@ -763,22 +782,22 @@ function test_browser_mocha_setup_timeout_option() {
 
 function test_browser_mocha_setup_globals_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ globals: ['mocha'] });
+    mocha.setup({ globals: ["mocha"] });
 }
 
 function test_browser_mocha_setup_ui_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ ui: 'bdd' });
+    mocha.setup({ ui: "bdd" });
 }
 
 function test_browser_mocha_setup_reporter_string_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ reporter: 'html' });
+    mocha.setup({ reporter: "html" });
 }
 
 function test_browser_mocha_setup_reporter_function_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ reporter: class extends LocalMocha.reporters.Base { } });
+    mocha.setup({ reporter: class extends LocalMocha.reporters.Base {} });
 }
 
 function test_browser_mocha_setup_bail_option() {
@@ -793,7 +812,7 @@ function test_browser_mocha_setup_grep_string_option() {
 
 function test_browser_mocha_setup_grep_regex_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ grep: new RegExp('describe') });
+    mocha.setup({ grep: new RegExp("describe") });
 }
 
 function test_browser_mocha_setup_grep_regex_literal_option() {
@@ -811,12 +830,12 @@ function test_browser_mocha_setup_all_options() {
     mocha.setup({
         slow: 25,
         timeout: 25,
-        ui: 'bdd',
-        globals: ['mocha'],
-        reporter: 'html',
+        ui: "bdd",
+        globals: ["mocha"],
+        reporter: "html",
         bail: true,
-        grep: 'test',
-        checkLeaks: true
+        grep: "test",
+        checkLeaks: true,
     });
 }
 
@@ -850,23 +869,23 @@ function test_constructor_timeout_option() {
 }
 
 function test_constructor_timeout_option_string() {
-    const m: Mocha = new LocalMocha({ timeout: '1s' });
+    const m: Mocha = new LocalMocha({ timeout: "1s" });
 }
 
 function test_constructor_globals_option() {
-    const m: Mocha = new LocalMocha({ globals: ['mocha'] });
+    const m: Mocha = new LocalMocha({ globals: ["mocha"] });
 }
 
 function test_constructor_ui_option() {
-    const m: Mocha = new LocalMocha({ ui: 'bdd' });
+    const m: Mocha = new LocalMocha({ ui: "bdd" });
 }
 
 function test_constructor_reporter_string_option() {
-    const m: Mocha = new LocalMocha({ reporter: 'html' });
+    const m: Mocha = new LocalMocha({ reporter: "html" });
 }
 
 function test_constructor_reporter_function_option() {
-    const m: Mocha = new LocalMocha({ reporter: class extends LocalMocha.reporters.Base { } });
+    const m: Mocha = new LocalMocha({ reporter: class extends LocalMocha.reporters.Base {} });
 }
 
 function test_constructor_bail_option() {
@@ -878,7 +897,7 @@ function test_constructor_grep_string_option() {
 }
 
 function test_constructor_grep_regex_option() {
-    const m: Mocha = new LocalMocha({ grep: new RegExp('describe') });
+    const m: Mocha = new LocalMocha({ grep: new RegExp("describe") });
 }
 
 function test_constructor_grep_regex_literal_option() {
@@ -918,33 +937,40 @@ function test_constructor_all_options() {
         delay: true,
         diff: true,
         dryRun: true,
-        fgrep: 'test',
+        failZero: true,
+        fgrep: "test",
         forbidOnly: true,
         forbidPending: true,
         fullTrace: true,
-        globals: [ 'window' ],
+        globals: ["window"],
         grep: /.*/u,
         growl: true,
         inlineDiffs: true,
         invert: false,
         noHighlighting: false,
-        reporter: 'Reporter',
+        reporter: "Reporter",
         reporterOptions: {},
         retries: 3,
         slow: 2000,
         timeout: 10000,
-        ui: 'tdd',
+        ui: "tdd",
         parallel: true,
         jobs: 4,
         rootHooks: {
             afterAll: () => {},
             beforeAll: async () => {},
             afterEach: [() => {}],
-            beforeEach: [async () => {}]
+            beforeEach: [async () => {}],
         },
-        require: [ './rootHooks.js' ],
-        isWorker: true
+        require: ["./rootHooks.js"],
+        isWorker: true,
     });
+}
+
+function test_instance_methods() {
+    let m: Mocha = new LocalMocha();
+
+    m = m.failZero(true);
 }
 
 function test_run(localMocha: LocalMocha) {
@@ -990,8 +1016,8 @@ function test_dispose(localMocha: LocalMocha) {
 function test_chaining() {
     new LocalMocha({ slow: 25 })
         .growl()
-        .reporter('html')
-        .reporter(class extends LocalMocha.reporters.Base { });
+        .reporter("html")
+        .reporter(class extends LocalMocha.reporters.Base {});
 }
 
 function test_require_constructor_empty() {
@@ -1005,10 +1031,10 @@ function test_require_constructor_noOptions() {
 function test_require_constructor_allOptions() {
     const instance = new LocalMocha({
         grep: /[a-z]*/,
-        ui: 'tdd',
-        reporter: 'dot',
+        ui: "tdd",
+        reporter: "dot",
         timeout: 500,
-        bail: true
+        bail: true,
     });
 }
 
@@ -1017,16 +1043,17 @@ function test_require_fluentParams() {
 
     instance.bail(true)
         .bail()
-        .addFile('foo.js')
-        .reporter('dot')
-        .ui('bdd')
-        .grep('[a-z]*')
+        .cleanReferencesAfterRun(true)
+        .addFile("foo.js")
+        .reporter("dot")
+        .ui("bdd")
+        .grep("[a-z]*")
         .grep(/[a-z]*/)
         .invert()
         .checkLeaks()
         .growl()
-        .globals('foo')
-        .globals(['bar', 'zap'])
+        .globals("foo")
+        .globals(["bar", "zap"])
         .timeout(500)
         .slow(100)
         .asyncOnly()
@@ -1052,7 +1079,7 @@ function test_runner_constructor(suite: LocalMocha.Suite) {
     runner = new LocalMocha.Runner(suite, {
         delay: true,
         dryRun: true,
-        cleanReferencesAfterRun: true
+        cleanReferencesAfterRun: true,
     });
 }
 
@@ -1118,6 +1145,9 @@ function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
 
     // $ExpectType number | undefined
     reporter.stats.duration;
+
+    // $ExpectType (...data: any[]) => void
+    LocalMocha.reporters.Base.consoleLog;
 }
 
 function test_runner_events(runner: LocalMocha.Runner) {
@@ -1306,10 +1336,10 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
-    suite.on("run", () => { });
+    suite.on("run", () => {});
 
     // $ExpectType Suite
-    suite.on(LocalMocha.Suite.constants.EVENT_ROOT_SUITE_RUN, () => { });
+    suite.on(LocalMocha.Suite.constants.EVENT_ROOT_SUITE_RUN, () => {});
 
     // $ExpectType Suite
     suite.on("pre-require", (context, file, mocha) => {
@@ -1366,8 +1396,13 @@ function test_suite_events(suite: LocalMocha.Suite) {
 
 import common = require("mocha/lib/interfaces/common");
 
-function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGlobals, localMocha: Mocha,
-    fn: Mocha.Func | Mocha.AsyncFunc, test: Mocha.Test) {
+function test_interfaces_common(
+    suites: Mocha.Suite[],
+    context: Mocha.MochaGlobals,
+    localMocha: Mocha,
+    fn: Mocha.Func | Mocha.AsyncFunc,
+    test: Mocha.Test,
+) {
     const funcs = common(suites, context, localMocha);
     // $ExpectType CommonFunctions
     funcs;
@@ -1422,12 +1457,15 @@ function test_stats_collector(runner: LocalMocha.Runner) {
 // the mocha functions and enables them to work as test class decorators.
 declare module "mocha" {
     interface SuiteFunction {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface PendingSuiteFunction {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface ExclusiveSuiteFunction {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface TestFunction {
@@ -1443,9 +1481,12 @@ declare module "mocha" {
 
 @suite
 class TestClass1 {
-    @test method1() {}
-    @test.only method2() {}
-    @test.skip method3() {}
+    @test
+    method1() {}
+    @test.only
+    method2() {}
+    @test.skip
+    method3() {}
 }
 
 @suite.skip
@@ -1456,3 +1497,9 @@ class TestClass2 {
 class TestClass3 {
 }
 // end of augmentations used by mocha-typescript
+
+function test_runnable_state(runnable: LocalMocha.Runnable) {
+    runnable.state = "pending";
+    runnable.state = "failed";
+    runnable.state = "passed";
+}

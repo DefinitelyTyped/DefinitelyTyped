@@ -1,23 +1,15 @@
-// Type definitions for WebTorrent 0.109
-// Project: https://github.com/feross/webtorrent, https://webtorrent.io
-// Definitions by: Bazyli Brzóska <https://github.com/niieani>
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 Gabriel Juchault <https://github.com/gjuchault>
-//                 Adam Crowder <https://github.com/cheeseandcereal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Instance as ParseTorrent } from 'parse-torrent';
-import { Instance as SimplePeer } from 'simple-peer';
-import { RequestOptions, Server } from 'http';
-import { Wire } from 'bittorrent-protocol';
+import { Wire } from "bittorrent-protocol";
+import { RequestOptions, Server } from "http";
+import { Instance as ParseTorrent } from "parse-torrent";
+import { Instance as SimplePeer } from "simple-peer";
 
 declare const WebTorrent: WebTorrent.WebTorrent;
 
 declare namespace WebTorrent {
     interface WebTorrent {
-        new (config?: Options): Instance;
+        new(config?: Options): Instance;
         (config?: Options): Instance;
         WEBRTC_SUPPORT: boolean;
     }
@@ -27,23 +19,64 @@ declare namespace WebTorrent {
         peerId?: string | Buffer | undefined;
         tracker?: boolean | {} | undefined;
         dht?: boolean | {} | undefined;
+        lsd?: boolean | undefined;
         webSeeds?: boolean | undefined;
         utp?: boolean | undefined;
+        blocklist?: (string | Array<string | { start: string; end: string }>) | undefined;
+        downloadLimit?: number | undefined;
+        uploadLimit?: number | undefined;
+    }
+
+    interface ServerAddress {
+        port: number;
+        family: string;
+        address: string;
+    }
+
+    interface BrowserServerOptions {
+        controller: ServiceWorkerRegistration;
+    }
+
+    interface NodeServerOptions {
+        origin?: string;
+        pathname?: string;
+        hostname?: string;
+    }
+
+    interface ServerBase {
+        client: Instance;
+        pathname: string;
+        address(): ServerAddress;
+        close(cb?: () => void): void;
+        destroy(cb?: () => void): void;
+    }
+
+    interface NodeServer extends ServerBase {
+        opts: NodeServerOptions;
+    }
+
+    interface BrowserServer extends ServerBase {
+        opts: BrowserServerOptions;
+        registration: ServiceWorkerRegistration;
+        workerKeepAliveInterval: typeof setInterval | null;
+        workerPortCount: number;
     }
 
     interface TorrentOptions {
         announce?: string[] | undefined;
+        announceList?: string[][] | undefined;
         getAnnounceOpts?(): void;
         urlList?: string[] | undefined;
         maxWebConns?: number | undefined;
         path?: string | undefined;
-        store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
+        store?(chunkLength: number, storeOpts: { length: number; files: File[]; torrent: Torrent }): any;
         private?: boolean | undefined;
         destroyStoreOnDestroy?: boolean | undefined;
         storeCacheSlots?: number | undefined;
         skipVerify?: boolean | undefined;
         preloadedStore?(): void;
         strategy?: string | undefined;
+        createdBy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
@@ -51,22 +84,64 @@ declare namespace WebTorrent {
     }
 
     interface Instance extends NodeJS.EventEmitter {
-        on(event: 'torrent', callback: (torrent: Torrent) => void): this;
-        on(event: 'error', callback: (err: Error | string) => void): this;
+        on(event: "torrent", callback: (torrent: Torrent) => void): this;
+        on(event: "error", callback: (err: Error | string) => void): this;
 
-        add(torrent: string | Buffer | File | ParseTorrent, opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
+        add(
+            torrent: string | Buffer | File | ParseTorrent,
+            opts?: TorrentOptions,
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
         add(torrent: string | Buffer | File | ParseTorrent, cb?: (torrent: Torrent) => any): Torrent;
 
-        seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
-        seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
+        seed(
+            input:
+                | string
+                | string[]
+                | File
+                | File[]
+                | FileList
+                | Buffer
+                | Buffer[]
+                | NodeJS.ReadableStream
+                | NodeJS.ReadableStream[],
+            opts?: TorrentOptions,
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
+        seed(
+            input:
+                | string
+                | string[]
+                | File
+                | File[]
+                | FileList
+                | Buffer
+                | Buffer[]
+                | NodeJS.ReadableStream
+                | NodeJS.ReadableStream[],
+            cb?: (torrent: Torrent) => any,
+        ): Torrent;
 
-        remove(torrentId: Torrent | string | Buffer, opts?: TorrentDestroyOptions, callback?: (err: Error | string) => void): void;
+        remove(
+            torrentId: Torrent | string | Buffer,
+            opts?: TorrentDestroyOptions,
+            callback?: (err: Error | string) => void,
+        ): void;
 
         destroy(callback?: (err: Error | string) => void): void;
+        createServer(
+            opts?: BrowserServerOptions | NodeServerOptions,
+            force?: "browser" | "node",
+        ): NodeServer | BrowserServer;
 
         readonly torrents: Torrent[];
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(torrentId: Torrent | string | Buffer): Torrent | void;
+
+        throttleDownload(rate: number): boolean | undefined;
+
+        throttleUpload(rate: number): boolean | undefined;
 
         readonly downloadSpeed: number;
 
@@ -89,6 +164,8 @@ declare namespace WebTorrent {
         readonly files: TorrentFile[];
 
         readonly announce: string[];
+
+        readonly ["announce-list"]: string[][];
 
         readonly pieces: Array<TorrentPiece | null>;
 
@@ -152,15 +229,15 @@ declare namespace WebTorrent {
 
         resume(): void;
 
-        on(event: 'infoHash' | 'metadata' | 'ready' | 'done', callback: () => void): this;
+        on(event: "infoHash" | "metadata" | "ready" | "done", callback: () => void): this;
 
-        on(event: 'warning' | 'error', callback: (err: Error | string) => void): this;
+        on(event: "warning" | "error", callback: (err: Error | string) => void): this;
 
-        on(event: 'download' | 'upload', callback: (bytes: number) => void): this;
+        on(event: "download" | "upload", callback: (bytes: number) => void): this;
 
-        on(event: 'wire', callback: (wire: Wire, addr?: string) => void): this;
+        on(event: "wire", callback: (wire: Wire, addr?: string) => void): this;
 
-        on(event: 'noPeers', callback: (announceType: 'tracker' | 'dht') => void): this;
+        on(event: "noPeers", callback: (announceType: "tracker" | "dht") => void): this;
     }
 
     interface TorrentFile extends NodeJS.EventEmitter {
@@ -174,25 +251,43 @@ declare namespace WebTorrent {
 
         readonly progress: number;
 
+        get streamURL(): string;
+
         select(): void;
 
         deselect(): void;
 
-        createReadStream(opts?: { start: number, end: number, }): NodeJS.ReadableStream;
+        createReadStream(opts?: { start: number; end: number }): NodeJS.ReadableStream;
 
         getBuffer(callback: (err: string | Error | undefined, buffer?: Buffer) => void): void;
 
         appendTo(
             rootElement: HTMLElement | string,
-            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
-            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
-        appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+            opts?: {
+                autoplay?: boolean | undefined;
+                controls?: boolean | undefined;
+                maxBlobLength?: number | undefined;
+            },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
+        appendTo(
+            rootElement: HTMLElement | string,
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
 
         renderTo(
             rootElement: HTMLMediaElement | string,
-            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
-            callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
-        renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
+            opts?: {
+                autoplay?: boolean | undefined;
+                controls?: boolean | undefined;
+                maxBlobLength?: number | undefined;
+            },
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
+        renderTo(
+            rootElement: HTMLMediaElement | string,
+            callback?: (err: Error | undefined, element: HTMLMediaElement) => void,
+        ): void;
 
         getBlob(callback: (err: string | Error | undefined, blob?: Blob) => void): void;
 

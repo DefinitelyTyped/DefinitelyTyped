@@ -1,14 +1,14 @@
-import * as ZarinpalCheckout from 'zarinpal-checkout';
+import * as ZarinpalCheckout from "zarinpal-checkout";
 
-const zarinpal = ZarinpalCheckout.create('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', false);
+const zarinpal = ZarinpalCheckout.create("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", false);
 
 zarinpal
     .PaymentRequest({
         Amount: 1000,
-        CallbackURL: 'https://your-safe-api/example/zarinpal/validate',
-        Description: 'A Payment from Node.JS',
-        Email: 'hi@omiid.ir',
-        Mobile: '09120000000',
+        CallbackURL: "https://your-safe-api/example/zarinpal/validate",
+        Description: "A Payment from Node.JS",
+        Email: "hi@omiid.ir",
+        Mobile: "09120000000",
     })
     .then(response => {
         if (response.status === 100) {
@@ -22,13 +22,13 @@ zarinpal
 zarinpal
     .PaymentVerification({
         Amount: 1000,
-        Authority: '000000000000000000000000000000000000',
+        Authority: "000000000000000000000000000000000000",
     })
     .then(response => {
         if (response.status === -21) {
-            console.log('Empty!');
+            console.log("Empty!");
         } else {
-            console.log(`Verified! Ref ID: ${response.RefID}`);
+            console.log(`Verified! Ref ID: ${response.refId}`);
         }
     })
     .catch(err => {
@@ -48,7 +48,7 @@ zarinpal
 
 zarinpal
     .RefreshAuthority({
-        Authority: '000000000000000000000000000000000000',
+        Authority: "000000000000000000000000000000000000",
         Expire: 1800,
     })
     .then(response => {

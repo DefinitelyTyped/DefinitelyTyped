@@ -1,9 +1,6 @@
-// Type definitions for gettext-parser 4.0
-// Project: https://github.com/smhg/gettext-parser
-// Definitions by: Lorent Lempereur <https://github.com/looorent>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+
+import { Transform } from "readable-stream";
 
 export interface GetTextComment {
     translator: string;
@@ -30,7 +27,7 @@ export interface GetTextTranslations {
 export interface PoParser {
     parse: (buffer: Buffer | string, defaultCharset?: string) => GetTextTranslations;
     compile: (table: GetTextTranslations, options?: any) => Buffer;
-    createParseStream: (buffer: any, defaultCharset?: string) => any;
+    createParseStream: (buffer: any, defaultCharset?: string) => Transform;
 }
 
 export interface MoParser {
@@ -38,5 +35,5 @@ export interface MoParser {
     compile: (table: GetTextTranslations, options?: any) => Buffer;
 }
 
-export const po: MoParser;
+export const po: PoParser;
 export const mo: MoParser;

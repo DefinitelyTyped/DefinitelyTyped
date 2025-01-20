@@ -1,5 +1,5 @@
-import * as Pool from 'pg-pool';
-import * as pg from 'pg';
+import * as pg from "pg";
+import * as Pool from "pg-pool";
 
 class CustomClient extends pg.Client {
     sayHi(): string {
@@ -17,9 +17,9 @@ const pool = new Pool({
 // and the node-pool (https://github.com/coopernurse/node-pool) constructor
 // allowing you to fully configure the behavior of both
 const pool2 = new Pool({
-    database: 'postgres',
-    user: 'brianc',
-    password: 'secret!',
+    database: "postgres",
+    user: "brianc",
+    password: "secret!",
     port: 5432,
     ssl: true,
     max: 20, // set pool max size to 20
@@ -34,23 +34,23 @@ new pool4.Client().sayHi();
 
 pool.connect().then(client => {
     client.sayHi();
-    client.query('select $1::text as name', ['pg-pool']).then(res => {
+    client.query("select $1::text as name", ["pg-pool"]).then(res => {
         client.release();
-        console.log('hello from', res.rows[0].name);
+        console.log("hello from", res.rows[0].name);
     })
         .catch(e => {
             client.release();
-            console.error('query error', e.message, e.stack);
+            console.error("query error", e.message, e.stack);
         });
 });
 
 async function helperTest() {
-    const time = await pool.query('SELECT NOW()');
-    const name = await pool.query('select $1::text as name', ['brianc']);
-    console.log(name.rows[0].name, 'says hello at', time.rows[0].name);
+    const time = await pool.query("SELECT NOW()");
+    const name = await pool.query("select $1::text as name", ["brianc"]);
+    console.log(name.rows[0].name, "says hello at", time.rows[0].name);
 }
 
-pool.query('SELECT $1::text as name', ['brianc'], (err, res) => {
+pool.query("SELECT $1::text as name", ["brianc"], (err, res) => {
     console.log(res.rows[0].name); // brianc
 });
 

@@ -1,14 +1,8 @@
-// Type definitions for @frctl/fractal 1.x
-// Project: https://github.com/frctl/fractal
-// Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { EventEmitter } from 'events';
-import { Stats as FileStats } from 'fs';
-import { Server as HttpServer } from 'http';
-import { Readable as ReadableStream } from 'stream';
-import * as VinylFile from 'vinyl';
+import { EventEmitter } from "events";
+import { Stats as FileStats } from "fs";
+import { Server as HttpServer } from "http";
+import { Readable as ReadableStream } from "stream";
+import * as VinylFile from "vinyl";
 
 export namespace fractal {
     namespace core {
@@ -33,11 +27,16 @@ export namespace fractal {
             interface EntitySource<T extends Entity, TConfig = any> extends mixins.Source<T, TConfig> {
                 entities(): T[];
 
-                engine<TEngine = any>(adapterFactory?: string | {
-                    register(source: EntitySource<T>, app: any): Adapter<TEngine>;
-                } | (() => ({
-                    register(source: EntitySource<T>, app: any): Adapter<TEngine>;
-                }))): Adapter<TEngine>;
+                engine<TEngine = any>(
+                    adapterFactory?:
+                        | string
+                        | {
+                            register(source: EntitySource<T>, app: any): Adapter<TEngine>;
+                        }
+                        | (() => {
+                            register(source: EntitySource<T>, app: any): Adapter<TEngine>;
+                        }),
+                ): Adapter<TEngine>;
 
                 getProp(key: string): string | {};
                 statusInfo(handle: string): StatusInfo | null;
@@ -59,8 +58,8 @@ export namespace fractal {
             /**
              * Combined EventEmitter and Configurable mixins
              */
-            abstract class ConfigurableEmitter<T = any> extends EventEmitter { }
-            interface ConfigurableEmitter<T = any> extends Configurable<T> { }
+            abstract class ConfigurableEmitter<T = any> extends EventEmitter {}
+            interface ConfigurableEmitter<T = any> extends Configurable<T> {}
             interface Collection<T = any> {
                 readonly isAsset: undefined;
                 readonly isComponent: undefined;
@@ -173,7 +172,12 @@ export namespace fractal {
 
         namespace components {
             class Component extends core.entities.Entity {
-                constructor(config: {}, files: files.FileCollection, resources: assets.AssetCollection, parent: core.entities.Entity);
+                constructor(
+                    config: {},
+                    files: files.FileCollection,
+                    resources: assets.AssetCollection,
+                    parent: core.entities.Entity,
+                );
                 readonly isAsset: undefined;
                 readonly isComponent: true;
                 readonly isCollection: undefined;
@@ -204,13 +208,18 @@ export namespace fractal {
                 flatten(): variants.VariantCollection;
                 component(): this;
                 variants(): variants.VariantCollection;
-                static create(config: {}, files: files.FileCollection, resources: assets.AssetCollection, parent: core.entities.Entity): IterableIterator<{} | variants.VariantCollection | Component>;
+                static create(
+                    config: {},
+                    files: files.FileCollection,
+                    resources: assets.AssetCollection,
+                    parent: core.entities.Entity,
+                ): IterableIterator<{} | variants.VariantCollection | Component>;
             }
             interface ComponentCollection extends core.entities.EntityCollection<Component> {
                 components(): this;
                 variants(): this;
             }
-            type Collator = (markup: string, item: { handle: string; }) => string;
+            type Collator = (markup: string, item: { handle: string }) => string;
             interface ComponentDefaultConfig {
                 collated?: boolean | undefined;
                 collator?: Collator | undefined;
@@ -230,18 +239,18 @@ export namespace fractal {
                 } | undefined;
                 title?: string | undefined;
                 yield?: string | undefined;
-                'default.collated'?: boolean | undefined;
-                'default.collator'?: Collator | undefined;
-                'default.context'?: any;
-                'default.display'?: any;
-                'default.prefix'?: string | undefined;
-                'default.preview'?: string | undefined;
-                'default.status'?: string | undefined;
+                "default.collated"?: boolean | undefined;
+                "default.collator"?: Collator | undefined;
+                "default.context"?: any;
+                "default.display"?: any;
+                "default.prefix"?: string | undefined;
+                "default.preview"?: string | undefined;
+                "default.status"?: string | undefined;
             }
             interface ComponentSource extends core.entities.EntitySource<Component, ComponentConfig> {
                 resources(): files.FileCollection;
                 components(): Component[];
-                getReferencesOf(target: { id: string; handle: string; alias: string; }): any[];
+                getReferencesOf(target: { id: string; handle: string; alias: string }): any[];
                 variants(): this;
                 find(): any;
                 findFile(filePath: string): files.File | undefined;
@@ -295,16 +304,16 @@ export namespace fractal {
                     [status: string]: core.StatusInfo;
                 } | undefined;
                 title?: string | undefined;
-                'default.context'?: any;
-                'default.prefix'?: string | undefined;
-                'default.status'?: string | undefined;
-                'markdown.gfm'?: boolean | undefined;
-                'markdown.tables'?: boolean | undefined;
-                'markdown.breaks'?: boolean | undefined;
-                'markdown.pedantic'?: boolean | undefined;
-                'markdown.sanitize'?: boolean | undefined;
-                'markdown.smartLists'?: boolean | undefined;
-                'markdown.smartypants'?: boolean | undefined;
+                "default.context"?: any;
+                "default.prefix"?: string | undefined;
+                "default.status"?: string | undefined;
+                "markdown.gfm"?: boolean | undefined;
+                "markdown.tables"?: boolean | undefined;
+                "markdown.breaks"?: boolean | undefined;
+                "markdown.pedantic"?: boolean | undefined;
+                "markdown.sanitize"?: boolean | undefined;
+                "markdown.smartLists"?: boolean | undefined;
+                "markdown.smartypants"?: boolean | undefined;
             }
             interface DocSource extends core.entities.EntitySource<Doc, DocConfig> {
                 pages(): this;
@@ -393,7 +402,12 @@ export namespace fractal {
                 resourcesJSON(): {};
                 getContent(): Promise<string>;
                 getContentSync(): string;
-                static create(config: {}, view: any, resources: assets.AssetCollection, parent: components.Component): Variant;
+                static create(
+                    config: {},
+                    view: any,
+                    resources: assets.AssetCollection,
+                    parent: components.Component,
+                ): Variant;
             }
             interface VariantCollection extends core.entities.EntityCollection<Variant> {
                 default(): Variant;
@@ -415,10 +429,12 @@ export namespace fractal {
             isInteractive(): boolean;
             command(
                 commandString: string,
-                callback: (this: Cli & { fractal: Fractal }, args: any, done: () => void) => void, opts?: string | {
+                callback: (this: Cli & { fractal: Fractal }, args: any, done: () => void) => void,
+                opts?: string | {
                     description?: string | undefined;
                     options?: string[][] | undefined;
-                }): void;
+                },
+            ): void;
             exec(command: string): void;
             log(message: string): void;
             error(message: string): void;
@@ -462,8 +478,8 @@ export namespace fractal {
             /**
              * @deprecated Use start() instead.
              */
-            build(): Promise<{ errorCount: number; }>;
-            start(): Promise<{ errorCount: number; }>;
+            build(): Promise<{ errorCount: number }>;
+            start(): Promise<{ errorCount: number }>;
             stop(): void;
             use(): void;
         }
@@ -517,22 +533,22 @@ export namespace fractal {
             builder?: WebBuilderConfig | undefined;
             server?: WebServerConfig | undefined;
             static?: WebStaticConfig | undefined;
-            'builder.concurrency'?: number | undefined;
-            'builder.dest'?: string | undefined;
-            'builder.ext'?: string | undefined;
-            'builder.urls'?: WebBuilderUrls | undefined;
-            'builder.urls.ext'?: string | undefined;
-            'builder.theme'?: WebTheme | string | undefined;
-            'server.sync'?: boolean | undefined;
-            'server.syncOptions'?: WebServerSyncOptions | undefined;
-            'server.syncOptions.open'?: boolean | undefined;
-            'server.syncOptions.browser'?: string[] | undefined;
-            'server.syncOptions.notify'?: boolean | undefined;
-            'server.port'?: number | undefined;
-            'server.watch'?: boolean | undefined;
-            'server.theme'?: WebTheme | string | undefined;
-            'static.path'?: string | undefined;
-            'static.mount'?: string | undefined;
+            "builder.concurrency"?: number | undefined;
+            "builder.dest"?: string | undefined;
+            "builder.ext"?: string | undefined;
+            "builder.urls"?: WebBuilderUrls | undefined;
+            "builder.urls.ext"?: string | undefined;
+            "builder.theme"?: WebTheme | string | undefined;
+            "server.sync"?: boolean | undefined;
+            "server.syncOptions"?: WebServerSyncOptions | undefined;
+            "server.syncOptions.open"?: boolean | undefined;
+            "server.syncOptions.browser"?: string[] | undefined;
+            "server.syncOptions.notify"?: boolean | undefined;
+            "server.port"?: number | undefined;
+            "server.watch"?: boolean | undefined;
+            "server.theme"?: WebTheme | string | undefined;
+            "static.path"?: string | undefined;
+            "static.mount"?: string | undefined;
         }
         class Web extends core.mixins.ConfigurableEmitter<WebConfig> {
             server(config?: WebServerConfig): Server;
@@ -554,9 +570,9 @@ export interface FractalConfig {
         version?: string | undefined;
         author?: string | undefined;
     } | undefined;
-    'project.title'?: string | undefined;
-    'project.version'?: string | undefined;
-    'project.author'?: string | undefined;
+    "project.title"?: string | undefined;
+    "project.version"?: string | undefined;
+    "project.author"?: string | undefined;
 }
 
 export function create(config?: FractalConfig): Fractal;
@@ -587,8 +603,8 @@ export interface CliThemeConfig {
     styles?: {
         [key: string]: any;
     } | undefined;
-    'delimiter.text'?: string | undefined;
-    'delimiter.format'?: ((str: string) => string) | undefined;
+    "delimiter.text"?: string | undefined;
+    "delimiter.format"?: ((str: string) => string) | undefined;
 }
 export class CliTheme extends fractal.core.mixins.ConfigurableEmitter<CliThemeConfig> {
     constructor(config?: CliThemeConfig);
@@ -613,7 +629,7 @@ export interface WebThemeOptions {
     version?: string | undefined;
     favicon?: string | undefined;
     nav?: string[] | undefined;
-    'static.mount': string;
+    "static.mount": string;
 }
 export class WebTheme extends fractal.core.mixins.ConfigurableEmitter<WebThemeOptions> {
     constructor(viewPaths: string[], options?: WebThemeOptions);
@@ -628,7 +644,7 @@ export class WebTheme extends fractal.core.mixins.ConfigurableEmitter<WebThemeOp
     setRedirectView(view: string): void;
     redirectView(): string;
     addStatic(path: string, mount: string): void;
-    static(): Array<{ path: string; mount: string; }>;
+    static(): Array<{ path: string; mount: string }>;
     addRoute(path: string, opts: {
         handle?: string | undefined;
     }, resolver?: any): this;
@@ -666,10 +682,10 @@ export abstract class Adapter<TEngine> extends EventEmitter {
 
 export namespace utils {
     function lang(filePath: string): {
-        name: string,
-        mode: string,
-        scope: string | null,
-        color: string | null,
+        name: string;
+        mode: string;
+        scope: string | null;
+        color: string | null;
     };
     function titlize(str: string): string;
     function slugify(str: string): string;

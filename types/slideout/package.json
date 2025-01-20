@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slideout",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mango/slideout"
+    ],
+    "devDependencies": {
+        "@types/slideout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Peloso",
+            "githubUsername": "ToastHawaii"
+        }
+    ]
+}

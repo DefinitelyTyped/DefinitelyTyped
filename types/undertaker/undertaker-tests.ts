@@ -30,11 +30,15 @@ task4.flags = {
     "--foo": "bar",
 };
 taker.task(task4);
+
+// $ExpectType TaskFunctionWrapped | undefined
+const wrappedTask4 = taker.task("task4");
+
 const {
     displayName,
     description,
     flags,
-} = taker.task("task4").unwrap();
+} = wrappedTask4!.unwrap();
 
 taker.task("task5", () => {
     const emitter = new EventEmitter();
@@ -82,10 +86,13 @@ const CommonRegistry = (options: { buildDir: string }): Registry => {
 
 const taker2 = new Undertaker(CommonRegistry({ buildDir: "/dist" }));
 
-taker2.task("build", taker2.series("clean", (cb: () => void) => {
-    // do things
-    cb();
-}));
+taker2.task(
+    "build",
+    taker2.series("clean", (cb: () => void) => {
+        // do things
+        cb();
+    }),
+);
 
 taker2.addListener("event", () => {
     // Checking for extended EventEmitter

@@ -79,7 +79,8 @@ declare module "../index" {
          * func({ 'a': '1', 'b': '2' });
          * // => 'no match'
          */
-        cond<T, R>(pairs: Array<CondPair<T, R>>): (Target: T) => R;
+        cond<R>(pairs: Array<CondPairNullary<R>>): () => R;
+        cond<T, R>(pairs: Array<CondPairUnary<T, R>>): (Target: T) => R;
     }
 
     type ConformsPredicateObject<T> = {
@@ -424,7 +425,7 @@ declare module "../index" {
         /**
          * @see _.iteratee
          */
-        iteratee(func: string | object): (...args: any[]) => any;
+        iteratee(func: symbol | number | string | object): (...args: any[]) => any;
     }
     interface Function<T extends (...args: any) => any> {
         /**

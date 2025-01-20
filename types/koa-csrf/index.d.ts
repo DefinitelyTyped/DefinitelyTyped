@@ -1,41 +1,33 @@
-// Type definitions for koa-csrf 3.0
-// Project: https://github.com/koajs/csrf
-// Definitions by: Haskaalo <https://github.com/haskaalo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
-import * as koaCsrf from 'koa-csrf';
+import * as CSRF from "koa-csrf";
 import * as Koa from "koa";
 const app = new Koa();
 
-app.use(new koaCsrf({
-    invalidSessionSecretMessage: 'Invalid session secret',
-    invalidSessionSecretStatusCode: 403,
-    invalidTokenMessage: 'Invalid CSRF token',
-    invalidTokenStatusCode: 403,
-    excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
-    disableQuery: false
+app.use(new CSRF({
+    errorHandler(ctx) {
+        return ctx.throw(403, 'Invalid CSRF token');
+    },
+    excludedMethods: ['GET', 'HEAD', 'OPTIONS'],
+    disableQuery: false,
+    ignoredPathGlobs: []
 }));
  =============================================== */
 
-export = koaCsrf;
+export = CSRF;
 
-import { Middleware } from 'koa';
+import { Context, Middleware } from "koa";
 
 declare module "koa" {
-    interface Context {
-        csrf: string;
+    interface DefaultState {
+        _csrf: string;
     }
 }
 
-declare const koaCsrf: {
-    new (opts?: {
-        invalidSessionSecretMessage?: string | undefined;
-        invalidSessionSecretStatusCode?: number | undefined;
-        invalidTokenMessage?: string | undefined;
-        invalidTokenStatusCode?: number | undefined;
-        excludedMethods?: string[] | undefined;
-        disableQuery?: boolean | undefined;
+declare const CSRF: {
+    new(opts?: {
+        errorHandler?: (ctx: Context) => never;
+        excludedMethods?: string[];
+        disableQuery?: boolean;
+        ignoredPathGlobs?: string[];
     }): Middleware;
 };

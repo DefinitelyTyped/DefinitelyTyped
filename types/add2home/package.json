@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/add2home",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "add2home",
+    "projects": [
+        "http://cubiq.org/add-to-home-screen"
+    ],
+    "devDependencies": {
+        "@types/add2home": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Wilkins",
+            "url": "http://www.codeplex.com/site/users/view/jamesnw"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/web-bluetooth",
+    "version": "0.0.9999",
+    "projects": [
+        "https://webbluetoothcg.github.io/web-bluetooth/"
+    ],
+    "devDependencies": {
+        "@types/web-bluetooth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Uri Shaked",
+            "githubUsername": "urish"
+        },
+        {
+            "name": "Xavier Lozinguez",
+            "githubUsername": "xlozinguez"
+        },
+        {
+            "name": "Rob Moran",
+            "githubUsername": "thegecko"
+        },
+        {
+            "name": "David Bjerremose",
+            "githubUsername": "DaBs"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cache-manager-fs-hash",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rolandstarke/node-cache-manager-fs-hash#readme"
+    ],
+    "dependencies": {
+        "@types/cache-manager": "*"
+    },
+    "devDependencies": {
+        "@types/cache-manager-fs-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "René Schapka",
+            "githubUsername": "schapka"
+        }
+    ]
+}

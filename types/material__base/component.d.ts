@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import MDCFoundation from './foundation';
+import MDCFoundation from "./foundation";
 
 export default class MDCComponent<A, F extends MDCFoundation<A>> {
     static attachTo(root: Element): MDCComponent<any, MDCFoundation<any>>;

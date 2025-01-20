@@ -1,19 +1,16 @@
-import Chai = require('chai');
-import ChaiOequal = require('chai-oequal');
+import ChaiOequal = require("chai-oequal");
 
-Chai.use(ChaiOequal);
+import("chai").then(({ use }) => use(ChaiOequal));
 
-import {
-    expect,
-    assert
-} from 'chai';
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
 expect({
     equals: () => true,
 }).to.be.oequal({});
 expect({
     customequals: () => true,
-}).to.be.oequal({}, 'customequals');
+}).to.be.oequal({}, "customequals");
 expect({
     equals: () => true,
 }).to.be.oeql({});
@@ -24,9 +21,13 @@ expect({
 assert.oequal({
     equals: () => true,
 }, {});
-assert.oequal({
-    customequals: () => true,
-}, {}, 'customequals');
+assert.oequal(
+    {
+        customequals: () => true,
+    },
+    {},
+    "customequals",
+);
 assert.oeql({
     equals: () => true,
 }, {});

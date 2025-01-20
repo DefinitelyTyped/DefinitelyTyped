@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/events",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/Gozala/events"
+    ],
+    "devDependencies": {
+        "@types/events": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yasunori Ohoka",
+            "githubUsername": "yasupeke"
+        },
+        {
+            "name": "Shenwei Wang",
+            "githubUsername": "weareoutman"
+        }
+    ]
+}

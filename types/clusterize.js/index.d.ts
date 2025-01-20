@@ -1,9 +1,3 @@
-// Type definitions for clusterize.js 0.18
-// Project: https://github.com/NeXTs/Clusterize.js
-// Definitions by: Pr1st0n <https://github.com/Pr1st0n>
-//                 Goran Jovanovic <https://github.com/gjovanovicst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Clusterize {
     constructor(options: Clusterize.Options);
 

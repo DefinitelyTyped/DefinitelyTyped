@@ -1,5 +1,3 @@
-export = rsagProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const rsagProfile: createClient.Profile;
+export const profile: Profile;

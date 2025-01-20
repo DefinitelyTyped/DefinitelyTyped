@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/leo-profanity",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/jojoee/leo-profanity"
+    ],
+    "devDependencies": {
+        "@types/leo-profanity": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Humphries",
+            "githubUsername": "jackhumphries9"
+        }
+    ]
+}

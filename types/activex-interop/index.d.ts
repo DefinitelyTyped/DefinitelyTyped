@@ -1,14 +1,8 @@
-// Type definitions for non-npm package Javascript Automation interop 0.0
-// Project: https://msdn.microsoft.com/en-us/library/ff521046(v=vs.85).aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
-// tslint:disable-next-line no-empty-interface
-interface ActiveXObjectNameMap { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ActiveXObjectNameMap {}
 
 interface ActiveXObject {
-    new <K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
+    new<K extends keyof ActiveXObjectNameMap>(progid: K): ActiveXObjectNameMap[K];
     new(s: string): any;
 }
 declare var ActiveXObject: ActiveXObject;
@@ -50,7 +44,7 @@ interface Enumerator<T = any> {
 }
 
 interface EnumeratorConstructor {
-    new <T = any>(collection: { Item(index: any): T }): Enumerator<T>;
+    new<T = any>(collection: { Item(index: any): T }): Enumerator<T>;
 }
 
 declare var Enumerator: EnumeratorConstructor;
@@ -90,7 +84,7 @@ interface VBArray<T = any> {
 }
 
 interface VBArrayConstructor {
-    new <T = any>(safeArray: SafeArray<T>): VBArray<T>;
+    new<T = any>(safeArray: SafeArray<T>): VBArray<T>;
 }
 
 declare var VBArray: VBArrayConstructor;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsdoc-to-markdown",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jsdoc2md/jsdoc-to-markdown"
+    ],
+    "devDependencies": {
+        "@types/jsdoc-to-markdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

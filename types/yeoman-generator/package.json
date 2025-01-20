@@ -1,6 +1,47 @@
 {
     "private": true,
+    "name": "@types/yeoman-generator",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/yeoman/generator",
+        "http://yeoman.io"
+    ],
     "dependencies": {
+        "@types/debug": "*",
+        "@types/ejs": "*",
+        "@types/inquirer": "^8",
+        "@types/mem-fs-editor": "*",
+        "@types/node": "*",
+        "@types/yeoman-environment": "*",
         "rxjs": "^6.4.0"
-    }
+    },
+    "devDependencies": {
+        "@types/yeoman-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jay Anslow",
+            "githubUsername": "janslow"
+        },
+        {
+            "name": "Ika",
+            "githubUsername": "ikatyang"
+        },
+        {
+            "name": "Joshua Cherry",
+            "githubUsername": "tasadar2"
+        },
+        {
+            "name": "Arthur Corenzan",
+            "githubUsername": "haggen"
+        },
+        {
+            "name": "Richard Lea",
+            "githubUsername": "chigix"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
 }

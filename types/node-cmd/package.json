@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-cmd",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/RIAEvangelist/node-cmd"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-cmd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e6nlaq",
+            "githubUsername": "e6nlaq"
+        }
+    ]
+}

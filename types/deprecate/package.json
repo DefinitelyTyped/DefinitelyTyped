@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/deprecate",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/brianc/node-deprecate"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/deprecate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toilal",
+            "githubUsername": "Toilal"
+        }
+    ]
+}

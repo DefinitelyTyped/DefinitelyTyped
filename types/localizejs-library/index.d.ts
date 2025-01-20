@@ -1,8 +1,3 @@
-// Type definitions for non-npm package LocalizeJS Library 1.0
-// Project: https://help.localizejs.com/docs/library-api
-// Definitions by: Samer Albahra <https://github.com/salbahra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace LocalizeJS.Context {
     interface Options {
         /**
@@ -259,7 +254,7 @@ declare var Localize: {
      * @param fn Required. Event handler.
      */
     on(
-        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary",
         fn: (event: Event) => void,
     ): void;
 
@@ -269,7 +264,7 @@ declare var Localize: {
      * @param fn Optional. The function to unbind from the event.
      */
     off(
-        eventName: 'initialize' | 'setLanguage' | 'pluralize' | 'translate' | 'untranslatePage' | 'updatedDictionary',
+        eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary",
         fn?: (event: Event) => void,
     ): void;
 

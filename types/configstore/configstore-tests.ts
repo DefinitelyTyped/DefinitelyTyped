@@ -1,4 +1,4 @@
-import Configstore = require("configstore");
+import Configstore from "configstore";
 const cs = new Configstore("foo");
 
 let value = "value";
@@ -16,7 +16,7 @@ cs.all = store;
 num = cs.size;
 path = cs.path;
 
-const csWithPathOption = new Configstore('foo', null, { configPath: path });
+const csWithPathOption = new Configstore("foo", null, { configPath: path });
 
 csWithPathOption.set(key, value);
 value = csWithPathOption.get(key);

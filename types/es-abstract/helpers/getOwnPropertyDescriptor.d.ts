@@ -5,9 +5,11 @@
  * @param target Object that contains the property.
  * @param propertyKey Name of the property.
  */
-declare const getOwnPropertyDescriptor: (
-    <T, P extends PropertyKey>(target: T, propertyKey: P) =>
-        | (P extends keyof T ? TypedPropertyDescriptor<T[P]> : PropertyDescriptor)
-        | undefined
-) | null;
+declare const getOwnPropertyDescriptor:
+    | (
+        <T, P extends PropertyKey>(target: T, propertyKey: P) =>
+            | (P extends keyof T ? TypedPropertyDescriptor<T[P]> : PropertyDescriptor)
+            | undefined
+    )
+    | null;
 export = getOwnPropertyDescriptor;

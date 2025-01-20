@@ -12,7 +12,7 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, 'body'>>;
+            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, "body">>;
             response: CloudFrontResponse;
         };
     }>;

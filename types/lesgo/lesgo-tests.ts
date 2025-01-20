@@ -1,13 +1,16 @@
+import errorHttpResponseMiddleware from "lesgo/middlewares/errorHttpResponseMiddleware";
 import httpMiddleware from "lesgo/middlewares/httpMiddleware";
 import normalizeHttpRequestMiddleware from "lesgo/middlewares/normalizeHttpRequestMiddleware";
-import successHttpResponseMiddleware from "lesgo/middlewares/successHttpResponseMiddleware";
-import errorHttpResponseMiddleware from "lesgo/middlewares/errorHttpResponseMiddleware";
-import verifyJwtMiddleware from "lesgo/middlewares/verifyJwtMiddleware";
 import normalizeSQSMessageMiddleware from "lesgo/middlewares/normalizeSQSMessageMiddleware";
+import successHttpResponseMiddleware from "lesgo/middlewares/successHttpResponseMiddleware";
+import verifyJwtMiddleware from "lesgo/middlewares/verifyJwtMiddleware";
 
 import LesgoException from "lesgo/exceptions/LesgoException";
 
+import AuroraDbRDSProxyService from "lesgo/services/AuroraDbRDSProxyService";
+import AuroraDbService from "lesgo/services/AuroraDbService";
 import ElasticCacheService from "lesgo/services/ElasticCacheService";
+
 import "./tests/services/ElasticsearchService";
 import "./tests/services/AuroraDbService";
 import "./tests/services/DynamoDbService";
@@ -17,8 +20,8 @@ import "./tests/services/SQSService";
 import "./tests/services/FirebaseAdminService";
 import "./tests/services/JWTService";
 
-import { ec, get, set, del } from "lesgo/utils/cache";
-import { encrypt, decrypt, hash, hashMD5 } from "lesgo/utils/crypto";
+import { del, ec, get, set } from "lesgo/utils/cache";
+import { decrypt, encrypt, hash, hashMD5 } from "lesgo/utils/crypto";
 import db from "lesgo/utils/db";
 import dynamodb from "lesgo/utils/dynamodb";
 import elasticsearch from "lesgo/utils/elasticsearch";
@@ -79,12 +82,13 @@ ec("conname"); // $ExpectType Memcached
 
 encrypt("this is a test"); // $ExpectType string
 decrypt("TMxLqkHSs8D7tD02ptbtWQxocJO93ZPvqS4IruHEpj8="); // $ExpectType string
-hash("this is a test"); // $ExpectType Buffer
-hashMD5(new Uint8Array([21, 31])); // $ExpectType Buffer
+hash("this is a test"); // $ExpectType string
+hashMD5(new Uint8Array([21, 31])); // $ExpectType string
 
-db; // $ExpectType AuroraDbService
+db; // $ExpectType AuroraDbService | AuroraDbRDSProxyService || AuroraDbRDSProxyService | AuroraDbService
 (async () => {
-    await db.select("SELECT * FROM users;", []); // $ExpectType any[]
+    await (db as AuroraDbService).select("SELECT * FROM users;", []); // $ExpectType any[]
+    await (db as AuroraDbRDSProxyService).select("SELECT * FROM users;", []); // $ExpectType AuroraDbRDSProxyServiceResult
 })();
 dynamodb; // $ExpectType DynamoDb
 (async () => {
@@ -140,7 +144,7 @@ queue; // $ExpectType SQSService<Record<string, QueueConfig>>
 (async () => {
     await dispatch("ping", "myqueue"); // $ExpectType SendMessageResult
 })();
-// $ExpectType boolean
+// $ExpectType Partial<Record<"id" | "name", any>> || Partial<Record<"name" | "id", any>>
 validateFields(
     {
         id: 1,

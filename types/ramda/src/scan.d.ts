@@ -1,2 +1,2 @@
-import { scan } from '../index';
+import { scan } from "../index";
 export default scan;

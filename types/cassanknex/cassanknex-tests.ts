@@ -1,12 +1,12 @@
-import cassanknex = require('cassanknex');
+import cassanknex = require("cassanknex");
 
 const knex = cassanknex({
     connection: {
-        contactPoints: ['127.0.0.1']
-    }
+        contactPoints: ["127.0.0.1"],
+    },
 });
 
-knex.on('ready', (err) => {
+knex.on("ready", (err) => {
 });
 
 interface BirdRow {
@@ -14,12 +14,15 @@ interface BirdRow {
     canFly: boolean;
 }
 
+const create1 = knex("keyspace").createColumnFamily("family").primary("primary");
+const create2 = knex("keyspace").createColumnFamily("family").primary(["primary", "primary2"]);
+
 const qb = knex("animals")
     .insert<BirdRow>({
-        type: 'Stork',
-        canFly: true
+        type: "Stork",
+        canFly: true,
     })
-    .into('birds');
+    .into("birds");
 
 qb.exec((err, res) => {
 });
@@ -37,7 +40,7 @@ interface FooRow {
 
 const query2 = knex("keyspace")
     .select<FooRow>("id", "foo", "bar", "baz")
-    .ttl('foo')
+    .ttl("foo")
     .where("id", "=", "1")
     .orWhere("id", "in", ["2", "3"])
     .orWhere("baz", "=", ["bar"])
@@ -50,13 +53,13 @@ query2.stream({
         const row = this.read();
     },
     end() {},
-    error() {}
+    error() {},
 });
 
 const values = {
     id: "foo",
     bar: 13,
-    baz: ["foo", "bar"]
+    baz: ["foo", "bar"],
 };
 
 const query3 = knex("cassanKnexy")

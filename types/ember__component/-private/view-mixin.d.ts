@@ -1,4 +1,4 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
 
 interface ViewMixin {
     /**
@@ -11,12 +11,6 @@ interface ViewMixin {
      * Returns the current DOM element for the view.
      */
     element: Element;
-    /**
-     * Returns a jQuery object for this view's element. If you pass in a selector
-     * string, this method will return a jQuery object, using the current element
-     * as its buffer.
-     */
-    $: JQueryStatic;
     /**
      * The HTML `id` of the view's element in the DOM. You can provide this
      * value yourself but it must be unique (just as in HTML):

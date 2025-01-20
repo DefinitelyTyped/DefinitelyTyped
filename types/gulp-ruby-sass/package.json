@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-ruby-sass",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/gulp-ruby-sass"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-ruby-sass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Agnislav Onufrijchuk",
+            "githubUsername": "agnislav"
+        }
+    ]
+}

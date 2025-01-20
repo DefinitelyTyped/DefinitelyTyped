@@ -1,7 +1,3 @@
-// Type definitions for minizlib 2.1
-// Project: https://github.com/isaacs/minizlib
-// Definitions by: Sebastian Malton <https://github.com/nokel81>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 // Import from dependencies
@@ -14,7 +10,11 @@ export { constants } from "zlib";
 type BrotliMode = "BrotliCompress" | "BrotliDecompress";
 type ZlibMode = "Gzip" | "Gunzip" | "Deflate" | "Inflate" | "DeflateRaw" | "InflateRaw" | "Unzip";
 
-interface ZlibBaseOptions extends MiniPass.Options {
+interface MiniPassOptions extends Omit<MiniPass.StringOptions, "encoding"> {
+    encoding?: BufferEncoding | "buffer" | null;
+}
+
+interface ZlibBaseOptions extends MiniPassOptions {
     flush?: number | undefined;
     finishFlush?: number | undefined;
 }
@@ -28,8 +28,8 @@ declare class ZlibBase extends MiniPass {
     reset(): void;
     flush(flushFlag?: number): void;
 
-    end(chunk: any, cb?: () => void): void;
-    end(chunk?: any, encoding?: string | null, cb?: () => void): void;
+    end(chunk: any, cb?: () => void): this;
+    end(chunk?: any, encoding?: string | null, cb?: () => void): this;
 
     write(chunk: any, cb?: () => void): boolean;
     write(chunk?: any, encoding?: string | null, cb?: () => void): boolean;

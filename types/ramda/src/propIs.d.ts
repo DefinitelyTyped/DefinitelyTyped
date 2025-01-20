@@ -1,2 +1,2 @@
-import { propIs } from '../index';
+import { propIs } from "../index";
 export default propIs;

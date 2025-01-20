@@ -6,8 +6,8 @@ import { ArriveBehavior, CompositeGoal, Goal, Matrix4, Vector3 } from "yuka";
 import { Collectible } from "./Collectible";
 import { Girl } from "./Girl";
 
-const RIGHT_TURN = 'RIGHT_TURN';
-const LEFT_TURN = 'LEFT_TURN';
+const RIGHT_TURN = "RIGHT_TURN";
+const LEFT_TURN = "LEFT_TURN";
 
 const inverseMatrix = new Matrix4();
 const localPosition = new Vector3();
@@ -205,7 +205,7 @@ class PickUpCollectibleGoal extends Goal<Girl> {
             this.status = Goal.STATUS.COMPLETED;
         } else if (owner.currentTime >= this.collectibleRemoveTimeout) {
             if (owner.currentTarget !== null) {
-                owner.sendMessage(owner.currentTarget, 'PickedUp');
+                owner.sendMessage(owner.currentTarget, "PickedUp");
                 owner.currentTarget = null;
             }
         }

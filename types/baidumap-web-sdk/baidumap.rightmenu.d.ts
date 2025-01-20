@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -51,8 +46,8 @@ declare namespace BMap {
         removeItem(item: MenuItem): void;
         addSeparator(): void;
         removeSeparator(index: number): void;
-        onopen: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onclose: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
+        onopen: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onclose: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
     }
 }
 declare const BMAP_CONTEXT_MENU_ICON_ZOOMIN: string;

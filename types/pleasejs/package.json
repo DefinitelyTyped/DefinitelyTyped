@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pleasejs",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Fooidge/PleaseJS"
+    ],
+    "devDependencies": {
+        "@types/pleasejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toshiya Nakakura",
+            "githubUsername": "nakakura"
+        }
+    ]
+}

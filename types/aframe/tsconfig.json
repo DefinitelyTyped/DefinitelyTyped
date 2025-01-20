@@ -5,16 +5,13 @@
             "es5",
             "dom",
             "es2015.iterable",
+            "es2015.generator",
             "es2015.promise"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

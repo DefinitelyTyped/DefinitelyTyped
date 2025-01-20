@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-d3-force",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/shichuanpo/cytoscape.js-d3-force"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "^3.0.9"
+    },
+    "devDependencies": {
+        "@types/cytoscape-d3-force": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Muhamad Ilyas Mustafa",
+            "githubUsername": "mustafamilyas"
+        }
+    ]
+}

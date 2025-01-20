@@ -7,7 +7,9 @@ declare class Group {
 
     constructor(groupname: string, description?: string, active?: boolean, attributes?: any);
     toCrowd(): GroupObj;
-    static fromCrowd(obj: {name: string, description?: string | undefined, active?: boolean | undefined, attributes: any}): Group;
+    static fromCrowd(
+        obj: { name: string; description?: string | undefined; active?: boolean | undefined; attributes: any },
+    ): Group;
 }
 
 interface GroupObj {

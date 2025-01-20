@@ -1,4 +1,4 @@
-declare module DDP {
+declare namespace DDP {
     interface DDPStatic {
         subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
         call(method: string, ...parameters: any[]): any;
@@ -25,7 +25,7 @@ declare module DDP {
     function connect(url: string): DDPStatic;
 }
 
-declare module DDPCommon {
+declare namespace DDPCommon {
     interface MethodInvocationOptions {
         userId: string | null;
         setUserId?: ((newUserId: string) => void) | undefined;

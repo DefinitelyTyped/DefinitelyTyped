@@ -1,20 +1,23 @@
-// Type definitions for mersenne-twister 1.1
-// Project: https://github.com/boo1ean/mersenne-twister
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = MersenneTwister;
 declare class MersenneTwister {
     /**
      * constructs mt with a number
-     * @params seed
+     * @param seed
      */
-    constructor(seed?: number|number[]);
+    constructor(seed?: number | number[]);
 
     /**
      * initializes mt with a number
      */
     init_seed(seed: number): void;
+
+    /**
+     * initialize by an array with array-length
+     *
+     * @param init_key is the array for initializing keys
+     * @param key_length is its length
+     */
+    init_by_array(init_key: number[], key_length: number): void;
 
     /**
      * generates a random number on [0,0xffffffff]-interval

@@ -1,8 +1,8 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const GammaCorrectionShader: {
     uniforms: {
-        tDiffuse: Uniform;
+        tDiffuse: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

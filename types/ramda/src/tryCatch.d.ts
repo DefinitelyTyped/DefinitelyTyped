@@ -1,2 +1,2 @@
-import { tryCatch } from '../index';
+import { tryCatch } from "../index";
 export default tryCatch;

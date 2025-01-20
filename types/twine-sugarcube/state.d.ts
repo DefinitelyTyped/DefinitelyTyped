@@ -1,4 +1,4 @@
-import { SugarCubeTemporaryVariables, SugarCubeStoryVariables } from "./userdata";
+import { SugarCubeStoryVariables, SugarCubeTemporaryVariables } from "./userdata";
 
 export interface StoryMoment {
     title: string;
@@ -95,26 +95,6 @@ export interface StateAPI {
      */
     index(index: number): StoryMoment;
     /**
-     * Initializes the seedable pseudo-random number generator (PRNG) and integrates it into the story state and saves.
-     * Once initialized, the State.random() method and story functions, random() and randomFloat(), return results from
-     * the seeded PRNG (by default, they return results from Math.random()).
-     *
-     * **NOTE**: State.initPRNG() must be called during story initialization, within either a script section (Twine 2: the
-     * Story JavaScript, Twine 1/Twee: a script-tagged passage) or the StoryInit special passage. Additionally, it is
-     * recommended that you do not specify any arguments to State.initPRNG() and allow it to automatically seed itself. If
-     * you should chose to use an explicit seed, however, it is strongly recommended that you also enable additional
-     * entropy, otherwise all playthroughs for all players will be exactly the same.
-     * @param seed The explicit seed used to initialize the pseudo-random number generator.
-     * @param useEntropy Enables the use of additional entropy to pad the specified explicit seed.
-     * @since 2.0.0
-     * @deprecated use State.prng.init() instead
-     * @example
-     * State.initPRNG() // Automatically seed the PRNG (recommended)
-     * State.initPRNG("aVeryLongSeed") // Seed the PRNG with "aVeryLongSeed"
-     * State.initPRNG("aVeryLongSeed", true) // Seed the PRNG with "aVeryLongSeed" and pad it with extra entropy
-     */
-    initPRNG(seed?: string, useEntropy?: boolean): void;
-    /**
      * Returns whether the full in-play history (past + future) is empty.
      * @since 2.0.0
      */
@@ -165,6 +145,30 @@ export interface StateAPI {
         delete(key: string): void;
 
         /**
+         * Returns an array of the story metadata store's key/value pairs as [key, value] arrays.
+         * @since 2.36.0
+         * @example
+         * // Get the metadata store's key/value pairs.
+         * var metadata = State.metadata.entries();
+         *
+         * // Iterate over the pairs with a `for` loop.
+         * for (var i = 0; i < metadata.length; ++i) {
+         *     var key   = metadata[i][0];
+         *     var value = metadata[i][1];
+         *     // do something
+         * }
+         *
+         * @example
+         * // Iterate over the pairs with `<Array>.forEach()`.
+         * State.metadata.entries().forEach(function (pair) {
+         *     var key   = pair[0];
+         *     var value = pair[1];
+         *     // do something
+         * });
+         */
+        entries(): Array<[string, any]>;
+
+        /**
          * Returns the value associated with the specified key from the story metadata store.
          * @param key The key whose value should be returned.
          * @since 2.29.0
@@ -185,6 +189,27 @@ export interface StateAPI {
          * }
          */
         has(key: string): boolean;
+
+        /**
+         * Returns an array of the story metadata store's keys.
+         * @since 2.36.0
+         * @example
+         * // Get the metadata store's keys.
+         * var metadataKeys = State.metadata.keys();
+         *
+         * // Iterate over the keys with a `for` loop.
+         * for (var i = 0; i < metadataKeys.length; ++i) {
+         *     var key = metadataKeys[i];
+         *     // do something
+         * }
+         *
+         * @example
+         * // Iterate over the keys with `<Array>.forEach()`.
+         * State.metadata.forEach(function (key) {
+         *     // do something
+         * });
+         */
+        keys(): string[];
 
         /**
          * Sets the specified key and value within the story metadata store, which causes them to persist over story and browser

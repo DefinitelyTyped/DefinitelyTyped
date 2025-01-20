@@ -1,7 +1,17 @@
-import { KeyframeTrack } from './KeyframeTrack';
-import { Vector3 } from './../math/Vector3';
-import { Bone } from './../objects/Bone';
-import { AnimationBlendMode } from '../constants';
+import { AnimationBlendMode } from "../constants.js";
+import { Object3D } from "../core/Object3D.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Bone } from "../objects/Bone.js";
+import { Mesh } from "../objects/Mesh.js";
+import { KeyframeTrack, KeyframeTrackJSON } from "./KeyframeTrack.js";
+
+export interface AnimationClipJSON {
+    name: string;
+    duration: number;
+    tracks: KeyframeTrackJSON[];
+    uuid: string;
+    blendMode: AnimationBlendMode;
+}
 
 export interface MorphTarget {
     name: string;
@@ -39,13 +49,13 @@ export class AnimationClip {
         fps: number,
         noLoop: boolean,
     ): AnimationClip;
-    static findByName(clipArray: AnimationClip[], name: string): AnimationClip;
+    static findByName(objectOrClipArray: AnimationClip[] | Object3D | Mesh, name: string): AnimationClip;
     static CreateClipsFromMorphTargetSequences(
         morphTargets: MorphTarget[],
         fps: number,
         noLoop: boolean,
     ): AnimationClip[];
-    static parse(json: any): AnimationClip;
-    static parseAnimation(animation: any, bones: Bone[]): AnimationClip;
-    static toJSON(clip: AnimationClip): any;
+    static parse(json: AnimationClipJSON): AnimationClip;
+    static parseAnimation(animation: AnimationClipJSON, bones: Bone[]): AnimationClip;
+    static toJSON(clip: AnimationClip): AnimationClipJSON;
 }

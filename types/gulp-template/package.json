@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-template",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/gulp-template#readme"
+    ],
+    "dependencies": {
+        "@types/lodash": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-template": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Safranek",
+            "githubUsername": "pe8ter"
+        }
+    ]
+}

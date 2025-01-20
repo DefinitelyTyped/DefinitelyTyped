@@ -1,5 +1,4 @@
-import { Asset } from './asset';
-import { Price } from './price';
+import { Price } from "./price";
 
 export interface ProductVariantGroup {
     id: string;
@@ -14,7 +13,7 @@ export interface ProductVariantOption {
     id: string;
     name: string;
     price: Price;
-    assets: Asset[];
+    assets: string[] | null;
     meta: any;
     created: number | null;
     updated: number | null;

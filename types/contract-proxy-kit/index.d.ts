@@ -1,10 +1,4 @@
-// Type definitions for contract-proxy-kit 1.0
-// Project: https://github.com/gnosis/contract-proxy-kit#readme
-// Definitions by: Alan Lu <https://github.com/cag>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 export = CPK;
 
@@ -59,7 +53,7 @@ declare class CPK {
     getOwnerAccount(): Promise<string>;
     get address(): string;
     execTransactions(
-        transactions: ReadonlyArray<CPK.Transaction>,
+        transactions: readonly CPK.Transaction[],
         options?: CPK.TransactionOptions,
     ): Promise<CPK.TransactionResult>;
 }

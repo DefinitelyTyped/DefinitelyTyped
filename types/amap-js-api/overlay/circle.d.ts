@@ -1,8 +1,8 @@
 declare namespace AMap {
     namespace Circle {
         interface EventMap<I = Circle> extends ShapeOverlay.EventMap<I> {
-            setCenter: Event<'setCenter'>;
-            setRadius: Event<'setRadius'>;
+            setCenter: Event<"setCenter">;
+            setRadius: Event<"setRadius">;
         }
 
         interface Options<ExtraData = any> {
@@ -23,7 +23,7 @@ declare namespace AMap {
 
             // internal
             visible?: boolean | undefined;
-            unit?: 'meter' | 'px' | undefined; // 'might be typo'
+            unit?: "meter" | "px" | undefined; // 'might be typo'
         }
 
         type GetOptionsResult<ExtraData = any> = Merge<Polygon.GetOptionsResult<ExtraData>, {

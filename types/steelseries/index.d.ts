@@ -1,13 +1,8 @@
-// Type definitions for steelseries 1.0
-// Project: https://github.com/nicolas-van/steelseries#readme
-// Definitions by: Riccardo Rebottini <https://github.com/ricky-rebo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace steelseries;
 
 /* Tools */
 export class rgbaColor {
-    constructor(r: number, g: number, b: number, a: number)
+    constructor(r: number, g: number, b: number, a: number);
     getRed(): number;
     getGreen(): number;
     getBlue(): number;
@@ -21,21 +16,35 @@ export class rgbaColor {
 }
 
 export class ConicalGradient {
-    constructor(fractions: number[], colors: rgbaColor[])
+    constructor(fractions: number[], colors: rgbaColor[]);
     fillCircle(cts: CanvasRenderingContext2D, centerX: number, centerY: number, innerX: number, outerX: number): void;
-    fillRect(ctx: CanvasRenderingContext2D, centerX: number, centerY: number, width: number, height: number, thicknessX: number, thicknessY: number): void;
+    fillRect(
+        ctx: CanvasRenderingContext2D,
+        centerX: number,
+        centerY: number,
+        width: number,
+        height: number,
+        thicknessX: number,
+        thicknessY: number,
+    ): void;
 }
 
 export class gradientWrapper {
-    constructor(start: number, end: number, fractions: number[], colors: rgbaColor[])
-    getColorAt(fraction: number): rgbaColor|number[];
+    constructor(start: number, end: number, fractions: number[], colors: rgbaColor[]);
+    getColorAt(fraction: number): rgbaColor | number[];
     getStart(): number;
     getEnd(): number;
 }
 
 export function setAlpha(hex: string, alpha: number): string;
 
-export function getColorFromFraction(sourceColor: rgbaColor, destinationColor: rgbaColor, range: number, fraction: number, returnRawData?: boolean): rgbaColor|number[];
+export function getColorFromFraction(
+    sourceColor: rgbaColor,
+    destinationColor: rgbaColor,
+    range: number,
+    fraction: number,
+    returnRawData?: boolean,
+): rgbaColor | number[];
 
 export interface Section {
     start: number;
@@ -46,12 +55,19 @@ export function Section(start: number, stop: number, color: string): Section;
 
 /* Constants */
 declare class Type {
-    constructor(type: string)
+    constructor(type: string);
     type: string;
 }
 
 export class BackgroundColor {
-    constructor(gradientStart: rgbaColor, gradientFraction: rgbaColor, gradientStop: rgbaColor, labelColor: rgbaColor, symbolColor: rgbaColor, name: string)
+    constructor(
+        gradientStart: rgbaColor,
+        gradientFraction: rgbaColor,
+        gradientStop: rgbaColor,
+        labelColor: rgbaColor,
+        symbolColor: rgbaColor,
+        name: string,
+    );
     gradientStart: rgbaColor;
     gradientFraction: rgbaColor;
     gradientStop: rgbaColor;
@@ -81,7 +97,14 @@ export namespace BackgroundColor {
 }
 
 export class LcdColor {
-    constructor(gradientStartColor: string, gradientFraction1Color: string, gradientFraction2Color: string, gradientFraction3Color: string, gradientStopColor: string, textColor: string)
+    constructor(
+        gradientStartColor: string,
+        gradientFraction1Color: string,
+        gradientFraction2Color: string,
+        gradientFraction3Color: string,
+        gradientStopColor: string,
+        textColor: string,
+    );
     gradientStartColor: string;
     gradientFraction1Color: string;
     gradientFraction2Color: string;
@@ -117,7 +140,14 @@ export namespace LcdColor {
 }
 
 export class ColorDef {
-    constructor(veryDark: rgbaColor, dark: rgbaColor, medium: rgbaColor, light: rgbaColor, lighter: rgbaColor, veryLight: rgbaColor)
+    constructor(
+        veryDark: rgbaColor,
+        dark: rgbaColor,
+        medium: rgbaColor,
+        light: rgbaColor,
+        lighter: rgbaColor,
+        veryLight: rgbaColor,
+    );
     veryDark: rgbaColor;
     dark: rgbaColor;
     medium: rgbaColor;
@@ -142,7 +172,15 @@ export namespace ColorDef {
 }
 
 export class LedColor {
-    constructor(innerColor1_ON: string, innerColor2_ON: string, outerColor_ON: string, coronaColor: string, innerColor1_OFF: string, innerColor2_OFF: string, outerColor_OFF: string)
+    constructor(
+        innerColor1_ON: string,
+        innerColor2_ON: string,
+        outerColor_ON: string,
+        coronaColor: string,
+        innerColor1_OFF: string,
+        innerColor2_OFF: string,
+        outerColor_OFF: string,
+    );
     innerColor1_ON: string;
     innerColor2_ON: string;
     outerColor_ON: string;
@@ -185,7 +223,7 @@ export namespace KnobType {
 }
 
 export class KnobStyle {
-    constructor(style: string)
+    constructor(style: string);
     style: string;
 }
 export namespace KnobStyle {
@@ -195,7 +233,7 @@ export namespace KnobStyle {
 }
 
 export class FrameDesign {
-    constructor(design: string)
+    constructor(design: string);
     design: string;
 }
 export namespace FrameDesign {
@@ -242,7 +280,7 @@ export namespace ForegroundType {
 }
 
 export class LabelNumberFormat {
-    constructor(format: string)
+    constructor(format: string);
     format: string;
 }
 export namespace LabelNumberFormat {
@@ -259,7 +297,7 @@ export namespace TickLabelOrientation {
 }
 
 export class TrendState {
-    constructor(state: string)
+    constructor(state: string);
     state: string;
 }
 export namespace TrendState {
@@ -276,7 +314,7 @@ export function drawFrame(
     centerX: number,
     centerY: number,
     imageWidth: number,
-    imageHeight: number
+    imageHeight: number,
 ): any;
 
 export function drawBackground(
@@ -285,7 +323,7 @@ export function drawBackground(
     centerX: number,
     centerY: number,
     imageWidth: number,
-    imageHeight: number
+    imageHeight: number,
 ): any;
 
 export function drawForeground(
@@ -297,7 +335,7 @@ export function drawForeground(
     knob?: KnobType,
     style?: KnobStyle,
     gaugeType?: GaugeType,
-    orientation?: Orientation
+    orientation?: Orientation,
 ): any;
 
 /* Gauge Params Interfaces */
@@ -307,7 +345,7 @@ interface FrameStruct {
     frameDesign?: FrameDesign | undefined;
     frameVisible?: boolean | undefined;
     backgroundColor?: BackgroundColor | undefined; // Omit<> in Horizon
-    backgroundVisible?: boolean | undefined; 			 // Omit<> in Horizon
+    backgroundVisible?: boolean | undefined; // Omit<> in Horizon
     foregroundType?: ForegroundType | undefined; // Omit<> in Linear*
     foregroundVisible?: boolean | undefined;
 }
@@ -370,7 +408,7 @@ export interface RadialParams extends FrameStruct, PointKnob, Lcd, LinearRadialC
     customLayer?: any;
 }
 export class Radial {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: RadialParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: RadialParams);
     setValue(newValue: number): this;
     getValue(): number;
     setOdoValue(newValue: number): this;
@@ -415,7 +453,12 @@ export class Radial {
     repaint(): void;
 }
 
-export interface  RadialBargraphParams extends FrameStruct, Lcd, Omit<LinearRadialCommon, "minMeasuredValueVisible"|"maxMeasuredValueVisible"|"thresholdVisible"> {
+export interface RadialBargraphParams
+    extends
+        FrameStruct,
+        Lcd,
+        Omit<LinearRadialCommon, "minMeasuredValueVisible" | "maxMeasuredValueVisible" | "thresholdVisible">
+{
     size?: number | undefined;
     gaugeType?: GaugeType | undefined;
     fractionalScaleDecimals?: number | undefined;
@@ -433,7 +476,7 @@ export interface  RadialBargraphParams extends FrameStruct, Lcd, Omit<LinearRadi
     customLayer?: any;
 }
 export class RadialBargraph {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: RadialBargraphParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: RadialBargraphParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback?: () => void): this;
@@ -476,7 +519,7 @@ export interface RadialVerticalParams extends FrameStruct, PointKnob, LinearRadi
     area?: Section[] | undefined;
 }
 export class RadialVertical {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: RadialVerticalParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: RadialVerticalParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback: () => void): this;
@@ -510,7 +553,7 @@ export interface LinearParams extends Omit<FrameStruct, "foregroundType">, Lcd, 
     valueColor?: ColorDef | undefined;
 }
 export class Linear {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: LinearParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: LinearParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback: () => void): this;
@@ -549,7 +592,7 @@ export interface LinearBargraphParams extends Omit<FrameStruct, "foregroundType"
     useValueGradient?: boolean | undefined;
 }
 export class LinearBargraph {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: LinearBargraphParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: LinearBargraphParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback?: () => void): this;
@@ -597,8 +640,8 @@ export interface DisplaySingleParams extends Omit<Lcd, "lcdVisible"> {
     autoScroll?: boolean | undefined;
 }
 export class DisplaySingle {
-    constructor(canvas: HTMLCanvasElement | string, parameters?: DisplaySingleParams)
-    setValue(newValue: number|string): this;
+    constructor(canvas: HTMLCanvasElement | string, parameters?: DisplaySingleParams);
+    setValue(newValue: number | string): this;
     setLcdColor(newLcdColor: LcdColor): this;
     setSection(newSection: Section[]): this;
     setScrolling(scroll: boolean): this;
@@ -620,7 +663,7 @@ export interface DisplayMultiParams extends Omit<Lcd, "lcdVisible"> {
     altValue?: string | number | undefined;
 }
 export class DisplayMulti {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: DisplayMultiParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: DisplayMultiParams);
     setValue(newValue: number | string): this;
     setAltValue(altValueNew: number | string): this;
     setLcdColor(newLcdColor: LcdColor): this;
@@ -635,7 +678,7 @@ export interface LevelParams extends FrameStruct {
     rotateFace?: boolean | undefined;
 }
 export class Level {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: LevelParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: LevelParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback?: () => void): this;
@@ -657,7 +700,7 @@ export interface CompassParams extends FrameStruct, PointKnob {
     customLayer?: any;
 }
 export class Compass {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: CompassParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: CompassParams);
     setValue(newValue: number): this;
     getValue(): number;
     setValueAnimated(newValue: number, callback?: () => void): this;
@@ -690,7 +733,7 @@ export interface WindDirectionParams extends FrameStruct, Omit<PointKnob, "point
     customLayer?: any;
 }
 export class WindDirection {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: WindDirectionParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: WindDirectionParams);
     setValueLatest(newValue: number): this;
     getValueLatest(): number;
     setValueAverage(newValue: number): this;
@@ -712,12 +755,12 @@ export class WindDirection {
     repaint(): void;
 }
 
-export interface HorizonParams extends Omit<FrameStruct, "backgroundColor"|"backgroundVisible"> {
+export interface HorizonParams extends Omit<FrameStruct, "backgroundColor" | "backgroundVisible"> {
     size?: number | undefined;
     pointerColor?: ColorDef | undefined;
 }
 export class Horizon {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: HorizonParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: HorizonParams);
     setRoll(newRoll: number): this;
     getRoll(): number;
     setRollAnimated(newRoll: number, callback?: () => void): this;
@@ -735,14 +778,14 @@ export interface LedParams {
     ledColor?: LedColor | undefined;
 }
 export class Led {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: LedParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: LedParams);
     toggleLed(): this;
     setLedColor(newColor: LedColor): this;
     setLedOnOff(on: boolean): this;
     blink(blink: boolean): this;
 }
 
-export interface ClockParams extends FrameStruct, Omit<PointKnob, "knobType"|"knobStyle"> {
+export interface ClockParams extends FrameStruct, Omit<PointKnob, "knobType" | "knobStyle"> {
     size: number;
     isAutomatic: boolean;
     hour: number;
@@ -756,7 +799,7 @@ export interface ClockParams extends FrameStruct, Omit<PointKnob, "knobType"|"kn
     customLayer: any;
 }
 export class Clock {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: ClockParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: ClockParams);
     getAutomatic(): boolean;
     setAutomatic(newValue: boolean): this;
     getHour(): number;
@@ -786,7 +829,7 @@ export interface BatteryParams {
     value?: number | undefined;
 }
 export class Battery {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: BatteryParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: BatteryParams);
     setValue(newValue: number): this;
     getValue(): number;
     repaint(): void;
@@ -798,7 +841,7 @@ export interface StopwatchParams extends FrameStruct {
     customLayer?: any;
 }
 export class Stopwatch {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: StopwatchParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: StopwatchParams);
     isRunning(): boolean;
     start(): this;
     stop(): this;
@@ -812,14 +855,16 @@ export class Stopwatch {
     repaint(): void;
 }
 
-export interface AltimeterParams extends FrameStruct, Omit<PointKnob, "pointerType"|"pointerColor">, Omit<Lcd, "lcdDecimals"> {
+export interface AltimeterParams
+    extends FrameStruct, Omit<PointKnob, "pointerType" | "pointerColor">, Omit<Lcd, "lcdDecimals">
+{
     size?: number | undefined;
     unitAltPos?: boolean | undefined;
 
     customLayer?: any;
 }
 export class Altimeter {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: AltimeterParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: AltimeterParams);
     setValue(newValue: number): void;
     getValue(): number;
     setValueAnimated(newValue: number, callback?: () => void): this;
@@ -837,7 +882,7 @@ export interface TrafficlightParams {
     height?: number | undefined;
 }
 export class Trafficlight {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: TrafficlightParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: TrafficlightParams);
     setRedOn(on: boolean): this;
     isRedOn(): boolean;
     setYellowOn(on: boolean): this;
@@ -853,7 +898,7 @@ export interface LightbulbParams {
     glowColor: string;
 }
 export class Lightbulb {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: LightbulbParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: LightbulbParams);
     setOn(on: boolean): this;
     isOn(): boolean;
     setAlpha(a: number): this;
@@ -877,7 +922,7 @@ export interface OdometerParams {
     wobbleFactor?: number | undefined;
 }
 export class Odometer {
-    constructor(canvas: HTMLCanvasElement|string, parameters?: OdometerParams)
+    constructor(canvas: HTMLCanvasElement | string, parameters?: OdometerParams);
     setValueAnimated(newValue: number, callback?: () => void): this;
     setValue(newValue: number): this;
     getValue(): number;

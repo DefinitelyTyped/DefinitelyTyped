@@ -1,21 +1,117 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
+import { Events } from "./events";
+import { Manifest } from "./manifest";
+import { Tabs } from "./tabs";
+
 /**
  * Namespace: browser.runtime
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
- * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
- * relative path of URLs to fully-qualified URLs.
- *
- * Comments found in source JSON schema files:
- * Copyright 2014 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
-import { Tabs } from "./tabs";
-import { Manifest } from "./manifest";
-import { Events } from "./events";
-
 export namespace Runtime {
+    /**
+     * A filter to match against existing extension context. Matching contexts must match all specified filters.
+     */
+    interface ContextFilter {
+        /**
+         * Optional.
+         */
+        contextIds?: string[];
+
+        /**
+         * Optional.
+         */
+        contextTypes?: ContextType[];
+
+        /**
+         * Optional.
+         */
+        documentIds?: string[];
+
+        /**
+         * Optional.
+         */
+        documentOrigins?: string[];
+
+        /**
+         * Optional.
+         */
+        documentUrls?: string[];
+
+        /**
+         * Optional.
+         */
+        frameIds?: number[];
+
+        /**
+         * Optional.
+         */
+        tabIds?: number[];
+
+        /**
+         * Optional.
+         */
+        windowIds?: number[];
+
+        /**
+         * Optional.
+         */
+        incognito?: boolean;
+    }
+
+    /**
+     * The type of extension view.
+     */
+    type ContextType = "BACKGROUND" | "POPUP" | "SIDE_PANEL" | "TAB";
+
+    /**
+     * A context hosting extension content
+     */
+    interface ExtensionContext {
+        /**
+         * An unique identifier associated to this context
+         */
+        contextId: string;
+
+        /**
+         * The type of the context
+         */
+        contextType: ContextType;
+
+        /**
+         * The origin of the document associated with this context, or undefined if it is not hosted in a document
+         * Optional.
+         */
+        documentOrigin?: string;
+
+        /**
+         * The URL of the document associated with this context, or undefined if it is not hosted in a document
+         * Optional.
+         */
+        documentUrl?: string;
+
+        /**
+         * Whether the context is associated with an private browsing context.
+         */
+        incognito: boolean;
+
+        /**
+         * The frame ID for this context, or -1 if it is not hosted in a frame.
+         */
+        frameId: number;
+
+        /**
+         * The tab ID for this context, or -1 if it is not hosted in a tab.
+         */
+        tabId: number;
+
+        /**
+         * The window ID for this context, or -1 if it is not hosted in a window.
+         */
+        windowId: number;
+    }
+
     /**
      * An object which allows two way communication with other pages.
      */
@@ -24,25 +120,16 @@ export namespace Runtime {
 
         disconnect(): void;
 
-        /**
-         * @param port
-         */
         onDisconnect: Events.Event<(port: Port) => void>;
 
-        /**
-         * @param message
-         * @param port
-         */
-        onMessage: Events.Event<(message: any, port: Port) => void>;
+        onMessage: Events.Event<(message: unknown, port: Port) => void>;
 
         /**
          * Send a message to the other end. This takes one argument, which is a JSON object representing the message to send.
          * It will be delivered to any script listening to the port's onMessage event, or to the native application if this port
          * is connected to a native application.
-         *
-         * @param message
          */
-        postMessage(message: any): void;
+        postMessage(message: unknown): void;
 
         /**
          * This property will <b>only</b> be present on ports passed to onConnect/onConnectExternal listeners.
@@ -99,7 +186,7 @@ export namespace Runtime {
     /**
      * The machine's processor architecture.
      */
-    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64";
+    type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
     /**
      * An object containing information about the current platform.
@@ -159,6 +246,16 @@ export namespace Runtime {
     type OnRestartRequiredReason = "app_update" | "os_update" | "periodic";
 
     /**
+     * The performance warning event category, e.g. 'content_script'.
+     */
+    type OnPerformanceWarningCategory = "content_script";
+
+    /**
+     * The performance warning event severity. Will be 'high' for serious and user-visible issues.
+     */
+    type OnPerformanceWarningSeverity = "low" | "medium" | "high";
+
+    /**
      * If an update is available, this contains more information about the available update.
      */
     interface RequestUpdateCheckCallbackDetailsType {
@@ -216,6 +313,29 @@ export namespace Runtime {
         version: string;
     }
 
+    interface OnPerformanceWarningDetailsType {
+        /**
+         * The performance warning event category, e.g. 'content_script'.
+         */
+        category: OnPerformanceWarningCategory;
+
+        /**
+         * The performance warning event severity, e.g. 'high'.
+         */
+        severity: OnPerformanceWarningSeverity;
+
+        /**
+         * The $(ref:tabs.Tab) that the performance warning relates to, if any.
+         * Optional.
+         */
+        tabId?: number;
+
+        /**
+         * An explanation of what the warning means, and hopefully how to address it.
+         */
+        description: string;
+    }
+
     /**
      * This will be defined during an API method callback if there was an error
      */
@@ -244,6 +364,13 @@ export namespace Runtime {
         getBackgroundPage(): Promise<Window>;
 
         /**
+         * Fetches information about active contexts associated with this extension
+         *
+         * @param filter A filter to find matching context.
+         */
+        getContexts(filter: ContextFilter): Promise<ExtensionContext[]>;
+
+        /**
          * <p>Open your Extension's options page, if possible.</p><p>The precise behavior may depend on your manifest's <code>
          * $(topic:optionsV2)[options_ui]</code> or <code>$(topic:options)[options_page]</code> key,
          * or what the browser happens to support at the time.</p><p>If your Extension does not declare an options page,
@@ -268,8 +395,16 @@ export namespace Runtime {
         getURL(path: string): string;
 
         /**
+         * Get the frameId of any window global or frame element.
+         *
+         * @param target A WindowProxy or a Browsing Context container element (IFrame, Frame, Embed, Object) for the target frame.
+         * @returns The frameId of the target frame, or -1 if it doesn't exist.
+         */
+        getFrameId(target: unknown): number;
+
+        /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,
-         * and implement surveys. Maximum 255 characters.
+         * and implement surveys. Maximum 1023 characters.
          *
          * @param url Optional. URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
          * Set an empty string to not open a new tab upon uninstallation.
@@ -332,10 +467,14 @@ export namespace Runtime {
          * @param extensionId Optional. The ID of the extension/app to send the message to. If omitted,
          * the message will be sent to your own extension/app. Required if sending messages from a web page for
          * $(topic:manifest/externally_connectable)[web messaging].
-         * @param message
          * @param options Optional.
          */
-        sendMessage(extensionId: string | undefined, message: any, options?: SendMessageOptionsType): Promise<any>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        sendMessage<TMessage = unknown, TResponse = unknown>(
+            extensionId: string | undefined,
+            message: TMessage,
+            options?: SendMessageOptionsType,
+        ): Promise<TResponse>;
 
         /**
          * Sends a single message to event listeners within your extension/app or a different extension/app.
@@ -344,10 +483,13 @@ export namespace Runtime {
          * onMessageExternal), if a different extension. Note that extensions cannot send messages to content scripts using this
          * method. To send messages to content scripts, use $(ref:tabs.sendMessage).
          *
-         * @param message
          * @param options Optional.
          */
-        sendMessage(message: any, options?: SendMessageOptionsType): Promise<any>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        sendMessage<TMessage = unknown, TResponse = unknown>(
+            message: TMessage,
+            options?: SendMessageOptionsType,
+        ): Promise<TResponse>;
 
         /**
          * Send a single message to a native application.
@@ -355,7 +497,11 @@ export namespace Runtime {
          * @param application The name of the native messaging host.
          * @param message The message that will be passed to the native messaging host.
          */
-        sendNativeMessage(application: string, message: any): Promise<any>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        sendNativeMessage<TMessage = unknown, TResponse = unknown>(
+            application: string,
+            message: TMessage,
+        ): Promise<TResponse>;
 
         /**
          * Returns information about the current browser.
@@ -379,10 +525,21 @@ export namespace Runtime {
         /**
          * Fired when the extension is first installed, when the extension is updated to a new version,
          * and when the browser is updated to a new version.
-         *
-         * @param details
          */
         onInstalled: Events.Event<(details: OnInstalledDetailsType) => void>;
+
+        /**
+         * Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up.
+         * Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed
+         * to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent
+         * and the page won't be unloaded.
+         */
+        onSuspend: Events.Event<() => void>;
+
+        /**
+         * Sent after onSuspend to indicate that the app won't be unloaded after all.
+         */
+        onSuspendCanceled: Events.Event<() => void>;
 
         /**
          * Fired when an update is available, but isn't installed immediately because the app is currently running.
@@ -400,15 +557,11 @@ export namespace Runtime {
 
         /**
          * Fired when a connection is made from either an extension process or a content script.
-         *
-         * @param port
          */
         onConnect: Events.Event<(port: Port) => void>;
 
         /**
          * Fired when a connection is made from another extension.
-         *
-         * @param port
          */
         onConnectExternal: Events.Event<(port: Port) => void>;
 
@@ -416,17 +569,43 @@ export namespace Runtime {
          * Fired when a message is sent from either an extension process or a content script.
          *
          * @param message Optional. The message sent by the calling script.
-         * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessage: Events.Event<
+            (
+                message: unknown,
+                sender: MessageSender,
+                sendResponse: (message: unknown) => void,
+            ) => Promise<unknown> | true | undefined
+        >;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          *
          * @param message Optional. The message sent by the calling script.
-         * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessageExternal: Events.Event<
+            (
+                message: unknown,
+                sender: MessageSender,
+                sendResponse: (message: unknown) => void,
+            ) => Promise<unknown> | true | undefined
+        >;
+
+        /**
+         * Fired when a runtime performance issue is detected with the extension. Observe this event to be proactively notified of
+         * runtime performance problems with the extension.
+         */
+        onPerformanceWarning: Events.Event<(details: OnPerformanceWarningDetailsType) => void>;
 
         /**
          * This will be defined during an API method callback if there was an error

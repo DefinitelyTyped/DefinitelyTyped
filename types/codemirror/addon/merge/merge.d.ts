@@ -1,4 +1,4 @@
-import * as CodeMirror from '../../';
+import * as CodeMirror from "../../";
 
 /**
  * Tracks changes in chunks from original to new.
@@ -49,7 +49,7 @@ export interface MergeView {
 }
 
 export interface MergeViewConstructor {
-    new (element: HTMLElement, options?: MergeViewConfiguration): MergeView;
+    new(element: HTMLElement, options?: MergeViewConfiguration): MergeView;
     (element: HTMLElement, options?: MergeViewConfiguration): MergeView;
 }
 
@@ -77,7 +77,12 @@ export interface MergeViewConfiguration extends CodeMirror.EditorConfiguration {
     /**
      * Callback for when stretches of unchanged text are collapsed.
      */
-    onCollapse?(mergeView: MergeView, line: number, size: number, mark: CodeMirror.TextMarker<CodeMirror.MarkerRange>): void;
+    onCollapse?(
+        mergeView: MergeView,
+        line: number,
+        size: number,
+        mark: CodeMirror.TextMarker<CodeMirror.MarkerRange>,
+    ): void;
 
     /**
      * Provides original version of the document to be shown on the right of the editor.
@@ -101,15 +106,17 @@ export interface MergeViewConfiguration extends CodeMirror.EditorConfiguration {
      */
     revertButtons?: boolean | undefined;
 
-    revertChunk?: ((
-        mv: MergeView,
-        from: CodeMirror.Editor,
-        fromStart: CodeMirror.Position,
-        fromEnd: CodeMirror.Position,
-        to: CodeMirror.Editor,
-        toStart: CodeMirror.Position,
-        toEnd: CodeMirror.Position
-    ) => void) | undefined;
+    revertChunk?:
+        | ((
+            mv: MergeView,
+            from: CodeMirror.Editor,
+            fromStart: CodeMirror.Position,
+            fromEnd: CodeMirror.Position,
+            to: CodeMirror.Editor,
+            toStart: CodeMirror.Position,
+            toEnd: CodeMirror.Position,
+        ) => void)
+        | undefined;
 
     /**
      * When true, changed pieces of text are highlighted. Defaults to true.
@@ -117,7 +124,7 @@ export interface MergeViewConfiguration extends CodeMirror.EditorConfiguration {
     showDifferences?: boolean | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     const MergeView: MergeViewConstructor;
 
     interface CommandActions {

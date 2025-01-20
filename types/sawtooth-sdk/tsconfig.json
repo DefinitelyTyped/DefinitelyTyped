@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,10 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -20,8 +16,5 @@
         "index.d.ts",
         "test/signing-tests.ts",
         "test/processor-tests.ts"
-    ],
-    "exclude": [
-        "protobuf/index.d.ts"
     ]
 }

@@ -1,18 +1,13 @@
-/**
- * Namespace: browser.browserSettings
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.browserSettings</code> API to control global settings of the browser.
- * Permissions: "browserSettings"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 import { BrowserSettingsColorManagement } from "./browserSettings_colorManagement";
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.browserSettings
+ */
 export namespace BrowserSettings {
     /**
      * How images should be animated in the browser.

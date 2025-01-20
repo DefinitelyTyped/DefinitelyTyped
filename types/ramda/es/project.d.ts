@@ -1,2 +1,2 @@
-import { project } from '../index';
+import { project } from "../index.js";
 export default project;

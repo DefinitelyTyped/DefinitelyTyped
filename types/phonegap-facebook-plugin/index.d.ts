@@ -1,14 +1,7 @@
-// Type definitions for phonegap-facebook-plugin 0.11.0
-// Project: https://github.com/Wizcorp/phonegap-facebook-plugin
-// Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PhonegapFacebookPlugin {
-
-    //#region API Methods
+    // #region API Methods
 
     interface FacebookConnectPluginStatic {
-
         /**
          * Allows access to the Facebook Graph API. This API allows for additional permission because, unlike login, the Graph API can
          * accept multiple permissions. In order to make calls to the Graph API on behalf of a user, the user has to be logged into your
@@ -19,7 +12,12 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        api: (graphPath: string, permissions: string[], successCallback?: (result: any) => void, failureCallback?: (error: string) => void) => void;
+        api: (
+            graphPath: string,
+            permissions: string[],
+            successCallback?: (result: any) => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
 
         /**
          * Used to retreive the access token for the current user.
@@ -35,7 +33,10 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        getLoginStatus: (successCallback?: (status: LoginResult) => void, failureCallback?: (error: string) => void) => void;
+        getLoginStatus: (
+            successCallback?: (status: LoginResult) => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
 
         /**
          * Used to log an event.
@@ -48,7 +49,13 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        logEvent: (name: string, params?: any, valueToSum?: number, successCallback?: () => void, failureCallback?: (error: string) => void) => void;
+        logEvent: (
+            name: string,
+            params?: any,
+            valueToSum?: number,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
 
         /**
          * Used to log a purchase.
@@ -58,7 +65,12 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        logPurchase: (value: number, currency: string, successCallback?: () => void, failureCallback?: (error: string) => void) => void;
+        logPurchase: (
+            value: number,
+            currency: string,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
 
         /**
          * Used to log the user in via Facebook. Calling this will result in a Facebook login dialog (or external
@@ -68,7 +80,11 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        login: (permissions: string[], successCallback?: (result: LoginResult) => void, failureCallback?: (error: string) => void) => void;
+        login: (
+            permissions: string[],
+            successCallback?: (result: LoginResult) => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
 
         /**
          * Used to log the user out of Facebook. This will invalidate their access token.
@@ -85,15 +101,18 @@ declare namespace PhonegapFacebookPlugin {
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
-        showDialog: (options: BaseDialogOptions, successCallback?: (status: BaseDialogResult) => void, failureCallback?: (error: string) => void) => void;
+        showDialog: (
+            options: BaseDialogOptions,
+            successCallback?: (status: BaseDialogResult) => void,
+            failureCallback?: (error: string) => void,
+        ) => void;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Method Parameters
+    // #region Method Parameters
 
     interface BaseDialogOptions {
-
         /**
          * The type of dialog to show, can be one of the following.
          *
@@ -115,7 +134,6 @@ declare namespace PhonegapFacebookPlugin {
      * For use with showDialog() of method type 'feed'.
      */
     interface FeedDialogOptions extends BaseDialogOptions {
-
         /**
          * The ID of the person posting the message. If this is unspecified, it defaults to the current person.
          * If specified, it must be the ID of the person or of a page that the person administers.
@@ -178,7 +196,6 @@ declare namespace PhonegapFacebookPlugin {
      * For use with showDialog() of method type 'send'.
      */
     interface SendDialogOptions extends BaseDialogOptions {
-
         /**
          * A user ID of a recipient. Once the dialog comes up, the sender can specify additional people, and groups
          * addresses as recipients. Sending content to a Facebook group will post it to the group's wall.
@@ -199,7 +216,6 @@ declare namespace PhonegapFacebookPlugin {
      * For use with showDialog() of method type 'share'.
      */
     interface ShareDialogOptions extends BaseDialogOptions {
-
         /**
          * The link attached to this post. Required when using method share. Include open graph meta tags in the
          * page at this URL to customize the story that is shared.
@@ -215,7 +231,6 @@ declare namespace PhonegapFacebookPlugin {
      * For use with showDialog() of method type 'share_open_graph'.
      */
     interface ShareOpenGraphDialogOptions extends BaseDialogOptions {
-
         /**
          * A string specifying which Open Graph action type to publish, e.g., og.likes for the built in like type.
          * The dialog also supports approved custom types.
@@ -230,9 +245,9 @@ declare namespace PhonegapFacebookPlugin {
         action_properties: string;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Callback Results
+    // #region Callback Results
 
     /**
      * Result for the login() and getLoginStatus() success callbacks.
@@ -245,7 +260,7 @@ declare namespace PhonegapFacebookPlugin {
             session_key: boolean;
             sig: string;
             userID: string;
-        },
+        };
         status: string;
     }
 
@@ -261,7 +276,6 @@ declare namespace PhonegapFacebookPlugin {
      * The response object returned from a success callback for showDialog() of type 'feed'.
      */
     interface FeedDialogResult extends BaseDialogResult {
-
         /**
          * The ID of the posted story, if the person chose to publish.
          */
@@ -278,7 +292,6 @@ declare namespace PhonegapFacebookPlugin {
      * The response object returned from a success callback for showDialog() of type 'share' or 'share_open_graph'.
      */
     interface ShareDialogResult extends BaseDialogResult {
-
         /**
          * Only available if the user is logged into your app using Facebook and has granted publish_actions.
          * If present, this is the ID of the published Open Graph story.
@@ -286,7 +299,7 @@ declare namespace PhonegapFacebookPlugin {
         post_id: string;
     }
 
-    //#endregion
+    // #endregion
 }
 
 declare var facebookConnectPlugin: PhonegapFacebookPlugin.FacebookConnectPluginStatic;

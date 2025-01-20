@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 /**
  * A record object that defines the configuration options for a DriverService
@@ -6,7 +6,7 @@ import * as webdriver from './index';
  *
  * @record
  */
-interface ServiceOptions { }
+interface ServiceOptions {}
 
 /**
  * Manages the life and death of a native executable WebDriver server.
@@ -83,9 +83,7 @@ export class DriverService {
  * @final
  */
 export class FileDetector extends webdriver.FileDetector {
-    /**
-     * @constructor
-     **/
+    /** */
     constructor();
 
     /**

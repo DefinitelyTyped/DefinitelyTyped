@@ -1,17 +1,10 @@
-// Type definitions for Angular File Upload 12.2
-// Project: https://github.com/danialfarid/ng-file-upload
-// Definitions by: John Reilly <https://github.com/johnnyreilly>,
-//   Eduardo Garcia <https://github.com/thewarpaint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace angularFileUpload {
         interface ImageDimensions {
             height: number;
@@ -21,83 +14,68 @@ declare module 'angular' {
         interface FileUploadOptions {
             /**
              * Standard HTML accept attr, browser specific select popup window
-             * @type {string}
              */
             ngfAccept?: string | undefined;
             /**
              * Default true, allow dropping files only for Chrome webkit browser
-             * @type {boolean}
              */
             ngfAllowDir?: boolean | undefined;
             /**
              * Default false, enable firefox image paste by making element contenteditable
-             * @type {boolean}
              */
             ngfEnableFirefoxPaste?: boolean | undefined;
             /**
              * Default false, hides element if file drag&drop is not
-             * @type {boolean}
              */
             ngfHideOnDropNotAvailable?: boolean | undefined;
             /**
              * Validate error name: minDuration
-             * @type {(number|string)}
              */
             ngfMinDuration?: number | string | undefined;
             /**
              * Validate error name: minSize
-             * @type {(number|string)}
              */
             ngfMinSize?: number | string | undefined;
             /**
              * Validate error name: minRatio
-             * @type {(number|string)}
              */
             ngfMinRatio?: number | string | undefined;
             /**
              * Validate error name: maxDuration
-             * @type {(number|string)}
              */
             ngfMaxDuration?: number | string | undefined;
             /**
              * Maximum number of files allowed to be selected or dropped, validate error name: maxFiles
-             * @type {number}
              */
             ngfMaxFiles?: number | undefined;
             /**
              * Validate error name: maxSize
-             * @type {(number|string)}
              */
             ngfMaxSize?: number | string | undefined;
             /**
              * Validate error name: maxTotalSize
-             * @type {(number|string)}
              */
             ngfMaxTotalSize?: number | string | undefined;
             /**
              * Allows selecting multiple files
-             * @type {boolean}
              */
             ngfMultiple?: boolean | undefined;
             /**
              * List of comma separated valid aspect ratio of images in float or 2:3 format
-             * @type {string}
              */
             ngfRatio?: string | undefined;
             /**
              * Default false, whether to propagate drag/drop events.
-             * @type {boolean}
              */
             ngfStopPropagation?: boolean | undefined;
             /**
              * Default false, if true file.$error will be set if the dimension or duration
              * values for validations cannot be calculated for example image load error or unsupported video by the browser.
              * By default it would assume the file is valid if the duration or dimension cannot be calculated by the browser.
-             * @type {boolean}
              */
             ngfValidateForce?: boolean | undefined;
         }
-        
+
         interface ResizeIfFunction {
             (width: number, height: number): boolean;
         }
@@ -123,7 +101,7 @@ declare module 'angular' {
              * @param  {Array<File>}
              * @return {angular.IPromise}
              */
-            base64DataUrl(files: File | Array<File>): angular.IPromise<Array<string> | string>;
+            base64DataUrl(files: File | File[]): angular.IPromise<string[] | string>;
             /**
              * Convert the file to blob url object or base64 data url based on boolean disallowObjectUrl value
              *
@@ -244,13 +222,10 @@ declare module 'angular' {
              * {file: file, info: Upload.json({id: id, name: name, ...})} send fields as json string
              * {file: file, info: Upload.jsonBlob({id: id, name: name, ...})} send fields as json blob, 'application/json' content_type
              * {picFile: Upload.rename(file, 'profile.jpg'), title: title} send file with picFile key and profile.jpg file name
-             *
-             * @type {Object}
              */
             data: any;
             /**
              * upload.php script, node.js route, or servlet url
-             * @type {string}
              */
             url: string;
             /**
@@ -261,7 +236,6 @@ declare module 'angular' {
              * This is to accommodate server implementations expecting nested data object keys in .key or [key] format.
              * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file
              * data: {rec: {name: 'N', pic: file}, objectKey: '.k'} sent as: rec.name -> N, rec.pic -> file
-             * @type {string}
              */
             objectKey?: string | undefined;
             /**
@@ -269,32 +243,26 @@ declare module 'angular' {
              * ''(multiple entries with same key) format.
              * Example: data: {rec: [file[0], file[1], ...]} sent as: rec[0] -> file[0], rec[1] -> file[1],...
              * data: {rec: {rec: [f[0], f[1], ...], arrayKey: '[]'} sent as: rec[] -> f[0], rec[] -> f[1],...
-             * @type {string}
              */
             arrayKey?: string | undefined;
             /**
              * Uploaded file size so far on the server
-             * @type {string}
              */
             resumeSizeUrl?: string | undefined;
             /**
              * Reads the uploaded file size from resumeSizeUrl GET response
-             * @type {Function}
              */
             resumeSizeResponseReader?: Function | undefined;
             /**
              * Function that returns a prommise which will be resolved to the upload file size on the server.
-             * @type {[type]}
              */
             resumeSize?: Function | undefined;
             /**
              * Upload in chunks of specified size
-             * @type {(number|string)}
              */
             resumeChunkSize?: number | string | undefined;
             /**
              * Default false, experimental as hotfix for potential library conflicts with other plugins
-             * @type {boolean}
              */
             disableProgress?: boolean | undefined;
         }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Grid {
     export interface GridProps extends React.HTMLProps<Grid> {
@@ -7,5 +7,5 @@ declare namespace Grid {
         bsClass?: string | undefined;
     }
 }
-declare class Grid extends React.Component<Grid.GridProps> { }
+declare class Grid extends React.Component<Grid.GridProps> {}
 export = Grid;

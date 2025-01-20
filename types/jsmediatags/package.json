@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsmediatags",
+    "version": "3.9.9999",
+    "projects": [
+        "https://github.com/aadsm/jsmediatags#readme"
+    ],
+    "devDependencies": {
+        "@types/jsmediatags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gunnar Már Óttarsson",
+            "githubUsername": "gunnim"
+        }
+    ]
+}

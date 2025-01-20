@@ -1,8 +1,3 @@
-// Type definitions for playmusic 2.3
-// Project: https://www.github.com/jamon/playmusic
-// Definitions by: Nick Paddock <https://github.com/nickp10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface InitOptions {
@@ -253,7 +248,11 @@ export default class PlayMusic {
      * @param updates object - data to update the playlist with
      * @param callback function(err, mutationStatus) - success callback
      */
-    updatePlayListMeta(playlistId: string, updates: PlaylistMeta, callback: (error: Error, mutationStatus: MutateResponses) => void): void;
+    updatePlayListMeta(
+        playlistId: string,
+        updates: PlaylistMeta,
+        callback: (error: Error, mutationStatus: MutateResponses) => void,
+    ): void;
 
     /**
      * Adds a track to end of a playlist.
@@ -269,7 +268,8 @@ export default class PlayMusic {
         playlistId: string,
         callback: (error: Error, mutateResponses: MutateResponses) => void,
         entryBeforeClientId?: string,
-        entryAfterClientId?: string): void;
+        entryAfterClientId?: string,
+    ): void;
 
     /**
      * Move the specified entry inbetween two specified entries (identified by their clientIds)
@@ -279,7 +279,12 @@ export default class PlayMusic {
      * @param entryAfterClientId - optional clientId of playlist entry where to move song before
      * @param callback function(err, playlistEntries) - success callback
      */
-    movePlayListEntry(entryToMove: string, entryBeforeClientId: string, entryAfterClientId: string, callback: (error: Error, mutateResponses: MutateResponses) => void): void;
+    movePlayListEntry(
+        entryToMove: string,
+        entryBeforeClientId: string,
+        entryAfterClientId: string,
+        callback: (error: Error, mutateResponses: MutateResponses) => void,
+    ): void;
 
     /**
      * Increments track's playcount
@@ -306,7 +311,10 @@ export default class PlayMusic {
      * @param playlistItemIds string or array of string - the entry id(s). You can get this from getPlayListEntries or PlaylistItem#id.
      * @param callback function(error, mutateResponses) - success callback
      */
-    removePlayListEntry(playlistItemIds: string | string[], callback: (error: Error, mutateResponses: MutateResponses) => void): void;
+    removePlayListEntry(
+        playlistItemIds: string | string[],
+        callback: (error: Error, mutateResponses: MutateResponses) => void,
+    ): void;
 
     /**
      * Returns tracks on all playlists.

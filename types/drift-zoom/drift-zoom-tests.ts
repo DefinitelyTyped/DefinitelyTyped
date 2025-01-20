@@ -1,5 +1,5 @@
-import Drift = require('drift-zoom');
-import { Options } from 'drift-zoom';
+import Drift = require("drift-zoom");
+import { Options } from "drift-zoom";
 
 const options: Options = {
     namespace: null,
@@ -8,7 +8,7 @@ const options: Options = {
     inlineOffsetX: 0,
     inlineOffsetY: 0,
     inlineContainer: document.body,
-    sourceAttribute: 'data-zoom',
+    sourceAttribute: "data-zoom",
     zoomFactor: 3,
     paneContainer: document.body,
     inlinePane: 375,
@@ -24,13 +24,13 @@ const options: Options = {
     passive: true,
 };
 // $ExpectType Drift
-const drift = new Drift(document.querySelector('img')!, {
-    paneContainer: document.querySelector('p')!,
+const drift = new Drift(document.querySelector("img")!, {
+    paneContainer: document.querySelector("p")!,
 });
 
 drift.destroy();
 drift.disable();
 drift.enable();
 drift.isShowing; // $ExpectType boolean
-drift.setZoomImageURL('url');
+drift.setZoomImageURL("url");
 drift.zoomFactor = 2;

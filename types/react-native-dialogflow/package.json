@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/react-native-dialogflow",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/innFactory/react-native-dialogflow#readme"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-dialogflow": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Merino",
+            "githubUsername": "jasonmerino"
+        }
+    ]
+}

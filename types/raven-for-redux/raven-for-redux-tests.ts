@@ -9,5 +9,5 @@ createStore(
         return null;
     },
     null,
-    applyMiddleware(middleware)
+    applyMiddleware(middleware),
 );

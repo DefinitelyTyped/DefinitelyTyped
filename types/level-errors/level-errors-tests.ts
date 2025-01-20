@@ -1,4 +1,12 @@
-import { LevelUPError, InitializationError, OpenError, ReadError, WriteError, NotFoundError, EncodingError } from 'level-errors';
+import {
+    EncodingError,
+    InitializationError,
+    LevelUPError,
+    NotFoundError,
+    OpenError,
+    ReadError,
+    WriteError,
+} from "level-errors";
 
 let e: LevelUPError;
 e = new InitializationError();

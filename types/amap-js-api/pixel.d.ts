@@ -26,7 +26,7 @@ declare namespace AMap {
         toString(): string;
 
         // internal
-        add(offset: {x: number; y: number}, round?: boolean): Pixel;
+        add(offset: { x: number; y: number }, round?: boolean): Pixel;
         round(): Pixel;
         floor(): Pixel;
         length(): number;

@@ -1,5 +1,5 @@
-import ConnectSequence from 'connect-sequence';
-import express, { RequestHandler } from 'express';
+import ConnectSequence from "connect-sequence";
+import express, { RequestHandler } from "express";
 
 const appendMiddleware: RequestHandler = (req, res, next) => {};
 
@@ -13,7 +13,7 @@ const appendListIfMiddleware2: RequestHandler = (req, res, next) => {};
 
 const app = express();
 
-app.route('/api/products/:productId').get((req, res, next) => {
+app.route("/api/products/:productId").get((req, res, next) => {
     const seq = new ConnectSequence(req, res, next);
 
     seq.append(appendMiddleware)

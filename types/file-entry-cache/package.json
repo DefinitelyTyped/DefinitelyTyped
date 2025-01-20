@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/file-entry-cache",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/royriojas/file-entry-cache#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/file-entry-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

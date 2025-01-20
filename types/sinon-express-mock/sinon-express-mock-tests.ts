@@ -1,15 +1,8 @@
-import {
-    spy,
-} from "sinon";
+import { spy } from "sinon";
 
-import {
-    RequestHandler,
-} from "express";
+import { RequestHandler } from "express";
 
-import {
-    mockReq,
-    mockRes,
-} from "sinon-express-mock";
+import { mockReq, mockRes } from "sinon-express-mock";
 
 const handlers: RequestHandler[] = [];
 

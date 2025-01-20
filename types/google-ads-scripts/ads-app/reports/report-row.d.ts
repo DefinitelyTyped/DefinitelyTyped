@@ -71,7 +71,6 @@ declare namespace GoogleAdsScripts {
              *
              * Search rows are returned as plain Javascript objects. Individual requested fields can be accessed by accessing the nested field.
              *
-             *
              *      var rows = AdsApp.search(
              *          'SELECT search_term_view.search_term, metrics.ctr ' +
              *          'FROM   search_term_view ' +

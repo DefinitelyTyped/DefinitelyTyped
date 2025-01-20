@@ -63,14 +63,14 @@ const writeText = (filename, text) => new Promise((resolve, reject) => {
             reject(err)
             return
         }
-        resolve()
+        resolve(undefined)
     })
 })
 
-const inject = (content) => {
-    content.category = this.name
-    return content
-}
+// const inject = (content) => {
+//     content.category = this.name
+//     return content
+// }
 
 const rMark = /(\/{2} \{{3})[\s\S]*?(\/{2} \}{3})/g
 

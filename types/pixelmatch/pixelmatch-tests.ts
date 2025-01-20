@@ -3,19 +3,19 @@
  * https://github.com/mapbox/pixelmatch#example-usage
  */
 
-import * as fs from 'fs';
-import pixelmatch = require('pixelmatch');
-import { PNG } from 'pngjs';
+import * as fs from "fs";
+import pixelmatch = require("pixelmatch");
+import { PNG } from "pngjs";
 
 const img1 = fs
-    .createReadStream('img1.png')
+    .createReadStream("img1.png")
     .pipe(new PNG())
-    .on('parsed', doneReading);
+    .on("parsed", doneReading);
 
 const img2 = fs
-    .createReadStream('img2.png')
+    .createReadStream("img2.png")
     .pipe(new PNG())
-    .on('parsed', doneReading);
+    .on("parsed", doneReading);
 
 let filesRead = 0;
 
@@ -29,5 +29,5 @@ function doneReading() {
         diffColorAlt: [0, 255, 0],
     });
 
-    diff.pack().pipe(fs.createWriteStream('diff.png'));
+    diff.pack().pipe(fs.createWriteStream("diff.png"));
 }

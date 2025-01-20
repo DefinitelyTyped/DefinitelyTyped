@@ -19,7 +19,7 @@ declare namespace jsrsasign.KJUR.asn1.cms {
      * o.isDetached = true;               // false as default
      */
     class EncapsulatedContentInfo extends ASN1Object {
-        constructor(params?: 'string');
+        constructor(params?: "string");
         setContentType(nameOrOid: string): void;
         setContentValue(params: HexParam | StringParam): void;
         setContentValueHex(valueHex: string): void;

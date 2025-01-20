@@ -1,14 +1,14 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { Transport, TransportOptions } from '../..';
-import * as shared from '../shared';
+import { Transport, TransportOptions } from "../..";
+import * as shared from "../shared";
 
-import Mail = require('../mailer');
-import MailMessage = require('../mailer/mail-message');
-import MimeNode = require('../mime-node');
-import SMTPConnection = require('../smtp-connection');
+import Mail = require("../mailer");
+import MailMessage = require("../mailer/mail-message");
+import MimeNode = require("../mime-node");
+import SMTPConnection = require("../smtp-connection");
 
 declare namespace SMTPPool {
     interface MailOptions extends Mail.Options {
@@ -60,7 +60,10 @@ declare class SMTPPool extends EventEmitter implements Transport<SMTPPool.SentMe
     getSocket(options: SMTPPool.Options, callback: (err: Error | null, socketOptions: any) => void): void;
 
     /** Sends an e-mail using the selected settings */
-    send(mail: MailMessage<SMTPPool.SentMessageInfo>, callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void): void;
+    send(
+        mail: MailMessage<SMTPPool.SentMessageInfo>,
+        callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void,
+    ): void;
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;
@@ -72,19 +75,19 @@ declare class SMTPPool extends EventEmitter implements Transport<SMTPPool.SentMe
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    addListener(event: 'idle', listener: () => void): this;
+    addListener(event: "idle", listener: () => void): this;
 
-    emit(event: 'idle'): boolean;
+    emit(event: "idle"): boolean;
 
-    on(event: 'idle', listener: () => void): this;
+    on(event: "idle", listener: () => void): this;
 
-    once(event: 'idle', listener: () => void): this;
+    once(event: "idle", listener: () => void): this;
 
-    prependListener(event: 'idle', listener: () => void): this;
+    prependListener(event: "idle", listener: () => void): this;
 
-    prependOnceListener(event: 'idle', listener: () => void): this;
+    prependOnceListener(event: "idle", listener: () => void): this;
 
-    listeners(event: 'idle'): Array<() => void>;
+    listeners(event: "idle"): Array<() => void>;
 }
 
 export = SMTPPool;

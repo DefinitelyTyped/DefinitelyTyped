@@ -1,14 +1,31 @@
-// Type definitions for react-column-resizer 1.1
-// Project: https://github.com/nik-m2/react-column-resizer#readme
-// Definitions by: ibrahim <https://github.com/ibrahim-13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { Component } from "react";
 
-import { Component } from 'react';
+declare namespace ColumnResizer {
+    interface ResizerProps {
+        /**
+         * Any custom classes.
+         * If set, default width and backgroundColor styles will not be applied.
+         *
+         * @default ""
+         */
+        className?: string | undefined;
 
-export interface ResizerProps {
-    className?: string | undefined;
-    disabled?: boolean | undefined;
-    minWidth?: number | undefined;
+        /**
+         * Set to true if you want to disable resizing
+         *
+         * @default false
+         */
+        disabled?: boolean | undefined;
+
+        /**
+         * The minimum width for the columns (in pixels)
+         *
+         * @default 0
+         */
+        minWidth?: number | undefined;
+    }
 }
 
-export default class ColumnResizer extends Component<ResizerProps> {}
+declare class ColumnResizer extends Component<ColumnResizer.ResizerProps> {}
+
+export = ColumnResizer;

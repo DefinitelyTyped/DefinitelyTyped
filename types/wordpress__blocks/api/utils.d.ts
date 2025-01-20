@@ -1,4 +1,4 @@
-import { BlockIcon, BlockIconNormalized, BlockInstance } from '../';
+import { BlockIcon, BlockIconNormalized, BlockInstance } from "../";
 
 /**
  * Determines whether the block is a default block and its attributes are equal

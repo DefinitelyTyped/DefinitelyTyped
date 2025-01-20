@@ -1,8 +1,3 @@
-// Type definitions for quoted-printable 1.0
-// Project: https://github.com/mathiasbynens/quoted-printable
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace quotedPrintable;
 /**
  * A string representing the semantic version number.

@@ -15,12 +15,12 @@ const handlerFn: Lifecycle.Method = (request, h) => {
 };
 
 const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
-    handler: handlerFn
+    path: "/",
+    method: "GET",
+    handler: handlerFn,
 };
 
 const server = new Server(options);
 server.route(serverRoute);
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

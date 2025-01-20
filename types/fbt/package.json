@@ -1,7 +1,24 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        "<=4.1": { "*": ["ts4.1/*"] }
-    }
+    "name": "@types/fbt",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/facebook/fbt"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/fbt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Davyd",
+            "githubUsername": "retyui"
+        },
+        {
+            "name": "Alexander Nanberg",
+            "githubUsername": "alexandernanberg"
+        }
+    ]
 }

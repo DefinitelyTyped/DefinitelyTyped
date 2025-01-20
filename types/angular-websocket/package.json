@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/angular-websocket",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/gdi2290/angular-websocket",
+        "https://github.com/angular-class/angular-websocket"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-websocket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Veys",
+            "githubUsername": "nickveys"
+        }
+    ]
+}

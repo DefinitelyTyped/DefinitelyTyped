@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/relationship.js",
+    "version": "1.2.9999",
+    "projects": [
+        "https://passer-by.com/relationship/"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "devDependencies": {
+        "@types/relationship.js": "workspace:."
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/relationship.min.d.mts",
+            "require": "./dist/relationship.min.d.ts",
+            "default": "./dist/relationship.min.d.ts"
+        },
+        "./mode": {
+            "import": "./dist/relationship-mode.min.d.mts",
+            "require": "./dist/relationship-mode.min.d.ts",
+            "default": "./dist/relationship-mode.min.d.ts"
+        },
+        "./zh-HK": {
+            "import": "./dist/relationship.min.d.mts",
+            "require": "./dist/relationship.min.d.ts",
+            "default": "./dist/relationship.min.d.ts"
+        },
+        "./zh-HK/mode": {
+            "import": "./dist/relationship-mode.min.d.mts",
+            "require": "./dist/relationship-mode.min.d.ts",
+            "default": "./dist/relationship-mode.min.d.ts"
+        }
+    },
+    "owners": [
+        {
+            "name": "whincwu",
+            "githubUsername": "whinc"
+        }
+    ]
+}

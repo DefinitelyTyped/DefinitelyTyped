@@ -1,9 +1,18 @@
-umami("custom_event");
+umami.track();
 
-umami.trackEvent("custom_event", "custom_type");
-umami.trackEvent("custom_event", "custom_type", "https://example.com/");
-umami.trackEvent("custom_event", "custom_type", "https://example.com/", "94db1cb1-74f4-4a40-ad6c-962362670409");
+umami.track({ website: "e676c9b4-11e4-4ef1-a4d7-87001773e9f2", url: "/home", title: "Home page" });
 
-umami.trackView("https://example.com/");
-umami.trackView("https://example.com/", "https://example.com/test/");
-umami.trackView("https://example.com/", "https://example.com/test/", "94db1cb1-74f4-4a40-ad6c-962362670409");
+umami.track(props => ({ ...props, url: "/home", title: "Home page" }));
+
+umami.track("signup-button");
+
+umami.track("signup-button", { name: "newsletter", id: 123 });
+
+umami.track(props => ({
+    ...props,
+    name: "signup-button",
+    data: {
+        name: "newsletter",
+        id: 123,
+    },
+}));

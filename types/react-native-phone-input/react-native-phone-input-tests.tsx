@@ -1,49 +1,49 @@
-import * as React from 'react';
-import { Text } from 'react-native';
-import ReactNativePhoneInput from 'react-native-phone-input';
+import * as React from "react";
+import { Text } from "react-native";
+import ReactNativePhoneInput from "react-native-phone-input";
 
 const test: React.FC = () => (
     <ReactNativePhoneInput<typeof Text>
-        initialCountry={'us'}
+        initialCountry={"us"}
         allowZeroAfterCountryCode={false}
         disabled={false}
-        value={'+440000000000'}
+        value={"+440000000000"}
         style={{
-            backgroundColor: 'green',
+            backgroundColor: "green",
         }}
         flagStyle={{
-            backgroundColor: 'blue',
+            backgroundColor: "blue",
         }}
         textStyle={{
-            color: 'red',
+            color: "red",
         }}
         textProps={{
             maxFontSizeMultiplier: 2,
         }}
         textComponent={Text}
         offset={10}
-        pickerButtonColor={'#FFFFFF'}
-        pickerBackgroundColor={'#000000'}
+        pickerButtonColor={"#FFFFFF"}
+        pickerBackgroundColor={"#000000"}
         pickerItemStyle={{}}
-        cancelText={'Cancel'}
-        confirmText={'Confirm'}
+        cancelText={"Cancel"}
+        confirmText={"Confirm"}
         buttonTextStyle={{
-            color: 'red',
+            color: "red",
         }}
         onChangePhoneNumber={newPhoneNumber => {
-            console.info('New phone number', newPhoneNumber);
+            console.info("New phone number", newPhoneNumber);
         }}
         onSelectCountry={selected => {
-            console.info('Selected country', selected);
+            console.info("Selected country", selected);
         }}
         onPressFlag={() => {
-            console.info('Flag pressed');
+            console.info("Flag pressed");
         }}
         onPressCancel={() => {
-            console.info('Selection cancelled');
+            console.info("Selection cancelled");
         }}
         onPressConfirm={() => {
-            console.info('Selection confirmed');
+            console.info("Selection confirmed");
         }}
         countriesList={[]}
     />

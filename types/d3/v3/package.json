@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/d3",
+    "version": "3.5.9999",
+    "projects": [
+        "http://d3js.org/"
+    ],
+    "devDependencies": {
+        "@types/d3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Matthias Jobst",
+            "githubUsername": "MatthiasJobst"
+        },
+        {
+            "name": "Nithyanandam Venu",
+            "githubUsername": "vbinithyanandamv"
+        },
+        {
+            "name": "Mihai Cherej",
+            "githubUsername": "cronco"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

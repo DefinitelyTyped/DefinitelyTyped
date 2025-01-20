@@ -1,5 +1,5 @@
-import { Component, ReactNode, CSSProperties } from "react";
 import { Range } from "immutable";
+import { Component, CSSProperties, ReactNode } from "react";
 
 export interface WebsocketOptions {
     onOpen?: ((e: Event, socket: WebSocket) => void) | undefined;

@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/body-parser",
+    "version": "1.19.9999",
+    "projects": [
+        "https://github.com/expressjs/body-parser"
+    ],
+    "dependencies": {
+        "@types/connect": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/body-parser": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Santi Albo",
+            "githubUsername": "santialbo"
+        },
+        {
+            "name": "Vilic Vane",
+            "githubUsername": "vilic"
+        },
+        {
+            "name": "Jonathan Häberle",
+            "githubUsername": "dreampulse"
+        },
+        {
+            "name": "Gevik Babakhani",
+            "githubUsername": "blendsdk"
+        },
+        {
+            "name": "Tomasz Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Jason Walton",
+            "githubUsername": "jwalton"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

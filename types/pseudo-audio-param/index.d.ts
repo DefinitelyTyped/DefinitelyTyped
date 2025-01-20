@@ -1,9 +1,3 @@
-// Type definitions for pseudo-audio-param 1.3
-// Project: https://github.com/mohayonao/pseudo-audio-param/
-// Definitions by: Drew Petersen <https://github.com/kirbysayshi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export = PseudoAudioParam;
 export as namespace PseudoAudioParam;
 
@@ -35,12 +29,12 @@ declare class PseudoAudioParam {
     setTargetAtTime(
         value: number,
         time: number,
-        timeConstant: number
+        timeConstant: number,
     ): PseudoAudioParam;
     setValueCurveAtTime(
         values: number[],
         time: number,
-        duration: number
+        duration: number,
     ): PseudoAudioParam;
     cancelScheduledValues(time: number): PseudoAudioParam;
     cancelAndHoldAtTime(time: number): PseudoAudioParam;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/neo-async",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/suguru03/neo-async"
+    ],
+    "devDependencies": {
+        "@types/neo-async": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Corentin Verpillat",
+            "githubUsername": "corentinverpillat"
+        }
+    ]
+}

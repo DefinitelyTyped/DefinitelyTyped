@@ -1,35 +1,40 @@
-/**
- * Namespace: browser.geckoProfiler
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Exposes the browser's profiler.
- * Permissions: "geckoProfiler"
- */
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.geckoProfiler
+ */
 export namespace GeckoProfiler {
     type ProfilerFeature =
         | "java"
         | "js"
-        | "leaf"
         | "mainthreadio"
-        | "responsiveness"
+        | "fileio"
+        | "fileioall"
+        | "nomarkerstacks"
         | "screenshots"
         | "seqstyle"
         | "stackwalk"
-        | "threads"
-        | "jstracer"
         | "jsallocations"
         | "nostacksampling"
         | "nativeallocations"
-        | "preferencereads"
         | "ipcmessages"
-        | "fileio"
-        | "fileioall"
-        | "noiostacks"
         | "audiocallbacktracing"
         | "cpu"
-        | "notimerresolutionchange";
+        | "notimerresolutionchange"
+        | "cpuallthreads"
+        | "samplingallthreads"
+        | "markersallthreads"
+        | "unregisteredthreads"
+        | "processcpu"
+        | "power"
+        | "responsiveness"
+        | "cpufreq"
+        | "bandwidth"
+        | "memory";
 
     type supports = "windowLength";
 
@@ -68,8 +73,6 @@ export namespace GeckoProfiler {
     interface Static {
         /**
          * Starts the profiler with the specified settings.
-         *
-         * @param settings
          */
         start(settings: StartSettingsType): void;
 

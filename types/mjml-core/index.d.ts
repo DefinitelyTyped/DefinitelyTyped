@@ -1,9 +1,3 @@
-// Type definitions for mjml-core 4.7
-// Project: https://mjml.io
-// Definitions by: Ian Edington       <https://github.com/IanEdington>
-//                 Ryan Burr          <https://github.com/ryanburr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The main parser for MJML.
  * This version doesn't contain any of the core components registered in the 'mjml' package.
@@ -65,7 +59,7 @@ export interface MJMLParsingOptions {
      *
      * default: soft
      */
-    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
+    validationLevel?: "strict" | "soft" | "skip" | undefined;
 
     /**
      * Full path of the specified file to use when resolving paths from mj-include components
@@ -109,6 +103,12 @@ export interface MJMLParsingOptions {
      * see mjml-parser-xml
      */
     preprocessors?: Array<((xml: string) => string)> | undefined;
+
+    /**
+     * Add media queries specific to printer when converting mjml into html. When enabling this option,
+     * the html might not be compatible with all email clients anymore.
+     */
+    printerSupport?: boolean | undefined;
 }
 
 export interface MJMLMinifyOptions {
@@ -134,19 +134,19 @@ export type MJMLJsonObject = MJMLJsonWithChildren | MJMLJsonWithContent | MJMLJs
 
 export interface MJMLJsonWithChildren {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     children: MJMLJsonObject[];
 }
 
 export interface MJMLJsonWithContent {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     content: string;
 }
 
 export interface MJMLJsonSelfClosingTag {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
 }
 
 /**
@@ -187,7 +187,7 @@ export abstract class BodyComponent extends Component {
     renderChildren(
         children?: [],
         options?: {
-            props?: Component['props'] | undefined;
+            props?: Component["props"] | undefined;
             renderer?: ((component: Component) => any) | undefined;
             attributes?: Record<string, string> | undefined;
             rawXML?: boolean | undefined;

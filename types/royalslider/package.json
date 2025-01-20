@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/royalslider",
+    "version": "9.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "royalslider",
+    "projects": [
+        "http://dimsemenov.com/plugins/royal-slider/documentation/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/royalslider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christiaan Rakowski",
+            "githubUsername": "csrakowski"
+        },
+        {
+            "name": "sKopheK",
+            "githubUsername": "sKopheK"
+        }
+    ]
+}

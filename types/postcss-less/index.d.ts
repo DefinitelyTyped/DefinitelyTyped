@@ -1,16 +1,9 @@
-// Type definitions for postcss-less 4.0
-// Project: https://github.com/shellscape/postcss-less
-// Definitions by: Masafumi Koba <https://github.com/ybiquitous>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
-import * as postcss from 'postcss';
+import * as postcss from "postcss";
 
 export = postcssLess;
 
 declare const postcssLess: postcss.Syntax & {
-    parse: postcss.Parser;
+    parse: postcss.Parser<postcss.Root>;
     stringify: postcss.Stringifier;
     nodeToString: (node: postcss.Node) => string;
 };

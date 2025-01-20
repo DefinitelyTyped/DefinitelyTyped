@@ -1,20 +1,19 @@
+import * as assert from "assert";
 import * as bser from "bser";
 import Int64 from "node-int64";
-import * as assert from "assert";
 
 // This is a hard-coded template representation from the C test suite
-const template =
-    "\x00\x01\x03\x28" +
-    "\x0b\x00\x03\x02\x02\x03\x04\x6e\x61\x6d\x65\x02" +
-    "\x03\x03\x61\x67\x65\x03\x03\x02\x03\x04\x66\x72" +
-    "\x65\x64\x03\x14\x02\x03\x04\x70\x65\x74\x65\x03" +
-    "\x1e\x0c\x03\x19";
+const template = "\x00\x01\x03\x28"
+    + "\x0b\x00\x03\x02\x02\x03\x04\x6e\x61\x6d\x65\x02"
+    + "\x03\x03\x61\x67\x65\x03\x03\x02\x03\x04\x66\x72"
+    + "\x65\x64\x03\x14\x02\x03\x04\x70\x65\x74\x65\x03"
+    + "\x1e\x0c\x03\x19";
 
 const val = bser.loadFromBuffer(template);
 assert.deepStrictEqual(val, [
     { name: "fred", age: 20 },
     { name: "pete", age: 30 },
-    { age: 25 }
+    { age: 25 },
 ]);
 
 function roundtrip(val: any) {
@@ -45,7 +44,7 @@ const values_to_test = [
     null,
     [1, 2, 3],
     { foo: "bar" },
-    { nested: { struct: "hello", list: [true, false, 1, "string"] } }
+    { nested: { struct: "hello", list: [true, false, 1, "string"] } },
 ];
 
 for (const value of values_to_test) {

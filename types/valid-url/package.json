@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/valid-url",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ogt/valid-url"
+    ],
+    "devDependencies": {
+        "@types/valid-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gabriel Cangussu",
+            "githubUsername": "gcangussu"
+        }
+    ]
+}

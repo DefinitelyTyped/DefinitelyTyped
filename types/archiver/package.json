@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/archiver",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/archiverjs/node-archiver"
+    ],
+    "dependencies": {
+        "@types/readdir-glob": "*"
+    },
+    "devDependencies": {
+        "@types/archiver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Esri\n//                  Dolan Miu",
+            "githubUsername": "dolanmiu"
+        },
+        {
+            "name": "Crevil",
+            "githubUsername": "crevil"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

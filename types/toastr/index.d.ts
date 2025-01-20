@@ -1,10 +1,3 @@
-// Type definitions for Toastr 2.1.3
-// Project: https://github.com/CodeSeven/toastr
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery" />
 
 interface ToastrOptions {
@@ -76,7 +69,7 @@ interface ToastrOptions {
      * Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onCloseClick?: ((ev: JQueryMouseEventObject) => void) | undefined;
+    onCloseClick?: ((ev: JQuery.ClickEvent) => void) | undefined;
     /**
      * Should clicking on toast dismiss it?
      * @default true
@@ -207,7 +200,7 @@ interface ToastrOptions {
      * Function to execute on toast click. Closing cannot be prevented by ev.stopPropagation() etc.
      * @default undefined
      */
-    onclick?: ((ev: JQueryMouseEventObject) => void) | undefined;
+    onclick?: ((ev: JQuery.ClickEvent) => void) | undefined;
     /**
      * Should the title and message text be escaped?
      * @default false
@@ -224,20 +217,20 @@ interface ToastrDisplayMethod {
     /**
      * Create a toast
      *
-     * @param message Message to display in toast
+     * @param message Message to display in toast, or HTML content
      * @param title Title to display on toast
      * @param overrides Option values for toast
      */
-    (message: string, title?: string, overrides?: ToastrOptions): JQuery;
+    (message: string | JQuery, title?: string, overrides?: ToastrOptions): JQuery;
 }
 
-type ToastrType = 'error'|'info'|'success'|'warning';
+type ToastrType = "error" | "info" | "success" | "warning";
 
 interface ToastMap {
     /**
      * The toast type.
      */
-        type: ToastrType;
+    type: ToastrType;
     /**
      * The toast message.
      */
@@ -264,7 +257,7 @@ interface ToastrResponse {
     /**
      * The current state of the toast.
      */
-    state: 'visible'|'hidden';
+    state: "visible" | "hidden";
     /**
      * The datetime the toast was opened.
      */
@@ -294,7 +287,7 @@ interface Toastr {
          * @param toast Toast to clear
          * @param clearOptions force clearing a toast, ignoring focus
          */
-        (toast?: JQuery, clearOptions?: {force: boolean}): void;
+        (toast?: JQuery, clearOptions?: { force: boolean }): void;
     };
     /**
      * Removes toasts (without animation)
@@ -302,13 +295,13 @@ interface Toastr {
     remove: {
         /**
          * Removes all toasts (without animation)
-          */
+         */
         (): void;
         /**
          * Removes specific toast (without animation)
          *
          * @param toast Toast to remove
-          */
+         */
         (toast: JQuery): void;
     };
     /**
@@ -344,7 +337,7 @@ interface Toastr {
          *
          * @param options Option values for the container
          */
-        (options?: ToastrOptions): JQuery,
+        (options?: ToastrOptions): JQuery;
         /**
          * Get the container by options.containerId.
          * If it doesn't exist, it will be created according to options.
@@ -352,7 +345,7 @@ interface Toastr {
          * @param options Option values for the container
          * @param create Use true to create a container, if it doesn't exist
          */
-        (options: ToastrOptions, create: boolean): JQuery,
+        (options: ToastrOptions, create: boolean): JQuery;
     };
     /**
      * Register a callback to be called when a toast gets created or hidden.

@@ -1,2 +1,2 @@
-import thisSymbolValue = require('../2018/thisSymbolValue');
+import thisSymbolValue = require("../2018/thisSymbolValue");
 export = thisSymbolValue;

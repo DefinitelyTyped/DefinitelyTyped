@@ -1,10 +1,3 @@
-// Type definitions for @feathersjs/errors 3.3
-// Project: https://feathersjs.com
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-//                 RazzM13 <https://github.com/RazzM13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface FeathersErrorJSON {
     readonly name: string;
     readonly message: string;

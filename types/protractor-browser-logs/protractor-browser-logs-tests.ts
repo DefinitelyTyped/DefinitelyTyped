@@ -1,19 +1,21 @@
-import { browser } from 'protractor/built';
-import browserLogs = require('protractor-browser-logs');
-import * as webdriver from 'selenium-webdriver';
+import { browser } from "protractor/built";
+import browserLogs = require("protractor-browser-logs");
+import * as webdriver from "selenium-webdriver";
 import Entry = webdriver.logging.Entry;
 
 function colored(entries: Entry[]) {
-    const colors: any = { INFO: 35 /* magenta */, WARNING: 33 /* yellow */, SEVERE: 31 /* red */};
+    const colors: any = { INFO: 35, /* magenta */ WARNING: 33, /* yellow */ SEVERE: 31 /* red */ };
     entries.forEach((entry: Entry) => {
-        console.log(`\u001b[${colors[entry.level.name] || 37}m${[entry.level.name, entry.message].join(': ')}\u001b[39m`);
+        console.log(
+            `\u001b[${colors[entry.level.name] || 37}m${[entry.level.name, entry.message].join(": ")}\u001b[39m`,
+        );
     });
 }
 
 function testCreateFunction() {
     let logs = browserLogs(browser);
     logs = browserLogs(browser, { reporters: [] });
-    logs = browserLogs(browser, { reporters: [ colored ] });
+    logs = browserLogs(browser, { reporters: [colored] });
 }
 
 function testLogLevels() {
@@ -37,14 +39,14 @@ function testRegExp() {
     const logs = browserLogs(browser);
 
     logs.ignore(/foo/i);
-    logs.expect(new RegExp('/foo/i'));
+    logs.expect(new RegExp("/foo/i"));
 }
 
 function testString() {
     const logs = browserLogs(browser);
 
-    logs.ignore('foo');
-    logs.expect('foo');
+    logs.ignore("foo");
+    logs.expect("foo");
 }
 
 function testMatchFunction() {

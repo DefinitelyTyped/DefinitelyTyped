@@ -1,9 +1,3 @@
-// Type definitions for zui 1.7
-// Project: http://zui.sexy
-// Definitions by: YuanXu <https://github.com/yuanxu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 type CallBack = () => void;
@@ -225,7 +219,7 @@ interface JQuery {
     // on(events: "dp.error", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
     // on(events: 'dp.error', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
-    data(key: 'DateTimePicker'): Datetimepicker;
+    data(key: "DateTimePicker"): Datetimepicker;
 }
 
 /**
@@ -260,7 +254,14 @@ interface StoreStatic {
  * messager
  */
 declare enum MessagerTypeEnum {
-    'default', 'primary', 'success', 'info', 'warning', 'danger', 'important', 'special'
+    "default",
+    "primary",
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "important",
+    "special",
 }
 interface Action {
     name?: string | undefined;
@@ -683,7 +684,7 @@ interface DataTableOption {
 }
 
 interface DataTable {
-    checks: { checkedAll: boolean, checks: number[] };
+    checks: { checkedAll: boolean; checks: number[] };
 }
 
 interface JQuery {
@@ -704,7 +705,7 @@ interface UploaderOption {
         mime_type: Array<{
             title?: string | undefined;
             extensions?: string | undefined;
-        }>,
+        }>;
         max_file_size?: string | undefined;
         prevent_duplicates?: string | undefined;
     } | undefined;
@@ -712,14 +713,16 @@ interface UploaderOption {
     fileTemplate?: string | undefined;
     fileFormater?($file: JQuery, file: FileObj, status: STATUS): void;
     fileIconCreator?(fileType: string, file: FileObj, uploader: Uploader): void;
-    staticFiles?: Array<{
-        id?: string | undefined;
-        name?: string | undefined;
-        type?: string | undefined;
-        size?: string | undefined;
-        origSize?: string | undefined;
-        lastModifiedDate?: Date | undefined;
-    }> | undefined;
+    staticFiles?:
+        | Array<{
+            id?: string | undefined;
+            name?: string | undefined;
+            type?: string | undefined;
+            size?: string | undefined;
+            origSize?: string | undefined;
+            lastModifiedDate?: Date | undefined;
+        }>
+        | undefined;
     rename?: boolean | undefined;
     renameExtension?: boolean | undefined;
     renameByClick?: boolean | undefined;
@@ -734,7 +737,7 @@ interface UploaderOption {
     deleteConfirm?: boolean | string | undefined;
     removeUploaded?: boolean | undefined;
     statusCreator?(total: UploadProgress, state: STATUS, uploader: Uploader): void;
-    previewImageSize?: { width: number, height: number } | undefined;
+    previewImageSize?: { width: number; height: number } | undefined;
     uploadedMessage?: boolean | undefined;
     deleteActionOnDone?: boolean | undefined;
     renameActionOnDone?: boolean | undefined;
@@ -769,7 +772,7 @@ interface UploaderOption {
     onBeforeUpload?(file: FileObj): void;
     onStateChanged?(status: STATUS): void;
     onQueueChanged?(): void;
-    onError?(error: { error: ERRORS, message: string, file: FileObj }): void;
+    onError?(error: { error: ERRORS; message: string; file: FileObj }): void;
 }
 interface ResponseObject {
     response?: string | undefined;
@@ -779,7 +782,12 @@ interface ResponseObject {
     total?: number | undefined;
 }
 declare enum STATUS {
-    STOPPED = 1, STARTED = 2, QUEUED = 1, UPLOADING = 2, FAILED = 3, DONE = 4
+    STOPPED = 1,
+    STARTED = 2,
+    QUEUED = 1,
+    UPLOADING = 2,
+    FAILED = 3,
+    DONE = 4,
 }
 interface FileObj {
     id?: string | undefined;
@@ -817,7 +825,7 @@ declare enum ERRORS {
     FILE_DUPLICATE_ERROR = -602,
     IMAGE_FORMAT_ERROR = -700,
     IMAGE_MEMORY_ERROR = -701,
-    IMAGE_DIMENSIONS_ERROR = -702
+    IMAGE_DIMENSIONS_ERROR = -702,
 }
 interface Uploader {
     showMessage(message: string, type: string, time?: number): void;

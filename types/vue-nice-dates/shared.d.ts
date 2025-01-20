@@ -1,4 +1,4 @@
-import { Locale } from 'date-fns';
+import { Locale } from "date-fns";
 
 export type DateLocale = Locale;
 

@@ -1,8 +1,8 @@
-import metascraper = require('metascraper');
-import metascraperClearbit = require('metascraper-clearbit');
+import metascraper from "metascraper";
+import metascraperClearbit = require("metascraper-clearbit");
 
-const html = 'example';
-const url = 'https://example.org';
+const html = "example";
+const url = "https://example.org";
 
 const options: metascraperClearbit.Options = {
     gotOpts: {

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import InfiniteScroll = require('react-infinite-scroller');
+import * as React from "react";
+import InfiniteScroll = require("react-infinite-scroller");
 
 class Test1 extends React.Component {
     render() {
@@ -18,7 +18,7 @@ class Test2 extends React.Component {
         return (
             <InfiniteScroll
                 loadMore={(page) => {}}
-                element='section'
+                element="section"
                 hasMore
                 initialLoad={false}
                 isReverse
@@ -40,10 +40,28 @@ class Test3 extends React.Component {
         return (
             <div ref={this.inputRef}>
                 <InfiniteScroll
-                  loadMore={(page) => {}}
-                  getScrollParent={() => this.inputRef.current}
+                    loadMore={(page) => {}}
+                    getScrollParent={() => this.inputRef.current}
                 >
                     <div>Test 3</div>
+                </InfiniteScroll>
+            </div>
+        );
+    }
+}
+
+const Test4Component = ({}) => <div></div>;
+class Test4 extends React.Component {
+    inputRef = React.createRef<HTMLDivElement>();
+
+    render() {
+        return (
+            <div ref={this.inputRef}>
+                <InfiniteScroll
+                    element={<Test4Component />}
+                    loadMore={(page) => {}}
+                >
+                    <span>Test 4</span>
                 </InfiniteScroll>
             </div>
         );

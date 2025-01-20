@@ -1,4 +1,4 @@
-import { hasTouch, detectTouch } from 'detect-touch';
+import { detectTouch, hasTouch } from "detect-touch";
 
 // $ExpectType boolean
 hasTouch;
@@ -6,5 +6,5 @@ hasTouch;
 // $ExpectType boolean
 detectTouch();
 
-// $ExpectError
+// @ts-expect-error
 detectTouch({});

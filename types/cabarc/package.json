@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cabarc",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/jhermsmeier/node-cabarc"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cabarc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zlatko Andonovski",
+            "githubUsername": "Goldsmith42"
+        }
+    ]
+}

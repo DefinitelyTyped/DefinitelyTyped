@@ -1,5 +1,11 @@
-import * as Redux from 'redux';
-import configureStore, { MockStore, MockStoreCreator } from 'redux-mock-store';
+import * as Redux from "redux";
+import defaultExport, { configureStore, legacy_configureStore, MockStore, MockStoreCreator } from "redux-mock-store";
+
+// check that all exports are the same
+const expectType = <T>(value: T) => value;
+expectType<typeof defaultExport>(configureStore);
+expectType<typeof configureStore>(defaultExport);
+expectType<typeof configureStore>(legacy_configureStore);
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -8,9 +14,9 @@ function counter(state: any, action: any) {
         state = 0;
     }
     switch (action.type) {
-        case 'INCREMENT':
+        case "INCREMENT":
             return state + 1;
-        case 'DECREMENT':
+        case "DECREMENT":
             return state - 1;
         default:
             return state;
@@ -33,7 +39,7 @@ store.subscribe(() => {
     // ...
 });
 
-store.dispatch({ type: 'INCREMENT' });
+store.dispatch({ type: "INCREMENT" });
 
 // Additional mock store API tests
 const actions: any[] = store.getActions();

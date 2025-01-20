@@ -1,7 +1,7 @@
-import { EventEmitter } from 'events';
-import { SCClientSocket } from 'socketcluster-client';
-import Hasher = require('./hasher');
-import { Secret } from 'jsonwebtoken';
+import { EventEmitter } from "events";
+import { SCClientSocket } from "socketcluster-client";
+import Hasher = require("./hasher");
+import { Secret } from "jsonwebtoken";
 
 interface ClientPoolOptions {
     clientCount?: number | undefined;
@@ -25,10 +25,10 @@ declare class ClientPool extends EventEmitter {
 
     constructor(options?: ClientPoolOptions);
 
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'subscribe', listener: (data: ClientPool.SubscribeData) => void): this;
-    on(event: 'subscribeFail', listener: (data: ClientPool.SubscribeFailData) => void): this;
-    on(event: 'publish' | 'publishFail', listener: (data: ClientPool.PublishData) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "subscribe", listener: (data: ClientPool.SubscribeData) => void): this;
+    on(event: "subscribeFail", listener: (data: ClientPool.SubscribeFailData) => void): this;
+    on(event: "publish" | "publishFail", listener: (data: ClientPool.PublishData) => void): this;
 
     bindClientListeners(): void;
     unbindClientListeners(): void;

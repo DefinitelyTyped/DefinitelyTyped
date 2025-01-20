@@ -1,17 +1,17 @@
-// Type definitions for @mapbox/mapbox-sdk 0.13
-// Project: https://github.com/mapbox/mapbox-sdk-js
-// Definitions by: Jeff Dye <https://github.com/jeffbdye>
-//                 Mike O'Meara <https://github.com/mikeomeara1>
-//                 chachan <https://github.com/chachan>
-//                 techieshark <https://github.com/techieshark>
-//                 Robin Heinemann <https://github.com/rroohhh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
-    import { MapiRequest, MapiRequestOptions, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+
+    export default function createNodeClient(config: SdkConfig): MapiClient;
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/lib/classes/mapi-client" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest, MapiRequestOptions } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     export default class MapiClient {
         constructor(config: SdkConfig);
         accessToken: string;
@@ -25,14 +25,18 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-client' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
-    import MapiClient from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
-    import { MapiError } from '@mapbox/mapbox-sdk/lib/classes/mapi-error';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/lib/classes/mapi-request" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiError } from "@mapbox/mapbox-sdk/lib/classes/mapi-error";
 
-    interface EventEmitter {
-        response: MapiResponse;
-        error: MapiError;
+    interface EventEmitter<T> {
+        response: MapiResponse<T>;
+        error: MapiError<T>;
         downloadProgress: ProgressEvent;
         uploadProgress: ProgressEvent;
     }
@@ -77,14 +81,14 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * The method to send the `file`. Options are `data` (x-www-form-urlencoded) or `form` (multipart/form-data)
          */
-        sendFileAs: 'data' | 'form';
+        sendFileAs: "data" | "form";
     }
 
-    type MapiRequest = MapiRequestOptions & {
+    type MapiRequest<T = any> = MapiRequestOptions & {
         /**
          * An event emitter.
          */
-        emitter: EventEmitter;
+        emitter: EventEmitter<T>;
         /**
          * This request's MapiClient.
          */
@@ -92,11 +96,11 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
         /**
          * If this request has been sent and received a response, the response is available on this property.
          */
-        response?: MapiResponse | undefined;
+        response?: MapiResponse<T> | undefined;
         /**
          * If this request has been sent and received an error in response, the error is available on this property.
          */
-        error?: MapiError | Error | undefined;
+        error?: MapiError<T> | Error | undefined;
         /**
          * If the request has been aborted (via abort), this property will be true.
          */
@@ -108,33 +112,35 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-request' {
          */
         sent: boolean;
         url(accessToken?: string): string;
-        send(): Promise<MapiResponse>;
+        send(): Promise<MapiResponse<T>>;
         abort(): void;
-        eachPage(callback: PageCallbackFunction): void;
-        clone(): MapiRequest;
+        eachPage(callback: PageCallbackFunction<T>): void;
+        clone(): MapiRequest<T>;
     };
 
-    interface PageCallbackFunction {
-        error: MapiError;
-        response: MapiResponse;
+    interface PageCallbackFunction<T> {
+        error: MapiError<T>;
+        response: MapiResponse<T>;
         next: () => void;
     }
 
     type Coordinates = [number, number];
 
-    type MapboxProfile = 'driving' | 'walking' | 'cycling' | 'driving-traffic';
+    type MapboxProfile = "driving" | "walking" | "cycling" | "driving-traffic";
 
-    type DirectionsApproach = 'unrestricted' | 'curb';
+    type DirectionsApproach = "unrestricted" | "curb";
 }
 
-declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/lib/classes/mapi-response" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
-    interface MapiResponse {
+    interface MapiResponse<T = any> {
         /**
          * The response body, parsed as JSON.
          */
-        body: any;
+        body: T;
         /**
          * The raw response body.
          */
@@ -154,20 +160,22 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-response' {
         /**
          * The response's originating MapiRequest.
          */
-        request: MapiRequest;
+        request: MapiRequest<T>;
         hasNextPage(): boolean;
-        nextPage(): MapiRequest | null;
+        nextPage(): MapiRequest<T> | null;
     }
 }
 
-declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/lib/classes/mapi-error" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
-    interface MapiError {
+    interface MapiError<T = any> {
         /**
          * The errored request.
          */
-        request: MapiRequest;
+        request: MapiRequest<T>;
         /**
          * The type of error. Usually this is 'HttpError'.
          * If the request was aborted, so the error was not sent from the server, the type will be 'RequestAbortedError'.
@@ -180,7 +188,7 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
         /**
          * If the server sent a response body, this property exposes that response, parsed as JSON if possible.
          */
-        body?: any;
+        body?: T;
         /**
          * Whatever message could be derived from the call site and HTTP response.
          */
@@ -188,9 +196,12 @@ declare module '@mapbox/mapbox-sdk/lib/classes/mapi-error' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/datasets' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/datasets" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Datasets Types
@@ -201,7 +212,7 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
         /**
          * List datasets in your account.
          */
-        listDatasets(config?: { sortby?: 'created' | 'modified' | undefined }): MapiRequest;
+        listDatasets(config?: { sortby?: "created" | "modified" | undefined }): MapiRequest;
         /**
          *  Create a new, empty dataset.
          * @param config Object
@@ -216,7 +227,9 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * Update user-defined properties of a dataset's metadata.
          * @param config
          */
-        updateMetadata(config: { datasetId?: string | undefined; name?: string | undefined; description?: string | undefined }): MapiRequest;
+        updateMetadata(
+            config: { datasetId?: string | undefined; name?: string | undefined; description?: string | undefined },
+        ): MapiRequest;
         /**
          * Delete a dataset, including all features it contains.
          * @param config
@@ -227,7 +240,9 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
          * This endpoint supports pagination. Use MapiRequest#eachPage or manually specify the limit and start options.
          * @param config
          */
-        listFeatures(config: { datasetId: string; limit?: number | undefined; start?: string | undefined }): MapiRequest;
+        listFeatures(
+            config: { datasetId: string; limit?: number | undefined; start?: string | undefined },
+        ): MapiRequest;
         /**
          * Add a feature to a dataset or update an existing one.
          * @param config
@@ -298,60 +313,70 @@ declare module '@mapbox/mapbox-sdk/services/datasets' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/directions' {
-    import * as GeoJSON from 'geojson';
-    import { LngLatLike } from 'mapbox-gl';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/directions" {
+    import * as GeoJSON from "geojson";
+    import { LngLatLike } from "mapbox-gl";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
-        MapiRequest,
-        MapboxProfile,
-        DirectionsApproach,
         Coordinates,
-    } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
+        DirectionsApproach,
+        MapboxProfile,
+        MapiRequest,
+    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
     interface DirectionsService {
-        getDirections(request: DirectionsRequest): MapiRequest;
+        getDirections(
+            request: DirectionsRequest | DirectionsRequest<"polyline" | "polyline6">,
+        ): MapiRequest<DirectionsResponse>;
+        getDirections(
+            request: DirectionsRequest<"geojson">,
+        ): MapiRequest<DirectionsResponse<GeoJSON.MultiLineString | GeoJSON.LineString>>;
     }
 
-    type DirectionsAnnotation = 'duration' | 'distance' | 'speed' | 'congestion';
-    type DirectionsGeometry = 'geojson' | 'polyline' | 'polyline6';
-    type DirectionsOverview = 'full' | 'simplified' | 'false';
-    type DirectionsUnits = 'imperial' | 'metric';
-    type DirectionsSide = 'left' | 'right';
-    type DirectionsMode = 'driving' | 'ferry' | 'unaccessible' | 'walking' | 'cycling' | 'train';
-    type DirectionsClass = 'toll' | 'ferry' | 'restricted' | 'motorway' | 'tunnel';
+    type DirectionsAnnotation = "duration" | "distance" | "speed" | "congestion";
+    type DirectionsGeometry = "geojson" | "polyline" | "polyline6";
+    type DirectionsOverview = "full" | "simplified" | "false";
+    type DirectionsUnits = "imperial" | "metric";
+    type DirectionsSide = "left" | "right";
+    type DirectionsMode = "driving" | "ferry" | "unaccessible" | "walking" | "cycling" | "train";
+    type DirectionsClass = "toll" | "ferry" | "restricted" | "motorway" | "tunnel";
     type ManeuverModifier =
-        | 'uturn'
-        | 'sharp right'
-        | 'right'
-        | 'slight right'
-        | 'straight'
-        | 'slight left'
-        | 'left'
-        | 'sharp left'
-        | 'depart'
-        | 'arrive';
+        | "uturn"
+        | "sharp right"
+        | "right"
+        | "slight right"
+        | "straight"
+        | "slight left"
+        | "left"
+        | "sharp left"
+        | "depart"
+        | "arrive";
     type ManeuverType =
-        | 'turn'
-        | 'new name'
-        | 'depart'
-        | 'arrive'
-        | 'merge'
-        | 'on ramp'
-        | 'off ramp'
-        | 'fork'
-        | 'end of road'
-        | 'continue'
-        | 'roundabout'
-        | 'rotary'
-        | 'roundabout turn'
-        | 'notification'
-        | 'exit roundabout'
-        | 'exit rotary';
+        | "turn"
+        | "new name"
+        | "depart"
+        | "arrive"
+        | "merge"
+        | "on ramp"
+        | "off ramp"
+        | "fork"
+        | "end of road"
+        | "continue"
+        | "roundabout"
+        | "rotary"
+        | "roundabout turn"
+        | "notification"
+        | "exit roundabout"
+        | "exit rotary";
+    type Polyline = string;
+    type RouteGeometry = GeoJSON.LineString | GeoJSON.MultiLineString | Polyline;
 
-    interface CommonDirectionsRequest {
+    interface CommonDirectionsRequest<T extends DirectionsGeometry = "polyline"> {
         waypoints: DirectionsWaypoint[];
         /**
          * Whether to try to return alternative routes. An alternative is classified as a route that is significantly
@@ -382,7 +407,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * Format of the returned geometry. Allowed values are:  geojson (as LineString ),
          * polyline with precision 5,  polyline6 (a polyline with precision 6). The default value is  polyline .
          */
-        geometries?: DirectionsGeometry | undefined;
+        geometries?: T;
         /**
          * Language of returned turn-by-turn text instructions. See supported languages . The default is  en for English.
          */
@@ -412,21 +437,68 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         voiceUnits?: DirectionsUnits | undefined;
     }
 
+    type DirectionsProfileInclusion = {
+        profile: "walking" | "cycling";
+    } | {
+        profile: "driving";
+        /**
+         * The desired arrival time, formatted as a timestamp in ISO-8601 format in the local time at the route destination. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        arriveBy?: string;
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window, instead of only at the specified depart_at time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested departure time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    } | {
+        profile: "driving-traffic";
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data and live traffic. Live traffic is gently mixed with historical data when depart_at is set close to current time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    };
+
     type DirectionsProfileExclusion =
         | {
-              profile: 'walking';
-              exclude?: [] | undefined;
-          }
+            profile: "walking";
+            exclude?: [] | undefined;
+        }
         | {
-              profile: 'cycling';
-              exclude?: Array<'ferry'> | undefined;
-          }
+            profile: "cycling";
+            exclude?: Array<"ferry"> | undefined;
+        }
         | {
-              profile: 'driving' | 'driving-traffic';
-              exclude?: Array<'ferry' | 'toll' | 'motorway'> | undefined;
-          };
+            profile: "driving" | "driving-traffic";
+            exclude?: Array<"ferry" | "toll" | "motorway"> | undefined;
+        };
 
-    type DirectionsRequest = CommonDirectionsRequest & DirectionsProfileExclusion;
+    type DirectionsRequest<T extends DirectionsGeometry = "polyline"> =
+        & CommonDirectionsRequest<T>
+        & DirectionsProfileInclusion
+        & DirectionsProfileExclusion;
 
     interface Waypoint {
         /**
@@ -454,7 +526,7 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
          * Values can be any number greater than 0 or the string 'unlimited'.
          * A  NoSegment error is returned if no routable road is found within the radius.
          */
-        radius?: number | 'unlimited' | undefined;
+        radius?: number | "unlimited" | undefined;
     }
 
     type DirectionsWaypoint = Waypoint & {
@@ -464,11 +536,11 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         waypointName?: string | undefined;
     };
 
-    interface DirectionsResponse {
+    interface DirectionsResponse<T extends RouteGeometry = Polyline> {
         /**
          * Array of Route objects ordered by descending recommendation rank. May contain at most two routes.
          */
-        routes: Route[];
+        routes: Array<Route<T>>;
         /**
          * Array of Waypoint objects. Each waypoints is an input coordinate snapped to the road and path network.
          * The waypoints appear in the array in the order of the input coordinates.
@@ -482,13 +554,13 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
         uuid: string;
     }
 
-    interface Route {
+    interface Route<T extends RouteGeometry> {
         /**
          * Depending on the geometries parameter this is a GeoJSON LineString or a Polyline string.
          * Depending on the overview parameter this is the complete route geometry (full), a simplified geometry
          * to the zoom level at which the route can be displayed in full (simplified), or is not included (false)
          */
-        geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
+        geometry: T;
         /**
          * Array of RouteLeg objects.
          */
@@ -801,11 +873,469 @@ declare module '@mapbox/mapbox-sdk/services/directions' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/geocoding' {
-    import { LngLatLike } from 'mapbox-gl';
-    import { MapiRequest, Coordinates } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Coordinates as MapiRequestCoordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+
+    /*********************************************************************************************************************
+     * Geocoder Types for v6 API
+     *********************************************************************************************************************/
+
+    export default function GeocodingV6(config: SdkConfig | MapiClient): GeocodeService;
+
+    interface GeocodeService {
+        forwardGeocode(request: ForwardGeocodeRequest): MapiRequest<GeocodeResponse>;
+        reverseGeocode(request: ReverseGeocodeRequest): MapiRequest<GeocodeResponse>;
+    }
+
+    type BoundingBox = [number, number, number, number];
+
+    type GeocodeMode = "standard" | "structured";
+
+    type GeocodeQueryType =
+        | "address"
+        | "country"
+        | "district"
+        | "locality"
+        | "neighborhood"
+        | "place"
+        | "postcode"
+        | "region"
+        | "street";
+
+    interface GeocodeV6Request {
+        /**
+         * Either `standard` for common forward geocoding, or `structured` for
+         * increasing the accuracy of results. To use Structured Input, the
+         * query parameter must be dropped in favor of a separate parameter for
+         * individual feature components. Defaults to `standard`.
+         */
+        mode?: GeocodeMode;
+        /**
+         * Limits results to the specified countries. Each item in the array
+         * should be an ISO 3166 alpha 2 country code. [OR] if used with input
+         * mode="structured" denotes single country in free form.
+         */
+        countries?: string[] | string;
+        /**
+         * Bias local results based on a provided coordinate location or a
+         * user's IP address.
+         */
+        proximity?: Coordinates | "ip";
+        /**
+         * Filter results by feature types.
+         */
+        types?: GeocodeQueryType[];
+        /**
+         * Specify the desired response format of results (geojson, default) or
+         * for backwards compatibility (v5).
+         */
+        format?: "geojson" | "v5";
+        /**
+         * Specify the language to use for response text and, for forward
+         * geocoding, query result weighting.
+         */
+        language?: string;
+        /**
+         * Limit the number of results returned. The default is 5 for forward
+         */
+        limit?: number;
+        /**
+         * Filter results to geographic features whose characteristics are
+         * defined differently by audiences belonging to various regional,
+         * cultural, or political groups. Defaults to "us".
+         */
+        worldview?: string;
+        /**
+         * Return autocomplete results or not. Defaults to true.
+         */
+        autocomplete?: boolean;
+        /**
+         * Specify whether you intend to store the results of the query (true)
+         * or not (false, default). Temporary results are not allowed to be
+         * cached, while Permanent results are allowed to be cached and stored
+         * indefinitely. Defaults to false.
+         */
+        permanent?: boolean;
+    }
+
+    interface BaseForwardGeocodeRequest extends GeocodeV6Request {
+        /**
+         * Limit results to a bounding box.
+         */
+        bbox?: BoundingBox;
+    }
+
+    interface ReverseGeocodeRequest extends GeocodeV6Request {
+        /**
+         * longitude coordinate at which features will be searched.
+         */
+        longitude: number;
+        /**
+         * latitude coordinate at which features will be searched.
+         */
+        latitude: number;
+        countries?: string[];
+    }
+
+    interface StructuredGeocodeRequest extends BaseForwardGeocodeRequest {
+        mode: Extract<GeocodeMode, "structured">;
+        countries?: string;
+        /**
+         * A string including address_number and street. These values can
+         * alternatively be provided as separate parameters. (Structured Input
+         * specific field)
+         */
+        address_line1?: string;
+        /**
+         * The number associated with the house (Structured Input specific
+         * field)
+         */
+        address_number?: string;
+        /**
+         * The name of the street in the address (Structured Input specific
+         * field)
+         */
+        street?: string;
+        /**
+         * In some countries like Japan, the block is a component in the address
+         * (Structured Input specific field)
+         */
+        block?: string;
+        /**
+         * Typically these are cities, villages, municipalities, etc.
+         * (Structured Input specific field)
+         */
+        place?: string;
+        /**
+         * Top-level sub-national administrative features, such as states in the
+         * United States or provinces in Canada or China. (Structured Input
+         * specific field)
+         */
+        region?: string;
+        /**
+         * Colloquial sub-city features often referred to in local parlance
+         * (Structured Input specific field)
+         */
+        neighborhood?: string;
+        /**
+         * Postal codes used in country-specific national addressing systems.
+         * (Structured Input specific field)
+         */
+        postcode?: string;
+        /**
+         * Official sub-city features (Structured Input specific field)
+         */
+        locality?: string;
+    }
+
+    interface StandardGeocodeRequest extends BaseForwardGeocodeRequest {
+        /**
+         * A place name.
+         */
+        query: string;
+        mode?: Extract<GeocodeMode, "standard">;
+        countries?: string[];
+    }
+
+    type ForwardGeocodeRequest = StructuredGeocodeRequest | StandardGeocodeRequest;
+
+    interface GeocodeResponse {
+        /**
+         * "FeatureCollection", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An array of feature objects.
+         */
+        features: Feature[];
+        /**
+         * Attributes the results of the Mapbox Geocoding API to Mapbox.
+         */
+        attribution: string;
+    }
+
+    interface Feature {
+        /**
+         * Feature id. This property is named "id" to conform to the GeoJSON
+         * specification, but is the same id referred to as mapbox_id elsewhere
+         * in the response.
+         */
+        id: string;
+        /**
+         * "Feature", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An object describing the spatial geometry of the returned feature.
+         */
+        geometry: Geometry;
+        /**
+         * An object containing the resulting feature's details.
+         */
+        properties: Properties;
+    }
+
+    interface Geometry {
+        /**
+         * "Point", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An array in the format [longitude,latitude] at the center of the
+         * specified bbox.
+         */
+        coordinates: MapiRequestCoordinates;
+    }
+
+    interface Properties extends NamedLocation {
+        /**
+         * A string describing the type of the feature. Options are country,
+         * region, postcode, district, place, locality, neighborhood, street,
+         * address. Formerly place_type in v5.
+         */
+        feature_type: string;
+        /**
+         * The coordinates of the properties.
+         */
+        coordinates: Coordinates;
+        /**
+         * An array of additional feature types.
+         */
+        additional_feature_types: string[];
+        /**
+         * The bounding box of the feature in minLon,minLat,maxLon,maxLat order.
+         * This property is only provided with features of type country, region,
+         * postcode, district, place, locality, or neighborhood.
+         */
+        bbox: number[];
+        /**
+         * An object representing the hierarchy of encompassing parent features.
+         * This may include a sub-object for any of the following properties:
+         * country, region, postcode, district, place, locality, neighborhood,
+         * street.
+         *
+         * Which sub-objects are included is dependent upon the data coverage
+         * available and applicable to a given country or area.
+         */
+        context: Context;
+    }
+
+    interface Coordinates {
+        /**
+         * The longitude coordinate.
+         */
+        longitude: number;
+        /**
+         * The latitude coordinate.
+         */
+        latitude: number;
+        /**
+         * Accuracy metric for a returned address-type result. See "Point
+         * accuracy for address features" below.
+         */
+        accuracy?: string;
+    }
+
+    interface Context {
+        /**
+         * The region information of the context.
+         */
+        region?: Region;
+        /**
+         * The country information of the context.
+         */
+        country?: Country;
+        /**
+         * The place information of the context.
+         */
+        place?: Place;
+        /**
+         * The locality information of the context.
+         */
+        locality?: Locality;
+        /**
+         * The district information of the context.
+         */
+        district?: District;
+        /**
+         * The postcode information of the context.
+         */
+        postcode?: Postcode;
+    }
+
+    interface Region extends NamedLocation {
+        /**
+         * The full region code of the region.
+         */
+        region_code_full?: string;
+        /**
+         * The region code of the region.
+         */
+        region_code?: string;
+    }
+
+    interface Country extends NamedLocation {
+        /**
+         * The country code of the country.
+         */
+        country_code?: string;
+        /**
+         * The alpha-3 country code of the country.
+         */
+        country_code_alpha_3?: string;
+    }
+
+    interface Place extends IdentifiableLocation {
+        /**
+         * The short code of the place.
+         */
+        short_code?: string;
+    }
+
+    type Locality = IdentifiableLocation;
+
+    type District = IdentifiableLocation;
+
+    interface IdentifiableLocation extends NamedLocation {
+        /**
+         * The Wikidata ID of the identifiable location.
+         */
+        wikidata_id: string;
+    }
+
+    type Postcode = NamedLocation;
+
+    interface NamedLocation {
+        /**
+         * Feature id. The mapbox_id uniquely identifies a place in the Mapbox
+         * search database. Mapbox ID’s are accepted in requests to the
+         * Geocoding API as a forward search, and will return the feature
+         * corresponding to that id.
+         */
+        mapbox_id: string;
+        /**
+         * Formatted string of address_number and street.
+         */
+        name: string;
+        /**
+         *  Present when there is a canonical or otherwise more common alias for
+         *  the feature name. For example, searching for "America" will return
+         *  "America" as the name, and "United States" as name_preferred.
+         */
+        name_preferred?: string;
+        /**
+         *  Formatted string of result context: place region country postcode.
+         *  The part of the result which comes after name.
+         */
+        place_formatted?: string;
+    }
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/isochrone" {
+    import * as GeoJSON from "geojson";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+
+    export default function Isochrone(config: SdkConfig | MapiClient): IsochroneService;
+
+    interface IsochroneService {
+        getContours(
+            request: IsochroneRequest<false | undefined>,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.LineString>>;
+        getContours(
+            request: IsochroneRequest<true>,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.Polygon>>;
+    }
+
+    interface IsochroneDistance {
+        /**
+         * The times in minutes to use for each isochrone contour. You can specify up to four contours.
+         * Times must be in increasing order. The maximum time that can be specified is 60 minutes.
+         * Setting minutes and meters in the same time is an error.
+         */
+        minutes?: never;
+        /**
+         * The distances in meters to use for each isochrone contour. You can specify up to four contours.
+         * Distances must be in increasing order. The maximum distance that can be specified is
+         * 100000 meters. Setting minutes and meters in the same time is an error.
+         */
+        meters: [number, number?, number?, number?];
+    }
+
+    interface IsochroneTime {
+        /**
+         * The times in minutes to use for each isochrone contour. You can specify up to four contours.
+         * Times must be in increasing order. The maximum time that can be specified is 60 minutes.
+         * Setting minutes and meters in the same time is an error.
+         */
+        minutes: [number, number?, number?, number?];
+        /**
+         * The distances in meters to use for each isochrone contour. You can specify up to four contours.
+         * Distances must be in increasing order. The maximum distance that can be specified is
+         * 100000 meters. Setting minutes and meters in the same time is an error.
+         */
+        meters?: never;
+    }
+
+    type IsochroneRequest<T extends boolean | undefined = false> = (IsochroneDistance | IsochroneTime) & {
+        /**
+         * The colors to use for each isochrone contour, specified as hex values without a leading
+         * `#`(for example, `ff0000` for red). If this parameter is used, there must be the same
+         * number of colors as there are entries in contours_minutes or contours_meters. If no
+         * colors are specified, the Isochrone API will assign a default rainbow color scheme to
+         * the output.
+         */
+        colors?: [string?, string?, string?, string?];
+        /** A {longitude,latitude} coordinate pair around which to center the isochrone lines. */
+        coordinates: [number, number];
+        /**
+         * A floating point value from 0.0 to 1.0 that can be used to remove smaller contours. The
+         * default is 1.0. A value of 1.0 will only return the largest contour for a given time
+         * value. A value of 0.5 drops any contours that are less than half the area of the largest
+         * contour in the set of contours for that same time value.
+         *
+         * @default 1.0
+         */
+        denoise?: number;
+        /**
+         *  A positive floating point value in meters used as the tolerance for Douglas-Peucker
+         * generalization. There is no upper bound. If no value is specified in the request, the
+         * Isochrone API will choose the most optimized generalization to use for the request.
+         * Note that the generalization of contours can lead to self-intersections, as well as
+         * intersections of adjacent contours.
+         */
+        generalize?: number;
+        /**
+         * Specify whether to return the contours as GeoJSON polygons (`true`) or linestrings
+         * (`false`, default). When polygons=`true`, any contour that forms a ring is returned as a
+         * polygon.
+         *
+         * @default false
+         */
+        polygons?: T;
+        /**
+         * A Mapbox Directions routing profile ID.
+         *
+         * @default 'driving'
+         */
+        profile?: "driving" | "driving-traffic" | "walking" | "cycling";
+    };
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/geocoding" {
+    import { LngLatLike } from "mapbox-gl";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Geocoder Types
@@ -814,25 +1344,25 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     export default function Geocoding(config: SdkConfig | MapiClient): GeocodeService;
 
     interface GeocodeService {
-        forwardGeocode(request: GeocodeRequest): MapiRequest;
-        reverseGeocode(request: GeocodeRequest): MapiRequest;
+        forwardGeocode(request: GeocodeRequest): MapiRequest<GeocodeResponse>;
+        reverseGeocode(request: GeocodeRequest): MapiRequest<GeocodeResponse>;
     }
 
     type BoundingBox = [number, number, number, number];
 
-    type GeocodeMode = 'mapbox.places' | 'mapbox.places-permanent';
+    type GeocodeMode = "mapbox.places" | "mapbox.places-permanent";
 
     type GeocodeQueryType =
-        | 'country'
-        | 'region'
-        | 'postcode'
-        | 'district'
-        | 'place'
-        | 'locality'
-        | 'neighborhood'
-        | 'address'
-        | 'poi'
-        | 'poi.landmark';
+        | "country"
+        | "region"
+        | "postcode"
+        | "district"
+        | "place"
+        | "locality"
+        | "neighborhood"
+        | "address"
+        | "poi"
+        | "poi.landmark";
 
     interface GeocodeRequest {
         /**
@@ -848,9 +1378,9 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          */
         countries?: string[] | undefined;
         /**
-         * Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+         * Bias local results based on a provided location. Options are longitude,latitude coordinates or the user's ip.
          */
-        proximity?: Coordinates | undefined;
+        proximity?: Coordinates | "ip" | undefined;
         /**
          * Filter results by one or more feature types
          */
@@ -883,7 +1413,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * "Feature Collection" , a GeoJSON type from the GeoJSON specification.
          */
-        type: string;
+        type: "FeatureCollection";
         /**
          * An array of space and punctuation-separated strings from the original query.
          */
@@ -905,9 +1435,9 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          */
         id: string;
         /**
-         * "Feature" , a GeoJSON type from the GeoJSON specification.
+         * "Feature", a GeoJSON type from the GeoJSON specification.
          */
-        type: string;
+        type: "Feature";
         /**
          * An array of feature types describing the feature. Options are  country ,  region ,  postcode ,  district ,  place , locality ,  neighborhood ,
          * address ,  poi , and  poi.landmark . Most features have only one type, but if the feature has multiple types,
@@ -933,6 +1463,10 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
          * A string representing the feature in the requested language, if specified.
          */
         text: string;
+        /**
+         * The ISO 3166-1 country and ISO 3166-2 region code for the feature.
+         */
+        short_code?: string;
         /**
          * A string representing the feature in the requested language, if specified, and its full result hierarchy.
          */
@@ -977,7 +1511,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * Point, a GeoJSON type from the GeoJSON specification .
          */
-        type: string;
+        type: "Point";
         /**
          * An array in the format [ longitude,latitude ] at the center of the specified  bbox .
          */
@@ -1017,21 +1551,24 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/map-matching' {
-    import { LngLatLike } from 'mapbox-gl';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/map-matching" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
         DirectionsAnnotation,
         DirectionsGeometry,
         DirectionsOverview,
         Leg,
-    } from '@mapbox/mapbox-sdk/services/directions';
+    } from "@mapbox/mapbox-sdk/services/directions";
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import {
-        MapiRequest,
-        MapboxProfile,
-        DirectionsApproach,
         Coordinates,
-    } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+        DirectionsApproach,
+        MapboxProfile,
+        MapiRequest,
+    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Map Matching Types
@@ -1039,7 +1576,7 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     export default function MapMatching(config: SdkConfig | MapiClient): MapMatchingService;
 
     interface MapMatchingService {
-        getMatch(request: MapMatchingRequest): MapiRequest;
+        getMatch(request: MapMatchingRequest): MapiRequest<MapMatchingResponse>;
     }
 
     interface MapMatchingRequest {
@@ -1154,11 +1691,16 @@ declare module '@mapbox/mapbox-sdk/services/map-matching' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/matrix' {
-    import { DirectionsAnnotation } from '@mapbox/mapbox-sdk/services/directions';
-    import { Point } from '@mapbox/mapbox-sdk/services/map-matching';
-    import { MapiRequest, MapboxProfile } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/matrix" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { DirectionsAnnotation } from "@mapbox/mapbox-sdk/services/directions";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Point } from "@mapbox/mapbox-sdk/services/map-matching";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Matrix Types
@@ -1170,14 +1712,14 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
          * Get a duration and/or distance matrix showing travel times and distances between coordinates.
          * @param request
          */
-        getMatrix(request: MatrixRequest): MapiRequest;
+        getMatrix(request: MatrixRequest): MapiRequest<MatrixResponse>;
     }
 
     interface MatrixRequest {
         points: Point[];
         profile?: MapboxProfile | undefined;
-        sources?: number[] | 'all' | undefined;
-        destinations?: number[] | 'all' | undefined;
+        sources?: number[] | "all" | undefined;
+        destinations?: number[] | "all" | undefined;
         annotations?: DirectionsAnnotation[] | undefined;
     }
 
@@ -1195,11 +1737,14 @@ declare module '@mapbox/mapbox-sdk/services/matrix' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/optimization' {
-    import { Waypoint } from '@mapbox/mapbox-sdk/services/directions';
-    import { MapiRequest, MapboxProfile, DirectionsApproach } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/optimization" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Waypoint } from "@mapbox/mapbox-sdk/services/directions";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { DirectionsApproach, MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Optimization Types
@@ -1226,7 +1771,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         /**
          * Specify the destination coordinate of the returned route. Accepts  any (default) or  last .
          */
-        destination?: 'any' | 'last' | undefined;
+        destination?: "any" | "last" | undefined;
         /**
          * Specify pick-up and drop-off locations for a trip by providing a ; delimited list of number pairs that correspond with the coordinates list.
          * The first number of a pair indicates the index to the coordinate of the pick-up location in the coordinates list,
@@ -1238,7 +1783,7 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         /**
          * The format of the returned geometry. Allowed values are:  geojson (as LineString ),  polyline (default, a polyline with precision 5),  polyline6 (a polyline with precision 6).
          */
-        geometries?: 'geojson' | 'polyline' | 'polyline6' | undefined;
+        geometries?: "geojson" | "polyline" | "polyline6" | undefined;
         /**
          * The language of returned turn-by-turn text instructions. See supported languages . The default is  en (English).
          */
@@ -1247,11 +1792,11 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
          * The type of the returned overview geometry.
          * Can be 'full' (the most detailed geometry available), 'simplified' (default, a simplified version of the full geometry), or 'false' (no overview geometry).
          */
-        overview?: 'full' | 'simplified' | 'false' | undefined;
+        overview?: "full" | "simplified" | "false" | undefined;
         /**
          * The coordinate at which to start the returned route. Accepts  any (default) or  first .
          */
-        source?: 'any' | 'first' | undefined;
+        source?: "any" | "first" | undefined;
         /**
          * Whether to return steps and turn-by-turn instructions ( true ) or not ( false , default).
          */
@@ -1275,13 +1820,16 @@ declare module '@mapbox/mapbox-sdk/services/optimization' {
         dropoff: number;
     }
 
-    type OptimizationAnnotation = 'duration' | 'speed' | 'distance';
+    type OptimizationAnnotation = "duration" | "speed" | "distance";
 }
 
-declare module '@mapbox/mapbox-sdk/services/static' {
-    import { LngLatLike, LngLatBoundsLike } from 'mapbox-gl';
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/static" {
+    import { AnyLayer, LngLatBoundsLike, LngLatLike } from "mapbox-gl";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Static Map Types
@@ -1293,7 +1841,7 @@ declare module '@mapbox/mapbox-sdk/services/static' {
          * Get a static map image..
          * @param request
          */
-        getStaticImage(request: StaticMapRequest): MapiRequest;
+        getStaticImage(request: StaticMapRequest): MapiRequest<string>;
     }
 
     interface StaticMapRequest {
@@ -1303,16 +1851,20 @@ declare module '@mapbox/mapbox-sdk/services/static' {
         height: number;
         position:
             | {
-                  coordinates: LngLatLike | 'auto';
-                  zoom: number;
-                  bearing?: number | undefined;
-                  pitch?: number | undefined;
-              }
-            | 'auto';
+                coordinates: LngLatLike | "auto";
+                zoom: number;
+                bearing?: number | undefined;
+                pitch?: number | undefined;
+            }
+            | { bbox: [number, number, number, number] }
+            | "auto";
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
         highRes?: boolean | undefined;
-        insertOverlayBeforeLayer?: string | undefined;
+        before_layer?: string | undefined;
+        addlayer?: AnyLayer | undefined;
+        setfilter?: any[] | undefined;
+        layer_id?: string | undefined;
         attribution?: boolean | undefined;
         logo?: boolean | undefined;
     }
@@ -1331,10 +1883,10 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 
     interface SimpleMarker {
-        coordinates: LngLatLike;
+        coordinates: [number, number];
         label?: string | undefined;
         color?: string | undefined;
-        size?: 'large' | 'small' | undefined;
+        size?: "large" | "small" | undefined;
     }
 
     interface PathOverlay {
@@ -1367,9 +1919,12 @@ declare module '@mapbox/mapbox-sdk/services/static' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/styles' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/styles" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Style Types
@@ -1420,7 +1975,9 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param start
          * @param ownerId
          */
-        listStyles(config: { start?: string | undefined; ownerId?: string | undefined; fresh?: boolean | undefined }): MapiRequest;
+        listStyles(
+            config: { start?: string | undefined; ownerId?: string | undefined; fresh?: boolean | undefined },
+        ): MapiRequest;
         /**
          * Add an icon to a style, or update an existing one.
          * @param styleId
@@ -1441,7 +1998,9 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param ownerId
          */
         // implicit any
-        deleteStyleIcon(config: { styleId: string; iconId: string; ownerId?: string | undefined; draft?: boolean | undefined }): void;
+        deleteStyleIcon(
+            config: { styleId: string; iconId: string; ownerId?: string | undefined; draft?: boolean | undefined },
+        ): void;
         /**
          * Get a style sprite's image or JSON document.
          * @param styleId
@@ -1451,7 +2010,7 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          */
         getStyleSprite(config: {
             styleId: string;
-            format?: 'json' | 'png' | undefined;
+            format?: "json" | "png" | undefined;
             highRes?: boolean | undefined;
             ownerId?: string | undefined;
             draft?: boolean | undefined;
@@ -1464,7 +2023,9 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
          * @param end
          * @param ownerId
          */
-        getFontGlyphRange(config: { fonts: string[]; start: number; end: number; ownerId?: string | undefined }): MapiRequest;
+        getFontGlyphRange(
+            config: { fonts: string[]; start: number; end: number; ownerId?: string | undefined },
+        ): MapiRequest;
         /**
          * Get embeddable HTML displaying a map.
          * @param config
@@ -1525,10 +2086,13 @@ declare module '@mapbox/mapbox-sdk/services/styles' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/tilequery' {
-    import * as mapboxgl from 'mapbox-gl';
-    import { MapiRequest, Coordinates } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/tilequery" {
+    import * as mapboxgl from "mapbox-gl";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Tile Query (Places) Types
@@ -1571,12 +2135,15 @@ declare module '@mapbox/mapbox-sdk/services/tilequery' {
         layers?: string[] | undefined;
     }
 
-    type GeometryType = 'polygon' | 'linestring' | 'point';
+    type GeometryType = "polygon" | "linestring" | "point";
 }
 
-declare module '@mapbox/mapbox-sdk/services/tilesets' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/tilesets" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Tileset Types
@@ -1586,11 +2153,11 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     interface TilesetsService {
         listTilesets(config: {
             ownerId: string;
-            type?: 'raster' | 'vector' | undefined;
+            type?: "raster" | "vector" | undefined;
             limit?: number | undefined;
-            sortBy?: 'created' | 'modified' | undefined;
+            sortBy?: "created" | "modified" | undefined;
             start?: string | undefined;
-            visibility?: 'public' | 'private' | undefined;
+            visibility?: "public" | "private" | undefined;
         }): MapiRequest;
         deleteTileset(config: { tilesetId: string }): MapiRequest;
         tileJSONMetadata(config: { tilesetId: string }): MapiRequest;
@@ -1600,7 +2167,9 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
             ownerId?: string | undefined;
         }): MapiRequest;
         getTilesetSource(config: { id: string; ownerId?: string | undefined }): MapiRequest;
-        listTilesetSources(config: { ownerId?: string | undefined; limit?: number | undefined; start?: string | undefined }): MapiRequest;
+        listTilesetSources(
+            config: { ownerId?: string | undefined; limit?: number | undefined; start?: string | undefined },
+        ): MapiRequest;
         deleteTilesetSource(config: { id: string; ownerId?: string | undefined }): MapiRequest;
         createTileset(config: {
             tilesetId: string;
@@ -1621,7 +2190,7 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
         tilesetJob(config: { tilesetId: string; jobId: string }): MapiRequest;
         listTilesetJobs(config: {
             tilesetId: string;
-            stage?: 'processing' | 'queued' | 'success' | 'failed' | undefined;
+            stage?: "processing" | "queued" | "success" | "failed" | undefined;
             limit?: number | undefined;
             start?: string | undefined;
         }): MapiRequest;
@@ -1645,10 +2214,12 @@ declare module '@mapbox/mapbox-sdk/services/tilesets' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/tokens' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import { MapiResponse } from '@mapbox/mapbox-sdk/lib/classes/mapi-response';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/tokens" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Token Types
@@ -1757,9 +2328,12 @@ declare module '@mapbox/mapbox-sdk/services/tokens' {
     }
 }
 
-declare module '@mapbox/mapbox-sdk/services/uploads' {
-    import { MapiRequest } from '@mapbox/mapbox-sdk/lib/classes/mapi-request';
-    import MapiClient, { SdkConfig } from '@mapbox/mapbox-sdk/lib/classes/mapi-client';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/uploads" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
     /*********************************************************************************************************************
      * Uploads Types

@@ -5,7 +5,7 @@ loadProgressBar();
 
 loadProgressBar({}, axios);
 
-// $ExpectError
+// @ts-expect-error
 loadProgressBar(null);
 
 axios.get("https://www.example.com", { progress: false });

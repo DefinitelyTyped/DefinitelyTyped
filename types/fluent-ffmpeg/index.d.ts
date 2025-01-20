@@ -1,12 +1,3 @@
-// Type definitions for node-fluent-ffmpeg 2.1
-// Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
-//                 DingWeizhe <https://github.com/DingWeizhe>
-//                 Mounir Abid <https://github.com/mabidina>
-//                 Doyoung Ha <https://github.com/hados99>
-//                 Prasad Nayak <https://github.com/buzzertech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as events from "events";
@@ -39,7 +30,7 @@ declare namespace Ffmpeg {
         options?: any | string | any[] | undefined;
     }
 
-    type GetPreset = (command: FfmpegCommand) => string;
+    type PresetFunction = (command: FfmpegCommand) => void;
 
     interface Filter {
         description: string;
@@ -178,7 +169,7 @@ declare namespace Ffmpeg {
         size?: number | undefined;
         bit_rate?: number | undefined;
         probe_score?: number | undefined;
-        tags?: any[] | undefined;
+        tags?: Record<string, string | number> | undefined;
     }
 
     interface ScreenshotsConfig {
@@ -320,7 +311,6 @@ declare namespace Ffmpeg {
         map(spec: string): FfmpegCommand;
         updateFlvMetadata(): FfmpegCommand;
         flvmeta(): FfmpegCommand;
-        preset(format: string): FfmpegCommand;
 
         // options/custom
         addInputOption(options: string[]): FfmpegCommand;
@@ -355,12 +345,18 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
+        filterGraph(
+            spec: string | FilterSpecification | Array<string | FilterSpecification>,
+            map?: string[] | string,
+        ): FfmpegCommand;
+        complexFilter(
+            spec: string | FilterSpecification | Array<string | FilterSpecification>,
+            map?: string[] | string,
+        ): FfmpegCommand;
 
         // options/misc
-        usingPreset(proset: string | GetPreset): FfmpegCommand;
-        pnreset(proset: string | GetPreset): FfmpegCommand;
+        usingPreset(preset: string | PresetFunction): FfmpegCommand;
+        preset(preset: string | PresetFunction): FfmpegCommand;
 
         // processor
         renice(niceness: number): FfmpegCommand;
@@ -386,18 +382,110 @@ declare namespace Ffmpeg {
         ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 
+        // event listeners
+        /**
+         * Emitted just after ffmpeg has been spawned.
+         *
+         * @event FfmpegCommand#start
+         * @param command ffmpeg command line
+         */
+        on(event: "start", listener: (command: string) => void): this;
+
+        /**
+         * Emitted when ffmpeg reports progress information
+         *
+         * @event FfmpegCommand#progress
+         * @param progress progress object
+         * @param progress.frames number of frames transcoded
+         * @param progress.currentFps current processing speed in frames per second
+         * @param progress.currentKbps current output generation speed in kilobytes per second
+         * @param progress.targetSize current output file size
+         * @param progress.timemark current video timemark
+         * @param [progress.percent] processing progress (may not be available depending on input)
+         */
+        on(
+            event: "progress",
+            listener: (progress: {
+                frames: number;
+                currentFps: number;
+                currentKbps: number;
+                targetSize: number;
+                timemark: string;
+                percent?: number | undefined;
+            }) => void,
+        ): this;
+
+        /**
+         * Emitted when ffmpeg outputs to stderr
+         *
+         * @event FfmpegCommand#stderr
+         * @param line stderr output line
+         */
+        on(event: "stderr", listener: (line: string) => void): this;
+
+        /**
+         * Emitted when ffmpeg reports input codec data
+         *
+         * @event FfmpegCommand#codecData
+         * @param codecData codec data object
+         * @param codecData.format input format name
+         * @param codecData.audio input audio codec name
+         * @param codecData.audio_details input audio codec parameters
+         * @param codecData.video input video codec name
+         * @param codecData.video_details input video codec parameters
+         * @param codecData.duration input video duration
+         */
+        on(
+            event: "codecData",
+            listener: (codecData: {
+                format: string;
+                audio: string;
+                audio_details: string[];
+                video: string;
+                video_details: string[];
+                duration: string;
+            }) => void,
+        ): this;
+
+        /**
+         * Emitted when an error happens when preparing or running a command
+         *
+         * @event FfmpegCommand#error
+         * @param error error object, with optional properties 'inputStreamError' / 'outputStreamError' for errors on their respective streams
+         * @param stdout ffmpeg stdout, unless outputting to a stream
+         * @param stderr ffmpeg stderr
+         */
+        on(event: "error", listener: (error: Error, stdout: string | null, stderr: string | null) => void): this;
+
+        /**
+         * Emitted when a taking screenshots
+         *
+         * @event FfmpegCommand#filenames
+         * @param filenames generated filenames when taking screenshots
+         */
+        on(event: "filenames", listener: (filenames: string[]) => void): this;
+
+        /**
+         * Emitted when a command finishes processing
+         *
+         * @event FfmpegCommand#end
+         * @param stdout ffmpeg stdout when not outputting to a stream, null otherwise
+         * @param stderr ffmpeg stderr
+         */
+        on(event: "end", listener: (stdout: string | null, stderr: string | null) => void): this;
+
         // recipes
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable;
-        pipe(stream?: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable|stream.PassThrough;
+        pipe(stream?: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable | stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean | undefined }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnails(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshot(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
-        mergeToFile(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
+        mergeToFile(target: string | stream.Writable, tmpFolder: string): FfmpegCommand;
         concatenate(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         clone(): FfmpegCommand;
@@ -407,7 +495,12 @@ declare namespace Ffmpeg {
     function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
-    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(
+        file: string,
+        index: number,
+        options: string[],
+        callback: (err: any, data: FfprobeData) => void,
+    ): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

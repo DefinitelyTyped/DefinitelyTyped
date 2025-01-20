@@ -1,10 +1,20 @@
-import * as Prism from 'prismjs';
-import * as components from 'prismjs/components';
-import loadLanguages = require('prismjs/components/');
+import Prism = require("prismjs");
+import * as components from "prismjs/components";
+import loadLanguages = require("prismjs/components/");
+
+const myGrammar: Prism.Grammar = {
+    "my-sub-grammar": {
+        pattern: /arbitraryRegex/,
+    },
+    rest: Prism.languages.js,
+};
 
 const element = document.createElement("code");
 const container = document.querySelector("div");
 const callback = (element: Element) => console.log(element);
+
+Prism.disableWorkerMessageHandler = true;
+Prism.manual = true;
 
 Prism.highlightElement(element, false, callback);
 Prism.highlightElement(element, false);
@@ -73,17 +83,17 @@ const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
     }
 })(tokens);
 
-// $ExpectError
+// @ts-expect-error
 if (Prism.util.type(language) === "Null") {
     // `language` is a non-null string constant
 }
 
-Prism.languages.insertBefore('javascript', 'function-variable', {
-    'method-variable': {
-        pattern: RegExp('(\\.\\s*)'),
+Prism.languages.insertBefore("javascript", "function-variable", {
+    "method-variable": {
+        pattern: RegExp("(\\.\\s*)"),
         lookbehind: true,
-        alias: ['function-variable', 'method', 'function', 'property-access']
-    }
+        alias: ["function-variable", "method", "function", "property-access"],
+    },
 });
 
 // $ExpectType Record<string, any>
@@ -96,6 +106,6 @@ components.plugins;
 components.themes;
 
 loadLanguages();
-loadLanguages('typescript');
-loadLanguages(['javascript', 'typescript']);
+loadLanguages("typescript");
+loadLanguages(["javascript", "typescript"]);
 loadLanguages.silent = true;

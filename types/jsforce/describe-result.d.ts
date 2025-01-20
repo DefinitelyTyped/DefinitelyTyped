@@ -1,4 +1,4 @@
-type maybe<T> = (T | null | undefined)
+type maybe<T> = T | null | undefined;
 
 // From
 // https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_describesobjects_describesobjectresult.htm
@@ -62,7 +62,10 @@ export interface ChildRelationship {
 
 export interface Field {
     aggregatable: boolean;
-    autonumber: boolean;
+    // Not in documentation, but exists in data
+    aiPredictionField?: maybe<boolean> | undefined;
+    // Salesforce documentation is wrong, they show `autonumber` but true data returned is `autoNumber`
+    autoNumber: boolean;
     byteLength: number;
     calculated: boolean;
     calculatedFormula?: maybe<string> | undefined;
@@ -79,15 +82,18 @@ export interface Field {
     deprecatedAndHidden: boolean;
     digits?: maybe<number> | undefined;
     displayLocationInDecimal?: maybe<boolean> | undefined;
-    encrypted?: maybe<true> | undefined;
+    encrypted?: maybe<boolean> | undefined;
     externalId: boolean;
     extraTypeInfo?: maybe<ExtraTypeInfo> | undefined;
     filterable: boolean;
     filteredLookupInfo?: maybe<FilteredLookupInfo> | undefined;
+    // Salesforce documentation is wrong, this field does not exist, calculatedFormula is correct
     formula?: maybe<string> | undefined;
+    // Not in documentation, but exists in data
+    formulaTreatNullNumberAsZero?: maybe<boolean> | undefined;
     groupable: boolean;
     highScaleNumber?: maybe<boolean> | undefined;
-    htmlFormatted :boolean;
+    htmlFormatted: boolean;
     idLookup: boolean;
     inlineHelpText?: maybe<string> | undefined;
     label: string;
@@ -103,10 +109,11 @@ export interface Field {
     polymorphicForeignKey: boolean;
     precision?: maybe<number> | undefined;
     queryByDistance: boolean;
-    relationshipName?: maybe<string> | undefined;
-    relationshipOrder?: maybe<number> | undefined;
     referenceTargetField?: maybe<string> | undefined;
     referenceTo?: maybe<string[]> | undefined;
+    relationshipName?: maybe<string> | undefined;
+    relationshipOrder?: maybe<number> | undefined;
+    restrictedDelete?: maybe<boolean> | undefined;
     restrictedPicklist: boolean;
     scale: number;
     searchPrefilterable: boolean;
@@ -119,40 +126,40 @@ export interface Field {
 }
 
 export type ExtraTypeInfo =
-    | 'imageurl'
-    | 'personname'
-    | 'plaintextarea'
-    | 'richtextarea'
-    | 'switchablepersonname'
-    | 'externallookup'
-    | 'indirectlookup'
+    | "imageurl"
+    | "personname"
+    | "plaintextarea"
+    | "richtextarea"
+    | "switchablepersonname"
+    | "externallookup"
+    | "indirectlookup";
 
 export type FieldType =
-    | 'string'
-    | 'boolean'
-    | 'int'
-    | 'double'
-    | 'date'
-    | 'datetime'
-    | 'base64'
-    | 'id'
-    | 'reference'
-    | 'currency'
-    | 'textarea'
-    | 'percent'
-    | 'phone'
-    | 'url'
-    | 'email'
-    | 'combobox'
-    | 'picklist'
-    | 'multipicklist'
-    | 'anyType'
-    | 'location'
+    | "string"
+    | "boolean"
+    | "int"
+    | "double"
+    | "date"
+    | "datetime"
+    | "base64"
+    | "id"
+    | "reference"
+    | "currency"
+    | "textarea"
+    | "percent"
+    | "phone"
+    | "url"
+    | "email"
+    | "combobox"
+    | "picklist"
+    | "multipicklist"
+    | "anyType"
+    | "location"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'time'
-    | 'encryptedstring'
-    | 'address'
-    | 'complexvalue'
+    | "time"
+    | "encryptedstring"
+    | "address"
+    | "complexvalue";
 
 export interface FilteredLookupInfo {
     controllingFields: string[];
@@ -161,24 +168,24 @@ export interface FilteredLookupInfo {
 }
 
 export type SOAPType =
-    | 'tns:ID'
-    | 'xsd:anyType'
-    | 'xsd:base64Binary'
-    | 'xsd:boolean'
-    | 'xsd:date'
-    | 'xsd:dateTime'
-    | 'xsd:double'
-    | 'xsd:int'
-    | 'xsd:string'
+    | "tns:ID"
+    | "xsd:anyType"
+    | "xsd:base64Binary"
+    | "xsd:boolean"
+    | "xsd:date"
+    | "xsd:dateTime"
+    | "xsd:double"
+    | "xsd:int"
+    | "xsd:string"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'xsd:time'
-    | 'urn:address'
-    | 'urn:JunctionIdListNames'
-    | 'urn:location'
-    | 'urn:RecordTypesSupported'
-    | 'urn:RelationshipReferenceTo'
-    | 'urn:SearchLayoutButtonsDisplayed'
-    | 'urn:SearchLayoutFieldsDisplayed'
+    | "xsd:time"
+    | "urn:address"
+    | "urn:JunctionIdListNames"
+    | "urn:location"
+    | "urn:RecordTypesSupported"
+    | "urn:RelationshipReferenceTo"
+    | "urn:SearchLayoutButtonsDisplayed"
+    | "urn:SearchLayoutFieldsDisplayed";
 
 export interface PicklistEntry {
     active: boolean;

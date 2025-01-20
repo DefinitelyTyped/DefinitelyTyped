@@ -1,12 +1,6 @@
-// Type definitions for standard-http-error 2.0
-// Project: https://github.com/moll/js-standard-http-error
-// Definitions by: Labat Robin <https://github.com/roblabat>
-//                 Saiichi Hashimoto <https://github.com/saiichihashimoto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
-import StandardError = require('standard-error');
+import StandardError = require("standard-error");
 
 export = HttpError;
 

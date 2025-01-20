@@ -14,5 +14,8 @@ export interface ConfigEventHandler<TElement = HTMLElement> {
      * @param config
      * The configuration of the table processed by the `tablesorter`.
      */
-    (eventArgs: JQuery.TriggeredEvent<TElement, null, TElement, TElement>, config: TablesorterConfigurationStore<TElement>): void;
+    (
+        eventArgs: JQuery.TriggeredEvent<TElement, null, TElement, TElement>,
+        config: TablesorterConfigurationStore<TElement>,
+    ): void;
 }

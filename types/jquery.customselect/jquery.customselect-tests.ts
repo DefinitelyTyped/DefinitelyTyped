@@ -10,4 +10,4 @@ customSelectOptions.customClass = "myOwnClassName";
 customSelectOptions.mapClass = true;
 customSelectOptions.mapStyle = true;
 
-$('select').customSelect(customSelectOptions);
+$("select").customSelect(customSelectOptions);

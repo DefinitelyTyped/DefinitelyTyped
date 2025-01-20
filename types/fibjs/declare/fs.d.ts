@@ -202,7 +202,7 @@
 declare module "fs" {
     
 
-    module fs {
+    namespace fs {
         
         /**
          * 

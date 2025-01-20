@@ -1,20 +1,15 @@
-import { DataFactory, BaseQuad, Quad, Stream } from 'rdf-js';
-import { Query, QueryInit } from '.';
-import { Readable } from 'stream';
+import { BaseQuad, Quad, Stream } from "@rdfjs/types";
+import { Readable } from "stream";
+import { Query } from "./index.js";
+import SimpleClient from "./SimpleClient.js";
 
-declare namespace StreamQuery {
-    interface StreamQueryInit<Q extends BaseQuad = Quad> extends QueryInit {
-        factory?: DataFactory<Q> | undefined;
-    }
-
-    type StreamQuery<Q extends BaseQuad = Quad> = Query<boolean, Stream<Q> & Readable, Readable, void>;
-}
-
-interface StreamQuery<Q extends BaseQuad = Quad> extends StreamQuery.StreamQuery<Q> {}
+interface StreamQuery<Q extends BaseQuad = Quad>
+    extends Query<Promise<boolean>, Stream<Q> & Readable, Readable, Promise<void>>
+{}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class StreamQuery<Q extends BaseQuad = Quad> {
-    constructor(options: StreamQuery.StreamQueryInit<Q>);
+    constructor(options: { client: SimpleClient });
 }
 
-export = StreamQuery;
+export default StreamQuery;

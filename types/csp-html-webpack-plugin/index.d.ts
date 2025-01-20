@@ -1,12 +1,6 @@
-// Type definitions for csp-html-webpack-plugin 3.0
-// Project: https://github.com/slackhq/csp-html-webpack-plugin
-// Definitions by: Porama Ruengrairatanaroj <https://github.com/Seally>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Compiler as WebpackCompiler } from 'webpack';
-import { AsyncSeriesWaterfallHook } from 'tapable';
-import HtmlWebpackPlugin = require('html-webpack-plugin');
+import { AsyncSeriesWaterfallHook } from "tapable";
+import { Compiler as WebpackCompiler } from "webpack";
+import HtmlWebpackPlugin = require("html-webpack-plugin");
 
 export = CspHtmlWebpackPlugin;
 
@@ -18,7 +12,7 @@ declare class CspHtmlWebpackPlugin {
      */
     constructor(
         policy?: CspHtmlWebpackPlugin.Policy,
-        additionalOpts?: CspHtmlWebpackPlugin.AdditionalOptions
+        additionalOpts?: CspHtmlWebpackPlugin.AdditionalOptions,
     );
 
     apply(compiler: WebpackCompiler): void;
@@ -46,8 +40,7 @@ declare namespace CspHtmlWebpackPlugin {
 
     // HtmlWebpackPlugin v3 and v4 use different hook interfaces. Figure out
     // which we're using and infer the generic type variable inside.
-    type HtmlPluginData
-        = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
+    type HtmlPluginData = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
         : HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U> ? U
         : any; // Fallback when nothing works.
 
@@ -84,7 +77,7 @@ declare namespace CspHtmlWebpackPlugin {
          * The hashing method. Your node version must also accept this hashing
          * method.
          */
-        hashingMethod?: 'sha256' | 'sha384' | 'sha512' | undefined;
+        hashingMethod?: "sha256" | "sha384" | "sha512" | undefined;
         /**
          * A `<string, boolean>` entry for which policy rules are allowed to
          * include hashes.
@@ -98,11 +91,13 @@ declare namespace CspHtmlWebpackPlugin {
     }
 }
 
-declare module 'html-webpack-plugin' {
+declare module "html-webpack-plugin" {
     interface Options {
-        cspPlugin?: CspHtmlWebpackPlugin.AdditionalOptions & {
-            policy?: CspHtmlWebpackPlugin.Policy | undefined
-        } | undefined;
+        cspPlugin?:
+            | CspHtmlWebpackPlugin.AdditionalOptions & {
+                policy?: CspHtmlWebpackPlugin.Policy | undefined;
+            }
+            | undefined;
     }
 }
 

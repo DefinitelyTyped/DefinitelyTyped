@@ -1,8 +1,8 @@
-import japaneseCharacters = require('japanese-characters');
+import japaneseCharacters = require("japanese-characters");
 
-japaneseCharacters.presentIn('ブートキャンプ'); // $ExpectType boolean
+japaneseCharacters.presentIn("ブートキャンプ"); // $ExpectType boolean
 
-japaneseCharacters.presentIn('some English string'); // $ExpectType boolean
+japaneseCharacters.presentIn("some English string"); // $ExpectType boolean
 
 japaneseCharacters.presentIn({}); // $ExpectType false
 japaneseCharacters.presentIn([]); // $ExpectType false

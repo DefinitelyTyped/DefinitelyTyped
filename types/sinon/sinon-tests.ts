@@ -1,4 +1,5 @@
 import sinon = require("sinon");
+import fakeTimers = require("@sinonjs/fake-timers");
 
 function testSandbox() {
     const obj = {};
@@ -8,9 +9,16 @@ function testSandbox() {
         properties: ["spy", "stub"],
         useFakeTimers: true,
         useFakeServer: true,
+        assertOptions: {
+            shouldLimitAssertionLogs: true,
+            assertionLogLimit: 10,
+        },
     });
     sinon.createSandbox({
         injectInto: null,
+        assertOptions: {
+            shouldLimitAssertionLogs: true,
+        },
     });
     sinon.createSandbox({
         useFakeTimers: {
@@ -37,6 +45,7 @@ function testSandbox() {
     sb.useFakeTimers(new Date());
     sb.useFakeTimers({
         now: 1000,
+        shouldClearNativeTimers: true,
     });
 
     const xhr = sb.useFakeXMLHttpRequest();
@@ -70,8 +79,12 @@ function testSandbox() {
 
     sb.replace(replaceMe, "prop", 10);
     sb.replace(replaceMe, "method", sb.spy());
+    const fake = sb.replace(replaceMe, "method", sb.fake.returns(2));
+    fake.callCount;
     sb.replaceGetter(replaceMe, "getter", () => 14);
     sb.replaceSetter(replaceMe, "setter", v => {});
+
+    sb.replace.usingAccessor(replaceMe, "getter", 42);
 
     const cls = class {
         foo(arg1: string, arg2: number): number {
@@ -126,11 +139,20 @@ function testSandbox() {
     objWithPrivateMembers.getPriVar.returns(84);
     callGetPriVar(objWithPrivateMembers);
 
-    // $ExpectError
+    // @ts-expect-error
     objWithPrivateMembers.priVar;
 
     // $ExpectType number
     objWithPrivateMembers.pubVar;
+
+    const objToDefine = {};
+
+    sb.define(objToDefine, "someKey", 123);
+    sb.define(objToDefine, 100, 200);
+    sb.define(objToDefine, Symbol("abc"), 200);
+
+    // @ts-expect-error
+    sb.define(objToDefine, {}, 123);
 }
 
 function testFakeServer() {
@@ -167,8 +189,8 @@ function testXHR() {
 }
 
 function testClock() {
-    let clock = sinon.clock.create(1000);
-    clock = sinon.clock.create(new Date());
+    let clock = sinon.clock.create(1000) as fakeTimers.BrowserClock;
+    clock = sinon.clock.create(new Date()) as fakeTimers.BrowserClock;
 
     let now = 0;
     now = clock.now;
@@ -184,7 +206,7 @@ function testClock() {
     now = clock.setTimeout(fnWithArgs, 0, 1234, "abc");
     now = clock.setInterval(fnWithArgs, 0, 1234, "abc");
 
-    clock.setImmediate(fnWithArgs, 1234, "abc"); // $ExpectType NodeTimer
+    clock.setImmediate(fnWithArgs, 1234, "abc"); // $ExpectType number
 
     let timer = clock.setTimeout(fn, 0);
     clock.clearTimeout(timer);
@@ -196,7 +218,8 @@ function testClock() {
     const animTimer = clock.requestAnimationFrame(fn);
     clock.cancelAnimationFrame(animTimer);
 
-    clock.nextTick(fn);
+    const nodeClock = sinon.clock.create(1) as fakeTimers.NodeClock & fakeTimers.InstalledClock;
+    nodeClock.nextTick(fn);
 
     clock.tick(1);
     clock.tick("00:10");
@@ -213,9 +236,9 @@ function testClock() {
     clock.runToLastAsync().then(val => val.toExponential());
 
     clock.reset();
-    clock.runMicrotasks();
+    nodeClock.runMicrotasks();
     clock.runToFrame();
-    clock.uninstall();
+    nodeClock.uninstall();
     clock.setSystemTime(1000);
     clock.setSystemTime(new Date());
 }
@@ -298,18 +321,52 @@ function testMatch() {
 
 function testFake() {
     const fn = () => {};
-    let fake = sinon.fake();
+    const fake1 = sinon.fake();
 
-    fake = sinon.fake(() => true);
-    fake = sinon.fake.returns(5);
-    fake = sinon.fake.throws("foo");
-    fake = sinon.fake.throws(new Error("foo"));
-    fake = sinon.fake.resolves("foo");
-    fake = sinon.fake.rejects("foo");
-    fake = sinon.fake.yields(1, 2, fn);
-    fake = sinon.fake.yieldsAsync(1, 2, fn);
+    fake1.args; // $ExpectType any[][]
+    fake1.firstCall.returnValue; // $ExpectType any
 
-    fake.calledWith("foo");
+    const fake2 = sinon.fake(() => true);
+
+    fake2.args; // $ExpectType [][]
+    fake2.firstCall.returnValue; // $ExpectType boolean
+
+    const fake3 = sinon.fake.returns(5);
+
+    fake3.args; // $ExpectType any[][]
+    fake3.firstCall.returnValue; // $ExpectType number
+
+    const fake4 = sinon.fake.throws("foo");
+
+    fake4.args; // $ExpectType any[][]
+    fake4.firstCall.returnValue; // $ExpectType any
+
+    const fake5 = sinon.fake.throws(new Error("foo"));
+
+    fake5.args; // $ExpectType any[][]
+    fake5.firstCall.returnValue; // $ExpectType any
+
+    const fake6 = sinon.fake.resolves("foo");
+
+    fake6.args; // $ExpectType any[][]
+    fake6.firstCall.returnValue; // $ExpectType any
+
+    const fake7 = sinon.fake.rejects("foo");
+
+    fake7.args; // $ExpectType any[][]
+    fake7.firstCall.returnValue; // $ExpectType any
+
+    const fake8 = sinon.fake.yields(1, 2, fn);
+
+    fake8.args; // $ExpectType any[][]
+    fake8.firstCall.returnValue; // $ExpectType any
+
+    const fake9 = sinon.fake.yieldsAsync(1, 2, fn);
+
+    fake9.args; // $ExpectType any[][]
+    fake9.firstCall.returnValue; // $ExpectType any
+
+    fake9.calledWith("foo");
 }
 
 function testAssert() {
@@ -339,6 +396,7 @@ function testAssert() {
     sinon.assert.calledWithMatch(spy, "a", "b", "c");
     sinon.assert.calledWithMatch(spy.firstCall, "a", "b", "c");
     sinon.assert.calledOnceWithMatch(spy, "a", "b", "c");
+    sinon.assert.calledOnceWithMatch(spy, sinon.match("a"), "b", "c");
     sinon.assert.calledOnceWithMatch(spy.firstCall, "a", "b", "c");
     sinon.assert.alwaysCalledWithMatch(spy, "a", "b", "c");
     sinon.assert.neverCalledWithMatch(spy, "a", "b", "c");
@@ -372,25 +430,36 @@ function testAssert() {
     sinon.assert.calledOn(typedSpy.firstCall, obj);
     sinon.assert.calledWith(typedSpy, "a", true);
     sinon.assert.calledWith(typedSpy, "a");
-    sinon.assert.calledWith(typedSpy, "a", "b"); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.calledWith(typedSpy, "a", "b");
     sinon.assert.alwaysCalledOn(typedSpy, obj);
-    sinon.assert.alwaysCalledWith(typedSpy, "a", "b", "c"); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.alwaysCalledWith(typedSpy, "a", "b", "c");
     sinon.assert.alwaysCalledWith(typedSpy, "a", true);
     sinon.assert.alwaysCalledWith(typedSpy, "a");
     sinon.assert.neverCalledWith(typedSpy, "a", false);
-    sinon.assert.neverCalledWith(typedSpy, "a", "b"); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.neverCalledWith(typedSpy, "a", "b");
     sinon.assert.neverCalledWith(typedSpy, "a");
     sinon.assert.calledWithExactly(typedSpy, "a", true);
-    sinon.assert.calledWithExactly(typedSpy, "a", "b"); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.calledWithExactly(typedSpy, "a", "b");
     sinon.assert.alwaysCalledWithExactly(typedSpy, "a", true);
-    sinon.assert.alwaysCalledWithExactly(typedSpy, "a", 1); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.alwaysCalledWithExactly(typedSpy, "a", 1);
+    sinon.assert.calledWithMatch(typedSpy, "a");
     sinon.assert.calledWithMatch(typedSpy, "a", true);
+    // @ts-expect-error
+    sinon.assert.calledWithMatch(typedSpy, "a", true, 42);
     sinon.assert.calledWithMatch(typedSpy.firstCall, "a", true);
-    sinon.assert.calledWithMatch(typedSpy.firstCall, "a", 2); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.calledWithMatch(typedSpy.firstCall, "a", 2);
     sinon.assert.alwaysCalledWithMatch(typedSpy, "a", true);
-    sinon.assert.alwaysCalledWithMatch(typedSpy, "a", 2); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.alwaysCalledWithMatch(typedSpy, "a", 2);
     sinon.assert.neverCalledWithMatch(typedSpy, "a", true);
-    sinon.assert.neverCalledWithMatch(typedSpy, "a", 2); // $ExpectError
+    // @ts-expect-error
+    sinon.assert.neverCalledWithMatch(typedSpy, "a", 2);
     sinon.assert.calledWithNew(typedSpy);
     sinon.assert.calledWithNew(typedSpy.firstCall);
     sinon.assert.threw(typedSpy);
@@ -408,6 +477,57 @@ function testAssert() {
     sinon.assert.expose(obj);
     sinon.assert.expose(obj, { prefix: "blah" });
     sinon.assert.expose(obj, { includeFail: true });
+
+    const spyDeepObject = sinon.spy((_arg1: { foo: { first: string; second: number } }, _arg2: string): boolean => {
+        return true;
+    });
+
+    sinon.assert.calledWithMatch(spyDeepObject, {});
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: {} });
+    // @ts-expect-error
+    sinon.assert.calledWithMatch(spyDeepObject, { bar: {} });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.calledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has("first")),
+    });
+    sinon.assert.calledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    // @ts-expect-error
+    sinon.assert.calledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number);
+    sinon.assert.calledWithMatch(spyDeepObject, { foo: { first: "a", second: 42 } }, "c");
+
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, {});
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: {} });
+    // @ts-expect-error
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { bar: {} });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has("first")),
+    });
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    // @ts-expect-error
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number);
+    sinon.assert.alwaysCalledWithMatch(spyDeepObject, { foo: { first: "a", second: 42 } }, "c");
+    sinon.assert.neverCalledWithMatch(spyDeepObject, {});
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: {} });
+    // @ts-expect-error
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { bar: {} });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { second: 42 } });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { second: sinon.match.string } });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: sinon.match.object });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: sinon.match.any });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, {
+        foo: sinon.match.array.startsWith([]).and(sinon.match.has("first")),
+    });
+    sinon.assert.neverCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string);
+    // @ts-expect-error
+    sinon.assert.neverCalledWithMatch(spyDeepObject, sinon.match.any, sinon.match.string, sinon.match.number);
+    sinon.assert.neverCalledWithMatch(spyDeepObject, { foo: { first: "a", second: 42 } }, "c");
 }
 
 function testTypedSpy() {
@@ -438,6 +558,14 @@ function testTypedSpy() {
     spy.notCalledWith(sinon.match(5), "x");
     spy.returned(5);
     spy.returned(sinon.match(5));
+    // @ts-expect-error
+    spy.calledWithMatch(5, "x", true);
+    spy.calledWithMatch(5, "x");
+    spy.calledWithMatch(5);
+    // @ts-expect-error
+    spy.notCalledWithMatch(5, "x", true);
+    spy.notCalledWithMatch(5, "x");
+    spy.notCalledWithMatch(5);
 
     spy.withArgs(sinon.match(5), "x").calledWith(5, "x");
     spy.alwaysCalledWith(sinon.match(5), "x");
@@ -446,6 +574,36 @@ function testTypedSpy() {
     spy.alwaysCalledWithExactly(5, "x");
     spy.neverCalledWith(sinon.match(5), "x");
     spy.neverCalledWith(5, "x");
+
+    const spyDeepObject = sinon.spy((_arg1: { foo: { first: string; second: number } }, _arg2: string): boolean => {
+        return true;
+    });
+
+    spyDeepObject.calledWithMatch();
+    spyDeepObject.calledWithMatch({});
+    spyDeepObject.calledWithMatch({ foo: {} });
+    spyDeepObject.calledWithMatch({ foo: { second: 42 } });
+    spyDeepObject.calledWithMatch({ foo: { second: sinon.match.string } });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.object });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.any });
+    spyDeepObject.calledWithMatch({ foo: sinon.match.array.startsWith([]).and(sinon.match.has("first")) });
+    spyDeepObject.calledWithMatch(sinon.match.any, sinon.match.string);
+    // @ts-expect-error
+    spyDeepObject.calledWithMatch(sinon.match.any, sinon.match.string, sinon.match.number);
+    spyDeepObject.calledWithMatch({ foo: { first: "a", second: 42 } }, "c");
+
+    spyDeepObject.notCalledWithMatch();
+    spyDeepObject.notCalledWithMatch({});
+    spyDeepObject.notCalledWithMatch({ foo: {} });
+    spyDeepObject.notCalledWithMatch({ foo: { second: 42 } });
+    spyDeepObject.notCalledWithMatch({ foo: { second: sinon.match.string } });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.object });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.any });
+    spyDeepObject.notCalledWithMatch({ foo: sinon.match.array.startsWith([]).and(sinon.match.has("first")) });
+    spyDeepObject.notCalledWithMatch(sinon.match.any, sinon.match.string);
+    // @ts-expect-error
+    spyDeepObject.notCalledWithMatch(sinon.match.any, sinon.match.string, sinon.match.number);
+    spyDeepObject.notCalledWithMatch({ foo: { first: "a", second: 42 } }, "c");
 
     const stub = sinon.stub(instance, "foo");
 
@@ -473,7 +631,8 @@ function testInstanceSpy() {
     const spy = sinon.spy(obj); // $ExpectType SinonSpiedInstance<{ foo(arg: number): string; }>
 
     spy.foo.calledWith(5);
-    spy.foo.returns("bar"); // $ExpectError
+    // @ts-expect-error
+    spy.foo.returns("bar");
 }
 
 function testSpy() {
@@ -525,6 +684,10 @@ function testSpy() {
     fnSpy("a", 1); // $ExpectType boolean
     fnSpy.args; // $ExpectType [string, number][] || [arg: string, arg2: number][]
     fnSpy.returnValues; // $ExpectType boolean[]
+    fnSpy.withArgs("a").returned(true);
+    fnSpy.calledOnceWith("a");
+    // @ts-expect-error
+    fnSpy.calledOnceWithExactly("a");
 
     spy(1, 2);
     spy(true);
@@ -593,7 +756,7 @@ function testSpy() {
 
 function testStub() {
     const obj = class {
-        foo(arg: string): number {
+        foo(arg: string, arg2: number): number {
             return 1;
         }
         promiseFunc() {
@@ -617,7 +780,8 @@ function testStub() {
 
     const promiseStub = sinon.stub(instance, "promiseFunc");
     promiseStub.resolves("test");
-    promiseStub.resolves(123); // $ExpectError
+    // @ts-expect-error
+    promiseStub.resolves(123);
 
     const promiseUnresolvableReturn = sinon.stub(instance, "unresolvableReturnFunc");
     promiseUnresolvableReturn.resolves(["anything", 123, true]);
@@ -680,16 +844,25 @@ function testStub() {
     // Type-safe stubs
     const stub2 = sinon.stub(instance, "foo").named("namedStub");
     instance.foo = stub2; // Should be assignable to original
-    stub2.returns(true); // $ExpectError
+    // @ts-expect-error
+    stub2.returns(true);
     stub2.returns(5);
-    stub2.returns("foo"); // $ExpectError
-    stub2.callsFake((arg: string) => 1);
-    stub2.callsFake((arg: number) => 1); // $ExpectError
-    stub2.callsFake((arg: string) => "a"); // $ExpectError
+    // @ts-expect-error
+    stub2.returns("foo");
+    stub2.callsFake((arg: string, arg2: number) => 1);
+    // @ts-expect-error
+    stub2.callsFake((arg: number) => 1);
+    // @ts-expect-error
+    stub2.callsFake((arg: string, arg2: string) => 1);
+    // @ts-expect-error
+    stub2.callsFake((arg: string) => "a");
     stub2.onCall(1).returns(2);
-    stub2.withArgs("a", 2).returns("true"); // $ExpectError
+    // @ts-expect-error
+    stub2.withArgs("a", 2, 3).returns(1);
+    stub2.withArgs("a", 2).returns(1);
     stub2.withArgs("a").returns(1);
-    stub2.withArgs("a").returns("a"); // $ExpectError
+    // @ts-expect-error
+    stub2.withArgs("a", 2).returns("a");
 
     const stub3 = sinon.stub(instance, "fooDeep").named("namedStubDeep");
     stub3.calledWith({ s: sinon.match.string });
@@ -697,7 +870,8 @@ function testStub() {
     const pStub = sinon.stub(instance, "promiseFunc");
     pStub.resolves();
     pStub.resolves("foo");
-    pStub.resolves(1); // $ExpectError
+    // @ts-expect-error
+    pStub.resolves(1);
 }
 
 function testTypedStub() {
@@ -715,6 +889,9 @@ function testTypedStub() {
     const fooStub: sinon.SinonStubbedInstance<Foo> = {
         bar: sinon.stub(),
     };
+
+    const stub3 = sinon.stub<readonly [number, string], boolean>();
+    stub3.firstCall.args; // $ExpectType readonly [number, string]
 }
 
 function testMock() {
@@ -722,6 +899,22 @@ function testMock() {
     const mock = sinon.mock(obj);
 
     mock.expects("method").atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
+function testMockStatic() {
+    const mock = sinon.mock();
+
+    mock.atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
+}
+
+function testMockStaticNamed() {
+    const mock = sinon.mock("namedMock");
+
+    mock.atLeast(2).atMost(5);
     mock.restore();
     mock.verify();
 }
@@ -739,7 +932,7 @@ function testSetFormatter() {
 async function testPromises() {
     const promise = sinon.promise();
     await promise.resolve(123);
-    await promise.reject('foo');
+    await promise.reject("foo");
     promise.status; // $ExpectType "pending" | "resolved" | "rejected"
 
     const typedPromise = sinon.promise<number>();
@@ -747,10 +940,87 @@ async function testPromises() {
     typedPromise.resolvedValue; // $ExpectType number | undefined
     typedPromise.rejectedValue; // $ExpectType unknown
 
-    const executor = sinon.promise<string>((resolve) => {
-        resolve('abc');
+    const executor = sinon.promise<string>(resolve => {
+        resolve("abc");
     });
     const executor2 = sinon.promise<string>((resolve, reject) => {
-        reject('some error');
+        reject("some error");
     });
+}
+
+async function testTypedFake() {
+    const fake1: sinon.SinonSpy<[number, string], boolean> = sinon.fake((arg1, arg2) => {
+        arg1; // $ExpectType number
+        arg2; // $ExpectType string
+        return true;
+    });
+    fake1(42, ""); // $ExpectType boolean
+    fake1.firstCall.args; // $ExpectType [number, string]
+    fake1.firstCall.returnValue; // $ExpectType boolean
+    fake1.calledWith(21, "foo");
+    // @ts-expect-error
+    fake1.calledWith(true, 21);
+
+    const fake2 = sinon.fake<[boolean, string], number>();
+
+    fake2.args; // $ExpectType [boolean, string][]
+    fake2.firstCall.returnValue; // $ExpectType number
+
+    const fake3 = sinon.fake.returns<[boolean, string], number>(42);
+
+    fake3.args; // $ExpectType [boolean, string][]
+    fake3.firstCall.returnValue; // $ExpectType number
+
+    const fake4 = sinon.fake.throws<[boolean, string], number>("");
+
+    fake4.args; // $ExpectType [boolean, string][]
+    fake4.firstCall.returnValue; // $ExpectType number
+
+    const fake5 = sinon.fake.resolves<[boolean, string], Promise<number>>(42);
+
+    fake5.args; // $ExpectType [boolean, string][]
+    fake5.firstCall.returnValue; // $ExpectType Promise<number>
+    await fake5(true, ""); // $ExpectType number
+
+    const fake6 = sinon.fake.rejects<[boolean, string], Promise<number>>("");
+
+    fake6.args; // $ExpectType [boolean, string][]
+    fake6.firstCall.returnValue; // $ExpectType Promise<number>
+    await fake6(true, ""); // $ExpectType number
+
+    const fake7 = sinon.fake.yields<[boolean, string], number>();
+
+    fake7.args; // $ExpectType [boolean, string][]
+    fake7.firstCall.returnValue; // $ExpectType number
+
+    const fake8 = sinon.fake.yieldsAsync<[boolean, string], number>();
+
+    fake8.args; // $ExpectType [boolean, string][]
+    fake8.firstCall.returnValue; // $ExpectType number
+
+    const fake9 = sinon.fake.returns("foo");
+
+    fake9.args; // $ExpectType any[][]
+    fake9.firstCall.returnValue; // $ExpectType string
+
+    const fake10 = sinon.fake.resolves("foo");
+
+    fake10.args; // $ExpectType any[][]
+    fake10.firstCall.returnValue; // $ExpectType any
+
+    const typedFn = (...args: [number, string]): boolean => {
+        return true;
+    };
+
+    const fake11 = sinon.fake(typedFn);
+
+    fake11.firstCall.args; // $ExpectType [number, string]
+    fake11.firstCall.returnValue; // $ExpectType boolean
+
+    // @ts-expect-error
+    sinon.fake<[boolean, string], number>(typedFn);
+
+    const fake12 = sinon.fake<readonly [boolean, string], number>();
+
+    fake12.firstCall.args; // $ExpectType readonly [boolean, string]
 }

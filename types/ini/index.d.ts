@@ -1,19 +1,21 @@
-// Type definitions for ini v1.3.3
-// Project: https://github.com/isaacs/ini
-// Definitions by: Marcin Porębski <https://github.com/marcinporebski>
-//                 Chris Arnesen <https://github.com/carnesen>
-//                 Adaline Simonian <https://github.com/adalinesimonian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface EncodeOptions {
+    align?: boolean;
     section?: string;
+    sort?: boolean;
     whitespace?: boolean;
+    newline?: boolean;
+    platform?: string;
+    bracketedArray?: boolean;
 }
 
-export function decode(str: string): {
+interface DecodeOptions {
+    bracketedArray?: boolean;
+}
+
+export function decode(str: string, options?: DecodeOptions): {
     [key: string]: any;
 };
-export function parse(str: string): {
+export function parse(str: string, options?: DecodeOptions): {
     [key: string]: any;
 };
 export function encode(object: any, options?: EncodeOptions | string): string;

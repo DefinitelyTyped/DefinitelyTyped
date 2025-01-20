@@ -1,6 +1,4 @@
-
-
-import riotcontrol = require('riotcontrol');
+import riotcontrol = require("riotcontrol");
 
 {
     let store: riotcontrol.Store;

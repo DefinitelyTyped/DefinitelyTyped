@@ -1,42 +1,32 @@
-import { Scene } from './../scenes/Scene';
-import { Camera } from './../cameras/Camera';
-import { WebGLExtensions } from './webgl/WebGLExtensions';
-import { WebGLInfo } from './webgl/WebGLInfo';
-import { WebGLShadowMap } from './webgl/WebGLShadowMap';
-import { WebGLCapabilities } from './webgl/WebGLCapabilities';
-import { WebGLProperties } from './webgl/WebGLProperties';
-import { WebGLProgram } from './webgl/WebGLProgram';
-import { RenderTarget, WebGLRenderLists } from './webgl/WebGLRenderLists';
-import { WebGLState } from './webgl/WebGLState';
-import { Vector2 } from './../math/Vector2';
-import { Vector4 } from './../math/Vector4';
-import { Color } from './../math/Color';
-import { WebGLRenderTarget } from './WebGLRenderTarget';
-import { Object3D } from './../core/Object3D';
-import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
-import { WebXRManager } from '../renderers/webxr/WebXRManager';
-import { BufferGeometry } from './../core/BufferGeometry';
-import { Texture } from '../textures/Texture';
-import { DataTexture3D } from '../textures/DataTexture3D';
-import { XRAnimationLoopCallback } from './webxr/WebXR';
-import { Vector3 } from '../math/Vector3';
-import { Box3 } from '../math/Box3';
-import { DataTexture2DArray } from '../textures/DataTexture2DArray';
-import { ColorRepresentation } from '../utils';
+import { Camera } from "../cameras/Camera.js";
+import { CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box2 } from "../math/Box2.js";
+import { Box3 } from "../math/Box3.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Plane } from "../math/Plane.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Vector4 } from "../math/Vector4.js";
+import { Scene } from "../scenes/Scene.js";
+import { Data3DTexture } from "../textures/Data3DTexture.js";
+import { DataArrayTexture } from "../textures/DataArrayTexture.js";
+import { OffscreenCanvas, Texture } from "../textures/Texture.js";
+import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
+import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
+import { WebGLInfo } from "./webgl/WebGLInfo.js";
+import { WebGLProgram } from "./webgl/WebGLProgram.js";
+import { WebGLProperties } from "./webgl/WebGLProperties.js";
+import { WebGLRenderLists } from "./webgl/WebGLRenderLists.js";
+import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
+import { WebGLState } from "./webgl/WebGLState.js";
+import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
+import { WebXRManager } from "./webxr/WebXRManager.js";
 
-export interface Renderer {
-    domElement: HTMLCanvasElement;
-
-    render(scene: Object3D, camera: Camera): void;
-    setSize(width: number, height: number, updateStyle?: boolean): void;
-}
-
-/** This is only available in worker JS contexts, not the DOM. */
-// tslint:disable-next-line:no-empty-interface
-export interface OffscreenCanvas extends EventTarget {}
-
-export interface WebGLRendererParameters {
+export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
@@ -48,11 +38,6 @@ export interface WebGLRendererParameters {
      * Default is null
      */
     context?: WebGLRenderingContext | undefined;
-
-    /**
-     * shader precision. Can be "highp", "mediump" or "lowp".
-     */
-    precision?: string | undefined;
 
     /**
      * default is false.
@@ -70,7 +55,7 @@ export interface WebGLRendererParameters {
     antialias?: boolean | undefined;
 
     /**
-     * default is true.
+     * default is false.
      */
     stencil?: boolean | undefined;
 
@@ -82,17 +67,12 @@ export interface WebGLRendererParameters {
     /**
      * Can be "high-performance", "low-power" or "default"
      */
-    powerPreference?: string | undefined;
+    powerPreference?: WebGLPowerPreference | undefined;
 
     /**
      * default is true.
      */
     depth?: boolean | undefined;
-
-    /**
-     * default is false.
-     */
-    logarithmicDepthBuffer?: boolean | undefined;
 
     /**
      * default is false.
@@ -105,6 +85,21 @@ export interface WebGLDebug {
      * Enables error checking and reporting when shader programs are being compiled.
      */
     checkShaderErrors: boolean;
+
+    /**
+     * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
+     * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
+     * Assigning a custom function disables the default error reporting.
+     * @default `null`
+     */
+    onShaderError:
+        | ((
+            gl: WebGLRenderingContext,
+            program: WebGLProgram,
+            glVertexShader: WebGLShader,
+            glFragmentShader: WebGLShader,
+        ) => void)
+        | null;
 }
 
 /**
@@ -113,9 +108,9 @@ export interface WebGLDebug {
  *
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
  */
-export class WebGLRenderer implements Renderer {
+export class WebGLRenderer {
     /**
-     * parameters is an optional object with properties defining the renderer's behaviour.
+     * parameters is an optional object with properties defining the renderer's behavior.
      * The constructor also accepts no parameters at all.
      * In all cases, it will assume sane defaults when parameters are missing.
      */
@@ -127,11 +122,6 @@ export class WebGLRenderer implements Renderer {
      * @default document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' )
      */
     domElement: HTMLCanvasElement;
-
-    /**
-     * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
-     */
-    context: WebGLRenderingContext;
 
     /**
      * Defines whether the renderer should automatically clear its output before rendering.
@@ -172,7 +162,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * @default []
      */
-    clippingPlanes: any[];
+    clippingPlanes: Plane[];
 
     /**
      * @default false
@@ -182,15 +172,14 @@ export class WebGLRenderer implements Renderer {
     extensions: WebGLExtensions;
 
     /**
-     * Default is LinearEncoding.
-     * @default THREE.LinearEncoding
+     * Color space used for output to HTMLCanvasElement. Supported values are
+     * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
+     * @default THREE.SRGBColorSpace.
      */
-    outputEncoding: TextureEncoding;
+    get outputColorSpace(): string;
+    set outputColorSpace(colorSpace: string);
 
-    /**
-     * @default false
-     */
-    physicallyCorrectLights: boolean;
+    get coordinateSystem(): typeof WebGLCoordinateSystem;
 
     /**
      * @default THREE.NoToneMapping
@@ -201,6 +190,13 @@ export class WebGLRenderer implements Renderer {
      * @default 1
      */
     toneMappingExposure: number;
+
+    /**
+     * The normalized resolution scale for the transmission render target, measured in percentage of viewport
+     * dimensions. Lowering this value can result in significant improvements to {@link MeshPhysicalMaterial}
+     * transmission performance. Default is `1`.
+     */
+    transmissionResolutionScale: number;
 
     info: WebGLInfo;
 
@@ -218,9 +214,10 @@ export class WebGLRenderer implements Renderer {
     /**
      * Return the WebGL context.
      */
-    getContext(): WebGLRenderingContext;
+    getContext(): WebGLRenderingContext | WebGL2RenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
+    forceContextRestore(): void;
 
     /**
      * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
@@ -322,8 +319,6 @@ export class WebGLRenderer implements Renderer {
     resetGLState(): void;
     dispose(): void;
 
-    renderBufferImmediate(object: Object3D, program: WebGLProgram): void;
-
     renderBufferDirect(
         camera: Camera,
         scene: Scene,
@@ -337,7 +332,7 @@ export class WebGLRenderer implements Renderer {
      * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
-    setAnimationLoop(callback: XRAnimationLoopCallback | null): void;
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
@@ -345,9 +340,19 @@ export class WebGLRenderer implements Renderer {
     animate(callback: () => void): void;
 
     /**
-     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.
+     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
+     * rendering. If you want to add a 3D object to an existing scene, use the third optional parameter for applying the
+     * target scene.
+     * Note that the (target) scene's lighting should be configured before calling this method.
      */
-    compile(scene: Object3D, camera: Camera): void;
+    compile: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Set<Material>;
+
+    /**
+     * Asynchronous version of {@link compile}(). The method returns a Promise that resolves when the given scene can be
+     * rendered without unnecessary stalling due to shader compilation.
+     * This method makes use of the KHR_parallel_shader_compile WebGL extension.
+     */
+    compileAsync: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<Object3D>;
 
     /**
      * Render a scene or an object using a camera.
@@ -375,12 +380,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Returns the current render target. If no render target is set, null is returned.
      */
-    getRenderTarget(): RenderTarget | null;
+    getRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
-    getCurrentRenderTarget(): RenderTarget | null;
+    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -389,53 +394,97 @@ export class WebGLRenderer implements Renderer {
      * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLCubeRenderTarget}.
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
-    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]> | null,
+        activeCubeFace?: number,
+        activeMipmapLevel?: number,
+    ): void;
 
     readRenderTargetPixels(
-        renderTarget: RenderTarget,
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]>,
         x: number,
         y: number,
         width: number,
         height: number,
-        buffer: any,
+        buffer: TypedArray,
         activeCubeFaceIndex?: number,
     ): void;
+
+    readRenderTargetPixelsAsync(
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]>,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        buffer: TypedArray,
+        activeCubeFaceIndex?: number,
+    ): Promise<TypedArray>;
 
     /**
      * Copies a region of the currently bound framebuffer into the selected mipmap level of the selected texture.
      * This region is defined by the size of the destination texture's mip level, offset by the input position.
      *
-     * @param position Specifies the pixel offset from which to copy out of the framebuffer.
      * @param texture Specifies the destination texture.
+     * @param position Specifies the pixel offset from which to copy out of the framebuffer.
      * @param level Specifies the destination mipmap level of the texture.
      */
-    copyFramebufferToTexture(position: Vector2, texture: Texture, level?: number): void;
+    copyFramebufferToTexture(texture: Texture, position?: Vector2 | null, level?: number): void;
 
     /**
-     * Copies srcTexture to the specified level of dstTexture, offset by the input position.
+     * Copies the pixels of a texture in the bounds [srcRegion]{@link Box3} in the destination texture starting from the
+     * given position. 2D Texture, 3D Textures, or a mix of the two can be used as source and destination texture
+     * arguments for copying between layers of 3d textures
      *
-     * @param position Specifies the pixel offset into the dstTexture where the copy will occur.
+     * The `depthTexture` and `texture` property of render targets are supported as well.
+     *
+     * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
+     * initialized e.g. via {@link .initRenderTarget}().
+     *
      * @param srcTexture Specifies the source texture.
      * @param dstTexture Specifies the destination texture.
-     * @param level Specifies the destination mipmap level of the texture.
+     * @param srcRegion Specifies the bounds
+     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @param srcLevel Specifies the source mipmap level of the texture.
+     * @param dstLevel Specifies the destination mipmap level of the texture.
      */
-    copyTextureToTexture(position: Vector2, srcTexture: Texture, dstTexture: Texture, level?: number): void;
+    copyTextureToTexture(
+        srcTexture: Texture,
+        dstTexture: Texture,
+        srcRegion?: Box2 | Box3 | null,
+        dstPosition?: Vector2 | Vector3 | null,
+        srcLevel?: number,
+        dstLevel?: number,
+    ): void;
 
     /**
-     * Copies the pixels of a texture in the bounds sourceBox in the desination texture starting from the given position.
-     * @param sourceBox Specifies the bounds
-     * @param position Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @deprecated Use "copyTextureToTexture" instead.
+     *
+     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
+     * position. The `depthTexture` and `texture` property of 3D render targets are supported as well.
+     *
+     * When using render target textures as `srcTexture` and `dstTexture`, you must make sure both render targets are
+     * intitialized e.g. via {@link .initRenderTarget}().
+     *
      * @param srcTexture Specifies the source texture.
      * @param dstTexture Specifies the destination texture.
+     * @param srcRegion Specifies the bounds
+     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
      * @param level Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture3D(
-        sourceBox: Box3,
-        position: Vector3,
         srcTexture: Texture,
-        dstTexture: DataTexture3D | DataTexture2DArray,
+        dstTexture: Data3DTexture | DataArrayTexture,
+        srcRegion?: Box3 | null,
+        dstPosition?: Vector3 | null,
         level?: number,
     ): void;
+
+    /**
+     * Initializes the given WebGLRenderTarget memory. Useful for initializing a render target so data can be copied
+     * into it using {@link WebGLRenderer.copyTextureToTexture} before it has been rendered to.
+     * @param target
+     */
+    initRenderTarget(target: WebGLRenderTarget): void;
 
     /**
      * Initializes the given texture. Can be used to preload a texture rather than waiting until first render (which can cause noticeable lags due to decode and GPU upload overhead).
@@ -448,11 +497,6 @@ export class WebGLRenderer implements Renderer {
      * Can be used to reset the internal WebGL state.
      */
     resetState(): void;
-
-    /**
-     * @deprecated
-     */
-    gammaFactor: number;
 
     /**
      * @deprecated Use {@link WebGLRenderer#xr .xr} instead.

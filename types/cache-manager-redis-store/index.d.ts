@@ -1,10 +1,5 @@
-// Type definitions for cache-manager-redis-store 2.0
-// Project: https://github.com/dabroek/node-cache-manager-redis-store
-// Definitions by: Eduardo Cancino <https://github.com/ecancinoz-chwy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+import { Cache, CacheOptions, Store, StoreConfig } from "cache-manager";
 import * as Redis from "redis";
-import { Cache, Store, StoreConfig, CacheOptions } from "cache-manager";
 
 declare const methods: CacheManagerRedisStore.RedisStoreConstructor;
 export = methods;

@@ -1,11 +1,7 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"

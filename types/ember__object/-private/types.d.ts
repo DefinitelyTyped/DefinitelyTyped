@@ -1,5 +1,7 @@
-import Mixin from '@ember/object/mixin';
-import ComputedProperty from '@ember/object/computed';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * Map type `T` to a plain object hash with the identity mapping.
@@ -28,12 +30,17 @@ export type Fix<T> = { [K in keyof T]: T[K] };
  * type info for the computed property without impacting the
  * user-visible type.
  */
-export class ComputedPropertyMarker<Get, Set = Get> {
+declare class ComputedPropertyMarker<Get, Set = Get> {
     // Necessary in order to avoid losing type information
     //    see: https://github.com/typed-ember/ember-cli-typescript/issues/246#issuecomment-414812013
-    private ______getType: Get;
-    private ______setType: Set;
+    private [GetType]: Get;
+    private [SetType]: Set;
 }
+
+export type { ComputedPropertyMarker };
+
+declare const GetType: unique symbol;
+declare const SetType: unique symbol;
 
 /**
  * Used to infer the type of ember classes of type `T`.
@@ -46,7 +53,7 @@ export class ComputedPropertyMarker<Get, Set = Get> {
  * Implementation is carefully chosen for the reasons described in
  * https://github.com/typed-ember/ember-typings/pull/29
  */
-export type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
+export type EmberClassConstructor<T> = (new(properties?: object) => T) & (new(...args: any[]) => T);
 
 /**
  * Check that any arguments to `create()` match the type's properties.
@@ -100,8 +107,14 @@ export type ComputedPropertyObj<Get, Set> =
 export type ComputedPropertyGetter<T> = ComputedPropertyGetterFunction<T> | ComputedPropertyGetterObj<T>;
 export type ComputedPropertySetter<T> = ComputedPropertySetterFunction<T> | ComputedPropertySetterObj<T>;
 
-export type ComputedPropertyCallback<Get, Set = Get> = ComputedPropertyGetterFunction<Get> | ComputedPropertyObj<Get, Set>;
+export type ComputedPropertyCallback<Get, Set = Get> =
+    | ComputedPropertyGetterFunction<Get>
+    | ComputedPropertyObj<Get, Set>;
 
 export type ObserverMethod<Target, Sender> =
     | keyof Target
     | ((this: Target, sender: Sender, key: string, value: any, rev: number) => void);
+
+// This type looks weird, but is correct: from a list of "bottom" to "top", in
+// type theory terms.
+export type AnyFunction = (...args: never[]) => unknown;

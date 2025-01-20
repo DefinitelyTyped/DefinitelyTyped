@@ -1,4 +1,4 @@
-import { LoggerLevel } from './cast.framework';
+import { LoggerLevel } from "./cast.framework";
 
 export as namespace debug;
 

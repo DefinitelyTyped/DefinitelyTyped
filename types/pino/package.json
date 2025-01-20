@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "sonic-boom": "^2.1.0"
-    }
-}

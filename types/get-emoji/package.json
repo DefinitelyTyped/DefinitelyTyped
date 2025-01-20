@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-emoji",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/conorhastings/get-emoji"
+    ],
+    "devDependencies": {
+        "@types/get-emoji": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

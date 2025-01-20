@@ -1,14 +1,6 @@
-// Type definitions for forms 1.3
-// Project: https://github.com/caolan/forms
-// Definitions by: suXin <https://github.com/suXinjke>
-//                 Pelle Wessman <https://github.com/voxpelli>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /// <reference types="node"/>
 
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 export interface FieldObjectChoice {
     [key: string]: string | FieldObjectChoice;
@@ -37,8 +29,8 @@ export interface FieldParameters {
 
     /** A list of CSS classes for label and field wrapper. */
     cssClasses?: {
-        field?: string[] | undefined
-        label?: string[] | undefined
+        field?: string[] | undefined;
+        label?: string[] | undefined;
     } | undefined;
 
     /** If true, errors won't be rendered automatically. */
@@ -136,13 +128,12 @@ export interface FormFields {
 
 export type FormHandleCallback<
     Fields extends FormFields = FormFields,
-    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })) = FormData<Fields>
+    Data extends (IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })) = FormData<Fields>,
 > = (form: FormBound<Fields, Data extends IncomingMessage ? FormData<Fields> : Data>) => void;
 
 export type FormData<Fields extends FormFields = FormFields> = {
-    [Key in keyof Fields]: Fields[Key] extends Field
-        ? ReturnType<Fields[Key]["parse"]>
-        : never
+    [Key in keyof Fields]: Fields[Key] extends Field ? ReturnType<Fields[Key]["parse"]>
+        : never;
 };
 
 export interface Form<Fields extends FormFields = FormFields> {
@@ -151,16 +142,18 @@ export interface Form<Fields extends FormFields = FormFields> {
 
     /** Inspects a request or object literal and binds any data to the correct fields. */
     handle: <Data extends IncomingMessage | (Partial<FormData<Fields>> & { [key: string]: unknown })>(
-        req: Data|undefined,
+        req: Data | undefined,
         callbacks: {
-            success?: FormHandleCallback<Fields, Data> | undefined
-            error?: FormHandleCallback<Fields, Data> | undefined
-            empty?: FormHandleCallback<Fields, Data> | undefined
-        }
+            success?: FormHandleCallback<Fields, Data> | undefined;
+            error?: FormHandleCallback<Fields, Data> | undefined;
+            empty?: FormHandleCallback<Fields, Data> | undefined;
+        },
     ) => void;
 
     /** Binds data to correct fields, returning a new bound form object. */
-    bind: <Data extends Partial<FormData<Fields>>>(data: (Data & { [key: string]: unknown }) | null | undefined) => FormBound<Fields, Data>;
+    bind: <Data extends Partial<FormData<Fields>>>(
+        data: (Data & { [key: string]: unknown }) | null | undefined,
+    ) => FormBound<Fields, Data>;
 
     /**
      * Runs toHTML on each field returning the result.
@@ -184,7 +177,7 @@ export interface FormBound<Fields extends FormFields = any, Data extends Partial
 /** Converts a form definition (an object literal containing field objects) into a form object. */
 export function create<Fields extends FormFields = FormFields>(fields: Fields, options?: {
     /** If false, the first validation error will halt form validation, otherwise all fields will be validated. */
-    validatePastFirstError?: boolean | undefined
+    validatePastFirstError?: boolean | undefined;
 }): Form<Fields>;
 
 export namespace fields {
@@ -235,7 +228,7 @@ export namespace widgets {
     function select(params?: WidgetParameters): Widget;
     function tel(params?: WidgetParameters): Widget;
     function text(params?: WidgetParameters): Widget;
-    function textarea(params?: WidgetParameters & { rows?: number | undefined, cols?: number | undefined }): Widget;
+    function textarea(params?: WidgetParameters & { rows?: number | undefined; cols?: number | undefined }): Widget;
 }
 
 /** A function which accepts a name and field as arguments and returns a string containing a HTML representation of the field. */

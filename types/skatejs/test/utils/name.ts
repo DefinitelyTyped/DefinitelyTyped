@@ -1,4 +1,4 @@
-import { name } from 'skatejs';
+import { name } from "skatejs";
 
 // x-element
 name();
@@ -7,10 +7,10 @@ name();
 name();
 
 // x-tabs
-name('tabs');
+name("tabs");
 
 // my-tabs
-name('my-tabs');
+name("my-tabs");
 
 // my-tabs-1
-name('my-tabs');
+name("my-tabs");

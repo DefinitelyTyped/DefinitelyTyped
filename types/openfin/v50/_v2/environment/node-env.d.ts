@@ -1,7 +1,7 @@
-import { Environment } from './environment';
-import { NewConnectConfig } from '../transport/wire';
-import { Identity } from '../identity';
-import { EntityType } from '../api/frame/frame';
+import { EntityType } from "../api/frame/frame";
+import { Identity } from "../identity";
+import { NewConnectConfig } from "../transport/wire";
+import { Environment } from "./environment";
 export default class NodeEnvironment implements Environment {
     private messageCounter;
     writeToken: (path: string, token: string) => Promise<string>;

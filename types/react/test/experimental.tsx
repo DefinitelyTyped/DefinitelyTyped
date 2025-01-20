@@ -1,53 +1,206 @@
 /// <reference types="../experimental"/>
 
-import React = require('react');
+import React = require("react");
 
-const { unstable_useSyncExternalStore: useSyncExternalStore } = React;
-// keep in sync with `use-sync-external-store-tests.ts`
-interface Store<State> {
-    getState(): State;
-    getServerState(): State;
-    subscribe(onStoreChange: () => void): () => void;
+// NOTE: forward declarations for tests
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
 }
 
-declare const numberStore: Store<number>;
-function useVersion(): number {
-    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+function suspenseTest() {
+    function DisplayData() {
+        return null;
+    }
+
+    function FlameChart() {
+        return (
+            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+                <DisplayData />
+            </React.Suspense>
+        );
+    }
 }
 
-function useStoreWrong() {
-    useSyncExternalStore(
-        // no unsubscribe returned
-        // $ExpectError
-        () => {
-            return null;
+// Unsupported `revealOrder` triggers a runtime warning
+// @ts-expect-error
+<React.unstable_SuspenseList revealOrder="something">
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="backwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="forwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="together">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+function ownerStacks() {
+    // $ExpectType string | null
+    const ownerStack = React.captureOwnerStack();
+}
+
+function useEvent() {
+    // Implicit any
+    // @ts-expect-error
+    const anyEvent = React.experimental_useEffectEvent(value => {
+        // $ExpectType any
+        return value;
+    });
+    // $ExpectType any
+    anyEvent({});
+    // $ExpectType (value: string) => number
+    const typedEvent = React.experimental_useEffectEvent((value: string) => {
+        return Number(value);
+    });
+    // $ExpectType number
+    typedEvent("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedEvent({});
+
+    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
+    useContextuallyTypedEvent(
+        React.experimental_useEffectEvent(event => {
+            // $ExpectType Event
+            event;
+            return String(event);
+        }),
+    );
+}
+
+function elementTypeTests() {
+    const ReturnPromise = () => Promise.resolve("React");
+    const FCPromise: React.FC = ReturnPromise;
+    class RenderPromise extends React.Component {
+        render() {
+            return Promise.resolve("React");
+        }
+    }
+
+    <ReturnPromise />;
+    React.createElement(ReturnPromise);
+    <RenderPromise />;
+    React.createElement(RenderPromise);
+}
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
         },
-        () => 1,
+    };
+    const user = {
+        name: "Sebbie",
+    };
+
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
     );
 
-    // `string` is not assignable to `number`
-    // $ExpectError
-    const version: number = useSyncExternalStore(
-        () => () => {},
-        () => '1',
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
     );
 }
 
-declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
-function useUsers(): string[] {
-    return useSyncExternalStore(
-        objectStore.subscribe,
-        () => objectStore.getState().users,
-        () => objectStore.getServerState().users,
-    );
-}
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+    <ViewTransition />;
+    <ViewTransition
+        className="enter-slide-in exit-fade-out update-cross-fade"
+        enter="slide-from-left"
+        exit="slide-to-right"
+        layout="slide"
+        update="none"
+        share="cross-fade"
+    />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    // autocomplete should display "auto"
+    <ViewTransition name="" />;
 
-    React.unstable_useInsertionEffect(() => {});
-    React.unstable_useInsertionEffect(() => {}, []);
-    React.unstable_useInsertionEffect(() => {
-        return () => {};
-    }, [toggle]);
+    <ViewTransition
+        onEnter={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onExit={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onLayout={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onShare={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+        onUpdate={instance => {
+            // $ExpectType ViewTransitionInstance
+            instance;
+        }}
+    />;
+
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
 }

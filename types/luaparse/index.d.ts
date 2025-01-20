@@ -1,12 +1,3 @@
-// Type definitions for luaparse 0.2
-// Project: https://oxyc.github.io/luaparse
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-//                 thomasfn <https://github.com/thomasfn>
-//                 Teoxoy <https://github.com/teoxoy>
-//                 Zaoqi <https://github.com/zaoqi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as ast from "./lib/ast";
 export * from "./lib/ast";
 
@@ -48,7 +39,7 @@ export interface Options {
      * and how Lua escape sequences in JavaScript strings should be interpreted.
      * See the Encoding modes section https://github.com/fstirlitz/luaparse#encoding-modes for more information.
      */
-    encodingMode: "pseudo-latin1" |  "x-user-defined" | "none";
+    encodingMode: "pseudo-latin1" | "x-user-defined" | "none";
 }
 
 export interface Token {

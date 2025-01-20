@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sap__xsenv",
+    "version": "3.3.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@sap/xsenv"
+    ],
+    "devDependencies": {
+        "@types/sap__xsenv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Müller",
+            "githubUsername": "mad-mike"
+        },
+        {
+            "name": "Wojciech Stachowski",
+            "githubUsername": "Antiavanti"
+        }
+    ]
+}

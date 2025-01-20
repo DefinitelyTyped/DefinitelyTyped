@@ -9,26 +9,26 @@ function TestCtrl($q: ng.IQService, MyService: MyService) {
         const lastnameOk: boolean = $q.isFulfilledState(result[1]);
     }
 
-    function objectCallback(result: {firstname: ng.PromiseValue<string>, lastname: ng.PromiseValue<string>}) {
-      const firstnameOk: boolean = $q.isFulfilledState(result.firstname);
-      const lastnameOk: boolean = $q.isFulfilledState(result.lastname);
+    function objectCallback(result: { firstname: ng.PromiseValue<string>; lastname: ng.PromiseValue<string> }) {
+        const firstnameOk: boolean = $q.isFulfilledState(result.firstname);
+        const lastnameOk: boolean = $q.isFulfilledState(result.lastname);
     }
 
     $q
         .allSettled([
             MyService.getFirstname(),
-            MyService.getLastname()
+            MyService.getLastname(),
         ])
         .then(arrayCallback);
 
     $q
         .allSettled({
             firstname: MyService.getFirstname(),
-            lastname: MyService.getLastname()
+            lastname: MyService.getLastname(),
         })
         .then(objectCallback);
 }
 
-TestCtrl.$inject = ['$q', 'MyService'];
+TestCtrl.$inject = ["$q", "MyService"];
 
-angular.module('test').controller('TestCtrl', TestCtrl);
+angular.module("test").controller("TestCtrl", TestCtrl);

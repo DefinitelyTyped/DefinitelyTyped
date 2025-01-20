@@ -1,13 +1,7 @@
-// Type definitions for Google Drive API v2
-// Project: https://developers.google.com/drive/
-// Definitions by: Sam Baxter <https://github.com/baxtersa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client {
-    export module drive {
+    export namespace drive {
         const files: {
             get: (parameters: GetParameters) => HttpRequest<FileResource>;
             patch: (parameters: PatchParameters) => HttpRequest<FileResource>;
@@ -22,7 +16,7 @@ declare namespace gapi.client {
             trash: (parameters: TrashParameters) => HttpRequest<FileResource>;
             untrash: (parameters: UntrashParameters) => HttpRequest<FileResource>;
             watch: (parameters: WatchParameters) => HttpRequest<ChannelResource>;
-        }
+        };
 
         interface GetParameters {
             fileId: string;
@@ -31,11 +25,13 @@ declare namespace gapi.client {
             revisionId?: string | undefined;
             supportsTeamDrives?: boolean | undefined;
             updateViewedDate?: boolean | undefined;
+            supportsAllDrives?: boolean | undefined;
+            fields?: string | undefined;
         }
 
         interface PatchParameters {
             fileId: string;
-            resource?: FileResource | undefined
+            resource?: FileResource | undefined;
             convert?: boolean | undefined;
             modifiedDateBehavior?: string | undefined;
             newRevision?: boolean | undefined;
@@ -116,12 +112,10 @@ declare namespace gapi.client {
             supportsTeamDrives?: boolean | undefined;
         }
 
-
         interface UntrashParameters {
             fileId: string;
             supportsTeamDrives?: boolean | undefined;
         }
-
 
         interface WatchParameters {
             fileId: string;
@@ -131,7 +125,7 @@ declare namespace gapi.client {
         }
 
         interface FileResource {
-            kind: 'drive#file';
+            kind: "drive#file";
             id: string;
             etag: string;
             selfLink: string;
@@ -167,7 +161,7 @@ declare namespace gapi.client {
             sharedWithMeDate: Date;
             version: number;
             sharingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -192,8 +186,8 @@ declare namespace gapi.client {
             fileSize: number;
             quotaBytesUsed: number;
             ownerNames: string[];
-            owners: {
-                kind: 'drive#user';
+            owners: Array<{
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -201,11 +195,11 @@ declare namespace gapi.client {
                 isAuthenticatedUser: boolean;
                 permissionId: string;
                 emailAddress: string;
-            }[];
+            }>;
             teamDriveId: string;
             lastModifyingUserName: string;
             lastModifyingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -243,7 +237,7 @@ declare namespace gapi.client {
             shared: boolean;
             explicitlyTrashed: boolean;
             trashingUser: {
-                kind: 'drive#user';
+                kind: "drive#user";
                 displayName: string;
                 picture: {
                     url: string;
@@ -294,7 +288,7 @@ declare namespace gapi.client {
         }
 
         interface FileListResource {
-            kind: 'drive#fileList';
+            kind: "drive#fileList";
             etag: string;
             selfLink: string;
             nextPageToken: string;
@@ -304,7 +298,7 @@ declare namespace gapi.client {
         }
 
         interface ParentResource {
-            kind: 'drive#parentReference';
+            kind: "drive#parentReference";
             id: string;
             selfLink: string;
             parentLink: string;
@@ -312,7 +306,7 @@ declare namespace gapi.client {
         }
 
         interface PermissionResource {
-            kind: 'drive#permission';
+            kind: "drive#permission";
             etag: string;
             id: string;
             selfLink: string;
@@ -327,18 +321,18 @@ declare namespace gapi.client {
             withLink: boolean;
             photoLink: string;
             expirationDate: Date;
-            teamDrivePermissionDetails: {
+            teamDrivePermissionDetails: Array<{
                 teamDrivePermissionType: string;
                 role: string;
                 additionalRoles: string[];
                 inheritedFrom: string;
                 inherited: boolean;
-            }[];
+            }>;
             deleted: boolean;
         }
 
         interface PropertiesResource {
-            kind: 'drive$property';
+            kind: "drive$property";
             etag: string;
             selfLink: string;
             key: string;
@@ -355,7 +349,7 @@ declare namespace gapi.client {
         }
 
         interface ChannelResource {
-            kind: 'api#channel';
+            kind: "api#channel";
             id: string;
             resourceId: string;
             resourceUri: string;
@@ -364,7 +358,7 @@ declare namespace gapi.client {
         }
 
         interface IdsResource {
-            kind: 'drive#generatedIds';
+            kind: "drive#generatedIds";
             space: string;
             ids: string[];
         }

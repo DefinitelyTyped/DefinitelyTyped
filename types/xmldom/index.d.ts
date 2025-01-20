@@ -1,8 +1,3 @@
-// Type definitions for xmldom 0.1.22
-// Project: https://github.com/xmldom/xmldom
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Karfau <https://github.com/karfau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
 
 declare namespace xmldom {
@@ -15,12 +10,12 @@ declare namespace xmldom {
     }
 
     interface DOMParserStatic {
-        new (): DOMParser;
-        new (options: Options): DOMParser;
+        new(): DOMParser;
+        new(options: Options): DOMParser;
     }
 
     interface XMLSerializerStatic {
-        new (): XMLSerializer;
+        new(): XMLSerializer;
     }
 
     interface DOMParser {

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/wordpress__viewport",
+    "version": "5.5.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/viewport/README.md"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@wordpress/data": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/wordpress__viewport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
+}

@@ -1,14 +1,8 @@
-// Type definitions for node-red-node-test-helper 0.2
-// Project: https://github.com/node-red/node-red-node-test-helper#readme
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
-import { EventEmitter } from 'events';
-import { Node, NodeDef, NodeInitializer, NodeCredentials } from 'node-red';
-import { LocalSettings } from '@node-red/runtime';
-import { SinonSpy } from 'sinon';
-import * as supertest from 'supertest';
+import { LocalSettings } from "@node-red/runtime";
+import { EventEmitter } from "events";
+import { Node, NodeCredentials, NodeDef, NodeInitializer } from "node-red";
+import { SinonSpy } from "sinon";
+import * as supertest from "supertest";
 
 declare class NodeTestHelper extends EventEmitter {
     init(nodeRedRuntime: string, userSettings?: LocalSettings): void;
@@ -46,6 +40,20 @@ declare class NodeTestHelper extends EventEmitter {
      * Stop all flows.
      */
     clearFlows(): Promise<void>;
+
+    /**
+     * Update flows
+     * @param testFlows Flow data to test a node
+     * @param type The type of deploy mode "full", "flows" or "nodes" (defaults to "full")
+     * @param testCredentials Optional node credentials.
+     * @param cb Function to call back when testFlows has been started.
+     */
+    setFlows(
+        testFlows: nodeRedNodeTestHelper.TestFlows,
+        type: "full" | "flows" | "nodes",
+        testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
+        cb?: () => void,
+    ): Promise<void>;
 
     /**
      * Create http (supertest) request to the editor/admin url.

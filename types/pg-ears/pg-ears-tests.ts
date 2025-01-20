@@ -7,5 +7,5 @@ const pgEars = PgEars({
     port: 5432,
     database: "example",
     user: "postgres",
-    password: ""
+    password: "",
 });

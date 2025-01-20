@@ -1,6 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "chokidar": "^2.1.2"
-  }
+    "private": true,
+    "name": "@types/sc-hot-reboot",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/socketcluster/sc-hot-reboot"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/socketcluster": "*",
+        "chokidar": "^2.1.2"
+    },
+    "devDependencies": {
+        "@types/sc-hot-reboot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
 }

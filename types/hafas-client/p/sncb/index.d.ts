@@ -1,5 +1,3 @@
-export = sncbProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const sncbProfile: createClient.Profile;
+export const profile: Profile;

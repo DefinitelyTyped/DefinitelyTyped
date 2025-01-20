@@ -1,6 +1,26 @@
 {
-  "private": true,
-  "dependencies": {
-    "hoist-non-react-statics": "^3.3.0"
-  }
+    "private": true,
+    "name": "@types/hoist-non-react-statics",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/mridgway/hoist-non-react-statics#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "hoist-non-react-statics": "^3.3.0"
+    },
+    "devDependencies": {
+        "@types/hoist-non-react-statics": "workspace:.",
+        "@types/prop-types": "*"
+    },
+    "owners": [
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        },
+        {
+            "name": "James Reggio",
+            "githubUsername": "jamesreggio"
+        }
+    ]
 }

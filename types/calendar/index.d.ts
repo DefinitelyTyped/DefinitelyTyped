@@ -1,8 +1,3 @@
-// Type definitions for calendar 0.1
-// Project: https://github.com/ramalho/calendar.js#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type DayFormatter<T> = (day: Date) => T;
 export type WeekFormatter<T, U> = (week: T[]) => U;
 

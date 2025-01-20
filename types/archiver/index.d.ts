@@ -1,33 +1,28 @@
-// Type definitions for archiver 5.1
-// Project: https://github.com/archiverjs/node-archiver
-// Definitions by:  Esri
-//                  Dolan Miu <https://github.com/dolanmiu>
-//                  Crevil <https://github.com/crevil>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as fs from 'fs';
-import * as stream from 'stream';
-import * as glob from 'glob';
-import { ZlibOptions } from 'zlib';
+import * as fs from "fs";
+import * as ReaddirGlob from "readdir-glob";
+import * as stream from "stream";
+import { ZlibOptions } from "zlib";
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 
-// tslint:disable-next-line:ban-types support for ConstructorFn function and classes
-type ConstructorFn<T> = Function | (new (...params: any[]) => T);
+// This library adds `cwd` to the options
+type GlobOptions = ReaddirGlob.Options & { cwd?: string };
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- support for ConstructorFn function and classes
+type ConstructorFn<T> = Function | (new(...params: any[]) => T);
 
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
-    type Format = 'zip' | 'tar';
+    type Format = "zip" | "tar";
 
     function create(format: string, options?: ArchiverOptions): Archiver;
 
     /** Check if the format is already registered. */
     function isRegisteredFormat(format: string): boolean;
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     function registerFormat(format: string, module: Function): void;
 
     interface EntryData {
@@ -85,23 +80,25 @@ declare namespace archiver {
         /** if false is passed for destpath, the path of a chunk of data in the archive is set to the root */
         directory(dirpath: string, destpath: false | string, data?: Partial<EntryData> | EntryDataFunction): this;
         file(filename: string, data: EntryData): this;
-        glob(pattern: string, options?: glob.IOptions, data?: Partial<EntryData>): this;
+        glob(pattern: string, options?: GlobOptions, data?: Partial<EntryData>): this;
         finalize(): Promise<void>;
 
         setFormat(format: string): this;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         setModule(module: Function): this;
 
         pointer(): number;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         use(plugin: Function): this;
 
         symlink(filepath: string, target: string, mode?: number): this;
 
-        on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
-        on(event: 'data', listener: (data: Buffer) => void): this;
-        on(event: 'progress', listener: (progress: ProgressData) => void): this;
-        on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
-        on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;
-        on(event: 'entry', listener: (entry: EntryData) => void): this;
+        on(event: "error" | "warning", listener: (error: ArchiverError) => void): this;
+        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "progress", listener: (progress: ProgressData) => void): this;
+        on(event: "close" | "drain" | "finish", listener: () => void): this;
+        on(event: "pipe" | "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: "entry", listener: (entry: EntryData) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
     }
 
@@ -125,6 +122,7 @@ declare namespace archiver {
         comment?: string | undefined;
         forceLocalTime?: boolean | undefined;
         forceZip64?: boolean | undefined;
+        /** @default false */
         namePrependSlash?: boolean | undefined;
         store?: boolean | undefined;
         zlib?: ZlibOptions | undefined;

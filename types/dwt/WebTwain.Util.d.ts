@@ -45,12 +45,12 @@ export interface WebTwainUtil {
         successCallback: (
             resultURL: string,
             indices: number[],
-            type: Dynamsoft.EnumDWT_ImageType | number
+            type: Dynamsoft.EnumDWT_ImageType | number,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Specify an event listener for the specified built-in event.
@@ -63,7 +63,7 @@ export interface WebTwainUtil {
      * @param language Specify the language.
      */
     SetLanguage(
-        language: Dynamsoft.EnumDWT_Language | number
+        language: Dynamsoft.EnumDWT_Language | number,
     ): boolean;
     /**
      * Remove an event listener from the specified built-in event.

@@ -1,4 +1,4 @@
-import setAccurateTimeout = require('set-accurate-timeout');
+import setAccurateTimeout = require("set-accurate-timeout");
 
 setAccurateTimeout(() => {}, 3000);
 

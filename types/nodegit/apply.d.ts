@@ -1,18 +1,18 @@
-import { ApplyOptions } from './apply-options';
-import { Diff } from './diff';
-import { Index } from './index_';
-import { Repository } from './repository';
-import { Tree } from './tree';
+import { ApplyOptions } from "./apply-options";
+import { Diff } from "./diff";
+import { Index } from "./index_";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace Apply {
     const enum FLAGS {
-        CHECK = 1
+        CHECK = 1,
     }
 
     const enum LOCATION {
         WORKDIR = 0,
         INDEX = 1,
-        BOTH = 2
+        BOTH = 2,
     }
 }
 

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/yandex-maps",
+    "version": "2.1.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "yandex-maps",
+    "projects": [
+        "https://github.com/Delagen/typings-yandex-maps"
+    ],
+    "devDependencies": {
+        "@types/yandex-maps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Delagen",
+            "githubUsername": "Delagen"
+        },
+        {
+            "name": "gastwork13",
+            "githubUsername": "gastwork13"
+        },
+        {
+            "name": "kaskar2008",
+            "githubUsername": "kaskar2008"
+        }
+    ]
+}

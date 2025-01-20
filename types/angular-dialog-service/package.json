@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/angular-dialog-service",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/m-e-conroy/angular-dialog-service"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/angular-ui-bootstrap": "*"
+    },
+    "devDependencies": {
+        "@types/angular-dialog-service": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "William Comartin",
+            "githubUsername": "wcomartin"
+        }
+    ]
+}

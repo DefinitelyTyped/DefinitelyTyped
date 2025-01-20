@@ -8,17 +8,15 @@
 
 declare enum EnumDWT_ConvertMode {
     CM_DEFAULT = 0,
-    CM_RENDERALL = 1
+    CM_RENDERALL = 1,
 }
 
 declare enum EnumDWT_ConverMode {
     CM_DEFAULT = 0,
-    CM_RENDERALL = 1
+    CM_RENDERALL = 1,
 }
 
-/**
- * @class
- */
+/** */
 interface PDF {
     /**
      * Download and install pdf rasterizer add-on on the local system.
@@ -30,9 +28,11 @@ interface PDF {
      * The function to call when the download fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    Download(remoteFile: string,
+    Download(
+        remoteFile: string,
         optionalAsyncSuccessFunc?: () => void,
-        optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
+        optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void,
+    ): boolean;
 
     /**
      *  Input the password to decrypt PDF files using PDF Rasterizer add-on.

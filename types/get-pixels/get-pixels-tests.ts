@@ -6,7 +6,7 @@ getPixels("path/to/image.png", "image/png", callback);
 getPixels(new Uint8Array(1000), "image/jpeg", callback);
 getPixels(Buffer.from([0, 0, 0]), "image/gif", callback);
 
-function callback(error: Error | null, array: NdArray | null) {
+function callback(error: Error | null, array: NdArray<Uint8Array> | null) {
     if (error) {
         const errorMsg: string = error.message.toUpperCase();
     }

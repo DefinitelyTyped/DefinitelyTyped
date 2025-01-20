@@ -1,10 +1,4 @@
-// Type definitions for webpack-error-notification 0.1
-// Project: https://github.com/vsolovyov/webpack-error-notification#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Plugin, Stats } from 'webpack';
+import { Plugin, Stats } from "webpack";
 
 declare class WebpackErrorNotificationPlugin extends Plugin {
     /**
@@ -20,7 +14,7 @@ declare class WebpackErrorNotificationPlugin extends Plugin {
 }
 
 declare namespace WebpackErrorNotificationPlugin {
-    type Strategy = 'darwin' | 'linux' | ((msg: string) => void);
+    type Strategy = "darwin" | "linux" | ((msg: string) => void);
 
     interface Options {
         /** if you do not want to notify warnings, set this to `false` */

@@ -1,51 +1,65 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
+import { ExtensionTypes } from "./extensionTypes";
+import { Manifest } from "./manifest";
+
 /**
  * Namespace: browser.scripting
- * Generated from Mozilla sources. Do not manually edit!
- *
- * Use the <code>browser.scripting</code> API to execute scripts or inject/remove css.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace Scripting {
     /**
-     * Details of the script to insert.
+     * Details of a script injection
      */
-    interface InjectionTarget {
+    interface ScriptInjection {
         /**
-         * Whether the script should inject into all frames within the tab. Defaults to false.
-         * This must not be true if frameIds is specified.
+         * The arguments to curry into a provided function. This is only valid if the <code>func</code> parameter is specified.
+         * These arguments must be JSON-serializable.
          * Optional.
          */
-        allFrames?: boolean;
+        args?: unknown[];
 
         /**
-         * The IDs of specific frames to inject into.
+         * The path of the JS files to inject, relative to the extension's root directory. Exactly one of <code>files</code>
+         * and <code>func</code> must be specified.
          * Optional.
          */
-        frameIds?: number[];
+        files?: string[];
 
         /**
-         * The ID of the tab into which to inject.
+         * A JavaScript function to inject. This function will be serialized, and then deserialized for injection.
+         * This means that any bound parameters and execution context will be lost. Exactly one of <code>files</code> and <code>
+         * func</code> must be specified.
+         *
+         * @param ...args The arguments
+         * @returns The return value
          */
-        tabId: number;
+        func?(...args: unknown[]): unknown;
+
+        /**
+         * Details specifying the target into which to inject the script.
+         */
+        target: InjectionTarget;
+
+        /**
+         * Optional.
+         */
+        world?: ExecutionWorld;
+
+        /**
+         * Whether the injection should be triggered in the target as soon as possible (but not necessarily prior to page load).
+         * Optional.
+         */
+        injectImmediately?: boolean;
     }
 
     /**
-     * Contains the result of execution for each frame where the injection succeeded.
+     * Result of a script injection.
      */
     interface InjectionResult {
         /**
-         * Whether the script should inject into all frames within the tab. Defaults to false.
-         * This must not be true if frameIds is specified.
-         * Optional.
-         */
-        allFrames?: boolean;
-
-        /**
-         * The frame associated with the injection.
+         * The frame ID associated with the injection.
          */
         frameId: number;
 
@@ -53,41 +67,155 @@ export namespace Scripting {
          * The result of the script execution.
          * Optional.
          */
-        result?: any;
+        result?: unknown;
+
+        /**
+         * The error property is set when the script execution failed. The value is typically an (Error)
+         * object with a message property, but could be any value (including primitives and undefined)
+         * if the script threw or rejected with such a value.
+         * Optional.
+         */
+        error?: unknown;
+
+        /**
+         * Whether the script should inject into all frames within the tab. Defaults to false.
+         * This must not be true if frameIds is specified.
+         * Optional.
+         */
+        allFrames?: boolean;
     }
 
     /**
      * Details of the script to insert.
      */
-    interface ScriptInjection {
+    interface InjectionTarget {
         /**
-         * The arguments to curry into a provided function. This is only valid if the func parameter is specified.
-         * These arguments must be JSON-serializable.
+         * The IDs of specific frames to inject into.
          * Optional.
          */
-        args?: any[];
+        frameIds?: number[];
 
         /**
-         * The path of the JS or CSS files to inject, relative to the extension's root directory.
-         * NOTE: Currently a maximum of one file is supported. Exactly one of files and func must be specified.
+         * Whether the script should inject into all frames within the tab. Defaults to false.
+         * This must not be true if frameIds is specified.
+         * Optional.
+         */
+        allFrames?: boolean;
+
+        /**
+         * The ID of the tab into which to inject.
+         */
+        tabId: number;
+    }
+
+    interface CSSInjection {
+        /**
+         * A string containing the CSS to inject. Exactly one of <code>files</code> and <code>css</code> must be specified.
+         * Optional.
+         */
+        css?: string;
+
+        /**
+         * The path of the CSS files to inject, relative to the extension's root directory. Exactly one of <code>files</code>
+         * and <code>css</code> must be specified.
          * Optional.
          */
         files?: string[];
 
         /**
-         * A JavaScript function to inject. This function will be serialized, and then deserialized for injection.
-         * This means that any bound parameters and execution context will be lost. Exactly one of files and func must be
-         * specified.
-         *
-         * @param ...args The arguments
-         * @returns The return value
+         * The style origin for the injection. Defaults to <code>'AUTHOR'</code>.
+         * Optional.
          */
-        func?(...args: any[]): any;
+        origin?: CSSInjectionOriginEnum;
 
         /**
-         * Details specifying the target into which to inject the script.
+         * Details specifying the target into which to inject the CSS.
          */
         target: InjectionTarget;
+    }
+
+    interface ContentScriptFilter {
+        /**
+         * The IDs of specific scripts to retrieve with <code>getRegisteredContentScripts()</code> or to unregister with <code>
+         * unregisterContentScripts()</code>.
+         * Optional.
+         */
+        ids?: string[];
+    }
+
+    /**
+     * The JavaScript world for a script to execute within. <code>ISOLATED</code> is the default execution environment of
+     * content scripts, <code>MAIN</code> is the web page's execution environment.
+     */
+    type ExecutionWorld = "ISOLATED" | "MAIN";
+
+    interface RegisteredContentScript {
+        /**
+         * If specified true, it will inject into all frames, even if the frame is not the top-most frame in the tab.
+         * Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements
+         * are not met. Defaults to false, meaning that only the top frame is matched.
+         * Optional.
+         */
+        allFrames?: boolean;
+
+        /**
+         * Excludes pages that this content script would otherwise be injected into.
+         * Optional.
+         */
+        excludeMatches?: string[];
+
+        /**
+         * The id of the content script, specified in the API call.
+         */
+        id: string;
+
+        /**
+         * The list of JavaScript files to be injected into matching pages. These are injected in the order they appear in this
+         * array.
+         * Optional.
+         */
+        js?: Manifest.ExtensionURL[];
+
+        /**
+         * Specifies which pages this content script will be injected into. Must be specified for <code>registerContentScripts()
+         * </code>.
+         * Optional.
+         */
+        matches?: string[];
+
+        /**
+         * If matchOriginAsFallback is true, then the code is also injected in about:, data:,
+         * blob: when their origin matches the pattern in 'matches', even if the actual document origin is opaque (due to the use
+         * of CSP sandbox or iframe sandbox). Match patterns in 'matches' must specify a wildcard path glob. By default it is <code>
+         * false</code>.
+         * Optional.
+         */
+        matchOriginAsFallback?: boolean;
+
+        /**
+         * Specifies when JavaScript files are injected into the web page. The preferred and default value is <code>
+         * document_idle</code>.
+         * Optional.
+         */
+        runAt?: ExtensionTypes.RunAt;
+
+        /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExecutionWorld;
+
+        /**
+         * Specifies if this content script will persist into future sessions. This is currently NOT supported.
+         * Optional.
+         */
+        persistAcrossSessions?: boolean;
+
+        /**
+         * The list of CSS files to be injected into matching pages. These are injected in the order they appear in this array.
+         * Optional.
+         */
+        css?: Manifest.ExtensionURL[];
     }
 
     /**
@@ -130,32 +258,80 @@ export namespace Scripting {
         target: InjectionTarget;
     }
 
+    interface UpdateContentScriptsScriptsItemType extends RegisteredContentScript {
+        /**
+         * Specifies if this content script will persist into future sessions.
+         * Optional.
+         */
+        persistAcrossSessions?: boolean;
+    }
+
+    /**
+     * The style origin for the injection. Defaults to <code>'AUTHOR'</code>.
+     */
+    type CSSInjectionOriginEnum = "USER" | "AUTHOR";
+
     interface Static {
         /**
-         * Injects JavaScript code into a page. For details, see the $(topic:content_scripts)[programmatic injection]
-         * section of the content scripts doc.
+         * Injects a script into a target context. The script will be run at <code>document_idle</code>.
          *
-         * @param injection Details of the script to insert.
-         * @returns Called after all the JavaScript has been executed.
+         * @param injection The details of the script which to inject.
+         * @returns Invoked upon completion of the injection. The resulting array contains the result of execution for each frame
+         * where the injection succeeded.
          */
-        executeScript(injection: ScriptInjection): Promise<InjectionResult>;
+        executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
 
         /**
-         * Injects CSS into a page. For details, see the $(topic:content_scripts)[programmatic injection]
-         * section of the content scripts doc.
+         * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
          *
-         * @param injection Details of the CSS text to insert.
-         * @returns Called when all the CSS has been inserted.
+         * @param injection The details of the styles to insert.
+         * @returns Invoked upon completion of the injection.
          */
         insertCSS(injection: CSSInjection): Promise<void>;
 
         /**
-         * Removes injected CSS from a page. For details, see the $(topic:content_scripts)[programmatic injection]
-         * section of the content scripts doc.
+         * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
          *
-         * @param injection Details of the CSS text to insert.
-         * @returns Called when all the CSS has been removed.
+         * @param injection The details of the styles to remove. Note that the <code>css</code>, <code>files</code>, and <code>
+         * origin</code> properties must exactly match the stylesheet inserted through <code>insertCSS</code>.
+         * Attempting to remove a non-existent stylesheet is a no-op.
+         * @returns Invoked upon completion of the injection.
          */
         removeCSS(injection: CSSInjection): Promise<void>;
+
+        /**
+         * Registers one or more content scripts for this extension.
+         *
+         * @param scripts Contains a list of scripts to be registered. If there are errors during script parsing/file validation,
+         * or if the IDs specified already exist, then no scripts are registered.
+         * @returns Invoked upon completion of the registration.
+         */
+        registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+        /**
+         * Returns all dynamically registered content scripts for this extension that match the given filter.
+         *
+         * @param filter Optional. An object to filter the extension's dynamically registered scripts.
+         * @returns The resulting array contains the registered content scripts.
+         */
+        getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+        /**
+         * Unregisters one or more content scripts for this extension.
+         *
+         * @param filter Optional. If specified, only unregisters dynamic content scripts which match the filter. Otherwise,
+         * all of the extension's dynamic content scripts are unregistered.
+         * @returns Invoked upon completion of the unregistration.
+         */
+        unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+        /**
+         * Updates one or more content scripts for this extension.
+         *
+         * @param scripts Contains a list of scripts to be updated. If there are errors during script parsing/file validation,
+         * or if the IDs specified do not already exist, then no scripts are updated.
+         * @returns Invoked when scripts have been updated.
+         */
+        updateContentScripts(scripts: UpdateContentScriptsScriptsItemType[]): Promise<void>;
     }
 }

@@ -1,8 +1,3 @@
-// Type definitions for time-constants 1.0
-// Project: https://github.com/jimhigson/time-constants#readme
-// Definitions by: Libin Varghese <https://github.com/libinvarghese>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = time_constants;
 
 declare const time_constants: {

@@ -1,11 +1,6 @@
-// Type definitions for overload-protection 1.2
-// Project: https://github.com/davidmarkclements/overload-protection
-// Definitions by: Daniel Hirth <https://github.com/dornfeder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace protect {
-    type KoaFrameworkSelection = 'koa';
-    type HttpFrameworkSelection = 'express' | 'http' | 'restify';
+    type KoaFrameworkSelection = "koa";
+    type HttpFrameworkSelection = "express" | "http" | "restify";
 
     interface ProtectionConfig {
         production?: boolean | undefined;

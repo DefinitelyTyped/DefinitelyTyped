@@ -1,4 +1,4 @@
-import srs from 'secure-random-string';
+import srs from "secure-random-string";
 
 function testReturn() {
     // $ExpectType string
@@ -27,7 +27,7 @@ function testCallback() {
         const _result = result;
     });
 
-    // $ExpectError
+    // @ts-expect-error
     srs((error, result) => {
         const _result = result;
     }, {

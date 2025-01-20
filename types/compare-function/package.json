@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/compare-function",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/michaelrhodes/compare-function"
+    ],
+    "devDependencies": {
+        "@types/compare-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wolfgang Faust",
+            "githubUsername": "wolfgang42"
+        }
+    ]
+}

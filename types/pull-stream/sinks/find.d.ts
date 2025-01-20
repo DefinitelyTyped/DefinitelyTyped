@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 declare function find<T>(cb?: (err: pull.EndOrError, results: T[]) => unknown): pull.Sink<T>;
 declare function find<T>(

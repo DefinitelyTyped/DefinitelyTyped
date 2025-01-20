@@ -1,5 +1,4 @@
-
-import inherits = require('inherits');
+import inherits = require("inherits");
 
 let any: any;
 

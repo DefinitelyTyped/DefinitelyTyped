@@ -1,8 +1,3 @@
-// Type definitions for globrex 0.1
-// Project: https://github.com/terkelg/globrex#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Transform globs into regular expressions.
  * {@link: https://github.com/terkelg/globrex#api}
@@ -65,6 +60,11 @@ declare namespace globrex {
          * @default false
          */
         strict?: boolean | undefined;
+        /**
+         * RegExp flags (e.g. `'i'` ) to pass to the RegExp constructor.
+         * @default ''
+         */
+        flags?: string | undefined;
         /**
          * Parse input strings as it was a file path for special path related features.
          * This feature only makes sense if the input is a POSIX path like /foo/bar/hello.js or URLs.

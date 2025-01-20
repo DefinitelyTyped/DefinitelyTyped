@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/aspect-fit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/maxtherocket/aspect-fit#readme"
+    ],
+    "devDependencies": {
+        "@types/aspect-fit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

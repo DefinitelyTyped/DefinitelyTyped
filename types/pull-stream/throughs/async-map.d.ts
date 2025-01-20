@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Like `map` but the signature of `fn` must be `function (data, cb) { cb(null, data) }`.

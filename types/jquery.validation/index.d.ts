@@ -1,15 +1,11 @@
-// Type definitions for non-npm package jquery.validation 1.16
-// Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryValidation {
-    interface RulesDictionary { [name: string]: any; }
+    interface RulesDictionary {
+        [name: string]: any;
+    }
 
-    type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
+    type ValidatePredicate = (element: HTMLElement, event: JQueryEventObject) => void;
 
     type ShouldValidatePredicate = boolean | ValidatePredicate;
 
@@ -21,6 +17,13 @@ declare namespace JQueryValidation {
          * default: false
          */
         debug?: boolean | undefined;
+        /**
+         * Use this to register additional elements to be validatable. Main use case is for validating web components.
+         * By default, only the following elements are supported: "input", "select", "textarea", "[contenteditable]"
+         *
+         * default: []
+         */
+        customElements?: string[] | undefined;
         /**
          * Use this class to create error labels, to look for existing error labels and to add it to invalid elements.
          *
@@ -213,13 +216,17 @@ declare namespace JQueryValidation {
          * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
          * @param message a default string message or a Message generator. First argument: Parameters. Second argument: Validated element.
          */
-        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string | ((params: any, element: HTMLElement) => string)): void;
+        addMethod(
+            name: string,
+            method: (value: any, element: HTMLElement, params: any) => boolean,
+            message?: string | ((params: any, element: HTMLElement) => string),
+        ): void;
         /**
          * Replaces {n} placeholders with arguments.
          *
          * @param template The string to format.
          */
-        format(template: string): ((...args: any[]) => string);
+        format(template: string): (...args: any[]) => string;
         format(template: string, ...args: any[]): string;
         /**
          * Modify default settings for validation.

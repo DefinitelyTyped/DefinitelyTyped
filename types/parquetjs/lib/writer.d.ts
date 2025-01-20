@@ -1,9 +1,9 @@
-import { PathLike, WriteStream } from 'fs';
-import stream = require('stream');
+import { PathLike, WriteStream } from "fs";
+import stream = require("stream");
 
-import { ParquetSchema } from './schema';
-import { RowBufferInterface } from './rowBuffer.interface';
-import { RowInterface } from './row.interface';
+import { RowInterface } from "./row.interface";
+import { RowBufferInterface } from "./rowBuffer.interface";
+import { ParquetSchema } from "./schema";
 
 export interface ParquetWriterOpts {
     autoClose?: boolean | undefined;
@@ -38,7 +38,7 @@ export class ParquetWriter {
         path: PathLike,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     ): Promise<ParquetWriter>;
 
     static openStream(
@@ -46,7 +46,7 @@ export class ParquetWriter {
         outputStream: WriteStream,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     ): Promise<ParquetWriter>;
 
     constructor(
@@ -54,7 +54,7 @@ export class ParquetWriter {
         envelopeWriter: ParquetEnvelopeWriter,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     );
 
     appendRow(row: RowInterface): Promise<void>;
@@ -95,7 +95,7 @@ export class ParquetEnvelopeWriter {
         outputStream: WriteStream,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     ): Promise<ParquetEnvelopeWriter>;
 
     constructor(
@@ -105,7 +105,7 @@ export class ParquetEnvelopeWriter {
         fileOffset: number,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     );
 
     writeSection(buf: Buffer): Promise<void>;
@@ -126,12 +126,10 @@ export class ParquetTransformer extends stream.Transform {
         schema: ParquetSchema,
         opts?:
             | string
-            | ParquetWriterOpts
+            | ParquetWriterOpts,
     );
 
-    _transform(row: RowInterface,
-      encoding: string | null | undefined,
-      callback: () => void): void;
+    _transform(row: RowInterface, encoding: string | null | undefined, callback: () => void): void;
 
     _flush(callback: () => void): void;
 }

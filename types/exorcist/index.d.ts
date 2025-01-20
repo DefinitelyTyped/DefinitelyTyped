@@ -1,9 +1,3 @@
-// Type definitions for exorcist 2.0
-// Project: https://github.com/thlorenz/exorcist
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Writable } from "stream";

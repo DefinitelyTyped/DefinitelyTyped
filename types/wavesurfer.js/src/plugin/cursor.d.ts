@@ -10,7 +10,6 @@ export default class CursorPlugin extends Observer implements WaveSurferPlugin {
 
     formatTime(cursorTime: number): string;
     hideCursor(): void;
-    outerWidth(element: Element): number;
     showCursor(): void;
     updateCursorPosition(xpos: number, ypos: number, flip: boolean): void;
 

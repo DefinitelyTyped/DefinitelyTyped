@@ -1,35 +1,36 @@
 import karma = require("karma");
-import { Server } from "karma";
+import { Config, ConfigOptions, Server } from "karma";
 
-karma.runner.run({ port: 9876 }, (exitCode: number) => {
-    console.log("Karma has exited with " + exitCode);
+karma.runner.run({ port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     process.exit(exitCode);
 });
 
 karma.stopper.stop({ port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     if (exitCode === 0) {
-        console.log("Server stop as initiated");
+        // do something
     }
     process.exit(exitCode);
 });
 
-new Server({ logLevel: "debug", port: 9876 }, (exitCode: number) => {
-    console.log("Karma has exited with " + exitCode);
+new Server({ logLevel: "debug", port: 9876 }, exitCode => {
+    exitCode; // $ExpectType number
     process.exit(exitCode);
 });
 
 karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwErrors: true }).then(karmaConfig => {
-    const server = new Server(karmaConfig, function doneCallback(exitCode) {
-        console.log("Karma has exited with " + exitCode);
+    const server = new Server(karmaConfig, exitCode => {
+        exitCode; // $ExpectType number
         process.exit(exitCode);
     });
 
     server.start(); // $ExpectType Promise<void>
 
-    server.refreshFiles();
-
+    server.refreshFiles(); // $ExpectType Promise<any>
+    server.refreshFile("src/js/module-dep.js"); // $ExpectType Promise<any>
     server.on("browser_register", (browser: any) => {
-        console.log("A new browser was registered");
+        browser; // $ExpectType any
     });
 
     server.on("run_complete", (browsers, results) => {
@@ -43,26 +44,43 @@ karma.config.parseConfig(null, { port: 9876 }, { promiseConfig: true, throwError
     server.stop(); // $ExpectType Promise<void>
 
     karma.runner.run(karmaConfig, (exitCode: number) => {
-        console.log("Karma has exited with " + exitCode);
+        exitCode; // $ExpectType number
         process.exit(exitCode);
     });
 
-    karma.stopper.stop(karmaConfig, (exitCode: number) => {
+    karma.stopper.stop(karmaConfig, exitCode => {
+        exitCode; // $ExpectType number
         if (exitCode === 0) {
-            console.log("Server stop as initiated");
+            // do something
         }
         process.exit(exitCode);
     });
 });
 
 const testLauncher = (launcher: karma.launcher.Launcher) => {
-    const captured: boolean = launcher.areAllCaptured();
+    const captured = launcher.areAllCaptured(); // $ExpectType boolean
 };
 
-// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
-module.exports = (config: karma.Config) => {
+// Example of configuration file conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
+module.exports = (config: Config) => {
     config.set({
+        autoWatchBatchDelay: 2000,
+        captureTimeout: 5000,
+        colors: true,
+        concurrency: Infinity,
+        crossOriginAttribute: true,
+        customContextFile: "./customContextFile.html",
+        customClientContextFile: "./customClientContextFile.html",
+        customDebugFile: "./customDebugFile.html",
+        hostname: "localhost",
+        httpModule: "http",
+        httpsServerOptions: {
+            key: "./key.pem",
+        },
         logLevel: config.LOG_DEBUG,
+        proxyValidateSSL: true,
+        reportSlowerThan: 500,
+        transports: ["polling"],
         basePath: "..",
         urlRoot: "/base/",
         frameworks: ["jasmine"],
@@ -163,14 +181,14 @@ module.exports = (config: karma.Config) => {
 };
 
 // custom browser config
-const customBrowser = (config: karma.Config) => {
+const customBrowser = (config: Config) => {
     config.set({
         browsers: ["Safari", "my-custom-browser", "Firefox", "/usr/local/bin/custom-browser.sh"],
     });
 };
 
 // plugins
-function CustomMiddlewareFactory(config: karma.ConfigOptions) {
+function CustomMiddlewareFactory(config: ConfigOptions) {
     return (request: any, response: any /* next */) => {
         response.writeHead(200);
         return response.end("content!");
@@ -186,7 +204,7 @@ class CustomPluginClass {
     log: () => {};
 }
 
-const pluginsTests = (config: karma.Config) => {
+const pluginsTests = (config: Config) => {
     config.set({
         middleware: ["custom"],
         plugins: [
@@ -199,17 +217,16 @@ const pluginsTests = (config: karma.Config) => {
         ],
     });
 };
+karma.constants.DEFAULT_HOSTNAME; // $ExpectType string
+karma.VERSION; // $ExpectType string
 
-console.log(karma.constants.DEFAULT_HOSTNAME);
-console.log(karma.VERSION);
-
-const syncConfig: karma.Config = karma.config.parseConfig("karma.conf.js", {
+const syncConfig: Config = karma.config.parseConfig("conf.js", {
     singleRun: true,
     restartOnFileChange: true,
 });
 
-const syncConfig2: karma.Config = karma.config.parseConfig(
-    "karma.conf.js",
+const syncConfig2: Config = karma.config.parseConfig(
+    "conf.js",
     {
         singleRun: true,
         restartOnFileChange: true,
@@ -219,8 +236,8 @@ const syncConfig2: karma.Config = karma.config.parseConfig(
     },
 );
 
-const asyncConfig: Promise<karma.Config> = karma.config.parseConfig(
-    "karma.conf.js",
+const asyncConfig: Promise<Config> = karma.config.parseConfig(
+    "conf.js",
     {
         singleRun: true,
         restartOnFileChange: true,

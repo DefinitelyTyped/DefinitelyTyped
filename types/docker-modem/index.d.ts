@@ -1,14 +1,9 @@
-// Type definitions for docker-modem 3.0
-// Project: https://github.com/apocas/docker-modem
-// Definitions by: Nasreddine Bac Ali <https://github.com/bacali95>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { ConnectConfig } from 'ssh2';
-import { ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions, Agent } from 'http';
-import { Socket } from 'net';
-import { Duplex, DuplexOptions, Stream } from 'stream';
+import { Agent, ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions } from "http";
+import { Socket } from "net";
+import { ConnectConfig } from "ssh2";
+import { Duplex, DuplexOptions } from "stream";
 
 declare namespace DockerModem {
     class HttpDuplex extends Duplex {
@@ -30,7 +25,7 @@ declare namespace DockerModem {
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
-        protocol?: 'https' | 'http' | 'ssh' | undefined;
+        protocol?: "https" | "http" | "ssh" | undefined;
         sshOptions?: ConnectConfig | undefined;
         timeout?: number | undefined;
         version?: string | undefined;
@@ -87,10 +82,10 @@ declare class DockerModem {
 
     dial(options: DockerModem.DialOptions, callback?: DockerModem.RequestCallback): void;
 
-    demuxStream(stream: Stream, stdout: NodeJS.WritableStream, stderr: NodeJS.WritableStream): void;
+    demuxStream(stream: NodeJS.ReadableStream, stdout: NodeJS.WritableStream, stderr: NodeJS.WritableStream): void;
 
     followProgress(
-        stream: Stream,
+        stream: NodeJS.ReadableStream,
         onFinished: (error: Error | null, result: any[]) => void,
         onProgress?: (obj: any) => void,
     ): void;

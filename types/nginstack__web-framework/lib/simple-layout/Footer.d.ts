@@ -16,7 +16,7 @@ declare class Footer {
             path: string;
             leftMargin: number;
             calculatedWidth: number;
-        }
+        },
     ): void;
     writeHtml(
         sender: Visualization | SimpleLayout,
@@ -26,14 +26,14 @@ declare class Footer {
         opt_options?: {
             colspan?: number;
             css?: string;
-            mailObject?: Mail;
+            mailObject?: Email;
             path?: string;
-        }
+        },
     ): void;
 }
 declare namespace Footer {
-    export { Mail, SimpleLayout, Visualization };
+    export { Email, SimpleLayout, Visualization };
 }
-type Visualization = import('../dsv/Visualization');
-type SimpleLayout = import('./SimpleLayout');
-type Mail = import('@nginstack/engine/lib/mail/Mail');
+type Email = import("@nginstack/engine/lib/email/Email");
+type SimpleLayout = import("./SimpleLayout");
+type Visualization = import("../dsv/Visualization");

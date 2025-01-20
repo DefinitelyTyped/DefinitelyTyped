@@ -1,12 +1,6 @@
-// Type definitions for gulp-connect 5.0
-// Project: https://github.com/avevlad/gulp-connect#readme
-// Definitions by: Andre Wiggins <https://github.com/andrewiggins>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
+import * as connectModule from "connect";
 import * as http from "http";
 import * as https from "https";
-import * as connectModule from "connect";
 
 export interface LiveReloadOptions {
     /** Port to run live reload server on. Defauls to 35729. */
@@ -17,13 +11,16 @@ export interface LiveReloadOptions {
 }
 
 /** a list of [string, HandlerFunction] where the string is the path (i.e. route) that the handler function should be invoked for */
-export type ConnectRouteHandler = [ string, connectModule.HandleFunction ];
+export type ConnectRouteHandler = [string, connectModule.HandleFunction];
 
 /**
  * Factory function that returns a list of middleware handlers to pass to a connect server's use function.
  * The list contain normal Connect middleware handler functions or ConnectRoutHandlers
  */
-export type MiddlewareFactory = (connect: typeof connectModule, options: ConnectAppOptions) => Array<connectModule.HandleFunction | ConnectRouteHandler>;
+export type MiddlewareFactory = (
+    connect: typeof connectModule,
+    options: ConnectAppOptions,
+) => Array<connectModule.HandleFunction | ConnectRouteHandler>;
 
 export interface ConnectAppOptions {
     /** The name of this server. Used in logs. Defaults to "Server". */

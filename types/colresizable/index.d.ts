@@ -1,9 +1,3 @@
-// Type definitions for colresizable 1.6
-// Project: http://bacubacu.com/colresizable/
-// Definitions by: Gilles Waeber <https://github.com/gilleswaeber>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQuery {
@@ -20,7 +14,7 @@ declare namespace colResizable {
          * - 'overflow': allows to resize columns with overflow of parent container.
          * [version: 1.6]
          */
-        resizeMode?: 'fit' | 'flex' | 'overflow' | undefined;
+        resizeMode?: "fit" | "flex" | "overflow" | undefined;
 
         /**
          * [default: false] When set to true the table layout is updated while dragging column anchors.

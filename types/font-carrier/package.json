@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/font-carrier",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/purplebamboo/font-carrier#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/font-carrier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zfitness",
+            "githubUsername": "zFitness"
+        }
+    ]
+}

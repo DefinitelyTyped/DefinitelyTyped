@@ -1,5 +1,5 @@
 import duplexify = require("duplexify");
-import { Readable, Writable, Duplex } from "stream";
+import { Duplex, Readable, Writable } from "stream";
 
 declare var readable: Readable;
 declare var writable: Writable;
@@ -15,9 +15,11 @@ duplexify.obj(writable, readable, {});
 
 const d: duplexify.Duplexify = duplexify();
 d.setReadable(readable);
-d.setReadable(); // $ExpectError
+// @ts-expect-error
+d.setReadable();
 d.setWritable(writable);
-d.setWritable(); // $ExpectError
+// @ts-expect-error
+d.setWritable();
 d.cork();
 d.uncork();
 

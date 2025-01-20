@@ -1,4 +1,4 @@
-import { DataTexture3D, Mesh, Loader, LoadingManager } from '../../../src/Three';
+import { Data3DTexture, Loader, LoadingManager, Mesh } from "three";
 
 export interface Chunk {
     palette: number[];
@@ -6,16 +6,9 @@ export interface Chunk {
     data: Uint8Array;
 }
 
-export class VOXLoader extends Loader {
+export class VOXLoader extends Loader<Chunk[]> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (chunks: Chunk[]) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<object[]>;
     parse(data: ArrayBuffer): object[];
 }
 
@@ -23,6 +16,6 @@ export class VOXMesh extends Mesh {
     constructor(chunk: Chunk);
 }
 
-export class VOXDataTexture3D extends DataTexture3D {
+export class VOXData3DTexture extends Data3DTexture {
     constructor(chunk: Chunk);
 }

@@ -1,11 +1,5 @@
-// Type definitions for turndown 5.0
-// Project: https://github.com/domchristie/turndown
-// Definitions by: Sergey Zhidkov <https://github.com/sergey-zhidkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare class TurndownService {
-    constructor(options?: TurndownService.Options)
+    constructor(options?: TurndownService.Options);
 
     addRule(key: string, rule: TurndownService.Rule): this;
     keep(filter: TurndownService.Filter): this;
@@ -33,6 +27,7 @@ declare namespace TurndownService {
         strongDelimiter?: "__" | "**" | undefined;
         linkStyle?: "inlined" | "referenced" | undefined;
         linkReferenceStyle?: "full" | "collapsed" | "shortcut" | undefined;
+        preformattedCode?: boolean;
 
         keepReplacement?: ReplacementFunction | undefined;
         blankReplacement?: ReplacementFunction | undefined;

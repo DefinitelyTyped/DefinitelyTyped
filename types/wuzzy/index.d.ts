@@ -1,9 +1,4 @@
-// Type definitions for wuzzy 0.1
-// Project: https://github.com/xupit3r/wuzzy#readme
-// Definitions by: Thomas Ladd <https://github.com/TLadd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export function jarowinkler(a: string | ReadonlyArray<string>, b: string | ReadonlyArray<string>, t?: number): number;
+export function jarowinkler(a: string | readonly string[], b: string | readonly string[], t?: number): number;
 
 export interface LevenshteinOptions {
     d: number;
@@ -11,15 +6,15 @@ export interface LevenshteinOptions {
     s: number;
 }
 export function levenshtein(
-    a: string | ReadonlyArray<string>,
-    b: string | ReadonlyArray<string>,
+    a: string | readonly string[],
+    b: string | readonly string[],
     options?: LevenshteinOptions,
 ): number;
 
-export function ngram(a: string | ReadonlyArray<string>, b: string | ReadonlyArray<string>, ng?: number): number;
+export function ngram(a: string | readonly string[], b: string | readonly string[], ng?: number): number;
 
 export function pearson(a: Record<string, number>, b: Record<string, number>): number;
 
-export function jaccard(a: string | ReadonlyArray<string>, b: string | ReadonlyArray<string>): number;
+export function jaccard(a: string | readonly string[], b: string | readonly string[]): number;
 
-export function tanimoto(a: string | ReadonlyArray<string>, b: string | ReadonlyArray<string>): number;
+export function tanimoto(a: string | readonly string[], b: string | readonly string[]): number;

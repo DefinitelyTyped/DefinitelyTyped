@@ -1,4 +1,4 @@
-import { TextEncoder, TextDecoder } from "text-encoding";
+import { TextDecoder, TextEncoder } from "text-encoding";
 
 function test_encoder() {
     var text = "plain text";
@@ -8,13 +8,13 @@ function test_encoder() {
     uint8array = new TextEncoder().encode(text);
     uint8array = new TextEncoder("utf-8").encode(text);
     uint8array = new TextEncoder("windows-1252", {
-        NONSTANDARD_allowLegacyEncoding: true
+        NONSTANDARD_allowLegacyEncoding: true,
     }).encode(text);
 
     uint8array = TextEncoder().encode(text);
     uint8array = TextEncoder("utf-8").encode(text);
     uint8array = TextEncoder("windows-1252", {
-        NONSTANDARD_allowLegacyEncoding: true
+        NONSTANDARD_allowLegacyEncoding: true,
     }).encode(text);
 
     // attributes
@@ -38,7 +38,7 @@ function test_decoder() {
     text = new TextDecoder("windows-1252", {}).decode(uint8array);
     text = new TextDecoder("windows-1252", { fatal: true }).decode(uint8array);
     text = new TextDecoder("windows-1252", { ignoreBOM: true }).decode(
-        uint8array
+        uint8array,
     );
 
     text = TextDecoder().decode(uint8array);

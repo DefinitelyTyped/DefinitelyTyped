@@ -1,62 +1,57 @@
-// Type definitions for tarantool-driver 3.0
-// Project: https://github.com/tarantool/node-tarantool-driver
-// Definitions by: Evgeni Zharkov <https://github.com/zharkov-eu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 declare namespace TarantoolConnection {
-  interface TarantoolOptions {
-    host?: string | undefined;
-    port?: number | undefined;
-    username?: string | undefined;
-    password?: string | undefined;
-    reserveHosts?: string[] | undefined;
-    beforeReserve?: number | undefined;
-    timeout?: number | undefined;
-    retryStrategy?: ((times: number) => number) | undefined;
-    lazyConnect?: boolean | undefined;
-  }
+    interface TarantoolOptions {
+        host?: string | undefined;
+        port?: number | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
+        reserveHosts?: string[] | undefined;
+        beforeReserve?: number | undefined;
+        timeout?: number | undefined;
+        retryStrategy?: ((times: number) => number) | undefined;
+        lazyConnect?: boolean | undefined;
+    }
 }
 
 declare class TarantoolConnection extends EventEmitter {
-  constructor(options: TarantoolConnection.TarantoolOptions);
+    constructor(options: TarantoolConnection.TarantoolOptions);
 
-  /* Connection */
+    /* Connection */
 
-  connect(): Promise<void>;
+    connect(): Promise<void>;
 
-  flushQueue(cb: (err: Error) => void): void;
+    flushQueue(cb: (err: Error) => void): void;
 
-  destroy(): void;
+    destroy(): void;
 
-  disconnect(reconnect?: boolean): void;
+    disconnect(reconnect?: boolean): void;
 
-  /* Commands */
+    /* Commands */
 
-  select(spaceId: number | string,
-                indexId: number | string,
-                limit: number, offset: number,
-                iterator: string, key: any[]): Promise<any>;
+    select(
+        spaceId: number | string,
+        indexId: number | string,
+        limit: number,
+        offset: number,
+        iterator: string,
+        key: any[],
+    ): Promise<any>;
 
-  delete(spaceId: number | string,
-                indexId: number | string,
-                key: any[]): Promise<any>;
+    delete(spaceId: number | string, indexId: number | string, key: any[]): Promise<any>;
 
-  update(spaceId: number | string,
-                indexId: number | string,
-                key: any[], ops: any[]): Promise<any>;
+    update(spaceId: number | string, indexId: number | string, key: any[], ops: any[]): Promise<any>;
 
-  upsert(spaceId: number | string,
-                ops: any[], tuple: any[]): Promise<any>;
+    upsert(spaceId: number | string, ops: any[], tuple: any[]): Promise<any>;
 
-  eval(expression: string, ...args: any[]): Promise<any>;
+    eval(expression: string, ...args: any[]): Promise<any>;
 
-  call(functionName: string, ...args: any[]): Promise<any>;
+    call(functionName: string, ...args: any[]): Promise<any>;
 
-  insert(spaceId: number | string, tuple: any[]): Promise<any>;
+    insert(spaceId: number | string, tuple: any[]): Promise<any>;
 
-  replace(spaceId: number | string, tuple: any[]): Promise<any>;
+    replace(spaceId: number | string, tuple: any[]): Promise<any>;
 }
 
 export = TarantoolConnection;

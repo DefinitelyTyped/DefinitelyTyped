@@ -1,8 +1,3 @@
-// Type definitions for memmonit 1.1
-// Project: https://github.com/diegodamato/memmonit
-// Definitions by: Rodrigo Ribeiro <https://github.com/ribeiro-rodrigo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace MemoryMonitoring {
     /**
      * Returns the amount of memory used.

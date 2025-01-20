@@ -6,15 +6,15 @@
  * are not intended as functional tests.
  */
 
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
+import * as d3ScaleChromatic from "d3-scale-chromatic";
 
 // -----------------------------------------------------------------------
 // Preparatory Steps
 // -----------------------------------------------------------------------
 
 let colorInterpolator: (t: number) => string;
-let simpleScheme: ReadonlyArray<string>;
-let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
+let simpleScheme: readonly string[];
+let nestedScheme: ReadonlyArray<readonly string[]>;
 
 // -----------------------------------------------------------------------
 // Categorical
@@ -23,6 +23,7 @@ let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
 simpleScheme = d3ScaleChromatic.schemeCategory10;
 simpleScheme = d3ScaleChromatic.schemeAccent;
 simpleScheme = d3ScaleChromatic.schemeDark2;
+simpleScheme = d3ScaleChromatic.schemeObservable10;
 simpleScheme = d3ScaleChromatic.schemePaired;
 simpleScheme = d3ScaleChromatic.schemePastel1;
 simpleScheme = d3ScaleChromatic.schemePastel2;
@@ -34,6 +35,7 @@ simpleScheme = d3ScaleChromatic.schemeTableau10;
 const category10: string = d3ScaleChromatic.schemeCategory10[0]; // #1f77b4
 const accent: string = d3ScaleChromatic.schemeAccent[0]; // #7fc97f
 const dark: string = d3ScaleChromatic.schemeDark2[0]; // #1b9e77
+const observable10: string = d3ScaleChromatic.schemeObservable10[0]; // #4269d0
 const paired: string = d3ScaleChromatic.schemePaired[0]; // #a6cee3
 const pastel1: string = d3ScaleChromatic.schemePastel1[0]; // #fbb4ae
 const pastel2: string = d3ScaleChromatic.schemePastel2[0]; // #b3e2cd

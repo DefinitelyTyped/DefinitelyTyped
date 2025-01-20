@@ -1,34 +1,30 @@
-import * as React from 'react';
+import * as React from "react";
 
 import {
-    IEnvironment,
-    Variables,
-    CacheConfig,
-    GraphQLTaggedNode,
-    RelayContext,
-    PageInfo,
-    OperationType,
     _FragmentRefs,
     _RefType,
+    CacheConfig,
     FetchPolicy,
-} from 'relay-runtime';
+    GraphQLTaggedNode,
+    IEnvironment,
+    OperationType,
+    PageInfo,
+    RelayContext,
+    Variables,
+} from "relay-runtime";
 
-export {
-    FragmentRef,
-    RelayPaginationProp,
-    RelayProp,
-    RelayRefetchProp,
-} from './ReactRelayTypes';
+export { FragmentRef, RelayPaginationProp, RelayProp, RelayRefetchProp } from "./ReactRelayTypes";
 
-import { RelayProp, MappedFragmentProps, RelayRefetchProp, RelayPaginationProp } from './ReactRelayTypes';
+import { MappedFragmentProps, RelayPaginationProp, RelayProp, RelayRefetchProp } from "./ReactRelayTypes";
 
 export {
     DataID,
     DeclarativeMutationConfig,
     Disposable,
+    FetchPolicy,
+    GraphQLTaggedNode,
     // RelayRuntime has two environment exports: one interface, one concrete.
     IEnvironment as Environment,
-    GraphQLTaggedNode,
     MutationType,
     NormalizationSelector,
     OperationDescriptor,
@@ -37,49 +33,50 @@ export {
     RelayContext,
     Snapshot,
     Variables,
-    FetchPolicy,
-} from 'relay-runtime';
+} from "relay-runtime";
 
 /**
  * Legacy react-relay exports.
  * Should prefer using interface defined in ./hooks.js
  */
-export { ConnectionHandler } from 'relay-runtime';
+export { ConnectionHandler } from "relay-runtime";
 export interface QueryRendererProps<TOperation extends OperationType> {
     environment: IEnvironment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
         error: Error | null;
-        props: TOperation['response'] | null;
+        props: TOperation["response"] | null;
         retry: (() => void) | null;
     }) => React.ReactNode;
-    variables: TOperation['variables'];
+    variables: TOperation["variables"];
 }
 declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<
     {
         cacheConfig?: CacheConfig | null | undefined;
         fetchPolicy?: FetchPolicy | undefined;
     } & QueryRendererProps<TOperation>
-    > { }
+> {}
 export { ReactRelayQueryRenderer as QueryRenderer };
 
 declare class ReactRelayLocalQueryRenderer<TOperation extends OperationType> extends React.Component<
     QueryRendererProps<TOperation>
-    > { }
+> {}
 export { ReactRelayLocalQueryRenderer as LocalQueryRenderer };
 
-export { MutationTypes } from 'relay-runtime';
-export { RangeOperations } from 'relay-runtime';
+export { MutationTypes } from "relay-runtime";
+export { RangeOperations } from "relay-runtime";
 
 export const ReactRelayContext: React.Context<RelayContext | null>;
 
-export { applyOptimisticMutation } from 'relay-runtime';
-export { commitLocalUpdate } from 'relay-runtime';
-export { commitMutation } from 'relay-runtime';
+export { applyOptimisticMutation } from "relay-runtime";
+export { commitLocalUpdate } from "relay-runtime";
+export { commitMutation } from "relay-runtime";
 
-export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
+export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, "relay">>>;
 export type RelayProps<Props> = ContainerProps<Props>; // TODO: validate this
-export type Container<Props> = React.ComponentType<ContainerProps<Props> & { componentRef?: ((ref: any) => void) | undefined }>;
+export type Container<Props> = React.ComponentType<
+    ContainerProps<Props> & { componentRef?: ((ref: any) => void) | undefined }
+>;
 
 // TODO: validate the bellow three
 export type RelayFragmentContainer<TComponent extends React.ElementType> = React.ComponentType<
@@ -94,39 +91,37 @@ export type RelayRefetchContainer<TComponent extends React.ElementType> = React.
     ContainerProps<React.ComponentPropsWithoutRef<TComponent>>
 >;
 
-export function createFragmentContainer<Props>(
-    Component: React.ComponentType<Props & { relay?: RelayProp | undefined }>,
+type PropsWithoutRelay<C extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>> =
+    React.JSX.LibraryManagedAttributes<C, Omit<React.ComponentProps<C>, "relay">>;
+
+export function createFragmentContainer<
+    C extends React.ComponentType<React.ComponentProps<C> & { relay?: RelayProp | undefined }>,
+>(Component: C, fragmentSpec: Record<string, GraphQLTaggedNode>): Container<PropsWithoutRelay<C>>;
+
+export { fetchQuery_DEPRECATED } from "relay-runtime";
+
+export { graphql } from "relay-runtime";
+export { readInlineData } from "relay-runtime";
+export { requestSubscription } from "relay-runtime";
+
+export function createPaginationContainer<
+    C extends React.ComponentType<React.ComponentProps<C> & { relay: RelayPaginationProp }>,
+>(
+    Component: C,
     fragmentSpec: Record<string, GraphQLTaggedNode>,
-): Container<Props>;
+    connectionConfig: ConnectionConfig<PropsWithoutRelay<C>>,
+): Container<PropsWithoutRelay<C>>;
 
-export { fetchQuery_DEPRECATED } from 'relay-runtime';
-
-export { graphql } from 'relay-runtime';
-export { readInlineData } from 'relay-runtime';
-export { requestSubscription } from 'relay-runtime';
-
-export function createPaginationContainer<Props>(
-    Component: React.ComponentType<
-        Props & {
-            relay: RelayPaginationProp;
-        }
-    >,
-    fragmentSpec: Record<string, GraphQLTaggedNode>,
-    connectionConfig: ConnectionConfig<Props>,
-): Container<Props>;
-
-export function createRefetchContainer<Props>(
-    Component: React.ComponentType<
-        Props & {
-            relay: RelayRefetchProp;
-        }
-    >,
+export function createRefetchContainer<
+    C extends React.ComponentType<React.ComponentProps<C> & { relay: RelayRefetchProp }>,
+>(
+    Component: C,
     fragmentSpec: Record<string, GraphQLTaggedNode>,
     refetchQuery: GraphQLTaggedNode,
-): Container<Props>;
+): Container<PropsWithoutRelay<C>>;
 
 export interface ConnectionConfig<Props = object> {
-    direction?: 'backward' | 'forward' | undefined;
+    direction?: "backward" | "forward" | undefined;
     getConnectionFromProps?: ((props: Props) => ConnectionData | null | undefined) | undefined;
     getFragmentVariables?: ((prevVars: Variables, totalCount: number) => Variables) | undefined;
     getVariables: (
@@ -138,6 +133,6 @@ export interface ConnectionConfig<Props = object> {
 }
 
 interface ConnectionData {
-    edges?: ReadonlyArray<any> | null | undefined;
+    edges?: readonly any[] | null | undefined;
     pageInfo?: Partial<PageInfo> | null | undefined;
 }

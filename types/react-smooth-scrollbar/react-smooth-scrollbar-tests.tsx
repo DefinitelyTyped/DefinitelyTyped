@@ -1,7 +1,7 @@
 import * as React from "react";
-import SmoothScrollbar = require('react-smooth-scrollbar');
+import SmoothScrollbar = require("react-smooth-scrollbar");
 
-<SmoothScrollbar className="test" alwaysShowTracks onScroll={(status, instance) => { } } />;
+<SmoothScrollbar className="test" alwaysShowTracks onScroll={(status, instance) => {}} />;
 // <SmoothScrollbar speed={10} overscrollEffect="bounce" />; TODO: These options don't seem to be documented
 
 declare const number: number;
@@ -21,7 +21,11 @@ class Test extends React.Component {
 
     render() {
         return (
-            <SmoothScrollbar ref={ref => this.ref = ref} />
+            <SmoothScrollbar
+                ref={ref => {
+                    this.ref = ref;
+                }}
+            />
         );
     }
 }

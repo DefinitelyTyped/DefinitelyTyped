@@ -1,10 +1,4 @@
-// Type definitions for react-native-version-check 3.4
-// Project: https://github.com/kimxogus/react-native-version-check
-// Definitions by: DELACOURT Vincent <https://github.com/vdelacou>
-//                 Krishan <https://github.com/KrishyV>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { RequestInit } from 'node-fetch';
+import { RequestInit } from "node-fetch";
 declare namespace VersionCheck {
     /**
      * Returns device's country code of 2 characters.
@@ -86,6 +80,10 @@ declare namespace VersionCheck {
          * Package name or function that returns promise or value of package name
          */
         packageName?: string | (() => string) | undefined;
+        /**
+         * Country code where the playstore or appstore app is available. i.e: "US"
+         */
+        country?: string | undefined;
     }): Promise<string>;
     /**
      * Returns an object contains with boolean value whether update needed, current version and latest version.

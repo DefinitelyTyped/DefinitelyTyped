@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-typing-animation",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/watadarkstar/react-native-typing-animation#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-typing-animation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ankan Bhattacharya",
+            "githubUsername": "Ankan002"
+        }
+    ]
+}

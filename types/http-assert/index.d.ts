@@ -1,11 +1,3 @@
-// Type definitions for http-assert 1.5
-// Project: https://github.com/jshttp/http-assert
-// Definitions by: jKey Lu <https://github.com/jkeylu>
-//                 Peter Squicciarini <https://github.com/stripedpajamas>
-//                 Alex Bulanov <https://github.com/sapfear>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * @param status the status code
  * @param msg the message of the error, defaulting to node's text for that status code
@@ -34,6 +26,13 @@ declare namespace assert {
      * @param msg the message of the error, defaulting to node's text for that status code
      * @param opts custom properties to attach to the error object
      */
+    type AssertFail = (status?: number, msg?: string, opts?: Record<string, any>) => void;
+
+    /**
+     * @param status the status code
+     * @param msg the message of the error, defaulting to node's text for that status code
+     * @param opts custom properties to attach to the error object
+     */
     type AssertEqual = (a: any, b: any, status?: number, msg?: string, opts?: Record<string, any>) => void;
 
     const equal: Assert;
@@ -43,6 +42,7 @@ declare namespace assert {
     const notStrictEqual: AssertEqual;
     const deepEqual: AssertEqual;
     const notDeepEqual: AssertEqual;
+    const fail: AssertFail;
 }
 
 export = assert;

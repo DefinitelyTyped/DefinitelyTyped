@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace MediaBody {
     export interface MediaBodyProps extends React.ClassAttributes<MediaBody> {
@@ -6,5 +6,5 @@ declare namespace MediaBody {
         componentClass?: React.ElementType | undefined;
     }
 }
-declare class MediaBody extends React.Component<MediaBody.MediaBodyProps> { }
+declare class MediaBody extends React.Component<MediaBody.MediaBodyProps> {}
 export = MediaBody;

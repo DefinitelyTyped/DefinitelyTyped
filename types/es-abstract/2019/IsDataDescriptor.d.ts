@@ -1,2 +1,2 @@
-import IsDataDescriptor = require('../2018/IsDataDescriptor');
+import IsDataDescriptor = require("../2018/IsDataDescriptor");
 export = IsDataDescriptor;

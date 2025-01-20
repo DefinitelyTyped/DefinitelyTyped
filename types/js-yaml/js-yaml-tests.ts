@@ -1,4 +1,4 @@
-import yaml = require('js-yaml');
+import yaml = require("js-yaml");
 import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
@@ -7,7 +7,7 @@ import Mark = yaml.Mark;
 
 const bool = true;
 const num = 0;
-const str = '';
+const str = "";
 const obj: object = {};
 const map: { [x: string]: any } = {};
 const array: any[] = [];
@@ -19,13 +19,13 @@ const schemaDefinition: SchemaDefinition = {
     explicit: array,
 };
 const typeConstructorOptions: TypeConstructorOptions = {
-    kind: 'scalar',
+    kind: "scalar",
     resolve: fn,
     construct: fn,
     instanceOf: obj,
     predicate: obj => false,
     represent: fn,
-    representName: obj => 'name',
+    representName: obj => "name",
     defaultStyle: str,
     multi: false,
     styleAliases: map,
@@ -114,10 +114,10 @@ dumpOpts = {
     schema: yaml.FAILSAFE_SCHEMA,
 };
 dumpOpts = {
-    quotingType: '"',
+    quotingType: "\"",
 };
 dumpOpts = {
-    replacer: (_key, _value) => 'new_value',
+    replacer: (_key, _value) => "new_value",
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -135,7 +135,7 @@ type.construct;
 type.instanceOf;
 // $ExpectType ((data: object) => boolean) | null
 type.predicate;
-// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
+// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null || { [x: string]: (data: object) => any; } | ((data: object) => any) | null
 type.represent;
 // $ExpectType string | null
 type.defaultStyle;
@@ -182,7 +182,7 @@ yaml.dump(str, dumpOpts);
 new yaml.YAMLException();
 
 // $ExpectType YAMLException
-const exception = new yaml.YAMLException('error', yamlExceptionMark);
+const exception = new yaml.YAMLException("error", yamlExceptionMark);
 
 // $ExpectType Mark
 exception.mark;

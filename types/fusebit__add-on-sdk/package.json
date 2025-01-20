@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/fusebit__add-on-sdk",
+    "version": "3.1.9999",
+    "projects": [
+        "http://fusebit.io/"
+    ],
+    "devDependencies": {
+        "@types/fusebit__add-on-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Miller",
+            "githubUsername": "andrewrmiller"
+        },
+        {
+            "name": "Trent Hashimoto",
+            "githubUsername": "hashiphoto"
+        },
+        {
+            "name": "Andy Dam",
+            "githubUsername": "andydam"
+        }
+    ]
+}

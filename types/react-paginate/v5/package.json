@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/react-paginate",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/AdeleD/react-paginate"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-paginate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Hartcher",
+            "githubUsername": "deevus"
+        },
+        {
+            "name": "Wouter Hardeman",
+            "githubUsername": "wouterhardeman"
+        },
+        {
+            "name": "pegel03",
+            "githubUsername": "pegel03"
+        },
+        {
+            "name": "Simon Archer",
+            "githubUsername": "archy-bold"
+        },
+        {
+            "name": "Yasunori Ohoka",
+            "githubUsername": "yasupeke"
+        },
+        {
+            "name": "Kevin Rambaud",
+            "githubUsername": "kevinrambaud"
+        }
+    ]
+}

@@ -38,7 +38,7 @@ export class Player extends MovingEntity {
             this.currentRegion,
             startPosition,
             endPosition,
-            this.position
+            this.position,
         );
         // adjust height of player according to the ground
         const distance = this.currentRegion.distanceToPoint(this.position);

@@ -1,10 +1,10 @@
-import { Repository } from './repository';
-import { CheckoutOptions } from './checkout-options';
-import { Reference } from './reference';
-import { Oid } from './oid';
-import { Tree } from './tree';
-import { Commit } from './commit';
-import { Index } from './index';
+import { CheckoutOptions } from "./checkout-options";
+import { Commit } from "./commit";
+import { Index } from "./index";
+import { Oid } from "./oid";
+import { Reference } from "./reference";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace Checkout {
     const enum NOTIFY {
@@ -14,7 +14,7 @@ export namespace Checkout {
         UPDATED = 4,
         UNTRACKED = 8,
         IGNORED = 16,
-        ALL = 65535
+        ALL = 65535,
     }
 
     const enum STRATEGY {
@@ -39,7 +39,7 @@ export namespace Checkout {
         DONT_REMOVE_EXISTING = 4194304,
         DONT_WRITE_INDEX = 8388608,
         UPDATE_SUBMODULES = 65536,
-        UPDATE_SUBMODULES_IF_CHANGED = 131072
+        UPDATE_SUBMODULES_IF_CHANGED = 131072,
     }
 }
 

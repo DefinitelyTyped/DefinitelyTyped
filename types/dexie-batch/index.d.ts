@@ -1,9 +1,4 @@
-// Type definitions for dexie-batch 0.4
-// Project: https://github.com/raphinesse/dexie-batch#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Dexie } from 'dexie';
+import { Dexie } from "dexie";
 
 declare namespace DexieBatch {
     interface Options {
@@ -23,7 +18,11 @@ declare class DexieBatch {
     each<T>(collection: Dexie.Collection<T>, callback: DexieBatch.Callback<T>): Dexie.Promise<number>;
     eachBatch<T>(collection: Dexie.Collection<T>, callback: DexieBatch.Callback<T[]>): Dexie.Promise<number>;
     eachBatchParallel<T>(collection: Dexie.Collection<T>, callback: DexieBatch.Callback<T[]>): Dexie.Promise<number>;
-    eachBatchSerial<T>(collection: Dexie.Collection<T>, callback: DexieBatch.Callback<T[]>, batchIdx?: number): Dexie.Promise<number>;
+    eachBatchSerial<T>(
+        collection: Dexie.Collection<T>,
+        callback: DexieBatch.Callback<T[]>,
+        batchIdx?: number,
+    ): Dexie.Promise<number>;
 }
 
 export as namespace DexieBatch;

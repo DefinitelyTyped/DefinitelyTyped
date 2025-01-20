@@ -1,13 +1,6 @@
-// Type definitions for OData Angular Resources
-// Project: https://github.com/devnixs/ODataAngularResources
-// Definitions by: Raphael ATALLAH <http://raphael.atallah.me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare namespace OData {
-
     /**
      * Currently supported options for the $resource factory options argument.
      */
@@ -23,7 +16,6 @@ declare namespace OData {
         isodatav4?: boolean | undefined;
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
     // see http://docs.angularjs.org/api/ngResource.$resource
@@ -32,18 +24,30 @@ declare namespace OData {
     // that deeply.
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
-        (url: string, paramDefaults?: any,
+        (
+            url: string,
+            paramDefaults?: any,
             /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
              where deleteDescriptor : IActionDescriptor */
-            actions?: any, options?: IResourceOptions): IResourceClass<IResource<any>>;
-        <T, U>(url: string, paramDefaults?: any,
+            actions?: any,
+            options?: IResourceOptions,
+        ): IResourceClass<IResource<any>>;
+        <T, U>(
+            url: string,
+            paramDefaults?: any,
             /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
              where deleteDescriptor : IActionDescriptor */
-            actions?: any, options?: IResourceOptions): U;
-        <T>(url: string, paramDefaults?: any,
+            actions?: any,
+            options?: IResourceOptions,
+        ): U;
+        <T>(
+            url: string,
+            paramDefaults?: any,
             /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
              where deleteDescriptor : IActionDescriptor */
-            actions?: any, options?: IResourceOptions): IResourceClass<T>;
+            actions?: any,
+            options?: IResourceOptions,
+        ): IResourceClass<T>;
     }
 
     // Just a reference to facilitate describing new actions
@@ -73,7 +77,7 @@ declare namespace OData {
     // Also, static calls always return the IResource (or IResourceArray) retrieved
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
     interface IResourceClass<T> {
-        new(dataOrParams? : any) : IResource<T>;
+        new(dataOrParams?: any): IResource<T>;
         get(): IResource<T>;
         get(params: Object): IResource<T>;
         get(success: Function, error?: Function): IResource<T>;
@@ -162,17 +166,23 @@ declare namespace OData {
 
     // IResourceServiceProvider used to configure global settings
     interface IResourceServiceProvider extends angular.IServiceProvider {
-
         defaults: IResourceOptions;
     }
-
 
     interface IExecutable {
         execute(noParenthesis?: any): string;
     }
     class Global {
         static $inject: string[];
-        constructor(ODataBinaryOperation: any, ODataProvider: any, ODataValue: any, ODataProperty: any, ODataMethodCall: any, ODataPredicate: any, ODataOrderByStatement: any);
+        constructor(
+            ODataBinaryOperation: any,
+            ODataProvider: any,
+            ODataValue: any,
+            ODataProperty: any,
+            ODataMethodCall: any,
+            ODataPredicate: any,
+            ODataOrderByStatement: any,
+        );
         Provider: Provider<any>;
         BinaryOperation: typeof BinaryOperation;
         Value: typeof Value;
@@ -183,7 +193,7 @@ declare namespace OData {
     }
 
     interface BinaryOperationFactory {
-        new (propertyOrPredicate: any, valueOrOperator?: any, value?: any): BinaryOperation;
+        new(propertyOrPredicate: any, valueOrOperator?: any, value?: any): BinaryOperation;
     }
     class BinaryOperation implements IExecutable {
         private operandA;
@@ -196,7 +206,7 @@ declare namespace OData {
     }
 
     interface MethodCallFactory {
-        new (methodName: string, ...args: any[]): MethodCall;
+        new(methodName: string, ...args: any[]): MethodCall;
     }
     class MethodCall implements IExecutable {
         private methodName;
@@ -207,20 +217,20 @@ declare namespace OData {
 
     class Operators {
         operators: {
-            'eq': string[];
-            'ne': string[];
-            'gt': string[];
-            'ge': string[];
-            'lt': string[];
-            'le': string[];
-            'and': string[];
-            'or': string[];
-            'not': string[];
-            'add': string[];
-            'sub': string[];
-            'mul': string[];
-            'div': string[];
-            'mod': string[];
+            "eq": string[];
+            "ne": string[];
+            "gt": string[];
+            "ge": string[];
+            "lt": string[];
+            "le": string[];
+            "and": string[];
+            "or": string[];
+            "not": string[];
+            "add": string[];
+            "sub": string[];
+            "mul": string[];
+            "div": string[];
+            "mod": string[];
         };
         private rtrim;
         private trim(value);
@@ -228,7 +238,7 @@ declare namespace OData {
     }
 
     interface OrderByStatementFactory {
-        new (propertyName: string, sortOrder?: string): OrderByStatement;
+        new(propertyName: string, sortOrder?: string): OrderByStatement;
     }
     class OrderByStatement implements IExecutable {
         private propertyName;
@@ -238,7 +248,7 @@ declare namespace OData {
     }
 
     interface PredicateFactory {
-        new (propertyOrValueOrPredicate: any, valueOrOperator?: any, value?: any): Predicate;
+        new(propertyOrValueOrPredicate: any, valueOrOperator?: any, value?: any): Predicate;
         or(orStatements: any[]): IExecutable;
         create(propertyOrPredicate: any, operatorOrValue?: any, value?: any): IExecutable;
         and(andStatements: any): IExecutable;
@@ -251,7 +261,7 @@ declare namespace OData {
     }
 
     interface PropertyFactory {
-        new (value: string): Property;
+        new(value: string): Property;
     }
     class Property implements IExecutable {
         private value;
@@ -260,14 +270,20 @@ declare namespace OData {
     }
 
     interface ProviderFactory {
-        new <T>(callback: ProviderCallback<T>): Provider<T>;
+        new<T>(callback: ProviderCallback<T>): Provider<T>;
     }
     interface ProviderCallback<T> {
         (queryString: string, success: () => any, error: () => any): T[];
-        (queryString: string, success: () => any, error: () => any, isSingleElement?: boolean, forceSingleElement?: boolean): T;
+        (
+            queryString: string,
+            success: () => any,
+            error: () => any,
+            isSingleElement?: boolean,
+            forceSingleElement?: boolean,
+        ): T;
     }
 
-    interface ICountResult{
+    interface ICountResult {
         result: number;
         $promise: angular.IPromise<any>;
     }
@@ -282,23 +298,23 @@ declare namespace OData {
         constructor(callback: ProviderCallback<T>);
         filter(operand1: any, operand2?: any, operand3?: any): Provider<T>;
         orderBy(arg1: string, arg2?: string): Provider<T>;
-        transformUrl(transformMethod : (url:string)=>string): Provider<T>;
+        transformUrl(transformMethod: (url: string) => string): Provider<T>;
         take(amount: number): Provider<T>;
         skip(amount: number): Provider<T>;
         private execute();
-        query(success?: ((p:T[])=>void), error?: (()=>void)): T[];
-        single(success?: ((p:T)=>void), error?: (()=>void)): T;
-        get(key: any, success?: ((p:T)=>void), error?: (()=>void)): T;
+        query(success?: (p: T[]) => void, error?: () => void): T[];
+        single(success?: (p: T) => void, error?: () => void): T;
+        get(key: any, success?: (p: T) => void, error?: () => void): T;
         expand(...params: string[]): Provider<T>;
         expand(params: string[]): Provider<T>;
         select(...params: string[]): Provider<T>;
         select(params: string[]): Provider<T>;
-        count(success?: (result: ICountResult) => any, error?: () => any):ICountResult;
+        count(success?: (result: ICountResult) => any, error?: () => any): ICountResult;
         withInlineCount(): Provider<T>;
     }
 
     interface ValueFactory {
-        new (value: any, type?: string): Value;
+        new(value: any, type?: string): Value;
     }
     class ValueTypes {
         static Boolean: string;
@@ -322,7 +338,4 @@ declare namespace OData {
         execute(): string;
         constructor(value: any, type?: string);
     }
-
-
-
 }

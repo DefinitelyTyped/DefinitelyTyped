@@ -1,12 +1,7 @@
-// Type definitions for mailparser 3.0
-// Project: https://github.com/nodemailer/mailparser
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Andrey Volynkin <https://github.com/Avol-V>
-//                 Pior Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import StreamModule = require('stream');
+import StreamModule = require("stream");
+import { DecoderStream } from "iconv-lite";
 import Stream = StreamModule.Stream;
 
 /**
@@ -30,13 +25,13 @@ export interface StructuredHeader {
     /**
      * Additional arguments.
      */
-    params: {[key: string]: string};
+    params: { [key: string]: string };
 }
 
 /**
  * Possible types of a header value.
  */
-export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader;
+export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader | StructuredHeader[];
 
 /**
  * A Map object with lowercase header keys.
@@ -92,7 +87,7 @@ export interface AttachmentCommon {
     /**
      * Message type.
      */
-    type: 'attachment';
+    type: "attachment";
     /**
      * Attachment contents.
      */
@@ -133,7 +128,7 @@ export interface AttachmentCommon {
     /**
      * `contentId` without `<` and `>`.
      */
-    cid?: string | undefined;   // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined; // e.g. '5.1321281380971@localhost'
     /**
      * If true then this attachment should not be offered for download
      * (at least not in the main attachments list).
@@ -254,7 +249,7 @@ export interface ParsedMail {
     /**
      * Priority of the e-mail.
      */
-    priority?: 'normal' | 'low' | 'high' | undefined;
+    priority?: "normal" | "low" | "high" | undefined;
 }
 
 /**
@@ -264,7 +259,7 @@ export interface MessageText {
     /**
      * Message type.
      */
-    type: 'text';
+    type: "text";
     /**
      * Includes the HTML version of the message.
      *
@@ -292,10 +287,10 @@ export interface MessageText {
  * and emits data objects for attachments and text contents.
  */
 export class MailParser extends StreamModule.Transform {
-    constructor(options?: StreamModule.TransformOptions);
+    constructor(options?: MailParserOptions);
     on(event: string, callback: (any: any) => void): this;
-    on(event: 'headers', callback: (headers: Headers) => void): this;
-    on(event: 'data' | 'readable', callback: (data: AttachmentStream | MessageText) => void): this;
+    on(event: "headers", callback: (headers: Headers) => void): this;
+    on(event: "data" | "readable", callback: (data: AttachmentStream | MessageText) => void): this;
 }
 
 /**
@@ -304,11 +299,23 @@ export class MailParser extends StreamModule.Transform {
 export type Source = Buffer | Stream | string;
 
 /**
- * Options object for simpleParser.
+ * Options object for MailParser.
  */
-export interface SimpleParserOptions extends StreamModule.TransformOptions {
+export interface MailParserOptions extends StreamModule.TransformOptions {
+    skipHtmlToText?: boolean | undefined;
+    maxHtmlLengthToParse?: number | undefined;
+    formatDateString?: ((d: Date) => string) | undefined;
+    skipImageLinks?: boolean | undefined;
+    skipTextToHtml?: boolean | undefined;
+    skipTextLinks?: boolean | undefined;
+    Iconv?: DecoderStream | undefined;
     keepCidLinks?: boolean | undefined;
 }
+
+/**
+ * Options for SimpleParser.
+ */
+export type SimpleParserOptions = MailParserOptions;
 
 /**
  * Parse email message to structure object.
@@ -325,7 +332,11 @@ export function simpleParser(source: Source, callback: (err: any, mail: ParsedMa
  * @param options Transform options passed to MailParser's constructor
  * @param callback Function to get a structured email object.
  */
-export function simpleParser(source: Source, options: SimpleParserOptions, callback: (err: any, mail: ParsedMail) => void): void;
+export function simpleParser(
+    source: Source,
+    options: SimpleParserOptions,
+    callback: (err: any, mail: ParsedMail) => void,
+): void;
 
 /**
  * Parse email message to structure object.

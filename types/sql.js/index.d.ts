@@ -1,41 +1,35 @@
-// Type definitions for sql.js 1.4
-// Project: https://github.com/sql-js/sql.js
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="emscripten" />
 
-export type SqlValue = number | string | Uint8Array | null;
-export type ParamsObject = Record<string, SqlValue>;
-export type ParamsCallback = (obj: ParamsObject) => void;
-export type SqlJsConfig = Partial<EmscriptenModule>;
-export type BindParams = SqlValue[] | ParamsObject | null;
+type SqlValue = number | string | Uint8Array | null;
+type ParamsObject = Record<string, SqlValue>;
+type ParamsCallback = (obj: ParamsObject) => void;
+type SqlJsConfig = Partial<EmscriptenModule>;
+type BindParams = SqlValue[] | ParamsObject | null;
 
-export interface QueryExecResult {
+interface QueryExecResult {
     columns: string[];
     values: SqlValue[][];
 }
 
-export interface StatementIteratorResult {
+interface StatementIteratorResult {
     /** `true` if there are no more available statements */
     done: boolean;
     /** the next available Statement (as returned by `Database.prepare`) */
     value: Statement;
 }
 
-export interface SqlJsStatic {
+interface SqlJsStatic {
     Database: typeof Database;
     Statement: typeof Statement;
 }
 
-export interface InitSqlJsStatic extends Function {
+interface InitSqlJsStatic {
     (config?: SqlJsConfig): Promise<SqlJsStatic>;
     readonly default: this;
 }
 
-export declare class Database {
+declare class Database {
     /**
      * Represents an SQLite database
      * @see [https://sql.js.org/documentation/Database.html#Database](https://sql.js.org/documentation/Database.html#Database)
@@ -157,7 +151,7 @@ export declare class Database {
     run(sql: string, params?: BindParams): Database;
 }
 
-export declare class Statement {
+declare class Statement {
     /**
      * Bind values to the parameters, after having reseted the statement. If
      * values is null, do nothing and return true.
@@ -268,13 +262,13 @@ export declare class Statement {
  * object in order to create a statement iterator
  * @see [https://sql.js.org/documentation/StatementIterator.html#StatementIterator](https://sql.js.org/documentation/StatementIterator.html#StatementIterator)
  */
-export declare class StatementIterator implements Iterator<Statement>, Iterable<Statement> {
+declare class StatementIterator implements Iterator<Statement>, Iterable<Statement> {
     [Symbol.iterator](): Iterator<Statement>;
     /**
      * Get any un-executed portions remaining of the original SQL string
      * @see [https://sql.js.org/documentation/StatementIterator.html#["getRemainingSQL"]](https://sql.js.org/documentation/StatementIterator.html#%5B%22getRemainingSQL%22%5D)
      */
-    getRemainingSql(): string;
+    getRemainingSQL(): string;
 
     /**
      * Prepare the next available SQL statement
@@ -283,8 +277,29 @@ export declare class StatementIterator implements Iterator<Statement>, Iterable<
     next(): StatementIteratorResult;
 }
 
-declare global {
-    let SqlJs: InitSqlJsStatic;
+declare namespace initSqlJs {
+    export {
+        BindParams,
+        InitSqlJsStatic,
+        ParamsCallback,
+        ParamsObject,
+        // interfaces
+        QueryExecResult,
+        SqlJsConfig,
+        SqlJsStatic,
+        // types
+        SqlValue,
+        StatementIteratorResult,
+    };
+
+    // classes
+    type _Database = Database;
+    type _Statement = Statement;
+    type _StatementIterator = StatementIterator;
+    export { _Database as Database, _Statement as Statement, _StatementIterator as StatementIterator };
 }
 
-export default SqlJs;
+declare var initSqlJs: InitSqlJsStatic;
+
+export = initSqlJs;
+export as namespace initSqlJs;

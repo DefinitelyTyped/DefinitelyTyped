@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/death",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jprichardson/node-death"
+    ],
+    "devDependencies": {
+        "@types/death": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron Knight",
+            "githubUsername": "ckknight"
+        },
+        {
+            "name": "Pranay Prakash",
+            "githubUsername": "pranaygp"
+        }
+    ]
+}

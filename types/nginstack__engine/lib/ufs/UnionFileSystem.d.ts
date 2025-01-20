@@ -11,8 +11,8 @@ declare class UnionFileSystem {
     configureWithLocalSettings(): void;
 }
 declare namespace UnionFileSystem {
-    const FILTER_FILES: number;
-    const FILTER_DIRS: number;
-    const FILTER_ALL: number;
+    let FILTER_FILES: number;
+    let FILTER_DIRS: number;
+    let FILTER_ALL: number;
     function getInstance(): UnionFileSystem;
 }

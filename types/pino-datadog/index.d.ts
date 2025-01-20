@@ -1,8 +1,3 @@
-// Type definitions for pino-datadog 2.0
-// Project: https://github.com/ovhemert/pino-datadog
-// Definitions by: czystyl <https://github.com/czystyl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Options {
@@ -34,6 +29,10 @@ export interface Options {
      * Keep the msg attribute in the log record. Used to allow a Datadog facet on the message.
      */
     keepMsg?: boolean;
+    /**
+     * Use Datadog EU site
+     */
+    eu?: boolean;
 }
 
 /**

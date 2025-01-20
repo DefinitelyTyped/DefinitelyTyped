@@ -1,12 +1,13 @@
-import RouteInfo from '@ember/routing/-private/route-info';
-import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
-import Transition from '@ember/routing/-private/transition';
-import Service from '@ember/service';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import RouteInfo, { RouteInfoWithAttributes } from "@ember/routing/route-info";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Transition from "@ember/routing/transition";
+import Service from "@ember/service";
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
-// https://emberjs.com/api/ember/2.18/classes/RouterService
+// https://emberjs.com/api/ember/release/classes/RouterService
 /**
  * The Router service is the public API that provides component/view layer access to the router.
  */
@@ -93,20 +94,20 @@ export default class RouterService extends Service {
     isActive(
         routeName: string,
         models: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): boolean;
     isActive(
         routeName: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): boolean;
     isActive(
         routeName: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): boolean;
     isActive(
         routeName: string,
@@ -114,10 +115,10 @@ export default class RouterService extends Service {
         modelsB: RouteModel,
         modelsC: RouteModel,
         modelsD: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): boolean;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
+    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=replaceWith
     /**
      * Transition into another route while replacing the current URL, if
      * possible. The route may be either a single route or route path.
@@ -131,25 +132,25 @@ export default class RouterService extends Service {
      */
     replaceWith(
         routeNameOrUrl: string,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     replaceWith(
         routeNameOrUrl: string,
         models: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     replaceWith(
         routeNameOrUrl: string,
@@ -157,7 +158,7 @@ export default class RouterService extends Service {
         modelsB: RouteModel,
         modelsC: RouteModel,
         modelsD: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
 
     // https://emberjs.com/api/ember/release/classes/RouterService/methods/isActive?anchor=transitionTo
@@ -200,25 +201,25 @@ export default class RouterService extends Service {
      */
     transitionTo(
         routeNameOrUrl: string,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     transitionTo(
         routeNameOrUrl: string,
         models: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
         modelsB: RouteModel,
         modelsC: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     transitionTo(
         routeNameOrUrl: string,
@@ -226,11 +227,11 @@ export default class RouterService extends Service {
         modelsB: RouteModel,
         modelsC: RouteModel,
         modelsD: RouteModel,
-        options?: { queryParams: object }
+        options?: { queryParams: object },
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
+    // https://emberjs.com/api/ember/4.3.0/classes/RouterService/methods/isActive?anchor=urlFor
     /**
      * Generate a URL based on the supplied route name.
      *
@@ -241,33 +242,7 @@ export default class RouterService extends Service {
      *                  a mapping of query parameters
      * @returns         the string representing the generated URL
      */
-    urlFor(routeName: string, options?: { queryParams: object }): string;
-    urlFor(
-        routeName: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        modelsD: RouteModel,
-        options?: { queryParams: object }
-    ): string;
+    urlFor(routeName: string, ...args: RouteModel[] | [...RouteModel[], { queryParams: object }]): string;
 
     // https://api.emberjs.com/ember/3.6/classes/RouterService/events/routeDidChange?anchor=routeDidChange
     /**
@@ -284,9 +259,64 @@ export default class RouterService extends Service {
      * @param callback the callback to execute
      */
     on(
-        name: 'routeDidChange' | 'routeWillChange',
-        callback: (transition: Transition) => void
+        name: "routeDidChange" | "routeWillChange",
+        callback: (transition: Transition) => void,
     ): RouterService;
+
+    // https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=off
+    /**
+     * Removes a callback for an event.
+     *
+     * The `routeWillChange` event is fired at the beginning of any attempted transition with a `Transition` object as the sole argument.
+     * This action can be used for aborting, redirecting, or decorating the transition from the currently active routes.
+     *
+     * The `routeDidChange` event only fires once a transition has settled.
+     * This includes aborts and error substates.
+     *
+     * @param name     the name of the event 'routeWillChange' | 'routeDidChange'
+     * @param callback the callback to remove
+     */
+    off(
+        name: "routeDidChange" | "routeWillChange",
+        callback: (transition: Transition) => void,
+    ): RouterService;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=has
+     *
+     * Checks to see if object has any subscriptions for named event.
+     *
+     * @param name
+     */
+    has(name: string): boolean;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=one
+     *
+     * Subscribes a function to a named event and then cancels the subscription after the first time the
+     * event is triggered. It is good to use one when you only care about the first time an event has taken place.
+     *
+     * @param name     the name of the event
+     * @param callback the callback to execute
+     */
+    one(
+        name: "routeDidChange" | "routeWillChange",
+        callback: (transition: Transition) => void,
+    ): RouterService;
+
+    /**
+     * https://api.emberjs.com/ember/3.28/classes/Evented/methods/off?anchor=trigger
+     *
+     * Triggers a named event for the object.
+     * Any additional arguments will be passed as parameters to the functions that are subscribed to the event.
+     *
+     * @param name the name of the event
+     * @param args arguments to pass to the event
+     */
+    trigger(
+        name: string,
+        args: any,
+    ): void;
 
     /**
      * Takes a string URL and returns a `RouteInfo` for the leafmost route represented
@@ -319,4 +349,14 @@ export default class RouterService extends Service {
      * the browser including the app's `rootURL`.
      */
     recognizeAndLoad(url: string): RouteInfoWithAttributes;
+
+    /**
+     * Refreshes all currently active routes, doing a full transition.
+     * If a route name is provided and refers to a currently active route,
+     * it will refresh only that route and its descendents.
+     * Returns a promise that will be resolved once the refresh is complete.
+     * All resetController, beforeModel, model, afterModel, redirect, and setupController
+     * hooks will be called again. You will get new data from the model hook.
+     */
+    refresh(pivotRouteName?: string): Transition;
 }

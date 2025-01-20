@@ -1,3 +1,3 @@
-import { https } from '.';
+import { https } from ".";
 
 export = https;

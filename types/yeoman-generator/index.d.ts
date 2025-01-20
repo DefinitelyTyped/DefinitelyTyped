@@ -1,25 +1,13 @@
-// Type definitions for yeoman-generator 5.2
-// Project: https://github.com/yeoman/generator, http://yeoman.io
-// Definitions by: Kentaro Okuno <https://github.com/armorik83>
-//                 Jay Anslow <https://github.com/janslow>
-//                 Ika <https://github.com/ikatyang>
-//                 Joshua Cherry <https://github.com/tasadar2>
-//                 Arthur Corenzan <https://github.com/haggen>
-//                 Richard Lea <https://github.com/chigix>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
-import { spawn, SpawnOptions, SpawnSyncOptions } from 'child_process';
-import { Debugger } from 'debug';
-import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
-import { EventEmitter } from 'events';
-import { Answers as InquirerAnswers, DistinctQuestion } from 'inquirer';
-import { Editor, CopyOptions } from 'mem-fs-editor';
-import { Observable } from 'rxjs';
-import { Transform } from 'stream';
-import Environment = require('yeoman-environment');
-import Storage = require('./lib/util/storage');
+import { spawn, SpawnOptions, SpawnSyncOptions } from "child_process";
+import { Debugger } from "debug";
+import { Data as TemplateData, Options as TemplateOptions } from "ejs";
+import { EventEmitter } from "events";
+import { Answers as InquirerAnswers, DistinctQuestion } from "inquirer";
+import { CopyOptions, Editor } from "mem-fs-editor";
+import { Observable } from "rxjs";
+import { Transform } from "stream";
+import Environment = require("yeoman-environment");
+import Storage = require("./lib/util/storage");
 import Logger = Environment.Logger;
 
 declare namespace Generator {
@@ -181,7 +169,7 @@ declare namespace Generator {
         /**
          * The type of the option.
          */
-        type: typeof Boolean | typeof String | typeof Number;
+        type: typeof Boolean | typeof String | typeof Number | ((opt: string) => any);
 
         /**
          * The option name alias (example `-h` and --help`).
@@ -231,7 +219,7 @@ declare namespace Generator {
         path: string;
     }
 
-    type GeneratorFeaturesUniqueBy = 'argument' | 'namespacep';
+    type GeneratorFeaturesUniqueBy = "argument" | "namespacep";
 
     /**
      * Represents generators feature
@@ -256,17 +244,17 @@ declare namespace Generator {
         /**
          * Tasks methods starts with prefix. Allows api methods (non tasks) without prefix.
          */
-         taskPrefix?: string | undefined;
+        taskPrefix?: string | undefined;
 
         /**
          * Enable customCommitTask()
          */
-         customCommitTask?: boolean | undefined;
+        customCommitTask?: boolean | undefined;
 
-         /**
-          * Enable customInstallTask()
-          */
-         customInstallTask?: boolean | undefined;
+        /**
+         * Enable customInstallTask()
+         */
+        customInstallTask?: boolean | undefined;
     }
 
     /**
@@ -426,7 +414,6 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * Besides, arguments are used inside your code as a property ({@link Generator.args `this.args`}),
      * while options are all kept in a hash ({@link Generator.options `this.options`}).
      *
-     *
      * @param name Argument name.
      * @param config Argument options.
      * @return This generator.
@@ -571,7 +558,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Prompt user to answer questions.
      */
-    prompt<T>(questions: Generator.Questions<T>): Promise<T>;
+    prompt<T extends InquirerAnswers>(questions: Generator.Questions<T>): Promise<T>;
 
     /**
      * Queues the basic tasks of the generator.
@@ -629,7 +616,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param questions
      * The questions to register.
      */
-    registerConfigPrompts<TAnswers>(
+    registerConfigPrompts<TAnswers extends InquirerAnswers>(
         questions:
             | Generator.QuestionRegistrationOptions<TAnswers>
             | Array<Generator.QuestionRegistrationOptions<TAnswers>>,
@@ -698,7 +685,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    copyDestination: Editor['copy'];
+    copyDestination: Editor["copy"];
 
     /**
      * Copy file from templates folder to destination folder.
@@ -708,7 +695,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.copy(this.templatePath(from), this.destinationPath(to))
      * ```
      */
-    copyTemplate: Editor['copy'];
+    copyTemplate: Editor["copy"];
 
     /**
      * Deletes file from destination folder.
@@ -718,7 +705,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.delete(this.destinationPath(filepath))
      * ```
      */
-    deleteDestination: Editor['delete'];
+    deleteDestination: Editor["delete"];
 
     /**
      * Checks whether a file exists in the destination folder.
@@ -728,7 +715,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.exists(this.destinationPath(filepath))
      * ```
      */
-    existsDestination: Editor['exists'];
+    existsDestination: Editor["exists"];
 
     /**
      * Move file from destination folder to another destination folder.
@@ -738,7 +725,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.move(this.destinationPath(from), this.destinationPath(to))
      * ```
      */
-    moveDestination: Editor['move'];
+    moveDestination: Editor["move"];
 
     /**
      * Read file from destination folder.
@@ -748,7 +735,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.destinationPath(filepath))
      * ```
      */
-    readDestination: Editor['read'];
+    readDestination: Editor["read"];
 
     /**
      * Read JSON file from destination folder.
@@ -758,7 +745,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.readJSON(this.destinationPath(filepath))
      * ```
      */
-    readDestinationJSON: Editor['readJSON'];
+    readDestinationJSON: Editor["readJSON"];
 
     /**
      * Read file from templates folder.
@@ -768,7 +755,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.read(this.templatePath(filepath))
      * ```
      */
-    readTemplate: Editor['read'];
+    readTemplate: Editor["read"];
 
     /**
      * Copies a template from templates folder to the destination.
@@ -806,7 +793,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.write(this.destinationPath(filepath))
      * ```
      */
-    writeDestination: Editor['write'];
+    writeDestination: Editor["write"];
 
     /**
      * Write json file to destination folder
@@ -816,7 +803,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * this.fs.writeJSON(this.destinationPath(filepath))
      * ```
      */
-    writeDestinationJSON: Editor['writeJSON'];
+    writeDestinationJSON: Editor["writeJSON"];
 
     // actions/help mixin
     /**
@@ -896,7 +883,6 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *   yarn: {force: true},
      *   npm: false
      * }).then(() => console.log('Everything is ready!'));
-     *
      */
     installDependencies(options?: Generator.InstallOptions): void;
 

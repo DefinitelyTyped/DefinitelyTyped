@@ -1,17 +1,17 @@
 function test_elements() {
-  // no args
-  picturefill();
+    // no args
+    picturefill();
 
-  // Element[]
-  picturefill({elements: [ document.getElementById('#id') ]});
+    // Element[]
+    picturefill({ elements: [document.getElementById("#id")] });
 
-  // NodeList
-  picturefill({elements: document.querySelectorAll('img')});
+    // NodeList
+    picturefill({ elements: document.querySelectorAll("img") });
 }
 
 function test_optional() {
-  picturefill({
-    elements: [],
-    reevaluate: true
-  });
+    picturefill({
+        elements: [],
+        reevaluate: true,
+    });
 }

@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     function saveAs(data: any, filename: string, dataType: string): void;

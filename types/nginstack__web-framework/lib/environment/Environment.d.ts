@@ -2,17 +2,19 @@ export = Environment;
 declare function Environment(): void;
 declare class Environment {
     private _ctrlChannel;
+    sessionToken: string;
+    exiting: boolean;
     alert(message: string): any;
     prompt(
         label: string,
         options: any[],
-        opt_verticalAlign?: boolean,
-        opt_defaultOptionIndex?: number,
-        opt_escapeIndex?: number
+        verticalAlign?: boolean,
+        defaultOptionIndex?: number,
+        escapeIndex?: number,
     ): any;
-    confirm(msg: string, opt_negativeDefaultAnswer?: boolean): boolean;
-    exiting: boolean;
+    confirm(msg: string, negativeDefaultAnswer?: boolean): boolean;
     exit(uri?: string): void;
+    lockScreen(): boolean;
 }
 declare namespace Environment {
     function getInstance(): Environment;

@@ -1,70 +1,70 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     Animated,
-    Easing,
     AppRegistry,
+    Dimensions,
+    Easing,
+    Image,
+    ImageStyle,
     StyleSheet,
     Text,
-    Image,
-    View,
-    Dimensions,
-    ViewStyle,
     TextStyle,
-    ImageStyle,
-} from 'react-native';
-import SortableList, { RowProps } from 'react-native-sortable-list';
+    View,
+    ViewStyle,
+} from "react-native";
+import SortableList, { RowProps } from "react-native-sortable-list";
 
-const window = Dimensions.get('window');
+const window = Dimensions.get("window");
 
 const data = {
     0: {
-        image: 'https://placekitten.com/200/200',
-        text: 'Chloe',
+        image: "https://placekitten.com/200/200",
+        text: "Chloe",
     },
     1: {
-        image: 'https://placekitten.com/200/201',
-        text: 'Jasper',
+        image: "https://placekitten.com/200/201",
+        text: "Jasper",
     },
     2: {
-        image: 'https://placekitten.com/200/202',
-        text: 'Pepper',
+        image: "https://placekitten.com/200/202",
+        text: "Pepper",
     },
     3: {
-        image: 'https://placekitten.com/200/203',
-        text: 'Oscar',
+        image: "https://placekitten.com/200/203",
+        text: "Oscar",
     },
     4: {
-        image: 'https://placekitten.com/200/204',
-        text: 'Dusty',
+        image: "https://placekitten.com/200/204",
+        text: "Dusty",
     },
     5: {
-        image: 'https://placekitten.com/200/205',
-        text: 'Spooky',
+        image: "https://placekitten.com/200/205",
+        text: "Spooky",
     },
     6: {
-        image: 'https://placekitten.com/200/210',
-        text: 'Kiki',
+        image: "https://placekitten.com/200/210",
+        text: "Kiki",
     },
     7: {
-        image: 'https://placekitten.com/200/215',
-        text: 'Smokey',
+        image: "https://placekitten.com/200/215",
+        text: "Smokey",
     },
     8: {
-        image: 'https://placekitten.com/200/220',
-        text: 'Gizmo',
+        image: "https://placekitten.com/200/220",
+        text: "Gizmo",
     },
     9: {
-        image: 'https://placekitten.com/220/239',
-        text: 'Kitty',
+        image: "https://placekitten.com/220/239",
+        text: "Kitty",
     },
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#eee',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#eee",
         paddingTop: 60,
     },
     list: {
@@ -75,17 +75,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
     },
     row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "white",
         padding: 16,
         marginVertical: 5,
         height: 90,
         width: window.width - 30 * 2,
         borderRadius: 4,
-        shadowColor: 'rgba(0,0,0,0.2)',
+        shadowColor: "rgba(0,0,0,0.2)",
         shadowOpacity: 1,
-        shadowOffset: {height: 2, width: 2},
+        shadowOffset: { height: 2, width: 2 },
         shadowRadius: 2,
     },
     image: {
@@ -108,21 +108,21 @@ class Basic extends React.Component {
                     contentContainerStyle={styles.contentContainer}
                     data={data}
                     renderRow={this._renderRow}
-                    keyboardShouldPersistTaps='never'
+                    keyboardShouldPersistTaps="never"
                 />
             </View>
         );
     }
 
-    _renderRow = ({data, active}: RowProps) => {
-        return <Row data={data} active={active}/>;
-    }
+    _renderRow = ({ data, active }: RowProps) => {
+        return <Row data={data} active={active} />;
+    };
 }
 
 interface RowState {
     style: {
-        shadowRadius: Animated.Value
-        transform: Array<{scale: Animated.Value}>
+        shadowRadius: Animated.Value;
+        transform: Array<{ scale: Animated.Value }>;
     };
 }
 
@@ -130,8 +130,8 @@ class Row extends React.Component<RowProps, RowState> {
     state = {
         style: {
             shadowRadius: new Animated.Value(2),
-            transform: [{scale: new Animated.Value(1)}],
-        }
+            transform: [{ scale: new Animated.Value(1) }],
+        },
     };
 
     componentWillReceiveProps(nextProps: RowProps) {
@@ -147,7 +147,7 @@ class Row extends React.Component<RowProps, RowState> {
     }
 
     startActivationAnimation = () => {
-        const {style} = this.state;
+        const { style } = this.state;
 
         Animated.parallel([
             Animated.timing(style.transform[0].scale, {
@@ -163,10 +163,10 @@ class Row extends React.Component<RowProps, RowState> {
                 useNativeDriver: false,
             }),
         ]).start();
-    }
+    };
 
     startDeactivationAnimation = () => {
-        const {style} = this.state;
+        const { style } = this.state;
 
         Animated.parallel([
             Animated.timing(style.transform[0].scale, {
@@ -182,21 +182,23 @@ class Row extends React.Component<RowProps, RowState> {
                 useNativeDriver: false,
             }),
         ]).start();
-    }
+    };
 
     render() {
-        const {data} = this.props;
+        const { data } = this.props;
 
         return (
-            <Animated.View style={[
-                styles.row,
-                this.state.style,
-    ]}>
-                <Image source={{uri: data.image}} style={styles.image}/>
+            <Animated.View
+                style={[
+                    styles.row,
+                    this.state.style,
+                ]}
+            >
+                <Image source={{ uri: data.image }} style={styles.image} />
                 <Text style={styles.text}>{data.text}</Text>
             </Animated.View>
         );
     }
 }
 
-AppRegistry.registerComponent('Basic', () => Basic);
+AppRegistry.registerComponent("Basic", () => Basic);

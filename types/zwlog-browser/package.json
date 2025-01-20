@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/zwlog-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ZwLog API - zwlog.js",
+    "projects": [
+        "//assets.zjzwfw.gov.cn/assets/zwlog/1.0.0/zwlog.js"
+    ],
+    "devDependencies": {
+        "@types/zwlog-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jungzl",
+            "githubUsername": "jungzl"
+        }
+    ]
+}

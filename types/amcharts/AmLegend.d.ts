@@ -221,7 +221,7 @@ export default class AmLegend {
     valueWidth: number;
     /**
      * Vertical space between legend items also between legend border and first and last legend row.
-     * @default: 10
+     * @default 10
      */
     verticalGap: number;
     /**

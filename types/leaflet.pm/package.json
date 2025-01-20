@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/leaflet.pm",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/codeofsumit/leaflet.pm",
+        "https://leafletpm.now.sh"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.pm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Kleinke",
+            "githubUsername": "tkleinke"
+        }
+    ]
+}

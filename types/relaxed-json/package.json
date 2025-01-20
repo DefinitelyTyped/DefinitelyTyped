@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/relaxed-json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/phadej/relaxed-json"
+    ],
+    "devDependencies": {
+        "@types/relaxed-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mikal Madsen",
+            "githubUsername": "18steps"
+        }
+    ]
+}

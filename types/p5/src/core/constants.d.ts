@@ -5,16 +5,75 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
+         *   Version of this p5.js.
+         */
+        readonly VERSION: VERSION;
+
+        /**
          *   The default, two-dimensional renderer.
          */
         readonly P2D: P2D;
 
         /**
-         *   One of the two render modes in p5.js: P2D (default
-         *   renderer) and WEBGL Enables 3D render by
-         *   introducing the third dimension: Z
+         *   One of the two render modes in p5.js, used for
+         *   computationally intensive tasks like 3D rendering
+         *   and shaders. WEBGL differs from the default P2D
+         *   renderer in the following ways:
+         *
+         *   - Coordinate System - When drawing in WEBGL mode,
+         *   the origin point (0,0,0) is located at the center
+         *   of the screen, not the top-left corner. See the
+         *   learn page about coordinates and transformations.
+         *   - 3D Shapes - WEBGL mode can be used to draw
+         *   3-dimensional shapes like box(), sphere(), cone(),
+         *   and more. See the learn page about custom geometry
+         *   to make more complex objects.
+         *   - Shape Detail - When drawing in WEBGL mode, you
+         *   can specify how smooth curves should be drawn by
+         *   using a detail parameter. See the wiki section
+         *   about shapes for a more information and an
+         *   example.
+         *   - Textures - A texture is like a skin that wraps
+         *   onto a shape. See the wiki section about textures
+         *   for examples of mapping images onto surfaces with
+         *   textures.
+         *   - Materials and Lighting - WEBGL offers different
+         *   types of lights like ambientLight() to place
+         *   around a scene. Materials like specularMaterial()
+         *   reflect the lighting to convey shape and depth.
+         *   See the learn page for styling and appearance to
+         *   experiment with different combinations.
+         *   - Camera - The viewport of a WEBGL sketch can be
+         *   adjusted by changing camera attributes. See the
+         *   learn page section about cameras for an
+         *   explanation of camera controls.
+         *   - Text - WEBGL requires opentype/truetype font
+         *   files to be preloaded using loadFont(). See the
+         *   wiki section about text for details, along with a
+         *   workaround.
+         *   - Shaders - Shaders are hardware accelerated
+         *   programs that can be used for a variety of effects
+         *   and graphics. See the introduction to shaders to
+         *   get started with shaders in p5.js.
+         *   - Graphics Acceleration - WEBGL mode uses the
+         *   graphics card instead of the CPU, so it may help
+         *   boost the performance of your sketch (example:
+         *   drawing more shapes on the screen at once).
+         *
+         *   To learn more about WEBGL mode, check out all the
+         *   interactive WEBGL tutorials in the "Learn" section
+         *   of this website, or read the wiki article "Getting
+         *   started with WebGL in p5".
          */
         readonly WEBGL: WEBGL;
+
+        /**
+         *   One of the two possible values of a WebGL canvas
+         *   (either WEBGL or WEBGL2), which can be used to
+         *   determine what capabilities the rendering
+         *   environment has.
+         */
+        readonly WEBGL2: WEBGL2;
         readonly ARROW: ARROW;
         readonly CROSS: CROSS;
         readonly HAND: HAND;
@@ -69,15 +128,15 @@ declare module '../../index' {
         readonly TWO_PI: number;
 
         /**
-         *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprates and
+         *   Constant to be used with the angleMode() function,
+         *   to set the mode in which p5.js interprets and
          *   calculates angles (either DEGREES or RADIANS).
          */
         readonly DEGREES: DEGREES;
 
         /**
-         *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprates and
+         *   Constant to be used with the angleMode() function,
+         *   to set the mode in which p5.js interprets and
          *   calculates angles (either RADIANS or DEGREES).
          */
         readonly RADIANS: RADIANS;
@@ -99,6 +158,7 @@ declare module '../../index' {
         readonly TRIANGLE_STRIP: TRIANGLE_STRIP;
         readonly QUADS: QUADS;
         readonly QUAD_STRIP: QUAD_STRIP;
+        readonly TESS: TESS;
         readonly CLOSE: CLOSE;
         readonly OPEN: OPEN;
         readonly CHORD: CHORD;
@@ -109,6 +169,11 @@ declare module '../../index' {
         readonly BEVEL: BEVEL;
         readonly MITER: MITER;
         readonly RGB: RGB;
+
+        /**
+         *   HSB (hue, saturation, brightness) is a type of
+         *   color model. You can learn more about it at HSB.
+         */
         readonly HSB: HSB;
         readonly HSL: HSL;
 
@@ -135,6 +200,7 @@ declare module '../../index' {
         readonly TAB: number;
         readonly UP_ARROW: number;
         readonly BLEND: BLEND;
+        readonly REMOVE: REMOVE;
         readonly ADD: ADD;
         readonly DARKEST: DARKEST;
         readonly LIGHTEST: LIGHTEST;
@@ -161,6 +227,8 @@ declare module '../../index' {
         readonly ITALIC: ITALIC;
         readonly BOLD: BOLD;
         readonly BOLDITALIC: BOLDITALIC;
+        readonly CHAR: CHAR;
+        readonly WORD: WORD;
         readonly LINEAR: LINEAR;
         readonly QUADRATIC: QUADRATIC;
         readonly BEZIER: BEZIER;
@@ -178,12 +246,14 @@ declare module '../../index' {
         readonly PORTRAIT: PORTRAIT;
         readonly GRID: GRID;
         readonly AXES: AXES;
-
-        /**
-         *   Constants to be used with describe() function, to
-         *   set the display parameter.
-         */
         readonly LABEL: LABEL;
-        readonly FALLBACK: LABEL;
+        readonly FALLBACK: FALLBACK;
+        readonly CONTAIN: CONTAIN;
+        readonly COVER: COVER;
+        readonly UNSIGNED_BYTE: UNSIGNED_BYTE;
+        readonly UNSIGNED_INT: UNSIGNED_INT;
+        readonly HALF_FLOAT: HALF_FLOAT;
+        readonly FLOAT: FLOAT;
+        readonly RGBA: RGBA;
     }
 }

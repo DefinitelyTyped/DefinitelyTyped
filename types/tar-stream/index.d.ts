@@ -1,13 +1,6 @@
-// Type definitions for tar-stream 2.2
-// Project: https://github.com/mafintosh/tar-stream
-// Definitions by: Guy Lichtman <https://github.com/glicht>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Kevin Lindsay <https://github.com/kevin-lindsay-1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 export type Callback = (err?: Error | null) => any;
 
@@ -21,18 +14,18 @@ export interface Headers {
     mtime?: Date | undefined;
     linkname?: string | null | undefined;
     type?:
-        | 'file'
-        | 'link'
-        | 'symlink'
-        | 'character-device'
-        | 'block-device'
-        | 'directory'
-        | 'fifo'
-        | 'contiguous-file'
-        | 'pax-header'
-        | 'pax-global-header'
-        | 'gnu-long-link-path'
-        | 'gnu-long-path'
+        | "file"
+        | "link"
+        | "symlink"
+        | "character-device"
+        | "block-device"
+        | "directory"
+        | "fifo"
+        | "contiguous-file"
+        | "pax-header"
+        | "pax-global-header"
+        | "gnu-long-link-path"
+        | "gnu-long-path"
         | null
         | undefined;
     uname?: string | undefined;
@@ -48,14 +41,21 @@ export interface Pack extends stream.Readable {
     entry(headers: Headers, callback?: Callback): stream.Writable;
     entry(headers: Headers, buffer?: string | Buffer, callback?: Callback): stream.Writable;
     finalize(): void;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
+}
+
+export interface Entry extends stream.Readable {
+    header: Headers;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
 }
 
 export interface Extract extends stream.Writable {
     on(event: string, listener: (...args: any[]) => void): this;
     on(
-        event: 'entry',
+        event: "entry",
         listener: (headers: Headers, stream: stream.PassThrough, next: (error?: unknown) => void) => void,
     ): this;
+    [Symbol.asyncIterator](): AsyncIterator<Entry>;
 }
 
 export interface ExtractOptions extends stream.WritableOptions {

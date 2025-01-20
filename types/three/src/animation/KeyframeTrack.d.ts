@@ -1,7 +1,16 @@
-import { DiscreteInterpolant } from './../math/interpolants/DiscreteInterpolant';
-import { LinearInterpolant } from './../math/interpolants/LinearInterpolant';
-import { CubicInterpolant } from './../math/interpolants/CubicInterpolant';
-import { InterpolationModes } from '../constants';
+import { InterpolationModes } from "../constants.js";
+import { Interpolant } from "../math/Interpolant.js";
+import { CubicInterpolant } from "../math/interpolants/CubicInterpolant.js";
+import { DiscreteInterpolant } from "../math/interpolants/DiscreteInterpolant.js";
+import { LinearInterpolant } from "../math/interpolants/LinearInterpolant.js";
+
+export interface KeyframeTrackJSON {
+    name: string;
+    times: number[];
+    values: number[];
+    interpolation?: InterpolationModes;
+    type: string;
+}
 
 export class KeyframeTrack {
     /**
@@ -10,7 +19,7 @@ export class KeyframeTrack {
      * @param values
      * @param [interpolation=THREE.InterpolateLinear]
      */
-    constructor(name: string, times: ArrayLike<any>, values: ArrayLike<any>, interpolation?: InterpolationModes);
+    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<any>, interpolation?: InterpolationModes);
 
     name: string;
     times: Float32Array;
@@ -31,6 +40,7 @@ export class KeyframeTrack {
 
     setInterpolation(interpolation: InterpolationModes): KeyframeTrack;
     getInterpolation(): InterpolationModes;
+    createInterpolant(): Interpolant;
 
     getValueSize(): number;
 
@@ -41,5 +51,5 @@ export class KeyframeTrack {
     optimize(): KeyframeTrack;
     clone(): this;
 
-    static toJSON(track: KeyframeTrack): any;
+    static toJSON(track: KeyframeTrack): KeyframeTrackJSON;
 }

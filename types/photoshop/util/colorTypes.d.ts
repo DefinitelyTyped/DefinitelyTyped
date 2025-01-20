@@ -1,47 +1,61 @@
-export declare type ColorDescType = RGBColorDesc | HSBColorDesc | CMYKColorDesc | LabColorDesc | GrayscaleColorDesc | OpacityColorDesc;
-export declare type ColorType = RGBColor | HSBColor | CMYKColor | LabColor | GrayscaleColor | OpacityColor;
-export interface RGBColor {
+/**
+ * These types define color objects that Photoshop accepts, particularly [[PhotoshopCore.convertColor]] API
+ *
+ * On DOM level, [[SolidColor]] is used for all representations of a color.
+ */
+export declare type ColorDescriptor =
+    | RGBColorDescriptor
+    | HSBColorDescriptor
+    | CMYKColorDescriptor
+    | LabColorDescriptor
+    | GrayscaleColorDescriptor
+    | RGB32ColorDescriptor;
+export interface RGBColorDescriptor {
+    _obj: "RGBColor";
     red: number;
     green: number;
     blue: number;
 }
-export interface HSBColor {
-    hue: number;
+export interface RGB32ColorDescriptor {
+    _obj: "RGBColor";
+    greenFloat: number;
+    redFloat: number;
+    blueFloat: number;
+}
+export interface HSBColorDescriptor {
+    _obj: "HSBColorClass";
+    hue: {
+        _unit: "angleUnit";
+        _value: number;
+    };
     saturation: number;
     brightness: number;
 }
-export interface CMYKColor {
+export interface CMYKColorDescriptor {
+    _obj: "CMYKColorClass";
     cyan: number;
     magenta: number;
-    yellow: number;
+    yellowColor: number;
     black: number;
 }
-export interface GrayscaleColor {
-    gray: number;
-}
-export interface LabColor {
+export interface LabColorDescriptor {
+    _obj: "labColor";
     luminance: number;
     a: number;
     b: number;
 }
-export interface OpacityColor {
-    opacity: number;
-}
-export interface RGBColorDesc extends RGBColor {
-    _obj: "RGBColor";
-}
-export interface HSBColorDesc extends HSBColor {
-    _obj: "HSBColorClass";
-}
-export interface CMYKColorDesc extends CMYKColor {
-    _obj: "CMYKColorClass";
-}
-export interface LabColorDesc extends LabColor {
-    _obj: "labColor";
-}
-export interface GrayscaleColorDesc extends GrayscaleColor {
+export interface GrayscaleColorDescriptor {
     _obj: "grayscale";
+    gray: number;
 }
-export interface OpacityColorDesc extends OpacityColor {
-    _obj: "opacityClass";
+/**
+ * These internal numbers are used by Photoshop as target color spaces during [[photoshopCore.convertColor]] calls.
+ * @ignore
+ */
+export declare enum ColorConversionModel {
+    "HSB" = 4,
+    "CMYK" = 5,
+    "Lab" = 6,
+    "RGB" = 15,
+    "Gray" = 16,
 }

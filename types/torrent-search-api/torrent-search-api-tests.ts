@@ -48,7 +48,7 @@ const torrent = {
     size: "size",
     magnet: "magnet",
     desc: "desc",
-    provider: "provider"
+    provider: "provider",
 };
 
 // $ExpectType Promise<string>
@@ -75,7 +75,7 @@ const provider = {
     searchUrl: "searchUrl",
     categories: {
         All: "all",
-        Movies: "movies"
+        Movies: "movies",
     },
     defaultCategory: "all",
     resultsPerPageCount: 50,
@@ -85,16 +85,16 @@ const provider = {
         seeds: ".seeds",
         peers: ".peers",
         size: ".size",
-        desc: ".desc"
+        desc: ".desc",
     },
     paginateSelector: ".page",
     torrentDetailsSelector: ".detail",
     enableCloudFareBypass: true,
     headers: {
-        UserAgent: "ua"
+        UserAgent: "ua",
     },
     magnetSelector: ".magnet",
-    autoFixUnstableUrl: true
+    autoFixUnstableUrl: true,
 };
 
 // $ExpectType void

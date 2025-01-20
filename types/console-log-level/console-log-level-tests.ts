@@ -5,13 +5,13 @@ const logger0 = consoleLogLevel();
 const logger1 = consoleLogLevel({
     level: "trace",
     stderr: undefined,
-    prefix: () => "SOME PREFIX"
+    prefix: () => "SOME PREFIX",
 });
 
 const logger2 = consoleLogLevel({
     level: "trace",
     stderr: true,
-    prefix: "OTHER PREFIX"
+    prefix: "OTHER PREFIX",
 });
 
 logger1.trace("hello %s", "world");

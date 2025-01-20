@@ -1,9 +1,9 @@
-import { _Window } from '../window/window';
-import { AnchorType, Bounds } from '../../shapes';
-import { Base, EmitterBase } from '../base';
-import { ExternalWindowEvents } from '../events/externalWindow';
-import { Identity } from '../../identity';
-import Transport from '../../transport/transport';
+import { Identity } from "../../identity";
+import { AnchorType, Bounds } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase } from "../base";
+import { ExternalWindowEvents } from "../events/externalWindow";
+import { _Window } from "../window/window";
 /**
  * @lends ExternalWindow
  */
@@ -30,7 +30,6 @@ export default class ExternalWindowModule extends Base {
  * They are also compatible with OpenFin's Layouts service to facilitate
  * complete positional control over all running applications.<br>
  * External Windows has the ability to listen for <a href="tutorial-ExternalWindow.EventEmitter.html"> external window-specific events</a>.
- * @class
  * @alias ExternalWindow
  * @hideconstructor
  */
@@ -49,7 +48,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.close
-    */
+     */
     close(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
@@ -61,7 +60,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
     /**
      * Gives focus to the external window.
      * @return {Promise.<void>}
-     * @emits ExternalWindow#focused
+     * @fires ExternalWindow#focused
      * @experimental
      * @tutorial Window.focus
      */
@@ -71,7 +70,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<Bounds>}
      * @experimental
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Retrieves an array containing wrapped external windows that are grouped
@@ -215,7 +214,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
     setAsForeground(): Promise<void>;
     /**
      * Sets the external window's size and position.
-     * @property { Bounds } bounds
      * @return {Promise.<void>}
      * @experimental
      * @tutorial Window.setBounds

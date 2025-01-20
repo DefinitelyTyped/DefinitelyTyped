@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { ButtonSizes, ButtonColors } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { ButtonColors, ButtonSizes } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 export interface ButtonPropsCommon extends FlexboxPropTypes {
     size?: ButtonSizes | undefined;
     isHollow?: boolean | undefined;

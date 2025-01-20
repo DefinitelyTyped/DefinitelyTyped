@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/liferay",
+    "version": "1.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Liferay's Global JavaScript Object",
+    "projects": [
+        "https://github.com/liferay/liferay-portal",
+        "https://www.liferay.com/developers"
+    ],
+    "devDependencies": {
+        "@types/liferay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Wanner",
+            "githubUsername": "jwanner83"
+        },
+        {
+            "name": "Jannik Jost",
+            "githubUsername": "JannikJost"
+        }
+    ]
+}

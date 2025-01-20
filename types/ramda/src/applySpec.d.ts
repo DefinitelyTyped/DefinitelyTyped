@@ -1,2 +1,2 @@
-import { applySpec } from '../index';
+import { applySpec } from "../index";
 export default applySpec;

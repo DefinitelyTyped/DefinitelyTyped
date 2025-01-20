@@ -1,2 +1,2 @@
-import Type = require('../2015/Type');
+import Type = require("../2015/Type");
 export = Type;

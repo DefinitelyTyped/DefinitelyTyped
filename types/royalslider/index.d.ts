@@ -1,9 +1,3 @@
-// Type definitions for jQuery royal-slider 9.4
-// Project: http://dimsemenov.com/plugins/royal-slider/documentation/
-// Definitions by: Christiaan Rakowski <https://github.com/csrakowski>, sKopheK <https://github.com/sKopheK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace RoyalSlider {
@@ -332,7 +326,7 @@ declare namespace RoyalSlider {
         /**
          * Scales and animates height based on current slide. Please note: if you have images in slide that don't have rsImg class) or don't have fixed size, use $(window).load() instead of $(document).ready() before initializing slider. Also, autoHeight doesn't work with properties like autoScaleSlider, imageScaleMode and imageAlignCenter.  (default: false)
          */
-        autoHeight?: boolean | undefined;// false
+        autoHeight?: boolean | undefined; // false
         /**
          * Overrides HTML of slides, used for creating of slides from HTML that is not attached to DOM. More info in knowledge base.  (default: null)
          */
@@ -434,7 +428,7 @@ declare namespace RoyalSlider {
         thumbnail: string;
     }
 
-    export interface RoyalSlider { //TODO: extends/implements JQuery? (giving problems due to next(), prev(), width and height and 'selector'.
+    export interface RoyalSlider { // TODO: extends/implements JQuery? (giving problems due to next(), prev(), width and height and 'selector'.
         /**
          * go to slide with id
          */
@@ -542,7 +536,7 @@ declare namespace RoyalSlider {
         /**
          * Contains list of HTML slides that are added to slider
          */
-        slidesJQ: JQuery[]; //TODO: what type?
+        slidesJQ: JQuery[]; // TODO: what type?
         /**
          * Object with slider settings
          */
@@ -556,9 +550,9 @@ declare namespace RoyalSlider {
 
 interface JQuery {
     /**
-    * Creates a new royal-slider with the specified, or default, options.
-    *
-    * @param options The options
-    */
+     * Creates a new royal-slider with the specified, or default, options.
+     *
+     * @param options The options
+     */
     royalSlider(options?: RoyalSlider.RoyalSliderOptions): JQuery;
 }

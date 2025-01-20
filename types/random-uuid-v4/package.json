@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-uuid-v4",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/leahciMic/uuid-v4#readme"
+    ],
+    "devDependencies": {
+        "@types/random-uuid-v4": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ankan Bhattacharya",
+            "githubUsername": "Ankan002"
+        }
+    ]
+}

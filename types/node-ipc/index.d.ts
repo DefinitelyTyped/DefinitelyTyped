@@ -1,7 +1,3 @@
-// Type definitions for node-ipc 9.1
-// Project: http://riaevangelist.github.io/node-ipc/
-// Definitions by: Arvitaly <https://github.com/arvitaly>, gjurgens <https://github.com/gjurgens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Socket } from "net";
 declare namespace NodeIPC {
@@ -234,6 +230,16 @@ declare namespace NodeIPC {
          */
         networkPort: number;
         /**
+         * Default: false
+         * Makes the pipe readable for all users including windows services
+         */
+        readableAll: boolean;
+        /**
+         * Default: false
+         * Makes the pipe writable for all users including windows services
+         */
+        writableAll: boolean;
+        /**
          * Default: 'utf8'
          * the default encoding for data sent on sockets. Mostly used if rawBuffer is set to true.
          * Valid values are : ascii utf8 utf16le ucs2 base64 hex
@@ -338,6 +344,6 @@ declare namespace NodeIPC {
     }
 }
 
-declare const RootIPC: NodeIPC.IPC & { IPC: new () => NodeIPC.IPC };
+declare const RootIPC: NodeIPC.IPC & { IPC: new() => NodeIPC.IPC };
 
 export = RootIPC;

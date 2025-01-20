@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-photoswipe",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/minhtranite/react-photoswipe"
+    ],
+    "dependencies": {
+        "@types/photoswipe": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-photoswipe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kwzm",
+            "githubUsername": "kwzm"
+        }
+    ]
+}

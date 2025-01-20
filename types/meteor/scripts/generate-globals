@@ -13,6 +13,22 @@ the modules that also have globals) by hand, and this script generates
 
 Usage: scripts/generate-globals
 
+Note that the output needs some hand editing after the script runs.
+In general, because `import`s need to be removed, some imported types need
+to be replaced by `any`.  Specifically:
+
+* In `globals/mongo.d.ts`, imported Mongo types `IndexOptions`,
+  `MongoCollection`, `MongoDb`, `MongoClient`, and `typeof MongoNpmModule`
+  need to be replaced by `any`.
+* In `globals/server-render.d.ts`, imported types `http.IncomingMessage` and
+  `http.IncomingHttpHeaders` need to be replaced by `any`.
+* In `globals/meteor-tests.ts`:
+  * `declare module 'meteor/meteor' { ... }` should be removed
+    (as it is nonfunctional).
+  * In the `Rooms.rawDatabase().stats().then` callback,
+    `stats` and `error` need to be typed `: any`.
+  * `user.dexterity` needs to be cast as `(user as any).dexterity`.
+
 This script may be used by Meteor typings packages in DefinitelyTyped other than
 `meteor` itself.
 
@@ -74,9 +90,9 @@ for (let outFile of files) {
             } else {
                 let m2;
                 // Capture any line with a comment
-                if ((m2 = /^    (\/\/.*)$/.exec(l)) != null) return m2[1];
-
-                if ((m2 = /^    ([^} ].*)$/.exec(l)) != null) return "declare " + m2[1];
+                if ((m2 = /^    (\/[\/\*].*)$/.exec(l)) != null) return m2[1];
+                if ((m2 = /^    ((import|export [\{\*]).*)$/.exec(l)) != null) return m2[1];
+                if ((m2 = /^    ([^})> ].*)$/.exec(l)) != null) return "declare " + m2[1].replace(/^export /, '');
                 if ((m2 = /^    (.*)$/.exec(l)) != null) return m2[1];
                 if (l == "") return l;
                 return null;  // Strip `declare module "..." {` and `}`.

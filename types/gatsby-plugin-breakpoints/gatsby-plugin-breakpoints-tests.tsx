@@ -1,18 +1,18 @@
-import React from 'react';
 import {
     BreakpointConfig,
-    BreakpointProvider,
     BreakpointContext,
+    BreakpointProps,
+    BreakpointProvider,
     useBreakpoint,
     withBreakpoints,
-    BreakpointProps,
-} from 'gatsby-plugin-breakpoints';
+} from "gatsby-plugin-breakpoints";
+import React, { ReactNode } from "react";
 
 const defaultQueries = {
-    xs: '(max-width: 320px)',
-    sm: '(max-width: 720px)',
-    md: '(max-width: 1024px)',
-    l: '(max-width: 1536px)',
+    xs: "(max-width: 320px)",
+    sm: "(max-width: 720px)",
+    md: "(max-width: 1024px)",
+    l: "(max-width: 1536px)",
 };
 
 const plugins: BreakpointConfig = {
@@ -49,6 +49,6 @@ function useContext() {
     return context;
 }
 // BreakpointProvider
-const ProviderComponent: React.FC = ({ children }) => {
+const ProviderComponent: React.FC<{ children?: ReactNode }> = ({ children }) => {
     return <BreakpointProvider queries={defaultQueries}>{children}</BreakpointProvider>;
 };

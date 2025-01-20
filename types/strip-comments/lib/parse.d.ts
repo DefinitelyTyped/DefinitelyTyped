@@ -1,5 +1,5 @@
-import { Options } from '../';
-import { Block } from './Node';
+import { Options } from "../";
+import { Block } from "./Node";
 
 /**
  * Parses a string and returns a basic CST (Concrete Syntax Tree).

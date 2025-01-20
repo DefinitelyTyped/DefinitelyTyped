@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/activex-word",
+    "version": "14.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Word 14.0 Object Library - Word",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/fp179696.aspx"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
+        "@types/activex-office": "*",
+        "@types/activex-stdole": "*",
+        "@types/activex-vbide": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-word": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/xk6-sql-browser",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "xk6-sql",
+    "projects": [
+        "https://github.com/grafana/xk6-sql"
+    ],
+    "devDependencies": {
+        "@types/xk6-sql-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leandro Gomes",
+            "githubUsername": "leandrodotec"
+        }
+    ]
+}

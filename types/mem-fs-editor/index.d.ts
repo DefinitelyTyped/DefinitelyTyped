@@ -1,22 +1,15 @@
-// Type definitions for mem-fs-editor 7.0
-// Project: https://github.com/SBoudrias/mem-fs-editor#readme
-// Definitions by: My Food Bag <https://github.com/MyFoodBag>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
-import { Options as TemplateOptions, Data as TemplateData } from 'ejs';
-import { IOptions as GlobOptions } from 'glob';
+import { Data as TemplateData, Options as TemplateOptions } from "ejs";
+import { GlobbyOptions as GlobOptions } from "globby";
 import { JSONSchema7Type } from "json-schema";
-import { Store } from 'mem-fs';
-import { Transform } from 'stream';
-import * as File from 'vinyl';
+import { Store } from "mem-fs";
+import { Transform } from "stream";
+import * as File from "vinyl";
 
 export function create(store: Store): Editor;
 
-//#region Editor
+// #region Editor
 export interface Editor {
     read(filepath: string, options?: ReadStringOptions): string;
     read(filepath: string, options: ReadRawOptions): ReadRawContents;
@@ -34,16 +27,28 @@ export interface Editor {
 
     delete(filepath: FilePaths, options?: WithGlobOptions): void;
 
-    copy(from: FilePaths, to: string, options?: CopyOptions, context?: TemplateData, templateOptions?: TemplateOptions): void;
+    copy(
+        from: FilePaths,
+        to: string,
+        options?: CopyOptions,
+        context?: TemplateData,
+        templateOptions?: TemplateOptions,
+    ): void;
 
-    copyTpl(from: FilePaths, to: string, context?: TemplateData, templateOptions?: TemplateOptions, copyOptions?: CopyOptions): void;
+    copyTpl(
+        from: FilePaths,
+        to: string,
+        context?: TemplateData,
+        templateOptions?: TemplateOptions,
+        copyOptions?: CopyOptions,
+    ): void;
 
     move(from: FilePaths, to: string, options?: WithGlobOptions): void;
 
     exists(filepath: string): boolean;
 
     commit(callback: CommitCallback): void;
-    commit(filters: ReadonlyArray<Transform>, callback: CommitCallback): void;
+    commit(filters: readonly Transform[], callback: CommitCallback): void;
 }
 
 export interface WithGlobOptions {
@@ -52,7 +57,7 @@ export interface WithGlobOptions {
 
 type FilePaths = string | string[];
 
-//#region Editor#read
+// #region Editor#read
 export interface ReadStringOptions {
     raw?: false | undefined;
     defaults?: string | undefined;
@@ -64,26 +69,26 @@ export interface ReadRawOptions {
 }
 
 type ReadRawContents = Exclude<File["contents"], null>;
-//#endregion
+// #endregion
 
-//#region Editor#write
+// #region Editor#write
 type WriteContents = string | Buffer;
-//#endregion
+// #endregion
 
-//#region Editor#writeJSON
+// #region Editor#writeJSON
 type WriteJsonReplacer = ((key: string, value: any) => any) | Array<string | number>;
 
 type WriteJsonSpace = number | string;
-//#endregion
+// #endregion
 
-//#region Editor#append
+// #region Editor#append
 export interface AppendOptions {
     trimEnd?: boolean | undefined;
     separator?: string | undefined;
 }
-//#endregion
+// #endregion
 
-//#region Editor#copy
+// #region Editor#copy
 export interface CopyOptions extends WithGlobOptions {
     ignoreNoMatch?: boolean | undefined;
     process?: ProcessingFunction | undefined;
@@ -91,11 +96,11 @@ export interface CopyOptions extends WithGlobOptions {
 }
 
 export type ProcessingFunction = (contents: Buffer, path: string) => WriteContents;
-//#endregion
+// #endregion
 
-//#region Editor#commit
+// #region Editor#commit
 type CommitCallback = (err: any) => void;
-//#endregion
-//#endregion
+// #endregion
+// #endregion
 
 export {};

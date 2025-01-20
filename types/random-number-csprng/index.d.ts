@@ -1,8 +1,3 @@
-// Type definitions for random-number-csprng 1.0
-// Project: https://github.com/joepie91/node-random-number-csprng
-// Definitions by: nacam403 <https://github.com/nacam403>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns a Promise that resolves to a random number within the specified range.
  *

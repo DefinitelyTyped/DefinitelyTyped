@@ -15,14 +15,33 @@ export import converters = require("./converters");
 export import parsers = require("./parsers");
 export import plugins = require("./plugins");
 
-export function createInstance(libraries?: localisation.Language.Library | localisation.Language.Library[], context?: Context.Properties): Yadda;
+export function createInstance(
+    libraries?: localisation.Language.Library | localisation.Language.Library[],
+    context?: Context.Properties,
+): Yadda;
 
-export type Converter = ((arg1: string, next: (err: Error | null, value: any) => void) => void)
+export type Converter =
+    | ((arg1: string, next: (err: Error | null, value: any) => void) => void)
     | ((arg1: string, arg2: string, next: (err: Error | null, value: any) => void) => void)
     | ((arg1: string, arg2: string, arg3: string, next: (err: Error | null, value: any) => void) => void)
     | ((arg1: string, arg2: string, arg3: string, arg4: string, next: (err: Error | null, value: any) => void) => void)
-    | ((arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, next: (err: Error | null, value: any) => void) => void)
-    | ((arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, next: (err: Error | null, value: any) => void) => void);
+    | ((
+        arg1: string,
+        arg2: string,
+        arg3: string,
+        arg4: string,
+        arg5: string,
+        next: (err: Error | null, value: any) => void,
+    ) => void)
+    | ((
+        arg1: string,
+        arg2: string,
+        arg3: string,
+        arg4: string,
+        arg5: string,
+        arg6: string,
+        next: (err: Error | null, value: any) => void,
+    ) => void);
 
 export interface Annotations {
     [key: string]: string;

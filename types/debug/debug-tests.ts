@@ -1,6 +1,6 @@
 import * as debug1 from "debug";
-/*tslint:disable-next-line:no-duplicate-imports*/
-import debug2 from 'debug';
+/*eslint-disable-next-line no-duplicate-imports*/
+import debug2 from "debug";
 
 const log2: debug1.Debugger = debug2("DefinitelyTyped:log");
 log2("Just text");
@@ -24,10 +24,10 @@ const error: debug1.Debugger = debug1("DefinitelyTyped:error");
 error.log = console.error.bind(console);
 error("This should be printed to stderr");
 
-const extendedLog: debug1.Debugger = log.extend('extended');
+const extendedLog: debug1.Debugger = log.extend("extended");
 extendedLog("Testing this is also an IDebugger.");
 
-const extendedWithCustomDelimiter: debug1.Debugger = log.extend('with-delim', '.');
+const extendedWithCustomDelimiter: debug1.Debugger = log.extend("with-delim", ".");
 extendedWithCustomDelimiter("Testing this is an IDebugger, too.");
 
 debug2.log = console.log.bind(console);
@@ -53,3 +53,7 @@ debug2.log = function(this: debug1.Debugger, ...args) {
         diff,
     });
 };
+
+if (debug2.inspectOpts) {
+    debug2.inspectOpts.depth = 12;
+}

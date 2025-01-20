@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/styled-components-react-native",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/styled-components/styled-components"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "^0.70",
+        "@types/styled-components": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/styled-components-react-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

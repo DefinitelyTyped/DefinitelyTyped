@@ -1,7 +1,7 @@
 export type exports = number;
-declare const UNCHANGED: number;
-declare const ADDED: number;
-declare const MODIFIED: number;
-declare const DELETED: number;
-declare const DETACHED: number;
+declare let UNCHANGED: number;
+declare let ADDED: number;
+declare let MODIFIED: number;
+declare let DELETED: number;
+declare let DETACHED: number;
 export {};

@@ -1,17 +1,8 @@
-// Type definitions for sockjs-client 1.5
-// Project: https://github.com/sockjs/sockjs-client, http://sockjs.org
-// Definitions by: Emil Ivanov <https://github.com/vladev>
-//                 Alexander Rusakov <https://github.com/arusakov>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Soner Köksal <https://github.com/renjfk>
-//                 Alexander Putilov <https://github.com/PutilovAI>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = SockJS;
 export as namespace SockJS;
 
 declare const SockJS: {
-    new (url: string, _reserved?: any, options?: SockJS.Options): WebSocket;
+    new(url: string, _reserved?: any, options?: SockJS.Options): WebSocket;
     (url: string, _reserved?: any, options?: SockJS.Options): WebSocket;
     prototype: WebSocket;
     CONNECTING: SockJS.CONNECTING;

@@ -1,10 +1,7 @@
-// Type definitions for snowflake-sdk 1.6
-// Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
-// Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
-//                 Mauricio Rojas <https://github.com/orellabac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+
+import { Options as PoolOptions, Pool } from "generic-pool";
+import { Readable } from "stream";
 
 /**
  * ### Related Docs
@@ -147,8 +144,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;
@@ -158,9 +155,15 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
 }
 
+export interface StreamOptions {
+    start?: number;
+    end?: number;
+    fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
+}
+
 /**
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#required-connection-options Required Connection Options}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#required-connection-options Required Connection Options}
  */
 export interface ConnectionOptions {
     /**
@@ -172,7 +175,7 @@ export interface ConnectionOptions {
     /**
      * Snowflake user login name to connect with.
      */
-    username: string;
+    username?: string;
 
     /**
      * Password for the user. Set this option if you set the authenticator option to SNOWFLAKE or the Okta URL endpoint for your
@@ -210,6 +213,11 @@ export interface ConnectionOptions {
     role?: string | undefined;
 
     /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
+
+    /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
      *
      * If the parameter clientSessionKeepAlive is set to true, the client’s connection to the server will be kept alive
@@ -238,6 +246,11 @@ export interface ConnectionOptions {
     clientSessionKeepAliveHeartbeatFrequency?: number | undefined;
 
     jsTreatIntegerAsBigInt?: boolean | undefined;
+
+    /**
+     * Specifies the name of the client application connecting to Snowflake.
+     */
+    application?: string;
 
     /**
      * Specifies the authenticator to use for verifying user login credentials. You can set this to one of the following values:
@@ -275,6 +288,48 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
      */
     privateKeyPass?: string;
+
+    /**
+     * Specifies a fully-qualified endpoint for connecting to Snowflake.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    accessUrl?: string;
+
+    /**
+     * Specifies the proxy host to use for the connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyHost?: string;
+
+    /**
+     * Specifies the proxy port to use for the connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyPort?: number;
+
+    /**
+     * Specifies the protocol to use for the proxy connection. Default value is http.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyProtocol?: string;
+
+    /**
+     * Specifies the username to use for the proxy connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyUser?: string;
+
+    /**
+     * Specifies the password to use for the proxy connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyPassword?: string;
+
+    /**
+     * Specifies the lists of hosts that the driver should connect to directly, bypassing the proxy server.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    noProxy?: string;
 }
 
 export interface Column {
@@ -304,14 +359,79 @@ export interface Column {
     getScale(): number;
 
     /**
-     * Retuns the type associated with this column.
+     * Returns the type associated with this column.
      */
     getType(): string;
+
+    /**
+     * Returns true if this column is type STRING.
+     */
+    isString(): boolean;
+
+    /**
+     * Returns true if this column is type BINARY.
+     */
+    isBinary(): boolean;
+
+    /**
+     * Returns true if this column is type NUMBER.
+     */
+    isNumber(): boolean;
+
+    /**
+     * Returns true if this column is type BOOLEAN.
+     */
+    isBoolean(): boolean;
+
+    /**
+     * Returns true if this column is type DATE.
+     */
+    isDate(): boolean;
+
+    /**
+     * Returns true if this column is type TIME.
+     */
+    isTime(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP.
+     */
+    isTimestamp(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_LTZ.
+     */
+    isTimestampLtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_NTZ.
+     */
+    isTimestampNtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_TZ.
+     */
+    isTimestampTz(): boolean;
+
+    /**
+     * Returns true if this column is type VARIANT.
+     */
+    isVariant(): boolean;
+
+    /**
+     * Returns true if this column is type OBJECT.
+     */
+    isObject(): boolean;
+
+    /**
+     * Returns true if this column is type ARRAY.
+     */
+    isArray(): boolean;
 }
 
 export enum StatementStatus {
-    Fetching = 'fetching',
-    Complete = 'complete',
+    Fetching = "fetching",
+    Complete = "complete",
 }
 
 export interface Statement {
@@ -373,7 +493,13 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): NodeJS.ReadableStream;
+    /**
+     * Streams the rows in this statement's result. If start and end values are
+     * specified, only rows in the specified range are streamed.
+     *
+     * @param StreamOptions options
+     */
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
@@ -398,7 +524,7 @@ export type Bind = string | number;
  * ```
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#binding-statement-parameters Binding Statement Parameters}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#binding-statement-parameters Binding Statement Parameters}
  */
 export type Binds = Bind[] | InsertBinds;
 
@@ -411,7 +537,7 @@ export type Binds = Bind[] | InsertBinds;
  * ```
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#binding-array-for-bulk-insert Binding Array For Bulk Insert}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#binding-array-for-bulk-insert Binding Array For Bulk Insert}
  */
 export type InsertBinds = Bind[][];
 
@@ -425,6 +551,11 @@ export type Connection = NodeJS.EventEmitter & {
      * Returns true if the connection is active otherwise false
      */
     isUp(): boolean;
+
+    /**
+     * Returns true if the connection is good to send a query otherwise false
+     */
+    isValidAsync(): Promise<boolean>;
 
     getServiceName(): string;
     getClientSessionKeepAlive(): boolean;
@@ -440,29 +571,49 @@ export type Connection = NodeJS.EventEmitter & {
 
     /**
      * Establishes a connection if not in a fatal state.
+     *
+     * If you set the authenticator option to `EXTERNALBROWSER` (in order to use browser-based SSO) or
+     * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connectAsync}
+     * method.
      */
     connect(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
 
     /**
+     * Establishes a connection if not in a fatal state.
+     *
+     * If you do not set the authenticator option to `EXTERNALBROWSER` (in order to use browser-based SSO) or
+     * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connect}
+     * method.
+     */
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): Promise<void>;
+
+    /**
      * ### Related Docs
-     * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#executing-statements Executing Statements}
+     * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute Executing Statements}
      */
     execute(options: {
         sqlText: string;
         /**
          * ### Related Docs
-         * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#batch-processing-results Batch Processing Results}
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-consume#streaming-results Streaming Results}
          */
         streamResult?: boolean | undefined;
         binds?: Binds | undefined;
 
         /**
          * ### Related Docs
-         * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-consume#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
-        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
-    }): void;
+        fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
+        complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+        parameters?: Record<string, unknown>;
+
+        /**
+         * ### Related Docs
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#resubmitting-requests Resubmitting Requests}
+         */
+        requestId?: string;
+    }): Statement;
 
     /**
      * Fetches the result of a previously issued statement.
@@ -481,34 +632,40 @@ export type Connection = NodeJS.EventEmitter & {
     serialize(): string;
 };
 
-export const STRING = 'STRING';
-export const BOOLEAN = 'BOOLEAN';
-export const NUMBER = 'NUMBER';
-export const DATE = 'DATE';
-export const JSON = 'JSON';
+export const STRING = "STRING";
+export const BOOLEAN = "BOOLEAN";
+export const NUMBER = "NUMBER";
+export const DATE = "DATE";
+export const JSON = "JSON";
 
 export enum ocspModes {
-    FAIL_CLOSED = 'FAIL_CLOSED',
-    FAIL_OPEN = 'FAIL_OPEN',
-    INSECURE = 'INSECURE',
+    FAIL_CLOSED = "FAIL_CLOSED",
+    FAIL_OPEN = "FAIL_OPEN",
+    INSECURE = "INSECURE",
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    logLevel?: "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | undefined;
     insecureConnect?: boolean | undefined;
 
     /**
      * ### Related Docs
-     * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#choosing-fail-open-or-fail-close-mode Choosing `Fail-Open` or `Fail-Close` Mode}
+     * - {@link https://docs.snowflake.com/user-guide/ocsp#fail-open-or-fail-close-behavior Choosing `Fail-Open` or `Fail-Close` Mode}
      */
     ocspFailOpen?: boolean | undefined;
+    jsonColumnVariantParser?: ((rawColumnValue: string) => any) | undefined;
+    xmlColumnVariantParser?: ((rawColumnValue: string) => any) | undefined;
+    /**
+     * Specifies whether to enable keep-alive functionality on the socket immediately after receiving a new connection request. Default value is true.
+     */
+    keepAlive?: boolean | undefined;
 }
 
 /**
  * Creates a new Connection instance.
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#establishing-a-connection Establishing a Connection}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect Establishing a Connection}
  */
 export function createConnection(options: ConnectionOptions): Connection;
 
@@ -526,3 +683,8 @@ export function serializeConnection(connection: Connection): string;
  * Configures this instance of the Snowflake core module.
  */
 export function configure(options?: ConfigureOptions): void;
+
+/**
+ * Creates a connection pool for Snowflake connections.
+ */
+export function createPool(options: ConnectionOptions, poolOptions?: PoolOptions): Pool<Connection>;

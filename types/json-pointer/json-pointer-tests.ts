@@ -6,7 +6,8 @@ type Api = JsonPointer.Api;
 type Wrapper = JsonPointer.Wrapper;
 type BoundApi = JsonPointer.BoundApi;
 type BoundWrapper = JsonPointer.BoundWrapper;
-type DropFirst = JsonPointer.DropFirst; // $ExpectError
+// @ts-expect-error
+type DropFirst = JsonPointer.DropFirst;
 
 JsonPointer.get({ example: "hello" }, "/example"); // $ExpectType any
 JsonPointer.get({ example: "hello" }, ["example"]); // $ExpectType any

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-swipe",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/voronianski/react-swipe"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/swipe": "*"
+    },
+    "devDependencies": {
+        "@types/react-swipe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Deividas Bakanas",
+            "githubUsername": "DeividasBakanas"
+        },
+        {
+            "name": "Ammar Alakkad",
+            "githubUsername": "AAlakkad"
+        }
+    ]
+}

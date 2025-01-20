@@ -1,9 +1,4 @@
-// Type definitions for dingtalk-robot-sender 1.1
-// Project: https://github.com/x-cold/dingtalk-robot
-// Definitions by: bangbang93 <https://github.com/bangbang93>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
 interface WebHookOptions {
     webhook: string;
@@ -13,65 +8,68 @@ interface WebHookOptions {
 interface BaseUrlOptions {
     baseUrl: string;
     accessToken: string;
+    secret?: string;
     httpclient?: any;
 }
 
 declare namespace Message {
-  interface Text {
-    msgtype: 'text';
-    text: {
-        content: string;
-    };
-    at?: {
-        atMobiles: string[];
-        isAtAll: boolean;
-    } | undefined;
-  }
+    interface Text {
+        msgtype: "text";
+        text: {
+            content: string;
+        };
+        at?: {
+            atMobiles: string[];
+            isAtAll: boolean;
+        } | undefined;
+    }
 
-  interface Link {
-    msgtype: 'link';
-    link: {
-      text: string;
-      title: string;
-      picUrl: string;
-      messageUrl: string;
-    };
-  }
+    interface Link {
+        msgtype: "link";
+        link: {
+            text: string;
+            title: string;
+            picUrl: string;
+            messageUrl: string;
+        };
+    }
 
-  interface Markdown {
-    msgtype: 'markdown';
-    markdown: {
-      title: string;
-      text: string;
-      atMobiles: string[];
-      isAtAll: boolean;
-    };
-  }
+    interface Markdown {
+        msgtype: "markdown";
+        markdown: {
+            title: string;
+            text: string;
+            atMobiles: string[];
+            isAtAll: boolean;
+        };
+    }
 
-  interface ActionCard {
-    msgtype: 'actionCard';
-    actionCard: {
-      title: string;
-      text: string;
-      singleTitle?: string | undefined;
-      singleURL?: string | undefined;
-      hideAvatar: '0' | '1';
-      btnOrientation: '0' | '1';
-      btns?: Array<{
-        title: string;
-        actionURL: string;
-      }> | undefined;
-    };
-  }
+    interface ActionCard {
+        msgtype: "actionCard";
+        actionCard: {
+            title: string;
+            text: string;
+            singleTitle?: string | undefined;
+            singleURL?: string | undefined;
+            hideAvatar: "0" | "1";
+            btnOrientation: "0" | "1";
+            btns?:
+                | Array<{
+                    title: string;
+                    actionURL: string;
+                }>
+                | undefined;
+        };
+    }
 
-  interface FeedCardItem {
-    msgtype: 'feedCard';
-    feedCard: {
-      title: string;
-      messageURL: string;
-      picURL: string;
-    };
-  }
+    interface FeedCardItem {
+        msgtype: "feedCard";
+        feedCard: {
+            title: string;
+            messageURL: string;
+            picURL: string;
+        };
+    }
 }
 
 type MessageType = Message.Text | Message.Link | Message.Markdown | Message.ActionCard | Message.FeedCardItem;
@@ -93,7 +91,7 @@ declare class ChatBot {
      * @param content 发动的消息对象
      * @return
      */
-     send(content: MessageType): Promise<AxiosResponse>;
+    send(content: MessageType): Promise<AxiosResponse>;
 
     /**
      * 发送纯文本消息，支持@群内成员
@@ -102,7 +100,7 @@ declare class ChatBot {
      * @param at 群内@成员的手机号
      * @return
      */
-    text(content: string, at?: Message.Text['at']): Promise<AxiosResponse>;
+    text(content: string, at?: Message.Text["at"]): Promise<AxiosResponse>;
 
     /**
      * 发送单个图文链接
@@ -113,7 +111,7 @@ declare class ChatBot {
      * @param link.picUrl 图片的链接
      * @return
      */
-    link(link: Message.Link['link']): Promise<AxiosResponse>;
+    link(link: Message.Link["link"]): Promise<AxiosResponse>;
 
     /**
      * 发送Markdown消息
@@ -122,7 +120,7 @@ declare class ChatBot {
      * @param text 消息内容(支持Markdown)
      * @return
      */
-    markdown(title: string, text: string, at: Message.Text['at']): Promise<AxiosResponse>;
+    markdown(title: string, text: string, at: Message.Text["at"]): Promise<AxiosResponse>;
 
     /**
      * 发送actionCard(动作卡片)
@@ -136,7 +134,7 @@ declare class ChatBot {
      * @param card.btn.actionURL 某个按钮链接
      * @return
      */
-    actionCard(card: Message.ActionCard['actionCard']): Promise<AxiosResponse>;
+    actionCard(card: Message.ActionCard["actionCard"]): Promise<AxiosResponse>;
 
     /**
      * 发送feedCard，支持多图文链接
@@ -149,6 +147,6 @@ declare class ChatBot {
      * @return
      */
     feedCard(links: Message.FeedCardItem[]): Promise<AxiosResponse>;
-  }
+}
 
-  export = ChatBot;
+export = ChatBot;

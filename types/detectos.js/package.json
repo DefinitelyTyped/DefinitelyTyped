@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detectos.js",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/1000tech/detectOS.js"
+    ],
+    "devDependencies": {
+        "@types/detectos.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "János Márkus",
+            "githubUsername": "Aresius423"
+        }
+    ]
+}

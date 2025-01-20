@@ -1,8 +1,3 @@
-// Type definitions for @elastic/maki 6.3
-// Project: https://github.com/elastic/maki
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A pixel-aligned point of interest icon set made for cartographers
  */

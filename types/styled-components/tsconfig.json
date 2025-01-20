@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "lib": [
@@ -13,9 +12,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [

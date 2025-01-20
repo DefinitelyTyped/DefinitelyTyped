@@ -1,17 +1,11 @@
-// Type definitions for elasticlunr 0.9
-// Project: http://weixsong.github.io
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export = elasticlunr;
 
-declare function elasticlunr<T>(
+declare function elasticlunr<T extends {}>(
     config?: (this: elasticlunr.Index<T>, idx: elasticlunr.Index<T>) => void,
 ): elasticlunr.Index<T>;
 
 declare namespace elasticlunr {
-    class Configuration<T> {
+    class Configuration<T extends {}> {
         constructor(config: string, fields: Array<keyof T>);
 
         addAllFields2UserConfig(bool: Bool, expand: boolean, fields: Array<keyof T>): void;
@@ -51,7 +45,7 @@ declare namespace elasticlunr {
         static load<T>(serialisedData: SerialisedDocumentStore<T>): DocumentStore<T>;
     }
 
-    type EventType = 'add' | 'update' | 'remove';
+    type EventType = "add" | "update" | "remove";
     type EventHandler = (...args: any[]) => void;
 
     class EventEmitter {
@@ -85,7 +79,7 @@ declare namespace elasticlunr {
         [key: string]: T;
     }
 
-    type Bool = 'OR' | 'AND';
+    type Bool = "OR" | "AND";
 
     type FieldSearchConfig<T extends {}> = {
         [K in keyof T]?: {
@@ -94,9 +88,10 @@ declare namespace elasticlunr {
         };
     };
 
-    interface SearchConfig<T> {
+    interface SearchConfig<T extends {}> {
         fields?: FieldSearchConfig<T> | undefined;
         expand?: boolean | undefined;
+        bool?: Bool;
     }
 
     interface SerialisedInvertedIndex {
@@ -123,7 +118,7 @@ declare namespace elasticlunr {
         index: { [K in keyof T]?: InvertedIndexNode };
     }
 
-    class Index<T> {
+    class Index<T extends {}> {
         constructor();
 
         documentStore: DocumentStore<T>;
@@ -148,7 +143,7 @@ declare namespace elasticlunr {
 
         idf(term: string, field: keyof T): number;
 
-        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: 'AND' | 'OR'): SearchScores;
+        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: "AND" | "OR"): SearchScores;
 
         off(name: EventType, fn: EventHandler): void;
 
@@ -172,7 +167,7 @@ declare namespace elasticlunr {
 
         use(plugin: (...args: any[]) => any, ...args: any[]): void;
 
-        static load<T>(serialisedData: SerialisedIndexData<T>): Index<T>;
+        static load<T extends {}>(serialisedData: SerialisedIndexData<T>): Index<T>;
     }
 
     interface TokenInfo {
@@ -246,6 +241,7 @@ declare namespace elasticlunr {
 
     type SerialisedPipeline = string[];
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PipelineFunction = (token: string, i: number, tokens: string[]) => string | undefined | null | void;
 
     class Pipeline {

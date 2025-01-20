@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/gl-react",
+    "version": "3.15.9999",
+    "projects": [
+        "https://github.com/gre/gl-react"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/gl-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jussi Kinnula",
+            "githubUsername": "jussikinnula"
+        }
+    ]
 }

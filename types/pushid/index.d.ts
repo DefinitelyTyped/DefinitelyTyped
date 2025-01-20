@@ -1,8 +1,3 @@
-// Type definitions for pushid 1.0
-// Project: https://github.com/appsattic/pushid
-// Definitions by: Bob Matcuk <https://github.com/bmatcuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ Note that ES6 modules cannot directly export callable functions.
  *~ This file should be imported using the CommonJS-style:
  *~   import x = require('someLibrary');

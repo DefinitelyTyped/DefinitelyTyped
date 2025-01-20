@@ -1,8 +1,3 @@
-// Type definitions for fitvids 2.1
-// Project: https://github.com/rosszurowski/vanilla-fitvids#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Lets your videos be responsive by wrapping them in an aspect ratio container.
  */

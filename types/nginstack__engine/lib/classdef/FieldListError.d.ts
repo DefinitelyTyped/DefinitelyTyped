@@ -5,11 +5,11 @@ declare class FieldListError {
     private _name;
 }
 declare namespace FieldListError {
-    const DOUBLE_ADD: number;
-    const INVALID_PROPERTY_NAME: number;
-    const INVALID_ARGUMENTS_LENGTH: number;
-    const INVALID_ARGUMENT_TYPE: number;
-    const INVALID_ARGUMENT_VALUE: number;
-    const INVALID_FIELD_INDEX: number;
-    const INVALID_FIELD_NAME: number;
+    let DOUBLE_ADD: number;
+    let INVALID_PROPERTY_NAME: number;
+    let INVALID_ARGUMENTS_LENGTH: number;
+    let INVALID_ARGUMENT_TYPE: number;
+    let INVALID_ARGUMENT_VALUE: number;
+    let INVALID_FIELD_INDEX: number;
+    let INVALID_FIELD_NAME: number;
 }

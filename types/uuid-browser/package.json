@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/uuid-browser",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/heikomat/uuid-browser"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/uuid-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

@@ -1,7 +1,7 @@
-import Lyric = require('lyric-parser');
+import Lyric = require("lyric-parser");
 
 const lyricStr =
-    'W3RpOuiKkuenjV0NClthcjrpn7PpmJnor5flkKwv6LW15pa55amnXQ0KW2FsOuiKkuenjV0NCltieTpdDQpbb2Zmc2V0OjBdDQpbMDA6MDAuMDBd6IqS56eNIC0g6Z+z6ZiZ6K+X5ZCsL';
+    "W3RpOuiKkuenjV0NClthcjrpn7PpmJnor5flkKwv6LW15pa55amnXQ0KW2FsOuiKkuenjV0NCltieTpdDQpbb2Zmc2V0OjBdDQpbMDA6MDAuMDBd6IqS56eNIC0g6Z+z6ZiZ6K+X5ZCsL";
 
 const lyric = new Lyric(lyricStr, handler);
 

@@ -4,9 +4,9 @@ function testConstructor() {
     }
 
     let db = new PouchDB<MyModel>(null, {
-        adapter: 'localstorage',
+        adapter: "localstorage",
     });
-    db = new PouchDB<MyModel>('myDb', {
-        adapter: 'localstorage',
+    db = new PouchDB<MyModel>("myDb", {
+        adapter: "localstorage",
     });
 }

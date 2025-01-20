@@ -1,10 +1,3 @@
-// Type definitions for dotenv-flow 3.2
-// Project: https://github.com/kerimdzhanov/dotenv-flow
-// Definitions by: Vincent Langlet <https://github.com/vincentlanglet>
-//                 Dan Kerimdzhanov <https://github.com/kerimdzhanov>
-//                 James Greenleaf <https://github.com/aMoniker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface DotenvListFilesOptions {
     /**
      * Node environment (development/test/production/etc,.).
@@ -19,6 +12,15 @@ export interface DotenvListFilesOptions {
  * @param options - `.env*` files listing options
  * @return a list of filenames for a given environment
  */
+export function listFiles(dirname: string, options?: DotenvListFilesOptions): string[];
+
+/**
+ * Alias for `#listFiles` for backward compatibility.
+ *
+ * @param dirname - path to `.env*` files' directory
+ * @param options - `.env*` files listing options
+ * @return a list of filenames for a given environment
+ */
 export function listDotenvFiles(dirname: string, options?: DotenvListFilesOptions): string[];
 
 export interface DotenvReadFileOptions {
@@ -26,10 +28,6 @@ export interface DotenvReadFileOptions {
      * Encoding for reading the `.env*` files.
      */
     encoding?: string | undefined;
-    /**
-     * Whether to support suppressing the console output.
-     */
-    silent?: boolean | undefined;
 }
 
 export interface DotenvParseOutput {
@@ -46,6 +44,10 @@ export interface DotenvParseOutput {
  */
 export function parse(filenames: string | string[], options?: DotenvReadFileOptions): DotenvParseOutput;
 
+export interface DotenvLoadOptions extends DotenvReadFileOptions {
+    silent?: boolean;
+}
+
 export interface DotenvLoadOutput {
     error?: Error | undefined;
     parsed?: DotenvParseOutput | undefined;
@@ -58,7 +60,7 @@ export interface DotenvLoadOutput {
  * @param options - `fs.readFileSync` options
  * @return an object with a `parsed` key containing the loaded content or an `error` key with an error that is occurred
  */
-export function load(filenames: string | string[], options?: DotenvReadFileOptions): DotenvLoadOutput;
+export function load(filenames: string | string[], options?: DotenvLoadOptions): DotenvLoadOutput;
 
 /**
  * Unload variables defined in a given file(s) from `process.env`.
@@ -87,7 +89,7 @@ export interface DotenvConfigOptions {
     /**
      * Encoding for reading the `.env*` files.
      */
-    encoding?: string | undefined;
+    encoding?: string | null | undefined;
 
     /**
      * In some cases the original "dotenv" library can be used by one of the dependent npm modules.
@@ -112,3 +114,13 @@ export interface DotenvConfigOptions {
  * @return an object with a `parsed` key containing the loaded content or an `error` key with an error that is occurred
  */
 export function config(options?: DotenvConfigOptions): DotenvLoadOutput;
+
+declare const DotenvFlow: {
+    listFiles: typeof listFiles;
+    parse: typeof parse;
+    load: typeof load;
+    unload: typeof unload;
+    config: typeof config;
+};
+
+export default DotenvFlow;

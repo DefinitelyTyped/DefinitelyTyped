@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jui",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/juijs/jui#readme"
+    ],
+    "dependencies": {
+        "@types/jui-core": "*"
+    },
+    "devDependencies": {
+        "@types/jui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jin-Ho Park",
+            "githubUsername": "easylogic"
+        }
+    ]
+}

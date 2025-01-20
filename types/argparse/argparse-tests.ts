@@ -1,19 +1,19 @@
 // near copy of each of the tests from https://github.com/nodeca/argparse/tree/master/examples
 
 import {
-    ArgumentParser,
-    RawDescriptionHelpFormatter,
     Action,
     ActionConstructorOptions,
-    Namespace,
-    ONE_OR_MORE,
-    ZERO_OR_MORE,
-    OPTIONAL,
-    SUPPRESS,
-    REMAINDER,
     ArgumentError,
+    ArgumentParser,
     ArgumentTypeError,
     BooleanOptionalAction,
+    Namespace,
+    ONE_OR_MORE,
+    OPTIONAL,
+    RawDescriptionHelpFormatter,
+    REMAINDER,
+    SUPPRESS,
+    ZERO_OR_MORE,
 } from "argparse";
 let args: any;
 
@@ -77,13 +77,13 @@ constantExample.add_argument("-a", {
 constantExample.add_argument("--str", {
     action: "append_const",
     dest: "types",
-    help: 'append constant "str" to types',
+    help: "append constant \"str\" to types",
     const: "str",
 });
 constantExample.add_argument("--int", {
     action: "append_const",
     dest: "types",
-    help: 'append constant "int" to types',
+    help: "append constant \"int\" to types",
     const: "int",
 });
 
@@ -338,3 +338,20 @@ console.log("-----------");
 booleanOptionalActionExample.parse_args(["--no-foo"]);
 console.dir(args);
 console.log("-----------");
+
+const intermixedArgsExample = new ArgumentParser();
+intermixedArgsExample.add_argument("--foo");
+intermixedArgsExample.add_argument("cmd");
+intermixedArgsExample.add_argument("rest", { nargs: "*", type: "int" });
+args = intermixedArgsExample.parse_intermixed_args("doit 1 --foo bar 2 3".split(" "));
+console.dir(args);
+console.log("-----------");
+let [ns, remaining] = intermixedArgsExample.parse_known_intermixed_args("doit 1 --unknown --foo bar 2 3".split(" "));
+console.dir(ns);
+console.log(remaining);
+console.log("-----------");
+
+const fromfilePrefixCharsExample = new ArgumentParser({
+    fromfile_prefix_chars: "@",
+});
+fromfilePrefixCharsExample.add_argument("--foo");

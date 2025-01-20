@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-patch",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/bruth/jsonpatch-js"
+    ],
+    "devDependencies": {
+        "@types/json-patch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

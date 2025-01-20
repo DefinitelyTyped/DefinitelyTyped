@@ -29,13 +29,11 @@ const mapStateOnServer = (state: State): ServerState => ({ innerState: state });
 const DocumentTitleWithServerMapState = withSideEffect(
     reducePropsToState,
     handleStateChangeOnClient,
-    mapStateOnServer
+    mapStateOnServer,
 )(DocumentTitle);
 
 const testWithServerMapState = () => {
-    const testComponent = () => (
-        <DocumentTitleWithServerMapState title="Title" />
-    );
+    const testComponent = () => <DocumentTitleWithServerMapState title="Title" />;
     const peekedState:
         | ServerState
         | State = DocumentTitleWithServerMapState.peek();
@@ -44,7 +42,7 @@ const testWithServerMapState = () => {
 
 const DocumentTitleNotServer = withSideEffect(
     reducePropsToState,
-    handleStateChangeOnClient
+    handleStateChangeOnClient,
 )(DocumentTitle);
 
 const testWithoutMapState = () => {
@@ -54,6 +52,6 @@ const testWithoutMapState = () => {
 };
 
 const testInvalidProp = () => (
-    // $ExpectError
+    // @ts-expect-error
     <DocumentTitleServer notAValidProp="this should fail" />
 );

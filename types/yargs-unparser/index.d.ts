@@ -1,8 +1,3 @@
-// Type definitions for yargs-unparser 2.0
-// Project: https://github.com/yargs/yargs-unparser#readme
-// Definitions by: Anton Golub <https://github.com/antongolub>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace yargsUnparser {
     type Argv = string[];
     interface Arguments {

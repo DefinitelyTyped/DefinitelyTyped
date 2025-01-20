@@ -1,10 +1,4 @@
-// Type definitions for pdf-viewer-reactjs 2.2
-// Project: https://github.com/ansu5555/pdf-viewer-reactjs#readme
-// Definitions by: Ansuman Ghosh <https://github.com/ansu5555>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component } from 'react';
+import { Component } from "react";
 
 interface Document {
     url?: string | undefined;

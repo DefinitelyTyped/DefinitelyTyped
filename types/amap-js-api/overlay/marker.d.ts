@@ -1,33 +1,42 @@
 declare namespace AMap {
     namespace Marker {
         interface EventMap<I = Marker> {
-            click: MapsEvent<'click', I>;
-            dblclick: MapsEvent<'dblclick', I>;
-            rightclick: MapsEvent<'rightclick', I>;
-            mousemove: MapsEvent<'mousemove', I>;
-            mouseover: MapsEvent<'mouseover', I>;
-            mouseout: MapsEvent<'mouseout', I>;
-            mousedown: MapsEvent<'mousedown', I>;
-            mouseup: MapsEvent<'mouseup', I>;
-            dragstart: MapsEvent<'dragstart', I>;
-            dragging: MapsEvent<'dragging', I>;
-            dragend: MapsEvent<'dragend', I>;
-            moving: Event<'moving', { passedPath: LngLat[]; }>;
-            moveend: Event<'moveend'>;
-            movealong: Event<'movealong'>;
-            touchstart: MapsEvent<'touchstart', I>;
-            touchmove: MapsEvent<'touchmove', I>;
-            touchend: MapsEvent<'touchend', I>;
+            click: MapsEvent<"click", I>;
+            dblclick: MapsEvent<"dblclick", I>;
+            rightclick: MapsEvent<"rightclick", I>;
+            mousemove: MapsEvent<"mousemove", I>;
+            mouseover: MapsEvent<"mouseover", I>;
+            mouseout: MapsEvent<"mouseout", I>;
+            mousedown: MapsEvent<"mousedown", I>;
+            mouseup: MapsEvent<"mouseup", I>;
+            dragstart: MapsEvent<"dragstart", I>;
+            dragging: MapsEvent<"dragging", I>;
+            dragend: MapsEvent<"dragend", I>;
+            moving: Event<"moving", { passedPath: LngLat[] }>;
+            moveend: Event<"moveend">;
+            movealong: Event<"movealong">;
+            touchstart: MapsEvent<"touchstart", I>;
+            touchmove: MapsEvent<"touchmove", I>;
+            touchend: MapsEvent<"touchend", I>;
         }
 
-        type LabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
+        type LabelDirection = "top" | "right" | "bottom" | "left" | "center";
         interface Label {
             content?: string | undefined;
             offset?: Pixel | undefined;
             direction?: LabelDirection | undefined;
         }
 
-        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        type Anchor =
+            | "top-left"
+            | "top-center"
+            | "top-right"
+            | "middle-left"
+            | "center"
+            | "middle-right"
+            | "bottom-left"
+            | "bottom-center"
+            | "bottom-right";
 
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**
@@ -124,7 +133,7 @@ declare namespace AMap {
          * 唤起高德地图客户端标注页
          * @param obj 唤起参数
          */
-        markOnAMAP(obj?: { name?: string | undefined, position?: LocationValue | undefined }): void;
+        markOnAMAP(obj?: { name?: string | undefined; position?: LocationValue | undefined }): void;
         /**
          * 获取锚点
          */
@@ -239,7 +248,7 @@ declare namespace AMap {
             path: LngLat[],
             speed: number,
             timingFunction?: (t: number) => number,
-            circleable?: boolean
+            circleable?: boolean,
         ): void;
         /**
          * 以给定速度移动点标记到指定位置
@@ -250,7 +259,7 @@ declare namespace AMap {
         moveTo(
             lnglat: LocationValue,
             speed: number,
-            timingFunction?: (t: number) => number
+            timingFunction?: (t: number) => number,
         ): void;
         /**
          * 点标记停止动画

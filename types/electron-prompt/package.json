@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "electron": "latest"
-  }
+    "private": true,
+    "name": "@types/electron-prompt",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/p-sam/electron-prompt#readme"
+    ],
+    "dependencies": {
+        "electron": "latest"
+    },
+    "devDependencies": {
+        "@types/electron-prompt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

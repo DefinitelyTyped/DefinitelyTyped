@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-web-token",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/schrudolf/random-web-token#readme"
+    ],
+    "devDependencies": {
+        "@types/random-web-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rudolf",
+            "githubUsername": "schrudolf"
+        }
+    ]
+}

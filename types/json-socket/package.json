@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/json-socket",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/sebastianseilund/node-json-socket"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/json-socket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sven Reglitzki",
+            "githubUsername": "svi3c"
+        }
+    ]
+}

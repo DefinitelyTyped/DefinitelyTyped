@@ -4,8 +4,11 @@
 export {};
 
 function f() {
-    const b1 = new Big(0); // $ExpectError
-    const b2 = Big(0); // $ExpectError
+    // @ts-expect-error
+    const b1 = new Big(0);
+    // @ts-expect-error
+    const b2 = Big(0);
 
-    Big.DP = 40; // $ExpectError
+    // @ts-expect-error
+    Big.DP = 40;
 }

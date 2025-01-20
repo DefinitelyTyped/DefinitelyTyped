@@ -1,2 +1,2 @@
-import { groupBy } from '../index';
+import { groupBy } from "../index.js";
 export default groupBy;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsonabc",
+    "version": "2.3.9999",
+    "projects": [
+        "http://novicelab.org/jsonabc"
+    ],
+    "devDependencies": {
+        "@types/jsonabc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

@@ -1,13 +1,14 @@
 import * as React from "react";
-import { FCReturn, ForwardRefProps, ReactLIAttr } from "../../../typings/shared";
+import { FCReturn, ReactLIAttr } from "../../../typings/shared";
 
 interface HeaderMenuProps<RP = {}> extends ReactLIAttr {
-    menuLinkName: string,
+    isCurrentPage?: boolean | undefined;
+    menuLinkName: string;
     focusRef?(element: HTMLElement): void;
-    renderMenuContent?: React.ComponentType<RP> | undefined,
+    renderMenuContent?: React.ComponentType<RP> | undefined;
 }
 
-declare class HeaderMenu extends React.Component<HeaderMenuProps> { }
+declare class HeaderMenu extends React.Component<HeaderMenuProps> {}
 
 export interface HeaderMenuForwardRefProps<RP = {}> extends Omit<HeaderMenuProps<RP>, "focusRef" | "ref"> {
     ref?: HeaderMenuProps<RP>["focusRef"] | undefined;

@@ -1,9 +1,3 @@
-// Type definitions for tilebelt 1.0.1
-// Project: https://github.com/mapbox/tilebelt
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="geojson" />
 
 declare const tilebelt: tilebelt.TilebeltStatic;
@@ -19,7 +13,7 @@ declare namespace tilebelt {
          * var poly = tileToGeoJSON([5, 10, 10])
          * //=poly
          */
-        tileToGeoJSON(tile: Array<number>): GeoJSON.Polygon
+        tileToGeoJSON(tile: number[]): GeoJSON.Polygon;
 
         /**
          * Get the bbox of a tile
@@ -31,7 +25,7 @@ declare namespace tilebelt {
          * var bbox = tileToBBOX([5, 10, 10])
          * //=bbox
          */
-        tileToBBOX(tile: Array<number>): Array<number>
+        tileToBBOX(tile: number[]): number[];
 
         /**
          * Get the tile for a point at a specified zoom level
@@ -45,7 +39,7 @@ declare namespace tilebelt {
          * var tile = pointToTile(1, 1, 20)
          * //=tile
          */
-        pointToTile(lon: number, lat: number, z: number): Array<number>
+        pointToTile(lon: number, lat: number, z: number): number[];
 
         /**
          * Get the 4 tiles one zoom level higher
@@ -57,7 +51,7 @@ declare namespace tilebelt {
          * var tiles = getChildren([5, 10, 10])
          * //=tiles
          */
-        getChildren(tile: Array<number>): Array<Array<number>>
+        getChildren(tile: number[]): number[][];
 
         /**
          * Get the tile one zoom level lower
@@ -69,7 +63,7 @@ declare namespace tilebelt {
          * var tile = getParent([5, 10, 10])
          * //=tile
          */
-        getParent(tile: Array<number>): Array<number>
+        getParent(tile: number[]): number[];
 
         /**
          * Get the 3 sibling tiles for a tile
@@ -81,7 +75,7 @@ declare namespace tilebelt {
          * var tiles = getSiblings([5, 10, 10])
          * //=tiles
          */
-        getSiblings(tile: Array<number>): Array<Array<number>>
+        getSiblings(tile: number[]): number[][];
 
         /**
          * Check to see if an array of tiles contains a tiles siblings
@@ -100,7 +94,7 @@ declare namespace tilebelt {
          * hasSiblings([0, 0, 5], tiles)
          * //=boolean
          */
-        hasSiblings(tile: Array<number>, tiles: Array<Array<number>>): boolean
+        hasSiblings(tile: number[], tiles: number[][]): boolean;
 
         /**
          * Check to see if an array of tiles contains a particular tile
@@ -119,7 +113,7 @@ declare namespace tilebelt {
          * hasTile(tiles, [0, 0, 5])
          * //=boolean
          */
-        hasTile(tiles: Array<Array<number>>, tile: Array<number>): boolean
+        hasTile(tiles: number[][], tile: number[]): boolean;
 
         /**
          * Check to see if two tiles are the same
@@ -132,7 +126,7 @@ declare namespace tilebelt {
          * tilesEqual([0, 1, 5], [0, 0, 5])
          * //=boolean
          */
-        tilesEqual(tile1: Array<number>, tile2: Array<number>): boolean
+        tilesEqual(tile1: number[], tile2: number[]): boolean;
 
         /**
          * Get the quadkey for a tile
@@ -144,7 +138,7 @@ declare namespace tilebelt {
          * var quadkey = tileToQuadkey([0, 1, 5])
          * //=quadkey
          */
-        tileToQuadkey(tile: Array<number>): string
+        tileToQuadkey(tile: number[]): string;
 
         /**
          * Get the tile for a quadkey
@@ -156,7 +150,7 @@ declare namespace tilebelt {
          * var tile = quadkeyToTile('00001033')
          * //=tile
          */
-        quadkeyToTile(quadkey: string): Array<number>
+        quadkeyToTile(quadkey: string): number[];
 
         /**
          * Get the smallest tile to cover a bbox
@@ -168,7 +162,7 @@ declare namespace tilebelt {
          * var tile = bboxToTile([ -178, 84, -177, 85 ])
          * //=tile
          */
-        bboxToTile(bbox: Array<number>): Array<number>
+        bboxToTile(bbox: number[]): number[];
 
         /**
          * Get the precise fractional tile location for a point at a zoom level
@@ -181,8 +175,8 @@ declare namespace tilebelt {
          * var tile = pointToTileFraction(30.5, 50.5, 15)
          * //=tile
          */
-        pointToTileFraction(lon: number, lat: number, z: number): Array<number>
+        pointToTileFraction(lon: number, lat: number, z: number): number[];
     }
 }
 
-export = tilebelt
+export = tilebelt;

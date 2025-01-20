@@ -1,12 +1,3 @@
-// Type definitions for factory-girl 5.0
-// Project: https://github.com/aexmachina/factory-girl#readme
-// Definitions by: Stack Builders <https://github.com/stackbuilders>
-//                 Sebastián Estrella <https://github.com/sestrella>
-//                 Luis Fernando Alvarez <https://github.com/elcuy>
-//                 Olivier Kamers <https://github.com/OlivierKamers>
-//                 Dan McNamara <https://github.com/DMcNamara>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const factory: factory.Static;
 
 declare namespace factory {
@@ -18,7 +9,7 @@ declare namespace factory {
         [P in keyof T]: Definition<T[P]>;
     };
 
-    type MaybeReadonlyArray<T> = T | ReadonlyArray<T>;
+    type MaybeReadonlyArray<T> = T | readonly T[];
 
     type BuildOptions = Record<string, any>;
 
@@ -68,7 +59,7 @@ declare namespace factory {
             name: string,
             num: number,
             attrs?: MaybeReadonlyArray<Attributes<Partial<T>>>,
-            buildOptions?: BuildOptions | ReadonlyArray<BuildOptions>,
+            buildOptions?: BuildOptions | readonly BuildOptions[],
         ): Promise<T[]>;
 
         /**
@@ -152,7 +143,7 @@ declare namespace factory {
         afterCreate?: Hook<T> | undefined;
     }
 
-    type Hook<T> = (model: any, attrs: T | T[], options: any) => void;
+    type Hook<T> = (model: any, attrs: T | T[], options: any) => any;
 }
 
 export = factory;

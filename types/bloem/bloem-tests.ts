@@ -1,10 +1,8 @@
-import bloem = require('bloem');
+import bloem = require("bloem");
 
-const base = new bloem.Bloem(1, 2, Buffer.from('1', 'hex'));
-const safe = new bloem.SafeBloem(1, 2, Buffer.from('2', 'hex'));
-const scaling = new bloem.ScalingBloem(1,
-  {ratio: 1, initial_capacity: 2, scaling: 3}
-);
+const base = new bloem.Bloem(1, 2, Buffer.from("1", "hex"));
+const safe = new bloem.SafeBloem(1, 2, Buffer.from("2", "hex"));
+const scaling = new bloem.ScalingBloem(1, { ratio: 1, initial_capacity: 2, scaling: 3 });
 
 // options are optional
 const scaling2 = new bloem.ScalingBloem(1);

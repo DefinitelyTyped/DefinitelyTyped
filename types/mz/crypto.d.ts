@@ -10,14 +10,14 @@ export function pbkdf2(
     iterations: number,
     keylen: number,
     digest: string,
-    callback: (err: Error | null, derivedKey: Buffer) => any
+    callback: (err: Error | null, derivedKey: Buffer) => any,
 ): void;
 export function pbkdf2(
     password: BinaryLike,
     salt: BinaryLike,
     iterations: number,
     keylen: number,
-    digest: string
+    digest: string,
 ): Promise<Buffer>;
 
 export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;

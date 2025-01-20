@@ -1,19 +1,12 @@
-// Type definitions for es-abstract 1.17
-// Project: https://github.com/ljharb/es-abstract
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+import ES5 = require("./es5");
+import ES6 = require("./es6");
+import ES7 = require("./es7");
 
-import ES5 = require('./es5');
-import ES6 = require('./es6');
-import ES7 = require('./es7');
-
-import ES2015 = require('./es2015');
-import ES2016 = require('./es2016');
-import ES2017 = require('./es2017');
-import ES2018 = require('./es2018');
-import ES2019 = require('./es2019');
+import ES2015 = require("./es2015");
+import ES2016 = require("./es2016");
+import ES2017 = require("./es2017");
+import ES2018 = require("./es2018");
+import ES2019 = require("./es2019");
 
 declare namespace ESAbstract {
     // ES2015 types:
@@ -21,18 +14,18 @@ declare namespace ESAbstract {
 
     // ES5 types:
     interface GenericDescriptor {
-        '[[Configurable]]'?: boolean | undefined;
-        '[[Enumerable]]'?: boolean | undefined;
+        "[[Configurable]]"?: boolean | undefined;
+        "[[Enumerable]]"?: boolean | undefined;
     }
 
     interface AccessorDescriptor<T = unknown> extends GenericDescriptor {
-        '[[Get]]'?(): T;
-        '[[Set]]'?(value: T): void;
+        "[[Get]]"?(): T;
+        "[[Set]]"?(value: T): void;
     }
 
     interface DataDescriptor<T = unknown> extends GenericDescriptor {
-        '[[Writable]]'?: boolean | undefined;
-        '[[Value]]'?: T | undefined;
+        "[[Writable]]"?: boolean | undefined;
+        "[[Value]]"?: T | undefined;
     }
 
     type PropertyDescriptor<T = unknown> = AccessorDescriptor<T> | DataDescriptor<T>;

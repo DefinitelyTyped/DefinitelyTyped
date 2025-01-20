@@ -7,7 +7,7 @@ import MarkersPlugin from "wavesurfer.js/src/plugin/markers";
 import MediaSessionPlugin from "wavesurfer.js/src/plugin/mediasession";
 import MicrophonePlugin from "wavesurfer.js/src/plugin/microphone";
 import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
-import RegionsPlugin from "wavesurfer.js/src/plugin/regions";
+import RegionsPlugin, { Region, RegionParams, RegionUpdatedEventParams } from "wavesurfer.js/src/plugin/regions";
 import SpectrogramPlugin from "wavesurfer.js/src/plugin/spectrogram";
 import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
 import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
@@ -89,33 +89,36 @@ const button = document.createElement("button");
 button.innerHTML = "click";
 const waveSurferWithMarkersPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [MarkersPlugin.create({
-        markers: [
-            {
-                time: 0,
-                label: "BEGIN",
-                color: '#ff990a'
-            },
-            {
-                time: 5.5,
-                label: "V1",
-                color: '#ff990a'
-            },
-            {
-                time: 10,
-                label: "V2",
-                color: '#00ffcc',
-                position: 'top',
-                markerElement: button
-            },
-            {
-                time: 24,
-                label: "END",
-                color: '#00ffcc',
-                position: 'top'
-            }
-        ]
-    })],
+    plugins: [
+        MarkersPlugin.create({
+            markers: [
+                {
+                    time: 0,
+                    label: "BEGIN",
+                    color: "#ff990a",
+                },
+                {
+                    time: 5.5,
+                    label: "V1",
+                    color: "#ff990a",
+                    draggable: true,
+                },
+                {
+                    time: 10,
+                    label: "V2",
+                    color: "#00ffcc",
+                    position: "top",
+                    markerElement: button,
+                },
+                {
+                    time: 24,
+                    label: "END",
+                    color: "#00ffcc",
+                    position: "top",
+                },
+            ],
+        }),
+    ],
 });
 waveSurferWithMarkersPlugin.markers.destroy();
 
@@ -152,8 +155,27 @@ waveSurferWithMinimapPlugin.minimap.destroy();
 // - plugin: regions
 const waveSurferWithRegionsPlugin = WaveSurfer.create({
     container: "#waveform",
-    plugins: [RegionsPlugin.create({})],
+    plugins: [
+        RegionsPlugin.create({
+            maxRegions: 1,
+            formatTimeCallback: (start: number, end: number) => `${start.toFixed(2)}:${end.toFixed(2)}`,
+        }),
+    ],
 });
+// $ExpectType number
+waveSurferWithRegionsPlugin.regions.maxRegions;
+const regionOptions: RegionParams = { start: 7, end: 13, data: { label: "Hello, World!", fontSize: 99 } };
+const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
+waveSurferWithRegionsPlugin.util.getId();
+waveSurferWithRegionsPlugin.util.getId("foo_");
+waveSurferWithRegionsPlugin.on("region-updated", (region: Region, eventParams: RegionUpdatedEventParams) => {
+    eventParams.action;
+    eventParams.direction;
+    eventParams.oldText;
+    eventParams.text;
+});
+region.bindDragEvents();
+region.update({ start: 13, end: 23, data: { text: "Hello", label: "Bye, World!", fontSize: 24 } });
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram

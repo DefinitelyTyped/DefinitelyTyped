@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vcf",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jhermsmeier/node-vcf"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/vcf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mcpar-land",
+            "githubUsername": "mcpar-land"
+        }
+    ]
+}

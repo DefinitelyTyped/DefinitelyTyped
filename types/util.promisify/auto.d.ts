@@ -1,6 +1,6 @@
-import polyfill = require('./index');
+import polyfill = require("./index");
 
-declare module 'util' {
+declare module "util" {
     namespace promisify {
         /**
          * @deprecated

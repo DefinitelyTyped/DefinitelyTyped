@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 export interface Node {
     id: string;
@@ -70,18 +70,18 @@ export interface Graph {
      * Define the list of listenable events on graph.
      */
     Events: {
-        NODE_ROOT_ADD: "root.node.add",
-        NODE_EXPAND_RELATIONSHIP: "node.expandRelationship",
-        GRAPH_SAVE: "graph.save",
-        GRAPH_RESET: "graph.reset",
-        GRAPH_NODE_RELATION_ADD: "graph.node.relation_add",
-        GRAPH_NODE_VALUE_EXPAND: "graph.node.value_expand",
-        GRAPH_NODE_VALUE_COLLAPSE: "graph.node.value_collapse",
-        GRAPH_NODE_ADD_VALUE: "graph.node.add_value",
-        GRAPH_NODE_DATA_LOADED: "graph.node.data_loaded"
+        NODE_ROOT_ADD: "root.node.add";
+        NODE_EXPAND_RELATIONSHIP: "node.expandRelationship";
+        GRAPH_SAVE: "graph.save";
+        GRAPH_RESET: "graph.reset";
+        GRAPH_NODE_RELATION_ADD: "graph.node.relation_add";
+        GRAPH_NODE_VALUE_EXPAND: "graph.node.value_expand";
+        GRAPH_NODE_VALUE_COLLAPSE: "graph.node.value_collapse";
+        GRAPH_NODE_ADD_VALUE: "graph.node.add_value";
+        GRAPH_NODE_DATA_LOADED: "graph.node.data_loaded";
     };
 
-    listerners: { [event: string]: Array<() => void>};
+    listerners: { [event: string]: Array<() => void> };
 
     /**
      * Add a listener to the specified event.
@@ -167,9 +167,21 @@ export interface Graph {
 
     loadSchema: (graphToLoad: GraphSchema) => void;
 
-    loadSchemaRelation: (relationSchema: GraphSchemaRelation, parentNode: Node, linkIndex: number, parentLinkTotalCount: number) => void;
+    loadSchemaRelation: (
+        relationSchema: GraphSchemaRelation,
+        parentNode: Node,
+        linkIndex: number,
+        parentLinkTotalCount: number,
+    ) => void;
 
-    loadSchemaNode: (nodeSchema: NodeSchema, parentNode: Node, index: number, parentLinkTotalCount: number, parentRel: any[], isReverse: boolean) => void;
+    loadSchemaNode: (
+        nodeSchema: NodeSchema,
+        parentNode: Node,
+        index: number,
+        parentLinkTotalCount: number,
+        parentRel: any[],
+        isReverse: boolean,
+    ) => void;
 
     /**
      * Adds a complete graph from schema.
@@ -179,9 +191,20 @@ export interface Graph {
      */
     addSchema: (graphSchema: GraphSchema) => void;
 
-    addSchemaRelation: (relationSchema: GraphSchemaRelation, parentNode: Node, linkIndex: number, parentLinkTotalCount: number) => void;
+    addSchemaRelation: (
+        relationSchema: GraphSchemaRelation,
+        parentNode: Node,
+        linkIndex: number,
+        parentLinkTotalCount: number,
+    ) => void;
 
-    addSchemaNode: (nodeSchema: NodeSchema, parentNode: Node, index: number, parentLinkTotalCount: number, parentRel: any[]) => void;
+    addSchemaNode: (
+        nodeSchema: NodeSchema,
+        parentNode: Node,
+        index: number,
+        parentLinkTotalCount: number,
+        parentRel: any[],
+    ) => void;
 
     /**
      * Get the current schema of the graph.
@@ -204,7 +227,6 @@ export interface Graph {
     computeParentAngle: (n: Node) => number;
 
     /**
-     *
      * @param n
      * @param l
      * @param callback

@@ -1,13 +1,22 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare class Tooltip extends React.Component<TooltipProps> {}
 
 export default Tooltip;
 
-export type PositionType =  "right start" | "right center" | "right end"
-         | "bottom start" | "bottom center" | "bottom end"
-         | "left start" | "left center" | "left end"
-         | "top start" | "top center" | "top end";
+export type PositionType =
+    | "right start"
+    | "right center"
+    | "right end"
+    | "bottom start"
+    | "bottom center"
+    | "bottom end"
+    | "left start"
+    | "left center"
+    | "left end"
+    | "top start"
+    | "top center"
+    | "top end";
 
 export type ArrowAlignType = "start" | "center" | "end";
 

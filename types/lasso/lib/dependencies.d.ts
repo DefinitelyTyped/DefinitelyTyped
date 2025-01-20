@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import LassoContext from './LassoContext';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import LassoContext from "./LassoContext";
 
 export type Callback = (err: Error | null, result?: any) => any;
 
@@ -18,18 +18,18 @@ export interface DependencyConfig {
     } | undefined;
     inline?: string | undefined;
     slot?: string | undefined;
-    'css-slot'?: string | undefined;
-    'js-slot'?: string | undefined;
+    "css-slot"?: string | undefined;
+    "js-slot"?: string | undefined;
     url?: string | undefined;
     path?: string | undefined;
     external?: boolean | undefined;
-    'if-flag'?: string | undefined;
-    'if-not-flag'?: string | undefined;
+    "if-flag"?: string | undefined;
+    "if-not-flag"?: string | undefined;
     if?: string | undefined;
     from?: string | undefined;
     to?: string | undefined;
     require?: string | undefined;
-    'require-run'?: string | undefined;
+    "require-run"?: string | undefined;
     dependencies?: Array<DependencyConfig | string> | undefined;
 }
 

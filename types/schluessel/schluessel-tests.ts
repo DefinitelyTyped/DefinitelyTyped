@@ -1,1 +1,1 @@
-import schluessel = require('schluessel');
+import schluessel = require("schluessel");

@@ -1,7 +1,7 @@
-import 'jquery';
-import 'smartwizard';
+import "jquery";
+import "smartwizard";
 
-$('#smartwizard').smartWizard({
+$("#smartwizard").smartWizard({
     selected: 0,
     keyNavigation: true,
     autoAdjustHeight: true,
@@ -19,26 +19,26 @@ $('#smartwizard').smartWizard({
     disabledSteps: [2],
     errorSteps: [3, 4],
     hiddenSteps: [1],
-    theme: 'dots',
-    transitionEffect: 'fade',
-    transitionSpeed: '400',
+    theme: "dots",
+    transitionEffect: "fade",
+    transitionSpeed: "400",
     toolbarSettings: {
-        toolbarPosition: 'bottom',
-        toolbarButtonPosition: 'right',
+        toolbarPosition: "bottom",
+        toolbarButtonPosition: "right",
         showNextButton: true,
         showPreviousButton: true,
         toolbarExtraButtons: [
-            $('<button></button>')
-                .text('Finish')
-                .addClass('btn btn-info')
-                .on('click', () => {
-                    alert('Finsih button click');
+            $("<button></button>")
+                .text("Finish")
+                .addClass("btn btn-info")
+                .on("click", () => {
+                    alert("Finsih button click");
                 }),
-            $('<button></button>')
-                .text('Cancel')
-                .addClass('btn btn-danger')
-                .on('click', () => {
-                    alert('Cancel button click');
+            $("<button></button>")
+                .text("Cancel")
+                .addClass("btn btn-danger")
+                .on("click", () => {
+                    alert("Cancel button click");
                 }),
         ],
     },
@@ -51,7 +51,7 @@ $('#smartwizard').smartWizard({
         enableAnchorOnDoneStep: true,
     },
     lang: {
-        next: 'Next',
-        previous: 'Previous',
+        next: "Next",
+        previous: "Previous",
     },
 });

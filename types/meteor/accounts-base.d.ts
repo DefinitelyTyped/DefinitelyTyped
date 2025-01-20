@@ -14,10 +14,12 @@ declare module 'meteor/accounts-base' {
         html?: ((user: Meteor.User, url: string) => string) | undefined;
     }
 
-    module Accounts {
+    namespace Accounts {
         var urls: URLS;
 
         function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): Meteor.User | null;
+
+        function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<Meteor.User | null>;
 
         function userId(): string | null;
 
@@ -26,10 +28,20 @@ declare module 'meteor/accounts-base' {
                 username?: string | undefined;
                 email?: string | undefined;
                 password?: string | undefined;
-                profile?: Object | undefined;
+                profile?: Meteor.UserProfile | undefined;
             },
             callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
         ): string;
+
+        function createUserAsync(
+            options: {
+                username?: string | undefined;
+                email?: string | undefined;
+                password?: string | undefined;
+                profile?: Meteor.UserProfile | undefined;
+            },
+            callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
+        ): Promise<string>;
 
         function config(options: {
             sendVerificationEmail?: boolean | undefined;
@@ -56,7 +68,7 @@ declare module 'meteor/accounts-base' {
         function onPageLoadLogin(func: Function): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         function changePassword(
             oldPassword: string,
             newPassword: string,
@@ -87,16 +99,22 @@ declare module 'meteor/accounts-base' {
 
         function loggingIn(): boolean;
 
+        function loggingOut(): boolean;
+
         function logout(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
         function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
+        type PasswordSignupField = 'USERNAME_AND_EMAIL' | 'USERNAME_AND_OPTIONAL_EMAIL' | 'USERNAME_ONLY' | 'EMAIL_ONLY';
+        type PasswordlessSignupField = 'USERNAME_AND_EMAIL' | 'EMAIL_ONLY';
+
         var ui: {
             config(options: {
-                requestPermissions?: Object | undefined;
-                requestOfflineToken?: Object | undefined;
-                forceApprovalPrompt?: Object | undefined;
-                passwordSignupFields?: string | undefined;
+                requestPermissions?: Record<string, string[]> | undefined;
+                requestOfflineToken?: Record<'google', boolean> | undefined;
+                forceApprovalPrompt?: Record<'google', boolean> | undefined;
+                passwordSignupFields?: PasswordSignupField | PasswordSignupField[] | undefined;
+                passwordlessSignupFields?: PasswordlessSignupField | PasswordlessSignupField[] | undefined;
             }): void;
         };
     }
@@ -114,7 +132,7 @@ declare module 'meteor/accounts-base' {
         verifyEmail: EmailFields;
     }
 
-    module Accounts {
+    namespace Accounts {
         var emailTemplates: EmailTemplates;
 
         function addEmail(userId: string, newEmail: string, verified?: boolean): void;
@@ -156,7 +174,9 @@ declare module 'meteor/accounts-base' {
 
         function setUsername(userId: string, newUsername: string): void;
 
-        function setPassword(userId: string, newPassword: string, options?: { logout?: Object | undefined }): void;
+        function setPassword(userId: string, newPassword: string, options?: { logout?: boolean | undefined }): void;
+
+        function setPasswordAsync(userId: string, newPassword: string, options?: { logout?: boolean | undefined }): Promise<void>;
 
         function validateNewUser(func: Function): boolean;
 
@@ -177,15 +197,15 @@ declare module 'meteor/accounts-base' {
         }
     }
 
-    module Accounts {
+    namespace Accounts {
         function onLogout(func: Function): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         function onLogout(func: (options: { user: Meteor.User; connection: Meteor.Connection }) => void): void;
     }
 
-    module Accounts {
+    namespace Accounts {
         interface LoginMethodOptions {
             /**
              * The method to call (default 'login')
@@ -207,6 +227,13 @@ declare module 'meteor/accounts-base' {
              */
             userCallback?: ((err?: any) => void) | undefined;
         }
+
+        type LoginMethodResult = { error: Error } | {
+            userId: string;
+            error?: Error;
+            stampedLoginToken?: StampedLoginToken;
+            options?: Record<string, any>;
+        };
 
         /**
          *
@@ -252,7 +279,8 @@ declare module 'meteor/accounts-base' {
          * - `undefined`, meaning don't handle;
          * - a login method result object
          **/
-        function registerLoginHandler(name: string, handler: (options: any) => undefined | Object): void;
+        function registerLoginHandler(handler: (options: any) => undefined | LoginMethodResult): void;
+        function registerLoginHandler(name: string, handler: (options: any) => undefined | LoginMethodResult): void;
 
         type Password =
             | string
@@ -272,7 +300,7 @@ declare module 'meteor/accounts-base' {
         function _checkPassword(user: Meteor.User, password: Password): { userId: string; error?: any };
     }
 
-    module Accounts {
+    namespace Accounts {
         type StampedLoginToken = {
             token: string;
             when: Date;

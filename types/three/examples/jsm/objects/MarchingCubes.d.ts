@@ -1,7 +1,13 @@
-import { BufferGeometry, Material, ImmediateRenderObject } from '../../../src/Three';
+import { BufferGeometry, Color, Material, Mesh } from "three";
 
-export class MarchingCubes extends ImmediateRenderObject {
-    constructor(resolution: number, material: Material, enableUvs?: boolean, enableColors?: boolean);
+export class MarchingCubes extends Mesh {
+    constructor(
+        resolution: number,
+        material: Material,
+        enableUvs?: boolean,
+        enableColors?: boolean,
+        maxPolyCount?: number,
+    );
 
     enableUvs: boolean;
     enableColors: boolean;
@@ -46,9 +52,9 @@ export class MarchingCubes extends ImmediateRenderObject {
     begin(): void;
     end(): void;
 
-    init(resolution: string): void;
+    init(resolution: number): void;
 
-    addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any): void;
+    addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors?: Color): void;
 
     addPlaneX(strength: number, subtract: number): void;
     addPlaneY(strength: number, subtract: number): void;
@@ -60,6 +66,7 @@ export class MarchingCubes extends ImmediateRenderObject {
     blur(intensity: number): void;
 
     reset(): void;
+    update(): void;
     render(renderCallback: any): void;
     generateGeometry(): BufferGeometry;
     generateBufferGeometry(): BufferGeometry;

@@ -1,4 +1,8 @@
-import tape = require('tape');
+import tape = require("tape");
+
+import Test = require("tape/lib/test");
+
+import { type RestoreFunction, type WrappedCall } from "tape";
 
 var name: string;
 var cb: tape.TestCase;
@@ -9,8 +13,13 @@ tape(cb);
 tape(name, cb);
 tape(topts, cb);
 tape(name, topts, cb);
+tape(name, { skip: "skip message" }, cb);
 
 tape(name, (test: tape.Test) => {
+    t = test;
+});
+
+tape(name, async (test: tape.Test) => {
     t = test;
 });
 
@@ -54,6 +63,7 @@ tape(name, (test: tape.Test) => {
     var regex: RegExp;
 
     var exceptionExpected: RegExp | (() => void);
+    var throwsValidationObject: {};
 
     test.plan(num);
     test.end();
@@ -203,25 +213,50 @@ tape(name, (test: tape.Test) => {
 
     test.throws(fn);
     test.throws(fn, msg);
+    test.throws(fn, msg, extra);
     test.throws(fn, exceptionExpected);
     test.throws(fn, exceptionExpected, msg);
-    test.throws(fn, exceptionExpected, msg);
+    test.throws(fn, exceptionExpected, msg, extra);
+    test.throws(fn, throwsValidationObject);
+    test.throws(fn, throwsValidationObject, msg);
+    test.throws(fn, throwsValidationObject, msg, extra);
     test.throws(fn, CustomException);
     test.throws(fn, CustomException, msg);
-    test.throws(fn, CustomException, msg);
+    test.throws(fn, CustomException, msg, extra);
 
     test.doesNotThrow(fn);
     test.doesNotThrow(fn, msg);
+    test.doesNotThrow(fn, msg, extra);
     test.doesNotThrow(fn, exceptionExpected);
     test.doesNotThrow(fn, exceptionExpected, msg);
+    test.doesNotThrow(fn, exceptionExpected, msg, extra);
     test.doesNotThrow(fn, CustomException);
     test.doesNotThrow(fn, CustomException, msg);
+    test.doesNotThrow(fn, CustomException, msg, extra);
+
+    test.test(name, { todo: "to do" });
+    test.test(name, { skip: "skip" });
+
+    test.test(name, { todo: "to do" }, (t) => {
+        t.end();
+    });
+    test.test(name, { skip: "skip" }, (t) => {
+        t.end();
+    });
 
     test.test(name, st => {
         t = st;
     });
 
+    test.test(name, async st => {
+        t = st;
+    });
+
     test.test(name, topts, st => {
+        t = st;
+    });
+
+    test.test(name, topts, async st => {
         t = st;
     });
 
@@ -237,4 +272,18 @@ tape(name, (test: tape.Test) => {
 
     test.teardown(() => {});
     test.teardown(async () => {});
+
+    const captureFnResults = test.captureFn(() => 42);
+    captureFnResults(); // $ExpectType number
+    captureFnResults.calls; // $ExpectType WrappedCall[]
+
+    const a: unknown[] = [];
+    const captureResults = test.capture(a, "push", () => "foo");
+    captureResults(); // $ExpectType WrappedCall[]
+    captureResults.restore; // $ExpectType RestoreFunction
+
+    function isFortyTwo(this: tape.Test, actual: unknown, message?: string) {
+        this.equal(actual, 42, message ?? "expected " + actual);
+    }
+    t.assertion(isFortyTwo, "not 42", "a message!"); // $ExpectType void
 });

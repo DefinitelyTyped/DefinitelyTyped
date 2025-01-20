@@ -1,12 +1,4 @@
-// Type definitions for @hapi/inert 5.2
-// Project: https://github.com/hapijs/inert/
-// Definitions by: Steve Ognibene <https://github.com/nycdotnet>
-//                 Alexander James Phillips <https://github.com/AJamesPhillips>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Plugin, Request } from '@hapi/hapi';
+import { Plugin, Request, ResponseObject } from "@hapi/hapi";
 
 declare namespace inert {
     type RequestHandler<T> = (request: Request) => T;
@@ -27,7 +19,7 @@ declare namespace inert {
          *  * 'attachment'
          *  *'inline'
          */
-        mode?: false | 'attachment' | 'inline' | undefined;
+        mode?: false | "attachment" | "inline" | undefined;
         /**
          * lookupCompressed - if true, looks for for a pre-compressed version of the file with the same filename with an extension, depending on the accepted encoding. Defaults to false.
          */
@@ -42,7 +34,7 @@ declare namespace inert {
          *  * 'simple' - Hex encoded size and modification date, suitable when files are stored on a single server.
          *  * false - Disable ETag computation.
          */
-        etagMethod?: 'hash' | 'simple' | false | undefined;
+        etagMethod?: "hash" | "simple" | false | undefined;
         /**
          * start - offset in file to reading from, defaults to 0.
          */
@@ -100,7 +92,7 @@ declare namespace inert {
          *  * 'simple' - Hex encoded size and modification date, suitable when files are stored on a single server.
          *  * false - Disable ETag computation.
          */
-        etagMethod?: 'hash' | 'simple' | false | undefined;
+        etagMethod?: "hash" | "simple" | false | undefined;
         /**
          * defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.
          */
@@ -119,11 +111,11 @@ declare namespace inert {
     }
 }
 
-declare const inert: Plugin<inert.OptionalRegistrationOptions>;
+declare const inert: { plugin: Plugin<inert.OptionalRegistrationOptions> };
 
 export = inert;
 
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface HandlerDecorations {
         /**
          * The file handler
@@ -148,12 +140,14 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/inert#the-directory-handler}
          */
         directory?: inert.DirectoryHandlerRouteObject | undefined;
-        files?: {
-            /**
-             * Set the relative path
-             */
-            relativeTo: string;
-        } | undefined;
+        files?:
+            | {
+                /**
+                 * Set the relative path
+                 */
+                relativeTo: string;
+            }
+            | undefined;
     }
 
     interface ResponseToolkit {

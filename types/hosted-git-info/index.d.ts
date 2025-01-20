@@ -1,8 +1,3 @@
-// Type definitions for hosted-git-info 3.0
-// Project: https://github.com/npm/hosted-git-info
-// Definitions by: Jason <https://github.com/OiyouYeahYou>, Michael <https://github.com/Ovyerus>, Daniel Cassidy <https://github.com/djcsdy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class GitHost {
     constructor(
         type: GitHost.Hosts,
@@ -77,21 +72,21 @@ declare namespace GitHost {
         treepath?: string | undefined;
     }
 
-    type Hosts = 'github' | 'bitbucket' | 'gitlab' | 'gist';
+    type Hosts = "github" | "bitbucket" | "gitlab" | "gist";
 
     type Representation =
-        | 'hash'
-        | 'ssh'
-        | 'sshurl'
-        | 'browse'
-        | 'docs'
-        | 'bugs'
-        | 'https'
-        | 'git'
-        | 'shortcut'
-        | 'path'
-        | 'tarball'
-        | 'file';
+        | "hash"
+        | "ssh"
+        | "sshurl"
+        | "browse"
+        | "docs"
+        | "bugs"
+        | "https"
+        | "git"
+        | "shortcut"
+        | "path"
+        | "tarball"
+        | "file";
 }
 
 export = GitHost;

@@ -1,34 +1,21 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
+        "module": "node16",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ember/*": [
-                "ember__*"
-            ]
-        },
+        "strict": true,
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/application.ts",
-        "test/deprecations.ts",
-        "test/resolver.ts",
-        "test/globals-resolver.ts",
-        "test/application-instance.ts"
+        "test/application-instance.ts",
+        "test/index.ts"
     ]
 }

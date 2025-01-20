@@ -1,8 +1,3 @@
-// Type definitions for @iopipe/iopipe 1.12
-// Project: https://github.com/iopipe/iopipe, https://github.com/iopipe/the-meta-package
-// Definitions by: Javon Harper <https://github.com/javonharper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function iopipe(config?: iopipe.LibraryConfig): iopipe.FunctionWrapper;
 
 declare namespace iopipe {

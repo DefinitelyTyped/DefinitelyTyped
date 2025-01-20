@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/postcss-sass",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/AleshaOleg/postcss-sass"
+    ],
+    "dependencies": {
+        "postcss": "^8.2.14"
+    },
+    "devDependencies": {
+        "@types/postcss-sass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

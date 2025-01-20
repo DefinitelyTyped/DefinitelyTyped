@@ -1,22 +1,24 @@
-// Type definitions for laravel-vapor 0.4
-// Project: https://github.com/laravel/vapor-js
-// Definitions by: saibotk <https://github.com/saibotk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.9
 //
 
 interface VaporStoreOptions {
+    signedStorageUrl?: string | undefined;
     bucket?: string | undefined;
+    cancelToken?: string | undefined;
     contentType?: string | undefined;
+    data?: any;
     expires?: string | undefined;
     visibility?: string | undefined;
     baseURL?: string | undefined;
     headers?: any;
     options?: any;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    progress?: (value: number) => void | undefined;
 }
 
 declare class Vapor {
     store(file: File, options?: VaporStoreOptions): Promise<any>;
+    withBaseAssetUrl(url?: string): void;
+    asset(path: string): string;
 }
 
 declare const VaporInstance: Vapor;

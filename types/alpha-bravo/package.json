@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/alpha-bravo",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/alpha-bravo"
+    ],
+    "devDependencies": {
+        "@types/alpha-bravo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gary King",
+            "githubUsername": "garyking"
+        }
+    ]
+}

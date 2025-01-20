@@ -3,7 +3,7 @@
 declare namespace AV {
     class Filter {
         constructor();
-        constructor(context: { }, key: string);
+        constructor(context: {}, key: string);
 
         process(buffer: TypedArray): void;
     }

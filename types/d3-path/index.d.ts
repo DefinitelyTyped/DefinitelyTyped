@@ -1,12 +1,4 @@
-// Type definitions for D3JS d3-path module 3.0
-// Project: https://github.com/d3/d3-path/, https://d3js.org/d3-path
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 /**
  * A D3 path serializer implementing CanvasPathMethods
@@ -107,3 +99,9 @@ export interface Path {
  * Construct a D3 Path serializer
  */
 export function path(): Path;
+
+/**
+ * Like {@link path}, except limits the digits after the decimal to the specified number of digits.
+ * Useful for reducing the size of generated SVG path data.
+ */
+export function pathRound(digits?: number): Path;

@@ -1,4 +1,4 @@
-import findCircuits = require('elementary-circuits-directed-graph');
+import findCircuits = require("elementary-circuits-directed-graph");
 
 const adjacencyList = [
     [1, 2],
@@ -14,3 +14,13 @@ findCircuits(adjacencyList);
 findCircuits(adjacencyList, (circuit) => {
     circuit; // $ExpectType number[]
 });
+
+const graph = [];
+graph[0] = [1];
+graph[1] = [2];
+// graph[2] is undefined
+graph[3] = [4];
+graph[4] = [0];
+
+// $ExpectType number[][];
+findCircuits(graph);

@@ -1,10 +1,3 @@
-// Type definitions for spark-md5 3.0
-// Project: https://github.com/satazor/js-spark-md5#readme
-// Definitions by: Bastien Moulia <https://github.com/bastienmoulia>
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // copy of ArrayBuffer because of a conflict with the class SparkMD5.ArrayBuffer
 type JsArrayBuffer = ArrayBuffer;
 
@@ -14,7 +7,7 @@ declare class SparkMD5 {
     static hash(str: string, raw?: boolean): string;
     static hashBinary(content: string, raw?: boolean): string;
 
-    append(str: string): SparkMD5;
+    append(str: string | JsArrayBuffer): SparkMD5;
     appendBinary(contents: string): SparkMD5;
     destroy(): void;
     end(raw?: boolean): string;

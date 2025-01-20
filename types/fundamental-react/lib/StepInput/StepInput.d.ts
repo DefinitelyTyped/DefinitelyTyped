@@ -9,7 +9,7 @@ export interface StepInputProps {
     placeholder?: string | undefined;
     readOnly?: boolean | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
+        state?: "error" | "warning" | "information" | "success" | undefined;
         text?: string | undefined;
     } | undefined;
     value?: number | undefined;

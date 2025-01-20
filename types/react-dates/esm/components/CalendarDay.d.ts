@@ -1,3 +1,3 @@
-import { CalendarDay } from '../../index';
+import { CalendarDay } from "../../index";
 
 export default CalendarDay;

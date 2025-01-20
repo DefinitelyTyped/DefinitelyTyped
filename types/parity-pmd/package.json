@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/parity-pmd",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/paritytrading/node-parity-pmd#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/parity-pmd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Vujanić",
+            "githubUsername": "leovujanic"
+        }
+    ]
+}

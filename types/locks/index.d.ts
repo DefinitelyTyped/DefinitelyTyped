@@ -1,10 +1,3 @@
-// Type definitions for Locks 0.2
-// Project: https://github.com/Wizcorp/locks
-// Definitions by: Joshua Graham <https://github.com/flippynips>
-//                 Alexey Ponomarev <https://github.com/alexey-detr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /** Solitary access lock */
 export class Mutex {
     /** Construct a new mutex lock. */

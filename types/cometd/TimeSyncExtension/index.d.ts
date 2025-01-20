@@ -1,4 +1,4 @@
-import * as m from '..';
+import * as m from "..";
 
 declare class TimeSyncExtension implements m.Extension {
     constructor();
@@ -31,7 +31,6 @@ declare class TimeSyncExtension implements m.Extension {
     getServerTime: () => number;
 
     /**
-     *
      * Get the estimated server time as a Date object
      */
     getServerDate: () => Date;

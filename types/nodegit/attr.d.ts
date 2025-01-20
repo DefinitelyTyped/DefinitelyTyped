@@ -1,11 +1,11 @@
-import { Repository } from './repository';
+import { Repository } from "./repository";
 
 export namespace Attr {
     const enum STATES {
         UNSPECIFIED_T = 0,
         TRUE_T = 1,
         FALSE_T = 2,
-        VALUE_T = 3
+        VALUE_T = 3,
     }
 }
 

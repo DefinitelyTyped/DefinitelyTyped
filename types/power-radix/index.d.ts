@@ -1,8 +1,3 @@
-// Type definitions for power-radix 2.5
-// Project: https://github.com/cflynn07/power-radix
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert number from source radix to target radix
  * with optional custom character encoding

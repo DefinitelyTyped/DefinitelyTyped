@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pretty-proptypes",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/atlassian/extract-react-types#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/pretty-proptypes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

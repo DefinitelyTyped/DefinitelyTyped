@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/es-feature-detection",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Tokimon/es-feature-detection#readme"
+    ],
+    "devDependencies": {
+        "@types/es-feature-detection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-actionsheet",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/beefe/react-native-actionsheet"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-actionsheet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian",
+            "githubUsername": "ian-rudge"
+        }
+    ]
+}

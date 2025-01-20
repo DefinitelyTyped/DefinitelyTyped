@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/postlight__mercury-parser",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/postlight/mercury-parser"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/postlight__mercury-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Malo Bourgon",
+            "githubUsername": "malob"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-concat",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/wearefractal/gulp-concat"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-concat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

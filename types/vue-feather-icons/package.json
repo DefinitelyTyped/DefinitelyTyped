@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0"
-  }
+    "private": true,
+    "name": "@types/vue-feather-icons",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/egoist/vue-feather-icons#readme"
+    ],
+    "dependencies": {
+        "vue": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/vue-feather-icons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Takuma HANATANI",
+            "githubUsername": "potato4d"
+        }
+    ]
 }

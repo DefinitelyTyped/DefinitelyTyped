@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-resizable",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/react-grid-layout/react-resizable"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-resizable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Harry Brrundage",
+            "githubUsername": "airhorns"
+        }
+    ]
+}

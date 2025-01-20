@@ -23,7 +23,6 @@ download("unicorn.com/foo.jpg", "dest", {
     encoding: "utf8",
     followRedirect: true,
     query: "",
-    retries: (retry, error) => 4,
     timeout: {
         connect: 20,
         request: 20,

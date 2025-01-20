@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/stripe-v2",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "stripe-v2",
+    "projects": [
+        "https://stripe.com/"
+    ],
+    "devDependencies": {
+        "@types/stripe-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andy Hawkins",
+            "url": "https://github.com/a904guy/,http://a904guy.com"
+        },
+        {
+            "name": "Eric J. Smith",
+            "githubUsername": "ejsmith"
+        },
+        {
+            "name": "Amrit Kahlon",
+            "githubUsername": "amritk"
+        },
+        {
+            "name": "Adam Cmiel",
+            "githubUsername": "adamcmiel"
+        },
+        {
+            "name": "Justin Leider",
+            "githubUsername": "jleider"
+        },
+        {
+            "name": "Kamil Gałuszka",
+            "githubUsername": "galuszkak"
+        }
+    ]
+}

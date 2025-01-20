@@ -1,2 +1,2 @@
-import { lte } from '../index';
+import { lte } from "../index.js";
 export default lte;

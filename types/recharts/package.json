@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/recharts",
+    "version": "1.8.9999",
+    "projects": [
+        "http://recharts.org/",
+        "https://github.com/recharts/recharts"
+    ],
+    "dependencies": {
+        "@types/d3-shape": "^1",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/recharts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitriy Serdtsev",
+            "githubUsername": "in19farkt"
+        }
+    ]
+}

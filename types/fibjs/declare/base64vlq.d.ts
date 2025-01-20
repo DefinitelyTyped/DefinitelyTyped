@@ -202,7 +202,7 @@
 declare module "base64vlq" {
     
 
-    module base64vlq {
+    namespace base64vlq {
         
         
         

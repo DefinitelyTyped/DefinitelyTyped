@@ -1,17 +1,11 @@
-// Type definitions for angular-storage v0.0.11
-// Project: https://github.com/auth0/angular-storage
-// Definitions by: Matthew DeKrey <https://github.com/mdekrey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace a0.storage {
         interface IStoreService extends INamespacedStoreService {
             /**
@@ -51,7 +45,6 @@ declare module 'angular' {
         }
 
         interface IStoreProvider {
-
             /**
              * Sets the storage.
              *

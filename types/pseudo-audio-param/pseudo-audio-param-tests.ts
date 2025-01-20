@@ -1,4 +1,4 @@
-import PseudoAudioParam = require('pseudo-audio-param');
+import PseudoAudioParam = require("pseudo-audio-param");
 const p = new PseudoAudioParam(1);
 const v: number = p.getValueAtTime(0.1);
 

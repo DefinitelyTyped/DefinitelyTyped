@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Text, View } from "react-native";
 import {
+    Agenda,
     Calendar,
     CalendarList,
-    Agenda,
+    CalendarProvider,
+    ExpandableCalendar,
     LocaleConfig,
     Timeline,
-    CalendarProvider,
-    WeekCalendar, ExpandableCalendar
+    WeekCalendar,
 } from "react-native-calendars";
 
 declare const Arrow: React.FC<unknown>;
@@ -510,7 +511,7 @@ const events = [
     onMonthChange={(date, updateSource) => console.log(date, updateSource)}
     showTodayButton={false}
     todayBottomMargin={10}
-    todayButtonStyle={{flex: 1}}
+    todayButtonStyle={{ flex: 1 }}
     disabledOpacity={0.5}
 >
     <WeekCalendar
@@ -675,8 +676,8 @@ const events = [
         onCalendarToggled={(isOpen) => console.log(isOpen)}
         disablePan={false}
         hideKnob={true}
-        leftArrowImageSource={{uri: "https://test.com"}}
-        rightArrowImageSource={{uri: "https://test1.com"}}
+        leftArrowImageSource={{ uri: "https://test.com" }}
+        rightArrowImageSource={{ uri: "https://test1.com" }}
         disableWeekScroll={false}
         openThreshold={10}
         closeThreshold={10}

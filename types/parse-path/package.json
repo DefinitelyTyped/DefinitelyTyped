@@ -1,6 +1,17 @@
 {
     "private": true,
-    "dependencies": {
-        "query-string": "^6.13.8"
-    }
+    "name": "@types/parse-path",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/parse-path"
+    ],
+    "devDependencies": {
+        "@types/parse-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

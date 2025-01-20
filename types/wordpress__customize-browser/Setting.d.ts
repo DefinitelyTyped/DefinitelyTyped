@@ -1,6 +1,6 @@
-import { Control } from './Control';
-import { Previewer } from './Previewer';
-import { Value } from './Value';
+import { Control } from "./Control";
+import { Previewer } from "./Previewer";
+import { Value } from "./Value";
 
 export interface Setting_Options {
     transport: string;

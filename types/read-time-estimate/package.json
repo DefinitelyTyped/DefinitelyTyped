@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/read-time-estimate",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/pritishvaidya/read-time-estimate#readme"
+    ],
+    "devDependencies": {
+        "@types/read-time-estimate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rubek",
+            "githubUsername": "rubek-joshi"
+        }
+    ]
+}

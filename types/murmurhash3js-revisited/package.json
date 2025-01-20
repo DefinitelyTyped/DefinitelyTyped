@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/murmurhash3js-revisited",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/cimi/murmurhash3js-revisited#readme"
+    ],
+    "devDependencies": {
+        "@types/murmurhash3js-revisited": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlo Francisco",
+            "githubUsername": "jcfrancisco"
+        },
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

@@ -1,2 +1,2 @@
-declare function _exports(directoryKey: number, database?: any): number;
+declare function _exports(directoryKey: number, database?: Database): number;
 export = _exports;

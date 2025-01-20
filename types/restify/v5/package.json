@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/restify",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/restify/node-restify"
+    ],
+    "dependencies": {
+        "@types/bunyan": "*",
+        "@types/node": "*",
+        "@types/spdy": "*"
+    },
+    "devDependencies": {
+        "@types/restify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bret Little",
+            "githubUsername": "blittle"
+        },
+        {
+            "name": "Leandro Almeida",
+            "githubUsername": "leanazulyoro"
+        }
+    ]
+}

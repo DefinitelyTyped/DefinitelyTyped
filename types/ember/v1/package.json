@@ -1,6 +1,16 @@
 {
     "private": true,
+    "name": "@types/ember",
+    "version": "1.11.9999",
+    "projects": [
+        "http://emberjs.com/"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "handlebars": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/ember": "workspace:."
+    },
+    "owners": []
 }

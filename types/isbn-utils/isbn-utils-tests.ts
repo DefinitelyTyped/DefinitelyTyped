@@ -1,6 +1,6 @@
-import * as isbn from 'isbn-utils';
+import * as isbn from "isbn-utils";
 
-const isbn10a: isbn.ISBN|null = isbn.parse('4873113369');
+const isbn10a: isbn.ISBN | null = isbn.parse("4873113369");
 let b: boolean;
 let s: string;
 
@@ -22,14 +22,14 @@ if (isbn10a !== null) {
     s = isbn10a.codes.groupname;
 }
 
-const bad: isbn.ISBN|null = isbn.parse('invalid format');
+const bad: isbn.ISBN | null = isbn.parse("invalid format");
 if (bad === null) {
-  s = 'Bummer.';
+    s = "Bummer.";
 }
 
-s = isbn.asIsbn13('4-87311-336-9');
-s = isbn.asIsbn13('4-87311-336-9', true);
-s = isbn.asIsbn10('978-4-87311-336-4');
-s = isbn.asIsbn10('978-4-87311-336-4', true);
+s = isbn.asIsbn13("4-87311-336-9");
+s = isbn.asIsbn13("4-87311-336-9", true);
+s = isbn.asIsbn10("978-4-87311-336-4");
+s = isbn.asIsbn10("978-4-87311-336-4", true);
 
-s = isbn.hyphenate('9784873113364');
+s = isbn.hyphenate("9784873113364");

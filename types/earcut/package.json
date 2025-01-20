@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/earcut",
+    "type": "module",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mapbox/earcut#readme"
+    ],
+    "devDependencies": {
+        "@types/earcut": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adrian Leonhard",
+            "githubUsername": "NaridaL"
+        }
+    ]
+}

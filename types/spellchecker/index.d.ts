@@ -1,9 +1,3 @@
-// Type definitions for spellchecker 3.5
-// Project: http://atom.github.io/node-spellchecker
-// Definitions by: Dale Fenton <https://github.com/dalevfenton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /* ---------------------------------------------------------------------------
                        Custom Types / Interfaces
 --------------------------------------------------------------------------- */

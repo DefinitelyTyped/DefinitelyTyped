@@ -1,7 +1,3 @@
-// Type definitions for zarinpal-checkout 0.2
-// Project: https://github.com/siamak/zarinpal-checkout
-// Definitions by: Omid Seyfan <https://github.com/iamomiid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace ZarinPal {
     interface Authority {
         Authority: string;
@@ -31,7 +27,7 @@ declare namespace ZarinPal {
 
     interface PaymentVerificationOutput {
         status: number;
-        RefID: number;
+        refId: number;
     }
 
     interface UnverifiedTransactionsOutput {

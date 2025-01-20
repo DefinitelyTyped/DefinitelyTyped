@@ -1,7 +1,7 @@
-import { MaterialParameters, Material } from './Material';
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { NormalMapTypes } from '../constants';
+import { NormalMapTypes } from "../constants.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshNormalMaterialParameters extends MaterialParameters {
     bumpMap?: Texture | null | undefined;
@@ -22,9 +22,11 @@ export class MeshNormalMaterial extends Material {
     constructor(parameters?: MeshNormalMaterialParameters);
 
     /**
-     * @default 'MeshNormalMaterial'
+     * Read-only flag to check if a given object is of type {@link MeshNormalMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
      */
-    type: string;
+    readonly isMeshNormalMaterial: true;
 
     /**
      * @default null

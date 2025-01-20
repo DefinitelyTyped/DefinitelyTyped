@@ -1,11 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
-
  declare namespace dojox {
 
     namespace calc {
@@ -1727,7 +1719,7 @@
              */
             toFrac(number: any): any;
         }
-        module _Executor {
+        namespace _Executor {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/calc/_Executor._Executor.html
              *

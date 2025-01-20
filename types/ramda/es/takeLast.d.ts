@@ -1,2 +1,2 @@
-import { takeLast } from '../index';
+import { takeLast } from "../index.js";
 export default takeLast;

@@ -1,4 +1,4 @@
-import { Disposable, TextEditor } from '../index';
+import { Disposable, TextEditor } from "../index";
 
 /** Experimental: This global registry tracks registered TextEditors. */
 export interface TextEditorRegistry {

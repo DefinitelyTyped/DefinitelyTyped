@@ -1,16 +1,9 @@
-// Type definitions for Backgrid 0.2
-// Project: http://backgridjs.com/
-// Definitions by: Jeremy Lujan <https://github.com/jlujan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as Backbone from 'backbone';
+import * as Backbone from "backbone";
 
 export as namespace Backgrid;
 export = Backgrid;
 
 declare namespace Backgrid {
-
     interface GridOptions {
         columns: Column[];
         collection: Backbone.Collection<Backbone.Model>;
@@ -56,7 +49,7 @@ declare namespace Backgrid {
 
     class SelectFormatter extends CellFormatter {}
 
-    class CellEditor extends Backbone.View<Backbone.Model>{
+    class CellEditor extends Backbone.View<Backbone.Model> {
         initialize(options?: any);
         postRender(model: Backbone.Model, column: Backbone.Model);
     }
@@ -66,7 +59,7 @@ declare namespace Backgrid {
         saveOrCancel(event: any);
     }
 
-    class Cell extends Backbone.View<Backbone.Model>{
+    class Cell extends Backbone.View<Backbone.Model> {
         tagName: string;
         formatter: CellFormatter;
         editor: InputCellEditor;
@@ -124,5 +117,4 @@ declare namespace Backgrid {
         removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
         render(): this;
     }
-
 }

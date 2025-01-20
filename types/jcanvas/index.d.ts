@@ -1,9 +1,3 @@
-// Type definitions for jCanvas 15.2
-// Project: https://github.com/caleb531/jcanvas
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface JCanvasRect {
@@ -51,7 +45,6 @@ interface JCanvasTextDef {
 }
 
 interface JQuery {
-
     /**
      * This clearCanvas() clears all or any part of the canvas
      * If nothing is passed, the entire canvas is cleared.

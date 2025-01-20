@@ -1,8 +1,8 @@
-import { bootstrap, createGlobalProxyAgent, ProxyAgentConfigurationInputType } from 'global-agent';
+import { bootstrap, createGlobalProxyAgent, ProxyAgentConfigurationInputType } from "global-agent";
 
 bootstrap(); // $ExpectType boolean
 const opt: ProxyAgentConfigurationInputType = {
-    environmentVariableNamespace: '',
+    environmentVariableNamespace: "",
     forceGlobalAgent: false,
     socketConnectionTimeout: 0,
 };

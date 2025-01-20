@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shrink-ray",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/aickin/shrink-ray",
+        "https://github.com/aickin/compression"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/shrink-ray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "forabi",
+            "githubUsername": "forabi"
+        }
+    ]
+}

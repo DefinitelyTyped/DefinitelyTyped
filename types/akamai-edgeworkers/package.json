@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/akamai-edgeworkers",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Akamai EdgeWorkers JavaScript API",
+    "projects": [
+        "https://developer.akamai.com/akamai-edgeworkers-overview"
+    ],
+    "devDependencies": {
+        "@types/akamai-edgeworkers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hughes",
+            "githubUsername": "evan-hughes"
+        },
+        {
+            "name": "Will Bain",
+            "githubUsername": "wabain"
+        },
+        {
+            "name": "Swathi Bala",
+            "githubUsername": "swathimr"
+        },
+        {
+            "name": "Aman Nanner",
+            "githubUsername": "ananner"
+        },
+        {
+            "name": "Ben Matthews",
+            "githubUsername": "bmatthew"
+        }
+    ]
+}

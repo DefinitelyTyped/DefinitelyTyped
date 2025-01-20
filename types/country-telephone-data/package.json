@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/country-telephone-data",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/mukeshsoni/country-telephone-data#readme"
+    ],
+    "devDependencies": {
+        "@types/country-telephone-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

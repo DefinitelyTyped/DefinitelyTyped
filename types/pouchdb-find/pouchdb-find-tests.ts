@@ -3,25 +3,25 @@ function testFind() {
 
     db.find({
         selector: {},
-        fields: ['fieldName'],
-        sort: ['fieldName'],
+        fields: ["fieldName"],
+        sort: ["fieldName"],
         limit: 1,
         skip: 1,
-        use_index: 'ddocName'
+        use_index: "ddocName",
     });
 
     db.find({
         selector: {},
-        use_index: ['ddocName', 'name']
+        use_index: ["ddocName", "name"],
     });
 
     db.find({
         selector: {},
-        sort: [{fieldName: 'asc'}]
+        sort: [{ fieldName: "asc" }],
     });
 
     db.find({
-        selector: {_id: 'toto'}
+        selector: { _id: "toto" },
     });
 
     // test combinations of selectors
@@ -29,7 +29,7 @@ function testFind() {
         selector: {
             // test id
             _id: {
-                $gt: null
+                $gt: null,
             },
 
             // conditions
@@ -49,11 +49,11 @@ function testFind() {
                 $size: 5,
                 $mod: [1, 2],
                 $regex: "pattern",
-                $all: ["string", null, 1, true, {}, []]
+                $all: ["string", null, 1, true, {}, []],
             },
 
             // value
-            bar: 'any value',
+            bar: "any value",
 
             // combinatons
             $and: [],
@@ -65,13 +65,13 @@ function testFind() {
             sub: {
                 $and: [
                     {
-                        foo: 'bar',
+                        foo: "bar",
                         bar: {
-                            $gt: null
-                        }
-                    }
-                ]
-            }
-        }
+                            $gt: null,
+                        },
+                    },
+                ],
+            },
+        },
     });
 }

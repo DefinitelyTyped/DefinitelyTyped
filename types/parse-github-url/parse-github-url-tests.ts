@@ -1,3 +1,3 @@
-import gh = require('parse-github-url');
+import gh = require("parse-github-url");
 
-gh('github:monkey/business'); // $ExpectType Result | null
+gh("github:monkey/business"); // $ExpectType Result | null

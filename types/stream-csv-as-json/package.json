@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/stream-csv-as-json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/uhop/stream-csv-as-json#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/stream-chain": "*"
+    },
+    "devDependencies": {
+        "@types/stream-csv-as-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eugene Lazutkin",
+            "githubUsername": "uhop"
+        }
+    ]
+}

@@ -1,17 +1,21 @@
-// Type definitions for trayballoon
-// Project: https://github.com/sindresorhus/trayballoon
-// Definitions by: André Eckardt <https://github.com/korve>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare interface TrayballoonOptions {
-    text:string
-    title?:string | undefined
-    icon?:string | undefined
-    timeout?:number | undefined
-    wait?:boolean | undefined
+export interface TrayballoonOptions {
+    /**
+     * The body text.
+     */
+    text: string;
+    /**
+     * The title text.
+     */
+    title?: string | undefined;
+    /**
+     * The path to a `.ico` file or a `.exe`/`.dll` file with icon resource index (eg: `shell32.dll,-154`).
+     */
+    icon?: string | undefined;
+    /**
+     * The duration to show the balloon in milliseconds.
+     * @default 5000
+     */
+    timeout?: number | undefined;
 }
 
-declare function trayballoonFn( opts:TrayballoonOptions, fn:Function ): void;
-declare module "trayballoon" {
-    export = trayballoonFn;
-}
+export default function trayballoonFn(options?: TrayballoonOptions): Promise<void>;

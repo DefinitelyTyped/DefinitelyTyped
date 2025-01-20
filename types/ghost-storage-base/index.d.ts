@@ -1,10 +1,4 @@
-// Type definitions for ghost-storage-base 0.0
-// Project: https://github.com/TryGhost/Ghost-Storage-Base
-// Definitions by: Demian <https://github.com/thde>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
-import { Handler } from 'express';
+import { Handler } from "express";
 
 declare namespace StorageBase {
     interface Image {

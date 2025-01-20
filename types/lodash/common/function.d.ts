@@ -368,6 +368,9 @@ declare module "../index" {
          */
         trailing?: boolean | undefined;
     }
+    interface DebounceSettingsLeading extends DebounceSettings {
+        leading: true;
+    }
     interface DebouncedFunc<T extends (...args: any[]) => any> {
         /**
          * Call the original function, but applying the debounce rules.
@@ -394,6 +397,10 @@ declare module "../index" {
          */
         flush(): ReturnType<T> | undefined;
     }
+    interface DebouncedFuncLeading<T extends (...args: any[]) => any> extends DebouncedFunc<T> {
+        (...args: Parameters<T>): ReturnType<T>;
+        flush(): ReturnType<T>;
+    }
     interface LoDashStatic {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
@@ -415,12 +422,17 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new debounced function.
          */
+        debounce<T extends (...args: any) => any>(func: T, wait: number | undefined, options: DebounceSettingsLeading): DebouncedFuncLeading<T>;
         debounce<T extends (...args: any) => any>(func: T, wait?: number, options?: DebounceSettings): DebouncedFunc<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.debounce
          */
+        debounce(
+            wait: number | undefined,
+            options: DebounceSettingsLeading
+        ): T extends (...args: any[]) => any ? Function<DebouncedFuncLeading<T>> : never;
         debounce(
             wait?: number,
             options?: DebounceSettings
@@ -430,6 +442,10 @@ declare module "../index" {
         /**
          * @see _.debounce
          */
+        debounce(
+            wait: number | undefined,
+            options: DebounceSettingsLeading
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFuncLeading<T>> : never;
         debounce(
             wait?: number,
             options?: DebounceSettings
@@ -639,7 +655,6 @@ declare module "../index" {
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, arg3: T3): Function3<T1, T2, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, arg3: T3): Function2<T2, T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, arg3: T3): Function2<T1, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3): Function1<T4, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, plc2: __, plc3: __, arg4: T4): Function3<T1, T2, T3, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: __, plc3: __, arg4: T4): Function2<T2, T3, R>;
         <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: __, arg2: T2, plc3: __, arg4: T4): Function2<T1, T3, R>;
@@ -1339,6 +1354,7 @@ declare module "../index" {
          */
         trailing?: boolean | undefined;
     }
+    type ThrottleSettingsLeading = (ThrottleSettings & { leading: true }) | Omit<ThrottleSettings, 'leading'>
     interface LoDashStatic {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
@@ -1356,12 +1372,17 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new throttled function.
          */
+        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettingsLeading): DebouncedFuncLeading<T>;
         throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): DebouncedFunc<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
+        throttle(
+            wait?: number,
+            options?: ThrottleSettingsLeading
+        ): T extends (...args: any[]) => any ? Function<DebouncedFuncLeading<T>> : never;
         throttle(
             wait?: number,
             options?: ThrottleSettings
@@ -1371,6 +1392,10 @@ declare module "../index" {
         /**
          * @see _.throttle
          */
+        throttle(
+            wait?: number,
+            options?: ThrottleSettingsLeading
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFuncLeading<T>> : never;
         throttle(
             wait?: number,
             options?: ThrottleSettings

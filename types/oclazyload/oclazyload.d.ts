@@ -8,7 +8,10 @@ declare namespace oc {
          * @param module The name of a predefined module config object, or a module config object, or an array of either
          * @param config Options to be used when loading the modules
          */
-        load(module: string|ITypedModuleConfig|IModuleConfig|(string|ITypedModuleConfig|IModuleConfig)[], config?: IOptionsConfig): ng.IPromise<any>;
+        load(
+            module: string | ITypedModuleConfig | IModuleConfig | Array<string | ITypedModuleConfig | IModuleConfig>,
+            config?: IOptionsConfig,
+        ): ng.IPromise<any>;
 
         /**
          * Defines a module config object.
@@ -31,13 +34,13 @@ declare namespace oc {
         /**
          * Checks if a module name, or list of modules names, has been previously loaded into Angular.
          */
-        isLoaded(moduleName: string|string[]): boolean;
+        isLoaded(moduleName: string | string[]): boolean;
 
         /**
          * Injects a module with the associated name into Angular. Useful for manual injection when loading through RequireJS, SystemJS, etc. Useful in
          * conjunction with the toggleWatch() method.
          */
-        inject(moduleName: string|string[]): ng.IPromise<any>;
+        inject(moduleName: string | string[]): ng.IPromise<any>;
 
         /**
          * Enables or disables watching Angular for new modules. Useful in conjunction with the inject() method. Make sure to not keep the watch enabled

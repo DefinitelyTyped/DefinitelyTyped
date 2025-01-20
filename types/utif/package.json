@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/utif",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/photopea/UTIF.js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/utif": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Pesa",
+            "githubUsername": "smajl"
+        },
+        {
+            "name": "Naveen Kumar Sangi",
+            "githubUsername": "nkprince007"
+        },
+        {
+            "name": "Massimiliano Caniparoli",
+            "githubUsername": "massic80"
+        }
+    ]
+}

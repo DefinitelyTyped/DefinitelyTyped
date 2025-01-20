@@ -151,7 +151,26 @@ export interface UnaryExpression extends Base<"UnaryExpression"> {
 }
 
 export interface BinaryExpression extends Base<"BinaryExpression"> {
-    operator: "+" | "-" | "*" | "%" | "^" | "/" | "//" | "&" | "|" | "~" | "<<" | ">>" | ".." | "~=" | "=="  | "<" | "<=" | ">" | ">=";
+    operator:
+        | "+"
+        | "-"
+        | "*"
+        | "%"
+        | "^"
+        | "/"
+        | "//"
+        | "&"
+        | "|"
+        | "~"
+        | "<<"
+        | ">>"
+        | ".."
+        | "~="
+        | "=="
+        | "<"
+        | "<="
+        | ">"
+        | ">=";
     left: Expression;
     right: Expression;
 }
@@ -163,7 +182,7 @@ export interface LogicalExpression extends Base<"LogicalExpression"> {
 }
 
 export interface MemberExpression extends Base<"MemberExpression"> {
-    indexer: '.' | ':';
+    indexer: "." | ":";
     identifier: Identifier;
     base: Expression;
 }
@@ -194,47 +213,47 @@ export interface Comment extends Base<"Comment"> {
 }
 
 export type Expression =
-    FunctionDeclaration |
-    Identifier |
-    StringLiteral |
-    NumericLiteral |
-    BooleanLiteral |
-    NilLiteral |
-    VarargLiteral |
-    TableConstructorExpression |
-    BinaryExpression |
-    LogicalExpression |
-    UnaryExpression |
-    MemberExpression |
-    IndexExpression |
-    CallExpression |
-    TableCallExpression |
-    StringCallExpression;
+    | FunctionDeclaration
+    | Identifier
+    | StringLiteral
+    | NumericLiteral
+    | BooleanLiteral
+    | NilLiteral
+    | VarargLiteral
+    | TableConstructorExpression
+    | BinaryExpression
+    | LogicalExpression
+    | UnaryExpression
+    | MemberExpression
+    | IndexExpression
+    | CallExpression
+    | TableCallExpression
+    | StringCallExpression;
 
 export type Statement =
-    LabelStatement |
-    BreakStatement |
-    GotoStatement |
-    ReturnStatement |
-    IfStatement |
-    WhileStatement |
-    DoStatement |
-    RepeatStatement |
-    LocalStatement |
-    AssignmentStatement |
-    CallStatement |
-    FunctionDeclaration |
-    ForNumericStatement |
-    ForGenericStatement;
+    | LabelStatement
+    | BreakStatement
+    | GotoStatement
+    | ReturnStatement
+    | IfStatement
+    | WhileStatement
+    | DoStatement
+    | RepeatStatement
+    | LocalStatement
+    | AssignmentStatement
+    | CallStatement
+    | FunctionDeclaration
+    | ForNumericStatement
+    | ForGenericStatement;
 
 export type Node =
-    Statement |
-    Expression |
-    IfClause |
-    ElseifClause |
-    ElseClause |
-    Chunk |
-    TableKey |
-    TableKeyString |
-    TableValue |
-    Comment;
+    | Statement
+    | Expression
+    | IfClause
+    | ElseifClause
+    | ElseClause
+    | Chunk
+    | TableKey
+    | TableKeyString
+    | TableValue
+    | Comment;

@@ -1,10 +1,29 @@
-import ReactDOM = require('react-dom');
-import 'react-dom/experimental';
+import React = require("react");
+import ReactDOM = require("react-dom");
+import ReactDOMClient = require("react-dom/client");
+import "react/experimental";
+import "react-dom/experimental";
 
-// NOTE: I don't know yet how to use this; this is just the type it expects
-// in reality it will do nothing because the root isn't hydrate: true
-ReactDOM.unstable_scheduleHydration(document);
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
 
-function updates() {
-    ReactDOM.unstable_flushControlled(() => {});
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+
+                // $ExpectType Animatable
+                current.group;
+                // $ExpectType Animatable
+                current.imagePair;
+                // $ExpectType Animatable
+                current.old;
+                // $ExpectType Animatable
+                current.new;
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
 }

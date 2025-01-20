@@ -1,5 +1,3 @@
-export = dbbusradarnrwProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const dbbusradarnrwProfile: createClient.Profile;
+export const profile: Profile;

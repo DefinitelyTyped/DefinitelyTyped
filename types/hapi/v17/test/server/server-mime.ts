@@ -5,18 +5,18 @@ const options: ServerOptions = {
     port: 8000,
     mime: {
         override: {
-            'node/module': {
-                source: 'apache',
+            "node/module": {
+                source: "apache",
                 compressible: false,
-                extensions: ['node', 'module', 'npm'],
-                type: 'node/module'
-            }
-        }
-    }
+                extensions: ["node", "module", "npm"],
+                type: "node/module",
+            },
+        },
+    },
 };
 
 const server = new Server(options);
-console.log(server.mime.path('code.js').type);        // 'application/javascript'
-console.log(server.mime.path('file.npm').type);        // 'node/module'
+console.log(server.mime.path("code.js").type); // 'application/javascript'
+console.log(server.mime.path("file.npm").type); // 'node/module'
 
 server.start();

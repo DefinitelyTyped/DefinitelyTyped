@@ -1,9 +1,3 @@
-// Type definitions for dav 1.7
-// Project: https://github.com/lambdabaa/dav/, https://github.com/gaye/dav
-// Definitions by: ToastHawaii <https://github.com/ToastHawaii>, chaptergy <https://github.com/chaptergy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export let version: string;
 
 /**
@@ -92,7 +86,10 @@ export interface CreateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been updated.
  */
-export function updateCalendarObject(calendarObject: CalendarObject, options: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+export function updateCalendarObject(
+    calendarObject: CalendarObject,
+    options: UpdateCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface UpdateCalendarObjectOptions {
     /**
@@ -112,7 +109,10 @@ export interface UpdateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been deleted.
  */
-export function deleteCalendarObject(calendarObject: CalendarObject, options: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+export function deleteCalendarObject(
+    calendarObject: CalendarObject,
+    options: DeleteCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface DeleteCalendarObjectOptions {
     /**
@@ -326,6 +326,51 @@ export interface SyncCarddavAccountOptions {
 }
 
 /**
+ * Fetch the list of Calendars associated with the account.
+ * @param  account the calendar account to fetch.
+ * @param options
+ * @returns a Promise which will be fulfilled with a list of calendars once sync is complete.
+ */
+export function listCalendars(account: Account, options: ListCalendarsOptions): Promise<Calendar[]>;
+
+export interface ListCalendarsOptions {
+    /**
+     * request sandbox.
+     */
+    sandbox?: Sandbox | undefined;
+
+    /**
+     * request sender.
+     */
+    xhr?: transport.Transport | undefined;
+}
+
+/**
+ * Fetch the list of events associated with the calendar.
+ * @param  calendar the calendar account to fetch.
+ * @param options
+ * @returns a Promise which will be fulfilled with a list of events once sync is complete.
+ */
+export function listCalendarObjects(calendar: Calendar, options: ListCalendarObjectsOptions): Promise<CalendarObject[]>;
+
+export interface ListCalendarObjectsOptions {
+    /**
+     * list of caldav filters to send with request.
+     */
+    filters?: object[] | undefined;
+
+    /**
+     * request sandbox.
+     */
+    sandbox?: Sandbox | undefined;
+
+    /**
+     * request sender.
+     */
+    xhr?: transport.Transport | undefined;
+}
+
+/**
  * Create a request sandbox.
  */
 export class Sandbox {
@@ -373,7 +418,6 @@ export namespace transport {
         constructor(credentials: Credentials);
 
         /**
-         *
          * @param request object with request info.
          * @param url
          * @param options
@@ -393,7 +437,6 @@ export namespace transport {
         constructor(credentials: Credentials);
 
         /**
-         *
          * @param request object with request info.
          * @param url
          * @param options
@@ -408,11 +451,10 @@ export namespace transport {
 
 export namespace request {
     /**
-     *
      * @param options
      * @returns
      */
-    function addressBookQuery(options: AddressBookQueryOptions): string;
+    function addressBookQuery(options: AddressBookQueryOptions): Request;
 
     interface AddressBookQueryOptions {
         /**
@@ -427,7 +469,6 @@ export namespace request {
     }
 
     /**
-     *
      * @param options
      * @returns
      */
@@ -451,11 +492,10 @@ export namespace request {
     }
 
     /**
-     *
      * @param options
      * @returns
      */
-    function calendarQuery(options: CalendarQueryOptions): string;
+    function calendarQuery(options: CalendarQueryOptions): Request;
 
     interface CalendarQueryOptions {
         /**
@@ -480,7 +520,6 @@ export namespace request {
     }
 
     /**
-     *
      * @param requestData
      * @param options
      * @returns
@@ -488,11 +527,10 @@ export namespace request {
     function collectionQuery(requestData: string, options: SetRequestHeadersOptions): Request;
 
     /**
-     *
      * @param options
      * @returns
      */
-    function propfind(options: PropfindOptions): string;
+    function propfind(options: PropfindOptions): Request;
 
     interface PropfindOptions {
         /**
@@ -504,14 +542,18 @@ export namespace request {
          * list of props to request.
          */
         props: object[];
+
+        /**
+         * whether to merge the response props.
+         */
+        mergeResponses?: boolean | undefined;
     }
 
     /**
-     *
      * @param options
      * @returns
      */
-    function syncCollection(options: SyncCollectionOptions): string;
+    function syncCollection(options: SyncCollectionOptions): Request;
 
     interface SyncCollectionOptions {
         /**
@@ -536,7 +578,6 @@ export namespace request {
     }
 
     /**
-     *
      * @param options
      * @returns
      */
@@ -601,7 +642,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been updated.
      */
-    updateCalendarObject(calendarObject: CalendarObject, options?: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+    updateCalendarObject(
+        calendarObject: CalendarObject,
+        options?: UpdateCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Delete the parameter calendar object on the server.
@@ -609,7 +653,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been deleted.
      */
-    deleteCalendarObject(calendarObject: CalendarObject, options?: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+    deleteCalendarObject(
+        calendarObject: CalendarObject,
+        options?: DeleteCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Fetch changes from the remote server to the parameter calendar.
@@ -644,7 +691,6 @@ export class Client {
     updateCard(card: VCard, options?: UpdateCardOptions): Promise<VCard>;
 
     /**
-     *
      * Delete the parameter vcard object on the server.
      * @param card target vcard object.
      * @param options
@@ -826,9 +872,9 @@ export namespace debug {
 }
 
 export namespace ns {
-    const CALENDAR_SERVER = 'http://calendarserver.org/ns/';
-    const CALDAV_APPLE = 'http://apple.com/ns/ical/';
-    const CALDAV = 'urn:ietf:params:xml:ns:caldav';
-    const CARDDAV = 'urn:ietf:params:xml:ns:carddav';
-    const DAV = 'DAV:';
+    const CALENDAR_SERVER = "http://calendarserver.org/ns/";
+    const CALDAV_APPLE = "http://apple.com/ns/ical/";
+    const CALDAV = "urn:ietf:params:xml:ns:caldav";
+    const CARDDAV = "urn:ietf:params:xml:ns:carddav";
+    const DAV = "DAV:";
 }

@@ -1,30 +1,35 @@
-import { Offcanvas } from 'bootstrap';
-import * as $ from 'jquery';
+import { Offcanvas } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Offcanvas
 new Offcanvas(element);
 
+// $ExpectType Offcanvas
+new Offcanvas(element, {
+    backdrop: true,
+    keyboard: true,
+    scroll: false,
+});
+
 // $ExpectType Offcanvas | null
 Offcanvas.getInstance(element);
 // $ExpectType Offcanvas
 Offcanvas.getOrCreateInstance(element);
+// $ExpectType Offcanvas
+Offcanvas.getOrCreateInstance(element, {
+    backdrop: true,
+    keyboard: true,
+    scroll: false,
+});
+// $ExpectType Offcanvas
+Offcanvas.getOrCreateInstance(element, {
+    backdrop: "static",
+});
 
 // $ExpectType string
 Offcanvas.VERSION;
-
-element.addEventListener(Offcanvas.Events.click, event => {
-    // do something…
-});
-
-element.addEventListener(Offcanvas.Events.clickDismiss, event => {
-    // do something…
-});
-
-element.addEventListener(Offcanvas.Events.focusin, event => {
-    // do something…
-});
 
 element.addEventListener(Offcanvas.Events.hidden, event => {
     // do something…
@@ -42,10 +47,9 @@ element.addEventListener(Offcanvas.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
-$('.alert').offcanvas();
+// $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas();
 
-$('.alert').offcanvas('toggle'); // $ExpectType void
-$('.alert').offcanvas('show'); // $ExpectType void
-$('.alert').offcanvas('hide'); // $ExpectType void
-$('.alert').offcanvas('dispose'); // $ExpectType void
+$(".alert").offcanvas("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas("hide"); // $ExpectType JQuery<HTMLElement>

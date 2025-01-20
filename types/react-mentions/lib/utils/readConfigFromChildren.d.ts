@@ -1,4 +1,4 @@
-import { ReactChildren } from 'react';
-import { Config } from './applyChangeToValue';
+import { ReactNode } from "react";
+import { Config } from "./applyChangeToValue";
 
-export function readConfigFromChildren(children: ReactChildren): Config[];
+export function readConfigFromChildren(children: ReactNode): Config[];

@@ -10,6 +10,18 @@ new Headroom(document.getElementsByClassName("siteHead")[0], {
 });
 
 new Headroom(document.getElementsByClassName("siteHead")[0], {
+    tolerance: { up: 34, down: 24 },
+});
+
+new Headroom(document.getElementsByClassName("siteHead")[0], {
+    offset: 34,
+});
+
+new Headroom(document.getElementsByClassName("siteHead")[0], {
+    offset: { up: 34, down: 24 },
+});
+
+new Headroom(document.getElementsByClassName("siteHead")[0], {
     classes: {
         bottom: "headroom--bottom",
         frozen: "headeroom--frozen",

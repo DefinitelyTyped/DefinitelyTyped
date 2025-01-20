@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off",
+        "no-duplicate-imports": "off"
+    }
+}

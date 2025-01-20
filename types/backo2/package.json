@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/backo2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mokesmokes/backo"
+    ],
+    "devDependencies": {
+        "@types/backo2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Retsam",
+            "githubUsername": "Retsam"
+        }
+    ]
+}

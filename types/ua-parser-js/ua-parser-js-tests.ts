@@ -1,8 +1,8 @@
 import UAParser = require("ua-parser-js");
-// tslint:disable-next-line:no-duplicate-imports testing imports
+// eslint-disable-next-line no-duplicate-imports -- testing imports
 import { UAParser as UAParserAlias } from "ua-parser-js";
-// tslint:disable-next-line:no-duplicate-imports testing imports
-import { IBrowser, ICPU, IDevice, IEngine, IOS, IResult, BROWSER, CPU, DEVICE, ENGINE, OS } from "ua-parser-js";
+// eslint-disable-next-line no-duplicate-imports -- testing imports
+import { BROWSER, CPU, DEVICE, ENGINE, IBrowser, ICPU, IDevice, IEngine, IOS, IResult, OS } from "ua-parser-js";
 
 const ua = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6";
 new UAParser(); // $ExpectType UAParserInstance

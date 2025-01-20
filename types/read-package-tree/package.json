@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/read-package-tree",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/npm/read-package-tree"
+    ],
+    "devDependencies": {
+        "@types/read-package-tree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Melvin Groenhoff",
+            "githubUsername": "mgroenhoff"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dts-bundle",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/TypeStrong/dts-bundle"
+    ],
+    "devDependencies": {
+        "@types/dts-bundle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        }
+    ]
+}

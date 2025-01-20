@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-captcha",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/robiveli/js-captcha"
+    ],
+    "devDependencies": {
+        "@types/js-captcha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "PikachuEXE",
+            "githubUsername": "pikachuexe"
+        }
+    ]
+}

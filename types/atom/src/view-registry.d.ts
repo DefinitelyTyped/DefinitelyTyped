@@ -1,4 +1,4 @@
-import { Disposable, TextEditor, TextEditorElement } from '../index';
+import { Disposable, TextEditor, TextEditorElement } from "../index";
 
 /**
  *  ViewRegistry handles the association between model and view types in Atom.
@@ -18,7 +18,7 @@ export interface ViewRegistry {
      */
     // tslint:disable-next-line:no-any
     addViewProvider<T>(
-        modelConstructor: { new (...args: any[]): T }, // tslint:disable-line no-any
+        modelConstructor: { new(...args: any[]): T }, // tslint:disable-line no-any
         createView: (instance: T) => HTMLElement | undefined,
     ): Disposable;
 

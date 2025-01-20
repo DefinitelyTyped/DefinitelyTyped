@@ -1,8 +1,3 @@
-// Type definitions for non-npm package AWS CloudFront Functions 1.0
-// Project: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html
-// Definitions by: Jakub Zelenka <https://github.com/bukka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AWSCloudFrontFunction {
     interface Event {
         version: "1.0";
@@ -14,7 +9,7 @@ declare namespace AWSCloudFrontFunction {
 
     interface Context {
         distributionDomainName: string;
-        distributionID: string;
+        distributionId: string;
         eventType: "viewer-request" | "viewer-response";
         requestId: string;
     }

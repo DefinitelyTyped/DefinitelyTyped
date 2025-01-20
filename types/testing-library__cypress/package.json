@@ -1,7 +1,41 @@
 {
     "private": true,
+    "name": "@types/testing-library__cypress",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/testing-library/cypress-testing-library"
+    ],
     "dependencies": {
         "@testing-library/dom": "^7.11.0",
         "cypress": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/testing-library__cypress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Mc Adam",
+            "githubUsername": "aaronmcadam"
+        },
+        {
+            "name": "Basti Buck",
+            "githubUsername": "bastibuck"
+        },
+        {
+            "name": "Stefano Magni",
+            "githubUsername": "NoriSte"
+        },
+        {
+            "name": "Brian Ng",
+            "githubUsername": "existentialism"
+        },
+        {
+            "name": "Airat Aminev",
+            "githubUsername": "airato"
+        },
+        {
+            "name": "Simon Jespersen",
+            "githubUsername": "simjes"
+        }
+    ]
 }

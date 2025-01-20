@@ -1,19 +1,17 @@
-
 namespace nvd3_test_sparkLine {
-
     nv.addGraph({
-        generate: function () {
+        generate: function() {
             var chart = nv.models.sparkline()
                 .showMinMaxPoints(false)
                 .width(400)
-                .height(30)
+                .height(30);
 
             d3.select("#chart1")
                 .datum(sine())
                 .call(chart);
 
             return chart;
-        }
+        },
     });
 
     function sine() {

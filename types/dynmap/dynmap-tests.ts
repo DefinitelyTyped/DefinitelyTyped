@@ -29,3 +29,9 @@ const controlContainer = window.map?.getContainer();
 
 // $ExpectType string
 const tileUrl = window.config.url.tiles;
+
+// $ExpectType boolean | undefined
+const isChatEnabled = window.dynmap.options.allowwebchat;
+
+// $ExpectType ComponentConfiguration | undefined
+const chatboxComponent = window.dynmap.options.components?.filter(c => c.type === "chatbox")[0];

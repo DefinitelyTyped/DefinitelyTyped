@@ -1,15 +1,9 @@
-// Type definitions for non-npm package Mithril 2.0
-// Project: https://mithril.js.org/
-// Definitions by: Mike Linkovich <https://github.com/spacejack>, Isiah Meadows <https://github.com/isiahmeadows>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 // Global Mithril types
 
 /// <reference types="mithril" />
 
-import * as mithril from 'mithril';
-import * as stream from 'mithril/stream';
+import * as mithril from "mithril";
+import * as stream from "mithril/stream";
 
 declare namespace MithrilGlobal {
     export type CommonAttributes<A, S> = mithril.CommonAttributes<A, S>;

@@ -1,15 +1,17 @@
-import * as React from 'react';
-import { Text, TextProps, GestureResponderEvent } from 'react-native';
-import type { NavigationAction } from '../core';
-// tslint:disable-next-line strict-export-declare-modifiers
-declare type Props = {
-    to: string;
-    action?: NavigationAction | undefined;
-    target?: string | undefined;
-    onPress?: ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void) | undefined;
-} & (TextProps & {
-    children: React.ReactNode;
-});
+import * as React from "react";
+import { GestureResponderEvent, Text, TextProps } from "react-native";
+import type { NavigationAction } from "../core";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+declare type Props =
+    & {
+        to: string;
+        action?: NavigationAction | undefined;
+        target?: string | undefined;
+        onPress?: ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent) => void) | undefined;
+    }
+    & (TextProps & {
+        children: React.ReactNode;
+    });
 /**
  * Component to render link to another screen using a path.
  * Uses an anchor tag on the web.

@@ -1,3 +1,3 @@
-import camelCaseCSS = require('camelcase-css');
+import camelCaseCSS = require("camelcase-css");
 
-camelCaseCSS('-webkit-border-radius'); // $ExpectType string
+camelCaseCSS("-webkit-border-radius"); // $ExpectType string

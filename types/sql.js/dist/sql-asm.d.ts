@@ -1,3 +1,2 @@
-import initSqlJs from '..';
-export default initSqlJs;
-export * from '..';
+import initSqlJs = require("../index");
+export = initSqlJs;

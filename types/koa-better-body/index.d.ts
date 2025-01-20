@@ -1,97 +1,133 @@
-// Type definitions for koa-better-body 3.3
-// Project: https://github.com/tunnckoCore/opensource/tree/master/%40packages/koa-better-body
-// Definitions by: David Tanner <https://github.com/DavidTanner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Context } from 'koa';
+import { Options as FormidableOptions } from "formidable";
+import { DefaultContext, DefaultState, Next, ParameterizedContext } from "koa";
 
 declare function KoaBetterBody(
-  options?: KoaBetterBody.Options,
+    options?: KoaBetterBody.Options,
 ): KoaBetterBody.Body;
 
 declare namespace KoaBetterBody {
-  interface Options {
-    /**
-     * @default false
-     */
-    fields?: boolean | string;
-    /**
-     * @default false
-     */
-    files?: boolean | string;
-    /**
-     * @default true
-     */
-    multipart?: boolean;
-    /**
-     * @default false
-     */
-    textLimit?: string;
-    /**
-     * @default false
-     */
-    formLimit?: string;
-    /**
-     * @default false
-     */
-    jsonLimit?: string;
-    /**
-     * @default true
-     */
-    jsonStrict?: boolean;
-    /**
-     * @default () => false
-     */
-    detectJSON?: (ctx: Context) => boolean;
-    /**
-     * @default false
-     */
-    bufferLimit?: string;
-    /**
-     * @default false
-     */
-    buffer?: boolean;
-    /**
-     * @default true
-     */
-    strict?: boolean;
+    interface Options extends FormidableOptions {
+        /**
+         * {
+         * <br />&nbsp;&nbsp;multipart: ['multipart/form-data'],
+         * <br />&nbsp;&nbsp;text: ['text/*'],
+         * <br />&nbsp;&nbsp;form: ['application/x-www-form-urlencoded'],
+         * <br />&nbsp;&nbsp;json: [
+         * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json',
+         * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json-patch+json',
+         * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/vnd.api+json',
+         * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/csp-report'
+         * <br />&nbsp;&nbsp;],
+         * <br />&nbsp;&nbsp;buffer: ['text/*']
+         * }
+         */
+        extendTypes?: Record<string, string | string[]> & {
+            custom?: string | string[];
+        };
 
-    /**
-     * @default '&'
-     */
-    delimiter?: string; // default: '&'
-    /**
-     * @default require('querystring').unescape
-     */
-    decodeURIComponent?: (query: string) => string; // default: require('querystring').unescape
-    /**
-     * @default 1000
-     */
-    maxKeys?: number; // default: 1000
+        /**
+         * @default false
+         */
+        fields?: boolean | string;
 
-    /**
-     * @deprecated use formLimit instead
-     * @default config.formLimit
-     */
-    urlencodedLimit?: string;
+        /**
+         * @default false
+         */
+        files?: boolean | string;
 
-    /**
-     * @deprecated use delimiter instead
-     * @default config.delimiter
-     */
-    sep?: string;
+        /**
+         * @default true
+         */
+        multipart?: boolean;
 
-    /**
-     * @default undefined
-     */
-    onError?: (err: any, ctx: Context) => void;
-    /**
-     * @default undefined
-     */
-    handler?: (ctx: Context, options: Options, next: () => any) => void;
-  }
+        /**
+         * @default false
+         */
+        textLimit?: string;
 
-  type Body = (next: any) => Generator;
+        /**
+         * @default false
+         */
+        formLimit?: string;
+
+        /**
+         * @default false
+         */
+        jsonLimit?: string;
+
+        /**
+         * @default true
+         */
+        jsonStrict?: boolean;
+
+        /**
+         * @default () => false
+         */
+        detectJSON?: <StateT = DefaultState, ContextT = DefaultContext>(
+            ctx: ParameterizedContext<StateT, ContextT>,
+        ) => boolean;
+
+        /**
+         * @default false
+         */
+        bufferLimit?: string;
+
+        /**
+         * @default false
+         */
+        buffer?: boolean;
+
+        /**
+         * @default true
+         */
+        strict?: boolean;
+
+        /**
+         * @default '&'
+         */
+        delimiter?: string;
+
+        /**
+         * @default require('querystring').unescape
+         */
+        decodeURIComponent?: (query: string) => string;
+
+        /**
+         * @default 1000
+         */
+        maxKeys?: number; // default: 1000
+
+        /**
+         * @deprecated use formLimit instead
+         * @default config.formLimit
+         */
+        urlencodedLimit?: string;
+
+        /**
+         * @deprecated use delimiter instead
+         * @default config.delimiter
+         */
+        sep?: string;
+
+        /**
+         * @default undefined
+         */
+        onError?: <StateT = DefaultState, ContextT = DefaultContext>(
+            err: any,
+            ctx: ParameterizedContext<StateT, ContextT>,
+        ) => void;
+
+        /**
+         * @default undefined
+         */
+        handler?: <StateT = DefaultState, ContextT = DefaultContext>(
+            ctx: ParameterizedContext<StateT, ContextT>,
+            options: Options,
+            next: Next,
+        ) => void;
+    }
+
+    type Body = (next: Next) => Generator;
 }
 
 export = KoaBetterBody;

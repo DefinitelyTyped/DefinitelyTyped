@@ -1,11 +1,3 @@
-// Type definitions for D3JS d3-path module 2.0
-// Project: https://github.com/d3/d3-path/, https://d3js.org/d3-path
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 2.0.0
 
 /**
@@ -80,6 +72,7 @@ export interface Path {
      *
      * @param x x-Coordinate of the center point of the arc segment
      * @param y y-Coordinate of the center point of the arc segment
+     * @param radius Radius of the arc segment
      * @param startAngle Start angle of arc segment
      * @param endAngle End angle of arc segment
      * @param anticlockwise Flag indicating directionality (true = anti-clockwise, false = clockwise)

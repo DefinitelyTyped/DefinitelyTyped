@@ -1,8 +1,3 @@
-// Type definitions for season 6.0
-// Project: http://atom.github.io/season
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ParseOptions {
     allowDuplicateKeys?: boolean | undefined;
 }
@@ -15,7 +10,11 @@ export function stringify(object: any): string;
 
 /** Read the CSON or JSON object at the given path and return it to the callback once it is read and parsed. */
 export function readFile(objectPath: string, callback: (err: Error | null, object: any) => void): void;
-export function readFile(objectPath: string, options: ParseOptions, callback: (err: Error | null, object: any) => void): void;
+export function readFile(
+    objectPath: string,
+    options: ParseOptions,
+    callback: (err: Error | null, object: any) => void,
+): void;
 
 /** Synchronous version of `CSON.readFile(objectPath, callback)`. */
 export function readFileSync(objectPath: string, options?: ParseOptions): any;

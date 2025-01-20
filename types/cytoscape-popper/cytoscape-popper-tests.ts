@@ -1,25 +1,25 @@
-import cytoscape = require('cytoscape');
-import popper = require('cytoscape-popper');
+import cytoscape = require("cytoscape");
+import popper = require("cytoscape-popper");
 
 cytoscape.use(popper);
 
 const cy = cytoscape({
-    container: document.getElementById('cy'),
-    layout: { name: 'breadthfirst' },
+    container: document.getElementById("cy"),
+    layout: { name: "breadthfirst" },
     elements: [
-        { data: { id: 'A' } },
-        { data: { id: 'B' } },
-        { data: { id: 'C' } },
-        { data: { source: 'A', target: 'B' } },
-        { data: { source: 'A', target: 'C' } },
+        { data: { id: "A" } },
+        { data: { id: "B" } },
+        { data: { id: "C" } },
+        { data: { source: "A", target: "B" } },
+        { data: { source: "A", target: "C" } },
     ],
 });
 
 cy.nodes().forEach(node => {
     node.popper({
         content: () => {
-            const div = document.createElement('div');
-            div.innerText = 'DefinitelyTyped tests';
+            const div = document.createElement("div");
+            div.innerText = "DefinitelyTyped tests";
             document.body.appendChild(div);
 
             return div;
@@ -28,8 +28,8 @@ cy.nodes().forEach(node => {
             return (el as cytoscape.NodeSingular).renderedBoundingBox({});
         },
         popper: {
-            strategy: 'fixed',
-            placement: 'bottom-end',
+            strategy: "fixed",
+            placement: "bottom-end",
             modifiers: [{ enabled: true }],
         },
     });
@@ -37,8 +37,8 @@ cy.nodes().forEach(node => {
 
 cy.popper({
     content: () => {
-        const div = document.createElement('div');
-        div.innerText = 'DefinitelyTyped tests';
+        const div = document.createElement("div");
+        div.innerText = "DefinitelyTyped tests";
         document.body.appendChild(div);
 
         return div;

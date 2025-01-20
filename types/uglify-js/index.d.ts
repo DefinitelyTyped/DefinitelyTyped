@@ -1,12 +1,4 @@
-// Type definitions for UglifyJS 3.13
-// Project: https://github.com/mishoo/UglifyJS
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 export interface ParseOptions {
     /**
      * Support top level `return` statements
@@ -30,7 +22,7 @@ export interface CompressOptions {
     arguments?: boolean | undefined;
     /**
      * Apply optimizations to assignment expressions
-     * @default ture
+     * @default true
      */
     assignments?: boolean | undefined;
     /**
@@ -148,7 +140,7 @@ export interface CompressOptions {
      * You need this for code which relies on `Function.length`
      * @default 'strict'
      */
-    keep_fargs?: 'strict' | boolean | undefined;
+    keep_fargs?: "strict" | boolean | undefined;
     /**
      * Pass true to prevent the compressor from discarding function names.
      * Useful for code relying on `Function.prototype.name`.
@@ -170,6 +162,12 @@ export interface CompressOptions {
      * @default true
      */
     merge_vars?: boolean | undefined;
+    /**
+     * set to `true` if you wish to process input as ES module,
+     * i.e. implicit `"use strict";` alongside with `toplevel` enabled.
+     * @default false
+     */
+    module?: boolean | undefined;
     /**
      * negate `Immediately-Called Function Expressions` where the return value is discarded,
      * to avoid the parens that the code generator would insert.
@@ -211,7 +209,7 @@ export interface CompressOptions {
      * i.e. not null or undefine
      * @default 'strict'
      */
-    pure_getters?: boolean | 'strict' | undefined;
+    pure_getters?: boolean | "strict" | undefined;
     /**
      * Allows single-use functions to be inlined as function expressions when permissible allowing further optimization.
      * Enabled by default. Option depends on reduce_vars being enabled. Some code runs faster in the Chrome V8 engine if
@@ -323,6 +321,12 @@ export interface CompressOptions {
      * @default true
      */
     varify?: boolean | undefined;
+    /**
+     * Support non-standard Safari/Webkit.
+     * By default UglifyJS will not try to be Safari-proof.
+     * @default false
+     */
+    webkit?: boolean | undefined;
 }
 
 export enum InlineFunctions {
@@ -360,7 +364,7 @@ export interface OutputOptions {
     ascii_only?: boolean | undefined;
     beautify?: boolean | undefined;
     braces?: boolean | undefined;
-    comments?: boolean | 'all' | 'some' | RegExp | undefined;
+    comments?: boolean | "all" | "some" | RegExp | undefined;
     indent_level?: number | undefined;
     indent_start?: boolean | undefined;
     inline_script?: boolean | undefined;
@@ -390,7 +394,7 @@ export interface MinifyOptions {
      * Use the value `verbose` for more detailed warnings.
      * @default false
      */
-    warnings?: boolean | 'verbose' | undefined;
+    warnings?: boolean | "verbose" | undefined;
     /**
      * Pass an object if you wish to specify some additional parse options.
      */
@@ -401,6 +405,11 @@ export interface MinifyOptions {
      * @default {}
      */
     compress?: false | CompressOptions | undefined;
+    /**
+     * Parse as a single expression, e.g. JSON.
+     * @default false
+     */
+    expression?: boolean | undefined;
     /**
      * Pass `false` to skip mangling names,
      * or pass an object to specify mangle options (see below).
@@ -424,6 +433,12 @@ export interface MinifyOptions {
      */
     toplevel?: boolean | undefined;
     /**
+     * set to `true` if you wish to process input as ES module,
+     * i.e. implicit `"use strict";` alongside with `toplevel` enabled.
+     * @default false
+     */
+    module?: boolean | undefined;
+    /**
      * Pass an empty object {} or a previously used nameCache object
      * if you wish to cache mangled variable and property names across multiple invocations of minify().
      * Note: this is a read/write property. `minify()` will read the name cache state of this object
@@ -441,6 +456,12 @@ export interface MinifyOptions {
      * @default false
      */
     keep_fnames?: boolean | undefined;
+    /**
+     * Support non-standard Safari/Webkit.
+     * Equivalent to setting `webkit: true` in `minify()` for `compress`, `mangle` and `output` options.
+     * @default false
+     */
+    webkit?: boolean | undefined;
 }
 
 export interface MinifyOutput {
@@ -458,9 +479,9 @@ export interface SourceMapOptions {
      * @default true
      */
     names?: boolean | undefined;
-    url?: string | 'inline' | undefined;
+    url?: string | "inline" | undefined;
     root?: string | undefined;
-    content?: RawSourceMap | 'inline' | undefined;
+    content?: RawSourceMap | "inline" | undefined;
 }
 
 export function minify(files: string | string[] | { [file: string]: string }, options?: MinifyOptions): MinifyOutput;

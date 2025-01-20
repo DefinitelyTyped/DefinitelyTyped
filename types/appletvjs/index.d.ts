@@ -1,8 +1,3 @@
-// Type definitions for AppleTVJS
-// Project: https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html
-// Definitions by: Adam Valverde <https://github.com/brainded>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var App: AppleTVJS.App;
 declare var Device: AppleTVJS.Device;
 declare var navigationDocument: AppleTVJS.NavigationDocument;
@@ -12,26 +7,25 @@ declare function evaluateScripts(scripts: string[], complete: (success: boolean)
 
 declare namespace AppleTVJS {
     interface App {
-
         /**
          * The onError attribute is used to handle any errors sent from the device.
          * This attribute must be set to a function that accepts an “options” argument.
          * For example App.onError = function (options) {}.
-         * */
+         */
         onError: (options: any) => void;
 
         /**
          * The onExit attribute is used to complete any actions that need to be cleaned
          * up when the app has been exited. This attribute must be set to a function that
          * accepts an “options” argument. For example App.onExit = function (options) {}.
-         * */
+         */
         onExit: (options: any) => void;
 
         /**
          * The onLaunch attribute is used to start any required actions when the app
          * launches. This attribute must be set to a function that accepts an “options”
          * argument. For example App.onLaunch = function (options) {}.
-         * */
+         */
         onLaunch: (options: any) => void;
 
         /**
@@ -41,7 +35,7 @@ declare namespace AppleTVJS {
          * present, the app is restarted in its initial state. This attribute must be set
          * to a function that accepts an “options” argument.
          * For example App.onError = function (options) {}.
-         * */
+         */
         reload(options?: any, reloadData?: any): void;
     }
 
@@ -110,22 +104,22 @@ declare namespace AppleTVJS {
         /**
          * A callback function that is called when the text inside
          * of searchField or textField element changes.
-         * */
+         */
         onTextChange: () => void;
     }
 
     class MediaItem {
         /**
          * Creates a new MediaItem object from the information stored in the URL location.
-         * @type: Valid values are: audio, video. Defaults to video.
-         * @url: The URL pointing to the media item information.
-         * */
+         * @param type Valid values are: audio, video. Defaults to video.
+         * @param url The URL pointing to the media item information.
+         */
         constructor(type: string, url?: string);
 
         /**
          * The domain that the rating applies to.
          * There are three valid values for this property: movie, music, and tvshow.
-         * */
+         */
         contentRatingDomain: string;
 
         /**
@@ -133,13 +127,13 @@ declare namespace AppleTVJS {
          * The rating is a value from 0-1000. This value corresponds to a specific rating
          * used by different countries. For example, a rating value can represent a PG-13
          * rating in the United State and a MA15+ in Australia.
-         * */
+         */
         contentRatingRanking: number;
 
         /**
          * A value indicating whether the item has explicit lyrics.
          * This property is ignored if the MediaItem object type is video.
-         * */
+         */
         isExplicit: boolean;
 
         /** The URL path to the artwork that accompanies the media item. */
@@ -157,7 +151,7 @@ declare namespace AppleTVJS {
         /**
          * The type of media item.
          * The valid values for this attribute are audio and video.
-         * */
+         */
         type: string;
 
         /** The URL path to the media item. */
@@ -175,7 +169,7 @@ declare namespace AppleTVJS {
          * at the beginning of the object. If this property contains anything
          * other than 0, the player displays “Resume” instead of
          * “Play from beginning” on playback.
-         * */
+         */
         resumeTime: number;
 
         /** A callback function used to load the asset identifier for an item. */
@@ -185,42 +179,46 @@ declare namespace AppleTVJS {
         loadCertificate: (url: string, callback: (certificate: string, error: string) => void) => void;
 
         /** A callback function used to load the security key for an item. */
-        loadKey: (url: string, requestData: any, callback: (key: string, renewalDate: string, error: string) => void) => void;
+        loadKey: (
+            url: string,
+            requestData: any,
+            callback: (key: string, renewalDate: string, error: string) => void,
+        ) => void;
     }
 
     interface MenuBarDocument {
         /**
          * Retrieves the document associated with the specified menu item.
-         * */
+         */
         getDocument(menuItem: Element): Document;
 
         /**
          * Associates a document with a menu item.
-         * */
+         */
         setDocument(document: Document, menuItem: Element): void;
 
         /**
          * Sets the focus in a menu bar to the specified menu item.
-         * */
+         */
         setSelectedItem(menuItem: Element): void;
     }
 
     interface NavigationDocument {
         /**
          * Inserts a new document directly before a document currently on the stack.
-         * */
+         */
         insertBeforeDocument(document: Document, beforeDocument?: Document): void;
 
         /**
          * This function searches the stack for the first instance of the document
          * contained in the beforeDocument parameter and inserts the document contained
          * in the document parameter on top of it.
-         * */
+         */
         pushDocument(document: Document): void;
 
         /**
          * Replaces a document on the stack with a new document.
-         * */
+         */
         replaceDocument(document: Document, beforeDocument?: Document): void;
 
         /** Dismisses the document displayed in modal view. */
@@ -228,7 +226,7 @@ declare namespace AppleTVJS {
 
         /**
          * Displays the passed document on top of the current document.
-         * */
+         */
         presentModal(document: Document): void;
 
         /** The documents currently on the stack. */
@@ -236,27 +234,27 @@ declare namespace AppleTVJS {
 
         /**
          * Removes all documents currently on the stack.
-         * */
+         */
         clear(): void;
 
         /**
          * Removes the top most document from the stack.
-         * */
+         */
         popDocument(): void;
 
         /**
          * Removes all of the documents on the stack that are above the passed document.
-         * */
+         */
         popToDocument(document: Document): void;
 
         /**
          * Removes all documents from the stack except for the bottom most document.
-         * */
+         */
         popToRootDocument(): void;
 
         /**
          * Removes the specified document from the stack.
-         * */
+         */
         removeDocument(document: Document): void;
     }
 
@@ -286,7 +284,7 @@ declare namespace AppleTVJS {
          * playing
          * paused
          * scanning
-         * */
+         */
         playbackState: string;
 
         /** Sets the playback point to a specified time. */
@@ -317,7 +315,7 @@ declare namespace AppleTVJS {
          * newPlaylist
          * playerInvalidated
          * playedToEndOfMediaItem
-         * */
+         */
         mediaItemDidChange: (reason: string) => void;
 
         /**
@@ -327,7 +325,7 @@ declare namespace AppleTVJS {
          * true — The seek performed as requested.
          * false or null— The seek was not performed.
          * An integer value — The seek will be performed to the stated value and not the initial requested value.
-         * */
+         */
         requestSeekToTime: (result?: any) => void;
 
         /** An event that indicates a state change request has occurred. */
@@ -377,7 +375,7 @@ declare namespace AppleTVJS {
         maxMovieRatingForCountry(countryCode: string): string;
 
         /** The maximum television show ranking allowed. */
-        maxTVShowRank: number
+        maxTVShowRank: number;
 
         /** Sets the maximum television show rating allowed for the specified country. */
         maxTVShowRatingForCountry(countryCode: string): string;
@@ -394,8 +392,8 @@ declare namespace AppleTVJS {
         storefrontCountryCode: string;
 
         /**
-        * Called when changes to a device’s restriction information changes.
-        */
+         * Called when changes to a device’s restriction information changes.
+         */
         onRestrictionsChange: () => void;
     }
 
@@ -413,7 +411,7 @@ declare namespace AppleTVJS {
          * NSPOSIXErrorDomain - POSIX/BSD errors
          * NSOSStatusErrorDomain - OS X/Carbon errors
          * NSMachErrorDomain - Mach errors
-         * */
+         */
         domain: string;
 
         /**
@@ -433,7 +431,7 @@ declare namespace AppleTVJS {
          * NSURLErrorFailingURLErrorKey
          * NSURLErrorFailingURLStringErrorKey
          * NSURLErrorFailingURLPeerTrustErrorKey
-         * */
+         */
         userInfo: any;
     }
 }

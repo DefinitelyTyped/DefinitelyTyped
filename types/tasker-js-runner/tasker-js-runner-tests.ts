@@ -3,31 +3,29 @@ import { TK as tasker } from "tasker-types";
 
 // ExpectType tests
 const notification: TaskerJsModule = {
-    enter(locals: { [ name: string ]: string }, tasker: tasker) {},
-    exit(locals: { [ name: string ]: string }, tasker: tasker) {}
+    enter(locals: { [name: string]: string }, tasker: tasker) {},
+    exit(locals: { [name: string]: string }, tasker: tasker) {},
 };
 // $ExpectType TaskerJs
-const taskerJs = new TaskerJs({ 'Notification:All': notification });
+const taskerJs = new TaskerJs({ "Notification:All": notification });
 // $ExpectType { [profileName: string]: TaskerJsModule; }
 taskerJs.router;
 // $ExpectType Promise<void>
 taskerJs.hotReload();
 
 // ExpectError test
-// $ExpectError
+// @ts-expect-error
 let notificationError: TaskerJsModule = {};
-// $ExpectError
+// @ts-expect-error
 notificationError = {
-    enter(locals: { [ name: string ]: string }, tasker: tasker) {}
+    enter(locals: { [name: string]: string }, tasker: tasker) {},
 };
-// $ExpectError
+// @ts-expect-error
 notificationError = {
-    exit(locals: { [ name: string ]: string }, tasker: tasker) {}
+    exit(locals: { [name: string]: string }, tasker: tasker) {},
 };
 notificationError = {
-    // $ExpectError
-    enter('foo') {},
+    enter(foo) {},
 
-    // $ExpectError
-    exit('foo2') {}
+    exit(foo2) {},
 };

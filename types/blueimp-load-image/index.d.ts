@@ -1,11 +1,3 @@
-// Type definitions for blueimp-load-image 5.14
-// Project: https://github.com/blueimp/JavaScript-Load-Image
-// Definitions by: Evan Kesten <https://github.com/ebk46>
-//                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
-//                 Saeid Rezaei <https://github.com/moeinio>
-//                 Zak Barbuto <https://github.com/zbarbuto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
     type LoadImageResult = MetaData & {
@@ -16,9 +8,12 @@ declare namespace loadImage {
 
     type ExifTagValue = number | string | string[];
 
+    type ExifMap = Record<number, number>;
+
     interface Exif {
         [tag: number]: ExifTagValue;
-        get: (tagName: 'Orientation' | 'Thumbnail' | 'Exif' | 'GPSInfo' | 'Interoperability') => ExifTagValue;
+        map: Record<string, number>;
+        get: (tagName: "Orientation" | "Thumbnail" | "Exif" | "GPSInfo" | "Interoperability") => ExifTagValue;
     }
 
     interface Iptc {
@@ -34,6 +29,12 @@ declare namespace loadImage {
         originalHeight?: number | undefined;
         exif?: Exif | undefined;
         iptc?: Iptc | undefined;
+        exifOffsets?: ExifMap;
+    }
+
+    interface WriteExifData {
+        exif: Pick<Exif, "map">;
+        exifOffsets: ExifMap;
     }
 
     interface BasicOptions {
@@ -67,7 +68,7 @@ declare namespace loadImage {
         orientation?: Orientation | undefined;
         crop?: boolean | undefined;
         imageSmoothingEnabled?: boolean | undefined;
-        imageSmoothingQuality?: 'low' | 'medium' | 'high' | undefined;
+        imageSmoothingQuality?: "low" | "medium" | "high" | undefined;
     }
     interface CanvasFalseOptions {
         canvas?: false | undefined;
@@ -102,9 +103,44 @@ declare namespace loadImage {
 
         // Disables creating the imageHead property.
         disableImageHead?: boolean | undefined;
+
+        disableExif?: boolean | undefined;
+        disableExifOffsets?: boolean | undefined;
+        includeExifTags?: Record<number, boolean> | undefined;
+        excludeExifTags?: Record<number, boolean> | undefined;
+        disableIptc?: boolean | undefined;
+        disableIptcOffsets?: boolean | undefined;
+        includeIptcTags?: Record<number, boolean> | undefined;
+        excludeIptcTags?: Record<number, boolean> | undefined;
     }
 
     type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
+}
+
+interface ParseMetadata {
+    (
+        file: File | Blob | string,
+        callback: loadImage.ParseMetaDataCallback,
+        options?: loadImage.ParseOptions,
+        data?: loadImage.ImageHead,
+    ): void;
+    (
+        file: File | Blob | string,
+        options?: loadImage.ParseOptions,
+        data?: loadImage.ImageHead,
+    ): Promise<loadImage.MetaData>;
+}
+
+interface ReplaceHead {
+    (blob: Blob, head: ArrayBuffer | Uint8Array, callback: (blob: Blob | null) => void): void;
+    (blob: Blob, head: ArrayBuffer | Uint8Array): Promise<Blob | null>;
+}
+
+interface Scale {
+    <O extends loadImage.LoadImageOptions>(
+        image: HTMLImageElement | HTMLCanvasElement,
+        options?: O,
+    ): O extends loadImage.CanvasTrueOptions ? HTMLCanvasElement : HTMLImageElement;
 }
 
 // loadImage is implemented as a callable object.
@@ -115,15 +151,33 @@ interface LoadImage {
         | false;
     (file: File | Blob | string, options: loadImage.LoadImageOptions): Promise<loadImage.LoadImageResult>;
 
-    // Parses image meta data and calls the callback with the image head
-    parseMetaData: (
-        file: File | Blob | string,
-        callback: loadImage.ParseMetaDataCallback,
-        options?: loadImage.ParseOptions,
-        data?: loadImage.ImageHead,
-    ) => void;
+    parseMetaData: ParseMetadata;
 
+    // Parses image meta data and calls the callback/returns the promise with the image head
     blobSlice: (this: Blob, start?: number, end?: number) => Blob;
+
+    // Replaces the image head of a JPEG blob with the given one
+    replaceHead: ReplaceHead;
+
+    writeExifData: (
+        buffer: ArrayBuffer | Uint8Array,
+        data: loadImage.WriteExifData,
+        id: number | string,
+        value: loadImage.ExifTagValue,
+    ) => ArrayBuffer | Uint8Array;
+
+    scale: Scale;
+
+    // Internal functions, undocumented
+    requiresMetaData: (options: loadImage.LoadImageOptions) => boolean;
+    fetchBlob: (url: string, callback: () => void) => void;
+    transform: (img: unknown, options: unknown, callback: () => void, file: unknown, data: unknown) => void;
+    global: Window;
+    readFile: unknown;
+    isInstanceOf: unknown;
+    createObjectURL: (blob: Blob) => string | false;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    revokeObjectURL: (url: string) => void | false;
 }
 
 declare const loadImage: LoadImage;

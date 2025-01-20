@@ -1,11 +1,6 @@
-// Type definitions for wiring-pi 2.2.0
-// Project: https://github.com/eugeneware/wiring-pi
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare module 'wiring-pi' {
+declare module "wiring-pi" {
     // Setup
     export function wiringPiSetup(): number;
     export function wiringPiSetupGpio(): number;
@@ -149,7 +144,16 @@ declare module 'wiring-pi' {
     export function softPwmStop(pin: number): void;
     // Soft Servo
     export function softServoWrite(pin: number, value: number): void;
-    export function softServoSetup(p0: number, p1: number, p2: number, p3: number, p4: number, p5: number, p6: number, p7: number): number;
+    export function softServoSetup(
+        p0: number,
+        p1: number,
+        p2: number,
+        p3: number,
+        p4: number,
+        p5: number,
+        p6: number,
+        p7: number,
+    ): number;
     // Soft Tone
     export function softToneCreate(pin: number): number;
     export function softToneWrite(pin: number, frequency: number): void;
@@ -203,7 +207,13 @@ declare module 'wiring-pi' {
     // sn3218
     export function sn3218Setup(pinBase: number): number;
     // sr595
-    export function sr595Setup(pinBase: number, numPins: number, dataPin: number, clockPin: number, latchPin: number): number;
+    export function sr595Setup(
+        pinBase: number,
+        numPins: number,
+        dataPin: number,
+        clockPin: number,
+        latchPin: number,
+    ): number;
     // DevLib
     // ds1302
     export function ds1302setup(clockPin: number, dataPin: number, csPin: number): void;
@@ -217,7 +227,21 @@ declare module 'wiring-pi' {
     // GertBoard
     export function gertboardAnalogSetup(pinBase: number): number;
     // LCD
-    export function lcdInit(rows: number, cols: number, bits: number, rs: number, strb: number, d0: number, d1: number, d2: number, d3: number, d4: number, d5: number, d6: number, d7: number): number;
+    export function lcdInit(
+        rows: number,
+        cols: number,
+        bits: number,
+        rs: number,
+        strb: number,
+        d0: number,
+        d1: number,
+        d2: number,
+        d3: number,
+        d4: number,
+        d5: number,
+        d6: number,
+        d7: number,
+    ): number;
     export function lcdHome(fd: number): void;
     export function lcdClear(fd: number): void;
     export function lcdDisplay(fd: number, state: number): void;
@@ -238,10 +262,24 @@ declare module 'wiring-pi' {
     export function lcd128x64getScreenSize(): number[];
     export function lcd128x64point(x: number, y: number, color: number): void;
     export function lcd128x64line(x0: number, y0: number, x1: number, y1: number, color: number): void;
-    export function lcd128x64lineTo(x: number, y: number, color:  number): void;
-    export function lcd128x64rectangle(x1: number, y1: number, x2: number, y2: number, color: number, filled: number): void;
+    export function lcd128x64lineTo(x: number, y: number, color: number): void;
+    export function lcd128x64rectangle(
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        color: number,
+        filled: number,
+    ): void;
     export function lcd128x64circle(x: number, y: number, r: number, color: number, filled: number): void;
-    export function lcd128x64ellipse(cx: number, cy: number, xRadius: number, yRadius: number, color: number, filled: number): void;
+    export function lcd128x64ellipse(
+        cx: number,
+        cy: number,
+        xRadius: number,
+        yRadius: number,
+        color: number,
+        filled: number,
+    ): void;
     export function lcd128x64putchar(x: number, y: number, c: number, bgColor: number, fgColor: number): void;
     export function lcd128x64puts(x: number, y: number, data: string, bgColor: number, fgColor: number): void;
     export function lcd128x64update(): void;

@@ -1,32 +1,32 @@
-import { AST, Property, TreeNode, Node } from "idyll-compiler";
+import { AST, Node, Property, TreeNode } from "idyll-compiler";
 
 import {
     appendNode,
-    getNodesByName,
     appendNodes,
-    prependNode,
-    prependNodes,
     createNode,
-    getChildren,
-    walkNodes,
-    findNodes,
-    modifyChildren,
     filterChildren,
     filterNodes,
-    modifyNodesByName,
-    getProperty,
+    findNodes,
+    getChildren,
+    getNodesByName,
     getProperties,
     getPropertiesByType,
+    getProperty,
+    modifyChildren,
+    modifyNodesByName,
+    prependNode,
+    prependNodes,
     removeNodesByName,
-    setProperty,
+    removeProperty,
     setProperties,
-    removeProperty
+    setProperty,
+    walkNodes,
 } from "idyll-ast";
 
 const ast: AST = [
     ["h2", [], []],
     "world",
-    ["h1", [], ["child1", ["child2", [], []]]]
+    ["h1", [], ["child1", ["child2", [], []]]],
 ];
 const prop: Property = ["className", ["value", "hello"]];
 

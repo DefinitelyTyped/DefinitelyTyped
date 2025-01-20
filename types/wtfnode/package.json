@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/wtfnode",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/myndzi/wtfnode"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/wtfnode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

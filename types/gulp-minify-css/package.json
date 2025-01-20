@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-minify-css",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jonathanepollack/gulp-minify-css"
+    ],
+    "dependencies": {
+        "@types/clean-css": "^3",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-minify-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

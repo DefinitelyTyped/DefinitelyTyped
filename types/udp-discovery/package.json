@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/udp-discovery",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/stdarg/udp-discovery"
+    ],
+    "dependencies": {
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/udp-discovery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Scott Page",
+            "githubUsername": "scottpage"
+        }
+    ]
+}

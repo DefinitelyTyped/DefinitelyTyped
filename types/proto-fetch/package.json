@@ -1,6 +1,19 @@
 {
     "private": true,
-    "dependencies": {
-        "@types/node-fetch": "^2.5.12"
-    }
+    "name": "@types/proto-fetch",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bergos/proto-fetch"
+    ],
+    "devDependencies": {
+        "@types/file-fetch": "*",
+        "@types/node-fetch": "*",
+        "@types/proto-fetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
 }

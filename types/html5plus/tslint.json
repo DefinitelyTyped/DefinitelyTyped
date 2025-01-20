@@ -1,7 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "max-line-length": false,
-        "no-trailing-whitespace": false
-    }
-}

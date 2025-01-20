@@ -1,9 +1,4 @@
-// Type definitions for @hapi/catbox-memcached 3.0
-// Project: https://github.com/hapijs/catbox-memcached#readme
-// Definitions by: Avery Fay <https://github.com/btmorex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { CacheKey, ClientApi, ClientOptions } from '@hapi/catbox';
+import { CacheKey, ClientApi, ClientOptions } from "@hapi/catbox";
 
 declare namespace CatboxMemcached {
     interface Options extends ClientOptions {

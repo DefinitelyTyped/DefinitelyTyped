@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bbob__core",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/JiLiZART/bbob"
+    ],
+    "dependencies": {
+        "@types/bbob__parser": "*",
+        "@types/bbob__plugin-helper": "*"
+    },
+    "devDependencies": {
+        "@types/bbob__core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "shme-e",
+            "githubUsername": "shme-e"
+        }
+    ]
+}

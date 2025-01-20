@@ -1,13 +1,17 @@
-import karma = require('karma');
+import karma = require("karma");
 
 module.exports = (config: karma.Config) => {
     config.set({
-        reporters: ['progress', 'summary'],
+        reporters: ["progress", "summary"],
         summaryReporter: {
-            show: 'failed',
+            show: "failed",
             specLength: 50,
             overviewColumn: true,
-            browserList: 'ifneeded',
+            browserList: "ifneeded",
+            symbols: {
+                success: "o",
+                failure: "x",
+            },
         },
     });
 };

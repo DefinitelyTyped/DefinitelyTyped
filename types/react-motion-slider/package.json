@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-motion-slider",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/souporserious/react-motion-slider"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-motion": "*"
+    },
+    "devDependencies": {
+        "@types/react-motion-slider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        }
+    ]
+}

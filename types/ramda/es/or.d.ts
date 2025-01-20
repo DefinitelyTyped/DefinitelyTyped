@@ -1,2 +1,2 @@
-import { or } from '../index';
+import { or } from "../index.js";
 export default or;

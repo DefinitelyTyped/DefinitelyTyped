@@ -1,4 +1,3 @@
-
 import recursiveReaddir = require("recursive-readdir");
 
 recursiveReaddir("some/path", (err, files) => {});

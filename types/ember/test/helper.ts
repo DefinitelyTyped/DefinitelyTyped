@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 const FormatCurrencyHelper = Ember.Helper.helper((params: [number], hash: { currency: string }) => {
     const cents = params[0];
@@ -7,33 +7,33 @@ const FormatCurrencyHelper = Ember.Helper.helper((params: [number], hash: { curr
 });
 
 class User extends Ember.Object {
-    email: string;
+    declare email: string;
 }
 
 class SessionService extends Ember.Service {
-    currentUser: User;
+    declare currentUser: User;
 }
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
         session: SessionService;
     }
 }
 
 const CurrentUserEmailHelper = Ember.Helper.extend({
-    session: Ember.inject.service('session'),
-    onNewUser: Ember.observer('session.currentUser', function (this: Ember.Helper) {
+    session: Ember.inject.service("session"),
+    onNewUser: Ember.observer("session.currentUser", function(this: Ember.Helper) {
         this.recompute();
     }),
     compute(): string {
-        return this.get('session').get('currentUser').get('email');
+        return this.get("session").get("currentUser").get("email");
     },
 });
 
-import { helper } from '@ember/component/helper';
+import { helper } from "@ember/component/helper";
 
 function typedHelp(/*params, hash*/) {
-    return 'my type of help';
+    return "my type of help";
 }
 
 export default helper(typedHelp);

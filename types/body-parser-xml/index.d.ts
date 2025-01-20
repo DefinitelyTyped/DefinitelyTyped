@@ -1,17 +1,10 @@
-// Type definitions for body-parser-xml 2.0
-// Project: https://github.com/fiznool/body-parser-xml
-// Definitions by: tbounsiar <https://github.com/tbounsiar>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import bodyParser = require('body-parser');
-import { NextHandleFunction } from 'connect';
-import { Request, Response } from 'express-serve-static-core';
-import { ParserOptions } from 'xml2js';
-
-type BodyParser = typeof bodyParser;
+// import bodyParser = require('body-parser');
+import { BodyParser } from "body-parser";
+import { NextHandleFunction } from "connect";
+import { Request, Response } from "express-serve-static-core";
+import { ParserOptions } from "xml2js";
 
 /**
  * This library adds an xml method to the body-parser object.
@@ -55,6 +48,8 @@ declare namespace bodyParserXml {
 
 export = bodyParserXml;
 
-declare module 'body-parser' {
-    function xml(options?: bodyParserXml.Options): NextHandleFunction;
+declare module "body-parser" {
+    interface BodyParser {
+        xml(options?: bodyParserXml.Options): NextHandleFunction;
+    }
 }

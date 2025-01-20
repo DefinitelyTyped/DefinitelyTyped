@@ -1,5 +1,5 @@
-import stream = require('stream');
-import Fork = require('stream-fork');
+import stream = require("stream");
+import Fork = require("stream-fork");
 
 let fork: stream.Writable;
 

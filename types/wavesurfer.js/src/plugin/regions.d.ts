@@ -1,5 +1,5 @@
-import { Styles } from "../../types/util";
 import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import { Styles } from "../../types/util";
 import Observer from "../util/observer";
 import WaveSurfer from "../wavesurfer";
 
@@ -25,7 +25,7 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     getRegionSnapToGridValue(value: number, params: RegionParams): number;
 
     readonly list: { [id: string]: Region };
-    readonly maxRegions: number[];
+    readonly maxRegions: number;
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
     readonly util: WaveSurfer["util"];
@@ -45,9 +45,9 @@ export interface RegionsPluginParams extends PluginParams {
     /** Shift the snap-to-grid by the specified seconds. May also be negative. */
     snapToGridOffset?: number | undefined;
     /** Maximum number of regions that may be created by the user at one time. */
-    maxRegions?: number[] | undefined;
+    maxRegions?: number | undefined;
     /** Allows custom formating for region tooltip. */
-    formatTimeCallback?: (() => string) | undefined;
+    formatTimeCallback?: ((start: number, end: number) => string) | undefined;
     /** from container edges' Optional width for edgeScroll to start (default: 5% of viewport width). */
     edgeScrollWidth?: number | undefined;
 }
@@ -55,7 +55,7 @@ export interface RegionsPluginParams extends PluginParams {
 export class Region extends Observer {
     constructor(params: RegionParams, regionsUtil: WaveSurfer["util"], ws: WaveSurfer);
 
-    bindRagEvents(): void;
+    bindDragEvents(): void;
     bindEvents(): void;
     bindInOut(): void;
     formatTime(start: number, end: number): string;
@@ -106,7 +106,7 @@ export class Region extends Observer {
 }
 
 export interface RegionParams {
-    id: string;
+    id?: string | undefined;
     start?: number | undefined;
     end?: number | undefined;
     loop?: boolean | undefined;
@@ -117,11 +117,15 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+    attributes?: Attributes | undefined;
+    data?: Datas | undefined;
 }
 
 export interface RegionUpdatedEventParams {
-    direction: 'right' | 'left' | null;
-    action: 'drag' | 'resize';
+    action: "drag" | "resize" | "contentEdited";
+    direction?: "right" | "left" | null;
+    oldText?: string;
+    text?: string;
 }
 
 export interface HandleStyle {
@@ -134,5 +138,5 @@ export interface Attributes {
 }
 
 export interface Datas {
-    [dataName: string]: string;
+    [dataName: string]: unknown;
 }

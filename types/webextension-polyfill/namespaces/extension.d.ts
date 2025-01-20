@@ -1,15 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.extension
- * Generated from Mozilla sources. Do not manually edit!
- *
- * The <code>browser.extension</code> API has utilities that can be used by any extension page.
- * It includes support for exchanging messages between an extension and its content scripts or between extensions,
- * as described in detail in $(topic:messaging)[Message Passing].
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace Extension {
     /**

@@ -1,18 +1,10 @@
-// Type definitions for angular-notify 2.5.0
-// Project: https://github.com/cgross/angular-notify
-// Definitions by: Suwato <https://github.com/Suwato>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+/// <reference types="angular" />
 
-///<reference types="angular" />
+import * as ng from "angular";
 
-import * as ng from 'angular';
-
-declare module 'angular' {
+declare module "angular" {
     export namespace cgNotify {
-
         interface INotifyService {
-
             /**
              * The notify function can either be passed a string or an object.
              * This function will return an object with a close() method and a message property.
@@ -66,7 +58,6 @@ declare module 'angular' {
                  */
                 container?: any;
             }): INotify;
-
 
             /**
              * Call config to set the default configuration options for angular-notify.

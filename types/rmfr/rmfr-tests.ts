@@ -7,29 +7,29 @@ import rmfr = require("rmfr");
     await rmfr("../{tmp_d*,test.js}", {
         glob: {
             cwd: "node_modules",
-            ignore: "some_filename"
-        }
+            ignore: "some_filename",
+        },
     });
     await rmfr("test.js", {
         glob: {
-            cwd: "this/directory/does/not/exist"
-        }
+            cwd: "this/directory/does/not/exist",
+        },
     });
 
-    // $ExpectError
+    // @ts-expect-error
     await rmfr(".gitignore", { unlink: (path, cb) => cb(new Error()) });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr();
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("<", { o: "O" }, "/");
-    // $ExpectError
+    // @ts-expect-error
     await rmfr(["1"], { glob: true });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", 1);
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { chmod: new Set(["a"]) });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { maxBusyTries: "foo", emfileWait: "bar", glob: "baz" });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { disableGlob: true });
 })();

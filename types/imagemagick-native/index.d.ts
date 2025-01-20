@@ -1,14 +1,7 @@
-// Type definitions for imagemagick-native 1.7.0
-// Project: https://www.npmjs.org/package/imagemagick-native
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-
-
-import stream = require('stream');
-export declare module streams {
+import stream = require("stream");
+export declare namespace streams {
     export function convert(options: IStreamConvertOptions): stream.Transform;
 }
 

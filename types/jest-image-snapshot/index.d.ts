@@ -1,14 +1,7 @@
-// Type definitions for jest-image-snapshot 4.3
-// Project: https://github.com/americanexpress/jest-image-snapshot#readme
-// Definitions by: Janeene Beeforth <https://github.com/dawnmist>
-//                 erbridge <https://github.com/erbridge>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="jest" />
-import { PixelmatchOptions } from 'pixelmatch';
-import { Options as SSIMOptions } from 'ssim.js';
+
+import { PixelmatchOptions } from "pixelmatch";
+import { Options as SSIMOptions } from "ssim.js";
 
 export interface MatchImageSnapshotOptions {
     /**
@@ -16,6 +9,11 @@ export interface MatchImageSnapshotOptions {
      * @default false
      */
     allowSizeMismatch?: boolean | undefined;
+    /**
+     * Sets the max number of bytes for stdout/stderr when running diff-snapshot in a child process.
+     * @default 10 * 1024 * 1024 (10,485,760)
+     */
+    maxChildProcessBufferSizeInBytes?: number | undefined;
     /**
      * Custom config passed to 'pixelmatch' or 'ssim'
      */
@@ -25,7 +23,7 @@ export interface MatchImageSnapshotOptions {
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
      * @default 'pixelmatch'
      */
-    comparisonMethod?: 'pixelmatch' | 'ssim' | undefined;
+    comparisonMethod?: "pixelmatch" | "ssim" | undefined;
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.
@@ -36,23 +34,52 @@ export interface MatchImageSnapshotOptions {
      */
     customDiffDir?: string | undefined;
     /**
+     * Store the received images separately from the composed diff images on failure.
+     * This can be useful when updating baseline images from CI.
+     * @default false
+     */
+    storeReceivedOnFailure?: boolean | undefined;
+    /**
+     * A custom absolute path of a directory to keep this received image in.
+     */
+    customReceivedDir?: string | undefined;
+    /**
+     * A custom postfix which is added to the snapshot name of the received image
+     * @default '-received'
+     */
+    customReceivedPostfix?: string | undefined;
+    /**
      * A custom name to give this snapshot. If not provided, one is computed automatically. When a function is provided
      * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
      * argument. The function must return an identifier to use for the snapshot.
      */
     customSnapshotIdentifier?:
         | ((parameters: {
-              testPath: string;
-              currentTestName: string;
-              counter: number;
-              defaultIdentifier: string;
-          }) => string)
-        | string | undefined;
+            testPath: string;
+            currentTestName: string;
+            counter: number;
+            defaultIdentifier: string;
+        }) => string)
+        | string
+        | undefined;
     /**
      * Changes diff image layout direction.
      * @default 'horizontal'
      */
-    diffDirection?: 'horizontal' | 'vertical' | undefined;
+    diffDirection?: "horizontal" | "vertical" | undefined;
+    /**
+     * Either only include the difference between the baseline and the received image in the diff image, or include
+     * the 3 images (following the direction set by `diffDirection`).
+     * @default false
+     */
+    onlyDiff?: boolean | undefined;
+    /**
+     * This needs to be set to a existing file, like `require.resolve('./runtimeHooksPath.cjs')`.
+     * This file can expose a few hooks:
+     * - `onBeforeWriteToDisc`: before saving any image to the disc, this function will be called (can be used to write EXIF data to images for instance)
+     * - `onBeforeWriteToDisc: (arguments: { buffer: Buffer; destination: string; testPath: string; currentTestName: string }) => Buffer`
+     */
+    runtimeHooksPath?: string | undefined;
     /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
@@ -81,7 +108,7 @@ export interface MatchImageSnapshotOptions {
      * Sets the type of threshold that would trigger a failure.
      * @default 'pixel'.
      */
-    failureThresholdType?: 'pixel' | 'percent' | undefined;
+    failureThresholdType?: "pixel" | "percent" | undefined;
     /**
      * Updates a snapshot even if it passed the threshold against the existing one.
      * @default false.

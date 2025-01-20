@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-typing-animation",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/notadamking/react-typing-animation#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-typing-animation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haseeb Majid",
+            "githubUsername": "hmajid2301"
+        }
+    ]
+}

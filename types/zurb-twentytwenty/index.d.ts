@@ -1,9 +1,3 @@
-// Type definitions for zurb.twentytwenty 0.1
-// Project: https://github.com/zurb/twentytwenty
-// Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface TwentyTwentyOptions {

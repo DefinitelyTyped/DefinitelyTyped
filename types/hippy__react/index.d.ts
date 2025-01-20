@@ -1,10 +1,5 @@
-// Type definitions for @hippy/react 2.7
-// Project: http://hippyjs.org
-// Definitions by: zeroyu <https://github.com/zerosrat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import * as ReactReconciler from 'react-reconciler';
+import * as React from "react";
+import * as ReactReconciler from "react-reconciler";
 
 //
 // Hippy Event
@@ -187,7 +182,7 @@ interface Transform {
 }
 
 interface ViewStyle {
-    collapsable?: false;
+    collapsable?: boolean;
     backgroundColor?: string | number;
     backgroundImage?: string;
     backgroundSize?: string;
@@ -231,31 +226,32 @@ interface ViewStyle {
     borderLeftColor?: string | number;
     borderBottomColor?: string | number;
     borderRightColor?: string | number;
+    borderStyle?: "solid" | "dotted" | "dashed";
     boxShadowOpacity?: number;
     boxShadowRadius?: number;
     boxShadowColor?: string;
     boxShadowOffsetX?: number;
     boxShadowOffsetY?: number;
     fontSize?: number;
-    position?: 'relative' | 'absolute';
-    flexDirection?: 'row' | 'column';
-    flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
+    position?: "relative" | "absolute";
+    flexDirection?: "row" | "column";
+    flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
     justifyContent?:
-        | 'start'
-        | 'center'
-        | 'end'
-        | 'flex-start'
-        | 'flex-end'
-        | 'left'
-        | 'right'
-        | 'normal'
-        | 'space-between'
-        | 'space-around'
-        | 'space-evenly'
-        | 'stretch';
-    alignItems?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
-    alignSelf?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'baseline';
-    overflow?: 'hidden' | 'scroll';
+        | "start"
+        | "center"
+        | "end"
+        | "flex-start"
+        | "flex-end"
+        | "left"
+        | "right"
+        | "normal"
+        | "space-between"
+        | "space-around"
+        | "space-evenly"
+        | "stretch";
+    alignItems?: "stretch" | "center" | "flex-start" | "flex-end" | "baseline";
+    alignSelf?: "stretch" | "center" | "flex-start" | "flex-end" | "baseline";
+    overflow?: "hidden" | "visible";
     flex?: any;
     flexGrow?: number;
     flexShrink?: number;
@@ -291,20 +287,20 @@ declare type TextStyle = {
     // fontStyle?: 'normal' | 'italic',
     fontWeight?: ____FontWeight_Internal;
     lineHeight?: number;
-    textAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify';
+    textAlign?: "auto" | "left" | "right" | "center" | "justify";
 } & ViewStyle;
 type ____FontWeight_Internal =
-    | 'normal'
-    | 'bold'
-    | '100'
-    | '200'
-    | '300'
-    | '400'
-    | '500'
-    | '600'
-    | '700'
-    | '800'
-    | '900';
+    | "normal"
+    | "bold"
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
 type TextStyleProp = GenericStyleProp<TextStyle>;
 
 //
@@ -353,7 +349,7 @@ interface ImageProps extends LayoutableProps, ClickableProps, TouchableProps {
     /**
      * Image resize mode, as same as containMode
      */
-    resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
+    resizeMode?: "cover" | "contain" | "stretch" | "repeat" | "center";
 
     /**
      * When the image is resized, the corners of the size specified by capInsets
@@ -402,18 +398,18 @@ interface ImageProps extends LayoutableProps, ClickableProps, TouchableProps {
     onProgress?(evt: { nativeEvent: { loaded: number; total: number } }): void;
 }
 declare class Image extends React.Component<ImageProps> {
-    getSize: (
+    static getSize: (
         uri: string,
         success: (width: number, height: number) => void,
         failure?: (err: typeof Error) => void,
     ) => void;
-    prefetch: (url: string) => void;
+    static prefetch: (url: string) => void;
     static get resizeMode(): {
-        contain: 'contain';
-        cover: 'cover';
-        stretch: 'stretch';
-        center: 'center';
-        repeat: 'repeat'; // iOS Only
+        contain: "contain";
+        cover: "cover";
+        stretch: "stretch";
+        center: "center";
+        repeat: "repeat"; // iOS Only
     };
 }
 
@@ -466,6 +462,9 @@ interface ListViewProps extends LayoutableProps, ClickableProps, TouchableProps 
      */
     bounces?: boolean;
 
+    editable?: boolean;
+
+    delText?: string;
     /**
      * Passing the data and returns the row component.
      *
@@ -613,6 +612,8 @@ interface ListViewProps extends LayoutableProps, ClickableProps, TouchableProps 
      * Called when a new list item will disappear(1 px)
      */
     onWillDisappear?: (index: number) => void;
+
+    onDelete?: (nativeEvent: { index: number }) => void;
 }
 declare class ListView extends React.Component<ListViewProps> {
     scrollToContentOffset: (xOffset: number, yOffset: number, animated: boolean) => void;
@@ -620,7 +621,7 @@ declare class ListView extends React.Component<ListViewProps> {
     collapsePullHeader: () => void;
 }
 
-type ModalOrientation = 'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right';
+type ModalOrientation = "portrait" | "portrait-upside-down" | "landscape" | "landscape-left" | "landscape-right";
 interface ModalProps extends LayoutableProps, ClickableProps, TouchableProps {
     /**
      * Show or hide
@@ -676,12 +677,14 @@ interface ModalProps extends LayoutableProps, ClickableProps, TouchableProps {
      *
      * Default: 'slide'
      */
-    animationType?: 'none' | 'slide' | 'fade' | 'slide_fade';
+    animationType?: "none" | "slide" | "fade" | "slide_fade";
 
     /**
      * Modal supports orientations
      */
     supportedOrientations?: ModalOrientation[];
+
+    children?: React.ReactNode;
 
     style?: ViewStyleProp;
 
@@ -774,6 +777,7 @@ interface RefreshWrapperProps extends LayoutableProps, ClickableProps, Touchable
     onRefresh?: () => void;
     getRefresh?: () => React.ReactElement;
     bounceTime?: number;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class RefreshWrapper extends React.Component<RefreshWrapperProps> {
@@ -858,7 +862,7 @@ interface ScrollViewProps extends LayoutableProps, ClickableProps, TouchableProp
      * iOS only
      * https://developer.apple.com/documentation/uikit/uiscrollview/keyboarddismissmode
      */
-    keyboardDismissMode?: 'none' | 'on-drag' | 'interactive' | 'onDrag';
+    keyboardDismissMode?: "none" | "on-drag" | "interactive" | "onDrag";
 
     /**
      * Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding).
@@ -894,6 +898,7 @@ interface ScrollViewProps extends LayoutableProps, ClickableProps, TouchableProp
      * Called when the user stops dragging the scroll view and it either stops or begins to glide.
      */
     onScrollEndDrag?(): void;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class ScrollView extends React.Component<ScrollViewProps> {
@@ -934,8 +939,8 @@ interface TextProps extends LayoutableProps, ClickableProps, TouchableProps {
      *
      * The default is `tail`.
      */
-    ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
-    children?: number | string | string[];
+    ellipsizeMode?: "head" | "middle" | "tail" | "clip";
+    children?: string[] | React.ReactNode;
     text?: string;
     style?: TextStyleProp;
 }
@@ -945,6 +950,11 @@ interface KeyboardWillShowEvent {
     keyboardHeight: number;
 }
 interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps {
+    /**
+     * add in 2.11.5
+     */
+    caretColor?: string;
+
     /**
      * The value to show for the text input. TextInput is a controlled component,
      * which means the native value will be forced to match this value prop if provided.
@@ -981,7 +991,7 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      * * `phone-pad`
      * * `search`
      */
-    keyboardType?: 'default' | 'numeric' | 'password' | 'email' | 'phone-pad' | 'search';
+    keyboardType?: "default" | "numeric" | "password" | "email" | "phone-pad" | "search";
 
     /**
      * Determines how the return key should look.
@@ -993,7 +1003,7 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      * * `search`
      * * `send`
      */
-    returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+    returnKeyType?: "done" | "go" | "next" | "search" | "send";
 
     /**
      * Limits the maximum number of characters that can be entered.
@@ -1042,7 +1052,7 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      */
     placeholderTextColors?: string[];
 
-    style: TextStyleProp;
+    style?: TextStyleProp;
 
     /**
      * Callback that is called when the text input is blurred.
@@ -1092,7 +1102,14 @@ interface TextInputProps extends LayoutableProps, ClickableProps, TouchableProps
      */
     onSelectionChange?(evt: { nativeEvent: { selection: { start: number; end: number } } }): void;
 }
-declare class TextInput extends React.Component<TextInputProps> {}
+declare class TextInput extends React.Component<TextInputProps> {
+    blur(): void;
+    clear(): void;
+    focus(): void;
+    getValue(): Promise<string>;
+    hideInputMethod(): void;
+    setValue(value: string): void;
+}
 
 interface ViewProps extends LayoutableProps, ClickableProps, TouchableProps {
     /**
@@ -1123,7 +1140,7 @@ interface ViewProps extends LayoutableProps, ClickableProps, TouchableProps {
      *
      * Default: iOS is 'visible', android is 'hidden'.
      */
-    overflow?: 'visible' | 'hidden';
+    overflow?: "visible" | "hidden";
     focusable?: boolean;
     requestFocus?: boolean;
     nextFocusDownId?: string | ReactReconciler.Fiber;
@@ -1150,7 +1167,7 @@ interface PageScrollEvent {
     position: number;
     offset: number;
 }
-type PageScrollState = 'idle' | 'dragging' | 'settling';
+type PageScrollState = "idle" | "dragging" | "settling";
 interface PageScrollStateEvent {
     pageScrollState: PageScrollState;
 }
@@ -1160,7 +1177,7 @@ interface ViewPagerProps extends LayoutableProps {
      *
      * Default: 0
      */
-    initialPage: number;
+    initialPage?: number;
 
     /**
      * When `false`, the view cannot be scrolled via touch interaction.
@@ -1171,11 +1188,13 @@ interface ViewPagerProps extends LayoutableProps {
      */
     scrollEnabled?: boolean;
 
+    horizontal?: boolean;
+
     /**
      * iOS only
      * https://developer.apple.com/documentation/uikit/uiscrollview/keyboarddismissmode
      */
-    keyboardDismissMode?: 'none' | 'on-drag' | 'interactive' | 'onDrag';
+    keyboardDismissMode?: "none" | "on-drag" | "interactive" | "onDrag";
 
     /**
      * Fires at most once per page is selected
@@ -1205,12 +1224,195 @@ interface ViewPagerProps extends LayoutableProps {
      * * settling
      */
     onPageScrollStateChanged?(evt: PageScrollState): void;
+    children?: React.ReactNode[];
     style?: ViewStyleProp;
 }
 declare class ViewPager extends React.Component<ViewPagerProps> {
     setPage: (index: number) => void;
     setPageWithoutAnimation: (index: number) => void;
 }
+
+interface WaterfallViewProps {
+    // Specific number of waterfall column
+    numberOfColumns: number;
+
+    // Number of total items
+    numberOfItems: number;
+
+    // Inner content padding
+    contentInset?: { top?: number; left?: number; bottom?: number; right?: number };
+
+    // Horizontal space between columns
+    columnSpacing: number;
+
+    // Vertical margin between items
+    interItemSpacing: number;
+
+    // Number of items to preload on reaching the listview end
+    preloadItemNumber?: number;
+
+    // Return banner view element
+    renderBanner?(): React.ReactElement;
+
+    // Declare whether PullHeader view exists
+    containPullHeader?: boolean;
+
+    // Declare whether PullFooter view exists
+    containPullFooter?: boolean;
+
+    // Scroll to offset after WaterfallView with data rendered
+    initialContentOffset?: number;
+
+    // Declare whether banner view exists
+    containBannerView?: boolean;
+
+    /**
+     * Passing the data and returns the row component.
+     *
+     * @param {Object} data - Data for row rendering
+     * @returns {(React.Component | undefined)}
+     */
+    renderItem?(data: DataItem): React.ReactElement;
+
+    renderPullHeader?(): React.ReactElement;
+
+    renderPullFooter?(): React.ReactElement;
+
+    /**
+     * Each row have different type, it will be using at render recycle.
+     *
+     * @param {number} index - Index Of data.
+     * @returns {string}
+     */
+    getItemType?(index: number): number;
+
+    /**
+     * Returns the style for specific index of row.
+     *
+     * @param {number} index - Index Of data.
+     * @returns {Object}
+     */
+    getItemStyle?(index: number): Style;
+
+    /**
+     * Specific the key of row, for better data diff
+     * More info: https://reactjs.org/docs/lists-and-keys.html
+     *
+     * @param {number} index - Index Of data.
+     * @returns {string}
+     */
+    getItemKey?(index: number): string;
+
+    style?: Style;
+
+    // Called when the WaterfallView is scrolling to bottom.
+    onEndReached?(): void;
+
+    /**
+     *  Called when the row first layout or layout changed.
+     *
+     * @param {Object} evt - Layout event data
+     * @param {number} evt.nativeEvent.x - The position X of component
+     * @param {number} evt.nativeEvent.y - The position Y of component
+     * @param {number} evt.nativeEvent.width - The width of component
+     * @param {number} evt.nativeEvent.hegiht - The height of component
+     * @param {number} index - Index of data.
+     */
+    onItemLayout?(evt: LayoutEvent, index: number): void;
+
+    /**
+     * Called when user scrolls WaterfallView
+     *
+     * @param {Object} evt - onScroll event
+     * @param {number} evt.startEdgePos - Scrolled offset of List top edge
+     * @param {number} evt.endEdgePos - Scrolled offset of List end edge
+     * @param {number} evt.firstVisibleRowIndex - Index of the first list item at current visible screen
+     * @param {number} evt.lastVisibleRowIndex - Index of the last list item at current visible screen
+     * @param {Object[]} evt.visibleRowFrames - Frame info of current screen visible items
+     * @param {number} evt.visibleRowFrames[].x - Current item's horizontal offset relative to ListView
+     * @param {number} evt.visibleRowFrames[].y - Current item's vertical offset relative to ListView
+     * @param {number} evt.visibleRowFrames[].width - Current item's width
+     * @param {number} evt.visibleRowFrames[].height - Current item's height
+     */
+    onScroll?(evt: {
+        startEdgePos: number;
+        endEdgePos: number;
+        firstVisibleRowIndex: number;
+        lastVisibleRowIndex: number;
+        visibleRowFrames: object;
+    }): void;
+
+    // Called when user pulls the ListView down
+    onHeaderPulling?(): void;
+
+    // Called when user release the pulling WaterfallView
+    onHeaderReleased?(): void;
+
+    // Called when user swipe up WaterfallView to get more data on reaching the footer
+    onFooterPulling?(): void;
+
+    // Called when user release the getting-more-data WaterfallView
+    onFooterReleased?(): void;
+
+    // Called on items exposed
+    onExposureReport?(): void;
+
+    // Called on waterfall ready
+    onInitialListReady?(): void;
+}
+declare class WaterfallView extends React.Component<WaterfallViewProps> {
+    scrollToIndex: (obj: { index: number; animated: boolean }) => void;
+    scrollToContentOffset: (obj: { xOffset: number; yOffset: number; animated: boolean }) => void;
+}
+
+interface LoadEvent {
+    url: string;
+}
+interface WebViewProps {
+    /**
+     * WebView loads url
+     */
+    source: {
+        uri: string;
+    };
+
+    /**
+     * Custom user agent.
+     */
+    userAgent?: string;
+
+    /**
+     * Request method
+     */
+    method?: "get" | "post";
+
+    style?: ViewStyleProp;
+
+    /**
+     * Invoke when web page loaded.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoad?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page start to load.
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadStart?(evt: LoadEvent): void;
+
+    /**
+     * Invoke when web page load completed
+     *
+     * @param {Object} evt - Load event data
+     * @param {string} evt.url - Web page url
+     */
+    onLoadEnd(evt: LoadEvent): void;
+}
+declare class WebView extends React.Component<WebViewProps> {}
 
 //
 // Hippy React Event
@@ -1243,7 +1445,7 @@ type HippyEventRevoker = EventEmitterRevoker;
 
 type AnimationValue = number | { animationId: number } | string;
 type AnimationCallback = () => void;
-type AnimationDirection = 'left' | 'right' | 'top' | 'bottom' | 'center';
+type AnimationDirection = "left" | "right" | "top" | "bottom" | "center";
 
 interface AnimationOptions {
     /**
@@ -1264,7 +1466,7 @@ interface AnimationOptions {
     /**
      * Timeline mode of animation
      */
-    mode?: 'timing'; // TODO: fill more options
+    mode?: "timing"; // TODO: fill more options
 
     /**
      * Delay starting time
@@ -1275,7 +1477,7 @@ interface AnimationOptions {
      * Value type, leave it blank in most case, except use rotate/color related
      * animation, set it to be 'deg' or 'color'.
      */
-    valueType?: 'deg'; // TODO: fill more options
+    valueType?: "deg"; // TODO: fill more options
 
     /**
      * Animation start position
@@ -1285,12 +1487,12 @@ interface AnimationOptions {
     /**
      * Animation interpolation type
      */
-    timingFunction?: 'linear' | 'ease' | 'bezier' | 'in' | 'ease-in' | 'out' | 'ease-out' | 'inOut' | 'ease-in-out';
+    timingFunction?: "linear" | "ease" | "bezier" | "in" | "ease-in" | "out" | "ease-out" | "inOut" | "ease-in-out";
 
     /**
      * Animation repeat times, use 'loop' to be always repeating.
      */
-    repeatCount?: number | 'loop';
+    repeatCount?: number | "loop";
 
     inputRange?: any[];
     outputRange?: any[];
@@ -1316,7 +1518,7 @@ interface AnimationChild {
 }
 interface AnimationSetOption {
     children: AnimationChild[];
-    repeatCount: number | 'loop';
+    repeatCount: number | "loop";
     virtual?: any; // TODO: What's it?
 }
 declare class AnimationSet {
@@ -1354,19 +1556,34 @@ interface BackAndroid {
 }
 declare const BackAndroid: BackAndroid;
 
+interface Clipboard {
+    getString: () => Promise<string>;
+    setString: (value: string) => void;
+}
+declare const Clipboard: Clipboard;
+
+type logFn = (...value: string[]) => void;
+interface ConsoleModule {
+    log: logFn;
+    info: logFn;
+    warn: logFn;
+    error: logFn;
+}
+declare const ConsoleModule: ConsoleModule;
+
 interface Bridge {
     callNative(moduleName: string, methodName: string, ...args: any[]): void;
     callNativeWithCallbackId(moduleName: string, methodName: string, ...args: any[]): number;
     callNativeWithPromise<T>(moduleName: string, methodName: string, ...args: any[]): Promise<T>;
     removeNativeCallback(callbackId: number): void;
 }
-declare const callNative: Bridge['callNative'];
-declare const callNativeWithCallbackId: Bridge['callNativeWithCallbackId'];
-declare const callNativeWithPromise: Bridge['callNativeWithPromise'];
-declare const removeNativeCallback: Bridge['removeNativeCallback'];
+declare const callNative: Bridge["callNative"];
+declare const callNativeWithCallbackId: Bridge["callNativeWithCallbackId"];
+declare const callNativeWithPromise: Bridge["callNativeWithPromise"];
+declare const removeNativeCallback: Bridge["removeNativeCallback"];
 
 interface Dimensions {
-    get(dim: 'window' | 'screen'): {
+    get(dim: "window" | "screen"): {
         height: number;
         width: number;
         scale: number;
@@ -1402,10 +1619,22 @@ interface NetInfoRevoker {
     listener: NetworkInfoCallback | undefined;
 }
 interface NetInfo {
-    addEventListener(eventName: string, handler: () => void): NetInfoRevoker;
-    fetch(): Promise<NetInfo>;
+    addEventListener(eventName: string, handler: (event: { network_info: string }) => void): NetInfoRevoker;
+    fetch(): Promise<any>;
     removeEventListener(eventName: string, handler: NetInfoRevoker | (() => void)): void;
 }
+export const NetInfo: NetInfo;
+
+interface NetworkModule {
+    getCookies(url: string): Promise<string>;
+    setCookie(url: string, keyValue: string, expires?: string): Promise<void>;
+}
+export const NetworkModule: NetworkModule;
+
+interface PixelRatio {
+    get: () => number;
+}
+export const PixelRatio: PixelRatio;
 
 interface Route {
     routeName: string;
@@ -1427,7 +1656,7 @@ interface NavigatorProps {
 declare class Navigator extends React.Component<NavigatorProps> {}
 
 interface Platform {
-    OS: 'ios' | 'android';
+    OS: "ios" | "android";
 }
 export const Platform: Platform;
 
@@ -1477,7 +1706,7 @@ interface Element extends ViewNode {
     attributes: Attributes;
 }
 interface UIManagerModule {
-    getElementFromFiberRef(ref: ReactReconciler.Fiber | Element): Element | ReactReconciler.Fiber['stateNode'];
+    getElementFromFiberRef(ref: ReactReconciler.Fiber | Element): Element | ReactReconciler.Fiber["stateNode"];
     getNodeIdByRef(ref: string | ReactReconciler.Fiber | Element): number;
     callUIFunction(ref: Element | ReactReconciler.Fiber, funcName: string, ...options: any[]): void;
     measureInWindowByMethod(
@@ -1495,6 +1724,43 @@ interface UIManagerModule {
     ): Promise<LayoutContent | string>;
 }
 export const UIManagerModule: UIManagerModule;
+
+interface HippyReactConfig {
+    /**
+     * Hippy app name, it's will register to `__GLOBAL__.appRegister` object,
+     * waiting the native load instance event for start the app.
+     */
+    appName: string;
+
+    /**
+     * Entry component of Hippy app.
+     */
+    entryPage: string | React.FunctionComponent<any> | React.ComponentClass<any, any>;
+
+    /**
+     * Disable trace output
+     */
+    silent?: boolean;
+
+    /**
+     * enable global bubbles
+     */
+    bubbles?: boolean;
+
+    /**
+     * The callback after rendering.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    callback?: () => void | undefined | null;
+}
+declare class Hippy {
+    constructor(config: HippyReactConfig);
+    config: HippyReactConfig;
+    rootContainer: any;
+    // Keep forward comaptatble.
+    regist(): void;
+    start(): void;
+}
 
 // export = TypedHippyReact;
 // export as namespace TypedHippyReact;

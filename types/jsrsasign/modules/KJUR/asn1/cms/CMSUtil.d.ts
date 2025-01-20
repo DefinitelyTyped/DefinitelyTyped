@@ -69,9 +69,7 @@ declare namespace jsrsasign.KJUR.asn1.cms {
          *   ]
          * }
          */
-        function verifySignedData(param?: {
-            cms: string;
-        }): {
+        function verifySignedData(param?: { cms: string }): {
             isValid: boolean;
             parse: {
                 certsIdx: number;

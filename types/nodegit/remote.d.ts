@@ -1,25 +1,25 @@
-import { Repository } from './repository';
-import { RemoteCallbacks } from './remote-callbacks';
-import { Strarray } from './str-array';
-import { FetchOptions } from './fetch-options';
-import { Buf } from './buf';
-import { Enums } from './enums';
-import { TransferProgress } from './transfer-progress';
-import { PushOptions } from './push-options';
-import { Refspec } from './ref-spec';
+import { Buf } from "./buf";
+import { Enums } from "./enums";
+import { FetchOptions } from "./fetch-options";
+import { PushOptions } from "./push-options";
+import { Refspec } from "./ref-spec";
+import { RemoteCallbacks } from "./remote-callbacks";
+import { Repository } from "./repository";
+import { Strarray } from "./str-array";
+import { TransferProgress } from "./transfer-progress";
 
 export namespace Remote {
     const enum AUTOTAG_OPTION {
         DOWNLOAD_TAGS_UNSPECIFIED = 0,
         DOWNLOAD_TAGS_AUTO = 1,
         DOWNLOAD_TAGS_NONE = 2,
-        DOWNLOAD_TAGS_ALL = 3
+        DOWNLOAD_TAGS_ALL = 3,
     }
 
     const enum COMPLETION_TYPE {
         COMPLETION_DOWNLOAD = 0,
         COMPLETION_INDEXING = 1,
-        COMPLETION_ERROR = 2
+        COMPLETION_ERROR = 2,
     }
 }
 
@@ -49,7 +49,6 @@ export class Remote {
     dup(): Promise<Remote>;
     fetch(refSpecs: any[], opts: FetchOptions, message: string, callback?: Function): Promise<number>;
 
-    free(): void;
     getFetchRefspecs(): Promise<any[]>;
     getPushRefspecs(): Promise<any[]>;
     getRefspec(n: number): Refspec;
@@ -63,7 +62,12 @@ export class Remote {
     stats(): TransferProgress;
 
     stop(): void;
-    updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
+    updateTips(
+        callbacks: RemoteCallbacks,
+        updateFetchhead: number,
+        downloadTags: number,
+        reflogMessage: string,
+    ): number;
     upload(refspecs: Strarray | string | string[], opts?: PushOptions): number;
     url(): string;
     /**

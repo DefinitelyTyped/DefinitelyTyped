@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/injectpromise",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sullof/injectpromise"
+    ],
+    "devDependencies": {
+        "@types/injectpromise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "naeemy",
+            "githubUsername": "naeemy"
+        }
+    ]
+}

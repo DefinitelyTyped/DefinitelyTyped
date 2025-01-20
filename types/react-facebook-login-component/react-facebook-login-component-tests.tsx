@@ -1,18 +1,18 @@
-import { FacebookLogin, FacebookLoginInfo } from "react-facebook-login-component";
 import * as React from "react";
+import { FacebookLogin, FacebookLoginInfo } from "react-facebook-login-component";
 
 const handler = (response: FacebookLoginInfo) => {
     console.log(response.accessToken);
 };
 
-const ReactFacebookLoginComponent: JSX.Element = (
+const ReactFacebookLoginComponent: React.JSX.Element = (
     <FacebookLogin
         socialId="1234567890000"
         responseHandler={handler}
     />
 );
 
-const ReactFacebookLoginComponentAllOptions: JSX.Element = (
+const ReactFacebookLoginComponentAllOptions: React.JSX.Element = (
     <FacebookLogin
         socialId="1234567890000"
         responseHandler={handler}

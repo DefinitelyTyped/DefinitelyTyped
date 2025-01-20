@@ -1,3 +1,3 @@
-import tags = require('svg-tags');
+import tags = require("svg-tags");
 
 tags; // $ExpectType string[]

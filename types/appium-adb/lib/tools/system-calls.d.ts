@@ -1,7 +1,15 @@
-import { SemVer } from 'semver';
-import { SubProcess, ExecOptions } from 'teen_process';
+import { SemVer } from "semver";
+import { SubProcess, TeenProcessExecOptions } from "teen_process";
 
-export { DEFAULT_ADB_EXEC_TIMEOUT } from '../helpers';
+export { DEFAULT_ADB_EXEC_TIMEOUT } from "../helpers";
+
+export interface ConnectedDevicesOptions {
+    /**
+     * Whether to get long output, which includes extra properties in each device.
+     * Akin to running `adb devices -l`.
+     */
+    verbose?: boolean;
+}
 
 export interface Device {
     /** The device udid. */
@@ -10,9 +18,22 @@ export interface Device {
     state: string;
 }
 
-export interface AdbExecOptions extends ExecOptions {
+export interface VerboseDevice extends Device {
+    /** The product codename of the device, such as "razor". */
+    product: string;
+    /** The model name of the device, such as "Nexus_7". */
+    model: string;
+    /** The device codename, such as "flow". */
+    device: string;
+    /** Represents the USB port the device is connected to, such as "1-1". */
+    usb?: string;
+    /** The Transport ID for the device, such as "1". */
+    transport_id?: string;
+}
+
+export interface AdbExecOptions extends TeenProcessExecOptions {
     exclusive?: boolean;
-    outputFormat?: 'stdout' | 'full' | 'undefined';
+    outputFormat?: "stdout" | "full" | "undefined";
 }
 
 export interface ExecResult {
@@ -20,7 +41,7 @@ export interface ExecResult {
     stderr: string;
 }
 
-export interface ShellExecOptions extends ExecOptions {
+export interface ShellExecOptions extends TeenProcessExecOptions {
     /** @default [falsy] Whether to run the given command as root. */
     privileged?: boolean;
     /** @default [falsy] Whether to keep root mode after command execution is completed. */
@@ -31,7 +52,7 @@ export interface AvdLaunchOptions {
     /**
      * Additional emulator command line arguments
      */
-    args?: string | ReadonlyArray<string>;
+    args?: string | readonly string[];
     /**
      * Additional emulator environment variables
      */
@@ -100,7 +121,7 @@ export interface RootResult {
     wasAlreadyRooted: boolean;
 }
 
-export type BinaryName = 'aapt' | 'aapt2' | 'adb' | 'apkanalyzer' | 'apksigner.jar' | 'bundletool' | 'zipalign';
+export type BinaryName = "aapt" | "aapt2" | "adb" | "apkanalyzer" | "apksigner.jar" | "bundletool" | "zipalign";
 
 /**
  * Retrieve full path to the given binary.
@@ -124,8 +145,8 @@ export default systemCallMethods;
 
 interface SystemCalls {
     EXEC_OUTPUT_FORMAT: {
-        readonly STDOUT: 'stdout';
-        readonly FULL: 'full';
+        readonly STDOUT: "stdout";
+        readonly FULL: "full";
     };
 
     /**
@@ -176,7 +197,8 @@ interface SystemCalls {
      *                          no devices are connected.
      * @throws If there was an error while listing devices.
      */
-    getConnectedDevices(): Promise<Device[]>;
+    getConnectedDevices(opts: ConnectedDevicesOptions & { verbose: true }): Promise<VerboseDevice[]>;
+    getConnectedDevices(opts?: ConnectedDevicesOptions): Promise<Device[]>;
 
     /**
      * Retrieve the list of devices visible to adb within the given timeout.
@@ -198,7 +220,7 @@ interface SystemCalls {
      * @throws If either ADB version is too old and does not support this
      * command or there was a failure during reconnect.
      */
-    reconnect(target?: 'offline' | 'device' | 'null'): Promise<void>;
+    reconnect(target?: "offline" | "device" | "null"): Promise<void>;
 
     /**
      * Restart adb server, unless _this.suppressKillServer_ property is true.
@@ -223,7 +245,7 @@ interface SystemCalls {
      *
      * @param cmd - The array of rest command line parameters.
      */
-    adbExecEmu(cmd: ReadonlyArray<string>): Promise<void>;
+    adbExecEmu(cmd: readonly string[]): Promise<void>;
 
     /**
      * Execute the given adb command.
@@ -236,8 +258,8 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions & { outputFormat: 'full' }): Promise<ExecResult>;
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions): Promise<string>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions & { outputFormat: "full" }): Promise<ExecResult>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions): Promise<string>;
 
     /**
      * Execute the given command using _adb shell_ prefix.
@@ -248,9 +270,9 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    shell(cmd: string | ReadonlyArray<string>, opts?: ShellExecOptions): Promise<string>;
+    shell(cmd: string | readonly string[], opts?: ShellExecOptions): Promise<string>;
 
-    createSubProcess(args?: ReadonlyArray<string>): SubProcess;
+    createSubProcess(args?: readonly string[]): SubProcess;
 
     /**
      * Retrieve the current adb port.
@@ -368,7 +390,7 @@ interface SystemCalls {
      * @param timeoutMs [20000] - The maximum number of milliseconds to wait.
      * @throws If the emulator is not ready within the given timeout.
      */
-    waitForEmulatorReady(timeoutMs?: string): Promise<void>;
+    waitForEmulatorReady(timeoutMs?: number): Promise<void>;
 
     /**
      * Check if the current device is ready to accept further commands (booting completed).
@@ -428,7 +450,7 @@ interface SystemCalls {
      *                          An empty array is returned of the given _remotePath_
      *                          does not exist.
      */
-    ls(remotePath: string, opts?: ReadonlyArray<string>): Promise<string[]>;
+    ls(remotePath: string, opts?: readonly string[]): Promise<string[]>;
 
     /**
      * Get the size of the particular file located on the device under test.

@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Path from 'd3-path';
+import * as d3Path from "d3-path";
 
 // -----------------------------------------------------------------------------------------
 // Test create new path serializer

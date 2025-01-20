@@ -1,5 +1,10 @@
-interface Point { x: number; y: number; }
-interface Point3D extends Point { z: number; }
+interface Point {
+    x: number;
+    y: number;
+}
+interface Point3D extends Point {
+    z: number;
+}
 
 let a: any;
 let s: string;
@@ -178,7 +183,7 @@ Symbol.userSetter();
 
 map.clear();
 map.delete(s);
-map.forEach((value: Point, key: string) => { });
+map.forEach((value: Point, key: string) => {});
 point = map.get(s);
 b = map.has(s);
 map = map.set(s, point);
@@ -188,7 +193,7 @@ map = new Map(iterableOfStringPoint);
 
 set.clear();
 set.delete(point);
-set.forEach((value: Point, key: Point) => { });
+set.forEach((value: Point, key: Point) => {});
 b = set.has(point);
 set = set.add(point);
 i = set.size;
@@ -227,7 +232,7 @@ iterableIteratorOfPoint = set.values();
 iterableIteratorOfPoint = set[Symbol.iterator]();
 iterableIteratorOfNode = nodeList[Symbol.iterator]();
 
-$for(iterableOfPoint).of((value: Point) => { });
+$for(iterableOfPoint).of((value: Point) => {});
 arrayOfPoint = $for(iterableOfPoint).array();
 arrayOfPoint3D = $for(iterableOfPoint).array(p => point3d);
 $forOfPoint = $for(iterableOfPoint).filter(p => b);
@@ -238,23 +243,31 @@ $forOfPoint3D = $for(iterableOfPoint).map(p => point3d);
 // Modules: es6.promise
 // #############################################################################################
 
-promiseLikeOfPoint.then((point: Point) => { });
+promiseLikeOfPoint.then((point: Point) => {});
 promiseLikeOfPoint = promiseLikeOfPoint.then();
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => point);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => point);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => point);
 promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => promiseLikeOfPoint);
-promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => { throw e; });
-promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => { throw e; });
+promiseLikeOfPoint = promiseLikeOfPoint.then(p => point, e => {
+    throw e;
+});
+promiseLikeOfPoint = promiseLikeOfPoint.then(p => promiseLikeOfPoint, e => {
+    throw e;
+});
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => point3d);
 promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => promiseLikeOfPoint3D);
-promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => { throw e; });
-promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => { throw e; });
-promiseOfPoint.then((point: Point) => { });
+promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => point3d, e => {
+    throw e;
+});
+promiseLikeOfPoint3D = promiseLikeOfPoint.then(p => promiseLikeOfPoint3D, e => {
+    throw e;
+});
+promiseOfPoint.then((point: Point) => {});
 promiseOfPoint = promiseOfPoint.then();
 promiseOfPoint = promiseOfPoint.then(p => point);
 promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint);
@@ -264,9 +277,15 @@ promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => point);
 promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => point);
 promiseOfPoint = promiseOfPoint.then(p => point, e => promiseOfPoint);
 promiseOfPoint = promiseOfPoint.then(p => point, e => promiseLikeOfPoint);
-promiseOfPoint = promiseOfPoint.then(p => point, e => { throw e; });
-promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => { throw e; });
-promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => { throw e; });
+promiseOfPoint = promiseOfPoint.then(p => point, e => {
+    throw e;
+});
+promiseOfPoint = promiseOfPoint.then(p => promiseOfPoint, e => {
+    throw e;
+});
+promiseOfPoint = promiseOfPoint.then(p => promiseLikeOfPoint, e => {
+    throw e;
+});
 promiseOfPoint3D = promiseOfPoint.then(p => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D);
@@ -275,13 +294,21 @@ promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => promiseOfPoint3D);
 promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => promiseLikeOfPoint3D);
-promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => { throw e; });
-promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => { throw e; });
-promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => { throw e; });
+promiseOfPoint3D = promiseOfPoint.then(p => point3d, e => {
+    throw e;
+});
+promiseOfPoint3D = promiseOfPoint.then(p => promiseOfPoint3D, e => {
+    throw e;
+});
+promiseOfPoint3D = promiseOfPoint.then(p => promiseLikeOfPoint3D, e => {
+    throw e;
+});
 promiseOfPoint = promiseOfPoint.catch(e => point);
 promiseOfPoint = promiseOfPoint.catch(e => promiseOfPoint);
 promiseOfPoint = promiseOfPoint.catch(e => promiseLikeOfPoint);
-promiseOfPoint = promiseOfPoint.catch(e => { throw e; });
+promiseOfPoint = promiseOfPoint.catch(e => {
+    throw e;
+});
 promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => point3d);
 promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => promiseOfPoint3D);
 promiseOfPoint3D = promiseOfPoint.then(p2d => ({ ...p2d, z: 0 })).catch(e => promiseLikeOfPoint3D);
@@ -378,13 +405,17 @@ i = Array.indexOf(arrayOfPoint, point, i);
 i = Array.lastIndexOf(arrayOfPoint, point, i);
 b = Array.every(arrayOfPoint, (value: Point, index: number, array: Point[]) => b, a);
 b = Array.some(arrayOfPoint, (value: Point, index: number, array: Point[]) => b, a);
-Array.forEach(arrayOfPoint, (value: Point, index: number, array: Point[]) => { }, a);
+Array.forEach(arrayOfPoint, (value: Point, index: number, array: Point[]) => {}, a);
 arrayOfPoint3D = Array.map(arrayOfPoint, (value: Point, index: number, array: Point[]) => point3d, a);
 arrayOfPoint = Array.filter(arrayOfPoint, (value: Point, index: number, array: Point[]) => b, a);
 point = Array.reduce(arrayOfPoint, (prev: Point, value: Point, index: number, array: Point[]) => point, point);
 point3d = Array.reduce(arrayOfPoint, (prev: Point3D, value: Point, index: number, array: Point[]) => point3d, point3d);
 point = Array.reduceRight(arrayOfPoint, (prev: Point, value: Point, index: number, array: Point[]) => point, point);
-point3d = Array.reduceRight(arrayOfPoint, (prev: Point3D, value: Point, index: number, array: Point[]) => point3d, point3d);
+point3d = Array.reduceRight(
+    arrayOfPoint,
+    (prev: Point3D, value: Point, index: number, array: Point[]) => point3d,
+    point3d,
+);
 iterableIteratorOfNumberPoint = Array.entries(arrayOfPoint);
 iterableIteratorOfNumber = Array.keys(arrayOfPoint);
 iterableIteratorOfPoint = Array.values(arrayOfPoint);
@@ -393,8 +424,16 @@ i = Array.findIndex(arrayOfPoint, p => b);
 arrayOfPoint = Array.fill(arrayOfPoint, point, i, arrayOfPoint.length);
 arrayOfPoint = Array.copyWithin(arrayOfPoint, i, i, i);
 b = Array.includes(arrayOfPoint, point, i);
-arrayOfPoint = Array.turn(arrayOfPoint, (memo: Point[], value: Point, index: number, array: Point[]) => arrayOfPoint, arrayOfPoint);
-arrayOfPoint3D = Array.turn(arrayOfPoint, (memo: Point3D[], value: Point, index: number, array: Point[]) => arrayOfPoint3D, arrayOfPoint3D);
+arrayOfPoint = Array.turn(
+    arrayOfPoint,
+    (memo: Point[], value: Point, index: number, array: Point[]) => arrayOfPoint,
+    arrayOfPoint,
+);
+arrayOfPoint3D = Array.turn(
+    arrayOfPoint,
+    (memo: Point3D[], value: Point, index: number, array: Point[]) => arrayOfPoint3D,
+    arrayOfPoint3D,
+);
 
 // #############################################################################################
 // Object - https://github.com/zloirock/core-js/#object
@@ -433,7 +472,7 @@ point = Dict.get(dictOfPoint, sym);
 dictOfPoint = Dict.set(dictOfPoint, s, point);
 dictOfPoint = Dict.set(dictOfPoint, i, point);
 dictOfPoint = Dict.set(dictOfPoint, sym, point);
-Dict.forEach(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Point>) => { }, a);
+Dict.forEach(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Point>) => {}, a);
 dictOfPoint3D = Dict.map(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Point>) => point3d, a);
 dictOfPoint3D = Dict.mapPairs(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Point>) => [s, point3d], a);
 dictOfPoint3D = Dict.mapPairs(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Point>) => [i, point3d], a);
@@ -446,9 +485,21 @@ key = Dict.findKey(dictOfPoint, (value: Point, key: PropertyKey, dict: Dict<Poin
 key = Dict.keyOf(dictOfPoint, point);
 b = Dict.includes(dictOfPoint, point);
 point = Dict.reduce(dictOfPoint, (prev: Point, value: Point, key: PropertyKey, dict: Dict<Point>) => point, point);
-point3d = Dict.reduce(dictOfPoint, (prev: Point3D, value: Point, key: PropertyKey, dict: Dict<Point>) => point3d, point3d);
-dictOfPoint = Dict.turn(dictOfPoint, (memo: Dict<Point>, value: Point, key: PropertyKey, dict: Dict<Point>) => { }, dictOfPoint);
-dictOfPoint3D = Dict.turn(dictOfPoint, (memo: Dict<Point3D>, value: Point, key: PropertyKey, dict: Dict<Point>) => { }, dictOfPoint3D);
+point3d = Dict.reduce(
+    dictOfPoint,
+    (prev: Point3D, value: Point, key: PropertyKey, dict: Dict<Point>) => point3d,
+    point3d,
+);
+dictOfPoint = Dict.turn(
+    dictOfPoint,
+    (memo: Dict<Point>, value: Point, key: PropertyKey, dict: Dict<Point>) => {},
+    dictOfPoint,
+);
+dictOfPoint3D = Dict.turn(
+    dictOfPoint,
+    (memo: Dict<Point3D>, value: Point, key: PropertyKey, dict: Dict<Point>) => {},
+    dictOfPoint3D,
+);
 
 // #############################################################################################
 // Partial application - https://github.com/zloirock/core-js/#partial-application
@@ -616,8 +667,11 @@ class MyDate implements Date {
 // #############################################################################################
 
 // Non-standard
-arrayOfPoint = arrayOfPoint.turn((memo: Point[], value: Point, key: PropertyKey, array: Point[]) => { }, arrayOfPoint);
-arrayOfPoint3D = arrayOfPoint.turn((memo: Point3D[], value: Point, key: PropertyKey, array: Point[]) => { }, arrayOfPoint3D);
+arrayOfPoint = arrayOfPoint.turn((memo: Point[], value: Point, key: PropertyKey, array: Point[]) => {}, arrayOfPoint);
+arrayOfPoint3D = arrayOfPoint.turn(
+    (memo: Point3D[], value: Point, key: PropertyKey, array: Point[]) => {},
+    arrayOfPoint3D,
+);
 
 // #############################################################################################
 // Number - https://github.com/zloirock/core-js/#number
@@ -641,4 +695,4 @@ s = s.unescapeHTML();
 
 promiseOfVoid = delay(i);
 
-console.log('core-js version number:', core.version);
+console.log("core-js version number:", core.version);

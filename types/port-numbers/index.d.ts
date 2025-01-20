@@ -1,8 +1,3 @@
-// Type definitions for port-numbers 5.0
-// Project: https://github.com/silverwind/port-numbers#readme
-// Definitions by: Alex Bradley <https://github.com/abradley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ServiceInfo {
     readonly name: string;
     readonly description: string;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-webrtc",
+    "version": "1.75.9999",
+    "projects": [
+        "https://github.com/react-native-webrtc/react-native-webrtc"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-webrtc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Quiroga",
+            "githubUsername": "KarlosQ"
+        }
+    ]
+}

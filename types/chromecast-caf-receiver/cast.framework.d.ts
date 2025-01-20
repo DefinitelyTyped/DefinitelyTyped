@@ -1,8 +1,8 @@
-import * as breaks from './cast.framework.breaks';
-import * as events from './cast.framework.events';
-import * as messages from './cast.framework.messages';
-import * as system from './cast.framework.system';
-import * as ui from './cast.framework.ui';
+import * as breaks from "./cast.framework.breaks";
+import * as events from "./cast.framework.events";
+import * as messages from "./cast.framework.messages";
+import * as system from "./cast.framework.system";
+import * as ui from "./cast.framework.ui";
 
 export import breaks = breaks;
 export import events = events;
@@ -25,12 +25,12 @@ export enum LoggerLevel {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
 export enum ContentProtection {
-    NONE = 'none',
-    CLEARKEY = 'clearkey',
-    PLAYREADY = 'playready',
-    WIDEVINE = 'widevine',
-    AES_128 = 'aes_128',
-    AES_128_CKP = 'aes_128_ckp',
+    NONE = "none",
+    CLEARKEY = "clearkey",
+    PLAYREADY = "playready",
+    WIDEVINE = "widevine",
+    AES_128 = "aes_128",
+    AES_128_CKP = "aes_128_ckp",
 }
 
 /**
@@ -549,6 +549,17 @@ export class PlayerManager {
     ): void;
 
     /**
+     * Adds an event listener for the timed metadata events
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.TIMED_METADATA_CHANGED
+            | events.EventType.TIMED_METADATA_ENTER
+            | events.EventType.TIMED_METADATA_EXIT,
+        eventListener: TimedMetadataEventHandler,
+    ): void;
+
+    /**
      * Adds an event listener for player events that get the base @see{@link events.Event} in the callback.
      * Includes ALL and CLIP_STARTED
      */
@@ -557,7 +568,12 @@ export class PlayerManager {
     /**
      * Sends a media status message to all senders (broadcast). Applications use this to send a custom state change.
      */
-    broadcastStatus(includeMedia?: boolean, requestId?: number, customData?: any, includeQueueItems?: boolean): void;
+    broadcastStatus(
+        includeMedia?: boolean,
+        requestId?: number,
+        customData?: messages.MediaStatusCustomData | null,
+        includeQueueItems?: boolean,
+    ): void;
 
     /**
      * Convert media time to absolute time.
@@ -725,7 +741,7 @@ export class PlayerManager {
         requestId: number,
         type: messages.ErrorType,
         reason?: messages.ErrorReason,
-        customData?: any,
+        customData?: unknown,
     ): void;
 
     /**
@@ -740,7 +756,7 @@ export class PlayerManager {
         senderId: string,
         requestId: number,
         includeMedia?: boolean,
-        customData?: any,
+        customData?: messages.MediaStatusCustomData | null,
         includeQueueItems?: boolean,
     ): void;
 
@@ -878,6 +894,11 @@ export class PlaybackConfig {
     enableSmoothLiveRefresh?: boolean | undefined;
 
     /**
+     * A flag to enable Shaka Player's DOM-based text renderer, shaka.text.UITextDisplayer.
+     */
+    enableUITextDisplayer?: boolean | undefined;
+
+    /**
      * A flag whether to ignore TTML positioning information.
      */
     ignoreTtmlPositionInfo?: boolean | undefined;
@@ -937,6 +958,13 @@ export class PlaybackConfig {
      * Maximum number of times to retry a network request for a segment.
      */
     segmentRequestRetryLimit?: number | undefined;
+
+    /**
+     * This object is merged with CAF's default Shaka configurations (with options set in this object taking precedence).
+     * Developers should use caution when applying values to the Shaka configuration as it could result in playback issues.
+     * For allowed options in this object, @see: https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.PlayerConfiguration
+     */
+    shakaConfig?: any;
 }
 /**
  * HTTP(s) Request/Response information.
@@ -963,6 +991,24 @@ export class NetworkRequestInfo {
      */
     withCredentials: boolean;
 }
+
+/**
+ * Represents variants of Shaka Player that could be loaded.
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
+ */
+export enum ShakaVariant {
+    /**
+     * The standard, default build.
+     */
+    STANDARD = "STANDARD",
+
+    /**
+     * A debug build.
+     */
+    DEBUG = "DEBUG",
+}
+
 /**
  * Cast receiver context options. All options are optionals.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.CastReceiverOptions
@@ -1033,6 +1079,24 @@ export class CastReceiverOptions {
     queue?: QueueBase | undefined;
 
     /**
+     * Which build of Shaka Player should be loaded.
+     *
+     * Set to `cast.framework.ShakaVariant.DEBUG` to load a debug build.
+     */
+    shakaVariant?: ShakaVariant | undefined;
+
+    /**
+     * Shaka version in the MAJOR.MINOR.PATCH format, for example "3.2.11" (the current default).
+     * Supported versions are >=3.2.11 <5.0.0. Deprecated but still compatible versions are >=2.5.6 <3.2.11.
+     * NOTE: Shaka Player versions older than the default are not recommended, as many bugs have been fixed in the latest versions.
+     * Newer versions may be specified here to opt-in to additional fixes or features that are not yet available by default.
+     * However, please be aware that future releases of the Web Receiver SDK may change the range of supported versions and
+     * force the use of a version other than what you specify here. This flag should be used only as a temporary measure,
+     * and under guidance from the Cast support team. (https://developers.google.com/cast/support) Use at your own risk.
+     */
+    shakaVersion?: string | undefined;
+
+    /**
      * Indicate the receiver should not load the MPL player.
      */
     skipMplLoad?: boolean | undefined;
@@ -1072,6 +1136,11 @@ export class CastReceiverOptions {
      * Indicate that MPL should be used for DASH content.
      */
     useLegacyDashSupport?: boolean | undefined;
+
+    /**
+     * If true, use Shaka Player for HLS content. Defaults to false.
+     */
+    useShakaForHls?: boolean | undefined;
 
     /**
      * An integer used as an internal version number to represent your receiver version.

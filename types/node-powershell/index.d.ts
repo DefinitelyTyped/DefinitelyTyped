@@ -1,9 +1,3 @@
-// Type definitions for node-powershell 4.0
-// Project: https://github.com/rannn505/node-powershell
-// Definitions by: Rodrigo F. Fernandes <https://github.com/rodrigoff>
-//                 Jeroen "Favna" Claassens <https://github.com/favna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface NodePowershellShellOptions {

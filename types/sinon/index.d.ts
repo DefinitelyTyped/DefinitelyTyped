@@ -1,29 +1,25 @@
-// Type definitions for Sinon 10.0
-// Project: https://sinonjs.org
-// Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Lukas Spieß <https://github.com/lumaxis>
-//                 Nico Jansen <https://github.com/nicojs>
-//                 James Garbutt <https://github.com/43081j>
-//                 Greg Jednaszewski <https://github.com/gjednaszewski>
-//                 John Wood <https://github.com/johnjesse>
-//                 Alec Flett <https://github.com/alecf>
-//                 Simon Schick <https://github.com/SimonSchick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as FakeTimers from "@sinonjs/fake-timers";
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event {} // tslint:disable-line no-empty-interface
-interface Document {} // tslint:disable-line no-empty-interface
+interface Event {} // eslint-disable-line @typescript-eslint/no-empty-interface
+interface Document {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 declare namespace Sinon {
-    type MatchArguments<T> = {
-        [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchArguments<T[K]> : never) | T[K];
+    type MatchPartialArguments<T> = {
+        [K in keyof T]?: SinonMatcher | (T[K] extends object ? MatchPartialArguments<T[K]> : T[K]);
     };
+    // TODO: Alias for backward compatibility, remove on next major release
+    type DeepPartialOrMatcher<T> = MatchPartialArguments<T>;
 
-    interface SinonSpyCallApi<TArgs extends any[] = any[], TReturnValue = any> {
+    type MatchExactArguments<T> = {
+        [K in keyof T]: SinonMatcher | (T[K] extends object ? MatchExactArguments<T[K]> : T[K]);
+    };
+    // TODO: Alias for backward compatibility, remove on next major release
+    type MatchArguments<T> = MatchExactArguments<T>;
+
+    interface SinonSpyCallApi<TArgs extends readonly any[] = any[], TReturnValue = any> {
         // Properties
         /**
          * Array of received arguments.
@@ -43,11 +39,11 @@ declare namespace Sinon {
          * so a call that received the provided arguments (in the same spots) and possibly others as well will return true.
          * @param args
          */
-        calledWith(...args: Partial<MatchArguments<TArgs>>): boolean;
+        calledWith(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if spy was called at least once with the provided arguments and no others.
          */
-        calledWithExactly(...args: MatchArguments<TArgs>): boolean;
+        calledWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy/stub was called the new operator.
          * Beware that this is inferred based on the value of the this object and the spy function’s prototype,
@@ -58,25 +54,25 @@ declare namespace Sinon {
          * Returns true if spy was called at exactly once with the provided arguments.
          * @param args
          */
-        calledOnceWith(...args: MatchArguments<TArgs>): boolean;
-        calledOnceWithExactly(...args: MatchArguments<TArgs>): boolean;
+        calledOnceWith(...args: MatchPartialArguments<TArgs>): boolean;
+        calledOnceWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was called with matching arguments (and possibly others).
          * This behaves the same as spy.calledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        calledWithMatch(...args: TArgs): boolean;
+        calledWithMatch(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if call did not receive provided arguments.
          * @param args
          */
-        notCalledWith(...args: MatchArguments<TArgs>): boolean;
+        notCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if call did not receive matching arguments.
          * This behaves the same as spyCall.notCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
          * @param args
          */
-        notCalledWithMatch(...args: TArgs): boolean;
+        notCalledWithMatch(...args: MatchPartialArguments<TArgs>): boolean;
         /**
          * Returns true if spy returned the provided value at least once.
          * Uses deep comparison for objects and arrays. Use spy.returned(sinon.match.same(obj)) for strict comparison (see matchers).
@@ -123,8 +119,9 @@ declare namespace Sinon {
         yieldToOn(property: string, obj: any, ...args: any[]): unknown[];
     }
 
-    interface SinonSpyCall<TArgs extends any[] = any[], TReturnValue = any>
-        extends SinonSpyCallApi<TArgs, TReturnValue> {
+    interface SinonSpyCall<TArgs extends readonly any[] = any[], TReturnValue = any>
+        extends SinonSpyCallApi<TArgs, TReturnValue>
+    {
         /**
          * The call’s this value.
          */
@@ -156,7 +153,6 @@ declare namespace Sinon {
         /**
          * Returns true if the spy call occurred before another spy call.
          * @param call
-         *
          */
         calledBefore(call: SinonSpyCall<any>): boolean;
         /**
@@ -166,11 +162,12 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall<any>): boolean;
     }
 
-    interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
-        extends Pick<
+    interface SinonSpy<TArgs extends readonly any[] = any[], TReturnValue = any> extends
+        Pick<
             SinonSpyCallApi<TArgs, TReturnValue>,
             Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, "args">
-        > {
+        >
+    {
         // Properties
         /**
          * The number of recorded calls.
@@ -265,7 +262,7 @@ declare namespace Sinon {
          * This is useful to be more expressive in your assertions, where you can access the spy with the same call.
          * @param args Expected args
          */
-        withArgs(...args: MatchArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
+        withArgs(...args: MatchPartialArguments<TArgs>): SinonSpy<TArgs, TReturnValue>;
         /**
          * Returns true if the spy was always called with @param obj as this.
          * @param obj
@@ -274,12 +271,12 @@ declare namespace Sinon {
         /**
          * Returns true if spy was always called with the provided arguments (and possibly others).
          */
-        alwaysCalledWith(...args: MatchArguments<TArgs>): boolean;
+        alwaysCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was always called with the exact provided arguments.
          * @param args
          */
-        alwaysCalledWithExactly(...args: MatchArguments<TArgs>): boolean;
+        alwaysCalledWithExactly(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if spy was always called with matching arguments (and possibly others).
          * This behaves the same as spy.alwaysCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
@@ -290,7 +287,7 @@ declare namespace Sinon {
          * Returns true if the spy/stub was never called with the provided arguments.
          * @param args
          */
-        neverCalledWith(...args: MatchArguments<TArgs>): boolean;
+        neverCalledWith(...args: MatchExactArguments<TArgs>): boolean;
         /**
          * Returns true if the spy/stub was never called with matching arguments.
          * This behaves the same as spy.neverCalledWith(sinon.match(arg1), sinon.match(arg2), ...).
@@ -328,7 +325,7 @@ declare namespace Sinon {
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
-         * @param n Zero based index of the spy call.
+         * @param n Zero-based index of the spy call.
          */
         getCall(n: number): SinonSpyCall<TArgs, TReturnValue>;
         /**
@@ -378,8 +375,10 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (...args: infer TArgs) => infer TReturnValue
-            ? SinonSpy<TArgs, TReturnValue>
+        <T, K extends keyof T>(
+            obj: T,
+            method: K,
+        ): T[K] extends (...args: infer TArgs) => infer TReturnValue ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
 
         <T, K extends keyof T>(obj: T, method: K, types: Array<"get" | "set">): PropertyDescriptor & {
@@ -392,11 +391,12 @@ declare namespace Sinon {
         [P in keyof T]: SinonSpiedMember<T[P]>;
     };
 
-    type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
-        ? SinonSpy<TArgs, TReturnValue>
+    type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue ? SinonSpy<TArgs, TReturnValue>
         : T;
 
-    interface SinonStub<TArgs extends any[] = any[], TReturnValue = any> extends SinonSpy<TArgs, TReturnValue> {
+    interface SinonStub<TArgs extends readonly any[] = any[], TReturnValue = any>
+        extends SinonSpy<TArgs, TReturnValue>
+    {
         /**
          * Resets the stub’s behaviour to the default behaviour
          * You can reset behaviour of all stubs using sinon.resetBehavior()
@@ -565,7 +565,7 @@ declare namespace Sinon {
          * Defines the behavior of the stub on the @param n call. Useful for testing sequential interactions.
          * There are methods onFirstCall, onSecondCall,onThirdCall to make stub definitions read more naturally.
          * onCall can be combined with all of the behavior defining methods in this section. In particular, it can be used together with withArgs.
-         * @param n
+         * @param n Zero-based index of the spy call.
          */
         onCall(n: number): SinonStub<TArgs, TReturnValue>;
         /**
@@ -650,7 +650,7 @@ declare namespace Sinon {
          * It is also useful to create a stub that can act differently in response to different arguments.
          * @param args
          */
-        withArgs(...args: MatchArguments<TArgs>): SinonStub<TArgs, TReturnValue>;
+        withArgs(...args: MatchPartialArguments<TArgs>): SinonStub<TArgs, TReturnValue>;
     }
 
     interface SinonStubStatic {
@@ -659,7 +659,7 @@ declare namespace Sinon {
         /**
          * Creates an anonymous stub function
          */
-        <TArgs extends any[] = any[], R = any>(): SinonStub<TArgs, R>;
+        <TArgs extends readonly any[] = any[], R = any>(): SinonStub<TArgs, R>;
 
         /* tslint:enable:no-unnecessary-generics */
 
@@ -675,8 +675,10 @@ declare namespace Sinon {
          * An exception is thrown if the property is not already a function.
          * The original function can be restored by calling object.method.restore(); (or stub.restore();).
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (...args: infer TArgs) => infer TReturnValue
-            ? SinonStub<TArgs, TReturnValue>
+        <T, K extends keyof T>(
+            obj: T,
+            method: K,
+        ): T[K] extends (...args: infer TArgs) => infer TReturnValue ? SinonStub<TArgs, TReturnValue>
             : SinonStub;
     }
 
@@ -766,7 +768,7 @@ declare namespace Sinon {
     }
 
     interface SinonMockStatic {
-        (): SinonExpectation;
+        (name?: string): SinonExpectation;
         /**
          * Creates a mock for the provided object.
          * Does not change the object, but returns a mock object to set expectations on the object’s methods.
@@ -781,12 +783,6 @@ declare namespace Sinon {
          */
         restore(): void;
     };
-
-    interface SinonFakeTimersConfig {
-        now: number | Date;
-        toFake: string[];
-        shouldAdvanceTime: boolean;
-    }
 
     interface SinonFakeUploadProgress {
         eventListeners: {
@@ -880,7 +876,7 @@ declare namespace Sinon {
     }
 
     interface SinonFakeXMLHttpRequestStatic {
-        new (): SinonFakeXMLHttpRequest;
+        new(): SinonFakeXMLHttpRequest;
         /**
          * Default false.
          * When set to true, Sinon will check added filters if certain requests should be “unfaked”
@@ -1116,20 +1112,20 @@ declare namespace Sinon {
          */
         calledWith<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: Partial<MatchArguments<TArgs>>
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments.
          * @param spy
          * @param args
          */
-        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: Partial<MatchArguments<TArgs>>): void;
+        alwaysCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was never called with the provided arguments.
          * @param spy
          * @param args
          */
-        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: Partial<MatchArguments<TArgs>>): void;
+        neverCalledWith<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was called with the provided arguments and no others.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithExactly(spy.getCall(1), arg1, arg2, ...);.
@@ -1138,7 +1134,7 @@ declare namespace Sinon {
          */
         calledWithExactly<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchArguments<TArgs>
+            ...args: MatchExactArguments<TArgs>
         ): void;
         /**
          * Passes if spy was called at exactly once with the provided arguments and no others.
@@ -1147,18 +1143,21 @@ declare namespace Sinon {
          */
         calledOnceWithExactly<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: MatchArguments<TArgs>
+            ...args: MatchExactArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with the provided arguments and no others.
          */
-        alwaysCalledWithExactly<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchArguments<TArgs>): void;
+        alwaysCalledWithExactly<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchExactArguments<TArgs>): void;
         /**
          * Passes if spy was called with matching arguments.
          * This behaves the same way as sinon.assert.calledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * It's possible to assert on a dedicated spy call: sinon.assert.calledWithMatch(spy.secondCall, arg1, arg2, ...);.
          */
-        calledWithMatch<TArgs extends any[]>(spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>, ...args: TArgs): void;
+        calledWithMatch<TArgs extends any[]>(
+            spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
+            ...args: MatchPartialArguments<TArgs>
+        ): void;
         /**
          * Passes if spy was called once with matching arguments.
          * This behaves the same way as calling both sinon.assert.calledOnce(spy) and
@@ -1166,20 +1165,20 @@ declare namespace Sinon {
          */
         calledOnceWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: TArgs
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with matching arguments.
          * This behaves the same way as sinon.assert.alwaysCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          */
-        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        alwaysCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was never called with matching arguments.
          * This behaves the same way as sinon.assert.neverCalledWith(spy, sinon.match(arg1), sinon.match(arg2), ...).
          * @param spy
          * @param args
          */
-        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: TArgs): void;
+        neverCalledWithMatch<TArgs extends any[]>(spy: SinonSpy<TArgs>, ...args: MatchPartialArguments<TArgs>): void;
         /**
          * Passes if spy was called with the new operator.
          * It’s possible to assert on a dedicated spy call: sinon.assert.calledWithNew(spy.secondCall, arg1, arg2, ...);.
@@ -1443,13 +1442,20 @@ declare namespace Sinon {
          * If set to true, the sandbox will have a clock property.
          * You can optionally pass in a configuration object that follows the specification for fake timers, such as { toFake: ["setTimeout", "setInterval"] }.
          */
-        useFakeTimers: boolean | Partial<SinonFakeTimersConfig>;
+        useFakeTimers: boolean | Partial<FakeTimers.FakeTimerInstallOpts>;
         /**
          * If true, server and requests properties are added to the sandbox. Can also be an object to use for fake server.
          * The default one is sinon.fakeServer, but if you’re using jQuery 1.3.x or some other library that does not set the XHR’s onreadystatechange handler,
          * you might want to do:
          */
         useFakeServer: boolean | SinonFakeServer;
+        /**
+         * The assert options can help limit the amount of output produced by assert.fail
+         */
+        assertOptions: {
+            shouldLimitAssertionLogs?: boolean;
+            assertionLogLimit?: number;
+        };
     }
 
     /**
@@ -1464,58 +1470,88 @@ declare namespace Sinon {
      *
      * @template TType Object type being stubbed.
      */
-    type SinonStubbedInstance<TType> = TType & {
-        [P in keyof TType]: SinonStubbedMember<TType[P]>;
-    };
+    type SinonStubbedInstance<TType> =
+        & TType
+        & {
+            [P in keyof TType]: SinonStubbedMember<TType[P]>;
+        };
 
     /**
      * Replaces a type with a Sinon stub if it's a function.
      */
-    type SinonStubbedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
-        ? SinonStub<TArgs, TReturnValue>
+    type SinonStubbedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue ? SinonStub<TArgs, TReturnValue>
         : T;
 
     interface SinonFake {
         /**
          * Creates a basic fake, with no behavior
          */
-        (): SinonSpy;
+        <TArgs extends readonly any[] = any[], TReturnValue = any>(): SinonSpy<TArgs, TReturnValue>;
         /**
          * Wraps an existing Function to record all interactions, while leaving it up to the func to provide the behavior.
          * This is useful when complex behavior not covered by the sinon.fake.* methods is required or when wrapping an existing function or method.
          */
-        (fn: Function): SinonSpy;
+        <TArgs extends readonly any[] = any[], TReturnValue = any>(fn: (...args: TArgs) => TReturnValue): SinonSpy<
+            TArgs,
+            TReturnValue
+        >;
         /**
          * Creates a fake that returns the val argument
          * @param val Returned value
          */
-        returns(val: any): SinonSpy;
+        returns<TArgs extends readonly any[] = any[], TReturnValue = any>(
+            val: TReturnValue,
+        ): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that throws an Error with the provided value as the message property.
          * If an Error is passed as the val argument, then that will be the thrown value. If any other value is passed, then that will be used for the message property of the thrown Error.
          * @param val Returned value or throw value if an Error
          */
-        throws(val: Error | string): SinonSpy;
+        throws<TArgs extends readonly any[] = any[], TReturnValue = any>(
+            val: Error | string,
+        ): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a resolved Promise for the passed value.
          * @param val Resolved promise
          */
-        resolves(val: any): SinonSpy;
+        resolves<TArgs extends readonly any[] = any[], TReturnValue = any>(
+            val: TReturnValue extends PromiseLike<infer TResolveValue> ? TResolveValue : any,
+        ): SinonSpy<TArgs, TReturnValue>;
         /**
          * Creates a fake that returns a rejected Promise for the passed value.
          * If an Error is passed as the value argument, then that will be the value of the promise.
          * If any other value is passed, then that will be used for the message property of the Error returned by the promise.
          * @param val Rejected promise
          */
-        rejects(val: any): SinonSpy;
+        rejects<TArgs extends readonly any[] = any[], TReturnValue = any>(val: any): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it with the given arguments.
          */
-        yields(...args: any[]): SinonSpy;
+        yields<TArgs extends readonly any[] = any[], TReturnValue = any>(...args: any[]): SinonSpy<TArgs, TReturnValue>;
         /**
          * fake expects the last argument to be a callback and will invoke it asynchronously with the given arguments.
          */
-        yieldsAsync(...args: any[]): SinonSpy;
+        yieldsAsync<TArgs extends readonly any[] = any[], TReturnValue = any>(
+            ...args: any[]
+        ): SinonSpy<TArgs, TReturnValue>;
+    }
+
+    interface SandboxReplace {
+        /**
+         * Replaces property on object with replacement argument.
+         * Attempts to replace an already replaced value cause an exception.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on non-accessor properties, for replacing accessors,
+         * use sandbox.replaceGetter() and sandbox.replaceSetter().
+         */
+        <T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+
+        /**
+         * Assigns a value to a property on object with replacement argument.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on accessor properties.
+         */
+        usingAccessor<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
     }
 
     interface SinonSandbox {
@@ -1560,7 +1596,7 @@ declare namespace Sinon {
          * You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
          * @param config
          */
-        useFakeTimers(config?: number | Date | Partial<SinonFakeTimersConfig>): SinonFakeTimers;
+        useFakeTimers(config?: number | Date | Partial<FakeTimers.FakeTimerInstallOpts>): SinonFakeTimers;
         /**
          * Causes Sinon to replace the native XMLHttpRequest object in browsers that support it with a custom implementation which does not send actual requests.
          * In browsers that support ActiveXObject, this constructor is replaced, and fake objects are returned for XMLHTTP progIds.
@@ -1606,12 +1642,8 @@ declare namespace Sinon {
          */
         verifyAndRestore(): void;
 
-        /**
-         * Replaces property on object with replacement argument. Attempts to replace an already replaced value cause an exception.
-         * replacement can be any value, including spies, stubs and fakes.
-         * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
-         */
-        replace<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: T[TKey]): T[TKey];
+        replace: SandboxReplace;
+
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1620,6 +1652,7 @@ declare namespace Sinon {
          * @param replacement
          */
         replaceGetter<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: () => T[TKey]): () => T[TKey];
+
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1650,10 +1683,20 @@ declare namespace Sinon {
                     | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]);
             },
         ): SinonStubbedInstance<TType>;
+
+        /**
+         * Defines a property on the given object which will be torn down when
+         * the sandbox is restored
+         */
+        define(
+            obj: object,
+            key: PropertyKey,
+            value: unknown,
+        ): void;
     }
 
     type SinonPromise<T> = Promise<T> & {
-        status: 'pending'|'resolved'|'rejected';
+        status: "pending" | "resolved" | "rejected";
         resolve(val: unknown): Promise<T>;
         reject(reason: unknown): Promise<void>;
         resolvedValue?: T;
@@ -1696,7 +1739,7 @@ declare namespace Sinon {
         setFormatter: (customFormatter: (...args: any[]) => string) => void;
 
         promise<T = unknown>(
-            executor?: (resolve: (value: T) => void, reject: (reason?: unknown) => void) => void
+            executor?: (resolve: (value: T) => void, reject: (reason?: unknown) => void) => void,
         ): SinonPromise<T>;
     }
 

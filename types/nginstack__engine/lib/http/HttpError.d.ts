@@ -1,19 +1,14 @@
 export = HttpError;
-declare function HttpError(
-    error: string,
-    opt_solution?: string,
-    opt_details?: string,
-    opt_code?: number
-): void;
+declare function HttpError(error: string, solution?: string, details?: string, code?: number): void;
 declare class HttpError {
-    constructor(error: string, opt_solution?: string, opt_details?: string, opt_code?: number);
+    constructor(error: string, solution?: string, details?: string, code?: number);
     private _name;
 }
 declare namespace HttpError {
-    function BadRequest(error: string, opt_solution?: string, opt_details?: string): void;
-    function Forbidden(error: string, opt_solution?: string, opt_details?: string): void;
-    function NotFound(error: string, opt_solution?: string, opt_details?: string): void;
-    function Unauthorized(error: string, opt_solution?: string, opt_details?: string): void;
-    function ServiceUnavailable(error: string, opt_solution?: string, opt_details?: string): void;
+    function BadRequest(error: string, solution?: string, details?: string): void;
+    function Forbidden(error: string, solution?: string, details?: string): void;
+    function NotFound(error: string, solution?: string, details?: string): void;
+    function Unauthorized(error: string, solution?: string, details?: string): void;
+    function ServiceUnavailable(error: string, solution?: string, details?: string): void;
     function NotAcceptable(error: string, opt_solution?: string, opt_details?: string): void;
 }

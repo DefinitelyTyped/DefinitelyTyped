@@ -1,6 +1,21 @@
 {
-   "private": true,
-   "dependencies": {
-      "typescript": "*"
-   }
+    "private": true,
+    "name": "@types/dts-generator",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/SitePen/dts-generator#readme"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "typescript": "*"
+    },
+    "devDependencies": {
+        "@types/dts-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        }
+    ]
 }

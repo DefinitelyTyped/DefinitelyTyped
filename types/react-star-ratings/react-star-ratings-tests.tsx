@@ -1,10 +1,10 @@
-import StarRatings = require('react-star-ratings');
-import * as React from 'react';
+import StarRatings = require("react-star-ratings");
+import * as React from "react";
 
-// $ExpectError
+// @ts-expect-error
 const rateIsString = <StarRatings rating={"5"} />;
 
-// $ExpectError
+// @ts-expect-error
 const colorIsNumber = <StarRatings starRatedColor={5} />;
 
 const validExample = (
@@ -15,4 +15,5 @@ const validExample = (
         name="rating"
         starDimension="14px"
         starSpacing="3px"
-/>);
+    />
+);

@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/samirrayani__metascraper-shopping",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/samirrayani/metascraper-shopping#readme"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": ">=5.14.8 <=5.40.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/samirrayani__metascraper-shopping": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

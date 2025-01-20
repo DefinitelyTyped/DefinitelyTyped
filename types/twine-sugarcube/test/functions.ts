@@ -5,7 +5,7 @@ interface TestType {
 
 const testVar: TestType = {
     a: 1,
-    b: "s"
+    b: "s",
 };
 
 const t: TestType = clone(testVar);
@@ -50,6 +50,13 @@ elem = setPageElement(document.getElementById("#elem") as HTMLElement, "passage"
 let strArray: string[] = tags("passage");
 strArray = tags("passage1", "pasage2");
 
+declare function getElement(): HTMLElement;
+
+triggerEvent("click");
+triggerEvent("event", document);
+triggerEvent("event", getElement());
+triggerEvent("event", [getElement()], { bubbles: true });
+
 let tmpVar = temporary().varName;
 
 n = time();
@@ -58,7 +65,7 @@ n = turns();
 // @ts-expect-error
 tmpVar = variables().varName;
 // @ts-expect-error
-tmpVar = variables()['varName'];
+tmpVar = variables()["varName"];
 
 n = visited("passage");
 n = visited("passage1", "passage2");

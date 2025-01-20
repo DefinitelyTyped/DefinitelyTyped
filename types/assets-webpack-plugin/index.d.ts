@@ -1,10 +1,4 @@
-// Type definitions for assets-webpack-plugin 6.1
-// Project: https://github.com/ztoben/assets-webpack-plugin
-// Definitions by: Michael Strobel <https://github.com/kryops>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 declare namespace AssetsWebpackPlugin {
     interface Assets {

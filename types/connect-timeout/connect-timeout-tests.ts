@@ -21,3 +21,13 @@ function haltOnTimedout(req: express.Request, res: express.Response, next: Funct
 }
 
 app.listen(3000);
+
+// check use of number as delay
+var app2 = express();
+app2.use(timeout(500));
+app2.use(bodyParser());
+app2.use(haltOnTimedout);
+app2.use(cookieParser());
+app2.use(haltOnTimedout);
+
+app2.listen(3001);

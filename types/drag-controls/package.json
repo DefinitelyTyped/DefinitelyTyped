@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/drag-controls",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jbyte/three-dragcontrols#readme"
+    ],
     "dependencies": {
-        "three": "*"
-    }
+        "@types/three": "*"
+    },
+    "devDependencies": {
+        "@types/drag-controls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Hawes",
+            "githubUsername": "MGHawes"
+        }
+    ]
 }

@@ -1,13 +1,7 @@
-// Type definitions for tinder 1.19.0
-// Project: https://github.com/tinderjs/tinderjs
-// Definitions by: Matej Drolc <https://github.com/pingec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare module 'tinder' {
-
-    import fs = require('fs');
+declare module "tinder" {
+    import fs = require("fs");
 
     class TinderClient {
         constructor();
@@ -130,7 +124,14 @@ declare module 'tinder' {
          * @param {Number} distance the distance in miles to show recommendations
          * @param {Function} callback the callback to invoke when the request completes
          */
-        updatePreferences(discovery: Boolean, ageMin: number, ageMax: number, gender: number, distance: number, callback: Callback<any>): void;
+        updatePreferences(
+            discovery: Boolean,
+            ageMin: number,
+            ageMax: number,
+            gender: number,
+            distance: number,
+            callback: Callback<any>,
+        ): void;
 
         /**
          * Upload a new picture to the current account
@@ -148,7 +149,14 @@ declare module 'tinder' {
          * @param {Float} yoffset_percent is the offset from the top corner in percentage
          * @param {Function} callback the callback to invoke when the request completes
          */
-        uploadFBPicture(pictureId: string, xdistance_percent: number, ydistance_percent: number, xoffset_percent: number, yoffset_percent: number, callback: Callback<any>): void;
+        uploadFBPicture(
+            pictureId: string,
+            xdistance_percent: number,
+            ydistance_percent: number,
+            xoffset_percent: number,
+            yoffset_percent: number,
+            callback: Callback<any>,
+        ): void;
 
         /**
          * Delete a picture from the current account
@@ -315,7 +323,7 @@ declare module 'tinder' {
         photos: TinderPhoto[];
         jobs: any[]; // todo
         schools: any[]; // todo
-        teaser: { string: string; }; // todo
+        teaser: { string: string }; // todo
         birth_date_info: string;
     }
 

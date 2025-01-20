@@ -1,8 +1,3 @@
-// Type definitions for non-npm package workgrid-toolbar 1.3
-// Project: https://github.com/jguardino-workgrid/workgrid-toolbar
-// Definitions by: J Guardino <https://github.com/jguardino-workgrid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface WorkgridToolbarOptions {
     // Required
     companyCode: string;
@@ -15,6 +10,7 @@ export interface WorkgridToolbarOptions {
     debug?: boolean | undefined;
     deferDisplay?: boolean | undefined;
     htmlDisplay?: string | null | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     listener?: ((event: string) => void | null) | undefined;
     preventPageHide?: boolean | undefined;
     toolbarId?: string | null | undefined;

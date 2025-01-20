@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array-polar",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dfcreative/array-polar#readme"
+    ],
+    "devDependencies": {
+        "@types/array-polar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

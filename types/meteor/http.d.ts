@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 declare module 'meteor/http' {
-    module HTTP {
+    namespace HTTP {
         interface HTTPRequest {
             content?: string | undefined;
             data?: any;

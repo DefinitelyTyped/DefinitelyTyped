@@ -1,29 +1,15 @@
-// Type definitions for React Notification System 0.2
-// Project: https://www.npmjs.com/package/react-notification-system
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>, Karol Janyst <https://github.com/LKay>, Bartosz Szewczyk <https://github.com/sztobar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 declare namespace NotificationSystem {
-
-    export interface System extends React.Component<Attributes, State> {
-        addNotification(notification: Notification): Notification;
-        removeNotification(uidOrNotification: number | string | Notification): void;
-        clearNotifications(): void;
-        editNotification(uidOrNotification: number | string | Notification, newNotification: Notification): void;
-    }
-
     export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
-        title?: string | JSX.Element | undefined;
-        message?: string | JSX.Element | undefined;
+        title?: string | React.JSX.Element | undefined;
+        message?: string | React.JSX.Element | undefined;
         level?: "error" | "warning" | "info" | "success" | undefined;
         position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc" | undefined;
         autoDismiss?: number | undefined;
-        dismissible?: 'both' | 'button' | 'click' | 'hide' | 'none' | boolean | undefined;
+        dismissible?: "both" | "button" | "click" | "hide" | "none" | boolean | undefined;
         action?: ActionObject | undefined;
         children?: React.ReactNode | undefined;
         onAdd?: CallBackFunction | undefined;
@@ -69,17 +55,24 @@ declare namespace NotificationSystem {
         ActionWrapper?: WrapperStyle | undefined;
     }
 
-    export interface Attributes extends React.ClassAttributes<System> {
+    export interface Attributes {
         noAnimation?: boolean | undefined;
         style?: Style | boolean | undefined;
         allowHTML?: boolean | undefined;
     }
 
     export interface State {
-        notifications: Notification[]
+        notifications: Notification[];
     }
 }
 
-
-declare var NotificationSystem: React.ClassicComponentClass<NotificationSystem.Attributes>;
+declare class NotificationSystem extends React.Component<NotificationSystem.Attributes, NotificationSystem.State> {
+    addNotification(notification: NotificationSystem.Notification): NotificationSystem.Notification;
+    removeNotification(uidOrNotification: number | string | NotificationSystem.Notification): void;
+    clearNotifications(): void;
+    editNotification(
+        uidOrNotification: number | string | NotificationSystem.Notification,
+        newNotification: NotificationSystem.Notification,
+    ): void;
+}
 export = NotificationSystem;

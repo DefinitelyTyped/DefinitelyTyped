@@ -1,10 +1,3 @@
-// Type definitions for PhotoSwipe 4.1.3
-// Project: http://photoswipe.com/
-// Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-//                 PikachuEXE <https://github.com/PikachuEXE>
-//                 RazDva122 <https://github.com/Razdva122>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PhotoSwipe {
     /**
      * A specific slide in the PhotoSwipe gallery. The terms "item", "slide", and "slide object" are used interchangeably.
@@ -40,7 +33,7 @@ declare namespace PhotoSwipe {
         /**
          * Internal property added by PhotoSwipe.
          */
-        vGap?: {top: number; bottom: number} | undefined;
+        vGap?: { top: number; bottom: number } | undefined;
 
         /**
          * Internal property added by PhotoSwipe.
@@ -384,10 +377,12 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * (3) Array with objects (slides).
      * (4) Options.
      */
-    constructor(pswpElement: HTMLElement,
-                uiConstructor: (new (pswp: PhotoSwipe<T>, framework: PhotoSwipe.UIFramework) => PhotoSwipe.UI<T>) | boolean,
-                items: PhotoSwipe.Item[],
-                options: T);
+    constructor(
+        pswpElement: HTMLElement,
+        uiConstructor: (new(pswp: PhotoSwipe<T>, framework: PhotoSwipe.UIFramework) => PhotoSwipe.UI<T>) | boolean,
+        items: PhotoSwipe.Item[],
+        options: T,
+    );
 
     /**
      * Current slide object.
@@ -426,8 +421,8 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * Size of the current viewport.
      */
     viewportSize: {
-         x: number;
-         y: number;
+        x: number;
+        y: number;
     };
 
     /**
@@ -532,13 +527,14 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * Example below will 2x zoom to center of slide:
      *
      * pswp.zoomTo(2, {x:pswp.viewportSize.x/2,y:pswp.viewportSize.y/2}, 2000, false, function(now) {});
-     *
      */
-    zoomTo(destZoomLevel: number,
-           centerPoint: {x: number; y: number},
-           speed: number,
-           easingFn?: (k: number) => number,
-           updateFn?: (now: number) => void): void;
+    zoomTo(
+        destZoomLevel: number,
+        centerPoint: { x: number; y: number },
+        speed: number,
+        easingFn?: (k: number) => number,
+        updateFn?: (now: number) => void,
+    ): void;
 
     /**
      * Apply zoom and pan to the current slide
@@ -550,7 +546,6 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      * For example: `pswp.applyZoomPan(1, 0, 0)`
      * will zoom current image to the original size
      * and will place it on top left corner.
-     *
      */
     applyZoomPan(zoomLevel: number, panX: number, panY: number): void;
 
@@ -569,44 +564,44 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
     /**
      * Called before slides change (before the content is changed ,but after navigation). Update UI here.
      */
-    listen(eventName: 'beforeChange', callback: () => void): void;
+    listen(eventName: "beforeChange", callback: () => void): void;
     /**
      * Called after slides change (after content has changed).
      */
-    listen(eventName: 'afterChange', callback: () => void): void;
+    listen(eventName: "afterChange", callback: () => void): void;
     /**
      * Called when an image is loaded.
      */
-    listen(eventName: 'imageLoadComplete', callback: (index: number, item: PhotoSwipe.Item) => void): void;
+    listen(eventName: "imageLoadComplete", callback: (index: number, item: PhotoSwipe.Item) => void): void;
     /**
      * Called when the viewport size changes.
      */
-    listen(eventName: 'resize', callback: () => void): void;
+    listen(eventName: "resize", callback: () => void): void;
     /**
      * Triggers when PhotoSwipe reads slide object data, which happens before content is set, or before lazy-loading is initiated.
      * Use it to dynamically change properties of the slide object.
      */
-    listen(eventName: 'gettingData', callback: (index: number, item: PhotoSwipe.Item) => void): void;
+    listen(eventName: "gettingData", callback: (index: number, item: PhotoSwipe.Item) => void): void;
     /**
      * Called when mouse is first used (triggers only once).
      */
-    listen(eventName: 'mouseUsed', callback: () => void): void;
+    listen(eventName: "mouseUsed", callback: () => void): void;
     /**
      * Called when opening zoom in animation starting.
      */
-    listen(eventName: 'initialZoomIn', callback: () => void): void;
+    listen(eventName: "initialZoomIn", callback: () => void): void;
     /**
      * Called when opening zoom in animation finished.
      */
-    listen(eventName: 'initialZoomInEnd', callback: () => void): void;
+    listen(eventName: "initialZoomInEnd", callback: () => void): void;
     /**
      * Called when closing zoom out animation started.
      */
-    listen(eventName: 'initialZoomOut', callback: () => void): void;
+    listen(eventName: "initialZoomOut", callback: () => void): void;
     /**
      * Called when closing zoom out animation finished.
      */
-    listen(eventName: 'initialZoomOutEnd', callback: () => void): void;
+    listen(eventName: "initialZoomOutEnd", callback: () => void): void;
     /**
      * Allows overriding vertical margin for individual items.
      *
@@ -619,24 +614,27 @@ declare class PhotoSwipe<T extends PhotoSwipe.Options> {
      *     gap.bottom = 100; // and 100px gap from the bottom
      * });
      */
-    listen(eventName: 'parseVerticalMargin', callback: (item: PhotoSwipe.Item) => void): void;
+    listen(eventName: "parseVerticalMargin", callback: (item: PhotoSwipe.Item) => void): void;
     /**
      * Called when the gallery starts closing.
      */
-    listen(eventName: 'close', callback: () => void): void;
+    listen(eventName: "close", callback: () => void): void;
     /**
      * Gallery unbinds events (triggers before closing animation).
      */
-    listen(eventName: 'unbindEvents', callback: () => void): void;
+    listen(eventName: "unbindEvents", callback: () => void): void;
     /**
      * Called after the gallery is closed and the closing animation finishes.
      * Clean up your stuff here.
      */
-    listen(eventName: 'destroy', callback: () => void): void;
+    listen(eventName: "destroy", callback: () => void): void;
     /**
      * Allow to call preventDefault on down and up events.
      */
-    listen(eventName: 'preventDragEvent', callback: (e: MouseEvent, isDown: boolean, preventObj: {prevent: boolean}) => void): void;
+    listen(
+        eventName: "preventDragEvent",
+        callback: (e: MouseEvent, isDown: boolean, preventObj: { prevent: boolean }) => void,
+    ): void;
 
     /**
      * Triggers eventName event with args passed through to listeners.

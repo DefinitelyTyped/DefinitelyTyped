@@ -8,14 +8,20 @@ randomstring.generate({
     length: 12,
     readable: true,
     capitalization: undefined,
-    charset: "alphabetic"
+    charset: "alphabetic",
 });
 
 randomstring.generate({
-    charset: "abc"
+    charset: "abc",
 });
 
 randomstring.generate({
     charset: "octal",
-    capitalization: "uppercase"
+    capitalization: "uppercase",
+});
+
+randomstring.generate({ charset: "abcdef" });
+
+randomstring.generate({
+    charset: ["numeric", "!"],
 });

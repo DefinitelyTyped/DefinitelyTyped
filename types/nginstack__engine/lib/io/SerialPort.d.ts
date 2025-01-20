@@ -42,10 +42,11 @@ declare class SerialPort {
     writeTotalTimeoutConstant: number;
 }
 declare namespace SerialPort {
-    export { getAvailablePorts, logAvailablePorts, SerialPortInfo };
+    export { getAvailablePorts, logAvailablePorts, Logger, SerialPortInfo };
 }
 declare function getAvailablePorts(): SerialPortInfo[];
-declare function logAvailablePorts(opt_logger?: any): void;
+declare function logAvailablePorts(opt_logger?: Logger): void;
+type Logger = import('../log/Logger');
 interface SerialPortInfo {
     manufacturer: string;
     description: string;

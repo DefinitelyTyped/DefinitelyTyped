@@ -1,9 +1,3 @@
-// Type definitions for director 1.2
-// Project: https://github.com/flatiron/director
-// Definitions by: pastelmind <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 import { IncomingMessage, ServerResponse } from "http";

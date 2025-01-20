@@ -1,8 +1,3 @@
-// Type definitions for level-errors 3.0
-// Project: https://github.com/Level/errors
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class LevelUPError extends Error {}
 
 export class InitializationError extends LevelUPError {}

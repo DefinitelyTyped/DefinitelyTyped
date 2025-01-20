@@ -2,6 +2,7 @@
 import request = require("superagent");
 import * as fs from "fs";
 import assert = require("assert");
+import { Blob } from "buffer";
 import { Agent } from "https";
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
@@ -80,7 +81,7 @@ request.get("/querystring").query("search=Manny").query("range=1..5").end(callba
 request.head("/users").query({ email: "joe@smith.com" }).end(callback);
 
 // POST / PUT requests
-request.post("/user").set("Content-Type", "application/json").send('{"name":"tj","pet":"tobi"}').end(callback);
+request.post("/user").set("Content-Type", "application/json").send("{\"name\":\"tj\",\"pet\":\"tobi\"}").end(callback);
 
 request.post("/user").send({ name: "tj", pet: "tobi" }).end(callback);
 
@@ -143,7 +144,7 @@ request("/search").end((res: request.Response) => {
 
 // Getting response 'Set-Cookie'
 request("/search").end((res: request.Response) => {
-    const setCookie: string[] = res.get("Set-Cookie");
+    const setCookie: string[] | undefined = res.get("Set-Cookie");
 });
 
 // Custom parsers
@@ -203,23 +204,8 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
     req.pipe(stream);
 })();
 
-// Multipart requests
-(() => {
-    const req = request.post("/upload");
-
-    req.part()
-        .set("Content-Type", "image/png")
-        .set("Content-Disposition", 'attachment; filename="myimage.png"')
-        .write("some image data");
-    req.write("some more image data");
-
-    req.part().set("Content-Disposition", 'form-data; name="name"').set("Content-Type", "text/plain").write("tobi");
-
-    req.end(callback);
-})();
-
 // Attaching files
-const blob: Blob = new File([], "thor.png");
+const blob = new Blob([]);
 request
     .post("/upload")
     .attach("avatar", "path/to/tobi.png", "user.png")
@@ -271,6 +257,17 @@ request
     })
     .end(callback);
 
+// DNS override (tests based on documentation examples)
+request.get("http://example.com").connect("127.0.0.1").end(callback);
+
+request.get("http://redir.example.com:555")
+    .connect({
+        "redir.example.com": "127.0.0.1", // redir.example.com:555 will use 127.0.0.1:555
+        "www.example.com": false, // don't override this one; use DNS as normal
+        "mapped.example.com": { host: "127.0.0.1", port: 8080 }, // mapped.example.com:* will use 127.0.0.1:8080
+        "*": "proxy.example.com", // all other requests will go to this host
+    }).end(callback);
+
 // Promise
 request
     .get("/search")
@@ -282,8 +279,8 @@ request
     .get("/blob")
     .responseType("blob")
     .end((err, res) => {
-        assert(res.xhr instanceof XMLHttpRequest);
-        assert(res.xhr.response instanceof Blob);
+        res.xhr; // $ExpectType any
+        res.xhr.response; // $ExpectType any
     });
 
 // HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
@@ -340,7 +337,7 @@ request
 
 // Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
 // which has additional properties.
-const echoPlugin = (request: request.SuperAgentRequest) => {
+let echoPlugin: request.Plugin = (request) => {
     req.url = "" + req.url;
     req.cookies = "" + req.cookies;
     if (req.method) {
@@ -348,11 +345,21 @@ const echoPlugin = (request: request.SuperAgentRequest) => {
     }
 };
 
+if (1) {
+    echoPlugin = (request: request.SuperAgentRequest) => {
+        req.url = "" + req.url;
+        req.cookies = "" + req.cookies;
+        if (req.method) {
+            req.url = "/echo";
+        }
+    };
+}
+
 request.get("/echo").use(echoPlugin).end();
 
 async function testDefaultOptions() {
     // Default options for multiple requests
-    const agentWithDefaultOptions = request
+    const agentWithDefaultOptions = new request
         .agent()
         .use(() => null)
         .auth("digest", "secret", { type: "auto" });
@@ -364,6 +371,5 @@ async function testDefaultOptions() {
 request.get("/").http2().end(callback);
 request("POST", "/").http2().end(callback);
 agent.get("/").http2().end(callback);
-agent("/").http2().end(callback);
 
-testDefaultOptions();
+void testDefaultOptions();

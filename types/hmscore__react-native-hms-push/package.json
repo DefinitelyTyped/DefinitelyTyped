@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/hmscore__react-native-hms-push",
+    "version": "5.3.9999",
+    "projects": [
+        "https://github.com/HMS-Core/hms-react-native-plugin/tree/master/react-native-hms-push"
+    ],
+    "dependencies": {
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/hmscore__react-native-hms-push": "workspace:.",
+        "@types/react": "*"
+    },
+    "owners": [
+        {
+            "name": "Pedro Medeiros",
+            "githubUsername": "despotes"
+        }
+    ]
+}

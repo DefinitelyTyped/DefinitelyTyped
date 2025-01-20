@@ -1,4 +1,4 @@
-import KDBush from 'kdbush';
+import KDBush from "kdbush";
 
 // API
 const points = [[110, 60], [130, 40]];
@@ -12,6 +12,9 @@ new KDBush(points, pick(0), pick(1), 64, Int32Array);
 new KDBush(points, pick(0), pick(1), 64, Float32Array);
 new KDBush(points, pick(0), pick(1), 64, Float64Array);
 new KDBush(points, pick(0), pick(1), 64, Array);
+new KDBush(points, pick(0), pick(1), 64, Uint8Array);
+new KDBush(points, pick(0), pick(1), 64, Uint16Array);
+new KDBush(points, pick(0), pick(1), 64, Uint32Array);
 
 // properties
 index.nodeSize;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/semver-stable",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/kaelzhang/node-semver-stable#readme"
+    ],
+    "devDependencies": {
+        "@types/semver-stable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

@@ -1,4 +1,6 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ContainerProxyMixin from "@ember/engine/-private/container-proxy-mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
 import EmberObject from "@ember/object";
 
@@ -6,14 +8,11 @@ import EmberObject from "@ember/object";
  * The `EngineInstance` encapsulates all of the stateful aspects of a
  * running `Engine`.
  */
-export default class EngineInstance extends EmberObject.extend(
-    RegistryProxyMixin,
-    ContainerProxyMixin
-) {
+export default class EngineInstance extends EmberObject {
     /**
      * Unregister a factory.
      */
-    unregister(fullName: string): any;
+    unregister(fullName: string): unknown;
 
     /**
      *  Initialize the `EngineInstance` and return a promise that resolves
@@ -21,3 +20,5 @@ export default class EngineInstance extends EmberObject.extend(
      */
     boot(): Promise<EngineInstance>;
 }
+
+export default interface EngineInstance extends RegistryProxyMixin, ContainerProxyMixin {}

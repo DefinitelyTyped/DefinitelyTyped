@@ -1,41 +1,31 @@
-import AriaModal from 'react-aria-modal';
-import * as React from 'react';
-import { render } from 'react-dom';
-
-declare const appContainer: HTMLElement;
+import * as React from "react";
+import AriaModal from "react-aria-modal";
 
 const onExit = () => {};
 
-render(
-    <AriaModal onExit={onExit} titleId="describedby" underlayClickExits>
-        <p id="describedby">Hello world</p>
-    </AriaModal>,
-    appContainer
-);
+<AriaModal onExit={onExit} titleId="describedby" underlayClickExits>
+    <p id="describedby">Hello world</p>
+</AriaModal>;
 
-const DisplacedModal = AriaModal.renderTo('#some-id');
+const DisplacedModal = AriaModal.renderTo("#some-id");
 
-render(
-    <DisplacedModal onExit={onExit} titleId="describedby" underlayClickExits>
-        <p id="describedby">Hello world</p>
-    </DisplacedModal>,
-    appContainer
-);
+<DisplacedModal onExit={onExit} titleId="describedby" underlayClickExits>
+    <p id="describedby">Hello world</p>
+</DisplacedModal>;
 
-render(
-     <AriaModal
-        onExit={() => {}}
-        alert={true}
-        focusDialog={true}
-        titleText='A top modal'
-        underlayClickExits={false}
-        verticallyCenter={true}
-        underlayColor={false}
-      >
-          <div>Hello</div>
-      </AriaModal>,
-      appContainer
-);
+<AriaModal
+    onExit={(event) => {
+        event; // $ExpectType MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>
+    }}
+    alert={true}
+    focusDialog={true}
+    titleText="A top modal"
+    underlayClickExits={false}
+    verticallyCenter={true}
+    underlayColor={false}
+>
+    <div>Hello</div>
+</AriaModal>;
 
 const AriaModalOnExitBasic = (
     <AriaModal
@@ -67,3 +57,25 @@ const AriaModalOnExitWithKeyboard = (
         }}
     />
 );
+
+// @ts-expect-error -- Can only put `props.titleId` or `props.titleText`, but not both
+<AriaModal titleId="" titleText="" />;
+
+// Can pass options into `props.focusTrapOptions`
+<AriaModal
+    titleId="describedby"
+    focusTrapOptions={{
+        onActivate() {},
+        onPostActivate() {},
+    }}
+/>;
+
+// @ts-expect-error
+// Cannot pass `props.focusTrapOptions.initialFocus`
+// since it is overridden by the library.
+<AriaModal titleId="describedby" focusTrapOptions={{ initialFocus() {} }} />;
+
+// @ts-expect-error
+// Cannot pass `props.focusTrapOptions.escapeDeactivates`
+// since it is overridden by the library.
+<AriaModal titleId="describedby" focusTrapOptions={{ escapeDeactivates() {} }} />;

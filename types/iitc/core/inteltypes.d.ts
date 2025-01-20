@@ -24,7 +24,7 @@ export namespace Intel {
         result: ChatLine[];
     }
 
-    type ChatLine = [/*guid*/ string, /*time*/number, PlextContainer];
+    type ChatLine = [/*guid*/ string, /*time*/ number, PlextContainer];
 
     interface PlextContainer {
         plext: {
