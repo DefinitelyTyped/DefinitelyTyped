@@ -2333,6 +2333,8 @@ async function testDeclarativeNetRequest() {
         rule.condition; // $ExpectType RuleCondition
         rule.id; // $ExpectType number
         rule.priority; // $ExpectType number | undefined
+        rule.condition.excludedResponseHeaders; // $ExpectType HeaderInfo[] | undefined
+        rule.condition.responseHeaders; // $ExpectType HeaderInfo[] | undefined
     });
 
     await chrome.declarativeNetRequest.getEnabledRulesets();

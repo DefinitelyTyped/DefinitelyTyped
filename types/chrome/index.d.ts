@@ -13505,6 +13505,18 @@ declare namespace chrome {
              * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
              */
             resourceTypes?: ResourceType[] | undefined;
+
+            /**
+             * Rule does not match if the request matches any response header condition in this list (if specified). If both `excludedResponseHeaders` and `responseHeaders` are specified, then the `excludedResponseHeaders` property takes precedence.
+             * @since Chrome 128
+             */
+            excludedResponseHeaders?: HeaderInfo[];
+
+            /**
+             * Rule matches if the request matches any response header condition in this list (if specified).
+             * @since Chrome 128
+             */
+            responseHeaders?: HeaderInfo[];
         }
 
         export interface MatchedRule {
@@ -13537,6 +13549,24 @@ declare namespace chrome {
              * Matches rules not associated with any active tab if set to -1.
              */
             tabId?: number | undefined;
+        }
+
+        /** @since Chrome 128 */
+        export interface HeaderInfo {
+            /** If specified, this condition is not matched if the header exists but its value contains at least one element in this list. This uses the same match pattern syntax as `values`. */
+            excludedValues?: string[];
+            /** The name of the header. This condition matches on the name only if both `values` and `excludedValues` are not specified. */
+            header: string;
+            /**
+             * If specified, this condition matches if the header's value matches at least one pattern in this list. This supports case-insensitive header value matching plus the following constructs:
+             *
+             * **'\*'** : Matches any number of characters.
+             *
+             * **'?'** : Matches zero or one character(s).
+             *
+             * **'\*'** and **'?'** can be escaped with a backslash, e.g. **'\\\*'** and **'\\?'**
+             */
+            values?: string[];
         }
 
         export interface ModifyHeaderInfo {
