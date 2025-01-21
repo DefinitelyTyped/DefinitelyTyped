@@ -184,7 +184,6 @@ declare namespace Desmos {
         options?: GraphConfiguration & GraphSettings,
     ): Calculator;
 
-
     /**
      * Creates a `Geometry` object to control the embedded instance in the DOM element specified by element.
      *
