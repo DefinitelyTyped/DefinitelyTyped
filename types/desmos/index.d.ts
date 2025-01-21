@@ -619,6 +619,20 @@ declare namespace Desmos {
 
     type ExpressionState =
         | {
+            type?: "text";
+
+            /**
+             * The text content of the note.
+             * @default ""
+             */
+            text?: string;
+
+            /**
+             * Should be a valid property name for a javascript object (letters, numbers, and _).
+             */
+            id?: string;
+        }
+        | {
             type?: "expression";
             /**
              * Following {@link https://www.desmos.com/api/v1.11/docs/index.html#document-expressions Desmos Expressions}.
