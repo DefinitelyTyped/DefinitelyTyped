@@ -167,7 +167,10 @@ declare namespace Desmos {
     /**
      * Creates a calculator object to control the calculator embedded in the DOM element specified by element.
      */
-    function GraphingCalculator(element: HTMLElement, options?: GraphConfiguration & GraphSettings): Calculator;
+    function GraphingCalculator(
+        element: HTMLElement,
+        options?: GraphConfiguration & GraphSettings,
+    ): Calculator;
 
     /**
      * Creates a scientific calculator object to control the calculator embedded in the DOM element specified by element.
@@ -253,7 +256,10 @@ declare namespace Desmos {
         },
     ): BasicCalculator;
 
-    function imageFileToDataURL(file: File, cb: (err: Error, url: string) => void): void;
+    function imageFileToDataURL(
+        file: File,
+        cb: (err: Error, url: string) => void,
+    ): void;
 
     type GraphState = unknown;
 
@@ -351,7 +357,9 @@ declare namespace Desmos {
         /**
          * Convert math coordinates to pixel coordinates.
          */
-        mathToPixels<C extends { x: number } | { y: number } | { x: number; y: number }>(coords: C): C;
+        mathToPixels<
+            C extends { x: number } | { y: number } | { x: number; y: number },
+        >(coords: C): C;
         /**
          * Update the settings.randomSeed property to a new random value.
          */
@@ -366,7 +374,9 @@ declare namespace Desmos {
         /**
          * Convert pixel coordinates to math coordinates.
          */
-        pixelsToMath<C extends { x: number } | { y: number } | { x: number; y: number }>(coords: C): C;
+        pixelsToMath<
+            C extends { x: number } | { y: number } | { x: number; y: number },
+        >(coords: C): C;
         /**
          * Advance to the next state in the undo/redo history, if available.
          */
@@ -444,7 +454,12 @@ declare namespace Desmos {
          * Updates the math coordinates of the graphpaper bounds.
          * If invalid bounds are provided, the graphpaper bounds will not be changed.
          */
-        setMathBounds(bounds: { left?: number; right?: number; bottom?: number; top?: number }): void;
+        setMathBounds(bounds: {
+            left?: number;
+            right?: number;
+            bottom?: number;
+            top?: number;
+        }): void;
         /**
          * Reset the calculator to a state previously saved using GraphingCalculator.getState.
          */
@@ -486,7 +501,10 @@ declare namespace Desmos {
         HelperExpression(expression: ExpressionState): {
             listValue: number[];
             numericValue: number;
-            observe(eventName: "numericValue" | "listValue" | string, callback: () => void): void;
+            observe(
+                eventName: "numericValue" | "listValue" | string,
+                callback: () => void,
+            ): void;
         };
 
         // properties
@@ -520,7 +538,9 @@ declare namespace Desmos {
                 /**
                  * Numeric value(s)
                  */
-                evaluation?: { type: "Number"; value: number } | { type: "ListOfNumber"; value: readonly number[] };
+                evaluation?:
+                    | { type: "Number"; value: number }
+                    | { type: "ListOfNumber"; value: readonly number[] };
             };
         };
 
@@ -563,8 +583,13 @@ declare namespace Desmos {
             & GraphConfiguration
             & GraphSettings
             & {
-                observe(eventName: keyof GraphConfiguration | keyof GraphSettings | string, callback: () => void): void;
-                unobserve(eventName: keyof GraphConfiguration | keyof GraphSettings | string): void;
+                observe(
+                    eventName: keyof GraphConfiguration | keyof GraphSettings | string,
+                    callback: () => void,
+                ): void;
+                unobserve(
+                    eventName: keyof GraphConfiguration | keyof GraphSettings | string,
+                ): void;
             };
 
         /**
@@ -577,35 +602,42 @@ declare namespace Desmos {
         | {
             type?: "expression";
             /**
-             * Following Desmos Expressions.
+             * Following {@link https://www.desmos.com/api/v1.11/docs/index.html#document-expressions Desmos Expressions}.
              */
             latex?: string;
             /**
-             * , hex color. See Colors. Default will cycle through 6 default colors.
+             * Hex color. See {@link https://www.desmos.com/api/v1.11/docs/#document-colors Colors}.
+             * Default will cycle through 6 default colors.
              */
             color?: string;
             /**
-             * Sets the line drawing style of curves or point lists. See Styles.
+             * Sets the line drawing style of curves or point lists.
+             * See {@link https://www.desmos.com/api/v1.11/docs/#document-styles} Styles.
              */
             lineStyle?: keyof typeof Styles;
             /**
-             * Determines width of lines in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number. Defaults to 2.5.
+             * Determines width of lines in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
+             * @default 2.5
              */
             lineWidth?: number | string;
             /**
-             * Determines opacity of lines. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1. Defaults to 0.9.
+             * Determines opacity of lines. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
+             * @default 0.9
              */
             lineOpacity?: number | string;
             /**
-             * Sets the point drawing style of point lists. See Styles.
+             * Sets the point drawing style of point lists.
+             * See {@link https://www.desmos.com/api/v1.11/docs/#document-styles} Styles.
              */
             pointStyle?: keyof typeof Styles;
             /**
-             * Determines diameter of points in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number. Defaults to 9.
+             * Determines diameter of points in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
+             * @default 9
              */
             pointSize?: number | string;
             /**
-             * Determines opacity of points. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1. Defaults to 0.9.
+             * Determines opacity of points. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
+             * @default 0.9
              */
             pointOpacity?: number | string;
             /**
@@ -629,7 +661,8 @@ declare namespace Desmos {
              */
             hidden?: boolean;
             /**
-             * Determines whether the expression should appear in the expressions list. Does not affect graph visibility. Defaults to false.
+             * Determines whether the expression should appear in the expressions list. Does not affect graph visibility.
+             * @default false
              */
             secret?: boolean;
             /**
@@ -826,7 +859,10 @@ declare namespace Desmos {
          * Specify custom processing for user-uploaded images. See Image Uploads for more details.
          * @param file comment for stuff
          */
-        imageUploadCallback?(file: File, cb: (err: Error, url: string) => void): void;
+        imageUploadCallback?(
+            file: File,
+            cb: (err: Error, url: string) => void,
+        ): void;
         /**
          * Allow the creation of folders in the expressions list
          * @default true
