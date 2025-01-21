@@ -3,6 +3,7 @@ declare namespace Desmos {
      * Which features are enabled for your API key.
      */
     const enabledFeatures: {
+        Calculator3D: boolean;
         GraphingCalculator: boolean;
         FourFunctionCalculator: boolean;
         ScientificCalculator: boolean;
@@ -163,6 +164,24 @@ declare namespace Desmos {
             capExpressionSize?: boolean;
         },
     ): BasicCalculator;
+
+    /**
+     * Creates a Calculator3D object to control the embedded instance in the DOM element specified by element.
+     *
+     * It is possible to create a `Calculator3D` instance outside of the DOM and call methods on the returned object, but the view will not be created until element is inserted into the DOM.
+     *
+     * Note: for every instantiated `Calculator3D` instance, we run a small set of computations on every frame in order to reliably detect when the instance is added to the DOM, removed from it, show, hidden, or resized.
+     * This could, theoretically, have performance and/or memory implications, although the effects are miniscule unless you instantiate many Calculator3D instances.
+     *
+     * If you want to manage sizing yourself, you can instantiate with the API option `{autosize: false}`.
+     * In this case, you must call `.resize()` anytime that the instance is added to the DOM, removed from the DOM, or resized.
+     *
+     * When you're done using a calculator instance, call `.destroy()` to remove all of our listeners.
+     */
+    function Calculator3D(
+        element: HTMLElement,
+        options?: GraphConfiguration & GraphSettings,
+    ): Calculator;
 
     /**
      * Creates a calculator object to control the calculator embedded in the DOM element specified by element.
