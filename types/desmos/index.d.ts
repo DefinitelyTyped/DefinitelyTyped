@@ -4,6 +4,7 @@ declare namespace Desmos {
      */
     const enabledFeatures: {
         Calculator3D: boolean;
+        GeometryCalculator: boolean;
         GraphingCalculator: boolean;
         FourFunctionCalculator: boolean;
         ScientificCalculator: boolean;
@@ -179,6 +180,25 @@ declare namespace Desmos {
      * When you're done using a calculator instance, call `.destroy()` to remove all of our listeners.
      */
     function Calculator3D(
+        element: HTMLElement,
+        options?: GraphConfiguration & GraphSettings,
+    ): Calculator;
+
+
+    /**
+     * Creates a `Geometry` object to control the embedded instance in the DOM element specified by element.
+     *
+     * It is possible to create a `Geometry` instance outside of the DOM and call methods on the returned object, but the view will not be created until element is inserted into the DOM.
+     *
+     * Note: for every instantiated `Geometry` instance, we run a small set of computations on every frame in order to reliably detect when the instance is added to the DOM, removed from it, show, hidden, or resized.
+     * This could, theoretically, have performance and/or memory implications, although the effects are miniscule unless you instantiate many `Geometry` instances.
+     *
+     * If you want to manage sizing yourself, you can instantiate with the API option `{autosize: false}`.
+     * In this case, you must call `.resize()` anytime that the instance is added to the DOM, removed from the DOM, or resized.
+     *
+     * When you're done using a geometry instance, call `.destroy()` to remove all of our listeners.
+     */
+    function Geometry(
         element: HTMLElement,
         options?: GraphConfiguration & GraphSettings,
     ): Calculator;
