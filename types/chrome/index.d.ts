@@ -11837,7 +11837,7 @@ declare namespace chrome {
          * Called by an engine to update its list of voices. This list overrides any voices declared in this extension's manifest.
          * @since Chrome 66
          */
-        export function updateVoices(voices: tts.TtsVoice[]);
+        export function updateVoices(voices: tts.TtsVoice[]): void;
 
         /**
          * Fired when a TTS client requests to install a new language. The engine should attempt to download and install the language, and call ttsEngine.updateLanguage with the result. On success, the engine should also call ttsEngine.updateVoices to register the newly available voices.
