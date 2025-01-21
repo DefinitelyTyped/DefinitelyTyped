@@ -27,9 +27,9 @@ const fullsize = calculator.screenshot();
 // Capture a double resolution screenshot of the graphpaper designed to
 // be displayed at 200px by 200px
 const thumbnail = calculator.screenshot({
-    width: 200,
-    height: 200,
-    targetPixelRatio: 2,
+	width: 200,
+	height: 200,
+	targetPixelRatio: 2,
 });
 
 // Append the thumbnail image to the current page
@@ -44,28 +44,28 @@ document.body.appendChild(img);
 
 // Callback
 function setImageSrc(data: string) {
-    const img = document.getElementById("my-image") as HTMLImageElement;
-    img.src = data;
+	const img = document.getElementById("my-image") as HTMLImageElement;
+	img.src = data;
 }
 
 // Take a screenshot of an exact region without regard for the aspect ratio
 calculator.asyncScreenshot(
-    {
-        mode: "stretch",
-        mathBounds: { left: -5, right: 5, bottom: -20, top: 0 },
-    },
-    setImageSrc,
+	{
+		mode: "stretch",
+		mathBounds: { left: -5, right: 5, bottom: -20, top: 0 },
+	},
+	setImageSrc,
 );
 
 // Show -5 to 5 on the x-axis and preserve the aspect ratio
 calculator.asyncScreenshot(
-    {
-        mode: "preserveX",
-        width: 500,
-        height: 300,
-        mathBounds: { left: -5, right: 5 },
-    },
-    setImageSrc,
+	{
+		mode: "preserveX",
+		width: 500,
+		height: 300,
+		mathBounds: { left: -5, right: 5 },
+	},
+	setImageSrc,
 );
 
 // Use the smallest bounding box containing the current viewport and preserve the aspect ratio
@@ -73,12 +73,12 @@ calculator.asyncScreenshot(setImageSrc);
 
 // Preserve the aspect ratio if the axes are square, otherwise show the exact region
 const opts = {
-    mode: calculator.isProjectionUniform()
-        ? ("contain" as const)
-        : ("stretch" as const),
-    width: 500,
-    height: 300,
-    mathBounds: { left: -5, right: 5, bottom: -20, top: 0 },
+	mode: calculator.isProjectionUniform()
+		? ("contain" as const)
+		: ("stretch" as const),
+	width: 500,
+	height: 300,
+	mathBounds: { left: -5, right: 5, bottom: -20, top: 0 },
 };
 calculator.asyncScreenshot(opts, setImageSrc);
 
@@ -97,25 +97,25 @@ calculator.setExpression({ id: "circle1", latex: "x^2 + y^2 < 1" });
 
 // Restrict the slider for the m variable to the integers from 1 to 10
 calculator.setExpression({
-    id: "m",
-    sliderBounds: { min: 1, max: 10, step: 1 },
+	id: "m",
+	sliderBounds: { min: 1, max: 10, step: 1 },
 });
 
 // Table with three columns. Note that the first two columns have explicitly
 // specified values, and the third column is computed from the first.
 calculator.setExpression({
-    type: "table",
-    columns: [
-        {
-            latex: "x",
-            values: ["1", "2", "3", "4", "5"],
-        },
-        {
-            latex: "y",
-            values: ["1", "4", "9", "16", "25"],
-            dragMode: Desmos.DragModes.XY,
-        },
-    ],
+	type: "table",
+	columns: [
+		{
+			latex: "x",
+			values: ["1", "2", "3", "4", "5"],
+		},
+		{
+			latex: "y",
+			values: ["1", "4", "9", "16", "25"],
+			dragMode: Desmos.DragModes.XY,
+		},
+	],
 });
 
 // Set the x axis to have arrows on both ends
@@ -126,27 +126,27 @@ calculator.updateSettings({ xAxisLabel: "Time" });
 
 // Observe the value of `xAxisLabel`, and log a message when it changes.
 calculator.settings.observe("xAxisLabel", () => {
-    console.log(calculator.settings.xAxisLabel);
+	console.log(calculator.settings.xAxisLabel);
 });
 
 calculator.updateSettings({ randomSeed: "my-random-seed" });
 
 // Only show the first quadrant
 calculator.setMathBounds({
-    left: 0,
-    right: 10,
-    bottom: 0,
-    top: 10,
+	left: 0,
+	right: 10,
+	bottom: 0,
+	top: 10,
 });
 
 calculator.observe("graphpaperBounds", () => {
-    const pixelCoordinates = calculator.graphpaperBounds.pixelCoordinates;
-    const mathCoordinates = calculator.graphpaperBounds.mathCoordinates;
+	const pixelCoordinates = calculator.graphpaperBounds.pixelCoordinates;
+	const mathCoordinates = calculator.graphpaperBounds.mathCoordinates;
 
-    const pixelsPerUnitY = pixelCoordinates.height / mathCoordinates.height;
-    const pixelsPerUnitX = pixelCoordinates.width / mathCoordinates.width;
+	const pixelsPerUnitY = pixelCoordinates.height / mathCoordinates.height;
+	const pixelsPerUnitX = pixelCoordinates.width / mathCoordinates.width;
 
-    console.log("Current aspect ratio: " + pixelsPerUnitY / pixelsPerUnitX);
+	console.log("Current aspect ratio: " + pixelsPerUnitY / pixelsPerUnitX);
 });
 
 // Find the pixel coordinates of the graphpaper origin:
@@ -155,12 +155,12 @@ calculator.mathToPixels({ x: 0, y: 0 });
 // Find the math coordinates of the mouse
 const calculatorRect = elt.getBoundingClientRect();
 document.addEventListener("mousemove", (evt) => {
-    console.log(
-        calculator.pixelsToMath({
-            x: evt.clientX - calculatorRect.left,
-            y: evt.clientY - calculatorRect.top,
-        }),
-    );
+	console.log(
+		calculator.pixelsToMath({
+			x: evt.clientX - calculatorRect.left,
+			y: evt.clientY - calculatorRect.top,
+		}),
+	);
 });
 
 // Add three different observers to the 'xAxisLabel' property
@@ -175,65 +175,65 @@ calculator.settings.unobserve("xAxisLabel.bar");
 calculator.settings.unobserve("xAxisLabel");
 
 calculator.setExpression({
-    id: "1",
-    latex: "y=x",
-    color: Desmos.Colors.BLUE,
+	id: "1",
+	latex: "y=x",
+	color: Desmos.Colors.BLUE,
 });
 
 calculator.setExpression({
-    id: "2",
-    latex: "y=x + 1",
-    color: "#ff0000",
+	id: "2",
+	latex: "y=x + 1",
+	color: "#ff0000",
 });
 
 calculator.setExpression({
-    id: "3",
-    latex: "y=sin(x)",
-    color: calculator.colors.customBlue,
+	id: "3",
+	latex: "y=sin(x)",
+	color: calculator.colors.customBlue,
 });
 
 // Text expression
 calculator.setExpression({
-    type: "text",
-    id: "4",
-    text: "Hello World",
+	type: "text",
+	id: "4",
+	text: "Hello World",
 });
 
 // Make a dashed line
 calculator.setExpression({
-    id: "line",
-    latex: "y=x",
-    lineStyle: Desmos.Styles.DASHED,
+	id: "line",
+	latex: "y=x",
+	lineStyle: Desmos.Styles.DASHED,
 });
 
 // This will render with normal movable point styling, because named point
 // assignments result in points with a `dragMode` of `XY` by default
 calculator.setExpression({
-    id: "pointA",
-    latex: "A=(1,2)",
-    pointStyle: Desmos.Styles.CROSS,
+	id: "pointA",
+	latex: "A=(1,2)",
+	pointStyle: Desmos.Styles.CROSS,
 });
 
 // Now point A will render with `CROSS` styling
 calculator.setExpression({
-    id: "pointA",
-    dragMode: Desmos.DragModes.NONE,
+	id: "pointA",
+	dragMode: Desmos.DragModes.NONE,
 });
 
 // Point B will render as a hole
 calculator.setExpression({
-    id: "pointB",
-    latex: "B=(2,4)",
-    dragMode: Desmos.DragModes.NONE,
-    pointStyle: Desmos.Styles.OPEN,
+	id: "pointB",
+	latex: "B=(2,4)",
+	dragMode: Desmos.DragModes.NONE,
+	pointStyle: Desmos.Styles.OPEN,
 });
 
 // This point will render with `CROSS` styling, because the default
 // `dragMode` for an unassigned point with numeric values is `NONE`
 calculator.setExpression({
-    id: "pointC",
-    latex: "(7,5)",
-    pointStyle: Desmos.Styles.CROSS,
+	id: "pointC",
+	latex: "(7,5)",
+	pointStyle: Desmos.Styles.CROSS,
 });
 
 calculator.updateSettings({ fontSize: Desmos.FontSizes.LARGE });
@@ -248,29 +248,46 @@ calculator.updateSettings({ language: "fr" });
 
 // All features enabled
 // $ExpectType boolean
-Desmos.enabledFeatures.GraphingCalculator
-    && Desmos.enabledFeatures.FourFunctionCalculator
-    && Desmos.enabledFeatures.ScientificCalculator;
+Desmos.enabledFeatures.Calculator3D &&
+	Desmos.enabledFeatures.FourFunctionCalculator &&
+	Desmos.enabledFeatures.GeometryCalculator &&
+	Desmos.enabledFeatures.GraphingCalculator &&
+	Desmos.enabledFeatures.ScientificCalculator;
 
 // Only graphing calculator enabled
 // $ExpectType boolean
-Desmos.enabledFeatures.GraphingCalculator
-    && !Desmos.enabledFeatures.FourFunctionCalculator
-    && !Desmos.enabledFeatures.ScientificCalculator;
+Desmos.enabledFeatures.GraphingCalculator &&
+	!Desmos.enabledFeatures.Calculator3D &&
+	!Desmos.enabledFeatures.FourFunctionCalculator &&
+	!Desmos.enabledFeatures.GeometryCalculator &&
+	!Desmos.enabledFeatures.ScientificCalculator;
 
 const elt1 = document.getElementById(
-    "four-function-calculator",
+	"four-function-calculator",
 ) as HTMLDivElement;
 const fourFunctionCalculator = Desmos.FourFunctionCalculator(elt1);
 
 const elt2 = document.getElementById("scientific-calculator") as HTMLDivElement;
 const scientificCalculator = Desmos.ScientificCalculator(elt2);
 
+// 3d calculator
 const elt3 = document.getElementById("calculator-3d") as HTMLDivElement;
 const calculator3d = Desmos.Calculator3D(elt3);
 
 calculator3d.setExpression({
-    id: "1",
-    latex: "y=x",
-    color: Desmos.Colors.BLUE,
+	id: "1",
+	latex: "y=x",
+	color: Desmos.Colors.BLUE,
+});
+
+// geometry calculator
+const eltGeometry = document.getElementById(
+	"calculator-geometry",
+) as HTMLDivElement;
+const geometryCalculator = Desmos.Geometry(eltGeometry);
+
+geometryCalculator.setExpression({
+	id: "1",
+	latex: "y=x",
+	color: Desmos.Colors.BLUE,
 });
