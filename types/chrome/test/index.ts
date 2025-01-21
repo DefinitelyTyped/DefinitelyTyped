@@ -848,7 +848,7 @@ function testTtsEngine() {
         installStatus: chrome.ttsEngine.LanguageInstallStatus.INSTALLED,
     });
 
-    chrome.ttsEngine.updateVoices([{ voiceName: "voice", lang: "en" }]);
+    chrome.ttsEngine.updateVoices([{ voiceName: "voice", lang: "en" }]); // $ExpectType void
 
     chrome.ttsEngine.onInstallLanguageRequest.addListener((requestor, lang) => {
         requestor; // $ExpectType TtsClient
