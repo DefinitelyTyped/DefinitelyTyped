@@ -2318,17 +2318,15 @@ async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.UnsupportedRegexReason.MEMORY_LIMIT_EXCEEDED === "memoryLimitExceeded";
     chrome.declarativeNetRequest.UnsupportedRegexReason.SYNTAX_ERROR === "syntaxError";
 
-    await chrome.declarativeNetRequest.getAvailableStaticRuleCount();
-    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
-        // $ExpectType number
-        count;
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(); // $ExpectType Promise<number>
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount((count) => { // $ExpectType void
+        count; // $ExpectType number
     });
-    await chrome.declarativeNetRequest.getDynamicRules();
-    chrome.declarativeNetRequest.getDynamicRules(rules => {
-        // $ExpectType Rule[]
-        rules;
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(() => {}).then(() => {});
 
-        const rule = rules[0];
+    chrome.declarativeNetRequest.getDynamicRules(); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getDynamicRules(([rule]) => { // $ExpectType void
         rule.action; // $ExpectType RuleAction
         rule.condition; // $ExpectType RuleCondition
         rule.id; // $ExpectType number
@@ -2336,54 +2334,127 @@ async function testDeclarativeNetRequest() {
         rule.condition.excludedResponseHeaders; // $ExpectType HeaderInfo[] | undefined
         rule.condition.responseHeaders; // $ExpectType HeaderInfo[] | undefined
     });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getDynamicRules(() => {}).then(() => {});
 
-    await chrome.declarativeNetRequest.getEnabledRulesets();
-    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // $ExpectType string[]
-        sets;
+    chrome.declarativeNetRequest.getEnabledRulesets(); // $ExpectType Promise<string[]>
+    chrome.declarativeNetRequest.getEnabledRulesets((rulesetIds) => { // $ExpectType void
+        rulesetIds; // $ExpectType string[]
     });
-    await chrome.declarativeNetRequest.getMatchedRules({});
-    await chrome.declarativeNetRequest.getMatchedRules();
-    await chrome.declarativeNetRequest.getSessionRules();
-    await chrome.declarativeNetRequest.isRegexSupported({ regex: "regex1" });
-    await chrome.declarativeNetRequest.setExtensionActionOptions({});
-    await chrome.declarativeNetRequest.updateDynamicRules({});
-    await chrome.declarativeNetRequest.updateEnabledRulesets({});
-    await chrome.declarativeNetRequest.updateSessionRules({});
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getEnabledRulesets(() => {}).then(() => {});
 
-    await chrome.declarativeNetRequest.updateDynamicRules({});
-    await chrome.declarativeNetRequest.updateDynamicRules({
-        addRules: [{
-            action: {
-                type: chrome.declarativeNetRequest.RuleActionType.ALLOW,
-            },
-            condition: {
-                initiatorDomains: ["www.example.com"],
-                tabIds: [2, 3, 76],
-            },
-            id: 2,
-            priority: 3,
-        }],
-    });
+    const matchedRulesFilter: chrome.declarativeNetRequest.MatchedRulesFilter = {
+        tabId: 0,
+        minTimeStamp: 0,
+    };
 
-    await chrome.declarativeNetRequest.updateDynamicRules({
-        addRules: [{
-            action: {
-                type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
-                requestHeaders: [{
-                    header: "X-Test-Header",
-                    operation: chrome.declarativeNetRequest.HeaderOperation.SET,
-                    value: "test-value",
-                }],
-            },
-            condition: {
-                resourceTypes: [chrome.declarativeNetRequest.ResourceType.MAIN_FRAME],
-                domains: ["www.example.com"],
-            },
-            id: 2,
-            priority: 3,
-        }],
+    chrome.declarativeNetRequest.getMatchedRules(); // $ExpectType Promise<RulesMatchedDetails>
+    chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter); // $ExpectType Promise<RulesMatchedDetails>
+    chrome.declarativeNetRequest.getMatchedRules((details) => { // $ExpectType void
+        details; // $ExpectType RulesMatchedDetails
     });
+    chrome.declarativeNetRequest.getMatchedRules(matchedRulesFilter, (details) => { // $ExpectType void
+        details; // $ExpectType RulesMatchedDetails
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getMatchedRules(() => {}).then(() => {});
+
+    chrome.declarativeNetRequest.getSessionRules(); // $ExpectType Promise<Rule[]>
+    chrome.declarativeNetRequest.getSessionRules((rules) => { // $ExpectType void
+        rules; // $ExpectType Rule[]
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.getSessionRules(() => {}).then(() => {});
+
+    const regexOptions: chrome.declarativeNetRequest.RegexOptions = {
+        regex: "regex1",
+        isCaseSensitive: true,
+        requireCapturing: true,
+    };
+
+    chrome.declarativeNetRequest.isRegexSupported(regexOptions); // $ExpectType Promise<IsRegexSupportedResult>
+    chrome.declarativeNetRequest.isRegexSupported(regexOptions, (result) => { // $ExpectType void
+        result; // $ExpectType IsRegexSupportedResult
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.isRegexSupported(() => {}).then(() => {});
+
+    const extensionActionOptions: chrome.declarativeNetRequest.ExtensionActionOptions = {
+        displayActionCountAsBadgeText: true,
+        tabUpdate: {
+            increment: 1,
+            tabId: 1,
+        },
+    };
+
+    chrome.declarativeNetRequest.setExtensionActionOptions(extensionActionOptions); // $ExpectType Promise<void>
+    chrome.declarativeNetRequest.setExtensionActionOptions(extensionActionOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.declarativeNetRequest.setExtensionActionOptions(extensionActionOptions, () => {}).then(() => {});
+
+    const testMatchRequestDetails: chrome.declarativeNetRequest.TestMatchRequestDetails = {
+        type: "image",
+        url: "https://example.com",
+        tabId: 1,
+        initiator: "https://example.com",
+        method: "get",
+        responseHeaders: {},
+    };
+
+    chrome.declarativeNetRequest.testMatchOutcome(testMatchRequestDetails); // $ExpectType Promise<TestMatchOutcomeResult>
+    chrome.declarativeNetRequest.testMatchOutcome(testMatchRequestDetails, (result) => { // $ExpectType void
+        result.matchedRules; // $ExpectType MatchedRule[]
+    });
+    // @ts-expect-error
+    chrome.declarativeNetRequest.testMatchOutcome(testMatchRequestDetails, () => {}).then(() => {});
+
+    const updateRuleOptions: chrome.declarativeNetRequest.UpdateRuleOptions = {
+        addRules: [],
+        removeRuleIds: [1, 2, 3],
+    };
+
+    chrome.declarativeNetRequest.updateDynamicRules(updateRuleOptions); // $ExpectType Promise<void>
+    chrome.declarativeNetRequest.updateDynamicRules(updateRuleOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.declarativeNetRequest.updateDynamicRules(updateRuleOptions, () => {}).then(() => {});
+
+    const updateRulesetOptions: chrome.declarativeNetRequest.UpdateRulesetOptions = {
+        disableRulesetIds: ["ruleset1"],
+        enableRulesetIds: ["ruleset2"],
+    };
+
+    chrome.declarativeNetRequest.updateEnabledRulesets(updateRulesetOptions); // $ExpectType Promise<void>
+    chrome.declarativeNetRequest.updateEnabledRulesets(updateRulesetOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.declarativeNetRequest.updateEnabledRulesets(updateRulesetOptions, () => {}).then(() => {});
+
+    chrome.declarativeNetRequest.updateSessionRules(updateRuleOptions); // $ExpectType Promise<void>
+    chrome.declarativeNetRequest.updateSessionRules(updateRuleOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.declarativeNetRequest.updateSessionRules(updateRuleOptions, () => {}).then(() => {});
+
+    const updateStaticRulesOptions: chrome.declarativeNetRequest.UpdateStaticRulesOptions = {
+        disableRuleIds: [1, 2, 3],
+        enableRuleIds: [1, 2, 3],
+        rulesetId: "ruleset1",
+    };
+
+    chrome.declarativeNetRequest.updateStaticRules(updateStaticRulesOptions); // $ExpectType Promise<void>
+    chrome.declarativeNetRequest.updateStaticRules(updateStaticRulesOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.declarativeNetRequest.updateStaticRules(updateStaticRulesOptions, () => {}).then(() => {});
+
+    chrome.declarativeNetRequest.onRuleMatchedDebug.addListener((info) => {
+        info; // $ExpectType MatchedRuleInfoDebug
+    });
+    chrome.declarativeNetRequest.onRuleMatchedDebug.removeListener((info) => {
+        info; // $ExpectType MatchedRuleInfoDebug
+    });
+    chrome.declarativeNetRequest.onRuleMatchedDebug.hasListener((info) => {
+        info; // $ExpectType MatchedRuleInfoDebug
+    });
+    chrome.declarativeNetRequest.onRuleMatchedDebug.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/storage
