@@ -998,7 +998,7 @@ declare namespace Desmos {
          */
         invertedColors?: boolean;
         /**
-         * Language. See the https://www.desmos.com/api/v1.6/docs/index.html#document-languages for more information.
+         * Language. See the https://www.desmos.com/api/v1.11/docs/index.html#document-languages for more information.
          * @default "en"
          */
         language?: string;
