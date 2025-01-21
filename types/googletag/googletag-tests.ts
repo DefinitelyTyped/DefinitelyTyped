@@ -752,6 +752,22 @@ function test_googletag_config_InterstitialConfig_triggers() {
 }
 
 /**
+ * Test for {@link googletag.config.PageSettingsConfig.threadYield}
+ */
+function test_googletag_config_PageSettingsConfig_threadYield() {
+    // Disable yielding.
+    googletag.setConfig({ threadYield: "DISABLED" });
+    // Enable yielding for all slots.
+    googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
+    // Enable yielding only for slots outside of the viewport (default).
+    googletag.setConfig({ threadYield: null });
+    // Deprecated option name
+    googletag.setConfig({ adYield: "DISABLED" });
+    googletag.setConfig({ adYield: "ENABLED_ALL_SLOTS" });
+    googletag.setConfig({ adYield: null });
+}
+
+/**
  * Test for {@link googletag.config.PrivacyTreatmentsConfig.treatments}
  */
 function test_googletag_config_PrivacyTreatmentsConfig_treatments() {

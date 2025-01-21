@@ -1672,6 +1672,11 @@ declare namespace googletag {
             adExpansion?: AdExpansionConfig | null;
 
             /**
+             * @deprecated Use {@link threadYield} instead. This will be removed in the near future.
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
              * Settings to control publisher provided signals (PPS).
              */
             pps?: PublisherProvidedSignalsConfig | null;
@@ -1680,6 +1685,30 @@ declare namespace googletag {
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when rendering creatives.
+             *
+             * GPT will yield only for browsers that support the Scheduler.postTask or Scheduler.yield API.
+             *
+             * Supported values:
+             * - `null` (default): GPT will yield the JS thread for slots outside of the viewport.
+             * - `ENABLED_ALL_SLOTS`: GPT will yield the JS thread for all slots regardless of whether the slot is within the viewport.
+             * - `DISABLED`: GPT will not yield the JS thread.
+             *
+             * @example
+             * ```
+             *   // Disable yielding.
+             *   googletag.setConfig({ threadYield: "DISABLED" });
+             *   // Enable yielding for all slots.
+             *   googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
+             *   // Enable yielding only for slots outside of the viewport (default).
+             *   googletag.setConfig({ threadYield: null });
+             * ```
+             *
+             * @see [Scheduler](https://developer.mozilla.org/docs/Web/API/Scheduler)
+             */
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
