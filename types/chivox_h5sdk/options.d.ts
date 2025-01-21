@@ -1,132 +1,132 @@
-import type { ChivoxCoreType } from './enum'
-import type { ChivoxPreset } from './preset'
+import type { ChivoxCoreType } from "./enum";
+import type { ChivoxPreset } from "./preset";
 
 export interface ChivoxSignature {
     /** 生成签名的时间戳字符串，单位：毫秒(ms)，长度为13 */
-    timestamp: string
+    timestamp: string;
     /**
      * 签名字符串
      * 字母小写，通过算法
      * alg(appkey + timestamp + secretKey)
      * 生成，详见签名示例
      */
-    sig: string
+    sig: string;
 }
 
 export interface ChivoxOptions {
     /** 评测模式 */
-    coreType: `${ChivoxCoreType}`
+    coreType: `${ChivoxCoreType}`;
 
     /**
      * 获取验证身份信息的接口地址
      */
-    signature: () => Promise<ChivoxSignature>
+    signature: () => Promise<ChivoxSignature>;
 
     /**
      * 单次语音评测限制时长，不能超出限制时长
      *
      * https://www.chivox.com/opendoc/#/ChineseDoc/coreCn/
      */
-    timeout?: number
+    timeout?: number;
 }
 
 /**
  * 驰声 Record 方法需要的 Options
  */
 export interface ChivoxRecordOptions {
-
     /**
      * 时长（毫秒），默认选用引擎的限制时长
      */
-    duration: number
+    duration: number;
     /**
      * 音频类型，固定为 wav，不可修改
      */
-    audioType: 'wav'
+    audioType: "wav";
 
     /**
      * 评测类型参数
      */
-    serverParams: ChivoxPreset
+    serverParams: ChivoxPreset;
 
     /**
      * 必传入，否则驰声的 JS SDK 会报错
      */
-    onStart: () => void
+    onStart: () => void;
 
     /**
      * 评测结束，打分回调
      *
      * **必传入**，否则驰声的 JS SDK 会报错
      */
-    onScore: (res: any) => void
+    onScore: (res: any) => void;
 
     /**
      * 评测中打分回调
      */
-    onInternalScore?: (res: any) => void
+    onInternalScore?: (res: any) => void;
 
     /**
      * 录音结束回调
      */
-    onStop?: () => void
+    onStop?: () => void;
 
     /**
      * 评测失败回调
      */
-    onScoreError?: (res: any) => void
+    onScoreError?: (res: any) => void;
 
     /**
      * 显示音量条
      */
-    showVolumeBar?: (res: any) => void
+    showVolumeBar?: (res: any) => void;
 }
 
-
 /** 驰声录音需要的 Options */
-export type ChivoxRecorderOptions = {
-    /**
-     * 驰声授权的appKey
-     */
-    appKey: string
-    /**
-     * 签名sig的加密类型
-     *
-     * @default "sha1"
-     *
-     * - 支持的加密类型有：
-     * - sha1
-     * - sha256
-     * - md5
-     */
-    alg?: 'sha1' | 'sha256' | 'md5'
-
-    /**
-     * 指定SDK的评分服务器地址
-     *
-     * @default "wss://cloud.chivox.com"
-     */
-    server?: string
-    onInit: (res: any) => void
-    onError: (res: any) => void
-} & RequireAtLeastOne<{
-    /**
-     * 获取验证身份信息的接口地址
-     */
-    sigurl?: string
-
-    /**
-     * 获取验证身份信息的接口地址
-     */
-    signature: () => {
-        /** 生成签名的时间戳字符串，单位：毫秒(ms)，长度为13 */
-        timestamp: string
+export type ChivoxRecorderOptions =
+    & {
         /**
-         * 签名字符串
-         * 字母小写，通过算法
-         * alg(appkey + timestamp + secretKey)
-         * 生成，详见签名示例
+         * 驰声授权的appKey
          */
-        sig: string
+        appKey: string;
+        /**
+         * 签名sig的加密类型
+         *
+         * @default "sha1"
+         *
+         * - 支持的加密类型有：
+         * - sha1
+         * - sha256
+         * - md5
+         */
+        alg?: "sha1" | "sha256" | "md5";
+
+        /**
+         * 指定SDK的评分服务器地址
+         *
+         * @default "wss://cloud.chivox.com"
+         */
+        server?: string;
+        onInit: (res: any) => void;
+        onError: (res: any) => void;
     }
-}, 'sigurl' | 'signature'>
+    & RequireAtLeastOne<{
+        /**
+         * 获取验证身份信息的接口地址
+         */
+        sigurl?: string;
+
+        /**
+         * 获取验证身份信息的接口地址
+         */
+        signature: () => {
+            /** 生成签名的时间戳字符串，单位：毫秒(ms)，长度为13 */
+            timestamp: string;
+            /**
+             * 签名字符串
+             * 字母小写，通过算法
+             * alg(appkey + timestamp + secretKey)
+             * 生成，详见签名示例
+             */
+            sig: string;
+        };
+    }, "sigurl" | "signature">;
