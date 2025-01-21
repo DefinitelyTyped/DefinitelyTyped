@@ -3602,7 +3602,7 @@ declare namespace chrome {
         /**
          * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          */
         export function getTokens(): Promise<Token[]>;
         export function getTokens(callback: (tokens: Token[]) => void): void;
@@ -3611,7 +3611,7 @@ declare namespace chrome {
          * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
          * @param tokenId The id of a Token returned by getTokens.
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          */
         export function getCertificates(tokenId: string): Promise<ArrayBuffer[]>;
         export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
@@ -3621,7 +3621,7 @@ declare namespace chrome {
          * @param tokenId The id of a Token returned by getTokens.
          * @param certificate The DER encoding of a X.509 certificate.
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          */
         export function importCertificate(tokenId: string, certificate: ArrayBuffer): Promise<void>;
         export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
@@ -3631,7 +3631,7 @@ declare namespace chrome {
          * @param tokenId The id of a Token returned by getTokens.
          * @param certificate The DER encoding of a X.509 certificate.
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          */
         export function removeCertificate(tokenId: string, certificate: ArrayBuffer): Promise<void>;
         export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
@@ -3645,7 +3645,7 @@ declare namespace chrome {
          *
          * @param options Object containing the fields defined in {@link ChallengeKeyOptions}.
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 110
          */
         export function challengeKey(options: ChallengeKeyOptions): Promise<ArrayBuffer>;
@@ -3666,7 +3666,7 @@ declare namespace chrome {
          * @param challenge A challenge as emitted by the Verified Access Web API.
          * @param registerKey If set, the current Enterprise Machine Key is registered with the `system` token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
          *
-         * Can return its result via Promise in Manifest V3 or later since Chrome 131.
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 50
          */
         export function challengeMachineKey(challenge: ArrayBuffer): Promise<ArrayBuffer>;
