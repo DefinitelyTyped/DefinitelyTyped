@@ -13,10 +13,6 @@
     },
     "owners": [
         {
-            "name": "Colin McDonnell",
-            "githubUsername": "colinhacks"
-        },
-        {
             "name": "Jarred Sumner",
             "githubUsername": "Jarred-Sumner"
         },
@@ -25,8 +21,8 @@
             "githubUsername": "electroid"
         },
         {
-            "name": "Dave Caruso",
-            "githubUsername": "paperdave"
+            "name": "Chloe Caruso",
+            "githubUsername": "paperclover"
         },
         {
             "name": "Robobun",
@@ -35,6 +31,14 @@
         {
             "name": "Dylan Conway",
             "githubUsername": "dylan-conway"
+        },
+        {
+            "name": "Meghan Denny",
+            "githubUsername": "nektro"
+        },
+        {
+            "name": "Michael H",
+            "githubUsername": "RiskyMH"
         }
     ]
 }
