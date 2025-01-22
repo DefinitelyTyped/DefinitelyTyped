@@ -1,0 +1,17 @@
+{
+    "name": "@types/enhance",
+    "version": "0.1",
+    "projects": [
+        "https://github.com/enhance-dev"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/enhance": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Gawley",
+            "githubUsername": "agawley"
+        }
+    ]
+}

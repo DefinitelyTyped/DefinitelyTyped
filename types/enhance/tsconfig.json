@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": true,
+      "strict": true,
+      "target": "es6",
+      "esModuleInterop": true,
+      "baseUrl": "../",
+      "typeRoots": ["../"]
+    },
+    "files": ["index.d.ts", "./test/enhance-tests.ts"]
+  }
