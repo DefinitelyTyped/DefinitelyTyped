@@ -2192,6 +2192,19 @@ declare namespace chrome {
             cause: string;
         }
 
+        /**
+         * Details to identify the frame.
+         * @since Chrome 132
+         */
+        export interface FrameDetails {
+            /** The unique identifier for the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID. */
+            documentId?: string;
+            /** The unique identifier for the frame within the tab. */
+            frameId?: number;
+            /* The unique identifier for the tab containing the frame. */
+            tabId?: number;
+        }
+
         export interface CookieChangedEvent extends chrome.events.Event<(changeInfo: CookieChangeInfo) => void> {}
 
         /**
@@ -2199,52 +2212,72 @@ declare namespace chrome {
          * Parameter cookieStores: All the existing cookie stores.
          */
         export function getAllCookieStores(callback: (cookieStores: CookieStore[]) => void): void;
+
         /**
          * Lists all existing cookie stores.
          * @return The `getAllCookieStores` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function getAllCookieStores(): Promise<CookieStore[]>;
+
+        /**
+         * The partition key for the frame indicated.
+         * Can return its result via Promise in Manifest V3
+         * @since Chrome 132
+         */
+        export function getPartitionKey(details: FrameDetails): Promise<{ partitionKey: CookiePartitionKey }>;
+        export function getPartitionKey(
+            details: FrameDetails,
+            callback: (details: { partitionKey: CookiePartitionKey }) => void,
+        ): void;
+
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
          * @param details Information to filter the cookies being retrieved.
          * Parameter cookies: All the existing, unexpired cookies that match the given cookie info.
          */
         export function getAll(details: GetAllDetails, callback: (cookies: Cookie[]) => void): void;
+
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first.
          * @param details Information to filter the cookies being retrieved.
          * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function getAll(details: GetAllDetails): Promise<Cookie[]>;
+
         /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
          * @param details Details about the cookie being set.
          * @return The `set` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function set(details: SetDetails): Promise<Cookie | null>;
+
         /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
          * @param details Details about the cookie being set.
          * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
          */
         export function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
+
         /**
          * Deletes a cookie by name.
          * @param details Information to identify the cookie to remove.
          * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
         export function remove(details: CookieDetails): Promise<CookieDetails>;
+
         /**
          * Deletes a cookie by name.
          * @param details Information to identify the cookie to remove.
          */
         export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
+
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          * @param details Details to identify the cookie being retrieved.
          * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
          */
         export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
+
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          * @param details Details to identify the cookie being retrieved.
@@ -10174,18 +10207,12 @@ declare namespace chrome {
              * @since Chrome 18
              */
             openerTabId?: number | undefined;
-            /**
-             * Optional.
-             * The title of the tab. This property is only present if the extension's manifest includes the "tabs" permission.
-             */
+            /** The title of the tab. This property is only present if the extension has the `tabs` permission or has host permissions for the page. */
             title?: string | undefined;
-            /**
-             * Optional.
-             * The URL the tab is displaying. This property is only present if the extension's manifest includes the "tabs" permission.
-             */
+            /** The last committed URL of the main frame of the tab. This property is only present if the extension has the `tabs` permission or has host permissions for the page. May be an empty string if the tab has not yet committed. See also {@link Tab.pendingUrl}. */
             url?: string | undefined;
             /**
-             * The URL the tab is navigating to, before it has committed.
+             * The URL the tab is navigating to, before it has committed. This property is only present if the extension has the `tabs` permission or has host permissions for the page and there is a pending navigation.The URL the tab is navigating to, before it has committed.
              * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
              * @since Chrome 79
              */
@@ -10207,11 +10234,13 @@ declare namespace chrome {
              * @since Chrome 16
              */
             active: boolean;
-            /**
-             * Optional.
-             * The URL of the tab's favicon. This property is only present if the extension's manifest includes the "tabs" permission. It may also be an empty string if the tab is loading.
-             */
+            /** The URL of the tab's favicon. This property is only present if the extension has the `tabs` permission or has host permissions for the page. It may also be an empty string if the tab is loading. */
             favIconUrl?: string | undefined;
+            /**
+             * Whether the tab is frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+             * @since Chrome 132
+             */
+            frozen: boolean;
             /**
              * Optional.
              * The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID, for example when querying foreign tabs using the sessions API, in which case a session ID may be present. Tab ID can also be set to chrome.tabs.TAB_ID_NONE for apps and devtools windows.
@@ -10508,9 +10537,9 @@ declare namespace chrome {
              * @since Chrome 18
              */
             index?: number | undefined;
-            /** Optional. Match page titles against a pattern. */
+            /** Match page titles against a pattern. This property is ignored if the extension does not have the `tabs` permission or host permissions for the page. */
             title?: string | undefined;
-            /** Optional. Match tabs against one or more URL patterns. Note that fragment identifiers are not matched. */
+            /** Match tabs against one or more URL patterns. Fragment identifiers are not matched. This property is ignored if the extension does not have the `tabs` permission or host permissions for the page. */
             url?: string | string[] | undefined;
             /**
              * Optional. Whether the tabs are in the current window.
@@ -10525,6 +10554,11 @@ declare namespace chrome {
              * @since Chrome 54
              */
             discarded?: boolean | undefined;
+            /**
+             * Whether the tabs are frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+             * @since Chrome 132
+             */
+            frozen?: boolean;
             /**
              * Optional.
              * Whether the tabs can be discarded automatically by the browser when resources are low.
@@ -10610,6 +10644,11 @@ declare namespace chrome {
              * @since Chrome 27
              */
             favIconUrl?: string | undefined;
+            /**
+             * The tab's new frozen state.
+             * @since Chrome 132
+             */
+            frozen?: boolean;
             /**
              * The tab's new title.
              * @since Chrome 48
@@ -10810,26 +10849,26 @@ declare namespace chrome {
         export function move(tabIds: number[], moveProperties: MoveProperties, callback: (tabs: Tab[]) => void): void;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
-        export function update(updateProperties: UpdateProperties): Promise<Tab>;
+        export function update(updateProperties: UpdateProperties): Promise<Tab | undefined>;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param callback Optional.
-         * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
         export function update(updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param tabId Defaults to the selected tab of the current window.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
-        export function update(tabId: number, updateProperties: UpdateProperties): Promise<Tab>;
+        export function update(tabId: number, updateProperties: UpdateProperties): Promise<Tab | undefined>;
         /**
          * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
          * @param tabId Defaults to the selected tab of the current window.
          * @param callback Optional.
-         * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the updated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page..
          */
         export function update(tabId: number, updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
         /**
@@ -10919,13 +10958,13 @@ declare namespace chrome {
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function reload(tabId: number, reloadProperties?: ReloadProperties): Promise<void>;
+        export function reload(tabId: number): Promise<void>;
         /**
          * Reload a tab.
          * @since Chrome 16
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          */
-        export function reload(tabId: number, reloadProperties?: ReloadProperties, callback?: () => void): void;
+        export function reload(tabId: number, callback?: () => void): void;
         /**
          * Reload the selected tab of the current window.
          * @since Chrome 16
@@ -10937,6 +10976,17 @@ declare namespace chrome {
          * @since Chrome 16
          */
         export function reload(reloadProperties: ReloadProperties, callback: () => void): void;
+        /**
+         * Reload the selected tab of the current window.
+         * @since Chrome 16
+         * @return The `reload` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         */
+        export function reload(tabId: number, reloadProperties: ReloadProperties): Promise<void>;
+        /**
+         * Reload the selected tab of the current window.
+         * @since Chrome 16
+         */
+        export function reload(tabId: number, reloadProperties: ReloadProperties, callback: () => void): void;
         /**
          * Reload the selected tab of the current window.
          * @since Chrome 16
@@ -10960,7 +11010,7 @@ declare namespace chrome {
          * @since Chrome 23
          * @param tabId The ID of the tab which is to be duplicated.
          * @param callback Optional.
-         * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
+         * Optional parameter tab: Details about the duplicated tab. The `url`, `pendingUrl`, `title` and `favIconUrl` properties are only included on the {@link tabs.Tab} object if the extension has the `tabs` permission or has host permissions for the page.
          */
         export function duplicate(tabId: number, callback: (tab?: Tab) => void): void;
         /**
@@ -11670,47 +11720,173 @@ declare namespace chrome {
      * Permissions: "ttsEngine"
      */
     export namespace ttsEngine {
-        export interface SpeakOptions {
-            /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string | undefined;
-            /** Optional. The name of the voice to use for synthesis. */
-            voiceName?: string | undefined;
-            /**
-             * Optional. Gender of voice for synthesized speech.
-             * One of: "male", or "female"
-             */
-            gender?: string | undefined;
-            /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-            volume?: number | undefined;
-            /**
-             * Optional.
-             * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports.
-             */
-            rate?: number | undefined;
-            /** Optional. Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch. */
-            pitch?: number | undefined;
+        /**
+         * Parameters containing an audio buffer and associated data.
+         * @since Chrome 92
+         */
+        export interface AudioBuffer {
+            /** The audio buffer from the text-to-speech engine. It should have length exactly audioStreamOptions.bufferSize and encoded as mono, at audioStreamOptions.sampleRate, and as linear pcm, 32-bit signed float i.e. the Float32Array type in javascript. */
+            audioBuffer: ArrayBuffer;
+            /** The character index associated with this audio buffer. */
+            charIndex?: number;
+            /** True if this audio buffer is the last for the text being spoken. */
+            isLastBuffer?: boolean;
+        }
+        /**
+         * Contains the audio stream format expected to be produced by an engine.
+         * @since Chrome 92
+         */
+        export interface AudioStreamOptions {
+            /** The number of samples within an audio buffer. */
+            bufferSize: number;
+            /** The sample rate expected in an audio buffer. */
+            sampleRate: number;
         }
 
-        export interface TtsEngineSpeakEvent extends
-            chrome.events.Event<
-                (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void
-            >
-        {}
+        /**
+         * The install status of a voice.
+         * @since Chrome 132
+         */
+        export enum LanguageInstallStatus {
+            FAILED = "failed",
+            INSTALLED = "installed",
+            INSTALLING = "installing",
+            NOT_INSTALLED = "notInstalled",
+        }
+
+        /**
+         * Install status of a language.
+         * @since Chrome 132
+         */
+        export interface LanguageStatus {
+            /** Detail about installation failures. Optionally populated if the language failed to install. */
+            error?: string;
+            /** Installation status. */
+            installStatus: `${LanguageInstallStatus}`;
+            /** Language string in the form of language code-region code, where the region may be omitted. Examples are en, en-AU, zh-CH. */
+            lang: string;
+        }
+
+        /**
+         * Options for uninstalling a given language.
+         * @since Chrome 132
+         */
+        export interface LanguageUninstallOptions {
+            /** True if the TTS client wants the language to be immediately uninstalled. The engine may choose whether or when to uninstall the language, based on this parameter and the requestor information. If false, it may use other criteria, such as recent usage, to determine when to uninstall. */
+            uninstallImmediately: boolean;
+        }
+
+        /**
+         * Options specified to the tts.speak() method.
+         * @since Chrome 92
+         */
+        export interface SpeakOptions {
+            /** The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+            lang?: string;
+            /** The name of the voice to use for synthesis. */
+            voiceName?: string;
+            /**
+             * Gender of voice for synthesized speech.
+             * @deprecated Gender is deprecated since Chrome 92 and will be ignored.
+             */
+            gender?: `${VoiceGender}`;
+            /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
+            volume?: number;
+            /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports. */
+            rate?: number;
+            /** Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch. */
+            pitch?: number;
+        }
+
+        /**
+         * Identifier for the client requesting status.
+         * @since Chrome 131
+         */
+        export interface TtsClient {
+            /** Client making a language management request. For an extension, this is the unique extension ID. For Chrome features, this is the human-readable name of the feature. */
+            id: string;
+            /** Type of requestor. */
+            source: `${TtsClientSource}`;
+        }
+
+        /**
+         * Type of requestor.
+         * @since Chrome 131
+         */
+        export enum TtsClientSource {
+            CHROMEFEATURE = "chromefeature",
+            EXTENSION = "extension",
+        }
+
+        /**
+         * @since Chrome 54
+         * @deprecated Gender is deprecated and will be ignored.
+         */
+        export enum VoiceGender {
+            MALE = "male",
+            FEMALE = "female",
+        }
+
+        /**
+         * Called by an engine when a language install is attempted, and when a language is uninstalled. Also called in response to a status request from a client. When a voice is installed or uninstalled, the engine should also call ttsEngine.updateVoices to register the voice.
+         * @since Chrome 132
+         */
+        export function updateLanguage(status: LanguageStatus): void;
+
+        /**
+         * Called by an engine to update its list of voices. This list overrides any voices declared in this extension's manifest.
+         * @since Chrome 66
+         */
+        export function updateVoices(voices: tts.TtsVoice[]): void;
+
+        /**
+         * Fired when a TTS client requests to install a new language. The engine should attempt to download and install the language, and call ttsEngine.updateLanguage with the result. On success, the engine should also call ttsEngine.updateVoices to register the newly available voices.
+         * @since Chrome 131
+         */
+        export const onInstallLanguageRequest: chrome.events.Event<(requestor: TtsClient, lang: string) => void>;
+
+        /**
+         * Fired when a TTS client requests the install status of a language.
+         * @since Chrome 132
+         */
+        export const onLanguageStatusRequest: chrome.events.Event<(requestor: TtsClient, lang: string) => void>;
+
+        /** Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state. */
+        export const onPause: chrome.events.Event<() => void>;
+
+        /** Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state. */
+        export const onResume: chrome.events.Event<() => void>;
 
         /** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
-        export var onSpeak: TtsEngineSpeakEvent;
+        export const onSpeak: chrome.events.Event<
+            (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void
+        >;
+
+        /**
+         * Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. Differs from ttsEngine.onSpeak in that Chrome provides audio playback services and handles dispatching tts events.
+         * @since Chrome 92
+         */
+
+        export const onSpeakWithAudioStream: chrome.events.Event<
+            (
+                utterance: string,
+                options: SpeakOptions,
+                audioStreamOptions: AudioStreamOptions,
+                sendTtsAudio: (audioBufferParams: AudioBuffer) => void,
+                sendError: (errorMessage?: string) => void,
+            ) => void
+        >;
+
         /** Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state. */
-        export var onStop: chrome.events.Event<() => void>;
+        export const onStop: chrome.events.Event<() => void>;
+
         /**
-         * Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state.
-         * @since Chrome 29
+         * Fired when a TTS client indicates a language is no longer needed.
+         * @since Chrome 132
          */
-        export var onPause: chrome.events.Event<() => void>;
-        /**
-         * Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state.
-         * @since Chrome 29
-         */
-        export var onResume: chrome.events.Event<() => void>;
+        export const onUninstallLanguageRequest: chrome.events.Event<
+            (requestor: TtsClient, lang: string, uninstallOptions: LanguageUninstallOptions) => void
+        >;
     }
 
     ////////////////////
@@ -13329,6 +13505,18 @@ declare namespace chrome {
              * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
              */
             resourceTypes?: ResourceType[] | undefined;
+
+            /**
+             * Rule does not match if the request matches any response header condition in this list (if specified). If both `excludedResponseHeaders` and `responseHeaders` are specified, then the `excludedResponseHeaders` property takes precedence.
+             * @since Chrome 128
+             */
+            excludedResponseHeaders?: HeaderInfo[];
+
+            /**
+             * Rule matches if the request matches any response header condition in this list (if specified).
+             * @since Chrome 128
+             */
+            responseHeaders?: HeaderInfo[];
         }
 
         export interface MatchedRule {
@@ -13361,6 +13549,24 @@ declare namespace chrome {
              * Matches rules not associated with any active tab if set to -1.
              */
             tabId?: number | undefined;
+        }
+
+        /** @since Chrome 128 */
+        export interface HeaderInfo {
+            /** If specified, this condition is not matched if the header exists but its value contains at least one element in this list. This uses the same match pattern syntax as `values`. */
+            excludedValues?: string[];
+            /** The name of the header. This condition matches on the name only if both `values` and `excludedValues` are not specified. */
+            header: string;
+            /**
+             * If specified, this condition matches if the header's value matches at least one pattern in this list. This supports case-insensitive header value matching plus the following constructs:
+             *
+             * **'\*'** : Matches any number of characters.
+             *
+             * **'?'** : Matches zero or one character(s).
+             *
+             * **'\*'** and **'?'** can be escaped with a backslash, e.g. **'\\\*'** and **'\\?'**
+             */
+            values?: string[];
         }
 
         export interface ModifyHeaderInfo {
