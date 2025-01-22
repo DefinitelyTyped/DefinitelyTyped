@@ -28,12 +28,18 @@ export type BBox = [number, number, number, number] | [number, number, number, n
  * The previous GeoJSON specification allowed more elements (e.g., which could be used to represent M values),
  * but the current specification only allows X, Y, and (optionally) Z to be defined.
  *
- * Note: the type will not be narrowed down to `[number, number] | [number, number, number]` due to marginal benefits and the large impact of breaking change.
+ * Note: the type will not be narrowed down to `[number, number] | [number, number, number]` due to
+ * marginal benefits and the large impact of breaking change.
+ *
+ * See previous discussions on the type narrowing:
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/pull/21590|Nov 2017}
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67773|Dec 2023}
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/71441| Dec 2024}
+ *
+ * One can use a
+ * {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates|user-defined type guard that returns a type predicate}
+ * to determine if a position is a 2D or 3D position.
  */
-// See previous discussions on the type narrowing:
-// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/21590 (Nov 2017)
-// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67773 (Dec 2023)
-// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/71441 (Dec 2024)
 export type Position = number[];
 
 /**
