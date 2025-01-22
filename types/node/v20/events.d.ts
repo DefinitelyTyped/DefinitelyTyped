@@ -103,26 +103,25 @@ declare module "events" {
     interface EventEmitter<Events extends EventMap<Events> = {}> extends NodeJS.EventEmitter<Events> {}
     type EventMap<Events> = Record<keyof Events, unknown[]>;
     type Args<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ? (
-        | Events[EventName]
-        | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-            ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
-            : never)
+            | Events[EventName]
+            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
+                : never)
         )
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
             : any[]);
-            type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
-            : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
-    type EventNameParam<Events extends EventMap<Events>, EventName> = {} extends Events ? string | symbol : EventName | EventNames<Events>;
-    type Listener<Events extends EventMap<Events>, EventName> = {} extends Events ? ((...args: any[]) => void) | ((...args: never) => void): (EventName extends keyof Events ?
-            | ((...args: Events[EventName]) => void)
-            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-                ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
-                : never)
-        : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-            ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
-            : ((...args: any[]) => void))
-);
+    type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
+        : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
+    type EventNameParam<Events extends EventMap<Events>, EventName> = {} extends Events ? string | symbol
+        : EventName | EventNames<Events>;
+    type Listener<Events extends EventMap<Events>, EventName> = {} extends Events ? ((...args: any[]) => void)
+        : (EventName extends (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap) ?
+                | (EventName extends keyof Events ? ((...args: Events[EventName]) => void) : never)
+                | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                    ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
+                    : never)
+            : ((...args: any[]) => void));
     /**
      * The `EventEmitter` class is defined and exposed by the `node:events` module:
      *
@@ -600,10 +599,17 @@ declare module "events" {
             readonly asyncResource: EventEmitterReferencingAsyncResource;
         }
 
+        /** The events always emitted by EventEmitter itself */
         export interface EventEmitterBuiltInEventMap {
             newListener: [eventName: string | symbol, listener: Function];
             removeListener: [eventName: string | symbol, listener: Function];
         }
+
+        /** Helper type for building functions that take a listener as a paramater when working with event maps */
+        export type EventEmitterEventMapListener<Events extends EventMap<Events>, EventName> = Listener<
+            Events,
+            EventName
+        >;
     }
     global {
         namespace NodeJS {
