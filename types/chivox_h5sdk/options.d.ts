@@ -1,13 +1,13 @@
-import type { ChivoxCoreTypeEnum } from './enum';
-import type { ChivoxPreset } from './preset';
+import type { ChivoxCoreTypeEnum } from "./enum";
+import type { ChivoxPreset } from "./preset";
 
-export { };
+export {};
 
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
     & Omit<T, Keys>
     & {
         [K in Keys]-?: Required<Pick<T, K>> & Partial<Omit<T, K>>;
-    }[Keys]
+    }[Keys];
 
 export interface ChivoxSignature {
     /** 生成签名的时间戳字符串，单位：毫秒(ms)，长度为13 */
@@ -144,10 +144,10 @@ export type ChivoxRecorderOptions =
          *
          * @param res 错误信息
          */
-        onError: (res: { id: number, message: string }) => void;
+        onError: (res: { id: number; message: string }) => void;
 
         /**
-         *连接状态变化时的回调函数
+         * 连接状态变化时的回调函数
          *
          * @param code 50100: 已连接，50101: 连接失败，50109: 连接中
          * @returns
