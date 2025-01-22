@@ -1,5 +1,5 @@
 {
-	"rules": {
-		"@definitelytyped/no-type-only-packages": "off"
-	}
+    "rules": {
+        "@definitelytyped/no-type-only-packages": "off"
+    }
 }

@@ -1,5 +1,5 @@
 {
-     "compilerOptions": {
+    "compilerOptions": {
         "module": "node16",
         "lib": [
             "es6"
@@ -13,4 +13,4 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "enhance__enhance-tests.ts"]
-  }
+}
