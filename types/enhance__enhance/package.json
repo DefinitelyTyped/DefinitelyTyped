@@ -1,0 +1,19 @@
+{
+    "name": "@types/enhance__enhance",
+    "private": true,
+    "version": "2.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/enhance-dev"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/enhance__enhance": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Gawley",
+            "githubUsername": "agawley"
+        }
+    ]
+}
