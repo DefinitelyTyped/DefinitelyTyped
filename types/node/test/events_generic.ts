@@ -157,10 +157,7 @@ declare const event5: "event5";
 }
 
 {
-    type Listener<K> = K extends keyof T ? (
-            (...args: T[K]) => void
-        )
-        : never;
+    type Listener<K> = events.EventEmitterEventMapListener<T, K>;
 
     function on1<K extends keyof T>(event: K, listener: Listener<K>): void {
         emitter.on(event, listener);
@@ -325,22 +322,24 @@ declare const event5: "event5";
 
     class Test extends events.EventEmitter {
         // The union was only uncallable when an instance method exists.
-        test() { return true; }
+        test() {
+            return true;
+        }
     }
-    
+
     class Test2 extends events.EventEmitter {}
 
-    const emitter = {} as Test | Test2
-    emitter.addListener('error', onError);
+    const emitter = {} as Test | Test2;
+    emitter.addListener("error", onError);
     emitter.on("error", onError);
-    emitter.off('error', onError);
-    emitter.once('error', onError);
-    emitter.prependListener('error', onError);
-    emitter.prependOnceListener('error', onError);
-    emitter.removeListener('error', onError);
+    emitter.off("error", onError);
+    emitter.once("error", onError);
+    emitter.prependListener("error", onError);
+    emitter.prependOnceListener("error", onError);
+    emitter.removeListener("error", onError);
 }
 
 interface Implementing extends events.EventEmitter {}
-declare class Implementing implements events.EventEmitter {        
-    addListener(eventName: 'event', listener: (arg: boolean) => void): this;
+declare class Implementing implements events.EventEmitter {
+    addListener(eventName: "event", listener: (arg: boolean) => void): this;
 }
