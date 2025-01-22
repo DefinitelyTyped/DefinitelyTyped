@@ -1,9 +1,9 @@
-import type { ChivoxCoreType } from "./enum";
+import type { ChivoxCoreTypeEnum } from "./enum";
 
 /** 驰声 - 评测预设 */
 export interface BaseChivoxPreset {
     /** 评测类型 */
-    coreType: `${ChivoxCoreType}`;
+    coreType: `${ChivoxCoreTypeEnum}`;
 
     /**
      *  评测文本
@@ -22,8 +22,15 @@ export interface BaseChivoxPreset {
      * - 1: 返回
      */
     attachAudioUrl?: 1 | 0;
-}
 
+    /**
+     * 评分超时计时器（毫秒）
+     * 当在 SDK 设置时间（默认 60s）未返回录音结果 表示录音评分超时，SDK主动断开连接并返回评分超时错误
+     *
+     * @default 60000
+     */
+    coreTimeout?: number;
+}
 /**
  * 中文 - 段落 预设类型
  */

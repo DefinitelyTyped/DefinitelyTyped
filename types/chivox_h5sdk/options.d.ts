@@ -1,5 +1,13 @@
-import type { ChivoxCoreType } from "./enum";
-import type { ChivoxPreset } from "./preset";
+import type { ChivoxCoreTypeEnum } from './enum';
+import type { ChivoxPreset } from './preset';
+
+export { };
+
+type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
+    & Omit<T, Keys>
+    & {
+        [K in Keys]-?: Required<Pick<T, K>> & Partial<Omit<T, K>>;
+    }[Keys]
 
 export interface ChivoxSignature {
     /** 生成签名的时间戳字符串，单位：毫秒(ms)，长度为13 */
@@ -15,7 +23,7 @@ export interface ChivoxSignature {
 
 export interface ChivoxOptions {
     /** 评测模式 */
-    coreType: `${ChivoxCoreType}`;
+    coreType: `${ChivoxCoreTypeEnum}`;
 
     /**
      * 获取验证身份信息的接口地址
@@ -38,6 +46,14 @@ export interface ChivoxRecordOptions {
      * 时长（毫秒），默认选用引擎的限制时长
      */
     duration: number;
+
+    /**
+     * 录音前是否播放 "ding" 声
+     *
+     * @default true
+     */
+    playDing?: boolean;
+
     /**
      * 音频类型，固定为 wav，不可修改
      */
@@ -49,16 +65,19 @@ export interface ChivoxRecordOptions {
     serverParams: ChivoxPreset;
 
     /**
+     * 开始录音后生成 recordId 后的 Callback
+     */
+    onRecordIdGenerated?: (tokenId: string) => void;
+
+    /**
      * 必传入，否则驰声的 JS SDK 会报错
      */
     onStart: () => void;
 
     /**
-     * 评测结束，打分回调
-     *
-     * **必传入**，否则驰声的 JS SDK 会报错
+     * 录音结束回调
      */
-    onScore: (res: any) => void;
+    onStop?: () => void;
 
     /**
      * 评测中打分回调
@@ -66,9 +85,11 @@ export interface ChivoxRecordOptions {
     onInternalScore?: (res: any) => void;
 
     /**
-     * 录音结束回调
+     * 评测结束，打分回调
+     *
+     * **必传入**，否则驰声的 JS SDK 会报错
      */
-    onStop?: () => void;
+    onScore: (res: any) => void;
 
     /**
      * 评测失败回调
@@ -106,8 +127,32 @@ export type ChivoxRecorderOptions =
          * @default "wss://cloud.chivox.com"
          */
         server?: string;
-        onInit: (res: any) => void;
-        onError: (res: any) => void;
+
+        recordId?: string;
+
+        micWatch?: boolean;
+
+        /**
+         * 初始化成功时
+         *
+         * @param message 'success'
+         */
+        onInit: (message: string) => void;
+
+        /**
+         * 初始化失败时
+         *
+         * @param res 错误信息
+         */
+        onError: (res: { id: number, message: string }) => void;
+
+        /**
+         *连接状态变化时的回调函数
+         *
+         * @param code 50100: 已连接，50101: 连接失败，50109: 连接中
+         * @returns
+         */
+        onConnectorStatusChange?: (code: 50101 | 50109 | 50100) => void;
     }
     & RequireAtLeastOne<{
         /**
