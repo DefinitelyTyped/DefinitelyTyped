@@ -62,7 +62,7 @@ export interface SelectorData {
 }
 
 export interface SingularReaderSelector {
-    readonly kind: string;
+    readonly kind: "SingularReaderSelector";
     readonly dataID: DataID;
     readonly isWithinUnmatchedTypeRefinement: boolean;
     readonly node: ReaderFragment;
@@ -73,7 +73,7 @@ export interface SingularReaderSelector {
 export type ReaderSelector = SingularReaderSelector | PluralReaderSelector;
 
 export interface PluralReaderSelector {
-    readonly kind: string;
+    readonly kind: "PluralReaderSelector";
     readonly selectors: readonly SingularReaderSelector[];
 }
 
