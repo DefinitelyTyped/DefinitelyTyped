@@ -7,7 +7,7 @@ import type {
     EnhanceHtmlFn,
     EnhancePageFn,
     EnhancePreflightFn,
-} from "enhance";
+} from "@enhance/enhance";
 
 // Preflight
 export const preflight: EnhancePreflightFn = function(req) {
