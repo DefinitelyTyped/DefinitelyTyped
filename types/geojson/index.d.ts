@@ -39,6 +39,28 @@ export type BBox = [number, number, number, number] | [number, number, number, n
  * One can use a
  * {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates|user-defined type guard that returns a type predicate}
  * to determine if a position is a 2D or 3D position.
+ *
+ * @example
+ * import type { Position } from 'geojson';
+ *
+ * type StrictPosition = [x: number, y: number] | [x: number, y: number, z: number]
+ *
+ * function isStrictPosition(position: Position): position is StrictPosition {
+ *   return position.length === 2 || position.length === 3
+ * };
+ *
+ * let position: Position = [-116.91, 45.54];
+ *
+ * let x: number;
+ * let y: number;
+ * let z: number | undefined;
+ *
+ * if (isStrictPosition(position)) {
+ *   // `tsc` would throw an error if we tried to destructure a fourth parameter
+ * 	 [x, y, z] = position;
+ * } else {
+ * 	 throw new TypeError("Position is not a 2D or 3D point");
+ * }
  */
 export type Position = number[];
 
