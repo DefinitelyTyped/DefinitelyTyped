@@ -78,6 +78,14 @@ declare module "node:sqlite" {
          * @default false
          */
         readOnly?: boolean | undefined;
+        /**
+         * If `true`, the `loadExtension` SQL function
+         * and the `loadExtension()` method are enabled.
+         * You can call `enableLoadExtension(false)` later to disable this feature.
+         * @since v22.13.0
+         * @default false
+         */
+        allowExtension?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -155,6 +163,22 @@ declare module "node:sqlite" {
          * @since v22.5.0
          */
         close(): void;
+        /**
+         * Loads a shared library into the database connection. This method is a wrapper
+         * around [`sqlite3_load_extension()`](https://www.sqlite.org/c3ref/load_extension.html). It is required to enable the
+         * `allowExtension` option when constructing the `DatabaseSync` instance.
+         * @since v22.13.0
+         * @param path The path to the shared library to load.
+         */
+        loadExtension(path: string): void;
+        /**
+         * Enables or disables the `loadExtension` SQL function, and the `loadExtension()`
+         * method. When `allowExtension` is `false` when constructing, you cannot enable
+         * loading extensions for security reasons.
+         * @since v22.13.0
+         * @param allow Whether to allow loading extensions.
+         */
+        enableLoadExtension(allow: boolean): void;
         /**
          * This method allows one or more SQL statements to be executed without returning
          * any results. This method is useful when executing SQL statements read from a

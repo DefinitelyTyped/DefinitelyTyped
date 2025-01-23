@@ -43,6 +43,12 @@ import { TextEncoder } from "node:util";
 }
 
 {
+    const database = new DatabaseSync(":memory:", { allowExtension: true });
+    database.loadExtension("/path/to/extension.so");
+    database.enableLoadExtension(false);
+}
+
+{
     let statement!: StatementSync;
     statement.expandedSQL; // $ExpectType string
     statement.sourceSQL; // $ExpectType string
