@@ -11,10 +11,10 @@
     "bugs": {
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
-    "packageManager": "pnpm@8.15.1",
+    "packageManager": "pnpm@9.14.4",
     "engines": {
-        "pnpm": ">=8.9.2",
-        "node": ">=7.8.0"
+        "pnpm": ">=9.14.4",
+        "node": ">=18.12"
     },
     "scripts": {
         "preinstall": "npx only-allow pnpm",

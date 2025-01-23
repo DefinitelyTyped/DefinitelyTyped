@@ -13,6 +13,9 @@ app.listen(3000);
 app.listen(3000, () => {
     // no-op error callback
 });
+app.listen(3000, (error) => {
+    error; // $ExpectType Error | undefined
+});
 
 app.get("/:foo", req => {
     req.params.foo; // $ExpectType string
@@ -75,6 +78,23 @@ app.route("/:foo/:bar").get<{ foo: string; bar: number }>(req => {
 app.get("/:foo/:bar?", req => {
     req.params.foo; // $ExpectType string
     req.params.bar; // $ExpectType string | undefined
+});
+
+// Express 5.0: Optional params
+app.get("/:foo/{:bar}", req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+});
+app.get("/:foo/{:bar/:baz}", req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+    req.params.baz; // $ExpectType string | undefined
+});
+app.get(`/app/:foo{/:bar}/:baz{/:qux}`, req => {
+    req.params.foo; // $ExpectType string
+    req.params.bar; // $ExpectType string | undefined
+    req.params.baz; // $ExpectType string
+    req.params.qux; // $ExpectType string | undefined
 });
 
 // Different delimiters

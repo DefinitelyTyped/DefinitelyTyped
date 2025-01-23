@@ -42,6 +42,7 @@ declare class NodeMaterial extends Material {
 
     fog: boolean;
     lights: boolean;
+    hardwareClipping: boolean;
 
     lightsNode: LightsNode | null;
     envNode: Node | null;
@@ -58,8 +59,9 @@ declare class NodeMaterial extends Material {
     geometryNode: Node | null;
 
     depthNode: Node | null;
-    shadowNode: Node | null;
     shadowPositionNode: Node | null;
+    receivedShadowNode: Node | null;
+    castShadowNode: Node | null;
 
     outputNode: Node | null;
     mrtNode: MRTNode | null;
@@ -72,7 +74,11 @@ declare class NodeMaterial extends Material {
     build(builder: NodeBuilder): void;
     setup(builder: NodeBuilder): void;
     setupClipping(builder: NodeBuilder): ClippingNode | null;
+    setupHardwareClipping(builder: NodeBuilder): void;
     setupDepth(builder: NodeBuilder): void;
+    setupPositionView(): Node;
+    setupModelViewProjection(): Node;
+    setupVertex(builder: NodeBuilder): Node;
     setupPosition(builder: NodeBuilder): Node;
     setupDiffuseColor(builder: NodeBuilder): void;
     setupVariants(builder: NodeBuilder): void;

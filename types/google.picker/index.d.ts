@@ -236,7 +236,7 @@ declare namespace google {
             /**
              * A type representing the action taken by the user to dismiss the dialog.
              */
-            [Response.ACTION]: Action;
+            [Response.ACTION]: Action | string;
             /**
              * An array of `DocumentObject`s selected by the user.
              */
@@ -527,6 +527,8 @@ declare namespace google {
              * to
              * {@link https://developers.google.com/drive/v3/web/enable-shareddrives |
              * GoogleDrive API documentation for enabling shared drives}.
+             *
+             * If `true`, only shared drives are included in the view.
              */
             setEnableDrives(enabled: boolean): DocsView;
 
@@ -534,6 +536,15 @@ declare namespace google {
              *  Sets the initial parent folder to display.
              */
             setParent(parentId: string): View;
+
+            /**
+             * Sets the file IDs included in the view.
+             *
+             * @param fileIds A string of file IDs. Use commas to separate file IDs if
+             * setting more than one. If you include the file ID of a file that the
+             * user doesn't have access to, the file is excluded from the view.
+             */
+            setFileIds(fileIds: string): DocsView;
         }
 
         /**
@@ -667,8 +678,6 @@ declare namespace google {
             CANCEL = "cancel",
             /** User has chosen at least one item. */
             PICKED = "picked",
-            /** The Google Picker dialog has finished loading. */
-            LOADED = "loaded",
             /** The Google Picker dialog has encountered an error. */
             ERROR = "error",
         }

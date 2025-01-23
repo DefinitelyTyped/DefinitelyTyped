@@ -33,3 +33,16 @@ Liferay.Util.openToast({
 
 Liferay.Service("/user/get-current-user-id"); // $ExpectType Promise<unknown>
 Liferay.Loader.require("some-module"); // $ExpectType void
+
+Liferay.OAuth2.getAuthorizeURL(); // $ExpectType string
+Liferay.OAuth2.getBuiltInRedirectURL(); // $ExpectType string
+Liferay.OAuth2.getTokenURL(); // $ExpectType string
+Liferay.OAuth2.getUserAgentApplication("reference-code"); // $ExpectType UserAgentApplication
+
+// $ExpectType LiferayOAuth2Client
+Liferay.OAuth2Client.FromParameters({
+    clientId: "client-id",
+    homePageURL: "home-page-url",
+});
+Liferay.OAuth2Client.FromUserAgentApplication("reference-code"); // $ExpectType LiferayOAuth2Client
+Liferay.OAuth2Client.fetch("/user/get-current-user-id"); // $ExpectType Promise<any>

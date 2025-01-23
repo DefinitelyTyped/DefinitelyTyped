@@ -1,9 +1,9 @@
-import { BoxPlotData, BoxPlotMarker } from "./lib/traces/box";
-import { CandlestickData } from "./lib/traces/candlestick";
-import { OhlcData } from "./lib/traces/ohlc";
-import { PieData } from "./lib/traces/pie";
-import { SankeyData } from "./lib/traces/sankey";
-import { ViolinData } from "./lib/traces/violin";
+import { BoxPlotData, BoxPlotMarker } from "./lib/box";
+import { CandlestickData } from "./lib/candlestick";
+import { OhlcData } from "./lib/ohlc";
+import { PieData } from "./lib/pie";
+import { SankeyData } from "./lib/sankey";
+import { ViolinData } from "./lib/violin";
 
 export as namespace Plotly;
 export { BoxPlotData, CandlestickData, OhlcData, PieData, SankeyData, ViolinData };
@@ -472,7 +472,19 @@ export interface Layout {
     subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
-    dragmode: "zoom" | "pan" | "select" | "lasso" | "orbit" | "turntable" | false;
+    dragmode:
+        | "zoom"
+        | "pan"
+        | "select"
+        | "lasso"
+        | "drawclosedpath"
+        | "drawopenpath"
+        | "drawline"
+        | "drawrect"
+        | "drawcircle"
+        | "orbit"
+        | "turntable"
+        | false;
     orientation: number;
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
@@ -1948,7 +1960,7 @@ export interface Label {
 
 export interface LegendTitle {
     font: Partial<Font>;
-    side: "top" | "left" | "top left";
+    side: "top" | "left" | "top left" | "top center" | "top right";
     text: string;
 }
 
@@ -2718,8 +2730,9 @@ interface TraceModule {
     moduleType: "trace";
     name: string;
     categories: string[];
-    meta: Record<string, unknown>;
-    [key: string]: unknown;
+    meta: {
+        description: string;
+    };
 }
 
 interface LocaleModule {
@@ -2741,7 +2754,6 @@ interface TransformModule {
 interface ComponentModule {
     moduleType: "component";
     name: string;
-    [key: string]: unknown;
 }
 
 interface ApiMethodModule {

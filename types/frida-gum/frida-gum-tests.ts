@@ -172,6 +172,10 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
 // $ExpectType Module
 Process.mainModule;
 
+const art = Process.getModuleByName("libart.so");
+// $ExpectType NativePointer
+art.getSymbolByName("ExecuteNterpImpl");
+
 // $ExpectType ApiResolver
 const resolver = new ApiResolver("swift");
 

@@ -15,10 +15,11 @@ function testOne(): void {
 function testTwo(): void {
     const iframe: HTMLIFrameElement = document.createElement("iframe");
     const components: iframeResizer.IFrameComponent[] = iframeResizer({
-        initCallback: () => {
+        warningTimeout: 1000,
+        onInit: () => {
             console.log("Init");
         },
-        closedCallback: () => {
+        onClosed: () => {
             console.log("Closed");
         },
     }, iframe);
@@ -47,10 +48,11 @@ function testOneRequire(): void {
 function testTwoRequire(): void {
     const iframe: HTMLIFrameElement = document.createElement("iframe");
     const components: ifr.IFrameComponent[] = ifr({
-        initCallback: () => {
+        warningTimeout: 1000,
+        onInit: () => {
             console.log("Init");
         },
-        closedCallback: () => {
+        onClosed: () => {
             console.log("Closed");
         },
     }, iframe);

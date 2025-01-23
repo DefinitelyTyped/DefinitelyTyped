@@ -242,3 +242,6 @@ MessageBox.alert("Hello World", { contentWidth: "100px" });
 
 // 1.130
 link.hasLabelableHTMLElement();
+
+// 1.131.1
+const preventDefault: boolean = oUploadDialog.fireBeforeOpen();

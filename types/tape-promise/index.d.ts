@@ -6,9 +6,16 @@ export interface TestCase {
     (test: Test): void | PromiseLike<void>;
 }
 
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface Test extends tape.Test {
     test(name: string, cb: TestCase): void;
     test(name: string, opts: TestOptions, cb: TestCase): void;
+    test(
+        name: string,
+        opts: WithRequired<TestOptions, "skip"> | WithRequired<TestOptions, "todo">,
+        cb?: tape.TestCase,
+    ): void;
 
     /**
      * Assert that the promise settles with a rejection result.

@@ -47,12 +47,14 @@ export * from "./tsl/TSLBase.js";
 
 // accessors
 export * from "./accessors/AccessorsUtils.js";
+export * from "./accessors/Arrays.js";
 export * from "./accessors/BatchNode.js";
 export * from "./accessors/Bitangent.js";
 export * from "./accessors/BufferAttributeNode.js";
 export * from "./accessors/BufferNode.js";
 export * from "./accessors/Camera.js";
 export * from "./accessors/CubeTextureNode.js";
+export * from "./accessors/InstancedMeshNode.js";
 export * from "./accessors/InstanceNode.js";
 export * from "./accessors/MaterialNode.js";
 export * from "./accessors/MaterialProperties.js";
@@ -83,7 +85,7 @@ export * from "./accessors/VelocityNode.js";
 export * from "./accessors/VertexColorNode.js";
 
 // display
-export * from "./display/BlendMode.js";
+export * from "./display/BlendModes.js";
 export * from "./display/BumpMapNode.js";
 export * from "./display/ColorAdjustment.js";
 export * from "./display/ColorSpaceNode.js";
@@ -113,21 +115,24 @@ export * from "./code/ScriptableNode.js";
 export * from "./code/ScriptableValueNode.js";
 
 // fog
-export * from "./fog/FogExp2Node.js";
-export * from "./fog/FogNode.js";
-export * from "./fog/FogRangeNode.js";
+export * from "./fog/Fog.js";
 
 // geometry
 export * from "./geometry/RangeNode.js";
 
 // gpgpu
+export * from "./gpgpu/AtomicFunctionNode.js";
+export * from "./gpgpu/BarrierNode.js";
+export * from "./gpgpu/ComputeBuiltinNode.js";
 export * from "./gpgpu/ComputeNode.js";
+export * from "./gpgpu/WorkgroupInfoNode.js";
 
 // lighting
+export * from "./accessors/Lights.js";
 export * from "./lighting/LightingContextNode.js";
-export * from "./lighting/LightNode.js";
 export * from "./lighting/LightsNode.js";
 export * from "./lighting/PointLightNode.js";
+export * from "./lighting/ShadowBaseNode.js";
 export * from "./lighting/ShadowNode.js";
 
 // pmrem

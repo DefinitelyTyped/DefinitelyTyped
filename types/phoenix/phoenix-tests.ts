@@ -43,6 +43,8 @@ function test_socket() {
         console.log("Message on socket");
     });
 
+    socket.ping((latency: number) => console.log("latency", latency));
+
     socket.off([openRef, closeRef, errorRef, messageRef]);
 }
 

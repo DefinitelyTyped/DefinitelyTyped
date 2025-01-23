@@ -187,18 +187,16 @@ export interface FormSubmission {
     submitter?: HTMLButtonElement | HTMLInputElement;
 }
 export type FormSubmissionResult =
-    | { success: boolean; fetchResponse: FetchResponse }
-    | { success: false; error: Error };
+    & { formSubmission: FormSubmission }
+    & (
+        | { success: true; error: undefined; fetchResponse: FetchResponse }
+        | { success: false; error?: Error; fetchResponse?: FetchResponse }
+    );
 
 export type TurboSubmitStartEvent = CustomEvent<{
     formSubmission: FormSubmission;
 }>;
-export type TurboSubmitEndEvent = CustomEvent<
-    & { formSubmission: FormSubmission }
-    & {
-        [K in keyof FormSubmissionResult]?: FormSubmissionResult[K];
-    }
->;
+export type TurboSubmitEndEvent = CustomEvent<FormSubmissionResult>;
 
 export type TurboFrameMissingEvent = CustomEvent<{
     response: Response;

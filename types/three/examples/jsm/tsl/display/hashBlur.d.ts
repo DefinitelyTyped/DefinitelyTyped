@@ -1,4 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node } from "three/webgpu";
 
 export const hashBlur: (
     textureNode: NodeRepresentation,

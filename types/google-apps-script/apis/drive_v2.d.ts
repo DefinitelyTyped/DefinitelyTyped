@@ -5,7 +5,7 @@ declare namespace GoogleAppsScript {
                 // Gets the information about the current user along with Drive API settings
                 get(): Drive.Schema.About;
                 // Gets the information about the current user along with Drive API settings
-                get(optionalArgs: object): Drive.Schema.About;
+                get(optionalArgs: Record<string, any>): Drive.Schema.About;
             }
             interface AppsCollection {
                 // Gets a specific app.
@@ -13,25 +13,25 @@ declare namespace GoogleAppsScript {
                 // Lists a user's installed apps.
                 list(): Drive.Schema.AppList;
                 // Lists a user's installed apps.
-                list(optionalArgs: object): Drive.Schema.AppList;
+                list(optionalArgs: Record<string, any>): Drive.Schema.AppList;
             }
             interface ChangesCollection {
                 // Deprecated - Use changes.getStartPageToken and changes.list to retrieve recent changes.
                 get(changeId: string): Drive.Schema.Change;
                 // Deprecated - Use changes.getStartPageToken and changes.list to retrieve recent changes.
-                get(changeId: string, optionalArgs: object): Drive.Schema.Change;
+                get(changeId: string, optionalArgs: Record<string, any>): Drive.Schema.Change;
                 // Gets the starting pageToken for listing future changes.
                 getStartPageToken(): Drive.Schema.StartPageToken;
                 // Gets the starting pageToken for listing future changes.
-                getStartPageToken(optionalArgs: object): Drive.Schema.StartPageToken;
+                getStartPageToken(optionalArgs: Record<string, any>): Drive.Schema.StartPageToken;
                 // Lists the changes for a user or Team Drive.
                 list(): Drive.Schema.ChangeList;
                 // Lists the changes for a user or Team Drive.
-                list(optionalArgs: object): Drive.Schema.ChangeList;
+                list(optionalArgs: Record<string, any>): Drive.Schema.ChangeList;
                 // Subscribe to changes for a user.
                 watch(resource: Schema.Channel): Drive.Schema.Channel;
                 // Subscribe to changes for a user.
-                watch(resource: Schema.Channel, optionalArgs: object): Drive.Schema.Channel;
+                watch(resource: Schema.Channel, optionalArgs: Record<string, any>): Drive.Schema.Channel;
             }
             interface ChannelsCollection {
                 // Stop watching resources through this channel
@@ -46,12 +46,12 @@ declare namespace GoogleAppsScript {
                 insert(
                     resource: Schema.ChildReference,
                     folderId: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.ChildReference;
                 // Lists a folder's children.
                 list(folderId: string): Drive.Schema.ChildList;
                 // Lists a folder's children.
-                list(folderId: string, optionalArgs: object): Drive.Schema.ChildList;
+                list(folderId: string, optionalArgs: Record<string, any>): Drive.Schema.ChildList;
                 // Removes a child from a folder.
                 remove(folderId: string, childId: string): void;
             }
@@ -59,13 +59,13 @@ declare namespace GoogleAppsScript {
                 // Gets a comment by ID.
                 get(fileId: string, commentId: string): Drive.Schema.Comment;
                 // Gets a comment by ID.
-                get(fileId: string, commentId: string, optionalArgs: object): Drive.Schema.Comment;
+                get(fileId: string, commentId: string, optionalArgs: Record<string, any>): Drive.Schema.Comment;
                 // Creates a new comment on the given file.
                 insert(resource: Schema.Comment, fileId: string): Drive.Schema.Comment;
                 // Lists a file's comments.
                 list(fileId: string): Drive.Schema.CommentList;
                 // Lists a file's comments.
-                list(fileId: string, optionalArgs: object): Drive.Schema.CommentList;
+                list(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.CommentList;
                 // Updates an existing comment. This method supports patch semantics.
                 patch(resource: Schema.Comment, fileId: string, commentId: string): Drive.Schema.Comment;
                 // Deletes a comment.
@@ -77,7 +77,7 @@ declare namespace GoogleAppsScript {
                 // Gets a shared drive's metadata by ID.
                 get(driveId: string): Drive.Schema.Drive;
                 // Gets a shared drive's metadata by ID.
-                get(driveId: string, optionalArgs: object): Drive.Schema.Drive;
+                get(driveId: string, optionalArgs: Record<string, any>): Drive.Schema.Drive;
                 // Hides a shared drive from the default view.
                 hide(driveId: string): Drive.Schema.Drive;
                 // Creates a new shared drive.
@@ -85,7 +85,7 @@ declare namespace GoogleAppsScript {
                 // Lists the user's shared drives.
                 list(): Drive.Schema.DriveList;
                 // Lists the user's shared drives.
-                list(optionalArgs: object): Drive.Schema.DriveList;
+                list(optionalArgs: Record<string, any>): Drive.Schema.DriveList;
                 // Permanently deletes a shared drive for which the user is an organizer. The shared drive cannot contain any untrashed items.
                 remove(driveId: string): void;
                 // Restores a shared drive to the default view.
@@ -93,13 +93,13 @@ declare namespace GoogleAppsScript {
                 // Updates the metadata for a shared drive.
                 update(resource: Schema.Drive, driveId: string): Drive.Schema.Drive;
                 // Updates the metadata for a shared drive.
-                update(resource: Schema.Drive, driveId: string, optionalArgs: object): Drive.Schema.Drive;
+                update(resource: Schema.Drive, driveId: string, optionalArgs: Record<string, any>): Drive.Schema.Drive;
             }
             interface FilesCollection {
                 // Creates a copy of the specified file.
                 copy(resource: Schema.File, fileId: string): Drive.Schema.File;
                 // Creates a copy of the specified file.
-                copy(resource: Schema.File, fileId: string, optionalArgs: object): Drive.Schema.File;
+                copy(resource: Schema.File, fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Permanently deletes all of the user's trashed files.
                 emptyTrash(): void;
                 // Exports a Google Doc to the requested MIME type and returns the exported content. Please note that the exported content is limited to 10MB.
@@ -107,51 +107,62 @@ declare namespace GoogleAppsScript {
                 // Generates a set of file IDs which can be provided in insert requests.
                 generateIds(): Drive.Schema.GeneratedIds;
                 // Generates a set of file IDs which can be provided in insert requests.
-                generateIds(optionalArgs: object): Drive.Schema.GeneratedIds;
+                generateIds(optionalArgs: Record<string, any>): Drive.Schema.GeneratedIds;
                 // Gets a file's metadata by ID.
                 get(fileId: string): Drive.Schema.File;
                 // Gets a file's metadata by ID.
-                get(fileId: string, optionalArgs: object): Drive.Schema.File;
+                get(fileId: string, optionalArgs: Record<string, any> & { alt: "media" }): string;
+                // Gets a file's metadata by ID.
+                get(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Insert a new file.
                 insert(resource: Schema.File): Drive.Schema.File;
                 // Insert a new file.
                 insert(resource: Schema.File, mediaData: any): Drive.Schema.File;
                 // Insert a new file.
-                insert(resource: Schema.File, mediaData: any, optionalArgs: object): Drive.Schema.File;
+                insert(resource: Schema.File, mediaData: any, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Lists the user's files.
                 list(): Drive.Schema.FileList;
                 // Lists the user's files.
-                list(optionalArgs: object): Drive.Schema.FileList;
+                list(optionalArgs: Record<string, any>): Drive.Schema.FileList;
                 // Updates file metadata and/or content. This method supports patch semantics.
                 patch(resource: Schema.File, fileId: string): Drive.Schema.File;
                 // Updates file metadata and/or content. This method supports patch semantics.
-                patch(resource: Schema.File, fileId: string, optionalArgs: object): Drive.Schema.File;
+                patch(resource: Schema.File, fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Permanently deletes a file by ID. Skips the trash. The currently authenticated user must own the file or be an organizer on the parent for Team Drive files.
                 remove(fileId: string): void;
                 // Permanently deletes a file by ID. Skips the trash. The currently authenticated user must own the file or be an organizer on the parent for Team Drive files.
-                remove(fileId: string, optionalArgs: object): void;
+                remove(fileId: string, optionalArgs: Record<string, any>): void;
                 // Set the file's updated time to the current server time.
                 touch(fileId: string): Drive.Schema.File;
                 // Set the file's updated time to the current server time.
-                touch(fileId: string, optionalArgs: object): Drive.Schema.File;
+                touch(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Moves a file to the trash. The currently authenticated user must own the file or be at least a fileOrganizer on the parent for Team Drive files.
                 trash(fileId: string): Drive.Schema.File;
                 // Moves a file to the trash. The currently authenticated user must own the file or be at least a fileOrganizer on the parent for Team Drive files.
-                trash(fileId: string, optionalArgs: object): Drive.Schema.File;
+                trash(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Restores a file from the trash.
                 untrash(fileId: string): Drive.Schema.File;
                 // Restores a file from the trash.
-                untrash(fileId: string, optionalArgs: object): Drive.Schema.File;
+                untrash(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Updates file metadata and/or content.
                 update(resource: Schema.File, fileId: string): Drive.Schema.File;
                 // Updates file metadata and/or content.
                 update(resource: Schema.File, fileId: string, mediaData: any): Drive.Schema.File;
                 // Updates file metadata and/or content.
-                update(resource: Schema.File, fileId: string, mediaData: any, optionalArgs: object): Drive.Schema.File;
+                update(
+                    resource: Schema.File,
+                    fileId: string,
+                    mediaData: any,
+                    optionalArgs: Record<string, any>,
+                ): Drive.Schema.File;
                 // Subscribe to changes on a file
                 watch(resource: Schema.Channel, fileId: string): Drive.Schema.Channel;
                 // Subscribe to changes on a file
-                watch(resource: Schema.Channel, fileId: string, optionalArgs: object): Drive.Schema.Channel;
+                watch(
+                    resource: Schema.Channel,
+                    fileId: string,
+                    optionalArgs: Record<string, any>,
+                ): Drive.Schema.Channel;
             }
             interface ParentsCollection {
                 // Gets a specific parent reference.
@@ -162,7 +173,7 @@ declare namespace GoogleAppsScript {
                 insert(
                     resource: Schema.ParentReference,
                     fileId: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.ParentReference;
                 // Lists a file's parents.
                 list(fileId: string): Drive.Schema.ParentList;
@@ -173,17 +184,21 @@ declare namespace GoogleAppsScript {
                 // Gets a permission by ID.
                 get(fileId: string, permissionId: string): Drive.Schema.Permission;
                 // Gets a permission by ID.
-                get(fileId: string, permissionId: string, optionalArgs: object): Drive.Schema.Permission;
+                get(fileId: string, permissionId: string, optionalArgs: Record<string, any>): Drive.Schema.Permission;
                 // Returns the permission ID for an email address.
                 getIdForEmail(email: string): Drive.Schema.PermissionId;
                 // Inserts a permission for a file or Team Drive.
                 insert(resource: Schema.Permission, fileId: string): Drive.Schema.Permission;
                 // Inserts a permission for a file or Team Drive.
-                insert(resource: Schema.Permission, fileId: string, optionalArgs: object): Drive.Schema.Permission;
+                insert(
+                    resource: Schema.Permission,
+                    fileId: string,
+                    optionalArgs: Record<string, any>,
+                ): Drive.Schema.Permission;
                 // Lists a file's or Team Drive's permissions.
                 list(fileId: string): Drive.Schema.PermissionList;
                 // Lists a file's or Team Drive's permissions.
-                list(fileId: string, optionalArgs: object): Drive.Schema.PermissionList;
+                list(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.PermissionList;
                 // Updates a permission using patch semantics.
                 patch(resource: Schema.Permission, fileId: string, permissionId: string): Drive.Schema.Permission;
                 // Updates a permission using patch semantics.
@@ -191,12 +206,12 @@ declare namespace GoogleAppsScript {
                     resource: Schema.Permission,
                     fileId: string,
                     permissionId: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.Permission;
                 // Deletes a permission from a file or Team Drive.
                 remove(fileId: string, permissionId: string): void;
                 // Deletes a permission from a file or Team Drive.
-                remove(fileId: string, permissionId: string, optionalArgs: object): void;
+                remove(fileId: string, permissionId: string, optionalArgs: Record<string, any>): void;
                 // Updates a permission.
                 update(resource: Schema.Permission, fileId: string, permissionId: string): Drive.Schema.Permission;
                 // Updates a permission.
@@ -204,14 +219,14 @@ declare namespace GoogleAppsScript {
                     resource: Schema.Permission,
                     fileId: string,
                     permissionId: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.Permission;
             }
             interface PropertiesCollection {
                 // Gets a property by its key.
                 get(fileId: string, propertyKey: string): Drive.Schema.Property;
                 // Gets a property by its key.
-                get(fileId: string, propertyKey: string, optionalArgs: object): Drive.Schema.Property;
+                get(fileId: string, propertyKey: string, optionalArgs: Record<string, any>): Drive.Schema.Property;
                 // Adds a property to a file, or updates it if it already exists.
                 insert(resource: Schema.Property, fileId: string): Drive.Schema.Property;
                 // Lists a file's properties.
@@ -223,12 +238,12 @@ declare namespace GoogleAppsScript {
                     resource: Schema.Property,
                     fileId: string,
                     propertyKey: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.Property;
                 // Deletes a property.
                 remove(fileId: string, propertyKey: string): void;
                 // Deletes a property.
-                remove(fileId: string, propertyKey: string, optionalArgs: object): void;
+                remove(fileId: string, propertyKey: string, optionalArgs: Record<string, any>): void;
                 // Updates a property.
                 update(resource: Schema.Property, fileId: string, propertyKey: string): Drive.Schema.Property;
                 // Updates a property.
@@ -236,20 +251,20 @@ declare namespace GoogleAppsScript {
                     resource: Schema.Property,
                     fileId: string,
                     propertyKey: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.Property;
             }
             interface RealtimeCollection {
                 // Exports the contents of the Realtime API data model associated with this file as JSON.
                 get(fileId: string): void;
                 // Exports the contents of the Realtime API data model associated with this file as JSON.
-                get(fileId: string, optionalArgs: object): void;
+                get(fileId: string, optionalArgs: Record<string, any>): void;
                 // Overwrites the Realtime API data model associated with this file with the provided JSON data model.
                 update(fileId: string): void;
                 // Overwrites the Realtime API data model associated with this file with the provided JSON data model.
                 update(fileId: string, mediaData: any): void;
                 // Overwrites the Realtime API data model associated with this file with the provided JSON data model.
-                update(fileId: string, mediaData: any, optionalArgs: object): void;
+                update(fileId: string, mediaData: any, optionalArgs: Record<string, any>): void;
             }
             interface RepliesCollection {
                 // Gets a reply.
@@ -259,14 +274,18 @@ declare namespace GoogleAppsScript {
                     fileId: string,
                     commentId: string,
                     replyId: string,
-                    optionalArgs: object,
+                    optionalArgs: Record<string, any>,
                 ): Drive.Schema.CommentReply;
                 // Creates a new reply to the given comment.
                 insert(resource: Schema.CommentReply, fileId: string, commentId: string): Drive.Schema.CommentReply;
                 // Lists all of the replies to a comment.
                 list(fileId: string, commentId: string): Drive.Schema.CommentReplyList;
                 // Lists all of the replies to a comment.
-                list(fileId: string, commentId: string, optionalArgs: object): Drive.Schema.CommentReplyList;
+                list(
+                    fileId: string,
+                    commentId: string,
+                    optionalArgs: Record<string, any>,
+                ): Drive.Schema.CommentReplyList;
                 // Updates an existing reply. This method supports patch semantics.
                 patch(
                     resource: Schema.CommentReply,
@@ -290,7 +309,7 @@ declare namespace GoogleAppsScript {
                 // Lists a file's revisions.
                 list(fileId: string): Drive.Schema.RevisionList;
                 // Lists a file's revisions.
-                list(fileId: string, optionalArgs: object): Drive.Schema.RevisionList;
+                list(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.RevisionList;
                 // Updates a revision. This method supports patch semantics.
                 patch(resource: Schema.Revision, fileId: string, revisionId: string): Drive.Schema.Revision;
                 // Permanently deletes a file version. You can only delete revisions for files with binary content, like images or videos. Revisions for other files, like Google Docs or Sheets, and the last remaining file version can't be deleted.
@@ -302,19 +321,23 @@ declare namespace GoogleAppsScript {
                 // Gets a Team Drive's metadata by ID.
                 get(teamDriveId: string): Drive.Schema.TeamDrive;
                 // Gets a Team Drive's metadata by ID.
-                get(teamDriveId: string, optionalArgs: object): Drive.Schema.TeamDrive;
+                get(teamDriveId: string, optionalArgs: Record<string, any>): Drive.Schema.TeamDrive;
                 // Creates a new Team Drive.
                 insert(resource: Schema.TeamDrive, requestId: string): Drive.Schema.TeamDrive;
                 // Lists the user's Team Drives.
                 list(): Drive.Schema.TeamDriveList;
                 // Lists the user's Team Drives.
-                list(optionalArgs: object): Drive.Schema.TeamDriveList;
+                list(optionalArgs: Record<string, any>): Drive.Schema.TeamDriveList;
                 // Permanently deletes a Team Drive for which the user is an organizer. The Team Drive cannot contain any untrashed items.
                 remove(teamDriveId: string): void;
                 // Updates a Team Drive's metadata
                 update(resource: Schema.TeamDrive, teamDriveId: string): Drive.Schema.TeamDrive;
                 // Updates a Team Drive's metadata
-                update(resource: Schema.TeamDrive, teamDriveId: string, optionalArgs: object): Drive.Schema.TeamDrive;
+                update(
+                    resource: Schema.TeamDrive,
+                    teamDriveId: string,
+                    optionalArgs: Record<string, any>,
+                ): Drive.Schema.TeamDrive;
             }
         }
         namespace Schema {
@@ -453,7 +476,7 @@ declare namespace GoogleAppsScript {
                 expiration?: string | undefined;
                 id?: string | undefined;
                 kind?: string | undefined;
-                params?: object | undefined;
+                params?: Record<string, string> | undefined;
                 payload?: boolean | undefined;
                 resourceId?: string | undefined;
                 resourceUri?: string | undefined;
@@ -587,7 +610,7 @@ declare namespace GoogleAppsScript {
                 embedLink?: string | undefined;
                 etag?: string | undefined;
                 explicitlyTrashed?: boolean | undefined;
-                exportLinks?: object | undefined;
+                exportLinks?: Record<string, string> | undefined;
                 fileExtension?: string | undefined;
                 fileSize?: string | undefined;
                 folderColorRgb?: string | undefined;
@@ -610,7 +633,7 @@ declare namespace GoogleAppsScript {
                 mimeType?: string | undefined;
                 modifiedByMeDate?: string | undefined;
                 modifiedDate?: string | undefined;
-                openWithLinks?: object | undefined;
+                openWithLinks?: Record<string, string> | undefined;
                 originalFilename?: string | undefined;
                 ownedByMe?: boolean | undefined;
                 ownerNames?: string[] | undefined;
@@ -809,7 +832,7 @@ declare namespace GoogleAppsScript {
             interface Revision {
                 downloadUrl?: string | undefined;
                 etag?: string | undefined;
-                exportLinks?: object | undefined;
+                exportLinks?: Record<string, string> | undefined;
                 fileSize?: string | undefined;
                 id?: string | undefined;
                 kind?: string | undefined;
@@ -904,7 +927,7 @@ declare namespace GoogleAppsScript {
             }
         }
     }
-    interface Drive {
+    interface Drive_v2 {
         About?: Drive.Collection.AboutCollection | undefined;
         Apps?: Drive.Collection.AppsCollection | undefined;
         Changes?: Drive.Collection.ChangesCollection | undefined;
@@ -981,4 +1004,4 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Drive: GoogleAppsScript.Drive;
+declare var Drive_v2: GoogleAppsScript.Drive_v2;

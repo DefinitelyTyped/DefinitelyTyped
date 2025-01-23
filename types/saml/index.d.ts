@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 export interface SamlAttributes {
-    [key: string]: string;
+    [key: string]: string | ReadonlyArray<string>;
 }
 
 export interface KeyInfoProvider {

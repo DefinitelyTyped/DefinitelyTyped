@@ -12,6 +12,26 @@ export const MentionsInput: MentionsInputClass;
  */
 export const Mention: React.FC<MentionProps>;
 
+export interface MentionsInputStyleDefinition extends React.CSSProperties {
+    control?: React.CSSProperties;
+    highlighter?: React.CSSProperties;
+    input?: React.CSSProperties;
+}
+
+export interface MentionsSuggestionItemStyle extends React.CSSProperties {
+    "&focused"?: React.CSSProperties;
+}
+
+export interface MentionsSuggestionsStyle extends React.CSSProperties {
+    list?: React.CSSProperties;
+    item?: MentionsSuggestionItemStyle;
+}
+export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
+    "&multiLine"?: MentionsInputStyleDefinition;
+    "&singleLine"?: MentionsInputStyleDefinition;
+    suggestions?: MentionsSuggestionsStyle;
+}
+
 /**
  * The properties for the @see MentionsInput component.
  */
@@ -60,7 +80,7 @@ export interface MentionsInputProps
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string | undefined;
     classNames?: any;
-    style?: any;
+    style?: MentionsInputStyle;
 
     /** Allows customizing the container of the suggestions */
     customSuggestionsContainer?: ((children: React.ReactNode) => React.ReactNode) | undefined;
@@ -141,7 +161,7 @@ export interface MentionProps {
      * @default null
      */
     data: SuggestionDataItem[] | DataFunc | null;
-    style?: any;
+    style?: React.CSSProperties;
 
     /** Append a space when a suggestion has been added */
     appendSpaceOnAdd?: boolean | undefined;

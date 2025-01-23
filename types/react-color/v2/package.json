@@ -7,8 +7,10 @@
         "http://casesandberg.github.io/react-color"
     ],
     "dependencies": {
-        "@types/react": "*",
         "@types/reactcss": "*"
+    },
+    "peerDependencies": {
+        "@types/react": "*"
     },
     "devDependencies": {
         "@types/react-color": "workspace:."

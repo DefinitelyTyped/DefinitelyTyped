@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/basil.js",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/Wisembly/basil.js"
+    ],
+    "devDependencies": {
+        "@types/basil.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yuji Isobe",
+            "githubUsername": "yujiosaka"
+        }
+    ]
+}

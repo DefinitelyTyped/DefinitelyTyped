@@ -5,25 +5,8 @@
  * between ShaderNode a normal node.
  */
 
-import {
-    add,
-    atan2,
-    cos,
-    div,
-    dot,
-    float,
-    mat3,
-    max,
-    mix,
-    mul,
-    Node,
-    ShaderNode,
-    sin,
-    sqrt,
-    sub,
-    TempNode,
-    vec3,
-} from "three/webgpu";
+import { add, atan2, cos, div, dot, float, mat3, max, mix, mul, ShaderNode, sin, sqrt, sub, vec3 } from "three/tsl";
+import { Node, TempNode } from "three/webgpu";
 
 const luminanceNode = new ShaderNode<{ color: Node }>(({ color }) => {
     const LUMA = vec3(0.2125, 0.7154, 0.0721);

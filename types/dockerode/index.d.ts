@@ -473,6 +473,7 @@ declare namespace Dockerode {
 
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
+        force?: boolean | undefined;
     }
 
     interface VolumeCreateResponse {
@@ -1107,6 +1108,7 @@ declare namespace Dockerode {
         User?: string | undefined;
         WorkingDir?: string | undefined;
         abortSignal?: AbortSignal;
+        ConsoleSize?: [number, number];
     }
 
     interface ExecInspectInfo {
@@ -1168,6 +1170,7 @@ declare namespace Dockerode {
                     Name: string;
                     Options: { [option: string]: string };
                 };
+                Subpath?: string;
             }
             | undefined;
         TmpfsOptions?:

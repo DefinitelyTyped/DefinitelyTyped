@@ -1,5 +1,5 @@
-import { Camera, Scene } from "three";
 import { ShaderNodeObject } from "three/tsl";
+import { Camera, Scene } from "three/webgpu";
 import StereoCompositePassNode from "./StereoCompositePassNode.js";
 
 declare class AnaglyphPassNode extends StereoCompositePassNode {

@@ -91,6 +91,9 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
     }
     response.removeHeader("onOriginResponse-removeHeader-resp-bye");
 
+    // Resp- getHeaders
+    testHeaders(response.getHeaders());
+
     // EW.EgressOriginRequest.getHeaders()
     testHeaders(request.getHeaders());
 
@@ -143,6 +146,8 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
     }
     response.removeHeader("onClientResponse-removeHeader-resp-bye");
 
+    testHeaders(response.getHeaders());
+
     // EW.EgressClientRequest.getHeaders()
     testHeaders(request.getHeaders());
 
@@ -172,6 +177,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
     const arrayBufferBody = request.arrayBuffer();
 }
 
+// Verify the headers object
 function testHeaders(headers: EW.Headers) {
     Object.keys(headers).forEach(key => {
         key.toUpperCase();

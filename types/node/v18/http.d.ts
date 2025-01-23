@@ -161,7 +161,7 @@ declare module "http" {
         location?: string | undefined;
         "max-forwards"?: string | undefined;
         origin?: string | undefined;
-        prgama?: string | string[] | undefined;
+        pragma?: string | string[] | undefined;
         "proxy-authenticate"?: string | string[] | undefined;
         "proxy-authorization"?: string | undefined;
         "public-key-pins"?: string | undefined;

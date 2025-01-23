@@ -1,4 +1,4 @@
-// For Library Version: 1.130.0
+// For Library Version: 1.131.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -18068,6 +18068,55 @@ declare module "sap/ui/unified/Menu" {
       oItem: IMenuItem
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeClose beforeClose} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired before the menu is closed. This event can be prevented which effectively prevents the menu from
+     * closing. sinnce 1.131
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeClose(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beforeClose beforeClose} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired before the menu is closed. This event can be prevented which effectively prevents the menu from
+     * closing. sinnce 1.131
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeClose(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -18179,6 +18228,24 @@ declare module "sap/ui/unified/Menu" {
      */
     destroyItems(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:beforeClose beforeClose} event of this `sap.ui.unified.Menu`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBeforeClose(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -18215,6 +18282,22 @@ declare module "sap/ui/unified/Menu" {
        */
       oListener?: object
     ): this;
+    /**
+     * Fires event {@link #event:beforeClose beforeClose} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireBeforeClose(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): boolean;
     /**
      * Fires event {@link #event:closed closed} to attached listeners.
      *
@@ -18596,7 +18679,26 @@ declare module "sap/ui/unified/Menu" {
      * @since 1.129
      */
     closed?: (oEvent: Event) => void;
+
+    /**
+     * Fired before the menu is closed. This event can be prevented which effectively prevents the menu from
+     * closing. sinnce 1.131
+     */
+    beforeClose?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the Menu#beforeClose event.
+   */
+  export interface Menu$BeforeCloseEventParameters {}
+
+  /**
+   * Event object of the Menu#beforeClose event.
+   */
+  export type Menu$BeforeCloseEvent = Event<
+    Menu$BeforeCloseEventParameters,
+    Menu
+  >;
 
   /**
    * Parameters of the Menu#closed event.
@@ -18641,7 +18743,10 @@ declare module "sap/ui/unified/MenuItem" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
 
   /**
    * Standard item to be used inside a menu. A menu item represents an action which can be selected by the
@@ -18726,9 +18831,42 @@ declare module "sap/ui/unified/MenuItem" {
       vAriaLabelledBy: ID | Control
     ): this;
     /**
+     * Adds some endContent to the aggregation {@link #getEndContent endContent}.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addEndContent(
+      /**
+       * The endContent to add; if empty, nothing is inserted
+       */
+      oEndContent: Control
+    ): this;
+    /**
+     * Destroys all the endContent in the aggregation {@link #getEndContent endContent}.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyEndContent(): this;
+    /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
+    /**
+     * Gets content of aggregation {@link #getEndContent endContent}.
+     *
+     * Defines the content that is displayed at the end of a menu item. This aggregation allows for the addition
+     * of custom elements, such as icons and buttons.
+     *
+     * @since 1.131
+     * @experimental
+     */
+    getEndContent(): Control[];
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -18774,12 +18912,58 @@ declare module "sap/ui/unified/MenuItem" {
      */
     getText(): string;
     /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getEndContent endContent}. and
+     * returns its index if found or -1 otherwise.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfEndContent(
+      /**
+       * The endContent whose index is looked for
+       */
+      oEndContent: Control
+    ): int;
+    /**
+     * Inserts a endContent into the aggregation {@link #getEndContent endContent}.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertEndContent(
+      /**
+       * The endContent to insert; if empty, nothing is inserted
+       */
+      oEndContent: Control,
+      /**
+       * The `0`-based index the endContent should be inserted at; for a negative value of `iIndex`, the endContent
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the endContent
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
      *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
+    /**
+     * Removes all the controls from the aggregation {@link #getEndContent endContent}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllEndContent(): Control[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -18792,6 +18976,20 @@ declare module "sap/ui/unified/MenuItem" {
        */
       vAriaLabelledBy: int | ID | Control
     ): ID | null;
+    /**
+     * Removes a endContent from the aggregation {@link #getEndContent endContent}.
+     *
+     * @since 1.131
+     * @experimental
+     *
+     * @returns The removed endContent or `null`
+     */
+    removeEndContent(
+      /**
+       * The endContent to remove or its index or id
+       */
+      vEndContent: int | string | Control
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -18897,6 +19095,15 @@ declare module "sap/ui/unified/MenuItem" {
      * by the application developer.
      */
     shortcutText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the content that is displayed at the end of a menu item. This aggregation allows for the addition
+     * of custom elements, such as icons and buttons.
+     *
+     * @since 1.131
+     * @experimental
+     */
+    endContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
@@ -19939,9 +20146,16 @@ declare module "sap/ui/unified/NonWorkingPeriod" {
 }
 
 declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
-  import Metadata from "sap/ui/base/Metadata";
+  import {
+    default as NonWorkingPeriod,
+    $NonWorkingPeriodSettings,
+  } from "sap/ui/unified/NonWorkingPeriod";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { RecurrenceType } from "sap/ui/unified/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
    * A `RecurringNonWorkingPeriod` for use in a `PlanningCalendar` and `SinglePlanningCalendar`.
@@ -19951,9 +20165,20 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
    * @since 1.127.0
    * @experimental (since 1.127.0)
    */
-  export default class RecurringNonWorkingPeriod
-    extends /* was: sap.ui.unified. */ Object
-  {
+  export default class RecurringNonWorkingPeriod extends NonWorkingPeriod {
+    /**
+     * Constructor for a new `RecurringNonWorkingPeriod`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $RecurringNonWorkingPeriodSettings
+    );
     /**
      * Constructor for a new `RecurringNonWorkingPeriod`.
      *
@@ -19969,14 +20194,14 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
       /**
        * Initial settings for the new control
        */
-      mSettings?: object
+      mSettings?: $RecurringNonWorkingPeriodSettings
     );
 
     /**
      * Creates a new subclass of class sap.ui.unified.RecurringNonWorkingPeriod with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified..extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.NonWorkingPeriod.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -20002,7 +20227,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      *
      * @returns Metadata object describing this class
      */
-    static getMetadata(): Metadata;
+    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRecurrenceEndDate recurrenceEndDate}.
      *
@@ -20090,6 +20315,35 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
        */
       sRecurrenceType: RecurrenceType | keyof typeof RecurrenceType
     ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the RecurringNonWorkingPeriod constructor.
+   *
+   * @experimental (since 1.127.0)
+   */
+  export interface $RecurringNonWorkingPeriodSettings
+    extends $NonWorkingPeriodSettings {
+    /**
+     * The recurrenceType determines the pattern of recurrence for a given calendar item.
+     */
+    recurrenceType?:
+      | (RecurrenceType | keyof typeof RecurrenceType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
+     * as a local date.
+     */
+    recurrenceEndDate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The recurrencePattern is an integer value which, in combination with the recurrenceType, sets the recurrence
+     * frequency for a calendar item. For example, if the recurrenceType is set to "Daily" and the recurrencePattern
+     * is set to 1, it signifies that repetition is set for every day. If the recurrencePattern is set to 3,
+     * this would imply the calendar item is recurring once for every three days.
+     */
+    recurrencePattern?: int | PropertyBindingInfo | `{${string}}`;
   }
 }
 
