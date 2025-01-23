@@ -2412,7 +2412,14 @@ function testStorageForPromise() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
-function testRunTimeGetContexts() {
+function testRuntimeGetContexts() {
+    chrome.runtime.ContextType.TAB === "TAB";
+    chrome.runtime.ContextType.POPUP === "POPUP";
+    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
+    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
+    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
+    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
+
     const options = { incognito: true, tabIds: [1, 2, 3] };
 
     chrome.runtime.getContexts(options);
