@@ -12,6 +12,14 @@ import { TextEncoder } from "node:util";
     ) STRICT
     `);
 
+    database.function(
+        "COUNT_ARGS",
+        { deterministic: true, varargs: true },
+        function() {
+            return arguments.length;
+        },
+    );
+
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
