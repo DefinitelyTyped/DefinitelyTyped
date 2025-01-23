@@ -15,5 +15,5 @@
     "files": [
         "index.d.ts",
         "lucene-query-string-builder-tests.ts"
-    ],
+    ]
 }

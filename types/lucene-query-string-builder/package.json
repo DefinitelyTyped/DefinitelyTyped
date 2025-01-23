@@ -1,24 +1,16 @@
-
 {
+    "private": true,
     "name": "@types/lucene-query-string-builder",
-    "version": "1.0.8",
-    "description": "TypeScript definitions for lucene-query-string-builder",
-    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lucene-query-string-builder",
-    "license": "MIT",
+    "version": "1.0.9999",
     "owners": [
         {
             "name": "Jinki Jung",
-            "githubUsername": "jinkijung",
-            "url": "https://github.com/jinkijung"
+            "githubUsername": "jinkijung"
         }
     ],
-    "main": "",
-    "types": "index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-        "directory": "types/lucene-query-string-builder"
-    },
-    "scripts": {},
-    "typeScriptVersion": "4.0.5"
+    "projects": [
+        "https://github.com/bas080/lucene-query-string-builder"],
+    "devDependencies": {
+        "@types/lucene-query-string-builder": "workspace:."
+    }
 }
