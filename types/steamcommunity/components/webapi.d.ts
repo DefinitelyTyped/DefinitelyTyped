@@ -1,4 +1,4 @@
-import {Callback, CallbackError, CreateWebApiKeyOptions, CreateWebApiKeyResult} from "../index";
+import { Callback, CallbackError, CreateWebApiKeyOptions, CreateWebApiKeyResult } from "../index";
 
 export interface WebApi {
     /**
