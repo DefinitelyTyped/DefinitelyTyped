@@ -47,8 +47,5 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module",
-    "dependencies": {
-        "winbox": "^0.2.82"
-    }
+    "type": "module"
 }
