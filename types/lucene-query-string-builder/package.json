@@ -9,7 +9,8 @@
         }
     ],
     "projects": [
-        "https://github.com/bas080/lucene-query-string-builder"],
+        "https://github.com/bas080/lucene-query-string-builder"
+    ],
     "devDependencies": {
         "@types/lucene-query-string-builder": "workspace:."
     }
