@@ -40,8 +40,8 @@ export interface SignOptions {
      */
     algorithm?: Algorithm | undefined;
     keyid?: string | undefined;
-    expiresIn?: StringValue | number;
-    notBefore?: StringValue | number | undefined;
+    expiresIn?: StringValue | string | number;
+    notBefore?: StringValue | string | number | undefined;
     audience?: string | string[] | undefined;
     subject?: string | undefined;
     issuer?: string | undefined;
