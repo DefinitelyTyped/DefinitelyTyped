@@ -5267,6 +5267,10 @@
             "libraryName": "react-native-tab-view",
             "asOfVersion": "2.3.0"
         },
+        "react-native-text-input-mask": {
+            "libraryName": "react-native-text-input-mask",
+            "asOfVersion": "3.0.0"
+        },
         "react-native-touch-id": {
             "libraryName": "react-native-touch-id",
             "asOfVersion": "4.4.0"
