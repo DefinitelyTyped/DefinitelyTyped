@@ -3686,7 +3686,6 @@
 /types/jconv/                                             @thany
 /types/jdataview/                                         @RReverser
 /types/jest/                                              @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @pawfa @gerkindev @domdomegg @mrazauskas
-/types/jest/v16/                                          @NoHomey @jwbay @ExE-Boss
 /types/jest-axe/                                          @erbridge
 /types/jest-dev-server/                                   @ifiokjr @UziTech
 /types/jest-environment-puppeteer/                        @ifiokjr
