@@ -4935,6 +4935,10 @@
             "libraryName": "react-bootstrap-range-slider",
             "asOfVersion": "3.0.0"
         },
+        "react-bootstrap-typeahead": {
+            "libraryName": "react-bootstrap-typeahead",
+            "asOfVersion": "6.0.0"
+        },
         "react-calendar": {
             "libraryName": "react-calendar",
             "asOfVersion": "4.1.0"
