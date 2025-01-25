@@ -438,7 +438,7 @@ const node: ConcreteRequest = (function() {
                 },
             ],
         },
-    ];
+    ] as const;
     return {
         kind: "Request",
         fragment: {
@@ -463,7 +463,7 @@ const node: ConcreteRequest = (function() {
             text: "query FooQuery {\n  __typename\n}\n",
             metadata: {},
         },
-    };
+    } as const;
 })();
 /* tslint:enable:only-arrow-functions no-var-keyword prefer-const */
 

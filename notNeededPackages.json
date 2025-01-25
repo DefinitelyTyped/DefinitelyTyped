@@ -1465,6 +1465,10 @@
             "libraryName": "domelementtype",
             "asOfVersion": "2.0.1"
         },
+        "domhandler": {
+            "libraryName": "domhandler",
+            "asOfVersion": "3.1.0"
+        },
         "dompurify": {
             "libraryName": "dompurify",
             "asOfVersion": "3.2.0"
@@ -1508,6 +1512,10 @@
         "easystarjs": {
             "libraryName": "easystarjs",
             "asOfVersion": "0.3.1"
+        },
+        "echarts": {
+            "libraryName": "echarts",
+            "asOfVersion": "5.0.0"
         },
         "ecmarkup": {
             "libraryName": "ecmarkup",
@@ -1560,6 +1568,10 @@
         "electron-debug": {
             "libraryName": "electron-debug",
             "asOfVersion": "2.1.0"
+        },
+        "electron-devtools-installer": {
+            "libraryName": "electron-devtools-installer",
+            "asOfVersion": "4.0.0"
         },
         "electron-is-dev": {
             "libraryName": "electron-is-dev",
@@ -1812,6 +1824,10 @@
         "extended-listbox": {
             "libraryName": "extended-listbox",
             "asOfVersion": "4.0.1"
+        },
+        "extract-colors": {
+            "libraryName": "extract-colors",
+            "asOfVersion": "3.0.0"
         },
         "extract-stack": {
             "libraryName": "extract-stack",
@@ -2197,6 +2213,10 @@
             "libraryName": "@google-cloud/text-to-speech",
             "asOfVersion": "2.0.0"
         },
+        "google-maps": {
+            "libraryName": "google-maps",
+            "asOfVersion": "4.0.0"
+        },
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
@@ -2333,6 +2353,10 @@
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
         },
+        "hapi__yar": {
+            "libraryName": "@hapi/yar",
+            "asOfVersion": "11.0.2"
+        },
         "hard-rejection": {
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
@@ -2372,6 +2396,14 @@
         "hex-rgb": {
             "libraryName": "hex-rgb",
             "asOfVersion": "4.1.0"
+        },
+        "hexo": {
+            "libraryName": "hexo",
+            "asOfVersion": "7.0.0"
+        },
+        "hexo-fs": {
+            "libraryName": "hexo-fs",
+            "asOfVersion": "4.0.0"
         },
         "hibp": {
             "libraryName": "hibp",
@@ -3717,6 +3749,10 @@
             "libraryName": "mri",
             "asOfVersion": "1.2.0"
         },
+        "mrz": {
+            "libraryName": "mrz",
+            "asOfVersion": "3.2.0"
+        },
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
             "asOfVersion": "0.7.2"
@@ -4331,6 +4367,10 @@
             "libraryName": "phin",
             "asOfVersion": "3.4.0"
         },
+        "phone": {
+            "libraryName": "phone",
+            "asOfVersion": "3.0.0"
+        },
         "phonegap-plugin-push": {
             "libraryName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
@@ -4410,6 +4450,10 @@
         "png-img": {
             "libraryName": "png-img",
             "asOfVersion": "4.0.4"
+        },
+        "podcast": {
+            "libraryName": "podcast",
+            "asOfVersion": "2.0.0"
         },
         "pollyjs__adapter": {
             "libraryName": "@pollyjs/adapter",
@@ -4719,6 +4763,10 @@
             "libraryName": "randoma",
             "asOfVersion": "1.3.0"
         },
+        "range_check": {
+            "libraryName": "range_check",
+            "asOfVersion": "2.0.0"
+        },
         "raspi": {
             "libraryName": "raspi",
             "asOfVersion": "5.0.1"
@@ -4890,6 +4938,10 @@
         "react-bootstrap-range-slider": {
             "libraryName": "react-bootstrap-range-slider",
             "asOfVersion": "3.0.0"
+        },
+        "react-bootstrap-typeahead": {
+            "libraryName": "react-bootstrap-typeahead",
+            "asOfVersion": "6.0.0"
         },
         "react-calendar": {
             "libraryName": "react-calendar",
@@ -5214,6 +5266,10 @@
         "react-native-tab-view": {
             "libraryName": "react-native-tab-view",
             "asOfVersion": "2.3.0"
+        },
+        "react-native-text-input-mask": {
+            "libraryName": "react-native-text-input-mask",
+            "asOfVersion": "3.0.0"
         },
         "react-native-touch-id": {
             "libraryName": "react-native-touch-id",
@@ -5606,6 +5662,10 @@
         "rollup-plugin-sourcemaps": {
             "libraryName": "rollup-plugin-sourcemaps",
             "asOfVersion": "0.5.0"
+        },
+        "rollup__plugin-virtual": {
+            "libraryName": "@rollup/plugin-virtual",
+            "asOfVersion": "3.0.0"
         },
         "rot-js": {
             "libraryName": "rot-js",

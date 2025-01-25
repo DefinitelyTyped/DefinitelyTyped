@@ -528,12 +528,20 @@ async function testPromisify() {
     const writeStream = fs.createWriteStream("./index.d.ts", {
         fd: handle,
     });
+
+    writeStream.addListener("close", () => {});
+    writeStream.addListener("aCustomEvent", () => {});
+
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
         signal: new AbortSignal(),
     });
+
+    readStream.addListener("close", () => {});
+    readStream.addListener("aCustomEvent", () => {});
+
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
     (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>

@@ -56,18 +56,18 @@ declare namespace __ParcelModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __ParcelModuleApi.RequireFunction {}
-
-declare var require: NodeRequire;
-
-interface NodeModule extends __ParcelModuleApi.Module {}
-
-declare var module: NodeModule;
-
 /**
  * Declare process variable
  */
 declare namespace NodeJS {
+    interface Module extends __ParcelModuleApi.Module {}
     interface Process extends __ParcelModuleApi.NodeProcess {}
+    interface Require extends __ParcelModuleApi.RequireFunction {}
 }
+
+interface NodeModule extends NodeJS.Module {}
+interface NodeRequire extends NodeJS.Require {}
+
+declare var module: NodeJS.Module;
 declare var process: NodeJS.Process;
+declare var require: NodeJS.Require;
