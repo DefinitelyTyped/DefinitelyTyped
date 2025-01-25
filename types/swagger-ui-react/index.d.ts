@@ -27,7 +27,7 @@ export interface SwaggerUIProps {
     defaultModelRendering?: "example" | "model";
     queryConfigEnabled?: boolean;
     plugins?: Plugin[] | undefined;
-    supportedSubmitMethods?: string[] | undefined;
+    supportedSubmitMethods?: Array<"get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace">;
     deepLinking?: boolean | undefined;
     showMutatedRequest?: boolean | undefined;
     showExtensions?: boolean | undefined;
