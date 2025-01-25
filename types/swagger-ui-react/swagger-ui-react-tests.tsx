@@ -20,7 +20,7 @@ import SwaggerUI from "swagger-ui-react";
                 },
             },
         ]}
-        supportedSubmitMethods={["get", 'post']}
+        supportedSubmitMethods={["get", "post"]}
         deepLinking
         showMutatedRequest={false}
         showExtensions={true}

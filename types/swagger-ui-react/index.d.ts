@@ -18,9 +18,9 @@ export interface SwaggerUIProps {
     spec?: object | string;
     url?: string;
     layout?: string;
-    onComplete?: ((system: System) => void);
-    requestInterceptor?: ((req: Request) => Request | Promise<Request>);
-    responseInterceptor?: ((res: Response) => Response | Promise<Response>);
+    onComplete?: (system: System) => void;
+    requestInterceptor?: (req: Request) => Request | Promise<Request>;
+    responseInterceptor?: (res: Response) => Response | Promise<Response>;
     docExpansion?: "list" | "full" | "none";
     defaultModelExpandDepth?: number;
     defaultModelsExpandDepth?: number;
@@ -44,5 +44,5 @@ export interface SwaggerUIProps {
     oauth2RedirectUrl?: string;
 }
 
-declare const SwaggerUI: React.FunctionComponent<SwaggerUIProps>
+declare const SwaggerUI: React.FunctionComponent<SwaggerUIProps>;
 export default SwaggerUI;
