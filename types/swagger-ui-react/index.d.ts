@@ -44,5 +44,5 @@ export interface SwaggerUIProps {
     oauth2RedirectUrl?: string;
 }
 
-declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}
+declare const SwaggerUI: React.FunctionComponent<SwaggerUIProps>
 export default SwaggerUI;
