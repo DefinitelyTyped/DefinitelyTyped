@@ -895,9 +895,16 @@ export interface BankingProductConstraintV2 {
     /**
      * The type of constraint described. For further details, refer to [Product Constraint Types](#tocSproductconstrainttypedoc).
      */
-    constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MAX_LVR" | "MIN_BALANCE" | "MIN_LIMIT" | "MIN_LVR" | "OPENING_BALANCE";
+    constraintType:
+        | "MAX_BALANCE"
+        | "MAX_LIMIT"
+        | "MAX_LVR"
+        | "MIN_BALANCE"
+        | "MIN_LIMIT"
+        | "MIN_LVR"
+        | "OPENING_BALANCE";
     [k: string]: unknown;
-  }
+}
 export interface BankingProductDepositRate {
     /**
      * Display text providing more information on the rate.
@@ -1497,7 +1504,7 @@ export type BankingProductDetailV5 = BankingProductV4 & {
      */
     lendingRates?: BankingProductLendingRateV2[] | null;
     [k: string]: unknown;
-  };
+};
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface BankingProductDiscount {
@@ -2933,45 +2940,45 @@ export interface BankingTransactionDetail extends BankingTransaction {
 
 export type BankingTransactionDetailV2 = BankingTransaction & {
     extendedData: {
-      /**
-       * Label of the originating payer. Mandatory for inbound payment.
-       */
-      payer?: string;
-      /**
-       * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
-       */
-      payee?: string;
-      /**
-       * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
-       */
-      extensionUType?: "nppPayload";
-      /**
-       * Required if the _extensionUType_ value is `nppPayload`.
-       */
-      nppPayload?: {
         /**
-         * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
+         * Label of the originating payer. Mandatory for inbound payment.
          */
-        extendedDescription?: string;
+        payer?: string;
         /**
-         * An end to end ID for the payment created at initiation.
+         * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
          */
-        endToEndId?: string;
+        payee?: string;
         /**
-         * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
+         * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
          */
-        purposeCode?: string;
+        extensionUType?: "nppPayload";
         /**
-         * Identifier of the applicable overlay service. The _service_ is used in conjunction with the _serviceVersion_. See [here](#npp-services) for more details.
+         * Required if the _extensionUType_ value is `nppPayload`.
          */
-        service: "X2P1" | "IFTI" | "BSCT" | "CATSCT";
-        /**
-         * Two-digit NPP service overlay version with leading zero.
-         */
-        serviceVersion: string;
+        nppPayload?: {
+            /**
+             * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
+             */
+            extendedDescription?: string;
+            /**
+             * An end to end ID for the payment created at initiation.
+             */
+            endToEndId?: string;
+            /**
+             * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
+             */
+            purposeCode?: string;
+            /**
+             * Identifier of the applicable overlay service. The _service_ is used in conjunction with the _serviceVersion_. See [here](#npp-services) for more details.
+             */
+            service: "X2P1" | "IFTI" | "BSCT" | "CATSCT";
+            /**
+             * Two-digit NPP service overlay version with leading zero.
+             */
+            serviceVersion: string;
+            [k: string]: unknown;
+        };
         [k: string]: unknown;
-      };
-      [k: string]: unknown;
     };
     [k: string]: unknown;
 };
@@ -3334,8 +3341,8 @@ export type NppPaymentService = "X2P1" | "IFTI" | "BSCT" | "CATSCT";
 export interface RequestAccountIds {
     data: {
         /**
-        * Array of _accountId_ values.
-        */
+         * Array of _accountId_ values.
+         */
         accountIds: string[];
         [k: string]: unknown;
     };
@@ -5523,40 +5530,40 @@ export interface ResponseBankingProductByIdV4 {
 
 export interface ResponseBankingProductByIdV5 {
     data: BankingProductV4 & {
-      /**
-       * An array of bundles that this product participates in. Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle. It is assumed that the current product is included in the bundle also.
-       */
-      bundles?: BankingProductBundle[] | null;
-      /**
-       * Array of features available for the product.
-       */
-      features?: BankingProductFeatureV2[] | null;
-      /**
-       * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
-       */
-      constraints?: BankingProductConstraintV2[] | null;
-      /**
-       * Eligibility criteria for the product.
-       */
-      eligibility?: BankingProductEligibility[] | null;
-      /**
-       * Fees applicable for the product.
-       */
-      fees?: BankingProductFee[] | null;
-      /**
-       * Interest rates available for deposits.
-       */
-      depositRates?: BankingProductDepositRate[] | null;
-      /**
-       * Interest rates charged against lending balances.
-       */
-      lendingRates?: BankingProductLendingRateV2[] | null;
-      [k: string]: unknown;
+        /**
+         * An array of bundles that this product participates in. Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle. It is assumed that the current product is included in the bundle also.
+         */
+        bundles?: BankingProductBundle[] | null;
+        /**
+         * Array of features available for the product.
+         */
+        features?: BankingProductFeatureV2[] | null;
+        /**
+         * Constraints on the application for or operation of the product such as minimum balances or limit thresholds.
+         */
+        constraints?: BankingProductConstraintV2[] | null;
+        /**
+         * Eligibility criteria for the product.
+         */
+        eligibility?: BankingProductEligibility[] | null;
+        /**
+         * Fees applicable for the product.
+         */
+        fees?: BankingProductFee[] | null;
+        /**
+         * Interest rates available for deposits.
+         */
+        depositRates?: BankingProductDepositRate[] | null;
+        /**
+         * Interest rates charged against lending balances.
+         */
+        lendingRates?: BankingProductLendingRateV2[] | null;
+        [k: string]: unknown;
     };
     links: Links;
     meta?: null | Meta;
     [k: string]: unknown;
-  }
+}
 
 export interface ResponseBankingProductListV2 {
     data: {
@@ -6610,53 +6617,53 @@ export interface ResponseBankingTransactionById {
 
 export interface ResponseBankingTransactionByIdV2 {
     data: BankingTransaction & {
-      extendedData: {
-        /**
-         * Label of the originating payer. Mandatory for inbound payment.
-         */
-        payer?: string;
-        /**
-         * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
-         */
-        payee?: string;
-        /**
-         * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
-         */
-        extensionUType?: "nppPayload";
-        /**
-         * Required if the _extensionUType_ value is `nppPayload`.
-         */
-        nppPayload?: {
-          /**
-           * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
-           */
-          extendedDescription?: string;
-          /**
-           * An end to end ID for the payment created at initiation.
-           */
-          endToEndId?: string;
-          /**
-           * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
-           */
-          purposeCode?: string;
-          /**
-           * Identifier of the applicable overlay service. The _service_ is used in conjunction with the _serviceVersion_. See [here](#npp-services) for more details.
-           */
-          service: "X2P1" | "IFTI" | "BSCT" | "CATSCT";
-          /**
-           * Two-digit NPP service overlay version with leading zero.
-           */
-          serviceVersion: string;
-          [k: string]: unknown;
+        extendedData: {
+            /**
+             * Label of the originating payer. Mandatory for inbound payment.
+             */
+            payer?: string;
+            /**
+             * Label of the target PayID. Mandatory for an outbound payment. The name assigned to the BSB/Account Number or PayID (by the owner of the PayID).
+             */
+            payee?: string;
+            /**
+             * Optional extended data specific to transactions. Currently extended data is supported for NPP service overlays.
+             */
+            extensionUType?: "nppPayload";
+            /**
+             * Required if the _extensionUType_ value is `nppPayload`.
+             */
+            nppPayload?: {
+                /**
+                 * An extended string description. Required if the _extensionUType_ value is `nppPayload`.
+                 */
+                extendedDescription?: string;
+                /**
+                 * An end to end ID for the payment created at initiation.
+                 */
+                endToEndId?: string;
+                /**
+                 * Purpose of the payment. Format is defined by the NPP standards for the NPP overlay services including Osko (X2P1).
+                 */
+                purposeCode?: string;
+                /**
+                 * Identifier of the applicable overlay service. The _service_ is used in conjunction with the _serviceVersion_. See [here](#npp-services) for more details.
+                 */
+                service: "X2P1" | "IFTI" | "BSCT" | "CATSCT";
+                /**
+                 * Two-digit NPP service overlay version with leading zero.
+                 */
+                serviceVersion: string;
+                [k: string]: unknown;
+            };
+            [k: string]: unknown;
         };
         [k: string]: unknown;
-      };
-      [k: string]: unknown;
     };
     links: Links;
     meta?: Meta;
     [k: string]: unknown;
-  }
+}
 
 export interface ResponseBankingTransactionList {
     data: {
