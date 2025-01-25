@@ -11,8 +11,10 @@ interface WinBox {
     title: string
     dom: Node
     window: Node
+    index: number
     body: HTMLElement
     header: number
+
     x: string | number
     y: string | number
     width: string | number
@@ -21,28 +23,29 @@ interface WinBox {
     minheight: string | number
     maxwidth: string | number
     maxheight: string | number
-    top: string | number
-    right: string | number
-    bottom: string | number
     left: string | number
-    index: number
+    right: string | number
+    top: string | number
+    bottom: string | number
+
     overflow: boolean
     min: boolean
     max: boolean
     full: boolean
     hidden: boolean
     focused: boolean
-    onclose: (force: boolean) => boolean
-    onfocus: () => void
-    onblur: () => void
-    onmove: (x: number, y: number) => void
-    onresize: (width: number, height: number) => void
-    onfullscreen: () => void
-    onmaximize: () => void
-    onminimize: () => void
-    onrestore: () => void
-    onhide: () => void
-    onshow: () => void
+
+    onclose: (this: WinBox, force: boolean) => boolean
+    onfocus: (this: WinBox) => void
+    onblur: (this: WinBox) => void
+    onmove: (this: WinBox, x: number, y: number) => void
+    onresize: (this: WinBox, width: number, height: number) => void
+    onfullscreen: (this: WinBox) => void
+    onmaximize: (this: WinBox) => void
+    onminimize: (this: WinBox) => void
+    onrestore: (this: WinBox) => void
+    onhide: (this: WinBox) => void
+    onshow: (this: WinBox) => void
 
     mount(src?: Element): WinBox
 
@@ -112,39 +115,43 @@ declare namespace WinBox {
         mount?: Node
         html?: string
         url?: string
+
+        x?: "right" | "center" | string | number
+        y?: "bottom" | "center" | string | number
         width?: string | number
         height?: string | number
         minwidth?: string | number
         minheight?: string | number
         maxwidth?: string | number
         maxheight?: string | number
+        left?: string | number
+        right?: string | number
+        top?: string | number
+        bottom?: string | number
+
         min?: boolean
         max?: boolean
         hidden?: boolean
         modal?: boolean
-        x?: "right" | "center" | string | number
-        y?: "bottom" | "center" | string | number
-        top?: string | number
-        left?: string | number
-        right?: string | number
-        bottom?: string | number
+
         background?: string
         border?: string | number
         header?: number
-        classname?: string | string[]
-        oncreate?: (params?: Params) => void
-        onclose?: (force?: boolean) => boolean
-        onfocus?: () => void
-        onblur?: () => void
-        onmove?: (x: number, y: number) => void
-        onresize?: (width: number, height: number) => void
-        onfullscreen?: () => void
-        onminimize?: () => void
-        onmaximize?: () => void
-        onrestore?: () => void
-        onhide?: () => void
-        onshow?: () => void
-        onload?: () => void
+        class?: string | string[]
+
+        oncreate?: (this: WinBox, params?: Params) => void
+        onclose?: (this: WinBox, force?: boolean) => boolean
+        onfocus?: (this: WinBox) => void
+        onblur?: (this: WinBox) => void
+        onmove?: (this: WinBox, x: number, y: number) => void
+        onresize?: (this: WinBox, width: number, height: number) => void
+        onfullscreen?: (this: WinBox) => void
+        onminimize?: (this: WinBox) => void
+        onmaximize?: (this: WinBox) => void
+        onrestore?: (this: WinBox) => void
+        onhide?: (this: WinBox) => void
+        onshow?: (this: WinBox) => void
+        onload?: (this: WinBox) => void
     }
 }
 
