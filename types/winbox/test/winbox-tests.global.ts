@@ -1,4 +1,4 @@
 // @ts-expect-error
-WinBox.new("Basic Window")
+WinBox.new("Basic Window");
 
 // Other tests done in module test.
