@@ -15,34 +15,34 @@ type Plugin = object | PluginGenerator;
 type Preset = () => unknown;
 
 export interface SwaggerUIProps {
-    spec?: object | string | undefined;
-    url?: string | undefined;
-    layout?: string | undefined;
-    onComplete?: ((system: System) => void) | undefined;
-    requestInterceptor?: ((req: Request) => Request | Promise<Request>) | undefined;
-    responseInterceptor?: ((res: Response) => Response | Promise<Response>) | undefined;
-    docExpansion?: "list" | "full" | "none" | undefined;
-    defaultModelExpandDepth?: number | undefined;
-    defaultModelsExpandDepth?: number | undefined;
+    spec?: object | string;
+    url?: string;
+    layout?: string;
+    onComplete?: (system: System) => void;
+    requestInterceptor?: (req: Request) => Request | Promise<Request>;
+    responseInterceptor?: (res: Response) => Response | Promise<Response>;
+    docExpansion?: "list" | "full" | "none";
+    defaultModelExpandDepth?: number;
+    defaultModelsExpandDepth?: number;
     defaultModelRendering?: "example" | "model";
     queryConfigEnabled?: boolean;
-    plugins?: Plugin[] | undefined;
-    supportedSubmitMethods?: string[] | undefined;
-    deepLinking?: boolean | undefined;
-    showMutatedRequest?: boolean | undefined;
-    showExtensions?: boolean | undefined;
-    showCommonExtensions?: boolean | undefined;
-    presets?: Preset[] | undefined;
-    filter?: string | boolean | undefined;
-    requestSnippetsEnabled?: boolean | undefined;
-    requestSnippets?: object | undefined;
-    displayOperationId?: boolean | undefined;
-    tryItOutEnabled?: boolean | undefined;
+    plugins?: Plugin[];
+    supportedSubmitMethods?: Array<"get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace">;
+    deepLinking?: boolean;
+    showMutatedRequest?: boolean;
+    showExtensions?: boolean;
+    showCommonExtensions?: boolean;
+    presets?: Preset[];
+    filter?: string | boolean;
+    requestSnippetsEnabled?: boolean;
+    requestSnippets?: object;
+    displayOperationId?: boolean;
+    tryItOutEnabled?: boolean;
     displayRequestDuration?: boolean;
     persistAuthorization?: boolean;
     withCredentials?: boolean;
     oauth2RedirectUrl?: string;
 }
 
-declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}
+declare const SwaggerUI: React.FunctionComponent<SwaggerUIProps>;
 export default SwaggerUI;
