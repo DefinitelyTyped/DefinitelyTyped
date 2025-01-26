@@ -274,11 +274,10 @@ options = {
 // BROWSERSLIST ENV //
 // ===================//
 
-
 options = {
-    browserslistEnv: 'production',
+    browserslistEnv: "production",
 };
 
 options = {
-    browserslistEnv: 'dev',
+    browserslistEnv: "dev",
 };
