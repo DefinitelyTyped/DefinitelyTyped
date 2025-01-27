@@ -5,6 +5,12 @@
     "projects": [
         "https://github.com/swagger-api/swagger-ui#readme"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        }
+    },
     "dependencies": {
         "@types/react": "*"
     },
