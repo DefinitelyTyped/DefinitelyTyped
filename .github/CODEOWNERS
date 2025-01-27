@@ -724,7 +724,7 @@
 /types/bull-arena/                                        @levibostian @gtpan77
 /types/bumblebee-hotword/                                 @sheunglaili
 /types/bump-regex/                                        @silkentrance
-/types/bun/                                               @colinhacks @Jarred-Sumner @electroid @paperdave @robobun @dylan-conway
+/types/bun/                                               @Jarred-Sumner @electroid @paperclover @robobun @dylan-conway @nektro @RiskyMH
 /types/bundle-id/                                         @LeoDog896
 /types/bundle-name/                                       @LeoDog896
 /types/bunnymq/                                           @cyrilschumacher
@@ -3261,7 +3261,6 @@
 /types/hex-to-uuid/                                       @pmqueiroz
 /types/hex2dec/                                           @Addono
 /types/hexo-bunyan/                                       @segayuu
-/types/hexo-fs/                                           @segayuu
 /types/hexo-log/                                          @segayuu
 /types/hexo-util/                                         @segayuu @KentarouTakeda
 /types/hh-mm-ss/                                          @TotomInc
@@ -3296,7 +3295,7 @@
 /types/hosted-git-info/                                   @OiyouYeahYou @Ovyerus @djcsdy
 /types/hostile/                                           @AndrewLeedham
 /types/hot-formula-parser/                                @joao-mbn
-/types/hotwired__turbo/                                   @G-Rath @lukeify
+/types/hotwired__turbo/                                   @G-Rath @lukeify @myabc
 /types/howler/                                            @xperiments @alien35 @nicholashza @cjurango @MrGriefs
 /types/hoxy/                                              @TrueLecter
 /types/hpp/                                               @kryops
@@ -3317,6 +3316,7 @@
 /types/html-replace-webpack-plugin/                       @bricka
 /types/html-tableify/                                     @inglec-arista
 /types/html-tag/                                          @arnu515
+/types/html-to-docx/                                      @DefinitelyTyped
 /types/html-to-draftjs/                                   @1cheese
 /types/html-to-pdfmake/                                   @me @cwoebker
 /types/html-to-rtf/                                       @bricka
@@ -4766,6 +4766,7 @@
 /types/lzbase62/                                          @ArthurKa
 /types/lzma/                                              @Goldsmith42
 /types/lzma-native/                                       @leshow
+/types/m3u8-parser/                                       @k-yle
 /types/macaca-circular-json/                              @jpevarnek
 /types/macrotask/                                         @BendingBender
 /types/madge/                                             @jasongerbes
@@ -5925,7 +5926,6 @@
 /types/pngjs/                                             @jason0x43 @ffflorian @peterblazejewicz
 /types/pngquant-bin/                                      @hikoma
 /types/pnpapi/                                            @arcanis @ExE-Boss
-/types/podcast/                                           @nikeee @malob
 /types/podium/                                            @AJamesPhillips
 /types/poi/                                               @bolasblack
 /types/point-in-polygon/                                  @dyst5422 @kogai
@@ -6352,7 +6352,6 @@
 /types/react-bootstrap-table2-filter/                     @gosticks
 /types/react-bootstrap-table2-paginator/                  @gosticks
 /types/react-bootstrap-table2-toolkit/                    @gosticks
-/types/react-bootstrap-typeahead/                         @Guymestef @radziksh @PaitoAnderson @arichter83 @dalevfenton @KngHawkon @Chrisdo82
 /types/react-breadcrumbs/                                 @guoyunhe @matsuby
 /types/react-breadcrumbs-dynamic/                         @mitsuruog
 /types/react-broadcast/                                   @kandros
@@ -6685,7 +6684,6 @@
 /types/react-native-table-component/                      @davidcole1340
 /types/react-native-tags/                                 @IdaszakDaniel
 /types/react-native-telnet-client/                        @robinvandenb
-/types/react-native-text-input-mask/                      @RodrigoAWeber @hengkx
 /types/react-native-toast-native/                         @bm-software
 /types/react-native-torch/                                @BenLorantfy
 /types/react-native-typewriter/                           @ScreamZ
@@ -7150,7 +7148,6 @@
 /types/rollup-plugin-svelte-svg/                          @GauBen
 /types/rollup-plugin-url/                                 @me
 /types/rollup-plugin-visualizer/                          @fobdy @maxbogus
-/types/rollup__plugin-virtual/                            @ahum
 /types/roman-numerals/                                    @pluma
 /types/romans/                                            @peterblazejewicz
 /types/ronilaukkarinen__gulp-stylelint/                   @martin-badin
@@ -7926,7 +7923,7 @@
 /types/swagger-ui/                                        @juarrow @peterblazejewicz
 /types/swagger-ui-dist/                                   @haowen737 @brycematheson1234 @peterblazejewicz
 /types/swagger-ui-express/                                @dmitryrogozhny @ffflorian
-/types/swagger-ui-react/                                  @VictoriaGreen93 @afrkorsakow
+/types/swagger-ui-react/                                  @VictoriaGreen93 @afrkorsakow @davulrich
 /types/swagger2openapi/                                   @rxliuli
 /types/swaggerize-express/                                @mugeso @nickmorton
 /types/swe-validation/                                    @hjalmers
