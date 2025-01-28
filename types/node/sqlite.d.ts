@@ -70,6 +70,40 @@ declare module "node:sqlite" {
          * @default false
          */
         enableDoubleQuotedStringLiterals?: boolean | undefined;
+        /**
+         * If `true`, the database is opened in read-only mode.
+         * If the database does not exist, opening it will fail.
+         * @since v22.12.0
+         * @default false
+         */
+        readOnly?: boolean | undefined;
+    }
+    interface CreateSessionOptions {
+        /**
+         * A specific table to track changes for. By default, changes to all tables are tracked.
+         * @since v22.12.0
+         */
+        table?: string | undefined;
+        /**
+         * Name of the database to track. This is useful when multiple databases have been added using
+         * [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html).
+         * @since v22.12.0
+         * @default 'main'
+         */
+        db?: string | undefined;
+    }
+    interface ApplyChangesetOptions {
+        /**
+         * Skip changes that, when targeted table name is supplied to this function, return a truthy value.
+         * By default, all changes are attempted.
+         * @since v22.12.0
+         */
+        filter?: ((tableName: string) => boolean) | undefined;
+        /**
+         * Determines how conflicts are handled. **Default**: `SQLITE_CHANGESET_ABORT`.
+         * @since v22.12.0
+         */
+        onConflict?: number | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
@@ -114,6 +148,72 @@ declare module "node:sqlite" {
          * @return The prepared statement.
          */
         prepare(sql: string): StatementSync;
+        /**
+         * Creates and attaches a session to the database. This method is a wrapper around
+         * [`sqlite3session_create()`](https://www.sqlite.org/session/sqlite3session_create.html) and
+         * [`sqlite3session_attach()`](https://www.sqlite.org/session/sqlite3session_attach.html).
+         * @param options The configuration options for the session.
+         * @returns A session handle.
+         * @since v22.12.0
+         */
+        createSession(options?: CreateSessionOptions): Session;
+        /**
+         * An exception is thrown if the database is not
+         * open. This method is a wrapper around
+         * [`sqlite3changeset_apply()`](https://www.sqlite.org/session/sqlite3changeset_apply.html).
+         *
+         * ```js
+         * const sourceDb = new DatabaseSync(':memory:');
+         * const targetDb = new DatabaseSync(':memory:');
+         *
+         * sourceDb.exec('CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)');
+         * targetDb.exec('CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)');
+         *
+         * const session = sourceDb.createSession();
+         *
+         * const insert = sourceDb.prepare('INSERT INTO data (key, value) VALUES (?, ?)');
+         * insert.run(1, 'hello');
+         * insert.run(2, 'world');
+         *
+         * const changeset = session.changeset();
+         * targetDb.applyChangeset(changeset);
+         * // Now that the changeset has been applied, targetDb contains the same data as sourceDb.
+         * ```
+         * @param changeset A binary changeset or patchset.
+         * @param options The configuration options for how the changes will be applied.
+         * @returns Whether the changeset was applied succesfully without being aborted.
+         * @since v22.12.0
+         */
+        applyChangeset(changeset: Uint8Array, options?: ApplyChangesetOptions): boolean;
+    }
+    /**
+     * @since v22.12.0
+     */
+    interface Session {
+        /**
+         * Retrieves a changeset containing all changes since the changeset was created. Can be called multiple times.
+         * An exception is thrown if the database or the session is not open. This method is a wrapper around
+         * [`sqlite3session_changeset()`](https://www.sqlite.org/session/sqlite3session_changeset.html).
+         * @returns Binary changeset that can be applied to other databases.
+         * @since v22.12.0
+         */
+        changeset(): Uint8Array;
+        /**
+         * Similar to the method above, but generates a more compact patchset. See
+         * [Changesets and Patchsets](https://www.sqlite.org/sessionintro.html#changesets_and_patchsets)
+         * in the documentation of SQLite. An exception is thrown if the database or the session is not open. This method is a
+         * wrapper around
+         * [`sqlite3session_patchset()`](https://www.sqlite.org/session/sqlite3session_patchset.html).
+         * @returns Binary patchset that can be applied to other databases.
+         * @since v22.12.0
+         */
+        patchset(): Uint8Array;
+        /**
+         * Closes the session. An exception is thrown if the database or the session is not open. This method is a
+         * wrapper around
+         * [`sqlite3session_delete()`](https://www.sqlite.org/session/sqlite3session_delete.html).
+         */
+        close(): void;
     }
     type SupportedValueType = null | number | bigint | string | Uint8Array;
     interface StatementResultingChanges {
@@ -231,4 +331,19 @@ declare module "node:sqlite" {
          */
         readonly sourceSQL: string;
     }
+    /**
+     * Conflicting changes are omitted.
+     * @since v22.12.0
+     */
+    const SQLITE_CHANGESET_OMIT: number;
+    /**
+     * Conflicting changes replace existing values.
+     * @since v22.12.0
+     */
+    const SQLITE_CHANGESET_REPLACE: number;
+    /**
+     * Abort when a change encounters a conflict and roll back databsase.
+     * @since v22.12.0
+     */
+    const SQLITE_CHANGESET_ABORT: number;
 }

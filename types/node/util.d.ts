@@ -108,14 +108,14 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
-    export interface StacktraceObject {
+    export interface CallSiteObject {
         /**
-         * Returns the name of the function associated with this stack frame.
+         * Returns the name of the function associated with this call site.
          */
         functionName: string;
         /**
          * Returns the name of the resource that contains the script for the
-         * function for this StackFrame.
+         * function for this call site.
          */
         scriptName: string;
         /**
@@ -186,14 +186,14 @@ declare module "util" {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
-     * Returns an array of stacktrace objects containing the stack of
+     * Returns an array of call site objects containing the stack of
      * the caller function.
      *
      * ```js
      * const util = require('node:util');
      *
      * function exampleFunction() {
-     *   const callSites = util.getCallSite();
+     *   const callSites = util.getCallSites();
      *
      *   console.log('Call Sites:');
      *   callSites.forEach((callSite, index) => {
@@ -225,12 +225,12 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
-     * @param frames Number of frames returned in the stacktrace.
+     * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
-     * @return An array of stacktrace objects
+     * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSite(frames?: number): StacktraceObject[];
+    export function getCallSites(frameCount?: number): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
@@ -260,6 +260,20 @@ declare module "util" {
      * @since v16.0.0, v14.17.0
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
+    /**
+     * Returns the string message for a numeric error code that comes from a Node.js
+     * API.
+     * The mapping between error codes and string messages is platform-dependent.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorMessage(err.errno);
+     *   console.error(name);  // no such file or directory
+     * });
+     * ```
+     * @since v22.12.0
+     */
+    export function getSystemErrorMessage(err: number): string;
     /**
      * The `util.log()` method prints the given `string` to `stdout` with an included
      * timestamp.
@@ -1917,6 +1931,18 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
+    /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
     /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *
