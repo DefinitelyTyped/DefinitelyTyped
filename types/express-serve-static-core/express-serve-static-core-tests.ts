@@ -346,3 +346,6 @@ app.get("/:readonly", req => {
 
 // Starting with Express 5 RequestHandler can be async
 app.get("/async", Promise.resolve);
+
+// Starting with Express 5, app.router is the app's in-built instance of router
+app.router.stack;
