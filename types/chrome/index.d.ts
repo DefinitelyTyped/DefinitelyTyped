@@ -7649,7 +7649,7 @@ declare namespace chrome {
          * @since Chrome 120
          * @param entry The entry to add to the reading list.
          * @param callback
-         * */
+         */
         export function addEntry(entry: AddEntryOptions): Promise<void>;
         export function addEntry(entry: AddEntryOptions, callback: () => void): void;
 

@@ -4588,91 +4588,91 @@ function testPrivacy() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/readingList
 function testReadingList() {
-	const { addEntry, query, removeEntry, updateEntry } = chrome.readingList;
+    const { addEntry, query, removeEntry, updateEntry } = chrome.readingList;
 
-	const testAddEntry = () => {
-		const entry = {
-			hasBeenRead: true,
-			title: 'title',
-			url: 'url',
-		};
+    const testAddEntry = () => {
+        const entry = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
 
-		// @ts-expect-error
-		addEntry();
+        // @ts-expect-error
+        addEntry();
 
-		// @ts-expect-error
-		addEntry({});
-		addEntry(entry); // $ExpectType Promise<void>
+        // @ts-expect-error
+        addEntry({});
+        addEntry(entry); // $ExpectType Promise<void>
 
-		// @ts-expect-error
-		addEntry({}, () => {});
-		addEntry(entry, () => {}); // $ExpectType void
+        // @ts-expect-error
+        addEntry({}, () => {});
+        addEntry(entry, () => {}); // $ExpectType void
 
-		// @ts-expect-error
-		addEntry(entry, () => {}).then(() => {});
-	};
+        // @ts-expect-error
+        addEntry(entry, () => {}).then(() => {});
+    };
 
-	const testQuery = () => {
-		const info = {
-			hasBeenRead: true,
-			title: 'title',
-			url: 'url',
-		};
+    const testQuery = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
 
-		// @ts-expect-error
-		query();
+        // @ts-expect-error
+        query();
 
-		query({}); // $ExpectType Promise<ReadingListEntry[]>
-		query(info); // $ExpectType Promise<ReadingListEntry[]>
+        query({}); // $ExpectType Promise<ReadingListEntry[]>
+        query(info); // $ExpectType Promise<ReadingListEntry[]>
 
-		query({}, () => {}); // $ExpectType void
-		query(info, () => {}); // $ExpectType void
+        query({}, () => {}); // $ExpectType void
+        query(info, () => {}); // $ExpectType void
 
-		// @ts-expect-error
-		query(info, () => {}).then(() => {});
-	};
+        // @ts-expect-error
+        query(info, () => {}).then(() => {});
+    };
 
-	const testRemoveEntry = () => {
-		const info = {
-			url: 'url',
-		};
+    const testRemoveEntry = () => {
+        const info = {
+            url: "url",
+        };
 
-		// @ts-expect-error
-		removeEntry();
+        // @ts-expect-error
+        removeEntry();
 
-		// @ts-expect-error
-		removeEntry({});
-		removeEntry(info); // $ExpectType Promise<void>
+        // @ts-expect-error
+        removeEntry({});
+        removeEntry(info); // $ExpectType Promise<void>
 
-		// @ts-expect-error
-		removeEntry({}, () => {});
-		removeEntry(info, () => {}); // $ExpectType void
+        // @ts-expect-error
+        removeEntry({}, () => {});
+        removeEntry(info, () => {}); // $ExpectType void
 
-		// @ts-expect-error
-		removeEntry(info, () => {}).then(() => {});
-	};
+        // @ts-expect-error
+        removeEntry(info, () => {}).then(() => {});
+    };
 
-	const testUpdateEntry = () => {
-		const info = {
-			hasBeenRead: true,
-			title: 'title',
-			url: 'url',
-		};
+    const testUpdateEntry = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
 
-		// @ts-expect-error
-		updateEntry();
+        // @ts-expect-error
+        updateEntry();
 
-		// @ts-expect-error
-		updateEntry({});
-		updateEntry({ url: 'url' }); // $ExpectType Promise<void>
-		updateEntry(info); // $ExpectType Promise<void>
+        // @ts-expect-error
+        updateEntry({});
+        updateEntry({ url: "url" }); // $ExpectType Promise<void>
+        updateEntry(info); // $ExpectType Promise<void>
 
-		// @ts-expect-error
-		updateEntry({}, () => {});
-		updateEntry({ url: 'url' }, () => {}); // $ExpectType void
-		updateEntry(info, () => {}); // $ExpectType void
+        // @ts-expect-error
+        updateEntry({}, () => {});
+        updateEntry({ url: "url" }, () => {}); // $ExpectType void
+        updateEntry(info, () => {}); // $ExpectType void
 
-		// @ts-expect-error
-		updateEntry(info, () => {}).then(() => {});
-	};
+        // @ts-expect-error
+        updateEntry(info, () => {}).then(() => {});
+    };
 }
