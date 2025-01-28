@@ -270,6 +270,11 @@ declare namespace __WebpackModuleApi {
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
     type RequireLambda = __Require1 & __Require2;
+
+    namespace __NodeGlobalInterfacePolyfill {
+        type Module = NodeJS.Process extends { version: string } ? {} : NodeJS.Module;
+        type Require = NodeJS.Process extends { version: string } ? {} : NodeJS.Require;
+    }
 }
 
 /**
@@ -364,14 +369,14 @@ interface ImportMeta {
 }
 
 declare namespace NodeJS {
-    interface Process extends __WebpackModuleApi.NodeProcess {}
-    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
     interface Module extends __WebpackModuleApi.Module {}
     interface Require extends __WebpackModuleApi.RequireFunction {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Process extends __WebpackModuleApi.NodeProcess {}
 }
 
-interface NodeModule extends NodeJS.Module {}
-interface NodeRequire extends NodeJS.Require {}
+interface NodeModule extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Module {}
+interface NodeRequire extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Require {}
 
 declare var module: NodeJS.Module;
 declare var process: NodeJS.Process;
