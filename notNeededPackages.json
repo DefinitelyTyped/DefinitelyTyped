@@ -1685,6 +1685,14 @@
             "libraryName": "es-module-lexer",
             "asOfVersion": "0.4.1"
         },
+        "es-to-primitive": {
+            "libraryName": "es-to-primitive",
+            "asOfVersion": "1.3.0"
+        },
+        "es-value-fixtures": {
+            "libraryName": "es-value-fixtures",
+            "asOfVersion": "1.5.0"
+        },
         "es6-error": {
             "libraryName": "es6-error",
             "asOfVersion": "4.0.2"
@@ -2153,6 +2161,10 @@
             "libraryName": "get-stream",
             "asOfVersion": "5.0.0"
         },
+        "get-symbol-description": {
+            "libraryName": "get-symbol-description",
+            "asOfVersion": "1.1.0"
+        },
         "get-urls": {
             "libraryName": "get-urls",
             "asOfVersion": "9.1.0"
@@ -2361,8 +2373,16 @@
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
         },
+        "has-bigints": {
+            "libraryName": "has-bigints",
+            "asOfVersion": "1.1.0"
+        },
         "has-emoji": {
             "libraryName": "has-emoji",
+            "asOfVersion": "1.1.0"
+        },
+        "has-symbols": {
+            "libraryName": "has-symbols",
             "asOfVersion": "1.1.0"
         },
         "has-yarn": {
@@ -2581,6 +2601,10 @@
             "libraryName": "internal-ip",
             "asOfVersion": "4.1.0"
         },
+        "internal-slot": {
+            "libraryName": "internal-slot",
+            "asOfVersion": "1.1.0"
+        },
         "intl-locales-supported": {
             "libraryName": "intl-locales-supported",
             "asOfVersion": "1.0.6"
@@ -2657,17 +2681,37 @@
             "libraryName": "is-archive",
             "asOfVersion": "2.0.0"
         },
+        "is-arguments": {
+            "libraryName": "is-arguments",
+            "asOfVersion": "1.2.0"
+        },
         "is-array-sorted": {
             "libraryName": "is-array-sorted",
             "asOfVersion": "2.0.0"
+        },
+        "is-async-function": {
+            "libraryName": "is-async-function",
+            "asOfVersion": "2.1.0"
+        },
+        "is-bigint": {
+            "libraryName": "is-bigint",
+            "asOfVersion": "1.1.0"
         },
         "is-binary-path": {
             "libraryName": "is-binary-path",
             "asOfVersion": "2.1.0"
         },
+        "is-boolean-object": {
+            "libraryName": "is-boolean-object",
+            "asOfVersion": "1.2.0"
+        },
         "is-compressed": {
             "libraryName": "is-compressed",
             "asOfVersion": "2.0.0"
+        },
+        "is-date-object": {
+            "libraryName": "is-date-object",
+            "asOfVersion": "1.1.0"
         },
         "is-docker": {
             "libraryName": "is-docker",
@@ -2680,6 +2724,10 @@
         "is-fullwidth-code-point": {
             "libraryName": "is-fullwidth-code-point",
             "asOfVersion": "3.0.0"
+        },
+        "is-generator-function": {
+            "libraryName": "is-generator-function",
+            "asOfVersion": "1.1.0"
         },
         "is-image": {
             "libraryName": "is-image",
@@ -2697,6 +2745,10 @@
             "libraryName": "is-lower-case",
             "asOfVersion": "1.1.2"
         },
+        "is-map": {
+            "libraryName": "is-map",
+            "asOfVersion": "2.0.3"
+        },
         "is-mobile": {
             "libraryName": "is-mobile",
             "asOfVersion": "2.1.0"
@@ -2704,6 +2756,10 @@
         "is-my-json-valid": {
             "libraryName": "is-my-json-valid",
             "asOfVersion": "2.18.0"
+        },
+        "is-negative-zero": {
+            "libraryName": "is-negative-zero",
+            "asOfVersion": "2.0.3"
         },
         "is-obj": {
             "libraryName": "is-obj",
@@ -2745,6 +2801,10 @@
             "libraryName": "is-reachable",
             "asOfVersion": "3.1.0"
         },
+        "is-regex": {
+            "libraryName": "is-regex",
+            "asOfVersion": "1.2.0"
+        },
         "is-regexp": {
             "libraryName": "is-regexp",
             "asOfVersion": "2.1.0"
@@ -2765,6 +2825,10 @@
             "libraryName": "is-scoped",
             "asOfVersion": "2.0.0"
         },
+        "is-set": {
+            "libraryName": "is-set",
+            "asOfVersion": "2.0.3"
+        },
         "is-stream": {
             "libraryName": "is-stream",
             "asOfVersion": "2.0.0"
@@ -2772,6 +2836,10 @@
         "is-svg": {
             "libraryName": "is-svg",
             "asOfVersion": "4.0.1"
+        },
+        "is-symbol": {
+            "libraryName": "is-symbol",
+            "asOfVersion": "1.1.0"
         },
         "is-text-path": {
             "libraryName": "is-text-path",
@@ -2784,6 +2852,10 @@
         "is-url-superb": {
             "libraryName": "is-url-superb",
             "asOfVersion": "3.0.0"
+        },
+        "is-weakref": {
+            "libraryName": "is-weakref",
+            "asOfVersion": "1.1.0"
         },
         "ismobilejs": {
             "libraryName": "ismobilejs",
@@ -2928,6 +3000,10 @@
         "json-schema-traverse": {
             "libraryName": "json-schema-traverse",
             "asOfVersion": "1.0.0"
+        },
+        "json-stable-stringify": {
+            "libraryName": "json-stable-stringify",
+            "asOfVersion": "1.2.0"
         },
         "json-stream-stringify": {
             "libraryName": "json-stream-stringify",
@@ -5703,6 +5779,10 @@
             "libraryName": "sade",
             "asOfVersion": "1.8.0"
         },
+        "safe-regex-test": {
+            "libraryName": "safe-regex-test",
+            "asOfVersion": "1.1.0"
+        },
         "samchon": {
             "libraryName": "samchon",
             "asOfVersion": "2.0.22"
@@ -6495,6 +6575,10 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "asOfVersion": "4.0.0"
         },
+        "unbox-primitive": {
+            "libraryName": "unbox-primitive",
+            "asOfVersion": "1.1.0"
+        },
         "unique-random": {
             "libraryName": "unique-random",
             "asOfVersion": "2.1.0"
@@ -6754,6 +6838,10 @@
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
+        },
+        "which-boxed-primitive": {
+            "libraryName": "which-boxed-primitive",
+            "asOfVersion": "v1.1.0"
         },
         "which-pm": {
             "libraryName": "which-pm",
