@@ -6511,6 +6511,10 @@
             "libraryName": "ts3-nodejs-library",
             "asOfVersion": "2.0.0"
         },
+        "tsc-watch": {
+            "libraryName": "tsc-watch",
+            "asOfVersion": "6.0.0"
+        },
         "tsmonad": {
             "libraryName": "tsmonad",
             "asOfVersion": "0.5.0"
