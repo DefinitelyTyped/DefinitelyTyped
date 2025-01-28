@@ -1,3 +1,3 @@
-import { lucene } from "lucene-query-string-builder";
+import lucene = require("lucene-query-string-builder");
 
 lucene.term("hello"); // $ExpectType string
