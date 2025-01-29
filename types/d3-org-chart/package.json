@@ -6,10 +6,10 @@
         "https://github.com/bumbeishvili/org-chart#readme"
     ],
     "dependencies": {
-        "@types/d3-hierarchy": "*",
-        "@types/d3-selection": "*",
-        "@types/d3-shape": "*",
-        "@types/d3-zoom": "*"
+        "@types/d3-hierarchy": "<3",
+        "@types/d3-selection": "<3",
+        "@types/d3-shape": "<3",
+        "@types/d3-zoom": "<3"
     },
     "devDependencies": {
         "@types/d3-org-chart": "workspace:."

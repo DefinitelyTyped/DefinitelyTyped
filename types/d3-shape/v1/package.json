@@ -10,8 +10,8 @@
         "@types/d3-path": "^1"
     },
     "devDependencies": {
-        "@types/d3-hierarchy": "*",
-        "@types/d3-selection": "*",
+        "@types/d3-hierarchy": "<3",
+        "@types/d3-selection": "<3",
         "@types/d3-shape": "workspace:."
     },
     "owners": [

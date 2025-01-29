@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/d3-sankey": "workspace:.",
-        "@types/d3-selection": "*"
+        "@types/d3-selection": "<3"
     },
     "owners": [
         {

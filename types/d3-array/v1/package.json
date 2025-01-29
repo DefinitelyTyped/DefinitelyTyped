@@ -7,8 +7,8 @@
     ],
     "devDependencies": {
         "@types/d3-array": "workspace:.",
-        "@types/d3-scale": "*",
-        "@types/d3-time": "*"
+        "@types/d3-scale": "<4",
+        "@types/d3-time": "<3"
     },
     "owners": [
         {

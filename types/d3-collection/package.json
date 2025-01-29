@@ -7,7 +7,7 @@
         "https://d3js.org/d3-collection"
     ],
     "devDependencies": {
-        "@types/d3-array": "*",
+        "@types/d3-array": "<3",
         "@types/d3-collection": "workspace:."
     },
     "owners": [

@@ -1,4 +1,6 @@
-import * as d3 from "d3";
+import { Simulation, SimulationNodeDatum } from "d3-force";
+import { voronoi } from "d3-voronoi";
+import { ZoomBehavior } from "d3-zoom";
 
 export interface Node {
     id: string;
@@ -59,7 +61,7 @@ export interface Graph {
     hasGraphChanged: boolean;
     ignoreCount: boolean;
 
-    zoom: d3.ZoomBehavior<Element, unknown>;
+    zoom: ZoomBehavior<Element, unknown>;
 
     WHEEL_ZOOM_ENABLED: boolean;
     USE_DONUT_FORCE: boolean;
@@ -155,7 +157,7 @@ export interface Graph {
      */
     createForceLayout: () => void;
 
-    force: d3.Simulation<d3.SimulationNodeDatum, undefined>;
+    force: Simulation<SimulationNodeDatum, undefined>;
 
     /**
      * Adds graph root nodes using the label set as parameter.
@@ -235,7 +237,7 @@ export interface Graph {
      */
     addRelationshipData: (n: any, l: any, callback: () => void, values: any[], isNegative: boolean) => void;
 
-    voronoi: d3.Voronoi<any>;
+    voronoi: typeof voronoi<any>;
 
     recenterVoronoi: (nodes: Node[]) => Array<[number, number]>;
 }

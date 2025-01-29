@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import { ScaleOrdinal } from "d3-scale";
 import { Query } from "../query";
 
 export interface Link {
@@ -515,7 +515,7 @@ export interface Provider {
      * Default color scale generator.
      * Used in getColor link and node providers.
      */
-    colorScale: d3.ScaleOrdinal<string, readonly string[]>;
+    colorScale: ScaleOrdinal<string, readonly string[]>;
 
     colorLuminance: (hex: string, lum: number) => string;
 

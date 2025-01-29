@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/d3-dsv",
     "version": "3.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/d3/d3-dsv/",
         "https://d3js.org/d3-dsv"

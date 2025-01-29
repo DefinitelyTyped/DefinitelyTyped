@@ -11,8 +11,8 @@
     },
     "devDependencies": {
         "@types/d3-contour": "workspace:.",
-        "@types/d3-geo": "*",
-        "@types/d3-random": "*"
+        "@types/d3-geo": "<3",
+        "@types/d3-random": "<3"
     },
     "owners": [
         {

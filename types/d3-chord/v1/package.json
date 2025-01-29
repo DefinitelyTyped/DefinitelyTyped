@@ -7,9 +7,9 @@
         "https://d3js.org/d3-chord"
     ],
     "devDependencies": {
-        "@types/d3-array": "*",
+        "@types/d3-array": "1",
         "@types/d3-chord": "workspace:.",
-        "@types/d3-selection": "*"
+        "@types/d3-selection": "1"
     },
     "owners": [
         {
