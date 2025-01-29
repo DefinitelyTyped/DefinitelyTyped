@@ -157,7 +157,6 @@
         "has-package-exports",
         "hellosign-embedded",
         "hellosign-sdk",
-        "html-escaper",
         "html-minifier-terser",
         "html-to-text",
         "i18next-fs-backend",
