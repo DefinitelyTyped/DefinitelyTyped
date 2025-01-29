@@ -2525,6 +2525,10 @@
             "libraryName": "i18next-express-middleware",
             "asOfVersion": "1.7.0"
         },
+        "i18next-fs-backend": {
+            "libraryName": "i18next-fs-backend",
+            "asOfVersion": "1.2.0"
+        },
         "i18next-xhr-backend": {
             "libraryName": "i18next-xhr-backend",
             "asOfVersion": "1.4.2"
