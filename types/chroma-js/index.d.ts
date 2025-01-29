@@ -480,7 +480,7 @@ declare namespace chroma {
          * chroma.deltaE('#000000', '#ffffff') // 100
          * ```
          */
-        deltaE(color1: ChromaInput, color2: ChromaInput, Kl: number, Kc: number, Kh: number): number;
+        deltaE(color1: ChromaInput, color2: ChromaInput, Kl?: number, Kc?: number, Kh?: number): number;
 
         /**
          * chroma.brewer is an map of {@link http://colorbrewer2.org/|ColorBrewer palettes} that are included
