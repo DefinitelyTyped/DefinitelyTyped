@@ -6827,6 +6827,10 @@
             "libraryName": "webpack-dev-server",
             "asOfVersion": "4.7.0"
         },
+        "webpack-manifest-plugin": {
+            "libraryName": "webpack-manifest-plugin",
+            "asOfVersion": "4.0.0"
+        },
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
