@@ -6595,6 +6595,10 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "asOfVersion": "4.0.0"
         },
+        "umami-browser": {
+            "libraryName": "umami-browser",
+            "asOfVersion": "2.3.9999"
+        },
         "unbox-primitive": {
             "libraryName": "unbox-primitive",
             "asOfVersion": "1.1.0"
