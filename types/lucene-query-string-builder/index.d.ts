@@ -1,9 +1,4 @@
 /**
- * Lucene Query String Builder
- */
-export as namespace lucene;
-
-/**
  * Wraps a query with parentheses.
  * @param query - The query to group.
  */
