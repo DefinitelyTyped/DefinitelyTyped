@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SwaggerUIProps } from "./swagger-ui-react";
+import { SwaggerUIProps } from "./swagger-ui-react.js";
 
 declare const SwaggerUI: React.FunctionComponent<SwaggerUIProps>;
-export = SwaggerUI;
+export default SwaggerUI;
