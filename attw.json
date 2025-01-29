@@ -159,7 +159,6 @@
         "hellosign-sdk",
         "html-minifier-terser",
         "html-to-text",
-        "i18next-fs-backend",
         "i18next-sprintf-postprocessor",
         "ibm_db",
         "identicon.js",
