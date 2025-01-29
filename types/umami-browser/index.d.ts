@@ -26,8 +26,7 @@ declare namespace umami {
             | EventData[];
     }
 
-    interface CustomPayload
-        extends WithRequired<Partial<PageViewProperties>, "website"> {
+    interface CustomPayload extends WithRequired<Partial<PageViewProperties>, "website"> {
         name?: string;
         data?: EventData;
     }
