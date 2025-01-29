@@ -3389,6 +3389,10 @@
             "libraryName": "lorem-ipsum",
             "asOfVersion": "2.0.0"
         },
+        "lossless-json": {
+            "libraryName": "lossless-json",
+            "asOfVersion": "2.0.0"
+        },
         "loud-rejection": {
             "libraryName": "loud-rejection",
             "asOfVersion": "2.0.0"
