@@ -466,6 +466,16 @@ declare namespace google {
              * terms.
              */
             setQuery(query: string): View;
+
+            /**
+             * @deprecated
+             */
+            getLabel(): string;
+
+            /**
+             * @deprecated
+             */
+            setLabel(label: string): View;
         }
 
         /**
