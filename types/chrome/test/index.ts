@@ -3176,6 +3176,8 @@ function testUserScripts() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
 function testEnterPrisePlatformKeys() {
+    const tokenId = "tokenId";
+
     chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
     chrome.enterprise.platformKeys.Scope.USER === "USER";
 
@@ -3188,18 +3190,47 @@ function testEnterPrisePlatformKeys() {
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0)); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.getCertificates(tokenId); // $ExpectType Promise<ArrayBuffer[]>
+    chrome.enterprise.platformKeys.getCertificates(tokenId, certificates => { // $ExpectType void
+        certificates; // $ExpectType ArrayBuffer[]
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.getCertificates(tokenId, () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.getTokens(); // $ExpectType Promise<Token[]>
+    chrome.enterprise.platformKeys.getTokens(tokens => { // $ExpectType void
+        tokens; // $ExpectType Token[]
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.getTokens(() => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0)); // $ExpectType Promise<void>
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0), () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0), () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0)); // $ExpectType Promise<void>
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0), () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0), () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/power
