@@ -354,7 +354,6 @@
         "url-state",
         "use-combined-reducers",
         "use-global-hook",
-        "use-persisted-state",
         "vanillajs-datepicker",
         "verovio",
         "video.js",
