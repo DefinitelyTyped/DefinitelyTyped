@@ -7596,7 +7596,7 @@ declare namespace chrome {
      * Use the `chrome.readingList` API to read from and modify the items in the Reading List.
      *
      * Permissions: "readingList"
-     * @since Chrome 120
+     * @since Chrome 120, MV3
      */
     export namespace readingList {
         export interface AddEntryOptions {
@@ -7646,7 +7646,7 @@ declare namespace chrome {
 
         /**
          * Adds an entry to the reading list if it does not exist.
-         * @since Chrome 120
+         * @since Chrome 120, MV3
          * @param entry The entry to add to the reading list.
          * @param callback
          */
@@ -7655,7 +7655,7 @@ declare namespace chrome {
 
         /**
          * Retrieves all entries that match the `QueryInfo` properties. Properties that are not provided will not be matched.
-         * @since Chrome 120
+         * @since Chrome 120, MV3
          * @param info The properties to search for.
          * @param callback
          */
@@ -7664,7 +7664,7 @@ declare namespace chrome {
 
         /**
          * Removes an entry from the reading list if it exists.
-         * @since Chrome 120
+         * @since Chrome 120, MV3
          * @param info The entry to remove from the reading list.
          * @param callback
          */
@@ -7673,7 +7673,7 @@ declare namespace chrome {
 
         /**
          * Updates a reading list entry if it exists.
-         * @since Chrome 120
+         * @since Chrome 120, MV3
          * @param info The entry to update.
          * @param callback
          */
