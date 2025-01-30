@@ -2361,6 +2361,10 @@
             "libraryName": "@hapi/topo",
             "asOfVersion": "5.0.0"
         },
+        "hapi__vision": {
+            "libraryName": "@hapi/vision",
+            "asOfVersion": "7.0.2"
+        },
         "hapi__wreck": {
             "libraryName": "@hapi/wreck",
             "asOfVersion": "17.0.0"
