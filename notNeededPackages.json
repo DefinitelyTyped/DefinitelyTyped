@@ -5315,6 +5315,10 @@
             "libraryName": "react-native-linear-gradient",
             "asOfVersion": "2.4.0"
         },
+        "react-native-loading-spinner-overlay": {
+            "libraryName": "react-native-loading-spinner-overlay",
+            "asOfVersion": "3.0.0"
+        },
         "react-native-mail": {
             "libraryName": "react-native-mail",
             "asOfVersion": "6.0.1"
