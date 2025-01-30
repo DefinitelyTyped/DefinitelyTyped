@@ -3209,6 +3209,10 @@
             "libraryName": "known",
             "asOfVersion": "3.0.0"
         },
+        "koa-graphql": {
+            "libraryName": "koa-graphql",
+            "asOfVersion": "0.12.0"
+        },
         "koa-jwt": {
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
