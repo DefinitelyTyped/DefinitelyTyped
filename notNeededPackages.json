@@ -3265,6 +3265,10 @@
             "libraryName": "left-pad",
             "asOfVersion": "1.2.0"
         },
+        "level": {
+            "libraryName": "level",
+            "asOfVersion": "8.0.0"
+        },
         "leven": {
             "libraryName": "leven",
             "asOfVersion": "3.0.0"
