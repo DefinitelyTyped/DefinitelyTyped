@@ -5091,6 +5091,10 @@
             "libraryName": "react-cropper",
             "asOfVersion": "2.0.0"
         },
+        "react-custom-scroll": {
+            "libraryName": "react-custom-scroll",
+            "asOfVersion": "7.0.0"
+        },
         "react-datepicker": {
             "libraryName": "react-datepicker",
             "asOfVersion": "7.0.0"
