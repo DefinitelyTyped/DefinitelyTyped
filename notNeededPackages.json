@@ -5199,6 +5199,10 @@
             "libraryName": "react-inlinesvg",
             "asOfVersion": "1.0.0"
         },
+        "react-inspector": {
+            "libraryName": "react-inspector",
+            "asOfVersion": "6.0.1"
+        },
         "react-interactive": {
             "libraryName": "react-interactive",
             "asOfVersion": "1.0.0"
