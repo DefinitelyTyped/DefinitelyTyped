@@ -5991,6 +5991,10 @@
             "libraryName": "slice-ansi",
             "asOfVersion": "7.1.0"
         },
+        "slonik": {
+            "libraryName": "slonik",
+            "asOfVersion": "23.0.0"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
