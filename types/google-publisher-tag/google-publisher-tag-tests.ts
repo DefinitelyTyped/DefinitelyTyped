@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20250113
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/86021d60da45fad4962a10ec47a079e9e0356ac7
+// Tests for Google Publisher Tag 1.20250127
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/a3d2c8faf18f9b915f4df1cd9f9bed6c2c6823cf
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -685,9 +685,9 @@ function test_googletag_config_publisherProvidedSignalsConfig() {
 // Test for googletag.config.ComponentAuctionConfig.auctionConfig
 function test_googletag_config_componentAuctionConfig_auctionConfig() {
     const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicUrl's origin
+        // Seller URL should be https and the same as decisionLogicURL's origin
         seller: "https://testSeller.com",
-        decisionLogicUrl: "https://testSeller.com/ssp/decision-logic.js",
+        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
         interestGroupBuyers: ["https://example-buyer.com"],
         auctionSignals: { auction_signals: "auction_signals" },
         sellerSignals: { seller_signals: "seller_signals" },
