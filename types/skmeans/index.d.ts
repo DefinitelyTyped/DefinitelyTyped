@@ -1,8 +1,8 @@
 type CentroidValues<TPoint extends number | number[]> = TPoint[] | "kmrand" | "kmpp";
 
 interface TestResult<TPoint> {
-    idx: number
-    centroid: TPoint
+    idx: number;
+    centroid: TPoint;
 }
 
 interface DataResult<TPoint extends number | number[]> {
