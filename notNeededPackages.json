@@ -516,6 +516,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cache-manager-redis-store": {
+            "libraryName": "cache-manager-redis-store",
+            "asOfVersion": "3.0.0"
+        },
         "cacheable-request": {
             "libraryName": "cacheable-request",
             "asOfVersion": "8.3.1"
