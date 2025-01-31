@@ -1,4 +1,5 @@
 import { Color } from "../../math/Color.js";
+import { Matrix2 } from "../../math/Matrix2.js";
 import { Matrix3 } from "../../math/Matrix3.js";
 import { Matrix4 } from "../../math/Matrix4.js";
 import { Vector2 } from "../../math/Vector2.js";
@@ -117,6 +118,22 @@ declare class ColorUniform extends Uniform<Color> {
     constructor(name: string, value?: Color);
 }
 /**
+ * Represents a Matrix2 uniform.
+ *
+ * @private
+ * @augments Uniform
+ */
+declare class Matrix2Uniform extends Uniform<Matrix2> {
+    readonly isMatrix2Uniform: true;
+    /**
+     * Constructs a new Number uniform.
+     *
+     * @param {String} name - The uniform's name.
+     * @param {Matrix2} value - The uniform's value.
+     */
+    constructor(name: string, value?: Matrix2);
+}
+/**
  * Represents a Matrix3 uniform.
  *
  * @private
@@ -148,4 +165,13 @@ declare class Matrix4Uniform extends Uniform<Matrix4> {
      */
     constructor(name: string, value?: Matrix4);
 }
-export { ColorUniform, Matrix3Uniform, Matrix4Uniform, NumberUniform, Vector2Uniform, Vector3Uniform, Vector4Uniform };
+export {
+    ColorUniform,
+    Matrix2Uniform,
+    Matrix3Uniform,
+    Matrix4Uniform,
+    NumberUniform,
+    Vector2Uniform,
+    Vector3Uniform,
+    Vector4Uniform,
+};

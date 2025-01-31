@@ -68,6 +68,7 @@ interface AttributesData {
 interface RenderObjectData {
     material: MaterialData;
     geometry: {
+        id: number;
         attributes: AttributesData;
         indexVersion: number | null;
         drawRange: {

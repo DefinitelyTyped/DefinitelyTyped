@@ -21,7 +21,7 @@ declare class NodeBuilderState {
     updateNodes: Node[];
     updateBeforeNodes: Node[];
     updateAfterNodes: Node[];
-    monitor: NodeMaterialObserver;
+    observer: NodeMaterialObserver;
     usedTimes: number;
     /**
      * Constructs a new node builder state.
@@ -34,7 +34,7 @@ declare class NodeBuilderState {
      * @param {Array<Node>} updateNodes - An array of nodes that implement their `update()` method.
      * @param {Array<Node>} updateBeforeNodes - An array of nodes that implement their `updateBefore()` method.
      * @param {Array<Node>} updateAfterNodes - An array of nodes that implement their `updateAfter()` method.
-     * @param {NodeMaterialObserver} monitor - A node material observer.
+     * @param {NodeMaterialObserver} observer - A node material observer.
      * @param {Array<Object>} transforms - An array with transform attribute objects. Only relevant when using compute shaders with WebGL 2.
      */
     constructor(
@@ -46,7 +46,7 @@ declare class NodeBuilderState {
         updateNodes: Node[],
         updateBeforeNodes: Node[],
         updateAfterNodes: Node[],
-        monitor: NodeMaterialObserver,
+        observer: NodeMaterialObserver,
         transforms?: never[],
     );
     /**

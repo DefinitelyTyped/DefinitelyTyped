@@ -16,14 +16,6 @@ export interface TextGeometryParameters extends ExtrudeGeometryOptions {
      * Thickness to extrude text.
      * Expects a `Float`.
      * @defaultValue `50`
-     * @deprecated THREE.TextGeometry: .height is now deprecated. Please use .depth instead
-     */
-    height?: number | undefined;
-
-    /**
-     * Thickness to extrude text.
-     * Expects a `Float`.
-     * @defaultValue `50`
      */
     depth?: number | undefined;
 

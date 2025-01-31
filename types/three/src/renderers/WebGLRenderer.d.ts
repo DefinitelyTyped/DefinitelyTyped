@@ -278,12 +278,12 @@ export class WebGLRenderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: (a: any, b: any) => number): void;
+    setOpaqueSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: (a: any, b: any) => number): void;
+    setTransparentSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.
