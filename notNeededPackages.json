@@ -3665,6 +3665,10 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "merge-refs": {
+            "libraryName": "merge-refs",
+            "asOfVersion": "1.1.0"
+        },
         "mermaid": {
             "libraryName": "mermaid",
             "asOfVersion": "9.2.0"
