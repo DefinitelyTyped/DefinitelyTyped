@@ -480,4 +480,4 @@ type ParserOptions = conventionalChangelogCore.ParserOptions;
 type WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> =
     conventionalChangelogCore.WriterOptions<TCommit, TContext>;
 
-export = conventionalChangelogCore;
+export default conventionalChangelogCore;
