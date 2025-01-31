@@ -16,15 +16,11 @@ declare class Info {
         points: number;
         lines: number;
         timestamp: number;
-        previousFrameCalls: number;
-        timestampCalls: number;
     };
     compute: {
         calls: number;
         frameCalls: number;
         timestamp: number;
-        previousFrameCalls: number;
-        timestampCalls: number;
     };
     memory: {
         geometries: number;
@@ -42,13 +38,6 @@ declare class Info {
      * @param {Number} instanceCount - The instance count.
      */
     update(object: Object3D, count: number, instanceCount: number): void;
-    /**
-     * Used by async render methods to updated timestamp metrics.
-     *
-     * @param {('render'|'compute')} type - The type of render call.
-     * @param {Number} time - The duration of the compute/render call in milliseconds.
-     */
-    updateTimestamp(type: "render" | "compute", time: number): void;
     /**
      * Resets frame related metrics.
      */

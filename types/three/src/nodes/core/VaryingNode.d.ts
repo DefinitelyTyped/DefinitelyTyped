@@ -18,7 +18,16 @@ export const vertexStage: (node: NodeRepresentation) => ShaderNodeObject<Varying
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
+        toVarying: typeof varying;
+        toVertexStage: typeof vertexStage;
+
+        /**
+         * @deprecated .varying() has been renamed to .toVarying().
+         */
         varying: typeof varying;
+        /**
+         * @deprecated .vertexStage() has been renamed to .toVertexStage().
+         */
         vertexStage: typeof vertexStage;
     }
 }
