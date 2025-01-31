@@ -1028,6 +1028,10 @@
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
         },
+        "conventional-changelog-preset-loader": {
+            "libraryName": "conventional-changelog-preset-loader",
+            "asOfVersion": "5.0.0"
+        },
         "conventional-recommended-bump": {
             "libraryName": "conventional-recommended-bump",
             "asOfVersion": "10.0.0"
