@@ -98,7 +98,7 @@ interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
 
 type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
-interface AILanguageModel {
+interface AILanguageModel extends EventTarget {
     prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
     promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
