@@ -6335,6 +6335,10 @@
             "libraryName": "superstruct",
             "asOfVersion": "0.8.0"
         },
+        "supports-color": {
+            "libraryName": "supports-color",
+            "asOfVersion": "10.0.0"
+        },
         "survey-knockout": {
             "libraryName": "survey-knockout",
             "asOfVersion": "0.10.0"
