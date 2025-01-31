@@ -959,9 +959,9 @@ declare module "stream" {
             destroy?(this: T, error: Error | null, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean | undefined;
         }
-        interface ReadableOptions extends StreamOptions<Readable> {
+        interface ReadableOptions<T extends Readable = Readable> extends StreamOptions<T> {
             encoding?: BufferEncoding | undefined;
-            read?(this: Readable, size: number): void;
+            read?(this: T, size: number): void;
         }
         /**
          * @since v0.9.4
@@ -988,24 +988,24 @@ declare module "stream" {
                 },
             ): streamWeb.ReadableStream;
         }
-        interface WritableOptions extends StreamOptions<Writable> {
+        interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
             defaultEncoding?: BufferEncoding | undefined;
             write?(
-                this: Writable,
+                this: T,
                 chunk: any,
                 encoding: BufferEncoding,
                 callback: (error?: Error | null) => void,
             ): void;
             writev?(
-                this: Writable,
+                this: T,
                 chunks: Array<{
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
                 callback: (error?: Error | null) => void,
             ): void;
-            final?(this: Writable, callback: (error?: Error | null) => void): void;
+            final?(this: T, callback: (error?: Error | null) => void): void;
         }
         /**
          * @since v0.9.4
@@ -1027,26 +1027,13 @@ declare module "stream" {
              */
             static toWeb(streamWritable: Writable): streamWeb.WritableStream;
         }
-        interface DuplexOptions extends ReadableOptions, WritableOptions {
+        interface DuplexOptions<T extends Duplex = Duplex> extends ReadableOptions<T>, WritableOptions<T> {
             allowHalfOpen?: boolean | undefined;
             readableObjectMode?: boolean | undefined;
             writableObjectMode?: boolean | undefined;
             readableHighWaterMark?: number | undefined;
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
-            construct?(this: Duplex, callback: (error?: Error | null) => void): void;
-            read?(this: Duplex, size: number): void;
-            write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-            writev?(
-                this: Duplex,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Duplex, callback: (error?: Error | null) => void): void;
-            destroy?(this: Duplex, error: Error | null, callback: (error?: Error | null) => void): void;
         }
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -1275,27 +1262,9 @@ declare module "stream" {
          */
         function duplexPair(options?: DuplexOptions): [Duplex, Duplex];
         type TransformCallback = (error?: Error | null, data?: any) => void;
-        interface TransformOptions extends DuplexOptions {
-            construct?(this: Transform, callback: (error?: Error | null) => void): void;
-            read?(this: Transform, size: number): void;
-            write?(
-                this: Transform,
-                chunk: any,
-                encoding: BufferEncoding,
-                callback: (error?: Error | null) => void,
-            ): void;
-            writev?(
-                this: Transform,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Transform, callback: (error?: Error | null) => void): void;
-            destroy?(this: Transform, error: Error | null, callback: (error?: Error | null) => void): void;
-            transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
-            flush?(this: Transform, callback: TransformCallback): void;
+        interface TransformOptions<T extends Transform = Transform> extends DuplexOptions<T> {
+            transform?(this: T, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
+            flush?(this: T, callback: TransformCallback): void;
         }
         /**
          * Transform streams are `Duplex` streams where the output is in some way
