@@ -12,6 +12,14 @@ import { TextEncoder } from "node:util";
     ) STRICT
     `);
 
+    database.function(
+        "COUNT_ARGS",
+        { deterministic: true, varargs: true },
+        function() {
+            return arguments.length;
+        },
+    );
+
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
@@ -23,6 +31,7 @@ import { TextEncoder } from "node:util";
 
     const query = database.prepare("SELECT * FROM data ORDER BY key");
     query.all(); // $ExpectType unknown[]
+    query.iterate(); // $ExpectType Iterator<unknown, any, any>
 
     const sql = "INSERT INTO types (key, val) VALUES ($k, ?)";
     const stmt = database.prepare(sql);
@@ -31,6 +40,12 @@ import { TextEncoder } from "node:util";
     result.lastInsertRowid; // $ExpectType number | bigint
 
     database.close();
+}
+
+{
+    const database = new DatabaseSync(":memory:", { allowExtension: true });
+    database.loadExtension("/path/to/extension.so");
+    database.enableLoadExtension(false);
 }
 
 {

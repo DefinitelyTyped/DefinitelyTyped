@@ -185,6 +185,13 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    interface GetCallSitesOptions {
+        /**
+         * Reconstruct the original location in the stacktrace from the source-map.
+         * Enabled by default with the flag `--enable-source-maps`.
+         */
+        sourceMap?: boolean | undefined;
+    }
     /**
      * Returns an array of call site objects containing the stack of
      * the caller function.
@@ -225,12 +232,40 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
+     *
+     * It is possible to reconstruct the original locations by setting the option `sourceMap` to `true`.
+     * If the source map is not available, the original location will be the same as the current location.
+     * When the `--enable-source-maps` flag is enabled, for example when using `--experimental-transform-types`,
+     * `sourceMap` will be true by default.
+     *
+     * ```ts
+     * import util from 'node:util';
+     *
+     * interface Foo {
+     *   foo: string;
+     * }
+     *
+     * const callSites = util.getCallSites({ sourceMap: true });
+     *
+     * // With sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 7
+     * // Column Number: 26
+     *
+     * // Without sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 2
+     * // Column Number: 26
+     * ```
      * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
      * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSites(frameCount?: number): CallSiteObject[];
+    export function getCallSites(frameCount?: number, options?: GetCallSitesOptions): CallSiteObject[];
+    export function getCallSites(options: GetCallSitesOptions): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
@@ -317,27 +352,36 @@ declare module "util" {
      */
     export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
     /**
-     * Listens to abort event on the provided `signal` and
-     * returns a promise that is fulfilled when the `signal` is
-     * aborted. If the passed `resource` is garbage collected before the `signal` is
-     * aborted, the returned promise shall remain pending indefinitely.
+     * Listens to abort event on the provided `signal` and returns a promise that resolves when the `signal` is aborted.
+     * If `resource` is provided, it weakly references the operation's associated object,
+     * so if `resource` is garbage collected before the `signal` aborts,
+     * then returned promise shall remain pending.
+     * This prevents memory leaks in long-running or non-cancelable operations.
      *
      * ```js
      * import { aborted } from 'node:util';
      *
+     * // Obtain an object with an abortable signal, like a custom resource or operation.
      * const dependent = obtainSomethingAbortable();
      *
+     * // Pass `dependent` as the resource, indicating the promise should only resolve
+     * // if `dependent` is still in memory when the signal is aborted.
      * aborted(dependent.signal, dependent).then(() => {
-     *   // Do something when dependent is aborted.
+     *   // This code runs when `dependent` is aborted.
+     *   console.log('Dependent resource was aborted.');
      * });
      *
+     * // Simulate an event that triggers the abort.
      * dependent.on('event', () => {
-     *   dependent.abort();
+     *   dependent.abort(); // This will cause the `aborted` promise to resolve.
      * });
      * ```
      * @since v19.7.0
      * @experimental
-     * @param resource Any non-null entity, reference to which is held weakly.
+     * @param resource Any non-null object tied to the abortable operation and held weakly.
+     * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
+     * allowing Node.js to stop tracking it.
+     * This helps prevent memory leaks in long-running or non-cancelable operations.
      */
     export function aborted(signal: AbortSignal, resource: any): Promise<void>;
     /**
@@ -1321,8 +1365,6 @@ declare module "util" {
         | "strikethrough"
         | "underline";
     /**
-     * Stability: 1.1 - Active development
-     *
      * This function returns a formatted text considering the `format` passed.
      *
      * ```js

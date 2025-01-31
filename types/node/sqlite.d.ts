@@ -43,6 +43,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
+    type SupportedValueType = null | number | bigint | string | Uint8Array;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -77,6 +78,14 @@ declare module "node:sqlite" {
          * @default false
          */
         readOnly?: boolean | undefined;
+        /**
+         * If `true`, the `loadExtension` SQL function
+         * and the `loadExtension()` method are enabled.
+         * You can call `enableLoadExtension(false)` later to disable this feature.
+         * @since v22.13.0
+         * @default false
+         */
+        allowExtension?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -105,6 +114,34 @@ declare module "node:sqlite" {
          */
         onConflict?: number | undefined;
     }
+    interface FunctionOptions {
+        /**
+         * If `true`, the [`SQLITE_DETERMINISTIC`](https://www.sqlite.org/c3ref/c_deterministic.html) flag is
+         * set on the created function.
+         * @default false
+         */
+        deterministic?: boolean | undefined;
+        /**
+         * If `true`, the [`SQLITE_DIRECTONLY`](https://www.sqlite.org/c3ref/c_directonly.html) flag is set on
+         * the created function.
+         * @default false
+         */
+        directOnly?: boolean | undefined;
+        /**
+         * If `true`, integer arguments to `function`
+         * are converted to `BigInt`s. If `false`, integer arguments are passed as
+         * JavaScript numbers.
+         * @default false
+         */
+        useBigIntArguments?: boolean | undefined;
+        /**
+         * If `true`, `function` can accept a variable number of
+         * arguments. If `false`, `function` must be invoked with exactly
+         * `function.length` arguments.
+         * @default false
+         */
+        varargs?: boolean | undefined;
+    }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
      * exposed by this class execute synchronously.
@@ -127,6 +164,22 @@ declare module "node:sqlite" {
          */
         close(): void;
         /**
+         * Loads a shared library into the database connection. This method is a wrapper
+         * around [`sqlite3_load_extension()`](https://www.sqlite.org/c3ref/load_extension.html). It is required to enable the
+         * `allowExtension` option when constructing the `DatabaseSync` instance.
+         * @since v22.13.0
+         * @param path The path to the shared library to load.
+         */
+        loadExtension(path: string): void;
+        /**
+         * Enables or disables the `loadExtension` SQL function, and the `loadExtension()`
+         * method. When `allowExtension` is `false` when constructing, you cannot enable
+         * loading extensions for security reasons.
+         * @since v22.13.0
+         * @param allow Whether to allow loading extensions.
+         */
+        enableLoadExtension(allow: boolean): void;
+        /**
          * This method allows one or more SQL statements to be executed without returning
          * any results. This method is useful when executing SQL statements read from a
          * file. This method is a wrapper around [`sqlite3_exec()`](https://www.sqlite.org/c3ref/exec.html).
@@ -134,6 +187,21 @@ declare module "node:sqlite" {
          * @param sql A SQL string to execute.
          */
         exec(sql: string): void;
+        /**
+         * This method is used to create SQLite user-defined functions. This method is a
+         * wrapper around [`sqlite3_create_function_v2()`](https://www.sqlite.org/c3ref/create_function.html).
+         * @since v22.13.0
+         * @param name The name of the SQLite function to create.
+         * @param options Optional configuration settings for the function.
+         * @param func The JavaScript function to call when the SQLite
+         * function is invoked.
+         */
+        function(
+            name: string,
+            options: FunctionOptions,
+            func: (...args: SupportedValueType[]) => SupportedValueType,
+        ): void;
+        function(name: string, func: (...args: SupportedValueType[]) => SupportedValueType): void;
         /**
          * Opens the database specified in the `location` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
@@ -215,7 +283,6 @@ declare module "node:sqlite" {
          */
         close(): void;
     }
-    type SupportedValueType = null | number | bigint | string | Uint8Array;
     interface StatementResultingChanges {
         /**
          * The number of rows modified, inserted, or deleted by the most recently completed `INSERT`, `UPDATE`, or `DELETE` statement.
@@ -282,6 +349,24 @@ declare module "node:sqlite" {
         get(...anonymousParameters: SupportedValueType[]): unknown;
         get(namedParameters: Record<string, SupportedValueType>, ...anonymousParameters: SupportedValueType[]): unknown;
         /**
+         * This method executes a prepared statement and returns an iterator of
+         * objects. If the prepared statement does not return any results, this method
+         * returns an empty iterator. The prepared statement [parameters are bound](https://www.sqlite.org/c3ref/bind_blob.html) using
+         * the values in `namedParameters` and `anonymousParameters`.
+         * @since v22.13.0
+         * @param namedParameters An optional object used to bind named parameters.
+         * The keys of this object are used to configure the mapping.
+         * @param anonymousParameters Zero or more values to bind to anonymous parameters.
+         * @returns An iterable iterator of objects. Each object corresponds to a row
+         * returned by executing the prepared statement. The keys and values of each
+         * object correspond to the column names and values of the row.
+         */
+        iterate(...anonymousParameters: SupportedValueType[]): NodeJS.Iterator<unknown>;
+        iterate(
+            namedParameters: Record<string, SupportedValueType>,
+            ...anonymousParameters: SupportedValueType[]
+        ): NodeJS.Iterator<unknown>;
+        /**
          * This method executes a prepared statement and returns an object summarizing the
          * resulting changes. The prepared statement [parameters are bound](https://www.sqlite.org/c3ref/bind_blob.html) using the
          * values in `namedParameters` and `anonymousParameters`.
@@ -332,18 +417,23 @@ declare module "node:sqlite" {
         readonly sourceSQL: string;
     }
     /**
-     * Conflicting changes are omitted.
-     * @since v22.12.0
+     * @since v22.13.0
      */
-    const SQLITE_CHANGESET_OMIT: number;
-    /**
-     * Conflicting changes replace existing values.
-     * @since v22.12.0
-     */
-    const SQLITE_CHANGESET_REPLACE: number;
-    /**
-     * Abort when a change encounters a conflict and roll back databsase.
-     * @since v22.12.0
-     */
-    const SQLITE_CHANGESET_ABORT: number;
+    namespace constants {
+        /**
+         * Conflicting changes are omitted.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_OMIT: number;
+        /**
+         * Conflicting changes replace existing values.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_REPLACE: number;
+        /**
+         * Abort when a change encounters a conflict and roll back database.
+         * @since v22.12.0
+         */
+        const SQLITE_CHANGESET_ABORT: number;
+    }
 }
