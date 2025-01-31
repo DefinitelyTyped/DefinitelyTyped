@@ -7195,6 +7195,10 @@
             "libraryName": "xml-js",
             "asOfVersion": "1.0.0"
         },
+        "xml-zero-lexer": {
+            "libraryName": "xml-zero-lexer",
+            "asOfVersion": "3.1.8"
+        },
         "xmlbuilder": {
             "libraryName": "xmlbuilder",
             "asOfVersion": "11.0.1"
