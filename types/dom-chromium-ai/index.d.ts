@@ -98,7 +98,7 @@ interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
 
 type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
-interface AILanguageModel extends EventTarget {
+interface AILanguageModel {
     prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
     promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
@@ -180,7 +180,7 @@ type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
 type AISummarizerFormat = "plain-text" | "markdown";
 type AISummarizerLength = "short" | "medium" | "long";
 
-interface AISummarizer extends EventTarget {
+interface AISummarizer {
     summarize(input: string, options?: AISummarizerSummarizeOptions): Promise<string>;
     summarizeStreaming(input: string, options?: AISummarizerSummarizeOptions): ReadableStream<string>;
 
