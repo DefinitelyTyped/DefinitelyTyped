@@ -24,7 +24,7 @@ import * as Stream from "stream";
 export interface GitOptions {
     /**
      * Options to pass to `git` `childProcess`. Current working directory to run git.
-     * 
+     *
      * @default
      * process.cwd()
      */
@@ -32,7 +32,7 @@ export interface GitOptions {
 
     /**
      * A function to get debug information.
-     * 
+     *
      * @default
      * false
      */
@@ -50,7 +50,7 @@ export interface GitOptions {
 
     /**
      * Starting commit reference or hash.
-     * 
+     *
      * @default
      * ''
      */
@@ -58,7 +58,7 @@ export interface GitOptions {
 
     /**
      * Ending commit reference or hash.
-     * 
+     *
      * @default
      * 'HEAD'
      */
@@ -66,7 +66,7 @@ export interface GitOptions {
 
     /**
      * Format of the commit.
-     * 
+     *
      * @default
      * '%B'
      */

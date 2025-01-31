@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as Stream from "stream";
 import conventionalChangelogCore from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit } from "conventional-commits-parser";
+import * as Stream from "stream";
 
 /**
  * Returns a readable stream.
@@ -14,7 +14,10 @@ import { Commit } from "conventional-commits-parser";
  * @param parserOpts
  * @param writerOpts
  */
-declare function conventionalChangelog<TCommit extends Commit = Commit, TContext extends WriterContext = conventionalChangelogCore.Context>(
+declare function conventionalChangelog<
+    TCommit extends Commit = Commit,
+    TContext extends WriterContext = conventionalChangelogCore.Context,
+>(
     options?: Options<TCommit, TContext>,
     context?: Partial<TContext>,
     gitRawCommitsOpts?: conventionalChangelogCore.GitRawCommitsOptions,

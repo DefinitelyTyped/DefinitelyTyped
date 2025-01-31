@@ -1,6 +1,6 @@
 "use strict";
 
-import { GitOptions, getRawCommits, getRawCommitsStream } from "git-raw-commits";
+import { getRawCommits, getRawCommitsStream, GitOptions } from "git-raw-commits";
 
 declare const gitOptions: GitOptions;
 
