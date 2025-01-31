@@ -6707,6 +6707,10 @@
             "libraryName": "use-deep-compare-effect",
             "asOfVersion": "1.5.0"
         },
+        "use-prefers-color-scheme": {
+            "libraryName": "use-prefers-color-scheme",
+            "asOfVersion": "1.0.0"
+        },
         "use-resize-observer": {
             "libraryName": "use-resize-observer",
             "asOfVersion": "6.1.0"
