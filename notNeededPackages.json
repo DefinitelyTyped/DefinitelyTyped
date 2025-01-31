@@ -4157,6 +4157,10 @@
             "libraryName": "openid-client",
             "asOfVersion": "3.7.0"
         },
+        "openpgp": {
+            "libraryName": "openpgp",
+            "asOfVersion": "5.0.0"
+        },
         "opn": {
             "libraryName": "opn",
             "asOfVersion": "5.5.0"
