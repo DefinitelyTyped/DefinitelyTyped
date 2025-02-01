@@ -7679,6 +7679,24 @@ declare namespace chrome {
          */
         export function updateEntry(info: UpdateEntryOptions): Promise<void>;
         export function updateEntry(info: UpdateEntryOptions, callback: () => void): void;
+
+        /**
+         * Triggered when a ReadingListEntry is added to the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryAdded: chrome.events.Event<(entry: ReadingListEntry) => void>;
+
+        /**
+         * Triggered when a ReadingListEntry is removed from the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryRemoved: chrome.events.Event<(entry: ReadingListEntry) => void>;
+
+        /**
+         * Triggered when a ReadingListEntry is updated in the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryUpdated: chrome.events.Event<(entry: ReadingListEntry) => void>;
     }
 
     ////////////////////

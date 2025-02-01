@@ -4588,7 +4588,15 @@ function testPrivacy() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/readingList
 function testReadingList() {
-    const { addEntry, query, removeEntry, updateEntry } = chrome.readingList;
+    const {
+        addEntry,
+        query,
+        removeEntry,
+        updateEntry,
+        onEntryAdded,
+        onEntryRemoved,
+        onEntryUpdated,
+    } = chrome.readingList;
 
     const testAddEntry = () => {
         const entry = {
@@ -4674,5 +4682,44 @@ function testReadingList() {
 
         // @ts-expect-error
         updateEntry(info, () => {}).then(() => {});
+    };
+
+    const testOnEntryAdded = () => {
+        onEntryAdded.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryRemoved = () => {
+        onEntryRemoved.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryUpdated = () => {
+        onEntryUpdated.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListeners(); // $ExpectType boolean
     };
 }
