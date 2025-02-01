@@ -295,7 +295,9 @@ function contentSettings() {
     var url;
 
     function settingChanged() {
+        // @ts-expect-error Need refactor this without using `this`
         var type = this.id;
+        // @ts-expect-error Need refactor this without using `this`
         var setting = this.value;
         var pattern = /^file:/.test(url) ? url : url.replace(/\/[^\/]*?$/, "/*");
         console.log(type + " setting for " + pattern + ": " + setting);
