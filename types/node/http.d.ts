@@ -342,7 +342,7 @@ declare module "http" {
          * @since v0.9.12
          * @param [msecs=0 (no timeout)]
          */
-        setTimeout(msecs?: number, callback?: (socker: Socket) => void): this;
+        setTimeout(msecs?: number, callback?: (socket: Socket) => void): this;
         setTimeout(callback: (socket: Socket) => void): this;
         /**
          * Limits maximum incoming headers count. If set to 0, no limit will be applied.
