@@ -48,7 +48,7 @@ import * as url from "node:url";
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
-    server.setTimeout().setTimeout(1000)
+    server.setTimeout().setTimeout(1000);
     server.setTimeout((socket) => {
         socket; // $ExpectType Socket
     });
