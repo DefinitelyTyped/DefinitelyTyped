@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/govuk-frontend",
-    "version": "5.7.9999",
+    "version": "5.8.9999",
     "projects": [
         "https://github.com/alphagov/govuk-frontend",
         "https://frontend.design-system.service.gov.uk"

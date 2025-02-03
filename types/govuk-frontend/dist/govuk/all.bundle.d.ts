@@ -1,3 +1,4 @@
+import { ConfigurableComponent } from "./common/configuration.js";
 import { version } from "./common/govuk-frontend-version.js";
 import { isSupported } from "./common/index.js";
 import { Accordion } from "./components/accordion/accordion.js";
@@ -38,6 +39,7 @@ declare const GOVUKFrontend: {
     SkipLink: typeof SkipLink;
     Tabs: typeof Tabs;
     Component: typeof Component;
+    ConfigurableComponent: typeof ConfigurableComponent;
     createAll: typeof createAll;
     initAll: typeof initAll;
 };
