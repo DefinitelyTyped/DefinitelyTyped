@@ -4357,6 +4357,10 @@
             "libraryName": "package-json",
             "asOfVersion": "6.1.0"
         },
+        "package-json-validator": {
+            "libraryName": "package-json-validator",
+            "asOfVersion": "0.8.0"
+        },
         "pad": {
             "libraryName": "pad",
             "asOfVersion": "2.1.0"
