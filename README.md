@@ -141,9 +141,9 @@ Once you've tested your package, you can share it on Definitely Typed.
 1. Install [node](https://nodejs.org/).
 1. Run `pnpm install`.
    - `pnpm install` will install the _entire_
-repository, including packages you may not be editing. If you'd like to install only a subset,
-you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
-its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
+     repository, including packages you may not be editing. If you'd like to install only a subset,
+     you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
+     its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
 
 > [!NOTE]
 > If you are using Windows, you may find that `git clean` does not remove the `node_modules` directory or hangs when doing so. If you need to remove `node_modules`, you can run `pnpm clean-node-modules` to reset the repo.
