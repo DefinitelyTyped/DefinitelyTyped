@@ -135,11 +135,15 @@ then follow the instructions to [edit an existing package](#edit-an-existing-pac
 
 Once you've tested your package, you can share it on Definitely Typed.
 
-First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it,
-install [node](https://nodejs.org/) and run `pnpm install`. Note that `pnpm install` will install the _entire_
-repository, including packages you may not be editing. If you'd like to install only a subset,
-you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
-its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
+1. [Fork](https://guides.github.com/activities/forking/) this repository.
+1. Clone it.
+   - The Definitely Typed repo is large; you may want to consider using a ["blobless clone"](https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone/#user-content-blobless-clones) to save time and space by passing `--filter=blob:none` when running `git clone`.
+1. Install [node](https://nodejs.org/).
+1. Run `pnpm install`.
+   - `pnpm install` will install the _entire_
+     repository, including packages you may not be editing. If you'd like to install only a subset,
+     you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
+     its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
 
 > [!NOTE]
 > If you are using Windows, you may find that `git clean` does not remove the `node_modules` directory or hangs when doing so. If you need to remove `node_modules`, you can run `pnpm clean-node-modules` to reset the repo.
@@ -147,24 +151,6 @@ its dependencies. If you need to run tests for packages that _depend_ on `@types
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life cycle of a pull request to DT:
 
 <img src="https://raw.githubusercontent.com/microsoft/DefinitelyTyped-tools/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
-
-#### Partial clone
-
-<details>
-<summary>You can clone the entire repository <a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>as per usual</a>, but it's large and includes a massive directory of type packages.</summary>
-
-You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
-
-For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) and [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) features. This will reduce clone time and improve git performance.
-
-> :warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
-
-1. `git clone --sparse --filter=blob:none <forkedUrl>`
-   - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
-   - `--filter=blob:none` will including all commit history but exclude files, fetching them only as needed.
-2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
-
-</details>
 
 #### Edit an existing package
 
@@ -605,7 +591,7 @@ Then they are wrong and we've not noticed yet. You can help by submitting a pull
 Yes, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
 
-Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files. If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks before running the `setup-hooks` script.
+Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files.
 
 Pull requests do not require correct formatting to be merged.
 Any unformatted code will be automatically reformatted after being merged.
