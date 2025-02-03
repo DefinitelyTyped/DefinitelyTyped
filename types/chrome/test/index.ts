@@ -4616,3 +4616,141 @@ function testPrivacy() {
     });
     chrome.privacy.websites.topicsEnabled.onChange.hasListeners(); // $ExpectType boolean
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/readingList
+function testReadingList() {
+    const {
+        addEntry,
+        query,
+        removeEntry,
+        updateEntry,
+        onEntryAdded,
+        onEntryRemoved,
+        onEntryUpdated,
+    } = chrome.readingList;
+
+    const testAddEntry = () => {
+        const entry = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        addEntry();
+
+        // @ts-expect-error
+        addEntry({});
+        addEntry(entry); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        addEntry({}, () => {});
+        addEntry(entry, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        addEntry(entry, () => {}).then(() => {});
+    };
+
+    const testQuery = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        query();
+
+        query({}); // $ExpectType Promise<ReadingListEntry[]>
+        query(info); // $ExpectType Promise<ReadingListEntry[]>
+
+        query({}, () => {}); // $ExpectType void
+        query(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        query(info, () => {}).then(() => {});
+    };
+
+    const testRemoveEntry = () => {
+        const info = {
+            url: "url",
+        };
+
+        // @ts-expect-error
+        removeEntry();
+
+        // @ts-expect-error
+        removeEntry({});
+        removeEntry(info); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        removeEntry({}, () => {});
+        removeEntry(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        removeEntry(info, () => {}).then(() => {});
+    };
+
+    const testUpdateEntry = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        updateEntry();
+
+        // @ts-expect-error
+        updateEntry({});
+        updateEntry({ url: "url" }); // $ExpectType Promise<void>
+        updateEntry(info); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        updateEntry({}, () => {});
+        updateEntry({ url: "url" }, () => {}); // $ExpectType void
+        updateEntry(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        updateEntry(info, () => {}).then(() => {});
+    };
+
+    const testOnEntryAdded = () => {
+        onEntryAdded.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryRemoved = () => {
+        onEntryRemoved.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryUpdated = () => {
+        onEntryUpdated.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListeners(); // $ExpectType boolean
+    };
+}
