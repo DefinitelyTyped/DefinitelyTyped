@@ -12,7 +12,7 @@ utils.normalize("M100 100 L200 200");
 // @ts-expect-error
 utils.reverse(1);
 // @ts-expect-error
-utils.reverse(1, '1');
+utils.reverse(1, "1");
 // @ts-expect-error
 utils.reverseNormalized(1);
 // @ts-expect-error
