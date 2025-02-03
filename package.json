@@ -38,7 +38,7 @@
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "danger": "^11.2.3",
-        "dprint": "^0.47.2",
+        "dprint": "^0.49.0",
         "eslint-plugin-jsdoc": "^44.2.7",
         "husky": "^8.0.3",
         "lint-staged": "^15.2.0",
