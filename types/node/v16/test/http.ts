@@ -44,7 +44,13 @@ import * as url from "node:url";
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
-    server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server.setTimeout().setTimeout(1000);
+    server.setTimeout((socket) => {
+        socket; // $ExpectType Socket
+    });
+    server.setTimeout(100, (socket) => {
+        socket; // $ExpectType Socket
+    });
 }
 
 // http Server (with custom IncomingMessage and ServerResponse)
