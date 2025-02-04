@@ -682,9 +682,10 @@ declare module "crypto" {
          */
         type: KeyObjectType;
     }
-    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm" | "chacha20-poly1305";
+    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm";
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
+    type CipherChaCha20Poly1305Types = "chacha20-poly1305";
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -695,6 +696,10 @@ declare module "crypto" {
     }
     interface CipherOCBOptions extends stream.TransformOptions {
         authTagLength: number;
+    }
+    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
+        /** @default 16 */
+        authTagLength?: number | undefined;
     }
     /**
      * Creates and returns a `Cipher` object, with the given `algorithm`, `key` and
@@ -745,7 +750,14 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
-        algorithm: string,
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    function createCipheriv<T extends string>(
+        algorithm: Exclude<T, CipherCCMTypes | CipherGCMTypes | CipherOCBTypes | CipherChaCha20Poly1305Types>,
         key: CipherKey,
         iv: BinaryLike | null,
         options?: stream.TransformOptions,
@@ -943,6 +955,15 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
+    interface CipherChaCha20Poly1305 extends Cipher {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
+                plaintextLength: number;
+            },
+        ): this;
+        getAuthTag(): Buffer;
+    }
     /**
      * Creates and returns a `Decipher` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
@@ -991,7 +1012,14 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
-        algorithm: string,
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    function createDecipheriv<T extends string>(
+        algorithm: Exclude<T, CipherCCMTypes | CipherGCMTypes | CipherOCBTypes | CipherChaCha20Poly1305Types>,
         key: CipherKey,
         iv: BinaryLike | null,
         options?: stream.TransformOptions,
@@ -1171,6 +1199,15 @@ declare module "crypto" {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
+                plaintextLength: number;
+            },
+        ): this;
+    }
+    interface DecipherChaCha20Poly1305 extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
                 plaintextLength: number;
             },
         ): this;
