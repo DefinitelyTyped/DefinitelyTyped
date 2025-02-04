@@ -15,6 +15,7 @@ declare enum ServerStatus {
     LOADING = 6,
     CRASHED = 7,
     PENDING = 8,
+    TRANSFERRING = 9,
     PREPARING = 10,
 }
 
@@ -704,6 +705,7 @@ declare class Server extends EventEmitter {
         readonly LOADING: 6;
         readonly CRASHED: 7;
         readonly PENDING: 8;
+        readonly TRANSFERRING: 9;
         readonly PREPARING: 10;
     };
 
