@@ -34,12 +34,12 @@ const block: ZtxChainSDK.Block = sdk.block;
 const blockNumber: ZtxChainSDK.Response = block.getNumber();
 const blockStatus: ZtxChainSDK.Response = block.checkStatus();
 const blockTransactions: ZtxChainSDK.Response = block.getTransactions(1);
-const blockInfo: ZtxChainSDK.Response = block.getInfo(1);
+const blockInfo: ZtxChainSDK.Response = block.getInfo("1");
 const latestBlockInfo: ZtxChainSDK.Response = block.getLatestInfo();
-const validators: ZtxChainSDK.Response = block.getValidators(1);
+const validators: ZtxChainSDK.Response = block.getValidators("1");
 const latestValidators: ZtxChainSDK.Response = block.getLatestValidators();
 const latestReward: ZtxChainSDK.Response = block.getLatestReward();
-const fees: ZtxChainSDK.Response = block.getFees(1);
+const fees: ZtxChainSDK.Response = block.getFees("1");
 const latestFees: ZtxChainSDK.Response = block.getLatestFees();
 
 // Test Operation interface
