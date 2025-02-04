@@ -51,14 +51,14 @@ const example2: WebAppManifest = {
             type: "image/jpeg",
             form_factor: "narrow",
             label: "Example screenshot",
-            platform: "android"
+            platform: "android",
         },
         {
             src: "screenshots/in-game-2x.jpg",
             sizes: "1280x920",
             type: "image/jpeg",
             form_factor: "wide",
-            label: "Example screenshot"
+            label: "Example screenshot",
         },
     ],
 };
@@ -148,6 +148,6 @@ const example13: WebAppManifest = {
                     value: "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2",
                 },
             ],
-        }
+        },
     ],
 };
