@@ -666,12 +666,28 @@ interface Software {
     readonly version: string;
 }
 
+interface TickData {
+    averageTickTime: number;
+    tps: number;
+}
+
+interface StatsData {
+    memory: {
+        percent: number;
+        usage: number
+    }
+}
+
+interface HeapData {
+    usage: number;
+}
+
 export interface StreamTypes {
     status: [server: Server];
     "console:line": [data: string];
-    "tick:tick": [data: { averageTickTime: number; tps: number }];
-    "stats:stats": [data: { memory: { percent: number; usage: number } }];
-    "heap:heap": [data: { usage: number }];
+    "tick:tick": [data: TickData];
+    "stats:stats": [data: StatsData];
+    "heap:heap": [data: HeapData];
 }
 
 declare class Server extends EventEmitter {
