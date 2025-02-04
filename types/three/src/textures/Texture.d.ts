@@ -455,11 +455,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     updateMatrix(): void;
 
     /**
-     * Make copy of the texture
-     * @remarks Note this is not a **"deep copy"**, the image is shared
-     * @remarks
-     * Besides, cloning a texture does not automatically mark it for a texture upload
-     * You have to set {@link needsUpdate | .needsUpdate} to `true` as soon as it's image property (the data source) is fully loaded or ready.
+     * Make copy of the texture. Note this is not a "deep copy", the image is shared. Cloning the texture automatically
+     * marks it for texture upload.
      */
     clone(): this;
 

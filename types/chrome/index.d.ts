@@ -3601,94 +3601,101 @@ declare namespace chrome {
 
         /**
          * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
-         * @param callback Invoked by getTokens with the list of available Tokens.
-         * Parameter tokens: The list of available tokens.
+         *
+         * Can return its result via Promise since Chrome 131.
          */
+        export function getTokens(): Promise<Token[]>;
         export function getTokens(callback: (tokens: Token[]) => void): void;
 
         /**
          * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
          * @param tokenId The id of a Token returned by getTokens.
-         * @param callback Called back with the list of the available certificates.
-         * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
+         *
+         * Can return its result via Promise since Chrome 131.
          */
+        export function getCertificates(tokenId: string): Promise<ArrayBuffer[]>;
         export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
 
         /**
-         * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
+         * Imports `certificate` to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
          * @param tokenId The id of a Token returned by getTokens.
          * @param certificate The DER encoding of a X.509 certificate.
-         * @param callback Called back when this operation is finished.
+         *
+         * Can return its result via Promise since Chrome 131.
          */
-        export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+        export function importCertificate(tokenId: string, certificate: ArrayBuffer): Promise<void>;
+        export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
 
         /**
-         * Removes certificate from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
+         * Removes `certificate` from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
          * @param tokenId The id of a Token returned by getTokens.
          * @param certificate The DER encoding of a X.509 certificate.
-         * @param callback Called back when this operation is finished.
+         *
+         * Can return its result via Promise since Chrome 131.
          */
-        export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+        export function removeCertificate(tokenId: string, certificate: ArrayBuffer): Promise<void>;
+        export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
 
         /**
-         * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+         * Similar to `challengeMachineKey` and `challengeUserKey`, but allows specifying the algorithm of a registered key. Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on ChromeOS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses.
          *
-         * * The current device is a legitimate Chrome OS device.
-         * * The current device is managed by the domain specified during verification.
-         * * The current signed-in user is managed by the domain specified during verification.
-         * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
-         * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
+         * A successful verification by the Verified Access Web API is a strong signal that the current device is a legitimate ChromeOS device, the current device is managed by the domain specified during verification, the current signed-in user is managed by the domain specified during verification, and the current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode. Any device identity emitted by the verification is tightly bound to the hardware of the current device. If `user` Scope is specified, the identity is also tightly bound to the current signed-in user.
          *
-         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
-         * @param options Object containing the fields defined in ChallengeKeyOptions.
-         * @param callback Called back with the challenge response.
+         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The challenged key does not reside in the `system` or `user` token and is not accessible by any other API.
+         *
+         * @param options Object containing the fields defined in {@link ChallengeKeyOptions}.
+         *
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 110
          */
+        export function challengeKey(options: ChallengeKeyOptions): Promise<ArrayBuffer>;
         export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
 
         /**
-         * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+         * @deprecated Deprecated since Chrome 110, use {@link challengeKey} instead.
          *
          * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
          *
-         * * The current device is a legitimate Chrome OS device.
+         * * The current device is a legitimate ChromeOS device.
          * * The current device is managed by the domain specified during verification.
          * * The current signed-in user is managed by the domain specified during verification.
          * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
          * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
          *
-         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
+         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the `system` token and is not accessible by any other API.
          * @param challenge A challenge as emitted by the Verified Access Web API.
-         * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
-         * @param callback Called back with the challenge response.
+         * @param registerKey If set, the current Enterprise Machine Key is registered with the `system` token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
+         *
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 50
          */
-
+        export function challengeMachineKey(challenge: ArrayBuffer): Promise<ArrayBuffer>;
+        export function challengeMachineKey(challenge: ArrayBuffer, registerKey: boolean): Promise<ArrayBuffer>;
+        export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
         export function challengeMachineKey(
             challenge: ArrayBuffer,
             registerKey: boolean,
             callback: (response: ArrayBuffer) => void,
         ): void;
 
-        export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
         /**
-         * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+         * @deprecated Deprecated since Chrome 110, use {@link challengeKey} instead.
          *
-         * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+         * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on ChromeOS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
          *
-         * * The current device is a legitimate Chrome OS device.
+         * * The current device is a legitimate ChromeOS device.
          * * The current device is managed by the domain specified during verification.
          * * The current signed-in user is managed by the domain specified during verification.
          * * The current device state complies with enterprise user policy. For example, a policy may specify that the device must not be in developer mode.
          * * The public key emitted by the verification is tightly bound to the hardware of the current device and to the current signed-in user.
          *
-         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise user policy. The Enterprise User Key does not reside in the "user" token and is not accessible by any other API.
+         * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise user policy. The Enterprise User Key does not reside in the `user` token and is not accessible by any other API.
          * @param challenge A challenge as emitted by the Verified Access Web API.
-         * @param registerKey If set, the current Enterprise User Key is registered with the "user" token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
+         * @param registerKey If set, the current Enterprise User Key is registered with the `user` token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
          * @param callback Called back with the challenge response.
          * @since Chrome 50
          */
-
+        export function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean): Promise<ArrayBuffer>;
         export function challengeUserKey(
             challenge: ArrayBuffer,
             registerKey: boolean,
@@ -7587,6 +7594,116 @@ declare namespace chrome {
         export var settings: chrome.types.ChromeSetting<ProxyConfig>;
         /** Notifies about proxy errors. */
         export var onProxyError: ProxyErrorEvent;
+    }
+
+    ////////////////////
+    // ReadingList
+    ////////////////////
+    /**
+     * Use the `chrome.readingList` API to read from and modify the items in the Reading List.
+     *
+     * Permissions: "readingList"
+     * @since Chrome 120, MV3
+     */
+    export namespace readingList {
+        export interface AddEntryOptions {
+            /** Will be `true` if the entry has been read. */
+            hasBeenRead: boolean;
+            /** The title of the entry. */
+            title: string;
+            /** The url of the entry. */
+            url: string;
+        }
+
+        export interface QueryInfo {
+            /** Indicates whether to search for read (`true`) or unread (`false`) items. */
+            hasBeenRead?: boolean | undefined;
+            /** A title to search for. */
+            title?: string | undefined;
+            /** A url to search for. */
+            url?: string | undefined;
+        }
+
+        export interface ReadingListEntry {
+            /** The time the entry was created. Recorded in milliseconds since Jan 1, 1970. */
+            creationTime: number;
+            /** Will be `true` if the entry has been read. */
+            hasBeenRead: boolean;
+            /** The last time the entry was updated. This value is in milliseconds since Jan 1, 1970. */
+            lastUpdateTime: number;
+            /** The title of the entry. */
+            title: string;
+            /** The url of the entry. */
+            url: string;
+        }
+
+        export interface RemoveOptions {
+            /** The url to remove. */
+            url: string;
+        }
+
+        export interface UpdateEntryOptions {
+            /** The updated read status. The existing status remains if a value isn't provided. */
+            hasBeenRead?: boolean | undefined;
+            /** The new title. The existing tile remains if a value isn't provided. */
+            title?: string | undefined;
+            /** The url that will be updated. */
+            url: string;
+        }
+
+        /**
+         * Adds an entry to the reading list if it does not exist.
+         * @since Chrome 120, MV3
+         * @param entry The entry to add to the reading list.
+         * @param callback
+         */
+        export function addEntry(entry: AddEntryOptions): Promise<void>;
+        export function addEntry(entry: AddEntryOptions, callback: () => void): void;
+
+        /**
+         * Retrieves all entries that match the `QueryInfo` properties. Properties that are not provided will not be matched.
+         * @since Chrome 120, MV3
+         * @param info The properties to search for.
+         * @param callback
+         */
+        export function query(info: QueryInfo): Promise<ReadingListEntry[]>;
+        export function query(info: QueryInfo, callback: (entries: ReadingListEntry[]) => void): void;
+
+        /**
+         * Removes an entry from the reading list if it exists.
+         * @since Chrome 120, MV3
+         * @param info The entry to remove from the reading list.
+         * @param callback
+         */
+        export function removeEntry(info: RemoveOptions): Promise<void>;
+        export function removeEntry(info: RemoveOptions, callback: () => void): void;
+
+        /**
+         * Updates a reading list entry if it exists.
+         * @since Chrome 120, MV3
+         * @param info The entry to update.
+         * @param callback
+         */
+        export function updateEntry(info: UpdateEntryOptions): Promise<void>;
+        export function updateEntry(info: UpdateEntryOptions, callback: () => void): void;
+
+        /**
+         * Triggered when a ReadingListEntry is added to the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryAdded: chrome.events.Event<(entry: ReadingListEntry) => void>;
+
+        /**
+         * Triggered when a ReadingListEntry is removed from the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryRemoved: chrome.events.Event<(entry: ReadingListEntry) => void>;
+
+        /**
+         * Triggered when a ReadingListEntry is updated in the reading list.
+         * @since Chrome 120, MV3
+         */
+        export const onEntryUpdated: chrome.events.Event<(entry: ReadingListEntry) => void>;
     }
 
     ////////////////////

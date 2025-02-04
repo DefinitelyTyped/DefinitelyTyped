@@ -1,7 +1,10 @@
+import { Color, ColorRepresentation } from "../../math/Color.js";
+import { Vector3 } from "../../math/Vector3.js";
 import ConstNode from "../core/ConstNode.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import StackNode from "../core/StackNode.js";
+import ConvertNode from "../utils/ConvertNode.js";
 
 export interface NodeElements {
     toGlobal: (node: Node) => Node;
@@ -84,7 +87,7 @@ export type ShaderNodeObject<T extends Node> =
     & Swizzable<T>;
 
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
-export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | ShaderNodeObject<T>;
+export type NodeRepresentation<T extends Node = Node> = number | boolean | Vector3 | Node | ShaderNodeObject<T>;
 
 /** anything that can be passed to {@link nodeObject} */
 export type NodeObjectOption = NodeRepresentation | string;
@@ -231,7 +234,11 @@ export function nodeImmutable<T>(
 interface Layout {
     name: string;
     type: string;
-    inputs: { name: string; type: string }[];
+    inputs: {
+        name: string;
+        type: string;
+        qualifier?: "in" | "out" | "inout";
+    }[];
 }
 
 interface ShaderNodeFn<Args extends readonly unknown[]> {
@@ -274,7 +281,13 @@ export const If: (boolNode: Node, method: () => void) => StackNode;
 
 export function append(node: Node): Node;
 
-export const color: ConvertType;
+interface ColorFunction {
+    (color?: ColorRepresentation): ShaderNodeObject<ConstNode<Color>>;
+    (r: number, g: number, b: number): ShaderNodeObject<ConstNode<Color>>;
+    (node: Node): ShaderNodeObject<ConvertNode>;
+}
+
+export const color: ColorFunction;
 
 export const float: ConvertType;
 export const int: ConvertType;

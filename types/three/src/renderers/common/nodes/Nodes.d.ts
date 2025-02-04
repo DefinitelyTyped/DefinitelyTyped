@@ -39,6 +39,10 @@ interface SceneData {
     environment?: Texture | undefined;
     environmentNode?: ShaderNodeObject<Node> | undefined;
 }
+interface CacheKeyData {
+    callId: number;
+    cacheKey: number;
+}
 declare module "../../../scenes/Scene.js" {
     interface Scene {
         environmentNode?: ShaderNodeObject<Node> | null | undefined;
@@ -81,10 +85,7 @@ declare class Nodes extends DataMap<{
     backend: Backend;
     nodeFrame: NodeFrame;
     nodeBuilderCache: Map<string, NodeBuilderState>;
-    callHashCache: ChainMap<readonly [Scene, LightsNode], {
-        callId: number;
-        cacheKey: string;
-    }>;
+    callHashCache: ChainMap<readonly [Scene, LightsNode], CacheKeyData>;
     groupsData: ChainMap<readonly [UniformGroupNode, NodeUniformsGroup], {
         version?: number;
     }>;
@@ -121,7 +122,7 @@ declare class Nodes extends DataMap<{
      */
     delete(
         object: NodeUniformsGroup | RenderObject | ComputeNode | Scene,
-    ): SceneData | RenderObjectData | NodeUniformsGroupData | ComputeNodeData;
+    ): RenderObjectData | NodeUniformsGroupData | ComputeNodeData | SceneData;
     /**
      * Returns a node builder state for the given compute node.
      *
@@ -170,7 +171,7 @@ declare class Nodes extends DataMap<{
      * @param {LightsNode} lightsNode - The lights node.
      * @return {Number} The cache key.
      */
-    getCacheKey(scene: Scene, lightsNode: LightsNode): string;
+    getCacheKey(scene: Scene, lightsNode: LightsNode): number;
     /**
      * A boolean that indicates whether tone mapping should be enabled
      * or not.
@@ -281,7 +282,7 @@ declare class Nodes extends DataMap<{
      */
     needsRefresh(renderObject: RenderObject): boolean;
     /**
-     * Frees the intenral resources.
+     * Frees the internal resources.
      */
     dispose(): void;
 }

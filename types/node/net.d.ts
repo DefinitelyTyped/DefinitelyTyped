@@ -65,6 +65,7 @@ declare module "net" {
          * @since v18.13.0
          */
         autoSelectFamilyAttemptTimeout?: number | undefined;
+        blockList?: BlockList | undefined;
     }
     interface IpcSocketConnectOpts {
         path: string;
@@ -486,17 +487,18 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
-        port?: number | undefined;
-        host?: string | undefined;
         backlog?: number | undefined;
-        path?: string | undefined;
         exclusive?: boolean | undefined;
-        readableAll?: boolean | undefined;
-        writableAll?: boolean | undefined;
+        host?: string | undefined;
         /**
          * @default false
          */
         ipv6Only?: boolean | undefined;
+        reusePort?: boolean | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
     }
     interface ServerOpts {
         /**
@@ -534,6 +536,15 @@ declare module "net" {
          * @since v18.17.0, v20.1.0
          */
         highWaterMark?: number | undefined;
+        /**
+         * `blockList` can be used for disabling inbound
+         * access to specific IP addresses, IP ranges, or IP subnets. This does not
+         * work if the server is behind a reverse proxy, NAT, etc. because the address
+         * checked against the block list is the address of the proxy, or the one
+         * specified by the NAT.
+         * @since v22.13.0
+         */
+        blockList?: BlockList | undefined;
     }
     interface DropArgument {
         localAddress?: string;
@@ -785,6 +796,12 @@ declare module "net" {
          * @since v15.0.0, v14.18.0
          */
         rules: readonly string[];
+        /**
+         * Returns `true` if the `value` is a `net.BlockList`.
+         * @since v22.13.0
+         * @param value Any JS value
+         */
+        static isBlockList(value: unknown): value is BlockList;
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
@@ -997,6 +1014,14 @@ declare module "net" {
          * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
+        /**
+         * @since v22.13.0
+         * @param input An input string containing an IP address and optional port,
+         * e.g. `123.1.2.3:1234` or `[1::1]:1234`.
+         * @returns Returns a `SocketAddress` if parsing was successful.
+         * Otherwise returns `undefined`.
+         */
+        static parse(input: string): SocketAddress | undefined;
     }
 }
 declare module "node:net" {

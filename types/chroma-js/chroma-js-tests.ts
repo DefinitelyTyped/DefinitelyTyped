@@ -79,6 +79,10 @@ function test_chroma() {
 
     chroma(0xff3399);
     chroma.limits(data, "k", 5);
+    chroma.deltaE("#ededee", "#ededee");
+    chroma.deltaE("#ededee", "#ededee", 1);
+    chroma.deltaE("#ededee", "#ededee", 1, 1);
+    chroma.deltaE("#ededee", "#ededee", 1, 1, 1);
 }
 
 function test_color() {

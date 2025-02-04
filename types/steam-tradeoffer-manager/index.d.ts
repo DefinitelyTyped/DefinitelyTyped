@@ -689,6 +689,13 @@ declare namespace TradeOfferManager {
          * @param received An array of TradeOffer objects for offers we received
          */
         offerList: (filter: number, sent: TradeOffer[], received: TradeOffer[]) => void;
+
+        /**
+         * Emitted whenever TradeOfferManager detects that your web cookies have expired and need to be refreshed. When this happens, you should obtain new cookies from whichever module you initially got them from.
+         *
+         * @param err An Error object
+         */
+        sessionExpired: (err: Error) => void;
     }
 
     interface TradeOfferManagerOptions {

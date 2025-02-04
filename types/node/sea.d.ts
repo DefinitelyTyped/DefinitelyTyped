@@ -149,5 +149,5 @@ declare module "node:sea" {
      * writes to the returned array buffer is likely to result in a crash.
      * @since v20.12.0
      */
-    function getRawAsset(key: AssetKey): string | ArrayBuffer;
+    function getRawAsset(key: AssetKey): ArrayBuffer;
 }

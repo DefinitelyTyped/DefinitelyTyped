@@ -792,3 +792,14 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync(".", { bigint: Math.rand
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
 });
+
+(async () => {
+    const fd = await fs.promises.open("/tmp/tmp.txt", "r");
+    fd.writeFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.writeFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
+});

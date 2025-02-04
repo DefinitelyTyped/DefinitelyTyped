@@ -105,7 +105,7 @@ declare class Pipelines extends DataMap<{
      * @param {ProgrammableStage} stageVertex - The programmable stage representing the vertex shader.
      * @param {ProgrammableStage} stageFragment - The programmable stage representing the fragment shader.
      * @param {String} cacheKey - The cache key.
-     * @param {Array} promises - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
+     * @param {Array<Promise>?} promises - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
      * @return {ComputePipeline} The compute pipeline.
      */
     _getRenderPipeline(
@@ -149,7 +149,7 @@ declare class Pipelines extends DataMap<{
      * Releases the shader program.
      *
      * @private
-     * @param {Object} program - The shdaer program to release.
+     * @param {Object} program - The shader program to release.
      */
     _releaseProgram(program: ProgrammableStage): void;
     /**

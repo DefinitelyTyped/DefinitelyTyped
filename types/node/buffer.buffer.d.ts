@@ -107,7 +107,8 @@ declare module "buffer" {
              *
              * If `totalLength` is provided, it is coerced to an unsigned integer. If the
              * combined length of the `Buffer`s in `list` exceeds `totalLength`, the result is
-             * truncated to `totalLength`.
+             * truncated to `totalLength`. If the combined length of the `Buffer`s in `list` is
+             * less than `totalLength`, the remaining space is filled with zeros.
              *
              * ```js
              * import { Buffer } from 'node:buffer';

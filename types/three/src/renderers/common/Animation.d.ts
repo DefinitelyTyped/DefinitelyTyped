@@ -1,6 +1,6 @@
 import Info from "./Info.js";
 import Nodes from "./nodes/Nodes.js";
-interface AnimationContext {
+export interface AnimationContext {
     requestAnimationFrame(callback: FrameRequestCallback, frame?: XRFrame): number;
     cancelAnimationFrame(handle: number): void;
 }
@@ -31,11 +31,23 @@ declare class Animation {
      */
     stop(): void;
     /**
+     * Returns the user-level animation loop.
+     *
+     * @return {Function} The animation loop.
+     */
+    getAnimationLoop(): ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null;
+    /**
      * Defines the user-level animation loop.
      *
      * @param {Function} callback - The animation loop.
      */
     setAnimationLoop(callback: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null): void;
+    /**
+     * Returns the animation context.
+     *
+     * @return {Window|XRSession} The animation context.
+     */
+    getContext(): AnimationContext;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *

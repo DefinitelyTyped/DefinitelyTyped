@@ -5207,17 +5207,19 @@ fp.now(); // $ExpectType number
     fp.merge(obj, s1); // $ExpectType { a: string; } & { b: number; }
     fp.merge(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 
-    _.mergeWith(obj, s1, customizer); // $ExpectType { a: string; } & { b: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, customizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, s5, customizer);
-    _(obj).mergeWith(s1, customizer); // $ExpectType Object<{ a: string; } & { b: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    _.chain(obj).mergeWith(s1, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    fp.mergeWith(customizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
-    fp.mergeWith(customizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
+    const mergeWithCustomizer = (objectValue: any, sourceValue: any, key: string, object: any, source: any, stack: any) => 1;
+
+    _.mergeWith(obj, s1, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _.chain(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    fp.mergeWith(mergeWithCustomizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
+    fp.mergeWith(mergeWithCustomizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 }
 
 // _.create

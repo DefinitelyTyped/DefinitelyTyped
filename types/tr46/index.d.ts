@@ -1,12 +1,18 @@
 /**
  * Converts a string of Unicode symbols to a case-folded Punycode string of ASCII symbols.
  */
-export function toASCII(domainName: string, options?: ToASCIIOptions): string;
+export function toASCII(
+    domainName: string,
+    options?: ToASCIIOptions,
+): string | null;
 
 /**
  * Converts a case-folded Punycode string of ASCII symbols to a string of Unicode symbols.
  */
-export function toUnicode(domainName: string, options?: Options): string;
+export function toUnicode(
+    domainName: string,
+    options?: Options,
+): { domain: string; error: boolean };
 
 export interface Options {
     /**

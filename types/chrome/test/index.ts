@@ -2412,7 +2412,14 @@ function testStorageForPromise() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
-function testRunTimeGetContexts() {
+function testRuntimeGetContexts() {
+    chrome.runtime.ContextType.TAB === "TAB";
+    chrome.runtime.ContextType.POPUP === "POPUP";
+    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
+    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
+    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
+    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
+
     const options = { incognito: true, tabIds: [1, 2, 3] };
 
     chrome.runtime.getContexts(options);
@@ -3169,6 +3176,8 @@ function testUserScripts() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
 function testEnterPrisePlatformKeys() {
+    const tokenId = "tokenId";
+
     chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
     chrome.enterprise.platformKeys.Scope.USER === "USER";
 
@@ -3181,18 +3190,47 @@ function testEnterPrisePlatformKeys() {
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0)); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true); // $ExpectType Promise<ArrayBuffer>
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => { // $ExpectType void
+        response; // $ExpectType ArrayBuffer
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.getCertificates(tokenId); // $ExpectType Promise<ArrayBuffer[]>
+    chrome.enterprise.platformKeys.getCertificates(tokenId, certificates => { // $ExpectType void
+        certificates; // $ExpectType ArrayBuffer[]
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.getCertificates(tokenId, () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.getTokens(); // $ExpectType Promise<Token[]>
+    chrome.enterprise.platformKeys.getTokens(tokens => { // $ExpectType void
+        tokens; // $ExpectType Token[]
+    });
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.getTokens(() => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0)); // $ExpectType Promise<void>
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0), () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.importCertificate(tokenId, new ArrayBuffer(0), () => {}).then(() => {});
 
-    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0)); // $ExpectType Promise<void>
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0), () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.enterprise.platformKeys.removeCertificate(tokenId, new ArrayBuffer(0), () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/power
@@ -4577,4 +4615,142 @@ function testPrivacy() {
         details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
     });
     chrome.privacy.websites.topicsEnabled.onChange.hasListeners(); // $ExpectType boolean
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/readingList
+function testReadingList() {
+    const {
+        addEntry,
+        query,
+        removeEntry,
+        updateEntry,
+        onEntryAdded,
+        onEntryRemoved,
+        onEntryUpdated,
+    } = chrome.readingList;
+
+    const testAddEntry = () => {
+        const entry = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        addEntry();
+
+        // @ts-expect-error
+        addEntry({});
+        addEntry(entry); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        addEntry({}, () => {});
+        addEntry(entry, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        addEntry(entry, () => {}).then(() => {});
+    };
+
+    const testQuery = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        query();
+
+        query({}); // $ExpectType Promise<ReadingListEntry[]>
+        query(info); // $ExpectType Promise<ReadingListEntry[]>
+
+        query({}, () => {}); // $ExpectType void
+        query(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        query(info, () => {}).then(() => {});
+    };
+
+    const testRemoveEntry = () => {
+        const info = {
+            url: "url",
+        };
+
+        // @ts-expect-error
+        removeEntry();
+
+        // @ts-expect-error
+        removeEntry({});
+        removeEntry(info); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        removeEntry({}, () => {});
+        removeEntry(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        removeEntry(info, () => {}).then(() => {});
+    };
+
+    const testUpdateEntry = () => {
+        const info = {
+            hasBeenRead: true,
+            title: "title",
+            url: "url",
+        };
+
+        // @ts-expect-error
+        updateEntry();
+
+        // @ts-expect-error
+        updateEntry({});
+        updateEntry({ url: "url" }); // $ExpectType Promise<void>
+        updateEntry(info); // $ExpectType Promise<void>
+
+        // @ts-expect-error
+        updateEntry({}, () => {});
+        updateEntry({ url: "url" }, () => {}); // $ExpectType void
+        updateEntry(info, () => {}); // $ExpectType void
+
+        // @ts-expect-error
+        updateEntry(info, () => {}).then(() => {});
+    };
+
+    const testOnEntryAdded = () => {
+        onEntryAdded.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryAdded.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryRemoved = () => {
+        onEntryRemoved.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryRemoved.hasListeners(); // $ExpectType boolean
+    };
+
+    const testOnEntryUpdated = () => {
+        onEntryUpdated.addListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.removeListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListener((entry) => {
+            entry; // $ExpectType ReadingListEntry
+        });
+        onEntryUpdated.hasListeners(); // $ExpectType boolean
+    };
 }
