@@ -1585,9 +1585,9 @@ declare namespace googletag {
              *
              * @example
              *   const componentAuctionConfig = {
-             *     // Seller URL should be https and the same as decisionLogicUrl's origin
+             *     // Seller URL should be https and the same as decisionLogicURL's origin
              *     seller: 'https://testSeller.com',
-             *     decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *     decisionLogicURL: 'https://testSeller.com/ssp/decision-logic.js',
              *     interestGroupBuyers: [
              *       'https://example-buyer.com',
              *     ],
@@ -1620,7 +1620,7 @@ declare namespace googletag {
              */
             auctionConfig: {
                 auctionSignals?: unknown;
-                decisionLogicUrl: string;
+                decisionLogicURL: string;
                 interestGroupBuyers?: string[];
                 perBuyerExperimentGroupIds?: { [buyer: string]: number };
                 perBuyerGroupLimits?: { [buyer: string]: number };
@@ -1630,7 +1630,7 @@ declare namespace googletag {
                 sellerExperimentGroupId?: number;
                 sellerSignals?: unknown;
                 sellerTimeout?: number;
-                trustedScoringSignalsUrl?: string;
+                trustedScoringSignalsURL?: string;
             } | null;
 
             /**
