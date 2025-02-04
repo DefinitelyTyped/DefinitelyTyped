@@ -675,8 +675,8 @@ interface TickData {
 interface StatsData {
     memory: {
         percent: number;
-        usage: number
-    }
+        usage: number;
+    };
 }
 
 interface HeapData {
