@@ -1143,6 +1143,7 @@ declare namespace GoogleAppsScript {
                             resource: Drive.V3.Schema.Reply,
                             fileId: string,
                             commentId: string,
+                            optionalArgs: { fields: string },
                         ): Drive_v3.Drive.V3.Schema.Reply;
                         /**Gets a reply by ID.
                         @param fileId The ID of the file.
@@ -1486,6 +1487,7 @@ declare namespace GoogleAppsScript {
                         create(
                             resource: Drive.V3.Schema.Comment,
                             fileId: string,
+                            optionalArgs: { fields: string },
                         ): Drive_v3.Drive.V3.Schema.Comment;
                         /**Gets a comment by ID.
                         @param fileId The ID of the file.
