@@ -1,4 +1,4 @@
-import { Client } from "exaroton";
+import { Client, ServerStatus } from "exaroton";
 
 const client = new Client("my token");
 
@@ -8,7 +8,7 @@ const startServer = async (name: string) => {
     if (!myServer) throw Error("Server not found");
     await myServer.setMOTD("Hello World");
     console.log(myServer.status);
-    if (myServer.hasStatus([myServer.STATUS.ONLINE, myServer.STATUS.STARTING])) return;
+    if (myServer.hasStatus([myServer.STATUS.ONLINE, ServerStatus.STARTING])) return;
     await myServer.start();
     console.log(`${myServer.name} has benn started. Running on: ${myServer.address}`);
     console.log(myServer.status);
