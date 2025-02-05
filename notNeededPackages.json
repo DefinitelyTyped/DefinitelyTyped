@@ -7271,6 +7271,10 @@
             "libraryName": "year-days",
             "asOfVersion": "3.0.0"
         },
+        "yeoman-environment": {
+            "libraryName": "yeoman-environment",
+            "asOfVersion": "4.0.0"
+        },
         "yn": {
             "libraryName": "yn",
             "asOfVersion": "3.1.0"
