@@ -2445,6 +2445,10 @@
             "libraryName": "hexo-fs",
             "asOfVersion": "4.0.0"
         },
+        "hexo-log": {
+            "libraryName": "hexo-log",
+            "asOfVersion": "4.0.0"
+        },
         "hibp": {
             "libraryName": "hibp",
             "asOfVersion": "7.3.0"
