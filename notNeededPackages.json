@@ -7279,6 +7279,10 @@
             "libraryName": "yeoman-generator",
             "asOfVersion": "6.0.0"
         },
+        "yeoman-test": {
+            "libraryName": "yeoman-test",
+            "asOfVersion": "7.0.0"
+        },
         "yn": {
             "libraryName": "yn",
             "asOfVersion": "3.1.0"
