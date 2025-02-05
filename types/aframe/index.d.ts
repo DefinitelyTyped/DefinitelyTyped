@@ -112,7 +112,6 @@ export interface DefaultComponents {
     scale: Component<Coordinate>;
 }
 
-
 export interface Entity<C = ObjectMap<any>> extends ANode {
     components: C & DefaultComponents;
     hasLoaded: boolean;
@@ -478,7 +477,7 @@ declare global {
      * Custom elements augment document methods to return custom HTML
      */
     interface AFrameElements {
-        'a-scene': Scene;
+        "a-scene": Scene;
         [key: `a-${string}`]: Entity;
     }
 

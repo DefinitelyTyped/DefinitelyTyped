@@ -127,19 +127,17 @@ AFRAME.registerGeometry("a-test-geometry", {
     },
 });
 
-
 // DOM types unaffected
 
-const div = document.createElement('div');
+const div = document.createElement("div");
 
 const height: number = div.clientHeight;
 
-const button = document.querySelector<HTMLButtonElement>('button');
+const button = document.querySelector<HTMLButtonElement>("button");
 button?.click();
 
-const div2 = document.createElement('div');
+const div2 = document.createElement("div");
 const height2: number = div2.clientHeight;
 
-const button2 = document.querySelector('button');
+const button2 = document.querySelector("button");
 button2?.click();
-
