@@ -80,7 +80,7 @@ export interface Station {
     regions?: readonly string[];
     facilities?: Facilities;
     reisezentrumOpeningHours?: ReisezentrumOpeningHours;
-    stops?: ReadonlyArray<Station | Stop | Location>;
+    stops?: readonly (Station | Stop | Location)[];
     entrances?: readonly Location[];
     transitAuthority?: string;
     distance?: number;
@@ -104,6 +104,7 @@ export interface Stop {
     products?: Products;
     lines?: readonly Line[];
     isMeta?: boolean;
+    facilities?: Facilities;
     reisezentrumOpeningHours?: ReisezentrumOpeningHours;
     ids?: Ids;
     loadFactor?: string;
@@ -234,8 +235,8 @@ export interface Warning {
     company?: string;
     categories?: number[];
     affectedLines?: Line[];
-    fromStops?: ReadonlyArray<Station | Stop | Location>;
-    toStops?: ReadonlyArray<Station | Stop | Location>;
+    fromStops?: readonly (Station | Stop | Location)[];
+    toStops?: readonly (Station | Stop | Location)[];
 }
 export interface Geometry {
     type: "Point";
@@ -272,7 +273,7 @@ export interface StopOver {
     arrivalPlatform?: string;
     prognosedArrivalPlatform?: string;
     plannedArrivalPlatform?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     passBy?: boolean;
     cancelled?: boolean;
     departurePrognosisType?: PrognosisType;
@@ -315,7 +316,7 @@ export interface Trip {
     cycle?: Cycle;
     alternatives?: readonly Alternative[];
     polyline?: FeatureCollection;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     currentLocation?: Location;
     departurePrognosisType?: PrognosisType;
     arrivalPrognosisType?: PrognosisType;
@@ -336,8 +337,18 @@ export interface LinesWithRealtimeData extends RealtimeDataUpdatedAt {
 }
 export interface Price {
     amount: number;
-    currency: string;
+    currency?: string;
     hint?: string;
+}
+export interface PriceObj {
+    /** amount in cents of currency */
+    amount: number;
+}
+export interface Ticket {
+    name: string;
+    priceObj?: PriceObj;
+    /** *bahn.de* URL to the tickets, see {@link JourneysOptionsDbProfile.generateUnreliableTicketUrls} */
+    url?: string;
 }
 export interface Alternative {
     tripId: string;
@@ -352,14 +363,12 @@ export interface Alternative {
     platform?: string;
     plannedPlatform?: string;
     prognosedPlatform?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     cancelled?: boolean;
     loadFactor?: string;
     provenance?: string;
     previousStopovers?: readonly StopOver[];
     nextStopovers?: readonly StopOver[];
-    frames?: Frame[];
-    polyline?: FeatureCollection;
     currentTripPosition?: Location;
     origin?: Station | Stop | Location;
     destination?: Station | Stop | Location;
@@ -408,7 +417,7 @@ export interface Leg {
     cycle?: Cycle;
     alternatives?: readonly Alternative[];
     polyline?: FeatureCollection;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     currentLocation?: Location;
     departurePrognosisType?: PrognosisType;
     arrivalPrognosisType?: PrognosisType;
@@ -425,8 +434,9 @@ export interface Journey {
     type: "journey";
     legs: readonly Leg[];
     refreshToken?: string;
-    remarks?: ReadonlyArray<Hint | Status | Warning>;
+    remarks?: readonly (Hint | Status | Warning)[];
     price?: Price;
+    tickets?: Ticket[];
     cycle?: Cycle;
     scheduledDays?: ScheduledDays;
 }
@@ -440,7 +450,7 @@ export interface JourneyWithRealtimeData extends RealtimeDataUpdatedAt {
 }
 export interface Duration {
     duration: number;
-    stations: ReadonlyArray<Station | Stop | Location>;
+    stations: readonly (Station | Stop | Location)[];
 }
 export interface DurationsWithRealtimeData extends RealtimeDataUpdatedAt {
     reachable: readonly Duration[];
@@ -611,6 +621,11 @@ export interface JourneysOptionsDbProfile {
      *  @default none
      */
     routingMode?: RoutingMode;
+    /**
+     * try to generate *bahn.de* URLs to the tickets
+     * @default false
+     */
+    generateUnreliableTicketUrls?: boolean;
 }
 export type JourneysOptions = JourneysOptionsCommon & JourneysOptionsDbProfile;
 export interface JourneysFromTripOptions {
@@ -879,6 +894,11 @@ export interface RefreshJourneyOptions {
      */
     scheduledDays?: boolean;
     /**
+     * try to generate *bahn.de* URLs to the tickets
+     * @default false
+     */
+    generateUnreliableTicketUrls?: boolean;
+    /**
      * language
      * @default en
      */
@@ -1139,10 +1159,7 @@ export interface HafasClient {
      * @param name name of station
      * @param options options for search
      */
-    locations: (
-        name: string,
-        options: LocationsOptions | undefined,
-    ) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    locations: (name: string, options: LocationsOptions | undefined) => Promise<readonly (Station | Stop | Location)[]>;
     /**
      * Retrieves information about a stop
      * @param id uid of station
@@ -1154,10 +1171,7 @@ export interface HafasClient {
      * @param location location
      * @param options options for search
      */
-    nearby: (
-        location: Location,
-        options: NearByOptions | undefined,
-    ) => Promise<ReadonlyArray<Station | Stop | Location>>;
+    nearby: (location: Location, options: NearByOptions | undefined) => Promise<readonly (Station | Stop | Location)[]>;
     /**
      * Retrieves stations reachable within a certain time from a location
      * @param address location
