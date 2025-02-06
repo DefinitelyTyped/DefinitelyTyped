@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/signature_pad": "*"
+        "@types/signature_pad": "<3"
     },
     "devDependencies": {
         "@types/react-signature-canvas": "workspace:."

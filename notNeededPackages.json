@@ -5971,6 +5971,10 @@
             "libraryName": "should",
             "asOfVersion": "13.0.0"
         },
+        "signature_pad": {
+            "libraryName": "signature_pad",
+            "asOfVersion": "4.0.0"
+        },
         "simonwep__selection-js": {
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
