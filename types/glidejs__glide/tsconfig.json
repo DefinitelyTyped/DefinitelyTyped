@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "glidejs__glide-tests.ts"
+        "glidejs__glide-tests.ts",
+        "glidejs__glide-modular-tests.ts"
     ]
 }
