@@ -3633,6 +3633,10 @@
             "libraryName": "@material/top-app-bar",
             "asOfVersion": "1.0.0"
         },
+        "materializecss__materialize": {
+            "libraryName": "@materializecss/materialize",
+            "asOfVersion": "2.0.3"
+        },
         "mathjs": {
             "libraryName": "mathjs",
             "asOfVersion": "9.4.1"
