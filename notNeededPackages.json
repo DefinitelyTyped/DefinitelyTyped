@@ -208,6 +208,10 @@
             "libraryName": "array-uniq",
             "asOfVersion": "2.1.0"
         },
+        "arrayify-stream": {
+            "libraryName": "arrayify-stream",
+            "asOfVersion": "3.0.0"
+        },
         "arrify": {
             "libraryName": "arrify",
             "asOfVersion": "2.0.0"
