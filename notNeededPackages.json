@@ -6427,6 +6427,10 @@
             "libraryName": "systeminformation",
             "asOfVersion": "3.54.0"
         },
+        "tabbable": {
+            "libraryName": "tabbable",
+            "asOfVersion": "5.0.0"
+        },
         "table": {
             "libraryName": "table",
             "asOfVersion": "6.3.2"
