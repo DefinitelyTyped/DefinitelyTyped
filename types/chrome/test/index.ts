@@ -2619,6 +2619,17 @@ function testPermissions() {
         origins: ["https://example.com/*"],
     };
 
+    const request: chrome.permissions.AddHostAccessRequest | chrome.permissions.RemoveHostAccessRequest = {
+        documentId: "1",
+        pattern: "",
+        tabId: 1,
+    };
+
+    chrome.permissions.addHostAccessRequest(request); // $ExpectType Promise<void>
+    chrome.permissions.addHostAccessRequest(request, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.addHostAccessRequest(request, () => {}).then(() => {});
+
     chrome.permissions.contains(permissions); // $ExpectType Promise<boolean>
     chrome.permissions.contains(permissions, (result: boolean) => {}); // $ExpectType void
     // @ts-expect-error
@@ -2644,6 +2655,11 @@ function testPermissions() {
     chrome.permissions.remove(permissions, () => {}).then(() => {});
     // @ts-expect-error : 'test' is not a recognized permission.
     chrome.permissions.remove({ permissions: ["test"] });
+
+    chrome.permissions.removeHostAccessRequest(request); // $ExpectType Promise<void>
+    chrome.permissions.removeHostAccessRequest(request, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.removeHostAccessRequest(request, () => {}).then(() => {});
 
     chrome.permissions.onAdded.addListener((permissions) => {
         permissions; // $ExpectType Permissions
