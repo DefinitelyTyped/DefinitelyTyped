@@ -258,6 +258,7 @@ declare namespace GoogleAppsScript {
             getSelection(): Range;
             getSupportedLanguageCodes(): string[];
             getTab(tabId: string): Tab;
+            getTabs(): Tab[];
             getUrl(): string;
             getViewers(): Base.User[];
             newPosition(element: Element, offset: Integer): Position;
