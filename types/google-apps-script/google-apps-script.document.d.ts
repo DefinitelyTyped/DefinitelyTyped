@@ -238,6 +238,7 @@ declare namespace GoogleAppsScript {
             addViewer(emailAddress: string): Document;
             addViewer(user: Base.User): Document;
             addViewers(emailAddresses: string[]): Document;
+            getActiveTab(): Tab;
             getAs(contentType: string): Base.Blob;
             getBlob(): Base.Blob;
             getBody(): Body;
@@ -256,6 +257,8 @@ declare namespace GoogleAppsScript {
             getNamedRanges(name: string): NamedRange[];
             getSelection(): Range;
             getSupportedLanguageCodes(): string[];
+            getTab(tabId: string): Tab;
+            getTabs(): Tab[];
             getUrl(): string;
             getViewers(): Base.User[];
             newPosition(element: Element, offset: Integer): Position;
@@ -1654,6 +1657,74 @@ declare namespace GoogleAppsScript {
             BOTTOM,
             CENTER,
             TOP,
+        }
+
+        /**
+         * A tab within a Google Docs document.
+         *
+         *     // Get all of the first-level tabs (tabs that are not nested within a parent
+         *     // tab) in the document.
+         *     const tabs = DocumentApp.openById('123abc').getTabs();
+         *
+         *     // Get a specific tab based on the tab ID.
+         *     const tab = DocumentApp.openById('123abc').getTab('123abc');
+         *
+         *     // Get current tab of current document
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab();
+         */
+        interface Tab {
+            asDocumentTab(): DocumentTab;
+            getChildTabs(): Tab[];
+            getId(): string;
+            getIndex(): number;
+            getTitle(): string;
+            getType(): TabType;
+        }
+
+        /**
+         * A document tab, containing rich text and elements such as tables and lists.
+         *
+         * Retrieve a document tab using Document.getTabs()[tabIndex].asDocumentTab().
+         *
+         *     // Get the current document tab of the active tab in the active document
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab().asDocumentTab();
+         */
+        interface DocumentTab {
+            addBookmark(position: Position): Bookmark;
+            addFooter(): FooterSection;
+            addHeader(): HeaderSection;
+            addNamedRange(name: string, range: Range): NamedRange;
+            getBody(): Body;
+            getBookmark(id: string): Bookmark;
+            getBookmarks(): Bookmark[];
+            getFooter(): FooterSection;
+            getFootnotes(): Footnote[];
+            getHeader(): HeaderSection;
+            getNamedRangeById(id: string): NamedRange;
+            getNamedRanges(): NamedRange[];
+            getNamedRanges(name: string): NamedRange[];
+            newPosition(element: Element, offset: Integer): Position;
+            newRange(): RangeBuilder;
+        }
+
+        /**
+         * An enumeration of all the tab types.
+         *
+         * To call an enum, you call its parent class, name, and property. For example, DocumentApp.TabType.TAB.
+         *
+         * Use the TabType enumeration to check the type of a given element, for instance:
+         *
+         *     const tab = DocumentApp.getActiveDocument().getActiveTab();
+         *     // Use getType() to determine the tab's type before casting.
+         *     if (tab.getType() === DocumentApp.TabType.DOCUMENT_TAB) {
+         *       // It's a document tab, write some text to it.
+         *       tab.asDocumentTab().setText('Hello World!');
+         *     } else {
+         *       // There are currently no types other than DOCUMENT_TAB.
+         *     }
+         */
+        enum TabType {
+            DOCUMENT_TAB,
         }
     }
 }
