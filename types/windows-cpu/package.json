@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/windows-cpu",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/KyleRoss/windows-cpu"
+    ],
+    "devDependencies": {
+        "@types/windows-cpu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lexi",
+            "githubUsername": "KontrollFreek"
+        }
+    ]
+}
