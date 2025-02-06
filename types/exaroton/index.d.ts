@@ -15,6 +15,7 @@ declare enum ServerStatus {
     LOADING = 6,
     CRASHED = 7,
     PENDING = 8,
+    TRANSFERRING = 9,
     PREPARING = 10,
 }
 
@@ -23,12 +24,12 @@ declare class Client {
      * The protocol type used for request
      *
      * Can be http, https, ws or wss
-     * @defaultValue htttps
+     * @defaultValue https
      */
     protocol: string;
 
     /**
-     * The hostname the client uses to retireve all data
+     * The hostname the client uses to retrieve all data
      *
      * @defaultValue api.exaroton.com
      */
@@ -162,7 +163,7 @@ declare class Request {
     headers: Record<string, any>;
 
     /**
-     * Post body data
+     * POST-body data
      */
     data: null | Record<string, any> | string;
 
@@ -280,7 +281,7 @@ declare class Request {
     setData(data: string | Record<string, any>): this;
 
     /**
-     * Set a file as input file for the request body
+     * Set a file as an input file for the request body
      *
      * @param {string} inputPath
      * @return {this}
@@ -288,7 +289,7 @@ declare class Request {
     setInputPath(inputPath: string): Request;
 
     /**
-     * Set a file as output file for the response body
+     * Set a file as an output file for the response body
      *
      * @param {string} outputPath
      * @return {this}
@@ -340,7 +341,7 @@ declare class Response {
 
 declare class File {
     /**
-     * File path relative to server root
+     * The file path relative to server root
      */
     path: string;
 
@@ -411,7 +412,7 @@ declare class File {
     /**
      * Get the data/content of a file
      *
-     * If you want to download the file to a local file use File.download() instead
+     * If you want to download the file to a local file, use File.download() instead
      *
      * @return {Promise<string>}
      */
@@ -420,7 +421,7 @@ declare class File {
     /**
      * Download the data/content of a file to a local file
      *
-     * If you want to use the content of the file directly use File.getContent() instead
+     * If you want to use the content of the file directly, use File.getContent() instead
      *
      * @param {string} outputPath
      * @return {Promise<Response>}
@@ -438,7 +439,7 @@ declare class File {
     /**
      * Put the content of a file
      *
-     * If you want to upload a local file use File.upload() instead
+     * If you want to upload a local file, use File.upload() instead
      *
      * @param {string} content
      * @return {Promise<Response>}
@@ -448,7 +449,7 @@ declare class File {
     /**
      * Upload a local file
      *
-     * If you want to upload the content of the file directly as a string use File.putContent() instead
+     * If you want to upload the content of the file directly as a string, use File.putContent() instead
      *
      * @param {string} inputPath
      * @return {Promise<Response>}
@@ -485,7 +486,7 @@ declare class File {
     getChildren(): Promise<File[] | null>;
 
     /**
-     * Get Config object for this file
+     * Get the Config object for this file
      * Only available if the file is a config file
      *
      * @return {Config}
@@ -572,7 +573,7 @@ declare class Pool {
     owner?: string;
 
     /**
-     * Is pool owner
+     * Is a pool owner
      */
     isOwner?: boolean;
 
@@ -640,7 +641,7 @@ declare class PoolMember {
     credits: number;
 
     /**
-     * Is pool owner
+     * Is a pool owner
      */
     isOwner: boolean;
 
@@ -666,12 +667,28 @@ interface Software {
     readonly version: string;
 }
 
+interface TickData {
+    averageTickTime: number;
+    tps: number;
+}
+
+interface StatsData {
+    memory: {
+        percent: number;
+        usage: number;
+    };
+}
+
+interface HeapData {
+    usage: number;
+}
+
 export interface StreamTypes {
     status: [server: Server];
     "console:line": [data: string];
-    "tick:tick": [data: { averageTickTime: number; tps: number }];
-    "stats:stats": [data: { memory: { percent: number; usage: number } }];
-    "heap:heap": [data: { usage: number }];
+    "tick:tick": [data: TickData];
+    "stats:stats": [data: StatsData];
+    "heap:heap": [data: HeapData];
 }
 
 declare class Server extends EventEmitter {
@@ -688,6 +705,7 @@ declare class Server extends EventEmitter {
         readonly LOADING: 6;
         readonly CRASHED: 7;
         readonly PENDING: 8;
+        readonly TRANSFERRING: 9;
         readonly PREPARING: 10;
     };
 
