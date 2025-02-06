@@ -110,7 +110,9 @@ declare module "." {
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
     /**
-     * Warning: Only available in development builds.
+     * Returns `null` outside of development builds.
+     *
+     * Returns an empty string if called outside of render, Effects, Events, or React error handlers (e.g. `onCaughtError` option in `createRoot`).
      */
     function captureOwnerStack(): string | null;
 
