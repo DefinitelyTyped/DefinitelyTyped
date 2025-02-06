@@ -123,9 +123,11 @@ async function topLevel() {
     const summarizerCapabilities = await self.ai.summarizer.capabilities();
     console.log(
         summarizerCapabilities.available,
-        summarizerCapabilities.supportsType("teaser"),
-        summarizerCapabilities.supportsFormat("plain-text"),
-        summarizerCapabilities.supportsLength("long"),
+        summarizerCapabilities.createOptionsAvailable({
+            type: "teaser",
+            format: "plain-text",
+            length: "long",
+        }),
         summarizerCapabilities.languageAvailable("de"),
     );
 
@@ -161,9 +163,11 @@ async function topLevel() {
     const writerCapabilities = await self.ai.writer.capabilities();
     console.log(
         writerCapabilities.available,
-        writerCapabilities.supportsTone("casual"),
-        writerCapabilities.supportsFormat("plain-text"),
-        writerCapabilities.supportsLength("long"),
+        writerCapabilities.createOptionsAvailable({
+            tone: "casual",
+            format: "plain-text",
+            length: "long",
+        }),
         writerCapabilities.languageAvailable("de"),
     );
 
@@ -196,9 +200,11 @@ async function topLevel() {
     const rewriterCapabilities = await self.ai.rewriter.capabilities();
     console.log(
         rewriterCapabilities.available,
-        rewriterCapabilities.supportsTone("more-casual"),
-        rewriterCapabilities.supportsFormat("plain-text"),
-        rewriterCapabilities.supportsLength("as-is"),
+        rewriterCapabilities.createOptionsAvailable({
+            tone: "more-casual",
+            format: "plain-text",
+            length: "as-is",
+        }),
         rewriterCapabilities.languageAvailable("de"),
     );
 
