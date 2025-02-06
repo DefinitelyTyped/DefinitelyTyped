@@ -1131,6 +1131,83 @@ const bunchOfConfigs: Aws.Serverless[] = [
             },
         },
     },
+    {
+        service: "my-service",
+        provider: {
+            name: "aws",
+            apiGateway: {
+                apiKeys: [
+                    {
+                        free: [
+                            "myFreeKey",
+                            "${opt:stage}-myFreeKey",
+                        ],
+                        paid: [
+                            "myPaidKey",
+                            "${opt:stage}-myPaidKey",
+                        ],
+                    },
+                ],
+                usagePlan: [
+                    {
+                        free: {
+                            quota: {
+                                limit: 5000,
+                                offset: 2,
+                                period: "MONTH",
+                            },
+                            throttle: {
+                                burstLimit: 200,
+                                rateLimit: 100,
+                            },
+                        },
+                        paid: {
+                            quota: {
+                                limit: 50000,
+                                offset: 2,
+                                period: "MONTH",
+                            },
+                            throttle: {
+                                burstLimit: 2000,
+                                rateLimit: 1000,
+                            },
+                        },
+                    },
+                ],
+            },
+        },
+    },
+    {
+        service: "stages",
+        provider: {
+            name: "aws",
+        },
+        stages: {
+            default: {
+                params: {
+                    domain: "preview.myapp.com",
+                },
+                observability: true,
+            },
+            production: {
+                params: {
+                    domain: "myapp.com",
+                },
+                observability: {
+                    provider: "dashboard",
+                    dataset: "my-custom-dataset",
+                },
+                resolvers: {
+                    terraform: {
+                        type: "terraform",
+                        backend: "s3",
+                        bucket: "terraform-state",
+                        key: "users-table/terraform.tfstate",
+                    },
+                },
+            },
+        },
+    },
 ];
 
 // Test Aws Class

@@ -24,6 +24,10 @@ declare namespace Aws {
         app?: string | undefined;
         tenant?: string | undefined;
         custom?: Custom | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/config-schema.js#L154
+        stages?: Stages | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/config-schema.js#L83
+        build?: string | { [key: string]: any } | undefined;
     }
 
     interface Service {
@@ -65,11 +69,13 @@ declare namespace Aws {
         architecture?: "x86_64" | "arm64" | undefined;
         environment?: Environment | string | undefined;
         endpointType?: "regional" | "edge" | "private" | undefined;
-        apiKeys?: Array<ApiKey | string> | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/plugins/aws/provider.js#L294
+        apiKeys?: Array<ApiKey | ApiKeys | string> | undefined;
         apiGateway?: ApiGateway | undefined;
         alb?: Alb | undefined;
         httpApi?: HttpApi | undefined;
-        usagePlan?: UsagePlan | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/plugins/aws/provider.js#L957
+        usagePlan?: UsagePlan | Array<UsagePlans> | undefined;
         stackTags?: Tags | undefined;
         stackPolicy?: ResourcePolicy[] | undefined;
         vpc?: string | Vpc | undefined;
@@ -136,17 +142,23 @@ declare namespace Aws {
         binaryMediaTypes?: string[] | undefined;
         metrics?: boolean | undefined;
         shouldStartNameWithService?: boolean | undefined;
-        apiKeys?: Array<ApiKey | string> | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/plugins/aws/provider.js#L294
+        apiKeys?: Array<ApiKey | ApiKeys | string> | undefined;
         resourcePolicy?: ResourcePolicy[] | undefined;
-        usagePlan?: UsagePlan | undefined;
+        // https://github.com/serverless/serverless/blob/main/lib/plugins/aws/provider.js#L957
+        usagePlan?: UsagePlan | Array<UsagePlans> | undefined;
     }
 
     interface ApiKey {
-        name: string;
-        value: string;
+        name?: string;
+        value?: string;
         description?: string | undefined;
         customerId?: string | undefined;
         enabled?: boolean | undefined;
+    }
+
+    interface ApiKeys {
+        [k: string]: (string | ApiKey)[];
     }
 
     interface CognitoAuthorizer {
@@ -233,6 +245,10 @@ declare namespace Aws {
     interface UsagePlan {
         quota?: Quota | undefined;
         throttle?: Throttle | undefined;
+    }
+
+    interface UsagePlans {
+        [k: string]: UsagePlan;
     }
 
     interface IamRoleStatement {
@@ -332,8 +348,10 @@ declare namespace Aws {
         type?: string | undefined;
     }
 
+    // https://github.com/serverless/serverless/blob/main/lib/plugins/aws/package/compile/events/api-gateway/index.js#L99
     interface HttpCors {
-        origins?: string | string[] | undefined;
+        origin?: string | undefined;
+        origins?: string[] | undefined;
         headers?: string | string[] | undefined;
         allowCredentials?: boolean | undefined;
         maxAge?: number | undefined;
@@ -791,6 +809,56 @@ declare namespace Aws {
 
     interface Credentials {
         [key: string]: any;
+    }
+
+    interface Stages {
+        [key: string]: Stage | undefined;
+        default?: Stage | undefined;
+    }
+
+    interface Stage {
+        params?: { [key: string]: string } | undefined;
+        observability?: boolean | "axiom" | "dashboard" | ObservabilityProvider;
+        resolvers?: {
+            [key: string]:
+                | ({
+                    type: "terraform";
+                } & (S3BackendForTerraform | RemoteBackendForTerraform | HttpBackendForTerraform))
+                | {
+                    type: "vault";
+                    address?: string | undefined;
+                    token?: string | undefined;
+                    version?: string | undefined;
+                    path?: string | undefined;
+                }
+                | undefined;
+        };
+    }
+
+    interface ObservabilityProvider {
+        provider: "axiom" | "dashboard";
+        dataset?: string | undefined;
+    }
+
+    interface S3BackendForTerraform {
+        backend: "s3";
+        bucket: string;
+        key: string;
+        region?: string | undefined;
+    }
+    interface RemoteBackendForTerraform {
+        backend: "remote";
+        organization?: string | undefined;
+        workspace?: string | undefined;
+        workspaceId?: string | undefined;
+        token?: string | undefined;
+        hostname?: string | undefined;
+    }
+    interface HttpBackendForTerraform {
+        backend: "http";
+        address?: string | undefined;
+        username?: string | undefined;
+        password?: string | undefined;
     }
 }
 
