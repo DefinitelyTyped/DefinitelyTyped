@@ -1,4 +1,5 @@
 import { Options } from "toastify-js";
+import ToastifyEsm from "toastify-js/src/toastify-es";
 import Toastify = require("toastify-js");
 
 Toastify({
@@ -50,6 +51,8 @@ const options: Options = {
 };
 
 Toastify(options);
+
+ToastifyEsm(); // $ExpectType Toastify
 
 // #60413
 const toast = Toastify({
