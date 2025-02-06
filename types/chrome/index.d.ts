@@ -14236,26 +14236,22 @@ declare namespace chrome {
          */
         export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
 
-        /**
-         * Properties for configuring the user script world.
-         */
         export interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
             csp?: string;
             /** Specifies whether messaging APIs are exposed. The default is false.*/
             messaging?: boolean;
+            /**
+             * Specifies the ID of the specific user script world to update. If not provided, updates the properties of the default user script world. Values with leading underscores (`_`) are reserved.
+             * @since Chrome 133
+             */
+            worldId?: string;
         }
 
-        /**
-         * Properties for filtering user scripts.
-         */
         export interface UserScriptFilter {
             ids?: string[];
         }
 
-        /**
-         * Properties for a registered user script.
-         */
         export interface RegisteredUserScript {
             /** If true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched. */
             allFrames?: boolean;
@@ -14275,6 +14271,11 @@ declare namespace chrome {
             runAt?: RunAt;
             /** The JavaScript execution environment to run the script in. The default is `USER_SCRIPT` */
             world?: ExecutionWorld;
+            /**
+             * Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
+             * @since Chrome 133
+             */
+            worldId?: string;
         }
 
         /**
@@ -14323,6 +14324,13 @@ declare namespace chrome {
         export function getScripts(filter: UserScriptFilter, callback: (scripts: RegisteredUserScript[]) => void): void;
 
         /**
+         * Retrieves all registered world configurations.
+         * @since Chrome 133
+         */
+        export function getWorldConfigurations(): Promise<WorldProperties[]>;
+        export function getWorldConfigurations(callback: (worlds: WorldProperties[]) => void): void;
+
+        /**
          * Registers one or more user scripts for this extension.
          *
          * @param scripts - Contains a list of user scripts to be registered.
@@ -14336,6 +14344,14 @@ declare namespace chrome {
          * @param callback - Callback function to be executed after registering user scripts.
          */
         export function register(scripts: RegisteredUserScript[], callback: () => void): void;
+
+        /**
+         * Resets the configuration for a user script world. Any scripts that inject into the world with the specified ID will use the default world configuration.
+         * @param worldId The ID of the user script world to reset. If omitted, resets the default world's configuration.
+         */
+        export function resetWorldConfiguration(worldId?: string): Promise<void>;
+        export function resetWorldConfiguration(worldId: string, callback: () => void): void;
+        export function resetWorldConfiguration(callback: () => void): void;
 
         /**
          * Unregisters all dynamically-registered user scripts for this extension.
