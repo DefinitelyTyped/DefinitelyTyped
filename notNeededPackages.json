@@ -2613,6 +2613,10 @@
             "libraryName": "indent-string",
             "asOfVersion": "4.0.0"
         },
+        "inflection": {
+            "libraryName": "inflection",
+            "asOfVersion": "2.0.0"
+        },
         "ink": {
             "libraryName": "ink",
             "asOfVersion": "2.0.2"
