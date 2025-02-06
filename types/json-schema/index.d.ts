@@ -545,6 +545,8 @@ export interface JSONSchema6 {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-8
      */
     format?: string | undefined;
+
+    [k: string]: any;
 }
 
 // ==================================================================================================
@@ -712,6 +714,8 @@ export interface JSONSchema7 {
     readOnly?: boolean | undefined;
     writeOnly?: boolean | undefined;
     examples?: JSONSchema7Type | undefined;
+    // "additional vocabularies can be defined for more complex annotation-based applications"
+    [k: string]: any;
 }
 
 export interface ValidationResult {
