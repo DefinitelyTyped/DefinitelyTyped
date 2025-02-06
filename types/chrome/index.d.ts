@@ -13873,6 +13873,31 @@ declare namespace chrome {
             rulesMatchedInfo: MatchedRuleInfo[];
         }
 
+        /** @since Chrome 103 */
+        export interface TestMatchOutcomeResult {
+            /** The rules (if any) that match the hypothetical request. */
+            matchedRules: MatchedRule[];
+        }
+
+        /** @since Chrome 103 */
+        export interface TestMatchRequestDetails {
+            /** The initiator URL (if any) for the hypothetical request. */
+            initiator?: string;
+            /** Standard HTTP method of the hypothetical request. Defaults to "get" for HTTP requests and is ignored for non-HTTP requests. */
+            method?: `${RequestMethod}`;
+            /**
+             * The headers provided by a hypothetical response if the request does not get blocked or redirected before it is sent. Represented as an object which maps a header name to a list of string values. If not specified, the hypothetical response would return empty response headers, which can match rules which match on the non-existence of headers. E.g. `{"content-type": ["text/html; charset=utf-8", "multipart/form-data"]}`
+             * @since Chrome 129
+             */
+            responseHeaders?: { [name: string]: unknown };
+            /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
+            tabId?: number;
+            /** The resource type of the hypothetical request. */
+            type: `${ResourceType}`;
+            /** The URL of the hypothetical request. */
+            url: string;
+        }
+
         /** Returns the number of static rules an extension can enable before the global static rule limit is reached. */
         export function getAvailableStaticRuleCount(callback: (count: number) => void): void;
 
@@ -13975,6 +14000,17 @@ declare namespace chrome {
          * @return The `setExtensionActionOptions` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
         export function setExtensionActionOptions(options: ExtensionActionOptions): Promise<void>;
+
+        /**
+         * Checks if any of the extension's declarativeNetRequest rules would match a hypothetical request. Note: Only available for unpacked extensions as this is only intended to be used during extension development.
+         * @param request
+         * @since Chrome 103
+         */
+        export function testMatchOutcome(request: TestMatchRequestDetails): Promise<TestMatchOutcomeResult>;
+        export function testMatchOutcome(
+            request: TestMatchRequestDetails,
+            callback: (result: TestMatchOutcomeResult) => void,
+        ): void;
 
         /** Modifies the current set of dynamic rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
