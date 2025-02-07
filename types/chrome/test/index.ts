@@ -3134,7 +3134,11 @@ function testInstanceID() {
 }
 
 function testUserScripts() {
-    const worldProperties = { csp: "script-src 'self'", messaging: true };
+    const worldProperties: chrome.userScripts.WorldProperties = {
+        csp: "script-src 'self'",
+        messaging: true,
+        worldId: "customId",
+    };
     chrome.userScripts.configureWorld(worldProperties); // $ExpectType Promise<void>
     chrome.userScripts.configureWorld(worldProperties, () => void 0); // $ExpectType void
 
@@ -3162,10 +3166,26 @@ function testUserScripts() {
         },
     ];
 
+    chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
+    chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
+        world.csp; // $ExpectType string | undefined
+        world.messaging; // $ExpectType boolean | undefined
+        world.worldId; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
+
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
     // @ts-expect-error Missing required property 'js'.
     chrome.userScripts.register(badScripts);
+
+    chrome.userScripts.resetWorldConfiguration(); // $ExpectType Promise<void>
+    chrome.userScripts.resetWorldConfiguration("scriptId1"); // $ExpectType Promise<void>
+    chrome.userScripts.resetWorldConfiguration(() => {}); // $ExpectType void
+    chrome.userScripts.resetWorldConfiguration("scriptId1", () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.userScripts.resetWorldConfiguration(() => {}).then(() => {});
 
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
