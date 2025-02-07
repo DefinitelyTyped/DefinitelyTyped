@@ -6,7 +6,7 @@
         "https://github.com/Aminadav/node-sqlite3-promise"
     ],
     "dependencies": {
-        "@types/sqlite3": "*"
+        "@types/sqlite3": "<4"
     },
     "devDependencies": {
         "@types/sqlite3-promise": "workspace:."
