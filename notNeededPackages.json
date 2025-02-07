@@ -384,6 +384,10 @@
             "libraryName": "@bbob/parser",
             "asOfVersion": "4.0.0"
         },
+        "bbob__plugin-helper": {
+            "libraryName": "@bbob/plugin-helper",
+            "asOfVersion": "4.0.0"
+        },
         "bcp-47": {
             "libraryName": "bcp-47",
             "asOfVersion": "2.0.0"
