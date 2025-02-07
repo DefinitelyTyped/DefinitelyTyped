@@ -2929,6 +2929,10 @@
             "libraryName": "javascript-obfuscator",
             "asOfVersion": "0.17.0"
         },
+        "javascript-time-ago": {
+            "libraryName": "javascript-time-ago",
+            "asOfVersion": "2.5.0"
+        },
         "jdenticon": {
             "libraryName": "jdenticon",
             "asOfVersion": "2.2.0"
