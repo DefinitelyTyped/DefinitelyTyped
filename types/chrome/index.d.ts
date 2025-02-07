@@ -6584,7 +6584,7 @@ declare namespace chrome {
         /** The parameters describing the offscreen document to create. */
         export interface CreateParameters {
             /** The reason(s) the extension is creating the offscreen document. */
-            reasons: Reason[];
+            reasons: `${Reason}`[];
             /** The (relative) URL to load in the document. */
             url: string;
             /** A developer-provided string that explains, in more detail, the need for the background context. The user agent _may_ use this in display to the user. */
@@ -8077,7 +8077,7 @@ declare namespace chrome {
             /**
              * The reason that this event is being dispatched.
              */
-            reason: OnInstalledReason;
+            reason: `${OnInstalledReason}`;
             /**
              * Optional.
              * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
