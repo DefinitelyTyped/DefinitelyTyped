@@ -5203,6 +5203,10 @@
             "libraryName": "react-editext",
             "asOfVersion": "4.0.0"
         },
+        "react-email-editor": {
+            "libraryName": "react-email-editor",
+            "asOfVersion": "1.7.0"
+        },
         "react-fade-in": {
             "libraryName": "react-fade-in",
             "asOfVersion": "2.0.0"

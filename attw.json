@@ -257,7 +257,6 @@
         "react-dom",
         "react-dom/v18",
         "react-dynamic-number",
-        "react-email-editor",
         "react-embed-gist",
         "react-facebook-login",
         "react-flags-select",
