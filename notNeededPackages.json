@@ -376,6 +376,10 @@
             "libraryName": "@bbob/core",
             "asOfVersion": "4.0.0"
         },
+        "bbob__html": {
+            "libraryName": "@bbob/html",
+            "asOfVersion": "4.0.0"
+        },
         "bcp-47": {
             "libraryName": "bcp-47",
             "asOfVersion": "2.0.0"
