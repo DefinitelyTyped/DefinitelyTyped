@@ -628,6 +628,10 @@
             "libraryName": "chartist",
             "asOfVersion": "1.0.0"
         },
+        "chartjs-plugin-annotation": {
+            "libraryName": "chartjs-plugin-annotation",
+            "asOfVersion": "1.0.0"
+        },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
             "asOfVersion": "2.5.0"
