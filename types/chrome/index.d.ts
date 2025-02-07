@@ -8661,7 +8661,7 @@ declare namespace chrome {
         export function connectNative(application: string): Port;
         /**
          * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.
-         * @deprecated Deprecated since Chrome 133. Background pages do not exist in MV3 extensions.
+         * @deprecated Removed in Chrome 133. Background pages do not exist in MV3 extensions.
          */
         export function getBackgroundPage(): Promise<Window>;
         /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
