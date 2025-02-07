@@ -968,7 +968,7 @@ function testTtsEngine() {
 chrome.runtime.onInstalled.addListener((details) => {
     details; // $ExpectType InstalledDetails
     details.previousVersion; // $ExpectType string | undefined
-    details.reason; // $ExpectType OnInstalledReason
+    details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
     details.id; // $ExpectType string | undefined
     if (details.reason === "install") { // Accept string version of enum
         return;
