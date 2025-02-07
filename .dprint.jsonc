@@ -15,6 +15,7 @@
         "./types/locutus",
         "./types/lodash",
         "./types/material-ui",
+        "./types/mercadopago-sdk-js",
         "./types/meteor",
         "./types/microsoft-graph",
         "./types/nginstack__engine",
