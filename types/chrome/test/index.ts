@@ -968,9 +968,10 @@ function testTtsEngine() {
 chrome.runtime.onInstalled.addListener((details) => {
     details; // $ExpectType InstalledDetails
     details.previousVersion; // $ExpectType string | undefined
+    details.reason; // $ExpectType OnInstalledReason
     details.id; // $ExpectType string | undefined
     if (details.reason === "install") { // Accept string version of enum
-        details.reason; // $ExpectType OnInstalledReason
+        return;
     }
 
     // @ts-expect-error
