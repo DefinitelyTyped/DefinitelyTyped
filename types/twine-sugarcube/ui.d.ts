@@ -133,7 +133,6 @@ export interface DialogAPI {
     wikiPassage(name: string): this;
 }
 
-
 export interface FullscreenRequestOptions {
     /**
      * Determines the fullscreen navigation UI preference. Valid values are (default: "auto"):
