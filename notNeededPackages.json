@@ -380,6 +380,10 @@
             "libraryName": "@bbob/html",
             "asOfVersion": "4.0.0"
         },
+        "bbob__parser": {
+            "libraryName": "@bbob/parser",
+            "asOfVersion": "4.0.0"
+        },
         "bcp-47": {
             "libraryName": "bcp-47",
             "asOfVersion": "2.0.0"
