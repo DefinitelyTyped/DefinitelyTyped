@@ -196,6 +196,10 @@
             "libraryName": "arcgis-js-api",
             "asOfVersion": "4.28.0"
         },
+        "architect__functions": {
+            "libraryName": "@architect/functions",
+            "asOfVersion": "5.3.0"
+        },
         "argon2": {
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
