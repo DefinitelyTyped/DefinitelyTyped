@@ -159,7 +159,7 @@ declare namespace LobiboxModule {
         showClass?: string | undefined; // Show animation class.
         hideClass?: string | undefined; // Hide animation class.
         icon?: string | undefined; // Icon of notification. Leave as is for default icon or set custom string
-        msg?: string | undefined; // Message of notification
+        msg?: string | boolean | undefined; // Message of notification
         img?: string | undefined; // Image source string
         closable?: boolean | undefined; // Make notifications closable
         delay?: number | undefined; // Hide notification after this time (in miliseconds)
