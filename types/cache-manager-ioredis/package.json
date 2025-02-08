@@ -6,7 +6,7 @@
         "https://github.com/dabroek/node-cache-manager-ioredis"
     ],
     "dependencies": {
-        "@types/cache-manager": "*",
+        "@types/cache-manager": "<3",
         "@types/ioredis": "^4.28.10"
     },
     "devDependencies": {

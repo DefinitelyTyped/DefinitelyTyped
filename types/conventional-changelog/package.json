@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/conventional-changelog",
-    "version": "3.1.9999",
+    "type": "module",
+    "version": "6.0.9999",
     "projects": [
         "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog#readme"
     ],

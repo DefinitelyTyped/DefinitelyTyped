@@ -1055,3 +1055,14 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         entry; // $ExpectType Dirent | string
     }
 });
+
+(async () => {
+    const fd = await fs.promises.open("/tmp/tmp.txt", "r");
+    fd.writeFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.writeFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
+});

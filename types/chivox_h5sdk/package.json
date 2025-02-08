@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chivox_h5sdk",
+    "version": "6.0.9999",
+    "devDependencies": {
+        "@types/chivox_h5sdk": "workspace:."
+    },
+    "projects": [
+        "https://www.chivox.com/opendoc/#/"
+    ],
+    "owners": [
+        {
+            "name": "Zane Liu",
+            "githubUsername": "ZaneL1u"
+        },
+        {
+            "name": "kunish",
+            "githubUsername": "kunish"
+        }
+    ]
+}
