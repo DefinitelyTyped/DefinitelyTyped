@@ -775,6 +775,7 @@ declare module "node:test" {
             | "notEqual"
             | "notStrictEqual"
             | "ok"
+            | "partialDeepStrictEqual"
             | "rejects"
             | "strictEqual"
             | "throws"
