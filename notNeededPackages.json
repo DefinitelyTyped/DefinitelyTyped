@@ -3349,6 +3349,10 @@
             "libraryName": "@ledgerhq/hw-app-btc",
             "asOfVersion": "6.0.0"
         },
+        "ledgerhq__hw-transport": {
+            "libraryName": "@ledgerhq/hw-transport",
+            "asOfVersion": "6.0.0"
+        },
         "ledgerhq__hw-transport-node-hid": {
             "libraryName": "@ledgerhq/hw-transport-node-hid",
             "asOfVersion": "6.0.0"
