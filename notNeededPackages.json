@@ -3345,6 +3345,10 @@
             "libraryName": "leap-year",
             "asOfVersion": "3.0.0"
         },
+        "ledgerhq__hw-app-btc": {
+            "libraryName": "@ledgerhq/hw-app-btc",
+            "asOfVersion": "6.0.0"
+        },
         "left-pad": {
             "libraryName": "left-pad",
             "asOfVersion": "1.2.0"
