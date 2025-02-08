@@ -2302,6 +2302,7 @@ declare namespace GoogleAppsScript {
             getRecalculationInterval(): RecalculationInterval;
             getRowHeight(rowPosition: Integer): Integer;
             getSelection(): Selection;
+            getSheetById(id: number): Sheet | null;
             getSheetByName(name: string): Sheet | null;
             getSheetId(): Integer;
             getSheetName(): string;
