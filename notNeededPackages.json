@@ -3353,6 +3353,10 @@
             "libraryName": "@ledgerhq/hw-transport-node-hid",
             "asOfVersion": "6.0.0"
         },
+        "ledgerhq__hw-transport-webusb": {
+            "libraryName": "@ledgerhq/hw-transport-webusb",
+            "asOfVersion": "6.0.0"
+        },
         "left-pad": {
             "libraryName": "left-pad",
             "asOfVersion": "1.2.0"
