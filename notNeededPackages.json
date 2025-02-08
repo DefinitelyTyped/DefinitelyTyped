@@ -632,6 +632,10 @@
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
         },
+        "chai-quantifiers": {
+            "libraryName": "chai-quantifiers",
+            "asOfVersion": "1.0.12"
+        },
         "chai-webdriverio": {
             "libraryName": "chai-webdriverio",
             "asOfVersion": "1.0.0"
