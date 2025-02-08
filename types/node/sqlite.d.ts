@@ -43,7 +43,10 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
-    type SupportedValueType = null | number | bigint | string | Uint8Array;
+    type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
+    type SQLOutputValue = null | number | bigint | string | Uint8Array;
+    /** @deprecated Use `SQLInputValue` or `SQLOutputValue` instead. */
+    type SupportedValueType = SQLOutputValue;
     interface DatabaseSyncOptions {
         /**
          * If `true`, the database is opened by the constructor. When
@@ -322,11 +325,11 @@ declare module "node:sqlite" {
          * @return An array of objects. Each object corresponds to a row returned by executing the prepared statement. The keys and values of each object correspond to the column names and values of
          * the row.
          */
-        all(...anonymousParameters: SupportedValueType[]): unknown[];
+        all(...anonymousParameters: SQLInputValue[]): Record<string, SQLOutputValue>[];
         all(
-            namedParameters: Record<string, SupportedValueType>,
-            ...anonymousParameters: SupportedValueType[]
-        ): unknown[];
+            namedParameters: Record<string, SQLInputValue>,
+            ...anonymousParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue>[];
         /**
          * The source SQL text of the prepared statement with parameter
          * placeholders replaced by the values that were used during the most recent
@@ -346,8 +349,11 @@ declare module "node:sqlite" {
          * @return An object corresponding to the first row returned by executing the prepared statement. The keys and values of the object correspond to the column names and values of the row. If no
          * rows were returned from the database then this method returns `undefined`.
          */
-        get(...anonymousParameters: SupportedValueType[]): unknown;
-        get(namedParameters: Record<string, SupportedValueType>, ...anonymousParameters: SupportedValueType[]): unknown;
+        get(...anonymousParameters: SQLInputValue[]): Record<string, SQLOutputValue> | undefined;
+        get(
+            namedParameters: Record<string, SQLInputValue>,
+            ...anonymousParameters: SQLInputValue[]
+        ): Record<string, SQLOutputValue> | undefined;
         /**
          * This method executes a prepared statement and returns an iterator of
          * objects. If the prepared statement does not return any results, this method
@@ -361,11 +367,11 @@ declare module "node:sqlite" {
          * returned by executing the prepared statement. The keys and values of each
          * object correspond to the column names and values of the row.
          */
-        iterate(...anonymousParameters: SupportedValueType[]): NodeJS.Iterator<unknown>;
+        iterate(...anonymousParameters: SQLInputValue[]): NodeJS.Iterator<Record<string, SQLOutputValue>>;
         iterate(
-            namedParameters: Record<string, SupportedValueType>,
-            ...anonymousParameters: SupportedValueType[]
-        ): NodeJS.Iterator<unknown>;
+            namedParameters: Record<string, SQLInputValue>,
+            ...anonymousParameters: SQLInputValue[]
+        ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
         /**
          * This method executes a prepared statement and returns an object summarizing the
          * resulting changes. The prepared statement [parameters are bound](https://www.sqlite.org/c3ref/bind_blob.html) using the
@@ -374,10 +380,10 @@ declare module "node:sqlite" {
          * @param namedParameters An optional object used to bind named parameters. The keys of this object are used to configure the mapping.
          * @param anonymousParameters Zero or more values to bind to anonymous parameters.
          */
-        run(...anonymousParameters: SupportedValueType[]): StatementResultingChanges;
+        run(...anonymousParameters: SQLInputValue[]): StatementResultingChanges;
         run(
-            namedParameters: Record<string, SupportedValueType>,
-            ...anonymousParameters: SupportedValueType[]
+            namedParameters: Record<string, SQLInputValue>,
+            ...anonymousParameters: SQLInputValue[]
         ): StatementResultingChanges;
         /**
          * The names of SQLite parameters begin with a prefix character. By default,`node:sqlite` requires that this prefix character is present when binding
