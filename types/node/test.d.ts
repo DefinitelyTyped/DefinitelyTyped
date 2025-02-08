@@ -754,6 +754,18 @@ declare module "node:test" {
          */
         test: typeof test;
         /**
+         * This method polls a `condition` function until that function either returns
+         * successfully or the operation times out.
+         * @since v22.14.0
+         * @param condition An assertion function that is invoked
+         * periodically until it completes successfully or the defined polling timeout
+         * elapses. Successful completion is defined as not throwing or rejecting. This
+         * function does not accept any arguments, and is allowed to return any value.
+         * @param options An optional configuration object for the polling operation.
+         * @returns Fulfilled with the value returned by `condition`.
+         */
+        waitFor<T>(condition: () => T, options?: TestContextWaitForOptions): Promise<Awaited<T>>;
+        /**
          * Each test provides its own MockTracker instance.
          */
         readonly mock: MockTracker;
@@ -808,6 +820,20 @@ declare module "node:test" {
          * If no serializers are provided, the test runner's default serializers are used.
          */
         serializers?: ReadonlyArray<(value: any) => any> | undefined;
+    }
+    interface TestContextWaitForOptions {
+        /**
+         * The number of milliseconds to wait after an unsuccessful
+         * invocation of `condition` before trying again.
+         * @default 50
+         */
+        interval?: number | undefined;
+        /**
+         * The poll timeout in milliseconds. If `condition` has not
+         * succeeded by the time this elapses, an error occurs.
+         * @default 1000
+         */
+        timeout?: number | undefined;
     }
 
     /**

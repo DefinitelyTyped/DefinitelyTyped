@@ -992,6 +992,17 @@ test("test on the default export", (t) => {
     contextTest(t);
 });
 
+test("waitFor()", (t) => {
+    // $ExpectType Promise<void>
+    t.waitFor(() => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<void>
+    t.waitFor(async () => {}, { interval: 100, timeout: 10_000 });
+    // $ExpectType Promise<boolean>
+    t.waitFor(() => true);
+    // $ExpectType Promise<boolean>
+    t.waitFor(async () => true);
+});
+
 // @ts-expect-error Should not be able to instantiate a TestContext
 const invalidTestContext = new TestContext();
 
