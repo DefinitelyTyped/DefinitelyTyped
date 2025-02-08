@@ -60,6 +60,7 @@ declare module "worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { URL } from "node:url";
     import { X509Certificate } from "node:crypto";
+    const isInternalThread: boolean;
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
