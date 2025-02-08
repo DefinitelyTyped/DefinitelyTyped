@@ -967,9 +967,12 @@ function testTtsEngine() {
 
 chrome.runtime.onInstalled.addListener((details) => {
     details; // $ExpectType InstalledDetails
-    details.reason; // $ExpectType OnInstalledReason
     details.previousVersion; // $ExpectType string | undefined
+    details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
     details.id; // $ExpectType string | undefined
+    if (details.reason === "install") { // Accept string version of enum
+        return;
+    }
 
     // @ts-expect-error
     details.reason = "not-real-reason";
@@ -2903,7 +2906,10 @@ async function testTopSitesForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/offscreen/
 async function testOffscreenDocument() {
     await chrome.offscreen.createDocument({
-        reasons: [chrome.offscreen.Reason.CLIPBOARD],
+        reasons: [
+            chrome.offscreen.Reason.CLIPBOARD,
+            "AUDIO_PLAYBACK", // Accept both enum values and strings
+        ],
         url: "https://example.com",
         justification: "Example",
     });
