@@ -184,3 +184,9 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     assert.deepStrictEqual(a, { b: 2 });
     a; // $ExpectType { b: number; }
 }
+
+// This is a regression test for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/71889.
+// Due to the nature of the bug this can't be switched to `import strict from "node:assert/strict";`
+// or to `import strict = require("node:assert/strict");`
+import { AssertionError } from "node:assert/strict";
+new AssertionError({ message: "some message" });
