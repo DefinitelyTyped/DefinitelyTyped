@@ -6191,6 +6191,10 @@
             "libraryName": "sql-query-identifier",
             "asOfVersion": "1.2.0"
         },
+        "sqlite3": {
+            "libraryName": "sqlite3",
+            "asOfVersion": "5.1.0"
+        },
         "sqs-consumer": {
             "libraryName": "sqs-consumer",
             "asOfVersion": "5.0.0"
