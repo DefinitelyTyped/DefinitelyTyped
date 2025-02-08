@@ -6,7 +6,7 @@
         "https://github.com/koajs/koa-safe-jsonp"
     ],
     "dependencies": {
-        "@types/jsonp-body": "*",
+        "@types/jsonp-body": "~1.0.0",
         "@types/koa": "*"
     },
     "devDependencies": {
