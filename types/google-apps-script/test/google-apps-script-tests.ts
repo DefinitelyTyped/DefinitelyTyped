@@ -1187,3 +1187,24 @@ function listTabs() {
     const activeTabTitle = DocumentApp.getActiveDocument().getActiveTab().getTitle();
     console.log("Active tab title: " + activeTabTitle);
 }
+
+// Follows the example at https://developers.google.com/apps-script/reference/document/body#findelementelementtype,-from
+function optionalFields() {
+  const body = DocumentApp.getActiveDocument()
+    .getActiveTab()
+    .asDocumentTab()
+    .getBody();
+
+  let searchResult: GoogleAppsScript.Document.RangeElement | null = null;
+  let index = -1;
+
+  while (
+    (searchResult = body.findElement(
+      DocumentApp.ElementType.PARAGRAPH,
+      searchResult,
+    ))
+  ) {
+    const element = searchResult.getElement();
+    console.log("Found an element");
+  }
+}
