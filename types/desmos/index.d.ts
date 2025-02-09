@@ -1046,5 +1046,15 @@ declare namespace Desmos {
          * @default ""
          */
         randomSeed?: string;
+        /**
+         * Which calculator is currently in use.
+         * @default undefined
+         */
+        product?: "geometry-calculator" | "graphing-3d";
+        /**
+         * Show the 3D graph as a 2D projection.
+         * @default undefined
+         */
+        threeDMode?: boolean;
     }
 }
