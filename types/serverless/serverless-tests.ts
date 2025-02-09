@@ -394,8 +394,8 @@ const awsServerless: Aws.Serverless = {
                 },
                 testCustomAuthorizer: {
                     type: "request",
-                    functionName: "testCustomAuthorizer"
-                }
+                    functionName: "testCustomAuthorizer",
+                },
             },
             useProviderTags: true,
             metrics: true,
@@ -959,7 +959,7 @@ const awsServerless: Aws.Serverless = {
         },
         testCustomAuthorizer: {
             handler: "testauthorizer",
-        }
+        },
     },
     layers: {
         testLayer: {
