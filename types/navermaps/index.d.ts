@@ -1274,6 +1274,7 @@ declare namespace naver.maps {
         removePane(name: string): void;
         setCenter(center: Coord | CoordLiteral): void;
         setCenterPoint(point: Point | PointLiteral): void;
+        setCursor(cursor: string): void;
         setMapTypeId(mapTypeId: string): void;
         setOptions(newOptionsOrKey: { [key: string]: any } | string, value?: any): void;
         setSize(size: Size | SizeLiteral): void;
