@@ -156,6 +156,7 @@ interface AILanguageModelCapabilities {
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
+    readonly maxTemperature: number | null;
 }
 
 // Summarizer
