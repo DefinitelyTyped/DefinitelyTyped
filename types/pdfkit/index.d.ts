@@ -413,6 +413,8 @@ declare namespace PDFKit.Mixins {
         columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number | undefined;
+        /** Whether to indent all lines of a paragraph */
+        indentAllLines?: boolean | undefined;
         /** The amount of space between each paragraph of text */
         paragraphGap?: number | undefined;
         /** The amount of space between each line of text */
@@ -606,6 +608,11 @@ declare namespace PDFKit.Mixins {
         initSubset(options: { subset: PDFSubsets }): void;
         endSubset(): void;
     }
+
+    interface PDFOutline {
+        initOutline(): void;
+        endOutline(): void;
+    }
 }
 
 declare namespace PDFKit {
@@ -649,14 +656,14 @@ declare module "pdfkit/js/data" {
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string | undefined;
-        Creator?: string | undefined;
-        CreationDate?: Date | undefined;
-        Title?: string | undefined;
-        Author?: string | undefined;
-        Subject?: string | undefined;
-        Keywords?: string | undefined;
-        ModDate?: Date | undefined;
+        Producer?: string;
+        Creator?: string;
+        CreationDate?: Date;
+        Title?: string;
+        Author?: string;
+        Subject?: string;
+        Keywords?: string;
+        ModDate?: Date;
     }
 
     interface DocumentPermissions {
@@ -705,7 +712,8 @@ declare namespace PDFKit {
             Mixins.PDFMarking,
             Mixins.PDFAttachment,
             Mixins.PDFMetadata,
-            Mixins.PDFSubset
+            Mixins.PDFSubset,
+            Mixins.PDFOutline
     {
         /**
          * PDF Version
@@ -749,6 +757,11 @@ declare namespace PDFKit {
         output(fn: any): void;
         end(): void;
         toString(): string;
+
+        /**
+         * The root outline
+         */
+        outline: PDFOutline;
     }
 }
 
@@ -876,6 +889,18 @@ declare namespace PDFKit {
     }
 }
 
+declare namespace PDFKit {
+    /**
+     * PDFKit data
+     */
+    interface PDFOutline {
+        document: PDFDocument;
+        children: PDFOutline[];
+        addItem(title: string, options?: { expanded?: boolean }): PDFOutline;
+        endOutline(): void;
+    }
+}
+
 declare module "pdfkit/js/structure_element" {
     var PDFStructureElement: PDFKit.PDFStructureElement;
     export = PDFStructureElement;
@@ -914,4 +939,9 @@ declare module "pdfkit/js/mixins/vector" {
 declare module "pdfkit/js/mixins/markings" {
     var PDFKitMarking: PDFKit.Mixins.PDFMarking;
     export = PDFKitMarking;
+}
+
+declare module "pdfkit/js/mixins/outline" {
+    var PDFKitOutline: PDFKit.Mixins.PDFOutline;
+    export = PDFKitOutline;
 }

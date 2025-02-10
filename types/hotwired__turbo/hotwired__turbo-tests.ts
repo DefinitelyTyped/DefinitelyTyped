@@ -1,6 +1,9 @@
-import { FrameElement, StreamActions, StreamElement, visit } from "@hotwired/turbo";
+import { StreamActions, visit } from "@hotwired/turbo";
 
-const turboFrame = document.querySelector<FrameElement>("turbo-frame")!;
+const turboFrame = document.querySelector("turbo-frame")!;
+
+// $ExpectType FrameElement
+turboFrame;
 
 // @ts-expect-error
 turboFrame.complete = true;
@@ -16,7 +19,10 @@ turboFrame.loading = "slow";
 
 turboFrame.reload().catch(console.error);
 
-const turboStream = document.querySelector<StreamElement>("turbo-stream")!;
+const turboStream = document.querySelector("turbo-stream")!;
+
+// $ExpectType StreamElement
+turboStream;
 
 // @ts-expect-error
 turboStream.action = "123";
@@ -90,4 +96,20 @@ document.addEventListener("turbo:before-render", function(e) {
 
 document.addEventListener("turbo:frame-missing", function(event) {
     event.detail.visit(event.detail.response, {});
+});
+
+document.addEventListener("turbo:submit-start", function(event) {
+    event.detail.formSubmission.stop();
+});
+
+document.addEventListener("turbo:submit-end", function(event) {
+    if (event.detail.success) {
+        // $ExpectType FetchResponse
+        event.detail.fetchResponse;
+    } else {
+        // $ExpectType Error|undefined
+        event.detail.error;
+        // $ExpectType FetchResponse|undefined
+        event.detail.fetchResponse;
+    }
 });

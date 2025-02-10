@@ -1,6 +1,6 @@
 import { ContentBlock, RawDraftEntity } from "draft-js";
 
-export default function htmlToDraft(
+declare function htmlToDraft(
     text: string,
     customChunkRenderer?: (
         nodeName: string,
@@ -10,3 +10,5 @@ export default function htmlToDraft(
     contentBlocks: ContentBlock[];
     entityMap?: any;
 };
+
+export = htmlToDraft;

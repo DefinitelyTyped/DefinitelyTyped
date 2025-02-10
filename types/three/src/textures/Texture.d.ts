@@ -1,7 +1,6 @@
 import {
     AnyMapping,
     AnyPixelFormat,
-    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -11,6 +10,7 @@ import {
     Wrapping,
 } from "../constants.js";
 import { EventDispatcher } from "../core/EventDispatcher.js";
+import { RenderTarget } from "../core/RenderTarget.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
 import { CompressedTextureMipmap } from "./CompressedTexture.js";
@@ -38,7 +38,7 @@ export interface TextureJSON {
     format: AnyPixelFormat;
     internalFormat: PixelFormatGPU | null;
     type: TextureDataType;
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     minFilter: MinificationTextureFilter;
     magFilter: MagnificationTextureFilter;
@@ -99,7 +99,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -369,7 +369,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.NoColorSpace}
      */
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     /**
      * Indicates whether a texture belongs to a render target or not
@@ -427,6 +427,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      */
     static DEFAULT_MAPPING: Mapping;
 
+    renderTarget: RenderTarget | null;
+
     /**
      * A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_.
      */
@@ -453,11 +455,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     updateMatrix(): void;
 
     /**
-     * Make copy of the texture
-     * @remarks Note this is not a **"deep copy"**, the image is shared
-     * @remarks
-     * Besides, cloning a texture does not automatically mark it for a texture upload
-     * You have to set {@link needsUpdate | .needsUpdate} to `true` as soon as it's image property (the data source) is fully loaded or ready.
+     * Make copy of the texture. Note this is not a "deep copy", the image is shared. Cloning the texture automatically
+     * marks it for texture upload.
      */
     clone(): this;
 

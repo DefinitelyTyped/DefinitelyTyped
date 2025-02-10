@@ -12,7 +12,7 @@ export function TestMixedTagsMinimal(): React.ReactElement {
 }
 
 export function TestTagsTagifyRef(): React.ReactElement {
-    const ref = React.useRef<Tagify>();
+    const ref = React.useRef<Tagify>(undefined);
     return (
         <div>
             <Tags tagifyRef={ref} />

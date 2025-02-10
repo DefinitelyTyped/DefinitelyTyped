@@ -165,6 +165,12 @@ interface QRScannerStatus {
     prepared: boolean;
 
     /**
+     * A boolean value which is true when the preview layer is visible (and on all
+     * platforms but `browser`, the native webview background is transparent).
+     */
+    showing: boolean;
+
+    /**
      * A boolean value which is true if QRScanner is actively scanning for a QR code.
      */
     scanning: boolean;
@@ -174,11 +180,6 @@ interface QRScannerStatus {
      * from the device's camera. Set to false when the preview is paused.
      */
     previewing: boolean;
-
-    /**
-     * A boolean value which is true when the native webview background is transparent.
-     */
-    webviewBackgroundIsTransparent: boolean;
 
     /**
      * A boolean value which is true if the light is enabled.
@@ -196,6 +197,14 @@ interface QRScannerStatus {
      * in the direction of the currentCamera.
      */
     canEnableLight: boolean;
+
+    /**
+     * A boolean value which is true only if the current device "should" have a front
+     * camera. The camera may still not be capturable, which would emit error code 3,
+     * 4, or 5 when the switch is attempted. (On the browser platform, this value is
+     * false until the `prepare` method is called.)
+     */
+    canChangeCamera: boolean;
 
     /**
      * A number representing the index of the currentCamera. `0` is the back

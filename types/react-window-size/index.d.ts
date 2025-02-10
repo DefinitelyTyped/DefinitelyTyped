@@ -1,10 +1,14 @@
 import { ComponentType } from "react";
 
-export interface WindowSizeProps {
-    windowHeight: number;
-    windowWidth: number;
+declare namespace windowSize {
+    interface WindowSizeProps {
+        windowHeight: number;
+        windowWidth: number;
+    }
 }
 
-export default function<T>(
-    ComposedComponent: ComponentType<T & WindowSizeProps>,
+declare function windowSize<T>(
+    ComposedComponent: ComponentType<T & windowSize.WindowSizeProps>,
 ): ComponentType<T>;
+
+export = windowSize;

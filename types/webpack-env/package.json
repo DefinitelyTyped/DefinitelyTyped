@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/webpack-env",
     "version": "1.18.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "webpack-env",
     "projects": [
         "https://github.com/webpack/webpack"
     ],

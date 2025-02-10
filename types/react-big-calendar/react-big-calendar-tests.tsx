@@ -19,6 +19,7 @@ import {
     Navigate,
     NavigateAction,
     ResourceHeaderProps,
+    ShowMoreProps,
     stringOrDate,
     TimeGrid,
     ToolbarProps,
@@ -337,21 +338,21 @@ class CalendarResource {
                             "some-format",
                     }}
                     messages={{
-                        date: "Date",
-                        time: "Time",
-                        event: "Event",
-                        allDay: "All Day",
-                        week: "Week",
-                        work_week: "Work Week",
-                        day: "Day",
-                        month: "Month",
-                        previous: "Back",
-                        next: "Next",
-                        yesterday: "Yesterday",
-                        tomorrow: "Tomorrow",
-                        today: "Today",
-                        agenda: "Agenda",
-                        noEventsInRange: "There are no events in this range.",
+                        date: <div>Date</div>,
+                        time: <div>Time</div>,
+                        event: <div>Event</div>,
+                        allDay: <div>All Day</div>,
+                        week: <div>Week</div>,
+                        work_week: <div>Work Week</div>,
+                        day: <div>Day</div>,
+                        month: <div>Month</div>,
+                        previous: <div>Back</div>,
+                        next: <div>Next</div>,
+                        yesterday: <div>Yesterday</div>,
+                        tomorrow: <div>Tomorrow</div>,
+                        today: <div>Today</div>,
+                        agenda: <div>Agenda</div>,
+                        noEventsInRange: <div>There are no events in this range.</div>,
                         showMore: (total, remainingEvents, events) =>
                             `+${total} more. Remaining: ${remainingEvents[0].title}. Events: ${events.length}`,
                     }}
@@ -368,6 +369,7 @@ class CalendarResource {
                         eventWrapper: EventWrapper,
                         header: CustomHeader,
                         resourceHeader: ResourceHeader,
+                        showMore: ShowMoreButton,
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -530,6 +532,16 @@ function ResourceHeader(props: ResourceHeaderProps<CalendarResource>) {
             <strong>{props.resource.title}</strong>
             {props.resource.id}
         </span>
+    );
+}
+
+function ShowMoreButton(props: ShowMoreProps<CalendarEvent>) {
+    return (
+        <div>
+            <div>Show more</div>
+            <p>All events: {props.events.length}</p>
+            <p>Remaining: {props.remainingEvents.length}</p>
+        </div>
     );
 }
 

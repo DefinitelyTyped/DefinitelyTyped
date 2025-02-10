@@ -23,11 +23,6 @@ export class MeshDepthMaterial extends Material {
     readonly isMeshDepthMaterial: true;
 
     /**
-     * @default 'MeshDepthMaterial'
-     */
-    type: string;
-
-    /**
      * @default null
      */
     map: Texture | null;
@@ -66,11 +61,6 @@ export class MeshDepthMaterial extends Material {
      * @default 1
      */
     wireframeLinewidth: number;
-
-    /**
-     * @default false
-     */
-    fog: boolean;
 
     setValues(parameters: MeshDepthMaterialParameters): void;
 }

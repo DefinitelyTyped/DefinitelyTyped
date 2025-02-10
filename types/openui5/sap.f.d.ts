@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.132.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -43,7 +43,6 @@ declare module "sap/f/library" {
    * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'AvatarGroupType'.
    *
    * @since 1.73
-   * @experimental (since 1.73)
    */
   export enum AvatarGroupType {
     /**
@@ -192,8 +191,6 @@ declare module "sap/f/library" {
    * Interface for controls suitable for the `additionalContent` aggregation of `{@link sap.f.ShellBar}`.
    *
    * @since 1.63
-   * @experimental (since 1.63) - that provides only limited functionality. Also, it can be removed in future
-   * versions.
    */
   export interface IShellBar {
     __implements__sap_f_IShellBar: boolean;
@@ -411,6 +408,24 @@ declare module "sap/f/library" {
        * Explicitly sets the alignment to the end (left or right depending on LTR/RTL).
        */
       End = "End",
+    }
+    /**
+     * Different options for the semantic role in controls that implement the {@link sap.f.ICard} interface.
+     *
+     * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'cards.SemanticRole'.
+     *
+     * @since 1.131
+     * @experimental
+     */
+    enum SemanticRole {
+      /**
+       * The card has interactive elements.
+       */
+      ListItem = "ListItem",
+      /**
+       * The card has no interactive elements.
+       */
+      Region = "Region",
     }
   }
 
@@ -1446,9 +1461,11 @@ declare module "sap/f/Card" {
 declare module "sap/f/CardBase" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ICard } from "sap/f/library";
+  import { ICard, cards } from "sap/f/library";
 
   import { IBadge } from "sap/m/library";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1525,6 +1542,88 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.CardBase` itself.
+     *
+     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     *
+     * @experimental (since 1.131)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.CardBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.CardBase` itself.
+     *
+     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     *
+     * @experimental (since 1.131)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.CardBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @experimental (since 1.131)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @experimental (since 1.131)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
      * Returns the DOM Element that should get the focus.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -1543,6 +1642,18 @@ declare module "sap/f/CardBase" {
      * @returns Value of property `height`
      */
     getHeight(): CSSSize;
+    /**
+     * Gets current value of property {@link #getSemanticRole semanticRole}.
+     *
+     * Defines the role of the Card Header.
+     *
+     * Default value is `Region`.
+     *
+     * @experimental (since 1.131)
+     *
+     * @returns Value of property `semanticRole`
+     */
+    getSemanticRole(): cards.SemanticRole | keyof typeof cards.SemanticRole;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -1571,6 +1682,25 @@ declare module "sap/f/CardBase" {
        * New value for property `height`
        */
       sHeight?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSemanticRole semanticRole}.
+     *
+     * Defines the role of the Card Header.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Region`.
+     *
+     * @experimental (since 1.131)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSemanticRole(
+      /**
+       * New value for property `semanticRole`
+       */
+      sSemanticRole?: cards.SemanticRole | keyof typeof cards.SemanticRole
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -1604,17 +1734,53 @@ declare module "sap/f/CardBase" {
      * Defines the height of the card.
      */
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the role of the Card Header.
+     *
+     * @experimental (since 1.131)
+     */
+    semanticRole?:
+      | (cards.SemanticRole | keyof typeof cards.SemanticRole)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     *
+     * @experimental (since 1.131)
+     */
+    press?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the CardBase#press event.
+   *
+   * @experimental (since 1.131)
+   */
+  export interface CardBase$PressEventParameters {}
+
+  /**
+   * Event object of the CardBase#press event.
+   *
+   * @experimental (since 1.131)
+   */
+  export type CardBase$PressEvent = Event<
+    CardBase$PressEventParameters,
+    CardBase
+  >;
 }
 
 declare module "sap/f/cards/BaseHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { IBar, WrappingType } from "sap/m/library";
+
   import Text from "sap/m/Text";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import Event from "sap/ui/base/Event";
 
-  import { WrappingType } from "sap/m/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
@@ -1624,7 +1790,8 @@ declare module "sap/f/cards/BaseHeader" {
   /**
    * Provides basic functionality for header controls that can be used in sap.f.Card
    */
-  export default abstract class BaseHeader extends Control {
+  export default abstract class BaseHeader extends Control implements IBar {
+    __implements__sap_m_IBar: boolean;
     /**
      * Constructor for a new `BaseHeader`.
      *
@@ -1702,6 +1869,53 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys all the bannerLines in the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
@@ -1719,6 +1933,37 @@ declare module "sap/f/cards/BaseHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
     /**
      * Gets content of aggregation {@link #getBannerLines bannerLines}.
      *
@@ -2034,15 +2279,40 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.118) - For usage only by Work Zone.
      */
     bannerLines?: Text[] | Text | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Fires when the user presses the control.
+     */
+    press?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the BaseHeader#press event.
+   */
+  export interface BaseHeader$PressEventParameters {}
+
+  /**
+   * Event object of the BaseHeader#press event.
+   */
+  export type BaseHeader$PressEvent = Event<
+    BaseHeader$PressEventParameters,
+    BaseHeader
+  >;
 }
 
 declare module "sap/f/cards/CardBadgeCustomData" {
+  import {
+    default as CustomData,
+    $CustomDataSettings,
+  } from "sap/ui/core/CustomData";
+
   import { URI } from "sap/ui/core/library";
 
-  import Metadata from "sap/ui/base/Metadata";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CardBadgeVisibilityMode } from "sap/f/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
    * Contains a single key/value pair of custom data attached to an `Element`.
@@ -2051,9 +2321,20 @@ declare module "sap/f/cards/CardBadgeCustomData" {
    *
    * @since 1.128
    */
-  export default class CardBadgeCustomData
-    extends /* was: sap..ui.core.CustomData */ Object
-  {
+  export default class CardBadgeCustomData extends CustomData {
+    /**
+     * Constructor for a new `CardBadgeCustomData` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $CardBadgeCustomDataSettings
+    );
     /**
      * Constructor for a new `CardBadgeCustomData` element.
      *
@@ -2069,14 +2350,14 @@ declare module "sap/f/cards/CardBadgeCustomData" {
       /**
        * Initial settings for the new element
        */
-      mSettings?: object
+      mSettings?: $CardBadgeCustomDataSettings
     );
 
     /**
      * Creates a new subclass of class sap.f.cards.CardBadgeCustomData with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap..ui.core.CustomData.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.CustomData.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -2102,7 +2383,7 @@ declare module "sap/f/cards/CardBadgeCustomData" {
      *
      * @returns Metadata object describing this class
      */
-    static getMetadata(): Metadata;
+    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getAnnouncementText announcementText}.
      *
@@ -2263,6 +2544,50 @@ declare module "sap/f/cards/CardBadgeCustomData" {
       bVisible?: boolean
     ): this;
   }
+  /**
+   * Describes the settings that can be provided to the CardBadgeCustomData constructor.
+   */
+  export interface $CardBadgeCustomDataSettings extends $CustomDataSettings {
+    /**
+     * Icon URI. This may be either an icon font or image path.
+     *
+     * @since 1.128
+     */
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Describes the corresponding visibility mode, see also {@link sap.f.CardBadgeVisibilityMode}.
+     *
+     * @since 1.128
+     */
+    visibilityMode?:
+      | (CardBadgeVisibilityMode | keyof typeof CardBadgeVisibilityMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the color of the badge. The allowed values are from the enum type `sap.ui.core.IndicationColor`.
+     * Additionally values from `sap.ui.core.ValueState` can be used, but this is not recommended by design
+     * guidelines.
+     *
+     * @since 1.128
+     */
+    state?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the cards badge visibility.
+     *
+     * @since 1.128
+     */
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines text which will is overriding default announcement.
+     *
+     * @since 1.128
+     */
+    announcementText?: string | PropertyBindingInfo;
+  }
 }
 
 declare module "sap/f/cards/Header" {
@@ -2273,13 +2598,13 @@ declare module "sap/f/cards/Header" {
 
   import { cards } from "sap/f/library";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
 
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -2365,71 +2690,6 @@ declare module "sap/f/cards/Header" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      *
@@ -2449,19 +2709,6 @@ declare module "sap/f/cards/Header" {
         level: string;
       }
     ): void;
-    /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
     /**
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
@@ -2497,6 +2744,18 @@ declare module "sap/f/cards/Header" {
      * @returns Value of property `iconDisplayShape`
      */
     getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType | keyof typeof AvatarImageFitType;
     /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
@@ -2655,6 +2914,25 @@ declare module "sap/f/cards/Header" {
        * New value for property `iconDisplayShape`
        */
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
@@ -2915,20 +3193,15 @@ declare module "sap/f/cards/Header" {
       | `{${string}}`;
 
     /**
-     * Fires when the user presses the control.
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
      */
-    press?: (oEvent: Event) => void;
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
-
-  /**
-   * Parameters of the Header#press event.
-   */
-  export interface Header$PressEventParameters {}
-
-  /**
-   * Event object of the Header#press event.
-   */
-  export type Header$PressEvent = Event<Header$PressEventParameters, Header>;
 }
 
 declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
@@ -2985,8 +3258,6 @@ declare module "sap/f/cards/NumericHeader" {
 
   import NumericSideIndicator from "sap/f/cards/NumericSideIndicator";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
 
   import { ValueState, URI } from "sap/ui/core/library";
@@ -2994,6 +3265,8 @@ declare module "sap/f/cards/NumericHeader" {
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -3100,53 +3373,6 @@ declare module "sap/f/cards/NumericHeader" {
       oSideIndicator: NumericSideIndicator
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
      * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
      *
      * @experimental (since 1.124)
@@ -3161,24 +3387,6 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySideIndicators(): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
     /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -3199,19 +3407,6 @@ declare module "sap/f/cards/NumericHeader" {
         level: string;
       }
     ): void;
-    /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
     /**
      * Gets current value of property {@link #getDetails details}.
      *
@@ -3285,6 +3480,18 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `iconDisplayShape`
      */
     getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType | keyof typeof AvatarImageFitType;
     /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
@@ -3660,6 +3867,25 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `iconDisplayShape`
        */
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
@@ -4092,6 +4318,16 @@ declare module "sap/f/cards/NumericHeader" {
       | `{${string}}`;
 
     /**
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
+     */
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * General unit of measurement for the header. Displayed as side information to the subtitle.
      */
     unitOfMeasurement?: string | PropertyBindingInfo;
@@ -4190,25 +4426,7 @@ declare module "sap/f/cards/NumericHeader" {
      * @experimental (since 1.124)
      */
     microChart?: Control;
-
-    /**
-     * Fires when the user presses the control.
-     */
-    press?: (oEvent: Event) => void;
   }
-
-  /**
-   * Parameters of the NumericHeader#press event.
-   */
-  export interface NumericHeader$PressEventParameters {}
-
-  /**
-   * Event object of the NumericHeader#press event.
-   */
-  export type NumericHeader$PressEvent = Event<
-    NumericHeader$PressEventParameters,
-    NumericHeader
-  >;
 }
 
 declare module "sap/f/cards/NumericSideIndicator" {

@@ -2752,6 +2752,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.map
 {
+    _.map([] as AbcObject[]); // $ExpectType AbcObject[]
+    _.map([] as AbcObject[], (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return 0;
+    });
     _.map(list);  // $ExpectType AbcObject[]
     // $ExpectType number[]
     _.map(list, (value, index, collection) => {
@@ -5057,7 +5064,7 @@ fp.now(); // $ExpectType number
     fp.random(1, 2); // $ExpectType number
     fp.random(1)(2); // $ExpectType number
 
-    _.map([5, 5], _.random); // $ExpectType number[]
+    _.map([5, 5], _.random); // $ExpectType [number, number]
 }
 
 /**********
@@ -5200,17 +5207,19 @@ fp.now(); // $ExpectType number
     fp.merge(obj, s1); // $ExpectType { a: string; } & { b: number; }
     fp.merge(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 
-    _.mergeWith(obj, s1, customizer); // $ExpectType { a: string; } & { b: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, customizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, s5, customizer);
-    _(obj).mergeWith(s1, customizer); // $ExpectType Object<{ a: string; } & { b: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    _.chain(obj).mergeWith(s1, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    fp.mergeWith(customizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
-    fp.mergeWith(customizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
+    const mergeWithCustomizer = (objectValue: any, sourceValue: any, key: string, object: any, source: any, stack: any) => 1;
+
+    _.mergeWith(obj, s1, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _.chain(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    fp.mergeWith(mergeWithCustomizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
+    fp.mergeWith(mergeWithCustomizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 }
 
 // _.create
@@ -6623,10 +6632,27 @@ fp.now(); // $ExpectType number
 
 // _.capitalize
 {
-    _.capitalize("fred"); // $ExpectType string
-    _("fred").capitalize(); // $ExpectType string
-    _.chain("fred").capitalize(); // $ExpectType StringChain<string>
-    fp.capitalize("fred"); // $ExpectType string
+    _.capitalize("fred"); // $ExpectType "Fred"
+    _.capitalize("FRED"); // $ExpectType "Fred"
+    _.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    _.capitalize(123);
+
+    _("fred").capitalize(); // $ExpectType "Fred"
+    _("FRED").capitalize(); // $ExpectType "Fred"
+    _("fred" as string).capitalize(); // $ExpectType Capitalize<Lowercase<string>>
+    _(123).capitalize(); // $ExpectType never
+
+    _.chain("fred").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("FRED").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("fred" as string).capitalize(); // $ExpectType StringChain<Capitalize<Lowercase<string>>>
+    _.chain(123).capitalize(); // $ExpectType StringChain<never>
+
+    fp.capitalize("fred"); // $ExpectType "Fred"
+    fp.capitalize("FRED"); // $ExpectType "Fred"
+    fp.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    fp.capitalize(123);
 }
 
 // _.deburr
@@ -6824,7 +6850,7 @@ fp.now(); // $ExpectType number
     fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
-    _.map(["abc", "def"], _.split); // $ExpectType string[][]
+    _.map(["abc", "def"], _.split); // $ExpectType [string[], string[]]
 }
 
 // _.startCase
@@ -6868,6 +6894,8 @@ fp.now(); // $ExpectType number
     _("").template(options); // $ExpectType TemplateExecutor
     _.chain("").template(); // $ExpectType FunctionChain<TemplateExecutor>
     _.chain("").template(options); // $ExpectType FunctionChain<TemplateExecutor>
+    _.template("", {escape: null, evaluate: null, interpolate: / /}); // $ExpectType TemplateExecutor
+    _.template("", {escape: null, evaluate: / /, interpolate: null}); // $ExpectType TemplateExecutor
 
     const result2 = fp.template("");
     result2(); // $ExpectType string
@@ -6903,7 +6931,7 @@ fp.now(); // $ExpectType number
     fp.trimChars(" ", "  abc  "); // $ExpectType string
     fp.trimChars(" ")("  abc  "); // $ExpectType string
 
-    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType string[]
+    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType [string, string]
 }
 
 // _.trimEnd
@@ -6991,7 +7019,7 @@ fp.now(); // $ExpectType number
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]
 
-    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType string[][]
+    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType [string[], string[]]
 }
 
 /********
@@ -7357,8 +7385,8 @@ fp.now(); // $ExpectType number
     fp.rangeRight(1, 11); // $ExpectType number[]
     fp.rangeRight(1)(11); // $ExpectType number[]
 
-    _.map([5, 5], _.range); // $ExpectType number[][]
-    _.map([5, 5], _.rangeRight); // $ExpectType number[][]
+    _.map([5, 5], _.range); // $ExpectType [number[], number[]]
+    _.map([5, 5], _.rangeRight); // $ExpectType [number[], number[]]
 }
 
 // _.runInContext

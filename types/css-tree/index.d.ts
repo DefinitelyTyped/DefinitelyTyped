@@ -907,8 +907,11 @@ export class Lexer {
     match(syntax: DSNode | string, value: CssNode | string): LexerMatchResult;
 }
 
+export const lexer: Lexer;
+
 export function fork(extension: {
     atrules?: Record<string, string> | undefined;
     properties?: Record<string, string> | undefined;
     types?: Record<string, string> | undefined;
+    cssWideKeywords?: Array<string> | undefined;
 }): { lexer: Lexer };

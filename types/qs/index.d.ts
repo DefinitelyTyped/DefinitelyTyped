@@ -57,6 +57,7 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
         duplicates?: "combine" | "first" | "last" | undefined;
+        strictDepth?: boolean | undefined;
     }
 
     type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
@@ -68,7 +69,7 @@ declare namespace QueryString {
         & IParseDynamicOptions<AllowDots>;
 
     interface ParsedQs {
-        [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
+        [key: string]: undefined | string | ParsedQs | (string | ParsedQs)[];
     }
 
     function stringify(obj: any, options?: IStringifyOptions<BooleanOptional>): string;

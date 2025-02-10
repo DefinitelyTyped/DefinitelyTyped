@@ -6,8 +6,8 @@ declare const eslintPluginJsxA11y: ESLint.Plugin & {
         strict: Linter.LegacyConfig;
     };
     flatConfigs: {
-        recommended: Linter.FlatConfig;
-        strict: Linter.FlatConfig;
+        recommended: Linter.Config;
+        strict: Linter.Config;
     };
 };
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.132.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -12,7 +12,8 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
    */
   interface ControlVariantApplyAPI {
     /**
-     * Activates the passed variant applicable to the passed control/component.
+     * Activates the passed variant applicable to the passed control/component. If the Variant is not available
+     * and the backend supports lazy loading, a backend request is made to fetch the variant.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -1590,6 +1591,10 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/changes/UIChangesState": undefined;
 
+    "sap/ui/fl/apply/_internal/flexState/communication/FLPAboutInfo": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/controlVariants/Switcher": undefined;
@@ -1662,6 +1667,8 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 
+    "sap/ui/fl/initial/api/InitialFlexAPI": undefined;
+
     "sap/ui/fl/interfaces/BaseLoadConnector": undefined;
 
     "sap/ui/fl/interfaces/Delegate": undefined;
@@ -1687,6 +1694,8 @@ declare namespace sap {
     "sap/ui/fl/variants/context/Component": undefined;
 
     "sap/ui/fl/variants/VariantManagement": undefined;
+
+    "sap/ui/fl/variants/VariantManager": undefined;
 
     "sap/ui/fl/variants/VariantModel": undefined;
 

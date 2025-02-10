@@ -131,6 +131,7 @@ function StringConv(): void {
     let p = 0;
 
     const nullptr = 0;
+    s = AsciiToString(nullptr);
     s = UTF8ToString(nullptr);
     s = UTF8ToString(nullptr, 42);
     s = UTF16ToString(nullptr);

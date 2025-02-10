@@ -10,7 +10,7 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 (() => {
     let obj = qs.parse("a=z&b[c]=z&d=z&d=z&e[][f]=z");
     obj; // $ExpectType ParsedQs
-    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[] | undefined || string | string[] | ParsedQs | ParsedQs[] | undefined
+    obj.a; // $ExpectType string | ParsedQs | (string | ParsedQs)[] | undefined
     assert.deepEqual(obj, { a: "c" });
 
     var str = qs.stringify(obj);
@@ -358,6 +358,12 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
+    var heterogeneousArray = qs.parse("user[0]=Alice&user[1][name]=Bob");
+    var expected: qs.ParsedQs = { user: ["Alice", { name: "Bob" }] };
+    assert.deepEqual(heterogeneousArray, expected);
+});
+
+(() => {
     var withEmptyArrays = qs.parse("foo[]&bar=baz", { allowEmptyArrays: true });
     assert.deepEqual(withEmptyArrays, { foo: [], bar: "baz" });
 });
@@ -395,6 +401,14 @@ qs.parse("a=b&c=d", { delimiter: "&" });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "combine" }), { foo: ["bar", "baz"] });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "first" }), { foo: "bar" });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "last" }), { foo: "baz" });
+});
+
+(() => {
+    try {
+        qs.parse("a[b][c][d][e][f][g][h][i]=j", { depth: 1, strictDepth: true });
+    } catch (err) {
+        assert.strictEqual(err.message, "Input depth exceeded depth option of 1 and strictDepth is true");
+    }
 });
 
 declare const myQuery: { a: string; b?: string | undefined };

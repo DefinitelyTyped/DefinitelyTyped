@@ -58,6 +58,11 @@ export class BufferAttribute {
     constructor(array: TypedArray, itemSize: number, normalized?: boolean);
 
     /**
+     * Unique number for this attribute instance.
+     */
+    readonly id: number;
+
+    /**
      * Optional name for this attribute instance.
      * @defaultValue ''
      */

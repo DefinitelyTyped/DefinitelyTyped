@@ -87,17 +87,18 @@ declare namespace BetterSqlite3 {
         new(filename?: string | Buffer, options?: Database.Options): Database;
         (filename?: string, options?: Database.Options): Database;
         prototype: Database;
-
-        SqliteError: typeof SqliteError;
+        SqliteError: SqliteErrorType;
     }
 }
 
-declare class SqliteError extends Error {
+declare class SqliteErrorClass extends Error {
     name: string;
     message: string;
     code: string;
     constructor(message: string, code: string);
 }
+
+type SqliteErrorType = typeof SqliteErrorClass;
 
 declare namespace Database {
     interface RunResult {
@@ -138,7 +139,7 @@ declare namespace Database {
         progress: (info: BackupMetadata) => number;
     }
 
-    type SqliteError = typeof SqliteError;
+    type SqliteError = SqliteErrorType;
     type Statement<BindParameters extends unknown[] | {} = unknown[], Result = unknown> = BindParameters extends
         unknown[] ? BetterSqlite3.Statement<BindParameters, Result>
         : BetterSqlite3.Statement<[BindParameters], Result>;

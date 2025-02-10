@@ -1,8 +1,10 @@
 import {
     Feature,
     FeatureCollection,
+    GeoJSON,
     GeoJsonGeometryTypes,
     GeoJsonTypes,
+    Geometry,
     GeometryCollection,
     GeometryObject,
     LineString,
@@ -11,6 +13,7 @@ import {
     MultiPolygon,
     Point,
     Polygon,
+    Position,
 } from "geojson";
 
 let featureCollection: FeatureCollection = {
@@ -101,6 +104,14 @@ featureWithPolygon.type; // $ExpectType "Feature"
 featureWithPolygon.geometry; // $ExpectType Polygon
 featureWithPolygon.geometry.type; // $ExpectType "Polygon"
 featureWithPolygon.geometry.coordinates; // $ExpectType number[][][] || Position[][]
+
+const position2D: Position = [12, 34];
+const position3D: Position = [12, 34, 56];
+// valid types, even if the spec requires exactly 2 or 3 dimensions
+const position0D: Position = [];
+const position1D: Position = [12];
+const position4D: Position = [12, 34, 56, 78];
+const position5D: Position = [12, 34, 56, 78, 90];
 
 const point: Point = {
     type: "Point",
@@ -479,3 +490,40 @@ for (const { geometry } of collectionDefault.features) {
             break;
     }
 }
+
+// Features & collections with null geometries should be assignable to GeoJSON
+const featureWithNullGeometry = {
+    type: "Feature" as const,
+    geometry: null,
+    properties: null,
+};
+const featureCollectionWithNullGeometry = {
+    type: "FeatureCollection" as const,
+    features: [featureWithNullGeometry],
+};
+const featureWithNullGeometryAsFeature: Feature<Geometry | null> = featureWithNullGeometry;
+const featureCollectionWithNullGeometryAsFeatureCollection: FeatureCollection<Geometry | null> =
+    featureCollectionWithNullGeometry;
+const featureWithNullGeometryAsGeoJSON: GeoJSON<Geometry | null> = featureWithNullGeometry;
+const featureCollectionWithNullGeometryAsGeoJSON: GeoJSON<Geometry | null> = featureCollectionWithNullGeometry;
+
+// Top level geojson should be generic to allow geometry and properties types to be modified
+const geoJsonWithSpecificGeometryAndProperties: GeoJSON<Point, { a: number }>[] = [
+    {
+        type: "Feature",
+        geometry: point,
+        properties: { a: 34 },
+    },
+    {
+        type: "FeatureCollection",
+        features: [
+            {
+                type: "Feature",
+                // @ts-expect-error -- Geometry does not adhere to the specified type
+                geometry: lineString,
+                // @ts-expect-error -- Properties does not adhere to the specified type
+                properties: {},
+            },
+        ],
+    },
+];

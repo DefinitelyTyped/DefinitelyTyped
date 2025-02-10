@@ -13,6 +13,13 @@ export interface Options {
     configPath?: string | undefined;
     ignoreBrowserslistConfig?: boolean | undefined;
     shippedProposals?: boolean | undefined;
+    /**
+     * The Browserslist environment to use.
+     * Added in v7.10.0.
+     *
+     * See {@link https://babeljs.io/docs/babel-preset-env.html#browserslistenv}
+     */
+    browserslistEnv?: string | undefined;
 }
 
 /**

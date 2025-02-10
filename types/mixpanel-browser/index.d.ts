@@ -70,6 +70,10 @@ export interface Config {
     test: boolean;
     verbose: boolean;
     img: boolean;
+    /**
+     * @default false
+     * @see https://github.com/mixpanel/mixpanel-js/blob/master/doc/readme.io/javascript-full-api-reference.md#mixpanelset_config
+     */
     debug: boolean;
     track_links_timeout: number;
     track_pageview:
@@ -107,6 +111,7 @@ export interface Config {
     record_mask_text_selector: string;
     record_max_ms: number;
     record_sessions_percent: number;
+    record_canvas: boolean;
 }
 
 export type VerboseResponse =

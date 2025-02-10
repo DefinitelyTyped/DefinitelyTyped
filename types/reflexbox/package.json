@@ -6,10 +6,11 @@
         "https://github.com/rebassjs/rebass/tree/master/packages/reflexbox"
     ],
     "dependencies": {
-        "@emotion/react": "*",
-        "@emotion/styled": "*",
-        "@types/react": "*",
+        "@emotion/styled": "^10",
         "@types/styled-system": "*"
+    },
+    "peerDependencies": {
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/reflexbox": "workspace:."

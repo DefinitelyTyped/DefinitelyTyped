@@ -17,7 +17,7 @@ interface Props extends Omit<MUIDataTableProps, "columns"> {
 
 const MuiCustomTable: React.FC<Props> = props => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
-    const tableRef = React.useRef<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>();
+    const tableRef = React.useRef<React.Component<MUIDataTableProps, MUIDataTableState> | null | undefined>(undefined);
     const columns: MUIDataTableColumn[] = [
         {
             name: "id",

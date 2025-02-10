@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.129.0
+// For Library Version: 1.132.0
 
 declare module "sap/base/assert" {
   /**
@@ -1559,9 +1559,9 @@ declare module "sap/base/i18n/ResourceBundle" {
       sKey: string,
       /**
        * List of parameter values which should replace the placeholders "{n}" (n is the index) in
-       * the found locale-specific string value. Note that the replacement is done whenever `aArgs` is given,
-       * no matter whether the text contains placeholders or not and no matter whether `aArgs` contains a value
-       * for n or not.
+       * the found locale-specific string value. Note that the replacement is done whenever `aArgs` is given (not
+       * `undefined`), no matter whether the text contains placeholders or not and no matter whether `aArgs` contains
+       * a value for n or not.
        */
       aArgs?: any[],
       /**
@@ -6173,13 +6173,15 @@ declare module "sap/ui/performance/trace/Interaction" {
      * Enables the interaction tracking.
      *
      * @since 1.76
+     *
+     * @returns Resolves when FESR is active
      */
     setActive(
       /**
        * State of the interaction detection
        */
       bActive: boolean
-    ): void;
+    ): Promise<any>;
   }
   const Interaction: Interaction;
   export default Interaction;
@@ -6687,7 +6689,7 @@ declare module "sap/ui/test/OpaBuilder" {
        * the Opa5 instance to call {@link sap.ui.test.Opa5#waitFor} on
        */
       oOpaInstance?: Opa5
-    ): /* was: sap.ui.test.Opa5.Chain */ any;
+    ): Opa5;
     /**
      * Sets the `fragmentId` parameter.
      *
@@ -12691,7 +12693,7 @@ declare module "sap/ui/base/Object" {
      *
      * @returns Whether the given object is an instance of the given type or of any of the given types
      */
-    static isObjectA(
+    static isObjectA<T extends BaseObject = BaseObject>(
       /**
        * Object which will be checked whether it is an instance of the given type
        */
@@ -12700,7 +12702,7 @@ declare module "sap/ui/base/Object" {
        * Type or types to check for
        */
       vTypeName: string | string[]
-    ): boolean;
+    ): oObject is T;
     /**
      * Destructor method for objects.
      */
@@ -13826,6 +13828,24 @@ declare module "sap/ui/core/library" {
   }
 
   /**
+   * Defines a control, which can specify if it can be bound to a label
+   *
+   * @since 1.121.0
+   */
+  export interface ILabelable {
+    __implements__sap_ui_core_ILabelable: boolean;
+
+    /**
+     * Returns if the control can be bound to a label
+     *
+     * @since 1.121.0
+     *
+     * @returns `true` if the control can be bound to a label
+     */
+    hasLabelableHTMLElement(): boolean;
+  }
+
+  /**
    * State of the Input Method Editor (IME) for the control.
    *
    * Depending on its value, it allows users to enter and edit for example Chinese characters.
@@ -14008,13 +14028,15 @@ declare module "sap/ui/core/library" {
   }
 
   /**
-   * Marker interface for controls that can be used as content of `sap.ui.layout.form.SemanticFormElement`.
+   * Marker interface for controls that can be used as content of {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement}.
    *
    * If the value-holding property of the control is not `valuetext`, the name of the value-holding
-   * property must be returned in the `getFormValueProperty` function.
+   * property must be returned in the {@link sap.ui.core.ISemanticFormContent.getFormValueProperty getFormValueProperty }
+   * function.
    *
    * If the value of the control needs some special output formatting (to show a description instead of a
-   * key), this formatted text needs to be returned in the `getFormFormattedValue` function.
+   * key), this formatted text needs to be returned in the {@link sap.ui.core.ISemanticFormContent.getFormFormattedValue getFormFormattedValue }
+   * function.
    *
    * @since 1.86.0
    */
@@ -14022,12 +14044,13 @@ declare module "sap/ui/core/library" {
     __implements__sap_ui_core_ISemanticFormContent: boolean;
 
     /**
-     * Returns the formatted value of a control used in a `SemanticFormElement`.
+     * Returns the formatted value of a control used in a {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement}.
      *
-     * In the `SemanticFormElement` element, the assigned fields are rendered in edit mode. In display mode,
-     * a text is rendered that concatenates the values of all assigned fields. In some cases the displayed text
-     * does not match the value of the field and needs some formatting. In other cases the control does not
-     * have a `value` property, so the `SemanticFormElement` element cannot determine the value.
+     * In the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement} element, the assigned fields
+     * are rendered in edit mode. In display mode, a text is rendered that concatenates the values of all assigned
+     * fields. In some cases the displayed text does not match the value of the field and needs some formatting.
+     * In other cases the control does not have a `value` property, so the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement }
+     * element cannot determine the value.
      *
      * This is an optional method. If not defined, the `value` property or the `text` property is used to determine
      * the value.
@@ -14038,15 +14061,16 @@ declare module "sap/ui/core/library" {
      */
     getFormFormattedValue?(): string | Promise<string>;
     /**
-     * Returns the names of the properties of a control that might update the rendering in a `SemanticFormElement`.
+     * Returns the names of the properties of a control that might update the rendering in a {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement}.
      *
-     * In the `SemanticFormElement` element, the assigned fields are rendered in edit mode. In display mode,
-     * depending on `getFormRenderAsControl`, either a text is rendered, which concatenates the values of all
-     * assigned fields, or the control is rendered. So if a property of the control changes that might lead
-     * to a different rendering (some controls have a special rendering in display mode), the `SemanticFormElement`
+     * In the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement} element, the assigned fields
+     * are rendered in edit mode. In display mode, depending on {@link sap.ui.core.ISemanticFormContent.getFormRenderAsControl getFormRenderAsControl},
+     * either a text is rendered, which concatenates the values of all assigned fields, or the control is rendered.
+     * So if a property of the control changes that might lead to a different rendering (some controls have
+     * a special rendering in display mode), the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement }
      * needs to check the rendering.
      *
-     * This is an optional method. If not defined, no check for updates (only for property defined in `getFormValueProperty`)
+     * This is an optional method. If not defined, no check for updates (only for property defined in {@link sap.ui.core.ISemanticFormContent.getFormValueProperty getFormValueProperty})
      * is done once the control has been assigned.
      *
      * @since 1.117.0
@@ -14055,8 +14079,8 @@ declare module "sap/ui/core/library" {
      */
     getFormObservingProperties?(): string[];
     /**
-     * If set to `true`, the `SemanticFormElement` also renders the control in display mode, if the used `FormLayout`
-     * supports this.
+     * If set to `true`, the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement} also renders
+     * the control in display mode, if the used {@link sap.ui.layout.form.FormLayout FormLayout} supports this.
      *
      * This is an optional method. If not defined, just the text is rendered.
      *
@@ -14066,12 +14090,13 @@ declare module "sap/ui/core/library" {
      */
     getFormRenderAsControl?(): string;
     /**
-     * Returns the name of the value-holding property of a control used in a `SemanticFormElement`.
+     * Returns the name of the value-holding property of a control used in a {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement}.
      *
-     * In the `SemanticFormElement` element, the assigned fields are rendered in edit mode. In display mode,
-     * a text is rendered that concatenates the values of all assigned fields. So the concatenated text needs
-     * to be updated if the value of a control changes. If a control does not have a `value` property, the `SemanticFormElement`
-     * element needs to know the propery it has to listen for changes.
+     * In the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement} element, the assigned fields
+     * are rendered in edit mode. In display mode, a text is rendered that concatenates the values of all assigned
+     * fields. So the concatenated text needs to be updated if the value of a control changes. If a control
+     * does not have a `value` property, the {@link sap.ui.layout.form.SemanticFormElement SemanticFormElement }
+     * element needs to know the property it has to listen to for changes.
      *
      * This is an optional method. If not defined, the `value` property or the `text` property is used to determine
      * the value.
@@ -14893,7 +14918,7 @@ declare module "sap/ui/core/CalendarType" {
   /**
    * The types of `Calendar`.
    *
-   * @deprecated (since 1.120) - Please use {@link module:sap/base/18n/date/CalendarType} instead.
+   * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/date/CalendarType} instead.
    */
   enum CalendarType {
     /**
@@ -19099,11 +19124,11 @@ declare module "sap/ui/core/Control" {
      * Note that this method can only be called when the control already has a DOM representation (it has been
      * rendered before) and when the control still is assigned to a UIArea.
      *
-     * @deprecated (since 1.70) - using this method is no longer recommended, but still works. Synchronous DOM
-     * updates via this method have several drawbacks: they only work when the control has been rendered before
-     * (no initial rendering possible), multiple state changes won't be combined automatically into a single
-     * re-rendering, they might cause additional layout trashing, standard invalidation might cause another
-     * async re-rendering.
+     * @deprecated (since 1.70) - using this method is no longer recommended, but calling it still causes a
+     * re-rendering of the control. Synchronous DOM updates via this method have several drawbacks: they only
+     * work when the control has been rendered before (no initial rendering possible), multiple state changes
+     * won't be combined automatically into a single re-rendering, they might cause additional layout thrashing,
+     * standard invalidation might cause another async re-rendering.
      *
      * The recommended alternative is to rely on invalidation and standard re-rendering.
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21365,7 +21390,7 @@ declare module "sap/ui/core/date/CalendarWeekNumbering" {
    * 	 - the first week of the year.
    *
    * @since 1.108.0
-   * @deprecated (since 1.120) - Please use {@link module:sap/base/18n/date/CalendarWeekNumbering} instead.
+   * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/date/CalendarWeekNumbering} instead.
    */
   enum CalendarWeekNumbering {
     /**
@@ -24104,6 +24129,27 @@ declare module "sap/ui/core/Element" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Fires a "focusfail" event to handle focus redirection when the current element loses focus due to a state
+     * change (e.g., disabled, invisible, or destroyed). The event is propagated to the parent of the current
+     * element to manage the focus shift.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    static fireFocusFail(
+      /**
+       * The mode of focus handling, determining whether the focus should be handled sync or async.
+       */
+      sFocusHandlingMode: string,
+      /**
+       * The parent element that will handle the "focusfail" event.
+       */
+      oParent: UI5Element,
+      /**
+       * Optional DOM area to be skipped during focus redirection.
+       */
+      oSkipArea?: HTMLElement
+    ): void;
+    /**
      * Returns the element currently in focus.
      *
      * @since 1.119
@@ -24400,6 +24446,25 @@ declare module "sap/ui/core/Element" {
        */
       bSuppressInvalidate?: boolean
     ): void;
+    /**
+     * Destroys all child elements of a specified aggregation and handles focus management for elements that
+     * are currently focused. If the currently focused element belongs to the aggregation being destroyed, a
+     * "focusfail" event is triggered to shift the focus to a relevant element.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    destroyAggregation(
+      /**
+       * The name of the aggregation
+       */
+      sAggregationName: string,
+      /**
+       * If true, this ManagedObject is not marked as changed
+       */
+      bSuppressInvalidate?: boolean
+    ): this;
     /**
      * Destroys all the customData in the aggregation {@link #getCustomData customData}.
      *
@@ -24839,8 +24904,8 @@ declare module "sap/ui/core/Element" {
     isFocusable(): boolean;
     /**
      * Handles the 'focusfail' event by attempting to find and focus on a tabbable element. The 'focusfail'
-     * event is triggered when the current element, which initially holds the focus, becomes disabled or invisible.
-     * The event is received by the parent of the element that failed to retain the focus.
+     * event is triggered when the current element, which initially holds the focus, becomes disabled, invisible,
+     * or destroyed. The event is received by the parent of the element that failed to retain the focus.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
@@ -24870,6 +24935,50 @@ declare module "sap/ui/core/Element" {
        */
       oValue?: any
     ): any | this;
+    /**
+     * Removes an object from the aggregation named `sAggregationName` with cardinality 0..n and manages focus
+     * handling in case the removed object was focused. If the removed object held the focus, a "focusfail"
+     * event is triggered to proper focus redirection.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns the removed object or `null`
+     */
+    removeAggregation(
+      /**
+       * the string identifying the aggregation that the given object should be removed from
+       */
+      sAggregationName: string,
+      /**
+       * the position or ID of the ManagedObject that should be removed or that ManagedObject itself; if `vObject`
+       * is invalid, a negative value or a value greater or equal than the current size of the aggregation, nothing
+       * is removed.
+       */
+      vObject: int | string | ManagedObject,
+      /**
+       * if true, this ManagedObject is not marked as changed
+       */
+      bSuppressInvalidate?: boolean
+    ): ManagedObject | null;
+    /**
+     * Removes all child elements of a specified aggregation and handles focus management for elements that
+     * are currently focused. If the currently focused element belongs to the aggregation being removed, a "focusfail"
+     * event is triggered to shift the focus to a relevant element.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAggregation(
+      /**
+       * The name of the aggregation
+       */
+      sAggregationName: string,
+      /**
+       * If true, this ManagedObject is not marked as changed
+       */
+      bSuppressInvalidate?: boolean
+    ): ManagedObject[];
     /**
      * Removes all the controls from the aggregation {@link #getCustomData customData}.
      *
@@ -24955,11 +25064,11 @@ declare module "sap/ui/core/Element" {
     /**
      * This triggers immediate rerendering of its parent and thus of itself and its children.
      *
-     * @deprecated (since 1.70) - using this method is no longer recommended, but still works. Synchronous DOM
-     * updates via this method have several drawbacks: they only work when the control has been rendered before
-     * (no initial rendering possible), multiple state changes won't be combined automatically into a single
-     * re-rendering, they might cause additional layout trashing, standard invalidation might cause another
-     * async re-rendering.
+     * @deprecated (since 1.70) - using this method is no longer recommended, but calling it still causes a
+     * re-rendering of the element. Synchronous DOM updates via this method have several drawbacks: they only
+     * work when the control has been rendered before (no initial rendering possible), multiple state changes
+     * won't be combined automatically into a single re-rendering, they might cause additional layout thrashing,
+     * standard invalidation might cause another async re-rendering.
      *
      * The recommended alternative is to rely on invalidation and standard re-rendering.
      *
@@ -24968,6 +25077,29 @@ declare module "sap/ui/core/Element" {
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     rerender(): void;
+    /**
+     * Sets a new object in the named 0..1 aggregation of this ManagedObject and marks this ManagedObject as
+     * changed. Manages the focus handling if the current aggregation is removed (i.e., when the object is set
+     * to `null`). If the previous object in the aggregation was focused, a "focusfail" event is triggered.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    setAggregation(
+      /**
+       * name of an 0..1 aggregation
+       */
+      sAggregationName: string,
+      /**
+       * the managed object that is set as aggregated object
+       */
+      oObject: ManagedObject,
+      /**
+       * if true, this ManagedObject is not marked as changed
+       */
+      bSuppressInvalidate?: boolean
+    ): this;
     /**
      * Sets the associated {@link #getFieldHelpDisplay fieldHelpDisplay}.
      *
@@ -26160,9 +26292,10 @@ declare module "sap/ui/core/format/DateFormat" {
      */
     format(
       /**
-       * The date to format
+       * The date to format. If it is `null` or `undefined` only the timezone will be formatted, any other invalid
+       * date is formatted as empty string.
        */
-      oJSDate: Date,
+      oJSDate?: Date,
       /**
        * The IANA timezone ID in which the date will be calculated and formatted e.g. "America/New_York". If the
        * parameter is omitted, `null` or an empty string, the timezone will be taken from {@link module:sap/base/i18n/Localization.getTimezone Localization.getTimezone}.
@@ -26553,6 +26686,16 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         customCurrencies?: Record<string, object>;
         /**
+         * The target length of places after the decimal separator; if the number has fewer decimal places than
+         * given in this option, it is padded with whitespaces at the end up to the target length. An additional
+         * whitespace character for the decimal separator is added for a number without any decimals. **Note:**
+         * This format option is only allowed if the following conditions apply:
+         * 	 - It has a value greater than 0.
+         * 	 - The `FormatOptions.showMeasure` format option is set to `false`.
+         * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+         */
+        decimalPadding?: int;
+        /**
          * defines the number of decimal digits
          */
         decimals?: int;
@@ -26595,7 +26738,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         maxIntegerDigits?: int;
         /**
-         * defines the minimal number of decimal digits
+         * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
+         * can always be determined, either through the given format options, custom currencies or the CLDR
          */
         minFractionDigits?: int;
         /**
@@ -26722,6 +26866,15 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
+         * The target length of places after the decimal separator; if the number has fewer decimal places than
+         * given in this option, it is padded with whitespaces at the end up to the target length. An additional
+         * whitespace character for the decimal separator is added for a number without any decimals. **Note:**
+         * This format option is only allowed if the following conditions apply:
+         * 	 - It has a value greater than 0.
+         * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+         */
+        decimalPadding?: int;
+        /**
          * defines the number of decimal digits
          */
         decimals?: int;
@@ -26790,7 +26943,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         plusSign?: string;
         /**
-         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+         * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+         * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+         * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+         * may differ depending on locale.
          */
         precision?: int;
         /**
@@ -26877,6 +27034,10 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
+         * Not supported.
+         */
+        decimalPadding?: int;
+        /**
          * defines the number of decimal digits
          */
         decimals?: int;
@@ -26945,7 +27106,12 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         plusSign?: string;
         /**
-         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         * **Note:** Only considered if the number format leads to a representation with decimal places, e.g. if
+         * the option `style: "short"` is set. The maximum number of digits in the formatted representation of a
+         * number; if the `precision` is less than the overall length of the number, its fractional part is truncated
+         * through rounding. As the `precision` only affects the rounding of a number, its integer part can retain
+         * more digits than defined by this parameter. **Example:** With a `precision` of 2 and `style: "short"`,
+         * `234567` is formatted to `"235K"`. **Note:** The formatted output may differ depending on locale.
          */
         precision?: int;
         /**
@@ -27026,6 +27192,10 @@ declare module "sap/ui/core/format/NumberFormat" {
        */
       oFormatOptions?: {
         /**
+         * Not supported.
+         */
+        decimalPadding?: int;
+        /**
          * defines the number of decimal digits
          */
         decimals?: int;
@@ -27098,7 +27268,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         plusSign?: string;
         /**
-         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+         * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+         * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+         * **Example:** With a `precision` of 2, `234.567` is formatted to `"23,457%"`. **Note:** The formatted
+         * output may differ depending on locale.
          */
         precision?: int;
         /**
@@ -27182,6 +27356,16 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         customUnits?: Record<string, object>;
         /**
+         * The target length of places after the decimal separator; if the number has fewer decimal places than
+         * given in this option, it is padded with whitespaces at the end up to the target length. An additional
+         * whitespace character for the decimal separator is added for a number without any decimals. **Note:**
+         * This format option is only allowed if the following conditions apply:
+         * 	 - It has a value greater than 0.
+         * 	 - The `FormatOptions.showMeasure` format option is set to `false`.
+         * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+         */
+        decimalPadding?: int;
+        /**
          * defines the number of decimal digits
          */
         decimals?: int;
@@ -27250,7 +27434,11 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         plusSign?: string;
         /**
-         * defines the numerical precision; the number of decimals is calculated dependent on the integer digits
+         * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+         * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+         * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+         * **Example:** With a `precision` of 2, the parameters `"234.567", "mass-kilogram"` are formatted to `"235
+         * kg"`. **Note:** The formatted output may differ depending on locale.
          */
         precision?: int;
         /**
@@ -27583,18 +27771,25 @@ declare module "sap/ui/core/Fragment" {
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
-     * Loads and instantiates a Fragment. A Promise is returned, which resolves with the Fragments content.
+     * Loads and instantiates a fragment. Also refer to {@link https://ui5.sap.com/#/topic/04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
      *
-     * The Fragment object itself is not an entity with significance beyond this factory.
+     * The fragment object itself is not an entity that has any further significance beyond this factory function.
      *
-     * The Fragment types "XML", "JS" and "HTML" (type "HTML" is deprecated) are available by default; additional
-     * Fragment types can be added using the sap.ui.core.Fragment.registerType() function.
+     * A Promise is returned, which resolves with the fragment's content.
+     *
+     * The Fragment types `"XML"`, `"JS"`, and `"HTML"` (type `"HTML"` is deprecated) are available by default.
+     * Additional Fragment types can be implemented and added using the {@link sap.ui.core.Fragment.registerType }
+     * function.
      *
      * Further properties may be supported by future or custom Fragment types. Any given properties will be
      * forwarded to the Fragment implementation.
      *
-     * If no fixed ID is given, the Fragment ID is generated. In any case, the Fragment ID will be used as prefix
+     * If no fixed ID is given, the fragment ID is generated. In any case, the fragment ID will be used as prefix
      * for the IDs of all contained controls.
+     *
+     * **Note:** In case you are embedding a Fragment into an existing View, please also have a look at the
+     * {@link sap.ui.core.mvc.Controller.loadFragment loadFragment} factory for a closer coupling to the corresponding
+     * Controller instance.
      *
      * @since 1.58
      *
@@ -27606,34 +27801,34 @@ declare module "sap/ui/core/Fragment" {
        */
       mOptions: {
         /**
-         * must be supplied if no "definition" parameter is given. The Fragment name must correspond to an XML Fragment
-         * which can be loaded via the module system (fragmentName + suffix ".fragment.[typeextension]") and which
-         * contains the Fragment definition. If "mOptions.controller" is supplied, the (event handler-) methods
-         * referenced in the Fragment will be called on this Controller. Note that Fragments may require a Controller
-         * to be given and certain methods to be implemented by it.
+         * must be supplied if no `definition` parameter is given. The fragment name must correspond to an XML fragment
+         * which can be loaded via the module system (fragmentName + suffix `.fragment.<typeExtension>`)
+         * and which contains the fragment definition. If `mOptions.controller` is supplied, the (event handler)
+         * methods referenced in the fragment will be called on that controller. Note that fragments may require
+         * a controller to be given and certain methods to be implemented by it.
          */
         name?: string;
         /**
-         * the Fragment type, e.g. "XML", "JS", or "HTML" (type "HTML" is deprecated). Default is "XML"
+         * the fragment type, e.g. `"XML"`, `"JS"`, or `"HTML"` (type `"HTML"` is deprecated). Default is `"XML"`
          */
         type?: string;
         /**
-         * definition of the Fragment content. When this property is supplied, the "name" parameter must not be
+         * definition of the fragment content. When this property is supplied, the `name` parameter must not be
          * used. If both are supplied, the definition has priority. Please see the above example on how to use the
-         * 'definition' parameter.
+         * `definition` parameter.
          */
         definition?: string;
         /**
-         * the ID of the Fragment
+         * the ID of the fragment
          */
         id?: string;
         /**
-         * the Controller or Object which should be used by the controls in the Fragment. Note that some Fragments
-         * may not need a Controller while others may need one and certain methods to be implemented by it.
+         * the controller or object which should be used by the controls in the fragment. Note that some fragments
+         * may not need a controller while others may need one and certain methods to be implemented by it.
          */
-        controller?: Controller | Object;
+        controller?: Controller | object;
         /**
-         * The view containing the Fragment content. If the Fragment content contains ExtensionPoints this parameter
+         * The view containing the fragment content. If the fragment content contains `ExtensionPoint`s, this parameter
          * must be given.
          */
         containingView?: View;
@@ -31124,9 +31319,11 @@ declare module "sap/ui/core/Locale" {
 declare module "sap/ui/core/LocaleData" {
   import BaseObject from "sap/ui/base/Object";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import Locale from "sap/ui/core/Locale";
+
+  import LanguageTag from "sap/base/i18n/LanguageTag";
 
   import Metadata from "sap/ui/base/Metadata";
 
@@ -31175,7 +31372,7 @@ declare module "sap/ui/core/LocaleData" {
       /**
        * The locale or language tag
        */
-      vLocale: Locale | /* was: sap.base.i18n.LanguageTag */ any
+      vLocale: Locale | LanguageTag
     ): LocaleData;
     /**
      * Returns a metadata object for class sap.ui.core.LocaleData.
@@ -31194,21 +31391,23 @@ declare module "sap/ui/core/LocaleData" {
      */
     firstDayStartsFirstWeek(): boolean;
     /**
-     * Returns the pattern for representing the calendar week number in the given style.
+     * Returns the pattern for representing the calendar week number in the given style. If `iWeekNumber` is
+     * given, the week number placeholder will be replaced by it.
      *
      * @since 1.32.0
      *
-     * @returns the week number string
+     * @returns The calendar week with the week number placeholder or the week number e.g. "Calendar Week {0}"
+     * or "CW 01"
      */
     getCalendarWeek(
       /**
-       * the style of the pattern
+       * The style of the pattern
        */
       sStyle: "narrow" | "wide",
       /**
-       * the week number
+       * The week number, e.g. "01" or "42"
        */
-      iWeekNumber: int
+      sWeekNumber?: string
     ): string;
     /**
      * Get combined datetime pattern with given date and time style. The combined datetime pattern is the datetime
@@ -31231,7 +31430,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get combined interval pattern using a given pattern and the fallback interval pattern.
@@ -31252,7 +31451,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Returns the currency code which is corresponded with the given currency symbol.
@@ -31366,7 +31565,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get interval pattern for a given skeleton format.
@@ -31399,7 +31598,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string | string[];
     /**
      * Get date pattern in the given style.
@@ -31416,7 +31615,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get datetime pattern in the given style.
@@ -31433,7 +31632,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get day periods in the given width.
@@ -31450,7 +31649,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone day periods in the given width.
@@ -31467,7 +31666,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get day names in the given width.
@@ -31484,7 +31683,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone day names in the given width.
@@ -31501,7 +31700,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the short decimal format (like 1K, 1M....) of the given number in the given style and plural
@@ -31569,9 +31768,11 @@ declare module "sap/ui/core/LocaleData" {
      */
     getEraDates(
       /**
-       * the type of calendar
+       * The type of calendar; defaults to the calendar type either set via the "calendar-type" formatting configuration
+       * option, see {@link https://ui5.sap.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070 Configuration Options and URL Parameters},
+       * or determined from the current locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): object[];
     /**
      * Returns array of eras in the given width.
@@ -31589,7 +31790,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the day that usually is regarded as the first day of a week in the current locale.
@@ -31623,7 +31824,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Gets the locale-specific language name for the given language tag.
@@ -31706,7 +31907,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone month names in the given width.
@@ -31723,7 +31924,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get number symbol for the given type.
@@ -31784,13 +31985,13 @@ declare module "sap/ui/core/LocaleData" {
       vNumber: string | number
     ): string;
     /**
-     * Returns the preferred calendar type for the current locale which exists in {@link sap.ui.core.CalendarType}
+     * Returns the preferred calendar type for the current locale which exists in {@link module:sap/base/i18n/date/CalendarType}
      *
      * @since 1.28.6
      *
      * @returns the preferred calendar type
      */
-    getPreferredCalendarType(): CalendarType;
+    getPreferredCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
      * Returns the preferred hour pattern symbol ("h" for 12, "H" for 24 hours) for the current locale.
      *
@@ -31814,7 +32015,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone quarter names in the given width.
@@ -31831,7 +32032,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the relative day resource pattern (like "Today", "Yesterday", "{0} days ago") based on the given
@@ -32080,7 +32281,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Retrieves the localized display name of a unit by sUnit, e.g. "duration-hour".
@@ -50347,6 +50548,10 @@ declare module "sap/ui/Device" {
      * The version of the operating system as `float`.
      *
      * Might be `-1` if no version can reliably be determined.
+     *
+     * **Note:** The property `version` may not contain the correct version for Windows 11 onwards, depending
+     * on the point in time, the property is accessed or the browser's capability to provide the version. In
+     * this case the `version` property may contain `10`.
      */
     export const version: float;
 
@@ -50354,6 +50559,10 @@ declare module "sap/ui/Device" {
      * The version of the operating system as `string`.
      *
      * Might be empty if no version can reliably be determined.
+     *
+     * **Note:** The property `versionStr` may not contain the correct version for Windows 11 onwards, depending
+     * on the point in time, the property is accessed or the browser's capability to provide the version. In
+     * this case the `versionStr` property may contain `10`.
      */
     export const versionStr: string;
 
@@ -50862,10 +51071,10 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
        */
       oContext: Context,
       /**
-       * Parameters, specifying the aggregation level for which contexts shall be fetched or (legacy signature
-       * variant) index of first child entry to return from the parent context (zero-based)
+       * Parameters, specifying the aggregation level for which contexts shall be fetched or the index of the
+       * first child entry to return from the parent contexts
        */
-      mParameters:
+      mParameters?:
         | {
             /**
              * Level number for oContext, because it might occur at multiple levels; context with group ID `"/"` has
@@ -50977,7 +51186,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
        * value can be set to define the parameter `startIndex` as described in this parameter list. In this case,
        * the function parameters `iLength`, `iNumberOfExpandedLevels` and `iThreshold` become mandatory.
        */
-      mParameters:
+      mParameters?:
         | {
             /**
              * Number of entries to return at and after the given start index; defaults to the model's size limit, see
@@ -53454,6 +53663,8 @@ declare module "sap/ui/model/Binding" {
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAggregatedDataStateChange(
       /**
@@ -53464,12 +53675,15 @@ declare module "sap/ui/model/Binding" {
        * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches the `fnFunction` event handler to the {@link #event:change change} event of this `sap.ui.model.Model`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -53480,12 +53694,15 @@ declare module "sap/ui/model/Binding" {
        * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:dataReceived dataReceived} event of this `sap.ui.model.Binding`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDataReceived(
       /**
@@ -53496,12 +53713,15 @@ declare module "sap/ui/model/Binding" {
        * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:dataRequested dataRequested} event of this `sap.ui.model.Binding`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDataRequested(
       /**
@@ -53512,7 +53732,7 @@ declare module "sap/ui/model/Binding" {
        * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches the `fnFunction` event handler to the {@link #event:DataStateChange DataStateChange} event of
      * thi `sap.ui.model.Binding`.
@@ -53521,6 +53741,8 @@ declare module "sap/ui/model/Binding" {
      * otherwise it will be bound to this `sap.ui.model.Binding` itself.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDataStateChange(
       /**
@@ -53531,7 +53753,7 @@ declare module "sap/ui/model/Binding" {
        * Context object to call the event handler with; defaults to this `sap.ui.model.Binding` itself
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attach multiple events.
      *
@@ -53557,6 +53779,8 @@ declare module "sap/ui/model/Binding" {
      * event of this `sap.ui.model.Binding`.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAggregatedDataStateChange(
       /**
@@ -53567,9 +53791,12 @@ declare module "sap/ui/model/Binding" {
        * Context object on which the given function had to be called
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.model.Binding`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -53580,9 +53807,12 @@ declare module "sap/ui/model/Binding" {
        * Context object on which the given function had to be called
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:dataReceived dataReceived} event of this `sap.ui.model.Binding`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDataReceived(
       /**
@@ -53593,10 +53823,13 @@ declare module "sap/ui/model/Binding" {
        * Context object on which the given function had to be called
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:dataRequested dataRequested} event of this
      * `sap.ui.model.Binding`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDataRequested(
       /**
@@ -53607,12 +53840,14 @@ declare module "sap/ui/model/Binding" {
        * Context object on which the given function had to be called
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:DataStateChange DataStateChange} event of
      * this `sap.ui.model.Binding`.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDataStateChange(
       /**
@@ -53623,7 +53858,7 @@ declare module "sap/ui/model/Binding" {
        * Context object on which the given function had to be called
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detach multiple events.
      *
@@ -54577,11 +54812,11 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     getCount(): number | undefined;
     /**
-     * Return node contexts for the tree
+     * Return node contexts for the tree.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns the contexts array
+     * @returns the context's array
      */
     getNodeContexts(
       /**
@@ -54589,42 +54824,44 @@ declare module "sap/ui/model/ClientTreeBinding" {
        */
       oContext: Context,
       /**
-       * the startIndex where to start the retrieval of contexts
+       * the index from which to start the retrieval of contexts
        */
-      iStartIndex: int,
+      iStartIndex?: int,
       /**
-       * determines how many contexts to retrieve beginning from the start index.
+       * determines how many contexts to retrieve, beginning from the start index. Defaults to the model's size
+       * limit; see {@link sap.ui.model.Model#setSizeLimit}.
        */
-      iLength: int
+      iLength?: int
     ): Context[];
     /**
-     * Return root contexts for the tree
+     * Return root contexts for the tree.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns the contexts array
+     * @returns the context's array
      */
     getRootContexts(
       /**
-       * the startIndex where to start the retrieval of contexts
+       * the index from which to start the retrieval of contexts
        */
-      iStartIndex: int,
+      iStartIndex?: int,
       /**
-       * determines how many contexts to retrieve beginning from the start index.
+       * determines how many contexts to retrieve, beginning from the start index. Defaults to the model's size
+       * limit; see {@link sap.ui.model.Model#setSizeLimit}.
        */
-      iLength: int
-    ): object[];
+      iLength?: int
+    ): Context[];
     /**
      * Returns if the node has child nodes.
      *
      *
-     * @returns true if node has children
+     * @returns `true` if the node has children
      */
     hasChildren(
       /**
        * the context element of the node
        */
-      oContext: object
+      oContext: Context
     ): boolean;
     /**
      * Sorts the contexts of this ClientTreeBinding. The tree will be sorted level by level. So the nodes are
@@ -54725,6 +54962,8 @@ declare module "sap/ui/model/CompositeBinding" {
      * as parameter of the event contains all changes that were applied to the `DataState` in the running thread.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAggregatedDataStateChange(
       /**
@@ -54735,7 +54974,7 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the `change` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -54743,6 +54982,8 @@ declare module "sap/ui/model/CompositeBinding" {
      * otherwise it will be bound to this `sap.ui.model.CompositeBinding` itself.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -54753,7 +54994,7 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
@@ -54761,6 +55002,8 @@ declare module "sap/ui/model/CompositeBinding" {
      * otherwise it will be bound to this `sap.ui.model.CompositeBinding` itself.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachDataStateChange(
       /**
@@ -54771,11 +55014,13 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the `AggregatedDataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAggregatedDataStateChange(
       /**
@@ -54786,11 +55031,13 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the `change` event of this `sap.ui.model.CompositeBinding`.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -54801,11 +55048,13 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the `DataStateChange` event of this `sap.ui.model.CompositeBinding`.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachDataStateChange(
       /**
@@ -54816,7 +55065,7 @@ declare module "sap/ui/model/CompositeBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Returns the property bindings contained in this composite binding.
      *
@@ -55342,7 +55591,7 @@ declare module "sap/ui/model/Context" {
    *
    * For more information on the concept of data binding and binding contexts, see {@link https://ui5.sap.com/#/topic/e2e6f4127fe4450ab3cf1339c42ee832 documentation on binding syntax}.
    */
-  export default abstract class Context extends BaseObject {
+  export default class Context extends BaseObject {
     /**
      * Constructor for Context class. The constructor must only be called by model-internal methods.
      */
@@ -55821,7 +56070,8 @@ declare module "sap/ui/model/Filter" {
      */
     constructor(
       /**
-       * Filter info object or a path or an array of filters
+       * Filter info object or a path or an array of filters; if a filter info object is given, the other constructor
+       * parameters are ignored
        */
       vFilterInfo:
         | {
@@ -67016,6 +67266,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      * Attach event handler `fnFunction` to the 'createActivate' event of this binding.
      *
      * @since 1.98.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachCreateActivate(
       /**
@@ -67026,7 +67278,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry }
      * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
@@ -67097,6 +67349,8 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      * Detach event handler `fnFunction` from the 'createActivate' event of this binding.
      *
      * @since 1.98.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachCreateActivate(
       /**
@@ -67107,7 +67361,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        * Object on which to call the given function
        */
       oListener?: object
-    ): void;
+    ): this;
     /**
      * Filters the list.
      *
@@ -67155,7 +67409,10 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns The array of already available contexts with the first entry containing the context for `iStartIndex`
+     * @returns The array of already available contexts with the first entry containing the context for `iStartIndex`.
+     * Since 1.131.0, the array has an additional property `bExpectMore`, which is `true` if the response is
+     * not complete, a {@link #event:change 'change'} event will follow, and a busy indicator should be switched
+     * on.
      */
     getContexts(
       /**
@@ -67563,30 +67820,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       }
     );
 
-    /**
-     * Creates a new subclass of class sap.ui.model.odata.v2.ODataModel with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.Model.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ODataModel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns a metadata object for class sap.ui.model.odata.v2.ODataModel.
      *
@@ -69223,6 +69456,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * @returns Metadata object
      */
     getServiceMetadata(): Object | undefined;
+    /**
+     * Returns this model's base URI of the data service (as defined by the "serviceUrl" model parameter; see
+     * {@link #constructor}), without query options.
+     *
+     * @since 1.130.0
+     *
+     * @returns The service's base URI without query options
+     */
+    getServiceUrl(): string;
     /**
      * Checks if there exist pending changes in the model.
      *
@@ -71095,6 +71337,8 @@ declare module "sap/ui/model/odata/v4/Context" {
 
   import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 
+  import Filter from "sap/ui/model/Filter";
+
   import Metadata from "sap/ui/base/Metadata";
 
   import {
@@ -71166,7 +71410,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     collapse(
       /**
-       * Whether to collapse the node and all its descendants (@experimental as of version 1.128.0)
+       * Whether to collapse the node and all its descendants (since 1.132.0)
        */
       bAll?: boolean
     ): void;
@@ -71203,8 +71447,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * {@link #hasPendingChanges}, {@link #resetChanges}, or {@link #isSelected} (returns `false` since 1.114.0).
      *
      * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
-     * for the context, the binding containing it, and the model. The `resetChanges` method called on the context
-     * (since 1.109.0), the binding, or the model cancels the deletion and restores the context.
+     * for the context, the binding containing it, and the model. The `resetChanges` method called on the context,
+     * the binding, or the model cancels the deletion and restores the context.
      *
      * If the DELETE request succeeds, the context is destroyed and must not be used anymore. If it fails or
      * is canceled, the context is restored, reinserted into the list, and fully functional again.
@@ -71274,22 +71518,23 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     destroy(): void;
     /**
-     * Expands the group node that this context points to. Since 1.127.0, it is possible to expand a group node
-     * by a given number of levels.
+     * Expands the group node that this context points to. Since 1.132.0, it is possible to do a full expand,
+     * that is to expand all levels below a node, even if a node is already partially or fully expanded.
      * See:
      * 	#collapse
      * 	#isExpanded
      *
      * @since 1.77.0
+     *
+     * @returns A promise which is resolved without a defined result when the expand is successful, or rejected
+     * in case of an error
      */
     expand(
       /**
-       * The number of levels to expand (@experimental as of version 1.127.0), `iLevels >= Number.MAX_SAFE_INTEGER`
-       * can be used to expand all levels. If a node is expanded a second time, the expand state of the descendants
-       * is not changed.
+       * Whether to expand the node and all its descendants (since 1.132.0)
        */
-      iLevels?: number
-    ): void;
+      bAll?: boolean
+    ): Promise<void>;
     /**
      * Returns the binding this context belongs to.
      *
@@ -71312,6 +71557,17 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @returns The canonical path (e.g. "/SalesOrderList('0500000000')")
      */
     getCanonicalPath(): string;
+    /**
+     * Returns a filter object corresponding to this context. For an ordinary row context of a list binding,
+     * the filter matches exactly the entity's key properties. For a subtotal row (see {@link sap.ui.model.odata.v4.ODataListBinding.setAggregation}),
+     * the filter matches exactly the groupable properties corresponding to this context. For a grand total,
+     * `null` is returned.
+     *
+     * @since 1.130.0
+     *
+     * @returns A filter object corresponding to this context
+     */
+    getFilter(): Filter | null;
     /**
      * Returns the group ID of the context's binding that is used for read requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getGroupId }
      * and {@link sap.ui.model.odata.v4.ODataContextBinding#getGroupId}.
@@ -71483,13 +71739,14 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
-     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Since
-     * 1.122.0 the selection state can also be accessed via instance annotation "@$ui5.context.isSelected" at
-     * the entity. Note that the annotation does not take the deletion state into account.
+     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Selection
+     * was experimental as of version 1.111.0. Since 1.122.0, the selection state can also be accessed via instance
+     * annotation "@$ui5.context.isSelected" at the entity. Note that the annotation does not take the deletion
+     * state into account.
      * See:
      * 	#setSelected
      *
-     * @experimental (since 1.111.0)
+     * @since 1.130.0
      *
      * @returns Whether this context is currently selected
      */
@@ -71652,9 +71909,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @since 1.122.0
      *
      * @returns A promise which:
-     * 	 -  Resolves if successful with either the parent node or `null` for a root node that has no parent
-     *
-     * 	 -  Rejects with an `Error` instance otherwise
+     * 	 Resolves if successful with either the parent node or `null` for a root node that has no parent
+     * Rejects with an `Error` instance otherwise
      */
     requestParent(): Promise<Context | null>;
     /**
@@ -71890,8 +72146,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Sets whether this context is currently selected. If the selection state changes, a {@link sap.ui.model.odata.v4.ODataListBinding#event:selectionChanged 'selectionChanged' }
      * event is fired on the list binding which this context belongs to. While a context is currently {@link #delete deleted }
      * on the client, it does not appear as {@link #isSelected selected}. If the preconditions of {@link #setKeepAlive }
-     * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
-     * state. Once the selection is no longer needed, for example because you perform an operation on this context
+     * hold, a best effort is made to implicitly keep a (de-)selected context alive in order to preserve the
+     * selection state of every exception to the "select all" state defined by the list binding's {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext header context}.
+     * Once the selection is no longer needed, for example because you perform an operation on this context
      * which logically removes it from its list, you need to reset the selection.
      *
      * If this context is a header context of a list binding, the new selection state is propagated to all row
@@ -71902,11 +72159,13 @@ declare module "sap/ui/model/odata/v4/Context" {
      * of any row context changes in this way, then a {@link sap.ui.model.odata.v4.ODataListBinding#event:selectionChanged 'selectionChanged' }
      * event is nevertheless fired for this header context, but not for the row context.
      *
+     * Selection was experimental as of version 1.111.0.
+     *
      * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
      * 	#isSelected
      *
-     * @experimental (since 1.111.0)
+     * @since 1.130.0
      */
     setSelected(
       /**
@@ -72316,7 +72575,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       sGroupId?: string,
       /**
        * Whether the entity's ETag should be actively ignored (If-Match:*); supported for bound actions only,
-       * since 1.90.0. Ignored if there is no ETag (since 1.93.0).
+       * since 1.90.0. This parameter is ignored if there is no ETag (since 1.93.0) unless no data has been read
+       * so far (since 1.132.0).
        */
       bIgnoreETag?: boolean,
       /**
@@ -72836,11 +73096,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * creation or {@link sap.ui.model.odata.v4.Context#move move} must be pending, and no other modification
      * (including collapse of some ancestor node) must happen while this creation is pending!
      *
-     * When using the `createInPlace` parameter (see {@link #setAggregation}, @experimental as of version 1.125.0),
-     * the new {@link sap.ui.model.odata.v4.Context#isTransient transient} child is hidden until its {@link sap.ui.model.odata.v4.Context#created created promise }
-     * resolves, and then it is shown at a position determined by the back end and the current sort order. Note
-     * that the returned context is not always part of this list binding's collection and can only be used for
-     * the following scenarios:
+     * When using the `createInPlace` parameter (see {@link #setAggregation}, since 1.130.0), the new {@link sap.ui.model.odata.v4.Context#isTransient transient }
+     * child is hidden until its {@link sap.ui.model.odata.v4.Context#created created promise} resolves, and
+     * then it is shown at a position determined by the back end and the current sort order. Note that the returned
+     * context is not always part of this list binding's collection and can only be used for the following scenarios:
+     *
      * 	 The position of the new child can be retrieved by using its {@link sap.ui.model.odata.v4.Context#getIndex index}.
      * If the created child does not become part of the hierarchy due to the search or filter criteria, the
      * context will be {@link sap.ui.model.odata.v4.Context#destroy destroyed} and its {@link sap.ui.model.odata.v4.Context#getIndex index }
@@ -73068,7 +73328,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @since 1.37.0
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns The array of already created contexts with the first entry containing the context for `iStart`
+     * @returns The array of already created contexts with the first entry containing the context for `iStart`.
+     * Since 1.130.0, the array has an additional property `bExpectMore`, which is `true` if the response is
+     * not complete, a {@link #event:change 'change'} event will follow, and a busy indicator should be switched
+     * on.
      */
     getContexts(
       /**
@@ -73515,10 +73778,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         aggregate?: object;
         /**
-         * Whether created nodes are shown in place at the position specified by the service (@experimental as of
-         * version 1.125.0); only the value `true` is allowed. Otherwise, created nodes are displayed out of place
-         * as the first children of their parent or as the first roots, but not in their usual position as defined
-         * by the service and the current sort order.
+         * Whether created nodes are shown in place at the position specified by the service (since 1.130.0); only
+         * the value `true` is allowed. Otherwise, created nodes are displayed out of place as the first children
+         * of their parent or as the first roots, but not in their usual position as defined by the service and
+         * the current sort order.
          */
         createInPlace?: boolean;
         /**
@@ -73537,13 +73800,15 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * A map from groupable property names to objects containing the following details:
          * 	 `additionally`: An optional list of strings that provides the paths to properties (like texts or attributes)
          * related to this groupable property in a 1:1 relation (since 1.87.0). They are requested additionally
-         * via `groupby and must not change the actual grouping; a unit` for an aggregatable property
-         * must not be repeated here.
+         * via `groupby` and must not change the actual grouping; a `unit` for an aggregatable property must not
+         * be repeated here.
          */
         group?: object;
         /**
          * A list of groupable property names used to determine group levels. They may, but don't need to, be repeated
-         * in `oAggregation.group`. Group levels cannot be combined with:
+         * in `oAggregation.group`. Since 1.132.0, the last group level is interpreted as the leaf level in case
+         * there are no other groups than those given here. In that case, {@link #getAggregation} returns a shorter
+         * `groupLevels` list. Group levels cannot be combined with:
          * 	 filtering for aggregated properties,  "$search" (since 1.93.0),  the `vGroup` parameter of
          * {@link sap.ui.model.Sorter} (since 1.107.0),  shared requests (since 1.108.0).
          */
@@ -73878,8 +74143,6 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   /**
    * Parameters of the ODataListBinding#selectionChanged event.
-   *
-   * @experimental (since 1.126.0)
    */
   export interface ODataListBinding$SelectionChangedEventParameters {
     /**
@@ -73890,11 +74153,46 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   /**
    * Event object of the ODataListBinding#selectionChanged event.
-   *
-   * @experimental (since 1.126.0)
    */
   export type ODataListBinding$SelectionChangedEvent = Event<
     ODataListBinding$SelectionChangedEventParameters,
+    ODataListBinding
+  >;
+
+  /**
+   * Parameters of the ODataListBinding#separateReceived event.
+   *
+   * @experimental (since 1.131.0)
+   */
+  export interface ODataListBinding$SeparateReceivedEventParameters {
+    /**
+     * The requested property name
+     */
+    property?: string;
+
+    /**
+     * The start index of the requested range
+     */
+    start?: number;
+
+    /**
+     * The length of the requested range
+     */
+    length?: number;
+
+    /**
+     * A UI5 message of type {@link module:sap/ui/core/message/MessageType MessageType.Error}
+     */
+    errorMessage?: Message;
+  }
+
+  /**
+   * Event object of the ODataListBinding#separateReceived event.
+   *
+   * @experimental (since 1.131.0)
+   */
+  export type ODataListBinding$SeparateReceivedEvent = Event<
+    ODataListBinding$SeparateReceivedEventParameters,
     ODataListBinding
   >;
 }
@@ -74604,7 +74902,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * via {@link sap.ui.model.odata.v4.ODataModel#getHttpHeaders} from this meta model's data model. Since
      * 1.80.0, that model's parameter "sharedRequests" is set automatically (see {@link sap.ui.model.odata.v4.ODataModel#constructor}).
      * If the value list model is the data model associated with this meta model, use the binding-specific parameter
-     * "$$sharedRequest" instead, see {@link sap.ui.model.odata.v4.ODataModel#bindList}.
+     * "$$sharedRequest" instead, see {@link sap.ui.model.odata.v4.ODataModel#bindList}. Since 1.132.0, the
+     * data model's {@link sap.ui.model.odata.v4.ODataModel#setRetryAfterHandler "Retry-After" handler} is reused
+     * by default, but can of course be overwritten.
      *
      * For fixed values, only one mapping is expected and the qualifier is ignored. The mapping is available
      * with key "" and has an additional property "$qualifier" which is the original qualifier (useful in case
@@ -74855,30 +75155,6 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       }
     );
 
-    /**
-     * Creates a new subclass of class sap.ui.model.odata.v4.ODataModel with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.Model.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ODataModel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns a metadata object for class sap.ui.model.odata.v4.ODataModel.
      *
@@ -75170,9 +75446,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * An array of navigation property names which are omitted from the main list request and loaded in a separate
          * request instead (@experimental as of version 1.129.0). This results in the main list becoming available
          * faster, while the separate properties are merged as soon as the data is received. Note that the separate
-         * properties must be part of the '$expand' system query option, either automatically via the "autoExpandSelect"
-         * model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor}) or manually. The `$$separate`
-         * parameter must not be combined with `$$aggregation`.
+         * properties must be single valued and part of the '$expand' system query option, either automatically
+         * via the "autoExpandSelect" model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor})
+         * or manually. The `$$separate` parameter must not be combined with `$$aggregation`.
          */
         $$separate?: string[];
         /**
@@ -75217,8 +75493,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * If the target type specified in the corresponding control property's binding info is "any" and the binding
      * is relative or points to metadata, the binding may have an object value; in this case and unless the
      * binding refers to an action advertisement the binding's mode must be {@link sap.ui.model.BindingMode.OneTime}.
-     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (@experimental as of version 1.126.0)
-     * for complex types and collections thereof; for entity types, use {@link #bindContext} instead.
+     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (since 1.130.0) for complex types and
+     * collections thereof; for entity types, use {@link #bindContext} instead.
      * See:
      * 	sap.ui.base.ManagedObject#bindProperty
      * 	sap.ui.model.Model#bindProperty
@@ -77511,21 +77787,41 @@ declare module "sap/ui/model/Sorter" {
      */
     constructor(
       /**
-       * the binding path used for sorting
+       * The binding path used for sorting or the sorter info object; if a sorter info object is given, the other
+       * constructor parameters are ignored
        */
-      sPath: string,
+      vSorterInfo:
+        | string
+        | {
+            /**
+             * See `fnComparator` parameter
+             */
+            comparator?: Function;
+            /**
+             * See `bDescending` parameter
+             */
+            descending?: boolean;
+            /**
+             * See `vGroup` parameter
+             */
+            group?: boolean | Function;
+            /**
+             * The binding path for this sorter
+             */
+            path?: string;
+          },
       /**
-       * whether the sort order should be descending
+       * Whether the sort order is descending
        */
       bDescending?: boolean,
       /**
-       * configure grouping of the content, can either be true to enable grouping based on the raw model property
-       * value, or a function which calculates the group value out of the context (e.g. oContext.getProperty("date").getYear()
-       * for year grouping). The control needs to implement the grouping behaviour for the aggregation which you
-       * want to group. In case a function is provided it must either return a primitive type value as the group
-       * key or an object containing a "key" property and additional properties needed for group visualization.
-       * This object or the object with the primitive type return value as "key" property is passed to the `groupHeaderFactory`
-       * function that has been specified to create the group header for the control aggregation; see {@link sap.ui.base.ManagedObject#bindAggregation}.
+       * Configure grouping of the content, can either be `true` to enable grouping based on the raw model property
+       * value, or a function which calculates the group value out of the context (e.g. `oContext.getProperty("date").getYear()`
+       * for year grouping). The control needs to implement the grouping behaviour. In case a function is provided
+       * it must either return a primitive type value as the group key or an object containing a "key" property
+       * and additional properties needed for group visualization. This object or the object with the primitive
+       * type return value as "key" property is passed to the `groupHeaderFactory` function that has been specified
+       * to create the group header for the control aggregation; see {@link sap.ui.base.ManagedObject#bindAggregation}.
        * **Note:** Grouping via `vGroup=true` is only possible (and only makes sense) for the primary sort property.
        * A more complicated grouping is possible by providing a grouping function. The sort order needs to fit
        * to the grouping also in this case. See also {@link https://ui5.sap.com/#/topic/ec79a5d5918f4f7f9cbc2150e66778cc Sorting, Grouping, and Filtering for List Binding}.
@@ -77533,7 +77829,7 @@ declare module "sap/ui/model/Sorter" {
       vGroup?: boolean | Function,
       /**
        * A custom comparator function, which is used for client-side sorting instead of the default comparator
-       * method. Information about parameters and expected return values of such a method can be found in the
+       * method; information about parameters and expected return values of such a method can be found in the
        * {@link #.defaultComparator default comparator} documentation. **Note:** Custom comparator functions are
        * meant to be used on the client. Models that implement sorting in the backend usually don't support custom
        * comparator functions. Consult the documentation of the specific model implementation.
@@ -77618,6 +77914,22 @@ declare module "sap/ui/model/Sorter" {
      * @returns The group function
      */
     getGroupFunction(): Function;
+    /**
+     * Returns the binding path for this sorter; see the path parameter of {@link sap.ui.model.Sorter#constructor}.
+     *
+     * @since 1.131.0
+     *
+     * @returns The binding path
+     */
+    getPath(): string;
+    /**
+     * Whether to sort in descending order; see the descending parameter of {@link sap.ui.model.Sorter#constructor}.
+     *
+     * @since 1.131.0
+     *
+     * @returns Whether to sort in descending order
+     */
+    isDescending(): boolean;
   }
 }
 
@@ -77705,6 +78017,8 @@ declare module "sap/ui/model/TreeBinding" {
 
   import Model from "sap/ui/model/Model";
 
+  import Context from "sap/ui/model/Context";
+
   import Filter from "sap/ui/model/Filter";
 
   import Sorter from "sap/ui/model/Sorter";
@@ -77712,8 +78026,6 @@ declare module "sap/ui/model/TreeBinding" {
   import FilterType from "sap/ui/model/FilterType";
 
   import Metadata from "sap/ui/base/Metadata";
-
-  import Context from "sap/ui/model/Context";
 
   /**
    * The TreeBinding is a specific binding for trees in the model, which can be used to populate Trees.
@@ -77738,7 +78050,7 @@ declare module "sap/ui/model/TreeBinding" {
       /**
        * Context object for this binding (optional)
        */
-      oContext?: object,
+      oContext?: Context,
       /**
        * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
        * to replace them
@@ -77747,7 +78059,7 @@ declare module "sap/ui/model/TreeBinding" {
       /**
        * Additional model specific parameters (optional)
        */
-      mParameters?: string,
+      mParameters?: object,
       /**
        * The sorters used initially; call {@link #sort} to replace them
        */
@@ -77839,7 +78151,7 @@ declare module "sap/ui/model/TreeBinding" {
       sFilterType?: FilterType | keyof typeof FilterType
     ): void;
     /**
-     * Returns the number of child nodes of a specific context
+     * Returns the number of child nodes of a specific context.
      *
      *
      * @returns the number of children
@@ -77848,7 +78160,7 @@ declare module "sap/ui/model/TreeBinding" {
       /**
        * the context element of the node
        */
-      oContext: Object
+      oContext: Context
     ): int;
     /**
      * Returns the count of entries in the tree, or `undefined` if it is unknown. If the tree is filtered, the
@@ -77864,7 +78176,7 @@ declare module "sap/ui/model/TreeBinding" {
      */
     getCount(): number | undefined;
     /**
-     * Returns the current value of the bound target
+     * Returns the current value of the bound target.
      *
      *
      * @returns the array of child contexts for the given node
@@ -77875,41 +78187,43 @@ declare module "sap/ui/model/TreeBinding" {
        */
       oContext: Context,
       /**
-       * the startIndex where to start the retrieval of contexts
+       * the index from which to start the retrieval of contexts
        */
-      iStartIndex: int,
+      iStartIndex?: int,
       /**
-       * determines how many contexts to retrieve beginning from the start index.
+       * determines how many contexts to retrieve, beginning from the start index. Defaults to the model's size
+       * limit; see {@link sap.ui.model.Model#setSizeLimit}.
        */
-      iLength: int
+      iLength?: int
     ): Context[];
     /**
-     * Returns the current value of the bound target
+     * Returns the current value of the bound target.
      *
      *
      * @returns the array of child contexts for the root node
      */
     getRootContexts(
       /**
-       * the startIndex where to start the retrieval of contexts
+       * the index from which to start the retrieval of contexts
        */
-      iStartIndex: int,
+      iStartIndex?: int,
       /**
-       * determines how many contexts to retrieve beginning from the start index.
+       * determines how many contexts to retrieve, beginning from the start index. Defaults to the model's size
+       * limit; see {@link sap.ui.model.Model#setSizeLimit}.
        */
-      iLength: int
-    ): any[];
+      iLength?: int
+    ): Context[];
     /**
-     * Returns if the node has child nodes
+     * Returns `true` if the node has child nodes.
      *
      *
-     * @returns true if node has children
+     * @returns `true` if the node has children
      */
     hasChildren(
       /**
        * the context element of the node
        */
-      oContext: Object
+      oContext: Context
     ): boolean;
     /**
      * Sorts the tree according to the sorter definitions.
@@ -79180,6 +79494,11 @@ declare module "sap/ui/model/type/Unit" {
        * parameter is not set manually.
        */
       oFormatOptions?: {
+        /**
+         * The number of decimals to be used for formatting the number part of the unit; defaults to **3** if none
+         * of the format options `maxFractionDigits`, `minFractionDigits` or `decimals` is given
+         */
+        decimals?: object;
         /**
          * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
          * 1.89.0
@@ -85854,50 +86173,84 @@ declare namespace sap {
       | Array<import("sap/ui/core/Control").default>
       | Promise<Array<import("sap/ui/core/Control").default>>;
     /**
-     * Instantiate a Fragment - this method loads the Fragment content, instantiates it, and returns this content.
-     * The Fragment object itself is not an entity which has further significance beyond this constructor.
+     * Loads and instantiates a fragment. The fragment object itself is not an entity that has any further significance
+     * beyond this factory function.
      *
-     * To instantiate an existing Fragment, call this method as: sap.ui.fragment(sName, sType, [oController]);
-     * The sName must correspond to a Fragment module which can be loaded via the module system (fragmentName
-     * + suffix ".fragment.[typeextension]") and which defines the Fragment content. If oController is given,
-     * the (event handler) methods referenced in the Fragment will be called on this controller. Note that Fragments
-     * may require a Controller to be given and certain methods to be available.
+     * To instantiate a fragment that is already defined separately, call:
+     * ```javascript
      *
-     * The Fragment types "XML", "JS" and "HTML" are available by default; additional Fragment types can be
-     * implemented and added using the sap.ui.core.Fragment.registerType() function.
+     * sap.ui.fragment(sName, sType, oController?);
+     * ```
      *
-     * Advanced usage: To instantiate a Fragment and give further configuration options, call this method as:
-     * sap.ui.fragment(oFragmentConfig, [oController]); The oFragmentConfig object can have the following properties:
-     * - "fragmentName": the name of the Fragment, as above - "fragmentContent": the definition of the Fragment
-     * content itself. When this property is given, any given name is ignored. The type of this property depends
-     * on the Fragment type, e.g. it could be a string for XML Fragments. - "type": the type of the Fragment,
-     * as above (mandatory) - "id": the ID of the Fragment (optional) Further properties may be supported by
-     * future or custom Fragment types. Any given properties will be forwarded to the Fragment implementation.
      *
-     * If you want to give a fixed ID for the Fragment, please use the advanced version of this method call
-     * with the configuration object or use the typed factories like sap.ui.xmlfragment(...) or sap.ui.jsfragment(...).
-     * Otherwise the Fragment ID is generated. In any case, the Fragment ID will be used as prefix for the ID
-     * of all contained controls.
+     * Advanced usage to give further configuration options:
+     * ```javascript
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * sap.ui.fragment(oFragmentConfig, oController?);
+     * ```
+     *  In addition to `id` and `type`, the `oFragmentConfig` object can have either a `fragmentName` or a `fragmentContent`
+     * property, but not both.
      *
-     * @returns the root Control(s) of the Fragment content
+     * To define a fragment ID, which can be used as a prefix for the created control IDs, you must use either
+     * the above advanced version with an `id` or one of the typed factory functions like {@link sap.ui.xmlfragment }
+     * or {@link sap.ui.jsfragment}.
+     *
+     * A fragment type must be given in all cases. The fragment types `"XML"`, `"JS"`, and `"HTML"` (type `"HTML"`
+     * is deprecated) are available by default. Additional fragment types can be implemented and added using
+     * the {@link sap.ui.core.Fragment.registerType} function.
+     *
+     * Custom fragment types can support further properties. Any given properties will be forwarded to the fragment
+     * implementation.
+     *
+     * The optional `oController` can be either the controller of an enclosing view, a new controller instance,
+     * or a simple object with the necessary methods attached. Note that a fragment has no runtime representation
+     * besides its contained controls. Therefore, there is no API to retrieve the controller from the return
+     * value. Note also that fragments may require a controller to be given and certain methods to be available.
+     *
+     * **Note:** In case you are embedding a Fragment into an existing View, please also have a look at the
+     * {@link sap.ui.core.mvc.Controller.loadFragment loadFragment} factory for a closer coupling to the corresponding
+     * Controller instance.
+     *
+     * @deprecated (since 1.58) - Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
+     *
+     * @returns the instantiated root control(s) from the fragment content
      */
     function fragment(
       /**
-       * the Fragment name
+       * resource name of the fragment module in dot notation without the `.fragment.<typeExtension>`
+       * suffix from the file name. Alternatively, a configuration object as specified below
        */
-      sName: string | Object,
+      vName:
+        | string
+        | {
+            /**
+             * optional ID of the created fragment
+             */
+            id?: string;
+            /**
+             * definition of the fragment content that will be used instead of loading the content from a separate file.
+             * The type of this property depends on the fragment type. For example, it could be a string for XML fragments
+             * or an object for JS fragments
+             */
+            fragmentContent?: string | object;
+            /**
+             * recource name of the fragment module as specified above
+             */
+            fragmentName?: string;
+            /**
+             * type of the fragment, for example, `"XML"`, `"JS"`, `"HTML"`, or any other type that has been implemented
+             * additionally
+             */
+            type: string;
+          },
       /**
-       * the Fragment type, e.g. "XML", "JS", or "HTML"
+       * type of the fragment as specified by `vName.type` or, in the advanced usage case, an optional `oController`
        */
-      sType: string,
+      vType: string | import("sap/ui/core/mvc/Controller").default | object,
       /**
-       * the Controller or Object which should be used by the controls in the Fragment. Note that some Fragments
-       * may not need a Controller and other may need one - and even rely on certain methods implemented in the
-       * Controller.
+       * controller object to be used for methods or event handlers referenced in the fragment
        */
-      oController?: import("sap/ui/core/mvc/Controller").default | Object
+      oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
       | Array<import("sap/ui/core/Control").default>;
@@ -85943,126 +86296,103 @@ declare namespace sap {
           }
     ): object | undefined | Promise<any>;
     /**
-     * Instantiates an HTML-based Fragment.
+     * Loads and instantiates an HTML-based fragment.
      *
-     * To instantiate a fragment, call:
+     * To instantiate a fragment that is already defined separately, call:
      * ```javascript
      *
-     *    sap.ui.htmlfragment([sId], sFragmentName, [oController]);
+     * sap.ui.htmlfragment(sId?, sFragmentName, oController?);
      * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an HTML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.html") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
-     * Note that fragments may require a controller to be given and certain methods to be available.
      *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the HTML definition instead of
-     * loading it from a file, call:
+     *
+     * Advanced usage:
      * ```javascript
      *
-     *     sap.ui.htmlfragment(oFragmentConfig, [oController]);
+     * sap.ui.htmlfragment(oFragmentConfig, oController?);
      * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both of them. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded by the module system. Again, if `oController`
-     * is given, any methods referenced in the fragment will be called on this controller.
+     *  In addition to an `id`, the `oFragmentConfig` object can have either a `fragmentName` or a `fragmentContent`
+     * property, but not both.
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * @deprecated (since 1.58) - Additionally, use of fragments based on type `"HTML"` is deprecated since
+     * 1.108. If you need declarative fragments, use XML fragments instead. Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
      *
-     * @returns Root control or controls of the created fragment instance
+     * @returns the instantiated root control(s) from the fragment content
      */
     function htmlfragment(
       /**
-       * ID of the newly created fragment
+       * ID of the created fragment which will be used as prefix to all contained control IDs. If the first argument
+       * is not an ID, it must be either the fragment name (`sFragmentName`) or a configuration object (`oFragmentConfig`)
+       * as specified below
        */
-      sId: string,
-      /**
-       * Resource name of the fragment, a module name in dot notation without the '.fragment.html' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
-       */
-      vFragment:
+      vId:
         | string
         | {
             /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
+             * ID of the created fragment which will be used as prefix to all contained control IDs
              */
             id?: string;
             /**
-             * Resource name of the Fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string;
-            /**
-             * Definition of the fragment as an HTML string
+             * definition of the fragment content as an HTML string that will be used instead of loading the content
+             * from a separate `.fragment.html` file. When this property is given, any given fragment name is ignored
              */
             fragmentContent?: string;
+            /**
+             * resource name of the fragment module in dot notation without the `.fragment.html` suffix from the file
+             * name
+             */
+            fragmentName?: string;
           },
       /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * resource name of the fragment module as specified by `vId.fragmentName` or, in the advanced usage case,
+       * an optional `oController`
+       */
+      vFragment: string | import("sap/ui/core/mvc/Controller").default | object,
+      /**
+       * controller object to be used for methods or event handlers. Can be either the controller of an enclosing
        * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
+       * fragment has no runtime representation besides its contained controls. Therefore, there is no API to
+       * retrieve the controller from the return value. Note also that fragments may require a controller to be
+       * given and certain methods to be available
        */
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
       | Array<import("sap/ui/core/Control").default>;
     /**
-     * Instantiates an HTML-based Fragment.
+     * Loads and instantiates an HTML-based fragment.
      *
-     * To instantiate a fragment, call:
+     * To instantiate a fragment that is already defined separately, call:
      * ```javascript
      *
-     *    sap.ui.htmlfragment([sId], sFragmentName, [oController]);
+     * sap.ui.htmlfragment(sId?, sFragmentName, oController?);
      * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an HTML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.html") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
-     * Note that fragments may require a controller to be given and certain methods to be available.
      *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the HTML definition instead of
-     * loading it from a file, call:
+     *
+     * Advanced usage:
      * ```javascript
      *
-     *     sap.ui.htmlfragment(oFragmentConfig, [oController]);
+     * sap.ui.htmlfragment(oFragmentConfig, oController?);
      * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both of them. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded by the module system. Again, if `oController`
-     * is given, any methods referenced in the fragment will be called on this controller.
+     *  In addition to an `id`, the `oFragmentConfig` object can have either a `fragmentName` or a `fragmentContent`
+     * property, but not both.
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * @deprecated (since 1.58) - Additionally, use of fragments based on type `"HTML"` is deprecated since
+     * 1.108. If you need declarative fragments, use XML fragments instead. Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
      *
-     * @returns Root control or controls of the created fragment instance
+     * @returns the instantiated root control(s) from the fragment content
      */
     function htmlfragment(
       /**
-       * Resource name of the fragment, a module name in dot notation without the '.fragment.html' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
+       * resource name of the fragment module as specified by `vId.fragmentName` or, in the advanced usage case,
+       * an optional `oController`
        */
-      vFragment:
-        | string
-        | {
-            /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
-             */
-            id?: string;
-            /**
-             * Resource name of the Fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string;
-            /**
-             * Definition of the fragment as an HTML string
-             */
-            fragmentContent?: string;
-          },
+      vFragment: string | import("sap/ui/core/mvc/Controller").default | object,
       /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * controller object to be used for methods or event handlers. Can be either the controller of an enclosing
        * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
+       * fragment has no runtime representation besides its contained controls. Therefore, there is no API to
+       * retrieve the controller from the return value. Note also that fragments may require a controller to be
+       * given and certain methods to be available
        */
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
@@ -86139,71 +86469,66 @@ declare namespace sap {
           }
     ): import("sap/ui/core/mvc/HTMLView").default | undefined;
     /**
-     * Defines OR instantiates an HTML-based fragment.
+     * Defines **or** instantiates a JS-based fragment.
      *
      * To define a JS fragment, call:
      * ```javascript
      *
-     *    sap.ui.jsfragment(sName, oFragmentDefinition)
+     * sap.ui.jsfragment(sName, oFragmentDefinition);
      * ```
-     *  where:
-     * 	 - `sName` is the name by which this fragment later can be found and instantiated. If defined in its
-     *     own file, in order to be found by the module loading system, the file location and name must correspond
-     *     to `sName` (path + file name must be: fragmentName + ".fragment.js").
-     * 	 - `oFragmentDefinition` is an object at least holding the `createContent(oController)` method which
-     *     defines the fragment content. If given during instantiation, the `createContent` method receives a controller
-     *     instance (otherwise, parameter `oController` will be undefined) and the return value must be one `sap.ui.core.Control`
-     *     (which could have any number of children).
      *
-     * To instantiate a JS fragment, call:
+     *
+     * To instantiate a JS fragment that is already defined, call:
      * ```javascript
      *
-     *    sap.ui.jsfragment([sId], sFragmentName, [oController]);
+     * sap.ui.jsfragment(sId?, sFragmentName, oController?);
      * ```
-     *  The fragment ID is optional (generated if not given) and the fragment implementation can use
-     * it to make contained controls unique (this depends on the implementation: some JS fragments may choose
-     * not to support multiple instances within one application and not use the ID prefixing). The `sFragmentName`
-     * must correspond to a JS fragment which can be loaded via the module system (`sFragmentName` converted
-     * to a path + ".fragment.js" suffix) and which defines the fragment. Or it can be a name that has been
-     * used earlier to define a fragment of that name. If `oController` is given, the methods referenced in
-     * the fragment will be called on this controller. Note that fragments may require a controller to be given
-     * and certain methods to be available.
+     *  Advanced usage:
+     * ```javascript
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * sap.ui.jsfragment(oFragmentConfig, oController?);
+     * ```
      *
-     * @returns The root control(s) of the created fragment instance
+     *
+     * @deprecated (since 1.58) - Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
+     *
+     * @returns the instantiated root control(s) from the fragment content
      */
     function jsfragment(
       /**
-       * Name of the fragment when defining a fragment; ID or name or configuration object when instantiating
-       * a fragment
+       * when defining a fragment: name of the fragment.
+       *  When loading a fragment: fragment ID (optional), fragment name, or configuration object as specified
+       * below
        */
       vName:
         | string
         | {
             /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
+             * ID of the newly created fragment which can be used as a prefix when creating the IDs in the JS
+             * fragment content. Even if an `id` is given, some JS fragments may choose not to use the ID prefixing,
+             * for example, in order to prevent the fragment from being instantiated multiple times within the lifecycle
+             * of the existing fragment
              */
             id?: string;
             /**
-             * Name of the fragment. When no fragment has been defined with that name, the name will be converted to
-             * a path by replacing dots with slashes and appending '.fragment.js'. The corresponding resource will be
-             * loaded and is expected to define a fragment with the `fragmentName`
+             * resource name of the fragment module in dot notation without the `.fragment.js` suffix from the file
+             * name. When no fragment has been defined with that name, the name will be converted to a path by replacing
+             * dots with slashes and appending `.fragment.js`. The corresponding resource to load is expected to have
+             * a fragment defined with the same `fragmentName`
              */
-            fragmentName?: string;
+            fragmentName: string;
           },
       /**
-       * When defining a fragment, this parameter must be a factory object that will be used to create new instances
-       * of the fragment; it must at least contain a `createContent` method. When creating an instance of a fragment
-       * and when `vName` was an ID, this parameter must be the name of the fragment. When the first parameter
-       * was a name, this parameter must be omitted.
+       * when defining a fragment: object holding at least the `createContent(oController?)` method that returns
+       * an instance of `sap.ui.core.Control` or an array thereof.
+       *  When loading a fragment and the first argument is an ID: the `fragmentName`
        */
-      vFragmentDefinition?: object | string,
+      vFragmentDefinition: object | string,
       /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * controller object to be used for methods or event handlers. Can be either the controller of an enclosing
        * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
+       * fragment has no runtime representation besides its contained controls. Therefore, there is no API to
+       * retrieve the controller from the return value
        */
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
@@ -86847,128 +87172,101 @@ declare namespace sap {
           }
     ): import("sap/ui/core/mvc/View").default;
     /**
-     * Instantiates an XML-based Fragment.
+     * Loads and instantiates an XML-based fragment.
      *
-     * To instantiate a fragment, call:
+     * To instantiate a fragment that is already defined separately, call:
      * ```javascript
      *
-     *    sap.ui.xmlfragment([sId], sFragmentName, [oController]);
+     * sap.ui.xmlfragment(sId?, sFragmentName, oController?);
      * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an XML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.xml") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
      *
-     * Note that fragments may require a controller to be given and certain methods to be available.
      *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the XML definition instead of
-     * loading it from a file, call:
+     * Advanced usage:
      * ```javascript
      *
-     *     sap.ui.xmlfragment(oFragmentConfig, [oController]);
+     * sap.ui.xmlfragment(oFragmentConfig, oController?);
      * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded via the module system. Again, if `oController`
-     * is given, the methods referenced in the fragment will be called on this controller.
+     *  In addition to an `id`, the `oFragmentConfig` object can have either a `fragmentName` or a `fragmentContent`
+     * property, but not both.
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * @deprecated (since 1.58) - Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
      *
-     * @returns the root Control(s) of the created fragment instance
+     * @returns the instantiated root control(s) from the fragment content
      */
     function xmlfragment(
       /**
-       * ID of the newly created fragment
+       * ID of the created fragment which will be used as prefix to all contained control IDs. If the first argument
+       * is not an ID, it must be either the fragment name (`sFragmentName`) or a configuration object (`oFragmentConfig`)
+       * as specified below
        */
-      sId: string,
-      /**
-       * Resource name of the fragment; a module name in dot notation without the '.fragment.xml' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
-       */
-      vFragment:
+      vId:
         | string
         | {
             /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
+             * ID of the created fragment which will be used as prefix to all contained control IDs
              */
             id?: string;
             /**
-             * Resource name of the fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string;
-            /**
-             * Definition of the fragment as an XML string
+             * definition of the fragment content as an XML string that will be used instead of loading the content
+             * from a separate `.fragment.xml` file. When this property is given, any given fragment name is ignored
              */
             fragmentContent?: string;
+            /**
+             * resource name of the fragment module in dot notation without the `.fragment.xml` suffix from the file
+             * name
+             */
+            fragmentName?: string;
           },
       /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * resource name of the fragment module as specified by `vId.fragmentName` or, in the advanced usage case,
+       * an optional `oController`
+       */
+      vFragment: string | import("sap/ui/core/mvc/Controller").default | object,
+      /**
+       * controller object to be used for methods or event handlers. Can be either the controller of an enclosing
        * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
+       * fragment has no runtime representation besides its contained controls. Therefore, there is no API to
+       * retrieve the controller from the return value. Note also that fragments may require a controller to be
+       * given and certain methods to be available
        */
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
       | import("sap/ui/core/Control").default
       | Array<import("sap/ui/core/Control").default>;
     /**
-     * Instantiates an XML-based Fragment.
+     * Loads and instantiates an XML-based fragment.
      *
-     * To instantiate a fragment, call:
+     * To instantiate a fragment that is already defined separately, call:
      * ```javascript
      *
-     *    sap.ui.xmlfragment([sId], sFragmentName, [oController]);
+     * sap.ui.xmlfragment(sId?, sFragmentName, oController?);
      * ```
-     *  The fragment instance ID is optional and will be used as prefix for the ID of all contained controls.
-     * If no ID is passed, controls will not be prefixed. The `sFragmentName` must correspond to an XML fragment
-     * which can be loaded via the module system (fragmentName + ".fragment.xml") and which defines the fragment.
-     * If `oController` is given, the methods referenced in the fragment will be called on this controller.
      *
-     * Note that fragments may require a controller to be given and certain methods to be available.
      *
-     * Advanced usage:: To instantiate a fragment and optionally directly give the XML definition instead of
-     * loading it from a file, call:
+     * Advanced usage:
      * ```javascript
      *
-     *     sap.ui.xmlfragment(oFragmentConfig, [oController]);
+     * sap.ui.xmlfragment(oFragmentConfig, oController?);
      * ```
-     *  The `oFragmentConfig` object can either have a `fragmentName` or a `fragmentContent` property, but not
-     * both. `fragmentContent` can hold the fragment definition as XML string; if not given, `fragmentName`
-     * must be given and the fragment content definition is loaded via the module system. Again, if `oController`
-     * is given, the methods referenced in the fragment will be called on this controller.
+     *  In addition to an `id`, the `oFragmentConfig` object can have either a `fragmentName` or a `fragmentContent`
+     * property, but not both.
      *
-     * @deprecated (since 1.58) - use {@link sap.ui.core.Fragment.load} instead
+     * @deprecated (since 1.58) - Refer to {@link topic:04129b2798c447368f4c8922c3c33cd7 Instantiation of Fragments}.
      *
-     * @returns the root Control(s) of the created fragment instance
+     * @returns the instantiated root control(s) from the fragment content
      */
     function xmlfragment(
       /**
-       * Resource name of the fragment; a module name in dot notation without the '.fragment.xml' suffix. Alternatively,
-       * a configuration object can be given with the properties described below. In this case, no `sId` may be
-       * given as first parameter, but as property `id` in the configuration object.
+       * resource name of the fragment module as specified by `vId.fragmentName` or, in the advanced usage case,
+       * an optional `oController`
        */
-      vFragment:
-        | string
-        | {
-            /**
-             * ID of the newly created fragment; will be used as a prefix to all contained control IDs
-             */
-            id?: string;
-            /**
-             * Resource name of the fragment; a module name in dot notation without the '.fragment.html' suffix
-             */
-            fragmentName?: string;
-            /**
-             * Definition of the fragment as an XML string
-             */
-            fragmentContent?: string;
-          },
+      vFragment: string | import("sap/ui/core/mvc/Controller").default | object,
       /**
-       * A controller to be used for event handlers in the fragment; can either be the controller of an enclosing
+       * controller object to be used for methods or event handlers. Can be either the controller of an enclosing
        * view, a new controller instance, or a simple object with the necessary methods attached. Note that a
-       * fragment has no runtime representation besides its contained controls. There's therefore no API to retrieve
-       * the controller after creating a fragment
+       * fragment has no runtime representation besides its contained controls. Therefore, there is no API to
+       * retrieve the controller from the return value. Note also that fragments may require a controller to be
+       * given and certain methods to be available
        */
       oController?: import("sap/ui/core/mvc/Controller").default | object
     ):
@@ -87130,223 +87428,6 @@ declare namespace sap {
             controller?: import("sap/ui/core/mvc/Controller").default;
           }
     ): import("sap/ui/core/mvc/XMLView").default;
-    /**
-     * Provides access to UI5 loader configuration.
-     *
-     * The configuration is used by {@link sap.ui.require} and {@link sap.ui.define}.
-     */
-    namespace loader {
-      /**
-       * Sets the configuration for the UI5 loader. The configuration can be updated multiple times. Later changes
-       * do not impact modules that have been loaded before.
-       *
-       * If no parameter is given, a partial copy of UI5 loader configuration in use is returned.
-       *
-       * The configuration options are aligned with the "Common Config" draft of the AMD spec (https://github.com/amdjs/amdjs-api/blob/master/CommonConfig.md).
-       *
-       * The following code shows an example of what a UI5 loader configuration might look like:
-       * ```javascript
-       *
-       *
-       *   sap.ui.loader.config({
-       *
-       *     // location from where to load all modules by default
-       *     baseUrl: '../../resources/',
-       *
-       *     paths: {
-       *       // load modules whose ID equals to or starts with 'my/module' from example.com
-       *       'my/module': 'https://example.com/resources/my/module'
-       *     },
-       *
-       *     map: {
-       *       // if any module requires 'sinon', load module 'sap/ui/thirdparty/sinon-4'
-       *       '*': {
-       *         'sinon': 'sap/ui/thirdparty/sinon-4'
-       *       },
-       *       // but if a module whose ID equals to or starts with 'app' requires 'sinon'
-       *       // then load a legacy version instead
-       *       "app": {
-       *         'sinon': 'sap/ui/legacy/sinon'
-       *       }
-       *     },
-       *
-       *     // define two bundles that consists of JS modules only
-       *     bundles: {
-       *       bundle1: ['module1', 'module2'],
-       *       bundle2: ['moduleX', 'moduleY']
-       *     },
-       *
-       *     // define a bundle that also contains non-JS resources
-       *     bundlesUI5: {
-       *       'all.js': ['Component.js', 'manifest.json',
-       *                  'App.controller.js', 'App.view.xml']
-       *     },
-       *
-       *     // activate real async loading and module definitions
-       *     async: true,
-       *
-       *     // provide dependency and export metadata for non-UI5 modules
-       *     shim: {
-       *       'sap/ui/thirdparty/blanket': {
-       *         amd: true,
-       *         exports: 'blanket'
-       *       }
-       *     }
-       *
-       *   });
-       *
-       * ```
-       *
-       *
-       * @since 1.56.0
-       *
-       * @returns UI5 loader configuration in use.
-       */
-      function config(
-        /**
-         * The provided configuration gets merged with the UI5 loader configuration in use. If `cfg` is omitted
-         * or `undefined`, a copy of the current configuration gets returned, containing at least the properties
-         * `amd` and `async`.
-         */
-        cfg?: {
-          /**
-           * Default location to load modules from. If none of the configured `paths` prefixes matches a module ID,
-           * the module will be loaded from the concatenation of the `baseUrl` and the module ID.
-           *
-           * If the `baseUrl` itself is a relative URL, it is evaluated relative to `document.baseURI`.
-           */
-          baseUrl?: string;
-          /**
-           * A map of resource locations keyed by a corresponding module ID prefix. When a module is to be loaded,
-           * the longest key in `paths` is searched that is a prefix of the module ID. The module will be loaded from
-           * the concatenation of the corresponding value in `paths` and the remainder of the module ID (after the
-           * prefix). If no entry in `paths` matches, then the module will be loaded from the `baseUrl`.
-           *
-           * The prefixes (keys) must not contain relative segments (./ or ../), a trailing slash will be removed,
-           * and only full name segment matches are considered a match (prefix 'sap/m' does not match a module ID
-           * 'sap/main').
-           *
-           * **Note**: In contrast to the "Common Config" of the AMD spec, the paths (values in the map) are interpreted
-           * relative to `document.baseURI`, not relative to `cfg.baseUrl`.
-           */
-          paths?: Record<string, string>;
-          /**
-           * A map of maps that defines how to map module IDs to other module IDs (inner maps) in the context of a
-           * specific set of modules (keys of outer map).
-           *
-           * Each key of the outer map represents a module ID prefix that describes the context for which its value
-           * (inner map) has to be used. The special key `*` describes the default context which applies for any module.
-           * Only the most specific matching context will be taken into account.
-           *
-           * Each inner map maps a module ID or module ID prefix to another module ID or module ID prefix. Again,
-           * only the most specific match is taken into account and only one mapping is evaluated (the evaluation
-           * of the mappings is not done recursively).
-           *
-           * Matches are always complete matches, a prefix 'a/b/c' does not match the module ID 'a/b/com'.
-           */
-          map?: Record<string, Record<string, string>>;
-          /**
-           * Defines additional metadata for modules for which the normal behavior of the AMD APIs is not sufficient.
-           *
-           * A typical example are scripts that don't use `define` or `sap.ui.define`, but export to a global name.
-           * With the `exports` property, one or more export names can be specified, and the loader can retrieve the
-           * exported value after executing the corresponding module. If such a module has dependencies, they can
-           * be specified in the `deps` array and are loaded and executed before executing the module.
-           *
-           * The `amd` flag of a shim is a ui5loader-specific extension of the standard AMD shims. If set, the ui5loader
-           * hides a currently active AMD loader before executing the module and restores it afterwards. Otherwise,
-           * it might miss the export of third party modules that check for an AMD loader and register with it instead
-           * of exporting to a global name. A future version of the ui5loader might ignore this flag when it acts
-           * as an AMD loader by itself.
-           *
-           * **Note:** The ui5loader does not support the `init` option described by the "Common Config" section of
-           * the AMD spec.
-           */
-          shim?: Record<
-            string,
-            {
-              amd: boolean;
-
-              deps: string[];
-
-              exports: string | string[];
-            }
-          >;
-          /**
-           * A map of arrays that each define the modules contained in a bundle.
-           *
-           * Each key of the map represents the module ID of a bundle file. The array value represents the set of
-           * JavaScript modules (their module IDs) that are contained in the bundle.
-           *
-           * When a module is required that has not been loaded yet, and for which a containing bundle is known, that
-           * bundle will be required first. Only then the original module will be required again and usually be taken
-           * from the just loaded bundle.
-           *
-           * A bundle will be loaded asynchronously only when the loader is in asynchronous mode and when the request
-           * for the contained module originates from an asynchronous API. In all other cases, the bundle has to be
-           * loaded synchronously to fulfill API contracts.
-           *
-           * **Note:** The loader only supports one containing bundle per module. If a module is declared to be part
-           * of multiple bundles, only the last one will be taken into account.
-           *
-           * This configuration option is basically provided to be compatible with requireJS or SystemJS configuration.
-           */
-          bundles?: Record<string, string[]>;
-          /**
-           * A map of arrays that each define the resources contained in a bundle.
-           *
-           * This is similar to `bundles`, but all strings are unified resource names including a file type extension,
-           * not only module IDs. This allows to represent more than just JavaScript modules.
-           *
-           * Each key of the map represents the resource name (in unified resource name syntax) of a bundle file.
-           * The array value represents the set of resources (also in unified resource name syntax) that are contained
-           * in the bundle. The array can contain JavaScript as well as other textual resource types (e.g. *.xml or
-           * *.json resources).
-           *
-           * When a module is required that has not been loaded yet, and for which a containing bundle is known, that
-           * bundle will be required first. Only then the original module will be required again and usually be taken
-           * from the just loaded bundle.
-           *
-           * A bundle will be loaded asynchronously only when the loader is in asynchronous mode and when the request
-           * for the contained module originates from an asynchronous API. In all other cases, the bundle has to be
-           * loaded synchronously to fulfill API contracts.
-           *
-           * **Note:** The loader only supports one containing bundle per module. If a module is declared to be part
-           * of multiple bundles, only the last one will be taken into account.
-           *
-           * **Note:** Although non-JS resources can be declared to be part of a bundle, only requests for JavaScript
-           * modules will currently trigger the loading of a bundle.
-           */
-          bundlesUI5?: Record<string, string[]>;
-          /**
-           * When set to true, `sap.ui.require` loads modules asynchronously via script tags and `sap.ui.define` executes
-           * asynchronously. To enable this feature, it is recommended to set the attribute `data-sap-ui-async="true"`
-           * on the application bootstrap tag.
-           *
-           * **Note:** Switching back from async to sync is not supported and trying to do so will throw an `Error`
-           */
-          async?: boolean;
-          /**
-           * When set to true, the ui5loader will overwrite the global properties `define` and `require` with its
-           * own implementations. Any previously active AMD loader will be remembered internally and can be restored
-           * by setting `amd` to false again.
-           *
-           * **Note:** Switching to the `amd` mode, the ui5loader will set `async` to true implicitly for activating
-           * asynchronous loading. Once the loading behaviour has been defined to be asynchronous, it can not be changed
-           * to synchronous behaviour again, also not via setting `amd` to false.
-           */
-          amd?: boolean;
-        }
-      ):
-        | {
-            amd: boolean;
-
-            async: boolean;
-
-            noConflict: boolean;
-          }
-        | undefined;
-    }
     /**
      * The SAPUI5 Data Binding API.
      *
@@ -87638,6 +87719,8 @@ declare namespace sap {
 
     "sap/ui/core/ComponentContainer": undefined;
 
+    "sap/ui/core/ComponentHooks": undefined;
+
     "sap/ui/core/ComponentMetadata": undefined;
 
     "sap/ui/core/ComponentRegistry": undefined;
@@ -87693,6 +87776,8 @@ declare namespace sap {
     "sap/ui/core/ExtensionPoint": undefined;
 
     "sap/ui/core/fieldhelp/FieldHelp": undefined;
+
+    "sap/ui/core/fieldhelp/FieldHelpCustomData": undefined;
 
     "sap/ui/core/fieldhelp/FieldHelpUtil": undefined;
 

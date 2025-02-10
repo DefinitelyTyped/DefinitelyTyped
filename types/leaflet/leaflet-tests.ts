@@ -36,6 +36,9 @@ latLngBounds = L.latLngBounds([latLng, latLng, latLng]);
 latLngBounds = new L.LatLngBounds(latLng, latLng);
 latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = new L.LatLngBounds(latLngTuple, latLngTuple);
+latLngBounds = new L.LatLngBounds(latLngBoundsLiteral);
+latLngBounds = new L.LatLngBounds([latLngLiteral, latLngLiteral, latLngLiteral]);
+latLngBounds = new L.LatLngBounds([latLng, latLng, latLng]);
 
 latLngBounds.equals(latLngBounds); // $ExpectType boolean
 latLngBounds.equals(latLngBounds, 3); // $ExpectType boolean
@@ -584,6 +587,7 @@ map = map
     .panBy(point)
     .panBy(pointTuple)
     .panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
+    .setMaxBounds()
     .setMaxBounds(latLngBounds)
     .setMaxBounds(latLngBoundsLiteral)
     .setMinZoom(5)

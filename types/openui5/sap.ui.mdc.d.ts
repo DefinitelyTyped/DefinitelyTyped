@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.132.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -150,13 +150,19 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   import Item from "sap/ui/mdc/chart/Item";
 
+  import Control from "sap/ui/core/Control";
+
+  import Context from "sap/ui/model/Context";
+
+  import ChartSelectionDetails from "sap/ui/mdc/chart/ChartSelectionDetails";
+
+  import FieldInfoBase from "sap/ui/mdc/field/FieldInfoBase";
+
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
   import FilterField from "sap/ui/mdc/FilterField";
 
   import Filter from "sap/ui/model/Filter";
-
-  import Control from "sap/ui/core/Control";
 
   import { URI } from "sap/ui/core/library";
 
@@ -180,7 +186,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
      */
     addItem(
       /**
-       * Reference to the MDC chart to add the property to
+       * Reference to the chart to which the property is added
        */
       oChart: Chart,
       /**
@@ -203,7 +209,11 @@ declare module "sap/ui/mdc/ChartDelegate" {
       /**
        * Reference to the chart
        */
-      oChart: Chart
+      oChart: Chart,
+      /**
+       * noDataControl which should be used
+       */
+      oControl: Control
     ): void;
     /**
      * Creates the initial content for the chart before the metadata is retrieved.
@@ -218,6 +228,9 @@ declare module "sap/ui/mdc/ChartDelegate" {
     ): void;
     /**
      * Binds the inner chart to the back-end data and creates the inner chart content.
+     *
+     *
+     * @returns Resolved once inner chart has been created
      */
     createInnerChartContent(
       /**
@@ -228,9 +241,53 @@ declare module "sap/ui/mdc/ChartDelegate" {
        * Callback function when data is loaded
        */
       fnCallbackDataLoaded: Function
-    ): void;
+    ): Promise<any>;
     /**
-     * Returns the relevant property info based on the metadata used with the chart instance.
+     * Determines if a given `SelectionDetailsItem` is enabled.
+     *
+     *
+     * @returns Boolean value that is forwarded to the enableNav property of the `SelectionDetailsItem`
+     */
+    determineEnableNavForDetailsItem(
+      /**
+       * Reference to the chart
+       */
+      oChart: Chart,
+      /**
+       * The data array of the selected item
+       */
+      mData: any[],
+      /**
+       * Binding context of the item in the selection. This is undefined if no binding is used
+       */
+      oContext: Context | undefined
+    ): boolean;
+    /**
+     * The provided map is used to determine the navigation behavior of the {@link sap.ui.mdc.chart.ChartSelectionDetails}.
+     * The navigation shows a list of all entries if more than 1 entry of {@link sap.ui.mdc.field.FieldInfoBase }
+     * is given in the map. If there is only one entry, the navigation goes directly to the content of the given
+     * {@link sap.ui.mdc.field.FieldInfoBase}.
+     *
+     *
+     * @returns Promise resolving in a `Map` containing a Name as key and a {@link sap.ui.mdc.field.FieldInfoBase }
+     * as value
+     */
+    fetchFieldInfos(
+      /**
+       * Reference to the chart
+       */
+      oChart: Chart,
+      /**
+       * Instance of the {@link sap.ui.mdc.chart.ChartSelectionDetails}
+       */
+      oSelectionDetails: ChartSelectionDetails,
+      /**
+       * Binding context of the `SelectionDetailsItem` to which is navigated
+       */
+      oBindingContext: Context
+    ): Promise<Map<string, FieldInfoBase>>;
+    /**
+     * Gets the relevant `PropertyInfo` objects based on the metadata used with the chart instance.
      *
      * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
      * Any changes of the returned values might result in undesired effects.
@@ -262,7 +319,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): ChartTypeObject[];
     /**
-     * Returns the binding info for given chart.
+     * Gets the binding info for a given chart.
      *
      *
      * @returns BindingInfo object
@@ -274,17 +331,19 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): AggregationBindingInfo;
     /**
-     * Returns the current chart type.
+     * Gets the current chart type.
      *
      *
-     * @returns Information about the current chart type
+     * @returns Information about the current chart type The object has the following properties:
+     * 	 - `icon` defines the path to the `icon`
+     * 	 - `text` (optional) defines tooltip of the chart type
      */
     getChartTypeInfo(
       /**
-       * Reference to the MDC chart
+       * Reference to the chart
        */
       oChart: Chart
-    ): ChartTypeObject[];
+    ): object;
     /**
      * This function is used by `P13n` to determine which chart type supports which layout options. There might
      * be chart types that do not support certain layout options (for example, "Axis3").
@@ -294,10 +353,10 @@ declare module "sap/ui/mdc/ChartDelegate" {
      */
     getChartTypeLayoutConfig(): ChartTypeLayoutConfig[];
     /**
-     * Determines which MDC items are drillable and returns them. This function is used by the breadcrumb navigation.
+     * Gets the drillable items. This function is used by the breadcrumb navigation.
      *
      *
-     * @returns Array of MDC items that are drillable
+     * @returns Array of items that are drillable
      */
     getDrillableItems(
       /**
@@ -306,21 +365,21 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): Item[];
     /**
-     * Returns the current drilling stack of the inner chart.
+     * Gets the current drilling stack of the inner chart.
      *  The returned objects need at least a `label` and a `name` property.
-     *  Also, a `dimension` array containing the dimension drill stack at the current level is required.
+     *  Also, a `dimension` array containing the dimension drilling stack at the current level is required.
      *
      *
-     * @returns Array containing the drill stack
+     * @returns Array containing the drilling stack
      */
     getDrillStack(
       /**
        * Reference to the chart
        */
       oChart: Chart
-    ): any[];
+    ): object[];
     /**
-     * Returns the filter delegate of the chart that provides basic filter functionality, such as adding filter
+     * Gets the filter delegate of the chart that provides basic filter functionality, such as adding filter
      * fields. **Note:** The functionality provided in this delegate acts as a subset of a `FilterBarDelegate`
      * to enable the chart for inbuilt filtering.
      *
@@ -332,8 +391,8 @@ declare module "sap/ui/mdc/ChartDelegate" {
       addItem: (p1: Chart, p2: string) => Promise<FilterField>;
     };
     /**
-     * Returns filters to be applied when updating the chart's binding based on the filter conditions of the
-     * chart itself and it's associated {@link sap.ui.mdc.IFilterSource IFilterSource}.
+     * Gets the filters that are applied when updating the chart's binding based on the filter conditions of
+     * the chart itself and its associated {@link sap.ui.mdc.IFilterSource IFilterSource}.
      *
      * @since 1.121
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -347,19 +406,19 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): Filter[];
     /**
-     * Returns the instance of the inner chart.
+     * Gets the instance of the inner chart.
      *
      *
      * @returns Instance of the inner chart
      */
     getInnerChart(
       /**
-       * Reference to the MDC chart
+       * Reference to the chart
        */
       oChart: Chart
     ): Control;
     /**
-     * Returns the information whether the inner chart is currently bound.
+     * Gets the information whether the inner chart is currently bound.
      *
      *
      * @returns `true` if inner chart is bound; `false` if not
@@ -371,7 +430,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): boolean;
     /**
-     * Returns the event handler for `SelectionDetails` as an object.
+     * Gets the event handler for `SelectionDetails` as an object.
      *
      *
      * @returns Event handler for SelectionDetails
@@ -383,7 +442,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): SelectionDetails;
     /**
-     * This function returns an ID that should be used in the internal chart for the Measure/Dimension.
+     * Gets an ID that is used in the internal chart for the measure/dimension.
      *  For standard cases, this is just the ID of the property.
      *  If it is necessary to use another ID internally inside the chart (for example, for duplicate property
      * IDs) this method can be overwritten.
@@ -407,8 +466,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): string;
     /**
-     * Maps an ID of an internal chart dimension/measure and type of a property to its corresponding property
-     * entry.
+     * Gets a `PropertyInfo` object based on an internal chart dimension/measure and type of a property.
      *
      *
      * @returns PropertyInfo object
@@ -428,18 +486,18 @@ declare module "sap/ui/mdc/ChartDelegate" {
       oChart: Chart
     ): PropertyInfo;
     /**
-     * Returns all sorted dimensions of an inner chart. This is used to determine possible drill-down dimensions
+     * Gets all sorted dimensions of an inner chart. This is used to determine possible drill-down dimensions
      * in the drill-down popover of the chart.
      *
      *
-     * @returns `Promise` containing an array of dimensions that is sorted
+     * @returns `Promise` containing an array of dimensions propertyInfo objects that is sorted
      */
     getSortedDimensions(
       /**
        * Reference to the chart
        */
       oChart: Chart
-    ): Promise<Item[]>;
+    ): Promise<PropertyInfo[]>;
     /**
      * Gets the current zooming information for the inner chart.
      *
@@ -507,7 +565,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
      */
     removeItem(
       /**
-       * Reference to the MDC chart from which property is removed
+       * Reference to the chart from which the property is removed
        */
       oChart: Chart,
       /**
@@ -589,7 +647,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
       sText: string
     ): void;
     /**
-     * Adds/Removes the busy overlay shown above the inner chart.
+     * Adds/Removes the busy overlay shown over the inner chart.
      */
     showOverlay(
       /**
@@ -602,8 +660,10 @@ declare module "sap/ui/mdc/ChartDelegate" {
       bShow: boolean
     ): void;
     /**
-     * Updates the binding info with the relevant filters.
-     *  By default, this method updates a given {@link sap.ui.base.ManagedObject.AggregationBindingInfo AggregationBindingInfo }
+     * Updates the binding info with the relevant filters and sorters.
+     *
+     *
+     * By default, this method updates a given {@link sap.ui.base.ManagedObject.AggregationBindingInfo AggregationBindingInfo }
      * with the return value from the delegate's own {@link module:sap/ui/mdc/ChartDelegate.getFilters getFilters}.
      */
     updateBindingInfo(
@@ -640,8 +700,6 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Chart `ChartTypeLayoutConfig` type.
-   *
-   * @experimental (since 1.80)
    */
   export type ChartTypeLayoutConfig = {
     /**
@@ -651,13 +709,11 @@ declare module "sap/ui/mdc/ChartDelegate" {
     /**
      * Layout configuration of chart type
      */
-    allowedLayoutOptions: string[];
+    allowedLayoutOptions: /* was: sap.ui.mdc.enums.ChartItemRoleType */ any[];
   };
 
   /**
-   * Chart `ChartTypeObject` type.
-   *
-   * @experimental (since 1.80)
+   * Defines the chart `ChartTypeObject` type.
    */
   export type ChartTypeObject = {
     /**
@@ -672,16 +728,10 @@ declare module "sap/ui/mdc/ChartDelegate" {
      * Name of the current chart type
      */
     text: string;
-    /**
-     * Whether the chart type is the one currently used
-     */
-    selected: boolean;
   };
 
   /**
    * Event handler for `SelectionDetails` popover.
-   *
-   * @experimental (since 1.80)
    */
   export type SelectionDetails = {
     /**
@@ -696,8 +746,6 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Chart `ZoomState` type.
-   *
-   * @experimental (since 1.80)
    */
   export type ZoomState = {
     /**
@@ -717,7 +765,9 @@ declare module "sap/ui/mdc/DefaultTypeMap" {
   /**
    * Generic {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration for simple use cases.
    *
-   * **Note:** This {@link module:sap/ui/mdc/util/TypeMap TypeMap} implementation contains the following types:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This {@link module:sap/ui/mdc/util/TypeMap TypeMap} implementation contains the following
+   * types:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -877,6 +927,16 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
      * Provides the possibility to customize / replace the internal content of a field
      * By default, this method returns suitable controls for the given {@link sap.ui.mdc.enums.BaseType BaseType},
      * {@link sap.ui.mdc.field.FieldBase#setMaxConditions maxConditions} and {@link sap.ui.mdc.enums.ContentMode ContentMode}.
+     *
+     * **Note:** Bind the value-holding property of the control to `'$field>/conditions'` using {@link sap.ui.mdc.field.ConditionsType ConditionsType }
+     * as type.
+     *
+     * If the control needs to show multiple conditions, bind its aggregation to '$field>/conditions'.
+     * Bind the item controls value-holding property using {@link sap.ui.mdc.field.ConditionType ConditionType }
+     * as type.
+     *
+     * **Warning:** The returned controls must implement {@link sap.ui.core.IFormContent IFormContent}. Other
+     * controls might lead to layouting or usabillity issues.
      *
      * @since 1.124.0
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -1360,7 +1420,6 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
    * Delegate for {@link sap.ui.mdc.MultiValueField MultiValueField}.
    *
    * @since 1.93.0
-   * @experimental (since 1.93)
    */
   interface MultiValueFieldDelegate extends FieldBaseDelegate {
     /**
@@ -1684,7 +1743,11 @@ declare module "sap/ui/mdc/LinkDelegate" {
        * Instance of the `Panel`
        */
       oPanel: /* was: sap.ui.mdc.link.Panel */ any
-    ): any;
+    ): Promise<{
+      sTitle: string;
+
+      oLabelledByControl: Control;
+    }>;
     /**
      * Allows to differenciate the created `Panel` of multiple `Link` instances for personalization reasons.
      * Please provide different IDs for each `Link` as otherwise the personalization will have problems keeping
@@ -1732,7 +1795,8 @@ declare module "sap/ui/mdc/odata/TypeMap" {
   /**
    * OData-specific {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration.
    *
-   * **Note:** This `TypeMap` implementation contains the following types:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This `TypeMap` implementation contains the following types:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -1774,7 +1838,10 @@ declare module "sap/ui/mdc/odata/TypeMap" {
 declare module "sap/ui/mdc/odata/v4/TableDelegate" {
   import TableDelegate1 from "sap/ui/mdc/TableDelegate";
 
-  import { default as Table, TablePropertyInfo } from "sap/ui/mdc/Table";
+  import {
+    default as Table,
+    PropertyInfo as PropertyInfo1,
+  } from "sap/ui/mdc/Table";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -1784,38 +1851,42 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
    * Base delegate for {@link sap.ui.mdc.Table} and `ODataV4`. Extend this object in your project to use all
    * functionalities of the table. For more information, please see {@link module:sap/ui/mdc/TableDelegate}.
    *
-   * **Note:** This base delegate supports the `p13nMode` `Aggregate` only if the table type is {@link sap.ui.mdc.table.GridTableType GridTable},
-   * and the `p13nMode` `Group` is not supported if the table type is {@link sap.ui.mdc.table.TreeTableType TreeTable}.
+   * Data aggregation is enabled if the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, and
+   * at least one of the following conditions is fulfilled:
+   * 	 - `p13nMode` `Group` is enabled
+   * 	 - `p13nMode` `Aggregate` is enabled
+   * 	 - The table has group conditions
+   * 	 - The table has aggregate conditions
+   *
+   * Data aggregation can be configured via the delegate payload by providing `aggregationConfiguration`.
+   * See {@link sap.ui.mdc.odata.v4.TableDelegate.Payload} for details.
+   *
+   * Sample delegate object:
+   * ```javascript
+   * {
+   * 	name: "my/delegate/extending/sap/ui/mdc/odata/v4/TableDelegate",
+   * 	payload: {
+   * 		aggregationConfiguration: {
+   * 			leafLevel: true
+   * 		},
+   * 		...
+   * 	}
+   * }```
+   *
+   *
+   * If data aggregation is enabled, the following restrictions apply:
+   * 	 - Only properties that are technically groupable or technically aggregatable are loaded from the back
+   *     end. See {@link sap.ui.mdc.odata.v4.TableDelegate.PropertyInfo} for more information about properties.
+   *
+   * 	 - The path of a property must not contain a `NavigationProperty`.
+   *
+   * **Note:** This base delegate supports the `p13nMode` `Aggregate` only if the table type is {@link sap.ui.mdc.table.GridTableType GridTable}.
+   * The `p13nMode` `Group` is not supported if the table type is {@link sap.ui.mdc.table.TreeTableType TreeTable}.
    * This cannot be changed in your delegate implementation.
-   *  If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, and `p13nMode` `Group` or `p13nMode`
-   * `Aggregate` is enabled, only groupable or aggregatable properties are loaded from the back end. Also,
-   * the path of a property must not contain a `NavigationProperty`.
    *
    * @since 1.85
    */
   interface TableDelegate extends TableDelegate1 {
-    /**
-     * Collapses all rows.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    collapseAllRows(
-      /**
-       * Instance of the table
-       */
-      oTable: Table
-    ): void;
-    /**
-     * Expands all rows.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    expandAllRows(
-      /**
-       * Instance of the table
-       */
-      oTable: Table
-    ): void;
     /**
      * Retrieves information about the relevant properties.
      *
@@ -1830,7 +1901,7 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
        * Instance of the table
        */
       oTable: Table
-    ): Promise<TablePropertyInfo[]>;
+    ): Promise<PropertyInfo[]>;
     /**
      * Returns the keys of properties that should always be included in the result of the collection requested
      * from the back end. This information is applied when updating the table's binding.
@@ -1843,11 +1914,9 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
      *  The path of a property must not be empty.
      *  If a property is complex, the properties it references are taken into account.
      *  If `autoExpandSelect` of the {@link sap.ui.model.odata.v4.ODataModel} is not enabled, this method must
-     * return an empty array. If the table type is {@link sap.ui.mdc.table.GridTableType GridTable} and `p13nMode`
-     * `Group` or `p13nMode` `Aggregate` is enabled, referenced properties, for example, properties that are
-     * referenced via `text` or `unit`, are also included in the result. Please also see the restrictions in
-     * the description of the {@link module:sap/ui/mdc/odata/v4/TableDelegate TableDelegate}.
-     *  For more information about properties, see {@link sap.ui.mdc.odata.v4.TablePropertyInfo PropertyInfo}.
+     * return an empty array. See also the restrictions in the description of the {@link module:sap/ui/mdc/odata/v4/TableDelegate TableDelegate }
+     * if data aggregation is enabled.
+     *  For more information about properties, see {@link sap.ui.mdc.odata.v4.TableDelegate.PropertyInfo PropertyInfo}.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -1901,6 +1970,82 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
   }
   const TableDelegate: TableDelegate;
   export default TableDelegate;
+
+  /**
+   * Payload for the {@link module:sap/ui/mdc/odata/v4/TableDelegate ODataV4 TableDelegate}. Contains settings
+   * to control the behavior of the delegate.
+   *
+   * @since 1.132
+   */
+  export type Payload = {
+    /**
+     * The configuration that is applied if data aggregation is enabled in the delegate.
+     */
+    aggregationConfiguration?: {
+      /**
+       * Determines whether aggregation on the leaf level is enabled. If it is enabled, every column change affects
+       * the data in the table.
+       */
+      leafLevel?: boolean;
+    };
+  };
+
+  /**
+   * An object literal describing a data property in the context of a {@link sap.ui.mdc.Table} with {@link module:sap/ui/mdc/odata/v4/TableDelegate sap/ui/mdc/odata/v4/TableDelegate}.
+   *
+   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.Table#getPropertyInfo propertyInfo }
+   * property, the following attributes need to be specified:
+   * 	 - `key`
+   * 	 - `path`
+   * 	 - `dataType`
+   * 	 - `formatOptions`
+   * 	 - `constraints`
+   * 	 - `maxConditions`
+   * 	 - `caseSensitive`
+   * 	 - `visualSettings.widthCalculation`
+   * 	 - `propertyInfos`
+   * 	 - `groupable`
+   * 	 - `isKey`
+   * 	 - `unit`
+   * 	 - `text`
+   * 	 - `aggregatable`
+   * 	 - `extension.technicallyGroupable`
+   * 	 - `extension.technicallyAggregatable`
+   *
+   * If the property is complex, the following attributes need to be specified:
+   * 	 - `key`
+   * 	 - `visualSettings.widthCalculation`
+   * 	 - `propertyInfos` (all referenced properties must be specified)
+   */
+  export type PropertyInfo = PropertyInfo1 & {
+    /**
+     * Defines whether a property is a key or part of a key in the data. A key property must be technically
+     * groupable.
+     */
+    isKey?: boolean;
+    /**
+     * Defines whether the property is aggregatable. A property can only be declared aggregatable if there is
+     * a `CustomAggregate` whose `Qualifier` is equal to the property key.
+     */
+    aggregatable?: boolean;
+    /**
+     * Contains model-specific information.
+     */
+    extension?: {
+      /**
+       * If `groupable` is set to `false` to exclude it from group personalization on the UI, the UI still needs
+       * to know that this property is groupable for data requests. If this attribute is not set, the default
+       * value is the same as the value of `groupable`.
+       */
+      technicallyGroupable?: boolean;
+      /**
+       * If `aggregatable` is set to `false` to exclude it from aggregate personalization on the UI, the UI still
+       * needs to know that this property is aggregatable for data requests. If this attribute is not set, the
+       * default value is the same as the value of `aggregatable`.
+       */
+      technicallyAggregatable?: boolean;
+    };
+  };
 }
 
 declare module "sap/ui/mdc/odata/v4/TypeMap" {
@@ -1909,7 +2054,8 @@ declare module "sap/ui/mdc/odata/v4/TypeMap" {
   /**
    * ODataV4-specific {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration.
    *
-   * **Note:** This `TypeMap` implementation contains the following types including ODataV4-specific configuration:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This `TypeMap` implementation contains the following types including ODataV4-specific configuration:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -2007,36 +2153,39 @@ declare module "sap/ui/mdc/TableDelegate" {
        */
       oTable: Table | Element,
       /**
-       * The property name
+       * The property key
        */
-      sPropertyName: string,
+      sPropertyKey: string,
       /**
        * Instance of a property bag from the SAPUI5 flexibility API
        */
       mPropertyBag?: Object
     ): Promise<Column>;
     /**
-     * Collapses all rows.
+     * Returns the feature set for expanding or collapsing nodes in the table.
+     *
+     * By default, this method returns an empty object.
+     *
+     * To enable specific functionalities, the configuration must contain the following functions:
+     * 	 - To enable **Expand Entire Tree**, the `expandAll` function needs to be implemented.
+     * 	 - To enable **Collapse Entire Tree**, the `collapseAll` function needs to be implemented.
+     * 	 - To enable **Expand Entire Node**, the `expandAllFromNode` and `isNodeExpanded` functions need to
+     *     be implemented.
+     * 	 - To enable **Collapse Entire Node**, the `collapseAllFromNode` and `isNodeExpanded` functions need
+     *     to be implemented.
+     *
+     * **Note:** Expand and collapse all from a specific node is only supported if the table rows are selectable.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    collapseAllRows(
-      /**
-       * Instance of the table
-       */
-      oTable: Table
-    ): void;
-    /**
-     * Expands all rows.
      *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     * @returns A `Promise` that resolves with an object containing the expand and collapse functions
      */
-    expandAllRows(
+    fetchExpandAndCollapseConfiguration(
       /**
-       * Instance of the table
+       * Table instance
        */
       oTable: Table
-    ): void;
+    ): Promise<ExpandAndCollapseConfiguration>;
     /**
      * Returns the feature set for exporting data in the table.
      *
@@ -2092,9 +2241,9 @@ declare module "sap/ui/mdc/TableDelegate" {
        */
       oContext: Context,
       /**
-       * Name of the grouped property
+       * Key of the grouped property
        */
-      sProperty: string
+      sPropertyKey: string
     ): string;
     /**
      * Returns the filter delegate of the table that provides basic filter functionality, such as adding filter
@@ -2230,6 +2379,44 @@ declare module "sap/ui/mdc/TableDelegate" {
   }
   const TableDelegate: TableDelegate;
   export default TableDelegate;
+
+  /**
+   * Represents the expand and collapse configuration object.
+   *
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   */
+  export type ExpandAndCollapseConfiguration = {
+    /**
+     * Function to expand all rows
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    expandAll?: (p1: Table) => void;
+    /**
+     * Function to collapse all rows
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    collapseAll?: (p1: Table) => void;
+    /**
+     * Function to expand all rows from a specific node
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    expandAllFromNode?: (p1: Table, p2: Context) => void;
+    /**
+     * Function to collapse all rows from a specific node
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    collapseAllFromNode?: (p1: Table, p2: Context) => void;
+    /**
+     * Function to check if a specific node is expanded
+     *
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     */
+    isNodeExpanded?: (p1: Table, p2: Context) => void;
+  };
 }
 
 declare module "sap/ui/mdc/util/TypeMap" {
@@ -2240,6 +2427,8 @@ declare module "sap/ui/mdc/util/TypeMap" {
   /**
    * Configuration class for type handling in delegates. Allows mapping of model types to {@link sap.ui.mdc.enums.BaseType }
    * and enables model-specific type configuration.
+   *
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
    *
    * @since 1.114.0
    */
@@ -2323,8 +2512,6 @@ declare module "sap/ui/mdc/util/TypeMap" {
     ): BaseType | keyof typeof BaseType;
     /**
      * Gets a data type class based on a given name.
-     *
-     * **Note:** The module of the data type needs to be loaded before.
      *
      *
      * @returns Corresponding data type class
@@ -2743,7 +2930,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * This might be extended with payload-dependent filters.
      *
      * @since 1.101.0
-     * @deprecated - (since 1.118.0) - replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.findConditionsForContext findConditionsForContext}
+     * @deprecated (since 1.118) - replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.findConditionsForContext findConditionsForContext}.
      *
      * @returns `true` if item is selected
      */
@@ -3535,173 +3722,6 @@ declare module "sap/ui/mdc/library" {
   }
 }
 
-declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import { IOverflowToolbarContent } from "sap/m/library";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  /**
-   * The action for an {@link sap.ui.mdc.ActionToolbar ActionToolbar} control with given layout information
-   * that determines where the wrapped control is displayed on the `ActionToolbar`.
-   *
-   * @since 1.58
-   * @experimental
-   */
-  export default class ActionToolbarAction
-    extends Control
-    implements IOverflowToolbarContent
-  {
-    __implements__sap_m_IOverflowToolbarContent: boolean;
-    /**
-     * Constructor for a new ActionToolbarAction.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $ActionToolbarActionSettings
-    );
-    /**
-     * Constructor for a new ActionToolbarAction.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * ID for the new control, generated automatically if no ID is given
-       */
-      sId?: string,
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $ActionToolbarActionSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.mdc.actiontoolbar.ActionToolbarAction with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ActionToolbarAction>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.mdc.actiontoolbar.ActionToolbarAction.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Destroys the action in the aggregation {@link #getAction action}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyAction(): this;
-    /**
-     * Gets content of aggregation {@link #getAction action}.
-     *
-     * The control that is displayed on the `ActionToolbar`.
-     */
-    getAction(): Control;
-    /**
-     * Gets current value of property {@link #getLayoutInformation layoutInformation}.
-     *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     *
-     * Default value is `...see text or source`.
-     *
-     *
-     * @returns Value of property `layoutInformation`
-     */
-    getLayoutInformation(): object;
-    /**
-     * Observes changes in `Action` aggregation.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    observeChanges(
-      /**
-       * Changes
-       */
-      oChanges: object
-    ): void;
-    /**
-     * Sets the aggregated {@link #getAction action}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setAction(
-      /**
-       * The action to set
-       */
-      oAction: Control
-    ): this;
-    /**
-     * Sets a new value for property {@link #getLayoutInformation layoutInformation}.
-     *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `...see text or source`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setLayoutInformation(
-      /**
-       * New value for property `layoutInformation`
-       */
-      oLayoutInformation?: object
-    ): this;
-  }
-  /**
-   * Describes the settings that can be provided to the ActionToolbarAction constructor.
-   *
-   * @experimental
-   */
-  export interface $ActionToolbarActionSettings extends $ControlSettings {
-    /**
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     */
-    layoutInformation?: object | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * The control that is displayed on the `ActionToolbar`.
-     */
-    action?: Control;
-  }
-}
-
 declare module "sap/ui/mdc/Chart" {
   import { default as Control, $ControlSettings } from "sap/ui/mdc/Control";
 
@@ -3754,6 +3774,9 @@ declare module "sap/ui/mdc/Chart" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/52d065ab8bb740c58c834a0c985e3b9e Chart Building Block (OData V4)}
      */
     constructor(
       /**
@@ -3767,6 +3790,9 @@ declare module "sap/ui/mdc/Chart" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/52d065ab8bb740c58c834a0c985e3b9e Chart Building Block (OData V4)}
      */
     constructor(
       /**
@@ -4058,15 +4084,18 @@ declare module "sap/ui/mdc/Chart" {
      * Gets content of aggregation {@link #getItems items}.
      *
      * This property describes the measures and dimensions visible in the chart. Changes in the personalization
-     * are also reflected here. **Note:** This aggregation is managed by the control, can only be populated
-     * during the definition in the XML view, and is not bindable. Any changes of the initial aggregation content
-     * might result in undesired effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     * are also reflected here.
+     *
+     * **Note:** This aggregation is managed by the control, can only be populated during the definition in
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
+     * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     getItems(): Item[];
     /**
      * Gets current value of property {@link #getLegendVisible legendVisible}.
      *
-     * Enables the legend of the chart. **Note:** The setter calls `setLegendVisible` of the delegate class.
+     * Enables the legend of the chart.
+     *  **Note:** The setter calls `setLegendVisible` of the delegate class.
      *
      * Default value is `true`.
      *
@@ -4078,7 +4107,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Gets current value of property {@link #getMinHeight minHeight}.
      *
-     * Defines the minimum height.
+     * Defines the minimum height of the chart.
      *
      * Default value is `"400px"`.
      *
@@ -4089,7 +4118,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
-     * Defines the minimum width.
+     * Defines the minimum width of the chart.
      *
      * Default value is `"240px"`.
      *
@@ -4137,15 +4166,16 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Gets content of aggregation {@link #getSelectionDetailsActions selectionDetailsActions}.
      *
-     * Feeds details actions for data point selection in the mdc chart.
+     * Feeds details popover actions for data point selection in the chart.
      *  For more information, see {@link sap.ui.mdc.chart.SelectionDetailsActions SelectionDetailsActions}.
      */
     getSelectionDetailsActions(): SelectionDetailsActions;
     /**
      * Gets current value of property {@link #getShowChartTooltip showChartTooltip}.
      *
-     * Controls the visibility of the chart tooltip. If set to `true`, a call of the `delegate.setChartTooltipVisibility`
-     * will be triggered and can be used to make the `Chart` tooltip visible.
+     * Controls the visibility of the chart tooltip.
+     *  **Note:** If set to `true`, a call of the `delegate.setChartTooltipVisibility` is triggered and can
+     * be used to make the `Chart` tooltip visible.
      *
      * Default value is `true`.
      *
@@ -4165,12 +4195,6 @@ declare module "sap/ui/mdc/Chart" {
      * @returns Value of property `showSelectionDetails`
      */
     getShowSelectionDetails(): boolean;
-    /**
-     * Gets content of aggregation {@link #getVariant variant}.
-     *
-     * Reference to a {@link sap.ui.fl.variants.VariantManagement} control for the chart.
-     */
-    getVariant(): VariantManagement;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -4396,7 +4420,8 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Sets a new value for property {@link #getLegendVisible legendVisible}.
      *
-     * Enables the legend of the chart. **Note:** The setter calls `setLegendVisible` of the delegate class.
+     * Enables the legend of the chart.
+     *  **Note:** The setter calls `setLegendVisible` of the delegate class.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4415,7 +4440,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Sets a new value for property {@link #getMinHeight minHeight}.
      *
-     * Defines the minimum height.
+     * Defines the minimum height of the chart.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4433,7 +4458,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Sets a new value for property {@link #getMinWidth minWidth}.
      *
-     * Defines the minimum width.
+     * Defines the minimum width of the chart.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4496,8 +4521,9 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * Sets a new value for property {@link #getShowChartTooltip showChartTooltip}.
      *
-     * Controls the visibility of the chart tooltip. If set to `true`, a call of the `delegate.setChartTooltipVisibility`
-     * will be triggered and can be used to make the `Chart` tooltip visible.
+     * Controls the visibility of the chart tooltip.
+     *  **Note:** If set to `true`, a call of the `delegate.setChartTooltipVisibility` is triggered and can
+     * be used to make the `Chart` tooltip visible.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4586,38 +4612,9 @@ declare module "sap/ui/mdc/Chart" {
      */
     aggregatable: boolean;
     /**
-     * The aggregation method used if the property is aggregatable
-     */
-    aggregationMethod?: string;
-    /**
      * Defines the role that the property visualizes inside the chart
      */
     role: string;
-    /**
-     * Implementation-specific object containing information about the data point
-     */
-    datapoint?: object;
-    /**
-     * Implementation-specific object containing information about the criticality
-     */
-    criticality?: object;
-    /**
-     * The text property used for the dimension
-     */
-    textProperty?: string;
-    /**
-     * The text formatter object which can be used to format the textProperty
-     */
-    textFormatter?: object;
-    /**
-     * The name of the unit property which will be used to display and format measure values with a unit value
-     * on a selectionDetails popover
-     */
-    unitPath?: object;
-    /**
-     * The `timeUnitType` type for a `TimeDimension`. If set, a `TimeDimension` is created instead of a `Dimension`
-     */
-    timeUnitType?: string;
   };
 
   /**
@@ -4679,7 +4676,8 @@ declare module "sap/ui/mdc/Chart" {
       | `{${string}}`;
 
     /**
-     * Enables the legend of the chart. **Note:** The setter calls `setLegendVisible` of the delegate class.
+     * Enables the legend of the chart.
+     *  **Note:** The setter calls `setLegendVisible` of the delegate class.
      *
      * @since 1.88
      */
@@ -4696,12 +4694,12 @@ declare module "sap/ui/mdc/Chart" {
       | `{${string}}`;
 
     /**
-     * Defines the minimum width.
+     * Defines the minimum width of the chart.
      */
     minWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the minimum height.
+     * Defines the minimum height of the chart.
      */
     minHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
@@ -4726,8 +4724,9 @@ declare module "sap/ui/mdc/Chart" {
     filterConditions?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Controls the visibility of the chart tooltip. If set to `true`, a call of the `delegate.setChartTooltipVisibility`
-     * will be triggered and can be used to make the `Chart` tooltip visible.
+     * Controls the visibility of the chart tooltip.
+     *  **Note:** If set to `true`, a call of the `delegate.setChartTooltipVisibility` is triggered and can
+     * be used to make the `Chart` tooltip visible.
      *
      * @since 1.88
      */
@@ -4756,9 +4755,8 @@ declare module "sap/ui/mdc/Chart" {
      *  **Note**: Existing properties (set via `sap.ui.mdc.Chart#setPropertyInfo`) must not be removed and their
      * attributes must not be changed during the {@link module:sap/ui/mdc/ChartDelegate.fetchProperties fetchProperties }
      * callback. Otherwise validation errors might occur whenever personalization-related control features (such
-     * as the opening of any personalization dialog) are activated.
-     *
-     * **Note**: For more information about the supported inner elements, see {@link sap.ui.mdc.chart.PropertyInfo PropertyInfo}.
+     * as the opening of any personalization dialog) are activated. **Note**: For more information about the
+     * supported inner elements, see {@link sap.ui.mdc.chart.PropertyInfo PropertyInfo}.
      *
      * @since 1.99
      */
@@ -4795,9 +4793,11 @@ declare module "sap/ui/mdc/Chart" {
 
     /**
      * This property describes the measures and dimensions visible in the chart. Changes in the personalization
-     * are also reflected here. **Note:** This aggregation is managed by the control, can only be populated
-     * during the definition in the XML view, and is not bindable. Any changes of the initial aggregation content
-     * might result in undesired effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     * are also reflected here.
+     *
+     * **Note:** This aggregation is managed by the control, can only be populated during the definition in
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
+     * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     items?: Item[] | Item | AggregationBindingInfo | `{${string}}`;
 
@@ -4812,7 +4812,7 @@ declare module "sap/ui/mdc/Chart" {
     actions?: Control1[] | Control1 | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Feeds details actions for data point selection in the mdc chart.
+     * Feeds details popover actions for data point selection in the chart.
      *  For more information, see {@link sap.ui.mdc.chart.SelectionDetailsActions SelectionDetailsActions}.
      */
     selectionDetailsActions?: SelectionDetailsActions;
@@ -5240,8 +5240,7 @@ declare module "sap/ui/mdc/chart/Item" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The `Item` control for the chart/property metadata used within MDC Chart. An instance can be created
-   * to override the default/metadata behavior.
+   * The `Item` control for the chart/property metadata used within MDC Chart.
    *
    * @since 1.88
    * @experimental (since 1.88)
@@ -5322,8 +5321,7 @@ declare module "sap/ui/mdc/chart/Item" {
     /**
      * Gets current value of property {@link #getName name}.
      *
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of the property in the PropertyInfo.
      *
      * @deprecated (since 1.115) - Please use `propertyKey` instead.
      *
@@ -5333,8 +5331,7 @@ declare module "sap/ui/mdc/chart/Item" {
     /**
      * Gets current value of property {@link #getPropertyKey propertyKey}.
      *
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of property in the PropertyInfo.
      *
      * @since 1.115
      *
@@ -5357,8 +5354,6 @@ declare module "sap/ui/mdc/chart/Item" {
      *
      * Specifies the type of the item for the chart (groupable and aggregatable). This is specific for the used
      * chart library.
-     *
-     * Default value is `empty string`.
      *
      *
      * @returns Value of property `type`
@@ -5384,8 +5379,7 @@ declare module "sap/ui/mdc/chart/Item" {
     /**
      * Sets a new value for property {@link #getName name}.
      *
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of the property in the PropertyInfo.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5402,8 +5396,7 @@ declare module "sap/ui/mdc/chart/Item" {
     /**
      * Sets a new value for property {@link #getPropertyKey propertyKey}.
      *
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of property in the PropertyInfo.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5443,8 +5436,6 @@ declare module "sap/ui/mdc/chart/Item" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `empty string`.
-     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5452,7 +5443,7 @@ declare module "sap/ui/mdc/chart/Item" {
       /**
        * New value for property `type`
        */
-      sType?: string
+      sType: string
     ): this;
   }
   /**
@@ -5462,16 +5453,14 @@ declare module "sap/ui/mdc/chart/Item" {
    */
   export interface $ItemSettings extends $ElementSettings {
     /**
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of the property in the PropertyInfo.
      *
      * @deprecated (since 1.115) - Please use `propertyKey` instead.
      */
     name?: string | PropertyBindingInfo;
 
     /**
-     * The unique identifier of the chart item that reflects the name of the data property in the resulting
-     * data set.
+     * The unique identifier of the chart item that reflects the name of property in the PropertyInfo.
      *
      * @since 1.115
      */
@@ -6986,7 +6975,6 @@ declare module "sap/ui/mdc/enums/ActionToolbarActionAlignment" {
    * Defines the alignment of the `ActionToolbarAction` action control.
    *
    * @since 1.115
-   * @experimental (since 1.115)
    */
   enum ActionToolbarActionAlignment {
     /**
@@ -7356,7 +7344,7 @@ declare module "sap/ui/mdc/enums/OperatorName" {
     /**
      * "empty" operator
      *
-     * The operator is available for string types.
+     * The operator is available for string, date, and date/time types.
      *
      * @since 1.73.0
      */
@@ -7461,6 +7449,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     LASTDAYS = "LASTDAYS",
     /**
+     * "Last X Days" operator including current day
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTDAYSINCLUDED = "LASTDAYSINCLUDED",
+    /**
      * "Last Day in This Week" operator
      *
      * The operator is available for date and date/time types.
@@ -7485,6 +7481,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     LASTHOURS = "LASTHOURS",
     /**
+     * "Last X Hours" operator including current hour
+     *
+     * The operator is available for date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTHOURSINCLUDED = "LASTHOURSINCLUDED",
+    /**
      * "Last X Minutes" operator
      *
      * The operator is available for date/time types.
@@ -7492,6 +7496,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.112.0
      */
     LASTMINUTES = "LASTMINUTES",
+    /**
+     * "Last X Minutes" operator including current minute
+     *
+     * The operator is available for date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTMINUTESINCLUDED = "LASTMINUTESINCLUDED",
     /**
      * "Last Month" operator
      *
@@ -7509,6 +7521,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     LASTMONTHS = "LASTMONTHS",
     /**
+     * "Last X Months" operator including current month
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTMONTHSINCLUDED = "LASTMONTHSINCLUDED",
+    /**
      * "Last Quarter" operator
      *
      * The operator is available for date and date/time types.
@@ -7524,6 +7544,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.74.0
      */
     LASTQUARTERS = "LASTQUARTERS",
+    /**
+     * "Last X Quarters" operator including current quarter
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTQUARTERSINCLUDED = "LASTQUARTERSINCLUDED",
     /**
      * "Last Week" operator
      *
@@ -7541,6 +7569,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     LASTWEEKS = "LASTWEEKS",
     /**
+     * "Last X Weeks" operator including current week
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTWEEKSINCLUDED = "LASTWEEKSINCLUDED",
+    /**
      * "Last Year" operator
      *
      * The operator is available for date and date/time types.
@@ -7556,6 +7592,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.74.0
      */
     LASTYEARS = "LASTYEARS",
+    /**
+     * "Last X Years" operator including current year
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    LASTYEARSINCLUDED = "LASTYEARSINCLUDED",
     /**
      * "less than or equal to" operator
      *
@@ -7593,6 +7637,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     NEXTDAYS = "NEXTDAYS",
     /**
+     * "Next X Days" operator including current day
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTDAYSINCLUDED = "NEXTDAYSINCLUDED",
+    /**
      * "Next X Hours" operator
      *
      * The operator is available for date/time types.
@@ -7601,6 +7653,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     NEXTHOURS = "NEXTHOURS",
     /**
+     * "Next X Hours" operator including current hour
+     *
+     * The operator is available for date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTHOURSINCLUDED = "NEXTHOURSINCLUDED",
+    /**
      * "Next X Minutes" operator
      *
      * The operator is available for date/time types.
@@ -7608,6 +7668,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.112.0
      */
     NEXTMINUTES = "NEXTMINUTES",
+    /**
+     * "Next X Minutes" operator including current minute
+     *
+     * The operator is available for date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTMINUTESINCLUDED = "NEXTMINUTESINCLUDED",
     /**
      * "Next Month" operator
      *
@@ -7625,6 +7693,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     NEXTMONTHS = "NEXTMONTHS",
     /**
+     * "Next X Months" operator including current month
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTMONTHSINCLUDED = "NEXTMONTHSINCLUDED",
+    /**
      * "Next Quarter" operator
      *
      * The operator is available for date and date/time types.
@@ -7640,6 +7716,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.74.0
      */
     NEXTQUARTERS = "NEXTQUARTERS",
+    /**
+     * "Next X Quarters" operator including current quarter
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTQUARTERSINCLUDED = "NEXTQUARTERSINCLUDED",
     /**
      * "Next Week" operator
      *
@@ -7657,6 +7741,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      */
     NEXTWEEKS = "NEXTWEEKS",
     /**
+     * "Next X Weeks" operator including current week
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTWEEKSINCLUDED = "NEXTWEEKSINCLUDED",
+    /**
      * "Next Year" operator
      *
      * The operator is available for date and date/time types.
@@ -7672,6 +7764,14 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.74.0
      */
     NEXTYEARS = "NEXTYEARS",
+    /**
+     * "Next X Years" operator including current year
+     *
+     * The operator is available for date and date/time types.
+     *
+     * @since 1.131.0
+     */
+    NEXTYEARSINCLUDED = "NEXTYEARSINCLUDED",
     /**
      * "not between" operator
      *
@@ -7694,7 +7794,7 @@ declare module "sap/ui/mdc/enums/OperatorName" {
     /**
      * "not empty" operator
      *
-     * The operator is available for string types.
+     * The operator is available for string, date, and date/time types.
      *
      * @since 1.73.0
      */
@@ -8034,6 +8134,12 @@ declare module "sap/ui/mdc/enums/TableRowCountMode" {
      * A fixed number of rows is shown
      */
     Fixed = "Fixed",
+    /**
+     * The user can change the number of displayed rows by dragging a resizer
+     *
+     * @since 1.130
+     */
+    Interactive = "Interactive",
   }
   export default TableRowCountMode;
 }
@@ -8158,7 +8264,8 @@ declare module "sap/ui/mdc/Field" {
    * 	 - In display mode, usually a {@link sap.m.Text Text} control is rendered.
    * 	 - If `multipleLines` is set, an {@link sap.m.ExpandableText ExpandableText} control is rendered.
    * 	 - If `fieldInfo` is set and it is configured to be triggerable, a {@link sap.m.Link Link} control is
-   *     rendered.
+   *     rendered. The `multipleLines` property is forwarded to the `wrapping` property of the {@link sap.m.Link Link }
+   *     control.
    * 	 - In edit mode, usually an {@link sap.m.Input Input} control is rendered.
    * 	 - If `multipleLines` is set, a {@link sap.m.TextArea TextArea} control is rendered.
    * 	 - If a date type is used, a {@link sap.m.DatePicker DatePicker} control is rendered.
@@ -8182,6 +8289,9 @@ declare module "sap/ui/mdc/Field" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/5260b9ca249f465ab33769b9edb442aa Field Building Block (OData V4)}
      */
     constructor(
       /**
@@ -8195,6 +8305,9 @@ declare module "sap/ui/mdc/Field" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/5260b9ca249f465ab33769b9edb442aa Field Building Block (OData V4)}
      */
     constructor(
       /**
@@ -8312,7 +8425,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8385,7 +8499,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Conditions of the field
      */
@@ -8398,7 +8513,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The type in the binding to
+     * the `value` property is used.
      *
      * @returns Value of property `dataType`
      */
@@ -8411,8 +8527,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `Constraints` of the type
+     * in the binding to the `value` property is used.
      *
      * @returns Value of property `dataTypeConstraints`
      */
@@ -8425,8 +8541,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `FormatOptions` of the
+     * type in the binding to the `value` property is used.
      *
      * @returns Value of property `dataTypeFormatOptions`
      */
@@ -8466,7 +8582,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8484,7 +8601,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The type in the binding to
+     * the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8502,8 +8620,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `Constraints` of the type
+     * in the binding to the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8521,8 +8639,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `FormatOptions` of the
+     * type in the binding to the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8535,7 +8653,7 @@ declare module "sap/ui/mdc/Field" {
     /**
      * This property must not be set for the `Field`
      *
-     * @deprecated - Not supported, this property is not supported for the `Field`.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`.
      *
      * @returns `this` to allow method chaining.
      */
@@ -8575,7 +8693,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8627,14 +8746,19 @@ declare module "sap/ui/mdc/Field" {
     value?: string;
 
     /**
-     * Flag that indicates if the entered `value` is valid
+     * Flag that indicates if the entered `value` is valid.
+     *
+     * This flag is only set if the user input is parsed and validated synchronously. If there is some asynchronous
+     * parsing or validation, for example, via request to a back-end system, the validation result will be returned
+     * in the `promise` parameter.
      */
     valid?: boolean;
 
     /**
      * Returns a `Promise` for the change. The `Promise` returns the value if it is resolved. If the `change`
      * event is synchronous, the `Promise` has already been already resolved. If it is asynchronous, it will
-     * be resolved after the value has been updated.
+     * be resolved after the value has been updated. If the user input is not valid, the `Promise` will be rejected
+     * with the corresponding exception.
      *
      * The `Field` should be set to busy during the parsing to prevent user input. As there might be a whole
      * group of fields that needs to be busy, this cannot be done automatically.
@@ -9313,6 +9437,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
   import {
     IFormContent,
     ISemanticFormContent,
+    ILabelable,
     ID,
     Label,
     TextAlign,
@@ -9355,11 +9480,16 @@ declare module "sap/ui/mdc/field/FieldBase" {
    */
   export default abstract class FieldBase
     extends Control
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+    implements
+      IFormContent,
+      ISemanticFormContent,
+      IOverflowToolbarContent,
+      ILabelable
   {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
+    __implements__sap_ui_core_ILabelable: boolean;
     /**
      * Constructor for a new `FieldBase`.
      *
@@ -9853,9 +9983,10 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * These should be bound to a {@link sap.ui.mdc.FilterBar FilterBar} using the corresponding `propertyPath`.
      *
-     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property must be
-     * used to bind {@link sap.ui.mdc.FilterField FilterField} to a {@link @link sap.ui.mdc.FilterBar FilterBar}.
-     *  For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
+     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property is used
+     * to bind {@link sap.ui.mdc.FilterField FilterField} to its parent {@link @link sap.ui.mdc.FilterBar FilterBar}.
+     *  If this property is not explicitly configured, the {@link @link sap.ui.mdc.FilterBar FilterBar} sets
+     * a default binding. For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
      * control, the binding looks like this:
      *  `conditions="{$filters>/conditions/propertyPath}"` with the following data:
      * 	 - `$filters` as the name of the condition model
@@ -10269,6 +10400,14 @@ declare module "sap/ui/mdc/field/FieldBase" {
       oEvent: object
     ): void;
     /**
+     * Returns if the control can be bound to a label
+     *
+     * @since 1.121.0
+     *
+     * @returns `true` if the control can be bound to a label
+     */
+    hasLabelableHTMLElement(): boolean;
+    /**
      * Returns the user interaction state of the control.
      *
      * If the user starts typing or navigates via arrow keys in a value help, the shown value might be updated.
@@ -10390,9 +10529,10 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * These should be bound to a {@link sap.ui.mdc.FilterBar FilterBar} using the corresponding `propertyPath`.
      *
-     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property must be
-     * used to bind {@link sap.ui.mdc.FilterField FilterField} to a {@link @link sap.ui.mdc.FilterBar FilterBar}.
-     *  For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
+     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property is used
+     * to bind {@link sap.ui.mdc.FilterField FilterField} to its parent {@link @link sap.ui.mdc.FilterBar FilterBar}.
+     *  If this property is not explicitly configured, the {@link @link sap.ui.mdc.FilterBar FilterBar} sets
+     * a default binding. For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
      * control, the binding looks like this:
      *  `conditions="{$filters>/conditions/propertyPath}"` with the following data:
      * 	 - `$filters` as the name of the condition model
@@ -10982,9 +11122,10 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * These should be bound to a {@link sap.ui.mdc.FilterBar FilterBar} using the corresponding `propertyPath`.
      *
-     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property must be
-     * used to bind {@link sap.ui.mdc.FilterField FilterField} to a {@link @link sap.ui.mdc.FilterBar FilterBar}.
-     *  For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
+     * **Note:** For {@link sap.ui.mdc.FilterField FilterField} controls, the `conditions` property is used
+     * to bind {@link sap.ui.mdc.FilterField FilterField} to its parent {@link @link sap.ui.mdc.FilterBar FilterBar}.
+     *  If this property is not explicitly configured, the {@link @link sap.ui.mdc.FilterBar FilterBar} sets
+     * a default binding. For example, for a {@link sap.ui.mdc.FilterField FilterField} control inside a {@link sap.ui.mdc.FilterBar FilterBar }
      * control, the binding looks like this:
      *  `conditions="{$filters>/conditions/propertyPath}"` with the following data:
      * 	 - `$filters` as the name of the condition model
@@ -11596,7 +11737,6 @@ declare module "sap/ui/mdc/field/MultiValueFieldItem" {
    * its values as items. The `MultiValueFieldItem` element defines these items.
    *
    * @since 1.93.0
-   * @experimental (since 1.93)
    */
   export default class MultiValueFieldItem extends UI5Element {
     /**
@@ -11714,8 +11854,6 @@ declare module "sap/ui/mdc/field/MultiValueFieldItem" {
   }
   /**
    * Describes the settings that can be provided to the MultiValueFieldItem constructor.
-   *
-   * @experimental (since 1.93)
    */
   export interface $MultiValueFieldItemSettings extends $ElementSettings {
     /**
@@ -11764,6 +11902,9 @@ declare module "sap/ui/mdc/FilterBar" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/78386110817d43978ffd6988d1704e38 FilterBar Building Block (OData V4)}
      */
     constructor(
       /**
@@ -11777,6 +11918,9 @@ declare module "sap/ui/mdc/FilterBar" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/78386110817d43978ffd6988d1704e38 FilterBar Building Block (OData V4)}
      */
     constructor(
       /**
@@ -12268,8 +12412,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     /**
      * Gets content of aggregation {@link #getBasicSearchField basicSearchField}.
      *
-     * Contains the optional basic search field. **Note:** This field has to be bound against the `$search`
-     * property.
+     * Contains the optional basic search field. **Note:** The `conditions` property of this field is managed
+     * by the control. The `propertyKey` property of this field has to be `$search` and is enforced by this
+     * control.
      */
     getBasicSearchField(): FilterField;
     /**
@@ -12318,6 +12463,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
      * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     * Also, the `conditions` property of `filterItems` is managed by the control.
      */
     getFilterItems(): FilterField[];
     /**
@@ -12659,6 +12805,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
      * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     * Also, the `conditions` property of `filterItems` is managed by the control.
      */
     filterItems?:
       | FilterField[]
@@ -12667,8 +12814,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       | `{${string}}`;
 
     /**
-     * Contains the optional basic search field. **Note:** This field has to be bound against the `$search`
-     * property.
+     * Contains the optional basic search field. **Note:** The `conditions` property of this field is managed
+     * by the control. The `propertyKey` property of this field has to be `$search` and is enforced by this
+     * control.
      */
     basicSearchField?: FilterField;
 
@@ -12809,9 +12957,9 @@ declare module "sap/ui/mdc/filterbar/IFilterContainer" {
 
 declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
   import {
-    default as FilterBarBase,
-    $FilterBarBaseSettings,
-  } from "sap/ui/mdc/filterbar/FilterBarBase";
+    default as FilterBar1,
+    $FilterBarSettings as $FilterBarSettings1,
+  } from "sap/ui/mdc/valuehelp/FilterBar";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -12829,9 +12977,16 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
    * @since 1.84.0
    * @deprecated (since 1.124.0) - Please use the `sap.ui.mdc.valuehelp.FilterBar` control instead.
    */
-  export default class FilterBar extends FilterBarBase {
+  export default class FilterBar extends FilterBar1 {
     /**
      * Constructor for a new `FilterBar` for a value help dialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.mdc.valuehelp.FilterBar#constructor sap.ui.mdc.valuehelp.FilterBar }
+     * can be used.
      */
     constructor(
       /**
@@ -12841,6 +12996,13 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
     );
     /**
      * Constructor for a new `FilterBar` for a value help dialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.mdc.valuehelp.FilterBar#constructor sap.ui.mdc.valuehelp.FilterBar }
+     * can be used.
      */
     constructor(
       /**
@@ -12857,7 +13019,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
      * Creates a new subclass of class sap.ui.mdc.filterbar.vh.FilterBar with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.filterbar.FilterBarBase.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.valuehelp.FilterBar.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -12890,7 +13052,7 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
    *
    * @deprecated (since 1.124.0) - Please use the `sap.ui.mdc.valuehelp.FilterBar` control instead.
    */
-  export interface $FilterBarSettings extends $FilterBarBaseSettings {}
+  export interface $FilterBarSettings extends $FilterBarSettings1 {}
 }
 
 declare module "sap/ui/mdc/FilterField" {
@@ -12953,6 +13115,9 @@ declare module "sap/ui/mdc/FilterField" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/2df783760a8e4540ad19ce5ec3ed91c8 FilterField Building Block (OData V4)}
      */
     constructor(
       /**
@@ -12966,6 +13131,9 @@ declare module "sap/ui/mdc/FilterField" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/2df783760a8e4540ad19ce5ec3ed91c8 FilterField Building Block (OData V4)}
      */
     constructor(
       /**
@@ -14092,7 +14260,6 @@ declare module "sap/ui/mdc/MultiValueField" {
    * 	 - If `multipleLines` is set, a {@link sap.m.TextArea TextArea} control is rendered.
    *
    * @since 1.93.0
-   * @experimental (since 1.93.0)
    */
   export default class MultiValueField
     extends FieldBase
@@ -14232,9 +14399,10 @@ declare module "sap/ui/mdc/MultiValueField" {
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of oBindingInfo
      *
-     * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
+     * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14302,7 +14470,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `items` aggregation to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns conditions of the field
      */
@@ -14315,7 +14484,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataType`
      */
@@ -14328,8 +14498,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataTypeConstraints`
      */
@@ -14342,8 +14512,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataTypeFormatOptions`
      */
@@ -14386,7 +14556,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * Gets current value of property {@link #getMultipleLines multipleLines}.
      *
-     * @deprecated - This property is not supported for multi-value fields.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`.
      *
      * @returns Value for property `multipleLines`
      */
@@ -14448,7 +14618,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `items` aggregation to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14465,7 +14636,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14483,7 +14655,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14501,7 +14674,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14546,7 +14720,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * This property must not be set for the `MultiValueField` control.
      *
-     * @deprecated - Not supported, this property is not supported for the `MultiValueField` control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField` control.
      *
      * @returns `this` to allow method chaining.
      */
@@ -14559,7 +14733,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * Sets a new value for property {@link #getMultipleLines multipleLines}.
      *
-     * @deprecated - This property is not supported for multi-value fields.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14572,9 +14746,10 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * Unbinds property {@link #getConditions conditions} from model data.
      *
-     * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
+     * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14589,8 +14764,6 @@ declare module "sap/ui/mdc/MultiValueField" {
   }
   /**
    * Describes the settings that can be provided to the MultiValueField constructor.
-   *
-   * @experimental (since 1.93.0)
    */
   export interface $MultiValueFieldSettings extends $FieldBaseSettings {
     /**
@@ -14671,6 +14844,114 @@ declare module "sap/ui/mdc/MultiValueField" {
   >;
 }
 
+declare module "sap/ui/mdc/p13n/StateUtil" {
+  import Control from "sap/ui/mdc/Control";
+
+  /**
+   * Utility class for state handling of MDC controls. The `StateUtil` class is offering a generic way to
+   * retrieve states and set a desired state for a given MDC control. The `StateUtil` class is tightly coupled
+   * to the SAPUI5 flexibility integration of MDC controls. To use the APIs of `Stateutil`, the given MDC
+   * control instance needs to fully enable all available `p13nMode` options. This way, `Stateutil` can create
+   * the required changes and retrieve the relevant state of each control.
+   *
+   * @since 1.77.0
+   */
+  export default class StateUtil {
+    constructor();
+
+    /**
+     * Creates and applies the necessary changes for a given control and state. **Note:**The changes are created
+     * in the same order as the objects are passed into the state object attributes. For example, by adding
+     * two objects into the `items` attribute of the `oState` object, the first entry is created, and the second
+     * entry is created on top of the first change. The item state is applied for each provided object in the
+     * given order in the array and uses the provided position. If no index or only an invalid index has been
+     * provided, the item is added to the array after the last item in the affected control's item
+     * aggregation. In addition the following attributes can be used to remove a state:
+     *
+     *
+     * 	 - `filtered` - Set to `false` in the `filter` scope on condition level to remove one specific condition
+     *     for the given key.
+     * 	 - `sorted` - Set to `false` in the `sorters` scope to remove a sorter/code>.
+     * 	 - `grouped` - Set to `false` in the `groupLevels` scope to remove a grouping.
+     * 	 - `visible` - Set to `false` to remove an aggregation item.
+     * 	 - `aggregated` - Set to `false` to remove an aggregation.
+     *
+     * **Note:**To improve the performance, you should avoid additional calls of the control’s delegate. To
+     * do this, the `propertyInfo` property of the relevant control can be enriched with the properties used
+     * in the provided state.
+     *
+     *
+     * @returns `Promise` that resolves after all changes have been applied
+     */
+    static applyExternalState(
+      /**
+       * The control that is used to create changes and to which changes are made
+       */
+      oControl: Control,
+      /**
+       * The state in which the control is represented
+       */
+      oState: object
+    ): Promise<any>;
+    /**
+     * Attaches an event handler to the `StateUtil`. The event handler may be fired every time a user triggers
+     * a personalization change for a control instance during runtime.
+     */
+    static attachStateChange(
+      /**
+       * fnFunction The handler function to call when the event occurs
+       */
+      fnListener: Function
+    ): void;
+    /**
+     * Removes a previously attached state change event handler from the `StateUtil` class. The passed parameters
+     * must match those used for registration with {@link StateUtil#attachChange} beforehand.
+     */
+    static detachStateChange(
+      /**
+       * fnFunction The handler function to detach from the event
+       */
+      fnListener: Function
+    ): void;
+    /**
+     * Creates a delta between two states.
+     *
+     *
+     * @returns `Promise` that resolves after the current state has been diffed
+     */
+    static diffState(
+      /**
+       * The control instance implementing IxState
+       */
+      oControl: Control,
+      /**
+       * The prior state
+       */
+      oOldState: object,
+      /**
+       * The new state
+       */
+      oNewState: object
+    ): Promise<any>;
+    /**
+     * Retrieves the externalized state for a given control instance. The retrieved state is equivalent to the
+     * `getCurrentState` API for the given control, after all necessary changes have been applied (for example,
+     * variant appliance and `p13n, StateUtil` changes). After the returned `Promise` has been resolved, the
+     * returned state is in sync with the according state object of the MDC control (for example, `filterConditions`
+     * for the `FilterBar` control).
+     *
+     *
+     * @returns `Promise` that resolves after the current state has been retrieved
+     */
+    static retrieveExternalState(
+      /**
+       * The control instance implementing IxState to retrieve the externalized state
+       */
+      oControl: Control
+    ): Promise<any>;
+  }
+}
+
 declare module "sap/ui/mdc/Table" {
   import { default as Control, $ControlSettings } from "sap/ui/mdc/Control";
 
@@ -14714,67 +14995,6 @@ declare module "sap/ui/mdc/Table" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * An object literal describing a data property in the context of a {@link sap.ui.mdc.Table} with {@link module:sap/ui/mdc/odata/v4/TableDelegate sap/ui/mdc/odata/v4/TableDelegate}.
-   *
-   * When specifying the `PropertyInfo` objects in the {@link sap.ui.mdc.Table#getPropertyInfo propertyInfo }
-   * property, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `path`
-   * 	 - `dataType`
-   * 	 - `formatOptions`
-   * 	 - `constraints`
-   * 	 - `maxConditions`
-   * 	 - `caseSensitive`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos`
-   * 	 - `groupable`
-   * 	 - `isKey`
-   * 	 - `unit`
-   * 	 - `text`
-   * 	 - `aggregatable`
-   * 	 - `extension.technicallyGroupable`
-   * 	 - `extension.technicallyAggregatable`
-   * 	 - `extension.customAggregate`
-   * 	 - `extension.customAggregate.contextDefiningProperties`
-   *
-   * If the property is complex, the following attributes need to be specified:
-   * 	 - `key`
-   * 	 - `visualSettings.widthCalculation`
-   * 	 - `propertyInfos` (all referenced properties must be specified)
-   */
-  export type TablePropertyInfo = PropertyInfo & {
-    /**
-     * Defines whether a property is aggregatable.
-     */
-    aggregatable?: boolean;
-    /**
-     * Contains model-specific information.
-     */
-    extension?: {
-      /**
-       * If `groupable` is set to `false` to exclude it from group personalization on the UI, the UI still needs
-       * to know that this property is groupable for data requests.
-       */
-      technicallyGroupable?: boolean;
-      /**
-       * If `aggregatable` is set to `false` to exclude it from aggregate personalization on the UI, the UI still
-       * needs to know that this property is aggregatable for data requests.
-       */
-      technicallyAggregatable?: boolean;
-      /**
-       * Provide an object, it can be empty, if there is a `CustomAggregate` whose `Qualifier` is equal to the
-       * name of this property. This enables the option to show totals if `aggregatable` is `true`.
-       */
-      customAggregate?: {
-        /**
-         * A list of related properties (by name) that are the context-defining properties of the `CustomAggregate`.
-         */
-        contextDefiningProperties?: string[];
-      };
-    };
-  };
-
-  /**
    * A metadata-driven table to simplify the usage of existing tables, such as the `ResponsiveTable` and `GridTable`
    * controls. The metadata needs to be provided via the {@link module:sap/ui/mdc/TableDelegate TableDelegate }
    * implementation as {@link sap.ui.mdc.table.PropertyInfo}.
@@ -14794,6 +15014,9 @@ declare module "sap/ui/mdc/Table" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/3801656db27b4b7a9099b6ed5fa1d769 Table Building Block (OData V4)}
      */
     constructor(
       /**
@@ -14807,6 +15030,9 @@ declare module "sap/ui/mdc/Table" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/3801656db27b4b7a9099b6ed5fa1d769 Table Building Block (OData V4)}
      */
     constructor(
       /**
@@ -16465,11 +16691,13 @@ declare module "sap/ui/mdc/Table" {
      */
     isKey?: boolean;
     /**
-     * Name of the unit property that is related to this property.
+     * Key of the unit property that is related to this property. A property must not have both a unit and a
+     * text.
      */
     unit?: string;
     /**
-     * Name of the text property that is related to this property in a 1:1 relation.
+     * Key of the text property that is related to this property in a 1:1 relation. A property must not have
+     * both a unit and a text.
      */
     text?: string;
     /**
@@ -16524,14 +16752,14 @@ declare module "sap/ui/mdc/Table" {
          */
         verticalArrangement?: boolean;
         /**
-         * A list of invisible referenced property names
+         * A list of invisible referenced property keys
          */
         excludeProperties?: string[];
       };
     };
     /**
      * The availability of this property makes the `PropertyInfo` a complex `PropertyInfo`. Provides a list
-     * of related properties (by name). These related properties must not themselves be complex.
+     * of related properties (by key). These related properties must not themselves be complex.
      */
     propertyInfos?: string[];
   };
@@ -17068,114 +17296,6 @@ declare module "sap/ui/mdc/Table" {
     Table$SelectionChangeEventParameters,
     Table
   >;
-}
-
-declare module "sap/ui/mdc/p13n/StateUtil" {
-  import Control from "sap/ui/mdc/Control";
-
-  /**
-   * Utility class for state handling of MDC controls. The `StateUtil` class is offering a generic way to
-   * retrieve states and set a desired state for a given MDC control. The `StateUtil` class is tightly coupled
-   * to the SAPUI5 flexibility integration of MDC controls. To use the APIs of `Stateutil`, the given MDC
-   * control instance needs to fully enable all available `p13nMode` options. This way, `Stateutil` can create
-   * the required changes and retrieve the relevant state of each control.
-   *
-   * @since 1.77.0
-   */
-  export default class StateUtil {
-    constructor();
-
-    /**
-     * Creates and applies the necessary changes for a given control and state. **Note:**The changes are created
-     * in the same order as the objects are passed into the state object attributes. For example, by adding
-     * two objects into the `items` attribute of the `oState` object, the first entry is created, and the second
-     * entry is created on top of the first change. The item state is applied for each provided object in the
-     * given order in the array and uses the provided position. If no index or only an invalid index has been
-     * provided, the item is added to the array after the last item in the affected control's item
-     * aggregation. In addition the following attributes can be used to remove a state:
-     *
-     *
-     * 	 - `filtered` - Set to `false` in the `filter` scope on condition level to remove one specific condition
-     *     for the given key.
-     * 	 - `sorted` - Set to `false` in the `sorters` scope to remove a sorter/code>.
-     * 	 - `grouped` - Set to `false` in the `groupLevels` scope to remove a grouping.
-     * 	 - `visible` - Set to `false` to remove an aggregation item.
-     * 	 - `aggregated` - Set to `false` to remove an aggregation.
-     *
-     * **Note:**To improve the performance, you should avoid additional calls of the control’s delegate. To
-     * do this, the `propertyInfo` property of the relevant control can be enriched with the properties used
-     * in the provided state.
-     *
-     *
-     * @returns `Promise` that resolves after all changes have been applied
-     */
-    static applyExternalState(
-      /**
-       * The control that is used to create changes and to which changes are made
-       */
-      oControl: Control,
-      /**
-       * The state in which the control is represented
-       */
-      oState: object
-    ): Promise<any>;
-    /**
-     * Attaches an event handler to the `StateUtil`. The event handler may be fired every time a user triggers
-     * a personalization change for a control instance during runtime.
-     */
-    static attachStateChange(
-      /**
-       * fnFunction The handler function to call when the event occurs
-       */
-      fnListener: Function
-    ): void;
-    /**
-     * Removes a previously attached state change event handler from the `StateUtil` class. The passed parameters
-     * must match those used for registration with {@link StateUtil#attachChange} beforehand.
-     */
-    static detachStateChange(
-      /**
-       * fnFunction The handler function to detach from the event
-       */
-      fnListener: Function
-    ): void;
-    /**
-     * Creates a delta between two states.
-     *
-     *
-     * @returns `Promise` that resolves after the current state has been diffed
-     */
-    static diffState(
-      /**
-       * The control instance implementing IxState
-       */
-      oControl: Control,
-      /**
-       * The prior state
-       */
-      oOldState: object,
-      /**
-       * The new state
-       */
-      oNewState: object
-    ): Promise<any>;
-    /**
-     * Retrieves the externalized state for a given control instance. The retrieved state is equivalent to the
-     * `getCurrentState` API for the given control, after all necessary changes have been applied (for example,
-     * variant appliance and `p13n, StateUtil` changes). After the returned `Promise` has been resolved, the
-     * returned state is in sync with the according state object of the MDC control (for example, `filterConditions`
-     * for the `FilterBar` control).
-     *
-     *
-     * @returns `Promise` that resolves after the current state has been retrieved
-     */
-    static retrieveExternalState(
-      /**
-       * The control instance implementing IxState to retrieve the externalized state
-       */
-      oControl: Control
-    ): Promise<any>;
-  }
 }
 
 declare module "sap/ui/mdc/table/Column" {
@@ -18753,7 +18873,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
      *
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
+     *
      *
      * Default value is `10`.
      *
@@ -18846,7 +18968,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
      *
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
+     *
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -18967,7 +19091,8 @@ declare module "sap/ui/mdc/table/GridTableType" {
     /**
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
      */
     rowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -19541,6 +19666,96 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.RowActionItem` itself.
+     *
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.RowActionItem` itself.
+     *
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: RowActionItem$PressEventParameters
+    ): this;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Icon for the row action item.
@@ -19692,6 +19907,17 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      * Whether the item should be visible on the screen.
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     */
+    press?: (oEvent: RowActionItem$PressEvent) => void;
   }
 
   /**
@@ -19824,7 +20050,8 @@ declare module "sap/ui/mdc/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided with the {@link sap.ui.mdc.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
@@ -19929,7 +20156,8 @@ declare module "sap/ui/mdc/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided with the {@link sap.ui.mdc.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
@@ -19996,7 +20224,8 @@ declare module "sap/ui/mdc/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided with the {@link sap.ui.mdc.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
@@ -20758,8 +20987,8 @@ declare module "sap/ui/mdc/ValueHelp" {
      */
     parsedDescription?: any;
     /**
-     * Contextual information provided by condition `payload` or `inParameters`/`outParameters`. This is only
-     * filled if the description needs to be determined for an existing condition.
+     * Contextual information provided by the `payload` or `inParameters`/`outParameters` of the condition.
+     * This is only filled if the description needs to be determined for an existing condition.
      */
     context?: {
       /**
@@ -20771,7 +21000,7 @@ declare module "sap/ui/mdc/ValueHelp" {
        * Out parameters of the current condition (`outParameters` are not used any longer, but it might be filled
        * in older conditions stored in variants.)
        */
-      ouParameter?: object;
+      outParameter?: object;
       /**
        * Payload of the current condition
        */
@@ -20797,7 +21026,7 @@ declare module "sap/ui/mdc/ValueHelp" {
      */
     caseSensitive?: boolean;
     /**
-     * If set, only exact matches are requested and no suggestions
+     * If set, only exact matches and no suggestions are requested
      */
     exactMatch?: boolean;
     /**
@@ -20978,6 +21207,11 @@ declare module "sap/ui/mdc/ValueHelp" {
      * ID of the initially selected item
      */
     itemId?: string;
+
+    /**
+     * Number of found items
+     */
+    items?: int;
   }
 
   /**
@@ -21337,6 +21571,18 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     handleCanceled(
+      /**
+       * event
+       */
+      oEvent: Event
+    ): void;
+    /**
+     * Handles the `close` event of the container control or element.
+     *
+     * @since 1.132
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    handleClose(
       /**
        * event
        */
@@ -21747,6 +21993,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * ID of the initially selected item
      */
     itemId?: string;
+
+    /**
+     * Number of found items
+     */
+    items?: int;
   }
 
   /**
@@ -23794,6 +24045,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
 
   /**
    * Object to label groups in the value help dialog.
+   *
+   * @since 1.101
    */
   export type GroupLabel = {
     /**
@@ -23892,8 +24145,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      *
@@ -23917,8 +24170,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      *
@@ -23952,8 +24205,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      */
@@ -24828,8 +25081,6 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
-    "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
-
     "sap/ui/mdc/AggregationBaseDelegate": undefined;
 
     "sap/ui/mdc/BaseDelegate": undefined;
@@ -25005,6 +25256,8 @@ declare namespace sap {
     "sap/ui/mdc/filterbar/IFilterContainer": undefined;
 
     "sap/ui/mdc/filterbar/p13n/AdaptationFilterBar": undefined;
+
+    "sap/ui/mdc/filterbar/PropertyInfoValidator": undefined;
 
     "sap/ui/mdc/filterbar/vh/CollectiveSearchSelect": undefined;
 

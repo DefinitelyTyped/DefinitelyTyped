@@ -177,7 +177,7 @@ export function latLng(
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
-    constructor(latlngs: LatLngBoundsLiteral);
+    constructor(latlngs: LatLngExpression[]);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
     pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;
@@ -2905,7 +2905,7 @@ export class Map extends Evented {
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
     panBy(offset: PointExpression, options?: PanOptions): this;
-    setMaxBounds(bounds: LatLngBoundsExpression): this;
+    setMaxBounds(bounds?: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
     panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;

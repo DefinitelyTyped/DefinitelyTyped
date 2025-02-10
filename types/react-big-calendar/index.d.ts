@@ -188,6 +188,15 @@ export interface DateCellWrapperProps {
     children: React.JSX.Element;
 }
 
+export interface ShowMoreProps<TEvent extends object = Event> {
+    localizer: DateLocalizer;
+    slot: number;
+    slotDate: Date;
+    count: number;
+    events: TEvent[];
+    remainingEvents: TEvent[];
+}
+
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>> | undefined;
@@ -235,6 +244,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
      */
     header?: React.ComponentType<HeaderProps> | undefined;
     resourceHeader?: React.ComponentType<ResourceHeaderProps<TResource>> | undefined;
+    showMore?: React.ComponentType<ShowMoreProps<TEvent>>;
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
@@ -285,22 +295,22 @@ export interface EventWrapperProps<TEvent extends object = Event> {
 }
 
 export interface Messages<TEvent extends object = Event> {
-    date?: string | undefined;
-    time?: string | undefined;
-    event?: string | undefined;
-    allDay?: string | undefined;
-    week?: string | undefined;
-    work_week?: string | undefined;
-    day?: string | undefined;
-    month?: string | undefined;
-    previous?: string | undefined;
-    next?: string | undefined;
-    yesterday?: string | undefined;
-    tomorrow?: string | undefined;
-    today?: string | undefined;
-    agenda?: string | undefined;
-    showMore?: ((count: number, remainingEvents: TEvent[], events: TEvent[]) => string) | undefined;
-    noEventsInRange?: string | undefined;
+    date?: React.ReactNode | undefined;
+    time?: React.ReactNode | undefined;
+    event?: React.ReactNode | undefined;
+    allDay?: React.ReactNode | undefined;
+    week?: React.ReactNode | undefined;
+    work_week?: React.ReactNode | undefined;
+    day?: React.ReactNode | undefined;
+    month?: React.ReactNode | undefined;
+    previous?: React.ReactNode | undefined;
+    next?: React.ReactNode | undefined;
+    yesterday?: React.ReactNode | undefined;
+    tomorrow?: React.ReactNode | undefined;
+    today?: React.ReactNode | undefined;
+    agenda?: React.ReactNode | undefined;
+    showMore?: ((count: number, remainingEvents: TEvent[], events: TEvent[]) => React.ReactNode) | undefined;
+    noEventsInRange?: React.ReactNode | undefined;
 }
 
 export interface SlotInfo {
@@ -485,6 +495,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resources?: TResource[] | undefined;
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
+    resourceGroupingLayout?: boolean | undefined;
     defaultView?: View | undefined;
     defaultDate?: stringOrDate | undefined;
     className?: string | undefined;

@@ -389,7 +389,7 @@ declare module "v8" {
      * @since v8.0.0
      * @param buffer A buffer returned by {@link serialize}.
      */
-    function deserialize(buffer: NodeJS.TypedArray): any;
+    function deserialize(buffer: NodeJS.ArrayBufferView): any;
     /**
      * The `v8.takeCoverage()` method allows the user to write the coverage started by `NODE_V8_COVERAGE` to disk on demand. This method can be invoked multiple
      * times during the lifetime of the process. Each time the execution counter will

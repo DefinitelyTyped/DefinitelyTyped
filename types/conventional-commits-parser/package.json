@@ -5,14 +5,6 @@
     "projects": [
         "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme"
     ],
-    "types": "index",
-    "typesVersions": {
-        "<=4.9": {
-            "*": [
-                "ts4.9/*"
-            ]
-        }
-    },
     "dependencies": {
         "@types/node": "*"
     },

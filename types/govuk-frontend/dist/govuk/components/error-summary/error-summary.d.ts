@@ -1,4 +1,4 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Error summary component
@@ -6,7 +6,7 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
  * Takes focus on initialisation for accessible announcement, unless disabled in
  * configuration.
  */
-export class ErrorSummary extends GOVUKFrontendComponent<HTMLElement> {
+export class ErrorSummary extends ConfigurableComponent<ErrorSummaryConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

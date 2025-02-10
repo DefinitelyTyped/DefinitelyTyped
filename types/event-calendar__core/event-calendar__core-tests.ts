@@ -1,13 +1,24 @@
 import Calendar from "@event-calendar/core";
 
-// ensure all options are optional
 const target = document.createElement("div");
+// ensure props is optional
 let cal = new Calendar({
+    target: target,
+});
+cal.destroy();
+// ensure all options are marked as optional
+cal = new Calendar({
     target: target,
     props: {
         plugins: [],
         options: {},
     },
+});
+cal.destroy();
+// exercise at least one other SvelteComponent constructor option
+cal = new Calendar({
+    target: target,
+    hydrate: true,
 });
 
 // exercise each member function
@@ -207,7 +218,9 @@ cal = new Calendar({
             resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
             resourceLabelContent: "content",
             resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
-            select: (_info: Calendar.SelectInfo) => {},
+            select: (info) => {
+                return (info.allDay || (info.jsEvent.target === document.body) || !!info.view.title);
+            },
             selectable: true,
             selectBackgroundColor: "red",
             selectLongPressDelay: 100,
@@ -258,6 +271,19 @@ cal.setOption("buttonText", () => {
     .setOption("moreLinkContent", (_info: Calendar.MoreLinkInfo) => "content")
     .setOption("noEventsContent", () => "content")
     .setOption("resourceLabelContent", (_info: Calendar.ResourceLabelInfo) => "content")
+    .setOption("resources", [{
+        id: "foo",
+        children: [
+            {
+                id: "bar",
+                children: [
+                    {
+                        id: "baz",
+                    },
+                ],
+            },
+        ],
+    }])
     .setOption("slotLabelFormat", (_t: Date) => "content")
     .setOption("theme", (theme: Calendar.Theme) => {
         let result: Calendar.Theme = {};
