@@ -35,7 +35,7 @@ import RenderPipeline from "./RenderPipeline.js";
  *
  * @private
  */
-export default class RenderObject {
+declare class RenderObject {
     _nodes: Nodes;
     _geometries: Geometries;
     id: number;
@@ -121,7 +121,7 @@ export default class RenderObject {
     /**
      * Returns the node builder state of this render object.
      *
-     * @return {NodeBuilderState} The node buider state.
+     * @return {NodeBuilderState} The node builder state.
      */
     getNodeBuilderState(): NodeBuilderState;
     /**
@@ -136,6 +136,13 @@ export default class RenderObject {
      * @return {Array<BindGroup>} The bindings.
      */
     getBindings(): BindGroup[];
+    /**
+     * Returns a binding group by group name of this render object.
+     *
+     * @param {String} name - The name of the binding group.
+     * @return {BindGroup?} The bindings.
+     */
+    getBindingGroup(name: string): BindGroup | undefined;
     /**
      * Returns the index of the render object's geometry.
      *
@@ -203,7 +210,7 @@ export default class RenderObject {
      *
      * The material cache key is part of the render object cache key.
      *
-     * @return {String} The material cache key.
+     * @return {Number} The material cache key.
      */
     getMaterialCacheKey(): number;
     /**
@@ -224,7 +231,7 @@ export default class RenderObject {
      * `RenderObjects.get()`. The render object's NodeMaterialObserver is then used to detect
      * a need for a refresh due to material, geometry or object related value changes.
      *
-     * TODO: Investigate if it's possible to merge boths steps so there is only a single place
+     * TODO: Investigate if it's possible to merge both steps so there is only a single place
      * that performs the 'needsUpdate' check.
      *
      * @type {Boolean}
@@ -234,17 +241,18 @@ export default class RenderObject {
     /**
      * Returns the dynamic cache key which represents a key that is computed per draw command.
      *
-     * @return {String} The cache key.
+     * @return {Number} The cache key.
      */
-    getDynamicCacheKey(): string;
+    getDynamicCacheKey(): number;
     /**
      * Returns the render object's cache key.
      *
-     * @return {String} The cache key.
+     * @return {Number} The cache key.
      */
-    getCacheKey(): string;
+    getCacheKey(): number;
     /**
      * Frees internal resources.
      */
     dispose(): void;
 }
+export default RenderObject;

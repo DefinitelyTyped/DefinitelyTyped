@@ -1,3 +1,5 @@
+import { type ObjectNested } from "./configuration.js";
+
 /**
  * Common helpers which do not require polyfill.
  *
@@ -5,41 +7,6 @@
  * so that the polyfill can be properly tree-shaken and does not burden
  * the components that do not need that helper
  */
-/**
- * Config merging function
- *
- * Takes any number of objects and combines them together, with
- * greatest priority on the LAST item passed in.
- *
- * @internal
- * @param {...{ [key: string]: unknown }} configObjects - Config objects to merge
- * @returns {{ [key: string]: unknown }} A merged config object
- */
-export function mergeConfigs(
-    ...configObjects: Array<{
-        [key: string]: unknown;
-    }>
-): {
-    [key: string]: unknown;
-};
-
-/**
- * Extracts keys starting with a particular namespace from dataset ('data-*')
- * object, removing the namespace in the process, normalising all values
- *
- * @internal
- * @param {{ schema: Schema }} Component - Component class
- * @param {DOMStringMap} dataset - The object to extract key-value pairs from
- * @param {string} namespace - The namespace to filter keys with
- * @returns {ObjectNested | undefined} Nested object with dot-separated key namespace removed
- */
-export function extractConfigByNamespace(
-    Component: {
-        schema: Schema;
-    },
-    dataset: DOMStringMap,
-    namespace: string,
-): ObjectNested | undefined;
 
 /**
  * Get hash fragment from URL
@@ -105,21 +72,18 @@ export function isInitialised($root: Element, moduleName: string): boolean;
 export function isSupported($scope?: HTMLElement | null): boolean;
 
 /**
- * Validate component config by schema
- *
- * Follows limited examples in JSON schema for wider support in future
- *
- * {@link https://ajv.js.org/json-schema.html#compound-keywords}
- * {@link https://ajv.js.org/packages/ajv-errors.html#single-message}
+ * Check for an object
  *
  * @internal
- * @param {Schema} schema - Config schema
- * @param {{ [key: string]: unknown }} config - Component config
- * @returns {string[]} List of validation errors
+ * @template {Partial<Record<keyof ObjectType, unknown>>} [ObjectType=ObjectNested]
+ * @param {unknown | ObjectType} option - Option to check
+ * @returns {option is ObjectType} Whether the option is an object
  */
-export function validateConfig(schema: Schema, config: {
-    [key: string]: unknown;
-}): string[];
+export function isObject<
+    ObjectType extends Partial<Record<keyof ObjectType, unknown>> = ObjectNested,
+>(
+    option: unknown,
+): option is ObjectType;
 
 /**
  * Format error message
@@ -130,54 +94,6 @@ export function validateConfig(schema: Schema, config: {
  * @returns {string} - Formatted error message
  */
 export function formatErrorMessage(Component: ComponentWithModuleName, message: string): string;
-
-/**
- * Schema for component config
- */
-export interface Schema {
-    /**
-     * - Schema properties
-     */
-    properties: {
-        [field: string]: SchemaProperty | undefined;
-    };
-
-    /**
-     * - List of schema conditions
-     */
-    anyOf?: SchemaCondition[] | undefined;
-}
-
-/**
- * Schema property for component config
- */
-export interface SchemaProperty {
-    /**
-     * - Property type
-     */
-    type: "string" | "boolean" | "number" | "object";
-}
-
-/**
- * Schema condition for component config
- */
-export interface SchemaCondition {
-    /**
-     * - List of required config fields
-     */
-    required: string[];
-
-    /**
-     * - Error message when required config fields not provided
-     */
-    errorMessage: string;
-}
-
-export type NestedKey = keyof ObjectNested;
-
-export interface ObjectNested {
-    [key: string]: string | boolean | number | ObjectNested | undefined;
-}
 
 export interface ComponentWithModuleName {
     /**

@@ -122,6 +122,8 @@ export default class MathNode extends TempNode {
     bNode: Node | null;
     cNode: Node | null;
 
+    readonly isMathNode: true;
+
     constructor(method: MathNodeMethod1, aNode: Node);
     constructor(method: MathNodeMethod2, aNode: Node, bNode: Node);
     constructor(method: MathNodeMethod3, aNode: Node, bNode: Node, cNode: Node);

@@ -1,5 +1,5 @@
 import { Camera } from "../../cameras/Camera.js";
-import { ShadowMapType, ToneMapping } from "../../constants.js";
+import { ShadowMapType, TextureDataType, TimestampQuery, ToneMapping } from "../../constants.js";
 import { BufferAttribute } from "../../core/BufferAttribute.js";
 import { BufferGeometry, GeometryGroup } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
@@ -38,6 +38,7 @@ import RenderList, { Bundle, RenderItem } from "./RenderList.js";
 import RenderLists from "./RenderLists.js";
 import RenderObjects from "./RenderObjects.js";
 import Textures from "./Textures.js";
+import XRManager from "./XRManager.js";
 interface Rectangle {
     x: number;
     y: number;
@@ -58,6 +59,7 @@ export interface RendererParameters {
     antialias?: boolean | undefined;
     samples?: number | undefined;
     getFallback?: ((error: unknown) => Backend) | null | undefined;
+    colorBufferType?: TextureDataType | undefined;
 }
 /**
  * Base class for renderers.
@@ -122,6 +124,8 @@ declare class Renderer {
             material: Material,
             group: GeometryGroup,
             lightsNode: LightsNode,
+            clippingContext: ClippingContext | null,
+            passId: string | null,
         ) => void)
         | null;
     _currentRenderObjectFunction:
@@ -133,6 +137,8 @@ declare class Renderer {
             material: Material,
             group: GeometryGroup,
             lightsNode: LightsNode,
+            clippingContext: ClippingContext | null,
+            passId: string | null,
         ) => void)
         | null;
     _currentRenderBundle: RenderBundle | null;
@@ -143,10 +149,12 @@ declare class Renderer {
         camera: Camera,
         lightsNode: LightsNode,
         group: GeometryGroup,
+        clippingContext: ClippingContext | null,
         passId?: string,
     ) => void;
     _isDeviceLost: boolean;
     onDeviceLost: (info: DeviceLostInfo) => void;
+    _colorBufferType: TextureDataType;
     _initialized: boolean;
     _initPromise: Promise<void> | null;
     _compilationPromises: Promise<void>[] | null;
@@ -156,9 +164,7 @@ declare class Renderer {
         enabled: boolean;
         type: ShadowMapType | null;
     };
-    xr: {
-        enabled: boolean;
-    };
+    xr: XRManager;
     debug: {
         checkShaderErrors: boolean;
         onShaderError:
@@ -188,6 +194,8 @@ declare class Renderer {
      * @param {Number} [parameters.samples=0] - When `antialias` is `true`, `4` samples are used by default. This parameter can set to any other integer value than 0
      * to overwrite the default.
      * @param {Function?} [parameters.getFallback=null] - This callback function can be used to provide a fallback backend, if the primary backend can't be targeted.
+     * @param {Number} [parameters.colorBufferType=HalfFloatType] - Defines the type of color buffers. The default `HalfFloatType` is recommend for best
+     * quality. To save memory and bandwidth, `UnsignedByteType` might be used. This will reduce rendering quality though.
      */
     constructor(backend: Backend, parameters?: RendererParameters);
     /**
@@ -219,7 +227,7 @@ declare class Renderer {
      * @param {Object3D} scene - The scene or 3D object to precompile.
      * @param {Camera} camera - The camera that is used to render the scene.
      * @param {Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
-     * @return {Promise} A Promise that resolves when the compile has been finished.
+     * @return {Promise<Array>} A Promise that resolves when the compile has been finished.
      */
     compileAsync(scene: Object3D, camera: Camera, targetScene?: Object3D | null): Promise<void>;
     /**
@@ -252,6 +260,12 @@ declare class Renderer {
      * @return {MRTNode} The MRT configuration.
      */
     getMRT(): MRTNode | null;
+    /**
+     * Returns the color buffer type.
+     *
+     * @return {Number} The color buffer type.
+     */
+    getColorBufferType(): TextureDataType;
     /**
      * Default implementation of the device lost callback.
      *
@@ -325,7 +339,7 @@ declare class Renderer {
      *
      * @async
      * @param {Function} callback - The application's animation loop.
-     * @return {Promise} A Promise that resolves when the set has been exeucted.
+     * @return {Promise} A Promise that resolves when the set has been executed.
      */
     setAnimationLoop(callback: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null): Promise<void>;
     /**
@@ -662,6 +676,8 @@ declare class Renderer {
             material: Material,
             group: GeometryGroup,
             lightsNode: LightsNode,
+            clippingContext: ClippingContext | null,
+            passId: string | null,
         ) => void)
         | null;
     /**
@@ -677,7 +693,7 @@ declare class Renderer {
      *
      * @async
      * @param {Node|Array<Node>} computeNodes - The compute node(s).
-     * @return {Promise?} A Promise that resolve when the compute has finished.
+     * @return {Promise} A Promise that resolve when the compute has finished.
      */
     computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
     /**
@@ -688,6 +704,7 @@ declare class Renderer {
      * @return {Promise<Boolean>} A Promise that resolves with a bool that indicates whether the feature is supported or not.
      */
     hasFeatureAsync(name: string): Promise<void>;
+    resolveTimestampsAsync(type?: TimestampQuery): Promise<number | undefined>;
     /**
      * Checks if the given feature is supported by the selected backend. If the
      * renderer has not been initialized, this method always returns `false`.
@@ -860,7 +877,7 @@ declare class Renderer {
      * @param {Scene} scene - The scene the 3D object belongs to.
      * @param {Camera} camera - The camera the object should be rendered with.
      * @param {LightsNode} lightsNode - The current lights node.
-     * @param {Object?} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
+     * @param {{start: Number, count: Number}?} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
      * @param {ClippingContext} clippingContext - The clipping context.
      * @param {String?} [passId=null] - An optional ID for identifying the pass.
      */
@@ -884,7 +901,7 @@ declare class Renderer {
      * @param {Scene} scene - The scene the 3D object belongs to.
      * @param {Camera} camera - The camera the object should be rendered with.
      * @param {LightsNode} lightsNode - The current lights node.
-     * @param {Object?} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
+     * @param {{start: Number, count: Number}?} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
      * @param {ClippingContext} clippingContext - The clipping context.
      * @param {String?} [passId=null] - An optional ID for identifying the pass.
      */

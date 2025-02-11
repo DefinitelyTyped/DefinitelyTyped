@@ -1,6 +1,7 @@
 export * from "../accessors/BufferAttributeNode.js";
 export * from "../code/ExpressionNode.js";
 export * from "../code/FunctionCallNode.js";
+export * from "../core/ArrayNode.js";
 export * from "../core/AssignNode.js";
 export * from "../core/BypassNode.js";
 export * from "../core/CacheNode.js";

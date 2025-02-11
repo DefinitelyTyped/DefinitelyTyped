@@ -222,3 +222,17 @@ Module.Module === Module;
 
     Module.flushCompileCache();
 }
+
+{
+    const code = "const a: number = 1;";
+    const strippedCode = Module.stripTypeScriptTypes(code);
+    console.log(strippedCode);
+    // Prints: const a         = 1;
+}
+
+{
+    const code = "const a: number = 1;";
+    const strippedCode = Module.stripTypeScriptTypes(code, { mode: "strip", sourceUrl: "source.ts" });
+    console.log(strippedCode);
+    // Prints: const a         = 1\n\n//# sourceURL=source.ts;
+}

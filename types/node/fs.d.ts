@@ -3795,9 +3795,6 @@ declare module "fs" {
         flush?: boolean | undefined;
     }
     /**
-     * Unlike the 16 KiB default `highWaterMark` for a `stream.Readable`, the stream
-     * returned by this method has a default `highWaterMark` of 64 KiB.
-     *
      * `options` can include `start` and `end` values to read a range of bytes from
      * the file instead of the entire file. Both `start` and `end` are inclusive and
      * start counting at 0, allowed values are in the
