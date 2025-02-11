@@ -1789,6 +1789,10 @@
             "libraryName": "eventemitter3",
             "asOfVersion": "2.0.2"
         },
+        "eventsource": {
+            "libraryName": "eventsource",
+            "asOfVersion": "3.0.0"
+        },
         "ex-react-native-i18n": {
             "libraryName": "ex-react-native-i18n",
             "asOfVersion": "0.0.6"
