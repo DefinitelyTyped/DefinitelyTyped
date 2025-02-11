@@ -1076,6 +1076,10 @@
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
         },
+        "contract-proxy-kit": {
+            "libraryName": "contract-proxy-kit",
+            "asOfVersion": "2.0.0"
+        },
         "conventional-changelog-preset-loader": {
             "libraryName": "conventional-changelog-preset-loader",
             "asOfVersion": "5.0.0"
