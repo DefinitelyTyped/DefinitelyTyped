@@ -110,11 +110,9 @@ declare module "." {
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
     /**
-     * Returns `null` outside of development builds.
-     *
-     * Returns an empty string if called outside of render, Effects, Events, or React error handlers (e.g. `onCaughtError` option in `createRoot`).
+     * Warning: Only available in development builds.
      */
-    function captureOwnerStack(): string | null;
+    function captureOwnerStack(): string;
 
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
