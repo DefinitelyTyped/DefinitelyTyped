@@ -1,3 +1,4 @@
+import * as assert from "node:assert";
 import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
@@ -1036,6 +1037,24 @@ test("planning with streams", (t: TestContext, done) => {
         done();
     });
 });
+
+// Test custom assertion functions.
+{
+    test.assert.register("isOdd", (n: number) => {
+        assert.strictEqual(n % 2, 1);
+    });
+    test("invokes a custom assertion as part of the test plan", (t) => {
+        t.plan(2);
+        t.assert.isOdd(5);
+        assert.throws(() => {
+            t.assert.isOdd(4);
+        });
+    });
+    test.assert.register("context", function() {
+        // $ExpectType TestContext
+        this;
+    });
+}
 
 // Test snapshot assertion.
 test(t => {
