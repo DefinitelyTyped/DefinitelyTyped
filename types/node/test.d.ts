@@ -147,6 +147,7 @@ declare module "node:test" {
         export {
             after,
             afterEach,
+            assert,
             before,
             beforeEach,
             describe,
@@ -934,6 +935,10 @@ declare module "node:test" {
          * corresponding value in the existing snapshot file.
          */
         snapshot(value: any, options?: AssertSnapshotOptions): void;
+        /**
+         * A custom assertion function registered with `assert.register()`.
+         */
+        [name: string]: (...args: any[]) => void;
     }
     interface AssertSnapshotOptions {
         /**
@@ -1746,6 +1751,24 @@ declare module "node:test" {
         [Symbol.dispose](): void;
     }
     /**
+     * An object whose methods are used to configure available assertions on the
+     * `TestContext` objects in the current process. The methods from `node:assert`
+     * and snapshot testing functions are available by default.
+     *
+     * It is possible to apply the same configuration to all files by placing common
+     * configuration code in a module
+     * preloaded with `--require` or `--import`.
+     * @since v22.14.0
+     */
+    namespace assert {
+        /**
+         * Defines a new assertion function with the provided name and function. If an
+         * assertion already exists with the same name, it is overwritten.
+         * @since v22.14.0
+         */
+        function register(name: string, fn: (this: TestContext, ...args: any[]) => void): void;
+    }
+    /**
      * @since v22.3.0
      */
     namespace snapshot {
@@ -1776,6 +1799,7 @@ declare module "node:test" {
     export {
         after,
         afterEach,
+        assert,
         before,
         beforeEach,
         describe,
