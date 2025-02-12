@@ -93,6 +93,10 @@ declare namespace pendo {
         // feedback
         feedback: Feedback;
 
+        // Properties
+        additionalApiKeys: string[];
+        apiKey: string;
+
         // Other
         validateInstall(): void;
         dom(input: any): HTMLElement; // TODO

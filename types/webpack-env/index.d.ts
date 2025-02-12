@@ -33,10 +33,10 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
-        ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
+        ensure(paths: string[], callback: (require: NodeJS.Require) => void, chunkName?: string): void;
         ensure(
             paths: string[],
-            callback: (require: NodeRequire) => void,
+            callback: (require: NodeJS.Require) => void,
             errorCallback?: (error: any) => void,
             chunkName?: string,
         ): void;
@@ -64,7 +64,7 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: NodeModule | undefined;
+            [id: string]: NodeJS.Module | undefined;
         };
     }
 
@@ -73,8 +73,8 @@ declare namespace __WebpackModuleApi {
         id: ModuleId;
         filename: string;
         loaded: boolean;
-        parent: NodeModule | null | undefined;
-        children: NodeModule[];
+        parent: NodeJS.Module | null | undefined;
+        children: NodeJS.Module[];
         hot?: Hot | undefined;
     }
 
@@ -270,11 +270,12 @@ declare namespace __WebpackModuleApi {
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
     type RequireLambda = __Require1 & __Require2;
+
+    namespace __NodeGlobalInterfacePolyfill {
+        type Module = NodeJS.Process extends { version: string } ? {} : NodeJS.Module;
+        type Require = NodeJS.Process extends { version: string } ? {} : NodeJS.Require;
+    }
 }
-
-interface NodeRequire extends NodeJS.Require {}
-
-declare var require: NodeRequire;
 
 /**
  * The resource query of the current module.
@@ -367,17 +368,16 @@ interface ImportMeta {
     ) => __WebpackModuleApi.RequireContext;
 }
 
-interface NodeModule extends NodeJS.Module {}
-
-declare var module: NodeModule;
-
-/**
- * Declare process variable
- */
 declare namespace NodeJS {
-    interface Process extends __WebpackModuleApi.NodeProcess {}
-    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
     interface Module extends __WebpackModuleApi.Module {}
     interface Require extends __WebpackModuleApi.RequireFunction {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Process extends __WebpackModuleApi.NodeProcess {}
 }
+
+interface NodeModule extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Module {}
+interface NodeRequire extends __WebpackModuleApi.__NodeGlobalInterfacePolyfill.Require {}
+
+declare var module: NodeJS.Module;
 declare var process: NodeJS.Process;
+declare var require: NodeJS.Require;

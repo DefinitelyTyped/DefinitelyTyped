@@ -304,6 +304,11 @@ declare namespace autocannon {
          * Emitted if there is an error during the setup phase of autocannon.
          */
         on(event: "error", listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
+
+        /**
+         * Stop autocannon.
+         */
+        stop(): void;
     }
 
     /**

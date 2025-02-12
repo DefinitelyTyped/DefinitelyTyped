@@ -141,6 +141,8 @@ assert.throws(
 
 assert["fail"](true, true, "works like a charm");
 
+assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
+
 {
     const a = null as any;
     assert.ifError(a);

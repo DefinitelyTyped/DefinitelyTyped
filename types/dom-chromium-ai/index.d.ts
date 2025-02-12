@@ -156,6 +156,7 @@ interface AILanguageModelCapabilities {
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
+    readonly maxTemperature: number | null;
 }
 
 // Summarizer
@@ -180,7 +181,7 @@ type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
 type AISummarizerFormat = "plain-text" | "markdown";
 type AISummarizerLength = "short" | "medium" | "long";
 
-interface AISummarizer extends EventTarget {
+interface AISummarizer {
     summarize(input: string, options?: AISummarizerSummarizeOptions): Promise<string>;
     summarizeStreaming(input: string, options?: AISummarizerSummarizeOptions): ReadableStream<string>;
 

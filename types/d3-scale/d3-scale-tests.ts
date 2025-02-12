@@ -649,7 +649,7 @@ sequentialInterpolator = sequentialScaleColorString.interpolator();
 
 // range(...) ----------------------------------------------------------------
 
-const rangeSequential: [string, string] = sequentialScaleColorString.range()();
+const rangeSequential: [string, string] = sequentialScaleColorString.range();
 sequentialScaleColorString = sequentialScaleColorString.range(["#000000", "#ffffff"]);
 
 // rangeRound(...) ----------------------------------------------------------------
@@ -730,7 +730,7 @@ divergingScaleString = divergingScaleString.interpolator(sequentialInterpolator)
 
 // range(...) ----------------------------------------------------------------
 
-domainDivergingScale = divergingScaleNumber.range()();
+domainDivergingScale = divergingScaleNumber.range();
 divergingScaleNumber = divergingScaleNumber.range([0, 0.5, 1]);
 
 // rangeRound(...) ----------------------------------------------------------------

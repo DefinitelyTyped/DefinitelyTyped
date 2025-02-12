@@ -21,6 +21,7 @@ export interface ClientConfig {
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
+    lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
     idle_in_transaction_session_timeout?: number | undefined;
     application_name?: string | undefined;

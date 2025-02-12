@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Password input component
  */
-export class PasswordInput extends GOVUKFrontendComponent<HTMLElement> {
+export class PasswordInput extends ConfigurableComponent<PasswordInputConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

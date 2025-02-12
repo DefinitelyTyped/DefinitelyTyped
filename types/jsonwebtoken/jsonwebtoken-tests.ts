@@ -56,6 +56,8 @@ token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1d" });
 token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 });
 // @ts-expect-error
 token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1quarter" });
 
 // sign with insecure key size
 token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });

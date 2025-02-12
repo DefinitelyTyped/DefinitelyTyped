@@ -141,6 +141,7 @@ declare namespace anime {
     // Helpers
     const version: string;
     const speed: number;
+    let suspendWhenDocumentHidden: boolean;
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
     function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;

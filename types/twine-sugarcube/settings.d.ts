@@ -202,6 +202,23 @@ export interface SettingsAPI {
      * @since 2.0.0
      */
     save(): void;
+
+    /**
+     * Returns the setting's current value.
+     *
+     * **NOTE**: Calling this method is equivalent to using settings[name].
+     * @since 2.37.0
+     */
+    getValue(name: string): any;
+
+    /**
+     * Sets the setting's value.
+     *
+     * **NOTE**: This method automatically calls the Setting.save() method.
+     * **WARNING**: If manually changing a setting that has an associated control, be mindful that the value you set makes sense for the setting in question, elsewise shenanigans could occur—e.g., don't set a range-type setting to non-number or out-of-range values.
+     * @since 2.37.0
+     */
+    setValue(name: string, value: any): void;
 }
 
 export {};
