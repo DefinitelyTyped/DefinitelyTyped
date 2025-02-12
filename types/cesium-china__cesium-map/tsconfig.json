@@ -1,20 +1,19 @@
 {
-  "files": [
-      "index.d.ts",
-  ],
-  "compilerOptions": {
-      "module": "commonjs",
-      "target": "esnext",
-      "lib": [
-          "es6",
-          "dom"
-      ],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true
-  }
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "cesium-china__cesium-map-tests.ts"
+    ]
 }

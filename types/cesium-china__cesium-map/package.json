@@ -1,17 +1,23 @@
 {
-  "private": true,
-  "name": "@types/cesium-china__cesium-map",
-  "version": "1.0.9999",
-  "projects": [
-    "https://github.com/cesiumchina/cesium-map"
-  ],
-  "devDependencies": {
-    "@types/cesium-china__cesium-map": "workspace:."
-  },
-  "owners": [
-    {
-      "name": "YOAKE",
-      "githubUsername": "YOYOYOAKE"
+    "private": true,
+    "name": "@types/cesium-china__cesium-map",
+    "version": "1.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/CesiumChina/cesium-map"
+    ],
+    "devDependencies": {
+        "@types/cesium-china__cesium-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "YOAKE",
+            "githubUsername": "YOYOYOAKE"
+        }
+    ],
+    "dependencies": {
+        "@cesium-china/cesium-map": "^1.0.0",
+        "cesium": "^1.126.0",
+        "tsd": "^0.31.2"
     }
-  ]
 }
