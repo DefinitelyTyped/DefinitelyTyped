@@ -34,6 +34,8 @@ Setting.addList("list", {
     desc: "description",
 });
 
+Setting.setValue("blahKey", "blahValue"); // $ExpectType void
+Setting.getValue("blahKey"); // $ExpectType any
 Setting.load(); // $ExpectType void
 Setting.save(); // $ExpectType void
 Setting.reset(); // $ExpectType void

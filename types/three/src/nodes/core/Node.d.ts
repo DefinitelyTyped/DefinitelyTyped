@@ -242,6 +242,14 @@ declare class Node extends EventDispatcher<{
      */
     getElementType(builder: NodeBuilder): "bool" | "int" | "float" | "vec2" | "vec3" | "vec4" | "uint" | null;
     /**
+     * Returns the node member type for the given name.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @param {String} name - The name of the member.
+     * @return {String} The type of the node.
+     */
+    getMemberType(builder: NodeBuilder, name: string): string;
+    /**
      * Returns the node's type.
      *
      * @param {NodeBuilder} builder - The current node builder.
@@ -322,7 +330,7 @@ declare class Node extends EventDispatcher<{
     /**
      * Returns the child nodes as a JSON object.
      *
-     * @return {Object} The serialized child objects as JSON.
+     * @return {Array<Object>} An iterable list of serialized child objects as JSON.
      */
     getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
     /**

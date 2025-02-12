@@ -1,4 +1,4 @@
-// For Library Version: 1.131.0
+// For Library Version: 1.132.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1591,6 +1591,8 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/changes/UIChangesState": undefined;
 
+    "sap/ui/fl/apply/_internal/flexState/communication/FLPAboutInfo": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
@@ -1665,6 +1667,8 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 
+    "sap/ui/fl/initial/api/InitialFlexAPI": undefined;
+
     "sap/ui/fl/interfaces/BaseLoadConnector": undefined;
 
     "sap/ui/fl/interfaces/Delegate": undefined;
@@ -1690,6 +1694,8 @@ declare namespace sap {
     "sap/ui/fl/variants/context/Component": undefined;
 
     "sap/ui/fl/variants/VariantManagement": undefined;
+
+    "sap/ui/fl/variants/VariantManager": undefined;
 
     "sap/ui/fl/variants/VariantModel": undefined;
 

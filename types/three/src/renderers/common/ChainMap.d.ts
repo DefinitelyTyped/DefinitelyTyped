@@ -3,14 +3,14 @@ type RecursiveWeakMap<K extends readonly object[], V> = WeakMap<K[number], V | R
  * Data structure for the renderer. It allows defining values
  * with chained, hierarchical keys. Keys are meant to be
  * objects since the module internally works with Weak Maps
- * for perforamnce reasons.
+ * for performance reasons.
  *
  * @private
  */
-export default class ChainMap<K extends readonly object[], V> {
+declare class ChainMap<K extends readonly object[], V> {
     weakMap: RecursiveWeakMap<K, V>;
     /**
-     * Constructs a new chained map.
+     * Constructs a new Chain Map.
      */
     constructor();
     /**
@@ -25,7 +25,7 @@ export default class ChainMap<K extends readonly object[], V> {
      *
      * @param {Array<Object>} keys - List of keys.
      * @param {Any} value - The value to set.
-     * @return {ChainMap} A reference to this chain map.
+     * @return {ChainMap} A reference to this Chain Map.
      */
     set(keys: K, value: V): this;
     /**
@@ -36,4 +36,4 @@ export default class ChainMap<K extends readonly object[], V> {
      */
     delete(keys: K): boolean;
 }
-export {};
+export default ChainMap;

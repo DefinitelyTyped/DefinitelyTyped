@@ -26,7 +26,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/dgram.js)
  */
 declare module "dgram" {
-    import { AddressInfo } from "node:net";
+    import { AddressInfo, BlockList } from "node:net";
     import * as dns from "node:dns";
     import { Abortable, EventEmitter } from "node:events";
     interface RemoteInfo {
@@ -45,6 +45,7 @@ declare module "dgram" {
     interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean | undefined;
+        reusePort?: boolean | undefined;
         /**
          * @default false
          */
@@ -58,6 +59,8 @@ declare module "dgram" {
                 callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
             ) => void)
             | undefined;
+        receiveBlockList?: BlockList | undefined;
+        sendBlockList?: BlockList | undefined;
     }
     /**
      * Creates a `dgram.Socket` object. Once the socket is created, calling `socket.bind()` will instruct the socket to begin listening for datagram

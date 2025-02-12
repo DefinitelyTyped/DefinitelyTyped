@@ -158,6 +158,9 @@ pendo.feedback.loginAndRedirect();
 const a = document.createElement("a");
 pendo.feedback.loginAndRedirect({ anchor: a });
 
+pendo.additionalApiKeys.forEach(console.log);
+console.log(pendo.apiKey);
+
 // $ExpectType void
 pendo.teardown();
 

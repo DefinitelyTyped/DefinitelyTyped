@@ -11,6 +11,7 @@ import * as net from "node:net";
         port: 443,
         signal: abort.signal,
         timeout: 10E3,
+        blockList: new net.BlockList(),
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing
@@ -22,6 +23,7 @@ import * as net from "node:net";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         highWaterMark: 16384,
+        blockList: new net.BlockList(),
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
@@ -31,6 +33,7 @@ import * as net from "node:net";
 
     server.listen({
         ipv6Only: true,
+        reusePort: true,
         signal: new AbortSignal(),
     });
 
@@ -402,6 +405,7 @@ import * as net from "node:net";
     sockAddr.family; // $ExpectType IPVersion
     sockAddr.flowlabel; // $ExpectType number
     sockAddr.port; // $ExpectType number
+    net.SocketAddress.parse("[1::1]:1234"); // $ExpectType SocketAddress | undefined
 
     const bl = new net.BlockList();
     bl.addAddress("127.0.0.1", "ipv4");
@@ -412,4 +416,5 @@ import * as net from "node:net";
     bl.addSubnet(sockAddr, 12);
     const res: boolean = bl.check("127.0.0.1", "ipv4") || bl.check(sockAddr);
     bl.rules; // $ExpectType readonly string[]
+    net.BlockList.isBlockList(bl); // $ExpectType boolean
 }

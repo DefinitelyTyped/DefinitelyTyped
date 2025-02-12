@@ -278,6 +278,7 @@ type IRow = Array<string | number | boolean | Date | Buffer | undefined | null>;
 
 declare class rows extends Array<IRow> {
     public add(...row: IRow): number;
+    public clear(): void;
 }
 
 export declare class Table {

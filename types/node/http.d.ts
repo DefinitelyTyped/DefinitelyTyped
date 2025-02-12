@@ -223,6 +223,7 @@ declare module "http" {
         path?: string | null | undefined;
         port?: number | string | null | undefined;
         protocol?: string | null | undefined;
+        setDefaultHeaders?: boolean | undefined;
         setHost?: boolean | undefined;
         signal?: AbortSignal | undefined;
         socketPath?: string | undefined;
