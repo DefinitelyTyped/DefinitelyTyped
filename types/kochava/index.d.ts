@@ -1,18 +1,3 @@
-export type AdvancedKey =
-    | "wrapper"
-    | "urls"
-    | "urlsRestore"
-    | "logFilter"
-    | "getInstance"
-    | "logObjects";
-export type LogLevel = "none" | "error" | "warn" | "info" | "debug" | "trace";
-export type KochavaEvent = (name: string, data?: KochavaEventData) => void;
-export type KochavaEventData =
-    | string
-    | {
-        [key: string]: string | number | boolean | null;
-    };
-
 /**
  * Kochava SDK instance
  */
@@ -22,7 +7,7 @@ export interface KochavaInstance {
      * @param guid - the app GUID
      * @returns void
      */
-    startWithAppGuid: (guid: string) => void;
+    startWithAppGuid: (appGuid: string) => void;
 
     /**
      * sendPageEvent - Send a page event to Kochava
@@ -30,14 +15,14 @@ export interface KochavaInstance {
      * @param data - the data to send
      * @returns void
      */
-    sendPageEvent: (pageName: string, data?: KochavaEventData) => void;
+    sendPageEvent: (pageName: string, additionalData?: EventData) => void;
 
     /**
      * sendEvent - Send an event to Kochava
      * @param name - the name of the event
      * @param data - the data to send with the event (optional)
      */
-    sendEvent: KochavaEvent;
+    sendEvent: (name: string, data?: string | EventData) => void;
 
     /**
      * registerIdentityLink - Register an identity link with Kochava
@@ -56,46 +41,45 @@ export interface KochavaInstance {
 
     /**
      * getDeviceId - Get the device ID from Kochava
-     * @param callback - the callback to call with the device ID
-     * @returns void
+     * @returns string - the device ID
      */
-    getDeviceId(callback: (deviceId: string) => void): void;
+    getDeviceId(): string;
 
     /**
      * setLogLevel - Set the log level for the SDK
-     * @param level - the log level
+     * @param logLevel - the log level
      * @returns void
      */
-    setLogLevel: (level: LogLevel) => void;
+    setLogLevel: (logLevel: LogLevel) => void;
 
     /**
      * shutdown - Shutdown the SDK
-     * @param clear - clear the SDK state
+     * @param deleteData - clear the SDK state
      * @returns void
      */
-    shutdown: (clear: boolean) => void;
+    shutdown: (deleteData: boolean) => void;
 
     /**
      * useCookies - Enable or disable cookies
-     * @param use - boolean to enable or disable
+     * @param condition - boolean to enable or disable
      */
-    useCookies: (use: boolean) => void;
+    useCookies: (condition: boolean) => void;
 
     /**
      * disableAutoPage - Disable auto page tracking
-     * @param disable - boolean to enable or disable
+     * @param condition - boolean to enable or disable
      */
-    disableAutoPage: (disable: boolean) => void;
+    disableAutoPage: (condition: boolean) => void;
 
     /**
      * executeAdvancedInstruction - Execute an advanced instruction
      * @param key - the key of the instruction
-     * @param strJson - the JSON string of the instruction
+     * @param valueStr - the JSON string of the instruction
      * @param callback - the callback to call with the instance
      */
     executeAdvancedInstruction: (
-        key: AdvancedKey,
-        strJson: string,
+        key: AdvancedInstructionKey,
+        valueStr: string,
         callback: (instance: KochavaInstance) => void,
     ) => void;
 
@@ -119,7 +103,7 @@ export interface KochavaInstance {
      */
     getStarted: () => boolean;
     performNewKvinit: () => unknown;
-    checkResendId: () => unknown;
+    checkResendId: () => boolean;
     performInstall: () => unknown;
 }
 
@@ -156,3 +140,15 @@ export interface KochavaSDK {
  * each creator is a function that returns a new Kochava SDK instance
  */
 export const Kochava: KochavaSDK;
+
+export type LogLevel = "none" | "error" | "warn" | "info" | "debug" | "trace";
+export interface EventData {
+    [key: string]: string | number | boolean | null;
+}
+export type AdvancedInstructionKey =
+    | "wrapper"
+    | "urls"
+    | "urlsRestore"
+    | "logFilter"
+    | "getInstance"
+    | "logObjects";

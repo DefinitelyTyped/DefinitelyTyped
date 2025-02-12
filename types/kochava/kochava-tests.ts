@@ -11,7 +11,7 @@ kochava.sendPageEvent("page-name", { data: "data" }); // $ExpectType void
 kochava.sendEvent("event-name", { data: "data" }); // $ExpectType void
 kochava.registerIdentityLink("identity-link-name", "identifier"); // $ExpectType void
 kochava.setSleep(true); // $ExpectType void
-kochava.getDeviceId(deviceId => {}); // $ExpectType void
+kochava.getDeviceId(); // $ExpectType string
 kochava.setLogLevel("info"); // $ExpectType void
 kochava.shutdown(true); // $ExpectType void
 kochava.shutdown(false); // $ExpectType void
@@ -24,5 +24,5 @@ kochava.registerCustomValue("key", "value"); // $ExpectType void
 kochava.registerCustomDeviceIdentifier("key", "value"); // $ExpectType void
 kochava.getStarted(); // $ExpectType boolean
 kochava.performNewKvinit(); // $ExpectType unknown
-kochava.checkResendId(); // $ExpectType unknown
+kochava.checkResendId(); // $ExpectType boolean
 kochava.performInstall(); // $ExpectType unknown
