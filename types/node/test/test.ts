@@ -1040,6 +1040,12 @@ test("planning with streams", (t: TestContext, done) => {
 // Test snapshot assertion.
 test(t => {
     // $ExpectType void
+    t.assert.fileSnapshot({ value1: true, value2: false }, "./snapshots/snapshot.json");
+    // $ExpectType void
+    t.assert.fileSnapshot({ value3: "foo", value4: "bar" }, "./snapshots/snapshot.json", {
+        serializers: [value => JSON.stringify(value)],
+    });
+    // $ExpectType void
     t.assert.snapshot({ value1: true, value2: false });
     // $ExpectType void
     t.assert.snapshot({ value3: "foo", value4: "bar" }, { serializers: [value => JSON.stringify(value)] });
