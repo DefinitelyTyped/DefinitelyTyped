@@ -1,10 +1,10 @@
-import Fastify, { FastifyReply, FastifyRequest } from 'fastify';
-import FastifyUserAgent from 'fastify-user-agent';
+import Fastify, { FastifyReply, FastifyRequest } from "fastify";
+import FastifyUserAgent from "fastify-user-agent";
 
 const app = Fastify();
 app.register(FastifyUserAgent);
 
-app.get('/', async (req: FastifyRequest, reply: FastifyReply) => {
+app.get("/", async (req: FastifyRequest, reply: FastifyReply) => {
     reply.status(200).send({
         family: req.userAgent.family,
         major: req.userAgent.major,
