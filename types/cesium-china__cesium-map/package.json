@@ -14,10 +14,5 @@
             "name": "YOAKE",
             "githubUsername": "YOYOYOAKE"
         }
-    ],
-    "dependencies": {
-        "@cesium-china/cesium-map": "^1.0.0",
-        "cesium": "^1.126.0",
-        "tsd": "^0.31.2"
-    }
+    ]
 }
