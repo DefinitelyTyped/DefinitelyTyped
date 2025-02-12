@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "@types/cesium-china__cesium-map",
+  "version": "1.0.0",
+  "projects": [
+    "https://github.com/cesiumchina/cesium-map"
+  ],
+  "owners": [
+    {
+      "name": "YOAKE",
+      "githubUsername": "YOYOYOAKE"
+    }
+  ]
+}
