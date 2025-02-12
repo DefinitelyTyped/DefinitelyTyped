@@ -1,10 +1,13 @@
 {
   "private": true,
   "name": "@types/cesium-china__cesium-map",
-  "version": "1.0.0",
+  "version": "1.0.9999",
   "projects": [
     "https://github.com/cesiumchina/cesium-map"
   ],
+  "devDependencies": {
+    "@types/cesium-china__cesium-map": "workspace:."
+  },
   "owners": [
     {
       "name": "YOAKE",

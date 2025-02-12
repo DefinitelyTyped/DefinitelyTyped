@@ -3,7 +3,6 @@
     "module": "commonjs",
     "lib": [
       "es6",
-      "dom"
     ],
     "target": "es6",
     "types": [],
@@ -13,7 +12,7 @@
     "strictFunctionTypes": true,
     "baseUrl": "types",
     "typeRoots": [
-      "types"
+      "types",
     ],
   }
 }
