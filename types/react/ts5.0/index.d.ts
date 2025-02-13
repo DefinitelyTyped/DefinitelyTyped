@@ -2149,6 +2149,7 @@ declare namespace React {
 
     interface SVGLineElementAttributes<T> extends SVGProps<T> {}
     interface SVGTextElementAttributes<T> extends SVGProps<T> {}
+    type MathMLProps<E extends MathMLAttributes<T>, T> = ClassAttributes<T> & E;
 
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
@@ -3727,6 +3728,153 @@ declare namespace React {
         zoomAndPan?: string | undefined;
     }
 
+    // https://www.w3.org/TR/mathml-core/#global-attributes
+    interface MathMLAttributes<T> extends DOMAttributes<T> {
+        className?: string | undefined;
+        dir?: "ltr" | "rtl" | undefined;
+        displaystyle?: boolean | undefined;
+        href?: string | undefined;
+        id?: string | undefined;
+        nonce?: string | undefined;
+        scriptlevel?: string | undefined;
+        style?: CSSProperties | undefined;
+        tabindex?: number | undefined;
+        // This attributes are considered legacy but still described in the specification:
+        //
+        // https://www.w3.org/TR/mathml-core/#legacy-mathml-style-attributes
+        //
+        mathbackground?: string | undefined;
+        mathcolor?: string | undefined;
+        mathsize?: string | undefined;
+    }
+
+    // MathML elements and attributes are described here:
+    //
+    // https://www.w3.org/TR/mathml-core/#mathml-elements-and-attributes
+    //
+    interface MathMLMActionAttributes extends MathMLAttributes<MathMLMActionElement> {
+        actiontype?: string | undefined;
+        selection?: string | undefined;
+    }
+    interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
+        display?: "block" | "inline" | undefined;
+    }
+    interface MathMLMerrorAttributes extends MathMLAttributes<MathMLMerrorAttributes> {}
+    interface MathMLMfracAttributes extends MathMLAttributes<MathMLMfracElement> {
+        linethickness?: string | undefined;
+    }
+    interface MathMLMiAttributes extends MathMLAttributes<MathMLMiElement> {
+        mathvariant?: "normal" | undefined;
+    }
+    interface MathMLMmultiscriptsAttributes extends MathMLAttributes<MathMLMmultiscriptsElement> {}
+    interface MathMLMnAttributes extends MathMLAttributes<MathMLMnElement> {}
+    interface MathMLMoAttributes extends MathMLAttributes<MathMLMoElement> {
+        /* This attribute is non-standard. */
+        accent?: boolean | undefined;
+        fence?: boolean | undefined;
+        largeop?: boolean | undefined;
+        lspace?: string | undefined;
+        maxsize?: string | undefined;
+        minsize?: string | undefined;
+        movablelimits?: boolean | undefined;
+        rspace?: string | undefined;
+        separator?: boolean | undefined;
+        stretchy?: boolean | undefined;
+        symmetric?: boolean | undefined;
+    }
+    interface MathMLMoverAttributes extends MathMLAttributes<MathMLMoverElement> {
+        accent?: boolean | undefined;
+    }
+    interface MathMLMpaddedAttributes extends MathMLAttributes<MathMLMpaddedElement> {
+        depth?: string | undefined;
+        height?: string | undefined;
+        lspace?: string | undefined;
+        voffset?: string | undefined;
+        width?: string | undefined;
+    }
+    interface MathMLMphantomAttributes extends MathMLAttributes<MathMLMphantomElement> {}
+    // Described in relation to <mmultiscripts /> here:
+    //
+    // https://www.w3.org/TR/mathml-core/#prescripts-and-tensor-indices-mmultiscripts
+    //
+    interface MathMLMprescriptsAttributes extends MathMLAttributes<MathMLMprescriptsElement> {}
+    interface MathMLMrootAttributes extends MathMLAttributes<MathMLMrootElement> {}
+    interface MathMLMrowAttributes extends MathMLAttributes<MathMLMrowElement> {}
+    interface MathMLMsAttributes extends MathMLAttributes<MathMLMrowElement> {
+        lquote?: string | undefined;
+        rquote?: string | undefined;
+    }
+    interface MathMLMspaceAttributes extends MathMLAttributes<MathMLMspaceElement> {
+        depth?: string | undefined;
+        height?: string | undefined;
+        width?: string | undefined;
+    }
+    interface MathMLMsqrtAttributes extends MathMLAttributes<MathMLMsqrtElement> {}
+    interface MathMLMstyleAttributes extends MathMLAttributes<MathMLMstyleElement> {}
+    interface MathMLMsubAttributes extends MathMLAttributes<MathMLMsubElement> {}
+    interface MathMLMsubsupAttributes extends MathMLAttributes<MathMLMsubsupElement> {}
+    interface MathMLMsupAttributes extends MathMLAttributes<MathMLMsupElement> {}
+    interface MathMLMtableAttributes extends MathMLAttributes<MathMLMtableElement> {
+        /* This attribute is non-standard. */
+        align?: string | undefined;
+        /* This attribute is non-standard. */
+        columnalign?: string | undefined;
+        /* This attribute is non-standard. */
+        columnlines?: string | undefined;
+        /* This attribute is non-standard. */
+        columnspacing?: string | undefined;
+        /* This attribute is non-standard. */
+        frame?: "none" | "solid" | "dashed" | undefined;
+        /* This attribute is non-standard. */
+        framespacing?: string | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: string | undefined;
+        /* This attribute is non-standard. */
+        rowlines?: string | undefined;
+        /* This attribute is non-standard. */
+        rowspacing?: string | undefined;
+        /* This attribute is non-standard. */
+        width?: string | undefined;
+    }
+    interface MathMLMtdAttributes extends MathMLAttributes<MathMLMtdElement> {
+        /* This attribute is non-standard. */
+        columnalign?: "left" | "center" | "right" | undefined;
+        columnspan?: number | string | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: "axis" | "baseline" | "bottom" | "center" | "top" | undefined;
+        rowspan?: number | string | undefined;
+    }
+    interface MathMLMtextAttributes extends MathMLAttributes<MathMLMtextElement> {}
+    interface MathMLMtrAttributes extends MathMLAttributes<MathMLMtrElement> {
+        /* This attribute is non-standard. */
+        columnalign?: "left" | "center" | "right" | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: "axis" | "baseline" | "bottom" | "center" | "top" | undefined;
+    }
+    interface MathMLMunderAttributes extends MathMLAttributes<MathMLMunderElement> {
+        accentunder?: boolean | undefined;
+    }
+    interface MathMLMunderoverAttributes extends MathMLAttributes<MathMLElement> {
+        accent?: boolean | undefined;
+        accentunder?: boolean | undefined;
+    }
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+     */
+    interface MathMLSemanticsAttributes extends MathMLAttributes<MathMLSemanticsElement> {}
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+     */
+    interface MathMLAnnotationAttributes extends MathMLAttributes<MathMLAnnotationElement> {
+        encoding?: string | undefined;
+    }
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+     */
+    interface MathMLAnnotationXmlAttributes extends MathMLAttributes<MathMLAnnotationXmlElement> {
+        encoding?: string | undefined;
+    }
+
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
@@ -4172,6 +4320,39 @@ declare namespace React {
             tspan: React.SVGProps<SVGTSpanElement>;
             use: React.SVGProps<SVGUseElement>;
             view: React.SVGProps<SVGViewElement>;
+
+            // MathML
+            maction: React.MathMLProps<React.MathMLMActionAttributes, MathMLMActionElement>;
+            math: React.MathMLProps<React.MathMLMathAttributes, MathMLMathElement>;
+            merror: React.MathMLProps<React.MathMLMerrorAttributes, MathMLMerrorElement>;
+            mfrac: React.MathMLProps<React.MathMLMfracAttributes, MathMLMfracElement>;
+            mi: React.MathMLProps<React.MathMLMiAttributes, MathMLMiElement>;
+            mmultiscripts: React.MathMLProps<React.MathMLMmultiscriptsAttributes, MathMLMmultiscriptsElement>;
+            mn: React.MathMLProps<React.MathMLMnAttributes, MathMLMnElement>;
+            mo: React.MathMLProps<React.MathMLMoAttributes, MathMLMoElement>;
+            mover: React.MathMLProps<React.MathMLMoverAttributes, MathMLMoverElement>;
+            mpadded: React.MathMLProps<React.MathMLMpaddedAttributes, MathMLMpaddedElement>;
+            mphantom: React.MathMLProps<React.MathMLMphantomAttributes, MathMLMphantomElement>;
+            mprescripts: React.MathMLProps<React.MathMLMprescriptsAttributes, MathMLMprescriptsElement>;
+            mroot: React.MathMLProps<React.MathMLMrootAttributes, MathMLMrootElement>;
+            mrow: React.MathMLProps<React.MathMLMrowAttributes, MathMLMrowElement>;
+            ms: React.MathMLProps<React.MathMLMsAttributes, MathMLMsElement>;
+            mspace: React.MathMLProps<React.MathMLMspaceAttributes, MathMLMspaceElement>;
+            msqrt: React.MathMLProps<React.MathMLMsqrtAttributes, MathMLMsqrtElement>;
+            mstyle: React.MathMLProps<React.MathMLMstyleAttributes, MathMLMstyleElement>;
+            msub: React.MathMLProps<React.MathMLMsubAttributes, MathMLMsubElement>;
+            msubsup: React.MathMLProps<React.MathMLMsubsupAttributes, MathMLMsubsupElement>;
+            msup: React.MathMLProps<React.MathMLMsupAttributes, MathMLMsupElement>;
+            mtable: React.MathMLProps<React.MathMLMtableAttributes, MathMLMtableElement>;
+            mtd: React.MathMLProps<React.MathMLMtdAttributes, MathMLMtdElement>;
+            mtext: React.MathMLProps<React.MathMLMtextAttributes, MathMLMtextElement>;
+            mtr: React.MathMLProps<React.MathMLMtrAttributes, MathMLMtrElement>;
+            munder: React.MathMLProps<React.MathMLMunderAttributes, MathMLMunderElement>;
+            munderover: React.MathMLProps<React.MathMLMunderoverAttributes, MathMLMunderoverElement>;
+            semantics: React.MathMLProps<React.MathMLSemanticsAttributes, MathMLSemanticsElement>;
+            // MathML semantic annotations
+            annotation: React.MathMLProps<React.MathMLAnnotationAttributes, MathMLAnnotationElement>;
+            "annotation-xml": React.MathMLProps<React.MathMLAnnotationXmlAttributes, MathMLAnnotationXmlElement>;
         }
     }
 }
