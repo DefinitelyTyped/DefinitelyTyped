@@ -125,7 +125,7 @@ declare module "util" {
         /**
          * Returns the 1-based column offset on the line for the associated function call.
          */
-        column: number;
+        columnNumber: number;
     }
     /**
      * The `util.format()` method returns a formatted string using the first argument
