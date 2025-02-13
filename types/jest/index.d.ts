@@ -1073,7 +1073,7 @@ declare namespace jest {
          * expect(desiredHouse).toMatchObject<House>({...standardHouse, kitchen: {area: 20}}) // wherein standardHouse is some base object of type House
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toMatchObject<E extends {} | any[]>(expected: Partia;<E>): R;
+        toMatchObject<E extends {} | any[]>(expected: E extends any[] ? Partial<E[number]> : Partial<E>): R;    
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
