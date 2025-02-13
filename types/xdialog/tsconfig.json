@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": ["es6", "dom"],                               /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "types": [ "./index.d.ts" ],                         /* Specify type package names to be included without being referenced in a source file. */
+    "noEmit": true,                                      /* Disable emitting files from a compilation. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "module": "commonjs",                                /* Specify what module code is generated. */
+    "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "strictNullChecks": true,                            /* When type checking, take into account 'null' and 'undefined'. */
+    "strictFunctionTypes": true,                         /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
+    "noImplicitThis": true                               /* Enable error reporting when 'this' is given the type 'any'. */
+  },
+  "files": [
+    "index.d.ts",
+    "test/xdialog-tests.ts"
+  ]
+}
