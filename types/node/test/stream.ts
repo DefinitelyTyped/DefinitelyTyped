@@ -584,8 +584,29 @@ addAbortSignal(new AbortSignal(), new Readable());
 
 {
     const readable = new Readable();
+
     // $ExpectType ReadableStream<any>
     Readable.toWeb(readable);
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {});
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, { strategy: {} });
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {
+        strategy: {
+            highWaterMark: 3,
+
+            size(chunk) {
+                // $ExpectType any
+                chunk;
+
+                return -1;
+            },
+        },
+    });
 }
 
 {

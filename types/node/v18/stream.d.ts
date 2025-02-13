@@ -86,7 +86,12 @@ declare module "stream" {
              * @since v17.0.0
              * @experimental
              */
-            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
+            static toWeb(
+                streamReadable: Readable,
+                options?: {
+                    strategy?: streamWeb.QueuingStrategy | undefined;
+                },
+            ): streamWeb.ReadableStream;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
