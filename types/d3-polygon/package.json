@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/d3-polygon",
     "version": "3.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/d3/d3-polygon/",
         "https://d3js.org/d3-polygon"
