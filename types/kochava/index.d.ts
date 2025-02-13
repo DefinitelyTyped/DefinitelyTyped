@@ -132,6 +132,29 @@ export class Kochava {
     getStarted(): boolean;
 }
 
+// add koachava to window and global scope
+declare global {
+    // access using window.kochava
+    interface Window {
+        /**
+         * Kochava instance
+         * it could be undefined if the SDK is not loaded
+         * make sure to check if it's defined before using it
+         * @example window.kochava.startWithAppGuid("app-guid");
+         * @example window.kochava.sendPageEvent("page-name", { data: "data" });
+         */
+        readonly kochava?: Kochava;
+    }
+    /**
+     * Kochava instance,
+     * it could be undefined if the SDK is not loaded,
+     * make sure to check if it's defined before using it
+     * @example kochava.startWithAppGuid("app-guid");
+     * @example kochava.sendPageEvent("page-name", { data: "data" });
+     */
+    const kochava: Kochava | undefined;
+}
+
 // internal types
 export type LogLevel = "none" | "error" | "warn" | "info" | "debug" | "trace";
 export interface EventData {
