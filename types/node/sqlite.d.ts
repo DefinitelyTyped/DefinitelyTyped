@@ -112,10 +112,30 @@ declare module "node:sqlite" {
          */
         filter?: ((tableName: string) => boolean) | undefined;
         /**
-         * Determines how conflicts are handled. **Default**: `SQLITE_CHANGESET_ABORT`.
+         * A function that determines how to handle conflicts. The function receives one argument,
+         * which can be one of the following values:
+         *
+         * * `SQLITE_CHANGESET_DATA`: A `DELETE` or `UPDATE` change does not contain the expected "before" values.
+         * * `SQLITE_CHANGESET_NOTFOUND`: A row matching the primary key of the `DELETE` or `UPDATE` change does not exist.
+         * * `SQLITE_CHANGESET_CONFLICT`: An `INSERT` change results in a duplicate primary key.
+         * * `SQLITE_CHANGESET_FOREIGN_KEY`: Applying a change would result in a foreign key violation.
+         * * `SQLITE_CHANGESET_CONSTRAINT`: Applying a change results in a `UNIQUE`, `CHECK`, or `NOT NULL` constraint
+         * violation.
+         *
+         * The function should return one of the following values:
+         *
+         * * `SQLITE_CHANGESET_OMIT`: Omit conflicting changes.
+         * * `SQLITE_CHANGESET_REPLACE`: Replace existing values with conflicting changes (only valid with
+             `SQLITE_CHANGESET_DATA` or `SQLITE_CHANGESET_CONFLICT` conflicts).
+         * * `SQLITE_CHANGESET_ABORT`: Abort on conflict and roll back the database.
+         *
+         * When an error is thrown in the conflict handler or when any other value is returned from the handler,
+         * applying the changeset is aborted and the database is rolled back.
+         *
+         * **Default**: A function that returns `SQLITE_CHANGESET_ABORT`.
          * @since v22.12.0
          */
-        onConflict?: number | undefined;
+        onConflict?: ((conflictType: number) => number) | undefined;
     }
     interface FunctionOptions {
         /**
@@ -427,12 +447,32 @@ declare module "node:sqlite" {
      */
     namespace constants {
         /**
+         * The conflict handler is invoked with this constant when processing a DELETE or UPDATE change if a row with the required PRIMARY KEY fields is present in the database, but one or more other (non primary-key) fields modified by the update do not contain the expected "before" values.
+         * @since v22.14.0
+         */
+        const SQLITE_CHANGESET_DATA: number;
+        /**
+         * The conflict handler is invoked with this constant when processing a DELETE or UPDATE change if a row with the required PRIMARY KEY fields is not present in the database.
+         * @since v22.14.0
+         */
+        const SQLITE_CHANGESET_NOTFOUND: number;
+        /**
+         * This constant is passed to the conflict handler while processing an INSERT change if the operation would result in duplicate primary key values.
+         * @since v22.14.0
+         */
+        const SQLITE_CHANGESET_CONFLICT: number;
+        /**
+         * If foreign key handling is enabled, and applying a changeset leaves the database in a state containing foreign key violations, the conflict handler is invoked with this constant exactly once before the changeset is committed. If the conflict handler returns `SQLITE_CHANGESET_OMIT`, the changes, including those that caused the foreign key constraint violation, are committed. Or, if it returns `SQLITE_CHANGESET_ABORT`, the changeset is rolled back.
+         * @since v22.14.0
+         */
+        const SQLITE_CHANGESET_FOREIGN_KEY: number;
+        /**
          * Conflicting changes are omitted.
          * @since v22.12.0
          */
         const SQLITE_CHANGESET_OMIT: number;
         /**
-         * Conflicting changes replace existing values.
+         * Conflicting changes replace existing values. Note that this value can only be returned when the type of conflict is either `SQLITE_CHANGESET_DATA` or `SQLITE_CHANGESET_CONFLICT`.
          * @since v22.12.0
          */
         const SQLITE_CHANGESET_REPLACE: number;
