@@ -98,6 +98,7 @@ interface PlatonicDice {
     DieType: typeof DieType;
     RollType: typeof RollType;
     Outcome: typeof Outcome;
+    FaceOutcomeMapping: typeof FaceOutcomeMapping;
 }
 
 /**
@@ -128,6 +129,23 @@ export enum Outcome {
     Failure = "failure",
     Critical_Success = "critical_success",
     Critical_Failure = "critical_failure",
+}
+
+/**
+ * Represents face-to-outcome mappings for a CustomDie.
+ */
+export interface FaceOutcomeMapping {
+    /**
+     * Default outcome function (if face not explicitly mapped).
+     * Takes a number (face value) and returns a number or string.
+     */
+    default?: (face: number) => number | string;
+
+    /**
+     * Explicit mappings of face values to outcome functions.
+     * Keys are numbers (face values), values are functions returning number or string.
+     */
+    mappings: Record<number, (face: number) => number | string>;
 }
 
 /**

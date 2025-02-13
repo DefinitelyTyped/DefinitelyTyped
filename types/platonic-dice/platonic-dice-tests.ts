@@ -87,7 +87,7 @@ const rollTypeTest: RollType = RollType.Advantage; // TypeScript should enforce 
 const outcomeTest: Outcome = Outcome.Critical_Success; // TypeScript should enforce a valid Outcome value
 
 // Ensure that each enum works as expected in a switch statement (type narrowing)
-switch (rollTypeTest) {
+switch (rollTypeTest as RollType) {
     case RollType.Advantage:
         console.log("Test 8: Roll is Advantage");
         break;
