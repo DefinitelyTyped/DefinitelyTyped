@@ -1572,9 +1572,10 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default option value when it is not set by args.
-         * It must be of the same type as the the `type` property.
-         * When `multiple` is `true`, it must be an array.
+         * The default value to
+         * be used if (and only if) the option does not appear in the arguments to be
+         * parsed. It must be of the same type as the `type` property. When `multiple`
+         * is `true`, it must be an array.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;
