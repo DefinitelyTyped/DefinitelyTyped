@@ -74,8 +74,11 @@ export class Client {
     renderSearchTemplate(params: RenderSearchTemplateParams): Promise<any>;
     scroll<T>(params: ScrollParams, callback: (error: any, response: SearchResponse<T>) => void): void;
     scroll<T>(params: ScrollParams): Promise<SearchResponse<T>>;
-    search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
-    search<T>(params: SearchParams): Promise<SearchResponse<T>>;
+    search<T, TTotalHits = number>(
+        params: SearchParams,
+        callback: (error: any, response: SearchResponse<T, TTotalHits>) => void,
+    ): void;
+    search<T, TTotalHits = number>(params: SearchParams): Promise<SearchResponse<T, TTotalHits>>;
     searchShards(params: SearchShardsParams, callback: (error: any, response: SearchShardsResponse) => void): void;
     searchShards(params: SearchShardsParams): Promise<SearchShardsResponse>;
     searchTemplate(params: SearchTemplateParams, callback: (error: any, response: any) => void): void;
@@ -145,7 +148,8 @@ export interface ShardsResponse {
 /**
  * A string of a number and a time unit.  A time unit is one of
  * [d, h, m, s, ms, micros, nanos].  eg: "30s" for 30 seconds.
- * These are incorrectly identified as `Date | number` in the docs as of 2016-11-15.
+ * The current docs call this type `DurationString`.  These were incorrectly
+ * identified as `Date | number` in the docs as of 2016-11-15.
  */
 export type TimeSpan = string;
 
@@ -162,12 +166,15 @@ export interface BulkIndexDocumentsParams extends GenericParams {
     routing?: string | undefined;
     timeout?: TimeSpan | undefined;
     type?: string | undefined;
-    fields?: NameList | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     pipeline?: string | undefined;
     index?: string | undefined;
+
+    fields?: NameList | undefined; // removed in 7.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
 export interface ClearScrollParams extends GenericParams {
@@ -176,6 +183,7 @@ export interface ClearScrollParams extends GenericParams {
 
 export interface CountParams extends GenericParams {
     ignoreUnavailable?: boolean | undefined;
+    ignoreThrottled?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     minScore?: number | undefined;
@@ -187,9 +195,11 @@ export interface CountParams extends GenericParams {
     defaultOperator?: DefaultOperator | undefined;
     df?: string | undefined;
     lenient?: boolean | undefined;
-    lowercaseExpandedTerms?: boolean | undefined;
+    terminateAfter?: number | undefined;
     index?: NameList | undefined;
     type?: NameList | undefined;
+
+    lowercaseExpandedTerms?: boolean | undefined; // removed before 5.0.
 }
 
 export interface CountResponse {
@@ -199,18 +209,19 @@ export interface CountResponse {
 
 export interface CreateDocumentParams extends GenericParams {
     waitForActiveShards?: string | undefined;
-    parent?: string | undefined;
     refresh?: Refresh | undefined;
     routing?: string | undefined;
     timeout?: TimeSpan | undefined;
-    timestamp?: Date | number | undefined;
-    ttl?: TimeSpan | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
     pipeline?: string | undefined;
     id?: string | undefined;
     index: string;
     type: string;
+
+    parent?: string | undefined; // removed in 7.0.
+    timestamp?: Date | number | undefined; // removed in 6.0.
+    ttl?: TimeSpan | undefined; // removed in 6.0.
 }
 
 export interface CreateDocumentResponse {
@@ -225,15 +236,18 @@ export interface CreateDocumentResponse {
 
 export interface DeleteDocumentParams extends GenericParams {
     waitForActiveShards?: string | undefined;
-    parent?: string | undefined;
     refresh?: Refresh | undefined;
     routing?: string | undefined;
     timeout?: TimeSpan | undefined;
+    ifSeqNo?: number | undefined;
+    ifPrimaryTerm?: number | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
+    id: string;
     index: string;
     type: string;
-    id: string;
+
+    parent?: string | undefined; // removed in 7.0.
 }
 
 export interface DeleteDocumentResponse {
@@ -257,7 +271,6 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     conflicts?: Conflicts | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     lenient?: boolean | undefined;
-    lowercaseExpandedTerms?: boolean | undefined;
     preference?: string | undefined;
     q?: string | undefined;
     routing?: string | string[] | boolean | undefined;
@@ -265,10 +278,11 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     searchType?: "query_then_fetch" | "dfs_query_then_fetch" | undefined;
     searchTimeout?: TimeSpan | undefined;
     size?: number | undefined;
+    maxDocs?: number | undefined;
     sort?: NameList | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     terminateAfter?: number | undefined;
     stats?: string | string[] | boolean | undefined;
     version?: number | undefined;
@@ -282,6 +296,10 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     slices?: number | undefined;
     index?: string | undefined;
     type?: string | undefined;
+
+    lowercaseExpandedTerms?: boolean | undefined; // removed before 5.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
 export interface DeleteDocumentByQueryResponse extends ReindexResponse {
@@ -289,8 +307,11 @@ export interface DeleteDocumentByQueryResponse extends ReindexResponse {
 }
 
 export interface DeleteScriptParams extends GenericParams {
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
     id: string;
-    lang: string;
+
+    lang: string; // removed in 6.0.
 }
 
 export interface DeleteTemplateParams extends GenericParams {
@@ -298,14 +319,21 @@ export interface DeleteTemplateParams extends GenericParams {
 }
 
 export interface ExistsParams extends GenericParams {
-    parent?: string | undefined;
+    storedFields?: NameList | undefined;
     preference?: string | undefined;
     realtime?: boolean | undefined;
     refresh?: boolean | undefined;
     routing?: string | undefined;
+    _source?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
+    version?: number | undefined;
+    versionType?: VersionType | undefined;
     id: string;
     index: string;
     type: string;
+
+    parent?: string | undefined; // removed in 7.0.
 }
 
 export interface ExplainParams extends GenericParams {
@@ -315,17 +343,20 @@ export interface ExplainParams extends GenericParams {
     df?: string | undefined;
     storedFields?: NameList | undefined;
     lenient?: boolean | undefined;
-    lowercaseExpandedTerms?: boolean | undefined;
-    parent?: string | undefined;
     preference?: string | undefined;
     q?: string | undefined;
     routing?: string | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     id?: string | undefined;
     index?: string | undefined;
     type?: string | undefined;
+
+    lowercaseExpandedTerms?: boolean | undefined; // removed before 5.0.
+    parent?: string | undefined; // removed in 7.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
 export interface ExplainResponse {
@@ -375,19 +406,22 @@ export interface FieldStatsResponseField {
 
 export interface GetParams extends GenericParams {
     storedFields?: NameList | undefined;
-    parent?: string | undefined;
     preference?: string | undefined;
     realtime?: boolean | undefined;
     refresh?: boolean | undefined;
     routing?: string | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
     id: string;
     index: string;
     type: string;
+
+    parent?: string | undefined; // removed in 7.0.
+    _sourceExclude?: NameList | undefined; // removed in 7.0.
+    _sourceInclude?: NameList | undefined; // removed in 7.0.
 }
 
 export interface GetResponse<T> {
@@ -411,13 +445,16 @@ export interface GetSourceParams extends GenericParams {
     refresh?: boolean | undefined;
     routing?: string | undefined;
     _source: NameList;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
     id: string;
     index: string;
     type: string;
+
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
 export interface GetTemplateParams extends GenericParams {
@@ -427,19 +464,22 @@ export interface GetTemplateParams extends GenericParams {
 export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string | undefined;
     opType?: "index" | "create" | undefined;
-    parent?: string | undefined;
     refresh?: Refresh | undefined;
     routing?: string | undefined;
     timeout?: TimeSpan | undefined;
-    timestamp?: Date | number | undefined;
-    ttl?: TimeSpan | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
+    ifSeqNo?: number | undefined;
+    ifPrimaryTerm?: number | undefined;
     pipeline?: string | undefined;
     id?: string | undefined;
     index: string;
     type: string;
     body: T;
+
+    parent?: string | undefined; // removed in 7.0.
+    timestamp?: Date | number | undefined; // removed in 6.0.
+    ttl?: TimeSpan | undefined; // removed in 6.0.
 }
 
 export interface InfoParams extends GenericParams {
@@ -452,10 +492,13 @@ export interface MGetParams extends GenericParams {
     refresh?: boolean | undefined;
     routing?: string | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     index?: string | undefined;
     type?: string | undefined;
+
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
 export interface MGetResponse<T> {
@@ -463,8 +506,13 @@ export interface MGetResponse<T> {
 }
 
 export interface MSearchParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
     maxConcurrentSearches?: number | undefined;
+    typedKeys?: boolean | undefined;
+    preFilterShareSize?: number | undefined;
+    maxConcurrentShardRequests?: number | undefined;
+    restTotalHitsAsInt?: boolean | undefined;
+    ccsMinimizeRoundtrips?: boolean | undefined;
     index?: NameList | undefined;
     type?: NameList | undefined;
 }
@@ -474,7 +522,11 @@ export interface MSearchResponse<T> {
 }
 
 export interface MSearchTemplateParams extends GenericParams {
-    search_type?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    typedKeys?: boolean | undefined;
+    maxConcurrentSearches?: number | undefined;
+    restTotalHitsAsInt?: boolean | undefined;
+    ccsMinimizeRoundtrips?: boolean | undefined;
     index?: NameList | undefined;
     type?: NameList | undefined;
 }
@@ -489,21 +541,26 @@ export interface MTermVectorsParams extends GenericParams {
     payloads?: boolean | undefined;
     preference?: string | undefined;
     routing?: string | undefined;
-    parent?: string | undefined;
     realtime?: boolean | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
     index: string;
     type: string;
+
+    parent?: string | undefined; // removed in 7.0.
 }
 
 export interface PingParams extends GenericParams {
 }
 
 export interface PutScriptParams extends GenericParams {
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    context?: string | undefined;
     id: string;
-    lang: string;
     body: any;
+
+    lang: string; // removed in 6.0.
 }
 
 export interface PutTemplateParams extends GenericParams {
@@ -517,7 +574,9 @@ export interface ReindexParams extends GenericParams {
     waitForActiveShards?: string | undefined;
     waitForCompletion?: boolean | undefined;
     requestsPerSecond?: number | undefined;
+    scroll?: TimeSpan | undefined;
     slices?: number | undefined;
+    maxDocs?: number | undefined;
     body: {
         conflicts?: string | undefined;
         source: {
@@ -558,23 +617,24 @@ export interface RenderSearchTemplateParams extends GenericParams {
 export interface ScrollParams extends GenericParams {
     scroll: TimeSpan;
     scrollId: string;
+    restTotalHitsAsInt?: boolean | undefined;
 }
 
 export interface SearchParams extends GenericParams {
     analyzer?: string | undefined;
     analyzeWildcard?: boolean | undefined;
+    ccsMinimizeRoundtrips?: boolean | undefined;
     defaultOperator?: DefaultOperator | undefined;
     df?: string | undefined;
     explain?: boolean | undefined;
     storedFields?: NameList | undefined;
     docvalueFields?: NameList | undefined;
-    fielddataFields?: NameList | undefined;
     from?: number | undefined;
     ignoreUnavailable?: boolean | undefined;
+    ignoreThrottled?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     lenient?: boolean | undefined;
-    lowercaseExpandedTerms?: boolean | undefined;
     preference?: string | undefined;
     q?: string | undefined;
     routing?: NameList | undefined;
@@ -583,8 +643,8 @@ export interface SearchParams extends GenericParams {
     size?: number | undefined;
     sort?: NameList | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     terminateAfter?: number | undefined;
     stats?: NameList | undefined;
     suggestField?: string | undefined;
@@ -593,19 +653,35 @@ export interface SearchParams extends GenericParams {
     suggestText?: string | undefined;
     timeout?: TimeSpan | undefined;
     trackScores?: boolean | undefined;
+    trackTotalHits?: boolean | undefined;
+    allowPartialSearchResults?: boolean | undefined;
+    typedKeys?: boolean | undefined;
     version?: boolean | undefined;
+    seqNoPrimaryTerm?: boolean | undefined;
     requestCache?: boolean | undefined;
+    batchedReduceSize?: number | undefined;
+    maxConcurrentShardRequests?: number | undefined;
+    preFilterShardSize?: number | undefined;
+    restTotalHitsAsInt?: boolean | undefined;
     index?: NameList | undefined;
     type?: NameList | undefined;
+
+    fielddataFields?: NameList | undefined; // removed in 6.0.
+    lowercaseExpandedTerms?: boolean | undefined; // removed before 5.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
 }
 
-export interface SearchResponse<T> {
+// For Elasticsearch 7.0 use SearchResponseV7.  This interface is for
+// Elasticsearch 6 or before, or for Elasticsearch 7 with "restTotalHitsAsInt:
+// true".
+export interface SearchResponse<T, TTotalHits = number> {
     took: number;
     timed_out: boolean;
     _scroll_id?: string | undefined;
     _shards: ShardsResponse;
     hits: {
-        total: number;
+        total?: TTotalHits;
         max_score: number;
         hits: Array<{
             _index: string;
@@ -625,6 +701,13 @@ export interface SearchResponse<T> {
     aggregations?: any;
 }
 
+export interface TotalHits {
+    value: number;
+    relation: "eq" | "gte";
+}
+
+export type SearchResponseV7<T> = SearchResponse<T, TotalHits>;
+
 export interface SearchShardsParams extends GenericParams {
     preference?: string | undefined;
     routing?: string | undefined;
@@ -633,7 +716,8 @@ export interface SearchShardsParams extends GenericParams {
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     index: NameList;
-    type?: NameList;
+
+    type?: NameList; // removed in 6.0.
 }
 
 export interface SearchShardsResponse {
@@ -655,12 +739,18 @@ export interface SearchShardsResponseShard {
 
 export interface SearchTemplateParams extends GenericParams {
     ignoreUnavailable?: boolean | undefined;
+    ignoreThrottled?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     preference?: string | undefined;
     routing?: NameList | undefined;
     scroll?: TimeSpan | undefined;
     searchType?: "query_then_fetch" | "query_and_fetch" | "dfs_query_then_fetch" | "dfs_query_and_fetch" | undefined;
+    explain?: boolean | undefined;
+    profile?: boolean | undefined;
+    typedKeys?: boolean | undefined;
+    restTotalHitsAsInt?: boolean | undefined;
+    ccsMinimizeRoundtrips?: boolean | undefined;
     index: NameList;
     type: NameList;
 }
@@ -683,34 +773,40 @@ export interface TermvectorsParams extends GenericParams {
     payloads?: boolean | undefined;
     preference?: string | undefined;
     routing?: string | undefined;
-    parent?: string | undefined;
     realtime?: boolean | undefined;
     version?: number | undefined;
     versionType?: VersionType | undefined;
     index: string;
     type: string;
     id?: string | undefined;
+
+    parent?: string | undefined; // removed in 7.0.
 }
 
 export interface UpdateDocumentParams extends GenericParams {
     waitForActiveShards?: string | undefined;
-    fields?: NameList | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     lang?: string | undefined;
-    parent?: string | undefined;
     refresh?: Refresh | undefined;
     retryOnConflict?: number | undefined;
     routing?: string | undefined;
     timeout?: TimeSpan | undefined;
-    timestamp?: Date | number | undefined;
-    ttl?: TimeSpan | undefined;
-    version?: number | undefined;
-    versionType?: "internal" | "force" | undefined;
+    ifSeqNo?: number | undefined;
+    ifPrimaryTerm?: number | undefined;
     id: string;
     index: string;
     type: string;
+
+    fields?: NameList | undefined; // removed in 7.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
+    parent?: string | undefined; // removed in 7.0.
+    timestamp?: Date | number | undefined; // removed in 6.0.
+    ttl?: TimeSpan | undefined; // removed in 6.0.
+    version?: number | undefined; // removed in 7.0.
+    versionType?: "internal" | "force" | undefined; // removed in 7.0.
 }
 
 export interface UpdateDocumentByQueryParams extends GenericParams {
@@ -718,17 +814,12 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     analyzeWildcard?: boolean | undefined;
     defaultOperator?: DefaultOperator | undefined;
     df?: string | undefined;
-    explain?: boolean | undefined;
-    storedFields?: NameList | undefined;
-    docvalueFields?: NameList | undefined;
-    fielddataFields?: NameList | undefined;
     from?: number | undefined;
     ignoreUnavailable?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     conflicts?: Conflicts | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     lenient?: boolean | undefined;
-    lowercaseExpandedTerms?: boolean | undefined;
     pipeline?: string | undefined;
     preference?: string | undefined;
     q?: string | undefined;
@@ -737,22 +828,18 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     searchType?: "query_then_fetch" | "dfs_query_then_fetch" | undefined;
     searchTimeout?: TimeSpan | undefined;
     size?: number | undefined;
+    maxDocs?: number | undefined;
     sort?: NameList | undefined;
     _source?: NameList | undefined;
-    _sourceExclude?: NameList | undefined;
-    _sourceInclude?: NameList | undefined;
+    _sourceExcludes?: NameList | undefined;
+    _sourceIncludes?: NameList | undefined;
     terminateAfter?: number | undefined;
     stats?: NameList | undefined;
-    suggestField?: string | undefined;
-    suggestMode?: "missing" | "popular" | "always" | undefined;
-    suggestSize?: number | undefined;
-    suggestText?: string | undefined;
-    timeout?: TimeSpan | undefined;
-    trackScores?: boolean | undefined;
     version?: boolean | undefined;
     versionType?: boolean | undefined;
     requestCache?: boolean | undefined;
     refresh?: boolean | undefined;
+    timeout?: TimeSpan | undefined;
     waitForActiveShards?: string | undefined;
     scrollSize?: number | undefined;
     waitForCompletion?: boolean | undefined;
@@ -760,6 +847,19 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     slices?: number | undefined;
     index: NameList;
     type: NameList;
+
+    explain?: boolean | undefined; // removed before 5.0.
+    storedFields?: NameList | undefined; // removed before 5.0.
+    docvalueFields?: NameList | undefined; // removed before 5.0.
+    fielddataFields?: NameList | undefined; // removed before 5.0.
+    lowercaseExpandedTerms?: boolean | undefined; // removed before 5.0.
+    _sourceExclude?: NameList | undefined; // removed in 6.0.
+    _sourceInclude?: NameList | undefined; // removed in 6.0.
+    suggestField?: string | undefined; // removed before 5.0.
+    suggestMode?: "missing" | "popular" | "always" | undefined; // removed before 5.0.
+    suggestSize?: number | undefined; // removed before 5.0.
+    suggestText?: string | undefined; // removed before 5.0.
+    trackScores?: boolean | undefined; // removed before 5.0.
 }
 
 export interface UpdateDocumentByQueryResponse extends ReindexResponse {
