@@ -112,7 +112,7 @@ declare module "." {
     /**
      * Warning: Only available in development builds.
      */
-    function captureOwnerStack(): string | null;
+    function captureOwnerStack(): string;
 
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
