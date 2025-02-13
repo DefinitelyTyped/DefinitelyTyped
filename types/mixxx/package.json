@@ -1,0 +1,19 @@
+{
+    "nonNpm": true,
+    "nonNpmDescription": "The plugin SDK for the Mixxx DJ software.",
+    "private": true,
+    "name": "@types/mixxx",
+    "version": "0.1.9999",
+    "projects": [
+        "https://mixxx.org/"
+    ],
+    "devDependencies": {
+        "@types/mixxx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Whited",
+            "githubUsername": "samwhited"
+        }
+    ]
+}
