@@ -4,6 +4,28 @@ import * as net from "node:net";
 import * as stream from "node:stream";
 import * as url from "node:url";
 
+// http Server (with ContentType and HeaderContent tests)
+{
+    // Test ContentType Union type
+    let contentType: http.ContentTypeValues;
+
+    // Valid cases
+    contentType = "text/plain"; // should work
+    contentType = "application/json"; // should work
+    contentType = "image/jpeg"; // should work
+
+    // Invalid case - TypeScript should flag this
+    // @ts-expect-error
+    contentType = "invalid/type"; // Error: Type '"invalid/type"' is not assignable to type 'ContentType'
+
+    // Test HeaderContent type
+    const header: http.HeaderContent = { name: "Content-Type", value: "application/json" }; // should work
+
+    // Invalid case - TypeScript should flag this
+    // @ts-expect-error
+    const invalidHeader: http.HeaderContent = { name: "Content-Type", value: "invalid/type" }; // Error: Type '"invalid/type"' is not assignable to type 'ContentType'
+}
+
 // http Server
 {
     function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
