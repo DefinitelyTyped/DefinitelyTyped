@@ -978,7 +978,7 @@ export interface MetricMessage {
          * to match against the current metric's URL and name tags.
          * Required.
          */
-        matches: {
+        matches: Array<{
             /**
              * The regular expression used to find matches in the current
              * metric's URL and name tags. Required.
@@ -991,7 +991,7 @@ export interface MetricMessage {
              * tag.
              */
             method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT";
-        }[];
+        }>;
     }): void;
 }
 
