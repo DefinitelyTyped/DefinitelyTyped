@@ -5,7 +5,7 @@ import * as https from "https";
 import * as ws from "ws";
 
 declare module "koa" {
-    interface Context {
+    interface BaseContext {
         websocket: ws;
         path: string;
     }
@@ -16,7 +16,7 @@ declare namespace KoaWebsocket {
         MiddlewareContext<StateT> & ContextT
     >;
 
-    interface MiddlewareContext<StateT> extends Koa.Context {
+    interface MiddlewareContext<StateT> extends Koa.BaseContext {
         // Limitation: Declaration merging cannot overwrap existing properties.
         // That's why this property is here, not in the merged declaration above.
         app: App;
