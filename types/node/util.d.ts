@@ -119,6 +119,12 @@ declare module "util" {
          */
         scriptName: string;
         /**
+         * Returns the unique id of the script, as in Chrome DevTools protocol
+         * [`Runtime.ScriptId`](https://chromedevtools.github.io/devtools-protocol/1-3/Runtime/#type-ScriptId).
+         * @since v22.14.0
+         */
+        scriptId: string;
+        /**
          * Returns the number, 1-based, of the line for the associate function call.
          */
         lineNumber: number;
