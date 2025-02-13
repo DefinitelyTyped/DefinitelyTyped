@@ -204,6 +204,9 @@ declare module "module" {
          * Register a module that exports hooks that customize Node.js module
          * resolution and loading behavior. See
          * [Customization hooks](https://nodejs.org/docs/latest-v22.x/api/module.html#customization-hooks).
+         *
+         * This feature requires `--allow-worker` if used with the
+         * [Permission Model](https://nodejs.org/docs/latest-v22.x/api/permissions.html#permission-model).
          * @since v20.6.0, v18.19.0
          * @param specifier Customization hooks to be registered; this should be
          * the same string that would be passed to `import()`, except that if it is
