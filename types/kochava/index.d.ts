@@ -108,7 +108,7 @@ export class Kochava {
     executeAdvancedInstruction(
         key: string,
         valueStr: string,
-        callback: (instance: string) => void,
+        callback?: (result: string) => void,
     ): void;
 
     /**
