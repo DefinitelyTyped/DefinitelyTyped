@@ -69,7 +69,7 @@ declare module "vm" {
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
