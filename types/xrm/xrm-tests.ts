@@ -669,3 +669,120 @@ function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
         console.log(args.getSaveErrorInfo());
     }
 }
+
+async function WebApiExecuteResponseType() {
+    // @ts-expect-error
+    const response = await Xrm.WebApi.online.execute<{ value: string }>({});
+    const responseValue = await response.json();
+    // $ExpectType string
+    responseValue.value;
+
+    const t = await Xrm.WebApi.online.execute<{ value: string }>({
+        getMetadata() {
+            return {
+                operationType: XrmEnum.ExecuteOperationType.CRUD,
+                operationName: 'Create',
+                parameterTypes: {
+                    'myPara': {
+                        structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType,
+                        enumProperties: [],
+                        typeName: '',
+                    }
+                },
+                boundParameter: undefined,
+            };
+        },
+    });
+}
+
+async function WebApiExecuteMultiple() {
+    const r : Xrm.ExecuteRequest = {
+        // @ts-expect-error
+        getMetadata() {
+            return {                 
+                operationType: XrmEnum.ExecuteOperationType.CRUD,
+                boundParameter: 'CRUD is not bound!',
+                operationName: 'Create',
+                parameterTypes: {},
+             };
+        }
+    };
+
+    const r2 : Xrm.ExecuteRequest = {
+        
+        getMetadata() {
+            return {                 
+                operationType: XrmEnum.ExecuteOperationType.CRUD,
+                operationName: 'Associate',
+                parameterTypes: {},
+             };
+        }
+    };
+
+    const responses = await Xrm.WebApi.online.executeMultiple([
+        r, [r2, r], r
+    ]);
+
+    const responseObjects = await responses[0].json();
+    // $ExpectType object   
+    responseObjects;
+}
+
+function webApiExecuteActionExample() {
+    /**
+     * Request to win an opportunity
+     * @param {Object} opportunityClose - The opportunity close activity associated with this state change.
+     * @param {number} status - Status of the opportunity.
+     */
+    class WinOpportunityRequest {
+        constructor(opportunityClose: object, status: number) {
+            this.OpportunityClose = opportunityClose;
+            this.Status = status;
+        }
+
+        OpportunityClose: object;
+        Status: number;
+
+        getMetadata() {
+            return {
+                boundParameter: null,
+                parameterTypes: {
+                    "OpportunityClose": {
+                        "typeName": "mscrm.opportunityclose",
+                        "structuralProperty": 5 // Entity Type
+                    },
+                    "Status": {
+                        "typeName": "Edm.Int325",
+                        "structuralProperty": 1 // Primitive Type
+                    }
+                },
+                operationType: 0, // This is an action. Use '1' for functions and '2' for CRUD
+                operationName: "WinOpportunity",
+            };
+        };
+    }
+
+    var opportunityClose = {
+        "opportunityid@odata.bind": "/opportunities(c60e0283-5bf2-e311-945f-6c3be5a8dd64)",
+        "description": "Product and maintenance for 2018",
+        "subject": "Contract for 2018"
+    }
+
+    // Construct a request object from the metadata
+    var winOpportunityRequest = new WinOpportunityRequest(opportunityClose, 3);
+
+    // Use the request object to execute the function
+    Xrm.WebApi.online.execute(winOpportunityRequest).then(function (response) {
+        if (response.ok) {
+            console.log("Status: %s %s", response.status, response.statusText);
+            // The WinOpportunityRequest does not return any response body content. So we
+            // need not access the response.json() property.
+
+            // Perform other operations as required.
+        }
+    })
+        .catch(function (error) {
+            console.log(error.message);
+            // handle error conditions
+        });
+}
