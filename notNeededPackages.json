@@ -3361,6 +3361,22 @@
             "libraryName": "leap-year",
             "asOfVersion": "3.0.0"
         },
+        "ledgerhq__hw-app-btc": {
+            "libraryName": "@ledgerhq/hw-app-btc",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport": {
+            "libraryName": "@ledgerhq/hw-transport",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport-node-hid": {
+            "libraryName": "@ledgerhq/hw-transport-node-hid",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport-webusb": {
+            "libraryName": "@ledgerhq/hw-transport-webusb",
+            "asOfVersion": "6.0.0"
+        },
         "left-pad": {
             "libraryName": "left-pad",
             "asOfVersion": "1.2.0"
