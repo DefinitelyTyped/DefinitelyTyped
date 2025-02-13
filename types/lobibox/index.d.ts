@@ -158,7 +158,7 @@ declare namespace LobiboxModule {
         soundExt?: string | undefined; // Default extension for all sounds
         showClass?: string | undefined; // Show animation class.
         hideClass?: string | undefined; // Hide animation class.
-        icon?: boolean | undefined; // Icon of notification. Leave as is for default icon or set custom string
+        icon?: string | boolean | undefined; // Icon of notification. Leave as is for default icon or set custom string
         msg?: string | undefined; // Message of notification
         img?: string | undefined; // Image source string
         closable?: boolean | undefined; // Make notifications closable
