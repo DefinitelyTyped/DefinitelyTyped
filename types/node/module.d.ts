@@ -133,7 +133,7 @@ declare module "module" {
         function findPackageJSON(
             specifier: string | URL,
             base?: string | URL,
-        ): undefined | string
+        ): undefined | string;
         /**
          * @since v18.6.0, v16.17.0
          */
