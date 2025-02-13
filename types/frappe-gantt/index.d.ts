@@ -31,6 +31,8 @@ declare namespace Gantt {
         progress: number;
         dependencies?: string | string[];
         custom_class?: string;
+        color?: string | undefined;
+        color_progress?: string | undefined;
         _start?: Date;
         _end?: Date;
         _index?: number;

@@ -1,13 +1,14 @@
 import Gantt from "frappe-gantt";
 
 // Test basic task structure
-const tasks = [
+const tasks: Gantt.Task[] = [
     {
         id: "Task 1",
         name: "Redesign website",
         start: "2016-12-28",
         end: "2016-12-31",
         progress: 20,
+        color: "#fff",
         dependencies: "Task 2, Task 3",
     },
     {
@@ -15,6 +16,7 @@ const tasks = [
         name: "Task with duration",
         start: "2016-12-28",
         duration: "2 days",
+        color: "#000",
         progress: 50,
     },
     {
@@ -23,6 +25,7 @@ const tasks = [
         start: "2016-12-28",
         end: "2016-12-31",
         progress: 75,
+        color_progress: "#fff",
         custom_class: "custom-task",
     },
 ];
@@ -77,10 +80,10 @@ new Gantt("#gantt", tasks, {
 
     // Holiday and ignore settings
     holidays: {
-        "red": "weekend",
-        "blue": ["2023-12-25", "2023-12-26"],
-        "green": (date: Date) => date.getDay() === 5,
-        "purple": [
+        red: "weekend",
+        blue: ["2023-12-25", "2023-12-26"],
+        green: (date: Date) => date.getDay() === 5,
+        purple: [
             { date: "2023-12-31", name: "New Year's Eve" },
             { date: "2024-01-01", name: "New Year's Day" },
         ],
