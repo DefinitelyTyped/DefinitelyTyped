@@ -459,6 +459,6 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
         console.log(`Function Name: ${callSite.functionName}`);
         console.log(`Script Name: ${callSite.scriptName}`);
         console.log(`Line Number: ${callSite.lineNumber}`);
-        console.log(`Column Number: ${callSite.column}`);
+        console.log(`Column Number: ${callSite.columnNumber}`);
     });
 }
