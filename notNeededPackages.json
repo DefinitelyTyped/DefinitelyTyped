@@ -188,6 +188,10 @@
             "libraryName": "apn",
             "asOfVersion": "2.1.2"
         },
+        "appium-adb": {
+            "libraryName": "appium-adb",
+            "asOfVersion": "9.12.0"
+        },
         "applicationinsights": {
             "libraryName": "applicationinsights",
             "asOfVersion": "0.20.0"
