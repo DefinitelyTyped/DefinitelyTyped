@@ -2649,6 +2649,10 @@
             "libraryName": "immutable",
             "asOfVersion": "3.8.7"
         },
+        "impress": {
+            "libraryName": "impress",
+            "asOfVersion": "2.0.13"
+        },
         "in-range": {
             "libraryName": "in-range",
             "asOfVersion": "2.0.0"
