@@ -1,0 +1,15 @@
+{
+  "name": "@types/platonic-dice",
+  "private": true,
+  "version": "1.0.9999",
+  "devDependencies": {
+    "@types/platonic-dice": "workspace:."
+  },
+  "projects": ["https://github.com/sjs2k20/platonic-dice"],
+  "owners": [
+    {
+      "name": "Stephen James Saunders",
+      "githubUsername": "sjs2k20"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                    // Use ES6 or later for better features and compatibility
+    "module": "ESNext",                  // Use ES modules, which is common in modern TypeScript setups
+    "moduleResolution": "Node",          // Resolves modules like Node.js (this is standard for most packages)
+    "strict": true,                      // Enable strict type-checking
+    "esModuleInterop": true,             // Allow compatibility between ES and CommonJS modules
+    "skipLibCheck": true,                // Skip type checking of declaration files to speed up compilation
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file name casing across the project
+    "outDir": "./dist",                  // Output folder for the compiled JavaScript files
+    "declaration": true,                 // Generate `.d.ts` declaration files for TypeScript
+    "declarationMap": true,              // Generate sourcemaps for declarations
+    "sourceMap": true,                   // Enable source maps for debugging
+    "skipDefaultLibCheck": true,          // Skip checking default libraries, useful when focusing on your own code
+    "baseUrl": ".",                      // Base directory for resolving non-relative module names
+    "paths": {
+      "platonic-dice": ["./src/index.ts"]
+    },
+    "types": ["./index.d.ts"]
+  },
+  "include": [
+    "./index.d.ts",
+    "./platonic-dice-tests.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
