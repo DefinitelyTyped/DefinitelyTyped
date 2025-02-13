@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/regexp.escape",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/es-shims/RegExp.escape#readme"
+    ],
+    "devDependencies": {
+        "@types/regexp.escape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "My Self",
+            "githubUsername": "hesxenon"
+        }
+    ]
+}
