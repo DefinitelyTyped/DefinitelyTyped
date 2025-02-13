@@ -8,6 +8,13 @@
     "devDependencies": {
         "@types/regexp.escape": "workspace:."
     },
+    "exports": {
+        ".": "./index.d.ts",
+        "./auto": "./auto.d.ts",
+        "./polyfill": "./polyfill.d.ts",
+        "./implementation": "./implementation.d.ts",
+        "./shim": "./shim.d.ts"
+    },
     "owners": [
         {
             "name": "Katja Potensky",
