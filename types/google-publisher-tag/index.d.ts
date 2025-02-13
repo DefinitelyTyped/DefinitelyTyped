@@ -1887,9 +1887,9 @@ declare namespace googletag {
          */
         interface PublisherProvidedSignalsConfig {
             /**
-             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings.
+             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings or null to clear the config.
              */
-            taxonomies: Partial<Record<Taxonomy, TaxonomyData>>;
+            taxonomies: Partial<Record<Taxonomy, TaxonomyData>> | null;
         }
 
         /**
