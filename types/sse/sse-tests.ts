@@ -17,7 +17,7 @@ new SSE(expressApp, options); // $ExpectType SSE
 const sse = new SSE(expressApp); // $ExpectType SSE
 sse.handleRequest(expressApp.request, expressApp.response, "query"); // $ExpectType void
 sse.matchesPath("/sse", "/sse"); // $ExpectType boolean
-sse.server; // $ExpectType EventEmitter<DefaultEventMap>
+sse.server; // $ExpectType EventEmitter<{}>
 
 SSE.Client; // $ExpectType typeof Client
 const sseClient = new SSE.Client(expressApp.request, expressApp.response); // $ExpectType Client

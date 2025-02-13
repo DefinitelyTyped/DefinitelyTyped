@@ -231,15 +231,15 @@ declare namespace umzug {
 
         on(
             eventName: "migrating" | "reverting" | "migrated" | "reverted",
-            cb?: (name: string, migration: Migration) => void,
+            cb: (name: string, migration: Migration) => void,
         ): this;
         addListener(
             eventName: "migrating" | "reverting" | "migrated" | "reverted",
-            cb?: (name: string, migration: Migration) => void,
+            cb: (name: string, migration: Migration) => void,
         ): this;
         removeListener(
             eventName: "migrating" | "reverting" | "migrated" | "reverted",
-            cb?: (name: string, migration: Migration) => void,
+            cb: (name: string, migration: Migration) => void,
         ): this;
     }
 
