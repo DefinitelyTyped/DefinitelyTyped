@@ -1,10 +1,10 @@
 import { Kochava } from "kochava";
 
-const kochava = Kochava.create(); // $ExpectType KochavaInstance
-Kochava.createForNode(); // $ExpectType KochavaInstance
-Kochava.createForReact(); // $ExpectType KochavaInstance
-Kochava.createForVue(); // $ExpectType KochavaInstance
-Kochava.createForAngular(); // $ExpectType KochavaInstance
+const kochava = Kochava.create(); // $ExpectType Kochava
+Kochava.createForNode(); // $ExpectType Kochava
+Kochava.createForReact(); // $ExpectType Kochava
+Kochava.createForVue(); // $ExpectType Kochava
+Kochava.createForAngular(); // $ExpectType Kochava
 
 kochava.startWithAppGuid("app-guid"); // $ExpectType void
 kochava.sendPageEvent("page-name", { data: "data" }); // $ExpectType void
@@ -23,6 +23,3 @@ kochava.executeAdvancedInstruction("wrapper", "{data:\"some data\"}", () => {});
 kochava.registerCustomValue("key", "value"); // $ExpectType void
 kochava.registerCustomDeviceIdentifier("key", "value"); // $ExpectType void
 kochava.getStarted(); // $ExpectType boolean
-kochava.performNewKvinit(); // $ExpectType unknown
-kochava.checkResendId(); // $ExpectType boolean
-kochava.performInstall(); // $ExpectType unknown
