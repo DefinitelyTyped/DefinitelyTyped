@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/frappe-gantt",
-    "version": "0.6.9999",
+    "version": "0.7.0",
     "projects": [
         "https://github.com/frappe/gantt"
     ],
@@ -9,6 +9,14 @@
         "@types/frappe-gantt": "workspace:."
     },
     "owners": [
+        {
+            "name": "Sam Alexander",
+            "githubUsername": "samalexander"
+        },
+        {
+            "name": "Elijah Lucian",
+            "githubUsername": "eli7vh"
+        },
         {
             "name": "Rahul Singh",
             "githubUsername": "IILimitlessII"
