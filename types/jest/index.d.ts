@@ -661,7 +661,7 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        objectContaining<E = {}>(obj: E): any;
+        objectContaining<E = {}>(obj: Partial<E>): any;
         /**
          * `expect.not.stringMatching(string | regexp)` matches the received
          * string that does not match the expected regexp. It is the inverse of
@@ -763,7 +763,7 @@ declare namespace jest {
          * This ensures that the object contains the desired structure.
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        objectContaining<E = {}>(obj: E): any;
+        objectContaining<E = {}>(obj: Partial<E>): any;
         /**
          * Matches any string that contains the exact provided string
          */
@@ -1073,7 +1073,7 @@ declare namespace jest {
          * expect(desiredHouse).toMatchObject<House>({...standardHouse, kitchen: {area: 20}}) // wherein standardHouse is some base object of type House
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toMatchObject<E extends {} | any[]>(expected: E): R;
+        toMatchObject<E extends {} | any[]>(expected: Partia;<E>): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
