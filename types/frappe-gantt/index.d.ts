@@ -1,4 +1,4 @@
-export = Gantt;
+export default Gantt;
 
 declare class Gantt {
     constructor(wrapper: string | HTMLElement | SVGElement, tasks: Gantt.Task[], options?: Gantt.Options);

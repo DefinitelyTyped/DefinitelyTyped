@@ -139,16 +139,16 @@ new Gantt("#gantt", tasks, {
     ],
 
     // Event handlers
-    on_click: (task) => {
+    on_click: (task: Gantt.Task) => {
         console.log(`Task ${task.name} clicked`);
     },
-    on_date_change: (task, start, end) => {
+    on_date_change: (task: Gantt.Task, start: Date, end: Date) => {
         console.log(`Task ${task.name} dates changed to ${start} - ${end}`);
     },
-    on_progress_change: (task, progress) => {
+    on_progress_change: (task: Gantt.Task, progress: number) => {
         console.log(`Task ${task.name} progress changed to ${progress}%`);
     },
-    on_view_change: (mode) => {
+    on_view_change: (mode: Gantt.ViewModeObject) => {
         console.log(`View changed to ${mode.name}`);
     },
 });
