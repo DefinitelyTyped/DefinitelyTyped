@@ -12212,6 +12212,8 @@ declare namespace Deno {
             | TSTypeAnnotation
             | TSTypeParameterDeclaration
             | TSTypeParameter;
+
+        export {}; // only export exports
     }
 
     export {}; // only export exports
