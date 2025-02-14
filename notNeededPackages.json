@@ -3801,6 +3801,10 @@
             "libraryName": "metascraper-amazon",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-audio": {
+            "libraryName": "metascraper-audio",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
