@@ -3861,6 +3861,10 @@
             "libraryName": "metascraper-spotify",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-title": {
+            "libraryName": "metascraper-title",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
