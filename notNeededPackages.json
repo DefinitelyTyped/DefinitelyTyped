@@ -3865,6 +3865,10 @@
             "libraryName": "metascraper-title",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-uol": {
+            "libraryName": "metascraper-uol",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
