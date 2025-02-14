@@ -3617,6 +3617,10 @@
             "libraryName": "material-components-web",
             "asOfVersion": "1.0.0"
         },
+        "material-ui-phone-number": {
+            "libraryName": "material-ui-phone-number",
+            "asOfVersion": "3.0.0"
+        },
         "material__animation": {
             "libraryName": "@material/animation",
             "asOfVersion": "1.0.0"
