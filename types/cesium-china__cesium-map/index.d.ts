@@ -4,9 +4,7 @@
 // Definitions by: YOYOYOAKE <https://github.com/YOYOYOAKE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Cesium from 'cesium'
-
-import { UrlTemplateImageryProvider, Ellipsoid, Rectangle, GeographicTilingScheme, WebMercatorTilingScheme } from 'cesium'
+import type { UrlTemplateImageryProvider, Ellipsoid, Rectangle, GeographicTilingScheme, WebMercatorTilingScheme } from 'cesium'
 
 // 高德地图
 export interface AMapImageryProviderOptions {
