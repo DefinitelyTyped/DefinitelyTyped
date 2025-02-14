@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20241202
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/11a67de54de9180e5f3cf31c23c402f43071cdca
+// Tests for Google Publisher Tag 1.20250210
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/37473af8b2381a60482e3a9b961f99c8f4a63d85
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -685,9 +685,9 @@ function test_googletag_config_publisherProvidedSignalsConfig() {
 // Test for googletag.config.ComponentAuctionConfig.auctionConfig
 function test_googletag_config_componentAuctionConfig_auctionConfig() {
     const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicUrl's origin
+        // Seller URL should be https and the same as decisionLogicURL's origin
         seller: "https://testSeller.com",
-        decisionLogicUrl: "https://testSeller.com/ssp/decision-logic.js",
+        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
         interestGroupBuyers: ["https://example-buyer.com"],
         auctionSignals: { auction_signals: "auction_signals" },
         sellerSignals: { seller_signals: "seller_signals" },
@@ -895,57 +895,77 @@ function test_googletag_events_slotResponseReceived() {
 
 // Test for googletag.events.RewardedSlotGrantedEvent
 function test_googletag_events_rewardedSlotGrantedEvent() {
-    // This listener is called whenever a reward is granted for a
-    // rewarded ad.
-    const targetSlot = googletag.defineSlot("/1234567/example", [160, 600]);
-    googletag.pubads().addEventListener("rewardedSlotGranted", event => {
-        const slot = event.slot;
-        console.group("Reward granted for slot", slot.getSlotElementId(), ".");
+    const targetSlot = googletag.defineOutOfPageSlot("/1234567/example", googletag.enums.OutOfPageFormat.REWARDED);
 
-        // Log details of the reward.
-        console.log("Reward type:", event.payload?.type);
-        console.log("Reward amount:", event.payload?.amount);
-        console.groupEnd();
+    // Slot returns null if the page or device does not support rewarded ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
-    });
+        // This listener is called whenever a reward is granted for a
+        // rewarded ad.
+        googletag.pubads().addEventListener("rewardedSlotGranted", event => {
+            const slot = event.slot;
+            console.group("Reward granted for slot", slot.getSlotElementId(), ".");
+
+            // Log details of the reward.
+            console.log("Reward type:", event.payload?.type);
+            console.log("Reward amount:", event.payload?.amount);
+            console.groupEnd();
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }
 
 // Test for googletag.events.RewardedSlotClosedEvent
 function test_googletag_events_rewardedSlotClosedEvent() {
-    // This listener is called when the user closes a rewarded ad slot.
-    const targetSlot = googletag.defineSlot("/1234567/example", [160, 600]);
-    googletag.pubads().addEventListener("rewardedSlotClosed", event => {
-        const slot = event.slot;
-        console.log("Rewarded ad slot", slot.getSlotElementId(), "has been closed.");
+    const targetSlot = googletag.defineOutOfPageSlot("/1234567/example", googletag.enums.OutOfPageFormat.REWARDED);
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
-    });
+    // Slot returns null if the page or device does not support rewarded ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
+
+        // This listener is called when the user closes a rewarded ad slot.
+        googletag.pubads().addEventListener("rewardedSlotClosed", event => {
+            const slot = event.slot;
+            console.log("Rewarded ad slot", slot.getSlotElementId(), "has been closed.");
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }
 
 // Test for googletag.events.RewardedSlotReadyEvent
 function test_googletag_events_rewardedSlotReadyEvent() {
     // This listener is called when a rewarded ad slot becomes ready to be
     // displayed.
-    const targetSlot = googletag.defineSlot("/1234567/example", [160, 600]);
-    googletag.pubads().addEventListener("rewardedSlotReady", event => {
-        const slot = event.slot;
-        console.log("Rewarded ad slot", slot.getSlotElementId(), "is ready to be displayed.");
+    const targetSlot = googletag.defineOutOfPageSlot("/1234567/example", googletag.enums.OutOfPageFormat.REWARDED);
 
-        // Replace with custom logic.
-        const userHasConsented = true;
-        if (userHasConsented) {
-            event.makeRewardedVisible();
-        }
+    // Slot returns null if the page or device does not support rewarded ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
-    });
+        // This listener is called whenever a reward is granted for a
+        // rewarded ad.
+        googletag.pubads().addEventListener("rewardedSlotReady", event => {
+            const slot = event.slot;
+            console.log("Rewarded ad slot", slot.getSlotElementId(), "is ready to be displayed.");
+
+            // Replace with custom logic.
+            const userHasConsented = true;
+            if (userHasConsented) {
+                event.makeRewardedVisible();
+            }
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }
 
 // Test for googletag.events.GameManualInterstitialSlotReadyEvent
@@ -956,35 +976,47 @@ function test_googletag_events_gameManualInterstitialSlotReadyEvent() {
         "/1234567/example",
         googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
     );
-    googletag.pubads().addEventListener("gameManualInterstitialSlotReady", event => {
-        const slot = event.slot;
-        console.log("Game manual interstital slot", slot.getSlotElementId(), "is ready to be displayed.");
 
-        // Replace with custom logic.
-        const displayGmiAd = true;
-        if (displayGmiAd) {
-            event.makeGameManualInterstitialVisible();
-        }
+    // Slot returns null if the page or device does not support game manual interstitial ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
-    });
+        googletag.pubads().addEventListener("gameManualInterstitialSlotReady", event => {
+            const slot = event.slot;
+            console.log("Game manual interstital slot", slot.getSlotElementId(), "is ready to be displayed.");
+
+            // Replace with custom logic.
+            const displayGmiAd = true;
+            if (displayGmiAd) {
+                event.makeGameManualInterstitialVisible();
+            }
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }
 
 // Test for googletag.events.GameManualInterstitialSlotClosedEvent
 function test_googletag_events_gameManualInterstitialSlotClosedEvent() {
-    // This listener is called when a game manual interstial slot is closed.
+    // This listener is called when a game manual interstitial slot is closed.
     const targetSlot = googletag.defineOutOfPageSlot(
         "/1234567/example",
         googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL,
     );
-    googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", event => {
-        const slot = event.slot;
-        console.log("Game manual interstital slot", slot.getSlotElementId(), "is closed.");
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
-    });
+    // Slot returns null if the page or device does not support game manual interstitial ads.
+    if (targetSlot) {
+        targetSlot.addService(googletag.pubads());
+
+        googletag.pubads().addEventListener("gameManualInterstitialSlotClosed", event => {
+            const slot = event.slot;
+            console.log("Game manual interstital slot", slot.getSlotElementId(), "is closed.");
+
+            if (slot === targetSlot) {
+                // Slot specific logic.
+            }
+        });
+    }
 }

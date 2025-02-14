@@ -51,7 +51,7 @@ export class DataTexture extends Texture {
      * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        data?: BufferSource | null,
+        data?: ArrayBufferView | null,
         width?: number,
         height?: number,
         format?: PixelFormat,
@@ -111,7 +111,7 @@ export class DataTexture extends Texture {
 }
 
 export interface TextureImageData {
-    data: Uint8Array | Uint8ClampedArray;
+    data: ArrayBufferView;
     height: number;
     width: number;
 }

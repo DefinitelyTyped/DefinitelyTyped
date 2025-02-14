@@ -376,8 +376,8 @@ new ssh2.Server({
             && ctx.key.algo === pubKey.type
             && buffersEqual(ctx.key.data, pubKeySSH)
         ) {
-            if (ctx.signature && ctx.blob) {
-                if (pubKey.verify(ctx.blob, ctx.signature)) {
+            if (ctx.signature && ctx.blob && ctx.hashAlgo) {
+                if (pubKey.verify(ctx.blob, ctx.signature, ctx.hashAlgo)) {
                     ctx.accept();
                 } else {
                     ctx.reject();
@@ -543,6 +543,14 @@ new ssh2.HTTPAgent({
     privateKey: fs.readFileSync("/here/is/my/key"),
 }, {
     srcIP: "127.0.0.1",
+
+    keepAlive: true,
+    keepAliveMsecs: 1,
+    maxSockets: 1,
+    maxTotalSockets: 1,
+    maxFreeSockets: 1,
+    timeout: 1,
+    scheduling: "fifo",
 });
 
 new ssh2.HTTPSAgent({
@@ -552,6 +560,17 @@ new ssh2.HTTPSAgent({
     privateKey: fs.readFileSync("/here/is/my/key"),
 }, {
     srcIP: "127.0.0.1",
+
+    keepAlive: true,
+    keepAliveMsecs: 1,
+    maxSockets: 1,
+    maxTotalSockets: 1,
+    maxFreeSockets: 1,
+    timeout: 1,
+    scheduling: "fifo",
+
+    rejectUnauthorized: true,
+    maxCachedSessions: 1,
 });
 
 // Generate unencrypted ED25519 SSH key synchronously

@@ -758,7 +758,7 @@ export interface ResponseOpenIDProviderConfigMetadata {
      */
     jwks_uri: string;
     /**
-     * JSON array containing a list of the OAuth 2.0 response_type values that the CDR Registrer supports
+     * JSON array containing a list of the OAuth 2.0 response_type values that the CDR Register supports
      */
     response_types_supported: string[];
     /**

@@ -39,6 +39,11 @@ export const atomicFunc: (
     storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
+export const atomicLoad: (
+    pointerNode: NodeRepresentation,
+    storeNode?: NodeRepresentation | null,
+) => ShaderNodeObject<AtomicFunctionNode>;
+
 export const atomicStore: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,

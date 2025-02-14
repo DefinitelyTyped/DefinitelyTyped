@@ -4,7 +4,7 @@ import * as Stream from "stream";
 
 import { Context as BaseContext, Options as BaseWriterOptions } from "conventional-changelog-writer";
 import { Commit, Options as BaseParserOptions } from "conventional-commits-parser";
-import { ExecOptions as GitRawExecOptions, GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
+import { GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
 
 import { Package } from "normalize-package-data";
 
@@ -23,7 +23,6 @@ declare function conventionalChangelogCore<TCommit extends Commit = Commit, TCon
     gitRawCommitsOpts?: GitRawCommitsOptions,
     parserOpts?: ParserOptions,
     writerOpts?: WriterOptions<TCommit, TContext>,
-    execOpts?: GitRawExecOptions,
 ): Stream.Readable;
 
 declare namespace conventionalChangelogCore {
@@ -481,4 +480,4 @@ type ParserOptions = conventionalChangelogCore.ParserOptions;
 type WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> =
     conventionalChangelogCore.WriterOptions<TCommit, TContext>;
 
-export = conventionalChangelogCore;
+export default conventionalChangelogCore;

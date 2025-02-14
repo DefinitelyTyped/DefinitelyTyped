@@ -587,6 +587,7 @@ map = map
     .panBy(point)
     .panBy(pointTuple)
     .panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
+    .setMaxBounds()
     .setMaxBounds(latLngBounds)
     .setMaxBounds(latLngBoundsLiteral)
     .setMinZoom(5)

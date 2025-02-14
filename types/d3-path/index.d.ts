@@ -60,7 +60,7 @@ export interface Path {
      * @param y1 y-Coordinate of the first tangent point
      * @param x2 x-Coordinate of the second tangent point
      * @param y2 y-Coordinate of the second tangent point
-     * @param r  Radius of the arc segment
+     * @param radius  Radius of the arc segment
      */
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
 
@@ -72,6 +72,7 @@ export interface Path {
      *
      * @param x x-Coordinate of the center point of the arc segment
      * @param y y-Coordinate of the center point of the arc segment
+     * @param radius Radius of the arc segment
      * @param startAngle Start angle of arc segment
      * @param endAngle End angle of arc segment
      * @param anticlockwise Flag indicating directionality (true = anti-clockwise, false = clockwise)

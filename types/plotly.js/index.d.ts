@@ -2754,7 +2754,6 @@ interface TransformModule {
 interface ComponentModule {
     moduleType: "component";
     name: string;
-    [key: string]: unknown;
 }
 
 interface ApiMethodModule {

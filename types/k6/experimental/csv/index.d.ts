@@ -75,6 +75,22 @@ export interface Options {
      * The line number the parsing should stop at. Default is undefined.
      */
     toLine?: number;
+
+    /**
+     * AsObjects indicates that the CSV rows should be returned as objects, where
+     * the keys are the header column names, and values are the corresponding
+     * row values.
+     *
+     * When this option is enabled, the first line of the CSV file is treated as the header.
+     *
+     * If the option is set and no header line is present, this should be considered an error
+     * case.
+     *
+     * This option is incompatible with the `skipFirstLine` option, and if both are set, an error
+     * should be returned. Same thing applies if the `fromLine` option is set to a value greater
+     * than 0.
+     */
+    asObjects?: boolean;
 }
 
 export * as default from "k6/experimental/csv";

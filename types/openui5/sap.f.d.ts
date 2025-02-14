@@ -1,4 +1,4 @@
-// For Library Version: 1.131.0
+// For Library Version: 1.132.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1774,11 +1774,13 @@ declare module "sap/f/CardBase" {
 declare module "sap/f/cards/BaseHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { IBar, WrappingType } from "sap/m/library";
+
   import Text from "sap/m/Text";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import Event from "sap/ui/base/Event";
 
-  import { WrappingType } from "sap/m/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
@@ -1788,7 +1790,8 @@ declare module "sap/f/cards/BaseHeader" {
   /**
    * Provides basic functionality for header controls that can be used in sap.f.Card
    */
-  export default abstract class BaseHeader extends Control {
+  export default abstract class BaseHeader extends Control implements IBar {
+    __implements__sap_m_IBar: boolean;
     /**
      * Constructor for a new `BaseHeader`.
      *
@@ -1866,6 +1869,53 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys all the bannerLines in the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
@@ -1883,6 +1933,37 @@ declare module "sap/f/cards/BaseHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
     /**
      * Gets content of aggregation {@link #getBannerLines bannerLines}.
      *
@@ -2198,7 +2279,25 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.118) - For usage only by Work Zone.
      */
     bannerLines?: Text[] | Text | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Fires when the user presses the control.
+     */
+    press?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the BaseHeader#press event.
+   */
+  export interface BaseHeader$PressEventParameters {}
+
+  /**
+   * Event object of the BaseHeader#press event.
+   */
+  export type BaseHeader$PressEvent = Event<
+    BaseHeader$PressEventParameters,
+    BaseHeader
+  >;
 }
 
 declare module "sap/f/cards/CardBadgeCustomData" {
@@ -2499,8 +2598,6 @@ declare module "sap/f/cards/Header" {
 
   import { cards } from "sap/f/library";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
 
   import AvatarColor from "sap/m/AvatarColor";
@@ -2593,71 +2690,6 @@ declare module "sap/f/cards/Header" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      *
@@ -2677,19 +2709,6 @@ declare module "sap/f/cards/Header" {
         level: string;
       }
     ): void;
-    /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
     /**
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
@@ -3182,22 +3201,7 @@ declare module "sap/f/cards/Header" {
       | (AvatarImageFitType | keyof typeof AvatarImageFitType)
       | PropertyBindingInfo
       | `{${string}}`;
-
-    /**
-     * Fires when the user presses the control.
-     */
-    press?: (oEvent: Event) => void;
   }
-
-  /**
-   * Parameters of the Header#press event.
-   */
-  export interface Header$PressEventParameters {}
-
-  /**
-   * Event object of the Header#press event.
-   */
-  export type Header$PressEvent = Event<Header$PressEventParameters, Header>;
 }
 
 declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
@@ -3253,8 +3257,6 @@ declare module "sap/f/cards/NumericHeader" {
   import { cards } from "sap/f/library";
 
   import NumericSideIndicator from "sap/f/cards/NumericSideIndicator";
-
-  import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
 
@@ -3371,53 +3373,6 @@ declare module "sap/f/cards/NumericHeader" {
       oSideIndicator: NumericSideIndicator
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
      * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
      *
      * @experimental (since 1.124)
@@ -3432,24 +3387,6 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySideIndicators(): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
     /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -3470,19 +3407,6 @@ declare module "sap/f/cards/NumericHeader" {
         level: string;
       }
     ): void;
-    /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
     /**
      * Gets current value of property {@link #getDetails details}.
      *
@@ -4502,25 +4426,7 @@ declare module "sap/f/cards/NumericHeader" {
      * @experimental (since 1.124)
      */
     microChart?: Control;
-
-    /**
-     * Fires when the user presses the control.
-     */
-    press?: (oEvent: Event) => void;
   }
-
-  /**
-   * Parameters of the NumericHeader#press event.
-   */
-  export interface NumericHeader$PressEventParameters {}
-
-  /**
-   * Event object of the NumericHeader#press event.
-   */
-  export type NumericHeader$PressEvent = Event<
-    NumericHeader$PressEventParameters,
-    NumericHeader
-  >;
 }
 
 declare module "sap/f/cards/NumericSideIndicator" {
