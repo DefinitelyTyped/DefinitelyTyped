@@ -3857,6 +3857,10 @@
             "libraryName": "metascraper-soundcloud",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-spotify": {
+            "libraryName": "metascraper-spotify",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
