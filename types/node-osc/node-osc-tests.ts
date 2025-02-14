@@ -97,7 +97,11 @@ client.send({ address: "/test", args: [1, 2, 3, "lol", false] }, clientSendCallb
 
 client.send({ address: "/test", args: [1, 2, 3, "lol", false] }, { address: "/test", args: [1, 2, 3, "lol", false] });
 
-client.send({ address: "/test", args: [1, 2, 3, "lol", false] }, { address: "/test", args: [1, 2, 3, "lol", false] }, clientSendCallback);
+client.send(
+    { address: "/test", args: [1, 2, 3, "lol", false] },
+    { address: "/test", args: [1, 2, 3, "lol", false] },
+    clientSendCallback,
+);
 
 client.send(bundle);
 
