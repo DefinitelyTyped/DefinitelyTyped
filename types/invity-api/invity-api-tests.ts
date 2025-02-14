@@ -17,7 +17,11 @@ const et: ExchangeTrade = {
     send: "bitcoin" as CryptoId,
     receive: "ethereum" as CryptoId,
     quoteId: "123",
-};
+    signData: {
+        type: 'eip712-typed-data',
+        data: {},
+    },
+}
 
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
