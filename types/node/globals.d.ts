@@ -151,24 +151,10 @@ declare global {
     *                                               *
     ------------------------------------------------*/
 
-    // For backwards compability
-    interface NodeRequire extends NodeJS.Require {}
-    interface RequireResolve extends NodeJS.RequireResolve {}
-    interface NodeModule extends NodeJS.Module {}
-
     var global: typeof globalThis;
 
     var process: NodeJS.Process;
     var console: Console;
-
-    var __filename: string;
-    var __dirname: string;
-
-    var require: NodeRequire;
-    var module: NodeModule;
-
-    // Same as module.exports
-    var exports: any;
 
     interface GCFunction {
         (options: {
@@ -249,19 +235,21 @@ declare global {
         };
 
     /**
-     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
-     * Data is stored unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Data is stored
+     * unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * The maximum amount of data that can be stored is 10 MB.
      * Any modification of this data outside of the Web Storage API is not supported.
      * Enable this API with the `--experimental-webstorage` CLI flag.
+     * `localStorage` data is not stored per user or per request when used in the context
+     * of a server, it is shared across all users and requests.
      * @since v22.4.0
      */
     var localStorage: Storage;
 
     /**
-     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
-     * Data is stored in memory, with a storage quota of 10 MB.
-     * Any modification of this data outside of the Web Storage API is not supported.
-     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
+     * memory, with a storage quota of 10 MB. `sessionStorage` data persists only within
+     * the currently running process, and is not shared between workers.
      * @since v22.4.0
      */
     var sessionStorage: Storage;
@@ -436,49 +424,6 @@ declare global {
         interface RefCounted {
             ref(): this;
             unref(): this;
-        }
-
-        interface Require {
-            (id: string): any;
-            resolve: RequireResolve;
-            cache: Dict<NodeModule>;
-            /**
-             * @deprecated
-             */
-            extensions: RequireExtensions;
-            main: Module | undefined;
-        }
-
-        interface RequireResolve {
-            (id: string, options?: { paths?: string[] | undefined }): string;
-            paths(request: string): string[] | null;
-        }
-
-        interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
-            ".js": (m: Module, filename: string) => any;
-            ".json": (m: Module, filename: string) => any;
-            ".node": (m: Module, filename: string) => any;
-        }
-        interface Module {
-            /**
-             * `true` if the module is running during the Node.js preload
-             */
-            isPreloading: boolean;
-            exports: any;
-            require: Require;
-            id: string;
-            filename: string;
-            loaded: boolean;
-            /** @deprecated since v14.6.0 Please use `require.main` and `module.children` instead. */
-            parent: Module | null | undefined;
-            children: Module[];
-            /**
-             * @since v11.14.0
-             *
-             * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
-             */
-            path: string;
-            paths: string[];
         }
 
         interface Dict<T> {

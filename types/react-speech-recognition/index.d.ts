@@ -37,6 +37,7 @@ export function useSpeechRecognition(options?: SpeechRecognitionOptions): {
     listening: boolean;
     resetTranscript: () => void;
     browserSupportsSpeechRecognition: boolean;
+    browserSupportsContinuousListening: boolean;
     isMicrophoneAvailable: boolean;
 };
 

@@ -981,7 +981,12 @@ declare module "stream" {
              * @since v17.0.0
              * @experimental
              */
-            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
+            static toWeb(
+                streamReadable: Readable,
+                options?: {
+                    strategy?: streamWeb.QueuingStrategy | undefined;
+                },
+            ): streamWeb.ReadableStream;
         }
         interface WritableOptions extends StreamOptions<Writable> {
             decodeStrings?: boolean | undefined;

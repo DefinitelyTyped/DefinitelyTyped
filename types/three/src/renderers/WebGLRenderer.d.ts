@@ -26,13 +26,6 @@ import { WebGLState } from "./webgl/WebGLState.js";
 import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
 import { WebXRManager } from "./webxr/WebXRManager.js";
 
-export interface Renderer {
-    domElement: HTMLCanvasElement;
-
-    render(scene: Object3D, camera: Camera): void;
-    setSize(width: number, height: number, updateStyle?: boolean): void;
-}
-
 export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * A Canvas where the renderer draws its output.
@@ -115,7 +108,7 @@ export interface WebGLDebug {
  *
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/renderers/WebGLRenderer.js|src/renderers/WebGLRenderer.js}
  */
-export class WebGLRenderer implements Renderer {
+export class WebGLRenderer {
     /**
      * parameters is an optional object with properties defining the renderer's behavior.
      * The constructor also accepts no parameters at all.
@@ -198,6 +191,13 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
+    /**
+     * The normalized resolution scale for the transmission render target, measured in percentage of viewport
+     * dimensions. Lowering this value can result in significant improvements to {@link MeshPhysicalMaterial}
+     * transmission performance. Default is `1`.
+     */
+    transmissionResolutionScale: number;
+
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;
@@ -278,12 +278,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the custom opaque sort function for the WebGLRenderLists. Pass null to use the default painterSortStable function.
      */
-    setOpaqueSort(method: (a: any, b: any) => number): void;
+    setOpaqueSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Sets the custom transparent sort function for the WebGLRenderLists. Pass null to use the default reversePainterSortStable function.
      */
-    setTransparentSort(method: (a: any, b: any) => number): void;
+    setTransparentSort(method: ((a: any, b: any) => number) | null): void;
 
     /**
      * Returns a THREE.Color instance with the current clear color.

@@ -28,6 +28,8 @@ export default class OperatorNode extends TempNode {
     bNode: Node;
     op: OperatorNodeOp;
 
+    readonly isOperatorNode: true;
+
     constructor(op: OperatorNodeOp, ...params: [Node, Node, ...Node[]]);
 }
 

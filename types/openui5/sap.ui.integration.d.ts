@@ -1,4 +1,4 @@
-// For Library Version: 1.131.0
+// For Library Version: 1.132.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";

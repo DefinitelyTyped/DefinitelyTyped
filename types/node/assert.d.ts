@@ -957,6 +957,59 @@ declare module "assert" {
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
         /**
+         * `assert.partialDeepStrictEqual()` Asserts the equivalence between the `actual` and `expected` parameters through a
+         * deep comparison, ensuring that all properties in the `expected` parameter are
+         * present in the `actual` parameter with equivalent values, not allowing type coercion.
+         * The main difference with `assert.deepStrictEqual()` is that `assert.partialDeepStrictEqual()` does not require
+         * all properties in the `actual` parameter to be present in the `expected` parameter.
+         * This method should always pass the same test cases as `assert.deepStrictEqual()`, behaving as a super set of it.
+         *
+         * ```js
+         * import assert from 'node:assert';
+         *
+         * assert.partialDeepStrictEqual({ a: 1, b: 2 }, { a: 1, b: 2 });
+         * // OK
+         *
+         * assert.partialDeepStrictEqual({ a: { b: { c: 1 } } }, { a: { b: { c: 1 } } });
+         * // OK
+         *
+         * assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(new Set(['value1', 'value2']), new Set(['value1', 'value2']));
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(new Map([['key1', 'value1']]), new Map([['key1', 'value1']]));
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(new Uint8Array([1, 2, 3]), new Uint8Array([1, 2, 3]));
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(/abc/, /abc/);
+         * // OK
+         *
+         * assert.partialDeepStrictEqual([{ a: 5 }, { b: 5 }], [{ a: 5 }]);
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(new Set([{ a: 1 }, { b: 1 }]), new Set([{ a: 1 }]));
+         * // OK
+         *
+         * assert.partialDeepStrictEqual(new Date(0), new Date(0));
+         * // OK
+         *
+         * assert.partialDeepStrictEqual({ a: 1 }, { a: 1, b: 2 });
+         * // AssertionError
+         *
+         * assert.partialDeepStrictEqual({ a: 1, b: '2' }, { a: 1, b: 2 });
+         * // AssertionError
+         *
+         * assert.partialDeepStrictEqual({ a: { b: 2 } }, { a: { b: '2' } });
+         * // AssertionError
+         * ```
+         * @since v22.13.0
+         */
+        function partialDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        /**
          * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
          * {@link deepEqual} will behave like {@link deepStrictEqual}.
          *
@@ -1015,6 +1068,7 @@ declare module "assert" {
                 | "deepStrictEqual"
                 | "ifError"
                 | "strict"
+                | "AssertionError"
             >
             & {
                 (value: unknown, message?: string | Error): asserts value;
@@ -1030,6 +1084,7 @@ declare module "assert" {
                 deepStrictEqual: typeof deepStrictEqual;
                 ifError: typeof ifError;
                 strict: typeof strict;
+                AssertionError: typeof AssertionError;
             };
     }
     export = assert;

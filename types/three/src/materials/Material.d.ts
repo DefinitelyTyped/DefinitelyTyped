@@ -573,7 +573,9 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
      * This function is called with the shader source code as a parameter.
-     * Useful for the modification of built-in materials.
+     * Useful for the modification of built-in materials, but the recommended approach moving forward is to use
+     * `WebGPURenderer` with the new Node Material system and
+     * [TSL]{@link https://github.com/mrdoob/three.js/wiki/Three.js-Shading-Language}.
      * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
      * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
      * @param parameters WebGL program parameters

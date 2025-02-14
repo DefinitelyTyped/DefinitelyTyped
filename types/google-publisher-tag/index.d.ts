@@ -1887,9 +1887,9 @@ declare namespace googletag {
          */
         interface PublisherProvidedSignalsConfig {
             /**
-             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings.
+             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings or null to clear the config.
              */
-            taxonomies: Partial<Record<Taxonomy, TaxonomyData>>;
+            taxonomies: Partial<Record<Taxonomy, TaxonomyData>> | null;
         }
 
         /**
@@ -1900,7 +1900,7 @@ declare namespace googletag {
             /**
              * A list of {@link googletag.config.Taxonomy | Taxonomy} values.
              */
-            values: string[];
+            values: readonly string[];
         }
 
         /**
@@ -2013,9 +2013,9 @@ declare namespace googletag {
              * @example
              *
              * const componentAuctionConfig = {
-             *   // Seller URL should be https and the same as decisionLogicUrl's origin
+             *   // Seller URL should be https and the same as decisionLogicURL's origin
              *   seller: 'https://testSeller.com',
-             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *   decisionLogicURL: 'https://testSeller.com/ssp/decision-logic.js',
              *   interestGroupBuyers: [
              *     'https://example-buyer.com',
              *   ],
@@ -2051,8 +2051,8 @@ declare namespace googletag {
              */
             auctionConfig: {
                 seller: string;
-                decisionLogicUrl: string;
-                trustedScoringSignalsUrl?: string;
+                decisionLogicURL: string;
+                trustedScoringSignalsURL?: string;
                 interestGroupBuyers?: string[];
                 auctionSignals?: unknown;
                 sellerSignals?: unknown;
@@ -2573,25 +2573,33 @@ declare namespace googletag {
          * If the ad is closed before the criteria for granting a reward is met, this
          * event will not fire.
          * @example
-         *   // This listener is called whenever a reward is granted for a
-         *   // rewarded ad.
-         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('rewardedSlotGranted',
-         *       (event) => {
-         *         const slot = event.slot;
-         *         console.group(
-         *             'Reward granted for slot', slot.getSlotElementId(), '.');
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.REWARDED);
          *
-         *         // Log details of the reward.
-         *         console.log('Reward type:', event.payload?.type);
-         *         console.log('Reward amount:', event.payload?.amount);
-         *         console.groupEnd();
+         *   // Slot returns null if the page or device does not support rewarded ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
          *
-         *         if (slot === targetSlot) {
-         *           // Slot specific logic.
+         *     // This listener is called whenever a reward is granted for a
+         *     // rewarded ad.
+         *     googletag.pubads().addEventListener('rewardedSlotGranted',
+         *         (event) => {
+         *           const slot = event.slot;
+         *           console.group(
+         *               'Reward granted for slot', slot.getSlotElementId(), '.');
+         *
+         *           // Log details of the reward.
+         *           console.log('Reward type:', event.payload?.type);
+         *           console.log('Reward amount:', event.payload?.amount);
+         *           console.groupEnd();
+         *
+         *           if (slot === targetSlot) {
+         *             // Slot specific logic.
+         *           }
          *         }
-         *       }
-         *   );
+         *     );
+         *   }
          *
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
@@ -2607,19 +2615,27 @@ declare namespace googletag {
          * reward has been granted, use {@link events.RewardedSlotGrantedEvent}
          * instead.
          * @example
-         *   // This listener is called when the user closes a rewarded ad slot.
-         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('rewardedSlotClosed',
-         *       (event) => {
-         *         const slot = event.slot;
-         *         console.log('Rewarded ad slot', slot.getSlotElementId(),
-         *                     'has been closed.');
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.REWARDED);
          *
-         *         if (slot === targetSlot) {
-         *           // Slot specific logic.
+         *   // Slot returns null if the page or device does not support rewarded ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
+         *
+         *     // This listener is called when the user closes a rewarded ad slot.
+         *     googletag.pubads().addEventListener('rewardedSlotClosed',
+         *         (event) => {
+         *           const slot = event.slot;
+         *           console.log('Rewarded ad slot', slot.getSlotElementId(),
+         *                       'has been closed.');
+         *
+         *           if (slot === targetSlot) {
+         *             // Slot specific logic.
+         *           }
          *         }
-         *       }
-         *   );
+         *     );
+         *   }
          *
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
@@ -2636,24 +2652,34 @@ declare namespace googletag {
          * @example
          *   // This listener is called when a rewarded ad slot becomes ready to be
          *   // displayed.
-         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('rewardedSlotReady',
-         *       (event) => {
-         *         const slot = event.slot;
-         *         console.log('Rewarded ad slot', slot.getSlotElementId(),
-         *                     'is ready to be displayed.');
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.REWARDED);
          *
-         *         // Replace with custom logic.
-         *         const userHasConsented = true;
-         *         if(userHasConsented) {
-         *           event.makeRewardedVisible();
-         *         }
+         *   // Slot returns null if the page or device does not support rewarded ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
          *
-         *         if (slot === targetSlot) {
-         *           // Slot specific logic.
+         *     // This listener is called whenever a reward is granted for a
+         *     // rewarded ad.
+         *     googletag.pubads().addEventListener('rewardedSlotReady',
+         *         (event) => {
+         *            const slot = event.slot;
+         *            console.log('Rewarded ad slot', slot.getSlotElementId(),
+         *                        'is ready to be displayed.');
+         *
+         *            // Replace with custom logic.
+         *            const userHasConsented = true;
+         *           if(userHasConsented) {
+         *             event.makeRewardedVisible();
+         *           }
+         *
+         *           if (slot === targetSlot) {
+         *             // Slot specific logic.
+         *           }
          *         }
-         *       }
-         *   );
+         *      );
+         *   }
          *
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a rewarded ad](https://developers.google.com/publisher-tag/samples/display-rewarded-ad)
@@ -2675,16 +2701,19 @@ declare namespace googletag {
          * @example
          *   // This listener is called when a game manual interstitial slot is ready to
          *   // be displayed.
-         *   const targetSlot = googletag.defineOutOfPageSlot(
-         *       '/1234567/example',
-         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
-         *   googletag.pubads().addEventListener('gameManualInterstitialSlotReady',
+         *   const targetSlot = googletag.defineOutOfPageSlot('/1234567/example', googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *
+         *   // Slot returns null if the page or device does not support game manual interstitial ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
+         *
+         *     googletag.pubads().addEventListener('gameManualInterstitialSlotReady',
          *       (event) => {
          *         const slot = event.slot;
          *         console.log('Game manual interstital slot',
          *                     slot.getSlotElementId(), 'is ready to be displayed.')
          *
-         *         //Replace with custom logic.
+         *         // Replace with custom logic.
          *         const displayGmiAd = true;
          *         if (displayGmiAd) {
          *           event.makeGameManualInterstitialVisible();
@@ -2694,7 +2723,8 @@ declare namespace googletag {
          *           // Slot specific logic.
          *         }
          *       }
-         *   );
+         *     );
+         *   }
          *
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
@@ -2711,11 +2741,14 @@ declare namespace googletag {
          * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
          *
          * @example
-         *   // This listener is called when a game manual interstial slot is closed.
-         *   const targetSlot = googletag.defineOutOfPageSlot(
-         *       '/1234567/example',
-         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
-         *   googletag.pubads().addEventListener('gameManualInterstitialSlotClosed',
+         *   // This listener is called when a game manual interstitial slot is closed.
+         *   const targetSlot = googletag.defineOutOfPageSlot('/1234567/example', googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *
+         *   // Slot returns null if the page or device does not support game manual interstitial ads.
+         *   if(targetSlot) {
+         *     targetSlot.addService(googletag.pubads());
+         *
+         *     googletag.pubads().addEventListener('gameManualInterstitialSlotClosed',
          *       (event) => {
          *         const slot = event.slot;
          *         console.log('Game manual interstital slot',
@@ -2725,7 +2758,8 @@ declare namespace googletag {
          *           // Slot specific logic.
          *         }
          *       }
-         *   );
+         *     );
+         *   }
          *
          * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
          * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)

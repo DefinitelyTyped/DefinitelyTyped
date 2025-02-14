@@ -1117,6 +1117,7 @@ function driveFileOperations() {
     const fileList = Drive.Files.list({
         q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
         pageSize: 10, // Optional: Limit the number of results
+        fields: "files(id, name)", // Optional: List of fields in the response
     });
 
     if (fileList.files && fileList.files.length > 0) {
@@ -1147,6 +1148,24 @@ function createFolder() {
     console.log("Created Folder:", folder.name, folder.id);
 }
 
+function getFile() {
+    const file = Drive.Files.get("FileID");
+    console.log(file.name);
+}
+
+function getRawFile() {
+    const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
+    console.log(fileBlob);
+}
+
+// Example showing how to create a folder
+function createDrive() {
+    const drive = Drive.Drives.create({
+        name: "Test Folder",
+    }, "request-id");
+    console.log("Created Folder:", drive.name, drive.id);
+}
+
 // Example: List Drives (Shared Drives)
 function listDrives() {
     const driveList = Drive.Drives.list();
@@ -1157,5 +1176,35 @@ function listDrives() {
         });
     } else {
         console.log("No shared Drives found.");
+    }
+}
+
+// Example: List tabs (Google Docs)
+function listTabs() {
+    const allTabs = DocumentApp.openById("FileID").getTabs();
+    console.log("Total tabs found: " + allTabs.length);
+
+    const activeTabTitle = DocumentApp.getActiveDocument().getActiveTab().getTitle();
+    console.log("Active tab title: " + activeTabTitle);
+}
+
+// Follows the example at https://developers.google.com/apps-script/reference/document/body#findelementelementtype,-from
+function optionalFields() {
+    const body = DocumentApp.getActiveDocument()
+        .getActiveTab()
+        .asDocumentTab()
+        .getBody();
+
+    let searchResult: GoogleAppsScript.Document.RangeElement | null = null;
+    let index = -1;
+
+    while (
+        (searchResult = body.findElement(
+            DocumentApp.ElementType.PARAGRAPH,
+            searchResult,
+        ))
+    ) {
+        const element = searchResult.getElement();
+        console.log("Found an element");
     }
 }

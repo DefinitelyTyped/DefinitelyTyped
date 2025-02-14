@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/telegram-mini-app",
+    "version": "8.0.9999",
+    "projects": [
+        "https://telegram.org/js/telegram-web-app.js?56"
+    ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "telegram-mini-app",
+    "devDependencies": {
+        "@types/telegram-mini-app": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita Ivanov",
+            "githubUsername": "dartweider2000"
+        }
+    ]
+}

@@ -998,6 +998,12 @@ const invalidTestContext = new TestContext();
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
 
+test("check all assertion functions are re-exported", t => {
+    type AssertModuleExports = keyof typeof import("assert");
+    const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
+        {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
+});
+
 test("planning with streams", (t: TestContext, done) => {
     function* generate() {
         yield "a";

@@ -466,6 +466,16 @@ declare namespace google {
              * terms.
              */
             setQuery(query: string): View;
+
+            /**
+             * @deprecated
+             */
+            getLabel(): string;
+
+            /**
+             * @deprecated
+             */
+            setLabel(label: string): View;
         }
 
         /**
@@ -536,6 +546,15 @@ declare namespace google {
              *  Sets the initial parent folder to display.
              */
             setParent(parentId: string): View;
+
+            /**
+             * Sets the file IDs included in the view.
+             *
+             * @param fileIds A string of file IDs. Use commas to separate file IDs if
+             * setting more than one. If you include the file ID of a file that the
+             * user doesn't have access to, the file is excluded from the view.
+             */
+            setFileIds(fileIds: string): DocsView;
         }
 
         /**

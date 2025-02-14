@@ -9,7 +9,7 @@ createPersistedState("myKey");
 /**
  * The generated hook conforms to the same signature as `React.useState`.
  */
-const myHook: typeof useState = createPersistedState("myKey");
+createPersistedState("myKey") satisfies typeof useState;
 
 /**
  * Custom storage provider can be passed as the second argument.
@@ -59,7 +59,16 @@ createPersistedState("myKey", { setItem: localStorage.setItem });
  * (based on the README example)
  */
 const useCounterState = createPersistedState<number>("count");
-const initialCount = 1;
-const [count, setCount] = useCounterState(initialCount);
-count; // $ExpectType number
-setCount; // $ExpectType Dispatch<SetStateAction<number>>
+// With initial value
+{
+    const initialCount = 1;
+    const [count, setCount] = useCounterState(initialCount);
+    count; // $ExpectType number
+    setCount; // $ExpectType Dispatch<SetStateAction<number>>
+}
+// Without initial value
+{
+    const [count, setCount] = useCounterState();
+    count; // $ExpectType number | undefined
+    setCount; // $ExpectType Dispatch<SetStateAction<number | undefined>>
+}

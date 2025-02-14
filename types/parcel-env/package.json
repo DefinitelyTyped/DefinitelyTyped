@@ -8,6 +8,7 @@
         "https://github.com/parcel/parcel-bundler"
     ],
     "devDependencies": {
+        "@types/node": "*",
         "@types/parcel-env": "workspace:."
     },
     "owners": [

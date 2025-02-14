@@ -3,6 +3,7 @@
         "module": "node16",
         "lib": [
             "dom",
+            "dom.iterable",
             "es6"
         ],
         "noImplicitAny": true,

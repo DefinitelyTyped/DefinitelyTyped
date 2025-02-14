@@ -295,7 +295,7 @@ toXML(
         baz: "'&whee'",
     },
     {
-        filter: {
+        contentReplacements: {
             "<": "&lt;",
             ">": "&gt;",
             "\"": "&quot;",
@@ -312,7 +312,7 @@ toXML(
         _attrs: { a: "<\"'&\"foo>" },
     },
     {
-        attributesFilter: {
+        attributeReplacements: {
             "<": "&lt;",
             ">": "&gt;",
             "\"": "&quot;",
@@ -329,7 +329,7 @@ toXML(
         bar: undefined,
     },
     {
-        _selfCloseTag: false,
+        selfCloseTags: false,
     },
 );
 
@@ -364,4 +364,26 @@ toXML({
             },
         ],
     },
+});
+
+// Full config-set provided to test all options
+
+toXML({
+    a: "content",
+}, {
+    depth: 2,
+    indent: "  ",
+    header: true,
+    attributeReplacements: {
+        "<": "&lt;",
+        2: 3,
+        true: false,
+    },
+    attributeFilter: (key, val) => key === "a" || val === null,
+    attributeExplicitTrue: true,
+    contentMap: (value) => `<![CDATA[` + value + "]]>",
+    contentReplacements: {
+        "<": "&lt;",
+    },
+    selfCloseTags: true,
 });

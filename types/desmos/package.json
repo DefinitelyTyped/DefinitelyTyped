@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/desmos",
-    "version": "1.6.9999",
-    "projects": [
-        "https://www.desmos.com/api/v1.6/docs/"
-    ],
+    "version": "1.11.9999",
+    "projects": ["https://www.desmos.com/api/v1.11/docs/"],
     "devDependencies": {
         "@types/desmos": "workspace:."
     },
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Desmos graphing calculator API (https://www.desmos.com/api/v1.11/docs/).\nThese types are for use with the Desmos API loaded via <script> tag.\nThe NPM package `desmos` is unofficial and unmaintained, and should not be used.",
     "owners": [
         {
             "name": "ysulyma",

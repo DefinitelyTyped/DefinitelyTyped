@@ -7,12 +7,19 @@ export default class VarNode extends Node {
 
     readonly isVarNode: true;
 
-    constructor(node: Node, name?: string | null);
+    readOnly: boolean;
+
+    constructor(node: Node, name?: string | null, readOnly?: boolean);
 }
+
+export const Var: (node: Node, name?: string | null) => ShaderNodeObject<VarNode>;
+
+export const Const: (node: Node, name?: string | null) => ShaderNodeObject<VarNode>;
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         toVar: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
+        toConst: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
     }
 }
 

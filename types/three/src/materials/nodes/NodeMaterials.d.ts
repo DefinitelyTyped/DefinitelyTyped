@@ -1,7 +1,3 @@
-export {
-    default as InstancedPointsNodeMaterial,
-    InstancedPointsNodeMaterialParameters,
-} from "./InstancedPointsNodeMaterial.js";
 export { default as Line2NodeMaterial, Line2NodeMaterialParameters } from "./Line2NodeMaterial.js";
 export { default as LineBasicNodeMaterial, LineBasicNodeMaterialParameters } from "./LineBasicNodeMaterial.js";
 export { default as LineDashedNodeMaterial, LineDashedNodeMaterialParameters } from "./LineDashedNodeMaterial.js";

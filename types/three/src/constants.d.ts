@@ -791,6 +791,12 @@ export const WebGLCoordinateSystem: 2000;
 export const WebGPUCoordinateSystem: 2001;
 export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoordinateSystem;
 
+export const TimestampQuery: {
+    COMPUTE: "compute";
+    RENDER: "render";
+};
+export type TimestampQuery = "compute" | "render";
+
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats
 

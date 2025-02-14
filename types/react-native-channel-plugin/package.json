@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-native-channel-plugin",
-    "version": "0.7.9999",
+    "version": "0.9.9999",
     "projects": [
         "https://developers.channel.io/docs/react-native-quickstart"
     ],

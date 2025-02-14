@@ -54,3 +54,10 @@ app.use((req, res, next) => {
             break;
     }
 });
+
+// typeis.match(expected, actual)
+typeis.match("text/html", "text/html"); // => true
+typeis.match("*/html", "text/html"); // => true
+typeis.match("text/*", "text/html"); // => true
+typeis.match("*/*", "text/html"); // => true
+typeis.match("*/*+json", "application/x-custom+json"); // => true
