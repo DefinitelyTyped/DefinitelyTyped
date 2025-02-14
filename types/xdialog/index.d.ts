@@ -1,4 +1,4 @@
-namespace XDialog {
+declare namespace XDialog {
     interface Dialog {
         /**
          * Dialog html element id.
@@ -346,3 +346,6 @@ declare const xdialog: {
      */
     readonly dialogs: ReadonlyArray<XDialog.Dialog>;
 };
+
+export = xdialog;
+export as namespace xdialog;
