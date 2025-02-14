@@ -3809,6 +3809,10 @@
             "libraryName": "metascraper-author",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-clearbit": {
+            "libraryName": "metascraper-clearbit",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
