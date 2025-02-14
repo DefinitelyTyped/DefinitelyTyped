@@ -3873,6 +3873,10 @@
             "libraryName": "metascraper-video",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-youtube": {
+            "libraryName": "metascraper-youtube",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
