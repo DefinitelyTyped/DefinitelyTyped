@@ -3829,6 +3829,10 @@
             "libraryName": "metascraper-image",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-lang": {
+            "libraryName": "metascraper-lang",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
