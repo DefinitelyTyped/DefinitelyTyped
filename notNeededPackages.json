@@ -3869,6 +3869,10 @@
             "libraryName": "metascraper-uol",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-url": {
+            "libraryName": "metascraper-url",
+            "asOfVersion": "5.42.3"
+        },
         "metascraper-video": {
             "libraryName": "metascraper-video",
             "asOfVersion": "5.42.0"
