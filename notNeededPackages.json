@@ -3817,6 +3817,10 @@
             "libraryName": "metascraper-date",
             "asOfVersion": "5.42.3"
         },
+        "metascraper-description": {
+            "libraryName": "metascraper-description",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
