@@ -3849,6 +3849,10 @@
             "libraryName": "metascraper-publisher",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-readability": {
+            "libraryName": "metascraper-readability",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
