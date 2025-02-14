@@ -3841,6 +3841,10 @@
             "libraryName": "metascraper-logo-favicon",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-media-provider": {
+            "libraryName": "metascraper-media-provider",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
