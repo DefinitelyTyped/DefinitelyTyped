@@ -6087,6 +6087,10 @@
             "libraryName": "@simonwep/selection-js",
             "asOfVersion": "1.7.0"
         },
+        "simple-diff": {
+            "libraryName": "simple-diff",
+            "asOfVersion": "1.7.0"
+        },
         "simple-icons": {
             "libraryName": "simple-icons",
             "asOfVersion": "5.21.0"
