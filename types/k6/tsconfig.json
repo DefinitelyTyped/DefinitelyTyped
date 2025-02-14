@@ -37,6 +37,7 @@
         "experimental/redis/index.d.ts",
         "experimental/webcrypto/index.d.ts",
         "experimental/websockets/index.d.ts",
+        "experimental/streams/index.d.ts",
 
         "test/browser.ts",
         "test/data.ts",
