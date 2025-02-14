@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "microsoft-ajax",
     "projects": [
-		"https://learn.microsoft.com/en-us/aspnet/ajax/cdn/cdnajax452",
+        "https://learn.microsoft.com/en-us/aspnet/ajax/cdn/cdnajax452",
         "http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx"
     ],
     "devDependencies": {

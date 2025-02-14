@@ -948,8 +948,8 @@ declare namespace Sys {
         // #endregion
     }
 
-	// Interfaces to match constructor of 4.5.2 implementation of Sys.CultureInfo
-	// https://learn.microsoft.com/en-us/aspnet/ajax/cdn/cdnajax452
+    // Interfaces to match constructor of 4.5.2 implementation of Sys.CultureInfo
+    // https://learn.microsoft.com/en-us/aspnet/ajax/cdn/cdnajax452
     interface DateTimeFormat {
         AMDesignator: string;
         Calendar: {
@@ -984,9 +984,9 @@ declare namespace Sys {
         NativeCalendarName: string;
         AbbreviatedMonthGenitiveNames: string[];
         MonthGenitiveNames: string[];
-	}
-	
-	interface NumberFormat {
+    }
+
+    interface NumberFormat {
         CurrencyDecimalDigits: number;
         CurrencyDecimalSeparator: string;
         IsReadOnly: boolean;
@@ -1015,8 +1015,8 @@ declare namespace Sys {
         PerMilleSymbol: string;
         NativeDigits: string[];
         DigitSubstitution: number;
-	}
-	
+    }
+
     /**
      * Represents a culture definition that can be applied to objects that accept a culture-related setting.
      * @see {@link http://msdn.microsoft.com/en-us/library/bb384004(v=vs.100).aspx}
