@@ -3845,6 +3845,10 @@
             "libraryName": "metascraper-media-provider",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-publisher": {
+            "libraryName": "metascraper-publisher",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
