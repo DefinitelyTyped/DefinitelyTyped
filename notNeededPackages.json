@@ -3853,6 +3853,10 @@
             "libraryName": "metascraper-readability",
             "asOfVersion": "5.42.0"
         },
+        "metascraper-soundcloud": {
+            "libraryName": "metascraper-soundcloud",
+            "asOfVersion": "5.42.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
