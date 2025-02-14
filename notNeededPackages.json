@@ -3793,6 +3793,10 @@
             "libraryName": "metalsmith",
             "asOfVersion": "2.6.0"
         },
+        "metascraper": {
+            "libraryName": "metascraper",
+            "asOfVersion": "5.41.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
