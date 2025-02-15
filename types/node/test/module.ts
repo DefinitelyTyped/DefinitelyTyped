@@ -191,7 +191,7 @@ Module.Module === Module;
     const load: Module.LoadHook = async (url, context, nextLoad) => {
         const { format } = context;
 
-        if (format) {
+        if (isModuleFormat(format)) {
             return {
                 format,
                 shortCircuit: true,
@@ -201,6 +201,11 @@ Module.Module === Module;
 
         return nextLoad(url);
     };
+
+    function isModuleFormat(format: string): format is ModuleFormat {
+        return moduleFormats.includes(format);
+    }
+    const moduleFormats = ['addon', 'builtin', 'commonjs', 'json', 'module', 'wasm'];
 }
 
 // Compile cache
