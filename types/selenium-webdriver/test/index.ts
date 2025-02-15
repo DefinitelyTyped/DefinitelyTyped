@@ -573,7 +573,7 @@ function TestUntilModule() {
     );
     let conditionBBase: webdriver.Condition<boolean> = conditionB;
     let conditionWebElement: webdriver.WebElementCondition;
-    let conditionWebElements: webdriver.Condition<webdriver.WebElement[]>;
+    let conditionWebElements: Promise<webdriver.WebElement[]>;
 
     conditionB = webdriver.until.ableToSwitchToFrame(5);
     let conditionAlert: webdriver.Condition<webdriver.Alert> = webdriver.until.alertIsPresent();
