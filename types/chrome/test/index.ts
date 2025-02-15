@@ -10,12 +10,12 @@ function bookmarksExample() {
         });
     });
     // Traverse the bookmark tree, and print the folder and nodes.
-    function dumpBookmarks(query?) {
+    function dumpBookmarks(query?: string | string[] | number) {
         var bookmarkTreeNodes = chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
             $("#bookmarks").append(dumpTreeNodes(bookmarkTreeNodes, query));
         });
     }
-    function dumpTreeNodes(bookmarkNodes, query) {
+    function dumpTreeNodes(bookmarkNodes: chrome.bookmarks.BookmarkTreeNode[], query?: string | string[] | number) {
         var list = $("<ul>");
         var i;
         for (i = 0; i < bookmarkNodes.length; i++) {
@@ -23,16 +23,16 @@ function bookmarksExample() {
         }
         return list;
     }
-    function dumpNode(bookmarkNode, query) {
+    function dumpNode(bookmarkNode: chrome.bookmarks.BookmarkTreeNode, query?: string | string[] | number) {
         var span = $("<span>");
         if (bookmarkNode.title) {
-            if (query && !bookmarkNode.children) {
+            if (query && typeof query === "string" && !bookmarkNode.children) {
                 if (String(bookmarkNode.title).indexOf(query) == -1) {
                     return $("<span></span>");
                 }
             }
             var anchor = $("<a>");
-            anchor.attr("href", bookmarkNode.url);
+            anchor.attr("href", bookmarkNode.url ?? null);
             anchor.text(bookmarkNode.title);
             /*
              * When clicking on a bookmark in the extension, a new tab is fired with
@@ -291,8 +291,8 @@ function testNotificationCreation() {
 
 // https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
 function contentSettings() {
-    var incognito;
-    var url;
+    var incognito: boolean;
+    var url: string;
 
     function settingChanged() {
         // @ts-expect-error Need refactor this without using `this`
@@ -304,6 +304,7 @@ function contentSettings() {
         // HACK: [type] is not recognised by the docserver's sample crawler, so
         // mention an explicit
         // type: chrome.contentSettings.cookies.set - See http://crbug.com/299634
+        // @ts-expect-error Need refactor tests to use the correct type
         chrome.contentSettings[type].set({
             primaryPattern: pattern,
             setting: setting,
@@ -315,7 +316,7 @@ function contentSettings() {
         chrome.tabs.query({ active: true, currentWindow: true, url: ["http://*/*", "https://*/*"] }, function(tabs) {
             var current = tabs[0];
             incognito = current.incognito;
-            url = current.url;
+            url = current.url ?? "";
             var types = [
                 "cookies",
                 "images",
@@ -335,18 +336,19 @@ function contentSettings() {
                 // HACK: [type] is not recognised by the docserver's sample crawler, so
                 // mention an explicit
                 // type: chrome.contentSettings.cookies.get - See http://crbug.com/299634
-                chrome.contentSettings[type]
-                    && chrome.contentSettings[type].get(
-                        {
-                            primaryUrl: url,
-                            incognito: incognito,
-                        },
-                        function(details) {
-                            var input = <HTMLInputElement> document.getElementById(type);
-                            input.disabled = false;
-                            input.value = details.setting;
-                        },
-                    );
+                // @ts-expect-error Need refactor tests to use the correct type
+                chrome.contentSettings[type] && chrome.contentSettings[type].get(
+                    {
+                        primaryUrl: url,
+                        incognito: incognito,
+                    },
+                    // @ts-expect-error
+                    function(details) {
+                        var input = <HTMLInputElement> document.getElementById(type);
+                        input.disabled = false;
+                        input.value = details.setting;
+                    },
+                );
             });
         });
 
@@ -728,7 +730,7 @@ function testStorage() {
     chrome.storage.sync.get(null, (data) => {
         console.log(data.myKey);
     });
-    chrome.storage.sync.get((data) => {
+    chrome.storage.sync.get((data: any) => {
         console.log(data.badKey);
     });
 
