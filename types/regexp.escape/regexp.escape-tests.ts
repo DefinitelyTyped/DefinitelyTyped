@@ -6,8 +6,6 @@ import "regexp.escape/auto";
 
 // $ExpectType string
 escape.implementation("foo");
-// $ExpectType string
-escape.method("foo");
 // $ExpectType (str: string) => string
 escape.shim();
 // $ExpectType (str: string) => string

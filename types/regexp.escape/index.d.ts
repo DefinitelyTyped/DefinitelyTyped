@@ -1,13 +1,8 @@
 declare function escape(str: string): string;
+declare namespace escape {
+    function implementation(str: string): string;
+    function getPolyfill(): typeof implementation;
+    function shim(): typeof implementation;
+}
 
-declare var bound: typeof escape & {
-    getPolyfill: () => typeof escape;
-    implementation: typeof escape;
-    /**
-     * @deprecated use .implementation instead
-     */
-    method: typeof escape;
-    shim: () => typeof escape;
-};
-
-export = bound;
+export = escape;
