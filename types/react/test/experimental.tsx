@@ -199,3 +199,15 @@ function viewTransitionTests() {
         <Div />
     </ViewTransition>;
 }
+
+function swipeTransitionTest() {
+    const useSwipeTransition = React.unstable_useSwipeTransition;
+    // $ExpectType [value: string | null, startGesture: StartGesture]
+    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+
+    const gestureProvider: {} = {};
+    // $ExpectType () => void
+    startGesture(gestureProvider);
+    // @ts-expect-error -- missing gesture provider
+    startGesture();
+}

@@ -195,4 +195,18 @@ declare module "." {
      * @see {@link https://github.com/facebook/react/pull/31975}
      */
     export const unstable_ViewTransition: ExoticComponent<ViewTransitionProps>;
+
+    // Implemented by the specific renderer e.g. `react-dom`.
+    // Keep in mind that augmented interfaces merge their JSDoc so if you put
+    // JSDoc here and in the renderer, the IDE will display both.
+    export interface GestureProvider {}
+
+    export type StartGesture = (gestureProvider: GestureProvider) => () => void;
+
+    /** */
+    export function unstable_useSwipeTransition<Value>(
+        previous: Value,
+        current: Value,
+        next: Value,
+    ): [value: Value, startGesture: StartGesture];
 }
