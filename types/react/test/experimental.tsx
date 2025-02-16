@@ -43,11 +43,6 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
-function ownerStacks() {
-    // $ExpectType string | null
-    const ownerStack = React.captureOwnerStack();
-}
-
 function useEvent() {
     // Implicit any
     // @ts-expect-error
