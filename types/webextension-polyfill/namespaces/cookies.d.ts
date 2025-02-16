@@ -24,6 +24,12 @@ export namespace Cookies {
          * Optional.
          */
         topLevelSite?: string;
+
+        /**
+         * Whether or not the cookie is in a third-party context, respecting ancestor chains.
+         * Optional.
+         */
+        hasCrossSiteAncestor?: boolean;
     }
 
     /**
