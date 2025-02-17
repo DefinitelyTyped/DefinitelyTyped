@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "toastify-js-tests.ts"
+        "toastify-js-tests.ts",
+        "src/toastify-es.d.ts"
     ]
 }
