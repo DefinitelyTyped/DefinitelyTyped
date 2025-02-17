@@ -139,10 +139,10 @@ declare module "node:test" {
      * If the test uses callbacks, the callback function is passed as the second argument.
      * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within a suite.
      */
-    function test(name?: string, fn?: TestFn): Promise<void>;
-    function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(fn?: TestFn): Promise<void>;
+    function test(name?: string, fn?: TestFn): PromiseLike<void>;
+    function test(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function test(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function test(fn?: TestFn): PromiseLike<void>;
     namespace test {
         export {
             after,
@@ -170,70 +170,70 @@ declare module "node:test" {
      * @return Immediately fulfilled with `undefined`.
      * @since v20.13.0
      */
-    function suite(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function suite(name?: string, fn?: SuiteFn): Promise<void>;
-    function suite(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function suite(fn?: SuiteFn): Promise<void>;
+    function suite(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function suite(name?: string, fn?: SuiteFn): PromiseLike<void>;
+    function suite(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function suite(fn?: SuiteFn): PromiseLike<void>;
     namespace suite {
         /**
          * Shorthand for skipping a suite. This is the same as calling {@link suite} with `options.skip` set to `true`.
          * @since v20.13.0
          */
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(name?: string, fn?: SuiteFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function skip(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function skip(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function skip(fn?: SuiteFn): PromiseLike<void>;
         /**
          * Shorthand for marking a suite as `TODO`. This is the same as calling {@link suite} with `options.todo` set to `true`.
          * @since v20.13.0
          */
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(name?: string, fn?: SuiteFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function todo(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function todo(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function todo(fn?: SuiteFn): PromiseLike<void>;
         /**
          * Shorthand for marking a suite as `only`. This is the same as calling {@link suite} with `options.only` set to `true`.
          * @since v20.13.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(name?: string, fn?: SuiteFn): Promise<void>;
-        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(fn?: SuiteFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function only(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function only(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function only(fn?: SuiteFn): PromiseLike<void>;
     }
     /**
      * Alias for {@link suite}.
      *
      * The `describe()` function is imported from the `node:test` module.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(name?: string, fn?: SuiteFn): Promise<void>;
-    function describe(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function describe(name?: string, fn?: SuiteFn): PromiseLike<void>;
+    function describe(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+    function describe(fn?: SuiteFn): PromiseLike<void>;
     namespace describe {
         /**
          * Shorthand for skipping a suite. This is the same as calling {@link describe} with `options.skip` set to `true`.
          * @since v18.15.0
          */
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(name?: string, fn?: SuiteFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function skip(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function skip(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function skip(fn?: SuiteFn): PromiseLike<void>;
         /**
          * Shorthand for marking a suite as `TODO`. This is the same as calling {@link describe} with `options.todo` set to `true`.
          * @since v18.15.0
          */
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(name?: string, fn?: SuiteFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function todo(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function todo(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function todo(fn?: SuiteFn): PromiseLike<void>;
         /**
          * Shorthand for marking a suite as `only`. This is the same as calling {@link describe} with `options.only` set to `true`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(name?: string, fn?: SuiteFn): Promise<void>;
-        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(fn?: SuiteFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function only(name?: string, fn?: SuiteFn): PromiseLike<void>;
+        function only(options?: TestOptions, fn?: SuiteFn): PromiseLike<void>;
+        function only(fn?: SuiteFn): PromiseLike<void>;
     }
     /**
      * Alias for {@link test}.
@@ -241,58 +241,58 @@ declare module "node:test" {
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(name?: string, fn?: TestFn): Promise<void>;
-    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(fn?: TestFn): Promise<void>;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function it(name?: string, fn?: TestFn): PromiseLike<void>;
+    function it(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function it(fn?: TestFn): PromiseLike<void>;
     namespace it {
         /**
          * Shorthand for skipping a test. This is the same as calling {@link it} with `options.skip` set to `true`.
          */
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(name?: string, fn?: TestFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(fn?: TestFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function skip(name?: string, fn?: TestFn): PromiseLike<void>;
+        function skip(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function skip(fn?: TestFn): PromiseLike<void>;
         /**
          * Shorthand for marking a test as `TODO`. This is the same as calling {@link it} with `options.todo` set to `true`.
          */
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(name?: string, fn?: TestFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(fn?: TestFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function todo(name?: string, fn?: TestFn): PromiseLike<void>;
+        function todo(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function todo(fn?: TestFn): PromiseLike<void>;
         /**
          * Shorthand for marking a test as `only`. This is the same as calling {@link it} with `options.only` set to `true`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(name?: string, fn?: TestFn): Promise<void>;
-        function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(fn?: TestFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function only(name?: string, fn?: TestFn): PromiseLike<void>;
+        function only(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+        function only(fn?: TestFn): PromiseLike<void>;
     }
     /**
      * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
      * @since v20.2.0
      */
-    function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(name?: string, fn?: TestFn): Promise<void>;
-    function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(fn?: TestFn): Promise<void>;
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function skip(name?: string, fn?: TestFn): PromiseLike<void>;
+    function skip(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function skip(fn?: TestFn): PromiseLike<void>;
     /**
      * Shorthand for marking a test as `TODO`. This is the same as calling {@link test} with `options.todo` set to `true`.
      * @since v20.2.0
      */
-    function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(name?: string, fn?: TestFn): Promise<void>;
-    function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(fn?: TestFn): Promise<void>;
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function todo(name?: string, fn?: TestFn): PromiseLike<void>;
+    function todo(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function todo(fn?: TestFn): PromiseLike<void>;
     /**
      * Shorthand for marking a test as `only`. This is the same as calling {@link test} with `options.only` set to `true`.
      * @since v20.2.0
      */
-    function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(name?: string, fn?: TestFn): Promise<void>;
-    function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(fn?: TestFn): Promise<void>;
+    function only(name?: string, options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function only(name?: string, fn?: TestFn): PromiseLike<void>;
+    function only(options?: TestOptions, fn?: TestFn): PromiseLike<void>;
+    function only(fn?: TestFn): PromiseLike<void>;
     /**
      * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
      * If the test uses callbacks, the callback function is passed as the second argument.

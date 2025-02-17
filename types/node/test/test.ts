@@ -71,7 +71,7 @@ test("foo", t => {
 });
 
 test("foo", (t) => {
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     t.test();
 });
 
@@ -98,7 +98,7 @@ test("options with booleans", {
 
 {
     const ret = test();
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     ret;
 }
 
@@ -167,7 +167,7 @@ test(t => {
         // $ExpectType TestContext
         t;
     });
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     sub;
 });
 
@@ -199,13 +199,13 @@ describe("foo", () => {
 
 describe("foo", () => {
     const d = describe();
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     d;
 });
 
 describe("foo", async () => {
     const d = describe();
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     d;
     // $ExpectType void
     await d;
@@ -213,7 +213,7 @@ describe("foo", async () => {
 
 {
     const ret = describe();
-    // $ExpectType Promise<void>
+    // $ExpectType PromiseLike<void>
     ret;
 }
 
@@ -373,13 +373,13 @@ describe(1, () => {});
 it(1, () => {});
 
 // suite() signatures
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite();
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite("foo");
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite("foo", {
     concurrency: false,
     only: true,
@@ -388,22 +388,22 @@ suite("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite("foo", {
     concurrency: 5,
     todo: "foo",
 }, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite(() => {});
 
 // suite.skip() signatures
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip();
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip("foo");
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip("foo", {
     concurrency: false,
     only: true,
@@ -411,22 +411,22 @@ suite.skip("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip("foo", {
     concurrency: 5,
     todo: "foo",
 }, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.skip(() => {});
 
 // suite.todo() signatures
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo();
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo("foo");
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo("foo", {
     concurrency: false,
     only: true,
@@ -434,22 +434,22 @@ suite.todo("foo", {
     skip: false,
     timeout: 30_000,
 });
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo("foo", {
     concurrency: 5,
     timeout: Infinity,
 }, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.todo(() => {});
 
 // suite.only() signatures
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only();
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only("foo");
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only("foo", {
     concurrency: false,
     signal: new AbortController().signal,
@@ -457,12 +457,12 @@ suite.only("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only("foo", {
     concurrency: 5,
     todo: "foo",
 }, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType PromiseLike<void>
 suite.only(() => {});
 
 // SuiteContext
