@@ -7450,6 +7450,10 @@
         "zookeeper": {
             "libraryName": "zookeeper",
             "asOfVersion": "4.6.0"
+        },
+        "zrender": {
+            "libraryName": "zrender",
+            "asOfVersion": "5.0.0"
         }
     }
 }
