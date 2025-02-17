@@ -85,12 +85,12 @@ export type VerifyErrors =
     | TokenExpiredError;
 export type VerifyCallback<T = Jwt | JwtPayload | string> = (
     error: VerifyErrors | null,
-    decoded: T | undefined,
+    decoded?: T | undefined,
 ) => void;
 
 export type SignCallback = (
     error: Error | null,
-    encoded: string | undefined,
+    encoded?: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1

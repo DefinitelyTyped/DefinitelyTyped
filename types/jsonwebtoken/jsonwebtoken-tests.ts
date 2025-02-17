@@ -315,3 +315,23 @@ jwt.decode(token, { complete: true, json: true });
     jwt.verify("", publicKey, () => {});
     jwt.verify("", (header, done) => done(null, publicKey), () => {});
 }
+
+// verify callback
+{
+    let callback!: jwt.VerifyCallback;
+    let err!: jwt.VerifyErrors;
+    let decoded!: jwt.JwtPayload;
+
+    callback(err); // when error
+    callback(null, decoded); // when decoded
+}
+
+// sign callback
+{
+    let callback!: jwt.SignCallback;
+    let err!: Error;
+    let encoded!: string;
+
+    callback(err); // when error
+    callback(null, encoded); // when encoded
+}
