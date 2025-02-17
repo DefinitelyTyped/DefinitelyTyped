@@ -6,11 +6,11 @@
         "https://github.com/johnwalley/d3-simple-slider"
     ],
     "dependencies": {
-        "@types/d3-selection": "*"
+        "@types/d3-selection": "^1.0.0"
     },
     "devDependencies": {
-        "@types/d3-format": "*",
-        "@types/d3-scale": "*",
+        "@types/d3-format": "^1.4.2",
+        "@types/d3-scale": "^2.0.0",
         "@types/d3-simple-slider": "workspace:."
     },
     "owners": [

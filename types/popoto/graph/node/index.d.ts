@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import { Pie } from "d3-shape";
 
 export interface Node {
     // ID of the g element in SVG graph containing all the link elements.
@@ -22,7 +22,7 @@ export interface Node {
     getDonutInnerRadius: () => number;
     getDonutOuterRadius: () => number;
 
-    pie: d3.Pie<ThisType<any>, number>;
+    pie: Pie<ThisType<any>, number>;
 
     /**
      * Defines the list of possible nodes.

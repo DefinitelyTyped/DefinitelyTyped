@@ -9,7 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/d3": "*",
+        "@types/d3": "^3",
         "@types/react-faux-dom": "workspace:."
     },
     "owners": [
