@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/lodash-match-pattern": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Daniel Kneip",
-            "githubUsername": "daedal-knickerbockers"
-        }
-    ]
+    "owners": []
 }

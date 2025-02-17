@@ -12,10 +12,5 @@
     "devDependencies": {
         "@types/chai-match-pattern": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Daniel Kneip",
-            "githubUsername": "daedal-knickerbockers"
-        }
-    ]
+    "owners": []
 }
