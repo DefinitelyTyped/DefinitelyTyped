@@ -6,8 +6,7 @@
         "https://github.com/dpskvn/express-sse"
     ],
     "dependencies": {
-        "@types/express": "*",
-        "@types/eventsource": "*"
+        "@types/express": "*"
     },
     "devDependencies": {
         "@types/express-sse": "workspace:."

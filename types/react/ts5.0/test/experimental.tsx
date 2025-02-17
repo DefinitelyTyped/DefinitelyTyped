@@ -43,11 +43,6 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
-function ownerStacks() {
-    // $ExpectType string | null
-    const ownerStack = React.captureOwnerStack();
-}
-
 function useEvent() {
     // Implicit any
     // @ts-expect-error
@@ -206,4 +201,16 @@ function viewTransitionTests() {
     <ViewTransition>
         <Div />
     </ViewTransition>;
+}
+
+function swipeTransitionTest() {
+    const useSwipeTransition = React.unstable_useSwipeTransition;
+    // $ExpectType [value: string | null, startGesture: StartGesture]
+    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+
+    const gestureProvider: {} = {};
+    // $ExpectType () => void
+    startGesture(gestureProvider);
+    // @ts-expect-error -- missing gesture provider
+    startGesture();
 }

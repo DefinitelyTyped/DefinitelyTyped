@@ -6584,7 +6584,7 @@ declare namespace chrome {
         /** The parameters describing the offscreen document to create. */
         export interface CreateParameters {
             /** The reason(s) the extension is creating the offscreen document. */
-            reasons: Reason[];
+            reasons: `${Reason}`[];
             /** The (relative) URL to load in the document. */
             url: string;
             /** A developer-provided string that explains, in more detail, the need for the background context. The user agent _may_ use this in display to the user. */
@@ -6826,6 +6826,22 @@ declare namespace chrome {
             permissions?: chrome.runtime.ManifestPermissions[];
         }
 
+        export interface AddHostAccessRequest {
+            /** The id of a document where host access requests can be shown. Must be the top-level document within a tab. If provided, the request is shown on the tab of the specified document and is removed when the document navigates to a new origin. Adding a new request will override any existent request for `tabId`. This or `tabId` must be specified. */
+            documentId?: string;
+            /** The URL pattern where host access requests can be shown. If provided, host access requests will only be shown on URLs that match this pattern. */
+            pattern?: string;
+            /** The id of the tab where host access requests can be shown. If provided, the request is shown on the specified tab and is removed when the tab navigates to a new origin. Adding a new request will override an existent request for `documentId`. This or `documentId` must be specified. */
+            tabId?: number;
+        }
+
+        /**
+         * Adds a host access request. Request will only be signaled to the user if extension can be granted access to the host in the request. Request will be reset on cross-origin navigation. When accepted, grants persistent access to the site’s top origin
+         * @since Chrome 133
+         */
+        export function addHostAccessRequest(request: AddHostAccessRequest): Promise<void>;
+        export function addHostAccessRequest(request: AddHostAccessRequest, callback: () => void): void;
+
         /**
          * Checks if the extension has the specified permissions.
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
@@ -6857,6 +6873,22 @@ declare namespace chrome {
          */
         export function remove(permissions: Permissions): Promise<boolean>;
         export function remove(permissions: Permissions, callback: (removed: boolean) => void): void;
+
+        export interface RemoveHostAccessRequest {
+            /** The id of a document where host access request will be removed. Must be the top-level document within a tab. This or `tabId` must be specified. */
+            documentId?: string;
+            /** The URL pattern where host access request will be removed. If provided, this must exactly match the pattern of an existing host access request. */
+            pattern?: string;
+            /** The id of the tab where host access request will be removed. This or `documentId` must be specified. */
+            tabId?: number;
+        }
+
+        /**
+         * Removes a host access request, if existent.
+         * @since Chrome 133
+         */
+        export function removeHostAccessRequest(request: RemoveHostAccessRequest): Promise<void>;
+        export function removeHostAccessRequest(request: RemoveHostAccessRequest, callback: () => void): void;
 
         /** Fired when access to permissions has been removed from the extension. */
         export const onRemoved: chrome.events.Event<(permissions: Permissions) => void>;
@@ -8077,7 +8109,7 @@ declare namespace chrome {
             /**
              * The reason that this event is being dispatched.
              */
-            reason: OnInstalledReason;
+            reason: `${OnInstalledReason}`;
             /**
              * Optional.
              * Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
@@ -8629,7 +8661,7 @@ declare namespace chrome {
         export function connectNative(application: string): Port;
         /**
          * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.
-         * @deprecated Background pages do not exist in MV3 extensions.
+         * @deprecated Removed since Chrome 133. Background pages do not exist in MV3 extensions.
          */
         export function getBackgroundPage(): Promise<Window>;
         /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
@@ -13873,6 +13905,31 @@ declare namespace chrome {
             rulesMatchedInfo: MatchedRuleInfo[];
         }
 
+        /** @since Chrome 103 */
+        export interface TestMatchOutcomeResult {
+            /** The rules (if any) that match the hypothetical request. */
+            matchedRules: MatchedRule[];
+        }
+
+        /** @since Chrome 103 */
+        export interface TestMatchRequestDetails {
+            /** The initiator URL (if any) for the hypothetical request. */
+            initiator?: string;
+            /** Standard HTTP method of the hypothetical request. Defaults to "get" for HTTP requests and is ignored for non-HTTP requests. */
+            method?: `${RequestMethod}`;
+            /**
+             * The headers provided by a hypothetical response if the request does not get blocked or redirected before it is sent. Represented as an object which maps a header name to a list of string values. If not specified, the hypothetical response would return empty response headers, which can match rules which match on the non-existence of headers. E.g. `{"content-type": ["text/html; charset=utf-8", "multipart/form-data"]}`
+             * @since Chrome 129
+             */
+            responseHeaders?: { [name: string]: unknown };
+            /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
+            tabId?: number;
+            /** The resource type of the hypothetical request. */
+            type: `${ResourceType}`;
+            /** The URL of the hypothetical request. */
+            url: string;
+        }
+
         /** Returns the number of static rules an extension can enable before the global static rule limit is reached. */
         export function getAvailableStaticRuleCount(callback: (count: number) => void): void;
 
@@ -13975,6 +14032,17 @@ declare namespace chrome {
          * @return The `setExtensionActionOptions` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
         export function setExtensionActionOptions(options: ExtensionActionOptions): Promise<void>;
+
+        /**
+         * Checks if any of the extension's declarativeNetRequest rules would match a hypothetical request. Note: Only available for unpacked extensions as this is only intended to be used during extension development.
+         * @param request
+         * @since Chrome 103
+         */
+        export function testMatchOutcome(request: TestMatchRequestDetails): Promise<TestMatchOutcomeResult>;
+        export function testMatchOutcome(
+            request: TestMatchRequestDetails,
+            callback: (result: TestMatchOutcomeResult) => void,
+        ): void;
 
         /** Modifies the current set of dynamic rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.

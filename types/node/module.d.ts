@@ -128,6 +128,13 @@ declare module "module" {
          */
         function getCompileCacheDir(): string | undefined;
         /**
+         * @since v23.2.0, v22.14.0
+         */
+        function findPackageJSON(
+            specifier: string | URL,
+            base?: string | URL,
+        ): undefined | string;
+        /**
          * @since v18.6.0, v16.17.0
          */
         function isBuiltin(moduleName: string): boolean;

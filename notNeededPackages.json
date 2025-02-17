@@ -188,6 +188,10 @@
             "libraryName": "apn",
             "asOfVersion": "2.1.2"
         },
+        "appium-adb": {
+            "libraryName": "appium-adb",
+            "asOfVersion": "9.12.0"
+        },
         "applicationinsights": {
             "libraryName": "applicationinsights",
             "asOfVersion": "0.20.0"
@@ -195,6 +199,10 @@
         "arcgis-js-api": {
             "libraryName": "arcgis-js-api",
             "asOfVersion": "4.28.0"
+        },
+        "architect__functions": {
+            "libraryName": "@architect/functions",
+            "asOfVersion": "5.3.0"
         },
         "argon2": {
             "libraryName": "argon2",
@@ -371,6 +379,30 @@
         "baseui": {
             "libraryName": "baseui",
             "asOfVersion": "8.0.0"
+        },
+        "bbob__core": {
+            "libraryName": "@bbob/core",
+            "asOfVersion": "4.0.0"
+        },
+        "bbob__html": {
+            "libraryName": "@bbob/html",
+            "asOfVersion": "4.0.0"
+        },
+        "bbob__parser": {
+            "libraryName": "@bbob/parser",
+            "asOfVersion": "4.0.0"
+        },
+        "bbob__plugin-helper": {
+            "libraryName": "@bbob/plugin-helper",
+            "asOfVersion": "4.0.0"
+        },
+        "bbob__preset": {
+            "libraryName": "@bbob/preset",
+            "asOfVersion": "4.0.0"
+        },
+        "bbob__preset-html5": {
+            "libraryName": "@bbob/preset-html5",
+            "asOfVersion": "4.0.0"
         },
         "bcp-47": {
             "libraryName": "bcp-47",
@@ -607,6 +639,10 @@
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
+        },
+        "chai-quantifiers": {
+            "libraryName": "chai-quantifiers",
+            "asOfVersion": "1.0.12"
         },
         "chai-webdriverio": {
             "libraryName": "chai-webdriverio",
@@ -1757,6 +1793,10 @@
             "libraryName": "eventemitter3",
             "asOfVersion": "2.0.2"
         },
+        "eventsource": {
+            "libraryName": "eventsource",
+            "asOfVersion": "3.0.0"
+        },
         "ex-react-native-i18n": {
             "libraryName": "ex-react-native-i18n",
             "asOfVersion": "0.0.6"
@@ -1947,6 +1987,10 @@
         },
         "fetch-jsonp": {
             "libraryName": "fetch-jsonp",
+            "asOfVersion": "1.1.0"
+        },
+        "ffmpeg-installer__ffmpeg": {
+            "libraryName": "@ffmpeg-installer/ffmpeg",
             "asOfVersion": "1.1.0"
         },
         "fhir-kit-client": {
@@ -2381,6 +2425,10 @@
             "libraryName": "@hapi/podium",
             "asOfVersion": "4.1.3"
         },
+        "hapi__shot": {
+            "libraryName": "@hapi/shot",
+            "asOfVersion": "6.0.0"
+        },
         "hapi__topo": {
             "libraryName": "@hapi/topo",
             "asOfVersion": "5.0.0"
@@ -2608,6 +2656,10 @@
         "immutable": {
             "libraryName": "immutable",
             "asOfVersion": "3.8.7"
+        },
+        "impress": {
+            "libraryName": "impress",
+            "asOfVersion": "2.0.13"
         },
         "in-range": {
             "libraryName": "in-range",
@@ -3093,6 +3145,10 @@
             "libraryName": "jsonata",
             "asOfVersion": "1.5.0"
         },
+        "jsonp-body": {
+            "libraryName": "jsonp-body",
+            "asOfVersion": "1.1.0"
+        },
         "jsonschema": {
             "libraryName": "jsonschema",
             "asOfVersion": "1.1.1"
@@ -3308,6 +3364,22 @@
         "leap-year": {
             "libraryName": "leap-year",
             "asOfVersion": "3.0.0"
+        },
+        "ledgerhq__hw-app-btc": {
+            "libraryName": "@ledgerhq/hw-app-btc",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport": {
+            "libraryName": "@ledgerhq/hw-transport",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport-node-hid": {
+            "libraryName": "@ledgerhq/hw-transport-node-hid",
+            "asOfVersion": "6.0.0"
+        },
+        "ledgerhq__hw-transport-webusb": {
+            "libraryName": "@ledgerhq/hw-transport-webusb",
+            "asOfVersion": "6.0.0"
         },
         "left-pad": {
             "libraryName": "left-pad",
@@ -5415,6 +5487,10 @@
             "libraryName": "react-native-permissions",
             "asOfVersion": "2.0.0"
         },
+        "react-native-phone-input": {
+            "libraryName": "react-native-phone-input",
+            "asOfVersion": "1.3.1"
+        },
         "react-native-responsive-dimensions": {
             "libraryName": "react-native-responsive-dimensions",
             "asOfVersion": "3.1.0"
@@ -6190,6 +6266,10 @@
         "sql-query-identifier": {
             "libraryName": "sql-query-identifier",
             "asOfVersion": "1.2.0"
+        },
+        "sqlite3": {
+            "libraryName": "sqlite3",
+            "asOfVersion": "5.1.0"
         },
         "sqs-consumer": {
             "libraryName": "sqs-consumer",

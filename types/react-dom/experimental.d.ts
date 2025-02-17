@@ -42,4 +42,7 @@ declare module "react" {
         old: Animatable;
         new: Animatable;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface GestureProvider extends AnimationTimeline {}
 }
