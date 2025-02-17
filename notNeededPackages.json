@@ -3782,7 +3782,7 @@
             "asOfVersion": "6.0.0"
         },
         "mercadopago-sdk-js": {
-            "libraryName": "@mercadopago-sdk-js",
+            "libraryName": "mercadopago-sdk-js",
             "asOfVersion": "0.0.3"
         },
         "merge-refs": {
