@@ -6024,29 +6024,8 @@ declare namespace Xrm {
          * Execute a single action, function, or CRUD operation.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/execute External Link: Xrm.WebApi.online.execute (Client API reference)}
          * @param request Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
-         * @remarks The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
-         * **The getMetadata method has the following parameters**:
-         *   - boundParameter: (Optional) String. The name of the bound parameter for the action or function to execute.
-         *       * Specify undefined if you are executing a CRUD request.
-         *       * Specify null if the action or function to execute is not bound to any entity.
-         *       * Specify entity logical name or entity set name in case the action or function to execute is bound to one.
-         *   - operationName: (Optional). String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete".
-         *   - operationType: (Optional). Number. Indicates the type of operation you are executing; specify one of the following values:
-         *       * 0: Action
-         *       * 1: Function
-         *       * 2: CRUD
-         *   - parameterTypes: Object. The metadata for parameter types. The object has the following attributes:
-         *   - enumProperties: (Optional) Object. The metadata for enum types. The object has two string attributes: name and value
-         *   - structuralProperty: Number. The category of the parameter type. Specify one of the following values:
-         *       * 0: Unknown
-         *       * 1: PrimitiveType
-         *       * 2: ComplexType
-         *       * 3: EnumerationType
-         *       * 4: Collection
-         *       * 5: EntityType
-         *   - typeName: String. The fully qualified name of the parameter type.
          */
-        execute(request: any): Async.PromiseLike<ExecuteResponse>;
+        execute<TExecuteResponseBody = object>(request: ExecuteRequest): Async.PromiseLike<ExecuteResponse<TExecuteResponseBody>>;
 
         /**
          * Execute a collection of action, function, or CRUD operations.
@@ -6060,7 +6039,7 @@ declare namespace Xrm {
          *        * In this case, all the request objects specified in the change set will get executed in a
          *        transaction.
          */
-        executeMultiple(request: any[]): Async.PromiseLike<ExecuteResponse[]>;
+        executeMultiple(request: (ExecuteRequest | ExecuteRequest[])[]): Async.PromiseLike<ExecuteResponse[]>;
     }
 
     /**
@@ -6346,10 +6325,131 @@ declare namespace Xrm {
         };
     }
 
+    type ExecuteRequestParameterType = ExecuteRequestEnumParameterType | ExecuteRequestPrimitiveParameterType;
+
+    /** The metadata for parameter types. */
+    interface ExecuteRequestBaseParameterType {
+        /** String. The fully qualified name of the parameter type. */
+        typeName: string;
+        /**  Number. The category of the parameter type. Specify one of the following values:
+         *       * 0: Unknown
+         *       * 1: PrimitiveType
+         *       * 2: ComplexType
+         *       * 3: EnumerationType
+         *       * 4: Collection
+         *       * 5: EntityType */
+        structuralProperty: Exclude<XrmEnum.StructuralPropertyType, XrmEnum.StructuralPropertyType.PrimitiveType | XrmEnum.StructuralPropertyType.EnumerationType>;
+    }
+
+    type PrimitiveTypeName =
+        'Edm.Binary'
+        | 'Edm.Boolean'
+        | 'Edm.Date'
+        | 'Edm.DateTimeOffset'
+        | 'Edm.Decimal'
+        | 'Edm.Double'
+        | 'Edm.Guid'
+        | 'Edm.Int16'
+        | 'Edm.Int32'
+        | 'Edm.Int64'
+        | 'Edm.String'
+
+    type ExecuteRequestPrimitiveParameterType = ExecuteRequestBaseParameterType & {
+        /** String. The fully qualified name of the parameter type.
+         * https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/web-api-properties#primitive-types-used-by-dataverse 
+         */
+        typeName: PrimitiveTypeName;
+        structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType;
+    }
+
+    /* Object. The metadata for enum types. The object has two string attributes: name and value */
+    interface ExecuteRequestEnumProperty {
+        name: string;
+        value: string;
+    }
+
+    type ExecuteRequestEnumParameterType = ExecuteRequestBaseParameterType & {
+        /* The metadata for enum types. The object has two string attributes: name and value */
+        enumProperties: ExecuteRequestEnumProperty[];
+
+        structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType;
+    }
+
+    /** Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
+      * @remarks The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute. */
+    interface ExecuteRequest {
+        getMetadata(): ExecuteRequestMetadata;
+    }
+
+    interface ExecuteRequestCrudMetadata {
+         /** String. The name of the bound parameter for the action or function to execute.
+         * * Specify undefined if you are executing a CRUD request.
+         * * Specify null if the action or function to execute is not bound to any entity.
+         * * Specify entity logical name or entity set name in case the action or function to execute is bound to one. */
+        boundParameter?: undefined;
+        
+        /** Number. Indicates the type of operation you are executing; specify one of the following values:
+         * * 0: Action
+         * * 1: Function
+         * * 2: CRUD */
+        operationType: XrmEnum.ExecuteOperationType.CRUD;
+
+        /** String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete". */
+        operationName: 'Create' | 'Retrieve' | 'RetrieveMultiple' | 'Update' | 'Delete' | 'Associate' | 'Disassociate';
+
+        /** The metadata for parameter types. Each key is the name of parameter. */
+        parameterTypes: { [key: string]: ExecuteRequestParameterType };
+    }
+
+    interface ExecuteRequestBoundMetadata {
+         /** String. The name of the bound parameter for the action or function to execute.
+         * * Specify undefined if you are executing a CRUD request.
+         * * Specify null if the action or function to execute is not bound to any entity.
+         * * Specify entity logical name or entity set name in case the action or function to execute is bound to one. */
+        boundParameter: string;
+
+        /** Number. Indicates the type of operation you are executing; specify one of the following values:
+         * * 0: Action
+         * * 1: Function
+         * * 2: CRUD */
+        operationType: XrmEnum.ExecuteOperationType.Action | XrmEnum.ExecuteOperationType.Function;
+
+        /** String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete". */
+        operationName: string;
+
+        /** The metadata for parameter types. Each key is the name of parameter. */
+        parameterTypes: { [key in string]: ExecuteRequestParameterType };
+    }
+    
+    interface ExecuteRequestUnboundMetadata {
+         /** String. The name of the bound parameter for the action or function to execute.
+         * * Specify undefined if you are executing a CRUD request.
+         * * Specify null if the action or function to execute is not bound to any entity.
+         * * Specify entity logical name or entity set name in case the action or function to execute is bound to one. */
+        boundParameter: null;
+
+        /** Number. Indicates the type of operation you are executing; specify one of the following values:
+         * * 0: Action
+         * * 1: Function
+         * * 2: CRUD */
+        operationType: XrmEnum.ExecuteOperationType.Action | XrmEnum.ExecuteOperationType.Function;
+
+        /** String. Name of the action, function, or one of the following values if you are executing a CRUD request: "Create", "Retrieve", "RetrieveMultiple", "Update", or "Delete". */
+        operationName: string;
+
+        /** The metadata for parameter types. Each key is the name of parameter. */
+        parameterTypes: { [key: string]: ExecuteRequestParameterType };
+    }
+
+    type ExecuteRequestMetadata = ExecuteRequestCrudMetadata | ExecuteRequestUnboundMetadata | ExecuteRequestBoundMetadata;
+
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse extends Response {}
+    interface ExecuteResponse<TResponseBody = object> extends Response {
+        /** @inheritdoc */
+        json(): Promise<TResponseBody>;
+    }
 }
 
 declare namespace XrmEnum {
@@ -6763,5 +6863,25 @@ declare namespace XrmEnum {
     const enum OpenSearchResultMode {
         Inline = "Inline",
         Popup = "Popup",
+    }
+
+    /** Indicates the type of operation you are executing; specify one of the following values:
+         * 0: Action
+         * 1: Function
+         * 2: CRUD
+    */
+    enum ExecuteOperationType {
+        Action = 0,
+        Function = 1,
+        CRUD = 2,
+    }
+
+    enum StructuralPropertyType {
+        Unknown = 0,
+        PrimitiveType = 1,
+        ComplexType = 2,
+        EnumerationType = 3,
+        Collection = 4,
+        EntityType = 5,
     }
 }
