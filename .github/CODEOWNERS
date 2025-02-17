@@ -283,7 +283,6 @@
 /types/append-query/                                      @ffflorian
 /types/appframework/                                      @kyo-ago
 /types/appgeist__ensure-dir/                              @ChocolateLoverRaj
-/types/appium-adb/                                        @NotWoods
 /types/apple-mapkit-js-browser/                           @kilghaz @wsmd @chrisdrackett @moritzsternemann @vinayakkulkarni
 /types/apple-music-api/                                   @nchase @useffc
 /types/apple-signin-api/                                  @voidpumpkin @koenpunt
@@ -1942,7 +1941,6 @@
 /types/eventbusjs/                                        @Longqin88888
 /types/events/                                            @yasupeke @weareoutman
 /types/events.once/                                       @0x326
-/types/eventsource/                                       @scottleedavis @afroozeh @snakedrak @Akuukis
 /types/evernote/                                          @corps @fcastilloec
 /types/evil-dns/                                          @GeekCornerGH
 /types/ewma/                                              @LeoDog896
@@ -3177,7 +3175,6 @@
 /types/hapi__joi/                                         @Bartvds @laurence-myers @cglantschnig @DavidBR-SW @GaelMagnan @ralekna @schfkt @rokoroku @dankraus @wanganjun @rafaelkallis @aconanlai @zaphoyd @thewillg @SimonSchick @afharo @lenovouser @AnandChowdhary @myovchev @RecuencoJones @freisenhauer @legraphista @stevendesu
 /types/hapi__jwt/                                         @ssanchezmarc
 /types/hapi__pez/                                         @grant
-/types/hapi__shot/                                        @AJamesPhillips @SimonSchick @lenovouser
 /types/hapi__sntp/                                        @lenovouser
 /types/hapi__subtext/                                     @nokel81
 /types/hapipal__avocat/                                   @timcosta
@@ -3415,7 +3412,6 @@
 /types/immediate/                                         @BendingBender
 /types/imperium/                                          @gaetansenn
 /types/import-local/                                      @LeoDog896
-/types/impress/                                           @borisyankov
 /types/imsi-grok/                                         @deanpienaar
 /types/imtype/                                            @hu0529
 /types/imul/                                              @djcsdy
@@ -3925,7 +3921,6 @@
 /types/jsonminify/                                        @no23reason @peterblazejewicz
 /types/jsonnet/                                           @hookclaw @lyh543
 /types/jsonp/                                             @surenkov
-/types/jsonp-body/                                        @keqingrong
 /types/jsonp-promise/                                     @cdpark0530
 /types/jsonpack/                                          @vladjerca
 /types/jsonpath/                                          @horiuchi @ikatyang
@@ -3998,6 +3993,7 @@
 /types/k-bucket/                                          @tomonari-t
 /types/k6/                                                @MStoykov @codebien @oleiade @olegbespalov @nicolevanderhoeven @ankur22 @inancgumus @ka3de @joanlopez
 /types/kafka-node-avro/                                   @alfamegaxq
+/types/kafkajs-snappy/                                    @matteodisabatino
 /types/kahoot.js-updated/                                 @MysteryBlokHed
 /types/kakao-js-sdk/                                      @wooogi123
 /types/kakao-pixel/                                       @hahnlee
@@ -4166,6 +4162,7 @@
 /types/koa__ejs/                                          @mattb-prg
 /types/koa__multer/                                       @benstevens48 @nomnes
 /types/koa__router/                                       @hellopao @schfkt @JounQin @romain-faust @Guillaume-Mayer @falinor @jdforsythe
+/types/kochava/                                           @midoghranek @armia-talaat
 /types/koji-tools/                                        @bdjeffyp
 /types/kolite/                                            @borisyankov
 /types/kompression/                                       @Aankhen
@@ -4271,11 +4268,7 @@
 /types/leakage/                                           @atd-schubert
 /types/leapmotionts/                                      @logotype
 /types/leb128/                                            @remcohaszing
-/types/ledgerhq__hw-app-btc/                              @gregdhill
-/types/ledgerhq__hw-transport/                            @danwbyrne
-/types/ledgerhq__hw-transport-node-hid/                   @danwbyrne
 /types/ledgerhq__hw-transport-u2f/                        @danwbyrne
-/types/ledgerhq__hw-transport-webusb/                     @questofiranon
 /types/legal-eagle/                                       @j-f1
 /types/leo-profanity/                                     @jackhumphries9
 /types/lerna-alias/                                       @ecraig12345
@@ -6597,7 +6590,6 @@
 /types/react-native-paypal-lib/                           @gstvds
 /types/react-native-pdf-lib/                              @thekevinbrown
 /types/react-native-percentage-circle/                    @hmajid2301
-/types/react-native-phone-input/                          @maael
 /types/react-native-photo-view/                           @christianchown
 /types/react-native-platform-touchable/                   @tngranados @iwikal
 /types/react-native-popup-dialog/                         @PaitoAnderson @connectdotz @bm-software
