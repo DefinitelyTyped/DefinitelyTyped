@@ -111,6 +111,69 @@ declare module "http" {
         warning?: string | undefined;
         "www-authenticate"?: string | undefined;
     }
+
+    // A union type representing various MIME types for HTTP content negotiation.
+    // Used to specify or check the content type of HTTP requests and responses.
+    type ContentTypeValues =
+        | "text/plain"
+        | "text/html"
+        | "text/css"
+        | "text/javascript"
+        | "text/csv"
+        | "text/xml"
+        | "text/json"
+        | "text/markdown"
+        | "text/calendar"
+        | "text/event-stream"
+        | "application/json"
+        | "application/xml"
+        | "application/javascript"
+        | "application/ld+json"
+        | "application/xhtml+xml"
+        | "application/atom+xml"
+        | "application/rss+xml"
+        | "application/zip"
+        | "application/gzip"
+        | "application/pdf"
+        | "application/msword"
+        | "application/vnd.ms-excel"
+        | "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        | "application/rtf"
+        | "application/octet-stream"
+        | "image/jpeg"
+        | "image/png"
+        | "image/gif"
+        | "image/webp"
+        | "image/svg+xml"
+        | "image/bmp"
+        | "audio/mpeg"
+        | "audio/ogg"
+        | "audio/wav"
+        | "video/mp4"
+        | "video/webm"
+        | "video/ogg"
+        | "video/x-matroska"
+        | "font/woff"
+        | "font/woff2"
+        | "font/otf"
+        | "font/ttf"
+        | "multipart/form-data"
+        | "multipart/byteranges"
+        | "multipart/mixed"
+        | "application/x-7z-compressed"
+        | "application/x-rar-compressed"
+        | "application/x-tar"
+        | "application/epub+zip"
+        | "application/vnd.api+json";
+
+    // Define the `HeaderContent` type which specifies headers and their corresponding values.
+    // Each header is an object with a `name` and a `value` property.
+    interface HeaderContent {
+        name: "Content-Type";
+        value: `${ContentTypeValues}${string}`;
+    }
+
     // outgoing headers allows numbers (as they are converted internally to strings)
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
@@ -589,7 +652,11 @@ declare module "http" {
          * @param name Header name
          * @param value Header value
          */
-        setHeader(name: string, value: number | string | readonly string[]): this;
+        setHeader<T extends string>(
+            name: T,
+            value: Extract<HeaderContent, { name: T }> extends { name: T; value: infer R } ? R
+                : number | string | readonly string[],
+        ): this;
         /**
          * Sets multiple header values for implicit headers. headers must be an instance of
          * `Headers` or `Map`, if a header already exists in the to-be-sent headers, its
