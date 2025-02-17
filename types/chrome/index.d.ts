@@ -8300,6 +8300,8 @@ declare namespace chrome {
 
         // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
         export type ManifestPermissions =
+            | "accessibilityFeatures.modify"
+            | "accessibilityFeatures.read"
             | "activeTab"
             | "alarms"
             | "audio"
@@ -8321,6 +8323,7 @@ declare namespace chrome {
             | "desktopCapture"
             | "documentScan"
             | "downloads"
+            | "downloads.open"
             | "downloads.shelf"
             | "downloads.ui"
             | "enterprise.deviceAttributes"
@@ -8373,6 +8376,7 @@ declare namespace chrome {
             | "userScripts"
             | "vpnProvider"
             | "wallpaper"
+            | "webAuthenticationProxy"
             | "webNavigation"
             | "webRequest"
             | "webRequestBlocking"
