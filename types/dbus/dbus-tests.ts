@@ -16,7 +16,14 @@ dbus.getInterface<Adapter>("org.bluez", "/org/bluez/hci0", "org.bluez.Adapter1",
             }
         });
 
-        iface.getProperty("Powered", () => {});
+        iface.setProperty("System", 32, err => {
+            if (!err) {
+                iface.StartDiscovery(() => {});
+            }
+        })
+
+        iface.getProperty("Powered", (err: Error | null, value: boolean): void => {});
+        iface.getProperty("System", (err: Error | null, value: number): void => {});
     }
 });
 
