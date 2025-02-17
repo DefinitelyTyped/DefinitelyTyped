@@ -263,8 +263,8 @@ function getRandomColor() {
 }
 
 // set sky values
-sky.setAttribute("color", `#${getRandomColor()}`);
-sky.setAttribute(
+sky?.setAttribute("color", `#${getRandomColor()}`);
+sky?.setAttribute(
     "animation__color",
     `property: color; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true; to: #${getRandomColor()}`,
 );
@@ -329,7 +329,7 @@ function generateAllElements() {
             );
 
             // append element to main container
-            objectContainer.appendChild(rotateContainer);
+            objectContainer?.appendChild(rotateContainer);
         }
     }
 }
