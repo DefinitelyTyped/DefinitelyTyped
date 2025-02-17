@@ -148,16 +148,16 @@ async function test() {
 
 {
     class MyEmitter extends events.EventEmitter {
-        addListener(event: string, listener: () => void): this {
+        addListener(event: string | symbol, listener: () => void): this {
             return this;
         }
-        listeners(event: string): Array<() => void> {
+        listeners(event: string | symbol): Array<() => void> {
             return [];
         }
-        emit(event: string, ...args: any[]): boolean {
+        emit(event: string | symbol, ...args: any[]): boolean {
             return true;
         }
-        listenerCount(type: string): number {
+        listenerCount(type: string | symbol): number {
             return 0;
         }
     }
