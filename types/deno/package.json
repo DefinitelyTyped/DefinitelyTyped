@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/deno",
-    "version": "2.0.9999",
+    "version": "2.2.9999",
     "type": "module",
-    "minimumTypeScriptVersion": "5.4",
+    "minimumTypeScriptVersion": "5.7",
     "nonNpm": "conflict",
     "nonNpmDescription": "Deno",
     "projects": [
