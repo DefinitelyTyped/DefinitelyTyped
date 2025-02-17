@@ -93,7 +93,13 @@ import * as url from "node:url";
         const maxHeadersCount: number | null = server.maxHeadersCount;
         const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;
         const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server.setTimeout().setTimeout(1000);
+        server.setTimeout((socket) => {
+            socket; // $ExpectType Socket
+        });
+        server.setTimeout(100, (socket) => {
+            socket; // $ExpectType Socket
+        });
     }
 }
 
