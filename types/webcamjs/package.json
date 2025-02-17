@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webcamjs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jhuckaby/webcamjs"
+    ],
+    "devDependencies": {
+        "@types/webcamjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andre Wachsmuth",
+            "githubUsername": "blutorange"
+        }
+    ]
+}
