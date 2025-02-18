@@ -956,7 +956,7 @@ declare namespace Dockerode {
         remote?: string | undefined;
         q?: boolean | undefined;
         cachefrom?: string | undefined;
-        pull?: string | undefined;
+        pull?: boolean | undefined;
         rm?: boolean | undefined;
         forcerm?: boolean | undefined;
         memory?: number | undefined;
