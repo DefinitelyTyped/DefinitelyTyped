@@ -52,6 +52,7 @@ declare global {
             Arguments: PromisedAssertion;
             equal: PromisedEqual;
             equals: PromisedEqual;
+            containSubset: PromisedEqual;
             eq: PromisedEqual;
             eql: PromisedEqual;
             eqls: PromisedEqual;

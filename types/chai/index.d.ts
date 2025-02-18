@@ -195,6 +195,7 @@ declare global {
             eq: Equal;
             eql: Equal;
             eqls: Equal;
+            containSubset: Equal;
             property: Property;
             ownProperty: Property;
             haveOwnProperty: Property;
