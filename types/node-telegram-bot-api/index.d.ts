@@ -1998,7 +1998,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         providerToken: string,
         currency: string,
         prices: readonly TelegramBot.LabeledPrice[],
-        options?: TelegramBot.CreateInvoiceLinkOptions
+        options?: TelegramBot.CreateInvoiceLinkOptions,
     ): Promise<string>;
 
     answerShippingQuery(

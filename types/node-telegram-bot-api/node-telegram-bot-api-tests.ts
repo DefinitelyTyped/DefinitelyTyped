@@ -331,7 +331,7 @@ MyTelegramBot.createInvoiceLink(
             amount: 1200,
         },
     ],
-    { photo_url: "url", need_email: false, send_phone_number_to_provider: false, is_flexible: true }
+    { photo_url: "url", need_email: false, send_phone_number_to_provider: false, is_flexible: true },
 );
 MyTelegramBot.answerShippingQuery("shippingQueryId", true, {
     shipping_options: [
