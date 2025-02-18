@@ -567,9 +567,11 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
+            Type: string;
             Name?: string | undefined;
             Source: string;
             Destination: string;
+            Driver?: string | undefined;
             Mode: string;
             RW: boolean;
             Propagation: string;
