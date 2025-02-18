@@ -44,7 +44,7 @@ fs.createReadStream("email.eml").pipe(mailparser);
 // check different sources and promise/callback api for simpleParser
 const sourceString = "";
 const sourceBuffer = new Buffer("");
-const sourceStream = fs.createReadStream("foo.eml");
+const sourceStream = fs.createReadStream("foo.eml") as NodeJS.ReadableStream;
 
 simpleParser(sourceString, (err, mail) => err ? err : mail.html);
 simpleParser(sourceBuffer, (err, mail) => err ? err : mail.html);
