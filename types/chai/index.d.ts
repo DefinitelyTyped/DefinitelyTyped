@@ -195,7 +195,7 @@ declare global {
             eq: Equal;
             eql: Equal;
             eqls: Equal;
-            containSubset: Equal;
+            containSubset: ContainSubset;
             property: Property;
             ownProperty: Property;
             haveOwnProperty: Property;
@@ -328,6 +328,10 @@ declare global {
 
         interface Equal {
             (value: any, message?: string): Assertion;
+        }
+
+        interface ContainSubset {
+            (expected: any): Assertion;
         }
 
         interface Property {
@@ -523,6 +527,16 @@ declare global {
              * @param message   Message to display on error.
              */
             deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
+
+            /**
+             * Partially matches actual and expected.
+             *
+             * T   Type of the objects.
+             * @param actual   Actual value.
+             * @param expected   Potential expected value.
+             * @param message   Message to display on error.
+             */
+            containSubset<T>(val: T, exp: Partial<T>, msg?: string): void;
 
             /**
              * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
