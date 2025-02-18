@@ -296,7 +296,7 @@ export class MailParser extends StreamModule.Transform {
 /**
  * A message source.
  */
-export type Source = Buffer | Stream | string;
+export type Source = Buffer | NodeJS.ReadableStream | string;
 
 /**
  * Options object for MailParser.
