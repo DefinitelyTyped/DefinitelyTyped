@@ -59,7 +59,7 @@ declare function ManagerFactory(
     host?: string,
     username?: string,
     password?: string,
-    events?: boolean
+    events?: boolean,
 ): Manager;
 
 export = ManagerFactory;
