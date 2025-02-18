@@ -1,7 +1,7 @@
 import type { ChivoxCoreTypeEnum } from "./enum";
 import type { ChivoxPreset } from "./preset";
 
-export { };
+export {};
 
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
     & Omit<T, Keys>
