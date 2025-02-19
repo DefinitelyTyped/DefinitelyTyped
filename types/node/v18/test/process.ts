@@ -1,6 +1,8 @@
 import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import * as os from "node:os";
+import { fileURLToPath } from "node:url";
 
 {
     let eventEmitter: EventEmitter;
@@ -134,6 +136,11 @@ process.env.TZ = "test";
 
 {
     const arch: NodeJS.Architecture = process.arch;
+}
+
+{
+    const module = { exports: {} };
+    process.dlopen(module, fileURLToPath(new URL("src", "process.ts")), os.constants.dlopen.RTLD_NOW);
 }
 
 {
