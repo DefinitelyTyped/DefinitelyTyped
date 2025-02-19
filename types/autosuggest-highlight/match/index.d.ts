@@ -22,4 +22,4 @@ interface Options {
 
 declare function match(text: string, query: string, options?: Options): Array<[number, number]>;
 
-export = match;
+export default match;
