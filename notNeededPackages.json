@@ -2077,6 +2077,10 @@
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
         },
+        "fluent-reveal-effect": {
+            "libraryName": "fluent-reveal-effect",
+            "asOfVersion": "3.0.3"
+        },
         "fluent__bundle": {
             "libraryName": "@fluent/bundle",
             "asOfVersion": "0.15.0"
