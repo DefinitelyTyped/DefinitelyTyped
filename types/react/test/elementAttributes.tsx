@@ -38,6 +38,9 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
+    <svg slot="start">
+        <path d="M50 10 L90 90 H10 Z" />
+    </svg>,
     <details open={true} onToggle={() => {}} name="foo" />,
     <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,

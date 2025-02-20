@@ -3645,6 +3645,7 @@ declare namespace React {
         seed?: number | string | undefined;
         shapeRendering?: number | string | undefined;
         slope?: number | string | undefined;
+        slot?: string | undefined;
         spacing?: number | string | undefined;
         specularConstant?: number | string | undefined;
         specularExponent?: number | string | undefined;
