@@ -54,7 +54,7 @@ declare class RoomObject {
 
     stopRecording(): Uint8Array;
 
-    setPassword(pass?: string): void;
+    setPassword(pass: string | null): void;
 
     setRequireRecaptcha(required: boolean): void;
 
