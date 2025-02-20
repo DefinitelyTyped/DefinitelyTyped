@@ -6,6 +6,9 @@
     "projects": [
         "https://github.com/CesiumChina/cesium-map"
     ],
+    "dependencies": {
+        "cesium": ">=1.226.0"
+    },
     "devDependencies": {
         "@types/cesium-china__cesium-map": "workspace:."
     },

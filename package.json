@@ -47,8 +47,5 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module",
-    "dependencies": {
-        "cesium": "^1.126.0"
-    }
+    "type": "module"
 }
