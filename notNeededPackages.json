@@ -6847,6 +6847,10 @@
             "libraryName": "url-regex",
             "asOfVersion": "5.0.0"
         },
+        "urlencode": {
+            "libraryName": "urlencode",
+            "asOfVersion": "2.0.0"
+        },
         "urllib": {
             "libraryName": "urllib",
             "asOfVersion": "2.33.0"
