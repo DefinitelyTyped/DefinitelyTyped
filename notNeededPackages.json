@@ -2481,6 +2481,10 @@
             "libraryName": "@hcaptcha/react-hcaptcha",
             "asOfVersion": "0.3.7"
         },
+        "hcaptcha__vue-hcaptcha": {
+            "libraryName": "@hcaptcha/vue-hcaptcha",
+            "asOfVersion": "0.3.0"
+        },
         "hedron": {
             "libraryName": "hedron",
             "asOfVersion": "1.0.1"
