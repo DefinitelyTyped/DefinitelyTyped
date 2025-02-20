@@ -3349,6 +3349,10 @@
             "libraryName": "latest-version",
             "asOfVersion": "5.0.0"
         },
+        "lazy-brush": {
+            "libraryName": "lazy-brush",
+            "asOfVersion": "2.0.0"
+        },
         "lazy-value": {
             "libraryName": "lazy-value",
             "asOfVersion": "2.0.0"
