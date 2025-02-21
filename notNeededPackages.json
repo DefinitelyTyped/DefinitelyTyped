@@ -1769,6 +1769,10 @@
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
         },
+        "eslint__js": {
+            "libraryName": "@eslint/js",
+            "asOfVersion": "9.14.0"
+        },
         "esm-utils": {
             "libraryName": "esm-utils",
             "asOfVersion": "2.0.1"
