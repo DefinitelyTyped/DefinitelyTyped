@@ -1,6 +1,6 @@
 {
   "name": "@types/opencascade.js",
-  "version": "0.1.0.9999",
+  "version": "0.1.9999",
   "private": true,
   "devDependencies": {
     "@types/opencascade.js": "workspace:."
