@@ -1,6 +1,14 @@
 {
-    "compilerOptions": {
-      "strict": true
-    }
-  }
-  
+  "compilerOptions": {
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "types": [],
+    "lib": ["es6", "dom"],
+    "module": "commonjs"
+  },
+  "files": [
+    "index.d.ts",
+    "opencascade-test.ts"
+  ]
+}
