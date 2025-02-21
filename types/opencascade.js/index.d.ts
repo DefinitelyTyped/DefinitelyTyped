@@ -1,7 +1,7 @@
-export default opencascade;
-declare function opencascade<T>(target?: T): Promise<T & typeof opencascade>;
-
-declare module opencascade {
+declare module "opencascade.js"{
+    function opencascade<T>(target?: T): Promise<T & typeof opencascade>;
+    
+    namespace opencascade {
     function destroy(obj: any): void;
     function _malloc(size: number): number;
     function _free(ptr: number): void;
@@ -13,6 +13,14 @@ declare module opencascade {
     const HEAPU32: Uint32Array;
     const HEAPF32: Float32Array;
     const HEAPF64: Float64Array;
+    const FS: {
+        writeFile(path: string, data: Uint8Array): void;
+        readFile(path: string): { buffer: ArrayBuffer };
+        unlink(path: string): void;
+        mkdir(path: string): void;
+        rmdir(path: string): void;
+        exists(path: string): boolean;
+    };
     type Standard_Real = number;
     type Standard_Boolean = boolean;
     type Standard_Integer = number;
@@ -87,6 +95,8 @@ declare module opencascade {
         VolumePropertiesGK(S: TopoDS_Shape, VProps: GProp_GProps, Eps?: Standard_Real, OnlyClosed?: Standard_Boolean, IsUseSpan?: Standard_Boolean, CGFlag?: Standard_Boolean, IFlag?: Standard_Boolean, SkipShared?: Standard_Boolean): Standard_Real;
         VolumePropertiesGK2(S: TopoDS_Shape, VProps: GProp_GProps, thePln: gp_Pln, Eps?: Standard_Real, OnlyClosed?: Standard_Boolean, IsUseSpan?: Standard_Boolean, CGFlag?: Standard_Boolean, IFlag?: Standard_Boolean, SkipShared?: Standard_Boolean): Standard_Real;
     }
+
+
     class gp_Pln {
         constructor();
         constructor(P: gp_Pnt, V: gp_Dir);
@@ -1040,4 +1050,6 @@ declare module opencascade {
     type GeomAbs_JoinType = "GeomAbs_Arc" | "GeomAbs_Tangent" | "GeomAbs_Intersection";
     type GeomAbs_Shape = "GeomAbs_C0" | "GeomAbs_G1" | "GeomAbs_C1" | "GeomAbs_G2" | "GeomAbs_C2" | "GeomAbs_C3" | "GeomAbs_CN";
     type ShapeExtend_Status = "ShapeExtend_OK" | "ShapeExtend_DONE1" | "ShapeExtend_DONE2" | "ShapeExtend_DONE3" | "ShapeExtend_DONE4" | "ShapeExtend_DONE5" | "ShapeExtend_DONE6" | "ShapeExtend_DONE7" | "ShapeExtend_DONE8" | "ShapeExtend_DONE" | "ShapeExtend_FAIL1" | "ShapeExtend_FAIL2" | "ShapeExtend_FAIL3" | "ShapeExtend_FAIL4" | "ShapeExtend_FAIL5" | "ShapeExtend_FAIL6" | "ShapeExtend_FAIL7" | "ShapeExtend_FAIL8" | "ShapeExtend_FAIL";
+}
+export function initOpenCascade(): Promise<typeof opencascade>;
 }
