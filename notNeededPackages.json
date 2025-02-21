@@ -4605,6 +4605,10 @@
             "libraryName": "parse-duration",
             "asOfVersion": "0.3.0"
         },
+        "parse-json": {
+            "libraryName": "parse-json",
+            "asOfVersion": "7.0.0"
+        },
         "parse-ms": {
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
