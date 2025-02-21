@@ -567,7 +567,7 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
-            Type: string;
+            Type: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
             Name?: string | undefined;
             Source: string;
             Destination: string;
