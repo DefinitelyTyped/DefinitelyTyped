@@ -96,7 +96,10 @@ function handleHeartRateMeasurementCharacteristic(characteristic: BluetoothRemot
     return characteristic.startNotifications()
         .then(char => {
             characteristic.addEventListener("characteristicvaluechanged", onHeartRateChanged);
-            characteristic.addEventListener("characteristicvaluechanged", onHeartRateChanged, { once: true, signal: AbortSignal.timeout(1000) });
+            characteristic.addEventListener("characteristicvaluechanged", onHeartRateChanged, {
+                once: true,
+                signal: AbortSignal.timeout(1000),
+            });
         });
 }
 
