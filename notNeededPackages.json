@@ -6139,6 +6139,10 @@
             "libraryName": "@seatsio/seatsio-types",
             "asOfVersion": "2.0.0"
         },
+        "selfsigned": {
+            "libraryName": "selfsigned",
+            "asOfVersion": "2.1.0"
+        },
         "semver-diff": {
             "libraryName": "semver-diff",
             "asOfVersion": "3.0.0"
