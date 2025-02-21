@@ -1,0 +1,15 @@
+{
+    "name": "@types/opencascade",
+    "version": "0.1.0",
+    "description": "TypeScript definitions for OpenCascade.js",
+    "license": "MIT",
+    "contributors": [
+      {
+        "name": "Sridhar-Mani",
+        "url": "https://github.com/sridhar-mani",
+        "githubUsername": "sridhar-mani"
+      }
+    ],
+    "types": "index.d.ts"
+  }
+  
