@@ -3297,6 +3297,10 @@
             "libraryName": "@keyv/sqlite",
             "asOfVersion": "3.0.1"
         },
+        "kiwicom__orbit-design-tokens": {
+            "libraryName": "@kiwicom/orbit-design-tokens",
+            "asOfVersion": "1.5.2"
+        },
         "knex": {
             "libraryName": "knex",
             "asOfVersion": "0.16.1"
