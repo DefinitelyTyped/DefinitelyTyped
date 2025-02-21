@@ -2145,6 +2145,10 @@
             "libraryName": "framebus",
             "asOfVersion": "4.0.0"
         },
+        "franc": {
+            "libraryName": "franc",
+            "asOfVersion": "6.0.0"
+        },
         "fromnow": {
             "libraryName": "fromnow",
             "asOfVersion": "3.0.1"
