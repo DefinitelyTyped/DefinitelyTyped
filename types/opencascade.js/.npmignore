@@ -1,1 +1,5 @@
-# No files to ignore.
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
