@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/coveragejson",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.ogc.org/standard/coveragejson/"
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "coveragejson",
+    "owners": [
+        {
+            "name": "Edwin Gichuru",
+            "githubUsername": "murithigeo"
+        }
+    ],
+    "devDependencies": {
+        "@types/coveragejson": "workspace:."
+    }
+}
