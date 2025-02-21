@@ -6031,6 +6031,10 @@
             "libraryName": "rollup-plugin-sourcemaps",
             "asOfVersion": "0.5.0"
         },
+        "rollup-plugin-visualizer": {
+            "libraryName": "rollup-plugin-visualizer",
+            "asOfVersion": "5.0.3"
+        },
         "rollup__plugin-virtual": {
             "libraryName": "@rollup/plugin-virtual",
             "asOfVersion": "3.0.0"
