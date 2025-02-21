@@ -6635,6 +6635,10 @@
             "libraryName": "svgo",
             "asOfVersion": "3.0.0"
         },
+        "svgr__rollup": {
+            "libraryName": "@svgr/rollup",
+            "asOfVersion": "6.0.0"
+        },
         "swagger-parser": {
             "libraryName": "swagger-parser",
             "asOfVersion": "7.0.0"
