@@ -12,5 +12,5 @@ export interface ProxyAgentConfigurationType {
 
 export function bootstrap(configurationInput?: ProxyAgentConfigurationInputType): boolean;
 export function createGlobalProxyAgent(
-    configurationInput: ProxyAgentConfigurationInputType,
+    configurationInput?: ProxyAgentConfigurationInputType,
 ): ProxyAgentConfigurationType;

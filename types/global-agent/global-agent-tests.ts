@@ -7,3 +7,5 @@ const opt: ProxyAgentConfigurationInputType = {
     socketConnectionTimeout: 0,
 };
 createGlobalProxyAgent(opt); // $ExpectType ProxyAgentConfigurationType
+
+createGlobalProxyAgent(); // $ExpectType ProxyAgentConfigurationType
