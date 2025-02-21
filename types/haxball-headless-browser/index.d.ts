@@ -54,9 +54,9 @@ declare class RoomObject {
 
     stopRecording(): Uint8Array;
 
-    setPassword(pass: string): void;
+    setPassword(pass: string | null): void;
 
-    setRequireCaptcha(required: boolean): void;
+    setRequireRecaptcha(required: boolean): void;
 
     reorderPlayers(playerIdList: readonly number[], moveToTop: boolean): void;
 
