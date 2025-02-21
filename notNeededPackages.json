@@ -1997,6 +1997,10 @@
             "libraryName": "fetch-jsonp",
             "asOfVersion": "1.1.0"
         },
+        "fetch-mock": {
+            "libraryName": "fetch-mock",
+            "asOfVersion": "9.2.2"
+        },
         "ffmpeg-installer__ffmpeg": {
             "libraryName": "@ffmpeg-installer/ffmpeg",
             "asOfVersion": "1.1.0"
