@@ -3393,6 +3393,10 @@
             "libraryName": "leaflet-geosearch",
             "asOfVersion": "3.0.0"
         },
+        "leaflet-offline": {
+            "libraryName": "leaflet.offline",
+            "asOfVersion": "3.0.0"
+        },
         "leap-year": {
             "libraryName": "leap-year",
             "asOfVersion": "3.0.0"
