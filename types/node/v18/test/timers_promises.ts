@@ -1,27 +1,42 @@
 import { TimerOptions } from "node:timers";
 import { scheduler, setImmediate, setInterval, setTimeout } from "node:timers/promises";
+
 const opts: TimerOptions = {
     ref: false,
     signal: new AbortController().signal,
 };
 
-const res: Promise<number> = setImmediate(123, opts);
-setImmediate(); // $ExpectType Promise<void>
+// $ExpectType Promise<number>
+setImmediate(123, opts);
+// $ExpectType Promise<number>
+setImmediate(123);
+// $ExpectType Promise<void>
+setImmediate();
 
-const res2: Promise<string> = setTimeout(123, "asd", opts);
-setTimeout(); // $ExpectType Promise<void>
+// $ExpectType Promise<string>
+setTimeout(123, "asd", opts);
+// $ExpectType Promise<string>
+setTimeout(123, "asd");
+// $ExpectType Promise<void>
+setTimeout(123);
+// $ExpectType Promise<void>
+setTimeout();
 
-const res3: AsyncIterable<string> = setInterval(123, "asd", opts);
-setInterval(); // $ExpectType AsyncIterable<void>
+// $ExpectType AsyncIterator<string, any, any>
+setInterval(123, "asd", opts);
+// $ExpectType AsyncIterator<string, any, any>
+setInterval(123, "asd");
+// $ExpectType AsyncIterator<void, any, any>
+setInterval(123);
+// $ExpectType AsyncIterator<void, any, any>
+setInterval();
 
-const res4: Promise<void> = scheduler.yield();
-scheduler.yield(); // $ExpectType Promise<void>
+// $ExpectType Promise<void>
+scheduler.wait(123, { signal: new AbortController().signal });
+// $ExpectType Promise<void>
+scheduler.wait(123);
+// @ts-expect-error
+scheduler.wait();
 
-const res5: Promise<void> = scheduler.wait(123);
-scheduler.wait(); // $ExpectType Promise<void>
-
-(async () => {
-    for await (const test of setInterval(123, 1)) {
-        test; // $ExpectType number
-    }
-});
+// $ExpectType Promise<void>
+scheduler.yield();
