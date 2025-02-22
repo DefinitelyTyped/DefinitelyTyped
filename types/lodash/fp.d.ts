@@ -240,7 +240,7 @@ declare namespace _ {
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
     type LodashCamelCase = (string: string) => string;
-    type LodashCapitalize = <T extends string>(string: T) => Capitalize<Lowercase<T>>;
+    type LodashCapitalize = <T extends string>(string: T) => string extends T ? string : Capitalize<Lowercase<T>>;
     type LodashCastArray = <T>(value: lodash.Many<T>) => T[];
     type LodashCeil = (n: number) => number;
     interface LodashChunk {
