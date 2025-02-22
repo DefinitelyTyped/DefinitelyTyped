@@ -176,6 +176,13 @@ export namespace Runtime {
          * Optional.
          */
         url?: string;
+
+        /**
+         * The worldId of the USER_SCRIPT world that sent the message. Only present on onUserScriptMessage and onUserScriptConnect
+         * (in port.sender) events.
+         * Optional.
+         */
+        userScriptWorldId?: string;
     }
 
     /**
@@ -561,6 +568,11 @@ export namespace Runtime {
         onConnect: Events.Event<(port: Port) => void>;
 
         /**
+         * Fired when a connection is made from a USER_SCRIPT world registered through the userScripts API.
+         */
+        onUserScriptConnect: Events.Event<(port: Port) => void>;
+
+        /**
          * Fired when a connection is made from another extension.
          */
         onConnectExternal: Events.Event<(port: Port) => void>;
@@ -599,6 +611,20 @@ export namespace Runtime {
                 sender: MessageSender,
                 sendResponse: (message: unknown) => void,
             ) => Promise<unknown> | true | undefined
+        >;
+
+        /**
+         * Fired when a message is sent from a USER_SCRIPT world registered through the userScripts API.
+         *
+         * @param message Optional. The message sent by the calling script.
+         * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable
+         * object. If you have more than one <code>onMessage</code> listener in the same document,
+         * then only one may send a response. This function becomes invalid when the event listener returns,
+         * unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep
+         * the message channel open to the other end until <code>sendResponse</code> is called).
+         */
+        onUserScriptMessage: Events.Event<
+            (message: unknown, sender: MessageSender, sendResponse: () => void) => boolean | undefined
         >;
 
         /**

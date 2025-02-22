@@ -13,7 +13,7 @@ export namespace Permissions {
         /**
          * Optional.
          */
-        permissions?: Manifest.OptionalPermission[];
+        permissions?: Array<Manifest.OptionalPermission | Manifest.OptionalOnlyPermission>;
 
         /**
          * Optional.
@@ -25,7 +25,7 @@ export namespace Permissions {
         /**
          * Optional.
          */
-        permissions?: Manifest.Permission[];
+        permissions?: Array<Manifest.Permission | Manifest.OptionalOnlyPermission>;
 
         /**
          * Optional.
