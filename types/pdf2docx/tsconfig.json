@@ -8,13 +8,16 @@
     "declaration": true,
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
-      "types": [],
-      "noEmit": true,
+    "typeRoots": [
+        "../"
+    ],
+    "types": [],
+    "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
   "files": [
