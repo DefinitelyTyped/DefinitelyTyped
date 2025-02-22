@@ -4205,6 +4205,10 @@
             "libraryName": "new-github-release-url",
             "asOfVersion": "1.0.0"
         },
+        "newrelic__winston-enricher": {
+            "libraryName": "@newrelic/winston-enricher",
+            "asOfVersion": "2.1.0"
+        },
         "next": {
             "libraryName": "next",
             "asOfVersion": "9.0.0"
