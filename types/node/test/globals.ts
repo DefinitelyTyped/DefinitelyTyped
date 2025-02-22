@@ -61,3 +61,8 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     e.message; // $ExpectType string
     e.name; // $ExpectType string
 }
+
+{
+    // @ts-expect-error The pseudoglobal `NodeJS` namespace should not be addressable outside ambient contexts
+    NodeJS;
+}

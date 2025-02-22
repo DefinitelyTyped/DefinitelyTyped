@@ -1,108 +1,88 @@
 import * as timers from "node:timers";
 import { promisify } from "node:util";
+
 {
-    {
-        const immediate = timers
-            .setImmediate(() => {
-                console.log("immediate");
-            })
-            .unref()
-            .ref();
-        const b: boolean = immediate.hasRef();
-        timers.clearImmediate(immediate);
-    }
-    {
-        const timeout = timers
-            .setInterval(() => {
-                console.log("interval");
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearInterval(timeout);
-        timers.clearInterval(timeout[Symbol.toPrimitive]());
-    }
-    {
-        const timeout = timers
-            .setTimeout(() => {
-                console.log("timeout");
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearTimeout(timeout);
-        timers.clearTimeout(timeout[Symbol.toPrimitive]());
-    }
-    async function testPromisify(doSomething: {
-        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
-        [promisify.custom](foo: any): Promise<string>;
-    }) {
-        const setTimeout = promisify(timers.setTimeout);
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        let v: void = await setTimeout(100);
-        let s: string = await setTimeout(100, "");
-
-        const setImmediate = promisify(timers.setImmediate);
-        v = await setImmediate();
-        s = await setImmediate("");
-
-        // $ExpectType (foo: any) => Promise<string>
-        const doSomethingPromise = promisify(doSomething);
-
-        // $ExpectType string
-        s = await doSomethingPromise("foo");
-    }
+    const promises: typeof import("node:timers/promises") = timers.promises;
 }
 
 {
-    const setTimeout = promisify(timers.setTimeout);
+    // $ExpectType Immediate
+    const immediate = timers.setImmediate(() => {});
+    // $ExpectType boolean
+    immediate.hasRef();
+    // $ExpectType Immediate
+    immediate.ref();
+    // $ExpectType Immediate
+    immediate.unref();
 
-    const ac = new AbortController();
-
-    const signal = ac.signal;
-    setTimeout(10, undefined, { signal });
-    ac.abort();
+    timers.clearImmediate(immediate);
+    immediate[Symbol.dispose]();
 }
 
 {
-    const setImmediate = promisify(timers.setImmediate);
+    // $ExpectType Timeout
+    const interval = timers.setInterval(() => {}, 100);
+    // $ExpectType Timeout
+    interval.close();
+    // $ExpectType boolean
+    interval.hasRef();
+    // $ExpectType Timeout
+    interval.ref();
+    // $ExpectType Timeout
+    interval.refresh();
+    // $ExpectType Timeout
+    interval.unref();
 
-    const ac = new AbortController();
-
-    const signal = ac.signal;
-    setImmediate(10, { signal });
-    ac.abort();
+    timers.clearInterval(interval);
+    timers.clearInterval(interval[Symbol.toPrimitive]());
+    interval[Symbol.dispose]();
 }
 
-// unresolved callback argument types
+{
+    // $ExpectType Timeout
+    const timeout = timers.setTimeout(() => {}, 100);
+    // $ExpectType Timeout
+    timeout.close();
+    // $ExpectType boolean
+    timeout.hasRef();
+    // $ExpectType Timeout
+    timeout.ref();
+    // $ExpectType Timeout
+    timeout.refresh();
+    // $ExpectType Timeout
+    timeout.unref();
+
+    timers.clearTimeout(timeout);
+    timers.clearTimeout(timeout[Symbol.toPrimitive]());
+    timeout[Symbol.dispose]();
+}
+
+// Test custom promisifiers
+{
+    const setImmediate: typeof timers.promises.setImmediate = promisify(timers.setImmediate);
+    const setTimeout: typeof timers.promises.setTimeout = promisify(timers.setTimeout);
+    // @ts-expect-error setInterval is not promisifiable
+    const setInterval: typeof timers.promises.setInterval = promisify(timers.setInterval);
+}
+
+// Allow single callback parameter of type `unknown` to be omitted from passed arguments
 {
     // `NodeJS.*` is present to make sure we're not using `dom` types
     new Promise((resolve): NodeJS.Timeout => timers.setTimeout(resolve, 100));
-    new Promise((resolve): NodeJS.Timer => timers.setInterval(resolve, 100));
-    // tslint:disable-next-line no-unnecessary-callback-wrapper
+    new Promise((resolve): NodeJS.Timeout => timers.setInterval(resolve, 100));
     new Promise((resolve): NodeJS.Immediate => timers.setImmediate(resolve));
+    // @ts-expect-error single argument should not be optional if not of type `unknown`
+    const timeout: NodeJS.Timeout = timers.setTimeout((s: string) => {}, 100);
 }
 
 // globals
 {
-    setTimeout((a: number, b: string) => {}, 12, 1, "test");
-    setInterval((a: number, b: string) => {}, 12, 1, "test");
-    setImmediate((a: number, b: string) => {}, 1, "test");
-    queueMicrotask(() => {
-        // cool
-    });
+    const setImmediate: typeof timers.setImmediate = globalThis.setImmediate;
+    const setInterval: typeof timers.setInterval = globalThis.setInterval;
+    const setTimeout: typeof timers.setTimeout = globalThis.setTimeout;
+    const clearImmediate: typeof timers.clearImmediate = globalThis.clearImmediate;
+    const clearInterval: typeof timers.clearInterval = globalThis.clearInterval;
+    const clearTimeout: typeof timers.clearTimeout = globalThis.clearTimeout;
 
-    function waitFor(options?: { timeout: number }) {
-        const timerId = options && setTimeout(() => {}, options.timeout);
-        clearTimeout(timerId);
-        timerId?.[Symbol.dispose]();
-        const intervalId = options && setTimeout(() => {}, options.timeout);
-        clearInterval(intervalId);
-        intervalId?.[Symbol.dispose]();
-        const immediateId = options && setImmediate(() => {});
-        clearImmediate(immediateId);
-        immediateId?.[Symbol.dispose]();
-    }
+    queueMicrotask(() => {});
 }
