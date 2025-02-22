@@ -1179,6 +1179,13 @@ function listDrives() {
     }
 }
 
+// Example: Create a comment and a reply
+function commentAndReply() {
+    const comment = Drive.Comments.create({ content: "Comment text" }, "FileID", { fields: "id" });
+    const reply = Drive.Replies.create({ content: "Reply text" }, "FileID", comment.id, { fields: "id" });
+    console.log(reply.id);
+}
+
 // Example: List tabs (Google Docs)
 function listTabs() {
     const allTabs = DocumentApp.openById("FileID").getTabs();
