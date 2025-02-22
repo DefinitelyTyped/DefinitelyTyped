@@ -347,5 +347,3 @@ declare const xdialog: {
     readonly dialogs: ReadonlyArray<XDialog.Dialog>;
 };
 
-export = xdialog;
-export as namespace xdialog;
