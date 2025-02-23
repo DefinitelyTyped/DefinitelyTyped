@@ -1052,7 +1052,7 @@ export namespace Tabs {
     /**
      * Fired when a tab is updated.
      */
-    interface onUpdatedEvent
+    interface OnUpdatedEvent
         extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void>
     {
         /**
@@ -1406,7 +1406,7 @@ export namespace Tabs {
         /**
          * Fired when a tab is updated.
          */
-        onUpdated: onUpdatedEvent;
+        onUpdated: OnUpdatedEvent;
 
         /**
          * Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved.
