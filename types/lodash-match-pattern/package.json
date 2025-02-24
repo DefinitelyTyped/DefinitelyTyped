@@ -12,9 +12,9 @@
         "@types/lodash-match-pattern": "workspace:."
     },
     "owners": [
-      {
-        "name": "Daniel Kneip",
-        "githubUsername": "daniel-kneip"
-      }
+        {
+            "name": "Daniel Kneip",
+            "githubUsername": "daniel-kneip"
+        }
     ]
 }
