@@ -22,6 +22,7 @@ const et: ExchangeTrade = {
         type: "eip712-typed-data",
         data: {},
     },
+    status: "SIGN_DATA",
 };
 
 const sft: SellFiatTrade = {

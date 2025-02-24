@@ -235,6 +235,7 @@ export type ExchangeTradeStatus =
     | "CONVERTING" // send tx was mined, money is on exchange, receive tx not yet created
     | "APPROVAL_REQ" // it is necessary to perform APPROVAL transaction for DEX
     | "APPROVAL_PENDING" // waiting for DEX approval tx to be confirmed
+    | "SIGN_DATA" // it is necessary to sign data for DEX
     | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
