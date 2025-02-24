@@ -327,6 +327,10 @@ export interface ExchangeTrade {
             value: string;
         }
         | undefined;
+    signData?: {
+        type: 'eip712-typed-data';
+        data: object;
+    };
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
     tradeForm?: FormResponse;
