@@ -1195,6 +1195,13 @@ function listTabs() {
     console.log("Active tab title: " + activeTabTitle);
 }
 
+// Example: Set active tab (Google Docs)
+function listTabs() {
+    const tabId = DocumentApp.getActiveDocument().getActiveTab().getId();
+    DocumentApp.getActiveDocument().setActiveTab(tabId);
+    console.log("Set active tab to id: " + tabId);
+}
+
 // Follows the example at https://developers.google.com/apps-script/reference/document/body#findelementelementtype,-from
 function optionalFields() {
     const body = DocumentApp.getActiveDocument()
