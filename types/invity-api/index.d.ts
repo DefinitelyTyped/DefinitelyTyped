@@ -110,7 +110,14 @@ export type BuyCryptoPaymentMethod =
     | "payid"
     | "toss";
 
-export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget" | "noExternalAddress";
+export type BuyTradeTag =
+    | "renewed"
+    | "alternativeCurrency"
+    | "bestRate"
+    | "favorite"
+    | "wantCrypto"
+    | "widget"
+    | "noExternalAddress";
 
 export interface BuyProviderInfo {
     name: string; // simplex
