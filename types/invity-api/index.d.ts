@@ -328,7 +328,7 @@ export interface ExchangeTrade {
         }
         | undefined;
     signData?: {
-        type: 'eip712-typed-data';
+        type: "eip712-typed-data";
         data: object;
     };
     // locally used fields
