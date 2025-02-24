@@ -75,7 +75,7 @@ declare module "leaflet" {
         /** A data structure holding initial symbolizer definitions for the vector features. */
         vectorTileLayerStyles?:
             | Record<string, PathOptions>
-            | ((properties: Record<string, string>, zoom: number) => L.Path);
+            | ((properties: Record<string, string>, zoom: number) => PathOptions);
         /** Whether this VectorGrid fires Interactive Layer events. */
         interactive?: boolean;
         /**
