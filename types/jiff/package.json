@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/jiff": "workspace:."
     },
-    "owners": []
+    "owners": [
+      {
+        "name": "Daniel Kneip",
+        "githubUsername": "daniel-kneip"
+      }
+    ]
 }

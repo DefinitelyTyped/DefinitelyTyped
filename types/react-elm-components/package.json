@@ -11,5 +11,11 @@
     "devDependencies": {
         "@types/react-elm-components": "workspace:."
     },
-    "owners": []
+    "owners": [
+    {
+        {
+            "name": "Johannes Kvamme",
+            "githubUsername": "johanneskvamme"
+        }
+    ]
 }
