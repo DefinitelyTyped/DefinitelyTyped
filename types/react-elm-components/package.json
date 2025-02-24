@@ -12,7 +12,6 @@
         "@types/react-elm-components": "workspace:."
     },
     "owners": [
-    {
         {
             "name": "Johannes Kvamme",
             "githubUsername": "johanneskvamme"
