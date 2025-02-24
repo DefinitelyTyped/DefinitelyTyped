@@ -110,7 +110,7 @@ export type BuyCryptoPaymentMethod =
     | "payid"
     | "toss";
 
-export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget";
+export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget" | "noExternalAddress";
 
 export interface BuyProviderInfo {
     name: string; // simplex
@@ -239,7 +239,7 @@ export type ExchangeMaximum =
     | number // actual maximum amount in 'send' currency
     | "NONE"; // exchange does not have a maximum trade size
 
-export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
+export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget" | "noExternalAddress";
 export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {

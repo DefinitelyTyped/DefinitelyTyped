@@ -11,6 +11,7 @@ import {
 
 const bt: BuyTrade = {
     paymentMethodName: "TestPay",
+    tags: ["noExternalAddress"],
 };
 
 const et: ExchangeTrade = {
