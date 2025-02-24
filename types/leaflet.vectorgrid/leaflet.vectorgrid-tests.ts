@@ -93,7 +93,8 @@ vectorgridOptions = {
 
 // $ExpectType VectorGrid<HTMLCanvasElement | SVGViewElement>
 new L.VectorGrid({
-    ...vectorgridOptions, vectorTileLayerStyles: (_properties, _zoom) => {
-        return {}
+    ...vectorgridOptions,
+    vectorTileLayerStyles: (_properties, _zoom) => {
+        return {};
     },
-}) 
+});
