@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+ 
     interface Zone {
         path: string;
         name: string;
