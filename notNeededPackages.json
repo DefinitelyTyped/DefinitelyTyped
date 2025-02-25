@@ -2357,6 +2357,10 @@
             "libraryName": "gsap",
             "asOfVersion": "3.0.0"
         },
+        "gtin": {
+            "libraryName": "gtin",
+            "asOfVersion": "1.0.0"
+        },
         "guardian__prosemirror-invisibles": {
             "libraryName": "@guardian/prosemirror-invisibles",
             "asOfVersion": "1.3.3"
