@@ -20,12 +20,11 @@ declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
     import { Blob as NodeBlob } from "node:buffer";
     import * as streamPromises from "node:stream/promises";
-    import * as streamConsumers from "node:stream/consumers";
     import * as streamWeb from "node:stream/web";
 
     type ComposeFnParam = (source: any) => void;
 
-    class internal extends EventEmitter {
+    class Stream extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
             options?: {
@@ -37,10 +36,10 @@ declare module "stream" {
             options?: { signal: AbortSignal },
         ): T;
     }
-    namespace internal {
-        class Stream extends internal {
-            constructor(opts?: ReadableOptions);
-        }
+    namespace Stream {
+        export { Stream, streamPromises as promises };
+    }
+    namespace Stream {
         interface StreamOptions<T extends Stream> extends Abortable {
             emitClose?: boolean | undefined;
             highWaterMark?: number | undefined;
@@ -49,9 +48,9 @@ declare module "stream" {
             destroy?(this: T, error: Error | null, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean | undefined;
         }
-        interface ReadableOptions extends StreamOptions<Readable> {
+        interface ReadableOptions<T extends Readable = Readable> extends StreamOptions<T> {
             encoding?: BufferEncoding | undefined;
-            read?(this: Readable, size: number): void;
+            read?(this: T, size: number): void;
         }
         interface ArrayOptions {
             /** the maximum concurrent invocations of `fn` to call on the stream at once. **Default: 1**. */
@@ -686,24 +685,24 @@ declare module "stream" {
              */
             [Symbol.asyncDispose](): Promise<void>;
         }
-        interface WritableOptions extends StreamOptions<Writable> {
+        interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
             defaultEncoding?: BufferEncoding | undefined;
             write?(
-                this: Writable,
+                this: T,
                 chunk: any,
                 encoding: BufferEncoding,
                 callback: (error?: Error | null) => void,
             ): void;
             writev?(
-                this: Writable,
+                this: T,
                 chunks: Array<{
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
                 callback: (error?: Error | null) => void,
             ): void;
-            final?(this: Writable, callback: (error?: Error | null) => void): void;
+            final?(this: T, callback: (error?: Error | null) => void): void;
         }
         /**
          * @since v0.9.4
@@ -1011,26 +1010,13 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
-        interface DuplexOptions extends ReadableOptions, WritableOptions {
+        interface DuplexOptions<T extends Duplex = Duplex> extends ReadableOptions<T>, WritableOptions<T> {
             allowHalfOpen?: boolean | undefined;
             readableObjectMode?: boolean | undefined;
             writableObjectMode?: boolean | undefined;
             readableHighWaterMark?: number | undefined;
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
-            construct?(this: Duplex, callback: (error?: Error | null) => void): void;
-            read?(this: Duplex, size: number): void;
-            write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-            writev?(
-                this: Duplex,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Duplex, callback: (error?: Error | null) => void): void;
-            destroy?(this: Duplex, error: Error | null, callback: (error?: Error | null) => void): void;
         }
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -1042,17 +1028,7 @@ declare module "stream" {
          * * `crypto streams`
          * @since v0.9.4
          */
-        class Duplex extends Readable implements Writable {
-            readonly writable: boolean;
-            readonly writableEnded: boolean;
-            readonly writableFinished: boolean;
-            readonly writableHighWaterMark: number;
-            readonly writableLength: number;
-            readonly writableObjectMode: boolean;
-            readonly writableCorked: number;
-            readonly writableNeedDrain: boolean;
-            readonly closed: boolean;
-            readonly errored: Error | null;
+        class Duplex extends Stream implements NodeJS.ReadWriteStream {
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
@@ -1097,24 +1073,6 @@ declare module "stream" {
                     | Promise<any>
                     | Object,
             ): Duplex;
-            _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-            _writev?(
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            _final(callback: (error?: Error | null) => void): void;
-            write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): this;
-            end(chunk: any, cb?: () => void): this;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
-            cork(): void;
-            uncork(): void;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -1215,28 +1173,11 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
+        interface Duplex extends Readable, Writable {}
         type TransformCallback = (error?: Error | null, data?: any) => void;
-        interface TransformOptions extends DuplexOptions {
-            construct?(this: Transform, callback: (error?: Error | null) => void): void;
-            read?(this: Transform, size: number): void;
-            write?(
-                this: Transform,
-                chunk: any,
-                encoding: BufferEncoding,
-                callback: (error?: Error | null) => void,
-            ): void;
-            writev?(
-                this: Transform,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Transform, callback: (error?: Error | null) => void): void;
-            destroy?(this: Transform, error: Error | null, callback: (error?: Error | null) => void): void;
-            transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
-            flush?(this: Transform, callback: TransformCallback): void;
+        interface TransformOptions<T extends Transform = Transform> extends DuplexOptions<T> {
+            transform?(this: T, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
+            flush?(this: T, callback: TransformCallback): void;
         }
         /**
          * Transform streams are `Duplex` streams where the output is in some way
@@ -1724,11 +1665,8 @@ declare module "stream" {
          * @since v17.4.0
          */
         function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
-
-        const promises: typeof streamPromises;
-        const consumers: typeof streamConsumers;
     }
-    export = internal;
+    export = Stream;
 }
 declare module "node:stream" {
     import stream = require("stream");
