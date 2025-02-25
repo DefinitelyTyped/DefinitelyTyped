@@ -35,7 +35,7 @@ export interface SwaggerUiOptions {
  * @returns an express middleware function that returns the generated HTML page.
  */
 export function setup(
-    swaggerDoc?: JsonObject,
+    swaggerDoc?: JsonObject | null,
     opts?: SwaggerUiOptions,
     options?: SwaggerOptions,
     customCss?: string,

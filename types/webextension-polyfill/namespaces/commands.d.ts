@@ -90,6 +90,11 @@ export namespace Commands {
         getAll(): Promise<Command[]>;
 
         /**
+         * Open extension shortcuts configuration page.
+         */
+        openShortcutSettings(): void;
+
+        /**
          * Fired when a registered command is activated using a keyboard shortcut.
          *
          * @param tab Optional. Details of the $(ref:tabs.Tab) where the command was activated.

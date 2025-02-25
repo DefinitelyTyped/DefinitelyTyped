@@ -7,6 +7,8 @@
     "projects": [
         "http://www.microsoft.com/en-us/download/details.aspx?id=44567"
     ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Dynamics 365 & Power Platform JavaScript Client API",
     "devDependencies": {
         "@types/xrm": "workspace:."
     },
