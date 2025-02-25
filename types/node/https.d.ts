@@ -16,7 +16,7 @@ declare module "https" {
         & http.RequestOptions
         & tls.SecureContextOptions
         & {
-            checkServerIdentity?: typeof tls.checkServerIdentity | undefined;
+            checkServerIdentity?: typeof tls.checkServerIdentity<tls.DetailedPeerCertificate> | undefined;
             rejectUnauthorized?: boolean | undefined; // Defaults to true
             servername?: string | undefined; // SNI TLS Extension
         };
