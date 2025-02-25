@@ -998,7 +998,7 @@ declare module "tls" {
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
      */
-    function checkServerIdentity(hostname: string, cert: PeerCertificate): Error | undefined;
+    function checkServerIdentity<T extends PeerCertificate>(hostname: string, cert: T): Error | undefined;
     /**
      * Creates a new {@link Server}. The `secureConnectionListener`, if provided, is
      * automatically set as a listener for the `'secureConnection'` event.
