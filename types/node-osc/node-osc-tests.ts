@@ -39,6 +39,8 @@ const clientSendCallback: ClientSendCallback = err => {
 
 client.send(message);
 
+client.send(message, message);
+
 client.send(message, clientSendCallback);
 
 client.send(message, message, clientSendCallback);
@@ -49,21 +51,61 @@ client.send("/test");
 
 client.send("/test", clientSendCallback);
 
+client.send("/test", 123);
+
+client.send("/test", 123, clientSendCallback);
+
+client.send("/test", 123, 123);
+
+client.send("/test", 123, 123, clientSendCallback);
+
+client.send("/test", 123.4);
+
+client.send("/test", 123.4, clientSendCallback);
+
+client.send("/test", 123.4, 123.4);
+
+client.send("/test", 123.4, 123.4, clientSendCallback);
+
+client.send("/test", "123");
+
+client.send("/test", "123", clientSendCallback);
+
+client.send("/test", "123", "123");
+
+client.send("/test", "123", "123", clientSendCallback);
+
+client.send(["/test", 123, 123]);
+
 client.send(["/test", 123, 123], clientSendCallback);
+
+client.send(["/test", 123, 123], ["/test", 123, 123]);
 
 client.send(["/test", 123, 123], ["/test", 123, 123], clientSendCallback);
 
+client.send(["/test", 0, 1, "testing", true]);
+
 client.send(["/test", 0, 1, "testing", true], clientSendCallback);
 
+client.send(["/test", 0, 1, "testing", true], ["/test", 0, 1, "testing", true]);
+
+client.send(["/test", 0, 1, "testing", true], ["/test", 0, 1, "testing", true], clientSendCallback);
+
+client.send({ address: "/test", args: [1, 2, 3, "lol", false] });
+
+client.send({ address: "/test", args: [1, 2, 3, "lol", false] }, clientSendCallback);
+
+client.send({ address: "/test", args: [1, 2, 3, "lol", false] }, { address: "/test", args: [1, 2, 3, "lol", false] });
+
 client.send(
-    {
-        address: "/test",
-        args: [1, 2, 3, "lol", false],
-    },
+    { address: "/test", args: [1, 2, 3, "lol", false] },
+    { address: "/test", args: [1, 2, 3, "lol", false] },
     clientSendCallback,
 );
 
 client.send(bundle);
+
+client.send(bundle, clientSendCallback);
 
 // Server
 
