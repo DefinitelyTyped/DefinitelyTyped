@@ -3037,6 +3037,36 @@ export interface Page {
     on(event: "metric", listener: (metricMessage: MetricMessage) => void): void;
 
     /**
+     * Registers a handler function to listen for the network requests that
+     * the page makes. The handler will receive an instance of {@link Request},
+     * which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('request', request => {
+     *   console.log(request.url());
+     * });
+     * ```
+     */
+    on(event: "request", listener: (request: Request) => void): void;
+
+    /**
+     * Registers a handler function to listen for the network responses that the
+     * page receives. The handler will receive an instance of {@link Response},
+     * which includes information about the response.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('response', response => {
+     *   console.log(response.url());
+     * });
+     * ```
+     */
+    on(event: "response", listener: (response: Response) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
