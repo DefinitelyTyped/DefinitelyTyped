@@ -6055,6 +6055,10 @@
             "libraryName": "@rollup/plugin-virtual",
             "asOfVersion": "3.0.0"
         },
+        "rosbag": {
+            "libraryName": "rosbag",
+            "asOfVersion": "4.0.0"
+        },
         "rot-js": {
             "libraryName": "rot-js",
             "asOfVersion": "2.0.1"
