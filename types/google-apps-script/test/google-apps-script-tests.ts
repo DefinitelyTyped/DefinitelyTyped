@@ -1196,7 +1196,7 @@ function listTabs() {
 }
 
 // Example: Set active tab (Google Docs)
-function listTabs() {
+function activeTab() {
     const tabId = DocumentApp.getActiveDocument().getActiveTab().getId();
     DocumentApp.getActiveDocument().setActiveTab(tabId);
     console.log("Set active tab to id: " + tabId);
