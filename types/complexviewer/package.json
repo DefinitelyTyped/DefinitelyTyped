@@ -6,7 +6,7 @@
         "https://github.com/MICommunity/ComplexViewer"
     ],
     "dependencies": {
-        "@types/d3-scale": "*"
+        "@types/d3-scale": "<4"
     },
     "devDependencies": {
         "@types/complexviewer": "workspace:."
