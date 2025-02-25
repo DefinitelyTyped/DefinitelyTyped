@@ -673,19 +673,19 @@ declare module "../index" {
          *
          * @return undefined
          */
-        noop(...args: any[]): void;
+        noop(...args: unknown[]): void;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.noop
          */
-        noop(...args: any[]): void;
+        noop(...args: unknown[]): void;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.noop
          */
-        noop(...args: any[]): PrimitiveChain<undefined>;
+        noop(...args: unknown[]): PrimitiveChain<undefined>;
     }
 
     interface LoDashStatic {
