@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+ 
     interface Zone {
         index: number;
         rootKey: number;
@@ -12,8 +13,8 @@ declare namespace GorillaEngine.UI {
         parentPath: string;
         zones?: Zone[];
         refreshView(index?: number): void;
-        addZone(zone: Partial<Zone>): Zone;
-        removeZone(zone: Partial<Zone>): void;
+        addZone(zone: Partial<Zone> ): Zone;
+        removeZone(zone: Partial<Zone> ): void; 
     }
 
     // tslint:disable-next-line:no-empty-interface
