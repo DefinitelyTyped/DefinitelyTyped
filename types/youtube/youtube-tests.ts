@@ -291,3 +291,6 @@ const sphericalProperties: YT.SphericalProperties = player.getSphericalPropertie
 player.setSphericalProperties({ yaw: 1, pitch: 2, roll: 3, fov: 50, enableOrientationSensor: true });
 
 player.destroy();
+
+// $ExpectType (() => void) | undefined
+window.onYouTubeIframeAPIReady;
