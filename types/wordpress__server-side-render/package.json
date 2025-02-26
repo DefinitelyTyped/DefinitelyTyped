@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__server-side-render",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/blob/trunk/packages/server-side-render/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__server-side-render": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Magezon",
+            "githubUsername": "Magezon"
+        }
+    ]
+}
