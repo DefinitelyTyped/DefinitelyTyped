@@ -51,7 +51,7 @@ declare namespace XDialog {
         /**
          * Dialog html element id.
          */
-        id: string,
+        id: string;
 
         /**
          * Dialog html element.
@@ -106,7 +106,7 @@ declare namespace XDialog {
          *      }
          *      ```
          */
-        body?: string | null | { src: string; element: Element; };
+        body?: string | null | { src: string; element: Element };
 
         /**
          * Dialog buttons.
@@ -134,7 +134,12 @@ declare namespace XDialog {
          *      }
          *      ```
          */
-        buttons?: ReadonlyArray<string> | null | { ok?: string | XDialog.Button; delete?: string | XDialog.Button; cancel?: string | XDialog.Button; other?: string | XDialog.Button; };
+        buttons?: ReadonlyArray<string> | null | {
+            ok?: string | XDialog.Button;
+            delete?: string | XDialog.Button;
+            cancel?: string | XDialog.Button;
+            other?: string | XDialog.Button;
+        };
 
         /**
          * Dialog extra classes.
@@ -174,7 +179,28 @@ declare namespace XDialog {
          *
          * Use '' or null value to disable effect.
          */
-        effect?: "fade_in_and_scale" | "slide_in_right" | "slide_in_bottom" | "newspaper" | "fall" | "side_fall" | "sticky_up" | "3d_flip_horizontal" | "3d_flip_vertical" | "3d_sign" | "super_scaled" | "just_me" | "3d_slit" | "3d_rotate_bottom" | "3d_rotate_in_left" | "blur" | "let_me_in" | "make_way" | "slip_from_top" | "" | null;
+        effect?:
+            | "fade_in_and_scale"
+            | "slide_in_right"
+            | "slide_in_bottom"
+            | "newspaper"
+            | "fall"
+            | "side_fall"
+            | "sticky_up"
+            | "3d_flip_horizontal"
+            | "3d_flip_vertical"
+            | "3d_sign"
+            | "super_scaled"
+            | "just_me"
+            | "3d_slit"
+            | "3d_rotate_bottom"
+            | "3d_rotate_in_left"
+            | "blur"
+            | "let_me_in"
+            | "make_way"
+            | "slip_from_top"
+            | ""
+            | null;
 
         /**
          * Fix dialog blur for chrome browser with/without transform and/or with/without perspective.
@@ -280,7 +306,10 @@ declare namespace XDialog {
          *
          * Otherwise to go default process.
          */
-        ondrag?: ((element: Element, destElement: Element, srcElement: Element) => boolean) | ((element: Element, destElement: Element, srcElement: Element) => void) | null;
+        ondrag?:
+            | ((element: Element, destElement: Element, srcElement: Element) => boolean)
+            | ((element: Element, destElement: Element, srcElement: Element) => void)
+            | null;
     }
 }
 
@@ -346,4 +375,3 @@ declare const xdialog: {
      */
     readonly dialogs: ReadonlyArray<XDialog.Dialog>;
 };
-
