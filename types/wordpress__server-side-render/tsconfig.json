@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "wordpress__server-side-render-tests.tsx"
+        "wordpress__server-side-render-tests.ts"
     ]
 }
