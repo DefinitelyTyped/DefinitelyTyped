@@ -1,5 +1,5 @@
 // Import necessary types from React for use in this module
-import type { ComponentType, JSX, ReactNode } from 'react';
+import * as React from 'react';
 
 // Props for a component that will be rendered when the server-side response is empty
 export type EmptyResponsePlaceholderProps = {
@@ -14,7 +14,7 @@ export type ErrorResponsePlaceholderProps = {
 
 // Props for a component that will be rendered while the server-side response is loading
 export type LoadingResponsePlaceholderProps = {
-    children?: ReactNode; // Optional content (e.g., elements, strings) to render inside the placeholder
+    children?: React.ReactNode; // Optional content (e.g., elements, strings) to render inside the placeholder
     showLoader?: boolean; // Optional flag to display a loading indicator
 } & Partial<ServerSideRenderProps>; // Inherits all properties from ServerSideRenderProps, made optional via Partial
 
@@ -22,10 +22,10 @@ export type LoadingResponsePlaceholderProps = {
 export interface ServerSideRenderProps {
     attributes?: Record<string, any>; // Optional key-value pairs to pass as attributes to the block
     block: string; // Required name of the block to be rendered on the server
-    EmptyResponsePlaceholder?: ComponentType<EmptyResponsePlaceholderProps>; // Optional custom component for empty response state
-    ErrorResponsePlaceholder?: ComponentType<ErrorResponsePlaceholderProps>; // Optional custom component for error state
+    EmptyResponsePlaceholder?: React.ComponentType<EmptyResponsePlaceholderProps>; // Optional custom component for empty response state
+    ErrorResponsePlaceholder?: React.ComponentType<ErrorResponsePlaceholderProps>; // Optional custom component for error state
     httpMethod?: 'GET' | 'POST'; // Optional HTTP method for the server request, defaults to 'GET' if omitted
-    LoadingResponsePlaceholder?: ComponentType<LoadingResponsePlaceholderProps>; // Optional custom component for loading state
+    LoadingResponsePlaceholder?: React.ComponentType<LoadingResponsePlaceholderProps>; // Optional custom component for loading state
     skipBlockSupportAttributes?: boolean; // Optional flag to exclude block support attributes from processing
     urlQueryArgs?: Record<string, any>; // Optional key-value pairs to append as query parameters in the URL
 }
@@ -45,4 +45,4 @@ export function rendererPath(
 // React component that handles server-side rendering based on provided props
 export default function ServerSideRender(
     props: ServerSideRenderProps // Configuration object for server-side rendering
-): JSX.Element; // Returns a JSX element representing the rendered block
+): React.JSX.Element; // Returns a JSX element representing the rendered block
