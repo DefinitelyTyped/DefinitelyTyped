@@ -705,6 +705,10 @@ export const version6Tests = async (): Promise<void> => {
 
     console.log(defaultOracledb.DB_TYPE_VECTOR);
     console.log(defaultOracledb.JsonId);
+    console.log(defaultOracledb.traceHandler.TraceHandlerBase);
+    console.log(defaultOracledb.traceHandler.setTraceInstance());
+    console.log(defaultOracledb.traceHandler.getTraceInstance());
+    console.log(defaultOracledb.traceHandler.isEnabled());
 
     // pass random 12 byte value to JsonId which is generated
     // by DB for SODA document.
