@@ -36,16 +36,20 @@ export interface ChivoxOptions {
      * https://www.chivox.com/opendoc/#/ChineseDoc/coreCn/
      */
     timeout?: number;
+
+    onInit?: (msg: string) => void;
+
+    onError?: (res: { id: number; message: string }) => void;
 }
 
 /**
  * 驰声 Record 方法需要的 Options
  */
-export interface ChivoxRecordOptions {
+export interface ChivoxRecordOptions<T extends `${ChivoxCoreTypeEnum}`> {
     /**
      * 时长（毫秒），默认选用引擎的限制时长
      */
-    duration: number;
+    duration?: number;
 
     /**
      * 录音前是否播放 "ding" 声
@@ -62,7 +66,7 @@ export interface ChivoxRecordOptions {
     /**
      * 评测类型参数
      */
-    serverParams: ChivoxPreset;
+    serverParams: ChivoxPreset<T>;
 
     /**
      * 开始录音后生成 recordId 后的 Callback

@@ -38,7 +38,7 @@ export namespace NetworkStatus {
 
     interface Static {
         /**
-         * Returns the $(ref:NetworkLinkInfo} of the current network connection.
+         * Returns the $(ref:NetworkLinkInfo) of the current network connection.
          */
         getLinkInfo(): void;
 

@@ -27,3 +27,18 @@ function viewTransitionTests() {
         <div />
     </ViewTransition>;
 }
+
+function swipeTransitionTest() {
+    const useSwipeTransition = React.unstable_useSwipeTransition;
+    // $ExpectType [value: string | null, startGesture: StartGesture]
+    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+
+    // lib.dom.d.ts has no types for ScrollTimeline yet.
+    // $ExpectType () => void
+    startGesture(new AnimationTimeline());
+    const gestureProvider: {} = {};
+    // @ts-expect-error -- Incorrect gesture provider
+    startGesture(gestureProvider);
+    // @ts-expect-error -- missing gesture provider
+    startGesture();
+}

@@ -1179,6 +1179,13 @@ function listDrives() {
     }
 }
 
+// Example: Create a comment and a reply
+function commentAndReply() {
+    const comment = Drive.Comments.create({ content: "Comment text" }, "FileID", { fields: "id" });
+    const reply = Drive.Replies.create({ content: "Reply text" }, "FileID", comment.id, { fields: "id" });
+    console.log(reply.id);
+}
+
 // Example: List tabs (Google Docs)
 function listTabs() {
     const allTabs = DocumentApp.openById("FileID").getTabs();
@@ -1186,6 +1193,13 @@ function listTabs() {
 
     const activeTabTitle = DocumentApp.getActiveDocument().getActiveTab().getTitle();
     console.log("Active tab title: " + activeTabTitle);
+}
+
+// Example: Set active tab (Google Docs)
+function activeTab() {
+    const tabId = DocumentApp.getActiveDocument().getActiveTab().getId();
+    DocumentApp.getActiveDocument().setActiveTab(tabId);
+    console.log("Set active tab to id: " + tabId);
 }
 
 // Follows the example at https://developers.google.com/apps-script/reference/document/body#findelementelementtype,-from

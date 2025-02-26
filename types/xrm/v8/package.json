@@ -10,6 +10,8 @@
     "devDependencies": {
         "@types/xrm": "workspace:."
     },
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Dynamics 365 & Power Platform JavaScript Client API",
     "owners": [
         {
             "name": "David Berry",

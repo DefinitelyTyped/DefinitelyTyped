@@ -1160,7 +1160,7 @@ export namespace Tabs {
          *
          * @param tabId The ID of the tab to warm up.
          */
-        warmup(tabId: number): void;
+        warmup(tabId: number): Promise<void>;
 
         /**
          * Closes one or more tabs.

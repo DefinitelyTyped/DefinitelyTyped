@@ -197,11 +197,13 @@ interface ThrowUnlessFailure {
      */
     passed: boolean;
     /**
-     * If the expectation failed, what was the expected value.
+     * Deprecated. If the expectation failed, what was the expected value.
+     * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
      */
     expected: any;
     /**
-     * If the expectation failed, what actual value was produced.
+     * Deprecated. If the expectation failed, what actual value was produced.
+     * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
      */
     actual: any;
 }
@@ -576,11 +578,31 @@ declare namespace jasmine {
     }
 
     interface ExpectationResult extends Result {
+        /**
+         * The name of the matcher that was executed for this expectation.
+         */
         matcherName: string;
+        /**
+         * The failure message for the expectation.
+         */
         message: string;
+        /**
+         * The stack trace for the failure if available.
+         */
         stack: string;
+        /**
+         * Whether the expectation passed or failed.
+         */
         passed: boolean;
+        /**
+         * Deprecated. If the expectation failed, what was the expected value.
+         * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
+         */
         expected: any;
+        /**
+         * Deprecated. If the expectation failed, what actual value was produced.
+         * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
+         */
         actual: any;
     }
 

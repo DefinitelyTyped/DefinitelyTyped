@@ -28,6 +28,7 @@ export namespace WebRequest {
         | "imageset"
         | "web_manifest"
         | "speculative"
+        | "json"
         | "other";
 
     type OnBeforeRequestOptions = "blocking" | "requestBody" | "extraHeaders";
