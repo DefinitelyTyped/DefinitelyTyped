@@ -2760,6 +2760,154 @@ function testPermissions() {
     chrome.permissions.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/documentScan
+function testDocumentScan() {
+    chrome.documentScan.Configurability.HARDWARE_CONFIGURABLE === "HARDWARE_CONFIGURABLE";
+    chrome.documentScan.Configurability.NOT_CONFIGURABLE === "NOT_CONFIGURABLE";
+    chrome.documentScan.Configurability.SOFTWARE_CONFIGURABLE === "SOFTWARE_CONFIGURABLE";
+
+    chrome.documentScan.ConnectionType.NETWORK === "NETWORK";
+    chrome.documentScan.ConnectionType.UNSPECIFIED === "UNSPECIFIED";
+    chrome.documentScan.ConnectionType.USB === "USB";
+
+    chrome.documentScan.ConstraintType.FIXED_LIST === "FIXED_LIST";
+    chrome.documentScan.ConstraintType.FIXED_RANGE === "FIXED_RANGE";
+    chrome.documentScan.ConstraintType.INT_LIST === "INT_LIST";
+    chrome.documentScan.ConstraintType.INT_RANGE === "INT_RANGE";
+    chrome.documentScan.ConstraintType.STRING_LIST === "STRING_LIST";
+
+    chrome.documentScan.OperationResult.ACCESS_DENIED === "ACCESS_DENIED";
+    chrome.documentScan.OperationResult.ADF_EMPTY === "ADF_EMPTY";
+    chrome.documentScan.OperationResult.ADF_JAMMED === "ADF_JAMMED";
+    chrome.documentScan.OperationResult.CANCELLED === "CANCELLED";
+    chrome.documentScan.OperationResult.COVER_OPEN === "COVER_OPEN";
+    chrome.documentScan.OperationResult.DEVICE_BUSY === "DEVICE_BUSY";
+    chrome.documentScan.OperationResult.EOF === "EOF";
+    chrome.documentScan.OperationResult.INTERNAL_ERROR === "INTERNAL_ERROR";
+    chrome.documentScan.OperationResult.INVALID === "INVALID";
+    chrome.documentScan.OperationResult.IO_ERROR === "IO_ERROR";
+    chrome.documentScan.OperationResult.MISSING === "MISSING";
+    chrome.documentScan.OperationResult.NO_MEMORY === "NO_MEMORY";
+    chrome.documentScan.OperationResult.SUCCESS === "SUCCESS";
+    chrome.documentScan.OperationResult.UNKNOWN === "UNKNOWN";
+    chrome.documentScan.OperationResult.UNREACHABLE === "UNREACHABLE";
+    chrome.documentScan.OperationResult.UNSUPPORTED === "UNSUPPORTED";
+    chrome.documentScan.OperationResult.WRONG_TYPE === "WRONG_TYPE";
+
+    chrome.documentScan.OptionType.BOOL === "BOOL";
+    chrome.documentScan.OptionType.BUTTON === "BUTTON";
+    chrome.documentScan.OptionType.FIXED === "FIXED";
+    chrome.documentScan.OptionType.GROUP === "GROUP";
+    chrome.documentScan.OptionType.INT === "INT";
+    chrome.documentScan.OptionType.STRING === "STRING";
+    chrome.documentScan.OptionType.UNKNOWN === "UNKNOWN";
+
+    chrome.documentScan.OptionUnit.BIT === "BIT";
+    chrome.documentScan.OptionUnit.DPI === "DPI";
+    chrome.documentScan.OptionUnit.MICROSECOND === "MICROSECOND";
+    chrome.documentScan.OptionUnit.MM === "MM";
+    chrome.documentScan.OptionUnit.PERCENT === "PERCENT";
+    chrome.documentScan.OptionUnit.PIXEL === "PIXEL";
+    chrome.documentScan.OptionUnit.UNITLESS === "UNITLESS";
+
+    const jobId = "job-id" as const;
+    chrome.documentScan.cancelScan(jobId); // $ExpectType Promise<CancelScanResponse<"job-id">>
+    chrome.documentScan.cancelScan(jobId, response => { // $ExpectType void
+        response.job; // $ExpectType "job-id"
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+    });
+    // @ts-expect-error
+    chrome.documentScan.cancelScan(jobId, () => {}).then(() => {});
+
+    const scannerHandle = "handle" as const;
+    chrome.documentScan.closeScanner(scannerHandle); // $ExpectType Promise<CloseScannerResponse<"handle">>;
+    chrome.documentScan.closeScanner(scannerHandle, response => { // $ExpectType void
+        response.scannerHandle; // $ExpectType "handle"
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+    });
+    // @ts-expect-error
+    chrome.documentScan.closeScanner(scannerHandle, () => {}).then(() => {});
+
+    chrome.documentScan.getOptionGroups(scannerHandle); // $ExpectType Promise<GetOptionGroupsResponse<"handle">>
+    chrome.documentScan.getOptionGroups(scannerHandle, response => { // $ExpectType void
+        response.scannerHandle; // $ExpectType "handle"
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+        response.groups; // $ExpectType OptionGroup[] | undefined
+    });
+    // @ts-expect-error
+    chrome.documentScan.getOptionGroups(scannerHandle, () => {}).then(() => {});
+
+    const deviceFilter: chrome.documentScan.DeviceFilter = {
+        local: true,
+        secure: true,
+    };
+    chrome.documentScan.getScannerList(deviceFilter); // $ExpectType Promise<GetScannerListResponse>
+    chrome.documentScan.getScannerList(deviceFilter, response => { // $ExpectType void
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+        response.scanners; // $ExpectType ScannerInfo[]
+    });
+    // @ts-expect-error
+    chrome.documentScan.getScannerList(deviceFilter, () => {}).then(() => {});
+
+    const scannerId = "scanner-id" as const;
+    chrome.documentScan.openScanner(scannerId); // $ExpectType Promise<OpenScannerResponse<"scanner-id">>
+    chrome.documentScan.openScanner(scannerId, response => { // $ExpectType void
+        response.scannerId; // $ExpectType "scanner-id"
+        response.options; // $ExpectType { [name: string]: unknown } | undefined
+        response.scannerHandle; // $ExpectType string | undefined
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+    });
+    // @ts-expect-error
+    chrome.documentScan.openScanner(scannerId, () => {}).then(() => {});
+
+    chrome.documentScan.readScanData(jobId); // $ExpectType Promise<ReadScanDataResponse<"job-id">>
+    chrome.documentScan.readScanData(jobId, response => { // $ExpectType void
+        response.job; // $ExpectType "job-id"
+        response.data; // $ExpectType ArrayBuffer | undefined
+        response.estimatedCompletion; // $ExpectType number | undefined
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+    });
+    // @ts-expect-error
+    chrome.documentScan.readScanData(jobId, () => {}).then(() => {});
+
+    const scanOptions: chrome.documentScan.ScanOptions = {
+        maxImages: 1,
+        mimeTypes: ["image/jpeg"],
+    };
+    chrome.documentScan.scan(scanOptions); // $ExpectType Promise<ScanResults>
+    chrome.documentScan.scan(scanOptions, result => { // $ExpectType void
+        result.dataUrls; // $ExpectType string[]
+        result.mimeType; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.documentScan.scan(scanOptions, () => {}).then(() => {});
+
+    const optionSettings: chrome.documentScan.OptionSetting[] = [{
+        name: "name",
+        type: "GROUP",
+        value: "value",
+    }];
+    chrome.documentScan.setOptions(scannerHandle, optionSettings); // $ExpectType Promise<SetOptionsResponse<"handle">>
+    chrome.documentScan.setOptions(scannerHandle, optionSettings, response => { // $ExpectType void
+        response.scannerHandle; // $ExpectType "handle"
+        response.results; // $ExpectType SetOptionResult[]
+        response.options; // $ExpectType { [name: string]: unknown } | undefined
+    });
+    // @ts-expect-error
+    chrome.documentScan.setOptions(scannerHandle, optionSettings, () => {}).then(() => {});
+
+    const startScanOptions: chrome.documentScan.StartScanOptions = {
+        format: "image/jpeg",
+        maxReadSize: 100,
+    };
+    chrome.documentScan.startScan(scannerHandle, startScanOptions); // $ExpectType Promise<StartScanResponse<"handle">>
+    chrome.documentScan.startScan(scannerHandle, startScanOptions, response => { // $ExpectType void
+        response.scannerHandle; // $ExpectType "handle"
+        response.job; // $ExpectType string | undefined
+        response.result; // $ExpectType "UNKNOWN" | "SUCCESS" | "UNSUPPORTED" | "CANCELLED" | "DEVICE_BUSY" | "INVALID" | "WRONG_TYPE" | "EOF" | "ADF_JAMMED" | "ADF_EMPTY" | "COVER_OPEN" | "IO_ERROR" | "ACCESS_DENIED" | "NO_MEMORY" | "UNREACHABLE" | "MISSING" | "INTERNAL_ERROR"
+    });
+}
+
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
 function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => {});

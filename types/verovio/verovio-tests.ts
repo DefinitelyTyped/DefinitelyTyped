@@ -1,8 +1,8 @@
 import * as verovio from "verovio";
 import { VerovioToolkit } from "verovio/esm";
-import createVerovioModule from "verovio/wasm";
 
 (async () => {
+    const createVerovioModule = (await import("verovio/wasm")).default;
     const VerovioModule = await createVerovioModule();
     const tk = new VerovioToolkit(VerovioModule);
     // $ExpectType AvailableOptions

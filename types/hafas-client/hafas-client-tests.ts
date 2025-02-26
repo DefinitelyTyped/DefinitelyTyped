@@ -148,3 +148,9 @@ if (client.trip) {
         })
         .catch(() => {/* ... */});
 }
+
+if (client.refreshJourney) {
+    client.refreshJourney("x", { generateUnreliableTicketUrls: true })
+        .then(trip => {/* ... */})
+        .catch(() => {/* ... */});
+}

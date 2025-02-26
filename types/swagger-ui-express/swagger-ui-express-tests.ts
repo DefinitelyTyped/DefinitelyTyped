@@ -105,3 +105,6 @@ const uiOptsWithSwaggerOpts = {
 };
 
 swaggerUi.setup(swaggerDocument, uiOptsWithSwaggerOpts);
+
+app.get("/api-docs-with-null-doc", swaggerUi.serve);
+app.get("/api-docs-with-null-doc", swaggerUi.setup(null, swaggerUiOpts));

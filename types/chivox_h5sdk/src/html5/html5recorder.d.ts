@@ -1,4 +1,11 @@
 /**
+ * 评测类型枚举
+ *
+ * https://www.chivox.com/opendoc/#/ChineseDoc/coreEn
+ */
+declare type ChivoxCoreType = `${import("../../enum").ChivoxCoreTypeEnum}`;
+
+/**
  * Html5Recorder 类型定义
  */
 declare class Html5Recorder {
@@ -9,7 +16,7 @@ declare class Html5Recorder {
      *
      * @param param 录音机参数
      */
-    record(param: import("../../options").ChivoxRecordOptions): void;
+    record<T extends ChivoxCoreType>(param: import("../../options").ChivoxRecordOptions<T>): void;
 
     /**
      * 停止录音
