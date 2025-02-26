@@ -43,4 +43,4 @@ declare namespace Pageclip {
     }
 }
 
-export as namespace Pageclip;
+export = Pageclip;

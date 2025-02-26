@@ -15,6 +15,7 @@
         }
     ],
     "dependencies": {
+        "@types/node": "^22.13.9999",
         "@types/request": "^2.48.9999"
     }
 }
