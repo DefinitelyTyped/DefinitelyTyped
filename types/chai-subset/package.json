@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/debitoor/chai-subset"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/chai": "<5.2.0"
     },
     "devDependencies": {
