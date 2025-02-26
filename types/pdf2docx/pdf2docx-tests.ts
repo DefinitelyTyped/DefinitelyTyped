@@ -1,7 +1,7 @@
-import pdf2docx = require('pdf2docx');
+import { Parser, convert } from 'pdf2docx';
 
 // Test the Parser class
-const parser = new pdf2docx.Parser('test.pdf');
+const parser = new Parser('test.pdf');
 parser.parse('output.docx', {
     start: 1,
     end: 5,
@@ -14,7 +14,7 @@ parser.parse('output.docx', {
 });
 
 // Test the convert function
-pdf2docx.convert('input.pdf', 'output.docx', {
+convert('input.pdf', 'output.docx', {
     pages: [1, 2, 3],
     images: {
         extract_images: true,
