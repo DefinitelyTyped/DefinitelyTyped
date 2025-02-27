@@ -597,7 +597,7 @@ declare namespace JQueryTouchSwipe {
          * @param method The method to call on the TouchSwipe plugin.
          * @param name Name of the option to update.
          * @param value New value for the option.
-         * @returns null when the options was set. JQuery instance when the selection was not yet initialized.
+         * @returns null when the option was set. JQuery instance when the selection was not yet initialized.
          */
         <OptionName extends keyof JQueryTouchSwipe.Settings>(
             method: "option",
