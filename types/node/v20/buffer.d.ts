@@ -238,7 +238,10 @@ declare module "buffer" {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-
+    export type WithImplicitCoercion<T> =
+        | T
+        | { valueOf(): T }
+        | (T extends string ? { [Symbol.toPrimitive](hint: "string"): T } : never);
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -257,11 +260,6 @@ declare module "buffer" {
             | "latin1"
             | "binary"
             | "hex";
-        type WithImplicitCoercion<T> =
-            | T
-            | {
-                valueOf(): T;
-            };
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
