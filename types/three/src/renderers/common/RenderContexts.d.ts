@@ -21,14 +21,14 @@ declare class RenderContexts {
      *
      * @param {Scene} scene - The scene.
      * @param {Camera} camera - The camera that is used to render the scene.
-     * @param {RenderTarget?} [renderTarget=null] - The active render target.
+     * @param {?RenderTarget} [renderTarget=null] - The active render target.
      * @return {RenderContext} The render context.
      */
     get(scene: Scene, camera: Camera, renderTarget?: RenderTarget | null): RenderContext;
     /**
      * Returns a render context intended for clear operations.
      *
-     * @param {RenderTarget?} [renderTarget=null] - The active render target.
+     * @param {?RenderTarget} [renderTarget=null] - The active render target.
      * @return {RenderContext} The render context.
      */
     getForClear(renderTarget?: RenderTarget | null): RenderContext;
@@ -36,7 +36,7 @@ declare class RenderContexts {
      * Returns a chain map for the given attachment state.
      *
      * @private
-     * @param {String} attachmentState - The attachment state.
+     * @param {string} attachmentState - The attachment state.
      * @return {ChainMap} The chain map.
      */
     _getChainMap(attachmentState: string): ChainMap<readonly [Scene, Camera], RenderContext>;

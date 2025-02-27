@@ -34,8 +34,8 @@ declare class Info {
      * This method should be executed per draw call and updates the corresponding metrics.
      *
      * @param {Object3D} object - The 3D object that is going to be rendered.
-     * @param {Number} count - The vertex or index count.
-     * @param {Number} instanceCount - The instance count.
+     * @param {number} count - The vertex or index count.
+     * @param {number} instanceCount - The instance count.
      */
     update(object: Object3D, count: number, instanceCount: number): void;
     /**

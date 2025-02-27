@@ -13,14 +13,14 @@ declare class Buffer extends Binding {
     /**
      * Constructs a new buffer.
      *
-     * @param {String} name - The buffer's name.
+     * @param {string} name - The buffer's name.
      * @param {TypedArray} [buffer=null] - The buffer.
      */
     constructor(name?: string, buffer?: Float32Array | null);
     /**
      * The buffer's byte length.
      *
-     * @type {Number}
+     * @type {number}
      * @readonly
      */
     get byteLength(): number;
@@ -34,7 +34,7 @@ declare class Buffer extends Binding {
     /**
      * Updates the binding.
      *
-     * @return {Boolean} Whether the buffer has been updated and must be
+     * @return {boolean} Whether the buffer has been updated and must be
      * uploaded to the GPU.
      */
     update(): boolean;

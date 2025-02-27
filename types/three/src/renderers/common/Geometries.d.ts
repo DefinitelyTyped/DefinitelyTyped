@@ -37,7 +37,7 @@ declare class Geometries extends DataMap<{
      * Returns `true` if the given render object has an initialized geometry.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether if the given render object has an initialized geometry or not.
+     * @return {boolean} Whether if the given render object has an initialized geometry or not.
      */
     has(renderObject: RenderObject | BufferGeometry): boolean;
     /**
@@ -62,14 +62,14 @@ declare class Geometries extends DataMap<{
      * Updates the given attribute.
      *
      * @param {BufferAttribute} attribute - The attribute to update.
-     * @param {Number} type - The attribute type.
+     * @param {number} type - The attribute type.
      */
     updateAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, type: AttributeType): void;
     /**
      * Returns the indirect buffer attribute of the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {BufferAttribute?} The indirect attribute. `null` if no indirect drawing is used.
+     * @return {?BufferAttribute} The indirect attribute. `null` if no indirect drawing is used.
      */
     getIndirect(renderObject: RenderObject): import("./IndirectStorageBufferAttribute.js").default | null;
     /**
@@ -77,7 +77,7 @@ declare class Geometries extends DataMap<{
      * in a method to return a wireframe index if necessary.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {BufferAttribute?} The index. Returns `null` for non-indexed geometries.
+     * @return {?BufferAttribute} The index. Returns `null` for non-indexed geometries.
      */
     getIndex(renderObject: RenderObject): BufferAttribute | null;
 }

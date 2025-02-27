@@ -68,6 +68,9 @@ export type Swizzable<T extends Node = Node> =
         [Key in SwizzleOption | number]: ShaderNodeObject<Node>;
     }
     & {
+        [Key in SwizzleOption as `set${Uppercase<Key>}`]: (value: Node) => ShaderNodeObject<Node>;
+    }
+    & {
         [Key in SwizzleOption as `flip${Uppercase<Key>}`]: () => ShaderNodeObject<Node>;
     };
 
