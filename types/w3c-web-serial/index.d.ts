@@ -7,8 +7,8 @@ type FlowControlType = "none" | "hardware";
 /*~ https://wicg.github.io/serial/#dom-serialoptions */
 interface SerialOptions {
     baudRate: number;
-    dataBits?: number | undefined;
-    stopBits?: number | undefined;
+    dataBits?: 7 | 8 | undefined;
+    stopBits?: 1 | 2 | undefined;
     parity?: ParityType | undefined;
     bufferSize?: number | undefined;
     flowControl?: FlowControlType | undefined;
