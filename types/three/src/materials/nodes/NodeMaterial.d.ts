@@ -60,7 +60,7 @@ declare class NodeMaterial extends Material {
 
     depthNode: Node | null;
     shadowPositionNode: Node | null;
-    receivedShadowNode: () => Node | null;
+    receivedShadowNode: (() => Node) | null;
     castShadowNode: Node | null;
 
     outputNode: Node | null;
