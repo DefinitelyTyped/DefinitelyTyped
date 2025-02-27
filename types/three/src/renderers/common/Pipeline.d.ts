@@ -10,7 +10,7 @@ declare class Pipeline {
     /**
      * Constructs a new pipeline.
      *
-     * @param {String} cacheKey - The pipeline's cache key.
+     * @param {string} cacheKey - The pipeline's cache key.
      */
     constructor(cacheKey: string);
 }

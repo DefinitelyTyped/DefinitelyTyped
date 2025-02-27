@@ -26,7 +26,7 @@ export function decode(buffer: Buffer): {
  * @return The encoded {@link Buffer}.
  */
 export function encode(
-    channelData: readonly ArrayBuffer[],
+    channelData: readonly ArrayLike<number>[],
     opts: {
         /**
          * The sample rate of the given {@link channelData}.
