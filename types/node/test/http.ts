@@ -509,7 +509,7 @@ import * as url from "node:url";
     let _req = new http.IncomingMessage(new net.Socket());
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
-    let _head = Buffer.from("");
+    let _head: Buffer = Buffer.from("");
     let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {
