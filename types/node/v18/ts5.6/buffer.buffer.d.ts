@@ -443,4 +443,10 @@ declare module "buffer" {
             subarray(start?: number, end?: number): Buffer;
         }
     }
+    /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
+    var SlowBuffer: {
+        /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
+        new(size: number): Buffer;
+        prototype: Buffer;
+    };
 }
