@@ -60,7 +60,7 @@ declare class NodeMaterial extends Material {
 
     depthNode: Node | null;
     shadowPositionNode: Node | null;
-    receivedShadowNode: Node | null;
+    receivedShadowNode: () => Node | null;
     castShadowNode: Node | null;
 
     outputNode: Node | null;
@@ -89,6 +89,7 @@ declare class NodeMaterial extends Material {
     setupOutgoingLight(): Node;
     setupLightingModel(builder: NodeBuilder): LightingModel;
     setupLighting(builder: NodeBuilder): Node;
+    setupFog(builder: NodeBuilder, outputNode: Node): Node;
     setupOutput(builder: NodeBuilder, outputNode: Node): Node;
 
     setDefaultValues(material: Material): void;

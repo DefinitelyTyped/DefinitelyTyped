@@ -51,7 +51,7 @@ declare class RenderContext {
     /**
      * Returns the cache key of this render context.
      *
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getCacheKey(): number;
 }
@@ -61,7 +61,7 @@ declare class RenderContext {
  * configure the correct attachments in the respective backend.
  *
  * @param {RenderContext} renderContext - The render context.
- * @return {Number} The cache key.
+ * @return {number} The cache key.
  */
 export declare function getCacheKey(renderContext: RenderContext): number;
 export default RenderContext;

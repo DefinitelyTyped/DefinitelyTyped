@@ -4,7 +4,7 @@ import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export function lightShadowMatrix(light: Light): ShaderNodeObject<Node>;
 
-export function lightProjectionUV(light: Light): ShaderNodeObject<Node>;
+export function lightProjectionUV(light: Light, position?: Node): ShaderNodeObject<Node>;
 
 export function lightPosition(light: Light): ShaderNodeObject<Node>;
 
