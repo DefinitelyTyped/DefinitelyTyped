@@ -3108,26 +3108,87 @@ async function testHistoryForPromise() {
     await chrome.history.getVisits({ url: "https://example.com" });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/identity/
-async function testIdentity() {
-    // $ExpectType void
-    chrome.identity.launchWebAuthFlow({ url: "https://example.com " }, () => {});
+// https://developer.chrome.com/docs/extensions/reference/api/identity
+function testIdentity() {
+    chrome.identity.AccountStatus.ANY === "ANY";
+    chrome.identity.AccountStatus.SYNC === "SYNC";
 
-    chrome.identity.clearAllCachedAuthTokens(() => {});
-    chrome.identity.getAccounts((accounts: chrome.identity.AccountInfo[]) => {});
-    chrome.identity.getAuthToken({}, (token?: string, grantedScopes?: string[]) => {});
-    chrome.identity.removeCachedAuthToken({ token: "1234" }, () => {});
-}
+    chrome.identity.clearAllCachedAuthTokens(); // $ExpectType Promise<void>
+    chrome.identity.clearAllCachedAuthTokens(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.identity.clearAllCachedAuthTokens(() => void 0).then(() => void 0);
 
-// https://developer.chrome.com/docs/extensions/reference/identity/
-async function testIdentityForPromise() {
-    // $ExpectType string | undefined
-    await chrome.identity.launchWebAuthFlow({ url: "https://example.com " });
+    const tokenDetails: chrome.identity.TokenDetails = {
+        interactive: true,
+        account: { id: "1234" },
+        enableGranularPermissions: true,
+        scopes: ["scope1", "scope2"],
+    };
+    chrome.identity.getAccounts(); // $ExpectType Promise<AccountInfo[]>
+    chrome.identity.getAccounts(accounts => { // $ExpectType void
+        accounts; // $ExpectType AccountInfo[]
+    });
+    // @ts-expect-error
+    chrome.identity.getAccounts(() => {}).then(() => {});
 
-    await chrome.identity.clearAllCachedAuthTokens();
-    const accounts: chrome.identity.AccountInfo[] = await chrome.identity.getAccounts();
-    const token = await chrome.identity.getAuthToken({});
-    await chrome.identity.removeCachedAuthToken({ token: "1234" });
+    chrome.identity.getAuthToken(); // $ExpectType Promise<GetAuthTokenResult>
+    chrome.identity.getAuthToken(tokenDetails); // $ExpectType Promise<GetAuthTokenResult>
+    chrome.identity.getAuthToken(result => { // $ExpectType void
+        result.token; // $ExpectType string | undefined
+        result.grantedScopes; // $ExpectType string[] | undefined
+    });
+    chrome.identity.getAuthToken(tokenDetails, result => { // $ExpectType void
+        result.token; // $ExpectType string | undefined
+        result.grantedScopes; // $ExpectType string[] | undefined
+    });
+    // @ts-expect-error
+    chrome.identity.getAuthToken(() => {}).then(() => {});
+
+    chrome.identity.getProfileUserInfo(); // $ExpectType Promise<ProfileUserInfo>
+    chrome.identity.getProfileUserInfo(userInfo => { // $ExpectType void
+        userInfo.email; // $ExpectType string
+        userInfo.id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.identity.getProfileUserInfo(() => {}).then(() => {});
+
+    chrome.identity.getRedirectURL(); // $ExpectType string
+    chrome.identity.getRedirectURL("path"); // $ExpectType string
+
+    const webAuthFlowDetails: chrome.identity.WebAuthFlowDetails = {
+        url: "https://example.com",
+        interactive: true,
+        abortOnLoadForNonInteractive: true,
+        timeoutMsForNonInteractive: 10000,
+    };
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails); // $ExpectType Promise<string | undefined>
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails, result => { // $ExpectType void
+        result; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails, () => {}).then(() => {});
+
+    chrome.identity.onSignInChanged.addListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.removeListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.hasListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.hasListeners(); // $ExpectType boolean
+
+    const invalidTokenDetails: chrome.identity.InvalidTokenDetails = {
+        token: "token",
+    };
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails); // $ExpectType Promise<void>
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0).then(() => void 0);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/
