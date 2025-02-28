@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export as namespace platonicDice;
 
 /**
@@ -64,10 +66,10 @@ interface PlatonicDice {
         dieType: DieType,
         targets: number[],
         options?: {
-            successOutcome?: (roll: number) => Outcome;
-            failureOutcome?: (roll: number) => Outcome;
+            successOutcome?: (roll: number) => typeof Outcome;
+            failureOutcome?: (roll: number) => typeof Outcome;
         }
-    ): { roll: number; outcome: Outcome };
+    ): { roll: number; outcome: typeof Outcome };
 
     /**
      * Rolls a die and determines the outcome based on test conditions.
@@ -87,7 +89,7 @@ interface PlatonicDice {
             critical_failure?: number;
             modifier?: (roll: number) => number;
         }
-    ): { base: number; modified: number; outcome: Outcome };
+    ): { base: number; modified: number; outcome: typeof Outcome };
 
     Die: typeof Die;
     TargetDie: typeof TargetDie;
@@ -95,16 +97,16 @@ interface PlatonicDice {
     ModifiedDie: typeof ModifiedDie;
     TestConditions: typeof TestConditions;
     TestDie: typeof TestDie;
+    FaceOutcomeMapping: typeof FaceOutcomeMapping;
     DieType: typeof DieType;
     RollType: typeof RollType;
     Outcome: typeof Outcome;
-    FaceOutcomeMapping: typeof FaceOutcomeMapping;
 }
 
 /**
  * Enum for different types of dice.
  */
-export enum DieType {
+declare enum DieType {
     D4 = "d4",
     D6 = "d6",
     D8 = "d8",
@@ -116,7 +118,7 @@ export enum DieType {
 /**
  * Enum for different roll types.
  */
-export enum RollType {
+declare enum RollType {
     Advantage = "advantage",
     Disadvantage = "disadvantage",
 }
@@ -124,7 +126,7 @@ export enum RollType {
 /**
  * Enum for possible roll outcomes.
  */
-export enum Outcome {
+declare enum Outcome {
     Success = "success",
     Failure = "failure",
     Critical_Success = "critical_success",
@@ -134,7 +136,7 @@ export enum Outcome {
 /**
  * Represents face-to-outcome mappings for a CustomDie.
  */
-export interface FaceOutcomeMapping {
+declare class FaceOutcomeMapping {
     /**
      * Default outcome function (if face not explicitly mapped).
      * Takes a number (face value) and returns a number or string.
@@ -151,7 +153,7 @@ export interface FaceOutcomeMapping {
 /**
  * Represents a standard die.
  */
-export class Die {
+declare class Die {
     /**
      * @param {DieType} type - The type of die.
      */
@@ -171,25 +173,25 @@ export class Die {
 /**
  * Represents a Target Die that determines success/failure based on matching numbers.
  */
-export class TargetDie extends Die {
+declare class TargetDie extends Die {
     /**
      * @param {DieType} type - The type of die.
      * @param {number[]} targetValues - The target conditions (array of successful values).
      */
     constructor(type: DieType, targetValues: number[]);
     private _targetValues: number[];
-    private _outcomeHistory: Outcome[];
+    private _outcomeHistory: typeof Outcome[];
 
     roll(): number;
-    getHistory(): Array<{ roll: number; outcome: Outcome }>;
-    getLastOutcome(): Outcome | null;
+    getHistory(): Array<{ roll: number; outcome: typeof Outcome }>;
+    getLastOutcome(): typeof Outcome | null;
     report(verbose?: boolean): object;
 }
 
 /**
  * Represents a fully customizable die where each face has a different effect.
  */
-export class CustomDie extends Die {
+declare class CustomDie extends Die {
     /**
      * @param {DieType} type - The die type.
      * @param {Object.<number, function(): (number|string)>} faceMappings - Mapping of faces to outcomes.
@@ -217,7 +219,7 @@ export class CustomDie extends Die {
 /**
  * Represents a Die that supports result modification.
  */
-export class ModifiedDie extends Die {
+declare class ModifiedDie extends Die {
     /**
      * @param {DieType} type - The type of die.
      * @param {Function} modifier - The modifier function to apply.
@@ -239,14 +241,14 @@ export class ModifiedDie extends Die {
 /**
  * Represents conditions for a test-based roll.
  */
-export class TestConditions {
+declare class TestConditions {
     constructor(target: number, critical_success?: number, critical_failure?: number);
     target: number;
     critical_success?: number;
     critical_failure?: number;
 }
 
-export class TestDie extends ModifiedDie {
+declare class TestDie extends ModifiedDie {
     /**
      * @param {number} target - The minimum value required for success.
      * @param {number} [critical_success] - Rolls equal to or above this count as a critical success.
@@ -254,11 +256,11 @@ export class TestDie extends ModifiedDie {
      */
     constructor(type: DieType, conditions: TestConditions, modifier?: (roll: number) => number);
     private _conditions: TestConditions;
-    private _outcomeHistory: Outcome[];
+    private _outcomeHistory: typeof Outcome[];
 
     roll(): number;
-    getLastOutcome(): Outcome | null;
-    getOutcomeHistory(): Outcome[];
+    getLastOutcome(): typeof Outcome | null;
+    getOutcomeHistory(): typeof Outcome[];
 }
 
 /**

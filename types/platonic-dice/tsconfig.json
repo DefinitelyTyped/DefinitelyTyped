@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ESNext",
-    "lib": ["es6"],
+    "module": "Node16",
+    "lib": ["ES6", "DOM"],
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "platonic-dice": ["./index.d.ts"]
-    },
-    "types": []
+    }
   },
   "files": ["index.d.ts", "platonic-dice-tests.ts"]
 }
