@@ -24,10 +24,26 @@ export enum Outcome {
 export interface PlatonicDice {
     rollDie(dieType: DieType, rollType?: RollType): number;
     rollDice(dieType: DieType, options?: { rollType?: RollType; count?: number }): number | number[];
-    rollModDie(dieType: DieType, modifier: (roll: number) => number, rollType?: RollType): { base: number; modified: number };
-    rollModDice(dieType: DieType, modifier: (roll: number) => number, options?: { rollType?: RollType; count?: number }): { base: number[]; modified: number[] } | { base: number; modified: number };
-    rollTargetDie(dieType: DieType, targets: number[], options?: { successOutcome?: (roll: number) => Outcome; failureOutcome?: (roll: number) => Outcome }): { roll: number; outcome: Outcome };
-    rollTestDie(dieType: DieType, target: number, options?: { critical_success?: number; critical_failure?: number; modifier?: (roll: number) => number }): { base: number; modified: number; outcome: Outcome };
+    rollModDie(
+        dieType: DieType,
+        modifier: (roll: number) => number,
+        rollType?: RollType,
+    ): { base: number; modified: number };
+    rollModDice(
+        dieType: DieType,
+        modifier: (roll: number) => number,
+        options?: { rollType?: RollType; count?: number },
+    ): { base: number[]; modified: number[] } | { base: number; modified: number };
+    rollTargetDie(
+        dieType: DieType,
+        targets: number[],
+        options?: { successOutcome?: (roll: number) => Outcome; failureOutcome?: (roll: number) => Outcome },
+    ): { roll: number; outcome: Outcome };
+    rollTestDie(
+        dieType: DieType,
+        target: number,
+        options?: { critical_success?: number; critical_failure?: number; modifier?: (roll: number) => number },
+    ): { base: number; modified: number; outcome: Outcome };
 
     Die: typeof Die;
     CustomDie: typeof CustomDie;
@@ -55,7 +71,11 @@ export class Die {
 
 // Class for custom die
 export class CustomDie extends Die {
-    constructor(type: DieType, faceMappings: Record<number, () => number | string>, defaultOutcome?: () => number | string);
+    constructor(
+        type: DieType,
+        faceMappings: Record<number, () => number | string>,
+        defaultOutcome?: () => number | string,
+    );
     private _faceMappings: Record<number, () => number | string>;
     private _defaultOutcome?: () => number | string;
     private _outcome: number | string | null;

@@ -1,4 +1,4 @@
-import { platonicDice, DieType, RollType, Outcome } from 'platonic-dice';
+import { DieType, Outcome, platonicDice, RollType } from "platonic-dice";
 
 // Test basic dice rolls
 const singleRoll: number = platonicDice.rollDie(DieType.D20);
