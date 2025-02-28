@@ -1,0 +1,17 @@
+{
+  "name": "@types/opencascade.js",
+  "version": "0.1.9999",
+  "private": true,
+  "devDependencies": {
+    "@types/opencascade.js": "workspace:."
+  },
+  "projects": [
+    "https://github.com/donalffons/opencascade.js"
+  ],
+  "owners": [
+    {
+      "name": "Sridhar-mani",
+      "githubUsername": "sridhar-mani"
+    }
+  ]
+}
