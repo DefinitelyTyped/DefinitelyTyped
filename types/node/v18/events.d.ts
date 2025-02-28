@@ -460,7 +460,7 @@ declare module "events" {
          * @throws if `options.name` is not provided when instantiated directly.
          * @since v17.4.0, v16.14.0
          */
-        export class EventEmitterAsyncResource extends EventEmitter {
+        export class EventEmitterAsyncResource<T extends EventMap<T> = DefaultEventMap> extends EventEmitter<T> {
             /**
              * @param options Only optional in child class.
              */
