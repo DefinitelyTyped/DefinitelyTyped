@@ -156,3 +156,66 @@ function testRangyClassApplier() {
     let className: string = classApplier.className;
     className = classApplier.cssClass;
 }
+
+import rangy = require('rangy');
+
+// Core functionality
+rangy.createNativeRange();
+rangy.createRange();
+rangy.createRangyRange();
+rangy.getNativeSelection();
+rangy.getSelection();
+
+// Create a range
+const range: RangyRange = rangy.createRange();
+range.setStartAndEnd(document.body, 0, document.body, 1);
+range.toHtml();
+range.toString();
+
+// Selection
+const selection: RangySelection = rangy.getSelection();
+selection.refresh();
+selection.getAllRanges();
+selection.setSingleRange(range);
+
+// Class Applier
+const classApplier = rangy.createClassApplier('highlight', {
+    elementTagName: 'span',
+    elementProperties: { title: 'Highlighted' },
+    elementAttributes: { 'data-highlighted': 'true' },
+    ignoreWhiteSpace: true,
+    applyToEditableOnly: true,
+    normalize: true
+});
+
+classApplier.applyToSelection();
+classApplier.toggleSelection();
+classApplier.undoToSelection();
+classApplier.isAppliedToSelection();
+
+// Save and Restore selection
+const savedSelection = rangy.saveSelection();
+rangy.restoreSelection(savedSelection);
+rangy.removeMarkers(savedSelection);
+
+// Serialization
+const serialized = rangy.serializeRange(range);
+const deserializedRange = rangy.deserializeRange(serialized);
+const serializedSelection = rangy.serializeSelection(selection);
+const deserializedSelection = rangy.deserializeSelection(serializedSelection);
+
+// Text range
+range.moveStart('character', 1);
+range.moveEnd('word', 2);
+range.trim();
+range.expand('word');
+const text = range.text();
+
+// Highlighter
+const highlighter = rangy.createHighlighter();
+highlighter.addClassApplier(classApplier, { priority: 1, exclusive: true });
+const highlightId = highlighter.highlightSelection('highlight');
+highlighter.unhighlight(highlightId);
+const highlights = highlighter.getHighlights();
+const serializedHighlights = highlighter.serialize();
+highlighter.deserialize(serializedHighlights);

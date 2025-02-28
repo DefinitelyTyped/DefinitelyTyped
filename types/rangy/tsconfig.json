@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node16",
+        "module": "commonjs",
         "lib": [
             "es6",
             "dom"
@@ -15,6 +15,8 @@
     },
     "files": [
         "index.d.ts",
+        "rangy-classapplier.d.ts",
+        "rangy-highlighter.d.ts",
         "rangy-tests.ts"
     ]
 }
