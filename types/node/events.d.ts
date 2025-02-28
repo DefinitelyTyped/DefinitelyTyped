@@ -559,7 +559,7 @@ declare module "events" {
          * same options as `EventEmitter` and `AsyncResource` themselves.
          * @since v17.4.0, v16.14.0
          */
-        export class EventEmitterAsyncResource extends EventEmitter {
+        export class EventEmitterAsyncResource<T extends EventMap<T> = DefaultEventMap> extends EventEmitter<T> {
             /**
              * @param options Only optional in child class.
              */
