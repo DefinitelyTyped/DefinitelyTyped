@@ -26,7 +26,7 @@ jobs:
         run: pnpm install
 
       - name: Save pnpm cache
-        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
+        uses: actions/cache/save@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4.2.1
         with:
           path: ${{ steps.pnpm-cache.outputs.store }}
           key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}
