@@ -9,7 +9,8 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "platonic-dice": ["./index.d.ts"]
-    }
+    },
+    "types": []
   },
   "files": ["index.d.ts", "platonic-dice-tests.ts"]
 }
