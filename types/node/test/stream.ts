@@ -18,7 +18,7 @@ import { Blob } from "node:buffer";
 import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
-import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
+import * as consumers from "node:stream/consumers";
 import { finished as finishedPromise, pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every, setTimeout as wait } from "node:timers/promises";
@@ -501,25 +501,18 @@ async function streamPipelineAsyncPromiseOptions() {
 }
 
 async function testConsumers() {
-    const r = createReadStream("file.txt");
+    let consumable!: ReadableStream | Readable | AsyncGenerator<any>;
 
-    // $ExpectType string
-    await text(r);
-    // $ExpectType unknown
-    await json(r);
-    // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    await buffer(r);
     // $ExpectType ArrayBuffer
-    await arrayBuffer(r);
+    await consumers.arrayBuffer(consumable);
     // $ExpectType Blob
-    await blob(r);
-
-    const iterable: AsyncGenerator<Buffer> = async function*() {}();
-    await buffer(iterable);
-
-    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() };
-    // @ts-expect-error
-    await buffer(iterator);
+    await consumers.blob(consumable);
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    await consumers.buffer(consumable);
+    // $ExpectType unknown
+    await consumers.json(consumable);
+    // $ExpectType string
+    await consumers.text(consumable);
 }
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
