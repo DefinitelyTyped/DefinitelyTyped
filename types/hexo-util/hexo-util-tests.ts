@@ -23,7 +23,7 @@ import { createHash } from "crypto";
 import { join } from "path";
 import { Readable } from "stream";
 
-let buffer = Buffer.alloc(0);
+let buffer: Buffer = Buffer.alloc(0);
 let directory: { [x: string]: any } = {};
 let string = "";
 
