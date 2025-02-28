@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/quickapp",
+    "version": "1.0.9999",
+    "projects": [
+        "https://doc.quickapp.cn/"
+    ],
+    "devDependencies": {
+        "@types/quickapp": "workspace:."
+    },
+    "nonNpm": true,
+    "nonNpmDescription": "This is a non-NPM package, it is not intended to be published to npm.",
+    "owners": [
+        {
+            "name": "Qin Jiapeng",
+            "githubUsername": "qjp88995"
+        }
+    ]
+}
