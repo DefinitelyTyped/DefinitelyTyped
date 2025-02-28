@@ -1940,6 +1940,15 @@ function test_effects() {
     $(this).switchClass("big", "blue", 1000, "easeInOutQuad");
     $(this).toggleClass("big-blue", 1000, "easeOutSine");
 
+    $("#effect").transfer({ to: "#target" });
+    $("#effect").transfer({ to: document.createElement("div") });
+    $("#effect").transfer({ to: $("#target") });
+    $("#effect").transfer({ to: "#target", className: "class" });
+    $("#effect").transfer({ to: "#target", duration: "fast" });
+    $("#effect").transfer({ to: "#target", duration: 900 });
+    $("#effect").transfer({ to: "#target", easing: "fade" });
+    $("#effect").transfer({ to: "#target" }, () => {});
+
     // test with non-HTMLElement
     var $svg: JQuery<SVGElement> = <unknown> $("<svg>") as JQuery<SVGSVGElement>,
         $ret: JQuery<SVGElement>;
@@ -1951,6 +1960,8 @@ function test_effects() {
     $ret = $svg.toggle(selectedEffect, options, 500);
     $ret = $svg.toggleClass("newClass", 1000);
     $ret = $svg.switchClass("big", "blue", 1000, "easeInOutQuad");
+
+    $ret = $svg.transfer({ to: $svg });
 }
 
 function test_methods() {
