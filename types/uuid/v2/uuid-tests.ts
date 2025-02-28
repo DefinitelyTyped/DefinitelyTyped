@@ -40,6 +40,6 @@ let bufferv4: number[] = new Array(32);
 bufferv4 = uuid(null, bufferv4);
 bufferv4 = uuid(null, bufferv4, 16);
 
-let nodeBufferv4 = Buffer.alloc(32);
+let nodeBufferv4: Buffer = Buffer.alloc(32);
 nodeBufferv4 = uuid.v4(null, nodeBufferv4);
 nodeBufferv4 = uuid.v4(null, nodeBufferv4, 16);
