@@ -2372,6 +2372,17 @@ declare namespace React {
          */
     }
 
+    export interface CSSSvgProperties extends CSS.SvgProperties<string | number> {
+        /**
+         * The index signature was removed to enable closed typing for style
+         * using CSSType. You're able to use type assertion or module augmentation
+         * to add properties or an index signature of your own.
+         *
+         * For examples and more information, visit:
+         * https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+         */
+    }
+
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
@@ -3458,7 +3469,7 @@ declare namespace React {
         method?: string | undefined;
         min?: number | string | undefined;
         name?: string | undefined;
-        style?: CSSProperties | undefined;
+        style?: CSSSvgProperties | undefined;
         target?: string | undefined;
         type?: string | undefined;
         width?: number | string | undefined;
