@@ -304,6 +304,21 @@ declare namespace TelegramBot {
         is_flexible?: boolean | undefined;
     }
 
+    interface CreateInvoiceLinkOptions {
+        provider_data?: string | undefined;
+        photo_url?: string | undefined;
+        photo_size?: number | undefined;
+        photo_width?: number | undefined;
+        photo_height?: number | undefined;
+        need_name?: boolean | undefined;
+        need_phone_number?: boolean | undefined;
+        need_email?: boolean | undefined;
+        need_shipping_address?: boolean | undefined;
+        send_phone_number_to_provider?: boolean | undefined;
+        send_email_to_provider?: boolean | undefined;
+        is_flexible?: boolean | undefined;
+    }
+
     interface CopyMessageOptions extends SendBasicOptions {
         caption?: string | undefined;
         parse_mode?: ParseMode | undefined;
@@ -1975,6 +1990,16 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         prices: readonly TelegramBot.LabeledPrice[],
         options?: TelegramBot.SendInvoiceOptions,
     ): Promise<TelegramBot.Message>;
+
+    createInvoiceLink(
+        title: string,
+        description: string,
+        payload: string,
+        providerToken: string,
+        currency: string,
+        prices: readonly TelegramBot.LabeledPrice[],
+        options?: TelegramBot.CreateInvoiceLinkOptions,
+    ): Promise<string>;
 
     answerShippingQuery(
         shippingQueryId: string,
