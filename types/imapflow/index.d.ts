@@ -318,7 +318,7 @@ export interface IdInfoObject {
     version?: string;
     os?: string;
     vendor?: string;
-    " support-url "?: string;
+    "support-url"?: string;
     date?: Date;
 }
 
