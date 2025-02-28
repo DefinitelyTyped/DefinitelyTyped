@@ -8,7 +8,7 @@ fs.writeFileSync("./test.xml", "<head><childOne>text</childOne><childTwo>text</c
 const readStreamOne = fs.createReadStream("./test.xml", "utf8");
 const readStreamTwo = fs.createReadStream("./test.xml", "utf8");
 
-// $ExpectType EventEmitter<DefaultEventMap>
+// $ExpectType EventEmitter<{}>
 const myFlow = flow(readStreamOne);
 
 const myOptions = {
@@ -22,7 +22,7 @@ const myOptions = {
     strict: true,
 };
 
-// $ExpectType EventEmitter<DefaultEventMap>
+// $ExpectType EventEmitter<{}>
 const myFlowWithOptions = flow(readStreamTwo, myOptions);
 
 // Create object to xml-ise
