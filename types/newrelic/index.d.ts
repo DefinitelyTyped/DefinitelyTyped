@@ -583,7 +583,7 @@ export function setLlmTokenCountCallback<T>(
 /**
  * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration
  */
-export interface NewRelicConfig {
+export interface Config {
     /**
      * @name NEW_RELIC_APP_NAME
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#app_name

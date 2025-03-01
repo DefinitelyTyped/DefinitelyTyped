@@ -1,8 +1,7 @@
 /// <reference types="node" />
 import * as newrelic from "newrelic";
-import { NewRelicConfig } from "newrelic";
 
-const config: NewRelicConfig = {
+const config: newrelic.Config = {
     app_name: "My Application",
     license_key: "f596af15a89ea28a6c15c689c09a5f8aFFFFNRAL",
     allow_all_headers: true,
