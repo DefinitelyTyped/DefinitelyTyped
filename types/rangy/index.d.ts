@@ -1,3 +1,4 @@
+declare module rangy {
 interface RangyRange extends Range {
     setStartAndEnd(startNode: Node, startOffset: number, endNode?: Node, endOffset?: number): any;
     setStartAndEnd(startNode: Node, startOffset: number, endOffset: number): any;
@@ -51,6 +52,7 @@ interface RangySelection extends Selection {
 }
 
 interface RangyStatic {
+    init(): void;
     createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
     createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
     createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
@@ -62,7 +64,9 @@ interface RangyStatic {
     initialized: boolean;
     supported: boolean;
 }
-declare module "rangy" {
-    export = rangy;
+
 }
-declare var rangy: RangyStatic;
+
+declare const rangy: rangy.RangyStatic;
+
+export rangy;

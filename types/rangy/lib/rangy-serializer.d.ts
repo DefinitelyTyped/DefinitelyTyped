@@ -1,18 +1,17 @@
-/// <reference path="index.d.ts"/>
-
-interface DomPosition {
+declare module rangy {
+  interface DomPosition {
     node: Node;
     offset: number;
-}
+  }
 
-interface CookieOptions {
-    expires?: Date | undefined;
-    path?: string | undefined;
-    domain?: string | undefined;
-    secure?: boolean | undefined;
-}
+  interface CookieOptions {
+    expires?: Date;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+  }
 
-interface RangyStatic {
+  interface RangyStatic {
     serializeSelection(selection?: RangySelection, omitChecksum?: boolean, root?: Node): string;
     canDeserializeSelection(serializedSelection: string, root?: Node, win?: Window): boolean;
     deserializeSelection(serializedSelection: string, root?: Node, win?: Window): RangySelection;
@@ -23,4 +22,7 @@ interface RangyStatic {
     deserializePosition(serializedPosition: string, root?: Node, doc?: Document): DomPosition;
     saveSelectionCookie(win?: Window, props?: CookieOptions): void;
     restoreSelectionFromCookie(win?: Window): boolean;
+  }
 }
+
+declare module 'rangy/lib/rangy-serializer' {}

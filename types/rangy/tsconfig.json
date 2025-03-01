@@ -14,12 +14,11 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "rangy-classapplier.d.ts",
-        "rangy-highlighter.d.ts",
-        "rangy-selectionsaverestore.d.ts",
-        "rangy-serializer.d.ts",
-        "rangy-textrange.d.ts",
-        "rangy-tests.ts"
+      "index.d.ts",
+      "lib/rangy-highlighter.d.ts",
+      "lib/rangy-selectionsaverestore.d.ts",
+      "lib/rangy-serializer.d.ts",
+      "lib/rangy-textrange.d.ts",
+      "rangy-tests.ts"
     ]
 }
