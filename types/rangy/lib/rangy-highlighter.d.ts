@@ -41,7 +41,7 @@ declare module "./rangy-core" {
     interface RangyStatic {
         createHighlighter(
             doc?: Document | Window | HTMLIFrameElement,
-            type?: "textContent" | "textRange"
+            type?: "textContent" | "textRange",
         ): RangyHighlighter;
     }
 }

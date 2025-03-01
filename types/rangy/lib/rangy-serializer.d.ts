@@ -1,6 +1,6 @@
-import { RangyRange, RangySelection, Direction, CookieOptions, DomPosition } from "./rangy-core";
+import { CookieOptions, DomPosition, RangyRange, RangySelection } from "./rangy-core";
 
-declare module "./rangy-core" {
+declare module ".rangy-core" {
     interface RangyStatic {
         serializeSelection(selection?: RangySelection, omitChecksum?: boolean, root?: Node): string;
         canDeserializeSelection(serializedSelection: string, root?: Node, win?: Window): boolean;

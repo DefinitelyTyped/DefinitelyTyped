@@ -30,13 +30,15 @@ export interface RangyTextExpandOptions extends RangyTextOptions {
     trimEnd?: boolean;
 }
 
-export interface RangyTextRange {
-    moveStart(unit: string, count: number, options?: RangyTextOptions): number;
-    moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
-    move(unit: string, count: number, options?: RangyTextOptions): number;
-    expand(unit: string, options?: RangyTextExpandOptions): boolean;
-    text(): string;
-    selectCharacters(containerNode: Node, startIndex: number, endIndex: number): void;
-    toCharacterRange(containerNode: Node, options?: RangyTextOptions): { start: number; end: number };
-    findText(searchTerm: string | RegExp, options?: RangyFindTextOptions): boolean;
+declare module "./rangy-core" {
+    interface RangyTextRange {
+        moveStart(unit: string, count: number, options?: RangyTextOptions): number;
+        moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
+        move(unit: string, count: number, options?: RangyTextOptions): number;
+        expand(unit: string, options?: RangyTextExpandOptions): boolean;
+        text(): string;
+        selectCharacters(containerNode: Node, startIndex: number, endIndex: number): void;
+        toCharacterRange(containerNode: Node, options?: RangyTextOptions): { start: number; end: number };
+        findText(searchTerm: string | RegExp, options?: RangyFindTextOptions): boolean;
+    }
 }

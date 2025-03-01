@@ -1,18 +1,18 @@
 import { RangyRange } from "./rangy-core";
 
 export interface RangyClassApplierOptions {
-    elementTagName?: string;
-    elementProperties?: { [property: string]: string };
-    elementAttributes?: { [attribute: string]: string };
-    ignoreWhiteSpace?: boolean;
-    applyToEditableOnly?: boolean;
-    tagNames?: string | string[];
-    normalize?: boolean;
-    onElementCreate?: (element: Element, classApplier: RangyClassApplier) => void;
-    useExistingElements?: boolean;
+    elementTagName?: string
+    elementProperties?: { [key: string]: string }
+    elementAttributes?: { [key: string]: string }
+    ignoreWhiteSpace?: boolean
+    applyToEditableOnly?: boolean
+    tagNames?: string[] | string
+    normalize?: boolean
+    onElementCreate?: ((element: Element, classApplier: RangyClassApplier) => any) | undefined;
+    useExistingElements?: boolean
 }
 
-export interface RangyClassApplier extends RangyClassApplierOptions {
+export interface RangyClassApplier {
     applyToSelection(win?: Window): void;
     undoToSelection(win?: Window): void;
     isAppliedToSelection(win?: Window): boolean;
@@ -29,9 +29,9 @@ export interface RangyClassApplier extends RangyClassApplierOptions {
 declare module "./rangy-core" {
     interface RangyStatic {
         createClassApplier(
-            theClass: string,
+            className: string,
             options?: RangyClassApplierOptions,
-            tagNames?: string | string[]
+            tagNames?: string[] | string,
         ): RangyClassApplier;
     }
 }

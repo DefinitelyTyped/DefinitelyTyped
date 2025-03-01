@@ -1,47 +1,3 @@
-export interface RangyStatic {
-    config: {
-        alertOnFail: boolean;
-        alertOnWarn: boolean;
-        checkSelectionRanges: boolean;
-        preferTextRange: boolean;
-        autoInitialize: boolean;
-    };
-    dom: any;
-    features: {
-        collapsedNonEditableSelectionsSupported: boolean;
-        implementsControlRange: boolean;
-        implementsDomRange: boolean;
-        implementsTextRange: boolean;
-        selectionHasAnchorAndFocus: boolean;
-        selectionHasExtend: boolean;
-        selectionHasRangeCount: boolean;
-        selectionSupportsMultipleRanges: boolean;
-        crashyTextNodes: boolean;
-        implementsDocSelection: boolean;
-        implementsWinGetSelection: boolean;
-    };
-    initialized: boolean;
-    supported: boolean;
-    util: {
-        isHostObject(obj: any, prop: string): boolean;
-        isHostMethod(obj: any, method: string): boolean;
-        isHostProperty(obj: any, prop: string): boolean;
-        areHostObjects(obj: any, props: string[]): boolean;
-        areHostMethods(obj: any, methods: string[]): boolean;
-        areHostProperties(obj: any, props: string[]): boolean;
-        toArray(arrayLike: any): any[];
-    };
-    addInitListener(listener: (rangy: RangyStatic) => void): any;
-    shim(): any;
-    createMissingNativeApi(): any;
-    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
-    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
-    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
-    getNativeSelection(win?: Window): Selection;
-    getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
-    init(): void;
-}
-
 export interface RangyRange extends Range {
     startContainer: Node;
     startOffset: number;
@@ -147,3 +103,51 @@ export interface DomPosition {
     node: Node;
     offset: number;
 }
+
+interface RangyStatic {
+    addInitListener(listener: (rangy: RangyStatic) => void): void;
+    createMissingNativeApi(): void;
+    shim(): void;
+    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
+    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    getNativeSelection(win?: Window): Selection;
+    getSelection(win?: Window): RangySelection;
+    initialized: boolean;
+    supported: boolean;
+    config: {
+        alertOnFail: boolean;
+        alertOnWarn: boolean;
+        checkSelectionRanges: boolean;
+        preferTextRange: boolean;
+        autoInitialize: boolean;
+    };
+    dom: any;
+    features: {
+        collapsedNonEditableSelectionsSupported: boolean;
+        implementsControlRange: boolean;
+        implementsDomRange: boolean;
+        implementsTextRange: boolean;
+        selectionHasAnchorAndFocus: boolean;
+        selectionHasExtend: boolean;
+        selectionHasRangeCount: boolean;
+        selectionSupportsMultipleRanges: boolean;
+        crashyTextNodes: boolean;
+        implementsDocSelection: boolean;
+        implementsWinGetSelection: boolean;
+    };
+
+    util: {
+        isHostObject(obj: any, prop: string): boolean;
+        isHostMethod(obj: any, method: string): boolean;
+        isHostProperty(obj: any, prop: string): boolean;
+        areHostObjects(obj: any, props: string[]): boolean;
+        areHostMethods(obj: any, methods: string[]): boolean;
+        areHostProperties(obj: any, props: string[]): boolean;
+        toArray(arrayLike: any): any[];
+    };
+    init(): void;
+}
+
+declare const rangy: RangyStatic;
+export default rangy;

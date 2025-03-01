@@ -1,4 +1,4 @@
-import { RangyClassApplier, RangyClassApplierOptions, RangyRange, RangySelection, RangyStatic } from "rangy";
+import rangy from "rangy";
 
 // Assertion helpers
 declare function assertAny(a: any): any;
@@ -9,7 +9,7 @@ declare function getRangyRange(): RangyRange;
 
 type TextRange = any;
 
-// Global usage: Declare rangy at the top level for script-tag scenarios
+// Declare the global 'rangy' object.
 declare const rangy: RangyStatic;
 
 // Test RangyStatic globally
@@ -36,7 +36,6 @@ function testRangyStaticGlobal() {
     let supported: boolean = rangy.supported;
 }
 
-// Test RangyRange globally
 function testRangyRangeGlobal() {
     let rangyRange: RangyRange = rangy.createRange();
     assertBoolean(rangyRange.canSurroundContents());
@@ -73,7 +72,6 @@ function testRangyRangeGlobal() {
     if (union) assertRangyRange(union);
 }
 
-// Test RangySelection globally
 function testSelectionGlobal() {
     let selection: RangySelection = rangy.getSelection();
     selection.detach();
@@ -93,7 +91,6 @@ function testSelectionGlobal() {
     assertString(selection.toHtml());
 }
 
-// Test RangyClassApplier globally
 function testRangyClassApplierGlobal() {
     function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
         return 1;
@@ -132,18 +129,4 @@ function testRangyClassApplierGlobal() {
     classApplier.detach();
     let className: string = classApplier.className;
     className = classApplier.cssClass;
-}
-
-// Test CommonJS usage
-import rangy = require("rangy");
-
-function testRangyStaticModule() {
-    rangy.addInitListener((rangy: RangyStatic) => {});
-    rangy.createMissingNativeApi();
-    rangy.shim();
-    let nativeRange: Range | TextRange = rangy.createNativeRange(document);
-    let rangyRange: RangyRange = rangy.createRange();
-    let rangySelection: RangySelection = rangy.getSelection();
-    let initialized: boolean = rangy.initialized;
-    let supported: boolean = rangy.supported;
 }

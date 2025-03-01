@@ -1,4 +1,4 @@
-import { RangyRange, Direction } from "./rangy-core";
+import { Direction } from "./rangy-core";
 
 declare module "./rangy-core" {
     interface RangyStatic {
