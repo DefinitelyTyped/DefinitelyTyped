@@ -1,5 +1,6 @@
 import { RangyClassApplier, RangyClassApplierOptions, RangyRange, RangySelection, RangyStatic } from "rangy";
 
+// Assertion helpers
 declare function assertAny(a: any): any;
 declare function assertBoolean(b: boolean): any;
 declare function assertString(s: string): any;
@@ -8,8 +9,11 @@ declare function getRangyRange(): RangyRange;
 
 type TextRange = any;
 
-function testRangyStatic() {
-    declare const rangy: RangyStatic;
+// Global usage: Declare rangy at the top level for script-tag scenarios
+declare const rangy: RangyStatic;
+
+// Test RangyStatic globally
+function testRangyStaticGlobal() {
     rangy.addInitListener((rangy: RangyStatic) => {});
     rangy.createMissingNativeApi();
     rangy.shim();
@@ -32,8 +36,8 @@ function testRangyStatic() {
     let supported: boolean = rangy.supported;
 }
 
-function testRangyRange() {
-    declare const rangy: RangyStatic;
+// Test RangyRange globally
+function testRangyRangeGlobal() {
     let rangyRange: RangyRange = rangy.createRange();
     assertBoolean(rangyRange.canSurroundContents());
     rangyRange.collapseAfter(new Node());
@@ -69,8 +73,8 @@ function testRangyRange() {
     if (union) assertRangyRange(union);
 }
 
-function testSelection() {
-    declare const rangy: RangyStatic;
+// Test RangySelection globally
+function testSelectionGlobal() {
     let selection: RangySelection = rangy.getSelection();
     selection.detach();
     let ranges: RangyRange[] = selection.getAllRanges();
@@ -89,8 +93,8 @@ function testSelection() {
     assertString(selection.toHtml());
 }
 
-function testRangyClassApplier() {
-    declare const rangy: RangyStatic;
+// Test RangyClassApplier globally
+function testRangyClassApplierGlobal() {
     function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
         return 1;
     }
@@ -128,4 +132,18 @@ function testRangyClassApplier() {
     classApplier.detach();
     let className: string = classApplier.className;
     className = classApplier.cssClass;
+}
+
+// Test CommonJS usage
+import rangy = require("rangy");
+
+function testRangyStaticModule() {
+    rangy.addInitListener((rangy: RangyStatic) => {});
+    rangy.createMissingNativeApi();
+    rangy.shim();
+    let nativeRange: Range | TextRange = rangy.createNativeRange(document);
+    let rangyRange: RangyRange = rangy.createRange();
+    let rangySelection: RangySelection = rangy.getSelection();
+    let initialized: boolean = rangy.initialized;
+    let supported: boolean = rangy.supported;
 }
