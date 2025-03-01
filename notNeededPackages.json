@@ -7223,6 +7223,10 @@
             "libraryName": "webpack-virtual-modules",
             "asOfVersion": "0.4.2"
         },
+        "webpackbar": {
+            "libraryName": "webpackbar",
+            "asOfVersion": "5.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
