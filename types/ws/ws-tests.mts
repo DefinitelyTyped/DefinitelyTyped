@@ -166,6 +166,7 @@ import * as wslib from "ws";
             cb(true, 123, "message", { Upgrade: "websocket" });
         },
         allowSynchronousEvents: false,
+        autoPong: false,
     });
 }
 
@@ -526,6 +527,7 @@ declare module "ws" {
 {
     const ws = new WebSocket("ws://www.host.com/path", {
         allowSynchronousEvents: false,
+        autoPong: false,
         finishRequest: (req, socket) => {
             // $ExpectType IncomingMessage
             req;

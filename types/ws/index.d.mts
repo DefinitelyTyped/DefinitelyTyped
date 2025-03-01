@@ -254,6 +254,7 @@ declare namespace WebSocket {
         checkServerIdentity?(servername: string, cert: CertMeta): boolean;
         rejectUnauthorized?: boolean | undefined;
         allowSynchronousEvents?: boolean | undefined;
+        autoPong?: boolean | undefined;
         maxPayload?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
         finishRequest?: FinishRequestCallback | undefined;
@@ -335,6 +336,7 @@ declare namespace WebSocket {
         path?: string | undefined;
         noServer?: boolean | undefined;
         allowSynchronousEvents?: boolean | undefined;
+        autoPong?: boolean | undefined;
         clientTracking?: boolean | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
         maxPayload?: number | undefined;
