@@ -14,20 +14,20 @@ declare module rangy {
     setStart(node: Node, offset: number): void;
     setStartBefore(node: Node): void;
     setStartAfter(node: Node): void;
-    setEnd: (node: Node, offset: number): void;
+    setEnd(node: Node, offset: number): void;
     setEndBefore(node: Node): void;
     setEndAfter(node: Node): void;
     setStartAndEnd(startNode: Node, startOffset: number, endNode?: Node, endOffset?: number): any;
-    selectNode: (node: Node) => any;
-    selectNodeContents: (node: Node) => any;
-    collapse: (toStart?: boolean) => void;
+    selectNode(node: Node): any;
+    selectNodeContents(node: Node): any;
+    collapse(toStart?: boolean): void;
     compareBoundaryPoints(comparisonType: ComparisonType, range: RangyRange): -1 | 0 | 1;
     insertNode(node: Node): any;
     cloneContents(): DocumentFragment;
     extractContents(): DocumentFragment;
     deleteContents(): void;
     canSurroundContents(): boolean;
-    canSurroundContents(node: Node): boolean;
+    surroundContents(node: Node): boolean;
     cloneRange(): RangyRange;
     isValid(): boolean;
     toString(): string;
@@ -36,7 +36,7 @@ declare module rangy {
     comparePoint(node: Node, offset: number): -1 | 0 | 1;
     intersectsOrTouchesRange(range: RangyRange): boolean;
     intersectsRange(range: RangyRange): boolean;
-    intersectionNode(node: Node, touchingIsIntersecting?: boolean): boolean;
+    intersectsNode(node: Node, touchingIsIntersecting?: boolean): boolean;
     intersection(range: RangyRange): RangyRange | null;
     union(range: RangyRange): RangyRange | null;
     isPointInRange(node: Node, offset: number): boolean;
@@ -96,17 +96,47 @@ declare module rangy {
   }
 
   interface RangyStatic {
-    init(): void;
-    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range; // TODO:
-    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange; // TODO:
-    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
-    getNativeSelection(win?: Window): Selection;
-    getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
+    config: {
+      alertOnFail: boolean;
+      alertOnWarn: boolean;
+      checkSelectionRanges: boolean;
+      preferTextRange: boolean;
+      autoInitialize: boolean;
+    };
+    dom: any
+    features: {
+      collapsedNonEditableSelectionsSupported: boolean;
+      implementsControlRange: boolean;
+      implementsDomRange: boolean;
+      implementsTextRange: boolean;
+      selectionHasAnchorAndFocus: boolean;
+      selectionHasExtend: boolean;
+      selectionHasRangeCount: boolean;
+      selectionSupportsMultipleRanges: boolean;
+      crashyTextNodes: boolean;
+      implementsDocSelection: boolean;
+      implementsWinGetSelection: boolean;
+    }
+    initialized: boolean;
+    supported: boolean;
+    util: {
+      isHostObject(obj: any, prop: string): boolean;
+      isHostMethod(obj: any, method: string): boolean;
+      isHostProperty(obj: any, prop: string): boolean;
+      areHostObjects(obj: any, props: string[]): boolean;
+      areHostMethods(obj: any, methods: string[]): boolean;
+      areHostProperties(obj: any, props: string[]): boolean;
+      toArray(arrayLike: any): any[];
+    };
     addInitListener(listener: (rangy: RangyStatic) => void): any;
     shim(): any;
     createMissingNativeApi(): any;
-    initialized: boolean;
-    supported: boolean;
+    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
+    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    getNativeSelection(win?: Window): Selection;
+    getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
+    init(): void;
   }
 
 }
