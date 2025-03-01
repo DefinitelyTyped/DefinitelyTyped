@@ -1,15 +1,46 @@
 declare module rangy {
-interface RangyRange extends Range {
+  type Direction = 'forward' | 'forwards' | 'backward' | 'backwards' | boolean;
+  type ComparisonType = 'START_TO_START' | 'START_TO_END' | 'END_TO_END' | 'END_TO_START';
+  type NodeType = 'NODE_BEFORE' | 'NODE_AFTER' | 'NODE_BEFORE_AND_AFTER' | 'NODE_INSIDE';
+
+  interface RangyRange extends Range {
+    startContainer: Node;
+    startOffset: number;
+    endContainer: Node;
+    endOffset: number;
+    commonAncestorContainer: Node;
+    collapsed: boolean;
+
+    setStart(node: Node, offset: number): void;
+    setStartBefore(node: Node): void;
+    setStartAfter(node: Node): void;
+    setEnd: (node: Node, offset: number): void;
+    setEndBefore(node: Node): void;
+    setEndAfter(node: Node): void;
     setStartAndEnd(startNode: Node, startOffset: number, endNode?: Node, endOffset?: number): any;
-    setStartAndEnd(startNode: Node, startOffset: number, endOffset: number): any;
+    selectNode: (node: Node) => any;
+    selectNodeContents: (node: Node) => any;
+    collapse: (toStart?: boolean) => void;
+    compareBoundaryPoints(comparisonType: ComparisonType, range: RangyRange): -1 | 0 | 1;
+    insertNode(node: Node): any;
+    cloneContents(): DocumentFragment;
+    extractContents(): DocumentFragment;
+    deleteContents(): void;
     canSurroundContents(): boolean;
+    canSurroundContents(node: Node): boolean;
+    cloneRange(): RangyRange;
     isValid(): boolean;
+    toString(): string;
     toHtml(): string;
-    compareNode(node: Node): any;
+    compareNode(node: Node): NodeType;
+    comparePoint(node: Node, offset: number): -1 | 0 | 1;
     intersectsOrTouchesRange(range: RangyRange): boolean;
     intersectsRange(range: RangyRange): boolean;
-    intersection(range: RangyRange): RangyRange;
-    union(range: RangyRange): RangyRange;
+    intersectionNode(node: Node, touchingIsIntersecting?: boolean): boolean;
+    intersection(range: RangyRange): RangyRange | null;
+    union(range: RangyRange): RangyRange | null;
+    isPointInRange(node: Node, offset: number): boolean;
+    createContextualFragment(fragment: string): DocumentFragment;
     containsNode(node: Node, partial: boolean): boolean;
     containsNodeContents(node: Node): boolean;
     containsNodeText(node: Node): boolean;
@@ -27,34 +58,47 @@ interface RangyRange extends Range {
     equals(range: RangyRange): boolean;
     refresh(): any;
     select(): any;
-    toCharacterRange(containerNode: Node, opts?: any): { start: number; end: number };
-}
+  }
 
-interface RangySelection extends Selection {
+  interface RangySelection extends Selection {
     nativeSelection: Selection;
+    rangeCount: number;
+    isCollapsed: boolean;
+    anchorNode: Node | null;
+    anchorOffset: number;
+    focusNode: Node | null;
+    focusOffset: number;
+
+    addRange(range: RangyRange, direction?: Direction | boolean): void;
+    getRangeAt(index: number): RangyRange;
     isBackwards(): boolean;
+    removeAllRanges(): void;
+    removeRange(range: RangyRange): void;
     refresh(checkForChanges?: boolean): any;
+    collapse(node: Node, offset: number): void;
+    collapseToStart(): void;
+    collapseToEnd(): void;
+    selectAllChildren(node: Node): void;
+    deleteFromDocument(): void;
+    toString(): string;
     toHtml(): string;
     getAllRanges(): RangyRange[];
-    getRangeAt(idx: number): RangyRange;
-    getNativeTextRange(): any;
-    setSingleRange(range: RangyRange): any;
+    getNativeTextRange(): TextRange; // TODO: native text range object
+    getSingleRange(range: RangyRange, direction: Direction): any;
     setRanges(ranges: RangyRange[]): any;
+    containsNode(node: Node, partial: boolean): boolean;
     getBookmark(containerNode: Node): any;
     moveToBookmark(bookmark: Object): any;
     saveRanges(): Object;
     restoreRanges(saved: Object): any;
-    saveCharacterRanges(containerNode: Node, opts?: any): Object;
-    restoreCharacterRanges(containerNode: Node, characterRanges: Object, opts?: any): any;
     detach(): any;
     inspect(): string;
-    move(units: string, count: number, opts?: any): number;
-}
+  }
 
-interface RangyStatic {
+  interface RangyStatic {
     init(): void;
-    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
-    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range; // TODO:
+    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange; // TODO:
     createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
     getNativeSelection(win?: Window): Selection;
     getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
@@ -63,7 +107,7 @@ interface RangyStatic {
     createMissingNativeApi(): any;
     initialized: boolean;
     supported: boolean;
-}
+  }
 
 }
 
