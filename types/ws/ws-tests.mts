@@ -28,6 +28,7 @@ import * as wslib from "ws";
     ws.send(Any as ArrayBufferView);
     ws.send(Any as { valueOf(): ArrayBuffer });
     ws.send(Any as Uint8Array);
+    ws.send(new Blob([]));
     ws.send(Any as { valueOf(): Uint8Array });
     ws.send(Any as { valueOf(): string });
 }

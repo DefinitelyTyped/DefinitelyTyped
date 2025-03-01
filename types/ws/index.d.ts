@@ -27,6 +27,7 @@ type BufferLike =
     | Uint8Array
     | ArrayBuffer
     | SharedArrayBuffer
+    | Blob
     | readonly any[]
     | readonly number[]
     | { valueOf(): ArrayBuffer }
