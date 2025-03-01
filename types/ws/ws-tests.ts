@@ -157,6 +157,7 @@ import * as wslib from "ws";
         verifyClient: (info: any, cb: any) => {
             cb(true, 123, "message", { Upgrade: "websocket" });
         },
+        allowSynchronousEvents: false,
     });
 }
 
@@ -516,6 +517,7 @@ declare module "ws" {
 
 {
     const ws = new WebSocket("ws://www.host.com/path", {
+        allowSynchronousEvents: false,
         finishRequest: (req, socket) => {
             // $ExpectType IncomingMessage
             req;
