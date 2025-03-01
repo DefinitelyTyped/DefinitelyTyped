@@ -31,7 +31,7 @@ declare namespace rangy {
     trimEnd?: boolean;
   }
 
-  interface TextRangyRange {
+  interface TextRange {
     moveStart(unit: string, count: number, options?: RangyTextOptions): number;
     moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
     move(unit: string, count: number, options?: RangyTextOptions): number;

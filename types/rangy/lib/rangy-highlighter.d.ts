@@ -32,7 +32,9 @@ declare namespace rangy {
   interface RangyHighlight {
     id: string;
     classApplier: RangyClassApplier;
-    characterRange: { start: number, end: number, containerElement: Node };
+    characterRange: {
+      start: number, end: number, containerElement: Node
+    };
     containsElement(el: Node): boolean;
     containsRange(range: RangyRange): boolean;
     intersectsRange(range: RangyRange): boolean;

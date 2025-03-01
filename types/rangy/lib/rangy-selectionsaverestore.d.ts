@@ -1,8 +1,6 @@
 /// <reference path="../index.d.ts"/>
 
 declare namespace rangy {
-  type Direction = 'backward' | 'backwards' | 'forward' | 'forwards';
-
   interface RangyStatic {
     saveSelection(win?: Window): object | null;
     restoreSelection(savedSelection: object, preserveDirection?: boolean): boolean;

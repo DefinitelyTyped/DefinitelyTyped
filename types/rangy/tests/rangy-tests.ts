@@ -1,5 +1,5 @@
-import rangy = require('rangy');
-import { assertAny, assertBoolean, assertString, assertRangyRange, getRangyRange, TextRange } from './test-utils';
+import rangy = require("rangy");
+import { assertAny, assertBoolean, assertRangyRange, assertString, getRangyRange, TextRange } from "./test-utils";
 
 function testRangyStatic() {
     rangy.addInitListener((rangy: RangyStatic) => {});
