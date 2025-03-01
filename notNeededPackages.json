@@ -4743,6 +4743,10 @@
             "libraryName": "phonegap-plugin-push",
             "asOfVersion": "2.1.2"
         },
+        "php-serialize": {
+            "libraryName": "php-serialize",
+            "asOfVersion": "4.0.0"
+        },
         "physijs": {
             "libraryName": "physijs",
             "asOfVersion": "1.0.0"
