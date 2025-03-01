@@ -6075,10 +6075,6 @@
             "libraryName": "router5",
             "asOfVersion": "5.0.0"
         },
-        "rox-browser": {
-            "libraryName": "rox-browser",
-            "asOfVersion": "5.2.0"
-        },
         "rrule": {
             "libraryName": "rrule",
             "asOfVersion": "2.2.9"
