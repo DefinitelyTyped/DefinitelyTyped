@@ -1,6 +1,7 @@
 import WebSocket = require("ws");
 import * as http from "http";
 import * as https from "https";
+import * as net from "net";
 import * as url from "url";
 import * as wslib from "ws";
 
@@ -520,6 +521,7 @@ declare module "ws" {
     const ws = new WebSocket("ws://www.host.com/path", {
         allowSynchronousEvents: false,
         autoPong: false,
+        createConnection: net.createConnection,
         finishRequest: (req, socket) => {
             // $ExpectType IncomingMessage
             req;

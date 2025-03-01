@@ -10,6 +10,7 @@ import {
     Server as HTTPServer,
 } from "http";
 import { Server as HTTPSServer } from "https";
+import { createConnection } from "net";
 import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
 import { URL } from "url";
@@ -260,6 +261,7 @@ declare namespace WebSocket {
         autoPong?: boolean | undefined;
         maxPayload?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
+        createConnection?: typeof createConnection | undefined;
         finishRequest?: FinishRequestCallback | undefined;
     }
 
