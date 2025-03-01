@@ -98,13 +98,6 @@ import * as wslib from "ws";
 }
 
 {
-    const verifyClient = (
-        info: { origin: string; secure: boolean; req: http.IncomingMessage },
-        callback: (res: boolean) => void,
-    ): void => {
-        callback(true);
-    };
-
     const wsv = new wslib.WebSocketServer({
         server: http.createServer(),
         clientTracking: true,
