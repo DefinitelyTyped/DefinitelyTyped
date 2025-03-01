@@ -224,6 +224,17 @@ import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
+
+    ws.addListener("redirect", (url, request) => {
+        // $ExpectType string
+        url;
+        // $ExpectType ClientRequest
+        request;
+    });
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path");
     const eventHandler: Parameters<typeof ws.once>[1] = () => {};
     const event = "";
     const errorHandler = (err: Error) => {

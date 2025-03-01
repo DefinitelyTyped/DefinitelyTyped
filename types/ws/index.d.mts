@@ -129,6 +129,7 @@ declare class WebSocket extends EventEmitter {
     on(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     on(event: "open", listener: (this: WebSocket) => void): this;
     on(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    on(event: "redirect", listener: (this: WebSocket, url: string, request: ClientRequest) => void): this;
     on(
         event: "unexpected-response",
         listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
@@ -141,6 +142,7 @@ declare class WebSocket extends EventEmitter {
     once(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     once(event: "open", listener: (this: WebSocket) => void): this;
     once(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    once(event: "redirect", listener: (this: WebSocket, url: string, request: ClientRequest) => void): this;
     once(
         event: "unexpected-response",
         listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
@@ -153,6 +155,7 @@ declare class WebSocket extends EventEmitter {
     off(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     off(event: "open", listener: (this: WebSocket) => void): this;
     off(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
+    off(event: "redirect", listener: (this: WebSocket, url: string, request: ClientRequest) => void): this;
     off(
         event: "unexpected-response",
         listener: (this: WebSocket, request: ClientRequest, response: IncomingMessage) => void,
@@ -165,6 +168,7 @@ declare class WebSocket extends EventEmitter {
     addListener(event: "message", listener: (data: WebSocket.RawData, isBinary: boolean) => void): this;
     addListener(event: "open", listener: () => void): this;
     addListener(event: "ping" | "pong", listener: (data: Buffer) => void): this;
+    addListener(event: "redirect", listener: (url: string, request: ClientRequest) => void): this;
     addListener(
         event: "unexpected-response",
         listener: (request: ClientRequest, response: IncomingMessage) => void,
@@ -177,6 +181,7 @@ declare class WebSocket extends EventEmitter {
     removeListener(event: "message", listener: (data: WebSocket.RawData, isBinary: boolean) => void): this;
     removeListener(event: "open", listener: () => void): this;
     removeListener(event: "ping" | "pong", listener: (data: Buffer) => void): this;
+    removeListener(event: "redirect", listener: (url: string, request: ClientRequest) => void): this;
     removeListener(
         event: "unexpected-response",
         listener: (request: ClientRequest, response: IncomingMessage) => void,
