@@ -601,21 +601,21 @@ export interface Config {
      * @default true
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#agent-enabled
      */
-    agent_enabled?: boolean;
+    agent_enabled?: undefined | boolean;
 
     /**
      * @name NEW_RELIC_ALLOW_ALL_HEADERS
      * @default false
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#allow_all_headers
      */
-    allow_all_headers?: boolean;
+    allow_all_headers?: undefined | boolean;
 
     /**
      * @name NEW_RELIC_COMPRESSED_CONTENT_ENCODING
      * @default "gzip"
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#compressed_content_encoding
      */
-    compressed_content_encoding?: string;
+    compressed_content_encoding?: undefined | string;
 
     /**
      * @deprecated
@@ -623,72 +623,72 @@ export interface Config {
      * @default 0.100
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#apdex
      */
-    apdex_t?: number;
+    apdex_t?: undefined | number;
 
     /**
      * @name NEW_RELIC_CERTIFICATES
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#certificates
      */
-    certificates?: string[];
+    certificates?: undefined | string[];
 
     /**
      * @name NEW_RELIC_HIGH_SECURITY
      * @default false
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#high_security
      */
-    high_security?: boolean;
+    high_security?: undefined | boolean;
 
     /**
      * @name NEW_RELIC_HOST
      * @default "collector.newrelic.com"
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#host
      */
-    host?: string;
+    host?: undefined | string;
 
     /**
      * @name NEW_RELIC_LABELS
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#labels
      */
-    labels?: Record<string, string>;
+    labels?: undefined | Record<string, string>;
 
     /**
      * @name NEW_RELIC_PORT
      * @default 443
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#port
      */
-    port?: number;
+    port?: undefined | number;
 
     /**
      * @name NEW_RELIC_PROXY_URL
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#proxy
      */
-    proxy?: string;
+    proxy?: undefined | string;
 
     /**
      * @name NEW_RELIC_PROXY_HOST
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#proxy_host
      */
-    proxy_host?: string;
+    proxy_host?: undefined | string;
 
     /**
      * @name NEW_RELIC_PROXY_PASS
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#proxy_pass
      */
-    proxy_pass?: string;
+    proxy_pass?: undefined | string;
 
     /**
      * @name NEW_RELIC_PROXY_PORT
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#proxy_port
      */
-    proxy_port?: string;
+    proxy_port?: undefined | string;
 
     /**
      * @name NEW_RELIC_PROXY_USER
      * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#proxy_user
      */
-    proxy_user?: string;
+    proxy_user?: undefined | string;
 
-    logging?: {
+    logging?: undefined | {
         /**
          * @name NEW_RELIC_LOG_ENABLED
          * @default true // (false in serverless_mode)
@@ -711,7 +711,7 @@ export interface Config {
         filepath?: string;
     };
 
-    ai_monitoring?: {
+    ai_monitoring?: undefined | {
         /**
          * @name NEW_RELIC_AI_MONITORING_ENABLED
          * @default false
@@ -738,7 +738,7 @@ export interface Config {
         };
     };
 
-    cloud?: {
+    cloud?: undefined | {
         aws?: {
             /**
              * @name NEW_RELIC_CLOUD_AWS_ACCOUNT_ID
@@ -748,7 +748,7 @@ export interface Config {
         };
     };
 
-    audit_log?: {
+    audit_log?: undefined | {
         /**
          * @name NEW_RELIC_AUDIT_LOG_ENABLED
          * @default false
@@ -776,7 +776,7 @@ export interface Config {
         )[];
     };
 
-    api?: {
+    api?: undefined | {
         /**
          * @name NEW_RELIC_API_CUSTOM_ATTRIBUTES
          * @default true
@@ -799,7 +799,7 @@ export interface Config {
         notice_error_enabled?: boolean;
     };
 
-    attributes?: {
+    attributes?: undefined | {
         /**
          * @name NEW_RELIC_ATTRIBUTES_ENABLED
          * @default true
@@ -827,7 +827,7 @@ export interface Config {
         include_enabled?: boolean;
     };
 
-    error_collector?: {
+    error_collector?: undefined | {
         /**
          * @name NEW_RELIC_ERROR_COLLECTOR_ENABLED
          * @default true
@@ -901,7 +901,7 @@ export interface Config {
         max_event_samples_stored?: number;
     };
 
-    transaction_tracer?: {
+    transaction_tracer?: undefined | {
         /**
          * @name NEW_RELIC_TRACER_ENABLED
          * @default true
@@ -959,7 +959,7 @@ export interface Config {
         };
     };
 
-    rules?: {
+    rules?: undefined | {
         /**
          * @name NEW_RELIC_NAMING_RULES
          * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#rules_names
@@ -981,7 +981,7 @@ export interface Config {
         enforce_backstop?: boolean;
     };
 
-    transaction_events?: {
+    transaction_events?: undefined | {
         /**
          * @name NEW_RELIC_TRANSACTION_EVENTS_ENABLED
          * @default true
@@ -1025,7 +1025,7 @@ export interface Config {
         };
     };
 
-    browser_monitoring?: {
+    browser_monitoring?: undefined | {
         /**
          * @name NEW_RELIC_BROWSER_MONITOR_ENABLE
          * @default true
@@ -1062,7 +1062,7 @@ export interface Config {
         };
     };
 
-    custom_insights_events?: {
+    custom_insights_events?: undefined | {
         /**
          * @name NEW_RELIC_CUSTOM_INSIGHTS_EVENTS_ENABLED
          * @default true
@@ -1078,7 +1078,7 @@ export interface Config {
         max_samples_stored?: number;
     };
 
-    slow_sql?: {
+    slow_sql?: undefined | {
         /**
          * @name NEW_RELIC_SLOW_SQL_ENABLED
          * @default false
@@ -1094,7 +1094,7 @@ export interface Config {
         max_samples?: number;
     };
 
-    process_host?: {
+    process_host?: undefined | {
         /**
          * @name NEW_RELIC_PROCESS_HOST_DISPLAY_NAME
          * @see https://docs.newrelic.com/docs/apm/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration/#custom-hostnames-display
@@ -1109,7 +1109,7 @@ export interface Config {
         ipv_preference?: "4" | "6";
     };
 
-    datastore_tracer?: {
+    datastore_tracer?: undefined | {
         instance_reporting?: {
             /**
              * @name NEW_RELIC_DATASTORE_INSTANCE_REPORTING_ENABLED
@@ -1132,7 +1132,7 @@ export interface Config {
     /**
      * @deprecated
      */
-    cross_application_tracer?: {
+    cross_application_tracer?: undefined | {
         /**
          * @name NEW_RELIC_CROSS_APPLICATION_TRACER_ENABLED
          * @default false
@@ -1141,7 +1141,7 @@ export interface Config {
         enabled?: boolean;
     };
 
-    strip_exception_messages?: {
+    strip_exception_messages?: undefined | {
         /**
          * @name NEW_RELIC_STRIP_EXCEPTION_MESSAGES_ENABLED
          * @default false
@@ -1150,7 +1150,7 @@ export interface Config {
         enabled?: boolean;
     };
 
-    distributed_tracing?: {
+    distributed_tracing?: undefined | {
         /**
          * @name NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
          * @default true
@@ -1166,7 +1166,7 @@ export interface Config {
         exclude_newrelic_header?: boolean;
     };
 
-    grpc?: {
+    grpc?: undefined | {
         /**
          * @name NEW_RELIC_GRPC_RECORD_ERRORS
          * @default true
@@ -1181,7 +1181,7 @@ export interface Config {
         ignore_status_codes?: number[];
     };
 
-    span_events?: {
+    span_events?: undefined | {
         /**
          * @name NEW_RELIC_SPAN_EVENTS_ENABLED
          * @default true
@@ -1218,7 +1218,7 @@ export interface Config {
         max_samples_stored?: number;
     };
 
-    infinite_tracing?: {
+    infinite_tracing?: undefined | {
         trace_observer?: {
             /**
              * @name NEW_RELIC_INFINITE_TRACING_TRACE_OBSERVER_HOST
@@ -1237,7 +1237,7 @@ export interface Config {
         };
     };
 
-    application_logging?: {
+    application_logging?: undefined | {
         /**
          * @name NEW_RELIC_APPLICATION_LOGGING_ENABLED
          * @default true
@@ -1295,7 +1295,7 @@ export interface Config {
         };
     };
 
-    code_level_metrics?: {
+    code_level_metrics?: undefined | {
         /**
          * @name NEW_RELIC_CODE_LEVEL_METRICS_ENABLED
          * @default true
@@ -1304,7 +1304,7 @@ export interface Config {
         enabled?: boolean;
     };
 
-    url_obfuscation?: {
+    url_obfuscation?: undefined | {
         /**
          * @name NEW_RELIC_URL_OBFUSCATION_ENABLED
          * @default false
@@ -1333,7 +1333,7 @@ export interface Config {
         };
     };
 
-    security?: {
+    security?: undefined | {
         /**
          * @name NEW_RELIC_SECURITY_ENABLED
          * @default false
@@ -1394,7 +1394,7 @@ export interface Config {
         };
     };
 
-    heroku?: {
+    heroku?: undefined | {
         /**
          * @name NEW_RELIC_HEROKU_USE_DYNO_NAMES
          * @default true
@@ -1403,7 +1403,7 @@ export interface Config {
         use_dyno_names?: boolean;
     };
 
-    worker_threads?: {
+    worker_threads?: undefined | {
         /**
          * @name NEW_RELIC_WORKER_THREADS_ENABLED
          * @default false
