@@ -1793,6 +1793,10 @@
             "libraryName": "euclidean-rhythms",
             "asOfVersion": "3.0.0"
         },
+        "event-hooks-webpack-plugin": {
+            "libraryName": "event-hooks-webpack-plugin",
+            "asOfVersion": "3.0.0"
+        },
         "eventemitter2": {
             "libraryName": "eventemitter2",
             "asOfVersion": "4.1.0"
