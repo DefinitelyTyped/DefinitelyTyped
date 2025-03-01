@@ -222,9 +222,18 @@ import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    const listener = (event: WebSocket.MessageEvent) => console.log(event.data, event.target, event.type);
-    ws.addEventListener("message", listener, { once: true });
-    ws.removeEventListener("message", listener);
+
+    const listenerFn = (event: WebSocket.MessageEvent) => console.log(event.data, event.target, event.type);
+    ws.addEventListener("message", listenerFn, { once: true });
+    ws.removeEventListener("message", listenerFn);
+
+    const listenerObj = {
+        handleEvent(event: WebSocket.MessageEvent) {
+            console.log(this, event);
+        },
+    };
+    ws.addEventListener("message", listenerObj);
+    ws.removeEventListener("message", listenerObj);
 
     ws.addEventListener("open" as "open" | "close" | "error" | "message", console.log);
     ws.removeEventListener("open" as "open" | "close" | "error" | "message", console.log);

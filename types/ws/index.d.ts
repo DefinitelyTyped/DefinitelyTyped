@@ -114,12 +114,16 @@ declare class WebSocket extends EventEmitter {
     // HTML5 WebSocket events
     addEventListener<K extends keyof WebSocket.WebSocketEventMap>(
         type: K,
-        listener: (event: WebSocket.WebSocketEventMap[K]) => void,
+        listener:
+            | ((event: WebSocket.WebSocketEventMap[K]) => void)
+            | { handleEvent(event: WebSocket.WebSocketEventMap[K]): void },
         options?: WebSocket.EventListenerOptions,
     ): void;
     removeEventListener<K extends keyof WebSocket.WebSocketEventMap>(
         type: K,
-        listener: (event: WebSocket.WebSocketEventMap[K]) => void,
+        listener:
+            | ((event: WebSocket.WebSocketEventMap[K]) => void)
+            | { handleEvent(event: WebSocket.WebSocketEventMap[K]): void },
     ): void;
 
     // Events
