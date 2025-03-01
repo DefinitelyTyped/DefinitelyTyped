@@ -263,6 +263,30 @@ export namespace Runtime {
     type OnPerformanceWarningSeverity = "low" | "medium" | "high";
 
     /**
+     * The third parameter is a function to call (at most once) when you have a response.
+     * The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+     * listener in the same document, then only one may send a response. <code>sendResponse</code>
+     * becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to
+     * send a response asynchronously (this will keep the message channel open to the other end until <code>sendResponse</code>
+     * is called).
+     */
+    type OnMessageListenerCallback = (
+        message: unknown,
+        sender: MessageSender,
+        sendResponse: (response: unknown) => void,
+    ) => true;
+
+    /**
+     * The return value should be a promise of any JSON-ifiable object. If you have more than one <code>onMessage</code>
+     * listener in the same document, then only one may send a response.
+     */
+    type OnMessageListenerAsync = (message: unknown, sender: MessageSender) => Promise<unknown>;
+
+    type OnMessageListenerNoResponse = (message: unknown, sender: MessageSender) => void;
+
+    type OnMessageListener = OnMessageListenerCallback | OnMessageListenerAsync | OnMessageListenerNoResponse;
+
+    /**
      * If an update is available, this contains more information about the available update.
      */
     interface RequestUpdateCheckCallbackDetailsType {
@@ -579,53 +603,18 @@ export namespace Runtime {
 
         /**
          * Fired when a message is sent from either an extension process or a content script.
-         *
-         * @param message Optional. The message sent by the calling script.
-         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
-         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
-         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
-         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
-         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<
-            (
-                message: unknown,
-                sender: MessageSender,
-                sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | undefined
-        >;
+        onMessage: Events.Event<OnMessageListener>;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
-         *
-         * @param message Optional. The message sent by the calling script.
-         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
-         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
-         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
-         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
-         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<
-            (
-                message: unknown,
-                sender: MessageSender,
-                sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | undefined
-        >;
+        onMessageExternal: Events.Event<OnMessageListener>;
 
         /**
          * Fired when a message is sent from a USER_SCRIPT world registered through the userScripts API.
-         *
-         * @param message Optional. The message sent by the calling script.
-         * @param sendResponse Function to call (at most once) when you have a response. The argument should be any JSON-ifiable
-         * object. If you have more than one <code>onMessage</code> listener in the same document,
-         * then only one may send a response. This function becomes invalid when the event listener returns,
-         * unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep
-         * the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onUserScriptMessage: Events.Event<
-            (message: unknown, sender: MessageSender, sendResponse: () => void) => boolean | undefined
-        >;
+        onUserScriptMessage: Events.Event<OnMessageListener>;
 
         /**
          * Fired when a runtime performance issue is detected with the extension. Observe this event to be proactively notified of
