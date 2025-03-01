@@ -1,15 +1,54 @@
-declare namespace rangy {
-  type Direction = 'forward' | 'forwards' | 'backward' | 'backwards' | boolean;
-  type NodeType = 'NODE_BEFORE' | 'NODE_AFTER' | 'NODE_BEFORE_AND_AFTER' | 'NODE_INSIDE';
+export interface RangyStatic {
+    config: {
+        alertOnFail: boolean;
+        alertOnWarn: boolean;
+        checkSelectionRanges: boolean;
+        preferTextRange: boolean;
+        autoInitialize: boolean;
+    };
+    dom: any;
+    features: {
+        collapsedNonEditableSelectionsSupported: boolean;
+        implementsControlRange: boolean;
+        implementsDomRange: boolean;
+        implementsTextRange: boolean;
+        selectionHasAnchorAndFocus: boolean;
+        selectionHasExtend: boolean;
+        selectionHasRangeCount: boolean;
+        selectionSupportsMultipleRanges: boolean;
+        crashyTextNodes: boolean;
+        implementsDocSelection: boolean;
+        implementsWinGetSelection: boolean;
+    };
+    initialized: boolean;
+    supported: boolean;
+    util: {
+        isHostObject(obj: any, prop: string): boolean;
+        isHostMethod(obj: any, method: string): boolean;
+        isHostProperty(obj: any, prop: string): boolean;
+        areHostObjects(obj: any, props: string[]): boolean;
+        areHostMethods(obj: any, methods: string[]): boolean;
+        areHostProperties(obj: any, props: string[]): boolean;
+        toArray(arrayLike: any): any[];
+    };
+    addInitListener(listener: (rangy: RangyStatic) => void): any;
+    shim(): any;
+    createMissingNativeApi(): any;
+    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
+    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
+    getNativeSelection(win?: Window): Selection;
+    getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
+    init(): void;
+}
 
-  interface RangyRange extends Range {
+export interface RangyRange extends Range {
     startContainer: Node;
     startOffset: number;
     endContainer: Node;
     endOffset: number;
     commonAncestorContainer: Node;
     collapsed: boolean;
-
     setStart(node: Node, offset: number): void;
     setStartBefore(node: Node): void;
     setStartAfter(node: Node): void;
@@ -57,9 +96,10 @@ declare namespace rangy {
     equals(range: RangyRange): boolean;
     refresh(): any;
     select(): any;
-  }
+    detach(): void;
+}
 
-  interface RangySelection extends Selection {
+export interface RangySelection extends Selection {
     nativeSelection: Selection;
     rangeCount: number;
     isCollapsed: boolean;
@@ -67,7 +107,6 @@ declare namespace rangy {
     anchorOffset: number;
     focusNode: Node | null;
     focusOffset: number;
-
     addRange(range: RangyRange, direction?: Direction | boolean): void;
     getRangeAt(index: number): RangyRange;
     isBackwards(): boolean;
@@ -92,56 +131,19 @@ declare namespace rangy {
     restoreRanges(saved: Object): any;
     detach(): any;
     inspect(): string;
-  }
-
-  interface RangyStatic {
-    config: {
-      alertOnFail: boolean;
-      alertOnWarn: boolean;
-      checkSelectionRanges: boolean;
-      preferTextRange: boolean;
-      autoInitialize: boolean;
-    };
-    dom: any
-    features: {
-      collapsedNonEditableSelectionsSupported: boolean;
-      implementsControlRange: boolean;
-      implementsDomRange: boolean;
-      implementsTextRange: boolean;
-      selectionHasAnchorAndFocus: boolean;
-      selectionHasExtend: boolean;
-      selectionHasRangeCount: boolean;
-      selectionSupportsMultipleRanges: boolean;
-      crashyTextNodes: boolean;
-      implementsDocSelection: boolean;
-      implementsWinGetSelection: boolean;
-    }
-    initialized: boolean;
-    supported: boolean;
-    util: {
-      isHostObject(obj: any, prop: string): boolean;
-      isHostMethod(obj: any, method: string): boolean;
-      isHostProperty(obj: any, prop: string): boolean;
-      areHostObjects(obj: any, props: string[]): boolean;
-      areHostMethods(obj: any, methods: string[]): boolean;
-      areHostProperties(obj: any, props: string[]): boolean;
-      toArray(arrayLike: any): any[];
-    };
-    addInitListener(listener: (rangy: RangyStatic) => void): any;
-    shim(): any;
-    createMissingNativeApi(): any;
-    createNativeRange(doc?: Document | Window | HTMLIFrameElement): Range;
-    createRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
-    createRangyRange(doc?: Document | Window | HTMLIFrameElement): RangyRange;
-    getNativeSelection(win?: Window): Selection;
-    getSelection(doc?: Document | Window | HTMLIFrameElement): RangySelection;
-    init(): void;
-  }
-
 }
 
-declare module 'rangy/lib/rangy-core' {}
+export type Direction = "forward" | "forwards" | "backward" | "backwards" | boolean;
+export type NodeType = "NODE_BEFORE" | "NODE_AFTER" | "NODE_BEFORE_AND_AFTER" | "NODE_INSIDE";
 
-// declare const rangy: rangy.RangyStatic;
+export interface CookieOptions {
+    expires?: Date;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+}
 
-// export = rangy;
+export interface DomPosition {
+    node: Node;
+    offset: number;
+}

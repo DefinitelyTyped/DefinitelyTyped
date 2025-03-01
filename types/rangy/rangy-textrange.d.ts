@@ -1,37 +1,36 @@
-/// <reference path="../index.d.ts"/>
+import { RangyRange } from "./rangy-core";
 
-declare namespace rangy {
-  interface RangyWordOptions {
+export interface RangyWordOptions {
     includeTrailingSpace?: boolean;
     wordRegex?: RegExp;
-  }
+}
 
-  interface RangyCharacterOptions {
+export interface RangyCharacterOptions {
     includeBlockContentTrailingSpace?: boolean;
     includeSpaceBeforeBr?: boolean;
     includePreLineTrailingSpace?: boolean;
     ignoreCharacters?: string;
-  }
+}
 
-  interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions { }
+export interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions {}
 
-  interface RangyFindTextOptions {
+export interface RangyFindTextOptions {
     caseSensitive?: boolean;
-    withinRange?: RangyRange | null;
+    withinRange?: RangyRange;
     wholeWordsOnly?: boolean;
     wrap?: boolean;
-    direction?: 'forward' | 'backward';
+    direction?: "forward" | "backward";
     wordOptions?: RangyWordOptions;
     characterOptions?: RangyCharacterOptions;
-  }
+}
 
-  interface RangyTextExpandOptions extends RangyTextOptions {
+export interface RangyTextExpandOptions extends RangyTextOptions {
     trim?: boolean;
     trimStart?: boolean;
     trimEnd?: boolean;
-  }
+}
 
-  interface TextRange {
+export interface RangyTextRange {
     moveStart(unit: string, count: number, options?: RangyTextOptions): number;
     moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
     move(unit: string, count: number, options?: RangyTextOptions): number;
@@ -40,7 +39,4 @@ declare namespace rangy {
     selectCharacters(containerNode: Node, startIndex: number, endIndex: number): void;
     toCharacterRange(containerNode: Node, options?: RangyTextOptions): { start: number; end: number };
     findText(searchTerm: string | RegExp, options?: RangyFindTextOptions): boolean;
-  }
 }
-
-declare module 'rangy/lib/rangy-textrange' {}

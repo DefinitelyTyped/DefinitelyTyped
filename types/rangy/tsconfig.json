@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
-        "module": "node16",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -14,18 +11,13 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-      "index.d.ts",
-      "lib/rangy-classapplier.d.ts",
-      "lib/rangy-highlighter.d.ts",
-      "lib/rangy-selectionsaverestore.d.ts",
-      "lib/rangy-serializer.d.ts",
-      "lib/rangy-textrange.d.ts",
-      "tests/test-utils.ts",
-      "tests/rangy-tests.ts",
-      "tests/rangy-classapplier-tests.ts",
-      "tests/rangy-highlighter-tests.ts",
-      "tests/rangy-selectionsaverestore-tests.ts",
-      "tests/rangy-serializer-tests.ts",
-      "tests/rangy-textrange-tests.ts"
+        "index.d.ts",
+        "rangy-core.d.ts",
+        "rangy-classapplier.d.ts",
+        "rangy-highlighter.d.ts",
+        "rangy-selectionsaverestore.d.ts",
+        "rangy-serializer.d.ts",
+        "rangy-textrange.d.ts",
+        "rangy-tests.ts"
     ]
 }

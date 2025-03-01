@@ -1,10 +1,16 @@
-import './lib/rangy-classapplier';
-import './lib/rangy-core';
-import './lib/rangy-highlighter';
-import './lib/rangy-selectionsaverestore';
-import './lib/rangy-serializer';
-import './lib/rangy-textrange';
+import { RangyStatic } from "./rangy-core";
 
-declare const rangy: rangy.RangyStatic;
+export * from "./rangy-classapplier";
+export * from "./rangy-core";
+export * from "./rangy-highlighter";
+export * from "./rangy-selectionsaverestore";
+export * from "./rangy-serializer";
+export * from "./rangy-textrange";
 
-export = rangy;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+declare var rangy: RangyStatic;
+
+declare module "rangy" {
+    const rangy: RangyStatic;
+    export = rangy;
+}
