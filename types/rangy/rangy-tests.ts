@@ -1,4 +1,8 @@
-/// <reference types="rangy/rangy-classapplier" />
+/// <reference types="./rangy-classapplier" />
+/// <reference types="./rangy-highlighter" />
+/// <reference types="./rangy-selectionsaverestore" />
+/// <reference types="./rangy-serializer" />
+/// <reference types="./rangy-textrange" />
 declare function assertAny(a: any): any;
 declare function assertBoolean(b: boolean): any;
 declare function assertString(s: string): any;
@@ -157,65 +161,82 @@ function testRangyClassApplier() {
     className = classApplier.cssClass;
 }
 
-import rangy = require('rangy');
+function testRangyHighlighter() {
+    let highlighter: RangyHighlighter = rangy.createHighlighter();
+    highlighter = rangy.createHighlighter(document);
+    highlighter = rangy.createHighlighter(window);
+    highlighter = rangy.createHighlighter(new HTMLIFrameElement());
+    highlighter = rangy.createHighlighter(document, 'textContent');
+    highlighter = rangy.createHighlighter(document, 'textRange');
 
-// Core functionality
-rangy.createNativeRange();
-rangy.createRange();
-rangy.createRangyRange();
-rangy.getNativeSelection();
-rangy.getSelection();
+    const classApplier: RangyClassApplier = rangy.createClassApplier('highlight');
+    highlighter.addClassApplier(classApplier);
+    highlighter.addClassApplier(classApplier, { priority: 10, exclusive: true });
 
-// Create a range
-const range: RangyRange = rangy.createRange();
-range.setStartAndEnd(document.body, 0, document.body, 1);
-range.toHtml();
-range.toString();
+    let highlightIds: string[] = highlighter.highlightSelection('highlight');
+    assertAny(highlightIds.length);
 
-// Selection
-const selection: RangySelection = rangy.getSelection();
-selection.refresh();
-selection.getAllRanges();
-selection.setSingleRange(range);
+    highlightIds = highlighter.highlightSelection('highlight', { exclusive: true });
+    assertAny(highlightIds[0]);
 
-// Class Applier
-const classApplier = rangy.createClassApplier('highlight', {
-    elementTagName: 'span',
-    elementProperties: { title: 'Highlighted' },
-    elementAttributes: { 'data-highlighted': 'true' },
-    ignoreWhiteSpace: true,
-    applyToEditableOnly: true,
-    normalize: true
-});
+    highlightIds = highlighter.highlightSelection('highlight', { containerElementId: 'container' });
+    assertAny(highlightIds.join(','));
 
-classApplier.applyToSelection();
-classApplier.toggleSelection();
-classApplier.undoToSelection();
-classApplier.isAppliedToSelection();
+    highlightIds = highlighter.highlightSelection('highlight', {
+        selection: rangy.getSelection(),
+        exclusive: true,
+        containerElementId: 'container'
+    });
+    assertString(highlightIds[0]);
 
-// Save and Restore selection
-const savedSelection = rangy.saveSelection();
-rangy.restoreSelection(savedSelection);
-rangy.removeMarkers(savedSelection);
+    const unhighlighted: boolean = highlighter.unhighlightSelection();
+    assertBoolean(unhighlighted);
 
-// Serialization
-const serialized = rangy.serializeRange(range);
-const deserializedRange = rangy.deserializeRange(serialized);
-const serializedSelection = rangy.serializeSelection(selection);
-const deserializedSelection = rangy.deserializeSelection(serializedSelection);
+    const unhighlightedWithSelection: boolean = highlighter.unhighlightSelection(rangy.getSelection());
+    assertBoolean(unhighlightedWithSelection);
 
-// Text range
-range.moveStart('character', 1);
-range.moveEnd('word', 2);
-range.trim();
-range.expand('word');
-const text = range.text();
+    highlighter.removeAllHighlights();
 
-// Highlighter
-const highlighter = rangy.createHighlighter();
-highlighter.addClassApplier(classApplier, { priority: 1, exclusive: true });
-const highlightId = highlighter.highlightSelection('highlight');
-highlighter.unhighlight(highlightId);
-const highlights = highlighter.getHighlights();
-const serializedHighlights = highlighter.serialize();
-highlighter.deserialize(serializedHighlights);
+    const serialized: string = highlighter.serialize();
+    assertString(serialized);
+
+    const specificSerialized: string = highlighter.serialize([]);
+    assertString(specificSerialized);
+
+    const highlights: RangyHighlight[] = highlighter.deserialize(serialized);
+    assertAny(highlights.length);
+
+    const element = document.createElement('span');
+    const highlight: RangyHighlight | null = highlighter.getHighlightForElement(element);
+
+    if (highlight) {
+        const id: string = highlight.id;
+        assertString(id);
+
+        const applier: RangyClassApplier = highlight.classApplier;
+        assertAny(applier);
+
+        const charRange = highlight.characterRange;
+        assertAny(charRange.start);
+        assertAny(charRange.end);
+        assertAny(charRange.containerElement);
+
+        const containsEl: boolean = highlight.containsElement(document.body);
+        assertBoolean(containsEl);
+
+        const containsRange: boolean = highlight.containsRange(rangy.createRange());
+        assertBoolean(containsRange);
+
+        const intersectsRange: boolean = highlight.intersectsRange(rangy.createRange());
+        assertBoolean(intersectsRange);
+
+        const isCharRange: boolean = highlight.isCharacterRange(document.body);
+        assertBoolean(isCharRange);
+
+        const range: RangyRange = highlight.getRange();
+        assertRangyRange(range);
+
+        const rangeWithContainer: RangyRange = highlight.getRange(document.body);
+        assertRangyRange(rangeWithContainer);
+    }
+}
