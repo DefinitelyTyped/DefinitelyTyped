@@ -10,7 +10,7 @@ interface RangyStatic {
 interface RangyHighlighter {
     addClassApplier(classApplier: RangyClassApplier, options?: RangyHighlighterAddClassOptions): void;
     highlightSelection(className: string, options?: RangyHighlightOptions): string[];
-    unhighlightSelection(selection?: Selection): boolean;
+    unhighlightSelection(selection?: RangySelection): boolean;
     removeAllHighlights(): void;
     serialize(highlights?: RangyHighlight[]): string;
     deserialize(serialized: string): RangyHighlight[];
@@ -24,7 +24,7 @@ interface RangyHighlighterAddClassOptions {
 }
 
 interface RangyHighlightOptions {
-    selection?: Selection
+    selection?: RangySelection
     exclusive?: boolean | undefined;
     containerElementId?: string | undefined;
 }
