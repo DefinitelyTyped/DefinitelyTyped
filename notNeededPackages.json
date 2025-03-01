@@ -6395,6 +6395,10 @@
             "libraryName": "sonic-boom",
             "asOfVersion": "2.1.0"
         },
+        "sortobject": {
+            "libraryName": "sortobject",
+            "asOfVersion": "3.0.0"
+        },
         "soundex-code": {
             "libraryName": "soundex-code",
             "asOfVersion": "2.0.0"
