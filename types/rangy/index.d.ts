@@ -1,6 +1,5 @@
-declare module rangy {
+declare namespace rangy {
   type Direction = 'forward' | 'forwards' | 'backward' | 'backwards' | boolean;
-  type ComparisonType = 'START_TO_START' | 'START_TO_END' | 'END_TO_END' | 'END_TO_START';
   type NodeType = 'NODE_BEFORE' | 'NODE_AFTER' | 'NODE_BEFORE_AND_AFTER' | 'NODE_INSIDE';
 
   interface RangyRange extends Range {
@@ -21,7 +20,7 @@ declare module rangy {
     selectNode(node: Node): any;
     selectNodeContents(node: Node): any;
     collapse(toStart?: boolean): void;
-    compareBoundaryPoints(comparisonType: ComparisonType, range: RangyRange): -1 | 0 | 1;
+    compareBoundaryPoints(comparisonType: number, range: RangyRange): number;
     insertNode(node: Node): any;
     cloneContents(): DocumentFragment;
     extractContents(): DocumentFragment;
@@ -83,7 +82,7 @@ declare module rangy {
     toString(): string;
     toHtml(): string;
     getAllRanges(): RangyRange[];
-    getNativeTextRange(): TextRange; // TODO: native text range object
+    getNativeTextRange(): Range;
     getSingleRange(range: RangyRange, direction: Direction): any;
     setRanges(ranges: RangyRange[]): any;
     containsNode(node: Node, partial: boolean): boolean;
@@ -143,4 +142,4 @@ declare module rangy {
 
 declare const rangy: rangy.RangyStatic;
 
-export rangy;
+export = rangy;

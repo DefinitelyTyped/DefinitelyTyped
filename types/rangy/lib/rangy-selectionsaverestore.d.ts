@@ -1,5 +1,6 @@
-declare module rangy {
+/// <reference path="../index.d.ts"/>
 
+declare namespace rangy {
   type Direction = 'backward' | 'backwards' | 'forward' | 'forwards';
 
   interface RangyStatic {

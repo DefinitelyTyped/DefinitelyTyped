@@ -1,4 +1,6 @@
-declare module rangy {
+/// <reference path="../index.d.ts"/>
+
+declare namespace rangy {
   interface RangyStatic {
       createClassApplier(
           theClass: string,

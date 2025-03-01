@@ -15,10 +15,17 @@
     },
     "files": [
       "index.d.ts",
+      "lib/rangy-classapplier.d.ts",
       "lib/rangy-highlighter.d.ts",
       "lib/rangy-selectionsaverestore.d.ts",
       "lib/rangy-serializer.d.ts",
       "lib/rangy-textrange.d.ts",
-      "rangy-tests.ts"
+      "test-utils.ts",
+      "rangy-tests.ts",
+      "rangy-classapplier-tests.ts",
+      "rangy-highlighter-tests.ts",
+      "rangy-selectionsaverestore-tests.ts",
+      "rangy-serializer-tests.ts",
+      "rangy-textrange-tests.ts"
     ]
 }
