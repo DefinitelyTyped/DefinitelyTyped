@@ -1,4 +1,4 @@
-import emssf from "elliemae__em-ssf-guest";
+import emssf from "@elliemae/em-ssf-guest";
 
 // Basic usage
 // $ExpectType void
