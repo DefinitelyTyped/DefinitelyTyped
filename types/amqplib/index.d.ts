@@ -109,4 +109,4 @@ export const credentials: {
     };
 };
 
-export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<ChannelModel>;
