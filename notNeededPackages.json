@@ -3573,6 +3573,10 @@
             "libraryName": "lower-case-first",
             "asOfVersion": "1.0.1"
         },
+        "lowlight": {
+            "libraryName": "lowlight",
+            "asOfVersion": "2.0.0"
+        },
         "lru-cache": {
             "libraryName": "lru-cache",
             "asOfVersion": "7.10.0"
