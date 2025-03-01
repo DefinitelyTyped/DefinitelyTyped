@@ -1,4 +1,4 @@
-import rangy = require('rangy');
+import * as rangy from 'rangy';
 import 'rangy/lib/rangy-classapplier';
 import { assertAny, assertBoolean, assertString, assertRangyRange } from './test-utils';
 

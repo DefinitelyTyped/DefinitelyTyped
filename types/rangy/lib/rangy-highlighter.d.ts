@@ -1,10 +1,11 @@
-/// <reference path="../index.d.ts"/>
+/// <reference path="../index.d.ts" />
 
 declare namespace rangy {
   interface RangyStatic {
     createHighlighter(
       doc?: Document | Window | HTMLIFrameElement,
-      type?: 'textContent' | 'textRange'): RangyHighlighter;
+      type?: 'textContent' | 'textRange'
+    ): RangyHighlighter;
   }
 
   interface RangyHighlighter {
@@ -16,7 +17,6 @@ declare namespace rangy {
     deserialize(serialized: string): RangyHighlight[];
     getHighlightForElement(el: Element): RangyHighlight | null;
   }
-
 
   interface RangyHighlighterAddClassOptions {
     priority?: number;

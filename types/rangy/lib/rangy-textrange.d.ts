@@ -17,7 +17,7 @@ declare namespace rangy {
 
   interface RangyFindTextOptions {
     caseSensitive?: boolean;
-    withinRange?: RangyRange;
+    withinRange?: RangyRange | null;
     wholeWordsOnly?: boolean;
     wrap?: boolean;
     direction?: 'forward' | 'backward';
@@ -31,7 +31,7 @@ declare namespace rangy {
     trimEnd?: boolean;
   }
 
-  interface RangyRange {
+  interface TextRangyRange {
     moveStart(unit: string, count: number, options?: RangyTextOptions): number;
     moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
     move(unit: string, count: number, options?: RangyTextOptions): number;
