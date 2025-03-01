@@ -482,6 +482,23 @@ declare module "ws" {
         req;
     });
 
+    wss.on("wsClientError", (error, socket, req) => {
+        // $ExpectType Error
+        error;
+        // $ExpectType Duplex
+        socket;
+        // $ExpectType Request
+        req;
+    });
+    wss.off("wsClientError", (error, socket, req) => {
+        // $ExpectType Error
+        error;
+        // $ExpectType Duplex
+        socket;
+        // $ExpectType Request
+        req;
+    });
+
     Array.from(wss.clients).forEach(client => {
         // $ExpectType MyWebsocket
         client;

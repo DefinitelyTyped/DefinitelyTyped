@@ -369,6 +369,10 @@ declare namespace WebSocket {
         on(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         on(event: "headers", cb: (this: Server<T>, headers: string[], request: InstanceType<U>) => void): this;
         on(event: "close" | "listening", cb: (this: Server<T>) => void): this;
+        on(
+            event: "wsClientError",
+            cb: (this: Server<T>, error: Error, socket: Duplex, request: InstanceType<U>) => void,
+        ): this;
         on(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
         once(
@@ -378,6 +382,10 @@ declare namespace WebSocket {
         once(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         once(event: "headers", cb: (this: Server<T>, headers: string[], request: InstanceType<U>) => void): this;
         once(event: "close" | "listening", cb: (this: Server<T>) => void): this;
+        once(
+            event: "wsClientError",
+            cb: (this: Server<T>, error: Error, socket: Duplex, request: InstanceType<U>) => void,
+        ): this;
         once(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
         off(
@@ -387,18 +395,27 @@ declare namespace WebSocket {
         off(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         off(event: "headers", cb: (this: Server<T>, headers: string[], request: InstanceType<U>) => void): this;
         off(event: "close" | "listening", cb: (this: Server<T>) => void): this;
+        off(
+            event: "wsClientError",
+            cb: (this: Server<T>, error: Error, socket: Duplex, request: InstanceType<U>) => void,
+        ): this;
         off(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
         addListener(event: "connection", cb: (client: InstanceType<T>, request: InstanceType<U>) => void): this;
         addListener(event: "error", cb: (err: Error) => void): this;
         addListener(event: "headers", cb: (headers: string[], request: InstanceType<U>) => void): this;
         addListener(event: "close" | "listening", cb: () => void): this;
+        addListener(event: "wsClientError", cb: (error: Error, socket: Duplex, request: InstanceType<U>) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         removeListener(event: "connection", cb: (client: InstanceType<T>, request: InstanceType<U>) => void): this;
         removeListener(event: "error", cb: (err: Error) => void): this;
         removeListener(event: "headers", cb: (headers: string[], request: InstanceType<U>) => void): this;
         removeListener(event: "close" | "listening", cb: () => void): this;
+        removeListener(
+            event: "wsClientError",
+            cb: (error: Error, socket: Duplex, request: InstanceType<U>) => void,
+        ): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
