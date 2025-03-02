@@ -1,36 +1,33 @@
-import { RangyRange } from "./rangy-core";
+declare module "rangy" {
+    interface RangyWordOptions {
+        includeTrailingSpace?: boolean;
+        wordRegex?: RegExp;
+    }
 
-export interface RangyWordOptions {
-    includeTrailingSpace?: boolean;
-    wordRegex?: RegExp;
-}
+    interface RangyCharacterOptions {
+        includeBlockContentTrailingSpace?: boolean;
+        includeSpaceBeforeBr?: boolean;
+        includePreLineTrailingSpace?: boolean;
+        ignoreCharacters?: string;
+    }
 
-export interface RangyCharacterOptions {
-    includeBlockContentTrailingSpace?: boolean;
-    includeSpaceBeforeBr?: boolean;
-    includePreLineTrailingSpace?: boolean;
-    ignoreCharacters?: string;
-}
+    interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions {}
 
-export interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions {}
+    interface RangyFindTextOptions {
+        caseSensitive?: boolean;
+        withinRange?: RangyRange;
+        wholeWordsOnly?: boolean;
+        wrap?: boolean;
+        direction?: "forward" | "backward";
+        wordOptions?: RangyWordOptions;
+        characterOptions?: RangyCharacterOptions;
+    }
 
-export interface RangyFindTextOptions {
-    caseSensitive?: boolean;
-    withinRange?: RangyRange;
-    wholeWordsOnly?: boolean;
-    wrap?: boolean;
-    direction?: "forward" | "backward";
-    wordOptions?: RangyWordOptions;
-    characterOptions?: RangyCharacterOptions;
-}
-
-export interface RangyTextExpandOptions extends RangyTextOptions {
-    trim?: boolean;
-    trimStart?: boolean;
-    trimEnd?: boolean;
-}
-
-declare module "./rangy-core" {
+    interface RangyTextExpandOptions extends RangyTextOptions {
+        trim?: boolean;
+        trimStart?: boolean;
+        trimEnd?: boolean;
+    }
     interface RangyTextRange {
         moveStart(unit: string, count: number, options?: RangyTextOptions): number;
         moveEnd(unit: string, count: number, options?: RangyTextOptions): number;

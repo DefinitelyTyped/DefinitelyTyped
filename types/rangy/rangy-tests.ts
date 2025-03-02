@@ -1,6 +1,5 @@
-import rangy from "rangy";
+import rangy, { RangyClassApplier, RangyClassApplierOptions, RangyRange, RangySelection, RangyStatic } from "rangy";
 
-// Assertion helpers
 declare function assertAny(a: any): any;
 declare function assertBoolean(b: boolean): any;
 declare function assertString(s: string): any;
@@ -9,11 +8,7 @@ declare function getRangyRange(): RangyRange;
 
 type TextRange = any;
 
-// Declare the global 'rangy' object.
-declare const rangy: RangyStatic;
-
-// Test RangyStatic globally
-function testRangyStaticGlobal() {
+function testRangyStatic() {
     rangy.addInitListener((rangy: RangyStatic) => {});
     rangy.createMissingNativeApi();
     rangy.shim();
@@ -36,7 +31,7 @@ function testRangyStaticGlobal() {
     let supported: boolean = rangy.supported;
 }
 
-function testRangyRangeGlobal() {
+function testRangyRange() {
     let rangyRange: RangyRange = rangy.createRange();
     assertBoolean(rangyRange.canSurroundContents());
     rangyRange.collapseAfter(new Node());
@@ -72,13 +67,13 @@ function testRangyRangeGlobal() {
     if (union) assertRangyRange(union);
 }
 
-function testSelectionGlobal() {
+function testSelection() {
     let selection: RangySelection = rangy.getSelection();
     selection.detach();
     let ranges: RangyRange[] = selection.getAllRanges();
     let range: RangyRange = selection.getRangeAt(0);
     selection.getBookmark(new Node());
-    let nativeTextRange: TextRange = selection.getNativeTextRange();
+    let nativeTextRange: Range = selection.getNativeTextRange();
     assertString(selection.inspect());
     assertBoolean(selection.isBackwards());
     selection.moveToBookmark({});
@@ -91,7 +86,7 @@ function testSelectionGlobal() {
     assertString(selection.toHtml());
 }
 
-function testRangyClassApplierGlobal() {
+function testRangyClassApplier() {
     function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
         return 1;
     }
@@ -130,3 +125,8 @@ function testRangyClassApplierGlobal() {
     let className: string = classApplier.className;
     className = classApplier.cssClass;
 }
+
+testRangyStatic();
+testRangyRange();
+testSelection();
+testRangyClassApplier();

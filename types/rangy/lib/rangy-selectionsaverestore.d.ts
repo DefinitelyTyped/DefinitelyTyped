@@ -1,6 +1,4 @@
-import { Direction } from "./rangy-core";
-
-declare module "./rangy-core" {
+declare module "rangy" {
     interface RangyStatic {
         saveSelection(win?: Window): object | null;
         restoreSelection(savedSelection: object, preserveDirection?: boolean): boolean;
