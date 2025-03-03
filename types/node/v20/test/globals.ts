@@ -41,3 +41,8 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
 }
+
+{
+    // @ts-expect-error The pseudoglobal `NodeJS` namespace should not be addressable outside ambient contexts
+    NodeJS;
+}
