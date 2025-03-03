@@ -175,7 +175,11 @@ declare module "buffer" {
              * @param offsetOrEncoding A byte-offset or encoding.
              * @param length A length.
              */
-            from(arrayBufferOrString: WithImplicitCoercion<string | ArrayBufferLike>, offsetOrEncoding?: number | BufferEncoding, length?: number): Buffer<ArrayBufferLike>;
+            from(
+                arrayBufferOrString: WithImplicitCoercion<string | ArrayBufferLike>,
+                offsetOrEncoding?: number | BufferEncoding,
+                length?: number,
+            ): Buffer<ArrayBufferLike>;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer
