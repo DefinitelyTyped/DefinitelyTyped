@@ -155,7 +155,6 @@ declare module "buffer" {
              * @param encoding The encoding of `string`. **Default:** `'utf8'`.
              */
             from(string: WithImplicitCoercion<string>, encoding?: BufferEncoding): Buffer<ArrayBuffer>;
-
             /**
              * Creates a view of the `ArrayBuffer` or a new `Buffer` containing `string`.
              * The `encoding` parameter identifies the character encoding to be used when
@@ -172,10 +171,10 @@ declare module "buffer" {
              * @param length A length.
              */
             from(
-                arrayBufferOrString: WithImplicitCoercion<string | ArrayBufferLike>,
+                arrayBufferOrString: WithImplicitCoercion<ArrayLike<number> | string>,
                 offsetOrEncoding?: number | BufferEncoding,
                 length?: number,
-            ): Buffer<ArrayBufferLike>;
+            ): Buffer<ArrayBuffer>;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer
