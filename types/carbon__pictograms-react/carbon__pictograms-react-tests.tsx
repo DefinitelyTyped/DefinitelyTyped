@@ -36,6 +36,7 @@ import {
     Video_01,
     Visibility,
     WatsonLogo,
+    MachineLearningModel,
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
@@ -77,3 +78,4 @@ import * as React from "react";
 <ShanghaiSkyline />; // $ExpectType Element
 <MagicWand />; // $ExpectType Element
 <B2bCommerce />; // $ExpectType Element
+<MachineLearningModel />; // $ExpectType Element
