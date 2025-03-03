@@ -258,14 +258,24 @@ declare namespace Vimeo {
         export interface Options {
             id?: number | undefined;
             url?: string | undefined;
+            airplay?: boolean | undefined;
+            audio_tracks?: boolean | undefined;
             autopause?: boolean | undefined;
             autoplay?: boolean | undefined;
             background?: boolean | undefined;
             byline?: boolean | undefined;
+            cc?: boolean | undefined;
+            chapter_id?: string | undefined;
+            chapters?: boolean | undefined;
+            chromecast?: boolean | undefined;
             color?: string | undefined;
+            colors?: string[] | undefined;
             controls?: boolean | undefined;
             dnt?: boolean | undefined;
+            end_time?: number | undefined;
+            fullscreen?: boolean | undefined;
             height?: number | undefined;
+            interactive_markers?: boolean | undefined;
             interactive_params?: string | undefined;
             keyboard?: boolean | undefined;
             loop?: boolean | undefined;
@@ -273,14 +283,23 @@ declare namespace Vimeo {
             maxwidth?: number | undefined;
             muted?: boolean | undefined;
             pip?: boolean | undefined;
+            play_button_position?: "auto" | "bottom" | "center" | undefined;
             playsinline?: boolean | undefined;
             portrait?: boolean | undefined;
+            progress_bar?: boolean | undefined;
+            quality?: VimeoVideoQuality | undefined;
+            quality_selector?: boolean | undefined;
             responsive?: boolean | undefined;
             speed?: boolean | undefined;
-            quality?: VimeoVideoQuality | undefined;
+            start_time?: number | undefined;
             texttrack?: string | undefined;
             title?: boolean | undefined;
+            transcript?: boolean | undefined;
             transparent?: boolean | undefined;
+            unmute_button?: boolean | undefined;
+            vimeo_logo?: boolean | undefined;
+            volume?: boolean | undefined;
+            watch_full_video?: boolean | undefined;
             width?: number | undefined;
         }
 
