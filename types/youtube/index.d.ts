@@ -1006,3 +1006,11 @@ declare namespace YT {
         destroy(): void;
     }
 }
+
+interface Window {
+    /**
+     * The function that will be called by the IFrame API
+     * when the page has finished downloading the JavaScript for the player API.
+     */
+    onYouTubeIframeAPIReady?(): void;
+}
