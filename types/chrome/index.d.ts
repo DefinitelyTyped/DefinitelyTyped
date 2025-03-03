@@ -1806,7 +1806,7 @@ declare namespace chrome {
          * ask: Ask when a site wants to access the microphone.
          * Default is ask.
          * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
+         * NOTE: The 'allow' setting is not valid if both patterns are '<all_urls>'.
          */
         export var microphone: MicrophoneContentSetting;
         /**
@@ -1817,7 +1817,7 @@ declare namespace chrome {
          * ask: Ask when a site wants to access the camera.
          * Default is ask.
          * The primary URL is the URL of the document which requested camera access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
+         * NOTE: The 'allow' setting is not valid if both patterns are '<all_urls>'.
          */
         export var camera: CameraContentSetting;
         /**
@@ -7600,7 +7600,7 @@ declare namespace chrome {
         export interface SubmitJobRequest {
             /**
              * The print job to be submitted.
-             * The only supported content type is "application/pdf", and the Cloud Job Ticket shouldn't include FitToPageTicketItem, PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since they are irrelevant for native printing.
+             * Supported content types are "application/pdf" and "image/png". The Cloud Job Ticket shouldn't include `FitToPageTicketItem`, `PageRangeTicketItem` and `ReverseOrderTicketItem` fields since they are irrelevant for native printing. `VendorTicketItem` is optional
              * All other fields must be present.
              */
             job: chrome.printerProvider.PrintJob;
@@ -9606,7 +9606,7 @@ declare namespace chrome {
         }
 
         export interface Session {
-            /** The time when the window or tab was closed or modified, represented in milliseconds since the epoch. */
+            /** The time when the window or tab was closed or modified, represented in seconds since the epoch. */
             lastModified: number;
             /**
              * Optional.
