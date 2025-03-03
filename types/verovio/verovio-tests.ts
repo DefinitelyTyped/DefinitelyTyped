@@ -9,6 +9,7 @@ import { VerovioToolkit } from "verovio/esm";
     tk.getAvailableOptions();
     // $ExpectType VerovioOptions
     tk.getOptions();
+    tk.select({});
 })();
 
 verovio.module.onRuntimeInitialized = () => {
