@@ -24,7 +24,7 @@ jobs:
         id: date
         run: echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4.2.1
+      - uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         with:
           # dprint caches info about the files in the repo to skip formatting them.
           # However, since package.json and .dprint.jsonc don't change very often,

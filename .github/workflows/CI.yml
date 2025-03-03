@@ -87,7 +87,7 @@ jobs:
           echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Restore pnpm cache
-        uses: actions/cache/restore@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4.2.1
+        uses: actions/cache/restore@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
         with:
           path: ${{ steps.pnpm-cache.outputs.store }}
           key: ${{ runner.os }}-pnpm-store-cache-
@@ -139,7 +139,7 @@ jobs:
         id: suggestions-dir
         run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      - uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           path: ${{ steps.suggestions-dir.outputs.path }}
           merge-multiple: true
