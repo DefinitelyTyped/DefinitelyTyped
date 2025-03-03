@@ -59,19 +59,19 @@ declare namespace ZtxChainSDK {
 
         checkStatus(): Response;
 
-        getTransactions(blockNumber: number): Response;
+        getTransactions(blockNumber: string): Response;
 
-        getInfo(blockNumber: number): Response;
+        getInfo(blockNumber: string): Response;
 
         getLatestInfo(): Response;
 
-        getValidators(blockNumber: number): Response;
+        getValidators(blockNumber: string): Response;
 
         getLatestValidators(): Response;
 
         getLatestReward(): Response;
 
-        getFees(blockNumber: number): Response;
+        getFees(blockNumber: string): Response;
 
         getLatestFees(): Response;
     }
@@ -115,6 +115,7 @@ declare namespace ZtxChainSDK {
 
     interface Response {
         result: any;
-        error: any;
+        errorCode: any;
+        errorDesc: any;
     }
 }
