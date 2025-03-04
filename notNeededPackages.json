@@ -3453,6 +3453,10 @@
             "libraryName": "left-pad",
             "asOfVersion": "1.2.0"
         },
+        "lesgo": {
+            "libraryName": "lesgo",
+            "asOfVersion": "2.1.0"
+        },
         "level": {
             "libraryName": "level",
             "asOfVersion": "8.0.0"
