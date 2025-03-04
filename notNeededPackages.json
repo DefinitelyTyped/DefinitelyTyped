@@ -4317,6 +4317,10 @@
             "libraryName": "node-pg-migrate",
             "asOfVersion": "2.15.0"
         },
+        "node-resque": {
+            "libraryName": "node-resque",
+            "asOfVersion": "6.0.1"
+        },
         "node-sql-parser": {
             "libraryName": "node-sql-parser",
             "asOfVersion": "1.1.0"
