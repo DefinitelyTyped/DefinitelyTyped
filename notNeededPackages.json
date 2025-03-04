@@ -1080,6 +1080,10 @@
             "libraryName": "consul",
             "asOfVersion": "2.0.0"
         },
+        "content-range": {
+            "libraryName": "content-range",
+            "asOfVersion": "2.0.2"
+        },
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
