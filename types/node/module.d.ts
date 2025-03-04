@@ -175,6 +175,25 @@ declare module "module" {
             options?: RegisterOptions<Data>,
         ): void;
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        /**
+         * Register synchronous customization hooks. See
+         * [`module.registerHooks`](https://nodejs.org/api/module.html#moduleregisterhooksoptions)
+         * @since v23.5.0, v22.15
+         * @param hooks The synchronous customization hooks to be registered. This should be an object with
+         * key names matching the hooks.
+         */
+        function registerHooks(hooks: {
+			resolve?: ResolveHook,
+			load?: LoadHook,
+		}): ModuleHooks;
+
+		class ModuleHooks {
+			constructor(resolve?: ResolveHook, load?: LoadHook);
+            /**
+             * Remove this set of hooks.
+             */
+			deregister(): void;
+		}
         interface StripTypeScriptTypesOptions {
             /**
              * Possible values are:
