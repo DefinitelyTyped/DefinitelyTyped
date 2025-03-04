@@ -5255,6 +5255,10 @@
             "libraryName": "rdf-validate-datatype",
             "asOfVersion": "0.2.0"
         },
+        "rdf-validate-shacl": {
+            "libraryName": "rdf-validate-shacl",
+            "asOfVersion": "0.5.7"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
