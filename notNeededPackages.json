@@ -3009,6 +3009,10 @@
             "libraryName": "issue-regex",
             "asOfVersion": "3.1.0"
         },
+        "istextorbinary": {
+            "libraryName": "istextorbinary",
+            "asOfVersion": "5.0.0"
+        },
         "it-all": {
             "libraryName": "it-all",
             "asOfVersion": "1.0.4"
