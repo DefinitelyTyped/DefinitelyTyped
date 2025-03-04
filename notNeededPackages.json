@@ -6491,6 +6491,10 @@
             "libraryName": "sqs-producer",
             "asOfVersion": "2.0.0"
         },
+        "squirrelly": {
+            "libraryName": "squirrelly",
+            "asOfVersion": "8.0.0"
+        },
         "srcset": {
             "libraryName": "srcset",
             "asOfVersion": "2.0.0"
