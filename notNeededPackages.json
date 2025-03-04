@@ -528,6 +528,10 @@
             "libraryName": "bugsnag-js",
             "asOfVersion": "3.1.0"
         },
+        "bugsnag__cuid": {
+            "libraryName": "@bugsnag/cuid",
+            "asOfVersion": "3.1.0"
+        },
         "builtin-modules": {
             "libraryName": "builtin-modules",
             "asOfVersion": "3.1.0"
