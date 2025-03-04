@@ -1501,6 +1501,10 @@
             "libraryName": "direction",
             "asOfVersion": "2.0.0"
         },
+        "disqusjs": {
+            "libraryName": "disqusjs",
+            "asOfVersion": "3.0.0"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
