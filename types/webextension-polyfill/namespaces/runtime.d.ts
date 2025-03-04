@@ -262,6 +262,7 @@ export namespace Runtime {
      */
     type OnPerformanceWarningSeverity = "low" | "medium" | "high";
 
+    type SendResponse<TResponse = unknown> = (response: TResponse) => void;
     /**
      * The third parameter is a function to call (at most once) when you have a response.
      * The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
@@ -270,21 +271,12 @@ export namespace Runtime {
      * send a response asynchronously (this will keep the message channel open to the other end until <code>sendResponse</code>
      * is called).
      */
-    type OnMessageListenerCallback = (
-        message: unknown,
+    type OnMessageListener<TMessage = unknown, TResponse = unknown> = (
+        message: TMessage,
         sender: MessageSender,
-        sendResponse: (response: unknown) => void,
-    ) => true;
-
-    /**
-     * The return value should be a promise of any JSON-ifiable object. If you have more than one <code>onMessage</code>
-     * listener in the same document, then only one may send a response.
-     */
-    type OnMessageListenerAsync = (message: unknown, sender: MessageSender) => Promise<unknown>;
-
-    type OnMessageListenerNoResponse = (message: unknown, sender: MessageSender) => void;
-
-    type OnMessageListener = OnMessageListenerCallback | OnMessageListenerAsync | OnMessageListenerNoResponse;
+        sendResponse: SendResponse<TResponse>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => Promise<TResponse> | boolean | undefined | void;
 
     /**
      * If an update is available, this contains more information about the available update.
