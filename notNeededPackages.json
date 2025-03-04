@@ -1561,6 +1561,10 @@
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
         },
+        "dragselect": {
+            "libraryName": "dragselect",
+            "asOfVersion": "2.1.2"
+        },
         "dsinjs__binary-tree": {
             "libraryName": "@dsinjs/binary-tree",
             "asOfVersion": "2.0.1"
