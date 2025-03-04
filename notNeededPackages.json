@@ -7647,6 +7647,10 @@
             "libraryName": "zapier-platform-core",
             "asOfVersion": "6.1.1"
         },
+        "zeromq": {
+            "libraryName": "zeromq",
+            "asOfVersion": "6.0.0"
+        },
         "zetapush-js": {
             "libraryName": "zetapush-js",
             "asOfVersion": "3.1.2"
