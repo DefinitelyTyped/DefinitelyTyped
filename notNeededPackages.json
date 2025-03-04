@@ -4807,6 +4807,10 @@
             "libraryName": "physijs",
             "asOfVersion": "1.0.0"
         },
+        "pify": {
+            "libraryName": "pify",
+            "asOfVersion": "6.1.0"
+        },
         "pigpio": {
             "libraryName": "pigpio",
             "asOfVersion": "3.1.0"
