@@ -1012,6 +1012,10 @@
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
         },
+        "cometd": {
+            "libraryName": "cometd",
+            "asOfVersion": "7.0.5"
+        },
         "commander": {
             "libraryName": "commander",
             "asOfVersion": "2.12.2"
