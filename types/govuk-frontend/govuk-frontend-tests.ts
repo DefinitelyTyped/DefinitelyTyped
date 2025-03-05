@@ -11,6 +11,7 @@ const {
     createAll,
     ErrorSummary,
     ExitThisPage,
+    FileUpload,
     Header,
     isSupported,
     initAll,
@@ -41,6 +42,9 @@ new ErrorSummary($root, ErrorSummary.defaults);
 
 new ExitThisPage($root);
 new ExitThisPage($root, ExitThisPage.defaults);
+
+new FileUpload($root);
+new FileUpload($root, FileUpload.defaults);
 
 new NotificationBanner($root);
 new NotificationBanner($root, NotificationBanner.defaults);
@@ -180,6 +184,15 @@ createAll(ExitThisPage, undefined, {
     onError: console.error,
 });
 
+createAll(FileUpload);
+createAll(FileUpload, FileUpload.defaults);
+createAll(FileUpload, FileUpload.defaults, document.body);
+createAll(FileUpload, FileUpload.defaults, console.error);
+createAll(FileUpload, undefined, {
+    scope: document.body,
+    onError: console.error,
+});
+
 createAll(NotificationBanner);
 createAll(NotificationBanner, NotificationBanner.defaults);
 createAll(NotificationBanner, NotificationBanner.defaults, document.body);
@@ -276,6 +289,7 @@ const config: Config = {
     characterCount: CharacterCount.defaults,
     errorSummary: ErrorSummary.defaults,
     exitThisPage: ExitThisPage.defaults,
+    fileUpload: FileUpload.defaults,
     notificationBanner: NotificationBanner.defaults,
     passwordInput: PasswordInput.defaults,
 };
@@ -285,6 +299,7 @@ const buttonConfig: Config[ConfigKey] = config.button;
 const characterCountConfig: Config[ConfigKey] = config.characterCount;
 const errorSummaryConfig: Config[ConfigKey] = config.errorSummary;
 const exitThisPageConfig: Config[ConfigKey] = config.exitThisPage;
+const fileUploadConfig: Config[ConfigKey] = config.fileUpload;
 const notificationBannerConfig: Config[ConfigKey] = config.notificationBanner;
 const passwordInputConfig: Config[ConfigKey] = config.passwordInput;
 
@@ -295,6 +310,7 @@ initAll({
     characterCount: characterCountConfig,
     errorSummary: errorSummaryConfig,
     exitThisPage: exitThisPageConfig,
+    fileUpload: fileUploadConfig,
     notificationBanner: notificationBannerConfig,
     passwordInput: passwordInputConfig,
     onError: console.error,
