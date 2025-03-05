@@ -3621,6 +3621,10 @@
             "libraryName": "lru-cache",
             "asOfVersion": "7.10.0"
         },
+        "lucasmogari__react-pagination": {
+            "libraryName": "@lucasmogari/react-pagination",
+            "asOfVersion": "1.1.4"
+        },
         "lz-string": {
             "libraryName": "lz-string",
             "asOfVersion": "1.5.0"
