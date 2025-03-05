@@ -3,7 +3,10 @@ import { ConfigurableComponent } from "../../common/configuration.js";
 /**
  * Exit this page component
  */
-export class ExitThisPage extends ConfigurableComponent<ExitThisPageConfig, HTMLElement> {
+export class ExitThisPage extends ConfigurableComponent<
+    ExitThisPageConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

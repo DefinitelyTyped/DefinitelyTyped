@@ -1,7 +1,7 @@
-import { Component } from "./component.js";
 import { ConfigurableComponent } from "./common/configuration.js";
 import { version } from "./common/govuk-frontend-version.js";
 import { isSupported } from "./common/index.js";
+import { Component } from "./component.js";
 import { Accordion } from "./components/accordion/accordion.js";
 import { Button } from "./components/button/button.js";
 import { CharacterCount } from "./components/character-count/character-count.js";

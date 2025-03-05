@@ -131,5 +131,9 @@ export function initAll(
 export function createAll<ComponentClass extends CompatibleClass>(
     Component: ComponentClass,
     config?: ComponentConfig<ComponentClass>,
-    createAllOptions?: OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass>,
+    createAllOptions?:
+        | OnErrorCallback<ComponentClass>
+        | Element
+        | Document
+        | CreateAllOptions<ComponentClass>,
 ): Array<InstanceType<ComponentClass>>;

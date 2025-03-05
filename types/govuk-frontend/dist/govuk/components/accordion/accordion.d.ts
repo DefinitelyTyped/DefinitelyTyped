@@ -12,7 +12,10 @@ import { ConfigurableComponent } from "../../common/configuration.js";
  * The state of each section is saved to the DOM via the `aria-expanded`
  * attribute, which also provides accessibility.
  */
-export class Accordion extends ConfigurableComponent<AccordionConfig, HTMLElement> {
+export class Accordion extends ConfigurableComponent<
+    AccordionConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

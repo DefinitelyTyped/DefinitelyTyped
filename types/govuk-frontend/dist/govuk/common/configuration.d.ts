@@ -35,7 +35,7 @@ export function normaliseString(
  * @returns {ObjectNested} Normalised dataset
  */
 export function normaliseDataset<
-    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
 >(
     Component: {
         schema?: Schema<ConfigurationType>;
@@ -77,13 +77,8 @@ export function mergeConfigs(
  * @returns {string[]} List of validation errors
  */
 export function validateConfig<
-    ConfigurationType extends Partial<
-        Record<keyof ConfigurationType, unknown>
-    >,
->(
-    schema: Schema<ConfigurationType>,
-    config: ConfigurationType,
-): string[];
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
+>(schema: Schema<ConfigurationType>, config: ConfigurationType): string[];
 
 /**
  * Extracts keys starting with a particular namespace from dataset ('data-*')
@@ -97,9 +92,7 @@ export function validateConfig<
  * @returns {ObjectNested | undefined} Nested object with dot-separated key namespace removed
  */
 export function extractConfigByNamespace<
-    ConfigurationType extends Partial<
-        Record<keyof ConfigurationType, unknown>
-    >,
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
 >(
     schema: Schema<ConfigurationType>,
     dataset: DOMStringMap,
@@ -158,7 +151,9 @@ export abstract class ConfigurableComponent<
      * @param {Partial<ConfigurationType>} [param] - Configuration object
      * @returns {Partial<ConfigurationType>} return - Configuration object
      */
-    [configOverride](param?: Partial<ConfigurationType>): Partial<ConfigurationType>;
+    [configOverride](
+        param?: Partial<ConfigurationType>,
+    ): Partial<ConfigurationType>;
 }
 
 export type NestedKey = keyof ObjectNested;
@@ -171,9 +166,7 @@ export interface ObjectNested {
  * Schema for component config
  */
 export interface Schema<
-    ConfigurationType extends Partial<
-        Record<keyof ConfigurationType, unknown>
-    >,
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
 > {
     /**
      * - Schema properties
