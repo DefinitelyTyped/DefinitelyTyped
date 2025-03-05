@@ -160,21 +160,6 @@ declare module "buffer" {
              * @param encoding The encoding of `string`. **Default:** `'utf8'`.
              */
             from(string: WithImplicitCoercion<string>, encoding?: BufferEncoding): Buffer<ArrayBuffer>;
-            /**
-             * Creates a view of the `ArrayBuffer` or a new `Buffer` containing `string`.
-             * The `encoding` parameter identifies the character encoding to be used when
-             * converting `string` into bytes.
-             *
-             * A `TypeError` will be thrown if `string` is not a string or another type
-             * appropriate for `Buffer.from()` variants.
-             *
-             * `Buffer.from(string)` may also use the internal `Buffer` pool like
-             * `Buffer.allocUnsafe()` does.
-             * @since v5.10.0
-             * @param arrayBufferOrString An array buffer or a string to encode.
-             * @param offsetOrEncoding A byte-offset or encoding.
-             * @param length A length.
-             */
             from(
                 arrayOrString: WithImplicitCoercion<ArrayLike<number> | string>,
             ): Buffer<ArrayBuffer>;
