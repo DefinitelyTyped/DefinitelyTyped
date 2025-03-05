@@ -171,9 +171,7 @@ declare module "buffer" {
              * @param length A length.
              */
             from(
-                arrayBufferOrString: WithImplicitCoercion<ArrayLike<number> | string>,
-                offsetOrEncoding?: number | BufferEncoding,
-                length?: number,
+                arrayOrString: WithImplicitCoercion<ArrayLike<number> | string>,
             ): Buffer<ArrayBuffer>;
             /**
              * Creates a new Buffer using the passed {data}
