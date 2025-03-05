@@ -2,8 +2,10 @@
  * Base Component class
  *
  * Centralises the behaviours shared by our components
+ *
+ * @template {Element} [RootElementType=HTMLElement]
  */
-export abstract class GOVUKFrontendComponent<RootElementType extends Element = HTMLElement> {
+export abstract class Component<RootElementType extends Element = HTMLElement> {
     static elementType: typeof Element;
 
     /**

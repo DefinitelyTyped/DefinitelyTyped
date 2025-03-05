@@ -13,13 +13,15 @@ export class ExitThisPage extends ConfigurableComponent<ExitThisPageConfig, HTML
      * Exit this page default config
      *
      * @see {@link ExitThisPageConfig}
+     * @constant
      */
     static defaults: ExitThisPageConfig;
 
     /**
      * Exit this page config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ExitThisPageConfig>}
      */
     static schema: Readonly<{
         properties: {

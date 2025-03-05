@@ -1,9 +1,9 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Service Navigation component
  */
-export class ServiceNavigation extends GOVUKFrontendComponent<HTMLElement> {
+export class ServiceNavigation extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

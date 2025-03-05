@@ -13,13 +13,16 @@ export class PasswordInput extends ConfigurableComponent<PasswordInputConfig, HT
      * Password input default config
      *
      * @see {@link PasswordInputConfig}
+     * @constant
+     * @default
      */
     static defaults: PasswordInputConfig;
 
     /**
      * Password input config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<PasswordInputConfig>}
      */
     static schema: Readonly<{
         properties: {

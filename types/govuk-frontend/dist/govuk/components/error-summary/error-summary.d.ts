@@ -16,13 +16,15 @@ export class ErrorSummary extends ConfigurableComponent<ErrorSummaryConfig, HTML
      * Error summary default config
      *
      * @see {@link ErrorSummaryConfig}
+     * @constant
      */
     static defaults: ErrorSummaryConfig;
 
     /**
      * Error summary config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ErrorSummaryConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -47,5 +49,5 @@ export interface ErrorSummaryConfig {
      * - If set to `true` the error
      * summary will not be focussed when the page loads.
      */
-    disableAutoFocus?: boolean;
+    disableAutoFocus?: boolean | undefined;
 }

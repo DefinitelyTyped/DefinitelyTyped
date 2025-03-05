@@ -13,13 +13,15 @@ export class NotificationBanner extends ConfigurableComponent<NotificationBanner
      * Notification banner default config
      *
      * @see {@link NotificationBannerConfig}
+     * @constant
      */
     static defaults: NotificationBannerConfig;
 
     /**
      * Notification banner config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<NotificationBannerConfig>}
      */
     static schema: Readonly<{
         properties: {

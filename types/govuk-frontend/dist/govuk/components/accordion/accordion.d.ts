@@ -22,13 +22,15 @@ export class Accordion extends ConfigurableComponent<AccordionConfig, HTMLElemen
      * Accordion default config
      *
      * @see {@link AccordionConfig}
+     * @constant
      */
     static defaults: AccordionConfig;
 
     /**
      * Accordion config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<AccordionConfig>}
      */
     static schema: Readonly<{
         properties: {

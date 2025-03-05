@@ -1,4 +1,4 @@
-import { GOVUKFrontendComponent } from "../govuk-frontend-component.js";
+import { Component } from "../component.js";
 
 /**
  * Normalise string
@@ -28,13 +28,17 @@ export function normaliseString(
  * optionally expanding nested `i18n.field`
  *
  * @internal
- * @param {{ schema?: Schema<ObjectNested>, moduleName: string }} Component - Component class
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
+ * @template {[keyof ConfigurationType, SchemaProperty | undefined][]} SchemaEntryType
+ * @param {{ schema?: Schema<ConfigurationType>, moduleName: string }} Component - Component class
  * @param {DOMStringMap} dataset - HTML element dataset
  * @returns {ObjectNested} Normalised dataset
  */
-export function normaliseDataset(
+export function normaliseDataset<
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>
+>(
     Component: {
-        schema?: Schema<ObjectNested>;
+        schema?: Schema<ConfigurationType>;
         moduleName: string;
     },
     dataset: DOMStringMap,
@@ -51,9 +55,9 @@ export function normaliseDataset(
  * @returns {{ [key: string]: unknown }} A merged config object
  */
 export function mergeConfigs(
-    ...configObjects: Array<{
+    ...configObjects: {
         [key: string]: unknown;
-    }>
+    }[]
 ): {
     [key: string]: unknown;
 };
@@ -109,8 +113,8 @@ export const configOverride: unique symbol;
  *
  * Centralises the behaviours shared by our components
  *
- * @template {Partial<Record<keyof ConfigurationType, unknown>>} [ConfigurationType=ObjectNested]
- * @template {Element & { dataset: DOMStringMap }} [RootElementType=HTMLElement]
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
+ * @template {Element & { dataset: DOMStringMap }} RootElementType
  */
 export abstract class ConfigurableComponent<
     ConfigurationType extends Partial<
@@ -119,7 +123,7 @@ export abstract class ConfigurableComponent<
     RootElementType extends Element & {
         dataset: DOMStringMap;
     } = HTMLElement,
-> extends GOVUKFrontendComponent<RootElementType> {
+> extends Component<RootElementType> {
     /**
      * Constructs a new component, validating that GOV.UK Frontend is supported
      *
@@ -179,7 +183,7 @@ export interface Schema<
     /**
      * - List of schema conditions
      */
-    anyOf?: SchemaCondition[] | undefined;
+    anyOf?: SchemaCondition<ConfigurationType>[] | undefined;
 }
 
 /**
@@ -195,11 +199,13 @@ export interface SchemaProperty {
 /**
  * Schema condition for component config
  */
-export interface SchemaCondition {
+export interface SchemaCondition<
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
+> {
     /**
      * - List of required config fields
      */
-    required: string[];
+    required: (keyof ConfigurationType)[];
 
     /**
      * - Error message when required config fields not provided
