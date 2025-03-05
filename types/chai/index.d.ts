@@ -531,12 +531,11 @@ declare global {
             /**
              * Partially matches actual and expected.
              *
-             * T   Type of the objects.
              * @param actual   Actual value.
-             * @param expected   Potential expected value.
+             * @param expected   Potential subset of the value.
              * @param message   Message to display on error.
              */
-            containSubset<T>(val: T, exp: Partial<T>, msg?: string): void;
+            containSubset(val: any, exp: any, msg?: string): void;
 
             /**
              * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
