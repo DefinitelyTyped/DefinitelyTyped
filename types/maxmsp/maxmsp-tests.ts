@@ -22,6 +22,9 @@ const myBuffer = new Buffer("audio_buffer");
 myBuffer.peek(1, 5, 10);
 myBuffer.poke(1, 5, [0.1, 0.2, 0.3]);
 myBuffer.send("sizeinsamps", 44100);
+post(myBuffer.channelcount());
+post(myBuffer.framecount());
+post(myBuffer.length());
 
 // Dict usage example
 const d = new Dict("test_dict");
