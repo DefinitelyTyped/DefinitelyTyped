@@ -2298,133 +2298,122 @@ declare namespace chrome {
      * Permissions: "debugger"
      */
     export namespace _debugger {
-        /** Debuggee identifier. Either tabId or extensionId must be specified */
+        /** Debuggee identifier. Either tabId, extensionId or targetId must be specified */
         export interface Debuggee {
-            /** Optional. The id of the tab which you intend to debug.  */
-            tabId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 27
-             * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser.
-             */
-            extensionId?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 28
-             * The opaque id of the debug target.
-             */
-            targetId?: string | undefined;
+            /** The id of the tab which you intend to debug. */
+            tabId?: number;
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used. */
+            extensionId?: string;
+            /** The opaque id of the debug target. */
+            targetId?: string;
         }
 
         /**
-         * @since Chrome 28
-         * Debug target information
+         * Debugger session identifier. One of tabId, extensionId or targetId must be specified. Additionally, an optional sessionId can be provided. If sessionId is specified for arguments sent from {@link onEvent}, it means the event is coming from a child protocol session within the root debuggee session. If sessionId is specified when passed to {@link sendCommand}, it targets a child protocol session within the root debuggee session.
+         * @since Chrome 125
          */
+        export interface DebuggerSession {
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used.*/
+            extensionId?: string;
+            /** The opaque id of the Chrome DevTools Protocol session. Identifies a child session within the root session identified by tabId, extensionId or targetId. */
+            sessionId?: string;
+            /** The id of the tab which you intend to debug. */
+            tabId?: number;
+            /** The opaque id of the debug target. */
+            targetId?: string;
+        }
+
+        /**
+         * Connection termination reason.
+         * @since Chrome 44
+         */
+        export enum DetachReason {
+            CANCELED_BY_USER = "canceled_by_user",
+            TARGET_CLOSED = "target_closed",
+        }
+
+        /** Debug target information */
         export interface TargetInfo {
             /** Target type. */
-            type: string;
+            type: `${TargetInfoType}`;
             /** Target id. */
             id: string;
-            /**
-             * Optional.
-             * @since Chrome 30
-             * The tab id, defined if type == 'page'.
-             */
-            tabId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 30
-             * The extension id, defined if type = 'background_page'.
-             */
-            extensionId?: string | undefined;
+            /** The tab id, defined if type == 'page'. */
+            tabId?: number;
+            /** The extension id, defined if type = 'background_page'. */
+            extensionId?: string;
             /** True if debugger is already attached. */
             attached: boolean;
             /** Target page title. */
             title: string;
             /** Target URL. */
             url: string;
-            /** Optional. Target favicon URL.  */
-            faviconUrl?: string | undefined;
+            /** Target favicon URL.  */
+            faviconUrl?: string;
         }
 
-        export interface DebuggerDetachedEvent
-            extends chrome.events.Event<(source: Debuggee, reason: string) => void>
-        {}
-
-        export interface DebuggerEventEvent
-            extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void>
-        {}
+        /**
+         * Target type.
+         * @since Chrome 44
+         */
+        export enum TargetInfoType {
+            BACKGROUND_PAGE = "background_page",
+            OTHER = "other",
+            PAGE = "page",
+            WORKER = "worker",
+        }
 
         /**
          * Attaches debugger to the given target.
          * @param target Debugging target to which you want to attach.
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
-         * @return The `attach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
-        /**
-         * Attaches debugger to the given target.
-         * @param target Debugging target to which you want to attach.
-         * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
-         * @param callback Called once the attach operation succeeds or fails. If the attach fails, runtime.lastError will be set to the error message.
-         */
         export function attach(target: Debuggee, requiredVersion: string, callback: () => void): void;
+
         /**
          * Detaches debugger from the given target.
          * @param target Debugging target from which you want to detach.
-         * @return The `detach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function detach(target: Debuggee): Promise<void>;
-        /**
-         * Detaches debugger from the given target.
-         * @param target Debugging target from which you want to detach.
-         * @param callback Called once the detach operation succeeds or fails. If the detach fails, runtime.lastError will be set to the error message.
-         */
         export function detach(target: Debuggee, callback: () => void): void;
+
         /**
          * Sends given command to the debugging target.
          * @param target Debugging target to which you want to send the command.
          * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
-         * @param commandParams Since Chrome 22.
-         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
-         * @return The `sendCommand` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @param commandParams JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function sendCommand(
-            target: Debuggee,
+            target: DebuggerSession,
             method: string,
             commandParams?: Object,
-        ): Promise<Object>;
-        /**
-         * Sends given command to the debugging target.
-         * @param target Debugging target to which you want to send the command.
-         * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
-         * @param commandParams Since Chrome 22.
-         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
-         * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
+        ): Promise<Object | undefined>;
         export function sendCommand(
-            target: Debuggee,
+            target: DebuggerSession,
             method: string,
             commandParams?: Object,
             callback?: (result?: Object) => void,
         ): void;
+
         /**
-         * @since Chrome 28
          * Returns the list of available debug targets.
-         * @return The `getTargets` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function getTargets(): Promise<TargetInfo[]>;
-        /**
-         * @since Chrome 28
-         * Returns the list of available debug targets.
-         * Parameter result: Array of TargetInfo objects corresponding to the available debug targets.
-         */
         export function getTargets(callback: (result: TargetInfo[]) => void): void;
 
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-        export var onDetach: DebuggerDetachedEvent;
+        export const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        export var onEvent: DebuggerEventEvent;
+        export const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: Object) => void>;
     }
 
     export { _debugger as debugger };
