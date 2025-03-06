@@ -324,7 +324,7 @@ export class SMTPServer extends EventEmitter {
     /** Override this */
     onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Send Client Response With Message */
-    onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (null,message:string) => void): void
+    onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err:null,message:string) => void): void
     /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
