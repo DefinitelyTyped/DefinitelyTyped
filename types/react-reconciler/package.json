@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-reconciler",
-    "version": "0.28.9999",
+    "version": "0.31.9999",
     "projects": [
         "https://reactjs.org/"
     ],

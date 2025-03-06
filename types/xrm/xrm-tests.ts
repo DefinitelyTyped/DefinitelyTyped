@@ -1,46 +1,64 @@
 /// Demonstrate usage in the browser's window object
 
-window.Xrm.Utility.alertDialog("message", () => {});
-parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
+window.Xrm.Navigation.openAlertDialog({ text: "message" });
+parent && parent.Xrm.Utility.getGlobalContext()
+    && parent.Xrm.Utility.getGlobalContext().organizationSettings.languageId;
 
-/// Demonstrate clientglobalcontext.d.ts
+/// Demonstrate getting the Global Context and Form Context
 
 function _getContext() {
     const errorMessage = "Context is not available.";
     if (typeof GetGlobalContext !== "undefined") {
         return GetGlobalContext();
     } else if (typeof Xrm !== "undefined") {
-        return Xrm.Page.context;
+        return Xrm.Utility.getGlobalContext();
+    } else {
+        throw new Error(errorMessage);
+    }
+}
+
+let executionContext: Xrm.Events.EventContext | undefined;
+let formContext: Xrm.FormContext | undefined;
+
+function _getFormContext() {
+    const errorMessage = "Form-level context is not available.";
+    if (typeof formContext !== "undefined") {
+        return formContext;
+    } else if (typeof executionContext !== "undefined") {
+        return executionContext.getFormContext();
     } else {
         throw new Error(errorMessage);
     }
 }
 
 const crmContext = _getContext();
+formContext = _getFormContext();
 
 /// Demonstrate iterator typing
 
-const grids = Xrm.Page.getControl((control) => {
+const grids = formContext.getControl((control) => {
     return control.getControlType() === "subgrid";
 });
 
-const selectedGridReferences: Xrm.Page.LookupValue[] = [];
+const selectedGridReferences: Xrm.LookupValue[] = [];
 
 /// Demonstrate iterator typing with v7.1 additions
 
-grids.forEach((gridControl: Xrm.Page.GridControl) => {
-    gridControl
-        .getGrid()
-        .getSelectedRows()
-        .forEach((row) => {
-            selectedGridReferences.push(row.getData().getEntity().getEntityReference());
-        });
-});
+if (grids !== null) {
+    grids.forEach((gridControl: Xrm.Controls.GridControl) => {
+        gridControl
+            .getGrid()
+            .getSelectedRows()
+            .forEach((row) => {
+                selectedGridReferences.push(row.data.entity.getEntityReference());
+            });
+    });
+}
 
 /// Demonstrate generic overload vs typecast
 
-const lookupAttribute = Xrm.Page.getControl("customerid") as Xrm.Page.LookupControl;
-const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>("customerid");
+const lookupAttribute = formContext.getControl("customerid") as Xrm.Controls.LookupControl;
+const lookupAttribute2 = formContext.getControl<Xrm.Controls.LookupControl>("customerid");
 
 /// Demonstrate ES6 String literal syntax
 
@@ -73,17 +91,17 @@ lookupAttribute.getAttribute().setValue([
 
 /// Demonstrate v7.0 BPF API
 
-if (Xrm.Page.data.process != null) {
-    Xrm.Page.data.process.moveNext((status) => {
+if (formContext.data.process != null) {
+    formContext.data.process.moveNext((status) => {
         alert(`Process moved forward with status: ${status}`);
     });
 }
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Utility.openQuickCreate("account").then(
+Xrm.Navigation.openForm({ entityName: "account" }).then(
     (object) => {
-        if (object) alert(`Newly created record Id: ${object.savedEntityReference.id}`);
+        if (object) alert(`Newly created record Id: ${object.savedEntityReference[0].id}`);
     },
     (error) => {
         console.log(`Code: ${error.errorCode}, Message: ${error.message}`);
@@ -93,13 +111,13 @@ Xrm.Utility.openQuickCreate("account").then(
 /// Make all controls visible.
 
 // Xrm.Page.ui.controls.forEach((control) => { control.setVisible(true); }); // No longer works
-Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => {
+formContext.ui.controls.forEach((control: Xrm.Controls.StandardControl) => {
     control.setVisible(true);
 }); // Must cast to StandardControl
 
 /// Make all tabs and sections visible.
 
-Xrm.Page.ui.tabs.forEach((tab) => {
+formContext.ui.tabs.forEach((tab) => {
     tab.setVisible(true);
     tab.setFocus();
 
@@ -110,7 +128,7 @@ Xrm.Page.ui.tabs.forEach((tab) => {
 
 /// Demonstrate OnSave event context.
 
-Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
+formContext.data.entity.addOnSave((context: Xrm.Events.SaveEventContext) => {
     const eventArgs = context.getEventArgs();
 
     if (
@@ -124,99 +142,79 @@ Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
     eventArgs.disableAsyncTimeout();
 });
 
-Xrm.Page.data.entity.addOnSave(async (context: Xrm.Events.SaveEventContextAsync) => {
+formContext.data.entity.addOnSave(async (context: Xrm.Events.SaveEventContextAsync) => {
     const eventArgs = context.getEventArgs();
     eventArgs.disableAsyncTimeout?.();
 });
 
 /// Demonstrate ES6 String literal with templates
 
-alert(`The current form type is: ${Xrm.Page.ui.getFormType()}`);
+alert(`The current form type is: ${formContext.ui.getFormType()}`);
 
-alert(`The current entity type is: ${Xrm.Page.data.entity.getEntityName()}`);
+alert(`The current entity type is: ${formContext.data.entity.getEntityName()}`);
 
 /// Demonstrate Optionset Value as int in Turbo Forms
 
-const optionSetAttribute = Xrm.Page.getAttribute<Xrm.Page.OptionSetAttribute>("statuscode");
-const optionValue: number = optionSetAttribute.getOptions()[0].value;
+const optionSetAttribute = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute>("statuscode");
+if (optionSetAttribute !== null) {
+    const optionValue: number = optionSetAttribute.getOptions()[0].value;
 
-/// Demonstrate Control.setFocus();
+    /// Demonstrate Control.setFocus();
 
-optionSetAttribute.controls.get(0).setFocus();
+    let controls = optionSetAttribute.controls;
+    if (controls !== null) {
+        let firstControl = controls.get(0);
+        if (firstControl !== null) {
+            firstControl.setFocus();
+        }
+    }
+}
 
 /// Demonstrate setFormNotification
 
-let level: Xrm.Page.ui.FormNotificationLevel;
+let level: Xrm.FormNotificationLevel;
 level = "ERROR";
-Xrm.Page.ui.setFormNotification("Test", level, "uniqueId");
+formContext.ui.setFormNotification("Test", level, "uniqueId");
 
 /// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
 
-let requirementLevel: Xrm.Page.RequirementLevel = "none";
+let requirementLevel: Xrm.Attributes.RequirementLevel = "none";
 const requirementLevelString = "none";
-let submitMode: Xrm.Page.SubmitMode = "always";
+let submitMode: Xrm.SubmitMode = "always";
 const submitModeString = "always";
 
-let attribute = Xrm.Page.getAttribute<Xrm.Page.LookupAttribute>("customerid");
-attribute.setSubmitMode(submitMode);
-attribute.setSubmitMode(submitModeString); // Works if the string is a const
-attribute.setRequiredLevel(requirementLevel);
-attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
+let attribute = formContext.getAttribute<Xrm.Attributes.LookupAttribute>("customerid");
+if (attribute !== null) {
+    attribute.setSubmitMode(submitMode);
+    attribute.setSubmitMode(submitModeString); // Works if the string is a const
+    attribute.setRequiredLevel(requirementLevel);
+    attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
 
-const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
-
-/// Demonstrate v8 AutoComplete
-
-let autoCompleteControl = Xrm.Page.getControl<Xrm.Page.AutoLookupControl>("name");
-const userInput = autoCompleteControl.getValue();
-const accountResult = {};
-const resultSet: Xrm.Page.AutoCompleteResultSet = {
-    results: new Array() as Xrm.Page.AutoCompleteResult[],
-    commands: {
-        id: "sp_commands",
-        label: "Learn More",
-        action() {
-            // Specify what you want to do when the user
-            // clicks the "Learn More" link at the bottom
-            // of the auto-completion list.
-            // For this sample, we are just opening a page
-            // that provides information on working with
-            // accounts in CRM.
-            window.open("http://www.microsoft.com/en-us/dynamics/crm-customer-center/create-or-edit-an-account.aspx");
-        },
-    },
-};
-resultSet.results.push({
-    id: 0,
-    fields: ["A. Datum Corporation"],
-});
-autoCompleteControl.addOnKeyPress(() => {});
-autoCompleteControl.fireOnKeyPress();
-autoCompleteControl.removeOnKeyPress(() => {});
-autoCompleteControl.showAutoComplete(resultSet);
-autoCompleteControl.hideAutoComplete();
-
+    const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
+}
 /// Demonstrate v8.2 quick form controls
 
-const quickForm = Xrm.Page.ui.quickForms.get(0);
-quickForm.getControlType(); // == "quickform"
-quickForm.getName();
-quickForm.getParent();
-quickForm.getVisible(); // From UiCanSetVisibleElement
-quickForm.getLabel(); // From UiLabelElement
-quickForm.setLabel("Label"); // From UiLabelElement
-quickForm.refresh();
-
+const quickForm = formContext.ui.quickForms.get(0);
+if (quickForm !== null) {
+    quickForm.getControlType(); // == "quickform"
+    quickForm.getName();
+    quickForm.getParent();
+    quickForm.getVisible(); // From UiCanSetVisibleElement
+    quickForm.getLabel(); // From UiLabelElement
+    quickForm.setLabel("Label"); // From UiLabelElement
+    quickForm.refresh();
+}
 // Get standard control
-const ctrl = Xrm.Page.getControl<Xrm.Page.StandardControl>("controlName");
-ctrl.getControlType();
-ctrl.getName();
-ctrl.getParent();
-ctrl.getLabel();
-ctrl.setLabel("Label name");
-ctrl.getVisible();
-ctrl.setVisible(true);
-
+const ctrl = formContext.getControl<Xrm.Controls.StandardControl>("controlName");
+if (ctrl !== null) {
+    ctrl.getControlType();
+    ctrl.getName();
+    ctrl.getParent();
+    ctrl.getLabel();
+    ctrl.setLabel("Label name");
+    ctrl.getVisible();
+    ctrl.setVisible(true);
+}
 // Demonstrate getEntityMetadata
 Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
     console.log(metadata.Attributes["statuscode"].OptionSet[0].Label.LocalizedLabels[0].Label);
@@ -258,12 +256,14 @@ Xrm.WebApi.retrieveMultipleRecords(
 });
 
 // Demonstrate add/removeTabStateChange
-const contextHandler = (context: Xrm.Page.EventContext) => {
+const contextHandler = (context: Xrm.Events.EventContext) => {
     context.getEventSource();
 };
-
-Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
-Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
+const tabName = formContext.ui.tabs.get("tabName");
+if (tabName !== null) {
+    tabName.addTabStateChange(contextHandler);
+    tabName.removeTabStateChange(contextHandler);
+}
 
 // Demonstrate lookupObject
 
@@ -423,7 +423,9 @@ Xrm.Utility.getPageContext(); // $ExpectType PageContext
 const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     const formContext = context.getFormContext();
     const gridControl = formContext.getControl<Xrm.Controls.GridControl>("myGrid");
-
+    if (gridControl === null) {
+        return;
+    }
     // getVisible
     const visibility = gridControl.getVisible();
 
@@ -497,11 +499,13 @@ const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("Settin
 function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     const formContext = eventContext.getFormContext();
     // Demonstrate Knowledge base handler events
-    const kbSearchControl: Xrm.Controls.KbSearchControl = formContext.getControl("<name>");
+    const kbSearchControl = formContext.getControl<Xrm.Controls.KbSearchControl>("<name>");
     const kbHandler = () => {
         alert("hit handler");
     };
-
+    if (kbSearchControl === null) {
+        return;
+    }
     kbSearchControl.addOnPostSearch(kbHandler);
     kbSearchControl.removeOnPostSearch(kbHandler);
 
@@ -568,11 +572,13 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
 }
 
 function booleanAttributeControls(formContext: Xrm.FormContext) {
-    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
+    let booleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
         "prefx_myattribute",
     );
+    if (booleanAttribute === null) {
+        return;
+    }
     const booleanValue: boolean | null = booleanAttribute.getValue();
-
     // @ts-expect-error
     const notString: string = booleanAttribute.getValue();
 
@@ -624,20 +630,23 @@ Xrm.Navigation.navigateTo({
     },
 );
 
-const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
-
+const multiSelectOptionSetControl = formContext.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
+if (multiSelectOptionSetControl === null) {
+    throw new Error("Control does not exist!");
+}
 // $ExpectType MultiSelectOptionSetAttribute
 multiSelectOptionSetControl.getAttribute();
 
 // Demonstrates getWebResourceUrl
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
 
-const optionSetControl = Xrm.Page.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
-
+const optionSetControl = formContext.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
+if (optionSetControl === null) {
+    throw new Error("Control does not exist!");
+}
 // Demonstrates getOptions for Xrm.Controls.OptionSetControl
-// $ExpectType OptionSetValue[]
-optionSetControl.getOptions();
 
+optionSetControl.getOptions();
 // Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
 // $ExpectType OptionSetValue[]
 multiSelectOptionSetControl.getOptions();

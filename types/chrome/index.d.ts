@@ -1806,7 +1806,7 @@ declare namespace chrome {
          * ask: Ask when a site wants to access the microphone.
          * Default is ask.
          * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
+         * NOTE: The 'allow' setting is not valid if both patterns are '<all_urls>'.
          */
         export var microphone: MicrophoneContentSetting;
         /**
@@ -1817,7 +1817,7 @@ declare namespace chrome {
          * ask: Ask when a site wants to access the camera.
          * Default is ask.
          * The primary URL is the URL of the document which requested camera access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
+         * NOTE: The 'allow' setting is not valid if both patterns are '<all_urls>'.
          */
         export var camera: CameraContentSetting;
         /**
@@ -3080,26 +3080,430 @@ declare namespace chrome {
      * @since Chrome 44
      */
     export namespace documentScan {
-        export interface DocumentScanOptions {
-            /** Optional. The MIME types that are accepted by the caller.  */
-            mimeTypes?: string[] | undefined;
-            /** Optional. The number of scanned images allowed (defaults to 1).  */
-            maxImages?: number | undefined;
+        /** @since Chrome 125 */
+        export interface CancelScanResponse<T> {
+            /** Provides the same job handle that was passed to {@link cancelScan}. */
+            job: T;
+            /** The backend's cancel scan result. If the result is `OperationResult.SUCCESS` or `OperationResult.CANCELLED`, the scan has been cancelled and the scanner is ready to start a new scan. If the result is `OperationResult.DEVICE_BUSY` , the scanner is still processing the requested cancellation; the caller should wait a short time and try the request again. Other result values indicate a permanent error that should not be retried. */
+            result: `${OperationResult}`;
         }
 
-        export interface DocumentScanCallbackArg {
-            /** The data image URLs in a form that can be passed as the "src" value to an image tag. */
-            dataUrls: string[];
-            /** The MIME type of dataUrls. */
-            mimeType: string;
+        /** @since Chrome 125 */
+        export interface CloseScannerResponse<T> {
+            /** The same scanner handle as was passed to {@link closeScanner}. */
+            scannerHandle: T;
+            /** The result of closing the scanner. Even if this value is not `SUCCESS`, the handle will be invalid and should not be used for any further operations. */
+            result: `${OperationResult}`;
         }
 
         /**
-         * Performs a document scan. On success, the PNG data will be sent to the callback.
-         * @param options Object containing scan parameters.
-         * @param callback Called with the result and data from the scan.
+         * How an option can be changed.
+         * @since Chrome 125
          */
-        export function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
+        export enum Configurability {
+            /** The option is read-only. */
+            NOT_CONFIGURABLE = "NOT_CONFIGURABLE",
+            /** The option can be set in software. */
+            SOFTWARE_CONFIGURABLE = "SOFTWARE_CONFIGURABLE",
+            /** The option can be set by the user toggling or pushing a button on the scanner. */
+            HARDWARE_CONFIGURABLE = "HARDWARE_CONFIGURABLE",
+        }
+
+        /**
+         * Indicates how the scanner is connected to the computer.
+         * @since Chrome 125
+         */
+        export enum ConnectionType {
+            UNSPECIFIED = "UNSPECIFIED",
+            USB = "USB",
+            NETWORK = "NETWORK",
+        }
+
+        /**
+         * The data type of constraint represented by an {@link OptionConstraint}.
+         * @since Chrome 125
+         */
+        export enum ConstraintType {
+            /** The constraint on a range of `OptionType.INT` values. The `min`, `max`, and `quant` properties of `OptionConstraint` will be `long`, and its `list` property will be unset. */
+            INT_RANGE = "INT_RANGE",
+            /** The constraint on a range of `OptionType.FIXED` values. The `min`, `max`, and `quant` properties of `OptionConstraint` will be `double`, and its `list` property will be unset. */
+            FIXED_RANGE = "FIXED_RANGE",
+            /** The constraint on a specific list of `OptionType.INT` values. The `OptionConstraint.list` property will contain `long` values, and the other properties will be unset. */
+            INT_LIST = "INT_LIST",
+            /** The constraint on a specific list of `OptionType.FIXED` values. The `OptionConstraint.list` property will contain `double` values, and the other properties will be unset. */
+            FIXED_LIST = "FIXED_LIST",
+            /** The constraint on a specific list of `OptionType.STRING` values. The `OptionConstraint.list` property will contain `DOMString` values, and the other properties will be unset. */
+            STRING_LIST = "STRING_LIST",
+        }
+
+        /** @since Chrome 125 */
+        export interface DeviceFilter {
+            /** Only return scanners that are directly attached to the computer. */
+            local?: boolean;
+            /** Only return scanners that use a secure transport, such as USB or TLS. */
+            secure?: boolean;
+        }
+
+        /** @since Chrome 125 */
+        export interface GetOptionGroupsResponse<T> {
+            /** If `result` is `SUCCESS`, provides a list of option groups in the order supplied by the scanner driver. */
+            groups?: OptionGroup[];
+            /** The result of getting the option groups. If the value of this is `SUCCESS`, the `groups` property will be populated. */
+            result: `${OperationResult}`;
+            /** The same scanner handle as was passed to {@link getOptionGroups}. */
+            scannerHandle: T;
+        }
+
+        /** @since Chrome 125 */
+        export interface GetScannerListResponse {
+            /** The enumeration result. Note that partial results could be returned even if this indicates an error. */
+            result: `${OperationResult}`;
+            /** A possibly-empty list of scanners that match the provided {@link DeviceFilter}. */
+            scanners: ScannerInfo[];
+        }
+
+        /** @since Chrome 125 */
+        export interface OpenScannerResponse<T> {
+            /** If `result` is `SUCCESS`, provides a key-value mapping where the key is a device-specific option and the value is an instance of {@link ScannerOption}. */
+            options?: { [name: string]: unknown };
+            /** The result of opening the scanner. If the value of this is `SUCCESS`, the `scannerHandle` and `options` properties will be populated. */
+            result: `${OperationResult}`;
+            /** If `result` is `SUCCESS`, a handle to the scanner that can be used for further operations. */
+            scannerHandle?: string;
+            /** The scanner ID passed to {@link openScanner}. */
+            scannerId: T;
+        }
+
+        /**
+         * An enum that indicates the result of each operation.
+         * @since Chrome 125
+         */
+        export enum OperationResult {
+            /** An unknown or generic failure occurred. */
+            UNKNOWN = "UNKNOWN",
+            /**The operation succeeded. */
+            SUCCESS = "SUCCESS",
+            /** The operation is not supported. */
+            UNSUPPORTED = "UNSUPPORTED",
+            /** The operation was cancelled. */
+            CANCELLED = "CANCELLED",
+            /** The device is busy. */
+            DEVICE_BUSY = "DEVICE_BUSY",
+            /** Either the data or an argument passed to the method is not valid. */
+            INVALID = "INVALID",
+            /** The supplied value is the wrong data type for the underlying option. */
+            WRONG_TYPE = "WRONG_TYPE",
+            /** No more data is available. */
+            EOF = "EOF",
+            /** The document feeder is jammed */
+            ADF_JAMMED = "ADF_JAMMED",
+            /** The document feeder is empty */
+            ADF_EMPTY = "ADF_EMPTY",
+            /** The flatbed cover is open. */
+            COVER_OPEN = "COVER_OPEN",
+            /** An error occurred while communicating with the device. */
+            IO_ERROR = "IO_ERROR",
+            /** The device requires authentication. */
+            ACCESS_DENIED = "ACCESS_DENIED",
+            /** Not enough memory is available on the Chromebook to complete the operation. */
+            NO_MEMORY = "NO_MEMORY",
+            /** The device is not reachable. */
+            UNREACHABLE = "UNREACHABLE",
+            /** The device is disconnected. */
+            MISSING = "MISSING",
+            /** An error has occurred somewhere other than the calling application. */
+            INTERNAL_ERROR = "INTERNAL_ERROR",
+        }
+
+        /** @since Chrome 125 */
+        export interface OptionConstraint {
+            list?: string[] | number[];
+            max?: number;
+            min?: number;
+            quant?: number;
+            type: `${ConstraintType}`;
+        }
+
+        /** @since Chrome 125 */
+        export interface OptionGroup {
+            /** An array of option names in driver-provided order. */
+            members: string[];
+            /** Provides a printable title, for example "Geometry options". */
+            title: string;
+        }
+
+        /** @since Chrome 125 */
+        export interface OptionSetting {
+            /** Indicates the name of the option to set. */
+            name: string;
+            /** Indicates the data type of the option. The requested data type must match the real data type of the underlying option. */
+            type: `${OptionType}`;
+            /** Indicates the value to set. Leave unset to request automatic setting for options that have `autoSettable` enabled. The data type supplied for `value` must match `type`. */
+            value?: string | number | boolean | number;
+        }
+
+        /**
+         * The data type of an option.
+         * @since Chrome 125
+         */
+        export enum OptionType {
+            /** The option's data type is `unknown`. The value property will be unset. */
+            UNKNOWN = "UNKNOWN",
+            /** The `value` property will be one of `true` false. */
+            BOOL = "BOOL",
+            /** A signed 32-bit integer. The `value` property will be long or long[], depending on whether the option takes more than one value. */
+            INT = "INT",
+            /** A double in the range -32768-32767.9999 with a resolution of 1/65535. The `value` property will be double or double[] depending on whether the option takes more than one value. Double values that can't be exactly represented will be rounded to the available range and precision. */
+            FIXED = "FIXED",
+            /** A sequence of any bytes except NUL ('\0'). The `value` property will be a DOMString. */
+            STRING = "STRING",
+            /** An option of this type has no value. Instead, setting an option of this type causes an option-specific side effect in the scanner driver. For example, a button-typed option could be used by a scanner driver to provide a means to select default values or to tell an automatic document feeder to advance to the next sheet of paper. */
+            BUTTON = "BUTTON",
+            /** Grouping option. No value. This is included for compatibility, but will not normally be returned in `ScannerOption` values. Use `getOptionGroups()` to retrieve the list of groups with their member options. */
+            GROUP = "GROUP",
+        }
+
+        /**
+         * Indicates the data type for {@link ScannerOption.unit}.
+         * @since Chrome 125
+         */
+        export enum OptionUnit {
+            /** The value is a unitless number. For example, it can be a threshold. */
+            UNITLESS = "UNITLESS",
+            /** The value is a number of pixels, for example, scan dimensions. */
+            PIXEL = "PIXEL",
+            /** The value is the number of bits, for example, color depth. */
+            BIT = "BIT",
+            /** The value is measured in millimeters, for example, scan dimensions. */
+            MM = "MM",
+            /** The value is measured in dots per inch, for example, resolution. */
+            DPI = "DPI",
+            /** The value is a percent, for example, brightness. */
+            PERCENT = "PERCENT",
+            /** The value is measured in microseconds, for example, exposure time. */
+            MICROSECOND = "MICROSECOND",
+        }
+
+        /** @since Chrome 125 */
+        export interface ReadScanDataResponse<T> {
+            /** If `result` is `SUCCESS`, contains the _next_ chunk of scanned image data. If `result` is `EOF`, contains the _last_ chunk of scanned image data. */
+            data?: ArrayBuffer;
+            /** If `result` is `SUCCESS`, an estimate of how much of the total scan data has been delivered so far, in the range 0 to 100. */
+            estimatedCompletion?: number;
+            /** Provides the job handle passed to {@link readScanData}. */
+            job: T;
+            /** The result of reading data. If its value is `SUCCESS`, then `data` contains the _next_ (possibly zero-length) chunk of image data that is ready for reading. If its value is `EOF`, the `data` contains the _last_ chunk of image data. */
+            result: `${OperationResult}`;
+        }
+
+        /** @since Chrome 125 */
+        export interface ScannerInfo {
+            /** Indicates how the scanner is connected to the computer. */
+            connectionType: `${ConnectionType}`;
+            /** For matching against other `ScannerInfo` entries that point to the same physical device. */
+            deviceUuid: string;
+            /** An array of MIME types that can be requested for returned scans. */
+            imageFormats: string[];
+            /** The scanner manufacturer. */
+            manufacturer: string;
+            /** The scanner model if it is available, or a generic description. */
+            model: string;
+            /** A human-readable name for the scanner to display in the UI. */
+            name: string;
+            /** A human-readable description of the protocol or driver used to access the scanner, such as Mopria, WSD, or epsonds. This is primarily useful for allowing a user to choose between protocols if a device supports multiple protocols. */
+            protocolType: string;
+            /** The ID of a specific scanner. */
+            scannerId: string;
+            /** If true, the scanner connection's transport cannot be intercepted by a passive listener, such as TLS or USB. */
+            secure: boolean;
+        }
+
+        /** @since Chrome 125 */
+        export interface ScannerOption {
+            /** Indicates whether and how the option can be changed. */
+            configurability: `${Configurability}`;
+            /** Defines {@link OptionConstraint} on the current scanner option. */
+            constraint?: OptionConstraint;
+            /** A longer description of the option. */
+            description: string;
+            /** Indicates the option is active and can be set or retrieved. If false, the `value` property will not be set. */
+            isActive: boolean;
+            /** Indicates that the UI should not display this option by default. */
+            isAdvanced: boolean;
+            /** Can be automatically set by the scanner driver. */
+            isAutoSettable: boolean;
+            /** Indicates that this option can be detected from software. */
+            isDetectable: boolean;
+            /** Emulated by the scanner driver if true. */
+            isEmulated: boolean;
+            /** The option name using lowercase ASCII letters, numbers, and dashes. Diacritics are not allowed. */
+            name: string;
+            /** A printable one-line title. */
+            title: string;
+            /** The data type contained in the `value` property, which is needed for setting this option. */
+            type: `${OptionType}`;
+            /** The unit of measurement for this option. */
+            unit: `${OptionUnit}`;
+            /** The current value of the option, if relevant. Note that the data type of this property must match the data type specified in `type`. */
+            value?: string | number | boolean | number[];
+        }
+
+        export interface ScanOptions {
+            /** The number of scanned images allowed. The default is 1. */
+            maxImages?: number;
+            /** The MIME types that are accepted by the caller. */
+            mimeTypes?: string[];
+        }
+
+        export interface ScanResults {
+            /** An array of data image URLs in a form that can be passed as the "src" value to an image tag. */
+            dataUrls: string[];
+            /** The MIME type of the `dataUrls`. */
+            mimeType: string;
+        }
+
+        /** @since Chrome 125 */
+        export interface SetOptionResult {
+            /**  Indicates the name of the option that was set. */
+            name: string;
+            /** Indicates the result of setting the option. */
+            result: `${OperationResult}`;
+        }
+
+        /** @since Chrome 125 */
+        export interface SetOptionsResponse<T> {
+            /**
+             * An updated key-value mapping from option names to {@link ScannerOption} values containing the new configuration after attempting to set all supplied options. This has the same structure as the `options` property in {@link OpenScannerResponse}.
+             *
+             * This property will be set even if some options were not set successfully, but will be unset if retrieving the updated configuration fails (for example, if the scanner is disconnected in the middle of scanning).
+             */
+            options?: { [name: string]: unknown };
+            /** An array of results, one each for every passed-in `OptionSetting`. */
+            results: SetOptionResult[];
+            /** Provides the scanner handle passed to {@link setOptions}. */
+            scannerHandle: T;
+        }
+
+        /** @since Chrome 125 */
+        export interface StartScanOptions {
+            /** Specifies the MIME type to return scanned data in. */
+            format: string;
+            /** If a non-zero value is specified, limits the maximum scanned bytes returned in a single {@link readScanData} response to that value. The smallest allowed value is 32768 (32 KB). If this property is not specified, the size of a returned chunk may be as large as the entire scanned image. */
+            maxReadSize?: number;
+        }
+
+        /** @since Chrome 125 */
+        export interface StartScanResponse<T> {
+            /** If `result` is `SUCCESS`, provides a handle that can be used to read scan data or cancel the job. */
+            job?: string;
+            /**  The result of starting a scan. If the value of this is `SUCCESS`, the `job` property will be populated. */
+            result: `${OperationResult}`;
+            /** Provides the same scanner handle that was passed to {@link startScan}. */
+            scannerHandle: T;
+        }
+
+        /**
+         * Cancels a started scan and returns a Promise that resolves with a {@link CancelScanResponse} object. If a callback is used, the object is passed to it instead.
+         * @param job The handle of an active scan job previously returned from a call to {@link startScan}.
+         * @since Chrome 125
+         */
+        export function cancelScan<T = string>(job: T): Promise<CancelScanResponse<T>>;
+        export function cancelScan<T = string>(job: T, callback: (response: CancelScanResponse<T>) => void): void;
+
+        /**
+         * Closes the scanner with the passed in handle and returns a Promise that resolves with a {@link CloseScannerResponse} object. If a callback is used, the object is passed to it instead. Even if the response is not a success, the supplied handle becomes invalid and should not be used for further operations.
+         * @param scannerHandle Specifies the handle of an open scanner that was previously returned from a call to {@link openScanner}.
+         * @since Chrome 125
+         */
+        export function closeScanner<T = string>(scannerHandle: T): Promise<CloseScannerResponse<T>>;
+        export function closeScanner<T = string>(
+            scannerHandle: T,
+            callback: (response: CloseScannerResponse<T>) => void,
+        ): void;
+
+        /**
+         * Gets the group names and member options from a scanner previously opened by {@link openScanner}. This method returns a Promise that resolves with a {@link GetOptionGroupsResponse} object. If a callback is passed to this function, returned data is passed to it instead.
+         * @param scannerHandle The handle of an open scanner returned from a call to {@link openScanner}.
+         * @since Chrome 125
+         */
+        export function getOptionGroups<T = string>(scannerHandle: T): Promise<GetOptionGroupsResponse<T>>;
+        export function getOptionGroups<T = string>(
+            scannerHandle: T,
+            callback: (response: GetOptionGroupsResponse<T>) => void,
+        ): void;
+
+        /**
+         * Gets the list of available scanners and returns a Promise that resolves with a {@link GetScannerListResponse} object. If a callback is passed to this function, returned data is passed to it instead.
+         * @param filter A {@link DeviceFilter} indicating which types of scanners should be returned.
+         * @since Chrome 125
+         */
+        export function getScannerList(filter: DeviceFilter): Promise<GetScannerListResponse>;
+        export function getScannerList(
+            filter: DeviceFilter,
+            callback: (response: GetScannerListResponse) => void,
+        ): void;
+
+        /**
+         * Opens a scanner for exclusive access and returns a Promise that resolves with an {@link OpenScannerResponse} object. If a callback is passed to this function, returned data is passed to it instead.
+         * @param scannerId The ID of a scanner to be opened. This value is one returned from a previous call to {@link getScannerList}.
+         * @since Chrome 125
+         */
+        export function openScanner<T = string>(scannerId: T): Promise<OpenScannerResponse<T>>;
+        export function openScanner<T = string>(
+            scannerId: T,
+            callback: (response: OpenScannerResponse<T>) => void,
+        ): void;
+
+        /**
+         * Reads the next chunk of available image data from an active job handle, and returns a Promise that resolves with a {@link ReadScanDataResponse} object. If a callback is used, the object is passed to it instead.
+         *
+         * **Note:**It is valid for a response result to be `SUCCESS` with a zero-length `data` member. This means the scanner is still working but does not yet have additional data ready. The caller should wait a short time and try again.
+         *
+         * When the scan job completes, the response will have the result value of `EOF`. This response may contain a final non-zero `data` member.
+         * @param job Active job handle previously returned from {@link startScan}.
+         * @since Chrome 125
+         */
+        export function readScanData<T = string>(job: T): Promise<ReadScanDataResponse<T>>;
+        export function readScanData<T = string>(job: T, callback: (response: ReadScanDataResponse<T>) => void): void;
+
+        /**
+         * Performs a document scan and returns a Promise that resolves with a {@link ScanResults} object. If a callback is passed to this function, the returned data is passed to it instead.
+         * @param options An object containing scan parameters.
+         */
+        export function scan(options: ScanOptions): Promise<ScanResults>;
+        export function scan(options: ScanOptions, callback: (result: ScanResults) => void): void;
+
+        /**
+         * Sets options on the specified scanner and returns a Promise that resolves with a {@link SetOptionsResponse} object containing the result of trying to set every value in the order of the passed-in {@link OptionSetting} object. If a callback is used, the object is passed to it instead.
+         * @param scannerHandle The handle of the scanner to set options on. This should be a value previously returned from a call to {@link openScanner}.
+         * @param options A list of `OptionSetting` objects to be applied to the scanner.
+         * @since Chrome 125
+         */
+        export function setOptions<T = string>(
+            scannerHandle: T,
+            options: OptionSetting[],
+        ): Promise<SetOptionsResponse<T>>;
+        export function setOptions<T = string>(
+            scannerHandle: T,
+            options: OptionSetting[],
+            callback: (response: SetOptionsResponse<T>) => void,
+        ): void;
+
+        /**
+         * Starts a scan on the specified scanner and returns a Promise that resolves with a {@link StartScanResponse}. If a callback is used, the object is passed to it instead. If the call was successful, the response includes a job handle that can be used in subsequent calls to read scan data or cancel a scan.
+         * @param scannerHandle The handle of an open scanner. This should be a value previously returned from a call to {@link openScanner}.
+         * @param options A {@link StartScanOptions} object indicating the options to be used for the scan. The `StartScanOptions.format` property must match one of the entries returned in the scanner's `ScannerInfo`.
+         * @since Chrome 125
+         */
+        export function startScan<T = string>(
+            scannerHandle: T,
+            options: StartScanOptions,
+        ): Promise<StartScanResponse<T>>;
+        export function startScan<T = string>(
+            scannerHandle: T,
+            options: StartScanOptions,
+            callback: (response: StartScanResponse<T>) => void,
+        ): void;
     }
 
     ////////////////////
@@ -5172,7 +5576,6 @@ declare namespace chrome {
      * Permissions: "identity"
      */
     export namespace identity {
-        /** @since Chrome 32 */
         export interface AccountInfo {
             /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
             id: string;
@@ -5180,78 +5583,81 @@ declare namespace chrome {
 
         /** @since Chrome 84 */
         export enum AccountStatus {
+            /** Specifies that Sync is enabled for the primary account. */
             SYNC = "SYNC",
+            /** Specifies the existence of a primary account, if any. */
             ANY = "ANY",
         }
 
+        /** @since Chrome 84 */
         export interface ProfileDetails {
-            /**
-             * Optional.
-             * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
-             */
-            accountStatus?: AccountStatus | undefined;
+            /** A status of the primary account signed into a profile whose `ProfileUserInfo` should be returned. Defaults to `SYNC` account status. */
+            accountStatus?: `${AccountStatus}`;
         }
 
         export interface TokenDetails {
+            /** Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is `true`, `getAuthToken` will prompt the user as necessary. When the flag is `false` or omitted, `getAuthToken` will return failure any time a prompt would be required. */
+            interactive?: boolean;
+            /** The account ID whose token should be returned. If not specified, the function will use an account from the Chrome profile: the Sync account if there is one, or otherwise the first Google web account. */
+            account?: AccountInfo;
             /**
-             * Optional.
-             * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
+             * The `enableGranularPermissions` flag allows extensions to opt-in early to the granular permissions consent screen, in which requested permissions are granted or denied individually.
+             * @since Chrome 87
              */
-            interactive?: boolean | undefined;
+            enableGranularPermissions?: boolean;
             /**
-             * Optional.
-             * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
-             * account is only supported when the "enable-new-profile-management" flag is set.
-             * @since Chrome 37
-             */
-            account?: AccountInfo | undefined;
-            /**
-             * Optional.
              * A list of OAuth2 scopes to request.
-             * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
-             * @since Chrome 37
+             *
+             * When the `scopes` field is present, it overrides the list of scopes specified in manifest.json.
              */
-            scopes?: string[] | undefined;
+            scopes?: string[];
         }
 
-        export interface UserInfo {
-            /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
+        export interface ProfileUserInfo {
+            /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the `identity.email` manifest permission is not specified. */
             email: string;
-            /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
+            /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the `identity.email` manifest permission is not specified. */
             id: string;
         }
 
-        export interface TokenInformation {
+        export interface InvalidTokenDetails {
             /** The specific token that should be removed from the cache. */
             token: string;
         }
 
-        export interface WebAuthFlowOptions {
+        export interface WebAuthFlowDetails {
             /** The URL that initiates the auth flow. */
             url: string;
+
             /**
-             * Optional.
              * Whether to launch auth flow in interactive mode.
-             * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
-             * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
+             *
+             * Since some auth flows may immediately redirect to a result URL, `launchWebAuthFlow` hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
+             *
+             * If the `interactive` flag is `true`, the window will be displayed when a page load completes. If the flag is `false` or omitted, `launchWebAuthFlow` will return with an error if the initial navigation does not complete the flow.
+             *
+             * For flows that use JavaScript for redirection, `abortOnLoadForNonInteractive` can be set to `false` in combination with setting `timeoutMsForNonInteractive` to give the page a chance to perform any redirects.
              */
-            interactive?: boolean | undefined;
+            interactive?: boolean;
+            /**
+             * Whether to terminate `launchWebAuthFlow` for non-interactive requests after the page loads. This parameter does not affect interactive flows.
+             *
+             * When set to `true` (default) the flow will terminate immediately after the page loads. When set to `false`, the flow will only terminate after the `timeoutMsForNonInteractive` passes. This is useful for identity providers that use JavaScript to perform redirections after the page loads.
+             * @since Chrome 113
+             */
+            abortOnLoadForNonInteractive?: boolean;
+            /**
+             * The maximum amount of time, in milliseconds, `launchWebAuthFlow` is allowed to run in non-interactive mode in total. Only has an effect if `interactive` is `false`.
+             * @since Chrome 113
+             */
+            timeoutMsForNonInteractive?: number;
         }
 
-        export interface SignInChangeEvent
-            extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>
-        {}
-
+        /** @since Chrome 105 */
         export interface GetAuthTokenResult {
-            /**
-             * Optional.
-             * A list of OAuth2 scopes granted to the extension.
-             */
+            /** A list of OAuth2 scopes granted to the extension. */
             grantedScopes?: string[];
-            /**
-             * Optional.
-             * The specific token associated with the request.
-             */
+            /** The specific token associated with the request. */
             token?: string;
         }
 
@@ -5261,81 +5667,86 @@ declare namespace chrome {
          *  * Removes all OAuth2 access tokens from the token cache
          *  * Removes user's account preferences
          *  * De-authorizes the user from all auth flows
-         * If `callback` is not provided, the function returns a Promise when the state has been cleared.
+         *
+         * Can return its result via Promise since Chrome 106.
          * @since Chrome 87
-         * @param callback Called when the state has been cleared.
          */
         export function clearAllCachedAuthTokens(): Promise<void>;
         export function clearAllCachedAuthTokens(callback: () => void): void;
 
         /**
          * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
+         *
          * getAccounts is only supported on dev channel.
-         * Dev channel only.
          */
         export function getAccounts(): Promise<AccountInfo[]>;
         export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
 
         /**
          * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
+         *
          * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
+         *
          * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
-         * If `callback` is not provided, the function returns a Promise that resolves with the token.
          * @param details Token options.
-         * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function getAuthToken(details: TokenDetails): Promise<GetAuthTokenResult>;
-        export function getAuthToken(
-            details: TokenDetails,
-            callback: (token?: string, grantedScopes?: string[]) => void,
-        ): void;
+        export function getAuthToken(details?: TokenDetails): Promise<GetAuthTokenResult>;
+        export function getAuthToken(details: TokenDetails, callback: (result: GetAuthTokenResult) => void): void;
+        export function getAuthToken(callback: (result: GetAuthTokenResult) => void): void;
 
         /**
          * Retrieves email address and obfuscated gaia id of the user signed into a profile.
+         *
+         * Requires the `identity.email` manifest permission. Otherwise, returns an empty result.
+         *
          * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
-         * @since Chrome 37
+         * @param details Profile options.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
-
-        /** @since Chrome 84 */
-        export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
-
-        /** @since Chrome 84 */
-        export function getProfileUserInfo(details?: ProfileDetails): Promise<UserInfo>;
+        export function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
+        export function getProfileUserInfo(
+            details: ProfileDetails,
+            callback: (userInfo: ProfileUserInfo) => void,
+        ): void;
+        export function getProfileUserInfo(callback: (userInfo: ProfileUserInfo) => void): void;
 
         /**
          * Removes an OAuth2 access token from the Identity API's token cache.
-         * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
-         * If `callback` is not provided, the function returns a Promise when the state has been removed from the cache.
+         *
+         * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with `getAuthToken`.
          * @param details Token information.
-         * @param callback Called when the token has been removed from the cache.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function removeCachedAuthToken(details: TokenInformation): Promise<void>;
-        export function removeCachedAuthToken(details: TokenInformation, callback: () => void): void;
+        export function removeCachedAuthToken(details: InvalidTokenDetails): Promise<void>;
+        export function removeCachedAuthToken(details: InvalidTokenDetails, callback: () => void): void;
 
         /**
          * Starts an auth flow at the specified URL.
-         * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
+         *
+         * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern `https://<app-id>.chromiumapp.org/*`, the window will close, and the final redirect URL will be passed to the `callback` function.
+         *
          * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
          * @param details WebAuth flow options.
-         * @param callback Optional. Called with the URL redirected back to your application.
+         *
+         * Can return its result via Promise since Chrome 106
          */
-        export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
-        export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
+        export function launchWebAuthFlow(details: WebAuthFlowDetails): Promise<string | undefined>;
+        export function launchWebAuthFlow(details: WebAuthFlowDetails, callback: (responseUrl?: string) => void): void;
 
         /**
-         * Generates a redirect URL to be used in launchWebAuthFlow.
-         * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
-         * @since Chrome 33
-         * @param path Optional. The path appended to the end of the generated URL.
+         * Generates a redirect URL to be used in `launchWebAuthFlow`.
+         *
+         * The generated URLs match the pattern `https://<app-id>.chromiumapp.org/*`.
+         * @param path The path appended to the end of the generated URL.
          */
         export function getRedirectURL(path?: string): string;
 
-        /**
-         * Fired when signin state changes for an account on the user's profile.
-         * @since Chrome 33
-         */
-        export var onSignInChanged: SignInChangeEvent;
+        /** Fired when signin state changes for an account on the user's profile. */
+        export const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     ////////////////////
@@ -7189,7 +7600,7 @@ declare namespace chrome {
         export interface SubmitJobRequest {
             /**
              * The print job to be submitted.
-             * The only supported content type is "application/pdf", and the Cloud Job Ticket shouldn't include FitToPageTicketItem, PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since they are irrelevant for native printing.
+             * Supported content types are "application/pdf" and "image/png". The Cloud Job Ticket shouldn't include `FitToPageTicketItem`, `PageRangeTicketItem` and `ReverseOrderTicketItem` fields since they are irrelevant for native printing. `VendorTicketItem` is optional
              * All other fields must be present.
              */
             job: chrome.printerProvider.PrintJob;
@@ -8300,6 +8711,8 @@ declare namespace chrome {
 
         // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
         export type ManifestPermissions =
+            | "accessibilityFeatures.modify"
+            | "accessibilityFeatures.read"
             | "activeTab"
             | "alarms"
             | "audio"
@@ -8321,6 +8734,7 @@ declare namespace chrome {
             | "desktopCapture"
             | "documentScan"
             | "downloads"
+            | "downloads.open"
             | "downloads.shelf"
             | "downloads.ui"
             | "enterprise.deviceAttributes"
@@ -8373,6 +8787,7 @@ declare namespace chrome {
             | "userScripts"
             | "vpnProvider"
             | "wallpaper"
+            | "webAuthenticationProxy"
             | "webNavigation"
             | "webRequest"
             | "webRequestBlocking"
@@ -9191,7 +9606,7 @@ declare namespace chrome {
         }
 
         export interface Session {
-            /** The time when the window or tab was closed or modified, represented in milliseconds since the epoch. */
+            /** The time when the window or tab was closed or modified, represented in seconds since the epoch. */
             lastModified: number;
             /**
              * Optional.

@@ -1,4 +1,9 @@
 import RenderContext from "./RenderContext.js";
+/**
+ * Abstract base class of a timestamp query pool.
+ *
+ * @abstract
+ */
 declare abstract class TimestampQueryPool {
     trackTimestamp: boolean;
     maxQueries: number;
@@ -7,18 +12,25 @@ declare abstract class TimestampQueryPool {
     isDisposed: boolean;
     lastValue: number;
     pendingResolve: boolean;
+    /**
+     * Creates a new timestamp query pool.
+     *
+     * @param {number} [maxQueries=256] - Maximum number of queries this pool can hold.
+     */
     constructor(maxQueries?: number);
     /**
      * Allocate queries for a specific renderContext.
      *
      * @abstract
+     * @param {Object} renderContext - The render context to allocate queries for.
      */
     abstract allocateQueriesForContext(renderContext: RenderContext): number | null;
     /**
      * Resolve all timestamps and return data (or process them).
      *
      * @abstract
-     * @returns {Promise<Number>|Number} The resolved timestamp value.
+     * @async
+     * @returns {Promise<number>|number} The resolved timestamp value.
      */
     abstract resolveQueriesAsync(): Promise<number>;
     /**

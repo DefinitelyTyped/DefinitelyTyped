@@ -392,6 +392,10 @@ const awsServerless: Aws.Serverless = {
                     issuerUrl: "testissuerUrl",
                     audience: ["testaudience"],
                 },
+                testCustomAuthorizer: {
+                    type: "request",
+                    functionName: "testCustomAuthorizer",
+                },
             },
             useProviderTags: true,
             metrics: true,
@@ -952,6 +956,9 @@ const awsServerless: Aws.Serverless = {
                 },
                 authorizer: "aws_iam",
             },
+        },
+        testCustomAuthorizer: {
+            handler: "testauthorizer",
         },
     },
     layers: {

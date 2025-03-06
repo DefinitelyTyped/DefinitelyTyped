@@ -80,7 +80,7 @@ export namespace DevtoolsPanels {
          *
          * @param path Relative path of an extension page to display within the sidebar.
          */
-        setPage(path: Manifest.ExtensionURL): void;
+        setPage(path: Manifest.ExtensionURL): Promise<void>;
 
         /**
          * Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.

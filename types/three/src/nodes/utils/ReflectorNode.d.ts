@@ -32,6 +32,7 @@ declare class ReflectorBaseNode extends Node {
 
     virtualCameras: WeakMap<Camera, Camera>;
     renderTargets: WeakMap<Camera, RenderTarget>;
+    forceUpdate: boolean;
 
     constructor(textureNode: TextureNode, parameters?: ReflectorNodeParameters);
 

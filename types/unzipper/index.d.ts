@@ -60,6 +60,12 @@ export namespace Open {
     ): Promise<CentralDirectory>;
     function s3(client: any, params: any): Promise<CentralDirectory>;
     function s3_v3(client: any, params: any): Promise<CentralDirectory>;
+    function custom(
+        source: {
+            size: () => Promise<number>;
+            stream: (offset: number, length: number) => Readable;
+        },
+    ): Promise<CentralDirectory>;
 }
 
 export function BufferStream(entry: Entry): Promise<Buffer>;

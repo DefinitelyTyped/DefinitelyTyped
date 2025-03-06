@@ -6,6 +6,7 @@ import * as http2 from "node:http2";
 import * as https from "node:https";
 import * as url from "node:url";
 
+import KeyGrip = require("keygrip");
 import * as Koa from "koa";
 
 export {};
@@ -929,6 +930,11 @@ export interface JWTStructured {
     payload: UnknownObject;
 }
 
+export type JsonObject = { [Key in string]?: JsonValue };
+export type JsonArray = JsonValue[];
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+
 export interface Configuration {
     acrValues?: string[] | Set<string> | undefined;
 
@@ -979,7 +985,7 @@ export interface Configuration {
                 | undefined;
             long?: CookiesSetOptions | undefined;
             short?: CookiesSetOptions | undefined;
-            keys?: Array<string | Buffer> | undefined;
+            keys?: Array<string | Buffer> | undefined | KeyGrip;
         }
         | undefined;
 
@@ -990,6 +996,13 @@ export interface Configuration {
             | null
             | ((ctx: KoaContextWithOIDC, value: string | undefined, client: Client) => CanBePromise<void>);
     } | undefined;
+
+    assertJwtClientAuthClaimsAndHeader?: (
+        ctx: KoaContextWithOIDC,
+        claims: Record<string, JsonValue>,
+        header: Record<string, JsonValue>,
+        client: Client,
+    ) => CanBePromise<void>;
 
     features?:
         | {
@@ -1179,7 +1192,6 @@ export interface Configuration {
             jwtIntrospection?:
                 | {
                     enabled?: boolean | undefined;
-                    ack?: string | undefined;
                 }
                 | undefined;
 

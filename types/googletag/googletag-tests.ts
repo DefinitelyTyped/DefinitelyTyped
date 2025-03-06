@@ -696,9 +696,9 @@ function test_googletag_config_AdExpansionConfig_enabled() {
  */
 function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
     const componentAuctionConfig = {
-        // Seller URL should be https and the same as decisionLogicUrl's origin
+        // Seller URL should be https and the same as decisionLogicURL's origin
         seller: "https://testSeller.com",
-        decisionLogicUrl: "https://testSeller.com/ssp/decision-logic.js",
+        decisionLogicURL: "https://testSeller.com/ssp/decision-logic.js",
         interestGroupBuyers: ["https://example-buyer.com"],
         auctionSignals: { auction_signals: "auction_signals" },
         sellerSignals: { seller_signals: "seller_signals" },
@@ -708,6 +708,7 @@ function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
                 per_buyer_signals: "per_buyer_signals",
             },
         },
+        trustedScoringSignalsURL: "",
     };
     const auctionSlot = googletag.defineSlot("/1234567/example", [160, 600])!;
     // To add configKey to the component auction:

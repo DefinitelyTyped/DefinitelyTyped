@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/regexp.escape",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/es-shims/RegExp.escape#readme"
+    ],
+    "devDependencies": {
+        "@types/regexp.escape": "workspace:."
+    },
+    "exports": {
+        ".": "./index.d.ts",
+        "./auto": "./auto.d.ts",
+        "./polyfill": "./polyfill.d.ts",
+        "./implementation": "./implementation.d.ts",
+        "./shim": "./shim.d.ts"
+    },
+    "owners": [
+        {
+            "name": "Katja Potensky",
+            "githubUsername": "hesxenon"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

@@ -114,6 +114,11 @@ function equal() {
     should.equal(undefined, void (0));
 }
 
+function containSubset() {
+    expect({}).to.containSubset({});
+    ({}).should.containSubset({});
+}
+
 function _typeof() {
     expect("test").to.be.a("string");
     "test".should.be.a("string");

@@ -73,7 +73,9 @@ calculator.asyncScreenshot(setImageSrc);
 
 // Preserve the aspect ratio if the axes are square, otherwise show the exact region
 const opts = {
-    mode: calculator.isProjectionUniform() ? "contain" as const : "stretch" as const,
+    mode: calculator.isProjectionUniform()
+        ? ("contain" as const)
+        : ("stretch" as const),
     width: 500,
     height: 300,
     mathBounds: { left: -5, right: 5, bottom: -20, top: 0 },
@@ -190,6 +192,13 @@ calculator.setExpression({
     color: calculator.colors.customBlue,
 });
 
+// Text expression
+calculator.setExpression({
+    type: "text",
+    id: "4",
+    text: "Hello World",
+});
+
 // Make a dashed line
 calculator.setExpression({
     id: "line",
@@ -239,18 +248,46 @@ calculator.updateSettings({ language: "fr" });
 
 // All features enabled
 // $ExpectType boolean
-Desmos.enabledFeatures.GraphingCalculator
+Desmos.enabledFeatures.Calculator3D
     && Desmos.enabledFeatures.FourFunctionCalculator
+    && Desmos.enabledFeatures.GeometryCalculator
+    && Desmos.enabledFeatures.GraphingCalculator
     && Desmos.enabledFeatures.ScientificCalculator;
 
 // Only graphing calculator enabled
 // $ExpectType boolean
 Desmos.enabledFeatures.GraphingCalculator
+    && !Desmos.enabledFeatures.Calculator3D
     && !Desmos.enabledFeatures.FourFunctionCalculator
+    && !Desmos.enabledFeatures.GeometryCalculator
     && !Desmos.enabledFeatures.ScientificCalculator;
 
-const elt1 = document.getElementById("four-function-calculator") as HTMLDivElement;
-const calculator1 = Desmos.FourFunctionCalculator(elt1);
+const elt1 = document.getElementById(
+    "four-function-calculator",
+) as HTMLDivElement;
+const fourFunctionCalculator = Desmos.FourFunctionCalculator(elt1);
 
 const elt2 = document.getElementById("scientific-calculator") as HTMLDivElement;
-const calculator2 = Desmos.ScientificCalculator(elt2);
+const scientificCalculator = Desmos.ScientificCalculator(elt2);
+
+// 3d calculator
+const elt3 = document.getElementById("calculator-3d") as HTMLDivElement;
+const calculator3d = Desmos.Calculator3D(elt3);
+
+calculator3d.setExpression({
+    id: "1",
+    latex: "y=x",
+    color: Desmos.Colors.BLUE,
+});
+
+// geometry calculator
+const eltGeometry = document.getElementById(
+    "calculator-geometry",
+) as HTMLDivElement;
+const geometryCalculator = Desmos.Geometry(eltGeometry);
+
+geometryCalculator.setExpression({
+    id: "1",
+    latex: "y=x",
+    color: Desmos.Colors.BLUE,
+});

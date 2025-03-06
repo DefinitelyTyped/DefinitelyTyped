@@ -1,13 +1,34 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "0.54.9999",
+    "version": "0.57.9999",
     "type": "module",
     "projects": [
         "https://grafana.com/docs/k6/latest/"
     ],
     "devDependencies": {
         "@types/k6": "workspace:."
+    },
+    "exports": {
+        ".": "./index.d.ts",
+        "./options": "./options/index.d.ts",
+        "./ws": "./ws/index.d.ts",
+        "./http": "./http/index.d.ts",
+        "./net/grpc": "./net/grpc/index.d.ts",
+        "./html": "./html/index.d.ts",
+        "./metrics": "./metrics/index.d.ts",
+        "./timers": "./timers/index.d.ts",
+        "./execution": "./execution/index.d.ts",
+        "./encoding": "./encoding/index.d.ts",
+        "./data": "./data/index.d.ts",
+        "./crypto": "./crypto/index.d.ts",
+        "./browser": "./browser/index.d.ts",
+        "./experimental/csv": "./experimental/csv/index.d.ts",
+        "./experimental/fs": "./experimental/fs/index.d.ts",
+        "./experimental/redis": "./experimental/redis/index.d.ts",
+        "./experimental/webcrypto": "./experimental/webcrypto/index.d.ts",
+        "./experimental/streams": "./experimental/streams/index.d.ts",
+        "./experimental/websockets": "./experimental/websockets/index.d.ts"
     },
     "owners": [
         {
@@ -27,20 +48,12 @@
             "githubUsername": "olegbespalov"
         },
         {
-            "name": "Nicole van der Hoeven",
-            "githubUsername": "nicolevanderhoeven"
-        },
-        {
             "name": "Ankur Agarwal",
             "githubUsername": "ankur22"
         },
         {
             "name": "İnanç Gümüş",
             "githubUsername": "inancgumus"
-        },
-        {
-            "name": "Daniel Jiménez",
-            "githubUsername": "ka3de"
         },
         {
             "name": "Joan López de la Franca Beltran",

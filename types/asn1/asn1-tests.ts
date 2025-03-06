@@ -1,6 +1,6 @@
 import { Ber, BerReader, BerWriter } from "asn1";
 
-let buf = Buffer.alloc(0);
+let buf: Buffer = Buffer.alloc(0);
 let bufferOrNull: Buffer | null = Buffer.alloc(0);
 const bool = false;
 let boolOrNull: boolean | null = false;

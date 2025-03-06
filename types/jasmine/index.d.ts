@@ -197,11 +197,13 @@ interface ThrowUnlessFailure {
      */
     passed: boolean;
     /**
-     * If the expectation failed, what was the expected value.
+     * Deprecated. If the expectation failed, what was the expected value.
+     * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
      */
     expected: any;
     /**
-     * If the expectation failed, what actual value was produced.
+     * Deprecated. If the expectation failed, what actual value was produced.
+     * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
      */
     actual: any;
 }
@@ -400,7 +402,7 @@ declare namespace jasmine {
     function setContaining<T>(sample: Set<T>): AsymmetricMatcher<Set<T>>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
-    function spyOnGlobalErrorsAsync(fn?: (globalErrorSpy: Error) => Promise<void>): Promise<void>;
+    function spyOnGlobalErrorsAsync(fn?: (globalErrorSpy: Spy<(error: Error) => void>) => Promise<void>): Promise<void>;
     function addSpyStrategy<Fn extends Func = Func>(name: string, factory: Fn): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
@@ -576,11 +578,31 @@ declare namespace jasmine {
     }
 
     interface ExpectationResult extends Result {
+        /**
+         * The name of the matcher that was executed for this expectation.
+         */
         matcherName: string;
+        /**
+         * The failure message for the expectation.
+         */
         message: string;
+        /**
+         * The stack trace for the failure if available.
+         */
         stack: string;
+        /**
+         * Whether the expectation passed or failed.
+         */
         passed: boolean;
+        /**
+         * Deprecated. If the expectation failed, what was the expected value.
+         * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
+         */
         expected: any;
+        /**
+         * Deprecated. If the expectation failed, what actual value was produced.
+         * @deprecated The expected and actual properties are deprecated and may be removed in a future release.
+         */
         actual: any;
     }
 

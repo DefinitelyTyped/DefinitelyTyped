@@ -41,3 +41,6 @@ isEqual(Constants.LEGACY_ROOT, ReactReconcilerConstants.LegacyRoot);
 
 // $ExpectType boolean
 isEqual(Constants.CONCURRENT_ROOT, ReactReconcilerConstants.ConcurrentRoot);
+
+// $ExpectType boolean
+isEqual(Constants.NO_EVENT_PRIORITY, ReactReconcilerConstants.NoEventPriority);
