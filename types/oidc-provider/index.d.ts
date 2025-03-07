@@ -250,7 +250,7 @@ declare class Session extends BaseModel {
     static get(ctx: Koa.Context): Promise<Session>;
 }
 
-declare class Grant extends BaseModel {
+declare class Grant extends BaseToken {
     constructor(properties?: { clientId?: string | undefined; accountId?: string | undefined });
 
     accountId?: string | undefined;
