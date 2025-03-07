@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mysql-await",
+    "version": "2.2.3",
+    "projects": [
+        "https://github.com/om-mani-padme-hum/mysql-await"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mysql-await": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "XiaoLOrange",
+            "githubUsername": "jiang-ruo"
+        }
+    ]
+}
