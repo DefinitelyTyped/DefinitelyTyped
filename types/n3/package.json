@@ -6,7 +6,7 @@
         "https://github.com/rdfjs/n3.js"
     ],
     "dependencies": {
-        "@rdfjs/types": "^1.1.0",
+        "@rdfjs/types": "^2.0.1",
         "@types/node": "*"
     },
     "devDependencies": {
