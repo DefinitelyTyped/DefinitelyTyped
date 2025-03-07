@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mysql-await",
-    "version": "2.2.3",
+    "version": "2.2.9999",
     "projects": [
         "https://github.com/om-mani-padme-hum/mysql-await"
     ],
