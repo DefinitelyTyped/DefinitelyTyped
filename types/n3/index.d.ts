@@ -148,6 +148,7 @@ export interface LexerOptions {
     lineMode?: boolean | undefined;
     n3?: boolean | undefined;
     comments?: boolean | undefined;
+    isImpliedBy?: boolean | undefined;
 }
 
 export type TokenCallback = (error: Error, token: Token) => void;
@@ -193,6 +194,7 @@ export interface ParserOptions {
     factory?: RDF.DataFactory | undefined;
     baseIRI?: string | undefined;
     blankNodePrefix?: string | undefined;
+    isImpliedBy?: boolean | undefined;
 }
 
 export interface StreamParserOptions extends ParserOptions {
