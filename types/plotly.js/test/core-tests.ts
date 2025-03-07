@@ -31,7 +31,10 @@ const trace2 = {
 const data = [trace1, trace2];
 const tickangle: "auto" = "auto";
 const layout = {
-    title: "Sales Growth",
+    title: {
+        text: "Sales Growth",
+        subtitle: "Annual sales growth between 1999 and 2002",
+    },
     xaxis: {
         title: "Year",
         showgrid: false,
