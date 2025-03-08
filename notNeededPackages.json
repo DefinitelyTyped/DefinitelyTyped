@@ -3869,6 +3869,10 @@
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
         },
+        "mem-fs-editor": {
+            "libraryName": "mem-fs-editor",
+            "asOfVersion": "10.0.1"
+        },
         "memoize-one": {
             "libraryName": "memoize-one",
             "asOfVersion": "5.1.0"
