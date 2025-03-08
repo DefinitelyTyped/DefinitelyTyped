@@ -264,7 +264,7 @@ export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Tran
 }
 
 export class StoreFactory
-    implements RDF.DatasetFactory<RDF.BaseQuad, Quad, Store>, RDF.DatasetFactory<RDF.BaseQuad, Quad, Store>
+    implements RDF.DatasetCoreFactory<RDF.BaseQuad, Quad, Store>, RDF.DatasetFactory<RDF.BaseQuad, Quad, Store>
 {
     dataset(quads?: RDF.BaseQuad[] | RDF.DatasetCore): Store;
 }
