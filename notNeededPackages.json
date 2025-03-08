@@ -4697,6 +4697,10 @@
             "libraryName": "param-case",
             "asOfVersion": "1.1.2"
         },
+        "parent-package-json": {
+            "libraryName": "parent-package-json",
+            "asOfVersion": "3.0.0"
+        },
         "park-miller": {
             "libraryName": "park-miller",
             "asOfVersion": "1.1.0"
