@@ -3221,6 +3221,10 @@
             "libraryName": "jsonata",
             "asOfVersion": "1.5.0"
         },
+        "jsonic": {
+            "libraryName": "jsonic",
+            "asOfVersion": "2.15.1"
+        },
         "jsonp-body": {
             "libraryName": "jsonp-body",
             "asOfVersion": "1.1.0"
