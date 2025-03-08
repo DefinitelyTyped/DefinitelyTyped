@@ -2121,6 +2121,10 @@
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
         },
+        "flexsearch": {
+            "libraryName": "flexsearch",
+            "asOfVersion": "0.7.42"
+        },
         "fluent-reveal-effect": {
             "libraryName": "fluent-reveal-effect",
             "asOfVersion": "3.0.3"
