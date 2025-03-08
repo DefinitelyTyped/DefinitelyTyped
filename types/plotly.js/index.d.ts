@@ -1313,7 +1313,6 @@ export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
-// Bar Scatter
 export interface PlotData {
     type: PlotType;
     x: Datum[] | Datum[][] | TypedArray;
@@ -1539,6 +1538,7 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    maxdepth: number;
     uirevision: string | number;
     uid: string;
 }
