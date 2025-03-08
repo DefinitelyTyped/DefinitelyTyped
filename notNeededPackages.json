@@ -1337,6 +1337,10 @@
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
         },
+        "datadog-metrics": {
+            "libraryName": "datadog-metrics",
+            "asOfVersion": "0.11.0"
+        },
         "datastore-core": {
             "libraryName": "datastore-core",
             "asOfVersion": "3.0.0"
