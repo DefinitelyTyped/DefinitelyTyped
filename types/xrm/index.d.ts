@@ -2923,7 +2923,7 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+        interface MultiSelectOptionSetAttribute<T extends number = number> extends EnumAttribute<T[]> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
