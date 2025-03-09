@@ -1,19 +1,19 @@
 {
-  "private": true,
-  "name": "@types/chrome-built-in-ai",
-  "version": "0.0.9999",
-  "nonNpm": true,
-  "nonNpmDescription": "TypeScript definitions for Chrome Built-in AI API, an experimental browser feature that provides AI-powered functionalities such as translation, language detection, and Gemini-powered prompt-based text generation directly in Chrome.",
-  "projects": [
-      "https://developer.chrome.com/docs/ai/built-in-apis"
-  ],
-  "devDependencies": {
-      "@types/chrome-built-in-ai": "workspace:."
-  },
-  "owners": [
-      {
-          "name": "Yizzy Wu",
-          "githubUsername": "yizzycool"
-      }
-  ]
+    "private": true,
+    "name": "@types/chrome-built-in-ai",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "TypeScript definitions for Chrome Built-in AI API, an experimental browser feature that provides AI-powered functionalities such as translation, language detection, and Gemini-powered prompt-based text generation directly in Chrome.",
+    "projects": [
+        "https://developer.chrome.com/docs/ai/built-in-apis"
+    ],
+    "devDependencies": {
+        "@types/chrome-built-in-ai": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yizzy Wu",
+            "githubUsername": "yizzycool"
+        }
+    ]
 }
