@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/ai-language-detector-tests.ts",
+        "test/ai-language-model-tests.ts",
+        "test/ai-rewriter-tests.ts",
+        "test/ai-summarizer-tests.ts",
+        "test/ai-translator-tests.ts",
+        "test/ai-writer-tests.ts"
+    ]
+}
