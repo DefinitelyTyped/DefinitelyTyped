@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "chrome-built-in-ai-tests.ts",
         "test/ai-language-detector-tests.ts",
         "test/ai-language-model-tests.ts",
         "test/ai-rewriter-tests.ts",
