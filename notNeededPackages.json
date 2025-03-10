@@ -2701,6 +2701,10 @@
             "libraryName": "ids",
             "asOfVersion": "0.2.2"
         },
+        "igdb-api-node": {
+            "libraryName": "igdb-api-node",
+            "asOfVersion": "6.0.0"
+        },
         "image-size": {
             "libraryName": "image-size",
             "asOfVersion": "0.8.0"
