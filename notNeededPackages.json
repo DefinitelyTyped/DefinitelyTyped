@@ -5583,6 +5583,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-kawaii": {
+            "libraryName": "react-kawaii",
+            "asOfVersion": "1.3.0"
+        },
         "react-leaflet": {
             "libraryName": "react-leaflet",
             "asOfVersion": "3.0.0"
