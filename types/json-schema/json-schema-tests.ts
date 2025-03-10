@@ -251,3 +251,27 @@ let result = validate({}, { $id: "schema-id" });
 mustBeValid(result);
 
 result = checkPropertyChange({ foo: "bar" }, { $id: "schema-id" }, "foo");
+
+type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+interface JSONObject {
+    [key: string]: JSONValue;
+}
+interface JSONArray extends Array<JSONValue> {}
+
+// JSONSchema4 should be assignable to JSON
+(() => {
+    const schema: JSONSchema4 = {};
+    const json: JSONObject = schema;
+});
+
+// JSONSchema6 should be assignable to JSON
+(() => {
+    const schema: JSONSchema6 = {};
+    const json: JSONObject = schema;
+});
+
+// JSONSchema7 should be assignable to JSON
+(() => {
+    const schema: JSONSchema7 = {};
+    const json: JSONObject = schema;
+});
