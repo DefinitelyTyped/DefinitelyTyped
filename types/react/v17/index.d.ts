@@ -2520,6 +2520,9 @@ declare namespace React {
         width?: number | string | undefined;
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
+
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
     }
 
     // this list is "complete" in that it contains every SVG attribute

@@ -32,7 +32,7 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} name="foo" />,
+    <details open={true} onToggle={() => { }} name="foo" />,
     <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,
     <input value={["one", "two"]} />,
@@ -110,6 +110,7 @@ const eventCallbacksTestCases = [
     <meter onClick={e => e.currentTarget.optimum} />,
     <output onClick={e => e.currentTarget.value} />,
     <time onClick={e => e.currentTarget.dateTime} />,
+    <video onResize={e => e.currentTarget} onResizeCapture={e => e.currentTarget} />
 ];
 
 const ariaAttributesTestCases = [
