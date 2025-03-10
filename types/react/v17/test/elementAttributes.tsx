@@ -111,3 +111,11 @@ const eventCallbacksTestCases = [
     <output onClick={e => e.currentTarget.value} />,
     <time onClick={e => e.currentTarget.dateTime} />,
 ];
+
+const ariaAttributesTestCases = [
+    <a aria-braillelabel="a" />,
+    <a aria-brailleroledescription="a" />,
+    <a aria-colindextext="a" />,
+    <a aria-rowindextext="a" />,
+    <a aria-description="a" />,
+]
