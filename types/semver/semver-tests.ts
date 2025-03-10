@@ -169,6 +169,7 @@ strn = semver.inc(str, "prerelease", "beta");
 strn = semver.inc("1.2.3", "prerelease", "alpha", "0");
 strn = semver.inc("1.2.3", "prerelease", "alpha", "1");
 strn = semver.inc("1.2.3", "prerelease", "beta", false);
+let res: string | null = semver.inc("1.2.3", "release"); // $ExpectType string | null
 num = semver.major(str, loose);
 num = semver.major(str, { loose: false });
 // @ts-expect-error
