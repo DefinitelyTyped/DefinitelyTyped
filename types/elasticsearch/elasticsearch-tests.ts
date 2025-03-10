@@ -324,6 +324,17 @@ client.search({
     }
 });
 
+client.search<unknown, elasticsearch.TotalHits>({
+    index: "myindex",
+    searchType: "query_then_fetch",
+    docvalueFields: ["title"],
+    q: "title:test",
+}).then((response) => {
+    const hitsRelation: string = response.hits.total!.relation;
+    const hitsTotal: number = response.hits.total!.value;
+    console.log("hits", hitsRelation, hitsTotal);
+});
+
 client.updateByQuery({
     index: "myIndex",
     type: "mytype",
