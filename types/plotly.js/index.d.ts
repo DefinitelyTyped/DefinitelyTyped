@@ -421,6 +421,12 @@ export interface Layout {
             xanchor: "auto" | "left" | "center" | "right";
             yanchor: "auto" | "top" | "middle" | "bottom";
             pad: Partial<Padding>;
+            subtitle:
+                | string
+                | Partial<{
+                    text: string;
+                    font: Partial<Font>;
+                }>;
         }>;
     titlefont: Partial<Font>;
     autosize: boolean;
