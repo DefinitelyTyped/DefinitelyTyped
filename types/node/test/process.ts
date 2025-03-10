@@ -244,3 +244,9 @@ process.env.TZ = "test";
     myDisposableObject.dispose();
     finalization.unregister(myDisposableObject);
 }
+
+{
+    const timeout = setTimeout(() => {}, 1000);
+    process.ref(timeout);
+    process.unref(timeout);
+}
