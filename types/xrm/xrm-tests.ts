@@ -190,12 +190,12 @@ if (attribute !== null) {
     attribute.setRequiredLevel(requirementLevel);
     attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
 
-    const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
+    // const isMultiSelect = attribute.getAttributeType() === "multiselectoptionset";
 }
 /// Demonstrate v8.2 quick form controls
 
-const quickForm = formContext.ui.quickForms.get(0);
-if (quickForm !== null) {
+const quickForm = formContext.ui.quickForms?.get(0);
+if (quickForm !== null && quickForm !== undefined) {
     quickForm.getControlType(); // == "quickform"
     quickForm.getName();
     quickForm.getParent();
@@ -205,7 +205,7 @@ if (quickForm !== null) {
     quickForm.refresh();
 }
 // Get standard control
-const ctrl = formContext.getControl<Xrm.Controls.StandardControl>("controlName");
+const ctrl = formContext.getControl("controlName");
 if (ctrl !== null) {
     ctrl.getControlType();
     ctrl.getName();
@@ -575,20 +575,25 @@ function booleanAttributeControls(formContext: Xrm.FormContext) {
     let booleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
         "prefx_myattribute",
     );
-    if (booleanAttribute === null) {
+    if (booleanAttribute === null || booleanAttribute === undefined) {
         return;
     }
     const booleanValue: boolean | null = booleanAttribute.getValue();
     // @ts-expect-error
     const notString: string = booleanAttribute.getValue();
 
-    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+    let booleanAttributeControl = booleanAttribute.controls.get(0);
+
+    if (booleanAttributeControl === null || booleanAttributeControl === undefined) {
+        return;
+    }
+    booleanAttribute = booleanAttributeControl.getAttribute();
 
     booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
 
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    booleanAttributeControl.getAttribute().getAttributeType() === "boolean";
     // @ts-expect-error
-    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
+    booleanAttributeControl.getAttribute().getAttributeType() === "optionset";
 }
 
 // Demonstrate add and remove methods for formContext.data.process
@@ -676,5 +681,35 @@ function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
         let id = args.getEntityReference().id;
     } else {
         console.log(args.getSaveErrorInfo());
+    }
+}
+
+function testAttributeTypeReturn(formContext: Xrm.FormContext) {
+    let attribute: null | Xrm.Attributes.StringAttribute = formContext.getAttribute("name");
+    if (attribute === null) {
+        return;
+    }
+    // $ExpectType "string"
+    let attributeType = attribute.getAttributeType();
+    // @ts-expect-error
+    if (attributeType === "boolean") {
+        let value = attribute.getValue();
+    }
+}
+
+function testControlTypeReturn(formContext: Xrm.FormContext) {
+    let attribute: null | Xrm.Attributes.LookupAttribute = formContext.getAttribute("name");
+    if (attribute === null) {
+        return;
+    }
+    let attributeControl = attribute.controls.get(0);
+    if (attributeControl === null) {
+        return;
+    }
+    
+    let attributeControlType = attributeControl.getControlType();
+    if (attributeControlType === "lookup") {
+        console.log(attributeControl.getAttribute())
+        let value = attribute.getValue();
     }
 }
