@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "module": "Node16",
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true,
+      "types": [],
+      "lib": ["es6"],
+      "noImplicitAny": false,
+      "noImplicitThis": false,
+      "strictNullChecks": false,
+      "strictFunctionTypes": true
+    },
+    "files": [
+      "index.d.ts",
+      "core/converter.d.ts",
+      "core/parser.d.ts",
+      "core/sanitizer.d.ts",
+      "core/tokenizer.d.ts"
+    ]
+  }
