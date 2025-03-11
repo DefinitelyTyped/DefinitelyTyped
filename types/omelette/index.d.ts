@@ -10,7 +10,7 @@ declare namespace omelette {
     }
 
     interface Instance {
-        cleanupShellInitFile(): void;
+        cleanupShellInitFile(initFile?: string): void;
 
         init(): void;
         next(fn: () => void): void;
