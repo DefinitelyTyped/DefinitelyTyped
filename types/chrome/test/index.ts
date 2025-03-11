@@ -5080,3 +5080,8 @@ function testReadingList() {
         onEntryUpdated.hasListeners(); // $ExpectType boolean
     };
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/dom
+function testDom() {
+    chrome.dom.openOrClosedShadowRoot(document.body); // $ExpectType ShadowRoot | null
+}
