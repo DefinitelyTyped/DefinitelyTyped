@@ -184,7 +184,9 @@ if (optionSetAttributeEnum !== null) {
 
 /// Demonstrate MultiSelectOptionSet Value as int
 
-const multiSelectOptionSetAttribute = formContext.getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>("statuscode");
+const multiSelectOptionSetAttribute = formContext.getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>(
+    "statuscode",
+);
 if (multiSelectOptionSetAttribute !== null) {
     const multiSelectOptionValue: number = multiSelectOptionSetAttribute.getOptions()[0].value;
 }
@@ -196,7 +198,9 @@ enum TestMultiSelectOptionSet {
     Option2 = 56666001,
 }
 
-const multiSelectOptionSetAttributeEnum = formContext.getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute<TestMultiSelectOptionSet>>("statuscode");
+const multiSelectOptionSetAttributeEnum = formContext.getAttribute<
+    Xrm.Attributes.MultiSelectOptionSetAttribute<TestMultiSelectOptionSet>
+>("statuscode");
 if (multiSelectOptionSetAttributeEnum !== null) {
     const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
 }
