@@ -1,5 +1,3 @@
-
-
 declare namespace OneLine {
     interface OneLine {
         event: EventObject;
@@ -76,6 +74,5 @@ declare namespace OneLine {
     type NoParamFunction = () => void;
     type ParamFunction = (arg: any) => void;
 }
-
 declare const OneLine: OneLine.OneLine;
 export = OneLine;
