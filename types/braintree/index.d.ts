@@ -1857,6 +1857,7 @@ declare namespace braintree {
             | undefined;
         shippingAddressId?: string | undefined;
         shippingAmount?: string | undefined;
+        shippingTaxAmount?: string | undefined;
         shipsFromPostalCode?: string | undefined;
         taxAmount?: string | undefined;
         taxExempt?: boolean | undefined;
