@@ -1,6 +1,5 @@
 import { ASTNode } from "./parser.js";
 
-
 export interface ResultObject {
     [key: string]: any;
 }

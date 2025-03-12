@@ -19,7 +19,6 @@ import { ASTNode, ParseResult } from "./core/parser.js";
  */
 export function convertSQLToAst(filterString: string, enableConsoleLogs?: boolean): ParseResult;
 
-
 /**
  * Converts an Abstract Syntax Tree (AST) into a DevExpress-compatible filter format.
  * Optionally supports a result object for dynamic value resolution and short-circuit evaluation.
@@ -38,5 +37,5 @@ export function convertSQLToAst(filterString: string, enableConsoleLogs?: boolea
 export function convertAstToDevextreme(
     ast: ASTNode,
     state?: ResultObject | null,
-    enableShortCircuit?: boolean
+    enableShortCircuit?: boolean,
 ): DevExpressFilter;

@@ -1,16 +1,16 @@
 {
-  "name": "@types/sqlparser-devexpress",
-  "version": "2.3.9999",
-  "type": "module",
-  "private": true,
-  "projects": [
+    "name": "@types/sqlparser-devexpress",
+    "version": "2.3.9999",
+    "type": "module",
+    "private": true,
+    "projects": [
         "https://github.com/RohitM-IN/SQLParser"
     ],
-  "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/sqlparser-devexpress": "workspace:."
-  },
-  "owners": [
+    "devDependencies": {
+        "typescript": "^5.4.0",
+        "@types/sqlparser-devexpress": "workspace:."
+    },
+    "owners": [
         {
             "name": "Rohit Mahajan",
             "githubUsername": "RohitM-IN"

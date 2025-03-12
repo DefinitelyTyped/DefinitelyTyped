@@ -1,4 +1,3 @@
-
 export interface ASTNode {
     type: string;
     operator?: string;
@@ -20,7 +19,7 @@ export interface ParseResult {
 
 /**
  * The main parse function that converts SQL-like queries into AST.
- * 
+ *
  * @param input - The SQL-like string to be parsed.
  * @param variables - The list of extracted variables during parsing.
  * @returns ParseResult - The resulting AST and extracted variables.
