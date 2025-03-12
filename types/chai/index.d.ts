@@ -538,6 +538,24 @@ declare global {
             containSubset(val: any, exp: any, msg?: string): void;
 
             /**
+             * Partially matches actual and expected.
+             *
+             * @param actual   Actual value.
+             * @param expected   Potential subset of the value.
+             * @param message   Message to display on error.
+             */
+            containsSubset(val: any, exp: any, msg?: string): void;
+
+            /**
+             * No partial match between actual and expected exists.
+             *
+             * @param actual   Actual value.
+             * @param expected   Potential subset of the value.
+             * @param message   Message to display on error.
+             */
+            doesNotContainSubset(val: any, exp: any, msg?: string): void;
+
+            /**
              * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
              *
              * @param valueToCheck   Actual value.
