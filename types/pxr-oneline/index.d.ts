@@ -1,9 +1,13 @@
+
+
 declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
         preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
         requestVideoPlayerAds(onBiddingComplete: () => void): void;
+        showCmp(): void;
+        loadScript(src: string, priority: 'async' | 'defer' | 'instant' | 'async'): void;
         buildVideoUrl(
             bidder: BidderConfig[],
             placementID: string,
