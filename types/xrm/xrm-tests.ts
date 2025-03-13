@@ -153,7 +153,7 @@ alert(`The current form type is: ${formContext.ui.getFormType()}`);
 
 alert(`The current entity type is: ${formContext.data.entity.getEntityName()}`);
 
-/// Demonstrate Optionset Value as int in Turbo Forms
+/// Demonstrate OptionSet Value as int
 
 const optionSetAttribute = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute>("statuscode");
 if (optionSetAttribute !== null) {
@@ -168,6 +168,41 @@ if (optionSetAttribute !== null) {
             firstControl.setFocus();
         }
     }
+}
+
+/// Demonstrate OptionSet Value as enum
+
+enum TestOptionSet {
+    Option1 = 56666000,
+    Option2 = 56666001,
+}
+
+const optionSetAttributeEnum = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute<TestOptionSet>>("statuscode");
+if (optionSetAttributeEnum !== null) {
+    const optionEnumValue: TestOptionSet | null = optionSetAttributeEnum.getValue();
+}
+
+/// Demonstrate MultiSelectOptionSet Value as int
+
+const multiSelectOptionSetAttribute = formContext.getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>(
+    "statuscode",
+);
+if (multiSelectOptionSetAttribute !== null) {
+    const multiSelectOptionValue: number = multiSelectOptionSetAttribute.getOptions()[0].value;
+}
+
+/// Demonstrate MultiSelectOptionSet Value as enum
+
+enum TestMultiSelectOptionSet {
+    Option1 = 56666000,
+    Option2 = 56666001,
+}
+
+const multiSelectOptionSetAttributeEnum = formContext.getAttribute<
+    Xrm.Attributes.MultiSelectOptionSetAttribute<TestMultiSelectOptionSet>
+>("statuscode");
+if (multiSelectOptionSetAttributeEnum !== null) {
+    const multiSelectOptionEnumValue: TestMultiSelectOptionSet[] | null = multiSelectOptionSetAttributeEnum.getValue();
 }
 
 /// Demonstrate setFormNotification
@@ -634,7 +669,7 @@ const multiSelectOptionSetControl = formContext.getControl<Xrm.Controls.MultiSel
 if (multiSelectOptionSetControl === null) {
     throw new Error("Control does not exist!");
 }
-// $ExpectType MultiSelectOptionSetAttribute
+// $ExpectType MultiSelectOptionSetAttribute<number>
 multiSelectOptionSetControl.getAttribute();
 
 // Demonstrates getWebResourceUrl
