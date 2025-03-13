@@ -1659,7 +1659,7 @@ export namespace WebhooksApi {
         hookAttribute?: any;
         tenant?: string | undefined;
         filter?: string | undefined;
-        hubId: string;
+        hubId?: string | undefined;
         projectId?: string | undefined;
         hookExpiry?: string | undefined;
     }
