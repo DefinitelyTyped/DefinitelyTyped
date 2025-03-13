@@ -13,9 +13,9 @@ declare namespace memoizee {
         profileName?: string;
     }
 
-    interface Memoized<F> {
-        delete: F;
-        clear: F & (() => void);
+    interface Memoized<F extends (...args: any[]) => any> {
+        delete: (...args: Parameters<F>) => void;
+        clear: () => void;
     }
 }
 
