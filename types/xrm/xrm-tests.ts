@@ -255,6 +255,16 @@ Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
     console.log(metadata.Attributes["statuscode"].OptionSet[0].Label.LocalizedLabels[0].Label);
 });
 
+// Demonstrate WebAPI CreateRecord
+Xrm.WebApi.createRecord("contact", { fullname: "Neo" }).then((response) => {
+    console.log(response.entityType, response.id);
+});
+
+// Demonstrate WebAPI UpdateRecord
+Xrm.WebApi.updateRecord("contact", "1d-123", { fullname: "Neo" }).then((response) => {
+    console.log(response.entityType, response.id);
+});
+
 // Demonstrate WebAPI RetrieveMultiple
 Xrm.WebApi.retrieveMultipleRecords(
     "contact",
