@@ -5,7 +5,7 @@ declare namespace OneLine {
         preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
         requestVideoPlayerAds(onBiddingComplete: () => void): void;
         showCmp(): void;
-        loadScript(src: string, priority: 'async' | 'defer' | 'instant' | 'async'): void;
+        loadScript(src: string, priority: "async" | "defer" | "instant" | "async"): void;
         buildVideoUrl(
             bidder: BidderConfig[],
             placementID: string,
