@@ -416,6 +416,10 @@
             "libraryName": "bcp-47-match",
             "asOfVersion": "2.0.0"
         },
+        "bcryptjs": {
+            "libraryName": "bcryptjs",
+            "asOfVersion": "3.0.0"
+        },
         "bech32": {
             "libraryName": "bech32",
             "asOfVersion": "1.1.4"
