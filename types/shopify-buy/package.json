@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/Shopify/js-buy-sdk#readme"
     ],
-    "dependencies": {
-        "shopify-buy": "3.0.0"
-    },
     "devDependencies": {
         "@types/shopify-buy": "workspace:."
     },
