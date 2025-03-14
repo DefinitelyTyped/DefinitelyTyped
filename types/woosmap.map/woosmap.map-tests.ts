@@ -561,6 +561,21 @@ promiseLocalitiesGeocode.then((result) => {
     result;
 });
 
+const localitiesSearchRequest = expectType({
+    input: "example input",
+    types: ["locality", "postal_code"],
+    components: { country: ["FR"] },
+    location: { lat: 43.2, lng: 2.3 },
+    radius: 50000,
+    language: "en",
+}) as woosmap.map.localities.LocalitiesSearchRequest;
+
+const promiseLocalitiesSearch = localitiesService.search(localitiesSearchRequest);
+promiseLocalitiesSearch.then((result) => {
+    // $ExpectType LocalitiesSearchResponse
+    result;
+});
+
 /**
  * Stores Service
  */
