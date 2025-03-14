@@ -16,6 +16,7 @@ import {
     truncate,
     wordWrap,
 } from "hexo-util";
+import "chai/register-should";
 
 declare const expect: Chai.ExpectStatic;
 
