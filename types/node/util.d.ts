@@ -1499,11 +1499,17 @@ declare module "util" {
      * @return The parsed command line arguments:
      */
     export function parseArgs<T extends ParseArgsConfig>(config?: T): ParsedResults<T>;
-    interface ParseArgsOptionConfig {
+
+    /**
+     * Type of argument used in {@link parseArgs}.
+     */
+    export type ParseArgsOptionsType = "boolean" | "string";
+
+    export interface ParseArgsOptionConfig {
         /**
          * Type of argument.
          */
-        type: "string" | "boolean";
+        type: ParseArgsOptionsType;
         /**
          * Whether this option can be provided multiple times.
          * If `true`, all values will be collected in an array.
@@ -1523,7 +1529,7 @@ declare module "util" {
          */
         default?: string | boolean | string[] | boolean[] | undefined;
     }
-    interface ParseArgsOptionsConfig {
+    export interface ParseArgsOptionsConfig {
         [longOption: string]: ParseArgsOptionConfig;
     }
     export interface ParseArgsConfig {

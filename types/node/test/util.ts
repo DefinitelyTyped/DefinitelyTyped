@@ -412,6 +412,49 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
+    let optionConfig: util.ParseArgsOptionConfig;
+
+    optionConfig = {
+        type: "boolean",
+    };
+
+    optionConfig = {
+        default: "default",
+        multiple: false,
+        short: "s",
+        type: "string",
+    };
+
+    optionConfig = {
+        default: ["a", "b", "c"],
+        multiple: true,
+        type: "string",
+    };
+
+    util.parseArgs({
+        options: {
+            longOption: optionConfig,
+        },
+    });
+
+    let optionsConfig: util.ParseArgsOptionsConfig;
+
+    optionsConfig = {};
+
+    optionsConfig = {
+        longOption: optionConfig,
+    };
+
+    util.parseArgs(optionsConfig);
+}
+
+{
+    let argsType: util.ParseArgsOptionsType;
+    argsType = "boolean";
+    argsType = "string";
+}
+
+{
     const controller: AbortController = util.transferableAbortController();
     const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
     util.aborted(signal, {}).then(() => {});
