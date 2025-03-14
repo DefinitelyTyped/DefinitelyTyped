@@ -2577,6 +2577,10 @@
             "libraryName": "hexo-log",
             "asOfVersion": "4.0.0"
         },
+        "hexo-util": {
+            "libraryName": "hexo-util",
+            "asOfVersion": "3.0.0"
+        },
         "hibp": {
             "libraryName": "hibp",
             "asOfVersion": "7.3.0"
