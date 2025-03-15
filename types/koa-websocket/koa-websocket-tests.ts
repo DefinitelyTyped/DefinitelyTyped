@@ -68,3 +68,29 @@ supportMulterApp.ws.use(async (ctx, next) => {
     ctx.websocket.send("Hello world");
     await next();
 });
+
+declare module "koa" {
+    interface DefaultState {
+        augmented: string;
+    }
+    interface DefaultContext {
+        augmented: string;
+    }
+}
+
+const supportAugmentation = websocket(new Koa());
+supportAugmentation.ws.use(async (ctx, next) => {
+    ctx.websocket.on("message", (message) => {
+        console.log(message + ctx.augmented + ctx.state.augmented);
+        const server = ctx.app.ws.server;
+        if (server) {
+            server.clients.forEach(client => {
+                if (client !== ctx.websocket) {
+                    client.send(message);
+                }
+            });
+        }
+    });
+    ctx.websocket.send("Hello world");
+    await next();
+});
