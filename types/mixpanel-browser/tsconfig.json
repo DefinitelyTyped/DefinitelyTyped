@@ -15,6 +15,10 @@
     },
     "files": [
         "index.d.ts",
+        "dist/mixpanel-core.cjs.d.ts",
+        "dist/mixpanel-with-async-recorder.cjs.d.ts",
+        "src/loaders/loader-module-core.d.ts",
+        "src/loaders/loader-module-with-async-recorder.d.ts",
         "mixpanel-browser-tests.ts"
     ]
 }
