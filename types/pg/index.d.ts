@@ -190,9 +190,9 @@ export class Pool extends events.EventEmitter {
 
     options: PoolOptions;
 
-    connect(): Promise<PoolClient>;
+    connect(name?: string): Promise<PoolClient>;
     connect(
-        callback: (err: Error | undefined, client: PoolClient | undefined, done: (release?: any) => void) => void,
+        callback: (err: Error | undefined, client: PoolClient | undefined, done: (release?: any) => void) => void, name?: string
     ): void;
 
     end(): Promise<void>;
