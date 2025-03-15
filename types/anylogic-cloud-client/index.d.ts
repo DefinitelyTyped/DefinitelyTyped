@@ -93,7 +93,7 @@ declare namespace AnyLogicCloudClient {
         setPresentable(pathToPresentable: string): Promise<Animation>;
         setValue(pathToField: string, value: any): Promise<Animation>;
         getValue(pathToField: string): Promise<any>;
-        getState(): AnimationState;
+        getState(): Promise<AnimationState>;
         callFunction(pathToFunction: string, args: any[]): Promise<any>;
         waitForCompletion(): Promise<Animation>;
     }
