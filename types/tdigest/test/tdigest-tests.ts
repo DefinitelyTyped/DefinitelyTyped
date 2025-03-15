@@ -12,6 +12,7 @@ const tDigest = new TDigest(false); // $ExpectType TDigest
 new TDigest(1); // $ExpectType TDigest
 new TDigest(1, 1); // $ExpectType TDigest
 new TDigest(1, 1, 1); // $ExpectType TDigest
+new TDigest(); // $ExpectType TDigest
 tDigest.reset(); // $ExpectType void
 tDigest.size(); // $ExpectType number
 tDigest.toArray(); // $ExpectType Centroid[]
