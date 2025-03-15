@@ -1,15 +1,17 @@
 /**
  * The `timers/promises` API provides an alternative set of timer functions
- * that return `Promise` objects. The API is accessible via `import timersPromises from 'node:timers/promises'`.
+ * that return `Promise` objects. The API is accessible via
+ * `require('node:timers/promises')`.
  *
  * ```js
  * import {
  *   setTimeout,
  *   setImmediate,
  *   setInterval,
- * } from 'timers/promises';
+ * } from 'node:timers/promises';
  * ```
  * @since v15.0.0
+ * @see [source](https://github.com/nodejs/node/blob/v20.x/lib/timers/promises.js)
  */
 declare module "timers/promises" {
     import { TimerOptions } from "node:timers";
@@ -17,14 +19,15 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setTimeout,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const res = await setTimeout(100, 'result');
      *
      * console.log(res);  // Prints 'result'
      * ```
      * @since v15.0.0
-     * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
+     * @param delay The number of milliseconds to wait before fulfilling the
+     * promise. **Default:** `1`.
      * @param value A value with which the promise is fulfilled.
      */
     function setTimeout<T = void>(delay?: number, value?: T, options?: TimerOptions): Promise<T>;
@@ -32,7 +35,7 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setImmediate,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const res = await setImmediate('result');
      *
@@ -50,7 +53,7 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setInterval,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const interval = 100;
      * for await (const startTime of setInterval(interval, Date.now())) {
@@ -62,33 +65,41 @@ declare module "timers/promises" {
      * console.log(Date.now());
      * ```
      * @since v15.9.0
+     * @param delay The number of milliseconds to wait between iterations.
+     * **Default:** `1`.
+     * @param value A value with which the iterator returns.
      */
-    function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
+    function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): NodeJS.AsyncIterator<T>;
     interface Scheduler {
         /**
-         * An experimental API defined by the [Scheduling APIs](https://github.com/WICG/scheduling-apis) draft specification being developed as a standard Web Platform API.
+         * An experimental API defined by the [Scheduling APIs](https://github.com/WICG/scheduling-apis) draft specification
+         * being developed as a standard Web Platform API.
          *
-         * Calling `timersPromises.scheduler.wait(delay, options)` is roughly equivalent to calling `timersPromises.setTimeout(delay, undefined, options)` except that the `ref`
-         * option is not supported.
+         * Calling `timersPromises.scheduler.wait(delay, options)` is roughly equivalent
+         * to calling `timersPromises.setTimeout(delay, undefined, options)` except that
+         * the `ref` option is not supported.
          *
          * ```js
          * import { scheduler } from 'node:timers/promises';
          *
          * await scheduler.wait(1000); // Wait one second before continuing
          * ```
-         * @since v16.14.0
+         * @since v17.3.0, v16.14.0
          * @experimental
-         * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
+         * @param delay The number of milliseconds to wait before resolving the
+         * promise.
          */
-        wait: (delay?: number, options?: Pick<TimerOptions, "signal">) => Promise<void>;
+        wait(delay: number, options?: { signal?: AbortSignal }): Promise<void>;
         /**
-         * An experimental API defined by the [Scheduling APIs](https://nodejs.org/docs/latest-v20.x/api/async_hooks.html#promise-execution-tracking) draft specification
+         * An experimental API defined by the [Scheduling APIs](https://github.com/WICG/scheduling-apis) draft specification
          * being developed as a standard Web Platform API.
-         * Calling `timersPromises.scheduler.yield()` is equivalent to calling `timersPromises.setImmediate()` with no arguments.
-         * @since v16.14.0
+         *
+         * Calling `timersPromises.scheduler.yield()` is equivalent to calling
+         * `timersPromises.setImmediate()` with no arguments.
+         * @since v17.3.0, v16.14.0
          * @experimental
          */
-        yield: () => Promise<void>;
+        yield(): Promise<void>;
     }
     const scheduler: Scheduler;
 }
