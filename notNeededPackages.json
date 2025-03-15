@@ -5119,6 +5119,10 @@
             "libraryName": "protractor",
             "asOfVersion": "4.0.0"
         },
+        "proxy": {
+            "libraryName": "proxy",
+            "asOfVersion": "2.0.0"
+        },
         "ps-list": {
             "libraryName": "ps-list",
             "asOfVersion": "6.2.1"
