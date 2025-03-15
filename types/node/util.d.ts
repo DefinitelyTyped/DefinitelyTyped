@@ -119,13 +119,19 @@ declare module "util" {
          */
         scriptName: string;
         /**
+         * Returns the unique id of the script, as in Chrome DevTools protocol
+         * [`Runtime.ScriptId`](https://chromedevtools.github.io/devtools-protocol/1-3/Runtime/#type-ScriptId).
+         * @since v22.14.0
+         */
+        scriptId: string;
+        /**
          * Returns the number, 1-based, of the line for the associate function call.
          */
         lineNumber: number;
         /**
          * Returns the 1-based column offset on the line for the associated function call.
          */
-        column: number;
+        columnNumber: number;
     }
     /**
      * The `util.format()` method returns a formatted string using the first argument
@@ -1572,9 +1578,10 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default option value when it is not set by args.
-         * It must be of the same type as the the `type` property.
-         * When `multiple` is `true`, it must be an array.
+         * The default value to
+         * be used if (and only if) the option does not appear in the arguments to be
+         * parsed. It must be of the same type as the `type` property. When `multiple`
+         * is `true`, it must be an array.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;
