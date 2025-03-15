@@ -117,6 +117,9 @@ function equal() {
 function containSubset() {
     expect({}).to.containSubset({});
     ({}).should.containSubset({});
+    assert.containSubset({}, {});
+    assert.containsSubset({}, {});
+    assert.doesNotContainSubset({}, {});
 }
 
 function _typeof() {
