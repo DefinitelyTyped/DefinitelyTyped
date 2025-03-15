@@ -289,73 +289,286 @@ function testNotificationCreation() {
     chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "" });
 }
 
-// https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
-function contentSettings() {
-    var incognito: boolean;
-    var url: string;
+// https://developer.chrome.com/docs/extensions/reference/api/contentSettings
+function testContentSettings() {
+    chrome.contentSettings.AutoVerifyContentSetting.ALLOW === "allow";
+    chrome.contentSettings.AutoVerifyContentSetting.BLOCK === "block";
 
-    function settingChanged() {
-        // @ts-expect-error Need refactor this without using `this`
-        var type = this.id;
-        // @ts-expect-error Need refactor this without using `this`
-        var setting = this.value;
-        var pattern = /^file:/.test(url) ? url : url.replace(/\/[^\/]*?$/, "/*");
-        console.log(type + " setting for " + pattern + ": " + setting);
-        // HACK: [type] is not recognised by the docserver's sample crawler, so
-        // mention an explicit
-        // type: chrome.contentSettings.cookies.set - See http://crbug.com/299634
-        // @ts-expect-error Need refactor tests to use the correct type
-        chrome.contentSettings[type].set({
-            primaryPattern: pattern,
-            setting: setting,
-            scope: incognito ? "incognito_session_only" : "regular",
-        });
-    }
+    chrome.contentSettings.CameraContentSetting.ALLOW === "allow";
+    chrome.contentSettings.CameraContentSetting.ASK === "ask";
+    chrome.contentSettings.CameraContentSetting.BLOCK === "block";
 
-    document.addEventListener("DOMContentLoaded", function() {
-        chrome.tabs.query({ active: true, currentWindow: true, url: ["http://*/*", "https://*/*"] }, function(tabs) {
-            var current = tabs[0];
-            incognito = current.incognito;
-            url = current.url ?? "";
-            var types = [
-                "cookies",
-                "images",
-                "javascript",
-                "location",
-                "plugins",
-                "popups",
-                "notifications",
-                "fullscreen",
-                "mouselock",
-                "microphone",
-                "camera",
-                "unsandboxedPlugins",
-                "automaticDownloads",
-            ];
-            types.forEach(function(type) {
-                // HACK: [type] is not recognised by the docserver's sample crawler, so
-                // mention an explicit
-                // type: chrome.contentSettings.cookies.get - See http://crbug.com/299634
-                // @ts-expect-error Need refactor tests to use the correct type
-                chrome.contentSettings[type] && chrome.contentSettings[type].get(
-                    {
-                        primaryUrl: url,
-                        incognito: incognito,
-                    },
-                    // @ts-expect-error
-                    function(details) {
-                        var input = <HTMLInputElement> document.getElementById(type);
-                        input.disabled = false;
-                        input.value = details.setting;
-                    },
-                );
-            });
-        });
+    chrome.contentSettings.ClipboardContentSetting.ALLOW === "allow";
+    chrome.contentSettings.ClipboardContentSetting.ASK === "ask";
+    chrome.contentSettings.ClipboardContentSetting.BLOCK === "block";
 
-        var selects = document.querySelectorAll("select");
-        for (var i = 0; i < selects.length; i++) {
-            selects[i].addEventListener("change", settingChanged);
-        }
+    chrome.contentSettings.CookiesContentSetting.ALLOW === "allow";
+    chrome.contentSettings.CookiesContentSetting.BLOCK === "block";
+    chrome.contentSettings.CookiesContentSetting.SESSION_ONLY === "session_only";
+
+    chrome.contentSettings.FullscreenContentSetting.ALLOW === "allow";
+
+    chrome.contentSettings.ImagesContentSetting.ALLOW === "allow";
+    chrome.contentSettings.ImagesContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.JavascriptContentSetting.ALLOW === "allow";
+    chrome.contentSettings.JavascriptContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.LocationContentSetting.ALLOW === "allow";
+    chrome.contentSettings.LocationContentSetting.ASK === "ask";
+    chrome.contentSettings.LocationContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.MicrophoneContentSetting.ALLOW === "allow";
+    chrome.contentSettings.MicrophoneContentSetting.ASK === "ask";
+    chrome.contentSettings.MicrophoneContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.MouselockContentSetting.ALLOW === "allow";
+
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.ALLOW === "allow";
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.ASK === "ask";
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PluginsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PopupsContentSetting.ALLOW === "allow";
+    chrome.contentSettings.PopupsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PpapiBrokerContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.Scope.INCOGNITO_SESSION_ONLY === "incognito_session_only";
+    chrome.contentSettings.Scope.REGULAR === "regular";
+
+    const contentSettingsGetParams: chrome.contentSettings.ContentSettingGetParams = {
+        primaryUrl: "https://example.com",
+        secondaryUrl: "https://example2.com",
+        incognito: false,
+        resourceIdentifier: {
+            id: "id",
+        },
+    };
+
+    const contentSettingsSetParams: chrome.contentSettings.ContentSettingSetParams<"allow"> = {
+        primaryPattern: "<all_urls>",
+        secondaryPattern: "<all_urls>",
+        scope: "regular",
+        resourceIdentifier: {
+            id: "id",
+        },
+        setting: "allow",
+    };
+
+    const contentSettingsClearParams: chrome.contentSettings.ContentSettingClearParams = {
+        scope: "regular",
+    };
+
+    // autoVerify
+    chrome.contentSettings.autoVerify.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.autoVerify.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.autoVerify.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.autoVerify.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.autoVerify.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.autoVerify.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.autoVerify.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.autoVerify.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // automaticDownloads
+    chrome.contentSettings.automaticDownloads.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.automaticDownloads.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.automaticDownloads.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.automaticDownloads.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.automaticDownloads.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.automaticDownloads.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.automaticDownloads.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.automaticDownloads.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // camera
+    chrome.contentSettings.camera.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.camera.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.camera.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.camera.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.camera.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.camera.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.camera.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.camera.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // clipboard
+    chrome.contentSettings.clipboard.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.clipboard.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.clipboard.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.clipboard.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.clipboard.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.clipboard.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.clipboard.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.clipboard.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // cookies
+    chrome.contentSettings.cookies.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "session_only">>
+    chrome.contentSettings.cookies.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "session_only"
+    });
+    chrome.contentSettings.cookies.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.cookies.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.cookies.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.cookies.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.cookies.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.cookies.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // fullscreen
+    chrome.contentSettings.fullscreen.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow">>
+    chrome.contentSettings.fullscreen.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow"
+    });
+    chrome.contentSettings.fullscreen.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.fullscreen.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.fullscreen.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.fullscreen.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.fullscreen.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.fullscreen.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // images
+    chrome.contentSettings.images.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.images.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.images.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.images.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.images.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.images.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.images.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.images.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // javascript
+    chrome.contentSettings.javascript.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.javascript.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.javascript.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.javascript.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.javascript.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.javascript.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.javascript.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.javascript.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // location
+    chrome.contentSettings.location.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.location.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.location.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.location.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.location.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.location.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.location.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.location.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // microphone
+    chrome.contentSettings.microphone.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.microphone.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.microphone.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.microphone.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.microphone.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.microphone.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.microphone.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.microphone.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // mouselock
+    chrome.contentSettings.mouselock.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow">>
+    chrome.contentSettings.mouselock.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow"
+    });
+    chrome.contentSettings.mouselock.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.mouselock.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.mouselock.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.mouselock.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.mouselock.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.mouselock.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // notifications
+    chrome.contentSettings.notifications.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.notifications.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.notifications.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.notifications.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.notifications.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.notifications.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.notifications.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.notifications.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // plugins
+    chrome.contentSettings.plugins.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"block">>
+    chrome.contentSettings.plugins.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "block"
+    });
+    chrome.contentSettings.plugins.set({ primaryPattern: "<all_urls>", setting: "block" }); // $ExpectType Promise<void>
+    chrome.contentSettings.plugins.set({ primaryPattern: "<all_urls>", setting: "block" }, () => {}); // $ExpectType void
+    chrome.contentSettings.plugins.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.plugins.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.plugins.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.plugins.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // popups
+    chrome.contentSettings.popups.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.popups.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.popups.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.popups.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.popups.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.popups.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.popups.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.popups.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // unsandboxedPlugins
+    chrome.contentSettings.unsandboxedPlugins.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"block">>
+    chrome.contentSettings.unsandboxedPlugins.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType  "block"
+    });
+    chrome.contentSettings.unsandboxedPlugins.set({ primaryPattern: "<all_urls>", setting: "block" }); // $ExpectType Promise<void>
+    chrome.contentSettings.unsandboxedPlugins.set({ primaryPattern: "<all_urls>", setting: "block" }, () => {}); // $ExpectType void
+    chrome.contentSettings.unsandboxedPlugins.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.unsandboxedPlugins.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.unsandboxedPlugins.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.unsandboxedPlugins.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
     });
 }
 
