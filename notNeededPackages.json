@@ -5919,6 +5919,10 @@
             "libraryName": "react-webcam",
             "asOfVersion": "3.0.0"
         },
+        "react-widgets": {
+            "libraryName": "react-widgets",
+            "asOfVersion": "5.0.0"
+        },
         "react-youtube": {
             "libraryName": "react-youtube",
             "asOfVersion": "7.10.0"
