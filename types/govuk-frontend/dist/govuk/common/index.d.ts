@@ -81,9 +81,7 @@ export function isSupported($scope?: HTMLElement | null): boolean;
  */
 export function isObject<
     ObjectType extends Partial<Record<keyof ObjectType, unknown>> = ObjectNested,
->(
-    option: unknown,
-): option is ObjectType;
+>(option: unknown | ObjectType): option is ObjectType;
 
 /**
  * Format error message
@@ -93,7 +91,10 @@ export function isObject<
  * @param {string} message - Error message
  * @returns {string} - Formatted error message
  */
-export function formatErrorMessage(Component: ComponentWithModuleName, message: string): string;
+export function formatErrorMessage(
+    Component: ComponentWithModuleName,
+    message: string,
+): string;
 
 export interface ComponentWithModuleName {
     /**
