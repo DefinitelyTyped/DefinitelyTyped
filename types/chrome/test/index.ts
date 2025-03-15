@@ -1,157 +1,204 @@
-/// <reference types="jquery" />
-/// <reference types="jqueryui" />
+// https://developer.chrome.com/docs/extensions/reference/api/bookmarks
+function testBookmarks() {
+    chrome.bookmarks.BookmarkTreeNodeUnmodifiable.MANAGED === "managed";
 
-// https://developer.chrome.com/extensions/examples/api/bookmarks/basic/popup.js
-function bookmarksExample() {
-    $(function() {
-        $("#search").change(function() {
-            $("#bookmarks").empty();
-            dumpBookmarks($("#search").val());
-        });
-    });
-    // Traverse the bookmark tree, and print the folder and nodes.
-    function dumpBookmarks(query?: string | string[] | number) {
-        var bookmarkTreeNodes = chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
-            $("#bookmarks").append(dumpTreeNodes(bookmarkTreeNodes, query));
-        });
-    }
-    function dumpTreeNodes(bookmarkNodes: chrome.bookmarks.BookmarkTreeNode[], query?: string | string[] | number) {
-        var list = $("<ul>");
-        var i;
-        for (i = 0; i < bookmarkNodes.length; i++) {
-            list.append(dumpNode(bookmarkNodes[i], query));
-        }
-        return list;
-    }
-    function dumpNode(bookmarkNode: chrome.bookmarks.BookmarkTreeNode, query?: string | string[] | number) {
-        var span = $("<span>");
-        if (bookmarkNode.title) {
-            if (query && typeof query === "string" && !bookmarkNode.children) {
-                if (String(bookmarkNode.title).indexOf(query) == -1) {
-                    return $("<span></span>");
-                }
-            }
-            var anchor = $("<a>");
-            anchor.attr("href", bookmarkNode.url ?? null);
-            anchor.text(bookmarkNode.title);
-            /*
-             * When clicking on a bookmark in the extension, a new tab is fired with
-             * the bookmark url.
-             */
-            anchor.click(function() {
-                chrome.tabs.create({ url: bookmarkNode.url });
-            });
-            var options = bookmarkNode.children
-                ? $("<span>[<a href=\"#\" id=\"addlink\">Add</a>]</span>")
-                : $(
-                    "<span>[<a id=\"editlink\" href=\"#\">Edit</a> <a id=\"deletelink\" "
-                        + "href=\"#\">Delete</a>]</span>",
-                );
-            var edit = bookmarkNode.children
-                ? $(
-                    "<table><tr><td>Name</td><td>"
-                        + "<input id=\"title\"></td></tr><tr><td>URL</td><td><input id=\"url\">"
-                        + "</td></tr></table>",
-                )
-                : $("<input>");
-            // Show add and edit links when hover over.
-            span.hover(
-                function() {
-                    span.append(options);
-                    $("#deletelink").click(function() {
-                        $("#deletedialog")
-                            .empty()
-                            .dialog({
-                                autoOpen: false,
-                                title: "Confirm Deletion",
-                                resizable: false,
-                                height: 140,
-                                modal: true,
-                                buttons: {
-                                    "Yes, Delete It!": function() {
-                                        chrome.bookmarks.remove(String(bookmarkNode.id));
-                                        span.parent().remove();
-                                        $(this).dialog("destroy");
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    $("#addlink").click(function() {
-                        $("#adddialog")
-                            .empty()
-                            .append(edit)
-                            .dialog({
-                                autoOpen: false,
-                                closeOnEscape: true,
-                                title: "Add New Bookmark",
-                                modal: true,
-                                buttons: {
-                                    Add: function() {
-                                        chrome.bookmarks.create({
-                                            parentId: bookmarkNode.id,
-                                            title: $("#title").val() as string,
-                                            url: $("#url").val() as string,
-                                        });
-                                        $("#bookmarks").empty();
-                                        $(this).dialog("destroy");
-                                        dumpBookmarks();
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    $("#editlink").click(function() {
-                        edit.val(anchor.text());
-                        $("#editdialog")
-                            .empty()
-                            .append(edit)
-                            .dialog({
-                                autoOpen: false,
-                                closeOnEscape: true,
-                                title: "Edit Title",
-                                modal: true,
-                                show: "slide",
-                                buttons: {
-                                    Save: function() {
-                                        chrome.bookmarks.update(String(bookmarkNode.id), {
-                                            title: edit.val() as string,
-                                        });
-                                        anchor.text(edit.val() as string);
-                                        options.show();
-                                        $(this).dialog("destroy");
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    options.fadeIn();
-                },
-                // unhover
-                function() {
-                    options.remove();
-                },
-            ).append(anchor);
-        }
-        var li = $(bookmarkNode.title ? "<li>" : "<div>").append(span);
-        if (bookmarkNode.children && bookmarkNode.children.length > 0) {
-            li.append(dumpTreeNodes(bookmarkNode.children, query));
-        }
-        return li;
-    }
+    chrome.bookmarks.FolderType.BOOKMARKS_BAR === "bookmarks-bar";
+    chrome.bookmarks.FolderType.MANAGED === "managed";
+    chrome.bookmarks.FolderType.MOBILE === "mobile";
+    chrome.bookmarks.FolderType.OTHER === "other";
 
-    document.addEventListener("DOMContentLoaded", function() {
-        dumpBookmarks();
+    chrome.bookmarks.MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE === 1000000;
+
+    chrome.bookmarks.MAX_WRITE_OPERATIONS_PER_HOUR === 1000000;
+
+    const bookmarkDetails: chrome.bookmarks.CreateDetails = {
+        index: 0,
+        parentId: "1",
+        title: "title",
+        url: "https://example.com",
+    };
+
+    const checkBookmarkTreeNodeResult = (result: chrome.bookmarks.BookmarkTreeNode) => {
+        result.children; // $ExpectType BookmarkTreeNode[] | undefined
+        result.dateAdded; // $ExpectType number | undefined
+        result.dateGroupModified; // $ExpectType number | undefined
+        result.dateLastUsed; // $ExpectType number | undefined
+        result.folderType; // $ExpectType  "bookmarks-bar" | "other" | "mobile" | "managed" | undefined
+        result.id; // $ExpectType string
+        result.index; // $ExpectType number | undefined
+        result.parentId; // $ExpectType string | undefined
+        result.syncing; // $ExpectType boolean
+        result.title; // $ExpectType string
+        result.unmodifiable; // $ExpectType "managed" | undefined
+        result.url; // $ExpectType string | undefined
+    };
+
+    chrome.bookmarks.create(bookmarkDetails); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.create(bookmarkDetails, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.create(bookmarkDetails, () => {}).then(() => {});
+
+    chrome.bookmarks.get("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.get(["1"]); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.get("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    chrome.bookmarks.get(["1"], ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.get([]);
+    // @ts-expect-error
+    chrome.bookmarks.get("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getChildren("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getChildren("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void);
+    // @ts-expect-error
+    chrome.bookmarks.getChildren("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getRecent(1); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getRecent(1, ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getRecent(1, () => {}).then(() => {});
+
+    chrome.bookmarks.getSubTree("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getSubTree("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getSubTree("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getTree(); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getTree(([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getTree(() => {}).then(() => {});
+
+    const destination: chrome.bookmarks.MoveDestination = {
+        index: 0,
+        parentId: "1",
+    };
+
+    chrome.bookmarks.move("1", destination); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.move("1", destination, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.move("1", destination, () => {}).then(() => {});
+
+    chrome.bookmarks.remove("1"); // $ExpectType Promise<void>
+    chrome.bookmarks.remove("1", () => void 0);
+    // @ts-expect-error
+    chrome.bookmarks.remove("1", () => {}).then(() => {});
+
+    chrome.bookmarks.removeTree("1"); // $ExpectType Promise<void>
+    chrome.bookmarks.removeTree("1", () => void 0);
+    // @ts-expect-error
+    chrome.bookmarks.removeTree("1", () => {}).then(() => {});
+
+    chrome.bookmarks.search("query"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.search("query", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.search("query", () => {}).then(() => {});
+
+    const changes: chrome.bookmarks.UpdateChanges = {
+        title: "new title",
+        url: "https://example.com",
+    };
+
+    chrome.bookmarks.update("1", changes); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.update("1", changes, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.update("1", changes, () => {}).then(() => {});
+
+    chrome.bookmarks.onChanged.addListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
     });
+    chrome.bookmarks.onChanged.removeListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
+    });
+    chrome.bookmarks.onChanged.hasListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
+    });
+    chrome.bookmarks.onChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onChildrenReordered.addListener((id, reorderInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.removeListener((id, reorderInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.hasListener((id, reorderInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onCreated.addListener((id: string, bookmark) => { // $ExpectType void
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.removeListener((id: string, bookmark) => { // $ExpectType void
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.hasListener((id: string, bookmark) => { // $ExpectType boolean
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onImportBegan.addListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportBegan.removeListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportBegan.hasListener(() => void 0); // $ExpectType boolean
+    chrome.bookmarks.onImportBegan.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onImportEnded.addListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportEnded.removeListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportEnded.hasListener(() => void 0); // $ExpectType boolean
+    chrome.bookmarks.onImportEnded.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onMoved.addListener((id: string, moveInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.removeListener((id: string, moveInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.hasListener((id: string, moveInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onRemoved.addListener((id: string, removeInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.removeListener((id: string, removeInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.hasListener((id: string, removeInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/extensions/examples/api/browserAction/make_page_red/background.js
