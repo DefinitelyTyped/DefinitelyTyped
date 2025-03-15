@@ -61,7 +61,7 @@ declare namespace sanitize {
         allowedTags?: string[] | false | undefined;
         allowVulnerableTags?: boolean | undefined;
         textFilter?: ((text: string, tagName: string) => string) | undefined;
-        exclusiveFilter?: ((frame: IFrame) => boolean) | undefined;
+        exclusiveFilter?: ((frame: IFrame) => boolean | "excludeTag") | undefined;
         nestingLimit?: number | undefined;
         nonTextTags?: string[] | undefined;
         /** @default true */
