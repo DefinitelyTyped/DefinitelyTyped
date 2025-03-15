@@ -66,10 +66,9 @@ const usesEnums = anime({
     someProperty: "+=4000",
 });
 
-const bezier = anime.bezier(0, 0, 100, 100);
-// anime.speed = 100000000;
-(anime as any).speed = 4000;
-anime.easings["hello"] = anime.bezier(0, 0, 1900, 3020);
+anime.speed = 4000;
+const easeInOutQuint = anime.penner.easeInOutQuint;
+const easing = anime.easing('spring(12)', 99);
 const runningAnims = anime.running;
 anime.remove(".tiny-divvy-div");
 

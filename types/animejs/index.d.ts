@@ -141,7 +141,7 @@ declare namespace anime {
 
     // Exported members and functions
     const version: string;
-    const speed: number;
+    let speed: number;
     let suspendWhenDocumentHidden: boolean;
     const running: AnimeInstance[];
     function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;
