@@ -1,6 +1,8 @@
 import memoize = require("memoizee");
 
-const fn = (one: string, two?: number, three?: any) => {/* ... */};
+const fn = (one: string, two?: number, three?: any) => {
+    return "test";
+};
 
 let memoized = memoize(fn);
 memoized("foo", 3, "bar");
@@ -19,11 +21,30 @@ memoized = memoize(fn, { primitive: true });
 memoized("/path/one");
 memoized("/path/one");
 memoized = memoize(fn, { dispose(value: number) {/*…*/} });
-const foo3 = memoized("foo", 3);
-const bar7 = memoized("bar", 7);
-memoized.clear("foo", 3); // Dispose called with foo3 value
-memoized.clear("bar", 7); // Dispose called with bar7 value
-memoized.delete("foo", 0);
+const foo3: string = memoized("foo", 3);
+const bar7: string = memoized("bar", 7);
+memoized.delete("foo", 3); // Dispose called with foo3 value
+memoized.delete("bar", 7); // Dispose called with bar7 value
+memoized.clear();
+
+function testIncorrectParameterType(): string {
+    // @ts-expect-error Expect TypeScript to error when passing parameters of wrong types.
+    return memoized(3, "foo");
+}
+function testIncorrectDeleteParameterType(): void {
+    // @ts-expect-error Expect TypeScript to error when passing parameters of wrong types.
+    return memoized.delete(3, "foo");
+}
+function testIncorrectClearParameterType(): void {
+    // @ts-expect-error Expect TypeScript since clear() does not take any parameters.
+    return memoized.clear("foo", 3);
+}
+function testDeleteReturnType(a: string, b: number): void {
+    return memoized.delete(a, b);
+}
+function testClearReturnType(): void {
+    return memoized.clear();
+}
 const mFn = memoize((hash: any) => {
     // body of memoized function
 }, {
@@ -49,13 +70,20 @@ memoized(
 
 {
     const afn = (a: number, b: number) => {
-        return new Promise(res => {
+        return new Promise<number>(res => {
             res(a + b);
         });
     };
     let memoized = memoize(afn, { promise: true });
-    memoized(3, 7);
-    memoized(3, 7);
+    const foo: Promise<number> = memoized(3, 7);
+    const bar: Promise<number> = memoized(3, 7);
+
+    function testDeleteReturnType(a: number, b: number): void {
+        return memoized.delete(a, b);
+    }
+    function testClearReturnType(): void {
+        return memoized.clear();
+    }
 
     memoized = memoize(afn, { promise: "then" });
     memoized(2, 7);
