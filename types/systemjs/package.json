@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/systemjs": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Joel Denning",
-            "githubUsername": "joeldenning"
-        }
-    ]
+    "owners": []
 }
