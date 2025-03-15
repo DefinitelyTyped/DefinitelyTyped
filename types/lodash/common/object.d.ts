@@ -1441,13 +1441,13 @@ declare module "../index" {
     interface LoDashStatic {
         /**
          * Creates an object composed of the inverted keys and values of object. If object contains duplicate values,
-         * subsequent values overwrite property assignments of previous values unless multiValue is true.
+         * subsequent values overwrite property assignments of previous values.
          *
          * @param object The object to invert.
-         * @param multiValue Allow multiple values per key.
+
          * @return Returns the new inverted object.
-         */
-        invert(object: object): Dictionary<string>;
+        */
+        invert<T extends Record<PropertyKey, PropertyKey>>(obj: T): {[K in keyof T as T[K]]: K};
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
