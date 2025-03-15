@@ -7003,6 +7003,10 @@
             "libraryName": "ttf2woff2",
             "asOfVersion": "6.0.0"
         },
+        "tunnel-ssh": {
+            "libraryName": "tunnel-ssh",
+            "asOfVersion": "5.1.0"
+        },
         "tus-js-client": {
             "libraryName": "tus-js-client",
             "asOfVersion": "2.1.0"
