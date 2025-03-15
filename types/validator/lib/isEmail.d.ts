@@ -65,6 +65,12 @@ export interface IsEmailOptions {
      *  any of the characters in the string, in the name part.
      */
     blacklisted_chars?: string | undefined;
+    /**
+     * If `allow_underscores` is set to `true`, the validator will allow underscores in an email address.
+     * 
+     * @default false
+     */
+    allow_underscores?: boolean | undefined
 }
 
 /**
