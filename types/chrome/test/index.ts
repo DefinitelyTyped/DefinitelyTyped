@@ -620,27 +620,85 @@ function testTabCaptureOptions() {
     constraints2 = constraints;
 }
 
-// https://developer.chrome.com/extensions/debugger
+// https://developer.chrome.com/docs/extensions/reference/api/debugger
 function testDebugger() {
-    chrome.debugger.attach({ tabId: 123 }, "1.23", () => {
-        console.log("This is a callback!");
-    });
+    chrome.debugger.DetachReason.CANCELED_BY_USER === "canceled_by_user";
+    chrome.debugger.DetachReason.TARGET_CLOSED === "target_closed";
 
-    chrome.debugger.detach({ tabId: 123 }, () => {
-        console.log("This is a callback!");
-    });
+    chrome.debugger.TargetInfoType.BACKGROUND_PAGE === "background_page";
+    chrome.debugger.TargetInfoType.OTHER === "other";
+    chrome.debugger.TargetInfoType.PAGE === "page";
+    chrome.debugger.TargetInfoType.WORKER === "worker";
 
-    chrome.debugger.sendCommand({ targetId: "abc" }, "Debugger.Cmd", { param1: "x" }, result => {
-        console.log("Do something with the result." + result);
-    });
+    const debuggee: chrome.debugger.Debuggee = {
+        tabId: 123,
+    };
 
-    chrome.debugger.getTargets(results => {
-        for (let result of results) {
-            if (result.tabId == 123) {
-                // Do Something.
-            }
-        }
+    chrome.debugger.attach(debuggee, "0.1"); // $ExpectType Promise<void>
+    chrome.debugger.attach(debuggee, "0.1", () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.debugger.attach(debuggee, "0.1", () => {}).then(() => {});
+
+    chrome.debugger.detach(debuggee); // $ExpectType Promise<void>
+    chrome.debugger.detach(debuggee, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.debugger.detach(debuggee, () => {}).then(() => {});
+
+    chrome.debugger.getTargets(); // $ExpectType Promise<TargetInfo[]>
+    chrome.debugger.getTargets(([result]) => { // $ExpectType void
+        result.type; // $ExpectType "background_page" | "other" | "page" | "worker";
+        result.id; // $ExpectType string;
+        result.tabId; // $ExpectType number | undefined;
+        result.extensionId; // $ExpectType string | undefined;
+        result.attached; // $ExpectType boolean
+        result.title; // $ExpectType string
+        result.url; // $ExpectType string
+        result.faviconUrl; // $ExpectType string | undefined
     });
+    // @ts-expect-error
+    chrome.debugger.getTargets(() => {}).then(() => {});
+
+    const debuggerSession: chrome.debugger.DebuggerSession = {
+        sessionId: "123",
+    };
+
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<Object | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
+        result; // $ExpectType Object | undefined
+    });
+    // @ts-expect-error
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
+
+    chrome.debugger.onEvent.addListener((source, methodName, params) => { // $ExpectType void
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.removeListener((source, methodName, params) => { // $ExpectType void
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.hasListener((source, methodName, params) => { // $ExpectType boolean
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.hasListeners(); // $ExpectType boolean
+
+    chrome.debugger.onDetach.addListener((source, reason) => { // $ExpectType void
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.removeListener((source, reason) => { // $ExpectType void
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.hasListener((source, reason) => { // $ExpectType boolean
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.hasListeners(); // $ExpectType boolean
 
     chrome.debugger.onEvent.addListener((source, methodName, params) => {
         if (source.tabId == 123) {
@@ -653,14 +711,6 @@ function testDebugger() {
             console.log("Hello World.");
         }
     });
-}
-
-// https://developer.chrome.com/extensions/debugger
-async function testDebuggerForPromise() {
-    await chrome.debugger.attach({ tabId: 123 }, "1.23");
-    await chrome.debugger.detach({ tabId: 123 });
-    await chrome.debugger.sendCommand({ targetId: "abc" }, "Debugger.Cmd", { param1: "x" });
-    await chrome.debugger.getTargets();
 }
 
 // https://developer.chrome.com/extensions/declarativeContent
