@@ -17,11 +17,11 @@ declare namespace anime {
         | "easeInExpo"
         | "easeInCirc"
         | "easeInBack"
-        | "easeInElastic"
         | "easeInBounce";
-    type EasingLinearFunc = (duration: number) => EasingFunc;
+    type EasingLinearFunc = () => EasingFunc;
 
     type EasingSigmoidOptions =
+        | "easeInElastic" // the Elastic() function is always a sigmoid
         | "easeOutQuad"
         | "easeOutCubic"
         | "easeOutQuart"
