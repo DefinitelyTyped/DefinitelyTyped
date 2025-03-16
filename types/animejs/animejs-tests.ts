@@ -67,8 +67,11 @@ const usesEnums = anime({
 });
 
 anime.speed = 4000;
-const easeInOutQuint = anime.penner.easeInOutQuint;
-const easing = anime.easing('spring(12)', 99);
+const { linear, easeInOutQuint } = anime.penner;
+linear(50)(0.25);
+easeInOutQuint(1000, 0)(0.5);
+const easing = anime.easing("spring(12)", 99);
+easing(0.5);
 const runningAnims = anime.running;
 anime.remove(".tiny-divvy-div");
 

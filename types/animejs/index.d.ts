@@ -5,7 +5,9 @@ type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => 
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
 declare namespace anime {
-    type EasingOptions =
+    type EasingFunc = (t: number) => number;
+
+    type EasingLinearOptions =
         | "linear"
         | "easeInQuad"
         | "easeInCubic"
@@ -16,7 +18,10 @@ declare namespace anime {
         | "easeInCirc"
         | "easeInBack"
         | "easeInElastic"
-        | "easeInBounce"
+        | "easeInBounce";
+    type EasingLinearFunc = (duration: number) => EasingFunc;
+
+    type EasingSigmoidOptions =
         | "easeOutQuad"
         | "easeOutCubic"
         | "easeOutQuart"
@@ -37,7 +42,12 @@ declare namespace anime {
         | "easeInOutBack"
         | "easeInOutElastic"
         | "easeInOutBounce";
-    type EasingFunc = (t: number) => unknown;
+    type EasingSigmoidFunc = (amplitude: number, period: number) => EasingFunc;
+
+    type EasingOptions =
+        | EasingLinearOptions
+        | EasingSigmoidOptions;
+
     type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
@@ -160,7 +170,13 @@ declare namespace anime {
     ): FunctionBasedParameter;
     function timeline(params?: AnimeParams | readonly AnimeInstance[]): AnimeTimelineInstance;
     function easing(easing: string | EasingFunc, duration?: number): EasingFunc;
-    const penner: { [Key in EasingOptions]: EasingFunc };
+    const penner:
+        & {
+            [Key in EasingLinearOptions]: EasingLinearFunc;
+        }
+        & {
+            [Key in EasingSigmoidOptions]: EasingSigmoidFunc;
+        };
     function random(min: number, max: number): number;
 }
 
