@@ -323,4 +323,4 @@ import * as Pg from ".";
 
 export const native: typeof Pg | null;
 
-export { DatabaseError } from "pg-protocol";
+export type { DatabaseError } from "pg-protocol";
