@@ -516,7 +516,6 @@
 /types/bbcode-to-react/                                   @hkleungai
 /types/bchaddrjs/                                         @ealmansi
 /types/bcrypt/                                            @codeanimal @IOAyman @dstapleton92 @BendingBender
-/types/bcryptjs/                                          @Joshua-F @RafaelKr @branoholy
 /types/bcswipe/                                           @stof
 /types/bdfjs/                                             @jeremejevs
 /types/beanstalkd/                                        @SomaticIT
@@ -1401,7 +1400,6 @@
 /types/data-api-client/                                   @idanlo
 /types/data-driven/                                       @mrhen
 /types/data-urls/                                         @jaimeadf @bendingbender
-/types/datadog-metrics/                                   @pushplay
 /types/datadog-statsd-metrics-collector/                  @xzyfer
 /types/datadog-tracer/                                    @dineshsaravanan
 /types/datadog-winston/                                   @mhintzke
@@ -3227,7 +3225,6 @@
 /types/hex-to-uuid/                                       @pmqueiroz
 /types/hex2dec/                                           @Addono
 /types/hexo-bunyan/                                       @segayuu
-/types/hexo-util/                                         @segayuu @KentarouTakeda
 /types/hh-mm-ss/                                          @TotomInc
 /types/hid/                                               @dandean
 /types/hidefile/                                          @nelsonni
@@ -3369,7 +3366,6 @@
 /types/iferr/                                             @segayuu
 /types/iframe-resizer/                                    @arminbaljic @xemlock
 /types/ifvisible/                                         @maxbogus
-/types/igdb-api-node/                                     @susam-projects
 /types/ignite-ui/                                         @IgniteUI
 /types/ignore-by-default/                                 @mrozio13pl
 /types/ignore-styles/                                     @tai2
@@ -4843,7 +4839,6 @@
 /types/megajs/                                            @danwbyrne
 /types/mem-cache/                                         @MutterPedro
 /types/mem-fs/                                            @MyFoodBag
-/types/mem-fs-editor/                                     @MyFoodBag @JasonHK
 /types/memcached/                                         @KentarouTakeda
 /types/memdown/                                           @MeirionHughes @danwbyrne
 /types/memjs/                                             @leizongmin @BendingBender
@@ -6033,7 +6028,6 @@
 /types/protractor-console-plugin/                         @akwiatek
 /types/protractor-helpers/                                @johncant
 /types/protractor-http-mock/                              @Crevil @akwiatek
-/types/proxy/                                             @KuSh
 /types/proxy-addr/                                        @BendingBender
 /types/proxy-from-env/                                    @JasonHK @flopes89
 /types/proxy-lists/                                       @BehindTheMath
@@ -6068,7 +6062,7 @@
 /types/pushid/                                            @bmatcuk
 /types/pvutils/                                           @microshine
 /types/pwd-strength/                                      @himynameisdave
-/types/pxr-oneline/                                       @diogopxrnextday
+/types/pxr-oneline/                                       @diogopxrnextday @edwinveldhuizen @bart-digitalenterprises
 /types/pym.js/                                            @igowerf
 /types/python-struct/                                     @ffflorian
 /types/q/                                                 @bnemetchek @AndrewGaspar @johnnyreilly @mboudreau @TeamworkGuy2
@@ -6420,7 +6414,6 @@
 /types/react-json-to-csv/                                 @nui-tech @coston
 /types/react-jsonschema-form/                             @iamdanfox @iplus26 @phbou72 @LucianBuzzo @sthenault @sbusch @medfreeman @saadtazi @agustin107 @chanceaclark @andrenguyener @qingqishi @JonathanSouthern
 /types/react-katex/                                       @jeffswt
-/types/react-kawaii/                                      @ZhangYiJiang
 /types/react-key-handler/                                 @pmqueiroz
 /types/react-key-value/                                   @ckchow
 /types/react-keyboard-event-handler/                      @jamiegluk
