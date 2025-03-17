@@ -96,30 +96,30 @@ export enum ApplePayStatusCodes {
 }
 
 export type ApplePayErrorCode =
-        /**
-         * Shipping address or contact information is invalid or missing.
-         */
-        | "shippingContactInvalid"
-        /**
-         * Billing address information is invalid or missing.
-         */
-        | "billingContactInvalid"
-        /**
-         * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
-         */
-        | "addressUnserviceable"
-        /**
-         * The code that indicates an invalid coupon.
-         */
-        | "couponCodeInvalid"
-        /**
-         * The code that indicates an expired coupon.
-         */
-        | "couponCodeExpired"
-        /**
-         * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
-         */
-        | "unknown";
+    /**
+     * Shipping address or contact information is invalid or missing.
+     */
+    | "shippingContactInvalid"
+    /**
+     * Billing address information is invalid or missing.
+     */
+    | "billingContactInvalid"
+    /**
+     * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
+     */
+    | "addressUnserviceable"
+    /**
+     * The code that indicates an invalid coupon.
+     */
+    | "couponCodeInvalid"
+    /**
+     * The code that indicates an expired coupon.
+     */
+    | "couponCodeExpired"
+    /**
+     * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
+     */
+    | "unknown";
 
 export interface ApplePayError {
     /**
@@ -138,25 +138,25 @@ export interface ApplePayError {
     message: string;
 }
 
- /**
+/**
  * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
  */
 export type ApplePayErrorContactField =
- | "phoneNumber"
- | "emailAddress"
- | "name"
- | "phoneticName"
- | "postalAddress"
- | "addressLines"
- | "locality"
- | "subLocality"
- | "postalCode"
- | "administrativeArea"
- | "subAdministrativeArea"
- | "country"
- | "countryCode";
+    | "phoneNumber"
+    | "emailAddress"
+    | "name"
+    | "phoneticName"
+    | "postalAddress"
+    | "addressLines"
+    | "locality"
+    | "subLocality"
+    | "postalCode"
+    | "administrativeArea"
+    | "subAdministrativeArea"
+    | "country"
+    | "countryCode";
 
-export  interface ApplePayPaymentOrderDetails {
+export interface ApplePayPaymentOrderDetails {
     /**
      * An identifier for the order type associated with the order.
      */
@@ -234,7 +234,7 @@ export class ApplePaySession {
 
     begin(): void;
 
-     /**
+    /**
      * Completes the payment authorization with a result.
      * @param result - The status of the payment, whether it succeeded or failed for Apple Pay JS versions 1 and 2,
      * or the result of the payment authorization, including its status and list of errors for Apple Pay JS version 3.
