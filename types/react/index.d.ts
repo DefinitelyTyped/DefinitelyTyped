@@ -1177,7 +1177,7 @@ declare namespace React {
          * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
-        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -1276,7 +1276,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called when the component may be receiving new props.
          * React may call this even if props have not changed, so be sure to compare new and existing
@@ -1294,7 +1294,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1308,7 +1308,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1324,7 +1324,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
     function createRef<T>(): RefObject<T | null>;
