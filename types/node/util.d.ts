@@ -1505,7 +1505,7 @@ declare module "util" {
      */
     export type ParseArgsOptionsType = "boolean" | "string";
 
-    export interface ParseArgsOptionConfig {
+    export interface ParseArgsOptionDescriptor {
         /**
          * Type of argument.
          */
