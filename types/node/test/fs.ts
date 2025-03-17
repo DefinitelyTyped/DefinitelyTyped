@@ -123,6 +123,7 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     );
     fs.read(1, { buffer: Buffer.from("test"), position: 123n }, () => {});
     fs.read(1, Buffer.from("test"), { position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), () => {});
     // 2-param version using all-default options:
     fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {});
     fs.read(1, () => {});
