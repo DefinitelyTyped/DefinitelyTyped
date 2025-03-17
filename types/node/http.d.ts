@@ -1006,7 +1006,7 @@ declare module "http" {
          * The request method.
          * @since v0.1.97
          */
-        method: string;
+        method: HTTPMethod;
         /**
          * The request path.
          * @since v0.4.0
