@@ -95,7 +95,7 @@ export enum ApplePayStatusCodes {
     STATUS_PIN_LOCKOUT,
 }
 
-type ApplePayErrorCode =
+export type ApplePayErrorCode =
         /**
          * Shipping address or contact information is invalid or missing.
          */
@@ -121,7 +121,7 @@ type ApplePayErrorCode =
          */
         | "unknown";
 
-interface ApplePayError {
+export interface ApplePayError {
     /**
      * The error code for this instance.
      */
@@ -141,7 +141,7 @@ interface ApplePayError {
  /**
  * Names of the fields in the shipping or billing contact information, used to locate errors in the payment sheet.
  */
- type ApplePayErrorContactField =
+export type ApplePayErrorContactField =
  | "phoneNumber"
  | "emailAddress"
  | "name"
@@ -156,7 +156,7 @@ interface ApplePayError {
  | "country"
  | "countryCode";
 
- interface ApplePayPaymentOrderDetails {
+export  interface ApplePayPaymentOrderDetails {
     /**
      * An identifier for the order type associated with the order.
      */
@@ -175,7 +175,7 @@ interface ApplePayError {
     authenticationToken: string;
 }
 
-interface ApplePayPaymentAuthorizationResult {
+export interface ApplePayPaymentAuthorizationResult {
     /**
      * The status code for the authorization result.
      */
