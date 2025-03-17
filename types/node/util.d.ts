@@ -1582,7 +1582,7 @@ declare module "util" {
         : T extends true ? IfTrue
         : IfFalse;
 
-    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
+    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
         O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
         string | boolean
@@ -1615,7 +1615,7 @@ declare module "util" {
 
     type PreciseTokenForOptions<
         K extends string,
-        O extends ParseArgsOptionConfig,
+        O extends ParseArgsOptionDescriptor,
     > = O["type"] extends "string" ? {
             kind: "option";
             index: number;
