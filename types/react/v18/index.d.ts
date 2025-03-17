@@ -3886,6 +3886,7 @@ declare namespace React {
         textRendering?: number | string | undefined;
         to?: number | string | undefined;
         transform?: string | undefined;
+        transformOrigin?: string | undefined;
         u1?: number | string | undefined;
         u2?: number | string | undefined;
         underlinePosition?: number | string | undefined;
