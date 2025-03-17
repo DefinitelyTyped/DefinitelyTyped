@@ -1530,7 +1530,7 @@ declare module "util" {
         default?: string | boolean | string[] | boolean[] | undefined;
     }
     export interface ParseArgsOptionsConfig {
-        [longOption: string]: ParseArgsOptionConfig;
+        [longOption: string]: ParseArgsOptionDescriptor;
     }
     export interface ParseArgsConfig {
         /**

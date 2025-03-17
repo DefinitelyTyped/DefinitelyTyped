@@ -412,7 +412,7 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    let optionConfig: util.ParseArgsOptionConfig;
+    let optionConfig: util.ParseArgsOptionDescriptor;
 
     optionConfig = {
         type: "boolean",
