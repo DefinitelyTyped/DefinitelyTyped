@@ -34,10 +34,13 @@ declare namespace createFocusGroup {
     interface FocusGroupOptions {
         /**
          * Designate initial members of the group.
+         *
+         * @defaultValue `[]`
          */
         members?: ReadonlyArray<Element> | NodeListOf<Element> | FocusGroupMember[];
         /**
          * Specify which key events should move the focus forward, back, to the first member, or to the last member through the group.
+         *
          * @defaultValue
          * ```
          * {
@@ -53,6 +56,7 @@ declare namespace createFocusGroup {
         wrap?: boolean;
         /**
          * If true, string searching is enabled.
+         *
          * @defaultValue `false`
          */
         stringSearch?: boolean;
