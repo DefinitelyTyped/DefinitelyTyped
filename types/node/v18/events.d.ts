@@ -601,7 +601,7 @@ declare module "events" {
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener<EventName>(
+                addListener<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -636,7 +636,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on<EventName>(
+                on<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -669,7 +669,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once<EventName>(
+                once<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -755,7 +755,7 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener<EventName>(
+                removeListener<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -763,7 +763,7 @@ declare module "events" {
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off<EventName>(
+                off<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -778,8 +778,9 @@ declare module "events" {
                  * @since v0.1.26
                  */
                 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-                removeAllListeners<EventName extends EventNames<Events>>(eventName: EventName): this;
-                removeAllListeners<EventName extends string | symbol>(eventName?: EventName): this;
+                removeAllListeners<EventName extends string | symbol>(
+                    eventName?: EventNameParam<Events, EventName>,
+                ): this;
                 /* eslint-enable @definitelytyped/no-unnecessary-generics */
                 /**
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
@@ -809,7 +810,7 @@ declare module "events" {
                  * ```
                  * @since v0.1.26
                  */
-                listeners<EventName>(
+                listeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                 ): Array<Listener<Events, EventName>>;
                 /**
@@ -842,7 +843,7 @@ declare module "events" {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners<EventName>(
+                rawListeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                 ): Array<Listener<Events, EventName>>;
                 /**
@@ -901,7 +902,7 @@ declare module "events" {
                  * @param eventName The name of the event being listened for
                  * @param listener The event handler function
                  */
-                listenerCount<EventName>(
+                listenerCount<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener?: Listener<Events, EventName>,
                 ): number;
@@ -922,7 +923,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener<EventName>(
+                prependListener<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -941,7 +942,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener<EventName>(
+                prependOnceListener<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
@@ -963,7 +964,7 @@ declare module "events" {
                  * ```
                  * @since v6.0.0
                  */
-                eventNames(): Array<(string | symbol)> & Array<EventNames<Events>>;
+                eventNames(): Array<(string | symbol)>;
             }
         }
     }
