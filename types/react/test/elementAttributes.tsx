@@ -157,6 +157,160 @@ const testCases = [
             Hide
         </button>
     </>,
+    // MathML test cases
+    <maction actiontype="toggle" selection="2"></maction>,
+    <maction actiontype="toggle"></maction>,
+    <maction></maction>,
+    <math display="block"></math>,
+    <math display="inline"></math>,
+    // @ts-expect-error
+    <math display="whoops"></math>,
+    <mfrac></mfrac>,
+    <mfrac linethickness="2px"></mfrac>,
+    <mi></mi>,
+    <mi mathvariant="normal"></mi>,
+    // @ts-expect-error
+    <mi mathvariant="whoops"></mi>,
+    <mmultiscripts></mmultiscripts>,
+    <mprescripts />,
+    <mn>1</mn>,
+    <mo>+</mo>,
+    <mo
+        accent
+        fence
+        largeop
+        lspace="2px"
+        maxsize="14px"
+        minsize="12px"
+        movablelimits
+        rspace="2px"
+        separator
+        stretchy
+        symmetric
+    >
+        +
+    </mo>,
+    <mover></mover>,
+    <mover accent></mover>,
+    <mpadded></mpadded>,
+    <mpadded
+        depth="1px"
+        height="1px"
+        lspace="1px"
+        voffset="1px"
+        width="1px"
+    >
+    </mpadded>,
+    <mphantom></mphantom>,
+    <mroot></mroot>,
+    <mrow></mrow>,
+    <ms></ms>,
+    <ms lquote="&quot;" rquote="&quot;"></ms>,
+    <mspace></mspace>,
+    <mspace
+        depth="1px"
+        height="1px"
+        width="1px"
+    >
+    </mspace>,
+    <msqrt></msqrt>,
+    <mstyle displaystyle={false} mathcolor="teal"></mstyle>,
+    <msub></msub>,
+    <msubsup></msubsup>,
+    <msup></msup>,
+    <mtable></mtable>,
+    <mtable
+        align="top"
+        columnalign="left"
+        columnlines="solid"
+        columnspacing="2em"
+        frame="solid"
+        framespacing="2px"
+        rowalign="top"
+        rowspacing="1em"
+        width="100%"
+    >
+    </mtable>,
+    // @ts-expect-error
+    <mtable frame="whoops"></mtable>,
+    <mtext></mtext>,
+    <mtd></mtd>,
+    <mtd
+        columnalign="left"
+        columnspan={1}
+        rowalign="top"
+        rowspan={2}
+    >
+    </mtd>,
+    <mtd
+        // @ts-expect-error
+        columnalign="whoops"
+        columnspan="1"
+        // @ts-expect-error
+        rowalign="whoops"
+        rowspan="2"
+    >
+    </mtd>,
+    <mtr></mtr>,
+    <mtr
+        columnalign="left"
+        rowalign="top"
+    >
+    </mtr>,
+    <mtr
+        // @ts-expect-error
+        columnalign="whoops"
+        // @ts-expect-error
+        rowalign="whoops"
+    >
+    </mtr>,
+    <munder></munder>,
+    <munder accentunder></munder>,
+    <munderover></munderover>,
+    <munderover accent accentunder></munderover>,
+    <semantics></semantics>,
+    <annotation></annotation>,
+    <annotation-xml></annotation-xml>,
+    // Example from MDN:
+    //
+    // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math#examples
+    //
+    <p>
+        The infinite sum
+        <math display="block">
+            <mrow>
+                <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>1</mn>
+                    </mrow>
+                    <mrow>
+                        <mo>+</mo>
+                        <mn>∞</mn>
+                    </mrow>
+                </munderover>
+                <mfrac>
+                    <mn>1</mn>
+                    <msup>
+                        <mi>n</mi>
+                        <mn>2</mn>
+                    </msup>
+                </mfrac>
+            </mrow>
+        </math>
+        is equal to the real number
+        <math display="inline">
+            <mfrac>
+                <msup>
+                    <mi>π</mi>
+                    <mn>2</mn>
+                </msup>
+                <mn>6</mn>
+            </mfrac>
+        </math>.
+    </p>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
