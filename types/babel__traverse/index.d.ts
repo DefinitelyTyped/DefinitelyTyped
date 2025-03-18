@@ -1450,11 +1450,13 @@ export interface TraversalContext<S = unknown> {
 }
 
 // Based on `GetFieldType`s from `@types/lodash/common/object.d.ts`:
+// dprint-ignore
 type ImplGetOfArray<T extends readonly unknown[], K extends string> =
     K extends `${infer N extends number}` ? T[N]
     : K extends keyof T ? T[K]
     : never;
 
+// dprint-ignore
 type ImplGetByKey<T, K extends string>
     = T extends readonly unknown[] ? ImplGetOfArray<T, K>
     : K extends keyof T ? T[K]
@@ -1462,10 +1464,11 @@ type ImplGetByKey<T, K extends string>
         ? N extends keyof T ? T[N] : never
     : never;
 
+// dprint-ignore
 type ImplGetRecursive<T, K extends string>
     = K extends `${infer L}.${infer R}`
         ? ImplGetRecursive<ImplGetByKey<T, L>, R>
-        : ImplGetByKey<T, K>;
+    : ImplGetByKey<T, K>;
 
 export type NodePathResult<T> =
     | (Extract<T, Node | null | undefined> extends never ? never : NodePath<Extract<T, Node | null | undefined>>)
