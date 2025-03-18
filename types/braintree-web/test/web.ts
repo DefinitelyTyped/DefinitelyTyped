@@ -1,6 +1,6 @@
 import * as braintree from "braintree-web";
-import { HostedFieldsBinPayload } from "braintree-web/hosted-fields";
 import { ApplePayError } from "braintree-web/apple-pay";
+import { HostedFieldsBinPayload } from "braintree-web/hosted-fields";
 
 const version: string = braintree.VERSION;
 
@@ -530,7 +530,7 @@ braintree.client.create(
                             const errorVerion3: ApplePayError = {
                                 code: "unknown",
                                 message: "An error occurred",
-                            }
+                            };
 
                             session.completePayment({
                                 status: braintree.ApplePaySession.STATUS_FAILURE,
