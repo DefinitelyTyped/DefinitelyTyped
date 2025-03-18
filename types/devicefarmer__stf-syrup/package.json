@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/devicefarmer__stf-syrup",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/DeviceFarmer/stf-syrup/"
+    ],
+    "dependencies": {
+        "bluebird": "~1.1.0"
+    },
+    "devDependencies": {
+        "@types/devicefarmer__stf-syrup": "workspace:.",
+        "@types/bluebird": "latest"
+    },
+    "owners": [
+        {
+            "name": "Maksim Alzhanov",
+            "githubUsername": "irdkwmnsb"
+        }
+    ]
+}
