@@ -151,7 +151,7 @@ declare const event5: "event5";
 }
 
 {
-    let result: Array<keyof T | keyof events.EventEmitterBuiltInEventMap>;
+    let result: Array<string | symbol>;
 
     result = emitter.eventNames();
 }
@@ -337,9 +337,19 @@ declare const event5: "event5";
     emitter.prependListener("error", onError);
     emitter.prependOnceListener("error", onError);
     emitter.removeListener("error", onError);
+    emitter.removeAllListeners();
+    emitter.removeAllListeners("error");
+    emitter.emit("error");
 }
 
 interface Implementing extends events.EventEmitter {}
 declare class Implementing implements events.EventEmitter {
     addListener(eventName: "event", listener: (arg: boolean) => void): this;
+}
+
+{
+    // @ts-expect-error
+    emitter.on({}, () => {});
+    // @ts-expect-error
+    new EventEmitter().on({}, () => {});
 }
