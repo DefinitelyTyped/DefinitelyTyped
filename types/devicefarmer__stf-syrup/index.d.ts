@@ -1,10 +1,8 @@
-import Bluebird = require("bluebird")
+import Bluebird = require("bluebird");
 
-type extractDesRet<RetT> = RetT extends SyrupI<never, never, infer RetX>
-    ? RetX
+type extractDesRet<RetT> = RetT extends SyrupI<never, never, infer RetX> ? RetX
     : unknown;
-type extractBluebirdReturnR<RetT> = RetT extends Bluebird<infer RetX>
-    ? RetX
+type extractBluebirdReturnR<RetT> = RetT extends Bluebird<infer RetX> ? RetX
     : RetT;
 declare class SyrupI<
     OptionsT extends object = any, // TODO: find a way to remove any. Maybe we union all the options that are needed for each dependency?
@@ -12,13 +10,13 @@ declare class SyrupI<
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     RetT = unknown | void,
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    DepsRetsT extends (unknown | void)[] = [] // TODO: maybe we can extract DepsRetsT somehow?
+    DepsRetsT extends (unknown | void)[] = [], // TODO: maybe we can extract DepsRetsT somehow?
 > {
     constructor(options: OptionsT | null);
     define<
-        BodyT extends (options: OptionsT, ...deps: DepsRetsT) => unknown
+        BodyT extends (options: OptionsT, ...deps: DepsRetsT) => unknown,
     >(
-        body: BodyT
+        body: BodyT,
     ): SyrupI<
         OptionsT,
         DepsT,
@@ -26,7 +24,7 @@ declare class SyrupI<
         DepsRetsT
     >;
     dependency<DepT extends SyrupI<never, never>>(
-        dep: DepT
+        dep: DepT,
     ): SyrupI<
         OptionsT,
         [...DepsT, DepT],
@@ -34,26 +32,26 @@ declare class SyrupI<
         [...DepsRetsT, extractDesRet<DepT>]
     >;
     consume<NewOptionsT extends OptionsT>(
-        overrides: NewOptionsT
+        overrides: NewOptionsT,
     ): Bluebird<RetT>;
     invoke(overrides: OptionsT, ...args: DepsT[]): RetT;
 }
 
 declare function ParallelSyrup(
-    options?: object
+    options?: object,
 ): SyrupI;
 declare namespace ParallelSyrup {
     const Syrup: SyrupI;
 }
 
 declare function SerialSyrup(
-    options?: object
+    options?: object,
 ): SyrupI;
 declare namespace SerialSyrup {
     const Syrup: SyrupI;
 }
 
 declare const Syrup: typeof ParallelSyrup & {
-    serial: typeof SerialSyrup
+    serial: typeof SerialSyrup;
 };
 export = Syrup;

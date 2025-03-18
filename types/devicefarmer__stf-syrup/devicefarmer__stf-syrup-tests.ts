@@ -6,12 +6,12 @@ const moduleA = Syrup.serial().define((options) => {
         return "a";
     } else {
         return 0;
-     }
-})
+    }
+});
 
 const moduleB = Syrup.serial().define((options) => {
     return "b";
-})
+});
 
 const moduleC = Syrup.serial()
     .dependency(moduleA)
@@ -22,19 +22,17 @@ const moduleC = Syrup.serial()
 
         // $ExpectType string
         const resb = b;
-})
+    });
 
 // @ts-expect-error
 Syrup.serial().define((options, a) => {
-
-})
+});
 
 // @ts-expect-error
-Syrup().dependency()
-
+Syrup().dependency();
 
 // This will throw a runtime error but should compile
-Syrup().consume({})
+Syrup().consume({});
 
 // $ExpectType Promise<number>
-const e = Syrup().define(() => 0).consume({"a": 3})
+const e = Syrup().define(() => 0).consume({ "a": 3 });
