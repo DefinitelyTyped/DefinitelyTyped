@@ -25,6 +25,7 @@ const MyVisitor2: Visitor = {
     },
     ArrayExpression(path) {
         path.get("elements"); // $ExpectType NodePath<SpreadElement | Expression | null>[]
+        path.get("elements.0"); // $ExpectType NodePath<SpreadElement | Expression | null>
     },
     Program(path) {
         path.parentPath; // $ExpectType null
@@ -374,6 +375,7 @@ const objectTypeAnnotation: NodePath<t.ObjectTypeAnnotation> = new NodePath<t.Ob
 );
 
 objectTypeAnnotation.get("indexers"); // $ExpectType NodePathResult<ObjectTypeIndexer[] | undefined>
+objectTypeAnnotation.get("indexers.0"); // $ExpectType NodePath<ObjectTypeIndexer>
 
 // Test that NodePath can be narrowed from union to single type
 const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = new NodePath<t.ExportNamedDeclaration>(
@@ -427,7 +429,9 @@ binding.deopValue();
 binding.clearValue();
 
 binding.reassign(newPath.get("body")[0]);
+binding.reassign(newPath.get("body.0"));
 binding.reference(newPath.get("body")[0]);
+binding.reference(newPath.get("body.0"));
 binding.dereference();
 
 newPath.scope.checkBlockScopedCollisions(binding, "local", "name", {});
