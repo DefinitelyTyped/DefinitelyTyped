@@ -6,11 +6,10 @@
         "https://github.com/DeviceFarmer/stf-syrup/"
     ],
     "dependencies": {
-        "bluebird": "~1.1.0"
+        "@types/bluebird": "latest"
     },
     "devDependencies": {
-        "@types/devicefarmer__stf-syrup": "workspace:.",
-        "@types/bluebird": "latest"
+        "@types/devicefarmer__stf-syrup": "workspace:."
     },
     "owners": [
         {
