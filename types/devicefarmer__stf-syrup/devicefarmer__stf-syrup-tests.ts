@@ -1,5 +1,5 @@
 import Syrup from "@devicefarmer/stf-syrup";
-import Bluebird from "bluebird";
+import Promise from "bluebird";
 
 const moduleA = Syrup.serial().define((options) => {
     if (Math.random()) {
@@ -36,5 +36,5 @@ Syrup().dependency()
 // This will throw a runtime error but should compile
 Syrup().consume({})
 
-// $ExpectType Bluebird<number>
+// $ExpectType Promise<number>
 const e = Syrup().define(() => 0).consume({"a": 3})
