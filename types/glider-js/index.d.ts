@@ -179,7 +179,7 @@ declare namespace Glider {
          */
         slidesToShow?: number | "auto" | undefined;
 
-        /** 
+        /**
          * Use passive event listeners—improves scroll performance.
          */
         passiveListeners?: boolean | undefined;
