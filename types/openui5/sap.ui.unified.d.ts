@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -948,7 +948,10 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -1095,7 +1098,10 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
+     * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
+     *
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `true`.
      *
@@ -1370,24 +1376,6 @@ declare module "sap/ui/unified/Calendar" {
       oInitialFocusedDate?: object
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
-     *
-     * If set, interval selection is allowed
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setIntervalSelection(
-      /**
-       * New value for property `intervalSelection`
-       */
-      bIntervalSelection?: boolean
-    ): this;
-    /**
      * Sets the associated {@link #getLegend legend}.
      *
      * @since 1.38.5
@@ -1547,24 +1535,6 @@ declare module "sap/ui/unified/Calendar" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getSingleSelection singleSelection}.
-     *
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setSingleSelection(
-      /**
-       * New value for property `singleSelection`
-       */
-      bSingleSelection?: boolean
-    ): this;
-    /**
      * Sets a new value for property {@link #getWidth width}.
      *
      * Width of Calendar
@@ -1589,12 +1559,18 @@ declare module "sap/ui/unified/Calendar" {
    */
   export interface $CalendarSettings extends $ControlSettings {
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      */
     intervalSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, only a single date or interval, if intervalSelection is enabled, can be selected
+     * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
+     *
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
      */
     singleSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -4974,7 +4950,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -5150,7 +5129,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5273,7 +5255,10 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
     months?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * @since 1.74
      */
@@ -7294,7 +7279,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * Gets current value of property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * Default value is `false`.
      *
@@ -7461,7 +7449,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7552,7 +7543,10 @@ declare module "sap/ui/unified/calendar/YearPicker" {
     years?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * If set, interval selection is allowed
+     * Determines if an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
      *
      * @since 1.74
      */

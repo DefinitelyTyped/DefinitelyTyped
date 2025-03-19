@@ -16,7 +16,7 @@ import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/F
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
-import { TitleLevel } from "sap/ui/core/library";
+import { CSSGapShortHand, TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
@@ -256,3 +256,6 @@ if (BaseObject.isObjectA<Dialog>(something, "sap.m.Dialog")) {
 
 // 1.133
 new ObjectMarker().setReactiveAreaMode("Inline");
+
+// 1.134
+const gap: CSSGapShortHand = "1px 2px 3px 4px";

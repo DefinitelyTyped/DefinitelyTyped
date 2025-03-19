@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/tnt/library" {
   /**
@@ -42,6 +42,24 @@ declare module "sap/tnt/library" {
      * When type of the content of `InfoLabel` is numeric paddings are narrow
      */
     Narrow = "Narrow",
+  }
+  /**
+   * Available options for the Side Navigation design.
+   *
+   * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'SideNavigationDesign'.
+   *
+   * @since 1.134.0
+   * @experimental Behavior might change.
+   */
+  export enum SideNavigationDesign {
+    /**
+     * Side Navigation has a shadow and border.
+     */
+    Decorated = "Decorated",
+    /**
+     * Side Navigation without any shadow or border.
+     */
+    Plain = "Plain",
   }
 }
 
@@ -1549,8 +1567,17 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Gets current value of property {@link #getSelectable selectable}.
      *
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - External links should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * Default value is `true`.
      *
@@ -1716,8 +1743,17 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Sets a new value for property {@link #getSelectable selectable}.
      *
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - External links should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1793,8 +1829,17 @@ declare module "sap/tnt/NavigationListItem" {
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
-     * `href` is also used.
+     * Specifies if the item can be selected. By default all items are selectable.
+     *
+     * When a parent item's `selectable` property is set to `false`, selecting it will only expand or collapse
+     * its sub-items.
+     *
+     * To improve user experience do not mix selectable parent items with not selectable parent items within
+     * a single side navigation.
+     *
+     * **Guidelines:**
+     * 	 - External links should not be selectable.
+     * 	 - Items that trigger actions (with design "Action") should not be selectable.
      *
      * @since 1.116
      * @experimental As of version 1.116. Disclaimer: this property is in a beta state - incompatible API changes
@@ -2191,6 +2236,8 @@ declare module "sap/tnt/SideNavigation" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import { SideNavigationDesign } from "sap/tnt/library";
+
   import NavigationList from "sap/tnt/NavigationList";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -2209,6 +2256,9 @@ declare module "sap/tnt/SideNavigation" {
    * 	 - The flexible part adapts its size to the fixed one.
    * 	 - The flexible part has a scrollbar when the content is larger than the available space.  **Note:**
    *     In order for the `SideNavigation` to stretch properly, its parent layout control should only be the `sap.tnt.ToolPage`.
+   *     **Note:** If used outside the intended parent layout `sap.tnt.ToolPage`, for example inside a `sap.m.ResponsivePopover`
+   *     to achieve a Side Navigation Overlay Mode, the application developer should set the `design` property
+   *     to `Plain`.
    *
    * @since 1.34
    */
@@ -2401,6 +2451,21 @@ declare module "sap/tnt/SideNavigation" {
      */
     getAriaLabel(): string;
     /**
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * Default value is `Decorated`.
+     *
+     * @since 1.134
+     * @experimental
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): SideNavigationDesign;
+    /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
      * Specifies if the control is expanded.
@@ -2477,6 +2542,28 @@ declare module "sap/tnt/SideNavigation" {
        * New value for property `ariaLabel`
        */
       sAriaLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Decorated`.
+     *
+     * @since 1.134
+     * @experimental
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: SideNavigationDesign | keyof typeof SideNavigationDesign
     ): this;
     /**
      * Sets if the control is in expanded or collapsed mode.
@@ -2611,6 +2698,19 @@ declare module "sap/tnt/SideNavigation" {
      * @since 1.98
      */
     ariaLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Specifies whether the control should have own container styling, such as a box-shadow and border, or
+     * not. **Note:** This property has to be set to `Plain` when the control is used inside a `sap.m.ResponsivePopover`
+     * to achieve a Side Navigation Overlay Mode.
+     *
+     * @since 1.134
+     * @experimental
+     */
+    design?:
+      | (SideNavigationDesign | keyof typeof SideNavigationDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the content inside the flexible part.

@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/base/assert" {
   /**
@@ -2989,7 +2989,7 @@ declare module "sap/base/util/each" {
     /**
      * function to call for each property name
      */
-    fnCallback: (p1: Key, p2: any) => boolean
+    fnCallback: (this: any, p1: Key, p2: any) => boolean
   ): object | any[];
   /**
    * The key that is passed to the callback as the first parameter
@@ -4814,7 +4814,9 @@ declare module "sap/ui/core/fieldhelp/FieldHelpUtil" {
     protected constructor();
 
     /**
-     * Sets the field help information for the given element as `sap-ui-DocumentationRef` custom data.
+     * Sets the field help information for the given element as `sap-ui-DocumentationRef` custom data. Note
+     * that field help inferred from data bindings of control properties is overwritten by this method unless
+     * an empty array is given in parameter `vDocumentationRefs`.
      */
     static setDocumentationRef(
       /**
@@ -5796,6 +5798,2959 @@ declare module "sap/ui/model/odata/ODataExpressionAddons" {
   interface ODataExpressionAddons {}
   const ODataExpressionAddons: ODataExpressionAddons;
   export default ODataExpressionAddons;
+}
+
+declare module "sap/ui/model/odata/v2/ODataModel" {
+  import {
+    default as Model,
+    Model$RequestCompletedEventParameters,
+    Model$RequestFailedEventParameters,
+    Model$RequestSentEventParameters,
+  } from "sap/ui/model/Model";
+
+  import BindingMode from "sap/ui/model/BindingMode";
+
+  import CountMode from "sap/ui/model/odata/CountMode";
+
+  import OperationMode from "sap/ui/model/odata/OperationMode";
+
+  import UpdateMethod from "sap/ui/model/odata/UpdateMethod";
+
+  import Context from "sap/ui/model/Context";
+
+  import ODataContextBinding from "sap/ui/model/odata/v2/ODataContextBinding";
+
+  import Sorter from "sap/ui/model/Sorter";
+
+  import Filter from "sap/ui/model/Filter";
+
+  import ODataListBinding from "sap/ui/model/odata/v2/ODataListBinding";
+
+  import PropertyBinding from "sap/ui/model/PropertyBinding";
+
+  import ODataTreeBinding from "sap/ui/model/odata/v2/ODataTreeBinding";
+
+  import Context1 from "sap/ui/model/odata/v2/Context";
+
+  import MessageScope from "sap/ui/model/odata/MessageScope";
+
+  import Metadata from "sap/ui/base/Metadata";
+
+  import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
+
+  import Event from "sap/ui/base/Event";
+
+  import { Source } from "sap/ui/model/odata/v2/ODataAnnotations";
+
+  /**
+   * The error object passed to the retry after callback.
+   *
+   * @since 1.134.0
+   */
+  export type RetryAfterError = Error & {
+    /**
+     * Error message returned by the 503 HTTP status response
+     */
+    message: string;
+    /**
+     * The earliest point in time the request may be repeated
+     */
+    retryAfter: Date;
+  };
+
+  /**
+   * Model implementation based on the OData protocol.
+   *
+   * See chapter {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a
+   * general introduction.
+   *
+   * This model is not prepared to be inherited from.
+   *
+   * @since 1.24.0
+   */
+  export default class ODataModel extends Model {
+    /**
+     * Constructor for a new ODataModel.
+     */
+    constructor(
+      /**
+       * Base URI of the service to request data from; additional URL parameters appended here will be appended
+       * to every request. If you pass an object, it will be interpreted as the parameter object (second parameter).
+       * Then `mParameters.serviceUrl` becomes a mandatory parameter.
+       */
+      vServiceUrl: string | object,
+      /**
+       * Map which contains the following parameter properties:
+       */
+      mParameters?: {
+        /**
+         * The URL (or an array of URLs) from which the annotation metadata should be loaded
+         */
+        annotationURI?: string | string[];
+        /**
+         * Set this array to make custom response headers bindable via the entity's "__metadata/headers" property
+         */
+        bindableResponseHeaders?: string[];
+        /**
+         * Whether the model tries to calculate canonical URLs to request the data.
+         *
+         * **For example:** An application displays the details of a sales order in a form with an absolute binding
+         * path `/SalesOrderSet("1")`. The form embeds a table for the sales order line items with a relative binding
+         * path `ToLineItems`. If the user selects a sales order line item (e.g. Item "10"), the details of this
+         * sales order line item are displayed in another form, which also contains a table for the sales order
+         * line item's schedules with a relative binding path `ToSchedules`.
+         *
+         * If the `canonicalRequests` parameter has the default value `false`, then the OData model would request
+         * the data for the sales order line item's details form with the following requests:
+         * ```javascript
+         *
+         *   GET /<serviceUrl>/SalesOrderSet("1")/ToLineItems(SalesOrderID="1",ItemPosition="10")
+         *   GET /<serviceUrl>/SalesOrderSet("1")/ToLineItems(SalesOrderID="1",ItemPosition="10")/ToSchedules```
+         *
+         *
+         * Some back-end implementations do not support more than one navigation property in the resource URL. In
+         * this case, set the `canonicalRequests` parameter to `true`. The OData model then converts the long resource
+         * URLs to canonical URLs and requests the data for the sales order line item's details form with the following
+         * requests:
+         * ```javascript
+         *
+         *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")
+         *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")/ToSchedules```
+         */
+        canonicalRequests?: boolean;
+        /**
+         * Sets the default binding mode for the model
+         */
+        defaultBindingMode?: BindingMode | keyof typeof BindingMode;
+        /**
+         * Sets the default count mode for the model
+         */
+        defaultCountMode?: CountMode | keyof typeof CountMode;
+        /**
+         * Sets the default operation mode for the model
+         */
+        defaultOperationMode?: OperationMode | keyof typeof OperationMode;
+        /**
+         * Default update method which is used for all update requests
+         */
+        defaultUpdateMethod?: UpdateMethod;
+        /**
+         * Set this flag to `true` if your service does not support `HEAD` requests for fetching the service document
+         * (and thus the security token) to avoid sending a `HEAD`-request before falling back to `GET`
+         */
+        disableHeadRequestForToken?: boolean;
+        /**
+         * Set this flag to `true` if you don´t want to start a new soft state session with context ID (`SID`) through
+         * header mechanism. This is useful if you want to share a `SID` between different browser windows
+         */
+        disableSoftStateHeader?: boolean;
+        /**
+         * Whether the security token is requested at the earliest convenience, if parameter `tokenHandling` is
+         * `true`; supported since 1.79.0.
+         */
+        earlyTokenRequest?: boolean;
+        /**
+         * Map of custom headers (name/value pairs) like {"myHeader":"myHeaderValue",...}
+         */
+        headers?: Record<string, string>;
+        /**
+         * Whether to ignore all annotations from service metadata, so that they are not available as V4 annotations
+         * in this model's metamodel; see {@link #getMetaModel}. Only annotations from annotation files are loaded;
+         * see the `annotationURI` parameter. Supported since 1.121.0
+         */
+        ignoreAnnotationsFromMetadata?: boolean;
+        /**
+         * If set to `true`, request payloads will be JSON, XML for `false`
+         */
+        json?: boolean;
+        /**
+         * Whether the `metadataLoaded` event will be fired only after all annotations have been loaded as well
+         */
+        loadAnnotationsJoined?: boolean;
+        /**
+         * Please use the following string format e.g. '2.0' or '3.0'. OData version supported by the ODataModel:
+         * '2.0'
+         */
+        maxDataServiceVersion?: string;
+        /**
+         * Map of namespace aliases (alias => URI) that can be used in metadata binding paths; each alias is mapped
+         * to a corresponding namespace URI; when an alias is used in a metadata binding path, it addresses a metadata
+         * extension that belongs to the corresponding namespace URI; if `metadataNamespaces` is not given, the
+         * following default mappings will be used:
+         * 	 - `"sap": "sap:"http://www.sap.com/Protocols/SAPData"`
+         * 	 - `"m": "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"`
+         * 	 - `"": "http://schemas.microsoft.com/ado/2007/06/edmx`
+         */
+        metadataNamespaces?: Record<string, string>;
+        /**
+         * Map of URL parameters for metadata requests - only attached to a `$metadata` request
+         */
+        metadataUrlParams?: Record<string, string>;
+        /**
+         * Whether technical messages should always be treated as persistent, since 1.83.0
+         */
+        persistTechnicalMessages?: boolean;
+        /**
+         * Whether a preliminary context will be created/used by a binding. When set to `true`, the model can bundle
+         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
+         */
+        preliminaryContext?: boolean;
+        /**
+         * Enable/disable automatic refresh after change operations
+         */
+        refreshAfterChange?: boolean;
+        /**
+         * Whether to sequentialize all requests, needed in case the service cannot handle parallel requests. **Deprecated**
+         * as of version 1.128.0, the concept has been discarded.
+         */
+        sequentializeRequests?: boolean;
+        /**
+         * Base URI of the service to request data from; this property is mandatory when the first method parameter
+         * `serviceUrl` is omitted, but ignored otherwise
+         */
+        serviceUrl?: string;
+        /**
+         * Map of URL parameters (name/value pairs) - these parameters will be attached to all requests, except
+         * for the `$metadata` request
+         */
+        serviceUrlParams?: Record<string, string>;
+        /**
+         * Enable/disable security token handling. If the "skipServerCache" string value is provided, the security
+         * token is not cached with the server as key in order to avoid failing $batch requests when accessing services
+         * running on different back-end systems behind a reverse proxy (since 1.119).
+         *  Use this option only if the system landscape is known.
+         */
+        tokenHandling?: boolean | "skipServerCache";
+        /**
+         * Send security token for GET requests in case read access logging is activated for the OData Service in
+         * the backend.
+         */
+        tokenHandlingForGet?: boolean;
+        /**
+         * Whether all requests should be sent in batch requests
+         */
+        useBatch?: boolean;
+        /**
+         * If set to `true`, the user credentials are included in a cross-origin request. **Note:** This only works
+         * if all requests are asynchronous.
+         */
+        withCredentials?: boolean;
+        /**
+         * **Deprecated** for security reasons. Use strong server side authentication instead. Password for the
+         * service.
+         */
+        password?: string;
+        /**
+         * **Deprecated** This parameter does not prevent creation of annotations from the metadata document in
+         * this model's metamodel. Whether to skip the automated loading of annotations from the metadata document.
+         * Loading annotations from metadata does not have any effects (except the lost performance by invoking
+         * the parser) if there are no annotations inside the metadata document
+         */
+        skipMetadataAnnotationParsing?: boolean;
+        /**
+         * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
+         */
+        user?: string;
+      }
+    );
+
+    /**
+     * Returns a metadata object for class sap.ui.model.odata.v2.ODataModel.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Returns a promise that resolves with an array containing information about the initially loaded annotations.
+     *
+     * **Important**: This covers the annotations that were given to the model constructor, not the ones that
+     * might have been added later on using the API method {@link sap.ui.model.odata.ODataMetaModel#getODataValueLists}.
+     * In order to get information about those, the event `annotationsLoaded` can be used.
+     *
+     * @since 1.42
+     *
+     * @returns A promise that resolves with an array containing information about the initially loaded annotations
+     */
+    annotationsLoaded(): Promise<any>;
+    /**
+     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAnnotationsFailed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAnnotationsFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAnnotationsLoaded(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachAnnotationsLoaded(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
+     * event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestCompleted(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
+     * event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestCompleted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
+     * of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestFailed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
+     * of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
+     * this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestSent(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
+     * this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBatchRequestSent(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachMetadataFailed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachMetadataFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachMetadataLoaded(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachMetadataLoaded(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Creates a context binding for this model.
+     * See:
+     * 	sap.ui.model.Model.prototype.bindContext
+     *
+     *
+     * @returns The new context binding
+     */
+    bindContext(
+      /**
+       * The binding path in the model
+       */
+      sPath: string,
+      /**
+       * The context which is required as base for a relative path.
+       */
+      oContext?: Context,
+      /**
+       * A map which contains additional parameters for the binding.
+       */
+      mParameters?: {
+        /**
+         * Whether a preliminary context is created
+         */
+        createPreliminaryContext?: boolean;
+        /**
+         * An optional map of custom query parameters. Custom parameters must not start with `$`.
+         */
+        custom?: Record<string, string>;
+        /**
+         * Value for the OData `$expand` query option parameter which is included in the request after URL encoding
+         * of the given value.
+         */
+        expand?: string;
+        /**
+         * The group id to be used for requests originating from the binding
+         */
+        groupId?: string;
+        /**
+         * Value for the OData `$select` query option parameter which is included in the request after URL encoding
+         * of the given value.
+         */
+        select?: string;
+        /**
+         * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
+         */
+        usePreliminaryContext?: boolean;
+        /**
+         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
+         * the binding.
+         */
+        batchGroupId?: string;
+      }
+    ): ODataContextBinding;
+    /**
+     * Creates a new list binding for this model.
+     * See:
+     * 	sap.ui.model.Model.prototype.bindList
+     *
+     *
+     * @returns The new list binding
+     */
+    bindList(
+      /**
+       * The binding path in the model
+       */
+      sPath: string,
+      /**
+       * The context which is required as base for a relative path.
+       */
+      oContext?: Context,
+      /**
+       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataListBinding#sort} to replace them
+       */
+      aSorters?: Sorter[] | Sorter,
+      /**
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataListBinding#filter }
+       * to replace them
+       */
+      aFilters?: Filter[] | Filter,
+      /**
+       * A map which contains additional parameters for the binding.
+       */
+      mParameters?: {
+        /**
+         * Defines the count mode of the binding; if not specified, the default count mode of the `oModel` is applied.
+         */
+        countMode?: CountMode | keyof typeof CountMode;
+        /**
+         * A key used in combination with the resolved path of the binding to identify the entities created by the
+         * binding's {@link #create} method.
+         *
+         * **Note:** Different controls or control aggregation bindings to the same collection must have different
+         * `createdEntitiesKey` values.
+         */
+        createdEntitiesKey?: string;
+        /**
+         * An optional map of custom query parameters. Custom parameters must not start with `$`.
+         */
+        custom?: Record<string, string>;
+        /**
+         * Value for the OData `$expand` query option parameter which is included in the data request after URL
+         * encoding of the given value.
+         */
+        expand?: string;
+        /**
+         * Turns on the fault tolerance mode, data is not reset if a back-end request returns an error.
+         */
+        faultTolerant?: boolean;
+        /**
+         * The group id to be used for requests originating from the binding
+         */
+        groupId?: string;
+        /**
+         * The operation mode of the binding
+         */
+        operationMode?: OperationMode | keyof typeof OperationMode;
+        /**
+         * Value for the OData `$select` query option parameter which is included in the data request after URL
+         * encoding of the given value.
+         */
+        select?: string;
+        /**
+         * Whether the list binding only requests transition messages from the back end. If messages for entities
+         * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
+         * entity corresponding to the list binding's context, with the parameter `updateAggregatedMessages` set
+         * to `true`.
+         */
+        transitionMessagesOnly?: boolean;
+        /**
+         * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
+         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
+         */
+        usePreliminaryContext?: boolean;
+        /**
+         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
+         * the binding.
+         */
+        batchGroupId?: string;
+        /**
+         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; the threshold
+         * that defines how many entries should be fetched at least by the binding if `operationMode` is set to
+         * `Auto`.
+         */
+        threshold?: int;
+      }
+    ): ODataListBinding;
+    /**
+     * Creates a new property binding for this model.
+     * See:
+     * 	sap.ui.model.Model#bindProperty
+     * 	#getProperty
+     *
+     *
+     * @returns The new property binding
+     */
+    bindProperty(
+      /**
+       * Path pointing to the property that should be bound; either an absolute path or a path relative to a given
+       * `oContext`
+       */
+      sPath: string,
+      /**
+       * A context object for the new binding
+       */
+      oContext?: object,
+      /**
+       * Map of optional parameters for the binding
+       */
+      mParameters?: {
+        /**
+         * Whether this binding does not propagate model messages to the control; supported since 1.82.0. Some composite
+         * types like {@link sap.ui.model.type.Currency} automatically ignore model messages for some of their parts
+         * depending on their format options; setting this parameter to `true` or `false` overrules the automatism
+         * of the type
+         *
+         * For example, a binding for a currency code is used in a composite binding for rendering the proper number
+         * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
+         * the currency code shall not be displayed at that control, only messages for the amount
+         */
+        ignoreMessages?: boolean;
+        /**
+         * Whether the value of the created property binding is `undefined` if it is unresolved; if not set, its
+         * value is `null`. Supported since 1.100.0
+         */
+        useUndefinedIfUnresolved?: boolean;
+      }
+    ): PropertyBinding;
+    /**
+     * Creates a new tree binding for this model.
+     *
+     * Hierarchy Annotations: To use the v2.ODataTreeBinding with an OData service which exposes hierarchy annotations,
+     * see the **"SAP Annotations for OData Version 2.0"** specification. The required property annotations
+     * as well as accepted / default values are documented in this specification.
+     *
+     * Services which include the `hierarchy-node-descendant-count-for` annotation and expose the data points
+     * sorted in a depth-first, pre-order manner, can use an optimized auto-expand feature by specifying the
+     * `numberOfExpandedLevels` in the binding parameters. This will pre-expand the hierarchy to the given number
+     * of levels, with only a single initial OData request.
+     *
+     * For services without the `hierarchy-node-descendant-count-for` annotation, the `numberOfExpandedLevels`
+     * property is not supported and deprecated.
+     *
+     * Operation Modes: For a full definition and explanation of all OData binding operation modes, see {@link sap.ui.model.odata.OperationMode}.
+     *
+     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with filters of type {@link sap.ui.model.FilterType.Application}.
+     * Be aware that this applies only to filters which do not prevent the creation of a hierarchy. So filtering
+     * on a property (e.g. a "Customer") is fine, as long as the application ensures that the responses from
+     * the back end are sufficient to create a valid hierarchy on the client. Subsequent paging requests for
+     * sibling and child nodes must also return responses, since the filters are sent with every request. Using
+     * control-defined filters (see {@link sap.ui.model.FilterType.Control}) via the {@link #filter} function
+     * is not supported for the operation mode `Server`.
+     *
+     * OperationMode.Client and OperationMode.Auto: The ODataTreeBinding supports control-defined filters only
+     * in operation modes `Client` and `Auto`. With these operation modes, the filters and sorters are applied
+     * on the client, like for the {@link sap.ui.model.odata.v2.ODataListBinding}.
+     *
+     * The operation modes `Client` and `Auto` are only supported for services which expose the hierarchy annotations
+     * mentioned above, but do **not** expose the `hierarchy-node-descendant-count-for` annotation. Services
+     * with hierarchy annotations including the `hierarchy-node-descendant-count-for` annotation, do **not**
+     * support the operation modes `Client` and `Auto`. **Note:** {@link sap.ui.model.odata.OperationMode.Auto }
+     * is deprecated since 1.102.0.
+     *
+     * **Note:** OData tree bindings do neither support {@link sap.ui.model.Binding#suspend suspend} nor {@link sap.ui.model.Binding#resume resume}.
+     * See:
+     * 	{@link http://www.sap.com/protocols/SAPData "SAP Annotations for OData Version 2.0" Specification}
+     *
+     *
+     * @returns The new tree binding
+     */
+    bindTree(
+      /**
+       * The binding path, either absolute or relative to a given `oContext`
+       */
+      sPath: string,
+      /**
+       * The parent context which is required as base for a relative path
+       */
+      oContext?: Context,
+      /**
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataTreeBinding#filter }
+       * to replace them; depending on the operation mode, there are restrictions for using filters; see above
+       */
+      vFilters?: Filter | Filter[],
+      /**
+       * Map of binding parameters
+       */
+      mParameters?: {
+        /**
+         * Whether the tree binding only requests transition messages from the back end. If messages for entities
+         * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
+         * entity corresponding to the tree binding's context, with the parameter `updateAggregatedMessages` set
+         * to `true`.
+         */
+        transitionMessagesOnly?: boolean;
+        /**
+         * The mapping between data properties and the hierarchy used to visualize the tree, if not provided by
+         * the service's metadata. For the correct metadata annotations, check the "SAP Annotations for OData Version
+         * 2.0" specification
+         */
+        treeAnnotationProperties?: {
+          /**
+           * The property name in the same type holding the hierarchy level information; the type of the referenced
+           * property has to be an integer type
+           */
+          hierarchyLevelFor?: string;
+          /**
+           * The property name in the same type holding the hierarchy node id
+           */
+          hierarchyNodeFor?: string;
+          /**
+           * The property name in the same type holding the parent node id
+           */
+          hierarchyParentNodeFor?: string;
+          /**
+           * The property name in the same type holding the drill state for the node; the referenced property may
+           * have the values "collapsed", "expanded" or "leaf"
+           */
+          hierarchyDrillStateFor?: string;
+          /**
+           * The property name in the same type holding the descendant count for the node; the type of the referenced
+           * property has to be an integer type
+           */
+          hierarchyNodeDescendantCountFor?: string;
+        };
+        /**
+         * The number of levels that are auto-expanded initially. Setting this property might lead to multiple back-end
+         * requests. The auto-expand feature is **deprecated for services without the `hierarchy-node-descendant-count-for`
+         * annotation**
+         */
+        numberOfExpandedLevels?: number;
+        /**
+         * The level of the topmost tree nodes
+         */
+        rootLevel?: number;
+        /**
+         * The group id to be used for requests originating from this binding
+         */
+        groupId?: string;
+        /**
+         * The operation mode for this binding; defaults to the model's default operation mode if not specified.
+         * {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is only supported for services which
+         * expose the hierarchy annotations, yet do **NOT** expose the `hierarchy-node-descendant-count-for` annotation.
+         * **Note:** {@link sap.ui.model.odata.OperationMode.Auto} is deprecated since 1.102.0.
+         */
+        operationMode?: OperationMode | keyof typeof OperationMode;
+        /**
+         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; the threshold
+         * that defines how many entries should be fetched at least by the binding if `operationMode` is set to
+         * `Auto`
+         */
+        threshold?: number;
+        /**
+         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; whether `$filter`
+         * statements should be used for the `$count` / `$inlinecount` requests and for the data request if the
+         * operation mode is {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto}. Use this feature
+         * only if your back end supports pre-filtering the tree and is capable of responding with a complete tree
+         * hierarchy, including all inner nodes. To construct the hierarchy on the client, it is mandatory that
+         * all filter matches include their complete parent chain up to the root level. If {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client }
+         * is used, the complete collection without filters is requested; filters are applied on the client side.
+         */
+        useServersideApplicationFilters?: boolean;
+        /**
+         * A tree state handle can be given to the `ODataTreeBinding` when two conditions are met:
+         * 	 - The binding is running in {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client}, and
+         *
+         * 	 - the {@link sap.ui.table.TreeTable} is used.  The feature is only available when using the {@link sap.ui.table.TreeTable}.
+         *     The tree state handle will contain all necessary information to expand the tree to the given state.
+         *
+         * This feature is not supported if {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server }
+         * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used.
+         */
+        treeState?: any;
+        /**
+         * Defines the count mode of this binding; if not specified, the default count mode of the binding's model
+         * is applied. The resulting count mode must not be {@link sap.ui.model.odata.CountMode.None}.
+         */
+        countMode?: CountMode | keyof typeof CountMode;
+        /**
+         * Whether a preliminary context is used; defaults to the value of the parameter `preliminaryContext` given
+         * on construction of the binding's model, see {@link sap.ui.model.odata.v2.ODataModel}
+         */
+        usePreliminaryContext?: boolean;
+        /**
+         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
+         * this binding
+         */
+        batchGroupId?: string;
+        /**
+         * A map describing the navigation properties between entity sets, which is used for constructing and paging
+         * the tree. Keys in this object are entity names, whereas the values name the navigation properties.
+         *
+         * **Deprecated: since 1.44** The use of navigation properties to build up the hierarchy structure is deprecated.
+         * It is recommended to use the hierarchy annotations mentioned above instead.
+         */
+        navigation?: object;
+      },
+      /**
+       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataTreeBinding#sort} to replace them
+       */
+      vSorters?: Sorter[] | Sorter
+    ): ODataTreeBinding;
+    /**
+     * Triggers a request for the given function import.
+     *
+     * If the return type of the function import is either an entity type or a collection of an entity type,
+     * then this OData model's cache is updated with the values of the returned entities. Otherwise they are
+     * ignored, and the `response` can be processed in the `success` callback.
+     *
+     * The `contextCreated` property of the returned object is a function that returns a Promise which resolves
+     * with an `sap.ui.model.odata.v2.Context`. This context can be used to modify the function import parameter
+     * values and to bind the function call's result. Changes of a parameter value via that context after the
+     * function import has been processed lead to another function call with the modified parameters. Changed
+     * function import parameters are considered as pending changes, see {@link #hasPendingChanges} or {@link #getPendingChanges},
+     * and can be reset via {@link #resetChanges}. If the function import returns an entity or a collection
+     * of entities, the `$result` property relative to that context can be used to bind the result to a control,
+     * see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio6cb8d585ed594ee4b447b5b560f292a4 Binding of Function Import Parameters}.
+     *
+     *
+     * @returns An object which has a `contextCreated` function that returns a `Promise`. This resolves with
+     * the created {@link sap.ui.model.Context}. In addition it has an `abort` function to abort the current
+     * request. The Promise returned by `contextCreated` is rejected if the function name cannot be found in
+     * the metadata or if the parameter `expand` is used and the function does not return a single entity.
+     */
+    callFunction(
+      /**
+       * The name of the function import starting with a slash, for example `/Activate`.
+       */
+      sFunctionName: string,
+      /**
+       * The parameter map containing any of the following properties:
+       */
+      mParameters?: {
+        /**
+         * Defines a callback function to adjust the deep path for the resulting entity of the function import call;
+         * since 1.82. The deep path of an entity is the resolved path relative to the parent contexts of the binding
+         * in the UI hierarchy. For example, for a `ToBusinessPartner` relative context binding with a `/SalesOrder('42')`
+         * parent context, the resulting deep path for the `BusinessPartner` is `/SalesOrder('42')/ToBusinessPartner`.
+         * This deep path is used to properly assign messages and show them correctly on the UI.
+         *
+         * The callback function returns a `string` with the deep path for the entity returned by the function import
+         * and gets the parameter map `mParameters` containing the following properties:
+         * 	 - `{string} mParameters.deepPath`: The deep path of the resulting entity, as far as the framework is
+         *     able to determine from the metadata and the OData response
+         * 	 - `{object} mParameters.response`: A copy of the OData response object
+         */
+        adjustDeepPath?: Function;
+        /**
+         * ID of the `ChangeSet` that this request belongs to
+         */
+        changeSetId?: string;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
+         * which contains additional error information. If the request has been aborted, the error has an `aborted`
+         * flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * If the function import changes an entity, the ETag for this entity can be passed with this parameter
+         */
+        eTag?: string;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the entity returned by the function
+         * import; since 1.83.0. The navigation properties are requested with an additional GET request in
+         * the same `$batch` request as the POST request for the function import. The given `mParameters.headers`
+         * are not considered in the GET request. **Note:** The following prerequisites must be fulfilled:
+         *
+         * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
+         * 	 - the HTTP method used for the function import is "POST",
+         * 	 - the function import returns a single entity,
+         * 	 - the back-end service must support the "Content-ID" header,
+         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
+         *     `$batch` request.  The success and error callback functions are called only once, even if there
+         *     are two requests in the `$batch` related to a single call of {@link #callFunction}.
+         * 	 - If both requests succeed, the success callback is called with the merged data of the POST and the
+         *     GET request and with the response of the POST request.
+         * 	 - If the POST request fails, the GET request also fails. In that case the error callback is called
+         *     with the error response of the POST request.
+         * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
+         *     callback is called with the data and the response of the POST request. The response object of the success
+         *     callback call and the response parameter of the corresponding `requestFailed` and `requestCompleted`
+         *     events have an additional property `expandAfterFunctionCallFailed` set to `true`.
+         */
+        expand?: string;
+        /**
+         * ID of a request group; requests belonging to the same group are bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * A map of headers for this request
+         */
+        headers?: Record<string, string>;
+        /**
+         * The HTTP method used for the function import call as specified in the metadata definition of the function
+         * import
+         */
+        method?: string;
+        /**
+         * Defines whether to update all bindings after submitting this change operation; since 1.46. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
+         */
+        refreshAfterChange?: boolean;
+        /**
+         * A callback function which is called when the data has been successfully retrieved; the handler can have
+         * the following parameters: `oData` and `response`.
+         */
+        success?: Function;
+        /**
+         * Maps the function import parameter name as specified in the function import's metadata to its value;
+         * the value is formatted based on the parameter's type as specified in the metadata
+         */
+        urlParameters?: Record<string, any>;
+        /**
+         * **Deprecated - use `groupId` instead**
+         */
+        batchGroupId?: string;
+      }
+    ): object;
+    /**
+     * Whether the canonical requests calculation is switched on, see the `canonicalRequests` parameter of the
+     * model constructor.
+     *
+     *
+     * @returns Whether the canonical requests calculation is switched on
+     */
+    canonicalRequestsEnabled(): boolean;
+    /**
+     * Trigger a `POST` request to the OData service that was specified in the model constructor; see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
+     * for comprehensive information on the topic.
+     *
+     * **Note:** This function does not support a "deep create" scenario. Use {@link #createEntry} or {@link sap.ui.model.odata.v2.ODataListBinding#create }
+     * instead.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request.
+     */
+    create(
+      /**
+       * A string containing the path to the collection where an entry should be created. The path is concatenated
+       * to the service URL which was specified in the model constructor.
+       */
+      sPath: string,
+      /**
+       * Data of the entry that should be created.
+       */
+      oData: object,
+      /**
+       * Optional parameter map containing any of the following properties:
+       */
+      mParameters?: {
+        /**
+         * If specified , `sPath` has to be relative to the path given with the context.
+         */
+        context?: object;
+        /**
+         * A callback function which is called when the data has been successfully retrieved. The handler can have
+         * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the newly
+         * created entry if it is provided by the backend. The `response` parameter contains information about the
+         * response of the request.
+         */
+        success?: Function;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter `oError`
+         * which contains additional error information. If the `POST` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * A map containing the parameters that will be passed as query strings
+         */
+        urlParameters?: Record<string, string>;
+        /**
+         * A map of headers for this request
+         */
+        headers?: Record<string, string>;
+        /**
+         * Deprecated - use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
+         */
+        refreshAfterChange?: boolean;
+      }
+    ): object;
+    /**
+     * Creates a binding context for the given path.
+     *
+     * If the data of the context is not yet available, it can not be created, but first the entity needs to
+     * be fetched from the server asynchronously. In case no callback function is provided, the request will
+     * not be triggered.
+     *
+     * If a callback function is given, the created binding context for a fetched entity is passed as argument
+     * to the given callback function.
+     * See:
+     * 	sap.ui.model.Model.prototype.createBindingContext
+     *
+     *
+     * @returns The created binding context, only if the data is already available and the binding context could
+     * be created synchronously; `undefined` otherwise
+     */
+    createBindingContext(
+      /**
+       * Binding path
+       */
+      sPath: string,
+      /**
+       * Binding context
+       */
+      oContext?: object,
+      /**
+       * Map which contains additional parameters for the binding
+       */
+      mParameters?: {
+        /**
+         * Value for the OData `$expand` query parameter which should be included in the request
+         */
+        expand?: string;
+        /**
+         * Value for the OData `$select` query parameter which should be included in the request
+         */
+        select?: string;
+        /**
+         * Whether a preliminary context will be created. When set to `true`, the model can bundle the OData calls
+         * for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
+         */
+        createPreliminaryContext?: boolean;
+        /**
+         * Optional map of custom query parameters, names of custom parameters must not start with `$`.
+         */
+        custom?: Record<string, string>;
+      },
+      /**
+       * The function to be called when the context has been created. The parameter of the callback function is
+       * the newly created binding context, an instance of {@link sap.ui.model.odata.v2.Context}.
+       */
+      fnCallBack?: Function,
+      /**
+       * Whether to reload data
+       */
+      bReload?: boolean
+    ): Context1 | undefined;
+    /**
+     * Creates a new entry object which is described by the metadata of the entity type of the specified `sPath`
+     * Name. A context object is returned which can be used to bind against the newly created object. See {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
+     * for comprehensive information on the topic.
+     *
+     * For each created entry a request is created and stored in a request queue. The request queue can be submitted
+     * by calling {@link #submitChanges}. As long as the context is transient (see {@link sap.ui.model.odata.v2.Context#isTransient}),
+     * {@link sap.ui.model.odata.v2.ODataModel#resetChanges} with the `bDeleteCreatedEntities` parameter set
+     * to `true` can be used to delete the created entity again.
+     *
+     * If the creation of the entity on the server failed, it is repeated automatically.
+     *
+     * The optional parameter `mParameters.properties` can be used as follows:
+     * 	 - `properties` could be an array containing the property names which should be included in the new
+     *     entry. Other properties defined in the entity type won't be included.
+     * 	 - `properties` could be an object which includes the desired properties and the corresponding values
+     *     which should be used for the created entry.   If `properties` is not specified, all properties in
+     *     the entity type will be included in the created entry.
+     *
+     * If there are no values specified, the properties will have `undefined` values.
+     *
+     * The `properties` can be modified via property bindings relative to the returned context instance.
+     *
+     * The parameter `expand` is supported since 1.78.0. If this parameter is set, the given navigation properties
+     * are expanded automatically with the same $batch request in which the POST request for the creation is
+     * contained. Ensure that the batch mode is used and the back-end service supports GET requests relative
+     * to a content ID outside the changeset. The success and error callback functions are called only once,
+     * even if there are two requests in the `$batch` related to a single call of {@link #createEntry}:
+     *
+     * 	 - a POST request for creating an entity,
+     * 	 - a GET request for requesting the navigation properties for the just created entity.   The following
+     *     outcomes are possible:
+     * 	 - If both requests succeed, the success handler is called with the merged data of the POST and the
+     *     GET request and with the response of the POST request.
+     * 	 - If the POST request fails, the GET request also fails. In that case the error callback handler is
+     *     called with the error response of the POST request.
+     * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
+     *     handler is called with the data and the response of the POST request. The response object of the success
+     *     handler call and the response parameter of the corresponding `requestFailed` and `requestCompleted` events
+     *     have an additional property `expandAfterCreateFailed` set to `true`.
+     *
+     * Note: If a server requires a property in the request, you must supply this property in the initial data,
+     * for example if the server requires a unit for an amount. This also applies if this property has a default
+     * value.
+     *
+     * Note: Deep create is only supported since 1.108.0, where "deep create" means creation of a sub-entity
+     * for a navigation property of a transient, not yet persisted root entity. Before 1.108.0, the sub-entity
+     * had to be created after the transient entity had been saved successfully in the back-end system. Since
+     * 1.108.0, a deep create is triggered when the `sPath` parameter is a navigation property for the entity
+     * type associated with the transient context given in `mParameters.context`. The payload of the OData request
+     * to create the root entity then contains its sub-entities. On creation of a sub-entity, only the `sPath`,
+     * `mParameters.context` and `mParameters.properties` method parameters are allowed; the context given in
+     * `mParameters.context` must not be inactive.
+     *
+     *
+     * @returns An OData V2 context object that points to the newly created entry; or `undefined` if the service
+     * metadata are not yet loaded or if a `created` callback parameter is given
+     */
+    createEntry(
+      /**
+       * The path to the EntitySet
+       */
+      sPath: string,
+      /**
+       * A map of the following parameters:
+       */
+      mParameters: {
+        /**
+         * Deprecated - use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * The ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * The binding context
+         */
+        context?: Context;
+        /**
+         * The callback function that is called after the metadata of the service is loaded and the {@link sap.ui.model.odata.v2.Context }
+         * instance for the newly created entry is available; The {@link sap.ui.model.odata.v2.Context} instance
+         * for the newly created entry is passed as the first and only parameter.
+         */
+        created?: Function;
+        /**
+         * The error callback function
+         */
+        error?: Function;
+        /**
+         * A comma-separated list of navigation properties to be expanded for the newly created entity; since 1.78.0. The navigation properties are requested with an additional GET request in the same `$batch` request
+         * as the POST request for the entity creation; the given `mParameters.headers` are not considered in the
+         * GET request. **Note:** The following prerequisites must be fulfilled:
+         * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
+         * 	 - the back-end service must support the "Content-ID" header,
+         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
+         *     `$batch` request.
+         */
+        expand?: string;
+        /**
+         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * A map of headers
+         */
+        headers?: Record<string, string>;
+        /**
+         * Whether the created context is inactive. An inactive context will only be sent to the server after the
+         * first property update. From then on it behaves like any other created context. Supported since 1.98.0
+         */
+        inactive?: boolean;
+        /**
+         * The initial values of the entry, or an array that specifies a list of property names to be initialized
+         * with `undefined`; **Note:** Passing a list of property names is deprecated since 1.120; pass the initial
+         * values as an object instead
+         */
+        properties?: object | string[];
+        /**
+         * Whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange};
+         * if given, this overrules the model-wide `refreshAfterChange` flag for this operation only; since 1.46
+         */
+        refreshAfterChange?: boolean;
+        /**
+         * The success callback function
+         */
+        success?: Function;
+        /**
+         * A map of URL parameters
+         */
+        urlParameters?: Record<string, string>;
+      }
+    ): Context1 | undefined;
+    /**
+     * Creates the key from the given collection name and property map.
+     *
+     * Please make sure that the metadata document is loaded before using this function.
+     *
+     *
+     * @returns Key of the entry
+     */
+    createKey(
+      /**
+       * Name of the collection
+       */
+      sCollection: string,
+      /**
+       * Object containing at least all the key properties of the entity type
+       */
+      oKeyProperties: object
+    ): string;
+    /**
+     * Deletes a created entry from the request queue and from the model.
+     *
+     * **Note:** Controls are not updated. Use {@link #resetChanges} instead to update also the controls, for
+     * example: `oModel.resetChanges([oContext.getPath()], undefined, true);`
+     *
+     * @deprecated As of version 1.95.0. use {@link #resetChanges} instead
+     */
+    deleteCreatedEntry(
+      /**
+       * The context object pointing to the created entry
+       */
+      oContext: Context
+    ): void;
+    /**
+     * See:
+     * 	sap.ui.model.Model.prototype.destroy
+     */
+    destroy(): void;
+    /**
+     * Detaches event handler `fnFunction` from the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachAnnotationsFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachAnnotationsLoaded(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:batchRequestCompleted batchRequestCompleted }
+     * event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBatchRequestCompleted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:batchRequestFailed batchRequestFailed} event
+     * of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBatchRequestFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:batchRequestSent batchRequestSent} event of
+     * this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBatchRequestSent(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachMetadataFailed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachMetadataLoaded(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireAnnotationsFailed(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters?: ODataModel$AnnotationsFailedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireAnnotationsLoaded(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters?: ODataModel$AnnotationsLoadedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:batchRequestCompleted batchRequestCompleted} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireBatchRequestCompleted(
+      /**
+       * parameters to add to the fired event
+       */
+      oParameters: ODataModel$BatchRequestCompletedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:batchRequestFailed batchRequestFailed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireBatchRequestFailed(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters: ODataModel$BatchRequestFailedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:batchRequestSent batchRequestSent} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireBatchRequestSent(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters?: ODataModel$BatchRequestSentEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireMetadataFailed(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters?: ODataModel$MetadataFailedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` to allow method chaining
+     */
+    fireMetadataLoaded(
+      /**
+       * Parameters to pass along with the event
+       */
+      oParameters?: ODataModel$MetadataLoadedEventParameters
+    ): this;
+    /**
+     * Force the update on the server of an entity by setting its ETag to '*'.
+     *
+     * ETag handling must be active so the force update will work.
+     */
+    forceEntityUpdate(
+      /**
+       * The key to an Entity e.g.: Customer(4711)
+       */
+      sKey: string
+    ): void;
+    /**
+     * Returns the definition of batch groups per entity type for two-way binding changes.
+     *
+     * @deprecated As of version 1.36. use {@link #getChangeGroups} instead
+     *
+     * @returns Definition of batch groups for two-way binding changes, keyed by entity names.
+     */
+    getChangeBatchGroups(): Record<string, ChangeGroupDefinition>;
+    /**
+     * Returns the definition of groups per entity type for two-way binding changes
+     *
+     *
+     * @returns Definition of groups for two-way binding changes, keyed by entity names.
+     */
+    getChangeGroups(): Record<string, ChangeGroupDefinition>;
+    /**
+     * Return requested data as object if the data has already been loaded and stored in the model.
+     *
+     * @deprecated As of version 1.24. please use {@link #getProperty} instead
+     *
+     * @returns Object containing the requested data if the path is valid.
+     */
+    getData(
+      /**
+       * A string containing the path to the data object that should be returned.
+       */
+      sPath: string,
+      /**
+       * The optional context which is used with the `sPath` to retrieve the requested data.
+       */
+      oContext?: object,
+      /**
+       * This parameter should be set when a URI or custom parameter with a `$expand` system query option was
+       * used to retrieve associated entries embedded. If set to `true` then the `getProperty` function returns
+       * a desired property value or entry and includes the associated expand entries (if any). If set to `false`
+       * the associated/expanded entry properties are removed and not included in the desired entry as properties
+       * at all. This is useful for performing updates on the base entry only. Note: A copy, not a reference of
+       * the entry will be returned.
+       */
+      bIncludeExpandEntries?: boolean
+    ): object;
+    /**
+     * Returns the default count mode for retrieving the count of collections
+     *
+     * @since 1.20
+     *
+     * @returns Returns the default count mode for this model
+     */
+    getDefaultCountMode(): CountMode;
+    /**
+     * Returns the array of batch group IDs that are set as deferred
+     *
+     * @deprecated As of version 1.32. use {@link #getDeferredGroups} instead
+     *
+     * @returns aGroupIds The array of deferred batch group IDs
+     */
+    getDeferredBatchGroups(): any[];
+    /**
+     * Returns the array of group IDs that are set as deferred.
+     *
+     *
+     * @returns aGroupIds The array of deferred group IDs
+     */
+    getDeferredGroups(): any[];
+    /**
+     * Returns the ETag for a given binding path/context or data object.
+     *
+     *
+     * @returns The found ETag (or `null` if none could be found)
+     */
+    getETag(
+      /**
+       * The binding path
+       */
+      sPath?: string,
+      /**
+       * The binding context
+       */
+      oContext?: Context,
+      /**
+       * The entity data
+       */
+      oEntity?: object
+    ): string | null;
+    /**
+     * Returns all headers and custom headers which are stored in this OData model.
+     *
+     *
+     * @returns The header map
+     */
+    getHeaders(): object;
+    /**
+     * Returns the key part for the given the canonical entry URI, model context or data object or `undefined`
+     * when the `vValue` can't be interpreted.
+     *
+     *
+     * @returns Key of the entry or `undefined`
+     */
+    getKey(
+      /**
+       * The canonical entry URI, the context or entry object
+       */
+      vValue: string | object | Context
+    ): string | undefined;
+    /**
+     * Returns this model's message scope.
+     * See:
+     * 	sap.ui.model.odata.MessageScope
+     *
+     * @since 1.76.0
+     *
+     * @returns The message scope
+     */
+    getMessageScope(): MessageScope;
+    /**
+     * Returns an instance of an OData meta model which offers a unified access to both OData V2 metadata and
+     * V4 annotations. It uses the existing {@link sap.ui.model.odata.ODataMetadata} as a foundation and merges
+     * V4 annotations from the existing {@link sap.ui.model.odata.v2.ODataAnnotations} directly into the corresponding
+     * model element.
+     *
+     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded loaded }
+     * has been resolved!
+     *
+     *
+     * @returns The meta model for this `ODataModel`
+     */
+    getMetaModel(): ODataMetaModel;
+    /**
+     * Returns a JSON object that is a copy of the entity data referenced by the given `sPath` and `oContext`.
+     * It does not load any data and may not return all requested data if it is not available.
+     *
+     * With the `mParameters.select` parameter it is possible to specify comma-separated property or navigation
+     * property names which should be included in the result object. This works like the OData `$select` URL
+     * parameter. With the `mParameters.expand` parameter it is possible to specify comma-separated navigation
+     * property names which should be included inline in the result object. This works like the OData `$expand`
+     * parameter.
+     *
+     * **Note:** `mParameters.expand` can only be used if the corresponding navigation properties have been
+     * read via {@link sap.ui.model.odata.v2.ODataModel#read} using the OData `$expand` URL parameter. If a
+     * navigation property has not been read via the OData `$expand` URL parameter, it is left out in the result.
+     * Keep in mind that navigation properties referencing a collection are usually not loaded via the OData
+     * `$expand` URL parameter but directly via its navigation property.
+     *
+     * **Note:** If `mParameters.select` is not specified, the returned object may contain model-internal attributes.
+     * This may lead to problems when submitting this data to the service for an update or create operation.
+     * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
+     *
+     * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
+     * returns `undefined` instead of incomplete data.
+     *
+     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
+     * the client are returned.
+     *
+     * Example:
+     *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
+     * of the entity itself are returned, but only the `ProductName` property of the `Products` navigation property.
+     * If `Products/ProductName` has not been loaded before, `undefined` is returned.
+     *
+     *
+     * @returns The value for the given path and context or `undefined` if data or entity type cannot be found
+     * or if not all selected properties are available
+     */
+    getObject(
+      /**
+       * The path referencing the object
+       */
+      sPath: string,
+      /**
+       * The optional context which is used with the `sPath` to reference the object.
+       */
+      oContext?: Context,
+      /**
+       * Map of parameters
+       */
+      mParameters?: {
+        /**
+         * Comma-separated list of properties or paths to properties to select
+         */
+        select?: string;
+        /**
+         * Comma-separated list of navigation properties or paths to navigation properties to expand
+         */
+        expand?: string;
+      }
+    ): any | undefined;
+    /**
+     * Returns a JSON object that is a copy of the entity data referenced by the given `sPath` and `oContext`.
+     * It does not load any data and may not return all requested data if it is not available.
+     *
+     * With the `mParameters.select` parameter it is possible to specify comma-separated property or navigation
+     * property names which should be included in the result object. This works like the OData `$select` URL
+     * parameter. With the `mParameters.expand` parameter it is possible to specify comma-separated navigation
+     * property names which should be included inline in the result object. This works like the OData `$expand`
+     * parameter.
+     *
+     * **Note:** `mParameters.expand` can only be used if the corresponding navigation properties have been
+     * read via {@link sap.ui.model.odata.v2.ODataModel#read} using the OData `$expand` URL parameter. If a
+     * navigation property has not been read via the OData `$expand` URL parameter, it is left out in the result.
+     * Keep in mind that navigation properties referencing a collection are usually not loaded via the OData
+     * `$expand` URL parameter but directly via its navigation property.
+     *
+     * **Note:** If `mParameters.select` is not specified, the returned object may contain model-internal attributes.
+     * This may lead to problems when submitting this data to the service for an update or create operation.
+     * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
+     *
+     * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
+     * returns `undefined` instead of incomplete data.
+     *
+     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
+     * the client are returned.
+     *
+     * Example:
+     *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
+     * of the entity itself are returned, but only the `ProductName` property of the `Products` navigation property.
+     * If `Products/ProductName` has not been loaded before, `undefined` is returned.
+     *
+     *
+     * @returns The value for the given path and context or `undefined` if data or entity type cannot be found
+     * or if not all selected properties are available
+     */
+    getObject(
+      /**
+       * The path referencing the object
+       */
+      sPath: string,
+      /**
+       * Map of parameters
+       */
+      mParameters?: {
+        /**
+         * Comma-separated list of properties or paths to properties to select
+         */
+        select?: string;
+        /**
+         * Comma-separated list of navigation properties or paths to navigation properties to expand
+         */
+        expand?: string;
+      }
+    ): any | undefined;
+    /**
+     * Returns the original value for the property with the given path and context. The original value is the
+     * value that was last responded by the server.
+     *
+     *
+     * @returns the value of the property
+     */
+    getOriginalProperty(
+      /**
+       * The path/name of the property
+       */
+      sPath: string,
+      /**
+       * The context if available to access the property value
+       */
+      oContext?: object
+    ): any;
+    /**
+     * Returns the pending changes in this model.
+     *
+     * Only changes triggered through {@link #createEntry} or {@link #setProperty}, and tree hierarchy changes
+     * are taken into account. Changes are returned as a map from the changed entity's key to an object containing
+     * the changed properties. A node removed from a tree hierarchy has the empty object as value in this map;
+     * all other pending entity deletions are not contained in the map.
+     * See:
+     * 	#hasPendingChanges
+     * 	#resetChanges
+     *
+     *
+     * @returns The map of pending changes
+     */
+    getPendingChanges(): Record<string, object>;
+    /**
+     * Returns the value for the property with the given `sPath`. Since 1.100, a path starting with "@$ui5."
+     * which represents an instance annotation is supported. The following instance annotations are allowed;
+     * they return information on the given oContext, which must be set and be an {@link sap.ui.model.odata.v2.Context}:
+     *
+     * 	 - `@$ui5.context.isInactive`: The return value of {@link sap.ui.model.odata.v2.Context#isInactive }
+     *
+     * 	 - `@$ui5.context.isTransient`: The return value of {@link sap.ui.model.odata.v2.Context#isTransient }
+     *
+     *
+     *
+     * @returns Value of the property
+     */
+    getProperty(
+      /**
+       * Path/name of the property
+       */
+      sPath: string,
+      /**
+       * Context if available to access the property value
+       */
+      oContext?: object,
+      /**
+       * Deprecated, use {@link #getObject} function with 'select' and 'expand' parameters instead. Whether entities
+       * for navigation properties of this property which have been read via `$expand` are part of the return
+       * value.
+       */
+      bIncludeExpandEntries?: boolean
+    ): any;
+    /**
+     * Whether all affected bindings are refreshed after a change operation.
+     *
+     * This flag can be overruled on request level by providing the `refreshAfterChange` parameter to the corresponding
+     * function (for example {@link #update}).
+     *
+     * @since 1.46.0
+     *
+     * @returns Whether to automatically refresh after changes
+     */
+    getRefreshAfterChange(): boolean;
+    /**
+     * Returns the current security token if available; triggers a request to fetch the security token if it
+     * is not available.
+     *
+     * @deprecated As of version 1.119.0. use {@link #securityTokenAvailable} instead
+     *
+     * @returns The security token; `undefined` if it is not available
+     */
+    getSecurityToken(): string | undefined;
+    /**
+     * Return the annotation object. Please note that the metadata is loaded asynchronously and this function
+     * might return undefined because the metadata has not been loaded yet. In this case attach to the `annotationsLoaded`
+     * event to get notified when the annotations are available and then call this function.
+     *
+     *
+     * @returns Metadata object
+     */
+    getServiceAnnotations(): object;
+    /**
+     * Return the parsed XML metadata as a Javascript object.
+     *
+     * Please note that the metadata is loaded asynchronously and this function might return `undefined` because
+     * the metadata has not been loaded yet. In this case attach to the `metadataLoaded` event to get notified
+     * when the metadata is available and then call this function.
+     *
+     *
+     * @returns Metadata object
+     */
+    getServiceMetadata(): Object | undefined;
+    /**
+     * Returns this model's base URI of the data service (as defined by the "serviceUrl" model parameter; see
+     * {@link #constructor}), without query options.
+     *
+     * @since 1.130.0
+     *
+     * @returns The service's base URI without query options
+     */
+    getServiceUrl(): string;
+    /**
+     * Checks if there exist pending changes in the model.
+     *
+     * By default, only client data changes triggered through {@link #createEntry} or {@link #setProperty},
+     * and tree hierarchy changes are taken into account.
+     *
+     * If `bAll` is set to `true`, also deferred requests triggered through {@link #create}, {@link #update},
+     * and {@link #remove} are taken into account.
+     * See:
+     * 	#getPendingChanges
+     * 	#resetChanges
+     *
+     *
+     * @returns `true` if there are pending changes, `false` otherwise.
+     */
+    hasPendingChanges(
+      /**
+       * If set to true, deferred requests are also taken into account.
+       */
+      bAll?: boolean
+    ): boolean;
+    /**
+     * Checks if there are pending requests, either ongoing or sequential.
+     *
+     *
+     * @returns Whether there are pending requests
+     */
+    hasPendingRequests(): boolean;
+    /**
+     * Invalidate the model data.
+     *
+     * Mark all entries in the model cache as invalid. Next time a context or list is bound (binding), the respective
+     * entries will be detected as invalid and will be refreshed from the server.
+     *
+     * To refresh all model data use {@link sap.ui.model.odata.v2.ODataModel#refresh}
+     *
+     * @since 1.52.1
+     */
+    invalidate(
+      /**
+       * A function which can be used to restrict invalidation to specific entries, gets the entity key and object
+       * as parameters and should return true for entities to invalidate.
+       */
+      fnCheckEntry?: Function
+    ): void;
+    /**
+     * Invalidate all entries of the given entity type in the model data.
+     *
+     * Mark entries of the provided entity type in the model cache as invalid. Next time a context binding or
+     * list binding is done, the entry will be detected as invalid and will be refreshed from the server.
+     *
+     * @since 1.52.1
+     */
+    invalidateEntityType(
+      /**
+       * The qualified name of the entity type. A qualified name consists of two parts separated by a dot. The
+       * first part is the namespace of the schema in which the entity type is defined, such as "NorthwindModel".
+       * The second part is the entity type name such as "Customer". This results in a qualified name such as
+       * "NorthwindModel.Customer". The qualified name can be found in the data sent from the server in JSON format
+       * under `__metadata.type` or in XML format in the `term` attribute of the entity's `category` tag.
+       */
+      sEntityType: string
+    ): void;
+    /**
+     * Invalidate a single entry in the model data.
+     *
+     * Mark the selected entry in the model cache as invalid. Next time a context binding or list binding is
+     * done, the entry will be detected as invalid and will be refreshed from the server.
+     *
+     * @since 1.52.1
+     */
+    invalidateEntry(
+      /**
+       * the reference to the entry, either by key, absolute path or context object
+       */
+      vEntry: string | Context
+    ): void;
+    /**
+     * Checks whether metadata loading has failed in the past.
+     *
+     * @since 1.38
+     *
+     * @returns Whether metadata request has failed
+     */
+    isMetadataLoadingFailed(): boolean;
+    /**
+     * Checks whether the service has set the OData V2 annotation "message-scope-supported" on the `EntityContainer`
+     * with the value `true`. This is a a precondition for the setting of {@link sap.ui.model.odata.MessageScope.BusinessObject }
+     * via {@link #setMessageScope}.
+     * See:
+     * 	sap.ui.model.odata.MessageScope
+     *
+     * @since 1.76.0
+     *
+     * @returns A promise resolving with `true` if the OData V2 annotation "message-scope-supported" on the
+     * `EntityContainer` is set to `true`
+     */
+    messageScopeSupported(): Promise<any>;
+    /**
+     * Returns a promise for the loaded state of the metadata.
+     *
+     * The metadata needs to be loaded prior to performing OData calls. Chaining to the returned promise ensures
+     * that all required parameters have been loaded, e.g. the security token, see {@link #getSecurityToken}.
+     *
+     * The returned promise depends on the optional parameter `bRejectOnFailure`.
+     *
+     * `bRejectOnFailure=false`: The promise won't get rejected in case the metadata or annotation loading failed
+     * but is only resolved if
+     * 	 - the metadata are loaded successfully,
+     * 	 - the annotations are processed, provided the model parameter `loadAnnotationsJoined` has been set.
+     *      Use this promise for delaying OData calls until all required information is available, i.e. this
+     *     promise is resolved.
+     *
+     * `bRejectOnFailure=true`: Since 1.79, the parameter `bRejectOnFailure` allows to request a promise that
+     * is rejected when one of the following fails:
+     * 	 - the loading of the metadata,
+     * 	 - the loading of the annotations, provided the model parameter `loadAnnotationsJoined` has been set.
+     *      The promise is fulfilled upon successful loading of both. This promise can be used to start processing
+     *     OData calls when it is fulfilled and to display an error message when it is rejected. See also the example
+     *     below.
+     *
+     * If the method `refreshMetadata` is called after the returned promise is already resolved or rejected,
+     * you should use the promise returned by `refreshMetadata` to get information about the refreshed state.
+     *
+     * @since 1.30
+     *
+     * @returns A promise on metadata loaded state
+     */
+    metadataLoaded(
+      /**
+       * Determines since 1.79 whether the returned promise is rejected when the initial loading of the metadata
+       * fails. In case the model parameter `loadAnnotationsJoined` is set, the returned promise fails also if
+       * loading the annotations fails.
+       */
+      bRejectOnFailure?: boolean
+    ): Promise<any>;
+    /**
+     * Trigger a `GET` request to the OData service that was specified in the model constructor.
+     *
+     * The data will be stored in the model. The requested data is returned with the response.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request.
+     */
+    read(
+      /**
+       * An absolute path or a path relative to the context given in `mParameters.context`; if the path contains
+       * a query string, the query string is ignored, use `mParameters.urlParameters` instead
+       */
+      sPath: string,
+      /**
+       * Optional parameter map containing any of the following properties:
+       */
+      mParameters?: {
+        /**
+         * If specified, `sPath` has to be relative to the path given with the context.
+         */
+        context?: object;
+        /**
+         * A map containing the parameters that will be passed as query strings
+         */
+        urlParameters?: Record<string, string>;
+        /**
+         * An array of filters to be included in the request URL
+         */
+        filters?: Filter[];
+        /**
+         * An array of sorters to be included in the request URL
+         */
+        sorters?: Sorter[];
+        /**
+         * A callback function which is called when the data has been successfully retrieved. The handler can have
+         * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the retrieved
+         * data. The `response` parameter contains further information about the response of the request.
+         */
+        success?: Function;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
+         * which contains additional error information. If the `GET` request has been aborted, the error has an
+         * `aborted` flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * Deprecated - use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * Whether messages for child entities belonging to the same business object as the requested or changed
+         * resources are updated. It is considered only if {@link sap.ui.model.odata.MessageScope.BusinessObject }
+         * is set using {@link #setMessageScope} and if the OData service supports message scope.
+         */
+        updateAggregatedMessages?: boolean;
+      }
+    ): object;
+    /**
+     * Refresh the model.
+     *
+     * This will reload all data stored in the model. This will check all bindings for updated data and update
+     * the controls if data has been changed.
+     *
+     * Note: In contrast to an individual Binding refresh, the model refresh ignores Binding-specific parameters/queries.
+     */
+    refresh(
+      /**
+       * Force update of controls
+       */
+      bForceUpdate?: boolean,
+      /**
+       * If set to `true` then the model data will be removed/cleared. Please note that the data might not be
+       * there when calling e.g. `getProperty` too early before the refresh call returned.
+       */
+      bRemoveData?: boolean,
+      /**
+       * ID of a request group; requests belonging to the same group will be bundled in one batch request
+       */
+      sGroupId?: string
+    ): void;
+    /**
+     * Refreshes the metadata for this model, for example when the request for metadata has failed. Returns
+     * a new promise which can be resolved or rejected depending on the metadata loading state.
+     *
+     * @deprecated As of version 1.42. this API may cause data inconsistencies and should not be used.
+     *
+     * @returns A promise on metadata loaded state or `undefined` if metadata is not initialized or currently
+     * refreshed
+     */
+    refreshMetadata(): Promise<any> | undefined;
+    /**
+     * Refresh XSRF token by performing a GET request against the service root URL.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request.
+     */
+    refreshSecurityToken(
+      /**
+       * Callback function which is called when the data has been successfully retrieved.
+       */
+      fnSuccess?: Function,
+      /**
+       * Callback function which is called when the request failed. The handler can have the parameter: oError
+       * which contains additional error information.
+       */
+      fnError?: Function,
+      /**
+       * Whether the request should be sent asynchronously
+       */
+      bAsync?: boolean
+    ): object;
+    /**
+     * Trigger a `DELETE` request to the OData service that was specified in the model constructor.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request.
+     */
+    remove(
+      /**
+       * A string containing the path to the data that should be removed. The path is concatenated to the service
+       * URL which was specified in the model constructor.
+       */
+      sPath: string,
+      /**
+       * Optional, can contain the following attributes:
+       */
+      mParameters?: {
+        /**
+         * If specified, `sPath` has to be relative to the path given with the context.
+         */
+        context?: object;
+        /**
+         * A callback function which is called when the data has been successfully retrieved. The handler can have
+         * the following parameters: `oData` and `response`.
+         */
+        success?: Function;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
+         * which contains additional error information. If the `DELETE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * If specified, the `If-Match` header will be set to this ETag.
+         */
+        eTag?: string;
+        /**
+         * A map containing the parameters that will be passed as query strings
+         */
+        urlParameters?: Record<string, string>;
+        /**
+         * A map of headers for this request
+         */
+        headers?: Record<string, string>;
+        /**
+         * Deprecated - use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * Since 1.46; defines whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
+         */
+        refreshAfterChange?: boolean;
+      }
+    ): object;
+    /**
+     * Resets pending changes and aborts corresponding requests.
+     *
+     * By default, only changes triggered through {@link #createEntry} or {@link #setProperty}, and tree hierarchy
+     * changes are taken into account. If `bAll` is set, also deferred requests triggered through {@link #create},
+     * {@link #update} or {@link #remove} are taken into account.
+     *
+     * With a given `aPath` only specified entities are reset. Note that tree hierarchy changes are only affected
+     * if a given path is equal to the tree binding's resolved binding path.
+     *
+     * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created by
+     * one of the following methods:
+     * 	 - {@link #createEntry}, provided it is not yet persisted in the back end and is active (see {@link sap.ui.model.odata.v2.Context#isInactive}),
+     *
+     * 	 - {@link #callFunction}.
+     * See:
+     * 	#getPendingChanges
+     * 	#hasPendingChanges
+     *
+     *
+     * @returns Resolves when all regarded changes have been reset.
+     */
+    resetChanges(
+      /**
+       * Paths to be reset; if no array is passed, all changes are reset
+       */
+      aPath?: string[],
+      /**
+       * Whether also deferred requests are taken into account so that they are aborted
+       */
+      bAll?: boolean,
+      /**
+       * Whether to delete the entities created via {@link #createEntry} or {@link #callFunction}; since 1.95.0
+       */
+      bDeleteCreatedEntities?: boolean
+    ): Promise<any>;
+    /**
+     * Returns a promise, which will resolve with the security token as soon as it is available.
+     *
+     *
+     * @returns A promise on the security token
+     */
+    securityTokenAvailable(): Promise<any>;
+    /**
+     * Definition of batch groups per entity type for two-way binding changes.
+     *
+     * @deprecated As of version 1.32. Use {@link #setChangeGroups} instead
+     */
+    setChangeBatchGroups(
+      /**
+       * A map containing the definition of batch groups for two-way binding changes, see {@link #setChangeGroups}
+       */
+      mGroups: Record<string, ChangeGroupDefinition>
+    ): void;
+    /**
+     * Definition of groups per entity type for two-way binding changes. **Note:** This will overwrite the existing
+     * change group definition, including the default `{"*":{groupId: "changes"}}`.
+     */
+    setChangeGroups(
+      /**
+       * Maps an entity name to the definition of the batch group for two-way binding changes; use "*" as entity
+       * name to define a default for all entities not contained in the map
+       */
+      mGroups: Record<string, ChangeGroupDefinition>
+    ): void;
+    /**
+     * Sets the default mode how to retrieve the item count for a collection in this model.
+     *
+     * The count can be determined in the following ways
+     * 	 - by sending a separate `$count` request
+     * 	 - by adding parameter `$inlinecount=allpages` to one or all data requests
+     * 	 - a combination of the previous two
+     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode }
+     *     for all enumeration values and more details.
+     *
+     * Note that a call to this method does not modify the count mode for existing list bindings, only bindings
+     * that are created afterwards will use the new mode when no mode is defined at their creation.
+     *
+     * If no default count mode is set for an `ODataModel` (v2), the mode `Request` will be used.
+     *
+     * @since 1.20
+     */
+    setDefaultCountMode(
+      /**
+       * The new default count mode for this model
+       */
+      sCountMode: CountMode | keyof typeof CountMode
+    ): void;
+    /**
+     * Setting batch groups as deferred.
+     *
+     * Requests that belong to a deferred batch group have to be sent by explicitly calling {@link #submitChanges}.
+     *
+     * @deprecated As of version 1.32. use {@link #setDeferredGroups} instead
+     */
+    setDeferredBatchGroups(
+      /**
+       * Array of batch group IDs that should be set as deferred
+       */
+      aGroupIds: any[]
+    ): void;
+    /**
+     * Setting request groups as deferred. **Note:** This will overwrite existing deferred groups, including
+     * the default deferred group "changes".
+     *
+     * Requests that belong to a deferred group will be sent by explicitly calling {@link #submitChanges}.
+     */
+    setDeferredGroups(
+      /**
+       * The array of deferred group IDs; the default is: `["changes"]`
+       */
+      aGroupIds: any[]
+    ): void;
+    /**
+     * Set custom headers which are provided in a key/value map.
+     *
+     * These headers are used for requests against the OData backend. Private headers which are set in the ODataModel
+     * cannot be modified. These private headers are: `accept, accept-language, x-csrf-token, MaxDataServiceVersion,
+     * DataServiceVersion`.
+     *
+     * To remove these custom headers simply set the `mHeaders` parameter to null. Please also note that when
+     * calling this method again, all previous custom headers are removed unless they are specified again in
+     * the `mHeaders` parameter.
+     */
+    setHeaders(
+      /**
+       * The header name/value map.
+       */
+      mHeaders: object
+    ): void;
+    /**
+     * Sets this model's message scope.
+     * See:
+     * 	sap.ui.model.odata.MessageScope
+     *
+     * @since 1.76.0
+     */
+    setMessageScope(
+      /**
+       * The message scope
+       */
+      sMessageScope: MessageScope | keyof typeof MessageScope
+    ): void;
+    /**
+     * Sets a new value for the given property `sPath` in the model.
+     *
+     * If the `changeBatchGroup` for the changed entity type is set to {@link #setDeferredGroups deferred},
+     * changes could be submitted with {@link #submitChanges}. Otherwise the change will be submitted directly.
+     *
+     *
+     * @returns `true` if the value was set correctly and `false` if errors occurred like the entry was not
+     * found or another entry was already updated.
+     */
+    setProperty(
+      /**
+       * Path of the property to set
+       */
+      sPath: string,
+      /**
+       * Value to set the property to
+       */
+      oValue: any,
+      /**
+       * The context which will be used to set the property
+       */
+      oContext?: Context,
+      /**
+       * Whether to update other bindings dependent on this property asynchronously
+       */
+      bAsyncUpdate?: boolean
+    ): boolean;
+    /**
+     * Defines whether all affected bindings are refreshed after a change operation.
+     *
+     * This flag can be overruled on request level by providing the `refreshAfterChange` parameter to the corresponding
+     * function (for example {@link #update}).
+     *
+     * @since 1.16.3
+     */
+    setRefreshAfterChange(
+      /**
+       * Whether to automatically refresh after changes
+       */
+      bRefreshAfterChange: boolean
+    ): void;
+    /**
+     * Sets a "Retry-After" handler, which is called when an OData request fails with HTTP status 503 (Service
+     * Unavailable) and the response has a "Retry-After" header.
+     *
+     * The handler is called with an `Error` having a property `retryAfter` of type `Date`, which is the earliest
+     * point in time when the request should be repeated. The handler has to return a promise. With this promise,
+     * you can control the repetition of all pending requests including the failed HTTP request. If the promise
+     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated. If it is rejected
+     * with the same `Error` reason as previously passed to the handler, then this reason is reported to the
+     * message model.
+     *
+     * **Note:** For APIs, like e.g. {@link #submitChanges}, which return an object having an `abort` function
+     * to abort the request triggered by the API, this abort function must not be called as long as the above
+     * promise is pending. Otherwise an error will be thrown.
+     *
+     * @since 1.134.0
+     */
+    setRetryAfterHandler(
+      /**
+       * A "Retry-After" handler
+       */
+      fnRetryAfter: (p1: RetryAfterError) => Promise<undefined>
+    ): void;
+    /**
+     * Enable/Disable security token handling.
+     */
+    setTokenHandlingEnabled(
+      /**
+       * Whether to use token handling or not
+       */
+      bTokenHandling?: boolean
+    ): void;
+    /**
+     * Enable or disable batch mode for future requests.
+     */
+    setUseBatch(
+      /**
+       * Whether the requests should be encapsulated in a batch request
+       */
+      bUseBatch?: boolean
+    ): void;
+    /**
+     * Submits the collected changes which were collected by the {@link #setProperty} method and other deferred
+     * requests.
+     *
+     * The update method is defined by the global `defaultUpdateMethod` parameter which is `sap.ui.model.odata.UpdateMethod.MERGE`
+     * by default. In case of a `sap.ui.model.odata.UpdateMethod.MERGE` request only the changed properties
+     * will be updated. If a URI with a `$expand` query option was used then the expand entries will be removed
+     * from the collected changes. Changes to this entries should be done on the entry itself. So no deep updates
+     * are supported.
+     *
+     * **Important**: The success/error handler will only be called if batch support is enabled. If multiple
+     * batch groups are submitted the handlers will be called for every batch group. If there are no changes/requests
+     * or all contained requests are aborted before a batch request returns, the success handler will be called
+     * with an empty response object. If the abort method on the return object is called, all contained batch
+     * requests will be aborted and the error handler will be called for each of them.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request or requests
+     */
+    submitChanges(
+      /**
+       * A map which contains the following parameter properties:
+       */
+      mParameters?: {
+        /**
+         * Defines the group that should be submitted. If not specified, all deferred groups will be submitted.
+         * Requests belonging to the same group will be bundled in one batch request.
+         */
+        groupId?: string;
+        /**
+         * A callback function which is called when the data has been successfully updated. The handler can have
+         * the following parameters: `oData`. `oData` contains the parsed response data as a Javascript object.
+         * The batch response is in the `__batchResponses` property which may contain further `__changeResponses`
+         * in an array depending on the amount of changes and change sets of the actual batch request which was
+         * sent to the backend. The changeResponses contain the actual response of that change set in the `response`
+         * property. For each change set there is also a `__changeResponse` property.
+         */
+        success?: Function;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
+         * which contains additional error information. If all contained requests have been aborted, the error has
+         * an `aborted` flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * **Deprecated**, use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * **Deprecated** since 1.38.0; use the `defaultUpdateMethod` constructor parameter instead. If unset, the
+         * update method is determined from the `defaultUpdateMethod` constructor parameter. If `true`, `sap.ui.model.odata.UpdateMethod.MERGE`
+         * is used for update operations; if set to `false`, `sap.ui.model.odata.UpdateMethod.PUT` is used.
+         */
+        merge?: boolean;
+      }
+    ): object;
+    /**
+     * Trigger a `PUT/MERGE` request to the OData service that was specified in the model constructor.
+     *
+     * The update method used is defined by the global `defaultUpdateMethod` parameter which is `sap.ui.model.odata.UpdateMethod.MERGE`
+     * by default. Please note that deep updates are not supported and may not work. These should be done separately
+     * and directly on the corresponding entry.
+     *
+     *
+     * @returns An object which has an `abort` function to abort the current request.
+     */
+    update(
+      /**
+       * A string containing the path to the data that should be updated. The path is concatenated to the sServiceUrl
+       * which was specified in the model constructor.
+       */
+      sPath: string,
+      /**
+       * Data of the entry that should be updated.
+       */
+      oData: object,
+      /**
+       * Optional, can contain the following attributes:
+       */
+      mParameters?: {
+        /**
+         * If specified the sPath has to be is relative to the path given with the context.
+         */
+        context?: object;
+        /**
+         * A callback function which is called when the data has been successfully updated.
+         */
+        success?: Function;
+        /**
+         * A callback function which is called when the request failed. The handler can have the parameter `oError`
+         * which contains additional error information. If the `PUT/MERGE` request has been aborted, the error has
+         * an `aborted` flag set to `true`.
+         */
+        error?: Function;
+        /**
+         * If specified, the `If-Match` header will be set to this ETag. Caution: This feature in not officially
+         * supported as using asynchronous requests can lead to data inconsistencies. If you decide to use this
+         * feature nevertheless, you have to make sure that the request is completed before the data is processed
+         * any further.
+         */
+        eTag?: string;
+        /**
+         * A map containing the parameters that will be passed as query strings
+         */
+        urlParameters?: Record<string, string>;
+        /**
+         * A map of headers for this request
+         */
+        headers?: Record<string, string>;
+        /**
+         * Deprecated - use `groupId` instead
+         */
+        batchGroupId?: string;
+        /**
+         * ID of a request group; requests belonging to the same group will be bundled in one batch request
+         */
+        groupId?: string;
+        /**
+         * ID of the `ChangeSet` that this request should belong to
+         */
+        changeSetId?: string;
+        /**
+         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
+         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
+         */
+        refreshAfterChange?: boolean;
+      }
+    ): object;
+    /**
+     * Update all bindings.
+     */
+    updateBindings(
+      /**
+       * If set to `false`, an update will only be done when the value of a binding changed.
+       */
+      bForceUpdate?: boolean
+    ): void;
+  }
+  /**
+   * Definition of a change group.
+   */
+  export type ChangeGroupDefinition = {
+    /**
+     * The ID of the batch group
+     */
+    groupId: string;
+    /**
+     * The ID of a change set which bundles the changes for the entity type
+     */
+    changeSetId?: string;
+    /**
+     * Defines whether every change is put in a change set of its own
+     */
+    single?: boolean;
+  };
+
+  /**
+   * Parameters of the ODataModel#annotationsFailed event.
+   */
+  export interface ODataModel$AnnotationsFailedEventParameters {
+    /**
+     * An array of Errors
+     */
+    result?: Error[];
+  }
+
+  /**
+   * Event object of the ODataModel#annotationsFailed event.
+   */
+  export type ODataModel$AnnotationsFailedEvent = Event<
+    ODataModel$AnnotationsFailedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#annotationsLoaded event.
+   */
+  export interface ODataModel$AnnotationsLoadedEventParameters {
+    /**
+     * An array consisting of one or several annotation sources and/or errors containing a source property and
+     * error details.
+     */
+    result?: Source[];
+  }
+
+  /**
+   * Event object of the ODataModel#annotationsLoaded event.
+   */
+  export type ODataModel$AnnotationsLoadedEvent = Event<
+    ODataModel$AnnotationsLoadedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#batchRequestCompleted event.
+   */
+  export interface ODataModel$BatchRequestCompletedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers, response object
+     */
+    requests?: any[];
+
+    /**
+     * The response object - empty object if no response: The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  /**
+   * Event object of the ODataModel#batchRequestCompleted event.
+   */
+  export type ODataModel$BatchRequestCompletedEvent = Event<
+    ODataModel$BatchRequestCompletedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#batchRequestFailed event.
+   */
+  export interface ODataModel$BatchRequestFailedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * The response object - empty object if no response The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers, response object
+     */
+    requests?: any[];
+  }
+
+  /**
+   * Event object of the ODataModel#batchRequestFailed event.
+   */
+  export type ODataModel$BatchRequestFailedEvent = Event<
+    ODataModel$BatchRequestFailedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#batchRequestSent event.
+   */
+  export interface ODataModel$BatchRequestSentEventParameters {
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The type of the request (if available)
+     */
+    type?: string;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
+     * url, method, headers
+     */
+    requests?: any[];
+  }
+
+  /**
+   * Event object of the ODataModel#batchRequestSent event.
+   */
+  export type ODataModel$BatchRequestSentEvent = Event<
+    ODataModel$BatchRequestSentEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#metadataFailed event.
+   */
+  export interface ODataModel$MetadataFailedEventParameters {
+    /**
+     * The parsed metadata
+     */
+    metadata?: string;
+
+    /**
+     * A text that describes the failure.
+     */
+    message?: string;
+
+    /**
+     * HTTP status code returned by the request (if available)
+     */
+    statusCode?: string;
+
+    /**
+     * The status as a text, details not specified, intended only for diagnosis output
+     */
+    statusText?: string;
+
+    /**
+     * Response that has been received for the request, as a text string
+     */
+    responseText?: string;
+
+    /**
+     * The response object - empty object if no response
+     */
+    response?: object;
+  }
+
+  /**
+   * Event object of the ODataModel#metadataFailed event.
+   */
+  export type ODataModel$MetadataFailedEvent = Event<
+    ODataModel$MetadataFailedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#metadataLoaded event.
+   */
+  export interface ODataModel$MetadataLoadedEventParameters {
+    /**
+     * The parsed metadata
+     */
+    metadata?: string;
+  }
+
+  /**
+   * Event object of the ODataModel#metadataLoaded event.
+   */
+  export type ODataModel$MetadataLoadedEvent = Event<
+    ODataModel$MetadataLoadedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#requestCompleted event.
+   */
+  export interface ODataModel$RequestCompletedEventParameters
+    extends Model$RequestCompletedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * The response object - empty object if no response: The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  /**
+   * Event object of the ODataModel#requestCompleted event.
+   */
+  export type ODataModel$RequestCompletedEvent = Event<
+    ODataModel$RequestCompletedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#requestFailed event.
+   */
+  export interface ODataModel$RequestFailedEventParameters
+    extends Model$RequestFailedEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The URL which is sent to the backend
+     */
+    url?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+
+    /**
+     * If the request is synchronous or asynchronous (if available)
+     */
+    async?: boolean;
+
+    /**
+     * Request was successful or not
+     */
+    success?: boolean;
+
+    /**
+     * The response object - empty object if no response The response object contains the following properties:
+     * message, success, headers, statusCode, statusText, responseText
+     */
+    response?: object;
+  }
+
+  /**
+   * Event object of the ODataModel#requestFailed event.
+   */
+  export type ODataModel$RequestFailedEvent = Event<
+    ODataModel$RequestFailedEventParameters,
+    ODataModel
+  >;
+
+  /**
+   * Parameters of the ODataModel#requestSent event.
+   */
+  export interface ODataModel$RequestSentEventParameters
+    extends Model$RequestSentEventParameters {
+    /**
+     * The request ID
+     */
+    ID?: string;
+
+    /**
+     * The HTTP method
+     */
+    method?: string;
+
+    /**
+     * The request headers
+     */
+    headers?: Record<string, string>;
+  }
+
+  /**
+   * Event object of the ODataModel#requestSent event.
+   */
+  export type ODataModel$RequestSentEvent = Event<
+    ODataModel$RequestSentEventParameters,
+    ODataModel
+  >;
 }
 
 declare module "sap/ui/performance/Measurement" {
@@ -11247,25 +14202,28 @@ declare module "sap/ui/base/ManagedObject" {
      */
     useInternalValues?: boolean;
     /**
-     * A type object or the name of a type class to create such a type object; the type will be used for converting
-     * model data to a property value (aka "formatting") and vice versa (in binding mode `TwoWay`, aka "parsing")
+     * A type object, or the name or constructor of a type class which is used to create a type object.
+     *
+     * The type will be used for converting model data to a property value (aka "formatting") and vice versa
+     * (in binding mode `TwoWay`, aka "parsing")
      */
-    type?: Type | string;
+    type?: Type | string | (new (p1?: object, p2?: object) => Type);
+    /**
+     * Format options to be used when creating the type instance; the structure of the options depends on the
+     * given type class. If a type object is given as `type`, it won't be modified - the formatOptions
+     * will be ignored
+     */
+    formatOptions?: object;
+    /**
+     * Additional constraints to be used when constructing a type instance. Their structure depends on the given
+     * type class. If a type object is given as `type`, it won't be modified - the `constraints` will be ignored
+     */
+    constraints?: object;
     /**
      * Target type to be used by the type when formatting model data, for example "boolean" or "string" or "any";
      * defaults to the property's type
      */
     targetType?: string;
-    /**
-     * Format options to be used for the type; only taken into account when the type is specified by its name
-     * - a given type object won't be modified
-     */
-    formatOptions?: object;
-    /**
-     * Additional constraints to be used when constructing a type object from a type name, ignored when a type
-     * object is given
-     */
-    constraints?: object;
     /**
      * Binding mode to be used for this property binding (e.g. one way)
      */
@@ -12497,7 +15455,7 @@ declare module "sap/ui/base/Metadata" {
      *
      * @returns class described by this metadata
      */
-    getClass(): (p1: BaseObject) => void;
+    getClass(): new () => BaseObject;
     /**
      * Returns the fully qualified name of the described class
      *
@@ -12872,7 +15830,7 @@ declare module "sap/ui/base/ObjectPool" {
       /**
        * Constructor for the class of objects that this pool should manage
        */
-      oObjectClass: (p1: Object) => void
+      oObjectClass: new () => Object
     );
 
     /**
@@ -13494,6 +16452,15 @@ declare module "sap/ui/core/library" {
    *     the CSS Level 3 color specification, see {@link https://www.w3.org/TR/css-color-3/#css-system}.
    */
   export type CSSColor = string;
+
+  /**
+   * A string type that represents a short hand CSS gap.
+   * See:
+   * 	{@link https://developer.mozilla.org/en-US/docs/Web/CSS/gap}
+   *
+   * @since 1.134
+   */
+  export type CSSGapShortHand = string;
 
   /**
    * A string type that represents CSS size values.
@@ -54656,12 +57623,12 @@ declare module "sap/ui/model/ClientTreeBinding" {
   /**
    * Tree binding implementation for client models.
    *
-   * Please Note that a hierarchy's "state" (i.e. the information about expanded, collapsed, selected, and
-   * deselected nodes) may become inconsistent when the structure of the model data is changed at runtime.
-   * This is because each node is identified internally by its index position relative to its parent, plus
-   * its parent's ID. Therefore, inserting or removing a node in the model data will likely lead to a shift
-   * in the index positions of other nodes, causing them to lose their state and/or to gain the state of another
-   * node.
+   * Note that a hierarchy's "state" (i.e. the information about expanded, collapsed, selected, and deselected
+   * nodes) may become inconsistent when the structure of the model data is changed at runtime. This is because
+   * each node is identified internally by its index position relative to its parent, plus its parent's ID.
+   * Therefore, inserting or removing a node in the model data will likely lead to a shift in the index positions
+   * of other nodes, causing them to lose their state and/or to gain the state of another node. **Note:**
+   * Tree bindings of client models do neither support {@link sap.ui.model.Binding#suspend suspend} nor {@link sap.ui.model.Binding#resume resume}.
    *
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
@@ -67409,7 +70376,7 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
     ): Context1[];
     /**
      * Returns the count of active entries in the list if the list length is final, otherwise `undefined`. Contrary
-     * to {#getLength}, this method does not consider inactive entries which are created via {#create}.
+     * to {@link #getLength}, this method does not consider inactive entries which are created via {@link #create}.
      * See:
      * 	#create
      * 	#getLength
@@ -67552,2918 +70519,6 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
   export type ODataListBinding$CreateActivateEvent = Event<
     ODataListBinding$CreateActivateEventParameters,
     ODataListBinding
-  >;
-}
-
-declare module "sap/ui/model/odata/v2/ODataModel" {
-  import {
-    default as Model,
-    Model$RequestCompletedEventParameters,
-    Model$RequestFailedEventParameters,
-    Model$RequestSentEventParameters,
-  } from "sap/ui/model/Model";
-
-  import BindingMode from "sap/ui/model/BindingMode";
-
-  import CountMode from "sap/ui/model/odata/CountMode";
-
-  import OperationMode from "sap/ui/model/odata/OperationMode";
-
-  import UpdateMethod from "sap/ui/model/odata/UpdateMethod";
-
-  import Context from "sap/ui/model/Context";
-
-  import ODataContextBinding from "sap/ui/model/odata/v2/ODataContextBinding";
-
-  import Sorter from "sap/ui/model/Sorter";
-
-  import Filter from "sap/ui/model/Filter";
-
-  import ODataListBinding from "sap/ui/model/odata/v2/ODataListBinding";
-
-  import PropertyBinding from "sap/ui/model/PropertyBinding";
-
-  import ODataTreeBinding from "sap/ui/model/odata/v2/ODataTreeBinding";
-
-  import Context1 from "sap/ui/model/odata/v2/Context";
-
-  import MessageScope from "sap/ui/model/odata/MessageScope";
-
-  import Metadata from "sap/ui/base/Metadata";
-
-  import ODataMetaModel from "sap/ui/model/odata/ODataMetaModel";
-
-  import Event from "sap/ui/base/Event";
-
-  import { Source } from "sap/ui/model/odata/v2/ODataAnnotations";
-
-  /**
-   * Model implementation based on the OData protocol.
-   *
-   * See chapter {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a
-   * general introduction.
-   *
-   * This model is not prepared to be inherited from.
-   *
-   * @since 1.24.0
-   */
-  export default class ODataModel extends Model {
-    /**
-     * Constructor for a new ODataModel.
-     */
-    constructor(
-      /**
-       * Base URI of the service to request data from; additional URL parameters appended here will be appended
-       * to every request. If you pass an object, it will be interpreted as the parameter object (second parameter).
-       * Then `mParameters.serviceUrl` becomes a mandatory parameter.
-       */
-      vServiceUrl: string | object,
-      /**
-       * Map which contains the following parameter properties:
-       */
-      mParameters?: {
-        /**
-         * The URL (or an array of URLs) from which the annotation metadata should be loaded
-         */
-        annotationURI?: string | string[];
-        /**
-         * Set this array to make custom response headers bindable via the entity's "__metadata/headers" property
-         */
-        bindableResponseHeaders?: string[];
-        /**
-         * Whether the model tries to calculate canonical URLs to request the data.
-         *
-         * **For example:** An application displays the details of a sales order in a form with an absolute binding
-         * path `/SalesOrderSet("1")`. The form embeds a table for the sales order line items with a relative binding
-         * path `ToLineItems`. If the user selects a sales order line item (e.g. Item "10"), the details of this
-         * sales order line item are displayed in another form, which also contains a table for the sales order
-         * line item's schedules with a relative binding path `ToSchedules`.
-         *
-         * If the `canonicalRequests` parameter has the default value `false`, then the OData model would request
-         * the data for the sales order line item's details form with the following requests:
-         * ```javascript
-         *
-         *   GET /<serviceUrl>/SalesOrderSet("1")/ToLineItems(SalesOrderID="1",ItemPosition="10")
-         *   GET /<serviceUrl>/SalesOrderSet("1")/ToLineItems(SalesOrderID="1",ItemPosition="10")/ToSchedules```
-         *
-         *
-         * Some back-end implementations do not support more than one navigation property in the resource URL. In
-         * this case, set the `canonicalRequests` parameter to `true`. The OData model then converts the long resource
-         * URLs to canonical URLs and requests the data for the sales order line item's details form with the following
-         * requests:
-         * ```javascript
-         *
-         *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")
-         *   GET /<serviceUrl>/SalesOrderLineItemsSet(SalesOrderID="1",ItemPosition="10")/ToSchedules```
-         */
-        canonicalRequests?: boolean;
-        /**
-         * Sets the default binding mode for the model
-         */
-        defaultBindingMode?: BindingMode | keyof typeof BindingMode;
-        /**
-         * Sets the default count mode for the model
-         */
-        defaultCountMode?: CountMode | keyof typeof CountMode;
-        /**
-         * Sets the default operation mode for the model
-         */
-        defaultOperationMode?: OperationMode | keyof typeof OperationMode;
-        /**
-         * Default update method which is used for all update requests
-         */
-        defaultUpdateMethod?: UpdateMethod;
-        /**
-         * Set this flag to `true` if your service does not support `HEAD` requests for fetching the service document
-         * (and thus the security token) to avoid sending a `HEAD`-request before falling back to `GET`
-         */
-        disableHeadRequestForToken?: boolean;
-        /**
-         * Set this flag to `true` if you don´t want to start a new soft state session with context ID (`SID`) through
-         * header mechanism. This is useful if you want to share a `SID` between different browser windows
-         */
-        disableSoftStateHeader?: boolean;
-        /**
-         * Whether the security token is requested at the earliest convenience, if parameter `tokenHandling` is
-         * `true`; supported since 1.79.0.
-         */
-        earlyTokenRequest?: boolean;
-        /**
-         * Map of custom headers (name/value pairs) like {"myHeader":"myHeaderValue",...}
-         */
-        headers?: Record<string, string>;
-        /**
-         * Whether to ignore all annotations from service metadata, so that they are not available as V4 annotations
-         * in this model's metamodel; see {@link #getMetaModel}. Only annotations from annotation files are loaded;
-         * see the `annotationURI` parameter. Supported since 1.121.0
-         */
-        ignoreAnnotationsFromMetadata?: boolean;
-        /**
-         * If set to `true`, request payloads will be JSON, XML for `false`
-         */
-        json?: boolean;
-        /**
-         * Whether the `metadataLoaded` event will be fired only after all annotations have been loaded as well
-         */
-        loadAnnotationsJoined?: boolean;
-        /**
-         * Please use the following string format e.g. '2.0' or '3.0'. OData version supported by the ODataModel:
-         * '2.0'
-         */
-        maxDataServiceVersion?: string;
-        /**
-         * Map of namespace aliases (alias => URI) that can be used in metadata binding paths; each alias is mapped
-         * to a corresponding namespace URI; when an alias is used in a metadata binding path, it addresses a metadata
-         * extension that belongs to the corresponding namespace URI; if `metadataNamespaces` is not given, the
-         * following default mappings will be used:
-         * 	 - `"sap": "sap:"http://www.sap.com/Protocols/SAPData"`
-         * 	 - `"m": "http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"`
-         * 	 - `"": "http://schemas.microsoft.com/ado/2007/06/edmx`
-         */
-        metadataNamespaces?: Record<string, string>;
-        /**
-         * Map of URL parameters for metadata requests - only attached to a `$metadata` request
-         */
-        metadataUrlParams?: Record<string, string>;
-        /**
-         * Whether technical messages should always be treated as persistent, since 1.83.0
-         */
-        persistTechnicalMessages?: boolean;
-        /**
-         * Whether a preliminary context will be created/used by a binding. When set to `true`, the model can bundle
-         * the OData calls for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
-         */
-        preliminaryContext?: boolean;
-        /**
-         * Enable/disable automatic refresh after change operations
-         */
-        refreshAfterChange?: boolean;
-        /**
-         * Whether to sequentialize all requests, needed in case the service cannot handle parallel requests. **Deprecated**
-         * as of version 1.128.0, the concept has been discarded.
-         */
-        sequentializeRequests?: boolean;
-        /**
-         * Base URI of the service to request data from; this property is mandatory when the first method parameter
-         * `serviceUrl` is omitted, but ignored otherwise
-         */
-        serviceUrl?: string;
-        /**
-         * Map of URL parameters (name/value pairs) - these parameters will be attached to all requests, except
-         * for the `$metadata` request
-         */
-        serviceUrlParams?: Record<string, string>;
-        /**
-         * Enable/disable security token handling. If the "skipServerCache" string value is provided, the security
-         * token is not cached with the server as key in order to avoid failing $batch requests when accessing services
-         * running on different back-end systems behind a reverse proxy (since 1.119).
-         *  Use this option only if the system landscape is known.
-         */
-        tokenHandling?: boolean | "skipServerCache";
-        /**
-         * Send security token for GET requests in case read access logging is activated for the OData Service in
-         * the backend.
-         */
-        tokenHandlingForGet?: boolean;
-        /**
-         * Whether all requests should be sent in batch requests
-         */
-        useBatch?: boolean;
-        /**
-         * If set to `true`, the user credentials are included in a cross-origin request. **Note:** This only works
-         * if all requests are asynchronous.
-         */
-        withCredentials?: boolean;
-        /**
-         * **Deprecated** for security reasons. Use strong server side authentication instead. Password for the
-         * service.
-         */
-        password?: string;
-        /**
-         * **Deprecated** This parameter does not prevent creation of annotations from the metadata document in
-         * this model's metamodel. Whether to skip the automated loading of annotations from the metadata document.
-         * Loading annotations from metadata does not have any effects (except the lost performance by invoking
-         * the parser) if there are no annotations inside the metadata document
-         */
-        skipMetadataAnnotationParsing?: boolean;
-        /**
-         * **Deprecated** for security reasons. Use strong server side authentication instead. UserID for the service.
-         */
-        user?: string;
-      }
-    );
-
-    /**
-     * Returns a metadata object for class sap.ui.model.odata.v2.ODataModel.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): Metadata;
-    /**
-     * Returns a promise that resolves with an array containing information about the initially loaded annotations.
-     *
-     * **Important**: This covers the annotations that were given to the model constructor, not the ones that
-     * might have been added later on using the API method {@link sap.ui.model.odata.ODataMetaModel#getODataValueLists}.
-     * In order to get information about those, the event `annotationsLoaded` can be used.
-     *
-     * @since 1.42
-     *
-     * @returns A promise that resolves with an array containing information about the initially loaded annotations
-     */
-    annotationsLoaded(): Promise<any>;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachAnnotationsFailed(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachAnnotationsFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachAnnotationsLoaded(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachAnnotationsLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
-     * event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestCompleted(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestCompleted batchRequestCompleted }
-     * event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestCompleted(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
-     * of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestFailed(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestFailed batchRequestFailed} event
-     * of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
-     * this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestSent(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:batchRequestSent batchRequestSent} event of
-     * this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachBatchRequestSent(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachMetadataFailed(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachMetadataFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachMetadataLoaded(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachMetadataLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.model.odata.v2.ODataModel` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Creates a context binding for this model.
-     * See:
-     * 	sap.ui.model.Model.prototype.bindContext
-     *
-     *
-     * @returns The new context binding
-     */
-    bindContext(
-      /**
-       * The binding path in the model
-       */
-      sPath: string,
-      /**
-       * The context which is required as base for a relative path.
-       */
-      oContext?: Context,
-      /**
-       * A map which contains additional parameters for the binding.
-       */
-      mParameters?: {
-        /**
-         * Whether a preliminary context is created
-         */
-        createPreliminaryContext?: boolean;
-        /**
-         * An optional map of custom query parameters. Custom parameters must not start with `$`.
-         */
-        custom?: Record<string, string>;
-        /**
-         * Value for the OData `$expand` query option parameter which is included in the request after URL encoding
-         * of the given value.
-         */
-        expand?: string;
-        /**
-         * The group id to be used for requests originating from the binding
-         */
-        groupId?: string;
-        /**
-         * Value for the OData `$select` query option parameter which is included in the request after URL encoding
-         * of the given value.
-         */
-        select?: string;
-        /**
-         * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
-         */
-        usePreliminaryContext?: boolean;
-        /**
-         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
-         * the binding.
-         */
-        batchGroupId?: string;
-      }
-    ): ODataContextBinding;
-    /**
-     * Creates a new list binding for this model.
-     * See:
-     * 	sap.ui.model.Model.prototype.bindList
-     *
-     *
-     * @returns The new list binding
-     */
-    bindList(
-      /**
-       * The binding path in the model
-       */
-      sPath: string,
-      /**
-       * The context which is required as base for a relative path.
-       */
-      oContext?: Context,
-      /**
-       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataListBinding#sort} to replace them
-       */
-      aSorters?: Sorter[] | Sorter,
-      /**
-       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataListBinding#filter }
-       * to replace them
-       */
-      aFilters?: Filter[] | Filter,
-      /**
-       * A map which contains additional parameters for the binding.
-       */
-      mParameters?: {
-        /**
-         * Defines the count mode of the binding; if not specified, the default count mode of the `oModel` is applied.
-         */
-        countMode?: CountMode | keyof typeof CountMode;
-        /**
-         * A key used in combination with the resolved path of the binding to identify the entities created by the
-         * binding's {@link #create} method.
-         *
-         * **Note:** Different controls or control aggregation bindings to the same collection must have different
-         * `createdEntitiesKey` values.
-         */
-        createdEntitiesKey?: string;
-        /**
-         * An optional map of custom query parameters. Custom parameters must not start with `$`.
-         */
-        custom?: Record<string, string>;
-        /**
-         * Value for the OData `$expand` query option parameter which is included in the data request after URL
-         * encoding of the given value.
-         */
-        expand?: string;
-        /**
-         * Turns on the fault tolerance mode, data is not reset if a back-end request returns an error.
-         */
-        faultTolerant?: boolean;
-        /**
-         * The group id to be used for requests originating from the binding
-         */
-        groupId?: string;
-        /**
-         * The operation mode of the binding
-         */
-        operationMode?: OperationMode | keyof typeof OperationMode;
-        /**
-         * Value for the OData `$select` query option parameter which is included in the data request after URL
-         * encoding of the given value.
-         */
-        select?: string;
-        /**
-         * Whether the list binding only requests transition messages from the back end. If messages for entities
-         * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
-         * entity corresponding to the list binding's context, with the parameter `updateAggregatedMessages` set
-         * to `true`.
-         */
-        transitionMessagesOnly?: boolean;
-        /**
-         * Whether a preliminary context is used. When set to `true`, the model can bundle the OData calls for dependent
-         * bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}.
-         */
-        usePreliminaryContext?: boolean;
-        /**
-         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
-         * the binding.
-         */
-        batchGroupId?: string;
-        /**
-         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; the threshold
-         * that defines how many entries should be fetched at least by the binding if `operationMode` is set to
-         * `Auto`.
-         */
-        threshold?: int;
-      }
-    ): ODataListBinding;
-    /**
-     * Creates a new property binding for this model.
-     * See:
-     * 	sap.ui.model.Model#bindProperty
-     * 	#getProperty
-     *
-     *
-     * @returns The new property binding
-     */
-    bindProperty(
-      /**
-       * Path pointing to the property that should be bound; either an absolute path or a path relative to a given
-       * `oContext`
-       */
-      sPath: string,
-      /**
-       * A context object for the new binding
-       */
-      oContext?: object,
-      /**
-       * Map of optional parameters for the binding
-       */
-      mParameters?: {
-        /**
-         * Whether this binding does not propagate model messages to the control; supported since 1.82.0. Some composite
-         * types like {@link sap.ui.model.type.Currency} automatically ignore model messages for some of their parts
-         * depending on their format options; setting this parameter to `true` or `false` overrules the automatism
-         * of the type
-         *
-         * For example, a binding for a currency code is used in a composite binding for rendering the proper number
-         * of decimals, but the currency code is not displayed in the attached control. In that case, messages for
-         * the currency code shall not be displayed at that control, only messages for the amount
-         */
-        ignoreMessages?: boolean;
-        /**
-         * Whether the value of the created property binding is `undefined` if it is unresolved; if not set, its
-         * value is `null`. Supported since 1.100.0
-         */
-        useUndefinedIfUnresolved?: boolean;
-      }
-    ): PropertyBinding;
-    /**
-     * Creates a new tree binding for this model.
-     *
-     * Hierarchy Annotations: To use the v2.ODataTreeBinding with an OData service which exposes hierarchy annotations,
-     * see the **"SAP Annotations for OData Version 2.0"** specification. The required property annotations
-     * as well as accepted / default values are documented in this specification.
-     *
-     * Services which include the `hierarchy-node-descendant-count-for` annotation and expose the data points
-     * sorted in a depth-first, pre-order manner, can use an optimized auto-expand feature by specifying the
-     * `numberOfExpandedLevels` in the binding parameters. This will pre-expand the hierarchy to the given number
-     * of levels, with only a single initial OData request.
-     *
-     * For services without the `hierarchy-node-descendant-count-for` annotation, the `numberOfExpandedLevels`
-     * property is not supported and deprecated.
-     *
-     * Operation Modes: For a full definition and explanation of all OData binding operation modes, see {@link sap.ui.model.odata.OperationMode}.
-     *
-     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with filters of type {@link sap.ui.model.FilterType.Application}.
-     * Be aware that this applies only to filters which do not prevent the creation of a hierarchy. So filtering
-     * on a property (e.g. a "Customer") is fine, as long as the application ensures that the responses from
-     * the back end are sufficient to create a valid hierarchy on the client. Subsequent paging requests for
-     * sibling and child nodes must also return responses, since the filters are sent with every request. Using
-     * control-defined filters (see {@link sap.ui.model.FilterType.Control}) via the {@link #filter} function
-     * is not supported for the operation mode `Server`.
-     *
-     * OperationMode.Client and OperationMode.Auto: The ODataTreeBinding supports control-defined filters only
-     * in operation modes `Client` and `Auto`. With these operation modes, the filters and sorters are applied
-     * on the client, like for the {@link sap.ui.model.odata.v2.ODataListBinding}.
-     *
-     * The operation modes `Client` and `Auto` are only supported for services which expose the hierarchy annotations
-     * mentioned above, but do **not** expose the `hierarchy-node-descendant-count-for` annotation. Services
-     * with hierarchy annotations including the `hierarchy-node-descendant-count-for` annotation, do **not**
-     * support the operation modes `Client` and `Auto`. **Note:** {@link sap.ui.model.odata.OperationMode.Auto }
-     * is deprecated since 1.102.0.
-     * See:
-     * 	{@link http://www.sap.com/protocols/SAPData "SAP Annotations for OData Version 2.0" Specification}
-     *
-     *
-     * @returns The new tree binding
-     */
-    bindTree(
-      /**
-       * The binding path, either absolute or relative to a given `oContext`
-       */
-      sPath: string,
-      /**
-       * The parent context which is required as base for a relative path
-       */
-      oContext?: Context,
-      /**
-       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataTreeBinding#filter }
-       * to replace them; depending on the operation mode, there are restrictions for using filters; see above
-       */
-      vFilters?: Filter | Filter[],
-      /**
-       * Map of binding parameters
-       */
-      mParameters?: {
-        /**
-         * Whether the tree binding only requests transition messages from the back end. If messages for entities
-         * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
-         * entity corresponding to the tree binding's context, with the parameter `updateAggregatedMessages` set
-         * to `true`.
-         */
-        transitionMessagesOnly?: boolean;
-        /**
-         * The mapping between data properties and the hierarchy used to visualize the tree, if not provided by
-         * the service's metadata. For the correct metadata annotations, check the "SAP Annotations for OData Version
-         * 2.0" specification
-         */
-        treeAnnotationProperties?: {
-          /**
-           * The property name in the same type holding the hierarchy level information; the type of the referenced
-           * property has to be an integer type
-           */
-          hierarchyLevelFor?: string;
-          /**
-           * The property name in the same type holding the hierarchy node id
-           */
-          hierarchyNodeFor?: string;
-          /**
-           * The property name in the same type holding the parent node id
-           */
-          hierarchyParentNodeFor?: string;
-          /**
-           * The property name in the same type holding the drill state for the node; the referenced property may
-           * have the values "collapsed", "expanded" or "leaf"
-           */
-          hierarchyDrillStateFor?: string;
-          /**
-           * The property name in the same type holding the descendant count for the node; the type of the referenced
-           * property has to be an integer type
-           */
-          hierarchyNodeDescendantCountFor?: string;
-        };
-        /**
-         * The number of levels that are auto-expanded initially. Setting this property might lead to multiple back-end
-         * requests. The auto-expand feature is **deprecated for services without the `hierarchy-node-descendant-count-for`
-         * annotation**
-         */
-        numberOfExpandedLevels?: number;
-        /**
-         * The level of the topmost tree nodes
-         */
-        rootLevel?: number;
-        /**
-         * The group id to be used for requests originating from this binding
-         */
-        groupId?: string;
-        /**
-         * The operation mode for this binding; defaults to the model's default operation mode if not specified.
-         * {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is only supported for services which
-         * expose the hierarchy annotations, yet do **NOT** expose the `hierarchy-node-descendant-count-for` annotation.
-         * **Note:** {@link sap.ui.model.odata.OperationMode.Auto} is deprecated since 1.102.0.
-         */
-        operationMode?: OperationMode | keyof typeof OperationMode;
-        /**
-         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; the threshold
-         * that defines how many entries should be fetched at least by the binding if `operationMode` is set to
-         * `Auto`
-         */
-        threshold?: number;
-        /**
-         * Deprecated since 1.102.0, as {@link sap.ui.model.odata.OperationMode.Auto} is deprecated; whether `$filter`
-         * statements should be used for the `$count` / `$inlinecount` requests and for the data request if the
-         * operation mode is {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto}. Use this feature
-         * only if your back end supports pre-filtering the tree and is capable of responding with a complete tree
-         * hierarchy, including all inner nodes. To construct the hierarchy on the client, it is mandatory that
-         * all filter matches include their complete parent chain up to the root level. If {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client }
-         * is used, the complete collection without filters is requested; filters are applied on the client side.
-         */
-        useServersideApplicationFilters?: boolean;
-        /**
-         * A tree state handle can be given to the `ODataTreeBinding` when two conditions are met:
-         * 	 - The binding is running in {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client}, and
-         *
-         * 	 - the {@link sap.ui.table.TreeTable} is used.  The feature is only available when using the {@link sap.ui.table.TreeTable}.
-         *     The tree state handle will contain all necessary information to expand the tree to the given state.
-         *
-         * This feature is not supported if {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server }
-         * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used.
-         */
-        treeState?: any;
-        /**
-         * Defines the count mode of this binding; if not specified, the default count mode of the binding's model
-         * is applied. The resulting count mode must not be {@link sap.ui.model.odata.CountMode.None}.
-         */
-        countMode?: CountMode | keyof typeof CountMode;
-        /**
-         * Whether a preliminary context is used; defaults to the value of the parameter `preliminaryContext` given
-         * on construction of the binding's model, see {@link sap.ui.model.odata.v2.ODataModel}
-         */
-        usePreliminaryContext?: boolean;
-        /**
-         * **Deprecated**, use `groupId` instead. Sets the batch group id to be used for requests originating from
-         * this binding
-         */
-        batchGroupId?: string;
-        /**
-         * A map describing the navigation properties between entity sets, which is used for constructing and paging
-         * the tree. Keys in this object are entity names, whereas the values name the navigation properties.
-         *
-         * **Deprecated: since 1.44** The use of navigation properties to build up the hierarchy structure is deprecated.
-         * It is recommended to use the hierarchy annotations mentioned above instead.
-         */
-        navigation?: object;
-      },
-      /**
-       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataTreeBinding#sort} to replace them
-       */
-      vSorters?: Sorter[] | Sorter
-    ): ODataTreeBinding;
-    /**
-     * Triggers a request for the given function import.
-     *
-     * If the return type of the function import is either an entity type or a collection of an entity type,
-     * then this OData model's cache is updated with the values of the returned entities. Otherwise they are
-     * ignored, and the `response` can be processed in the `success` callback.
-     *
-     * The `contextCreated` property of the returned object is a function that returns a Promise which resolves
-     * with an `sap.ui.model.odata.v2.Context`. This context can be used to modify the function import parameter
-     * values and to bind the function call's result. Changes of a parameter value via that context after the
-     * function import has been processed lead to another function call with the modified parameters. Changed
-     * function import parameters are considered as pending changes, see {@link #hasPendingChanges} or {@link #getPendingChanges},
-     * and can be reset via {@link #resetChanges}. If the function import returns an entity or a collection
-     * of entities, the `$result` property relative to that context can be used to bind the result to a control,
-     * see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio6cb8d585ed594ee4b447b5b560f292a4 Binding of Function Import Parameters}.
-     *
-     *
-     * @returns An object which has a `contextCreated` function that returns a `Promise`. This resolves with
-     * the created {@link sap.ui.model.Context}. In addition it has an `abort` function to abort the current
-     * request. The Promise returned by `contextCreated` is rejected if the function name cannot be found in
-     * the metadata or if the parameter `expand` is used and the function does not return a single entity.
-     */
-    callFunction(
-      /**
-       * The name of the function import starting with a slash, for example `/Activate`.
-       */
-      sFunctionName: string,
-      /**
-       * The parameter map containing any of the following properties:
-       */
-      mParameters?: {
-        /**
-         * Defines a callback function to adjust the deep path for the resulting entity of the function import call;
-         * since 1.82. The deep path of an entity is the resolved path relative to the parent contexts of the binding
-         * in the UI hierarchy. For example, for a `ToBusinessPartner` relative context binding with a `/SalesOrder('42')`
-         * parent context, the resulting deep path for the `BusinessPartner` is `/SalesOrder('42')/ToBusinessPartner`.
-         * This deep path is used to properly assign messages and show them correctly on the UI.
-         *
-         * The callback function returns a `string` with the deep path for the entity returned by the function import
-         * and gets the parameter map `mParameters` containing the following properties:
-         * 	 - `{string} mParameters.deepPath`: The deep path of the resulting entity, as far as the framework is
-         *     able to determine from the metadata and the OData response
-         * 	 - `{object} mParameters.response`: A copy of the OData response object
-         */
-        adjustDeepPath?: Function;
-        /**
-         * ID of the `ChangeSet` that this request belongs to
-         */
-        changeSetId?: string;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information. If the request has been aborted, the error has an `aborted`
-         * flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * If the function import changes an entity, the ETag for this entity can be passed with this parameter
-         */
-        eTag?: string;
-        /**
-         * A comma-separated list of navigation properties to be expanded for the entity returned by the function
-         * import; since 1.83.0. The navigation properties are requested with an additional GET request in
-         * the same `$batch` request as the POST request for the function import. The given `mParameters.headers`
-         * are not considered in the GET request. **Note:** The following prerequisites must be fulfilled:
-         *
-         * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
-         * 	 - the HTTP method used for the function import is "POST",
-         * 	 - the function import returns a single entity,
-         * 	 - the back-end service must support the "Content-ID" header,
-         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
-         *     `$batch` request.  The success and error callback functions are called only once, even if there
-         *     are two requests in the `$batch` related to a single call of {@link #callFunction}.
-         * 	 - If both requests succeed, the success callback is called with the merged data of the POST and the
-         *     GET request and with the response of the POST request.
-         * 	 - If the POST request fails, the GET request also fails. In that case the error callback is called
-         *     with the error response of the POST request.
-         * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
-         *     callback is called with the data and the response of the POST request. The response object of the success
-         *     callback call and the response parameter of the corresponding `requestFailed` and `requestCompleted`
-         *     events have an additional property `expandAfterFunctionCallFailed` set to `true`.
-         */
-        expand?: string;
-        /**
-         * ID of a request group; requests belonging to the same group are bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * A map of headers for this request
-         */
-        headers?: Record<string, string>;
-        /**
-         * The HTTP method used for the function import call as specified in the metadata definition of the function
-         * import
-         */
-        method?: string;
-        /**
-         * Defines whether to update all bindings after submitting this change operation; since 1.46. See {@link #setRefreshAfterChange}.
-         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
-         */
-        refreshAfterChange?: boolean;
-        /**
-         * A callback function which is called when the data has been successfully retrieved; the handler can have
-         * the following parameters: `oData` and `response`.
-         */
-        success?: Function;
-        /**
-         * Maps the function import parameter name as specified in the function import's metadata to its value;
-         * the value is formatted based on the parameter's type as specified in the metadata
-         */
-        urlParameters?: Record<string, any>;
-        /**
-         * **Deprecated - use `groupId` instead**
-         */
-        batchGroupId?: string;
-      }
-    ): object;
-    /**
-     * Whether the canonical requests calculation is switched on, see the `canonicalRequests` parameter of the
-     * model constructor.
-     *
-     *
-     * @returns Whether the canonical requests calculation is switched on
-     */
-    canonicalRequestsEnabled(): boolean;
-    /**
-     * Trigger a `POST` request to the OData service that was specified in the model constructor; see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
-     * for comprehensive information on the topic.
-     *
-     * **Note:** This function does not support a "deep create" scenario. Use {@link #createEntry} or {@link sap.ui.model.odata.v2.ODataListBinding#create }
-     * instead.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request.
-     */
-    create(
-      /**
-       * A string containing the path to the collection where an entry should be created. The path is concatenated
-       * to the service URL which was specified in the model constructor.
-       */
-      sPath: string,
-      /**
-       * Data of the entry that should be created.
-       */
-      oData: object,
-      /**
-       * Optional parameter map containing any of the following properties:
-       */
-      mParameters?: {
-        /**
-         * If specified , `sPath` has to be relative to the path given with the context.
-         */
-        context?: object;
-        /**
-         * A callback function which is called when the data has been successfully retrieved. The handler can have
-         * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the newly
-         * created entry if it is provided by the backend. The `response` parameter contains information about the
-         * response of the request.
-         */
-        success?: Function;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information. If the `POST` request has been aborted, the error has an
-         * `aborted` flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * A map containing the parameters that will be passed as query strings
-         */
-        urlParameters?: Record<string, string>;
-        /**
-         * A map of headers for this request
-         */
-        headers?: Record<string, string>;
-        /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
-         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
-         */
-        refreshAfterChange?: boolean;
-      }
-    ): object;
-    /**
-     * Creates a binding context for the given path.
-     *
-     * If the data of the context is not yet available, it can not be created, but first the entity needs to
-     * be fetched from the server asynchronously. In case no callback function is provided, the request will
-     * not be triggered.
-     *
-     * If a callback function is given, the created binding context for a fetched entity is passed as argument
-     * to the given callback function.
-     * See:
-     * 	sap.ui.model.Model.prototype.createBindingContext
-     *
-     *
-     * @returns The created binding context, only if the data is already available and the binding context could
-     * be created synchronously; `undefined` otherwise
-     */
-    createBindingContext(
-      /**
-       * Binding path
-       */
-      sPath: string,
-      /**
-       * Binding context
-       */
-      oContext?: object,
-      /**
-       * Map which contains additional parameters for the binding
-       */
-      mParameters?: {
-        /**
-         * Value for the OData `$expand` query parameter which should be included in the request
-         */
-        expand?: string;
-        /**
-         * Value for the OData `$select` query parameter which should be included in the request
-         */
-        select?: string;
-        /**
-         * Whether a preliminary context will be created. When set to `true`, the model can bundle the OData calls
-         * for dependent bindings into fewer $batch requests. For more information, see {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio62149734b5c24507868e722fe87a75db Optimizing Dependent Bindings}
-         */
-        createPreliminaryContext?: boolean;
-        /**
-         * Optional map of custom query parameters, names of custom parameters must not start with `$`.
-         */
-        custom?: Record<string, string>;
-      },
-      /**
-       * The function to be called when the context has been created. The parameter of the callback function is
-       * the newly created binding context, an instance of {@link sap.ui.model.odata.v2.Context}.
-       */
-      fnCallBack?: Function,
-      /**
-       * Whether to reload data
-       */
-      bReload?: boolean
-    ): Context1 | undefined;
-    /**
-     * Creates a new entry object which is described by the metadata of the entity type of the specified `sPath`
-     * Name. A context object is returned which can be used to bind against the newly created object. See {@link https://ui5.sap.com/#/topic/6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation }
-     * for comprehensive information on the topic.
-     *
-     * For each created entry a request is created and stored in a request queue. The request queue can be submitted
-     * by calling {@link #submitChanges}. As long as the context is transient (see {@link sap.ui.model.odata.v2.Context#isTransient}),
-     * {@link sap.ui.model.odata.v2.ODataModel#resetChanges} with the `bDeleteCreatedEntities` parameter set
-     * to `true` can be used to delete the created entity again.
-     *
-     * If the creation of the entity on the server failed, it is repeated automatically.
-     *
-     * The optional parameter `mParameters.properties` can be used as follows:
-     * 	 - `properties` could be an array containing the property names which should be included in the new
-     *     entry. Other properties defined in the entity type won't be included.
-     * 	 - `properties` could be an object which includes the desired properties and the corresponding values
-     *     which should be used for the created entry.   If `properties` is not specified, all properties in
-     *     the entity type will be included in the created entry.
-     *
-     * If there are no values specified, the properties will have `undefined` values.
-     *
-     * The `properties` can be modified via property bindings relative to the returned context instance.
-     *
-     * The parameter `expand` is supported since 1.78.0. If this parameter is set, the given navigation properties
-     * are expanded automatically with the same $batch request in which the POST request for the creation is
-     * contained. Ensure that the batch mode is used and the back-end service supports GET requests relative
-     * to a content ID outside the changeset. The success and error callback functions are called only once,
-     * even if there are two requests in the `$batch` related to a single call of {@link #createEntry}:
-     *
-     * 	 - a POST request for creating an entity,
-     * 	 - a GET request for requesting the navigation properties for the just created entity.   The following
-     *     outcomes are possible:
-     * 	 - If both requests succeed, the success handler is called with the merged data of the POST and the
-     *     GET request and with the response of the POST request.
-     * 	 - If the POST request fails, the GET request also fails. In that case the error callback handler is
-     *     called with the error response of the POST request.
-     * 	 - If the POST request succeeds but the GET request for the navigation properties fails, the success
-     *     handler is called with the data and the response of the POST request. The response object of the success
-     *     handler call and the response parameter of the corresponding `requestFailed` and `requestCompleted` events
-     *     have an additional property `expandAfterCreateFailed` set to `true`.
-     *
-     * Note: If a server requires a property in the request, you must supply this property in the initial data,
-     * for example if the server requires a unit for an amount. This also applies if this property has a default
-     * value.
-     *
-     * Note: Deep create is only supported since 1.108.0, where "deep create" means creation of a sub-entity
-     * for a navigation property of a transient, not yet persisted root entity. Before 1.108.0, the sub-entity
-     * had to be created after the transient entity had been saved successfully in the back-end system. Since
-     * 1.108.0, a deep create is triggered when the `sPath` parameter is a navigation property for the entity
-     * type associated with the transient context given in `mParameters.context`. The payload of the OData request
-     * to create the root entity then contains its sub-entities. On creation of a sub-entity, only the `sPath`,
-     * `mParameters.context` and `mParameters.properties` method parameters are allowed; the context given in
-     * `mParameters.context` must not be inactive.
-     *
-     *
-     * @returns An OData V2 context object that points to the newly created entry; or `undefined` if the service
-     * metadata are not yet loaded or if a `created` callback parameter is given
-     */
-    createEntry(
-      /**
-       * The path to the EntitySet
-       */
-      sPath: string,
-      /**
-       * A map of the following parameters:
-       */
-      mParameters: {
-        /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * The ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * The binding context
-         */
-        context?: Context;
-        /**
-         * The callback function that is called after the metadata of the service is loaded and the {@link sap.ui.model.odata.v2.Context }
-         * instance for the newly created entry is available; The {@link sap.ui.model.odata.v2.Context} instance
-         * for the newly created entry is passed as the first and only parameter.
-         */
-        created?: Function;
-        /**
-         * The error callback function
-         */
-        error?: Function;
-        /**
-         * A comma-separated list of navigation properties to be expanded for the newly created entity; since 1.78.0. The navigation properties are requested with an additional GET request in the same `$batch` request
-         * as the POST request for the entity creation; the given `mParameters.headers` are not considered in the
-         * GET request. **Note:** The following prerequisites must be fulfilled:
-         * 	 - batch mode must be enabled; see constructor parameter `useBatch`,
-         * 	 - the back-end service must support the "Content-ID" header,
-         * 	 - the back end must allow GET requests relative to this content ID outside the changeset within the
-         *     `$batch` request.
-         */
-        expand?: string;
-        /**
-         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * A map of headers
-         */
-        headers?: Record<string, string>;
-        /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context. Supported since 1.98.0
-         */
-        inactive?: boolean;
-        /**
-         * The initial values of the entry, or an array that specifies a list of property names to be initialized
-         * with `undefined`; **Note:** Passing a list of property names is deprecated since 1.120; pass the initial
-         * values as an object instead
-         */
-        properties?: object | string[];
-        /**
-         * Whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange};
-         * if given, this overrules the model-wide `refreshAfterChange` flag for this operation only; since 1.46
-         */
-        refreshAfterChange?: boolean;
-        /**
-         * The success callback function
-         */
-        success?: Function;
-        /**
-         * A map of URL parameters
-         */
-        urlParameters?: Record<string, string>;
-      }
-    ): Context1 | undefined;
-    /**
-     * Creates the key from the given collection name and property map.
-     *
-     * Please make sure that the metadata document is loaded before using this function.
-     *
-     *
-     * @returns Key of the entry
-     */
-    createKey(
-      /**
-       * Name of the collection
-       */
-      sCollection: string,
-      /**
-       * Object containing at least all the key properties of the entity type
-       */
-      oKeyProperties: object
-    ): string;
-    /**
-     * Deletes a created entry from the request queue and from the model.
-     *
-     * **Note:** Controls are not updated. Use {@link #resetChanges} instead to update also the controls, for
-     * example: `oModel.resetChanges([oContext.getPath()], undefined, true);`
-     *
-     * @deprecated As of version 1.95.0. use {@link #resetChanges} instead
-     */
-    deleteCreatedEntry(
-      /**
-       * The context object pointing to the created entry
-       */
-      oContext: Context
-    ): void;
-    /**
-     * See:
-     * 	sap.ui.model.Model.prototype.destroy
-     */
-    destroy(): void;
-    /**
-     * Detaches event handler `fnFunction` from the `annotationsFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachAnnotationsFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsFailedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the `annotationsLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachAnnotationsLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$AnnotationsLoadedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:batchRequestCompleted batchRequestCompleted }
-     * event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachBatchRequestCompleted(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestCompletedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:batchRequestFailed batchRequestFailed} event
-     * of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachBatchRequestFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestFailedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:batchRequestSent batchRequestSent} event of
-     * this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachBatchRequestSent(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$BatchRequestSentEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the `metadataFailed` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachMetadataFailed(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataFailedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the `metadataLoaded` event of this `sap.ui.model.odata.v2.ODataModel`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachMetadataLoaded(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (evt: ODataModel$MetadataLoadedEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires event {@link #event:annotationsFailed annotationsFailed} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireAnnotationsFailed(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters?: ODataModel$AnnotationsFailedEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:annotationsLoaded annotationsLoaded} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireAnnotationsLoaded(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters?: ODataModel$AnnotationsLoadedEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:batchRequestCompleted batchRequestCompleted} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireBatchRequestCompleted(
-      /**
-       * parameters to add to the fired event
-       */
-      oParameters: ODataModel$BatchRequestCompletedEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:batchRequestFailed batchRequestFailed} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireBatchRequestFailed(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters: ODataModel$BatchRequestFailedEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:batchRequestSent batchRequestSent} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireBatchRequestSent(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters?: ODataModel$BatchRequestSentEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:metadataFailed metadataFailed} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireMetadataFailed(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters?: ODataModel$MetadataFailedEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:metadataLoaded metadataLoaded} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` to allow method chaining
-     */
-    fireMetadataLoaded(
-      /**
-       * Parameters to pass along with the event
-       */
-      oParameters?: ODataModel$MetadataLoadedEventParameters
-    ): this;
-    /**
-     * Force the update on the server of an entity by setting its ETag to '*'.
-     *
-     * ETag handling must be active so the force update will work.
-     */
-    forceEntityUpdate(
-      /**
-       * The key to an Entity e.g.: Customer(4711)
-       */
-      sKey: string
-    ): void;
-    /**
-     * Returns the definition of batch groups per entity type for two-way binding changes.
-     *
-     * @deprecated As of version 1.36. use {@link #getChangeGroups} instead
-     *
-     * @returns Definition of batch groups for two-way binding changes, keyed by entity names.
-     */
-    getChangeBatchGroups(): Record<string, ChangeGroupDefinition>;
-    /**
-     * Returns the definition of groups per entity type for two-way binding changes
-     *
-     *
-     * @returns Definition of groups for two-way binding changes, keyed by entity names.
-     */
-    getChangeGroups(): Record<string, ChangeGroupDefinition>;
-    /**
-     * Return requested data as object if the data has already been loaded and stored in the model.
-     *
-     * @deprecated As of version 1.24. please use {@link #getProperty} instead
-     *
-     * @returns Object containing the requested data if the path is valid.
-     */
-    getData(
-      /**
-       * A string containing the path to the data object that should be returned.
-       */
-      sPath: string,
-      /**
-       * The optional context which is used with the `sPath` to retrieve the requested data.
-       */
-      oContext?: object,
-      /**
-       * This parameter should be set when a URI or custom parameter with a `$expand` system query option was
-       * used to retrieve associated entries embedded. If set to `true` then the `getProperty` function returns
-       * a desired property value or entry and includes the associated expand entries (if any). If set to `false`
-       * the associated/expanded entry properties are removed and not included in the desired entry as properties
-       * at all. This is useful for performing updates on the base entry only. Note: A copy, not a reference of
-       * the entry will be returned.
-       */
-      bIncludeExpandEntries?: boolean
-    ): object;
-    /**
-     * Returns the default count mode for retrieving the count of collections
-     *
-     * @since 1.20
-     *
-     * @returns Returns the default count mode for this model
-     */
-    getDefaultCountMode(): CountMode;
-    /**
-     * Returns the array of batch group IDs that are set as deferred
-     *
-     * @deprecated As of version 1.32. use {@link #getDeferredGroups} instead
-     *
-     * @returns aGroupIds The array of deferred batch group IDs
-     */
-    getDeferredBatchGroups(): any[];
-    /**
-     * Returns the array of group IDs that are set as deferred.
-     *
-     *
-     * @returns aGroupIds The array of deferred group IDs
-     */
-    getDeferredGroups(): any[];
-    /**
-     * Returns the ETag for a given binding path/context or data object.
-     *
-     *
-     * @returns The found ETag (or `null` if none could be found)
-     */
-    getETag(
-      /**
-       * The binding path
-       */
-      sPath?: string,
-      /**
-       * The binding context
-       */
-      oContext?: Context,
-      /**
-       * The entity data
-       */
-      oEntity?: object
-    ): string | null;
-    /**
-     * Returns all headers and custom headers which are stored in this OData model.
-     *
-     *
-     * @returns The header map
-     */
-    getHeaders(): object;
-    /**
-     * Returns the key part for the given the canonical entry URI, model context or data object or `undefined`
-     * when the `vValue` can't be interpreted.
-     *
-     *
-     * @returns Key of the entry or `undefined`
-     */
-    getKey(
-      /**
-       * The canonical entry URI, the context or entry object
-       */
-      vValue: string | object | Context
-    ): string | undefined;
-    /**
-     * Returns this model's message scope.
-     * See:
-     * 	sap.ui.model.odata.MessageScope
-     *
-     * @since 1.76.0
-     *
-     * @returns The message scope
-     */
-    getMessageScope(): MessageScope;
-    /**
-     * Returns an instance of an OData meta model which offers a unified access to both OData V2 metadata and
-     * V4 annotations. It uses the existing {@link sap.ui.model.odata.ODataMetadata} as a foundation and merges
-     * V4 annotations from the existing {@link sap.ui.model.odata.v2.ODataAnnotations} directly into the corresponding
-     * model element.
-     *
-     * **BEWARE:** Access to this OData meta model will fail before the promise returned by {@link sap.ui.model.odata.ODataMetaModel#loaded loaded }
-     * has been resolved!
-     *
-     *
-     * @returns The meta model for this `ODataModel`
-     */
-    getMetaModel(): ODataMetaModel;
-    /**
-     * Returns a JSON object that is a copy of the entity data referenced by the given `sPath` and `oContext`.
-     * It does not load any data and may not return all requested data if it is not available.
-     *
-     * With the `mParameters.select` parameter it is possible to specify comma-separated property or navigation
-     * property names which should be included in the result object. This works like the OData `$select` URL
-     * parameter. With the `mParameters.expand` parameter it is possible to specify comma-separated navigation
-     * property names which should be included inline in the result object. This works like the OData `$expand`
-     * parameter.
-     *
-     * **Note:** `mParameters.expand` can only be used if the corresponding navigation properties have been
-     * read via {@link sap.ui.model.odata.v2.ODataModel#read} using the OData `$expand` URL parameter. If a
-     * navigation property has not been read via the OData `$expand` URL parameter, it is left out in the result.
-     * Keep in mind that navigation properties referencing a collection are usually not loaded via the OData
-     * `$expand` URL parameter but directly via its navigation property.
-     *
-     * **Note:** If `mParameters.select` is not specified, the returned object may contain model-internal attributes.
-     * This may lead to problems when submitting this data to the service for an update or create operation.
-     * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
-     *
-     * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
-     * returns `undefined` instead of incomplete data.
-     *
-     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
-     * the client are returned.
-     *
-     * Example:
-     *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
-     * of the entity itself are returned, but only the `ProductName` property of the `Products` navigation property.
-     * If `Products/ProductName` has not been loaded before, `undefined` is returned.
-     *
-     *
-     * @returns The value for the given path and context or `undefined` if data or entity type cannot be found
-     * or if not all selected properties are available
-     */
-    getObject(
-      /**
-       * The path referencing the object
-       */
-      sPath: string,
-      /**
-       * The optional context which is used with the `sPath` to reference the object.
-       */
-      oContext?: Context,
-      /**
-       * Map of parameters
-       */
-      mParameters?: {
-        /**
-         * Comma-separated list of properties or paths to properties to select
-         */
-        select?: string;
-        /**
-         * Comma-separated list of navigation properties or paths to navigation properties to expand
-         */
-        expand?: string;
-      }
-    ): any | undefined;
-    /**
-     * Returns a JSON object that is a copy of the entity data referenced by the given `sPath` and `oContext`.
-     * It does not load any data and may not return all requested data if it is not available.
-     *
-     * With the `mParameters.select` parameter it is possible to specify comma-separated property or navigation
-     * property names which should be included in the result object. This works like the OData `$select` URL
-     * parameter. With the `mParameters.expand` parameter it is possible to specify comma-separated navigation
-     * property names which should be included inline in the result object. This works like the OData `$expand`
-     * parameter.
-     *
-     * **Note:** `mParameters.expand` can only be used if the corresponding navigation properties have been
-     * read via {@link sap.ui.model.odata.v2.ODataModel#read} using the OData `$expand` URL parameter. If a
-     * navigation property has not been read via the OData `$expand` URL parameter, it is left out in the result.
-     * Keep in mind that navigation properties referencing a collection are usually not loaded via the OData
-     * `$expand` URL parameter but directly via its navigation property.
-     *
-     * **Note:** If `mParameters.select` is not specified, the returned object may contain model-internal attributes.
-     * This may lead to problems when submitting this data to the service for an update or create operation.
-     * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
-     *
-     * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
-     * returns `undefined` instead of incomplete data.
-     *
-     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
-     * the client are returned.
-     *
-     * Example:
-     *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
-     * of the entity itself are returned, but only the `ProductName` property of the `Products` navigation property.
-     * If `Products/ProductName` has not been loaded before, `undefined` is returned.
-     *
-     *
-     * @returns The value for the given path and context or `undefined` if data or entity type cannot be found
-     * or if not all selected properties are available
-     */
-    getObject(
-      /**
-       * The path referencing the object
-       */
-      sPath: string,
-      /**
-       * Map of parameters
-       */
-      mParameters?: {
-        /**
-         * Comma-separated list of properties or paths to properties to select
-         */
-        select?: string;
-        /**
-         * Comma-separated list of navigation properties or paths to navigation properties to expand
-         */
-        expand?: string;
-      }
-    ): any | undefined;
-    /**
-     * Returns the original value for the property with the given path and context. The original value is the
-     * value that was last responded by the server.
-     *
-     *
-     * @returns the value of the property
-     */
-    getOriginalProperty(
-      /**
-       * The path/name of the property
-       */
-      sPath: string,
-      /**
-       * The context if available to access the property value
-       */
-      oContext?: object
-    ): any;
-    /**
-     * Returns the pending changes in this model.
-     *
-     * Only changes triggered through {@link #createEntry} or {@link #setProperty}, and tree hierarchy changes
-     * are taken into account. Changes are returned as a map from the changed entity's key to an object containing
-     * the changed properties. A node removed from a tree hierarchy has the empty object as value in this map;
-     * all other pending entity deletions are not contained in the map.
-     * See:
-     * 	#hasPendingChanges
-     * 	#resetChanges
-     *
-     *
-     * @returns The map of pending changes
-     */
-    getPendingChanges(): Record<string, object>;
-    /**
-     * Returns the value for the property with the given `sPath`. Since 1.100, a path starting with "@$ui5."
-     * which represents an instance annotation is supported. The following instance annotations are allowed;
-     * they return information on the given oContext, which must be set and be an {@link sap.ui.model.odata.v2.Context}:
-     *
-     * 	 - `@$ui5.context.isInactive`: The return value of {@link sap.ui.model.odata.v2.Context#isInactive }
-     *
-     * 	 - `@$ui5.context.isTransient`: The return value of {@link sap.ui.model.odata.v2.Context#isTransient }
-     *
-     *
-     *
-     * @returns Value of the property
-     */
-    getProperty(
-      /**
-       * Path/name of the property
-       */
-      sPath: string,
-      /**
-       * Context if available to access the property value
-       */
-      oContext?: object,
-      /**
-       * Deprecated, use {@link #getObject} function with 'select' and 'expand' parameters instead. Whether entities
-       * for navigation properties of this property which have been read via `$expand` are part of the return
-       * value.
-       */
-      bIncludeExpandEntries?: boolean
-    ): any;
-    /**
-     * Whether all affected bindings are refreshed after a change operation.
-     *
-     * This flag can be overruled on request level by providing the `refreshAfterChange` parameter to the corresponding
-     * function (for example {@link #update}).
-     *
-     * @since 1.46.0
-     *
-     * @returns Whether to automatically refresh after changes
-     */
-    getRefreshAfterChange(): boolean;
-    /**
-     * Returns the current security token if available; triggers a request to fetch the security token if it
-     * is not available.
-     *
-     * @deprecated As of version 1.119.0. use {@link #securityTokenAvailable} instead
-     *
-     * @returns The security token; `undefined` if it is not available
-     */
-    getSecurityToken(): string | undefined;
-    /**
-     * Return the annotation object. Please note that the metadata is loaded asynchronously and this function
-     * might return undefined because the metadata has not been loaded yet. In this case attach to the `annotationsLoaded`
-     * event to get notified when the annotations are available and then call this function.
-     *
-     *
-     * @returns Metadata object
-     */
-    getServiceAnnotations(): object;
-    /**
-     * Return the parsed XML metadata as a Javascript object.
-     *
-     * Please note that the metadata is loaded asynchronously and this function might return `undefined` because
-     * the metadata has not been loaded yet. In this case attach to the `metadataLoaded` event to get notified
-     * when the metadata is available and then call this function.
-     *
-     *
-     * @returns Metadata object
-     */
-    getServiceMetadata(): Object | undefined;
-    /**
-     * Returns this model's base URI of the data service (as defined by the "serviceUrl" model parameter; see
-     * {@link #constructor}), without query options.
-     *
-     * @since 1.130.0
-     *
-     * @returns The service's base URI without query options
-     */
-    getServiceUrl(): string;
-    /**
-     * Checks if there exist pending changes in the model.
-     *
-     * By default, only client data changes triggered through {@link #createEntry} or {@link #setProperty},
-     * and tree hierarchy changes are taken into account.
-     *
-     * If `bAll` is set to `true`, also deferred requests triggered through {@link #create}, {@link #update},
-     * and {@link #remove} are taken into account.
-     * See:
-     * 	#getPendingChanges
-     * 	#resetChanges
-     *
-     *
-     * @returns `true` if there are pending changes, `false` otherwise.
-     */
-    hasPendingChanges(
-      /**
-       * If set to true, deferred requests are also taken into account.
-       */
-      bAll?: boolean
-    ): boolean;
-    /**
-     * Checks if there are pending requests, either ongoing or sequential.
-     *
-     *
-     * @returns Whether there are pending requests
-     */
-    hasPendingRequests(): boolean;
-    /**
-     * Invalidate the model data.
-     *
-     * Mark all entries in the model cache as invalid. Next time a context or list is bound (binding), the respective
-     * entries will be detected as invalid and will be refreshed from the server.
-     *
-     * To refresh all model data use {@link sap.ui.model.odata.v2.ODataModel#refresh}
-     *
-     * @since 1.52.1
-     */
-    invalidate(
-      /**
-       * A function which can be used to restrict invalidation to specific entries, gets the entity key and object
-       * as parameters and should return true for entities to invalidate.
-       */
-      fnCheckEntry?: Function
-    ): void;
-    /**
-     * Invalidate all entries of the given entity type in the model data.
-     *
-     * Mark entries of the provided entity type in the model cache as invalid. Next time a context binding or
-     * list binding is done, the entry will be detected as invalid and will be refreshed from the server.
-     *
-     * @since 1.52.1
-     */
-    invalidateEntityType(
-      /**
-       * The qualified name of the entity type. A qualified name consists of two parts separated by a dot. The
-       * first part is the namespace of the schema in which the entity type is defined, such as "NorthwindModel".
-       * The second part is the entity type name such as "Customer". This results in a qualified name such as
-       * "NorthwindModel.Customer". The qualified name can be found in the data sent from the server in JSON format
-       * under `__metadata.type` or in XML format in the `term` attribute of the entity's `category` tag.
-       */
-      sEntityType: string
-    ): void;
-    /**
-     * Invalidate a single entry in the model data.
-     *
-     * Mark the selected entry in the model cache as invalid. Next time a context binding or list binding is
-     * done, the entry will be detected as invalid and will be refreshed from the server.
-     *
-     * @since 1.52.1
-     */
-    invalidateEntry(
-      /**
-       * the reference to the entry, either by key, absolute path or context object
-       */
-      vEntry: string | Context
-    ): void;
-    /**
-     * Checks whether metadata loading has failed in the past.
-     *
-     * @since 1.38
-     *
-     * @returns Whether metadata request has failed
-     */
-    isMetadataLoadingFailed(): boolean;
-    /**
-     * Checks whether the service has set the OData V2 annotation "message-scope-supported" on the `EntityContainer`
-     * with the value `true`. This is a a precondition for the setting of {@link sap.ui.model.odata.MessageScope.BusinessObject }
-     * via {@link #setMessageScope}.
-     * See:
-     * 	sap.ui.model.odata.MessageScope
-     *
-     * @since 1.76.0
-     *
-     * @returns A promise resolving with `true` if the OData V2 annotation "message-scope-supported" on the
-     * `EntityContainer` is set to `true`
-     */
-    messageScopeSupported(): Promise<any>;
-    /**
-     * Returns a promise for the loaded state of the metadata.
-     *
-     * The metadata needs to be loaded prior to performing OData calls. Chaining to the returned promise ensures
-     * that all required parameters have been loaded, e.g. the security token, see {@link #getSecurityToken}.
-     *
-     * The returned promise depends on the optional parameter `bRejectOnFailure`.
-     *
-     * `bRejectOnFailure=false`: The promise won't get rejected in case the metadata or annotation loading failed
-     * but is only resolved if
-     * 	 - the metadata are loaded successfully,
-     * 	 - the annotations are processed, provided the model parameter `loadAnnotationsJoined` has been set.
-     *      Use this promise for delaying OData calls until all required information is available, i.e. this
-     *     promise is resolved.
-     *
-     * `bRejectOnFailure=true`: Since 1.79, the parameter `bRejectOnFailure` allows to request a promise that
-     * is rejected when one of the following fails:
-     * 	 - the loading of the metadata,
-     * 	 - the loading of the annotations, provided the model parameter `loadAnnotationsJoined` has been set.
-     *      The promise is fulfilled upon successful loading of both. This promise can be used to start processing
-     *     OData calls when it is fulfilled and to display an error message when it is rejected. See also the example
-     *     below.
-     *
-     * If the method `refreshMetadata` is called after the returned promise is already resolved or rejected,
-     * you should use the promise returned by `refreshMetadata` to get information about the refreshed state.
-     *
-     * @since 1.30
-     *
-     * @returns A promise on metadata loaded state
-     */
-    metadataLoaded(
-      /**
-       * Determines since 1.79 whether the returned promise is rejected when the initial loading of the metadata
-       * fails. In case the model parameter `loadAnnotationsJoined` is set, the returned promise fails also if
-       * loading the annotations fails.
-       */
-      bRejectOnFailure?: boolean
-    ): Promise<any>;
-    /**
-     * Trigger a `GET` request to the OData service that was specified in the model constructor.
-     *
-     * The data will be stored in the model. The requested data is returned with the response.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request.
-     */
-    read(
-      /**
-       * An absolute path or a path relative to the context given in `mParameters.context`; if the path contains
-       * a query string, the query string is ignored, use `mParameters.urlParameters` instead
-       */
-      sPath: string,
-      /**
-       * Optional parameter map containing any of the following properties:
-       */
-      mParameters?: {
-        /**
-         * If specified, `sPath` has to be relative to the path given with the context.
-         */
-        context?: object;
-        /**
-         * A map containing the parameters that will be passed as query strings
-         */
-        urlParameters?: Record<string, string>;
-        /**
-         * An array of filters to be included in the request URL
-         */
-        filters?: Filter[];
-        /**
-         * An array of sorters to be included in the request URL
-         */
-        sorters?: Sorter[];
-        /**
-         * A callback function which is called when the data has been successfully retrieved. The handler can have
-         * the following parameters: `oData` and `response`. The `oData` parameter contains the data of the retrieved
-         * data. The `response` parameter contains further information about the response of the request.
-         */
-        success?: Function;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information. If the `GET` request has been aborted, the error has an
-         * `aborted` flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * Whether messages for child entities belonging to the same business object as the requested or changed
-         * resources are updated. It is considered only if {@link sap.ui.model.odata.MessageScope.BusinessObject }
-         * is set using {@link #setMessageScope} and if the OData service supports message scope.
-         */
-        updateAggregatedMessages?: boolean;
-      }
-    ): object;
-    /**
-     * Refresh the model.
-     *
-     * This will reload all data stored in the model. This will check all bindings for updated data and update
-     * the controls if data has been changed.
-     *
-     * Note: In contrast to an individual Binding refresh, the model refresh ignores Binding-specific parameters/queries.
-     */
-    refresh(
-      /**
-       * Force update of controls
-       */
-      bForceUpdate?: boolean,
-      /**
-       * If set to `true` then the model data will be removed/cleared. Please note that the data might not be
-       * there when calling e.g. `getProperty` too early before the refresh call returned.
-       */
-      bRemoveData?: boolean,
-      /**
-       * ID of a request group; requests belonging to the same group will be bundled in one batch request
-       */
-      sGroupId?: string
-    ): void;
-    /**
-     * Refreshes the metadata for this model, for example when the request for metadata has failed. Returns
-     * a new promise which can be resolved or rejected depending on the metadata loading state.
-     *
-     * @deprecated As of version 1.42. this API may cause data inconsistencies and should not be used.
-     *
-     * @returns A promise on metadata loaded state or `undefined` if metadata is not initialized or currently
-     * refreshed
-     */
-    refreshMetadata(): Promise<any> | undefined;
-    /**
-     * Refresh XSRF token by performing a GET request against the service root URL.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request.
-     */
-    refreshSecurityToken(
-      /**
-       * Callback function which is called when the data has been successfully retrieved.
-       */
-      fnSuccess?: Function,
-      /**
-       * Callback function which is called when the request failed. The handler can have the parameter: oError
-       * which contains additional error information.
-       */
-      fnError?: Function,
-      /**
-       * Whether the request should be sent asynchronously
-       */
-      bAsync?: boolean
-    ): object;
-    /**
-     * Trigger a `DELETE` request to the OData service that was specified in the model constructor.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request.
-     */
-    remove(
-      /**
-       * A string containing the path to the data that should be removed. The path is concatenated to the service
-       * URL which was specified in the model constructor.
-       */
-      sPath: string,
-      /**
-       * Optional, can contain the following attributes:
-       */
-      mParameters?: {
-        /**
-         * If specified, `sPath` has to be relative to the path given with the context.
-         */
-        context?: object;
-        /**
-         * A callback function which is called when the data has been successfully retrieved. The handler can have
-         * the following parameters: `oData` and `response`.
-         */
-        success?: Function;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information. If the `DELETE` request has been aborted, the error has
-         * an `aborted` flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * If specified, the `If-Match` header will be set to this ETag.
-         */
-        eTag?: string;
-        /**
-         * A map containing the parameters that will be passed as query strings
-         */
-        urlParameters?: Record<string, string>;
-        /**
-         * A map of headers for this request
-         */
-        headers?: Record<string, string>;
-        /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation, see {@link #setRefreshAfterChange}.
-         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
-         */
-        refreshAfterChange?: boolean;
-      }
-    ): object;
-    /**
-     * Resets pending changes and aborts corresponding requests.
-     *
-     * By default, only changes triggered through {@link #createEntry} or {@link #setProperty}, and tree hierarchy
-     * changes are taken into account. If `bAll` is set, also deferred requests triggered through {@link #create},
-     * {@link #update} or {@link #remove} are taken into account.
-     *
-     * With a given `aPath` only specified entities are reset. Note that tree hierarchy changes are only affected
-     * if a given path is equal to the tree binding's resolved binding path.
-     *
-     * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created by
-     * one of the following methods:
-     * 	 - {@link #createEntry}, provided it is not yet persisted in the back end and is active (see {@link sap.ui.model.odata.v2.Context#isInactive}),
-     *
-     * 	 - {@link #callFunction}.
-     * See:
-     * 	#getPendingChanges
-     * 	#hasPendingChanges
-     *
-     *
-     * @returns Resolves when all regarded changes have been reset.
-     */
-    resetChanges(
-      /**
-       * Paths to be reset; if no array is passed, all changes are reset
-       */
-      aPath?: string[],
-      /**
-       * Whether also deferred requests are taken into account so that they are aborted
-       */
-      bAll?: boolean,
-      /**
-       * Whether to delete the entities created via {@link #createEntry} or {@link #callFunction}; since 1.95.0
-       */
-      bDeleteCreatedEntities?: boolean
-    ): Promise<any>;
-    /**
-     * Returns a promise, which will resolve with the security token as soon as it is available.
-     *
-     *
-     * @returns A promise on the security token
-     */
-    securityTokenAvailable(): Promise<any>;
-    /**
-     * Definition of batch groups per entity type for two-way binding changes.
-     *
-     * @deprecated As of version 1.32. Use {@link #setChangeGroups} instead
-     */
-    setChangeBatchGroups(
-      /**
-       * A map containing the definition of batch groups for two-way binding changes, see {@link #setChangeGroups}
-       */
-      mGroups: Record<string, ChangeGroupDefinition>
-    ): void;
-    /**
-     * Definition of groups per entity type for two-way binding changes. **Note:** This will overwrite the existing
-     * change group definition, including the default `{"*":{groupId: "changes"}}`.
-     */
-    setChangeGroups(
-      /**
-       * Maps an entity name to the definition of the batch group for two-way binding changes; use "*" as entity
-       * name to define a default for all entities not contained in the map
-       */
-      mGroups: Record<string, ChangeGroupDefinition>
-    ): void;
-    /**
-     * Sets the default mode how to retrieve the item count for a collection in this model.
-     *
-     * The count can be determined in the following ways
-     * 	 - by sending a separate `$count` request
-     * 	 - by adding parameter `$inlinecount=allpages` to one or all data requests
-     * 	 - a combination of the previous two
-     * 	 - not at all (questions about the size of the collection can't be answered then)  See {@link sap.ui.model.odata.CountMode }
-     *     for all enumeration values and more details.
-     *
-     * Note that a call to this method does not modify the count mode for existing list bindings, only bindings
-     * that are created afterwards will use the new mode when no mode is defined at their creation.
-     *
-     * If no default count mode is set for an `ODataModel` (v2), the mode `Request` will be used.
-     *
-     * @since 1.20
-     */
-    setDefaultCountMode(
-      /**
-       * The new default count mode for this model
-       */
-      sCountMode: CountMode | keyof typeof CountMode
-    ): void;
-    /**
-     * Setting batch groups as deferred.
-     *
-     * Requests that belong to a deferred batch group have to be sent by explicitly calling {@link #submitChanges}.
-     *
-     * @deprecated As of version 1.32. use {@link #setDeferredGroups} instead
-     */
-    setDeferredBatchGroups(
-      /**
-       * Array of batch group IDs that should be set as deferred
-       */
-      aGroupIds: any[]
-    ): void;
-    /**
-     * Setting request groups as deferred. **Note:** This will overwrite existing deferred groups, including
-     * the default deferred group "changes".
-     *
-     * Requests that belong to a deferred group will be sent by explicitly calling {@link #submitChanges}.
-     */
-    setDeferredGroups(
-      /**
-       * The array of deferred group IDs; the default is: `["changes"]`
-       */
-      aGroupIds: any[]
-    ): void;
-    /**
-     * Set custom headers which are provided in a key/value map.
-     *
-     * These headers are used for requests against the OData backend. Private headers which are set in the ODataModel
-     * cannot be modified. These private headers are: `accept, accept-language, x-csrf-token, MaxDataServiceVersion,
-     * DataServiceVersion`.
-     *
-     * To remove these custom headers simply set the `mHeaders` parameter to null. Please also note that when
-     * calling this method again, all previous custom headers are removed unless they are specified again in
-     * the `mHeaders` parameter.
-     */
-    setHeaders(
-      /**
-       * The header name/value map.
-       */
-      mHeaders: object
-    ): void;
-    /**
-     * Sets this model's message scope.
-     * See:
-     * 	sap.ui.model.odata.MessageScope
-     *
-     * @since 1.76.0
-     */
-    setMessageScope(
-      /**
-       * The message scope
-       */
-      sMessageScope: MessageScope | keyof typeof MessageScope
-    ): void;
-    /**
-     * Sets a new value for the given property `sPath` in the model.
-     *
-     * If the `changeBatchGroup` for the changed entity type is set to {@link #setDeferredGroups deferred},
-     * changes could be submitted with {@link #submitChanges}. Otherwise the change will be submitted directly.
-     *
-     *
-     * @returns `true` if the value was set correctly and `false` if errors occurred like the entry was not
-     * found or another entry was already updated.
-     */
-    setProperty(
-      /**
-       * Path of the property to set
-       */
-      sPath: string,
-      /**
-       * Value to set the property to
-       */
-      oValue: any,
-      /**
-       * The context which will be used to set the property
-       */
-      oContext?: Context,
-      /**
-       * Whether to update other bindings dependent on this property asynchronously
-       */
-      bAsyncUpdate?: boolean
-    ): boolean;
-    /**
-     * Defines whether all affected bindings are refreshed after a change operation.
-     *
-     * This flag can be overruled on request level by providing the `refreshAfterChange` parameter to the corresponding
-     * function (for example {@link #update}).
-     *
-     * @since 1.16.3
-     */
-    setRefreshAfterChange(
-      /**
-       * Whether to automatically refresh after changes
-       */
-      bRefreshAfterChange: boolean
-    ): void;
-    /**
-     * Enable/Disable security token handling.
-     */
-    setTokenHandlingEnabled(
-      /**
-       * Whether to use token handling or not
-       */
-      bTokenHandling?: boolean
-    ): void;
-    /**
-     * Enable or disable batch mode for future requests.
-     */
-    setUseBatch(
-      /**
-       * Whether the requests should be encapsulated in a batch request
-       */
-      bUseBatch?: boolean
-    ): void;
-    /**
-     * Submits the collected changes which were collected by the {@link #setProperty} method and other deferred
-     * requests.
-     *
-     * The update method is defined by the global `defaultUpdateMethod` parameter which is `sap.ui.model.odata.UpdateMethod.MERGE`
-     * by default. In case of a `sap.ui.model.odata.UpdateMethod.MERGE` request only the changed properties
-     * will be updated. If a URI with a `$expand` query option was used then the expand entries will be removed
-     * from the collected changes. Changes to this entries should be done on the entry itself. So no deep updates
-     * are supported.
-     *
-     * **Important**: The success/error handler will only be called if batch support is enabled. If multiple
-     * batch groups are submitted the handlers will be called for every batch group. If there are no changes/requests
-     * or all contained requests are aborted before a batch request returns, the success handler will be called
-     * with an empty response object. If the abort method on the return object is called, all contained batch
-     * requests will be aborted and the error handler will be called for each of them.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request or requests
-     */
-    submitChanges(
-      /**
-       * A map which contains the following parameter properties:
-       */
-      mParameters?: {
-        /**
-         * Defines the group that should be submitted. If not specified, all deferred groups will be submitted.
-         * Requests belonging to the same group will be bundled in one batch request.
-         */
-        groupId?: string;
-        /**
-         * A callback function which is called when the data has been successfully updated. The handler can have
-         * the following parameters: `oData`. `oData` contains the parsed response data as a Javascript object.
-         * The batch response is in the `__batchResponses` property which may contain further `__changeResponses`
-         * in an array depending on the amount of changes and change sets of the actual batch request which was
-         * sent to the backend. The changeResponses contain the actual response of that change set in the `response`
-         * property. For each change set there is also a `__changeResponse` property.
-         */
-        success?: Function;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter: `oError`
-         * which contains additional error information. If all contained requests have been aborted, the error has
-         * an `aborted` flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * **Deprecated**, use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * **Deprecated** since 1.38.0; use the `defaultUpdateMethod` constructor parameter instead. If unset, the
-         * update method is determined from the `defaultUpdateMethod` constructor parameter. If `true`, `sap.ui.model.odata.UpdateMethod.MERGE`
-         * is used for update operations; if set to `false`, `sap.ui.model.odata.UpdateMethod.PUT` is used.
-         */
-        merge?: boolean;
-      }
-    ): object;
-    /**
-     * Trigger a `PUT/MERGE` request to the OData service that was specified in the model constructor.
-     *
-     * The update method used is defined by the global `defaultUpdateMethod` parameter which is `sap.ui.model.odata.UpdateMethod.MERGE`
-     * by default. Please note that deep updates are not supported and may not work. These should be done separately
-     * and directly on the corresponding entry.
-     *
-     *
-     * @returns An object which has an `abort` function to abort the current request.
-     */
-    update(
-      /**
-       * A string containing the path to the data that should be updated. The path is concatenated to the sServiceUrl
-       * which was specified in the model constructor.
-       */
-      sPath: string,
-      /**
-       * Data of the entry that should be updated.
-       */
-      oData: object,
-      /**
-       * Optional, can contain the following attributes:
-       */
-      mParameters?: {
-        /**
-         * If specified the sPath has to be is relative to the path given with the context.
-         */
-        context?: object;
-        /**
-         * A callback function which is called when the data has been successfully updated.
-         */
-        success?: Function;
-        /**
-         * A callback function which is called when the request failed. The handler can have the parameter `oError`
-         * which contains additional error information. If the `PUT/MERGE` request has been aborted, the error has
-         * an `aborted` flag set to `true`.
-         */
-        error?: Function;
-        /**
-         * If specified, the `If-Match` header will be set to this ETag. Caution: This feature in not officially
-         * supported as using asynchronous requests can lead to data inconsistencies. If you decide to use this
-         * feature nevertheless, you have to make sure that the request is completed before the data is processed
-         * any further.
-         */
-        eTag?: string;
-        /**
-         * A map containing the parameters that will be passed as query strings
-         */
-        urlParameters?: Record<string, string>;
-        /**
-         * A map of headers for this request
-         */
-        headers?: Record<string, string>;
-        /**
-         * Deprecated - use `groupId` instead
-         */
-        batchGroupId?: string;
-        /**
-         * ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * Since 1.46; defines whether to update all bindings after submitting this change operation. See {@link #setRefreshAfterChange}.
-         * If given, this overrules the model-wide `refreshAfterChange` flag for this operation only.
-         */
-        refreshAfterChange?: boolean;
-      }
-    ): object;
-    /**
-     * Update all bindings.
-     */
-    updateBindings(
-      /**
-       * If set to `false`, an update will only be done when the value of a binding changed.
-       */
-      bForceUpdate?: boolean
-    ): void;
-  }
-  /**
-   * Definition of a change group.
-   */
-  export type ChangeGroupDefinition = {
-    /**
-     * The ID of the batch group
-     */
-    groupId: string;
-    /**
-     * The ID of a change set which bundles the changes for the entity type
-     */
-    changeSetId?: string;
-    /**
-     * Defines whether every change is put in a change set of its own
-     */
-    single?: boolean;
-  };
-
-  /**
-   * Parameters of the ODataModel#annotationsFailed event.
-   */
-  export interface ODataModel$AnnotationsFailedEventParameters {
-    /**
-     * An array of Errors
-     */
-    result?: Error[];
-  }
-
-  /**
-   * Event object of the ODataModel#annotationsFailed event.
-   */
-  export type ODataModel$AnnotationsFailedEvent = Event<
-    ODataModel$AnnotationsFailedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#annotationsLoaded event.
-   */
-  export interface ODataModel$AnnotationsLoadedEventParameters {
-    /**
-     * An array consisting of one or several annotation sources and/or errors containing a source property and
-     * error details.
-     */
-    result?: Source[];
-  }
-
-  /**
-   * Event object of the ODataModel#annotationsLoaded event.
-   */
-  export type ODataModel$AnnotationsLoadedEvent = Event<
-    ODataModel$AnnotationsLoadedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#batchRequestCompleted event.
-   */
-  export interface ODataModel$BatchRequestCompletedEventParameters {
-    /**
-     * The request ID
-     */
-    ID?: string;
-
-    /**
-     * The URL which is sent to the backend
-     */
-    url?: string;
-
-    /**
-     * The HTTP method
-     */
-    method?: string;
-
-    /**
-     * The request headers
-     */
-    headers?: Record<string, string>;
-
-    /**
-     * Request was successful or not
-     */
-    success?: boolean;
-
-    /**
-     * If the request is synchronous or asynchronous (if available)
-     */
-    async?: boolean;
-
-    /**
-     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
-     * url, method, headers, response object
-     */
-    requests?: any[];
-
-    /**
-     * The response object - empty object if no response: The response object contains the following properties:
-     * message, success, headers, statusCode, statusText, responseText
-     */
-    response?: object;
-  }
-
-  /**
-   * Event object of the ODataModel#batchRequestCompleted event.
-   */
-  export type ODataModel$BatchRequestCompletedEvent = Event<
-    ODataModel$BatchRequestCompletedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#batchRequestFailed event.
-   */
-  export interface ODataModel$BatchRequestFailedEventParameters {
-    /**
-     * The request ID
-     */
-    ID?: string;
-
-    /**
-     * The URL which is sent to the backend
-     */
-    url?: string;
-
-    /**
-     * The HTTP method
-     */
-    method?: string;
-
-    /**
-     * The request headers
-     */
-    headers?: Record<string, string>;
-
-    /**
-     * If the request is synchronous or asynchronous (if available)
-     */
-    async?: boolean;
-
-    /**
-     * Request was successful or not
-     */
-    success?: boolean;
-
-    /**
-     * The response object - empty object if no response The response object contains the following properties:
-     * message, success, headers, statusCode, statusText, responseText
-     */
-    response?: object;
-
-    /**
-     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
-     * url, method, headers, response object
-     */
-    requests?: any[];
-  }
-
-  /**
-   * Event object of the ODataModel#batchRequestFailed event.
-   */
-  export type ODataModel$BatchRequestFailedEvent = Event<
-    ODataModel$BatchRequestFailedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#batchRequestSent event.
-   */
-  export interface ODataModel$BatchRequestSentEventParameters {
-    /**
-     * The URL which is sent to the backend
-     */
-    url?: string;
-
-    /**
-     * The type of the request (if available)
-     */
-    type?: string;
-
-    /**
-     * If the request is synchronous or asynchronous (if available)
-     */
-    async?: boolean;
-
-    /**
-     * Array of embedded requests ($batch) Each request object within the array contains the following properties:
-     * url, method, headers
-     */
-    requests?: any[];
-  }
-
-  /**
-   * Event object of the ODataModel#batchRequestSent event.
-   */
-  export type ODataModel$BatchRequestSentEvent = Event<
-    ODataModel$BatchRequestSentEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#metadataFailed event.
-   */
-  export interface ODataModel$MetadataFailedEventParameters {
-    /**
-     * The parsed metadata
-     */
-    metadata?: string;
-
-    /**
-     * A text that describes the failure.
-     */
-    message?: string;
-
-    /**
-     * HTTP status code returned by the request (if available)
-     */
-    statusCode?: string;
-
-    /**
-     * The status as a text, details not specified, intended only for diagnosis output
-     */
-    statusText?: string;
-
-    /**
-     * Response that has been received for the request, as a text string
-     */
-    responseText?: string;
-
-    /**
-     * The response object - empty object if no response
-     */
-    response?: object;
-  }
-
-  /**
-   * Event object of the ODataModel#metadataFailed event.
-   */
-  export type ODataModel$MetadataFailedEvent = Event<
-    ODataModel$MetadataFailedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#metadataLoaded event.
-   */
-  export interface ODataModel$MetadataLoadedEventParameters {
-    /**
-     * The parsed metadata
-     */
-    metadata?: string;
-  }
-
-  /**
-   * Event object of the ODataModel#metadataLoaded event.
-   */
-  export type ODataModel$MetadataLoadedEvent = Event<
-    ODataModel$MetadataLoadedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#requestCompleted event.
-   */
-  export interface ODataModel$RequestCompletedEventParameters
-    extends Model$RequestCompletedEventParameters {
-    /**
-     * The request ID
-     */
-    ID?: string;
-
-    /**
-     * The HTTP method
-     */
-    method?: string;
-
-    /**
-     * The request headers
-     */
-    headers?: Record<string, string>;
-
-    /**
-     * The response object - empty object if no response: The response object contains the following properties:
-     * message, success, headers, statusCode, statusText, responseText
-     */
-    response?: object;
-  }
-
-  /**
-   * Event object of the ODataModel#requestCompleted event.
-   */
-  export type ODataModel$RequestCompletedEvent = Event<
-    ODataModel$RequestCompletedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#requestFailed event.
-   */
-  export interface ODataModel$RequestFailedEventParameters
-    extends Model$RequestFailedEventParameters {
-    /**
-     * The request ID
-     */
-    ID?: string;
-
-    /**
-     * The URL which is sent to the backend
-     */
-    url?: string;
-
-    /**
-     * The HTTP method
-     */
-    method?: string;
-
-    /**
-     * The request headers
-     */
-    headers?: Record<string, string>;
-
-    /**
-     * If the request is synchronous or asynchronous (if available)
-     */
-    async?: boolean;
-
-    /**
-     * Request was successful or not
-     */
-    success?: boolean;
-
-    /**
-     * The response object - empty object if no response The response object contains the following properties:
-     * message, success, headers, statusCode, statusText, responseText
-     */
-    response?: object;
-  }
-
-  /**
-   * Event object of the ODataModel#requestFailed event.
-   */
-  export type ODataModel$RequestFailedEvent = Event<
-    ODataModel$RequestFailedEventParameters,
-    ODataModel
-  >;
-
-  /**
-   * Parameters of the ODataModel#requestSent event.
-   */
-  export interface ODataModel$RequestSentEventParameters
-    extends Model$RequestSentEventParameters {
-    /**
-     * The request ID
-     */
-    ID?: string;
-
-    /**
-     * The HTTP method
-     */
-    method?: string;
-
-    /**
-     * The request headers
-     */
-    headers?: Record<string, string>;
-  }
-
-  /**
-   * Event object of the ODataModel#requestSent event.
-   */
-  export type ODataModel$RequestSentEvent = Event<
-    ODataModel$RequestSentEventParameters,
-    ODataModel
   >;
 }
 
@@ -71402,7 +71457,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @returns A promise which is resolved without a defined result when the entity represented by this context
      * has been created in the back end. It is rejected with an `Error` instance where `oError.canceled ===
-     * true` if the transient entity is deleted before it is created in the back end, for example via {@link sap.ui.model.odata.v4.Context#delete},
+     * true` if the transient entity is deleted before it is created in the back end, for example via {@link #delete},
      * {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges} or {@link sap.ui.model.odata.v4.ODataModel#resetChanges},
      * and for all nested contexts within a deep create. It is rejected with an `Error` instance without `oError.canceled`
      * if loading of $metadata fails. Returns `undefined` if the context has not been created using {@link sap.ui.model.odata.v4.ODataListBinding#create}.
@@ -71844,7 +71899,7 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Returns a promise on the value for the given path relative to this context. The function allows access
      * to the complete data the context points to (if `sPath` is "") or any part thereof. The data is a JSON
-     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
+     * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link #setProperty}.
      *
      * The header context of a list binding only delivers `$count` and `@$ui5.context.isSelected` (wrapped in
      * an object if `sPath` is "").
@@ -72007,8 +72062,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     ): Promise<void>;
     /**
      * Resets all property changes, created entities, and entity deletions of this context. Resets also invalid
-     * user input and inactive contexts which had their activation prevented (see {@link sap.ui.model.odata.v4.Context#isInactive}).
-     * This function does not reset the invocation of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#invoke}).
+     * user input and inactive contexts which had their activation prevented (see {@link #isInactive}). This
+     * function does not reset the invocation of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#invoke}).
      * For a context which is currently {@link #delete deleted} on the client, but not yet on the server, this
      * method cancels the deletion and restores the context.
      * See:
@@ -72536,11 +72591,10 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     invoke(
       /**
        * The group ID to be used for the request; if not specified, the group ID for this binding is used, see
-       * {@link sap.ui.model.odata.v4.ODataContextBinding#constructor} and {@link #getGroupId}. To use the update
-       * group ID, see {@link #getUpdateGroupId}, it needs to be specified explicitly. Valid values are `undefined`,
-       * '$auto', '$auto.*', '$direct', '$single', or application group IDs as specified in {@link sap.ui.model.odata.v4.ODataModel}.
-       * If '$single' is used, the request will be sent as fast as '$direct', but wrapped in a batch request like
-       * '$auto' (since 1.121.0).
+       * {@link #constructor} and {@link #getGroupId}. To use the update group ID, see {@link #getUpdateGroupId},
+       * it needs to be specified explicitly. Valid values are `undefined`, '$auto', '$auto.*', '$direct', '$single',
+       * or application group IDs as specified in {@link sap.ui.model.odata.v4.ODataModel}. If '$single' is used,
+       * the request will be sent as fast as '$direct', but wrapped in a batch request like '$auto' (since 1.121.0).
        */
       sGroupId?: string,
       /**
@@ -73105,9 +73159,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * Create an inactive context. Such a context will only be sent to the server after the first property update.
        * From then on it behaves like any other created context. Supported since 1.97.0
        *  Since 1.98.0, when the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive inactive }
-       * and the {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate 'createActivate'} event is
-       * fired. While inactive, it does not count as a {@link #hasPendingChanges pending change} and does not
-       * contribute to the {@link #getCount count}.
+       * and the {@link #event:createActivate 'createActivate'} event is fired. While inactive, it does not count
+       * as a {@link #hasPendingChanges pending change} and does not contribute to the {@link #getCount count}.
        */
       bInactive?: boolean
     ): Context;
@@ -73460,9 +73513,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @since 1.66.0
      *
      * @returns mQueryOptions The object with the query options. Query options can be provided with {@link sap.ui.model.odata.v4.ODataModel#bindList},
-     * {@link sap.ui.model.odata.v4.ODataModel#bindContext}, {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters},
-     * and {@link sap.ui.model.odata.v4.ODataContextBinding#changeParameters}. System query options can also
-     * be calculated, e.g. `$filter` can be calculated based on provided filter objects.
+     * {@link sap.ui.model.odata.v4.ODataModel#bindContext}, {@link #changeParameters}, and {@link sap.ui.model.odata.v4.ODataContextBinding#changeParameters}.
+     * System query options can also be calculated, e.g. `$filter` can be calculated based on provided filter
+     * objects.
      */
     getQueryOptions(
       /**
@@ -75247,7 +75300,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $expand?: string | object;
         /**
          * A comma separated list or an array of items which determine the value for the "5.1.3 System Query Option
-         * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor}),
+         * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link #constructor}),
          * paths with navigation properties can be included and will contribute to the "5.1.2 System Query Option
          * $expand".
          */
@@ -75259,7 +75312,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $$canonicalPath?: boolean;
         /**
          * The group ID to be used for **read** requests initiated by this binding; if not specified, either the
-         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
+         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link #constructor}.
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
@@ -75284,7 +75337,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         /**
          * The group ID to be used for **update** requests initiated by this binding; if not specified, either the
          * parent binding's update group ID (if the binding is relative) or the model's update group ID is used,
-         * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. For valid values, see parameter "$$groupId".
+         * see {@link #constructor}. For valid values, see parameter "$$groupId".
          */
         $$updateGroupId?: string;
       }
@@ -75364,7 +75417,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $search?: string;
         /**
          * A comma separated list or an array of items which determine the value for the "5.1.3 System Query Option
-         * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor}),
+         * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link #constructor}),
          * paths with navigation properties can be included and will contribute to the "5.1.2 System Query Option
          * $expand".
          */
@@ -75393,7 +75446,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $$getKeepAliveContext?: boolean;
         /**
          * The group ID to be used for **read** requests initiated by this binding; if not specified, either the
-         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
+         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link #constructor}.
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
@@ -75420,13 +75473,13 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * request instead (@experimental as of version 1.129.0). This results in the main list becoming available
          * faster, while the separate properties are merged as soon as the data is received. Note that the separate
          * properties must be single valued and part of the '$expand' system query option, either automatically
-         * via the "autoExpandSelect" model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor})
-         * or manually. The `$$separate` parameter must not be combined with `$$aggregation`.
+         * via the "autoExpandSelect" model parameter (see {@link #constructor}) or manually. The `$$separate` parameter
+         * must not be combined with `$$aggregation`.
          */
         $$separate?: string[];
         /**
          * Whether multiple bindings for the same resource path share the data, so that it is requested only once.
-         * This parameter can be inherited from the model's parameter "sharedRequests", see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
+         * This parameter can be inherited from the model's parameter "sharedRequests", see {@link #constructor}.
          * Supported since 1.80.0 **Note:** These bindings are read-only, so they may be especially useful for value
          * lists; state messages (since 1.108.0) and the following APIs are **not** allowed
          * 	 for the list binding itself:
@@ -75447,7 +75500,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         /**
          * The group ID to be used for **update** requests initiated by this binding; if not specified, either the
          * parent binding's update group ID (if the binding is relative) or the model's update group ID is used,
-         * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. For valid values, see parameter "$$groupId".
+         * see {@link #constructor}. For valid values, see parameter "$$groupId".
          */
         $$updateGroupId?: string;
       }
@@ -75512,7 +75565,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $search?: string;
         /**
          * The group ID to be used for **read** requests initiated by this binding; if not specified, either the
-         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
+         * parent binding's group ID (if the binding is relative) or the model's group ID is used, see {@link #constructor}.
          * Valid values are `undefined`, '$auto', '$auto.*', '$direct' or application group IDs as specified in
          * {@link sap.ui.model.odata.v4.ODataModel}.
          */
@@ -75738,7 +75791,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     /**
      * Returns the model's group ID.
      * See:
-     * 	sap.ui.model.odata.v4.ODataModel#constructor
+     * 	#constructor
      *
      * @since 1.41.0
      *
@@ -75752,7 +75805,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * See:
      * 	#changeHttpHeaders
      *
-     * @since 1.71
+     * @since 1.71.0
      *
      * @returns The map of HTTP headers
      */
@@ -75889,7 +75942,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     getProperty(): void;
     /**
      * Returns this model's root URL of the service to request data from (as defined by the "serviceUrl" model
-     * parameter, see {@link sap.ui.model.odata.v4.ODataModel#constructor}), without query options.
+     * parameter, see {@link #constructor}), without query options.
      *
      * @since 1.107.0
      *
@@ -75899,7 +75952,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     /**
      * Returns the model's update group ID.
      * See:
-     * 	sap.ui.model.odata.v4.ODataModel#constructor
+     * 	#constructor
      *
      * @since 1.41.0
      *
@@ -75998,7 +76051,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * the same group ID and (since 1.111.0) inactive contexts which had their activation prevented (see {@link sap.ui.model.odata.v4.Context#isInactive}).
      * This function does not reset the invocation of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#invoke}).
      * See:
-     * 	sap.ui.model.odata.v4.ODataModel#constructor
+     * 	#constructor
      * 	#hasPendingChanges
      *
      * @since 1.39.0
@@ -76017,6 +76070,25 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * @since 1.37.0
      */
     setLegacySyntax(): void;
+    /**
+     * Sets a "Retry-After" handler, which is called when an OData request fails with HTTP status 503 (Service
+     * Unavailable) and the response has a "Retry-After" header.
+     *
+     * The handler is called with an `Error` having a property `retryAfter` of type `Date`, which is the earliest
+     * point in time when the request should be repeated. The handler has to return a promise. With this promise,
+     * you can control the repetition of all pending requests including the failed HTTP request. If the promise
+     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated. If it is rejected
+     * with the same `Error` reason as previously passed to the handler, then this reason is reported to the
+     * message model.
+     *
+     * @since 1.134.0
+     */
+    setRetryAfterHandler(
+      /**
+       * A "Retry-After" handler
+       */
+      fnRetryAfter: (p1: Error) => Promise<undefined>
+    ): void;
     /**
      * Submits the requests associated with the given group ID in one batch request. Requests from subsequent
      * calls to this method for the same group ID may be combined in one batch request using separate change
@@ -76428,7 +76500,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     /**
      * Requests the value of the property binding.
      *
-     * @since 1.69
+     * @since 1.69.0
      *
      * @returns A promise resolved with the resulting value or `undefined` if it could not be determined, or
      * rejected in case of an error
@@ -87403,6 +87475,223 @@ declare namespace sap {
             controller?: import("sap/ui/core/mvc/Controller").default;
           }
     ): import("sap/ui/core/mvc/XMLView").default;
+    /**
+     * Provides access to UI5 loader configuration.
+     *
+     * The configuration is used by {@link sap.ui.require} and {@link sap.ui.define}.
+     */
+    namespace loader {
+      /**
+       * Sets the configuration for the UI5 loader. The configuration can be updated multiple times. Later changes
+       * do not impact modules that have been loaded before.
+       *
+       * If no parameter is given, a partial copy of UI5 loader configuration in use is returned.
+       *
+       * The configuration options are aligned with the "Common Config" draft of the AMD spec (https://github.com/amdjs/amdjs-api/blob/master/CommonConfig.md).
+       *
+       * The following code shows an example of what a UI5 loader configuration might look like:
+       * ```javascript
+       *
+       *
+       *   sap.ui.loader.config({
+       *
+       *     // location from where to load all modules by default
+       *     baseUrl: '../../resources/',
+       *
+       *     paths: {
+       *       // load modules whose ID equals to or starts with 'my/module' from example.com
+       *       'my/module': 'https://example.com/resources/my/module'
+       *     },
+       *
+       *     map: {
+       *       // if any module requires 'sinon', load module 'sap/ui/thirdparty/sinon-4'
+       *       '*': {
+       *         'sinon': 'sap/ui/thirdparty/sinon-4'
+       *       },
+       *       // but if a module whose ID equals to or starts with 'app' requires 'sinon'
+       *       // then load a legacy version instead
+       *       "app": {
+       *         'sinon': 'sap/ui/legacy/sinon'
+       *       }
+       *     },
+       *
+       *     // define two bundles that consists of JS modules only
+       *     bundles: {
+       *       bundle1: ['module1', 'module2'],
+       *       bundle2: ['moduleX', 'moduleY']
+       *     },
+       *
+       *     // define a bundle that also contains non-JS resources
+       *     bundlesUI5: {
+       *       'all.js': ['Component.js', 'manifest.json',
+       *                  'App.controller.js', 'App.view.xml']
+       *     },
+       *
+       *     // activate real async loading and module definitions
+       *     async: true,
+       *
+       *     // provide dependency and export metadata for non-UI5 modules
+       *     shim: {
+       *       'sap/ui/thirdparty/blanket': {
+       *         amd: true,
+       *         exports: 'blanket'
+       *       }
+       *     }
+       *
+       *   });
+       *
+       * ```
+       *
+       *
+       * @since 1.56.0
+       *
+       * @returns UI5 loader configuration in use.
+       */
+      function config(
+        /**
+         * The provided configuration gets merged with the UI5 loader configuration in use. If `cfg` is omitted
+         * or `undefined`, a copy of the current configuration gets returned, containing at least the properties
+         * `amd` and `async`.
+         */
+        cfg?: {
+          /**
+           * Default location to load modules from. If none of the configured `paths` prefixes matches a module ID,
+           * the module will be loaded from the concatenation of the `baseUrl` and the module ID.
+           *
+           * If the `baseUrl` itself is a relative URL, it is evaluated relative to `document.baseURI`.
+           */
+          baseUrl?: string;
+          /**
+           * A map of resource locations keyed by a corresponding module ID prefix. When a module is to be loaded,
+           * the longest key in `paths` is searched that is a prefix of the module ID. The module will be loaded from
+           * the concatenation of the corresponding value in `paths` and the remainder of the module ID (after the
+           * prefix). If no entry in `paths` matches, then the module will be loaded from the `baseUrl`.
+           *
+           * The prefixes (keys) must not contain relative segments (./ or ../), a trailing slash will be removed,
+           * and only full name segment matches are considered a match (prefix 'sap/m' does not match a module ID
+           * 'sap/main').
+           *
+           * **Note**: In contrast to the "Common Config" of the AMD spec, the paths (values in the map) are interpreted
+           * relative to `document.baseURI`, not relative to `cfg.baseUrl`.
+           */
+          paths?: Record<string, string>;
+          /**
+           * A map of maps that defines how to map module IDs to other module IDs (inner maps) in the context of a
+           * specific set of modules (keys of outer map).
+           *
+           * Each key of the outer map represents a module ID prefix that describes the context for which its value
+           * (inner map) has to be used. The special key `*` describes the default context which applies for any module.
+           * Only the most specific matching context will be taken into account.
+           *
+           * Each inner map maps a module ID or module ID prefix to another module ID or module ID prefix. Again,
+           * only the most specific match is taken into account and only one mapping is evaluated (the evaluation
+           * of the mappings is not done recursively).
+           *
+           * Matches are always complete matches, a prefix 'a/b/c' does not match the module ID 'a/b/com'.
+           */
+          map?: Record<string, Record<string, string>>;
+          /**
+           * Defines additional metadata for modules for which the normal behavior of the AMD APIs is not sufficient.
+           *
+           * A typical example are scripts that don't use `define` or `sap.ui.define`, but export to a global name.
+           * With the `exports` property, one or more export names can be specified, and the loader can retrieve the
+           * exported value after executing the corresponding module. If such a module has dependencies, they can
+           * be specified in the `deps` array and are loaded and executed before executing the module.
+           *
+           * The `amd` flag of a shim is a ui5loader-specific extension of the standard AMD shims. If set, the ui5loader
+           * hides a currently active AMD loader before executing the module and restores it afterwards. Otherwise,
+           * it might miss the export of third party modules that check for an AMD loader and register with it instead
+           * of exporting to a global name. A future version of the ui5loader might ignore this flag when it acts
+           * as an AMD loader by itself.
+           *
+           * **Note:** The ui5loader does not support the `init` option described by the "Common Config" section of
+           * the AMD spec.
+           */
+          shim?: Record<
+            string,
+            {
+              amd: boolean;
+
+              deps: string[];
+
+              exports: string | string[];
+            }
+          >;
+          /**
+           * A map of arrays that each define the modules contained in a bundle.
+           *
+           * Each key of the map represents the module ID of a bundle file. The array value represents the set of
+           * JavaScript modules (their module IDs) that are contained in the bundle.
+           *
+           * When a module is required that has not been loaded yet, and for which a containing bundle is known, that
+           * bundle will be required first. Only then the original module will be required again and usually be taken
+           * from the just loaded bundle.
+           *
+           * A bundle will be loaded asynchronously only when the loader is in asynchronous mode and when the request
+           * for the contained module originates from an asynchronous API. In all other cases, the bundle has to be
+           * loaded synchronously to fulfill API contracts.
+           *
+           * **Note:** The loader only supports one containing bundle per module. If a module is declared to be part
+           * of multiple bundles, only the last one will be taken into account.
+           *
+           * This configuration option is basically provided to be compatible with requireJS or SystemJS configuration.
+           */
+          bundles?: Record<string, string[]>;
+          /**
+           * A map of arrays that each define the resources contained in a bundle.
+           *
+           * This is similar to `bundles`, but all strings are unified resource names including a file type extension,
+           * not only module IDs. This allows to represent more than just JavaScript modules.
+           *
+           * Each key of the map represents the resource name (in unified resource name syntax) of a bundle file.
+           * The array value represents the set of resources (also in unified resource name syntax) that are contained
+           * in the bundle. The array can contain JavaScript as well as other textual resource types (e.g. *.xml or
+           * *.json resources).
+           *
+           * When a module is required that has not been loaded yet, and for which a containing bundle is known, that
+           * bundle will be required first. Only then the original module will be required again and usually be taken
+           * from the just loaded bundle.
+           *
+           * A bundle will be loaded asynchronously only when the loader is in asynchronous mode and when the request
+           * for the contained module originates from an asynchronous API. In all other cases, the bundle has to be
+           * loaded synchronously to fulfill API contracts.
+           *
+           * **Note:** The loader only supports one containing bundle per module. If a module is declared to be part
+           * of multiple bundles, only the last one will be taken into account.
+           *
+           * **Note:** Although non-JS resources can be declared to be part of a bundle, only requests for JavaScript
+           * modules will currently trigger the loading of a bundle.
+           */
+          bundlesUI5?: Record<string, string[]>;
+          /**
+           * When set to true, `sap.ui.require` loads modules asynchronously via script tags and `sap.ui.define` executes
+           * asynchronously. To enable this feature, it is recommended to set the attribute `data-sap-ui-async="true"`
+           * on the application bootstrap tag.
+           *
+           * **Note:** Switching back from async to sync is not supported and trying to do so will throw an `Error`
+           */
+          async?: boolean;
+          /**
+           * When set to true, the ui5loader will overwrite the global properties `define` and `require` with its
+           * own implementations. Any previously active AMD loader will be remembered internally and can be restored
+           * by setting `amd` to false again.
+           *
+           * **Note:** Switching to the `amd` mode, the ui5loader will set `async` to true implicitly for activating
+           * asynchronous loading. Once the loading behaviour has been defined to be asynchronous, it can not be changed
+           * to synchronous behaviour again, also not via setting `amd` to false.
+           */
+          amd?: boolean;
+        }
+      ):
+        | {
+            amd: boolean;
+
+            async: boolean;
+
+            noConflict: boolean;
+          }
+        | undefined;
+    }
     /**
      * The SAPUI5 Data Binding API.
      *

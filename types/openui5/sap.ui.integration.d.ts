@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -4965,8 +4965,6 @@ declare namespace sap {
     "sap/ui/integration/util/DataProviderFactory": undefined;
 
     "sap/ui/integration/util/ManifestResolver": undefined;
-
-    "sap/ui/integration/util/openCardShowMore": undefined;
 
     "sap/ui/integration/util/RequestDataProvider": undefined;
 

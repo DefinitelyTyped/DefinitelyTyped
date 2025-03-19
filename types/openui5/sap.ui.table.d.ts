@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
