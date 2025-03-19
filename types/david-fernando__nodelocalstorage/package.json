@@ -18,8 +18,8 @@
   "scripts": {
     "test": "tsc --noEmit"
   },
-  "dependencies": {
-    "@types/@david-fernando__nodelocalstorage": "workspace:."
-  },
-  "devDependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/david-fernando__nodelocalstorage": "workspace:."
+  }
 }
