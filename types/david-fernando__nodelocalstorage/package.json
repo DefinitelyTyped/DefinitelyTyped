@@ -1,23 +1,22 @@
 {
+  "private": true,
   "name": "david-fernando__nodelocalstorage",
   "version": "1.0.0",
   "description": "TypeScript definitions for @david-fernando/nodelocalstorage",
-  "license": "MIT",
-  "contributors": [
+  "owners": [
     {
-      "name": "David Fernando",
-      "url": "https://github.com/david-fernando",
-      "githubUsername": "david-fernando"
+        "name": "David Fernando",
+        "githubUsername": "david-fernando"
     }
+  ],
+  "projects": [
+    "https://github.com/@david-fernando/nodelocalstorage"
   ],
   "types": "index.d.ts",
   "files": [
     "index.d.ts",
     "nodelocalstorage-tests.ts"
   ],
-  "scripts": {
-    "test": "tsc --noEmit"
-  },
   "dependencies": {},
   "devDependencies": {
     "@types/david-fernando__nodelocalstorage": "workspace:."
