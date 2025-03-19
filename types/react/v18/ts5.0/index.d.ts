@@ -2969,6 +2969,14 @@ declare namespace React {
          * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     /**
