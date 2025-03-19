@@ -2333,6 +2333,8 @@ declare namespace React {
         // UI Events
         onScroll?: UIEventHandler<T> | undefined;
         onScrollCapture?: UIEventHandler<T> | undefined;
+        onScrollEnd?: UIEventHandler<T> | undefined;
+        onScrollEndCapture?: UIEventHandler<T> | undefined;
 
         // Wheel Events
         onWheel?: WheelEventHandler<T> | undefined;
