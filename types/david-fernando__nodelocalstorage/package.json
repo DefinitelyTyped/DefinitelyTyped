@@ -1,8 +1,7 @@
 {
   "private": true,
-  "name": "david-fernando__nodelocalstorage",
-  "version": "1.0.0",
-  "description": "TypeScript definitions for @david-fernando/nodelocalstorage",
+  "name": "@types/david-fernando__nodelocalstorage",
+  "version": "1.0.9999",
   "owners": [
     {
         "name": "David Fernando",
@@ -11,11 +10,6 @@
   ],
   "projects": [
     "https://github.com/@david-fernando/nodelocalstorage"
-  ],
-  "types": "index.d.ts",
-  "files": [
-    "index.d.ts",
-    "nodelocalstorage-tests.ts"
   ],
   "dependencies": {},
   "devDependencies": {
