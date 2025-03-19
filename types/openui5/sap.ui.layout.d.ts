@@ -1,9 +1,11 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
 
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
+
+  import { CSSGapShortHand } from "sap/ui/core/library";
 
   /**
    * Available Background Design.
@@ -373,7 +375,7 @@ declare module "sap/ui/layout/library" {
      *
      * @since 1.60.0
      */
-    type CSSGridGapShortHand = string;
+    type CSSGridGapShortHand = CSSGapShortHand;
 
     /**
      * A string type that represents one or two grid lines. Used to define the position and size of a single

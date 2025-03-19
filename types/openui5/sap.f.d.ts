@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -165,6 +165,26 @@ declare module "sap/f/library" {
    */
   export interface IDynamicPageStickyContent {
     __implements__sap_f_IDynamicPageStickyContent: boolean;
+  }
+
+  /**
+   * Interface for controls suitable for the `items` aggregation of `{@link sap.f.GridContainer}`.
+   *
+   * Classes implementing this interface should use the accessibility role provided by the `sap.f.IGridContainerItem.getGridItemRole`
+   * method.
+   *
+   * @since 1.134
+   */
+  export interface IGridContainerItem {
+    __implements__sap_f_IGridContainerItem: boolean;
+
+    /**
+     * Returns the accessibility role for the `sap.f.GridContainer` item.
+     *
+     *
+     * @returns The accessibility role for the `sap.f.GridContainer` item
+     */
+    getGridItemRole(): string;
   }
 
   /**
@@ -1459,7 +1479,7 @@ declare module "sap/f/Card" {
 declare module "sap/f/CardBase" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ICard, cards } from "sap/f/library";
+  import { ICard, IGridContainerItem, cards } from "sap/f/library";
 
   import { IBadge } from "sap/m/library";
 
@@ -1474,9 +1494,13 @@ declare module "sap/f/CardBase" {
   /**
    * A base class for controls that represent a container with a predefined header and content.
    */
-  export default class CardBase extends Control implements ICard, IBadge {
+  export default class CardBase
+    extends Control
+    implements ICard, IBadge, IGridContainerItem
+  {
     __implements__sap_f_ICard: boolean;
     __implements__sap_m_IBadge: boolean;
+    __implements__sap_f_IGridContainerItem: boolean;
     /**
      * Constructor for a new `CardBase`.
      *
@@ -1545,7 +1569,8 @@ declare module "sap/f/CardBase" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.f.CardBase` itself.
      *
-     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     * Fired when action is added on card level. *Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`
+     * or the control is placed inside a `sap.f.GridContainer`.
      *
      * @experimental As of version 1.131.
      *
@@ -1572,7 +1597,8 @@ declare module "sap/f/CardBase" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.f.CardBase` itself.
      *
-     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     * Fired when action is added on card level. *Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`
+     * or the control is placed inside a `sap.f.GridContainer`.
      *
      * @experimental As of version 1.131.
      *
@@ -1630,6 +1656,13 @@ declare module "sap/f/CardBase" {
      */
     getFocusDomRef(): Element;
     /**
+     * Returns the accessibility role for the `sap.f.GridContainer` item.
+     *
+     *
+     * @returns The accessibility role for the `sap.f.GridContainer` item
+     */
+    getGridItemRole(): string;
+    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the card.
@@ -1643,7 +1676,8 @@ declare module "sap/f/CardBase" {
     /**
      * Gets current value of property {@link #getSemanticRole semanticRole}.
      *
-     * Defines the role of the Card Header.
+     * Defines the accessibility role of the control. *Note:** When the control is placed inside a `sap.f.GridContainer`,
+     * its accessibility role is overridden by the accessibility role specified by the `sap.f.GridContainer`.
      *
      * Default value is `Region`.
      *
@@ -1684,7 +1718,8 @@ declare module "sap/f/CardBase" {
     /**
      * Sets a new value for property {@link #getSemanticRole semanticRole}.
      *
-     * Defines the role of the Card Header.
+     * Defines the accessibility role of the control. *Note:** When the control is placed inside a `sap.f.GridContainer`,
+     * its accessibility role is overridden by the accessibility role specified by the `sap.f.GridContainer`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1734,7 +1769,10 @@ declare module "sap/f/CardBase" {
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the role of the Card Header.
+     * Defines the accessibility role of the control.
+     *
+     * **Note:** When the control is placed inside a `sap.f.GridContainer`, its accessibility role is overridden
+     * by the accessibility role specified by the `sap.f.GridContainer`.
      *
      * @experimental As of version 1.131.
      */
@@ -1744,7 +1782,10 @@ declare module "sap/f/CardBase" {
       | `{${string}}`;
 
     /**
-     * Fired when action is added on card level. Note: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`.
+     * Fired when action is added on card level.
+     *
+     * **Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem` or the control is
+     * placed inside a `sap.f.GridContainer`.
      *
      * @experimental As of version 1.131.
      */
@@ -11814,6 +11855,9 @@ declare module "sap/f/GridContainer" {
    *
    * All rows have the same height and all columns have the same width. Their sizes can be configured with
    * the use of the `layout` aggregation and `{@link sap.f.GridContainerSettings}`.
+   *
+   * **Note:** To ensure better keyboard and accessibility support, child items should implement `sap.f.IGridContainerItem`
+   * interface.
    *
    * Usage:
    *

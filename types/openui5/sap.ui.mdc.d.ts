@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1630,7 +1630,9 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
         /**
          * Status of the validation as returned via {@link sap.ui.mdc.filterbar.FilterBarBase#checkValidationState checkValidationState}
          */
-        status: FilterBarValidationStatus;
+        status:
+          | FilterBarValidationStatus
+          | keyof typeof FilterBarValidationStatus;
       }
     ): void;
   }
@@ -2522,7 +2524,7 @@ declare module "sap/ui/mdc/util/TypeMap" {
        * Class path as `string` where each name is separated by '.'
        */
       sDataType: string
-    ): (p1: SimpleType) => void;
+    ): new () => SimpleType;
     /**
      * Gets the data type class name for a given name or alias.
      *
@@ -3736,6 +3738,170 @@ declare module "sap/ui/mdc/library" {
         shouldOpenOnNavigate(): boolean;
       }
     }
+  }
+}
+
+declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { IOverflowToolbarContent } from "sap/m/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The action for an {@link sap.ui.mdc.ActionToolbar ActionToolbar} control with given layout information
+   * that determines where the wrapped control is displayed on the `ActionToolbar`.
+   *
+   * @since 1.58
+   */
+  export default class ActionToolbarAction
+    extends Control
+    implements IOverflowToolbarContent
+  {
+    __implements__sap_m_IOverflowToolbarContent: boolean;
+    /**
+     * Constructor for a new ActionToolbarAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $ActionToolbarActionSettings
+    );
+    /**
+     * Constructor for a new ActionToolbarAction.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $ActionToolbarActionSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.actiontoolbar.ActionToolbarAction with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ActionToolbarAction>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.actiontoolbar.ActionToolbarAction.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the action in the aggregation {@link #getAction action}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyAction(): this;
+    /**
+     * Gets content of aggregation {@link #getAction action}.
+     *
+     * The control that is displayed on the `ActionToolbar`.
+     */
+    getAction(): Control;
+    /**
+     * Gets current value of property {@link #getLayoutInformation layoutInformation}.
+     *
+     * Contains the information where the action is displayed on the `ActionToolbar`.
+     *
+     * Default value is `...see text or source`.
+     *
+     *
+     * @returns Value of property `layoutInformation`
+     */
+    getLayoutInformation(): object;
+    /**
+     * Observes changes in `Action` aggregation.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    observeChanges(
+      /**
+       * Changes
+       */
+      oChanges: object
+    ): void;
+    /**
+     * Sets the aggregated {@link #getAction action}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAction(
+      /**
+       * The action to set
+       */
+      oAction: Control
+    ): this;
+    /**
+     * Sets a new value for property {@link #getLayoutInformation layoutInformation}.
+     *
+     * Contains the information where the action is displayed on the `ActionToolbar`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `...see text or source`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setLayoutInformation(
+      /**
+       * New value for property `layoutInformation`
+       */
+      oLayoutInformation?: object
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the ActionToolbarAction constructor.
+   */
+  export interface $ActionToolbarActionSettings extends $ControlSettings {
+    /**
+     * Contains the information where the action is displayed on the `ActionToolbar`.
+     */
+    layoutInformation?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The control that is displayed on the `ActionToolbar`.
+     */
+    action?: Control;
   }
 }
 
@@ -7287,15 +7453,15 @@ declare module "sap/ui/mdc/enums/FilterBarValidationStatus" {
     /**
      * Filter field in error state.
      */
-    FieldInErrorState = "undefined",
+    FieldInErrorState = "FieldInErrorState",
     /**
      * No errors detected.
      */
-    NoError = "undefined",
+    NoError = "NoError",
     /**
      * Required filter field without a value.
      */
-    RequiredHasNoValue = "undefined",
+    RequiredHasNoValue = "RequiredHasNoValue",
   }
   export default FilterBarValidationStatus;
 }
@@ -8028,16 +8194,16 @@ declare module "sap/ui/mdc/enums/OperatorValueType" {
     /**
      * The `Type` of the `Field` or `FilterField` using the `Operator` is used.
      */
-    Self = "self",
+    Self = "Self",
     /**
      * The `Type` of the `Field` or `FilterField` using the `Operator` is used for validation, but the user
      * input is used as value.
      */
-    SelfNoParse = "selfNoParse",
+    SelfNoParse = "SelfNoParse",
     /**
      * A simple string type is used to display static text.
      */
-    Static = "static",
+    Static = "Static",
   }
   export default OperatorValueType;
 }
@@ -8060,7 +8226,7 @@ declare module "sap/ui/mdc/enums/ReasonMode" {
     /**
      * Used if the mentioned reasons are not applicable.
      */
-    Unclear = "",
+    Unclear = "Unclear",
     /**
      * The applied variant is marked as Apply Automatically.
      */
@@ -12902,7 +13068,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Go}`: Search is triggered based on pressing the Go button
      * 	 - `{@link sap.ui.mdc.enums.ReasonMode.Unclear}`: Any other reasons for the search
      */
-    reason?: ReasonMode;
+    reason?: ReasonMode | keyof typeof ReasonMode;
   }
 
   /**
@@ -12915,9 +13081,13 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
 }
 
 declare module "sap/ui/mdc/filterbar/IFilterContainer" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
   import FilterField from "sap/ui/mdc/FilterField";
 
   import Control from "sap/ui/core/Control";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
    * The `IFilterContainer` is the base container for the visualization of the filter items in the {@link sap.ui.mdc.FilterBar FilterBar }
@@ -12925,9 +13095,48 @@ declare module "sap/ui/mdc/filterbar/IFilterContainer" {
    *
    * @since 1.61.0
    */
-  export default class IFilterContainer {
+  export default class IFilterContainer extends UI5Element {
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Element#constructor sap.ui.core.Element }
+     * can be used.
+     */
     constructor();
 
+    /**
+     * Creates a new subclass of class sap.ui.mdc.filterbar.IFilterContainer with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, IFilterContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.filterbar.IFilterContainer.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Overwrites the default exit to clean up the created layout properly.
      */
@@ -12973,6 +13182,10 @@ declare module "sap/ui/mdc/filterbar/IFilterContainer" {
       oControl: FilterField
     ): void;
   }
+  /**
+   * Describes the settings that can be provided to the IFilterContainer constructor.
+   */
+  export interface $IFilterContainerSettings extends $ElementSettings {}
 }
 
 declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
@@ -25104,6 +25317,8 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
+    "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
+
     "sap/ui/mdc/AggregationBaseDelegate": undefined;
 
     "sap/ui/mdc/BaseDelegate": undefined;

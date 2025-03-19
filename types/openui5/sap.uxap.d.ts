@@ -1,4 +1,4 @@
-// For Library Version: 1.133.0
+// For Library Version: 1.134.0
 
 declare module "sap/uxap/library" {
   /**
@@ -7144,6 +7144,9 @@ declare module "sap/uxap/ObjectPageSection" {
      * Gets content of aggregation {@link #getSubSections subSections}.
      *
      * The list of Subsections.
+     *
+     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
+     * reasons.
      */
     getSubSections(): ObjectPageSubSection[];
     /**
@@ -7355,6 +7358,9 @@ declare module "sap/uxap/ObjectPageSection" {
 
     /**
      * The list of Subsections.
+     *
+     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
+     * reasons.
      */
     subSections?:
       | ObjectPageSubSection[]
