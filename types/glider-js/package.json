@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/glider-js",
-    "version": "1.7.9",
+    "version": "1.7.9999",
     "projects": [
         "https://nickpiscitelli.github.io/Glider.js"
     ],
