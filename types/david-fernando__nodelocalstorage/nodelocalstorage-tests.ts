@@ -1,4 +1,4 @@
-import { localStorage, LocalStorage } from "./index";
+import { localStorage, LocalStorage } from "@david-fernando/nodelocalstorage";
 
 const { setItem, getItem, removeItem, key, print, clear }: LocalStorage = localStorage();
 
