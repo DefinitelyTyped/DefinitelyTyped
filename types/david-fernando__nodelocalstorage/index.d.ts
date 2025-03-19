@@ -8,4 +8,4 @@ export interface LocalStorage {
   print(): void;
 }
 
-export function localStorage(): LocalStorage;
+export function localStorage(): LocalStorage
