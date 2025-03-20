@@ -430,6 +430,7 @@ const version4Tests = async () => {
         sql: "test",
         callback: message => {
             console.log(message.queueName);
+            console.log(message.regId);
             for (const query of message.queries ?? []) {
                 for (const table of query.tables ?? []) {
                     console.log(table.name);
