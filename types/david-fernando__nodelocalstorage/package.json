@@ -1,18 +1,18 @@
 {
-  "private": true,
-  "name": "@types/david-fernando__nodelocalstorage",
-  "version": "1.0.9999",
-  "owners": [
-    {
-        "name": "David Fernando",
-        "githubUsername": "david-fernando"
+    "private": true,
+    "name": "@types/david-fernando__nodelocalstorage",
+    "version": "1.0.9999",
+    "owners": [
+        {
+            "name": "David Fernando",
+            "githubUsername": "david-fernando"
+        }
+    ],
+    "projects": [
+        "https://github.com/@david-fernando/nodelocalstorage"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@types/david-fernando__nodelocalstorage": "workspace:."
     }
-  ],
-  "projects": [
-    "https://github.com/@david-fernando/nodelocalstorage"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@types/david-fernando__nodelocalstorage": "workspace:."
-  }
 }
