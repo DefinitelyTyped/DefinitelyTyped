@@ -21,6 +21,7 @@
         "./execution": "./execution/index.d.ts",
         "./encoding": "./encoding/index.d.ts",
         "./data": "./data/index.d.ts",
+        "./secrets": "./secrets/index.d.ts",
         "./crypto": "./crypto/index.d.ts",
         "./browser": "./browser/index.d.ts",
         "./experimental/csv": "./experimental/csv/index.d.ts",
