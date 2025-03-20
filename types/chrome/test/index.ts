@@ -3215,87 +3215,660 @@ async function testOffscreenDocument() {
     await chrome.offscreen.closeDocument();
 }
 
-// https://developer.chrome.com/docs/extensions/reference/fileSystemProvider/
+// https://developer.chrome.com/docs/extensions/reference/api/fileSystemProvider
 function testFileSystemProvider() {
-    // Checking onGetMetadataRequested, its option and EntryMetadata.
-    chrome.fileSystemProvider.onGetMetadataRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.MetadataRequestedEventOptions,
-            successCallback: (metadata: chrome.fileSystemProvider.EntryMetadata) => void,
-            errorCallback: (error: string) => void,
-        ) => {
-            const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {};
-            if (options.isDirectory) {
-                entryMetadata.isDirectory = true;
-            }
-            if (options.name) {
-                entryMetadata.name = "some-file.txt";
-            }
-            if (options.size) {
-                entryMetadata.size = 42;
-            }
-            if (options.modificationTime) {
-                entryMetadata.modificationTime = new Date();
-            }
-            if (options.mimeType) {
-                entryMetadata.mimeType = "text/plain";
-            }
-            if (options.thumbnail) {
-                entryMetadata.thumbnail = "DaTa:ImAgE/pNg;base64";
-            }
-            if (options.cloudIdentifier) {
-                entryMetadata.cloudIdentifier = { providerName: "provider-name", id: "id" };
-            }
-            if (options.cloudFileInfo) {
-                entryMetadata.cloudFileInfo = { versionTag: "versionA" };
-            }
-        },
-    );
+    chrome.fileSystemProvider.ChangeType.CHANGED === "CHANGED";
+    chrome.fileSystemProvider.ChangeType.DELETED === "DELETED";
 
-    // Checking onReadDirectoryRequested.
-    chrome.fileSystemProvider.onReadDirectoryRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.DirectoryPathRequestedEventOptions,
-            successCallback: (entries: chrome.fileSystemProvider.EntryMetadata[], hasMore: boolean) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.CommonActionId.OFFLINE_NOT_NECESSARY == "OFFLINE_NOT_NECESSARY";
+    chrome.fileSystemProvider.CommonActionId.SAVE_FOR_OFFLINE == "SAVE_FOR_OFFLINE";
+    chrome.fileSystemProvider.CommonActionId.SHARE == "SHARE";
 
-    // Checking onGetActionsRequested.
-    chrome.fileSystemProvider.onGetActionsRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.GetActionsRequestedOptions,
-            successCallback: (actions: chrome.fileSystemProvider.Action[]) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.OpenFileMode.READ == "READ";
+    chrome.fileSystemProvider.OpenFileMode.WRITE == "WRITE";
 
-    // Checking onExecuteActionRequested.
-    chrome.fileSystemProvider.onExecuteActionRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.ExecuteActionRequestedOptions,
-            successCallback: () => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.ProviderError.ABORT == "ABORT";
+    chrome.fileSystemProvider.ProviderError.ACCESS_DENIED == "ACCESS_DENIED";
+    chrome.fileSystemProvider.ProviderError.EXISTS == "EXISTS";
+    chrome.fileSystemProvider.ProviderError.FAILED == "FAILED";
+    chrome.fileSystemProvider.ProviderError.INVALID_OPERATION == "INVALID_OPERATION";
+    chrome.fileSystemProvider.ProviderError.INVALID_URL == "INVALID_URL";
+    chrome.fileSystemProvider.ProviderError.IN_USE == "IN_USE";
+    chrome.fileSystemProvider.ProviderError.IO == "IO";
+    chrome.fileSystemProvider.ProviderError.NOT_A_DIRECTORY == "NOT_A_DIRECTORY";
+    chrome.fileSystemProvider.ProviderError.NOT_A_FILE == "NOT_A_FILE";
+    chrome.fileSystemProvider.ProviderError.NOT_EMPTY == "NOT_EMPTY";
+    chrome.fileSystemProvider.ProviderError.NOT_FOUND == "NOT_FOUND";
+    chrome.fileSystemProvider.ProviderError.NO_MEMORY == "NO_MEMORY";
+    chrome.fileSystemProvider.ProviderError.NO_SPACE == "NO_SPACE";
+    chrome.fileSystemProvider.ProviderError.OK == "OK";
+    chrome.fileSystemProvider.ProviderError.SECURITY == "SECURITY";
+    chrome.fileSystemProvider.ProviderError.TOO_MANY_OPENED == "TOO_MANY_OPENED";
 
-    // Checking onCreateDirectoryRequested.
-    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    const fileSystemId = "my-drive" as const;
 
-    // Checking onOpenFileRequested.
-    chrome.fileSystemProvider.onOpenFileRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.OpenFileRequestedEventOptions,
-            successCallback: (metadata?: chrome.fileSystemProvider.EntryMetadata) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    const mountOptions: chrome.fileSystemProvider.MountOptions = {
+        displayName: "My Drive",
+        fileSystemId,
+        openedFilesLimit: 10,
+        persistent: true,
+        supportsNotifyTag: true,
+        writable: true,
+    };
+
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId); // $ExpectType Promise<FileSystemInfo>
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId, (fileSystemInfo) => { // $ExpectType void
+        fileSystemInfo.displayName; // $ExpectType string
+        fileSystemInfo.fileSystemId; // $ExpectType string
+        fileSystemInfo.openedFiles; // $ExpectType OpenedFile[]
+        fileSystemInfo.openedFilesLimit; // $ExpectType number
+        fileSystemInfo.supportsNotifyTag; // $ExpectType boolean | undefined
+        fileSystemInfo.watchers; // $ExpectType Watcher[]
+        fileSystemInfo.writable; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId, () => {}).then(() => {});
+
+    chrome.fileSystemProvider.getAll(); // $ExpectType Promise<FileSystemInfo[]>
+    chrome.fileSystemProvider.getAll(([fileSystemInfo]) => { // $ExpectType void
+        fileSystemInfo.displayName; // $ExpectType string
+        fileSystemInfo.fileSystemId; // $ExpectType string
+        fileSystemInfo.openedFiles; // $ExpectType OpenedFile[]
+        fileSystemInfo.openedFilesLimit; // $ExpectType number
+        fileSystemInfo.supportsNotifyTag; // $ExpectType boolean | undefined
+        fileSystemInfo.watchers; // $ExpectType Watcher[]
+        fileSystemInfo.writable; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.fileSystemProvider.getAll(() => {}).then(() => {});
+
+    chrome.fileSystemProvider.mount(mountOptions); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.mount(mountOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.mount(mountOptions, () => void 0).then(() => void 0);
+
+    const notifyOptions: chrome.fileSystemProvider.NotifyOptions = {
+        changeType: "CHANGED",
+        changes: [],
+        fileSystemId,
+        observedPath: "path",
+        recursive: true,
+        tag: "tag",
+    };
+
+    chrome.fileSystemProvider.notify(notifyOptions); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.notify(notifyOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.notify(notifyOptions, () => void 0).then(() => void 0);
+
+    chrome.fileSystemProvider.unmount({ fileSystemId }); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.unmount({ fileSystemId }, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.unmount({ fileSystemId }, () => void 0).then(() => void 0);
+
+    // onAbortRequested
+    chrome.fileSystemProvider.onAbortRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.hasListeners(); // $ExpectType boolean
+
+    // onAddWatcherRequested
+    chrome.fileSystemProvider.onAddWatcherRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.hasListeners(); // $ExpectType boolean
+
+    // onCloseFileRequested
+    chrome.fileSystemProvider.onCloseFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onConfigureRequested
+    chrome.fileSystemProvider.onConfigureRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.hasListeners(); // $ExpectType boolean
+
+    // onCopyEntryRequested
+    chrome.fileSystemProvider.onCopyEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onCreateDirectoryRequested
+    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.hasListeners(); // $ExpectType boolean
+
+    // onCreateFileRequested
+    chrome.fileSystemProvider.onCreateFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onDeleteEntryRequested
+    chrome.fileSystemProvider.onDeleteEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onExecuteActionRequested
+    chrome.fileSystemProvider.onExecuteActionRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.hasListeners(); // $ExpectType boolean
+
+    const actions: chrome.fileSystemProvider.Action[] = [{
+        id: "id",
+        title: "title",
+    }];
+
+    // onGetActionsRequested
+    chrome.fileSystemProvider.onGetActionsRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.hasListeners(); // $ExpectType boolean
+
+    const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {
+        cloudFileInfo: { versionTag: "versionA" },
+        cloudIdentifier: { id: "id", providerName: "provider-name" },
+        isDirectory: true,
+        mimeType: "text/plain",
+        modificationTime: new Date(),
+        name: "some-file.txt",
+        size: 42,
+        thumbnail: "DaTa:ImAgE/pNg;base64",
+    };
+
+    // onGetMetadataRequested
+    chrome.fileSystemProvider.onGetMetadataRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.hasListeners(); // $ExpectType boolean
+
+    // onMountRequested
+    chrome.fileSystemProvider.onMountRequested.addListener((successCallback, errorCallback) => { // $ExpectType void
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.removeListener((successCallback, errorCallback) => { // $ExpectType void
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.hasListener((successCallback, errorCallback) => { // $ExpectType boolean
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.hasListeners(); // $ExpectType boolean
+
+    // onMoveEntryRequested
+    chrome.fileSystemProvider.onMoveEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onOpenFileRequested
+    chrome.fileSystemProvider.onOpenFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onReadDirectoryRequested
+    chrome.fileSystemProvider.onReadDirectoryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.hasListeners(); // $ExpectType boolean
+
+    const arrayBuffer = new ArrayBuffer(1);
+
+    // onReadFileRequested
+    chrome.fileSystemProvider.onReadFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onRemoveWatcherRequested
+    chrome.fileSystemProvider.onRemoveWatcherRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.hasListeners(); // $ExpectType boolean
+
+    // onTruncateRequested
+    chrome.fileSystemProvider.onTruncateRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.hasListeners(); // $ExpectType boolean
+
+    // onUnmountRequested
+    chrome.fileSystemProvider.onUnmountRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.hasListeners(); // $ExpectType boolean
+
+    // onWriteFileRequested
+    chrome.fileSystemProvider.onWriteFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/sessions/
