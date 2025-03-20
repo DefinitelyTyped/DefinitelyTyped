@@ -454,3 +454,10 @@ const moduleObserver = Process.attachModuleObserver({
     },
 });
 moduleObserver.detach();
+
+// $ExpectType Profiler
+const profiler = new Profiler();
+const sampler = new BusyCycleSampler();
+for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
+    profiler.instrument(e.address, sampler);
+}
