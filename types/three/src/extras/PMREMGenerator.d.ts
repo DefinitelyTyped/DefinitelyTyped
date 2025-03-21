@@ -1,8 +1,14 @@
+import { Vector3 } from "../math/Vector3.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
 import { Scene } from "../scenes/Scene.js";
 import { CubeTexture } from "../textures/CubeTexture.js";
 import { Texture } from "../textures/Texture.js";
+
+export interface PMREMGeneratorOptions {
+    size?: number | undefined;
+    position?: Vector3 | undefined;
+}
 
 /**
  * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cubeMap environment texture.
@@ -38,13 +44,20 @@ export class PMREMGenerator {
     /**
      * Generates a PMREM from a supplied Scene, which can be faster than using an image if networking bandwidth is low
      * @remarks
-     * Optional near and far planes ensure the scene is rendered in its entirety (the cubeCamera is placed at the origin).
+     * Optional near and far planes ensure the scene is rendered in its entirety.
      * @param scene The given scene.
      * @param sigma Specifies a blur radius in radians to be applied to the scene before PMREM generation. Default `0`.
      * @param near The near plane value. Default `0.1`.
      * @param far The far plane value. Default `100`.
+     * @param {?Object} [options={}]
      */
-    fromScene(scene: Scene, sigma?: number, near?: number, far?: number): WebGLRenderTarget;
+    fromScene(
+        scene: Scene,
+        sigma?: number,
+        near?: number,
+        far?: number,
+        options?: PMREMGeneratorOptions,
+    ): WebGLRenderTarget;
 
     /**
      * Generates a PMREM from an equirectangular texture, which can be either LDR or HDR. The ideal input image size is

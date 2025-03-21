@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -8,7 +8,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarColorScheme'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarColorScheme {
     Accent1 = "Accent1",
@@ -40,7 +40,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarGroupType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarGroupType {
     /**
@@ -60,7 +60,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarShape'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarShape {
     /**
@@ -79,7 +79,7 @@ declare module "sap/ui/webc/main/library" {
    * 'AvatarSize'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum AvatarSize {
     /**
@@ -110,7 +110,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BackgroundDesign'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum BackgroundDesign {
     /**
@@ -133,7 +133,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BorderDesign'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum BorderDesign {
     /**
@@ -152,7 +152,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BreadcrumbsDesign'.
    *
    * @since 1.95.0
-   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export enum BreadcrumbsDesign {
     /**
@@ -172,7 +172,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BreadcrumbsSeparatorStyle'.
    *
    * @since 1.95.0
-   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export enum BreadcrumbsSeparatorStyle {
     /**
@@ -207,7 +207,7 @@ declare module "sap/ui/webc/main/library" {
    * 'BusyIndicatorSize'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum BusyIndicatorSize {
     /**
@@ -230,7 +230,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ButtonDesign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ButtonDesign {
     /**
@@ -265,7 +265,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ButtonType'.
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ButtonType {
     /**
@@ -288,7 +288,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CalendarSelectionMode'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum CalendarSelectionMode {
     /**
@@ -311,7 +311,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CarouselArrowsPlacement'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum CarouselArrowsPlacement {
     /**
@@ -330,7 +330,7 @@ declare module "sap/ui/webc/main/library" {
    * 'CarouselPageIndicatorStyle'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum CarouselPageIndicatorStyle {
     /**
@@ -351,7 +351,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ComboBoxFilter'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum ComboBoxFilter {
     /**
@@ -378,7 +378,7 @@ declare module "sap/ui/webc/main/library" {
    * 'HasPopup'.
    *
    * @since 1.99.0
-   * @experimental (since 1.99.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum HasPopup {
     /**
@@ -407,7 +407,7 @@ declare module "sap/ui/webc/main/library" {
    * such as `ui5-avatar-group`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IAvatar {
     __implements__sap_ui_webc_main_IAvatar: boolean;
@@ -417,7 +417,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-breadcrumbs` as options
    *
    * @since 1.95.0
-   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export interface IBreadcrumbsItem {
     __implements__sap_ui_webc_main_IBreadcrumbsItem: boolean;
@@ -427,7 +427,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used as a button inside numerous higher-order components
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IButton {
     __implements__sap_ui_webc_main_IButton: boolean;
@@ -437,7 +437,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used as dates inside `ui5-calendar`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ICalendarDate {
     __implements__sap_ui_webc_main_ICalendarDate: boolean;
@@ -447,7 +447,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-card` as header
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export interface ICardHeader {
     __implements__sap_ui_webc_main_ICardHeader: boolean;
@@ -457,7 +457,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be used inside a `ui5-color-palette` or `ui5-color-palette-popover`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IColorPaletteItem {
     __implements__sap_ui_webc_main_IColorPaletteItem: boolean;
@@ -467,7 +467,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-combobox`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IComboBoxItem {
     __implements__sap_ui_webc_main_IComboBoxItem: boolean;
@@ -480,7 +480,7 @@ declare module "sap/ui/webc/main/library" {
    * 'IconDesign'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum IconDesign {
     /**
@@ -520,7 +520,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent an icon, usable in numerous higher-order components
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IIcon {
     __implements__sap_ui_webc_main_IIcon: boolean;
@@ -530,7 +530,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent an input, usable in numerous higher-order components
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IInput {
     __implements__sap_ui_webc_main_IInput: boolean;
@@ -540,7 +540,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent a suggestion item, usable in `ui5-input`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IInputSuggestionItem {
     __implements__sap_ui_webc_main_IInputSuggestionItem: boolean;
@@ -550,7 +550,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-list` as items
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IListItem {
     __implements__sap_ui_webc_main_IListItem: boolean;
@@ -560,7 +560,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-menu` as items
    *
    * @since 1.102.0
-   * @experimental (since 1.102.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.102.0. This API is experimental and might change significantly.
    */
   export interface IMenuItem {
     __implements__sap_ui_webc_main_IMenuItem: boolean;
@@ -570,7 +570,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-multi-combobox` as items
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IMultiComboBoxItem {
     __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
@@ -583,7 +583,7 @@ declare module "sap/ui/webc/main/library" {
    * 'InputType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum InputType {
     /**
@@ -615,7 +615,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-segmented-button` as items
    *
    * @since 1.95.0
-   * @experimental (since 1.95.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.95.0. This API is experimental and might change significantly.
    */
   export interface ISegmentedButtonItem {
     __implements__sap_ui_webc_main_ISegmentedButtonItem: boolean;
@@ -625,7 +625,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-select-menu` as options
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface ISelectMenuOption {
     __implements__sap_ui_webc_main_ISelectMenuOption: boolean;
@@ -635,7 +635,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-select` as options
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ISelectOption {
     __implements__sap_ui_webc_main_ISelectOption: boolean;
@@ -645,7 +645,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside `ui5-tabcontainer`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITab {
     __implements__sap_ui_webc_main_ITab: boolean;
@@ -655,7 +655,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table-row` as cells
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableCell {
     __implements__sap_ui_webc_main_ITableCell: boolean;
@@ -665,7 +665,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table` as columns
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableColumn {
     __implements__sap_ui_webc_main_ITableColumn: boolean;
@@ -675,7 +675,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that may be slotted inside a `ui5-table` as rows
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITableRow {
     __implements__sap_ui_webc_main_ITableRow: boolean;
@@ -685,7 +685,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for components that represent a token and are usable in components such as `ui5-multi-input`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface IToken {
     __implements__sap_ui_webc_main_IToken: boolean;
@@ -695,7 +695,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for toolbar items for the purpose of `ui5-toolbar`
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface IToolbarItem {
     __implements__sap_ui_webc_main_IToolbarItem: boolean;
@@ -705,7 +705,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for toolbar select items for the purpose of `ui5-toolbar-select`
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export interface IToolbarSelectOption {
     __implements__sap_ui_webc_main_IToolbarSelectOption: boolean;
@@ -715,7 +715,7 @@ declare module "sap/ui/webc/main/library" {
    * Interface for tree items for the purpose of `ui5-tree`
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export interface ITreeItem {
     __implements__sap_ui_webc_main_ITreeItem: boolean;
@@ -728,7 +728,7 @@ declare module "sap/ui/webc/main/library" {
    * 'LinkDesign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum LinkDesign {
     /**
@@ -751,7 +751,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListGrowingMode'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListGrowingMode {
     /**
@@ -774,7 +774,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListItemType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListItemType {
     /**
@@ -802,7 +802,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListMode'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListMode {
     /**
@@ -842,7 +842,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ListSeparators'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ListSeparators {
     /**
@@ -865,7 +865,7 @@ declare module "sap/ui/webc/main/library" {
    * 'MessageStripDesign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum MessageStripDesign {
     /**
@@ -892,7 +892,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PanelAccessibleRole'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PanelAccessibleRole {
     /**
@@ -918,7 +918,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverHorizontalAlign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverHorizontalAlign {
     /**
@@ -945,7 +945,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverPlacementType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverPlacementType {
     /**
@@ -972,7 +972,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopoverVerticalAlign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum PopoverVerticalAlign {
     /**
@@ -997,7 +997,7 @@ declare module "sap/ui/webc/main/library" {
    * 'PopupAccessibleRole'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum PopupAccessibleRole {
     /**
@@ -1020,7 +1020,7 @@ declare module "sap/ui/webc/main/library" {
    * 'Priority'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum Priority {
     /**
@@ -1047,7 +1047,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SegmentedButtonMode'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum SegmentedButtonMode {
     /**
@@ -1066,7 +1066,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SemanticColor'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum SemanticColor {
     /**
@@ -1097,7 +1097,7 @@ declare module "sap/ui/webc/main/library" {
    * 'SwitchDesign'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum SwitchDesign {
     /**
@@ -1116,7 +1116,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabContainerBackgroundDesign'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum TabContainerBackgroundDesign {
     /**
@@ -1139,7 +1139,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabLayout'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TabLayout {
     /**
@@ -1158,7 +1158,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableColumnPopinDisplay'.
    *
    * @since 1.115.0
-   * @experimental (since 1.115.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.115.0. This API is experimental and might change significantly.
    */
   export enum TableColumnPopinDisplay {
     /**
@@ -1177,7 +1177,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableGrowingMode'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableGrowingMode {
     /**
@@ -1200,7 +1200,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableMode'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableMode {
     /**
@@ -1223,7 +1223,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TableRowType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TableRowType {
     /**
@@ -1242,7 +1242,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TabsOverflowMode'.
    *
    * @since 1.99.0
-   * @experimental (since 1.99.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.99.0. This API is experimental and might change significantly.
    */
   export enum TabsOverflowMode {
     /**
@@ -1261,7 +1261,7 @@ declare module "sap/ui/webc/main/library" {
    * 'TitleLevel'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum TitleLevel {
     /**
@@ -1296,7 +1296,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToastPlacement'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum ToastPlacement {
     /**
@@ -1343,7 +1343,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToolbarAlign'.
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ToolbarAlign {
     /**
@@ -1362,7 +1362,7 @@ declare module "sap/ui/webc/main/library" {
    * 'ToolbarItemOverflowBehavior'.
    *
    * @since 1.120.0
-   * @experimental (since 1.120.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.120.0. This API is experimental and might change significantly.
    */
   export enum ToolbarItemOverflowBehavior {
     AlwaysOverflow = "AlwaysOverflow",
@@ -1382,7 +1382,7 @@ declare module "sap/ui/webc/main/library" {
    * 'WrappingType'.
    *
    * @since 1.92.0
-   * @experimental (since 1.92.0) - This API is experimental and might change significantly.
+   * @experimental As of version 1.92.0. This API is experimental and might change significantly.
    */
   export enum WrappingType {
     /**
@@ -1438,10 +1438,10 @@ declare module "sap/ui/webc/main/Avatar" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Avatar extends WebComponent implements IAvatar {
     __implements__sap_ui_webc_main_IAvatar: boolean;
@@ -1650,7 +1650,7 @@ declare module "sap/ui/webc/main/Avatar" {
      *
      * @returns Value of property `colorScheme`
      */
-    getColorScheme(): AvatarColorScheme | keyof typeof AvatarColorScheme;
+    getColorScheme(): AvatarColorScheme;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -1760,7 +1760,7 @@ declare module "sap/ui/webc/main/Avatar" {
      *
      * @returns Value of property `shape`
      */
-    getShape(): AvatarShape | keyof typeof AvatarShape;
+    getShape(): AvatarShape;
     /**
      * Gets current value of property {@link #getSize size}.
      *
@@ -1778,7 +1778,7 @@ declare module "sap/ui/webc/main/Avatar" {
      *
      * @returns Value of property `size`
      */
-    getSize(): AvatarSize | keyof typeof AvatarSize;
+    getSize(): AvatarSize;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -2024,10 +2024,10 @@ declare module "sap/ui/webc/main/Avatar" {
   /**
    * Describes the settings that can be provided to the Avatar constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $AvatarSettings extends $WebComponentSettings {
     /**
@@ -2253,10 +2253,10 @@ declare module "sap/ui/webc/main/AvatarGroup" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class AvatarGroup extends WebComponent {
     /**
@@ -2545,7 +2545,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      *
      * @returns Value of property `type`
      */
-    getType(): AvatarGroupType | keyof typeof AvatarGroupType;
+    getType(): AvatarGroupType;
     /**
      * Checks for the provided `sap.ui.webc.main.IAvatar` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
@@ -2636,10 +2636,10 @@ declare module "sap/ui/webc/main/AvatarGroup" {
   /**
    * Describes the settings that can be provided to the AvatarGroup constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $AvatarGroupSettings extends $WebComponentSettings {
     /**
@@ -2749,10 +2749,10 @@ declare module "sap/ui/webc/main/Badge" {
    *     theme.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Badge extends WebComponent {
     /**
@@ -2962,10 +2962,10 @@ declare module "sap/ui/webc/main/Badge" {
   /**
    * Describes the settings that can be provided to the Badge constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $BadgeSettings extends $WebComponentSettings {
     /**
@@ -3036,10 +3036,10 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
    *
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class Breadcrumbs extends WebComponent {
     /**
@@ -3220,7 +3220,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): BreadcrumbsDesign | keyof typeof BreadcrumbsDesign;
+    getDesign(): BreadcrumbsDesign;
     /**
      * Gets content of aggregation {@link #getItems items}.
      *
@@ -3251,9 +3251,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
      *
      * @returns Value of property `separatorStyle`
      */
-    getSeparatorStyle():
-      | BreadcrumbsSeparatorStyle
-      | keyof typeof BreadcrumbsSeparatorStyle;
+    getSeparatorStyle(): BreadcrumbsSeparatorStyle;
     /**
      * Checks for the provided `sap.ui.webc.main.IBreadcrumbsItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
@@ -3362,10 +3360,10 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
   /**
    * Describes the settings that can be provided to the Breadcrumbs constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $BreadcrumbsSettings extends $WebComponentSettings {
     /**
@@ -3475,10 +3473,10 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
    * The `sap.ui.webc.main.BreadcrumbsItem` component defines the content of an item in `sap.ui.webc.main.Breadcrumbs`.
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class BreadcrumbsItem
     extends WebComponent
@@ -3689,10 +3687,10 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
   /**
    * Describes the settings that can be provided to the BreadcrumbsItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $BreadcrumbsItemSettings extends $WebComponentSettings {
     /**
@@ -3773,10 +3771,10 @@ declare module "sap/ui/webc/main/BusyIndicator" {
    * 	 - Do not show multiple busy indicators at once.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class BusyIndicator extends WebComponent {
     /**
@@ -3909,7 +3907,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      *
      * @returns Value of property `size`
      */
-    getSize(): BusyIndicatorSize | keyof typeof BusyIndicatorSize;
+    getSize(): BusyIndicatorSize;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -4092,10 +4090,10 @@ declare module "sap/ui/webc/main/BusyIndicator" {
   /**
    * Describes the settings that can be provided to the BusyIndicator constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $BusyIndicatorSettings extends $WebComponentSettings {
     /**
@@ -4189,10 +4187,10 @@ declare module "sap/ui/webc/main/Button" {
    * 	 - button - Used to style the native button element
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Button
     extends WebComponent
@@ -4410,7 +4408,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ButtonDesign | keyof typeof ButtonDesign;
+    getDesign(): ButtonDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -4472,7 +4470,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getType type}.
      *
@@ -4483,7 +4481,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      * @returns Value of property `type`
      */
-    getType(): ButtonType | keyof typeof ButtonType;
+    getType(): ButtonType;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -4719,10 +4717,10 @@ declare module "sap/ui/webc/main/Button" {
   /**
    * Describes the settings that can be provided to the Button constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ButtonSettings extends $WebComponentSettings {
     /**
@@ -4935,10 +4933,10 @@ declare module "sap/ui/webc/main/Calendar" {
    * `
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Calendar extends WebComponent {
     /**
@@ -5208,9 +5206,7 @@ declare module "sap/ui/webc/main/Calendar" {
      *
      * @returns Value of property `selectionMode`
      */
-    getSelectionMode():
-      | CalendarSelectionMode
-      | keyof typeof CalendarSelectionMode;
+    getSelectionMode(): CalendarSelectionMode;
     /**
      * Checks for the provided `sap.ui.webc.main.ICalendarDate` in the aggregation {@link #getDates dates}.
      * and returns its index if found or -1 otherwise.
@@ -5360,7 +5356,7 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
@@ -5378,7 +5374,7 @@ declare module "sap/ui/webc/main/Calendar" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType?: CalendarType
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getSelectionMode selectionMode}.
@@ -5410,10 +5406,10 @@ declare module "sap/ui/webc/main/Calendar" {
   /**
    * Describes the settings that can be provided to the Calendar constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CalendarSettings extends $WebComponentSettings {
     /**
@@ -5450,12 +5446,18 @@ declare module "sap/ui/webc/main/Calendar" {
     /**
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the type of selection used in the calendar component. Accepted property values are:
@@ -5531,10 +5533,10 @@ declare module "sap/ui/webc/main/CalendarDate" {
    * The `sap.ui.webc.main.CalendarDate` component defines a calendar date to be used inside `sap.ui.webc.main.Calendar`
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class CalendarDate
     extends WebComponent
@@ -5634,10 +5636,10 @@ declare module "sap/ui/webc/main/CalendarDate" {
   /**
    * Describes the settings that can be provided to the CalendarDate constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CalendarDateSettings extends $WebComponentSettings {
     /**
@@ -5679,10 +5681,10 @@ declare module "sap/ui/webc/main/Card" {
    * taken for keyboard handling, styling and accessibility.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Card extends WebComponent {
     /**
@@ -6023,10 +6025,10 @@ declare module "sap/ui/webc/main/Card" {
   /**
    * Describes the settings that can be provided to the Card constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CardSettings extends $WebComponentSettings {
     /**
@@ -6108,10 +6110,10 @@ declare module "sap/ui/webc/main/CardHeader" {
    * 	 - status - Used to style the status of the CardHeader
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class CardHeader extends WebComponent implements ICardHeader {
     __implements__sap_ui_webc_main_ICardHeader: boolean;
@@ -6535,10 +6537,10 @@ declare module "sap/ui/webc/main/CardHeader" {
   /**
    * Describes the settings that can be provided to the CardHeader constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $CardHeaderSettings extends $WebComponentSettings {
     /**
@@ -6657,10 +6659,10 @@ declare module "sap/ui/webc/main/Carousel" {
    * 	 - content - Used to style the content of the component
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Carousel extends WebComponent {
     /**
@@ -6838,9 +6840,7 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * @returns Value of property `arrowsPlacement`
      */
-    getArrowsPlacement():
-      | CarouselArrowsPlacement
-      | keyof typeof CarouselArrowsPlacement;
+    getArrowsPlacement(): CarouselArrowsPlacement;
     /**
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
      *
@@ -6851,7 +6851,7 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -6940,9 +6940,7 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * @returns Value of property `pageIndicatorBackgroundDesign`
      */
-    getPageIndicatorBackgroundDesign():
-      | BackgroundDesign
-      | keyof typeof BackgroundDesign;
+    getPageIndicatorBackgroundDesign(): BackgroundDesign;
     /**
      * Gets current value of property {@link #getPageIndicatorBorderDesign pageIndicatorBorderDesign}.
      *
@@ -6953,7 +6951,7 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * @returns Value of property `pageIndicatorBorderDesign`
      */
-    getPageIndicatorBorderDesign(): BorderDesign | keyof typeof BorderDesign;
+    getPageIndicatorBorderDesign(): BorderDesign;
     /**
      * Gets current value of property {@link #getPageIndicatorStyle pageIndicatorStyle}.
      *
@@ -6969,9 +6967,7 @@ declare module "sap/ui/webc/main/Carousel" {
      *
      * @returns Value of property `pageIndicatorStyle`
      */
-    getPageIndicatorStyle():
-      | CarouselPageIndicatorStyle
-      | keyof typeof CarouselPageIndicatorStyle;
+    getPageIndicatorStyle(): CarouselPageIndicatorStyle;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -7256,10 +7252,10 @@ declare module "sap/ui/webc/main/Carousel" {
   /**
    * Describes the settings that can be provided to the Carousel constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CarouselSettings extends $WebComponentSettings {
     /**
@@ -7437,10 +7433,10 @@ declare module "sap/ui/webc/main/CheckBox" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class CheckBox extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -7727,7 +7723,7 @@ declare module "sap/ui/webc/main/CheckBox" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -7748,7 +7744,7 @@ declare module "sap/ui/webc/main/CheckBox" {
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -7998,10 +7994,10 @@ declare module "sap/ui/webc/main/CheckBox" {
   /**
    * Describes the settings that can be provided to the CheckBox constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CheckBoxSettings extends $WebComponentSettings {
     /**
@@ -8145,10 +8141,10 @@ declare module "sap/ui/webc/main/ColorPalette" {
    * of the `sap.ui.webc.main.ColorPalette`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ColorPalette extends WebComponent {
     /**
@@ -8372,10 +8368,10 @@ declare module "sap/ui/webc/main/ColorPalette" {
   /**
    * Describes the settings that can be provided to the ColorPalette constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ColorPaletteSettings extends $WebComponentSettings {
     /**
@@ -8432,10 +8428,10 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
    * The `sap.ui.webc.main.ColorPaletteItem` component represents a color in the the `sap.ui.webc.main.ColorPalette`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ColorPaletteItem
     extends WebComponent
@@ -8537,10 +8533,10 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
   /**
    * Describes the settings that can be provided to the ColorPaletteItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ColorPaletteItemSettings extends $WebComponentSettings {
     /**
@@ -8587,10 +8583,10 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
    * and spend large amount of time to configure the right color through the color picker.
    *
    * @since 1.97.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.97.0. This control is experimental and its API might change significantly.
    */
   export default class ColorPalettePopover extends WebComponent {
     /**
@@ -8941,10 +8937,10 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
   /**
    * Describes the settings that can be provided to the ColorPalettePopover constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.97.0. This control is experimental and its API might change significantly.
    */
   export interface $ColorPalettePopoverSettings extends $WebComponentSettings {
     /**
@@ -9031,10 +9027,10 @@ declare module "sap/ui/webc/main/ColorPicker" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ColorPicker extends WebComponent {
     /**
@@ -9210,10 +9206,10 @@ declare module "sap/ui/webc/main/ColorPicker" {
   /**
    * Describes the settings that can be provided to the ColorPicker constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ColorPickerSettings extends $WebComponentSettings {
     /**
@@ -9303,10 +9299,10 @@ declare module "sap/ui/webc/main/ComboBox" {
    *     selects the last item.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ComboBox extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -9700,7 +9696,7 @@ declare module "sap/ui/webc/main/ComboBox" {
      *
      * @returns Value of property `filter`
      */
-    getFilter(): ComboBoxFilter | keyof typeof ComboBoxFilter;
+    getFilter(): ComboBoxFilter;
     /**
      * Gets content of aggregation {@link #getIcon icon}.
      *
@@ -9780,7 +9776,7 @@ declare module "sap/ui/webc/main/ComboBox" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -10135,10 +10131,10 @@ declare module "sap/ui/webc/main/ComboBox" {
   /**
    * Describes the settings that can be provided to the ComboBox constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ComboBoxSettings extends $WebComponentSettings {
     /**
@@ -10308,10 +10304,10 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
    * suggestions into groups.
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class ComboBoxGroupItem
     extends WebComponent
@@ -10413,10 +10409,10 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
   /**
    * Describes the settings that can be provided to the ComboBoxGroupItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $ComboBoxGroupItemSettings extends $WebComponentSettings {
     /**
@@ -10442,10 +10438,10 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
    * The `sap.ui.webc.main.ComboBoxItem` represents the item for a `sap.ui.webc.main.ComboBox`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ComboBoxItem
     extends WebComponent
@@ -10576,10 +10572,10 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
   /**
    * Describes the settings that can be provided to the ComboBoxItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ComboBoxItemSettings extends $WebComponentSettings {
     /**
@@ -10632,10 +10628,10 @@ declare module "sap/ui/webc/main/CustomListItem" {
    * 	 - checkbox - Used to style the checkbox rendered when the list item is in multiple selection mode
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class CustomListItem
     extends WebComponent
@@ -10892,7 +10888,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): ListItemType | keyof typeof ListItemType;
+    getType(): ListItemType;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -11067,10 +11063,10 @@ declare module "sap/ui/webc/main/CustomListItem" {
   /**
    * Describes the settings that can be provided to the CustomListItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $CustomListItemSettings extends $WebComponentSettings {
     /**
@@ -11234,10 +11230,10 @@ declare module "sap/ui/webc/main/DatePicker" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class DatePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -11673,7 +11669,7 @@ declare module "sap/ui/webc/main/DatePicker" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -11924,7 +11920,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getReadonly readonly}.
@@ -11978,7 +11974,7 @@ declare module "sap/ui/webc/main/DatePicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType?: CalendarType
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getValue value}.
@@ -12058,10 +12054,10 @@ declare module "sap/ui/webc/main/DatePicker" {
   /**
    * Describes the settings that can be provided to the DatePicker constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $DatePickerSettings extends $WebComponentSettings {
     /**
@@ -12130,7 +12126,10 @@ declare module "sap/ui/webc/main/DatePicker" {
     /**
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
@@ -12145,7 +12144,10 @@ declare module "sap/ui/webc/main/DatePicker" {
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -12276,10 +12278,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
    * 	 - [SHIFT] + [CTRL] + [PAGEUP] - Increments the corresponding year by one
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class DateRangePicker
     extends WebComponent
@@ -12744,7 +12746,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -13014,7 +13016,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getReadonly readonly}.
@@ -13068,7 +13070,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType?: CalendarType
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getValue value}.
@@ -13148,10 +13150,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
   /**
    * Describes the settings that can be provided to the DateRangePicker constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $DateRangePickerSettings extends $WebComponentSettings {
     /**
@@ -13226,7 +13228,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     /**
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
@@ -13241,7 +13246,10 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -13407,10 +13415,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    * or desktop, it is displayed as a popover, while on phone devices, it is displayed full screen.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class DateTimePicker
     extends WebComponent
@@ -13849,7 +13857,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -14100,7 +14108,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * New value for property `primaryCalendarType`
        */
-      sPrimaryCalendarType: CalendarType
+      sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getReadonly readonly}.
@@ -14154,7 +14162,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       /**
        * New value for property `secondaryCalendarType`
        */
-      sSecondaryCalendarType?: CalendarType
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getValue value}.
@@ -14234,10 +14242,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
   /**
    * Describes the settings that can be provided to the DateTimePicker constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $DateTimePickerSettings extends $WebComponentSettings {
     /**
@@ -14306,7 +14314,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     /**
      * Sets a calendar type used for display. If not set, the calendar type of the global configuration is used.
      */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the component is displayed as read-only.
@@ -14321,7 +14332,10 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     /**
      * Defines the secondary calendar type. If not set, the calendar will only show the primary calendar type.
      */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines a formatted date value.
@@ -14473,10 +14487,10 @@ declare module "sap/ui/webc/main/Dialog" {
    * inside other components containing z-index. This might break z-index management.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Dialog extends WebComponent {
     /**
@@ -14961,7 +14975,7 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): PopupAccessibleRole | keyof typeof PopupAccessibleRole;
+    getAccessibleRole(): PopupAccessibleRole;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -15086,7 +15100,7 @@ declare module "sap/ui/webc/main/Dialog" {
      *
      * @returns Value of property `state`
      */
-    getState(): ValueState | keyof typeof ValueState;
+    getState(): ValueState;
     /**
      * Gets current value of property {@link #getStretch stretch}.
      *
@@ -15526,10 +15540,10 @@ declare module "sap/ui/webc/main/Dialog" {
   /**
    * Describes the settings that can be provided to the Dialog constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $DialogSettings extends $WebComponentSettings {
     /**
@@ -15756,10 +15770,10 @@ declare module "sap/ui/webc/main/FileUploader" {
    * and "disabled" properties.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class FileUploader
     extends WebComponent
@@ -16041,7 +16055,7 @@ declare module "sap/ui/webc/main/FileUploader" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -16314,10 +16328,10 @@ declare module "sap/ui/webc/main/FileUploader" {
   /**
    * Describes the settings that can be provided to the FileUploader constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $FileUploaderSettings extends $WebComponentSettings {
     /**
@@ -16441,10 +16455,10 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
    * into logical groups.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class GroupHeaderListItem
     extends WebComponent
@@ -16606,10 +16620,10 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
   /**
    * Describes the settings that can be provided to the GroupHeaderListItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $GroupHeaderListItemSettings extends $WebComponentSettings {
     /**
@@ -16713,10 +16727,10 @@ declare module "sap/ui/webc/main/Icon" {
    *     triggering the click event.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Icon extends WebComponent implements IIcon {
     __implements__sap_ui_webc_main_IIcon: boolean;
@@ -16927,7 +16941,7 @@ declare module "sap/ui/webc/main/Icon" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): IconDesign | keyof typeof IconDesign;
+    getDesign(): IconDesign;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -17230,10 +17244,10 @@ declare module "sap/ui/webc/main/Icon" {
   /**
    * Describes the settings that can be provided to the Icon constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $IconSettings extends $WebComponentSettings {
     /**
@@ -17415,10 +17429,10 @@ declare module "sap/ui/webc/main/Input" {
    *     focus is in the input, does nothing.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Input
     extends WebComponent
@@ -18014,7 +18028,7 @@ declare module "sap/ui/webc/main/Input" {
      *
      * @returns Value of property `type`
      */
-    getType(): InputType | keyof typeof InputType;
+    getType(): InputType;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -18038,7 +18052,7 @@ declare module "sap/ui/webc/main/Input" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -18485,10 +18499,10 @@ declare module "sap/ui/webc/main/Input" {
   /**
    * Describes the settings that can be provided to the Input constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $InputSettings extends $WebComponentSettings {
     /**
@@ -18731,10 +18745,10 @@ declare module "sap/ui/webc/main/Label" {
    * choice of designs, you can use custom styles.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Label extends WebComponent implements Label1 {
     __implements__sap_ui_core_Label: boolean;
@@ -18862,7 +18876,7 @@ declare module "sap/ui/webc/main/Label" {
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Sets the associated {@link #getLabelFor labelFor}.
      *
@@ -18974,10 +18988,10 @@ declare module "sap/ui/webc/main/Label" {
   /**
    * Describes the settings that can be provided to the Label constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $LabelSettings extends $WebComponentSettings {
     /**
@@ -19066,10 +19080,10 @@ declare module "sap/ui/webc/main/Link" {
    * property is set to `"Normal"`, the text is displayed on several lines instead of being truncated.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Link extends WebComponent {
     /**
@@ -19295,7 +19309,7 @@ declare module "sap/ui/webc/main/Link" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): LinkDesign | keyof typeof LinkDesign;
+    getDesign(): LinkDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -19365,7 +19379,7 @@ declare module "sap/ui/webc/main/Link" {
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -19587,10 +19601,10 @@ declare module "sap/ui/webc/main/Link" {
   /**
    * Describes the settings that can be provided to the Link constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $LinkSettings extends $WebComponentSettings {
     /**
@@ -19784,10 +19798,10 @@ declare module "sap/ui/webc/main/List" {
    * 	 - [DELETE] - Delete an item if `mode` property is `Delete`
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class List extends WebComponent {
     /**
@@ -20487,7 +20501,7 @@ declare module "sap/ui/webc/main/List" {
      *
      * @returns Value of property `growing`
      */
-    getGrowing(): ListGrowingMode | keyof typeof ListGrowingMode;
+    getGrowing(): ListGrowingMode;
     /**
      * Gets content of aggregation {@link #getHeader header}.
      *
@@ -20551,7 +20565,7 @@ declare module "sap/ui/webc/main/List" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): ListMode | keyof typeof ListMode;
+    getMode(): ListMode;
     /**
      * Gets current value of property {@link #getNoDataText noDataText}.
      *
@@ -20579,7 +20593,7 @@ declare module "sap/ui/webc/main/List" {
      *
      * @returns Value of property `separators`
      */
-    getSeparators(): ListSeparators | keyof typeof ListSeparators;
+    getSeparators(): ListSeparators;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -20974,10 +20988,10 @@ declare module "sap/ui/webc/main/List" {
   /**
    * Describes the settings that can be provided to the List constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ListSettings extends $WebComponentSettings {
     /**
@@ -21285,10 +21299,10 @@ declare module "sap/ui/webc/main/Menu" {
    *
    *
    * @since 1.102.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.102.0. This control is experimental and its API might change significantly.
    */
   export default class Menu extends WebComponent {
     /**
@@ -21989,10 +22003,10 @@ declare module "sap/ui/webc/main/Menu" {
   /**
    * Describes the settings that can be provided to the Menu constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.102.0. This control is experimental and its API might change significantly.
    */
   export interface $MenuSettings extends $WebComponentSettings {
     /**
@@ -22168,10 +22182,10 @@ declare module "sap/ui/webc/main/MenuItem" {
    * not intended for public use.
    *
    * @since 1.102.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.102.0. This control is experimental and its API might change significantly.
    */
   export default class MenuItem extends WebComponent implements IMenuItem {
     __implements__sap_ui_webc_main_IMenuItem: boolean;
@@ -22566,10 +22580,10 @@ declare module "sap/ui/webc/main/MenuItem" {
   /**
    * Describes the settings that can be provided to the MenuItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.102.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.102.0. This control is experimental and its API might change significantly.
    */
   export interface $MenuItemSettings extends $WebComponentSettings {
     /**
@@ -22660,10 +22674,10 @@ declare module "sap/ui/webc/main/MessageStrip" {
    * Keyboard Handling:
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class MessageStrip extends WebComponent {
     /**
@@ -22823,7 +22837,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): MessageStripDesign | keyof typeof MessageStripDesign;
+    getDesign(): MessageStripDesign;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -23010,10 +23024,10 @@ declare module "sap/ui/webc/main/MessageStrip" {
   /**
    * Describes the settings that can be provided to the MessageStrip constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $MessageStripSettings extends $WebComponentSettings {
     /**
@@ -23145,10 +23159,10 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    * 	 - token-{index} - Used to style each token(where `token-0` corresponds to the first item)
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class MultiComboBox
     extends WebComponent
@@ -23631,7 +23645,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      *
      * @returns Value of property `filter`
      */
-    getFilter(): ComboBoxFilter | keyof typeof ComboBoxFilter;
+    getFilter(): ComboBoxFilter;
     /**
      * Gets content of aggregation {@link #getIcon icon}.
      *
@@ -23719,7 +23733,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -24097,10 +24111,10 @@ declare module "sap/ui/webc/main/MultiComboBox" {
   /**
    * Describes the settings that can be provided to the MultiComboBox constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $MultiComboBoxSettings extends $WebComponentSettings {
     /**
@@ -24296,10 +24310,10 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
    * `sap.ui.webc.main.MultiComboBox` suggestions into groups.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class MultiComboBoxGroupItem
     extends WebComponent
@@ -24401,10 +24415,10 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
   /**
    * Describes the settings that can be provided to the MultiComboBoxGroupItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $MultiComboBoxGroupItemSettings
     extends $WebComponentSettings {
@@ -24431,10 +24445,10 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
    * The `sap.ui.webc.main.MultiComboBoxItem` represents the item for a `sap.ui.webc.main.MultiComboBox`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class MultiComboBoxItem
     extends WebComponent
@@ -24594,10 +24608,10 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
   /**
    * Describes the settings that can be provided to the MultiComboBoxItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $MultiComboBoxItemSettings extends $WebComponentSettings {
     /**
@@ -24660,10 +24674,10 @@ declare module "sap/ui/webc/main/MultiInput" {
    * 	 - Select a value from the suggestion list (`suggestion-item-select` event is fired)
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class MultiInput
     extends WebComponent
@@ -25457,7 +25471,7 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * @returns Value of property `type`
      */
-    getType(): InputType | keyof typeof InputType;
+    getType(): InputType;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -25481,7 +25495,7 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -25999,10 +26013,10 @@ declare module "sap/ui/webc/main/MultiInput" {
   /**
    * Describes the settings that can be provided to the MultiInput constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $MultiInputSettings extends $WebComponentSettings {
     /**
@@ -26294,10 +26308,10 @@ declare module "sap/ui/webc/main/Option" {
    * The `sap.ui.webc.main.Option` component defines the content of an option in the `sap.ui.webc.main.Select`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Option extends WebComponent implements ISelectOption {
     __implements__sap_ui_webc_main_ISelectOption: boolean;
@@ -26539,10 +26553,10 @@ declare module "sap/ui/webc/main/Option" {
   /**
    * Describes the settings that can be provided to the Option constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $OptionSettings extends $WebComponentSettings {
     /**
@@ -26644,10 +26658,10 @@ declare module "sap/ui/webc/main/Panel" {
    * Keyboard Handling:
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Panel extends WebComponent {
     /**
@@ -26850,7 +26864,7 @@ declare module "sap/ui/webc/main/Panel" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): PanelAccessibleRole | keyof typeof PanelAccessibleRole;
+    getAccessibleRole(): PanelAccessibleRole;
     /**
      * Gets current value of property {@link #getCollapsed collapsed}.
      *
@@ -26899,7 +26913,7 @@ declare module "sap/ui/webc/main/Panel" {
      *
      * @returns Value of property `headerLevel`
      */
-    getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
+    getHeaderLevel(): TitleLevel;
     /**
      * Gets current value of property {@link #getHeaderText headerText}.
      *
@@ -27250,10 +27264,10 @@ declare module "sap/ui/webc/main/Panel" {
   /**
    * Describes the settings that can be provided to the Panel constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $PanelSettings extends $WebComponentSettings {
     /**
@@ -27403,10 +27417,10 @@ declare module "sap/ui/webc/main/Popover" {
    * 	 - footer - Used to style the footer of the component
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Popover extends WebComponent {
     /**
@@ -27891,7 +27905,7 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): PopupAccessibleRole | keyof typeof PopupAccessibleRole;
+    getAccessibleRole(): PopupAccessibleRole;
     /**
      * Gets current value of property {@link #getAllowTargetOverlap allowTargetOverlap}.
      *
@@ -27979,9 +27993,7 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * @returns Value of property `horizontalAlign`
      */
-    getHorizontalAlign():
-      | PopoverHorizontalAlign
-      | keyof typeof PopoverHorizontalAlign;
+    getHorizontalAlign(): PopoverHorizontalAlign;
     /**
      * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
      * or `null`.
@@ -28024,9 +28036,7 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * @returns Value of property `placementType`
      */
-    getPlacementType():
-      | PopoverPlacementType
-      | keyof typeof PopoverPlacementType;
+    getPlacementType(): PopoverPlacementType;
     /**
      * Gets current value of property {@link #getPreventFocusRestore preventFocusRestore}.
      *
@@ -28048,9 +28058,7 @@ declare module "sap/ui/webc/main/Popover" {
      *
      * @returns Value of property `verticalAlign`
      */
-    getVerticalAlign():
-      | PopoverVerticalAlign
-      | keyof typeof PopoverVerticalAlign;
+    getVerticalAlign(): PopoverVerticalAlign;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -28535,10 +28543,10 @@ declare module "sap/ui/webc/main/Popover" {
   /**
    * Describes the settings that can be provided to the Popover constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $PopoverSettings extends $WebComponentSettings {
     /**
@@ -28757,10 +28765,10 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
    * CSS properties.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ProgressIndicator
     extends WebComponent
@@ -28908,7 +28916,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -29060,10 +29068,10 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
   /**
    * Describes the settings that can be provided to the ProgressIndicator constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ProgressIndicatorSettings extends $WebComponentSettings {
     /**
@@ -29159,10 +29167,10 @@ declare module "sap/ui/webc/main/RadioButton" {
    *  **Note:** On entering radio button group, the focus goes to the currently selected radio button.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class RadioButton
     extends WebComponent
@@ -29441,7 +29449,7 @@ declare module "sap/ui/webc/main/RadioButton" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -29462,7 +29470,7 @@ declare module "sap/ui/webc/main/RadioButton" {
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -29701,10 +29709,10 @@ declare module "sap/ui/webc/main/RadioButton" {
   /**
    * Describes the settings that can be provided to the RadioButton constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $RadioButtonSettings extends $WebComponentSettings {
     /**
@@ -29875,10 +29883,10 @@ declare module "sap/ui/webc/main/RangeSlider" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class RangeSlider extends WebComponent {
     /**
@@ -30444,10 +30452,10 @@ declare module "sap/ui/webc/main/RangeSlider" {
   /**
    * Describes the settings that can be provided to the RangeSlider constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $RangeSliderSettings extends $WebComponentSettings {
     /**
@@ -30597,10 +30605,10 @@ declare module "sap/ui/webc/main/RatingIndicator" {
    *     of values, sets the highest value.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class RatingIndicator
     extends WebComponent
@@ -30997,10 +31005,10 @@ declare module "sap/ui/webc/main/RatingIndicator" {
   /**
    * Describes the settings that can be provided to the RatingIndicator constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $RatingIndicatorSettings extends $WebComponentSettings {
     /**
@@ -31113,10 +31121,10 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
    * 	 - footer - Used to style the footer of the component
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ResponsivePopover extends WebComponent {
     /**
@@ -31609,7 +31617,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): PopupAccessibleRole | keyof typeof PopupAccessibleRole;
+    getAccessibleRole(): PopupAccessibleRole;
     /**
      * Gets current value of property {@link #getAllowTargetOverlap allowTargetOverlap}.
      *
@@ -31688,9 +31696,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * @returns Value of property `horizontalAlign`
      */
-    getHorizontalAlign():
-      | PopoverHorizontalAlign
-      | keyof typeof PopoverHorizontalAlign;
+    getHorizontalAlign(): PopoverHorizontalAlign;
     /**
      * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
      * or `null`.
@@ -31733,9 +31739,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * @returns Value of property `placementType`
      */
-    getPlacementType():
-      | PopoverPlacementType
-      | keyof typeof PopoverPlacementType;
+    getPlacementType(): PopoverPlacementType;
     /**
      * Gets current value of property {@link #getPreventFocusRestore preventFocusRestore}.
      *
@@ -31757,9 +31761,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      *
      * @returns Value of property `verticalAlign`
      */
-    getVerticalAlign():
-      | PopoverVerticalAlign
-      | keyof typeof PopoverVerticalAlign;
+    getVerticalAlign(): PopoverVerticalAlign;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -32203,10 +32205,10 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
   /**
    * Describes the settings that can be provided to the ResponsivePopover constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ResponsivePopoverSettings extends $WebComponentSettings {
     /**
@@ -32427,10 +32429,10 @@ declare module "sap/ui/webc/main/SegmentedButton" {
    *  **Note:** There can be just one selected `item` at a time.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class SegmentedButton
     extends WebComponent
@@ -32647,7 +32649,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): SegmentedButtonMode | keyof typeof SegmentedButtonMode;
+    getMode(): SegmentedButtonMode;
     /**
      * Returns an array of the currently selected items.
      */
@@ -32777,10 +32779,10 @@ declare module "sap/ui/webc/main/SegmentedButton" {
   /**
    * Describes the settings that can be provided to the SegmentedButton constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $SegmentedButtonSettings extends $WebComponentSettings {
     /**
@@ -32886,10 +32888,10 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
    * CSS-styling classes, apps can give a different style to any `sap.ui.webc.main.SegmentedButtonItem`.
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class SegmentedButtonItem
     extends WebComponent
@@ -33108,7 +33110,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ButtonDesign | keyof typeof ButtonDesign;
+    getDesign(): ButtonDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -33191,7 +33193,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): ButtonType | keyof typeof ButtonType;
+    getType(): ButtonType;
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -33419,10 +33421,10 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
   /**
    * Describes the settings that can be provided to the SegmentedButtonItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $SegmentedButtonItemSettings extends $WebComponentSettings {
     /**
@@ -33592,10 +33594,10 @@ declare module "sap/ui/webc/main/Select" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Select extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -34140,7 +34142,7 @@ declare module "sap/ui/webc/main/Select" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -34448,10 +34450,10 @@ declare module "sap/ui/webc/main/Select" {
   /**
    * Describes the settings that can be provided to the Select constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $SelectSettings extends $WebComponentSettings {
     /**
@@ -34663,10 +34665,10 @@ declare module "sap/ui/webc/main/SelectMenu" {
    *
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class SelectMenu extends WebComponent {
     /**
@@ -34812,10 +34814,10 @@ declare module "sap/ui/webc/main/SelectMenu" {
   /**
    * Describes the settings that can be provided to the SelectMenu constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $SelectMenuSettings extends $WebComponentSettings {
     /**
@@ -34852,10 +34854,10 @@ declare module "sap/ui/webc/main/SelectMenuOption" {
    * Usage:
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class SelectMenuOption
     extends WebComponent
@@ -35057,10 +35059,10 @@ declare module "sap/ui/webc/main/SelectMenuOption" {
   /**
    * Describes the settings that can be provided to the SelectMenuOption constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $SelectMenuOptionSettings extends $WebComponentSettings {
     /**
@@ -35149,10 +35151,10 @@ declare module "sap/ui/webc/main/Slider" {
    *
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Slider extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -35682,10 +35684,10 @@ declare module "sap/ui/webc/main/Slider" {
   /**
    * Describes the settings that can be provided to the Slider constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $SliderSettings extends $WebComponentSettings {
     /**
@@ -35827,10 +35829,10 @@ declare module "sap/ui/webc/main/SplitButton" {
    * 	 - `arrow-click` for the second button (arrow action)
    *
    * @since 1.99.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.99.0. This control is experimental and its API might change significantly.
    */
   export default class SplitButton extends WebComponent {
     /**
@@ -36081,7 +36083,7 @@ declare module "sap/ui/webc/main/SplitButton" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ButtonDesign | keyof typeof ButtonDesign;
+    getDesign(): ButtonDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -36237,10 +36239,10 @@ declare module "sap/ui/webc/main/SplitButton" {
   /**
    * Describes the settings that can be provided to the SplitButton constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.99.0. This control is experimental and its API might change significantly.
    */
   export interface $SplitButtonSettings extends $WebComponentSettings {
     /**
@@ -36363,10 +36365,10 @@ declare module "sap/ui/webc/main/StandardListItem" {
    * 	 - checkbox - Used to style the checkbox rendered when the list item is in multiple selection mode
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class StandardListItem
     extends WebComponent
@@ -36594,7 +36596,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *
      * @returns Value of property `additionalTextState`
      */
-    getAdditionalTextState(): ValueState | keyof typeof ValueState;
+    getAdditionalTextState(): ValueState;
     /**
      * Gets content of aggregation {@link #getDeleteButton deleteButton}.
      *
@@ -36703,7 +36705,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): ListItemType | keyof typeof ListItemType;
+    getType(): ListItemType;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getImageContent imageContent}.
      * and returns its index if found or -1 otherwise.
@@ -37004,10 +37006,10 @@ declare module "sap/ui/webc/main/StandardListItem" {
   /**
    * Describes the settings that can be provided to the StandardListItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $StandardListItemSettings extends $WebComponentSettings {
     /**
@@ -37183,10 +37185,10 @@ declare module "sap/ui/webc/main/StepInput" {
    * 	 - To enter dates and times. In this case, use date/time related components instead.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class StepInput extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -37483,7 +37485,7 @@ declare module "sap/ui/webc/main/StepInput" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -37791,10 +37793,10 @@ declare module "sap/ui/webc/main/StepInput" {
   /**
    * Describes the settings that can be provided to the StepInput constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $StepInputSettings extends $WebComponentSettings {
     /**
@@ -37928,10 +37930,10 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
    * `sap.ui.webc.main.Input` suggestions into groups.
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class SuggestionGroupItem
     extends WebComponent
@@ -38033,10 +38035,10 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
   /**
    * Describes the settings that can be provided to the SuggestionGroupItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $SuggestionGroupItemSettings extends $WebComponentSettings {
     /**
@@ -38064,10 +38066,10 @@ declare module "sap/ui/webc/main/SuggestionItem" {
    * The `sap.ui.webc.main.SuggestionItem` represents the suggestion item of the `sap.ui.webc.main.Input`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class SuggestionItem
     extends WebComponent
@@ -38157,7 +38159,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *
      * @returns Value of property `additionalTextState`
      */
-    getAdditionalTextState(): ValueState | keyof typeof ValueState;
+    getAdditionalTextState(): ValueState;
     /**
      * Gets current value of property {@link #getDescription description}.
      *
@@ -38228,7 +38230,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): ListItemType | keyof typeof ListItemType;
+    getType(): ListItemType;
     /**
      * Sets a new value for property {@link #getAdditionalText additionalText}.
      *
@@ -38382,10 +38384,10 @@ declare module "sap/ui/webc/main/SuggestionItem" {
   /**
    * Describes the settings that can be provided to the SuggestionItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $SuggestionItemSettings extends $WebComponentSettings {
     /**
@@ -38488,10 +38490,10 @@ declare module "sap/ui/webc/main/Switch" {
    * 	 - handle - Used to style the handle of the switch
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Switch extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -38690,7 +38692,7 @@ declare module "sap/ui/webc/main/Switch" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): SwitchDesign | keyof typeof SwitchDesign;
+    getDesign(): SwitchDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -38969,10 +38971,10 @@ declare module "sap/ui/webc/main/Switch" {
   /**
    * Describes the settings that can be provided to the Switch constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $SwitchSettings extends $WebComponentSettings {
     /**
@@ -39089,10 +39091,10 @@ declare module "sap/ui/webc/main/Tab" {
    * that is presented to the user once the tab is selected.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Tab extends WebComponent implements ITab {
     __implements__sap_ui_webc_main_ITab: boolean;
@@ -39238,7 +39240,7 @@ declare module "sap/ui/webc/main/Tab" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): SemanticColor | keyof typeof SemanticColor;
+    getDesign(): SemanticColor;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -39532,10 +39534,10 @@ declare module "sap/ui/webc/main/Tab" {
   /**
    * Describes the settings that can be provided to the Tab constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TabSettings extends $WebComponentSettings {
     /**
@@ -39655,10 +39657,10 @@ declare module "sap/ui/webc/main/TabContainer" {
    * Keyboard Handling:
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TabContainer extends WebComponent {
     /**
@@ -39877,9 +39879,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      *
      * @returns Value of property `contentBackgroundDesign`
      */
-    getContentBackgroundDesign():
-      | TabContainerBackgroundDesign
-      | keyof typeof TabContainerBackgroundDesign;
+    getContentBackgroundDesign(): TabContainerBackgroundDesign;
     /**
      * Gets current value of property {@link #getFixed fixed}.
      *
@@ -39901,9 +39901,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      *
      * @returns Value of property `headerBackgroundDesign`
      */
-    getHeaderBackgroundDesign():
-      | TabContainerBackgroundDesign
-      | keyof typeof TabContainerBackgroundDesign;
+    getHeaderBackgroundDesign(): TabContainerBackgroundDesign;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -39949,7 +39947,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      *
      * @returns Value of property `tabLayout`
      */
-    getTabLayout(): TabLayout | keyof typeof TabLayout;
+    getTabLayout(): TabLayout;
     /**
      * Gets current value of property {@link #getTabsOverflowMode tabsOverflowMode}.
      *
@@ -39966,7 +39964,7 @@ declare module "sap/ui/webc/main/TabContainer" {
      *
      * @returns Value of property `tabsOverflowMode`
      */
-    getTabsOverflowMode(): TabsOverflowMode | keyof typeof TabsOverflowMode;
+    getTabsOverflowMode(): TabsOverflowMode;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -40210,10 +40208,10 @@ declare module "sap/ui/webc/main/TabContainer" {
   /**
    * Describes the settings that can be provided to the TabContainer constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TabContainerSettings extends $WebComponentSettings {
     /**
@@ -40403,10 +40401,10 @@ declare module "sap/ui/webc/main/Table" {
    * 	 - [CTRL]+[HOME]/[END] - Same behavior as HOME & END.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Table extends WebComponent {
     /**
@@ -40915,7 +40913,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      * @returns Value of property `growing`
      */
-    getGrowing(): TableGrowingMode | keyof typeof TableGrowingMode;
+    getGrowing(): TableGrowingMode;
     /**
      * Gets current value of property {@link #getGrowingButtonSubtext growingButtonSubtext}.
      *
@@ -40978,7 +40976,7 @@ declare module "sap/ui/webc/main/Table" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): TableMode | keyof typeof TableMode;
+    getMode(): TableMode;
     /**
      * Gets current value of property {@link #getNoDataText noDataText}.
      *
@@ -41405,10 +41403,10 @@ declare module "sap/ui/webc/main/Table" {
   /**
    * Describes the settings that can be provided to the Table constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TableSettings extends $WebComponentSettings {
     /**
@@ -41659,10 +41657,10 @@ declare module "sap/ui/webc/main/TableCell" {
    * 	 - cell - Used to style the native `td` element
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TableCell extends WebComponent implements ITableCell {
     __implements__sap_ui_webc_main_ITableCell: boolean;
@@ -41809,10 +41807,10 @@ declare module "sap/ui/webc/main/TableCell" {
   /**
    * Describes the settings that can be provided to the TableCell constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TableCellSettings extends $WebComponentSettings {
     /**
@@ -41856,10 +41854,10 @@ declare module "sap/ui/webc/main/TableColumn" {
    * 	 - column - Used to style the native `th` element
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TableColumn
     extends WebComponent
@@ -42000,9 +41998,7 @@ declare module "sap/ui/webc/main/TableColumn" {
      *
      * @returns Value of property `popinDisplay`
      */
-    getPopinDisplay():
-      | TableColumnPopinDisplay
-      | keyof typeof TableColumnPopinDisplay;
+    getPopinDisplay(): TableColumnPopinDisplay;
     /**
      * Gets current value of property {@link #getPopinText popinText}.
      *
@@ -42159,10 +42155,10 @@ declare module "sap/ui/webc/main/TableColumn" {
   /**
    * Describes the settings that can be provided to the TableColumn constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TableColumnSettings extends $WebComponentSettings {
     /**
@@ -42235,10 +42231,10 @@ declare module "sap/ui/webc/main/TableGroupRow" {
    * 	 - group-row - Used to style the native `tr` element.
    *
    * @since 1.95.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export default class TableGroupRow extends WebComponent implements ITableRow {
     __implements__sap_ui_webc_main_ITableRow: boolean;
@@ -42337,10 +42333,10 @@ declare module "sap/ui/webc/main/TableGroupRow" {
   /**
    * Describes the settings that can be provided to the TableGroupRow constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.95.0. This control is experimental and its API might change significantly.
    */
   export interface $TableGroupRowSettings extends $WebComponentSettings {
     /**
@@ -42383,10 +42379,10 @@ declare module "sap/ui/webc/main/TableRow" {
    * 	 - popin-row - Used to style the `tr` element when a row pops in
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TableRow extends WebComponent implements ITableRow {
     __implements__sap_ui_webc_main_ITableRow: boolean;
@@ -42518,7 +42514,7 @@ declare module "sap/ui/webc/main/TableRow" {
      *
      * @returns Value of property `type`
      */
-    getType(): TableRowType | keyof typeof TableRowType;
+    getType(): TableRowType;
     /**
      * Checks for the provided `sap.ui.webc.main.ITableCell` in the aggregation {@link #getCells cells}. and
      * returns its index if found or -1 otherwise.
@@ -42636,10 +42632,10 @@ declare module "sap/ui/webc/main/TableRow" {
   /**
    * Describes the settings that can be provided to the TableRow constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TableRowSettings extends $WebComponentSettings {
     /**
@@ -42690,10 +42686,10 @@ declare module "sap/ui/webc/main/TabSeparator" {
    * The `sap.ui.webc.main.TabSeparator` represents a vertical line to separate tabs inside a `sap.ui.webc.main.TabContainer`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TabSeparator extends WebComponent implements ITab {
     __implements__sap_ui_webc_main_ITab: boolean;
@@ -42775,10 +42771,10 @@ declare module "sap/ui/webc/main/TabSeparator" {
   /**
    * Describes the settings that can be provided to the TabSeparator constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TabSeparatorSettings extends $WebComponentSettings {}
 }
@@ -42815,10 +42811,10 @@ declare module "sap/ui/webc/main/TextArea" {
    * 	 - textarea - Used to style the native textarea
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TextArea extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -43228,7 +43224,7 @@ declare module "sap/ui/webc/main/TextArea" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -43585,10 +43581,10 @@ declare module "sap/ui/webc/main/TextArea" {
   /**
    * Describes the settings that can be provided to the TextArea constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TextAreaSettings extends $WebComponentSettings {
     /**
@@ -43805,10 +43801,10 @@ declare module "sap/ui/webc/main/TimePicker" {
    *     is pressed, the first clock is beind displayed.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TimePicker extends WebComponent implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -44131,7 +44127,7 @@ declare module "sap/ui/webc/main/TimePicker" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getValueStateMessage valueStateMessage}.
      *
@@ -44343,10 +44339,10 @@ declare module "sap/ui/webc/main/TimePicker" {
   /**
    * Describes the settings that can be provided to the TimePicker constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TimePickerSettings extends $WebComponentSettings {
     /**
@@ -44492,10 +44488,10 @@ declare module "sap/ui/webc/main/Title" {
    * text with explicit header/title semantics.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Title extends WebComponent {
     /**
@@ -44570,7 +44566,7 @@ declare module "sap/ui/webc/main/Title" {
      *
      * @returns Value of property `level`
      */
-    getLevel(): TitleLevel | keyof typeof TitleLevel;
+    getLevel(): TitleLevel;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -44602,7 +44598,7 @@ declare module "sap/ui/webc/main/Title" {
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Sets a new value for property {@link #getLevel level}.
      *
@@ -44678,10 +44674,10 @@ declare module "sap/ui/webc/main/Title" {
   /**
    * Describes the settings that can be provided to the Title constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TitleSettings extends $WebComponentSettings {
     /**
@@ -44745,10 +44741,10 @@ declare module "sap/ui/webc/main/Toast" {
    * 	 - You want users to be able to copy some part of the message text.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Toast extends WebComponent {
     /**
@@ -44849,7 +44845,7 @@ declare module "sap/ui/webc/main/Toast" {
      *
      * @returns Value of property `placement`
      */
-    getPlacement(): ToastPlacement | keyof typeof ToastPlacement;
+    getPlacement(): ToastPlacement;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -44970,10 +44966,10 @@ declare module "sap/ui/webc/main/Toast" {
   /**
    * Describes the settings that can be provided to the Toast constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ToastSettings extends $WebComponentSettings {
     /**
@@ -45040,10 +45036,10 @@ declare module "sap/ui/webc/main/ToggleButton" {
    * CSS-styling classes, apps can give a different style to any `sap.ui.webc.main.ToggleButton`.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class ToggleButton extends WebComponent {
     /**
@@ -45256,7 +45252,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ButtonDesign | keyof typeof ButtonDesign;
+    getDesign(): ButtonDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -45328,7 +45324,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      * @returns Value of property `type`
      */
-    getType(): ButtonType | keyof typeof ButtonType;
+    getType(): ButtonType;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -45563,10 +45559,10 @@ declare module "sap/ui/webc/main/ToggleButton" {
   /**
    * Describes the settings that can be provided to the ToggleButton constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $ToggleButtonSettings extends $WebComponentSettings {
     /**
@@ -45700,10 +45696,10 @@ declare module "sap/ui/webc/main/Token" {
    * items.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Token extends WebComponent implements IToken {
     __implements__sap_ui_webc_main_IToken: boolean;
@@ -46022,10 +46018,10 @@ declare module "sap/ui/webc/main/Token" {
   /**
    * Describes the settings that can be provided to the Token constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TokenSettings extends $WebComponentSettings {
     /**
@@ -46103,10 +46099,10 @@ declare module "sap/ui/webc/main/Toolbar" {
    *
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class Toolbar extends WebComponent {
     /**
@@ -46221,7 +46217,7 @@ declare module "sap/ui/webc/main/Toolbar" {
      *
      * @returns Value of property `alignContent`
      */
-    getAlignContent(): ToolbarAlign | keyof typeof ToolbarAlign;
+    getAlignContent(): ToolbarAlign;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -46344,10 +46340,10 @@ declare module "sap/ui/webc/main/Toolbar" {
   /**
    * Describes the settings that can be provided to the Toolbar constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarSettings extends $WebComponentSettings {
     /**
@@ -46406,10 +46402,10 @@ declare module "sap/ui/webc/main/ToolbarButton" {
    * Overview: The `sap.ui.webc.main.ToolbarButton` represents an abstract action, used in the `sap.ui.webc.main.Toolbar`.
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class ToolbarButton
     extends WebComponent
@@ -46634,7 +46630,7 @@ declare module "sap/ui/webc/main/ToolbarButton" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ButtonDesign | keyof typeof ButtonDesign;
+    getDesign(): ButtonDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -46897,10 +46893,10 @@ declare module "sap/ui/webc/main/ToolbarButton" {
   /**
    * Describes the settings that can be provided to the ToolbarButton constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarButtonSettings extends $WebComponentSettings {
     /**
@@ -47033,10 +47029,10 @@ declare module "sap/ui/webc/main/ToolbarSelect" {
    * component.
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class ToolbarSelect
     extends WebComponent
@@ -47427,7 +47423,7 @@ declare module "sap/ui/webc/main/ToolbarSelect" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -47597,10 +47593,10 @@ declare module "sap/ui/webc/main/ToolbarSelect" {
   /**
    * Describes the settings that can be provided to the ToolbarSelect constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarSelectSettings extends $WebComponentSettings {
     /**
@@ -47733,10 +47729,10 @@ declare module "sap/ui/webc/main/ToolbarSelectOption" {
    * The `sap.ui.webc.main.ToolbarSelectOption` component defines the content of an option in the `sap.ui.webc.main.ToolbarSelect`.
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class ToolbarSelectOption
     extends WebComponent
@@ -47867,10 +47863,10 @@ declare module "sap/ui/webc/main/ToolbarSelectOption" {
   /**
    * Describes the settings that can be provided to the ToolbarSelectOption constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarSelectOptionSettings extends $WebComponentSettings {
     /**
@@ -47900,10 +47896,10 @@ declare module "sap/ui/webc/main/ToolbarSeparator" {
    * elements. It takes no space in calculating toolbar items width.
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class ToolbarSeparator
     extends WebComponent
@@ -47982,10 +47978,10 @@ declare module "sap/ui/webc/main/ToolbarSeparator" {
   /**
    * Describes the settings that can be provided to the ToolbarSeparator constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarSeparatorSettings extends $WebComponentSettings {}
 }
@@ -48009,10 +48005,10 @@ declare module "sap/ui/webc/main/ToolbarSpacer" {
    * items to take 100% width. It takes no space in calculating toolbar items width.
    *
    * @since 1.120.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export default class ToolbarSpacer
     extends WebComponent
@@ -48122,10 +48118,10 @@ declare module "sap/ui/webc/main/ToolbarSpacer" {
   /**
    * Describes the settings that can be provided to the ToolbarSpacer constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.120.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.120.0. This control is experimental and its API might change significantly.
    */
   export interface $ToolbarSpacerSettings extends $WebComponentSettings {
     /**
@@ -48190,10 +48186,10 @@ declare module "sap/ui/webc/main/Tree" {
    * 	 - [ENTER] - Selects the currently focused item upon keydown.
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class Tree extends WebComponent {
     /**
@@ -48883,7 +48879,7 @@ declare module "sap/ui/webc/main/Tree" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): ListMode | keyof typeof ListMode;
+    getMode(): ListMode;
     /**
      * Gets current value of property {@link #getNoDataText noDataText}.
      *
@@ -49175,10 +49171,10 @@ declare module "sap/ui/webc/main/Tree" {
   /**
    * Describes the settings that can be provided to the Tree constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TreeSettings extends $WebComponentSettings {
     /**
@@ -49441,10 +49437,10 @@ declare module "sap/ui/webc/main/TreeItem" {
    * 	 - icon - Used to style the icon of the tree list item
    *
    * @since 1.92.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export default class TreeItem extends WebComponent implements ITreeItem {
     __implements__sap_ui_webc_main_ITreeItem: boolean;
@@ -49668,7 +49664,7 @@ declare module "sap/ui/webc/main/TreeItem" {
      *
      * @returns Value of property `additionalTextState`
      */
-    getAdditionalTextState(): ValueState | keyof typeof ValueState;
+    getAdditionalTextState(): ValueState;
     /**
      * Gets content of aggregation {@link #getDeleteButton deleteButton}.
      *
@@ -49787,7 +49783,7 @@ declare module "sap/ui/webc/main/TreeItem" {
      *
      * @returns Value of property `type`
      */
-    getType(): ListItemType | keyof typeof ListItemType;
+    getType(): ListItemType;
     /**
      * Checks for the provided `sap.ui.webc.main.ITreeItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
@@ -50104,10 +50100,10 @@ declare module "sap/ui/webc/main/TreeItem" {
   /**
    * Describes the settings that can be provided to the TreeItem constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.92.0. This control is experimental and its API might change significantly.
    */
   export interface $TreeItemSettings extends $WebComponentSettings {
     /**
@@ -50279,10 +50275,10 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
    * 	 - icon - Used to style the icon of the tree list item
    *
    * @since 1.115.0
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.115.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.115.0. This control is experimental and its API might change significantly.
    */
   export default class TreeItemCustom
     extends WebComponent
@@ -50517,7 +50513,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
      *
      * @returns Value of property `additionalTextState`
      */
-    getAdditionalTextState(): ValueState | keyof typeof ValueState;
+    getAdditionalTextState(): ValueState;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -50642,7 +50638,7 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
      *
      * @returns Value of property `type`
      */
-    getType(): ListItemType | keyof typeof ListItemType;
+    getType(): ListItemType;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -50993,10 +50989,10 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
   /**
    * Describes the settings that can be provided to the TreeItemCustom constructor.
    *
-   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * @deprecated As of version 1.120. this Web Components consumption model has been discarded. Until an alternative
    * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
    * functionality.
-   * @experimental (since 1.115.0) - This control is experimental and its API might change significantly.
+   * @experimental As of version 1.115.0. This control is experimental and its API might change significantly.
    */
   export interface $TreeItemCustomSettings extends $WebComponentSettings {
     /**

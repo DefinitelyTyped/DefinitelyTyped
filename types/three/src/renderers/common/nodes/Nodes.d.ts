@@ -97,14 +97,14 @@ declare class Nodes extends DataMap<{
      * Returns `true` if the given node uniforms group must be updated or not.
      *
      * @param {NodeUniformsGroup} nodeUniformsGroup - The node uniforms group.
-     * @return {Boolean} Whether the node uniforms group requires an update or not.
+     * @return {boolean} Whether the node uniforms group requires an update or not.
      */
     updateGroup(nodeUniformsGroup: NodeUniformsGroup): boolean;
     /**
      * Returns the cache key for the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getForRenderCacheKey(renderObject: RenderObject): string;
     /**
@@ -117,8 +117,8 @@ declare class Nodes extends DataMap<{
     /**
      * Deletes the given object from the internal data map
      *
-     * @param {Any} object - The object to delete.
-     * @return {Object?} The deleted dictionary.
+     * @param {any} object - The object to delete.
+     * @return {?Object} The deleted dictionary.
      */
     delete(
         object: NodeUniformsGroup | RenderObject | ComputeNode | Scene,
@@ -169,14 +169,14 @@ declare class Nodes extends DataMap<{
      *
      * @param {Scene} scene - The scene.
      * @param {LightsNode} lightsNode - The lights node.
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getCacheKey(scene: Scene, lightsNode: LightsNode): number;
     /**
      * A boolean that indicates whether tone mapping should be enabled
      * or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      */
     get isToneMappingState(): boolean;
     /**
@@ -190,10 +190,10 @@ declare class Nodes extends DataMap<{
      * This method is part of the caching of nodes which are used to represents the
      * scene's background, fog or environment.
      *
-     * @param {String} type - The type of object to cache.
+     * @param {string} type - The type of object to cache.
      * @param {Object} object - The object.
      * @param {Function} callback - A callback that produces a node representation for the given object.
-     * @param {Boolean} [forceUpdate=false] - Whether an update should be enforced or not.
+     * @param {boolean} [forceUpdate=false] - Whether an update should be enforced or not.
      * @return {Node} The node representation.
      */
     getCacheNode(
@@ -227,7 +227,7 @@ declare class Nodes extends DataMap<{
     /**
      * Returns the current output cache key.
      *
-     * @return {String} The output cache key.
+     * @return {string} The output cache key.
      */
     getOutputCacheKey(): string;
     /**
@@ -235,7 +235,7 @@ declare class Nodes extends DataMap<{
      * the given target has changed.
      *
      * @param {Texture} outputTarget - The output target.
-     * @return {Boolean} Whether the output configuration has changed or not.
+     * @return {boolean} Whether the output configuration has changed or not.
      */
     hasOutputChange(outputTarget: Texture): boolean;
     /**
@@ -278,7 +278,7 @@ declare class Nodes extends DataMap<{
      * Returns `true` if the given render object requires a refresh.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether the given render object requires a refresh or not.
+     * @return {boolean} Whether the given render object requires a refresh or not.
      */
     needsRefresh(renderObject: RenderObject): boolean;
     /**

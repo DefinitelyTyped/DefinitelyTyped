@@ -8,6 +8,7 @@ import {
     Airplane,
     AppModernization,
     AudioData,
+    B2bCommerce,
     Backpack,
     BentoBoxTray,
     Bluepages,
@@ -75,3 +76,4 @@ import * as React from "react";
 <BentoBoxTray />; // $ExpectType Element
 <ShanghaiSkyline />; // $ExpectType Element
 <MagicWand />; // $ExpectType Element
+<B2bCommerce />; // $ExpectType Element

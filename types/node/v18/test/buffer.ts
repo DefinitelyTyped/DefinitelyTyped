@@ -1,7 +1,7 @@
 // Specifically test buffer module regression.
 import {
     Blob as NodeBlob,
-    Buffer as ImportedBuffer,
+    Buffer,
     constants,
     File,
     isAscii,
@@ -9,7 +9,7 @@ import {
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
-    SlowBuffer as ImportedSlowBuffer,
+    SlowBuffer,
     transcode,
     TranscodeEncoding,
 } from "node:buffer";
@@ -28,6 +28,11 @@ console.log(Buffer.byteLength("xyz123"));
 console.log(Buffer.byteLength("xyz123", "ascii"));
 const result1 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[]);
 const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[], 9999999);
+
+// Globals
+{
+    const globalBuffer: typeof Buffer = globalThis.Buffer;
+}
 
 // Module constants
 {
@@ -57,76 +62,96 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
     buf.swap64();
 }
 
-// Class Method: Buffer.from(data)
+// Class Method: Buffer.from()
 {
-    // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
+    // Array-like
+    {
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as const);
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(new Uint8Array());
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(Uint8ClampedArray.of(1024));
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({ length: 6, 0: 0x62, 1: 0x75, 2: 0x66, 3: 0x66, 4: 0x65, 5: 0x72 });
+    }
+
     // Buffer
-    const buf2: Buffer = Buffer.from(buf1, 1, 2);
-    // String
-    const buf3: Buffer = Buffer.from("this is a tést");
+    {
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(Buffer.alloc(0));
+    }
+
     // ArrayBuffer
-    const arrUint16: Uint16Array = new Uint16Array(2);
-    arrUint16[0] = 5000;
-    arrUint16[1] = 4000;
-    const buf4: Buffer = Buffer.from(arrUint16.buffer);
-    const arrUint8: Uint8Array = new Uint8Array(2);
-    const buf5: Buffer = Buffer.from(arrUint8);
-    const buf6: Buffer = Buffer.from(buf1);
-    const sb: SharedArrayBuffer = {} as any;
-    const buf7: Buffer = Buffer.from(sb);
+    {
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(new ArrayBuffer(0));
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(new ArrayBuffer(32), 16, 16);
+        // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+        Buffer.from(new SharedArrayBuffer(0));
+        // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+        Buffer.from(new SharedArrayBuffer(32), 16, 16);
+        // $ExpectType Buffer || Buffer<ArrayBuffer | SharedArrayBuffer>
+        Buffer.from({} as ArrayBuffer | SharedArrayBuffer);
+    }
+
+    // String
+    {
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from("buffer");
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from("buffer", "latin1");
+    }
+
+    // implicit coercion
+    {
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({
+            valueOf() {
+                return [] as const;
+            },
+        });
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({
+            valueOf() {
+                return Buffer.alloc(0);
+            },
+        });
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({
+            valueOf() {
+                return "buffer";
+            },
+        }, "utf-8");
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({
+            valueOf() {
+                return new ArrayBuffer(0);
+            },
+        });
+        // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+        Buffer.from({
+            valueOf() {
+                return new SharedArrayBuffer(0);
+            },
+        });
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from({
+            [Symbol.toPrimitive]() {
+                return "buffer";
+            },
+        }, "latin1");
+        // @ts-expect-error
+        Buffer.from({} as { valueOf(): {} });
+        // @ts-expect-error
+        Buffer.from({} as { [Symbol.toPrimitive](): number });
+    }
+
     // @ts-expect-error
     Buffer.from({});
-}
-
-// Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
-{
-    const arr: Uint16Array = new Uint16Array(2);
-    arr[0] = 5000;
-    arr[1] = 4000;
-
-    let buf: Buffer;
-    buf = Buffer.from(arr.buffer, 1);
-    buf = Buffer.from(arr.buffer, 0, 1);
-
     // @ts-expect-error
-    Buffer.from("this is a test", 1, 1);
-    // Ideally passing a normal Buffer would be a type error too, but it's not
-    //  since Buffer is assignable to ArrayBuffer currently
-}
-
-// Class Method: Buffer.from(str[, encoding])
-{
-    const buf2: Buffer = Buffer.from("7468697320697320612074c3a97374", "hex");
-    /* tslint:disable-next-line no-construct */
-    Buffer.from(new String("DEADBEEF"), "hex");
-    // @ts-expect-error
-    Buffer.from(buf2, "hex");
-}
-
-// Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
-{
-    const pseudoBuf = {
-        valueOf() {
-            return Buffer.from([1, 2, 3]);
-        },
-    };
-    let buf: Buffer = Buffer.from(pseudoBuf);
-    const pseudoString = {
-        valueOf() {
-            return "Hello";
-        },
-    };
-    buf = Buffer.from(pseudoString);
-    buf = Buffer.from(pseudoString, "utf-8");
-    // @ts-expect-error
-    Buffer.from(pseudoString, 1, 2);
-    const pseudoArrayBuf = {
-        valueOf() {
-            return new Uint16Array(2);
-        },
-    };
-    buf = Buffer.from(pseudoArrayBuf, 1, 1);
+    Buffer.from(0);
 }
 
 // Class Method: Buffer.alloc(size[, fill[, encoding]])
@@ -262,12 +287,12 @@ b.fill("a").fill("b");
     */
 }
 
-// Imported Buffer from buffer module works properly
+// SlowBuffer
 {
-    const b = new ImportedBuffer("123");
-    b.writeUInt8(0, 6);
-    const sb = new ImportedSlowBuffer(43);
-    b.writeUInt8(0, 6);
+    // $ExpectType Buffer || Buffer<ArrayBuffer>
+    new SlowBuffer(256);
+    // @ts-expect-error
+    SlowBuffer(256);
 }
 
 // Buffer has Uint8Array's buffer field (an ArrayBuffer).
@@ -382,15 +407,6 @@ const c: NodeJS.TypedArray = new Buffer(123);
     readable.pipe(writable);
     writableFinished = writable.writableFinished;
     writable.destroyed;
-}
-
-{
-    const obj = {
-        valueOf() {
-            return "hello";
-        },
-    };
-    Buffer.from(obj);
 }
 
 const buff = Buffer.from("Hello World!");

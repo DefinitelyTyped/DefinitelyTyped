@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -13,7 +13,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'ButtonStyle'.
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.Button). Use sap.m.Button with its sap.m.ButtonType
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.Button). Use sap.m.Button with its sap.m.ButtonType
    * instead.
    */
   export enum ButtonStyle {
@@ -40,14 +40,14 @@ declare module "sap/ui/commons/library" {
    * This enum is an alias for {@link sap.ui.unified.ColorPickerMode} and was only kept for compatibility
    * reasons. Please switch to the {@link sap.ui.unified.ColorPicker} API.
    *
-   * @deprecated (since 1.48.0) - Use {@link sap.ui.unified.ColorPickerMode} instead.
+   * @deprecated As of version 1.48.0. Use {@link sap.ui.unified.ColorPickerMode} instead.
    */
   export type ColorPickerMode = ColorPickerMode1;
 
   /**
    * Marker interface for common controls which are suitable for use within a FormattedTextView.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface FormattedTextViewControl {
     __implements__sap_ui_commons_FormattedTextViewControl: boolean;
@@ -59,7 +59,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'HorizontalDividerHeight'.
    *
-   * @deprecated (since 1.38) - without replacement.
+   * @deprecated As of version 1.38. without replacement.
    */
   export enum HorizontalDividerHeight {
     /**
@@ -85,7 +85,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'HorizontalDividerType'.
    *
-   * @deprecated (since 1.38) - without a replacement.
+   * @deprecated As of version 1.38. without a replacement.
    */
   export enum HorizontalDividerType {
     /**
@@ -103,7 +103,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'LabelDesign'.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export enum LabelDesign {
     /**
@@ -121,7 +121,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'MenuBarDesign'.
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.Toolbar). Use sap.m.Toolbar and its sap.m.ToolbarDesign
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.Toolbar). Use sap.m.Toolbar and its sap.m.ToolbarDesign
    * instead.
    */
   export enum MenuBarDesign {
@@ -140,7 +140,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'MessageType'.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.core.MessageType`.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.core.MessageType`.
    */
   export enum MessageType {
     /**
@@ -162,7 +162,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'PaginatorEvent'.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export enum PaginatorEvent {
     /**
@@ -192,7 +192,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'RatingIndicatorVisualMode'.
    *
-   * @deprecated (since 1.38) - Instead, use `sap.m.RatingIndicator` control.
+   * @deprecated As of version 1.38. Instead, use `sap.m.RatingIndicator` control.
    */
   export enum RatingIndicatorVisualMode {
     /**
@@ -214,7 +214,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'RowRepeaterDesign'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum RowRepeaterDesign {
     /**
@@ -233,7 +233,7 @@ declare module "sap/ui/commons/library" {
   /**
    * A string type that represents subset of CSS size values. For the Splitter only px and % are allowed.
    *
-   * @deprecated (since 1.38) - Instead, use `sap.ui.layout.Splitter` control.
+   * @deprecated As of version 1.38. Instead, use `sap.ui.layout.Splitter` control.
    */
   export type SplitterSize = string;
 
@@ -243,7 +243,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'TextViewColor'.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export enum TextViewColor {
     /**
@@ -269,7 +269,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'TextViewDesign'.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export enum TextViewDesign {
     /**
@@ -327,7 +327,7 @@ declare module "sap/ui/commons/library" {
    * This is an alias for {@link sap.ui.core.TitleLevel} and only kept for compatibility reasons.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - Use {@link sap.ui.core.TitleLevel} instead.
+   * @deprecated As of version 1.16.0. Use {@link sap.ui.core.TitleLevel} instead.
    */
   export type TitleLevel = TitleLevel1;
 
@@ -337,7 +337,7 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'ToolbarDesign'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum ToolbarDesign {
     /**
@@ -362,7 +362,7 @@ declare module "sap/ui/commons/library" {
    * Toolbar items must have a fixed height compatible with the toolbar being a single horizontal row. They
    * can refer to the toolbar's marker class "sapUiTb" to adjust their own theming when used inside a toolbar.
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.Toolbar). Use sap.m.Toolbar instead.
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.Toolbar). Use sap.m.Toolbar instead.
    */
   export interface ToolbarItem {
     __implements__sap_ui_commons_ToolbarItem: boolean;
@@ -374,8 +374,8 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'ToolbarSeparatorDesign'.
    *
-   * @deprecated (since 1.38) - (altogether wuith sap.ui.commons.Toolbar). Use sap.m.Toolbar and its sap.m.ToolbarSeparator
-   * instead.
+   * @deprecated As of version 1.38. (altogether wuith sap.ui.commons.Toolbar). Use sap.m.Toolbar and its
+   * sap.m.ToolbarSeparator instead.
    */
   export enum ToolbarSeparatorDesign {
     /**
@@ -393,7 +393,8 @@ declare module "sap/ui/commons/library" {
    * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
    * 'TreeSelectionMode'.
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.Tree). Use sap.m.Tree with its items instead.
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.Tree). Use sap.m.Tree with its items
+   * instead.
    */
   export enum TreeSelectionMode {
     /**
@@ -420,7 +421,7 @@ declare module "sap/ui/commons/library" {
    * 'TriStateCheckBoxState'.
    *
    * @since 1.7.2
-   * @deprecated (since 1.38) - Use {@link sap.m.CheckBox} and its properties instead.
+   * @deprecated As of version 1.38. Use {@link sap.m.CheckBox} and its properties instead.
    */
   export enum TriStateCheckBoxState {
     /**
@@ -444,7 +445,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'enums.AreaDesign'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum AreaDesign {
       /**
@@ -466,7 +467,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'enums.BorderDesign'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum BorderDesign {
       /**
@@ -484,7 +485,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'enums.Orientation'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum Orientation {
       /**
@@ -504,7 +505,7 @@ declare module "sap/ui/commons/library" {
      *
      * This is an alias for {@link sap.ui.layout.form.SimpleFormLayout} and only kept for compatibility reasons.
      *
-     * @deprecated (since 1.16.0) - Use {@link sap.ui.layout.form.SimpleFormLayout} instead.
+     * @deprecated As of version 1.16.0. Use {@link sap.ui.layout.form.SimpleFormLayout} instead.
      */
     type SimpleFormLayout = form1.SimpleFormLayout;
   }
@@ -516,7 +517,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.BackgroundDesign'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum BackgroundDesign {
       /**
@@ -554,8 +555,8 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.BorderLayoutAreaTypes'.
      *
-     * @deprecated (since 1.38) - (altogether with sap.ui.commons.layout.BorderLayout). Use sap.m.Page instead
-     * with its aggregations.
+     * @deprecated As of version 1.38. (altogether with sap.ui.commons.layout.BorderLayout). Use sap.m.Page
+     * instead with its aggregations.
      */
     enum BorderLayoutAreaTypes {
       /**
@@ -586,7 +587,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.HAlign'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum HAlign {
       /**
@@ -618,7 +619,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.Padding'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum Padding {
       /**
@@ -651,7 +652,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.Separation'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum Separation {
       /**
@@ -689,7 +690,7 @@ declare module "sap/ui/commons/library" {
      * This enum is part of the 'sap/ui/commons/library' module export and must be accessed by the property
      * 'layout.VAlign'.
      *
-     * @deprecated (since 1.38)
+     * @deprecated As of version 1.38.
      */
     enum VAlign {
       /**
@@ -727,7 +728,7 @@ declare module "sap/ui/commons/Accordion" {
   /**
    * Contains N sections, acting as containers for any library control
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Panel}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Panel}.
    */
   export default class Accordion extends Control {
     /**
@@ -1178,7 +1179,7 @@ declare module "sap/ui/commons/Accordion" {
   /**
    * Describes the settings that can be provided to the Accordion constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Panel}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Panel}.
    */
   export interface $AccordionSettings extends $ControlSettings {
     /**
@@ -1300,7 +1301,7 @@ declare module "sap/ui/commons/AccordionSection" {
   /**
    * Represents a panel which is a container for other controls. The container does not have any layout function.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export default class AccordionSection extends UI5Element {
     /**
@@ -1469,7 +1470,7 @@ declare module "sap/ui/commons/AccordionSection" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
+     * @deprecated As of version 1.34. Use Accordion's "openedSectionsId" property
      *
      * @returns Value of property `collapsed`
      */
@@ -1624,7 +1625,7 @@ declare module "sap/ui/commons/AccordionSection" {
   /**
    * Describes the settings that can be provided to the AccordionSection constructor.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface $AccordionSectionSettings extends $ElementSettings {
     /**
@@ -1640,7 +1641,7 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * It is recommended to adjust the settings for the width when the section is set to 'collapsed'.
      *
-     * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
+     * @deprecated As of version 1.34. Use Accordion's "openedSectionsId" property
      */
     collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -1702,7 +1703,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
    * The application header control stands on the top of any application page. It consists of 4 areas: Logo
    * area, Function area provided by application, Search area, Logout area.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.tnt.ToolHeader` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.tnt.ToolHeader` control.
    */
   export default class ApplicationHeader extends Control {
     /**
@@ -1982,7 +1983,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
   /**
    * Describes the settings that can be provided to the ApplicationHeader constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.tnt.ToolHeader` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.tnt.ToolHeader` control.
    */
   export interface $ApplicationHeaderSettings extends $ControlSettings {
     /**
@@ -2043,7 +2044,7 @@ declare module "sap/ui/commons/Area" {
    * Used for defining areas in an image map. At runtime, the user can trigger an action, or start a URL,
    * from the single image areas.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class Area extends UI5Element {
     /**
@@ -2212,7 +2213,7 @@ declare module "sap/ui/commons/Area" {
   /**
    * Describes the settings that can be provided to the Area constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $AreaSettings extends $ElementSettings {
     /**
@@ -2257,7 +2258,7 @@ declare module "sap/ui/commons/AutoComplete" {
    * Textfield with list based text completion.
    *
    * @since 1.10.0
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}.
    */
   export default class AutoComplete extends ComboBox implements ToolbarItem {
     __implements__sap_ui_commons_ToolbarItem: boolean;
@@ -2414,15 +2415,15 @@ declare module "sap/ui/commons/AutoComplete" {
      */
     getEnableScrolling(): boolean;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     getListBox(): string;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     getSelectedItemId(): string;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     getSelectedKey(): string;
     /**
@@ -2458,22 +2459,22 @@ declare module "sap/ui/commons/AutoComplete" {
       fFilter?: Function
     ): void;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     setListBox(oListBox: string | ListBox): this;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     setSelectedItemId(sSelectedItemId: string): this;
     /**
-     * @deprecated (since 1.10.0) - NOT SUPPORTED
+     * @deprecated As of version 1.10.0. NOT SUPPORTED
      */
     setSelectedKey(sSelectedKey: string): this;
   }
   /**
    * Describes the settings that can be provided to the AutoComplete constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}.
    */
   export interface $AutoCompleteSettings extends $ComboBoxSettings {
     /**
@@ -2524,7 +2525,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
    * The object contains the available parameters for BorderLayout's Area.
    *
    * @since 1.110
-   * @deprecated (since 1.110) - as it is an integral part of the already deprecated {@link sap.ui.commons.BorderLayout}.
+   * @deprecated As of version 1.110. as it is an integral part of the already deprecated {@link sap.ui.commons.BorderLayout}.
    */
   export type BorderLayoutAreaData = {
     /**
@@ -2555,7 +2556,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
    * Footer; Begin: Left/right-hand side panel; Center: Content area in the middle; End: Right/left-hand side
    * panel.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Page}
    */
   export default class BorderLayout extends Control {
     /**
@@ -2805,7 +2806,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     * @deprecated As of version 1.5.2. replaced by the global configuration for the page
      *
      * @returns Value of property `rtl`
      */
@@ -2990,7 +2991,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     * @deprecated As of version 1.5.2. replaced by the global configuration for the page
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3034,13 +3035,13 @@ declare module "sap/ui/commons/layout/BorderLayout" {
   /**
    * Describes the settings that can be provided to the BorderLayout constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Page}
    */
   export interface $BorderLayoutSettings extends $ControlSettings {
     /**
      * The RTL setting swaps the areas Begin and End.
      *
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     * @deprecated As of version 1.5.2. replaced by the global configuration for the page
      */
     rtl?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -3104,7 +3105,7 @@ declare module "sap/ui/commons/Button" {
    * Enables users to trigger actions such as save or print. For the button UI, you can define some text or
    * an icon, or both.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Button}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Button}
    */
   export default class Button
     extends Control
@@ -3400,7 +3401,7 @@ declare module "sap/ui/commons/Button" {
      *
      * @returns Value of property `style`
      */
-    getStyle(): ButtonStyle | keyof typeof ButtonStyle;
+    getStyle(): ButtonStyle;
     /**
      * Gets current value of property {@link #getStyled styled}.
      *
@@ -3695,7 +3696,7 @@ declare module "sap/ui/commons/Button" {
   /**
    * Describes the settings that can be provided to the Button constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Button}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Button}
    */
   export interface $ButtonSettings extends $ControlSettings {
     /**
@@ -3812,8 +3813,8 @@ declare module "sap/ui/commons/Callout" {
    * Callout is a small popup with some useful information and links that is shown when a mouse is hovered
    * over a specific view element.
    *
-   * @deprecated (since 1.38) - If you want to achieve a similar behavior, use a `sap.m.Popover` control and
-   * open it next to your control.
+   * @deprecated As of version 1.38. If you want to achieve a similar behavior, use a `sap.m.Popover` control
+   * and open it next to your control.
    */
   export default class Callout extends CalloutBase {
     /**
@@ -3959,8 +3960,8 @@ declare module "sap/ui/commons/Callout" {
   /**
    * Describes the settings that can be provided to the Callout constructor.
    *
-   * @deprecated (since 1.38) - If you want to achieve a similar behavior, use a `sap.m.Popover` control and
-   * open it next to your control.
+   * @deprecated As of version 1.38. If you want to achieve a similar behavior, use a `sap.m.Popover` control
+   * and open it next to your control.
    */
   export interface $CalloutSettings extends $CalloutBaseSettings {
     /**
@@ -3987,7 +3988,7 @@ declare module "sap/ui/commons/CalloutBase" {
   /**
    * CalloutBase is a building block for Callout. Do not use it directly. Use the Callout control instead
    *
-   * @deprecated (since 1.38) - If you want to achieve a similar behavior, use the `sap.m.Popover` control
+   * @deprecated As of version 1.38. If you want to achieve a similar behavior, use the `sap.m.Popover` control
    * and open it next to your control.
    */
   export default class CalloutBase extends TooltipBase {
@@ -4404,7 +4405,7 @@ declare module "sap/ui/commons/CalloutBase" {
   /**
    * Describes the settings that can be provided to the CalloutBase constructor.
    *
-   * @deprecated (since 1.38) - If you want to achieve a similar behavior, use the `sap.m.Popover` control
+   * @deprecated As of version 1.38. If you want to achieve a similar behavior, use the `sap.m.Popover` control
    * and open it next to your control.
    */
   export interface $CalloutBaseSettings extends $TooltipBaseSettings {
@@ -4515,7 +4516,7 @@ declare module "sap/ui/commons/Carousel" {
    * you. Navigation is done through buttons or keys.
    *
    * @since 1.8.0
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Carousel` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Carousel` control.
    */
   export default class Carousel extends Control {
     /**
@@ -4709,7 +4710,7 @@ declare module "sap/ui/commons/Carousel" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): enums.Orientation | keyof typeof enums.Orientation;
+    getOrientation(): enums.Orientation;
     /**
      * Gets current value of property {@link #getVisibleItems visibleItems}.
      *
@@ -4969,7 +4970,7 @@ declare module "sap/ui/commons/Carousel" {
   /**
    * Describes the settings that can be provided to the Carousel constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Carousel` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Carousel` control.
    */
   export interface $CarouselSettings extends $ControlSettings {
     /**
@@ -5051,7 +5052,7 @@ declare module "sap/ui/commons/CheckBox" {
    * Provides a box which can be flagged, the box has a label. A check box can either stand alone, or in a
    * group with other check boxes. As an option, the boxes can initially be set to status 'Not Editable'.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.CheckBox` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.CheckBox` control.
    */
   export default class CheckBox extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -5314,7 +5315,7 @@ declare module "sap/ui/commons/CheckBox" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -5325,7 +5326,7 @@ declare module "sap/ui/commons/CheckBox" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -5530,7 +5531,7 @@ declare module "sap/ui/commons/CheckBox" {
   /**
    * Describes the settings that can be provided to the CheckBox constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.CheckBox` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.CheckBox` control.
    */
   export interface $CheckBoxSettings extends $ControlSettings {
     /**
@@ -5629,7 +5630,7 @@ declare module "sap/ui/commons/ColorPicker" {
    * This control gives the user the opportunity to choose a color. The color can be defined using HEX-, RGB-
    * or HSV-values or a CSS colorname.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.ui.unified.ColorPicker}
+   * @deprecated As of version 1.38. replaced by {@link sap.ui.unified.ColorPicker}
    */
   export default class ColorPicker extends ColorPicker1 {
     /**
@@ -5704,7 +5705,7 @@ declare module "sap/ui/commons/ColorPicker" {
   /**
    * Describes the settings that can be provided to the ColorPicker constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.ui.unified.ColorPicker}
+   * @deprecated As of version 1.38. replaced by {@link sap.ui.unified.ColorPicker}
    */
   export interface $ColorPickerSettings extends $ColorPickerSettings1 {}
 }
@@ -5738,7 +5739,7 @@ declare module "sap/ui/commons/ComboBox" {
    * of a list of pre-defined items. The choosable items can be provided in the form of a complete `ListBox`,
    * single `ListItems`.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ComboBox}
    */
   export default class ComboBox extends TextField implements ToolbarItem {
     __implements__sap_ui_commons_ToolbarItem: boolean;
@@ -6159,7 +6160,7 @@ declare module "sap/ui/commons/ComboBox" {
   /**
    * Describes the settings that can be provided to the ComboBox constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ComboBox}
    */
   export interface $ComboBoxSettings extends $TextFieldSettings {
     /**
@@ -6249,7 +6250,7 @@ declare module "sap/ui/commons/DatePicker" {
    * DatePicker should load the unified library. Otherwise it will be loaded the first time a DatePicker is
    * opened.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.DatePicker}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.DatePicker}
    */
   export default class DatePicker extends TextField {
     /**
@@ -6406,7 +6407,7 @@ declare module "sap/ui/commons/DatePicker" {
   /**
    * Describes the settings that can be provided to the DatePicker constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.DatePicker}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.DatePicker}
    */
   export interface $DatePickerSettings extends $TextFieldSettings {
     /**
@@ -6453,7 +6454,7 @@ declare module "sap/ui/commons/Dialog" {
    * such as popups with fixed sizes, popups with unlimited width, scrolling bars for large windows, and control
    * nesting (for example, a drop-down list can be included in the window).
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Dialog` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Dialog` control.
    */
   export default class Dialog extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -6651,7 +6652,7 @@ declare module "sap/ui/commons/Dialog" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    getAccessibleRole(): AccessibleRole;
     /**
      * Gets current value of property {@link #getApplyContentPadding applyContentPadding}.
      *
@@ -6701,9 +6702,7 @@ declare module "sap/ui/commons/Dialog" {
      *
      * @returns Value of property `contentBorderDesign`
      */
-    getContentBorderDesign():
-      | enums.BorderDesign
-      | keyof typeof enums.BorderDesign;
+    getContentBorderDesign(): enums.BorderDesign;
     /**
      * ID of the element which is the current target of the association {@link #getDefaultButton defaultButton},
      * or `null`.
@@ -6716,7 +6715,7 @@ declare module "sap/ui/commons/Dialog" {
      * on its `openState`. Descendant controls that honor the enabled state of their ancestors will appear disabled
      * after the dialog is closed.
      *
-     * @experimental - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
+     * @experimental Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
      * is not fully decided. Currently, it is enabled during the OPENING phase and disabled during the CLOSING
      * phase. The only potential change would be to treat the OPENING phase as disabled as well. Applications
      * should be prepared to receive events from "enabled" controls after they called open() on the dialog until
@@ -6815,7 +6814,7 @@ declare module "sap/ui/commons/Dialog" {
     /**
      * Indicates whether the Dialog is currently open, closed, or transitioning between these states.
      */
-    getOpenState(): OpenState | keyof typeof OpenState;
+    getOpenState(): OpenState;
     /**
      * Gets current value of property {@link #getResizable resizable}.
      *
@@ -7333,7 +7332,7 @@ declare module "sap/ui/commons/Dialog" {
   /**
    * Describes the settings that can be provided to the Dialog constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Dialog` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Dialog` control.
    */
   export interface $DialogSettings extends $ControlSettings {
     /**
@@ -7524,7 +7523,7 @@ declare module "sap/ui/commons/DropdownBox" {
    * The control provides a field that allows end users to an entry out of a list of pre-defined items. The
    * choosable items can be provided in the form of a complete `ListBox`, single `ListItems`.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ComboBox}
    */
   export default class DropdownBox extends ComboBox {
     /**
@@ -7973,7 +7972,7 @@ declare module "sap/ui/commons/DropdownBox" {
   /**
    * Describes the settings that can be provided to the DropdownBox constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ComboBox}
    */
   export interface $DropdownBoxSettings extends $ComboBoxSettings {
     /**
@@ -8044,7 +8043,7 @@ declare module "sap/ui/commons/FileUploader" {
    * with explicit calls, adjustable control sizes, text display after uploads, or tooltips containing complete
    * file paths.
    *
-   * @deprecated (since 1.21.0) - Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
+   * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
    * instead.
    */
   export default class FileUploader extends FileUploader1 {
@@ -8120,7 +8119,7 @@ declare module "sap/ui/commons/FileUploader" {
   /**
    * Describes the settings that can be provided to the FileUploader constructor.
    *
-   * @deprecated (since 1.21.0) - Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
+   * @deprecated As of version 1.21.0. Please use the control sap.ui.unified.FileUploader of the library sap.ui.unified
    * instead.
    */
   export interface $FileUploaderSettings extends $FileUploaderSettings1 {}
@@ -8137,8 +8136,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
   /**
    * Represents a parameter for the FileUploader which is rendered as a hidden inputfield.
    *
-   * @deprecated (since 1.21.0) - Please use the element sap.ui.unified.FileUploaderParameter of the library
-   * sap.ui.unified instead.
+   * @deprecated As of version 1.21.0. Please use the element sap.ui.unified.FileUploaderParameter of the
+   * library sap.ui.unified instead.
    */
   export default class FileUploaderParameter extends FileUploaderParameter1 {
     /**
@@ -8213,8 +8212,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
   /**
    * Describes the settings that can be provided to the FileUploaderParameter constructor.
    *
-   * @deprecated (since 1.21.0) - Please use the element sap.ui.unified.FileUploaderParameter of the library
-   * sap.ui.unified instead.
+   * @deprecated As of version 1.21.0. Please use the element sap.ui.unified.FileUploaderParameter of the
+   * library sap.ui.unified instead.
    */
   export interface $FileUploaderParameterSettings
     extends $FileUploaderParameterSettings1 {}
@@ -8248,7 +8247,7 @@ declare module "sap/ui/commons/TextField" {
    * The object representing the serialized focus information.
    *
    * @since 1.110
-   * @deprecated (since 1.110) - as it is an integral part of the already deprecated {@link sap.ui.commons.TextField}.
+   * @deprecated As of version 1.110. as it is an integral part of the already deprecated {@link sap.ui.commons.TextField}.
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export type FocusInfo = {
@@ -8269,7 +8268,7 @@ declare module "sap/ui/commons/TextField" {
   /**
    * Renders an input field for text input.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}
    */
   export default class TextField
     extends Control
@@ -8571,7 +8570,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    getAccessibleRole(): AccessibleRole;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -8590,7 +8589,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): Design | keyof typeof Design;
+    getDesign(): Design;
     /**
      * Gets current value of property {@link #getEditable editable}.
      *
@@ -8642,7 +8641,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `imeMode`
      */
-    getImeMode(): ImeMode | keyof typeof ImeMode;
+    getImeMode(): ImeMode;
     /**
      * Method for accessing the DOM Ref of the input element.
      *
@@ -8712,7 +8711,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `textAlign`
      */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    getTextAlign(): TextAlign;
     /**
      * Gets current value of property {@link #getTextDirection textDirection}.
      *
@@ -8723,7 +8722,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -8745,7 +8744,7 @@ declare module "sap/ui/commons/TextField" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -9131,7 +9130,7 @@ declare module "sap/ui/commons/TextField" {
   /**
    * Describes the settings that can be provided to the TextField constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}
    */
   export interface $TextFieldSettings extends $ControlSettings {
     /**
@@ -9306,7 +9305,7 @@ declare module "sap/ui/commons/form/Form" {
    * for it's conent to allow a simple switching of Layouts.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class Form extends Form1 {
     /**
@@ -9406,7 +9405,7 @@ declare module "sap/ui/commons/form/Form" {
   /**
    * Describes the settings that can be provided to the Form constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $FormSettings extends $FormSettings1 {}
 }
@@ -9423,7 +9422,7 @@ declare module "sap/ui/commons/form/FormContainer" {
    * Used to group form elements.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class FormContainer extends FormContainer1 {
     /**
@@ -9523,7 +9522,7 @@ declare module "sap/ui/commons/form/FormContainer" {
   /**
    * Describes the settings that can be provided to the FormContainer constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $FormContainerSettings extends $FormContainerSettings1 {}
 }
@@ -9540,7 +9539,7 @@ declare module "sap/ui/commons/form/FormElement" {
    * A form element is a combination of one label and different controls associated to this label.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class FormElement extends FormElement1 {
     /**
@@ -9640,7 +9639,7 @@ declare module "sap/ui/commons/form/FormElement" {
   /**
    * Describes the settings that can be provided to the FormElement constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $FormElementSettings extends $FormElementSettings1 {}
 }
@@ -9657,7 +9656,7 @@ declare module "sap/ui/commons/form/FormLayout" {
    * Base layout for Forms. Other Layouts must inherit from this one.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class FormLayout extends FormLayout1 {
     /**
@@ -9732,7 +9731,7 @@ declare module "sap/ui/commons/form/FormLayout" {
   /**
    * Describes the settings that can be provided to the FormLayout constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $FormLayoutSettings extends $FormLayoutSettings1 {}
 }
@@ -9750,7 +9749,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
    * ignored since the witdh and heights are defined by the grid cells.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class GridContainerData extends GridContainerData1 {
     /**
@@ -9825,7 +9824,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
   /**
    * Describes the settings that can be provided to the GridContainerData constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $GridContainerDataSettings
     extends $GridContainerDataSettings1 {}
@@ -9844,7 +9843,7 @@ declare module "sap/ui/commons/form/GridElementData" {
    * the width is defined by grid cells.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class GridElementData extends GridElementData1 {
     /**
@@ -9919,7 +9918,7 @@ declare module "sap/ui/commons/form/GridElementData" {
   /**
    * Describes the settings that can be provided to the GridElementData constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $GridElementDataSettings extends $GridElementDataSettings1 {}
 }
@@ -9938,7 +9937,7 @@ declare module "sap/ui/commons/form/GridLayout" {
    * To adjust the content inside the GridLayout GridContainerData and GridElementData could be used.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class GridLayout extends GridLayout1 {
     /**
@@ -10013,7 +10012,7 @@ declare module "sap/ui/commons/form/GridLayout" {
   /**
    * Describes the settings that can be provided to the GridLayout constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $GridLayoutSettings extends $GridLayoutSettings1 {}
 }
@@ -10030,7 +10029,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
    * Renders a form with responsive layout. Internally the ResponsiveFlowLayout is used.
    *
    * @since 1.10.0
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class ResponsiveLayout extends ResponsiveLayout1 {
     /**
@@ -10105,7 +10104,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveLayout constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $ResponsiveLayoutSettings
     extends $ResponsiveLayoutSettings1 {}
@@ -10130,7 +10129,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
    * Input/Display controls.
    *
    * @since 1.12
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class SimpleForm extends SimpleForm1 {
     /**
@@ -10214,7 +10213,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
      *
      * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout;
     /**
      * Sets a new value for property {@link #getLayout layout}.
      *
@@ -10246,7 +10245,7 @@ declare module "sap/ui/commons/form/SimpleForm" {
   /**
    * Describes the settings that can be provided to the SimpleForm constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $SimpleFormSettings extends $SimpleFormSettings1 {
     /**
@@ -10287,7 +10286,7 @@ declare module "sap/ui/commons/FormattedTextView" {
    * The FormattedTextView control allows the usage of a limited set of HTML tags for display.
    *
    * @since 1.9.0
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.core.HTML` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.core.HTML` control.
    */
   export default class FormattedTextView extends Control {
     /**
@@ -10381,7 +10380,7 @@ declare module "sap/ui/commons/FormattedTextView" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    getAccessibleRole(): AccessibleRole;
     /**
      * Gets content of aggregation {@link #getControls controls}.
      *
@@ -10499,7 +10498,7 @@ declare module "sap/ui/commons/FormattedTextView" {
   /**
    * Describes the settings that can be provided to the FormattedTextView constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.core.HTML` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.core.HTML` control.
    */
   export interface $FormattedTextViewSettings extends $ControlSettings {
     /**
@@ -10539,8 +10538,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
   /**
    * Divides the screen in visual areas.
    *
-   * @deprecated (since 1.38) - Use the layout controls instead, e.g {@link sap.ui.layout.Splitter} or {@link sap.ui.layout.BlockLayout }
-   * among others.
+   * @deprecated As of version 1.38. Use the layout controls instead, e.g {@link sap.ui.layout.Splitter} or
+   * {@link sap.ui.layout.BlockLayout} among others.
    */
   export default class HorizontalDivider extends Control {
     /**
@@ -10615,7 +10614,7 @@ declare module "sap/ui/commons/HorizontalDivider" {
      *
      * @returns Value of property `height`
      */
-    getHeight(): HorizontalDividerHeight | keyof typeof HorizontalDividerHeight;
+    getHeight(): HorizontalDividerHeight;
     /**
      * Gets current value of property {@link #getType type}.
      *
@@ -10626,7 +10625,7 @@ declare module "sap/ui/commons/HorizontalDivider" {
      *
      * @returns Value of property `type`
      */
-    getType(): HorizontalDividerType | keyof typeof HorizontalDividerType;
+    getType(): HorizontalDividerType;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -10696,8 +10695,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
   /**
    * Describes the settings that can be provided to the HorizontalDivider constructor.
    *
-   * @deprecated (since 1.38) - Use the layout controls instead, e.g {@link sap.ui.layout.Splitter} or {@link sap.ui.layout.BlockLayout }
-   * among others.
+   * @deprecated As of version 1.38. Use the layout controls instead, e.g {@link sap.ui.layout.Splitter} or
+   * {@link sap.ui.layout.BlockLayout} among others.
    */
   export interface $HorizontalDividerSettings extends $ControlSettings {
     /**
@@ -10743,7 +10742,7 @@ declare module "sap/ui/commons/Image" {
    * A wrapper around the IMG tag. The image can be loaded from a remote or local server. There are various
    * size setting options available, and the images can be combined with actions.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Image}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Image}
    */
   export default class Image
     extends Control
@@ -11062,7 +11061,7 @@ declare module "sap/ui/commons/Image" {
   /**
    * Describes the settings that can be provided to the Image constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Image}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Image}
    */
   export interface $ImageSettings extends $ControlSettings {
     /**
@@ -11135,7 +11134,7 @@ declare module "sap/ui/commons/ImageMap" {
   /**
    * Combination of image areas where at runtime these areas are starting points for hyperlinks or actions
    *
-   * @deprecated (since 1.38) - There's not replacement because of the archaic design pattern.
+   * @deprecated As of version 1.38. There's not replacement because of the archaic design pattern.
    */
   export default class ImageMap extends Control {
     /**
@@ -11398,7 +11397,7 @@ declare module "sap/ui/commons/ImageMap" {
   /**
    * Describes the settings that can be provided to the ImageMap constructor.
    *
-   * @deprecated (since 1.38) - There's not replacement because of the archaic design pattern.
+   * @deprecated As of version 1.38. There's not replacement because of the archaic design pattern.
    */
   export interface $ImageMapSettings extends $ControlSettings {
     /**
@@ -11455,7 +11454,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
    * The InPlaceEdit is a functionality to have text in display mode that can be changed in place.
    *
    * @since 1.8.0
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}
    */
   export default class InPlaceEdit extends Control {
     /**
@@ -11725,7 +11724,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): TextViewDesign | keyof typeof TextViewDesign;
+    getDesign(): TextViewDesign;
     /**
      * Returns the tooltip for this InPlaceEdit if any or an undefined value. The tooltip can either be a simple
      * string or a subclass of {@link sap.ui.core.TooltipBase}.
@@ -11764,7 +11763,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Sets the aggregated {@link #getContent content}.
      *
@@ -11855,7 +11854,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
   /**
    * Describes the settings that can be provided to the InPlaceEdit constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Input}
    */
   export interface $InPlaceEditSettings extends $ControlSettings {
     /**
@@ -11964,7 +11963,7 @@ declare module "sap/ui/commons/Label" {
    * The control is used for labeling other controls. The API provides formatting options, for example, for
    * bold display or alignment. A label can have an icon.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Label` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Label` control.
    */
   export default class Label extends Control implements ToolbarItem, Label1 {
     __implements__sap_ui_commons_ToolbarItem: boolean;
@@ -12050,7 +12049,7 @@ declare module "sap/ui/commons/Label" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): LabelDesign | keyof typeof LabelDesign;
+    getDesign(): LabelDesign;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -12111,7 +12110,7 @@ declare module "sap/ui/commons/Label" {
      *
      * @returns Value of property `textAlign`
      */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    getTextAlign(): TextAlign;
     /**
      * Gets current value of property {@link #getTextDirection textDirection}.
      *
@@ -12122,7 +12121,7 @@ declare module "sap/ui/commons/Label" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -12328,7 +12327,7 @@ declare module "sap/ui/commons/Label" {
   /**
    * Describes the settings that can be provided to the Label constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Label` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Label` control.
    */
   export interface $LabelSettings extends $ControlSettings {
     /**
@@ -12420,7 +12419,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
   /**
    * The Absolute Layout positions its child controls absolutely
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export default class AbsoluteLayout extends Control {
     /**
@@ -12553,7 +12552,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      *
      * @returns Value of property `horizontalScrolling`
      */
-    getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
+    getHorizontalScrolling(): Scrolling;
     /**
      * Gets content of aggregation {@link #getPositions positions}.
      *
@@ -12570,7 +12569,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      *
      * @returns Value of property `verticalScrolling`
      */
-    getVerticalScrolling(): Scrolling | keyof typeof Scrolling;
+    getVerticalScrolling(): Scrolling;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -12751,7 +12750,7 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
   /**
    * Describes the settings that can be provided to the AbsoluteLayout constructor.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface $AbsoluteLayoutSettings extends $ControlSettings {
     /**
@@ -12810,7 +12809,7 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
   /**
    * The BorderLayoutArea represents one area of a BorderLayout
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Page` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Page` control.
    */
   export default class BorderLayoutArea extends UI5Element {
     /**
@@ -12901,13 +12900,11 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      *
      * Default value is `top`.
      *
-     * @deprecated (since 1.3.3) - Redundant to the aggregation by the parent border layout.
+     * @deprecated As of version 1.3.3. Redundant to the aggregation by the parent border layout.
      *
      * @returns Value of property `areaId`
      */
-    getAreaId():
-      | layout.BorderLayoutAreaTypes
-      | keyof typeof layout.BorderLayoutAreaTypes;
+    getAreaId(): layout.BorderLayoutAreaTypes;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -13030,7 +13027,7 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      *
      * Default value is `top`.
      *
-     * @deprecated (since 1.3.3) - Redundant to the aggregation by the parent border layout.
+     * @deprecated As of version 1.3.3. Redundant to the aggregation by the parent border layout.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13136,13 +13133,13 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
   /**
    * Describes the settings that can be provided to the BorderLayoutArea constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Page` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Page` control.
    */
   export interface $BorderLayoutAreaSettings extends $ElementSettings {
     /**
      * Defines which area the element represents: top, begin, center, end, bottom
      *
-     * @deprecated (since 1.3.3) - Redundant to the aggregation by the parent border layout.
+     * @deprecated As of version 1.3.3. Redundant to the aggregation by the parent border layout.
      */
     areaId?:
       | (
@@ -13195,7 +13192,7 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
   /**
    * A layout that provides support for horizontal alignment of controls
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.HorizontalLayout` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.HorizontalLayout` control.
    */
   export default class HorizontalLayout extends HorizontalLayout1 {
     /**
@@ -13270,7 +13267,7 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
   /**
    * Describes the settings that can be provided to the HorizontalLayout constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.HorizontalLayout` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.HorizontalLayout` control.
    */
   export interface $HorizontalLayoutSettings
     extends $HorizontalLayoutSettings1 {}
@@ -13303,7 +13300,7 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
    *  You should **avoid nesting** matrix layouts. You should only use a matrix layout if you need to align
    * controls horizontally across rows.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export default class MatrixLayout extends Control {
     /**
@@ -13597,7 +13594,7 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
   /**
    * Describes the settings that can be provided to the MatrixLayout constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export interface $MatrixLayoutSettings extends $ControlSettings {
     /**
@@ -13657,7 +13654,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
   /**
    * Non-control element used as part of a matrix layout's inner structure.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export default class MatrixLayoutCell extends UI5Element {
     /**
@@ -13789,9 +13786,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign():
-      | layout.BackgroundDesign
-      | keyof typeof layout.BackgroundDesign;
+    getBackgroundDesign(): layout.BackgroundDesign;
     /**
      * Gets current value of property {@link #getColSpan colSpan}.
      *
@@ -13822,7 +13817,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      *
      * @returns Value of property `hAlign`
      */
-    getHAlign(): layout.HAlign | keyof typeof layout.HAlign;
+    getHAlign(): layout.HAlign;
     /**
      * Gets current value of property {@link #getPadding padding}.
      *
@@ -13835,7 +13830,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      *
      * @returns Value of property `padding`
      */
-    getPadding(): layout.Padding | keyof typeof layout.Padding;
+    getPadding(): layout.Padding;
     /**
      * Gets current value of property {@link #getRowSpan rowSpan}.
      *
@@ -13859,7 +13854,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      *
      * @returns Value of property `separation`
      */
-    getSeparation(): layout.Separation | keyof typeof layout.Separation;
+    getSeparation(): layout.Separation;
     /**
      * Gets current value of property {@link #getVAlign vAlign}.
      *
@@ -13870,7 +13865,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      *
      * @returns Value of property `vAlign`
      */
-    getVAlign(): layout.VAlign | keyof typeof layout.VAlign;
+    getVAlign(): layout.VAlign;
     /**
      * Returns true if the given style class string is valid and if this Element has this style class set via
      * a previous call to addStyleClass().
@@ -14081,7 +14076,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
   /**
    * Describes the settings that can be provided to the MatrixLayoutCell constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export interface $MatrixLayoutCellSettings extends $ElementSettings {
     /**
@@ -14165,7 +14160,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
   /**
    * Non-control element used as part of a matrix layout's inner structure.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export default class MatrixLayoutRow extends UI5Element {
     /**
@@ -14396,7 +14391,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
   /**
    * Describes the settings that can be provided to the MatrixLayoutRow constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Grid` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Grid` control.
    */
   export interface $MatrixLayoutRowSettings extends $ElementSettings {
     /**
@@ -14429,7 +14424,7 @@ declare module "sap/ui/commons/layout/PositionContainer" {
   /**
    * Is used to specify the position of a control in the AbsoluteLayout
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class PositionContainer extends UI5Element {
     /**
@@ -14696,7 +14691,7 @@ declare module "sap/ui/commons/layout/PositionContainer" {
   /**
    * Describes the settings that can be provided to the PositionContainer constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $PositionContainerSettings extends $ElementSettings {
     /**
@@ -14751,7 +14746,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
    * If the window resizes the controls are moved between the lines and resized again.
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class ResponsiveFlowLayout extends ResponsiveFlowLayout1 {
     /**
@@ -14826,7 +14821,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveFlowLayout constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $ResponsiveFlowLayoutSettings
     extends $ResponsiveFlowLayoutSettings1 {}
@@ -14844,7 +14839,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
    * This is a LayoutData Element that can be added to a control if this control is used within a ResponsiveFlowLayout
    *
    * @since 1.9.1
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export default class ResponsiveFlowLayoutData extends ResponsiveFlowLayoutData1 {
     /**
@@ -14944,7 +14939,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   /**
    * Describes the settings that can be provided to the ResponsiveFlowLayoutData constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
   export interface $ResponsiveFlowLayoutDataSettings
     extends $ResponsiveFlowLayoutDataSettings1 {}
@@ -14961,7 +14956,7 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
   /**
    * In this layout the elements are ordered one below the other
    *
-   * @deprecated (since 1.16.0) - Moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. Moved to sap.ui.layout library. Please use this one.
    */
   export default class VerticalLayout extends VerticalLayout1 {
     /**
@@ -15036,7 +15031,7 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
   /**
    * Describes the settings that can be provided to the VerticalLayout constructor.
    *
-   * @deprecated (since 1.16.0) - Moved to sap.ui.layout library. Please use this one.
+   * @deprecated As of version 1.16.0. Moved to sap.ui.layout library. Please use this one.
    */
   export interface $VerticalLayoutSettings extends $VerticalLayoutSettings1 {}
 }
@@ -15068,7 +15063,7 @@ declare module "sap/ui/commons/Link" {
    * are supported. Another usage scenario is triggering an action, for example to open a popup window. In
    * both cases, the link is a hypertext link.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Link` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Link` control.
    */
   export default class Link
     extends Control
@@ -15475,7 +15470,7 @@ declare module "sap/ui/commons/Link" {
   /**
    * Describes the settings that can be provided to the Link constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Link` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Link` control.
    */
   export interface $LinkSettings extends $ControlSettings {
     /**
@@ -15562,7 +15557,7 @@ declare module "sap/ui/commons/ListBox" {
    * such as defining the list box height, fixing the number of visible items, choosing one item to be the
    * item that is marked by default when the list box is shown, or a scroll bar for large list boxes are available.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.List` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.List` control.
    */
   export default class ListBox extends Control {
     /**
@@ -15901,7 +15896,7 @@ declare module "sap/ui/commons/ListBox" {
      *
      * @returns Value of property `secondaryValueTextAlign`
      */
-    getSecondaryValueTextAlign(): TextAlign | keyof typeof TextAlign;
+    getSecondaryValueTextAlign(): TextAlign;
     /**
      * Zero-based index of selected item. Index value for no selection is -1. When multiple selection is enabled
      * and multiple items are selected, the method returns the first selected item.
@@ -15950,7 +15945,7 @@ declare module "sap/ui/commons/ListBox" {
      *
      * @returns Value of property `valueTextAlign`
      */
-    getValueTextAlign(): TextAlign | keyof typeof TextAlign;
+    getValueTextAlign(): TextAlign;
     /**
      * Returns the number of visible items.
      *
@@ -16378,7 +16373,7 @@ declare module "sap/ui/commons/ListBox" {
   /**
    * Describes the settings that can be provided to the ListBox constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.List` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.List` control.
    */
   export interface $ListBoxSettings extends $ControlSettings {
     /**
@@ -16540,7 +16535,7 @@ declare module "sap/ui/commons/Menu" {
    * within the control hierarchy. Instead it can be opened at a specified position via a function call.
    *
    * @since 1.0.0
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.Menu}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.Menu}
    */
   export default class Menu extends Menu1 {
     /**
@@ -16615,7 +16610,7 @@ declare module "sap/ui/commons/Menu" {
   /**
    * Describes the settings that can be provided to the Menu constructor.
    *
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.Menu}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.Menu}
    */
   export interface $MenuSettings extends $MenuSettings1 {}
 }
@@ -16644,7 +16639,7 @@ declare module "sap/ui/commons/MenuBar" {
    * enough to display all items, defining images for single or all items in a menu, automated layouting of
    * items with or w/o image, and active/non-active items.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.OverflowToolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.OverflowToolbar` control.
    */
   export default class MenuBar extends Control {
     /**
@@ -16738,7 +16733,7 @@ declare module "sap/ui/commons/MenuBar" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): MenuBarDesign | keyof typeof MenuBarDesign;
+    getDesign(): MenuBarDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -16877,7 +16872,7 @@ declare module "sap/ui/commons/MenuBar" {
   /**
    * Describes the settings that can be provided to the MenuBar constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.OverflowToolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.OverflowToolbar` control.
    */
   export interface $MenuBarSettings extends $ControlSettings {
     /**
@@ -16928,7 +16923,7 @@ declare module "sap/ui/commons/MenuButton" {
    * Common button control that opens a menu when clicked by the user. The control provides an API for configuring
    * the docking position of the menu.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MenuButton` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MenuButton` control.
    */
   export default class MenuButton extends Button {
     /**
@@ -17240,7 +17235,7 @@ declare module "sap/ui/commons/MenuButton" {
   /**
    * Describes the settings that can be provided to the MenuButton constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MenuButton` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MenuButton` control.
    */
   export interface $MenuButtonSettings extends $ButtonSettings {
     /**
@@ -17327,7 +17322,7 @@ declare module "sap/ui/commons/MenuItem" {
    * user in the menu or it can provide a submenu to organize the actions hierarchically.
    *
    * @since 1.0.0
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItem}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.MenuItem}
    */
   export default class MenuItem extends MenuItem1 {
     /**
@@ -17402,7 +17397,7 @@ declare module "sap/ui/commons/MenuItem" {
   /**
    * Describes the settings that can be provided to the MenuItem constructor.
    *
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItem}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.MenuItem}
    */
   export interface $MenuItemSettings extends $MenuItemSettings1 {}
 }
@@ -17417,7 +17412,7 @@ declare module "sap/ui/commons/MenuItemBase" {
    * Abstract base class for menu item which provides common properties and events for all concrete item implementations.
    *
    * @since 1.0.0
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItemBase}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.MenuItemBase}
    */
   export default abstract class MenuItemBase extends MenuItemBase1 {
     /**
@@ -17446,7 +17441,7 @@ declare module "sap/ui/commons/MenuItemBase" {
   /**
    * Describes the settings that can be provided to the MenuItemBase constructor.
    *
-   * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItemBase}
+   * @deprecated As of version 1.21.0. replaced by {@link sap.ui.unified.MenuItemBase}
    */
   export interface $MenuItemBaseSettings extends $MenuItemBaseSettings1 {}
 }
@@ -17464,7 +17459,7 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
    * implementations. The aggregation `submenu` (inherited from parent class) is not supported for this type
    * of menu item.
    *
-   * @deprecated (since 1.21.0) - Please use the control `sap.ui.unified.MenuTextFieldItem` of the library
+   * @deprecated As of version 1.21.0. Please use the control `sap.ui.unified.MenuTextFieldItem` of the library
    * `sap.ui.unified` instead.
    */
   export default class MenuTextFieldItem extends MenuTextFieldItem1 {
@@ -17540,7 +17535,7 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
   /**
    * Describes the settings that can be provided to the MenuTextFieldItem constructor.
    *
-   * @deprecated (since 1.21.0) - Please use the control `sap.ui.unified.MenuTextFieldItem` of the library
+   * @deprecated As of version 1.21.0. Please use the control `sap.ui.unified.MenuTextFieldItem` of the library
    * `sap.ui.unified` instead.
    */
   export interface $MenuTextFieldItemSettings
@@ -17559,7 +17554,7 @@ declare module "sap/ui/commons/Message" {
   /**
    * Creates the "Message"s to be supplied to the "MessageBar" Control.
    *
-   * @deprecated (since 1.4.0) - A new messaging concept will be created in future. Therefore this control
+   * @deprecated As of version 1.4.0. A new messaging concept will be created in future. Therefore this control
    * might be removed in one of the next versions.
    */
   export default class Message extends Control {
@@ -17674,7 +17669,7 @@ declare module "sap/ui/commons/Message" {
      *
      * @returns Value of property `type`
      */
-    getType(): MessageType | keyof typeof MessageType;
+    getType(): MessageType;
     /**
      * Sets a new value for property {@link #getAssociatedElementId associatedElementId}.
      *
@@ -17743,7 +17738,7 @@ declare module "sap/ui/commons/Message" {
   /**
    * Describes the settings that can be provided to the Message constructor.
    *
-   * @deprecated (since 1.4.0) - A new messaging concept will be created in future. Therefore this control
+   * @deprecated As of version 1.4.0. A new messaging concept will be created in future. Therefore this control
    * might be removed in one of the next versions.
    */
   export interface $MessageSettings extends $ControlSettings {
@@ -17784,7 +17779,7 @@ declare module "sap/ui/commons/MessageBar" {
   /**
    * Creates an instance of a MessageBar Control, for displaying messages.
    *
-   * @deprecated (since 1.4.0) - Instead, use the `sap.m.MessagePopover` control.
+   * @deprecated As of version 1.4.0. Instead, use the `sap.m.MessagePopover` control.
    */
   export default class MessageBar extends Control {
     /**
@@ -18032,7 +18027,7 @@ declare module "sap/ui/commons/MessageBar" {
   /**
    * Describes the settings that can be provided to the MessageBar constructor.
    *
-   * @deprecated (since 1.4.0) - Instead, use the `sap.m.MessagePopover` control.
+   * @deprecated As of version 1.4.0. Instead, use the `sap.m.MessagePopover` control.
    */
   export interface $MessageBarSettings extends $ControlSettings {
     /**
@@ -18089,7 +18084,7 @@ declare module "sap/ui/commons/MessageBox" {
    *
    *
    * @since 0.8.8
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox` control.
    */
   interface MessageBox {
     /**
@@ -18101,7 +18096,7 @@ declare module "sap/ui/commons/MessageBox" {
      * This enum is part of the 'sap/ui/commons/MessageBox' module export and must be accessed by the property
      * 'Action'.
      *
-     * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox.Action`.
+     * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox.Action`.
      */
     Action: typeof Action;
 
@@ -18111,7 +18106,7 @@ declare module "sap/ui/commons/MessageBox" {
      * This enum is part of the 'sap/ui/commons/MessageBox' module export and must be accessed by the property
      * 'Icon'.
      *
-     * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox.Icon`.
+     * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox.Icon`.
      */
     Icon: typeof Icon;
 
@@ -18241,7 +18236,7 @@ declare module "sap/ui/commons/MessageBox" {
   }
   const MessageBox: MessageBox;
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox` control.
    */
   export default MessageBox;
 
@@ -18254,7 +18249,7 @@ declare module "sap/ui/commons/MessageBox" {
    * This enum is part of the 'sap/ui/commons/MessageBox' module export and must be accessed by the property
    * 'Action'.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox.Action`.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox.Action`.
    */
   enum Action {
     /**
@@ -18296,13 +18291,13 @@ declare module "sap/ui/commons/MessageBox" {
    * This enum is part of the 'sap/ui/commons/MessageBox' module export and must be accessed by the property
    * 'Icon'.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox.Icon`.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessageBox.Icon`.
    */
   enum Icon {
     /**
      * Shows the critical error icon in the message box.
      *
-     * @deprecated (since 1.9.1) - The error icon is used instead
+     * @deprecated As of version 1.9.1. The error icon is used instead
      */
     CRITICAL = "CRITICAL",
     /**
@@ -18344,7 +18339,7 @@ declare module "sap/ui/commons/MessageList" {
   /**
    * Instantiated by the "MessageBar" Control if the user requests to generate the corresponding "MessageList".
    *
-   * @deprecated (since 1.4.0) - A new messaging concept will be created in future. Therefore this control
+   * @deprecated As of version 1.4.0. A new messaging concept will be created in future. Therefore this control
    * might be removed in one of the next versions.
    */
   export default class MessageList extends Control {
@@ -18505,7 +18500,7 @@ declare module "sap/ui/commons/MessageList" {
   /**
    * Describes the settings that can be provided to the MessageList constructor.
    *
-   * @deprecated (since 1.4.0) - A new messaging concept will be created in future. Therefore this control
+   * @deprecated As of version 1.4.0. A new messaging concept will be created in future. Therefore this control
    * might be removed in one of the next versions.
    */
   export interface $MessageListSettings extends $ControlSettings {
@@ -18540,7 +18535,7 @@ declare module "sap/ui/commons/MessageToast" {
   /**
    * Responsible for displaying the new incoming messages, one at the time, on top of the MessageBar.
    *
-   * @deprecated (since 1.4.0) - Instead, use the `sap.m.MessageToast` control.
+   * @deprecated As of version 1.4.0. Instead, use the `sap.m.MessageToast` control.
    */
   export default class MessageToast extends Control {
     /**
@@ -18732,7 +18727,7 @@ declare module "sap/ui/commons/MessageToast" {
   /**
    * Describes the settings that can be provided to the MessageToast constructor.
    *
-   * @deprecated (since 1.4.0) - Instead, use the `sap.m.MessageToast` control.
+   * @deprecated As of version 1.4.0. Instead, use the `sap.m.MessageToast` control.
    */
   export interface $MessageToastSettings extends $ControlSettings {
     /**
@@ -18774,7 +18769,7 @@ declare module "sap/ui/commons/Paginator" {
   /**
    * Provides navigation between pages within a list of numbered pages.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export default class Paginator extends Control {
     /**
@@ -18975,7 +18970,7 @@ declare module "sap/ui/commons/Paginator" {
   /**
    * Describes the settings that can be provided to the Paginator constructor.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface $PaginatorSettings extends $ControlSettings {
     /**
@@ -19049,7 +19044,7 @@ declare module "sap/ui/commons/Panel" {
    * Represents a container with scroll functionality, that can be used for text and controls. The Panel does
    * not layout the embedded controls.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Panel` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Panel` control.
    */
   export default class Panel extends Control {
     /**
@@ -19180,7 +19175,7 @@ declare module "sap/ui/commons/Panel" {
      *
      * @returns Value of property `areaDesign`
      */
-    getAreaDesign(): enums.AreaDesign | keyof typeof enums.AreaDesign;
+    getAreaDesign(): enums.AreaDesign;
     /**
      * Gets current value of property {@link #getBorderDesign borderDesign}.
      *
@@ -19191,7 +19186,7 @@ declare module "sap/ui/commons/Panel" {
      *
      * @returns Value of property `borderDesign`
      */
-    getBorderDesign(): enums.BorderDesign | keyof typeof enums.BorderDesign;
+    getBorderDesign(): enums.BorderDesign;
     /**
      * Gets content of aggregation {@link #getButtons buttons}.
      *
@@ -19586,7 +19581,7 @@ declare module "sap/ui/commons/Panel" {
   /**
    * Describes the settings that can be provided to the Panel constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Panel` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Panel` control.
    */
   export interface $PanelSettings extends $ControlSettings {
     /**
@@ -19684,7 +19679,7 @@ declare module "sap/ui/commons/PasswordField" {
   /**
    * A text field with masked characters which borrows its properties and methods from TextField.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Input` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Input` control.
    */
   export default class PasswordField extends TextField {
     /**
@@ -19759,7 +19754,7 @@ declare module "sap/ui/commons/PasswordField" {
   /**
    * Describes the settings that can be provided to the PasswordField constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Input` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Input` control.
    */
   export interface $PasswordFieldSettings extends $TextFieldSettings {}
 }
@@ -19778,7 +19773,7 @@ declare module "sap/ui/commons/ProgressIndicator" {
    * values. The filling can be displayed in color only, or additionally with the percentage rate. The indicator
    * status can be interactive.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.ProgressIndicator` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.ProgressIndicator` control.
    */
   export default class ProgressIndicator extends Control {
     /**
@@ -19864,7 +19859,7 @@ declare module "sap/ui/commons/ProgressIndicator" {
      *
      * @returns Value of property `barColor`
      */
-    getBarColor(): BarColor | keyof typeof BarColor;
+    getBarColor(): BarColor;
     /**
      * Gets current value of property {@link #getDisplayValue displayValue}.
      *
@@ -20031,7 +20026,7 @@ declare module "sap/ui/commons/ProgressIndicator" {
   /**
    * Describes the settings that can be provided to the ProgressIndicator constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.ProgressIndicator` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.ProgressIndicator` control.
    */
   export interface $ProgressIndicatorSettings extends $ControlSettings {
     /**
@@ -20097,7 +20092,7 @@ declare module "sap/ui/commons/RadioButton" {
    * sap.ui.commons.RadioButtonGroup), thus providing a limited choice for the user. An event is triggered
    * when the user makes a change of the selection.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButton` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RadioButton` control.
    */
   export default class RadioButton extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -20348,7 +20343,7 @@ declare module "sap/ui/commons/RadioButton" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -20359,7 +20354,7 @@ declare module "sap/ui/commons/RadioButton" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -20572,7 +20567,7 @@ declare module "sap/ui/commons/RadioButton" {
   /**
    * Describes the settings that can be provided to the RadioButton constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButton` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RadioButton` control.
    */
   export interface $RadioButtonSettings extends $ControlSettings {
     /**
@@ -20682,7 +20677,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
    * For the representation of the single group entries, the RadioButton items are created automatically.
    * For the RadioButton choice, mouse and keyboard navigation usage is supported.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButtonGroup` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RadioButtonGroup` control.
    */
   export default class RadioButtonGroup
     extends Control
@@ -20978,7 +20973,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -21212,7 +21207,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
   /**
    * Describes the settings that can be provided to the RadioButtonGroup constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButtonGroup` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RadioButtonGroup` control.
    */
   export interface $RadioButtonGroupSettings extends $ControlSettings {
     /**
@@ -21309,7 +21304,7 @@ declare module "sap/ui/commons/RangeSlider" {
    * units of measurement. Users can move the pointers along the line to change a range with graphical support.
    *
    * @since 1.8.0
-   * @deprecated (since 1.38) - replaced by {@link sap.m.RangeSlider}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.RangeSlider}
    */
   export default class RangeSlider extends Slider {
     /**
@@ -21413,7 +21408,7 @@ declare module "sap/ui/commons/RangeSlider" {
   /**
    * Describes the settings that can be provided to the RangeSlider constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.RangeSlider}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.RangeSlider}
    */
   export interface $RangeSliderSettings extends $SliderSettings {
     /**
@@ -21444,7 +21439,7 @@ declare module "sap/ui/commons/RatingIndicator" {
    * can be specified, as well as the URIs to the image icons which shall be used as rating symbols. When
    * the user performs a rating, an event is fired.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RatingIndicator` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RatingIndicator` control.
    */
   export default class RatingIndicator extends Control {
     /**
@@ -21731,9 +21726,7 @@ declare module "sap/ui/commons/RatingIndicator" {
      *
      * @returns Value of property `visualMode`
      */
-    getVisualMode():
-      | RatingIndicatorVisualMode
-      | keyof typeof RatingIndicatorVisualMode;
+    getVisualMode(): RatingIndicatorVisualMode;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      *
@@ -21926,7 +21919,7 @@ declare module "sap/ui/commons/RatingIndicator" {
   /**
    * Describes the settings that can be provided to the RatingIndicator constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.RatingIndicator` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.RatingIndicator` control.
    */
   export interface $RatingIndicatorSettings extends $ControlSettings {
     /**
@@ -22035,7 +22028,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
    * an event, whenever a new range is reached. In addition the content of the new range is automatically
    * shown, if it is set.
    *
-   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a container by choice from the {@link sap.m} library, instead.
    */
   export default class ResponsiveContainer extends Control {
     /**
@@ -22337,7 +22330,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
   /**
    * Describes the settings that can be provided to the ResponsiveContainer constructor.
    *
-   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a container by choice from the {@link sap.m} library, instead.
    */
   export interface $ResponsiveContainerSettings extends $ControlSettings {
     /**
@@ -22403,8 +22396,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
   /**
    * Defines a range for the ResponsiveContainer
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.ResponsiveContainer). Use a container of your
-   * choice from the sap.m library instead.
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.ResponsiveContainer). Use a container
+   * of your choice from the sap.m library instead.
    */
   export default class ResponsiveContainerRange extends UI5Element {
     /**
@@ -22577,8 +22570,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
   /**
    * Describes the settings that can be provided to the ResponsiveContainerRange constructor.
    *
-   * @deprecated (since 1.38) - (altogether with sap.ui.commons.ResponsiveContainer). Use a container of your
-   * choice from the sap.m library instead.
+   * @deprecated As of version 1.38. (altogether with sap.ui.commons.ResponsiveContainer). Use a container
+   * of your choice from the sap.m library instead.
    */
   export interface $ResponsiveContainerRangeSettings extends $ElementSettings {
     /**
@@ -22618,8 +22611,8 @@ declare module "sap/ui/commons/RichTooltip" {
   /**
    * Is used to provide tool tips that can have long text, image and title. This tool tip extends the TooltipBase.
    *
-   * @deprecated (since 1.38) - Tf you want to achieve a similar behavior, use a `sap.m.Popover` control and
-   * open it next to your control.
+   * @deprecated As of version 1.38. Tf you want to achieve a similar behavior, use a `sap.m.Popover` control
+   * and open it next to your control.
    */
   export default class RichTooltip extends TooltipBase {
     /**
@@ -22793,8 +22786,8 @@ declare module "sap/ui/commons/RichTooltip" {
   /**
    * Describes the settings that can be provided to the RichTooltip constructor.
    *
-   * @deprecated (since 1.38) - Tf you want to achieve a similar behavior, use a `sap.m.Popover` control and
-   * open it next to your control.
+   * @deprecated As of version 1.38. Tf you want to achieve a similar behavior, use a `sap.m.Popover` control
+   * and open it next to your control.
    */
   export interface $RichTooltipSettings extends $TooltipBaseSettings {
     /**
@@ -22842,7 +22835,7 @@ declare module "sap/ui/commons/RoadMap" {
   /**
    * RoadMap is used to display step-by-step work flows of a clearly defined work process.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Wizard` control.
    */
   export default class RoadMap extends Control {
     /**
@@ -23248,7 +23241,7 @@ declare module "sap/ui/commons/RoadMap" {
   /**
    * Describes the settings that can be provided to the RoadMap constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Wizard` control.
    */
   export interface $RoadMapSettings extends $ControlSettings {
     /**
@@ -23341,7 +23334,7 @@ declare module "sap/ui/commons/RoadMapStep" {
   /**
    * Step used within a RoadMap Control.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Wizard` control.
    */
   export default class RoadMapStep extends UI5Element {
     /**
@@ -23409,7 +23402,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Adds some subStep to the aggregation {@link #getSubSteps subSteps}.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23423,7 +23416,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Destroys all the subSteps in the aggregation {@link #getSubSteps subSteps}.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23447,7 +23440,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.10.5) - Note that sub steps will not be supported in future. This feature might
+     * @deprecated As of version 1.10.5. Note that sub steps will not be supported in future. This feature might
      * be removed in one of the next releases.
      *
      * @returns Value of property `expanded`
@@ -23468,7 +23461,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Sub steps for the current step. Will be displayed only in the case that the step is expanded. Otherwise,
      * special arrows show the availability of sub steps. One level of sub steps supported.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      */
     getSubSteps(): RoadMapStep[];
@@ -23487,7 +23480,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Checks for the provided `sap.ui.commons.RoadMapStep` in the aggregation {@link #getSubSteps subSteps}.
      * and returns its index if found or -1 otherwise.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
@@ -23501,7 +23494,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Inserts a subStep into the aggregation {@link #getSubSteps subSteps}.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23523,7 +23516,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns An array of the removed elements (might be empty)
@@ -23532,7 +23525,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Removes a subStep from the aggregation {@link #getSubSteps subSteps}.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      *
      * @returns The removed subStep or `null`
@@ -23570,7 +23563,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.10.5) - Note that sub steps will not be supported in future. This feature might
+     * @deprecated As of version 1.10.5. Note that sub steps will not be supported in future. This feature might
      * be removed in one of the next releases.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -23619,7 +23612,7 @@ declare module "sap/ui/commons/RoadMapStep" {
   /**
    * Describes the settings that can be provided to the RoadMapStep constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Wizard` control.
    */
   export interface $RoadMapStepSettings extends $ElementSettings {
     /**
@@ -23635,7 +23628,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * This property is only relevant when using sub steps.
      *
-     * @deprecated (since 1.10.5) - Note that sub steps will not be supported in future. This feature might
+     * @deprecated As of version 1.10.5. Note that sub steps will not be supported in future. This feature might
      * be removed in one of the next releases.
      */
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -23649,7 +23642,7 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Sub steps for the current step. Will be displayed only in the case that the step is expanded. Otherwise,
      * special arrows show the availability of sub steps. One level of sub steps supported.
      *
-     * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
+     * @deprecated As of version 1.10.5. Sub steps will not be supported in future. This feature might be removed
      * in one of the next releases.
      */
     subSteps?:
@@ -23686,7 +23679,7 @@ declare module "sap/ui/commons/RowRepeater" {
    * This control displays items in a stacked list format, allowing the user to page in order to see more
    * items or to use the offered filtering and sorting capabilities in order to manipulate the displayed data.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export default class RowRepeater extends Control {
     /**
@@ -24183,7 +24176,7 @@ declare module "sap/ui/commons/RowRepeater" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): RowRepeaterDesign | keyof typeof RowRepeaterDesign;
+    getDesign(): RowRepeaterDesign;
     /**
      * Gets content of aggregation {@link #getFilters filters}.
      *
@@ -24590,7 +24583,7 @@ declare module "sap/ui/commons/RowRepeater" {
   /**
    * Describes the settings that can be provided to the RowRepeater constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export interface $RowRepeaterSettings extends $ControlSettings {
     /**
@@ -24776,7 +24769,7 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
    * This element is used by the RowRepeater and allows to define a filter in this context along with the
    * related data such as a text and an icon.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export default class RowRepeaterFilter extends UI5Element {
     /**
@@ -24920,7 +24913,7 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
   /**
    * Describes the settings that can be provided to the RowRepeaterFilter constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export interface $RowRepeaterFilterSettings extends $ElementSettings {
     /**
@@ -24951,7 +24944,7 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
    * This element is used by the RowRepeater and allows to define a sorter in this context along with the
    * related data such as a text and an icon.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export default class RowRepeaterSorter extends UI5Element {
     /**
@@ -25095,7 +25088,7 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
   /**
    * Describes the settings that can be provided to the RowRepeaterSorter constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.table.Table` control.
    */
   export interface $RowRepeaterSorterSettings extends $ElementSettings {
     /**
@@ -25133,7 +25126,7 @@ declare module "sap/ui/commons/SearchField" {
   /**
    * Allows the user to type search queries and to trigger the search. Optionally, suggestions can be added.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.SearchField` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.SearchField` control.
    */
   export default class SearchField extends Control implements ToolbarItem {
     __implements__sap_ui_commons_ToolbarItem: boolean;
@@ -25563,7 +25556,7 @@ declare module "sap/ui/commons/SearchField" {
      *
      * @returns Value of property `textAlign`
      */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    getTextAlign(): TextAlign;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -25586,7 +25579,7 @@ declare module "sap/ui/commons/SearchField" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getVisibleItemCount visibleItemCount}.
      *
@@ -26006,7 +25999,7 @@ declare module "sap/ui/commons/SearchField" {
   /**
    * Describes the settings that can be provided to the SearchField constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.SearchField` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.SearchField` control.
    */
   export interface $SearchFieldSettings extends $ControlSettings {
     /**
@@ -26190,7 +26183,7 @@ declare module "sap/ui/commons/SearchProvider" {
   /**
    * A SearchProvider which can be attached to a Search Field.
    *
-   * @deprecated (since 1.6.0) - Replaced by sap.ui.core.search.OpenSearchProvider
+   * @deprecated As of version 1.6.0. Replaced by sap.ui.core.search.OpenSearchProvider
    */
   export default class SearchProvider extends OpenSearchProvider {
     /**
@@ -26265,7 +26258,7 @@ declare module "sap/ui/commons/SearchProvider" {
   /**
    * Describes the settings that can be provided to the SearchProvider constructor.
    *
-   * @deprecated (since 1.6.0) - Replaced by sap.ui.core.search.OpenSearchProvider
+   * @deprecated As of version 1.6.0. Replaced by sap.ui.core.search.OpenSearchProvider
    */
   export interface $SearchProviderSettings
     extends $OpenSearchProviderSettings {}
@@ -26293,7 +26286,7 @@ declare module "sap/ui/commons/SegmentedButton" {
    * The SegmentedButton provides a group of multiple buttons. Only one button can be active. The behaviour
    * is more ore less like a radio button group.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.SegmentedButton}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.SegmentedButton}
    */
   export default class SegmentedButton
     extends Control
@@ -26575,7 +26568,7 @@ declare module "sap/ui/commons/SegmentedButton" {
   /**
    * Describes the settings that can be provided to the SegmentedButton constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.SegmentedButton}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.SegmentedButton}
    */
   export interface $SegmentedButtonSettings extends $ControlSettings {
     /**
@@ -26633,7 +26626,7 @@ declare module "sap/ui/commons/Slider" {
    * The interactive control is displayed either as a horizontal or a vertical line with a pointer and units
    * of measurement. Users can move the pointer along the line to change values with graphical support.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Slider}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Slider}
    */
   export default class Slider extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -27291,7 +27284,7 @@ declare module "sap/ui/commons/Slider" {
   /**
    * Describes the settings that can be provided to the Slider constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Slider}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Slider}
    */
   export interface $SliderSettings extends $ControlSettings {
     /**
@@ -27443,7 +27436,7 @@ declare module "sap/ui/commons/Splitter" {
    * height or set an absolute height for the splitter using the height property. Otherwise the height of
    * the splitter is calculated by the height of its contents.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Splitter` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Splitter` control.
    */
   export default class Splitter extends Control {
     /**
@@ -27626,7 +27619,7 @@ declare module "sap/ui/commons/Splitter" {
      *
      * @returns Value of property `splitterOrientation`
      */
-    getSplitterOrientation(): Orientation | keyof typeof Orientation;
+    getSplitterOrientation(): Orientation;
     /**
      * Gets current value of property {@link #getSplitterPosition splitterPosition}.
      *
@@ -27904,7 +27897,7 @@ declare module "sap/ui/commons/Splitter" {
   /**
    * Describes the settings that can be provided to the Splitter constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.ui.layout.Splitter` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.Splitter` control.
    */
   export interface $SplitterSettings extends $ControlSettings {
     /**
@@ -27986,7 +27979,7 @@ declare module "sap/ui/commons/Tab" {
   /**
    * Represents a single tab in a TabStrip control.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TabContainer` control.
    */
   export default class Tab extends Panel {
     /**
@@ -28072,7 +28065,7 @@ declare module "sap/ui/commons/Tab" {
      *
      * @returns Value of property `horizontalScrolling`
      */
-    getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
+    getHorizontalScrolling(): Scrolling;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -28080,8 +28073,8 @@ declare module "sap/ui/commons/Tab" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
-     * is used.
+     * @deprecated As of version 0.17.0. This property is not used. To identify the selected tab in a TabStrip
+     * selectedIndex is used.
      *
      * @returns Value of property `selected`
      */
@@ -28096,7 +28089,7 @@ declare module "sap/ui/commons/Tab" {
      *
      * @returns Value of property `verticalScrolling`
      */
-    getVerticalScrolling(): Scrolling | keyof typeof Scrolling;
+    getVerticalScrolling(): Scrolling;
     /**
      * Sets a new value for property {@link #getClosable closable}.
      *
@@ -28142,8 +28135,8 @@ declare module "sap/ui/commons/Tab" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
-     * is used.
+     * @deprecated As of version 0.17.0. This property is not used. To identify the selected tab in a TabStrip
+     * selectedIndex is used.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -28175,7 +28168,7 @@ declare module "sap/ui/commons/Tab" {
   /**
    * Describes the settings that can be provided to the Tab constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TabContainer` control.
    */
   export interface $TabSettings extends $PanelSettings {
     /**
@@ -28202,8 +28195,8 @@ declare module "sap/ui/commons/Tab" {
     /**
      * Defines whether the tab is the active one.
      *
-     * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
-     * is used.
+     * @deprecated As of version 0.17.0. This property is not used. To identify the selected tab in a TabStrip
+     * selectedIndex is used.
      */
     selected?: boolean | PropertyBindingInfo | `{${string}}`;
   }
@@ -28229,7 +28222,7 @@ declare module "sap/ui/commons/TabStrip" {
    * TabStrip represents a container for tab controls, which contain the content and generally other controls.
    * The user switches between the tabs to display the content.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TabContainer` control.
    */
   export default class TabStrip extends Control {
     /**
@@ -28666,7 +28659,7 @@ declare module "sap/ui/commons/TabStrip" {
   /**
    * Describes the settings that can be provided to the TabStrip constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TabContainer` control.
    */
   export interface $TabStripSettings extends $ControlSettings {
     /**
@@ -28757,7 +28750,7 @@ declare module "sap/ui/commons/TextArea" {
   /**
    * Control to enter or display multible row text.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TextArea` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TextArea` control.
    */
   export default class TextArea extends TextField {
     /**
@@ -28864,7 +28857,7 @@ declare module "sap/ui/commons/TextArea" {
      *
      * ID of label control
      *
-     * @deprecated (since 1.5.2) - Please use association AriaLabelledBy instead.
+     * @deprecated As of version 1.5.2. Please use association AriaLabelledBy instead.
      *
      * @returns Value of property `labeledBy`
      */
@@ -28886,7 +28879,7 @@ declare module "sap/ui/commons/TextArea" {
      *
      * @returns Value of property `wrapping`
      */
-    getWrapping(): Wrapping | keyof typeof Wrapping;
+    getWrapping(): Wrapping;
     /**
      * Sets a new value for property {@link #getCols cols}.
      *
@@ -28955,7 +28948,7 @@ declare module "sap/ui/commons/TextArea" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.5.2) - Please use association AriaLabelledBy instead.
+     * @deprecated As of version 1.5.2. Please use association AriaLabelledBy instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -29013,7 +29006,7 @@ declare module "sap/ui/commons/TextArea" {
   /**
    * Describes the settings that can be provided to the TextArea constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.TextArea` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.TextArea` control.
    */
   export interface $TextAreaSettings extends $TextFieldSettings {
     /**
@@ -29053,7 +29046,7 @@ declare module "sap/ui/commons/TextArea" {
     /**
      * ID of label control
      *
-     * @deprecated (since 1.5.2) - Please use association AriaLabelledBy instead.
+     * @deprecated As of version 1.5.2. Please use association AriaLabelledBy instead.
      */
     labeledBy?: string | PropertyBindingInfo;
   }
@@ -29085,7 +29078,7 @@ declare module "sap/ui/commons/TextView" {
   /**
    * Is used to display some continous text. The control can inherit the text direction from its parent control.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Text}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Text}.
    */
   export default class TextView
     extends Control
@@ -29211,7 +29204,7 @@ declare module "sap/ui/commons/TextView" {
      *
      * @returns Value of property `accessibleRole`
      */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    getAccessibleRole(): AccessibleRole;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -29230,7 +29223,7 @@ declare module "sap/ui/commons/TextView" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): TextViewDesign | keyof typeof TextViewDesign;
+    getDesign(): TextViewDesign;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -29264,7 +29257,7 @@ declare module "sap/ui/commons/TextView" {
      *
      * @returns Value of property `semanticColor`
      */
-    getSemanticColor(): TextViewColor | keyof typeof TextViewColor;
+    getSemanticColor(): TextViewColor;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -29286,7 +29279,7 @@ declare module "sap/ui/commons/TextView" {
      *
      * @returns Value of property `textAlign`
      */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    getTextAlign(): TextAlign;
     /**
      * Gets current value of property {@link #getTextDirection textDirection}.
      *
@@ -29298,7 +29291,7 @@ declare module "sap/ui/commons/TextView" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -29546,7 +29539,7 @@ declare module "sap/ui/commons/TextView" {
   /**
    * Describes the settings that can be provided to the TextView constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Text}.
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Text}.
    */
   export interface $TextViewSettings extends $ControlSettings {
     /**
@@ -29641,7 +29634,7 @@ declare module "sap/ui/commons/Title" {
   /**
    * Represents a title element that can be used for aggregation with other controls
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.core library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.core library. Please use this one.
    */
   export default class Title extends Title1 {
     /**
@@ -29724,7 +29717,7 @@ declare module "sap/ui/commons/Title" {
      *
      * @returns the value of property `level`
      */
-    getLevel(): TitleLevel | keyof typeof TitleLevel;
+    getLevel(): TitleLevel;
     /**
      * Setter for property `level`.
      *
@@ -29744,7 +29737,7 @@ declare module "sap/ui/commons/Title" {
   /**
    * Describes the settings that can be provided to the Title constructor.
    *
-   * @deprecated (since 1.16.0) - moved to sap.ui.core library. Please use this one.
+   * @deprecated As of version 1.16.0. moved to sap.ui.core library. Please use this one.
    */
   export interface $TitleSettings extends $TitleSettings1 {}
 }
@@ -29761,7 +29754,7 @@ declare module "sap/ui/commons/ToggleButton" {
   /**
    * The ToggleButton Control is a Button that can be toggled between pressed and normal state
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ToggleButton}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ToggleButton}
    */
   export default class ToggleButton extends Button {
     /**
@@ -29868,7 +29861,7 @@ declare module "sap/ui/commons/ToggleButton" {
   /**
    * Describes the settings that can be provided to the ToggleButton constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.ToggleButton}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.ToggleButton}
    */
   export interface $ToggleButtonSettings extends $ButtonSettings {
     /**
@@ -29897,7 +29890,7 @@ declare module "sap/ui/commons/Toolbar" {
    * Note that all controls with the sap.ui.commons.ToolbarItem interface can be used as item: Button, ComboBox,
    * TextField.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Toolbar}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Toolbar}
    */
   export default class Toolbar extends Control implements Toolbar1 {
     __implements__sap_ui_core_Toolbar: boolean;
@@ -30011,7 +30004,7 @@ declare module "sap/ui/commons/Toolbar" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ToolbarDesign | keyof typeof ToolbarDesign;
+    getDesign(): ToolbarDesign;
     /**
      * Gets content of aggregation {@link #getItems items}.
      *
@@ -30212,7 +30205,7 @@ declare module "sap/ui/commons/Toolbar" {
   /**
    * Describes the settings that can be provided to the Toolbar constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Toolbar}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Toolbar}
    */
   export interface $ToolbarSettings extends $ControlSettings {
     /**
@@ -30268,7 +30261,7 @@ declare module "sap/ui/commons/ToolbarSeparator" {
    * A small vertical line that is generally added to the tool bar between the items to visually separate
    * them.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Toolbar` control.
    */
   export default class ToolbarSeparator
     extends UI5Element
@@ -30345,7 +30338,7 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      *
      * @returns Value of property `design`
      */
-    getDesign(): ToolbarSeparatorDesign | keyof typeof ToolbarSeparatorDesign;
+    getDesign(): ToolbarSeparatorDesign;
     /**
      * Gets current value of property {@link #getDisplayVisualSeparator displayVisualSeparator}.
      *
@@ -30395,7 +30388,7 @@ declare module "sap/ui/commons/ToolbarSeparator" {
   /**
    * Describes the settings that can be provided to the ToolbarSeparator constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Toolbar` control.
    */
   export interface $ToolbarSeparatorSettings extends $ElementSettings {
     /**
@@ -30436,7 +30429,7 @@ declare module "sap/ui/commons/Tree" {
   /**
    * Simple tree to display item in a hierarchical way
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Tree}
    */
   export default class Tree extends Control {
     /**
@@ -30755,7 +30748,7 @@ declare module "sap/ui/commons/Tree" {
      *
      * @returns Value of property `selectionMode`
      */
-    getSelectionMode(): TreeSelectionMode | keyof typeof TreeSelectionMode;
+    getSelectionMode(): TreeSelectionMode;
     /**
      * Gets current value of property {@link #getShowHeader showHeader}.
      *
@@ -31013,7 +31006,7 @@ declare module "sap/ui/commons/Tree" {
   /**
    * Describes the settings that can be provided to the Tree constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Tree}
    */
   export interface $TreeSettings extends $ControlSettings {
     /**
@@ -31139,7 +31132,7 @@ declare module "sap/ui/commons/TreeNode" {
   /**
    * Tree node element
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Tree}
    */
   export default class TreeNode extends UI5Element {
     /**
@@ -31702,7 +31695,7 @@ declare module "sap/ui/commons/TreeNode" {
   /**
    * Describes the settings that can be provided to the TreeNode constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Tree}
    */
   export interface $TreeNodeSettings extends $ElementSettings {
     /**
@@ -31813,7 +31806,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
    * possible which is e.g. required in checkbox trees.
    *
    * @since 1.7.2
-   * @deprecated (since 1.38) - Use {@link sap.m.CheckBox} instead.
+   * @deprecated As of version 1.38. Use {@link sap.m.CheckBox} instead.
    */
   export default class TriStateCheckBox extends Control {
     /**
@@ -31988,9 +31981,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      *
      * @returns Value of property `selectionState`
      */
-    getSelectionState():
-      | TriStateCheckBoxState
-      | keyof typeof TriStateCheckBoxState;
+    getSelectionState(): TriStateCheckBoxState;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -32011,7 +32002,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      *
      * @returns Value of property `textDirection`
      */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    getTextDirection(): TextDirection;
     /**
      * Gets current value of property {@link #getValueState valueState}.
      *
@@ -32022,7 +32013,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      *
      * @returns Value of property `valueState`
      */
-    getValueState(): ValueState | keyof typeof ValueState;
+    getValueState(): ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -32172,7 +32163,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
   /**
    * Describes the settings that can be provided to the TriStateCheckBox constructor.
    *
-   * @deprecated (since 1.38) - Use {@link sap.m.CheckBox} instead.
+   * @deprecated As of version 1.38. Use {@link sap.m.CheckBox} instead.
    */
   export interface $TriStateCheckBoxSettings extends $ControlSettings {
     /**
@@ -32263,7 +32254,7 @@ declare module "sap/ui/commons/ValueHelpField" {
   /**
    * A TextField with an attached icon which triggeres an event.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Input` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Input` control.
    */
   export default class ValueHelpField extends TextField {
     /**
@@ -32505,7 +32496,7 @@ declare module "sap/ui/commons/ValueHelpField" {
   /**
    * Describes the settings that can be provided to the ValueHelpField constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Input` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Input` control.
    */
   export interface $ValueHelpFieldSettings extends $TextFieldSettings {
     /**

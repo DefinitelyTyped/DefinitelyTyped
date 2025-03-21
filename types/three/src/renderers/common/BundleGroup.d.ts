@@ -23,9 +23,9 @@ declare class BundleGroup extends Group {
     /**
      * Set this property to `true` when the bundle group has changed.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @default false
-     * @param {Boolean} value
+     * @param {boolean} value
      */
     set needsUpdate(value: boolean);
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rox-browser",
+    "version": "4.8.9999",
+    "projects": [
+        "https://rollout.io"
+    ],
+    "devDependencies": {
+        "@types/rox-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "g-guirado",
+            "githubUsername": "g-guirado"
+        }
+    ]
+}

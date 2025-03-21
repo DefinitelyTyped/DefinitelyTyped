@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/n3",
-    "version": "1.21.9999",
+    "version": "1.24.9999",
     "projects": [
         "https://github.com/rdfjs/n3.js"
     ],
     "dependencies": {
-        "@rdfjs/types": "^1.1.0",
+        "@rdfjs/types": "*",
         "@types/node": "*"
     },
     "devDependencies": {

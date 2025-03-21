@@ -260,6 +260,7 @@ declare namespace GoogleAppsScript {
             removeViewer(emailAddress: string): Document;
             removeViewer(user: Base.User): Document;
             saveAndClose(): void;
+            setActiveTab(tabId: string): void;
             setCursor(position: Position): Document;
             setLanguage(languageCode: string): Document;
             setName(name: string): Document;

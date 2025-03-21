@@ -669,9 +669,10 @@ declare module "crypto" {
          */
         type: KeyObjectType;
     }
-    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm" | "chacha20-poly1305";
+    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm";
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
+    type CipherChaCha20Poly1305Types = "chacha20-poly1305";
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -682,6 +683,10 @@ declare module "crypto" {
     }
     interface CipherOCBOptions extends stream.TransformOptions {
         authTagLength: number;
+    }
+    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
+        /** @default 16 */
+        authTagLength?: number | undefined;
     }
     /**
      * Creates and returns a `Cipher` object that uses the given `algorithm` and `password`.
@@ -723,6 +728,14 @@ declare module "crypto" {
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): CipherGCM;
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
+    function createCipher(algorithm: CipherOCBTypes, password: BinaryLike, options: CipherOCBOptions): CipherOCB;
+    /** @deprecated since v10.0.0 use `createCipheriv()` */
+    function createCipher(
+        algorithm: CipherChaCha20Poly1305Types,
+        password: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Cipher;
     /**
@@ -773,6 +786,12 @@ declare module "crypto" {
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
+    function createCipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
     function createCipheriv(
         algorithm: string,
         key: CipherKey,
@@ -972,6 +991,15 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
+    interface CipherChaCha20Poly1305 extends Cipher {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
+                plaintextLength: number;
+            },
+        ): this;
+        getAuthTag(): Buffer;
+    }
     /**
      * Creates and returns a `Decipher` object that uses the given `algorithm` and `password` (key).
      *
@@ -1001,6 +1029,14 @@ declare module "crypto" {
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
+    function createDecipher(algorithm: CipherOCBTypes, password: BinaryLike, options: CipherOCBOptions): DecipherOCB;
+    /** @deprecated since v10.0.0 use `createDecipheriv()` */
+    function createDecipher(
+        algorithm: CipherChaCha20Poly1305Types,
+        password: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
     /**
@@ -1050,6 +1086,12 @@ declare module "crypto" {
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
+    function createDecipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
     function createDecipheriv(
         algorithm: string,
         key: CipherKey,
@@ -1231,6 +1273,15 @@ declare module "crypto" {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
+                plaintextLength: number;
+            },
+        ): this;
+    }
+    interface DecipherChaCha20Poly1305 extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
                 plaintextLength: number;
             },
         ): this;

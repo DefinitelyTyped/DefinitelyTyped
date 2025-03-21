@@ -1,4 +1,4 @@
-/** 1187 pictograms in total */
+/** 1197 pictograms in total */
 
 export interface CarbonPictogramProps extends
     Omit<
@@ -93,6 +93,7 @@ export const AutomationDecision: CarbonPictogramType;
 export const AutomationSoftware: CarbonPictogramType;
 export const Automobile: CarbonPictogramType;
 export const Availability: CarbonPictogramType;
+export const B2bCommerce: CarbonPictogramType;
 export const BabyBottle: CarbonPictogramType;
 export const BackUpAndRestore: CarbonPictogramType;
 export const Backpack: CarbonPictogramType;
@@ -399,6 +400,8 @@ export const EcuadorQuito: CarbonPictogramType;
 export const Edge: CarbonPictogramType;
 export const Education: CarbonPictogramType;
 export const Efficient: CarbonPictogramType;
+export const EhningenTechCampus_01: CarbonPictogramType;
+export const EhningenTechCampus_02: CarbonPictogramType;
 export const Electric: CarbonPictogramType;
 export const ElectricCar: CarbonPictogramType;
 export const ElectricCharge: CarbonPictogramType;
@@ -589,13 +592,11 @@ export const HyperProtectDatabaseAsAService: CarbonPictogramType;
 export const HyperProtectVirtualServers: CarbonPictogramType;
 export const IbmAutomationPlatform: CarbonPictogramType;
 export const IbmCloud: CarbonPictogramType;
+export const IbmGranite: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
+export const IbmOneMadisonAvenue: CarbonPictogramType;
 export const IbmRpa: CarbonPictogramType;
 export const IbmUkLabsHursley: CarbonPictogramType;
-/**
- * @deprecated
- * This icon should no longer be used
- */
 export const IbmZ: CarbonPictogramType;
 /**
  * @deprecated
@@ -840,6 +841,7 @@ export const Podcast: CarbonPictogramType;
 export const Police: CarbonPictogramType;
 export const PopulationDiagram: CarbonPictogramType;
 export const PortlandBuilding: CarbonPictogramType;
+export const PoughkeepsieBridge: CarbonPictogramType;
 export const Power: CarbonPictogramType;
 export const PowerOn: CarbonPictogramType;
 export const PragueCharlesBridgeTower: CarbonPictogramType;
@@ -869,6 +871,7 @@ export const PublicCloudToPrivateCloud: CarbonPictogramType;
 export const Puzzle: CarbonPictogramType;
 export const QQPlot: CarbonPictogramType;
 export const QrCode: CarbonPictogramType;
+export const Qiskit: CarbonPictogramType;
 export const Quantum: CarbonPictogramType;
 export const QuantumSafe: CarbonPictogramType;
 export const QuantumComputing: CarbonPictogramType;
@@ -1033,6 +1036,7 @@ export const StrategyPlay: CarbonPictogramType;
 export const StreamingData: CarbonPictogramType;
 export const Streamline: CarbonPictogramType;
 export const StreamlineOperations: CarbonPictogramType;
+export const StuttgartTvTower: CarbonPictogramType;
 export const Subsecond: CarbonPictogramType;
 export const Summit: CarbonPictogramType;
 export const Sunny: CarbonPictogramType;
@@ -1198,11 +1202,13 @@ export const WasteElectronic: CarbonPictogramType;
 export const WatsonLogo: CarbonPictogramType;
 export const Watsonx: CarbonPictogramType;
 export const WatsonxAi: CarbonPictogramType;
+export const WatsonxAssistant: CarbonPictogramType;
 export const WatsonxCodeAssistant: CarbonPictogramType;
 export const WatsonxCodeAssistantForZ: CarbonPictogramType;
 export const WatsonxCodeAssistantForZRefactor: CarbonPictogramType;
 export const WatsonxData: CarbonPictogramType;
 export const WatsonxGovernance: CarbonPictogramType;
+export const WavingHand: CarbonPictogramType;
 export const Weather: CarbonPictogramType;
 export const WebDeveloper: CarbonPictogramType;
 export const Webcast: CarbonPictogramType;

@@ -1,157 +1,204 @@
-/// <reference types="jquery" />
-/// <reference types="jqueryui" />
+// https://developer.chrome.com/docs/extensions/reference/api/bookmarks
+function testBookmarks() {
+    chrome.bookmarks.BookmarkTreeNodeUnmodifiable.MANAGED === "managed";
 
-// https://developer.chrome.com/extensions/examples/api/bookmarks/basic/popup.js
-function bookmarksExample() {
-    $(function() {
-        $("#search").change(function() {
-            $("#bookmarks").empty();
-            dumpBookmarks($("#search").val());
-        });
-    });
-    // Traverse the bookmark tree, and print the folder and nodes.
-    function dumpBookmarks(query?: string | string[] | number) {
-        var bookmarkTreeNodes = chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
-            $("#bookmarks").append(dumpTreeNodes(bookmarkTreeNodes, query));
-        });
-    }
-    function dumpTreeNodes(bookmarkNodes: chrome.bookmarks.BookmarkTreeNode[], query?: string | string[] | number) {
-        var list = $("<ul>");
-        var i;
-        for (i = 0; i < bookmarkNodes.length; i++) {
-            list.append(dumpNode(bookmarkNodes[i], query));
-        }
-        return list;
-    }
-    function dumpNode(bookmarkNode: chrome.bookmarks.BookmarkTreeNode, query?: string | string[] | number) {
-        var span = $("<span>");
-        if (bookmarkNode.title) {
-            if (query && typeof query === "string" && !bookmarkNode.children) {
-                if (String(bookmarkNode.title).indexOf(query) == -1) {
-                    return $("<span></span>");
-                }
-            }
-            var anchor = $("<a>");
-            anchor.attr("href", bookmarkNode.url ?? null);
-            anchor.text(bookmarkNode.title);
-            /*
-             * When clicking on a bookmark in the extension, a new tab is fired with
-             * the bookmark url.
-             */
-            anchor.click(function() {
-                chrome.tabs.create({ url: bookmarkNode.url });
-            });
-            var options = bookmarkNode.children
-                ? $("<span>[<a href=\"#\" id=\"addlink\">Add</a>]</span>")
-                : $(
-                    "<span>[<a id=\"editlink\" href=\"#\">Edit</a> <a id=\"deletelink\" "
-                        + "href=\"#\">Delete</a>]</span>",
-                );
-            var edit = bookmarkNode.children
-                ? $(
-                    "<table><tr><td>Name</td><td>"
-                        + "<input id=\"title\"></td></tr><tr><td>URL</td><td><input id=\"url\">"
-                        + "</td></tr></table>",
-                )
-                : $("<input>");
-            // Show add and edit links when hover over.
-            span.hover(
-                function() {
-                    span.append(options);
-                    $("#deletelink").click(function() {
-                        $("#deletedialog")
-                            .empty()
-                            .dialog({
-                                autoOpen: false,
-                                title: "Confirm Deletion",
-                                resizable: false,
-                                height: 140,
-                                modal: true,
-                                buttons: {
-                                    "Yes, Delete It!": function() {
-                                        chrome.bookmarks.remove(String(bookmarkNode.id));
-                                        span.parent().remove();
-                                        $(this).dialog("destroy");
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    $("#addlink").click(function() {
-                        $("#adddialog")
-                            .empty()
-                            .append(edit)
-                            .dialog({
-                                autoOpen: false,
-                                closeOnEscape: true,
-                                title: "Add New Bookmark",
-                                modal: true,
-                                buttons: {
-                                    Add: function() {
-                                        chrome.bookmarks.create({
-                                            parentId: bookmarkNode.id,
-                                            title: $("#title").val() as string,
-                                            url: $("#url").val() as string,
-                                        });
-                                        $("#bookmarks").empty();
-                                        $(this).dialog("destroy");
-                                        dumpBookmarks();
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    $("#editlink").click(function() {
-                        edit.val(anchor.text());
-                        $("#editdialog")
-                            .empty()
-                            .append(edit)
-                            .dialog({
-                                autoOpen: false,
-                                closeOnEscape: true,
-                                title: "Edit Title",
-                                modal: true,
-                                show: "slide",
-                                buttons: {
-                                    Save: function() {
-                                        chrome.bookmarks.update(String(bookmarkNode.id), {
-                                            title: edit.val() as string,
-                                        });
-                                        anchor.text(edit.val() as string);
-                                        options.show();
-                                        $(this).dialog("destroy");
-                                    },
-                                    Cancel: function() {
-                                        $(this).dialog("destroy");
-                                    },
-                                },
-                            })
-                            .dialog("open");
-                    });
-                    options.fadeIn();
-                },
-                // unhover
-                function() {
-                    options.remove();
-                },
-            ).append(anchor);
-        }
-        var li = $(bookmarkNode.title ? "<li>" : "<div>").append(span);
-        if (bookmarkNode.children && bookmarkNode.children.length > 0) {
-            li.append(dumpTreeNodes(bookmarkNode.children, query));
-        }
-        return li;
-    }
+    chrome.bookmarks.FolderType.BOOKMARKS_BAR === "bookmarks-bar";
+    chrome.bookmarks.FolderType.MANAGED === "managed";
+    chrome.bookmarks.FolderType.MOBILE === "mobile";
+    chrome.bookmarks.FolderType.OTHER === "other";
 
-    document.addEventListener("DOMContentLoaded", function() {
-        dumpBookmarks();
+    chrome.bookmarks.MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE === 1000000;
+
+    chrome.bookmarks.MAX_WRITE_OPERATIONS_PER_HOUR === 1000000;
+
+    const bookmarkDetails: chrome.bookmarks.CreateDetails = {
+        index: 0,
+        parentId: "1",
+        title: "title",
+        url: "https://example.com",
+    };
+
+    const checkBookmarkTreeNodeResult = (result: chrome.bookmarks.BookmarkTreeNode) => {
+        result.children; // $ExpectType BookmarkTreeNode[] | undefined
+        result.dateAdded; // $ExpectType number | undefined
+        result.dateGroupModified; // $ExpectType number | undefined
+        result.dateLastUsed; // $ExpectType number | undefined
+        result.folderType; // $ExpectType  "bookmarks-bar" | "other" | "mobile" | "managed" | undefined
+        result.id; // $ExpectType string
+        result.index; // $ExpectType number | undefined
+        result.parentId; // $ExpectType string | undefined
+        result.syncing; // $ExpectType boolean
+        result.title; // $ExpectType string
+        result.unmodifiable; // $ExpectType "managed" | undefined
+        result.url; // $ExpectType string | undefined
+    };
+
+    chrome.bookmarks.create(bookmarkDetails); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.create(bookmarkDetails, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.create(bookmarkDetails, () => {}).then(() => {});
+
+    chrome.bookmarks.get("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.get(["1"]); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.get("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    chrome.bookmarks.get(["1"], ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.get([]);
+    // @ts-expect-error
+    chrome.bookmarks.get("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getChildren("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getChildren("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void);
+    // @ts-expect-error
+    chrome.bookmarks.getChildren("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getRecent(1); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getRecent(1, ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getRecent(1, () => {}).then(() => {});
+
+    chrome.bookmarks.getSubTree("1"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getSubTree("1", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getSubTree("1", () => {}).then(() => {});
+
+    chrome.bookmarks.getTree(); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.getTree(([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.getTree(() => {}).then(() => {});
+
+    const destination: chrome.bookmarks.MoveDestination = {
+        index: 0,
+        parentId: "1",
+    };
+
+    chrome.bookmarks.move("1", destination); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.move("1", destination, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.move("1", destination, () => {}).then(() => {});
+
+    chrome.bookmarks.remove("1"); // $ExpectType Promise<void>
+    chrome.bookmarks.remove("1", () => void 0);
+    // @ts-expect-error
+    chrome.bookmarks.remove("1", () => {}).then(() => {});
+
+    chrome.bookmarks.removeTree("1"); // $ExpectType Promise<void>
+    chrome.bookmarks.removeTree("1", () => void 0);
+    // @ts-expect-error
+    chrome.bookmarks.removeTree("1", () => {}).then(() => {});
+
+    chrome.bookmarks.search("query"); // $ExpectType Promise<BookmarkTreeNode[]>
+    chrome.bookmarks.search("query", ([result]) => checkBookmarkTreeNodeResult(result)); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.search("query", () => {}).then(() => {});
+
+    const changes: chrome.bookmarks.UpdateChanges = {
+        title: "new title",
+        url: "https://example.com",
+    };
+
+    chrome.bookmarks.update("1", changes); // $ExpectType Promise<BookmarkTreeNode>
+    chrome.bookmarks.update("1", changes, checkBookmarkTreeNodeResult); // $ExpectType void
+    // @ts-expect-error
+    chrome.bookmarks.update("1", changes, () => {}).then(() => {});
+
+    chrome.bookmarks.onChanged.addListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
     });
+    chrome.bookmarks.onChanged.removeListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
+    });
+    chrome.bookmarks.onChanged.hasListener((id, changeInfo) => {
+        id; // $ExpectType string
+        changeInfo.title; // $ExpectType string
+        changeInfo.url; // $ExpectType string | undefined
+    });
+    chrome.bookmarks.onChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onChildrenReordered.addListener((id, reorderInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.removeListener((id, reorderInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.hasListener((id, reorderInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        reorderInfo.childIds; // $ExpectType string[]
+    });
+    chrome.bookmarks.onChildrenReordered.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onCreated.addListener((id: string, bookmark) => { // $ExpectType void
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.removeListener((id: string, bookmark) => { // $ExpectType void
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.hasListener((id: string, bookmark) => { // $ExpectType boolean
+        id; // $ExpectType string
+        checkBookmarkTreeNodeResult(bookmark);
+    });
+    chrome.bookmarks.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onImportBegan.addListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportBegan.removeListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportBegan.hasListener(() => void 0); // $ExpectType boolean
+    chrome.bookmarks.onImportBegan.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onImportEnded.addListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportEnded.removeListener(() => void 0); // $ExpectType void
+    chrome.bookmarks.onImportEnded.hasListener(() => void 0); // $ExpectType boolean
+    chrome.bookmarks.onImportEnded.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onMoved.addListener((id: string, moveInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.removeListener((id: string, moveInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.hasListener((id: string, moveInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        moveInfo.index; // $ExpectType number
+        moveInfo.oldIndex; // $ExpectType number
+        moveInfo.parentId; // $ExpectType string
+        moveInfo.oldParentId; // $ExpectType string
+    });
+    chrome.bookmarks.onMoved.hasListeners(); // $ExpectType boolean
+
+    chrome.bookmarks.onRemoved.addListener((id: string, removeInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.removeListener((id: string, removeInfo) => { // $ExpectType void
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.hasListener((id: string, removeInfo) => { // $ExpectType boolean
+        id; // $ExpectType string
+        removeInfo.index; // $ExpectType number
+        removeInfo.parentId; // $ExpectType string
+        checkBookmarkTreeNodeResult(removeInfo.node);
+    });
+    chrome.bookmarks.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/extensions/examples/api/browserAction/make_page_red/background.js
@@ -289,73 +336,286 @@ function testNotificationCreation() {
     chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "" });
 }
 
-// https://developer.chrome.com/extensions/examples/api/contentSettings/popup.js
-function contentSettings() {
-    var incognito: boolean;
-    var url: string;
+// https://developer.chrome.com/docs/extensions/reference/api/contentSettings
+function testContentSettings() {
+    chrome.contentSettings.AutoVerifyContentSetting.ALLOW === "allow";
+    chrome.contentSettings.AutoVerifyContentSetting.BLOCK === "block";
 
-    function settingChanged() {
-        // @ts-expect-error Need refactor this without using `this`
-        var type = this.id;
-        // @ts-expect-error Need refactor this without using `this`
-        var setting = this.value;
-        var pattern = /^file:/.test(url) ? url : url.replace(/\/[^\/]*?$/, "/*");
-        console.log(type + " setting for " + pattern + ": " + setting);
-        // HACK: [type] is not recognised by the docserver's sample crawler, so
-        // mention an explicit
-        // type: chrome.contentSettings.cookies.set - See http://crbug.com/299634
-        // @ts-expect-error Need refactor tests to use the correct type
-        chrome.contentSettings[type].set({
-            primaryPattern: pattern,
-            setting: setting,
-            scope: incognito ? "incognito_session_only" : "regular",
-        });
-    }
+    chrome.contentSettings.CameraContentSetting.ALLOW === "allow";
+    chrome.contentSettings.CameraContentSetting.ASK === "ask";
+    chrome.contentSettings.CameraContentSetting.BLOCK === "block";
 
-    document.addEventListener("DOMContentLoaded", function() {
-        chrome.tabs.query({ active: true, currentWindow: true, url: ["http://*/*", "https://*/*"] }, function(tabs) {
-            var current = tabs[0];
-            incognito = current.incognito;
-            url = current.url ?? "";
-            var types = [
-                "cookies",
-                "images",
-                "javascript",
-                "location",
-                "plugins",
-                "popups",
-                "notifications",
-                "fullscreen",
-                "mouselock",
-                "microphone",
-                "camera",
-                "unsandboxedPlugins",
-                "automaticDownloads",
-            ];
-            types.forEach(function(type) {
-                // HACK: [type] is not recognised by the docserver's sample crawler, so
-                // mention an explicit
-                // type: chrome.contentSettings.cookies.get - See http://crbug.com/299634
-                // @ts-expect-error Need refactor tests to use the correct type
-                chrome.contentSettings[type] && chrome.contentSettings[type].get(
-                    {
-                        primaryUrl: url,
-                        incognito: incognito,
-                    },
-                    // @ts-expect-error
-                    function(details) {
-                        var input = <HTMLInputElement> document.getElementById(type);
-                        input.disabled = false;
-                        input.value = details.setting;
-                    },
-                );
-            });
-        });
+    chrome.contentSettings.ClipboardContentSetting.ALLOW === "allow";
+    chrome.contentSettings.ClipboardContentSetting.ASK === "ask";
+    chrome.contentSettings.ClipboardContentSetting.BLOCK === "block";
 
-        var selects = document.querySelectorAll("select");
-        for (var i = 0; i < selects.length; i++) {
-            selects[i].addEventListener("change", settingChanged);
-        }
+    chrome.contentSettings.CookiesContentSetting.ALLOW === "allow";
+    chrome.contentSettings.CookiesContentSetting.BLOCK === "block";
+    chrome.contentSettings.CookiesContentSetting.SESSION_ONLY === "session_only";
+
+    chrome.contentSettings.FullscreenContentSetting.ALLOW === "allow";
+
+    chrome.contentSettings.ImagesContentSetting.ALLOW === "allow";
+    chrome.contentSettings.ImagesContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.JavascriptContentSetting.ALLOW === "allow";
+    chrome.contentSettings.JavascriptContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.LocationContentSetting.ALLOW === "allow";
+    chrome.contentSettings.LocationContentSetting.ASK === "ask";
+    chrome.contentSettings.LocationContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.MicrophoneContentSetting.ALLOW === "allow";
+    chrome.contentSettings.MicrophoneContentSetting.ASK === "ask";
+    chrome.contentSettings.MicrophoneContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.MouselockContentSetting.ALLOW === "allow";
+
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.ALLOW === "allow";
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.ASK === "ask";
+    chrome.contentSettings.MultipleAutomaticDownloadsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PluginsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PopupsContentSetting.ALLOW === "allow";
+    chrome.contentSettings.PopupsContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.PpapiBrokerContentSetting.BLOCK === "block";
+
+    chrome.contentSettings.Scope.INCOGNITO_SESSION_ONLY === "incognito_session_only";
+    chrome.contentSettings.Scope.REGULAR === "regular";
+
+    const contentSettingsGetParams: chrome.contentSettings.ContentSettingGetParams = {
+        primaryUrl: "https://example.com",
+        secondaryUrl: "https://example2.com",
+        incognito: false,
+        resourceIdentifier: {
+            id: "id",
+        },
+    };
+
+    const contentSettingsSetParams: chrome.contentSettings.ContentSettingSetParams<"allow"> = {
+        primaryPattern: "<all_urls>",
+        secondaryPattern: "<all_urls>",
+        scope: "regular",
+        resourceIdentifier: {
+            id: "id",
+        },
+        setting: "allow",
+    };
+
+    const contentSettingsClearParams: chrome.contentSettings.ContentSettingClearParams = {
+        scope: "regular",
+    };
+
+    // autoVerify
+    chrome.contentSettings.autoVerify.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.autoVerify.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.autoVerify.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.autoVerify.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.autoVerify.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.autoVerify.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.autoVerify.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.autoVerify.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // automaticDownloads
+    chrome.contentSettings.automaticDownloads.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.automaticDownloads.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.automaticDownloads.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.automaticDownloads.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.automaticDownloads.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.automaticDownloads.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.automaticDownloads.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.automaticDownloads.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // camera
+    chrome.contentSettings.camera.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.camera.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.camera.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.camera.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.camera.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.camera.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.camera.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.camera.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // clipboard
+    chrome.contentSettings.clipboard.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "ask">>
+    chrome.contentSettings.clipboard.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "ask"
+    });
+    chrome.contentSettings.clipboard.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.clipboard.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.clipboard.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.clipboard.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.clipboard.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.clipboard.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // cookies
+    chrome.contentSettings.cookies.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block" | "session_only">>
+    chrome.contentSettings.cookies.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block" | "session_only"
+    });
+    chrome.contentSettings.cookies.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.cookies.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.cookies.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.cookies.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.cookies.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.cookies.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // fullscreen
+    chrome.contentSettings.fullscreen.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow">>
+    chrome.contentSettings.fullscreen.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow"
+    });
+    chrome.contentSettings.fullscreen.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.fullscreen.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.fullscreen.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.fullscreen.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.fullscreen.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.fullscreen.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // images
+    chrome.contentSettings.images.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.images.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.images.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.images.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.images.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.images.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.images.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.images.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // javascript
+    chrome.contentSettings.javascript.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.javascript.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.javascript.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.javascript.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.javascript.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.javascript.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.javascript.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.javascript.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // location
+    chrome.contentSettings.location.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.location.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.location.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.location.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.location.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.location.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.location.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.location.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // microphone
+    chrome.contentSettings.microphone.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.microphone.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.microphone.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.microphone.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.microphone.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.microphone.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.microphone.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.microphone.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // mouselock
+    chrome.contentSettings.mouselock.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow">>
+    chrome.contentSettings.mouselock.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow"
+    });
+    chrome.contentSettings.mouselock.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.mouselock.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.mouselock.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.mouselock.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.mouselock.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.mouselock.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // notifications
+    chrome.contentSettings.notifications.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block"| "ask">>
+    chrome.contentSettings.notifications.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"| "ask"
+    });
+    chrome.contentSettings.notifications.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.notifications.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.notifications.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.notifications.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.notifications.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.notifications.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // plugins
+    chrome.contentSettings.plugins.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"block">>
+    chrome.contentSettings.plugins.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "block"
+    });
+    chrome.contentSettings.plugins.set({ primaryPattern: "<all_urls>", setting: "block" }); // $ExpectType Promise<void>
+    chrome.contentSettings.plugins.set({ primaryPattern: "<all_urls>", setting: "block" }, () => {}); // $ExpectType void
+    chrome.contentSettings.plugins.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.plugins.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.plugins.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.plugins.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // popups
+    chrome.contentSettings.popups.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"allow" | "block">>
+    chrome.contentSettings.popups.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType "allow" | "block"
+    });
+    chrome.contentSettings.popups.set(contentSettingsSetParams); // $ExpectType Promise<void>
+    chrome.contentSettings.popups.set(contentSettingsSetParams, () => {}); // $ExpectType void
+    chrome.contentSettings.popups.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.popups.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.popups.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.popups.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
+    });
+
+    // unsandboxedPlugins
+    chrome.contentSettings.unsandboxedPlugins.get(contentSettingsGetParams); // $ExpectType Promise<ContentSettingGetResult<"block">>
+    chrome.contentSettings.unsandboxedPlugins.get(contentSettingsGetParams, (details) => { // $ExpectType void
+        details.setting; // $ExpectType  "block"
+    });
+    chrome.contentSettings.unsandboxedPlugins.set({ primaryPattern: "<all_urls>", setting: "block" }); // $ExpectType Promise<void>
+    chrome.contentSettings.unsandboxedPlugins.set({ primaryPattern: "<all_urls>", setting: "block" }, () => {}); // $ExpectType void
+    chrome.contentSettings.unsandboxedPlugins.clear(contentSettingsClearParams); // $ExpectType Promise<void>
+    chrome.contentSettings.unsandboxedPlugins.clear(contentSettingsClearParams, () => {}); // $ExpectType void
+    chrome.contentSettings.unsandboxedPlugins.getResourceIdentifiers(); // $ExpectType Promise<ResourceIdentifier[] | undefined>
+    chrome.contentSettings.unsandboxedPlugins.getResourceIdentifiers((resourceIdentifiers) => { // $ExpectType void
+        resourceIdentifiers; // $ExpectType ResourceIdentifier[] | undefined
     });
 }
 
@@ -620,27 +880,85 @@ function testTabCaptureOptions() {
     constraints2 = constraints;
 }
 
-// https://developer.chrome.com/extensions/debugger
+// https://developer.chrome.com/docs/extensions/reference/api/debugger
 function testDebugger() {
-    chrome.debugger.attach({ tabId: 123 }, "1.23", () => {
-        console.log("This is a callback!");
-    });
+    chrome.debugger.DetachReason.CANCELED_BY_USER === "canceled_by_user";
+    chrome.debugger.DetachReason.TARGET_CLOSED === "target_closed";
 
-    chrome.debugger.detach({ tabId: 123 }, () => {
-        console.log("This is a callback!");
-    });
+    chrome.debugger.TargetInfoType.BACKGROUND_PAGE === "background_page";
+    chrome.debugger.TargetInfoType.OTHER === "other";
+    chrome.debugger.TargetInfoType.PAGE === "page";
+    chrome.debugger.TargetInfoType.WORKER === "worker";
 
-    chrome.debugger.sendCommand({ targetId: "abc" }, "Debugger.Cmd", { param1: "x" }, result => {
-        console.log("Do something with the result." + result);
-    });
+    const debuggee: chrome.debugger.Debuggee = {
+        tabId: 123,
+    };
 
-    chrome.debugger.getTargets(results => {
-        for (let result of results) {
-            if (result.tabId == 123) {
-                // Do Something.
-            }
-        }
+    chrome.debugger.attach(debuggee, "0.1"); // $ExpectType Promise<void>
+    chrome.debugger.attach(debuggee, "0.1", () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.debugger.attach(debuggee, "0.1", () => {}).then(() => {});
+
+    chrome.debugger.detach(debuggee); // $ExpectType Promise<void>
+    chrome.debugger.detach(debuggee, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.debugger.detach(debuggee, () => {}).then(() => {});
+
+    chrome.debugger.getTargets(); // $ExpectType Promise<TargetInfo[]>
+    chrome.debugger.getTargets(([result]) => { // $ExpectType void
+        result.type; // $ExpectType "background_page" | "other" | "page" | "worker";
+        result.id; // $ExpectType string;
+        result.tabId; // $ExpectType number | undefined;
+        result.extensionId; // $ExpectType string | undefined;
+        result.attached; // $ExpectType boolean
+        result.title; // $ExpectType string
+        result.url; // $ExpectType string
+        result.faviconUrl; // $ExpectType string | undefined
     });
+    // @ts-expect-error
+    chrome.debugger.getTargets(() => {}).then(() => {});
+
+    const debuggerSession: chrome.debugger.DebuggerSession = {
+        sessionId: "123",
+    };
+
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<Object | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
+        result; // $ExpectType Object | undefined
+    });
+    // @ts-expect-error
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
+
+    chrome.debugger.onEvent.addListener((source, methodName, params) => { // $ExpectType void
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.removeListener((source, methodName, params) => { // $ExpectType void
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.hasListener((source, methodName, params) => { // $ExpectType boolean
+        source; // $ExpectType DebuggerSession
+        methodName; // $ExpectType string
+        params; // $ExpectType Object | undefined
+    });
+    chrome.debugger.onEvent.hasListeners(); // $ExpectType boolean
+
+    chrome.debugger.onDetach.addListener((source, reason) => { // $ExpectType void
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.removeListener((source, reason) => { // $ExpectType void
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.hasListener((source, reason) => { // $ExpectType boolean
+        source; // $ExpectType Debuggee
+        reason; // $ExpectType "canceled_by_user" | "target_closed"
+    });
+    chrome.debugger.onDetach.hasListeners(); // $ExpectType boolean
 
     chrome.debugger.onEvent.addListener((source, methodName, params) => {
         if (source.tabId == 123) {
@@ -653,14 +971,6 @@ function testDebugger() {
             console.log("Hello World.");
         }
     });
-}
-
-// https://developer.chrome.com/extensions/debugger
-async function testDebuggerForPromise() {
-    await chrome.debugger.attach({ tabId: 123 }, "1.23");
-    await chrome.debugger.detach({ tabId: 123 });
-    await chrome.debugger.sendCommand({ targetId: "abc" }, "Debugger.Cmd", { param1: "x" });
-    await chrome.debugger.getTargets();
 }
 
 // https://developer.chrome.com/extensions/declarativeContent
@@ -3108,26 +3418,87 @@ async function testHistoryForPromise() {
     await chrome.history.getVisits({ url: "https://example.com" });
 }
 
-// https://developer.chrome.com/docs/extensions/reference/identity/
-async function testIdentity() {
-    // $ExpectType void
-    chrome.identity.launchWebAuthFlow({ url: "https://example.com " }, () => {});
+// https://developer.chrome.com/docs/extensions/reference/api/identity
+function testIdentity() {
+    chrome.identity.AccountStatus.ANY === "ANY";
+    chrome.identity.AccountStatus.SYNC === "SYNC";
 
-    chrome.identity.clearAllCachedAuthTokens(() => {});
-    chrome.identity.getAccounts((accounts: chrome.identity.AccountInfo[]) => {});
-    chrome.identity.getAuthToken({}, (token?: string, grantedScopes?: string[]) => {});
-    chrome.identity.removeCachedAuthToken({ token: "1234" }, () => {});
-}
+    chrome.identity.clearAllCachedAuthTokens(); // $ExpectType Promise<void>
+    chrome.identity.clearAllCachedAuthTokens(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.identity.clearAllCachedAuthTokens(() => void 0).then(() => void 0);
 
-// https://developer.chrome.com/docs/extensions/reference/identity/
-async function testIdentityForPromise() {
-    // $ExpectType string | undefined
-    await chrome.identity.launchWebAuthFlow({ url: "https://example.com " });
+    const tokenDetails: chrome.identity.TokenDetails = {
+        interactive: true,
+        account: { id: "1234" },
+        enableGranularPermissions: true,
+        scopes: ["scope1", "scope2"],
+    };
+    chrome.identity.getAccounts(); // $ExpectType Promise<AccountInfo[]>
+    chrome.identity.getAccounts(accounts => { // $ExpectType void
+        accounts; // $ExpectType AccountInfo[]
+    });
+    // @ts-expect-error
+    chrome.identity.getAccounts(() => {}).then(() => {});
 
-    await chrome.identity.clearAllCachedAuthTokens();
-    const accounts: chrome.identity.AccountInfo[] = await chrome.identity.getAccounts();
-    const token = await chrome.identity.getAuthToken({});
-    await chrome.identity.removeCachedAuthToken({ token: "1234" });
+    chrome.identity.getAuthToken(); // $ExpectType Promise<GetAuthTokenResult>
+    chrome.identity.getAuthToken(tokenDetails); // $ExpectType Promise<GetAuthTokenResult>
+    chrome.identity.getAuthToken(result => { // $ExpectType void
+        result.token; // $ExpectType string | undefined
+        result.grantedScopes; // $ExpectType string[] | undefined
+    });
+    chrome.identity.getAuthToken(tokenDetails, result => { // $ExpectType void
+        result.token; // $ExpectType string | undefined
+        result.grantedScopes; // $ExpectType string[] | undefined
+    });
+    // @ts-expect-error
+    chrome.identity.getAuthToken(() => {}).then(() => {});
+
+    chrome.identity.getProfileUserInfo(); // $ExpectType Promise<ProfileUserInfo>
+    chrome.identity.getProfileUserInfo(userInfo => { // $ExpectType void
+        userInfo.email; // $ExpectType string
+        userInfo.id; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.identity.getProfileUserInfo(() => {}).then(() => {});
+
+    chrome.identity.getRedirectURL(); // $ExpectType string
+    chrome.identity.getRedirectURL("path"); // $ExpectType string
+
+    const webAuthFlowDetails: chrome.identity.WebAuthFlowDetails = {
+        url: "https://example.com",
+        interactive: true,
+        abortOnLoadForNonInteractive: true,
+        timeoutMsForNonInteractive: 10000,
+    };
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails); // $ExpectType Promise<string | undefined>
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails, result => { // $ExpectType void
+        result; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.identity.launchWebAuthFlow(webAuthFlowDetails, () => {}).then(() => {});
+
+    chrome.identity.onSignInChanged.addListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.removeListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.hasListener((account, signedIn) => {
+        account.id; // $ExpectType string
+        signedIn; // $ExpectType boolean
+    });
+    chrome.identity.onSignInChanged.hasListeners(); // $ExpectType boolean
+
+    const invalidTokenDetails: chrome.identity.InvalidTokenDetails = {
+        token: "token",
+    };
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails); // $ExpectType Promise<void>
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.identity.removeCachedAuthToken(invalidTokenDetails, () => void 0).then(() => void 0);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/
@@ -3154,87 +3525,660 @@ async function testOffscreenDocument() {
     await chrome.offscreen.closeDocument();
 }
 
-// https://developer.chrome.com/docs/extensions/reference/fileSystemProvider/
+// https://developer.chrome.com/docs/extensions/reference/api/fileSystemProvider
 function testFileSystemProvider() {
-    // Checking onGetMetadataRequested, its option and EntryMetadata.
-    chrome.fileSystemProvider.onGetMetadataRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.MetadataRequestedEventOptions,
-            successCallback: (metadata: chrome.fileSystemProvider.EntryMetadata) => void,
-            errorCallback: (error: string) => void,
-        ) => {
-            const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {};
-            if (options.isDirectory) {
-                entryMetadata.isDirectory = true;
-            }
-            if (options.name) {
-                entryMetadata.name = "some-file.txt";
-            }
-            if (options.size) {
-                entryMetadata.size = 42;
-            }
-            if (options.modificationTime) {
-                entryMetadata.modificationTime = new Date();
-            }
-            if (options.mimeType) {
-                entryMetadata.mimeType = "text/plain";
-            }
-            if (options.thumbnail) {
-                entryMetadata.thumbnail = "DaTa:ImAgE/pNg;base64";
-            }
-            if (options.cloudIdentifier) {
-                entryMetadata.cloudIdentifier = { providerName: "provider-name", id: "id" };
-            }
-            if (options.cloudFileInfo) {
-                entryMetadata.cloudFileInfo = { versionTag: "versionA" };
-            }
-        },
-    );
+    chrome.fileSystemProvider.ChangeType.CHANGED === "CHANGED";
+    chrome.fileSystemProvider.ChangeType.DELETED === "DELETED";
 
-    // Checking onReadDirectoryRequested.
-    chrome.fileSystemProvider.onReadDirectoryRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.DirectoryPathRequestedEventOptions,
-            successCallback: (entries: chrome.fileSystemProvider.EntryMetadata[], hasMore: boolean) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.CommonActionId.OFFLINE_NOT_NECESSARY == "OFFLINE_NOT_NECESSARY";
+    chrome.fileSystemProvider.CommonActionId.SAVE_FOR_OFFLINE == "SAVE_FOR_OFFLINE";
+    chrome.fileSystemProvider.CommonActionId.SHARE == "SHARE";
 
-    // Checking onGetActionsRequested.
-    chrome.fileSystemProvider.onGetActionsRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.GetActionsRequestedOptions,
-            successCallback: (actions: chrome.fileSystemProvider.Action[]) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.OpenFileMode.READ == "READ";
+    chrome.fileSystemProvider.OpenFileMode.WRITE == "WRITE";
 
-    // Checking onExecuteActionRequested.
-    chrome.fileSystemProvider.onExecuteActionRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.ExecuteActionRequestedOptions,
-            successCallback: () => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    chrome.fileSystemProvider.ProviderError.ABORT == "ABORT";
+    chrome.fileSystemProvider.ProviderError.ACCESS_DENIED == "ACCESS_DENIED";
+    chrome.fileSystemProvider.ProviderError.EXISTS == "EXISTS";
+    chrome.fileSystemProvider.ProviderError.FAILED == "FAILED";
+    chrome.fileSystemProvider.ProviderError.INVALID_OPERATION == "INVALID_OPERATION";
+    chrome.fileSystemProvider.ProviderError.INVALID_URL == "INVALID_URL";
+    chrome.fileSystemProvider.ProviderError.IN_USE == "IN_USE";
+    chrome.fileSystemProvider.ProviderError.IO == "IO";
+    chrome.fileSystemProvider.ProviderError.NOT_A_DIRECTORY == "NOT_A_DIRECTORY";
+    chrome.fileSystemProvider.ProviderError.NOT_A_FILE == "NOT_A_FILE";
+    chrome.fileSystemProvider.ProviderError.NOT_EMPTY == "NOT_EMPTY";
+    chrome.fileSystemProvider.ProviderError.NOT_FOUND == "NOT_FOUND";
+    chrome.fileSystemProvider.ProviderError.NO_MEMORY == "NO_MEMORY";
+    chrome.fileSystemProvider.ProviderError.NO_SPACE == "NO_SPACE";
+    chrome.fileSystemProvider.ProviderError.OK == "OK";
+    chrome.fileSystemProvider.ProviderError.SECURITY == "SECURITY";
+    chrome.fileSystemProvider.ProviderError.TOO_MANY_OPENED == "TOO_MANY_OPENED";
 
-    // Checking onCreateDirectoryRequested.
-    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    const fileSystemId = "my-drive" as const;
 
-    // Checking onOpenFileRequested.
-    chrome.fileSystemProvider.onOpenFileRequested.addListener(
-        (
-            options: chrome.fileSystemProvider.OpenFileRequestedEventOptions,
-            successCallback: (metadata?: chrome.fileSystemProvider.EntryMetadata) => void,
-            errorCallback: (error: string) => void,
-        ) => {},
-    );
+    const mountOptions: chrome.fileSystemProvider.MountOptions = {
+        displayName: "My Drive",
+        fileSystemId,
+        openedFilesLimit: 10,
+        persistent: true,
+        supportsNotifyTag: true,
+        writable: true,
+    };
+
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId); // $ExpectType Promise<FileSystemInfo>
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId, (fileSystemInfo) => { // $ExpectType void
+        fileSystemInfo.displayName; // $ExpectType string
+        fileSystemInfo.fileSystemId; // $ExpectType string
+        fileSystemInfo.openedFiles; // $ExpectType OpenedFile[]
+        fileSystemInfo.openedFilesLimit; // $ExpectType number
+        fileSystemInfo.supportsNotifyTag; // $ExpectType boolean | undefined
+        fileSystemInfo.watchers; // $ExpectType Watcher[]
+        fileSystemInfo.writable; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.fileSystemProvider.get(mountOptions.fileSystemId, () => {}).then(() => {});
+
+    chrome.fileSystemProvider.getAll(); // $ExpectType Promise<FileSystemInfo[]>
+    chrome.fileSystemProvider.getAll(([fileSystemInfo]) => { // $ExpectType void
+        fileSystemInfo.displayName; // $ExpectType string
+        fileSystemInfo.fileSystemId; // $ExpectType string
+        fileSystemInfo.openedFiles; // $ExpectType OpenedFile[]
+        fileSystemInfo.openedFilesLimit; // $ExpectType number
+        fileSystemInfo.supportsNotifyTag; // $ExpectType boolean | undefined
+        fileSystemInfo.watchers; // $ExpectType Watcher[]
+        fileSystemInfo.writable; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.fileSystemProvider.getAll(() => {}).then(() => {});
+
+    chrome.fileSystemProvider.mount(mountOptions); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.mount(mountOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.mount(mountOptions, () => void 0).then(() => void 0);
+
+    const notifyOptions: chrome.fileSystemProvider.NotifyOptions = {
+        changeType: "CHANGED",
+        changes: [],
+        fileSystemId,
+        observedPath: "path",
+        recursive: true,
+        tag: "tag",
+    };
+
+    chrome.fileSystemProvider.notify(notifyOptions); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.notify(notifyOptions, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.notify(notifyOptions, () => void 0).then(() => void 0);
+
+    chrome.fileSystemProvider.unmount({ fileSystemId }); // $ExpectType Promise<void>
+    chrome.fileSystemProvider.unmount({ fileSystemId }, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.fileSystemProvider.unmount({ fileSystemId }, () => void 0).then(() => void 0);
+
+    // onAbortRequested
+    chrome.fileSystemProvider.onAbortRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.operationRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAbortRequested.hasListeners(); // $ExpectType boolean
+
+    // onAddWatcherRequested
+    chrome.fileSystemProvider.onAddWatcherRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onAddWatcherRequested.hasListeners(); // $ExpectType boolean
+
+    // onCloseFileRequested
+    chrome.fileSystemProvider.onCloseFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCloseFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onConfigureRequested
+    chrome.fileSystemProvider.onConfigureRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onConfigureRequested.hasListeners(); // $ExpectType boolean
+
+    // onCopyEntryRequested
+    chrome.fileSystemProvider.onCopyEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCopyEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onCreateDirectoryRequested
+    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateDirectoryRequested.hasListeners(); // $ExpectType boolean
+
+    // onCreateFileRequested
+    chrome.fileSystemProvider.onCreateFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onCreateFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onDeleteEntryRequested
+    chrome.fileSystemProvider.onDeleteEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onDeleteEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onExecuteActionRequested
+    chrome.fileSystemProvider.onExecuteActionRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.actionId; // $ExpectType string
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onExecuteActionRequested.hasListeners(); // $ExpectType boolean
+
+    const actions: chrome.fileSystemProvider.Action[] = [{
+        id: "id",
+        title: "title",
+    }];
+
+    // onGetActionsRequested
+    chrome.fileSystemProvider.onGetActionsRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPaths; // $ExpectType string[]
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(actions); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetActionsRequested.hasListeners(); // $ExpectType boolean
+
+    const entryMetadata: chrome.fileSystemProvider.EntryMetadata = {
+        cloudFileInfo: { versionTag: "versionA" },
+        cloudIdentifier: { id: "id", providerName: "provider-name" },
+        isDirectory: true,
+        mimeType: "text/plain",
+        modificationTime: new Date(),
+        name: "some-file.txt",
+        size: 42,
+        thumbnail: "DaTa:ImAgE/pNg;base64",
+    };
+
+    // onGetMetadataRequested
+    chrome.fileSystemProvider.onGetMetadataRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.cloudFileInfo; // $ExpectType boolean
+        options.cloudIdentifier; // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback(entryMetadata); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onGetMetadataRequested.hasListeners(); // $ExpectType boolean
+
+    // onMountRequested
+    chrome.fileSystemProvider.onMountRequested.addListener((successCallback, errorCallback) => { // $ExpectType void
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.removeListener((successCallback, errorCallback) => { // $ExpectType void
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.hasListener((successCallback, errorCallback) => { // $ExpectType boolean
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMountRequested.hasListeners(); // $ExpectType boolean
+
+    // onMoveEntryRequested
+    chrome.fileSystemProvider.onMoveEntryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        options.sourcePath; // $ExpectType string
+        options.targetPath; // $ExpectType string
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onMoveEntryRequested.hasListeners(); // $ExpectType boolean
+
+    // onOpenFileRequested
+    chrome.fileSystemProvider.onOpenFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.mode; // $ExpectType "READ" | "WRITE"
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onOpenFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onReadDirectoryRequested
+    chrome.fileSystemProvider.onReadDirectoryRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.directoryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.isDirectory; // $ExpectType boolean
+        options.mimeType; // $ExpectType boolean
+        options.modificationTime; // $ExpectType boolean
+        options.name; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        options.size; // $ExpectType boolean
+        options.thumbnail; // $ExpectType boolean
+        successCallback([entryMetadata], true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadDirectoryRequested.hasListeners(); // $ExpectType boolean
+
+    const arrayBuffer = new ArrayBuffer(1);
+
+    // onReadFileRequested
+    chrome.fileSystemProvider.onReadFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(arrayBuffer, true); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onReadFileRequested.hasListeners(); // $ExpectType boolean
+
+    // onRemoveWatcherRequested
+    chrome.fileSystemProvider.onRemoveWatcherRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.entryPath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.recursive; // $ExpectType boolean
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onRemoveWatcherRequested.hasListeners(); // $ExpectType boolean
+
+    // onTruncateRequested
+    chrome.fileSystemProvider.onTruncateRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.filePath; // $ExpectType string
+        options.fileSystemId; // $ExpectType string
+        options.length; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onTruncateRequested.hasListeners(); // $ExpectType boolean
+
+    // onUnmountRequested
+    chrome.fileSystemProvider.onUnmountRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.fileSystemId; // $ExpectType string
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onUnmountRequested.hasListeners(); // $ExpectType boolean
+
+    // onWriteFileRequested
+    chrome.fileSystemProvider.onWriteFileRequested.addListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.removeListener((options, successCallback, errorCallback) => { // $ExpectType void
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.hasListener((options, successCallback, errorCallback) => { // $ExpectType boolean
+        options.data; // $ExpectType ArrayBuffer
+        options.fileSystemId; // $ExpectType string
+        options.offset; // $ExpectType number
+        options.openRequestId; // $ExpectType number
+        options.requestId; // $ExpectType number
+        successCallback(); // $ExpectType void
+        errorCallback("OK"); // $ExpectType void
+    });
+    chrome.fileSystemProvider.onWriteFileRequested.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/sessions/
@@ -5018,4 +5962,9 @@ function testReadingList() {
         });
         onEntryUpdated.hasListeners(); // $ExpectType boolean
     };
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/dom
+function testDom() {
+    chrome.dom.openOrClosedShadowRoot(document.body); // $ExpectType ShadowRoot | null
 }

@@ -20,20 +20,20 @@ declare class Uniform<TValue> {
     /**
      * Constructs a new uniform.
      *
-     * @param {String} name - The uniform's name.
-     * @param {Any} value - The uniform's value.
+     * @param {string} name - The uniform's name.
+     * @param {any} value - The uniform's value.
      */
     constructor(name: string, value: TValue);
     /**
      * Sets the uniform's value.
      *
-     * @param {Any} value - The value to set.
+     * @param {any} value - The value to set.
      */
     setValue(value: TValue): void;
     /**
      * Returns the uniform's value.
      *
-     * @return {Any} The value.
+     * @return {any} The value.
      */
     getValue(): TValue;
 }
@@ -48,8 +48,8 @@ declare class NumberUniform extends Uniform<number> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
-     * @param {Number} value - The uniform's value.
+     * @param {string} name - The uniform's name.
+     * @param {number} value - The uniform's value.
      */
     constructor(name: string, value?: number);
 }
@@ -64,7 +64,7 @@ declare class Vector2Uniform extends Uniform<Vector2> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector2} value - The uniform's value.
      */
     constructor(name: string, value?: Vector2);
@@ -80,7 +80,7 @@ declare class Vector3Uniform extends Uniform<Vector3> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector3} value - The uniform's value.
      */
     constructor(name: string, value?: Vector3);
@@ -96,7 +96,7 @@ declare class Vector4Uniform extends Uniform<Vector4> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector4} value - The uniform's value.
      */
     constructor(name: string, value?: Vector4);
@@ -112,7 +112,7 @@ declare class ColorUniform extends Uniform<Color> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Color} value - The uniform's value.
      */
     constructor(name: string, value?: Color);
@@ -128,7 +128,7 @@ declare class Matrix2Uniform extends Uniform<Matrix2> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Matrix2} value - The uniform's value.
      */
     constructor(name: string, value?: Matrix2);
@@ -144,7 +144,7 @@ declare class Matrix3Uniform extends Uniform<Matrix3> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Matrix3} value - The uniform's value.
      */
     constructor(name: string, value?: Matrix3);
@@ -160,7 +160,7 @@ declare class Matrix4Uniform extends Uniform<Matrix4> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Matrix4} value - The uniform's value.
      */
     constructor(name: string, value?: Matrix4);

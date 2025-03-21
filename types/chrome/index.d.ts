@@ -766,265 +766,243 @@ declare namespace chrome {
     export namespace bookmarks {
         /** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
         export interface BookmarkTreeNode {
-            /** Optional. The 0-based position of this node within its parent folder.  */
-            index?: number | undefined;
-            /** Optional. When this node was created, in milliseconds since the epoch (new Date(dateAdded)).  */
-            dateAdded?: number | undefined;
+            /** An ordered list of children of this node. */
+            children?: BookmarkTreeNode[];
+            /** When this node was created, in milliseconds since the epoch (`new Date(dateAdded)`). */
+            dateAdded?: number;
+            /** When the contents of this folder last changed, in milliseconds since the epoch. */
+            dateGroupModified?: number;
+            /**
+             * When this node was last opened, in milliseconds since the epoch. Not set for folders.
+             * @since Chrome 114
+             */
+            dateLastUsed?: number;
+            /**
+             * If present, this is a folder that is added by the browser and that cannot be modified by the user or the extension. Child nodes may be modified, if this node does not have the `unmodifiable` property set. Omitted if the node can be modified by the user and the extension (default).
+             *
+             * There may be zero, one or multiple nodes of each folder type. A folder may be added or removed by the browser, but not via the extensions API.
+             * @since Chrome 134
+             */
+            folderType?: `${FolderType}`;
+            /** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted. */
+            id: string;
+            /** The 0-based position of this node within its parent folder. */
+            index?: number;
+            /** The `id` of the parent folder. Omitted for the root node. */
+            parentId?: string;
+            /**
+             * Whether this node is synced with the user's remote account storage by the browser. This can be used to distinguish between account and local-only versions of the same {@link FolderType}. The value of this property may change for an existing node, for example as a result of user action.
+             *
+             * Note: this reflects whether the node is saved to the browser's built-in account provider. It is possible that a node could be synced via a third-party, even if this value is false.
+             *
+             * For managed nodes (nodes where `unmodifiable` is set to `true`), this property will always be `false`.
+             * @since Chrome 134
+             */
+            syncing: boolean;
             /** The text displayed for the node. */
             title: string;
-            /** Optional. The URL navigated to when a user clicks the bookmark. Omitted for folders.   */
-            url?: string | undefined;
-            /** Optional. When the contents of this folder last changed, in milliseconds since the epoch.   */
-            dateGroupModified?: number | undefined;
-            /** The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.  */
-            id: string;
-            /** Optional. The id of the parent folder. Omitted for the root node.   */
-            parentId?: string | undefined;
-            /** Optional. An ordered list of children of this node.  */
-            children?: BookmarkTreeNode[] | undefined;
-            /**
-             * Optional.
-             * @since Chrome 37
-             * Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
-             */
-            unmodifiable?: "managed" | undefined;
+            /** Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default). */
+            unmodifiable?: `${BookmarkTreeNodeUnmodifiable}`;
+            /* The URL navigated to when a user clicks the bookmark. Omitted for folders. */
+            url?: string;
         }
 
-        export interface BookmarkRemoveInfo {
-            index: number;
-            parentId: string;
-            node: BookmarkTreeNode;
+        /**
+         * Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator. Omitted if the node can be modified by the user and the extension (default).
+         * @since Chrome 44
+         */
+        export enum BookmarkTreeNodeUnmodifiable {
+            MANAGED = "managed",
         }
 
-        export interface BookmarkMoveInfo {
-            index: number;
-            oldIndex: number;
-            parentId: string;
-            oldParentId: string;
+        /** Object passed to the create() function. */
+        export interface CreateDetails {
+            index?: number;
+            /** Defaults to the Other Bookmarks folder. */
+            parentId?: string;
+            title?: string;
+            url?: string;
         }
 
-        export interface BookmarkChangeInfo {
-            url?: string | undefined;
-            title: string;
+        /**
+         * Indicates the type of folder.
+         * @since Chrome 134
+         */
+
+        export enum FolderType {
+            /** The folder whose contents is displayed at the top of the browser window. */
+            BOOKMARKS_BAR = "bookmarks-bar",
+            /** Bookmarks which are displayed in the full list of bookmarks on all platforms. */
+            OTHER = "other",
+            /** Bookmarks generally available on the user's mobile devices, but modifiable by extension or in the bookmarks manager. */
+            MOBILE = "mobile",
+            /** A top-level folder that may be present if the system administrator or the custodian of a supervised user has configured bookmarks. */
+            MANAGED = "managed",
         }
 
-        export interface BookmarkReorderInfo {
-            childIds: string[];
-        }
+        /** @deprecated Bookmark write operations are no longer limited by Chrome. */
+        export const MAX_WRITE_OPERATIONS_PER_HOUR: 1000000;
+        /** @deprecated Bookmark write operations are no longer limited by Chrome. */
+        export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: 1000000;
 
-        export interface BookmarkRemovedEvent
-            extends chrome.events.Event<(id: string, removeInfo: BookmarkRemoveInfo) => void>
-        {}
-
-        export interface BookmarkImportEndedEvent extends chrome.events.Event<() => void> {}
-
-        export interface BookmarkMovedEvent
-            extends chrome.events.Event<(id: string, moveInfo: BookmarkMoveInfo) => void>
-        {}
-
-        export interface BookmarkImportBeganEvent extends chrome.events.Event<() => void> {}
-
-        export interface BookmarkChangedEvent
-            extends chrome.events.Event<(id: string, changeInfo: BookmarkChangeInfo) => void>
-        {}
-
-        export interface BookmarkCreatedEvent
-            extends chrome.events.Event<(id: string, bookmark: BookmarkTreeNode) => void>
-        {}
-
-        export interface BookmarkChildrenReordered
-            extends chrome.events.Event<(id: string, reorderInfo: BookmarkReorderInfo) => void>
-        {}
-
-        export interface BookmarkSearchQuery {
-            query?: string | undefined;
-            url?: string | undefined;
-            title?: string | undefined;
-        }
-
-        export interface BookmarkCreateArg {
-            /** Optional. Defaults to the Other Bookmarks folder.  */
-            parentId?: string | undefined;
-            index?: number | undefined;
-            title?: string | undefined;
-            url?: string | undefined;
-        }
-
-        export interface BookmarkDestinationArg {
-            parentId?: string | undefined;
-            index?: number | undefined;
-        }
-
-        export interface BookmarkChangesArg {
-            title?: string | undefined;
-            url?: string | undefined;
-        }
-
-        /** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
-        export var MAX_WRITE_OPERATIONS_PER_HOUR: number;
-        /** @deprecated since Chrome 38. Bookmark write operations are no longer limited by Chrome. */
-        export var MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
-
-        /**
-         * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
-         * @param query A string of words and quoted phrases that are matched against bookmark URLs and titles.
-         */
-        export function search(query: string, callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
-         * @param query A string of words and quoted phrases that are matched against bookmark URLs and titles.
-         * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function search(query: string): Promise<BookmarkTreeNode[]>;
-        /**
-         * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
-         * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced.
-         */
-        export function search(query: BookmarkSearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
-         * @param query An object with one or more of the properties query, url, and title specified. Bookmarks matching all specified properties will be produced.
-         * @return The `search` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function search(query: BookmarkSearchQuery): Promise<BookmarkTreeNode[]>;
-        /**
-         * Retrieves the entire Bookmarks hierarchy.
-         */
-        export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Retrieves the entire Bookmarks hierarchy.
-         * @return The `getTree` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getTree(): Promise<BookmarkTreeNode[]>;
-        /**
-         * Retrieves the recently added bookmarks.
-         * @param numberOfItems The maximum number of items to return.
-         */
-        export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Retrieves the recently added bookmarks.
-         * @param numberOfItems The maximum number of items to return.
-         * @return The `getRecent` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getRecent(numberOfItems: number): Promise<BookmarkTreeNode[]>;
-        /**
-         * Retrieves the specified BookmarkTreeNode.
-         * @param id A single string-valued id
-         */
-        export function get(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Retrieves the specified BookmarkTreeNode.
-         * @param id A single string-valued id
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(id: string): Promise<BookmarkTreeNode[]>;
-        /**
-         * Retrieves the specified BookmarkTreeNode.
-         * @param idList An array of string-valued ids
-         */
-        export function get(idList: string[], callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Retrieves the specified BookmarkTreeNode.
-         * @param idList An array of string-valued ids
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(idList: string[]): Promise<BookmarkTreeNode[]>;
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
-         * @return The `create` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function create(bookmark: BookmarkCreateArg): Promise<BookmarkTreeNode>;
+        export function create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
+        export function create(bookmark: CreateDetails, callback: (result: BookmarkTreeNode) => void): void;
+
         /**
-         * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
+         * Retrieves the specified BookmarkTreeNode(s).
+         * @param idOrIdList A single string-valued id, or an array of string-valued ids
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function create(bookmark: BookmarkCreateArg, callback: (result: BookmarkTreeNode) => void): void;
-        /**
-         * Moves the specified BookmarkTreeNode to the provided location.
-         * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function move(
-            id: string,
-            destination: BookmarkDestinationArg,
-        ): Promise<BookmarkTreeNode>;
-        /**
-         * Moves the specified BookmarkTreeNode to the provided location.
-         */
-        export function move(
-            id: string,
-            destination: BookmarkDestinationArg,
-            callback: (result: BookmarkTreeNode) => void,
+        export function get(idOrIdList: string | [string, ...string[]]): Promise<BookmarkTreeNode[]>;
+        export function get(
+            idOrIdList: string | [string, ...string[]],
+            callback: (results: BookmarkTreeNode[]) => void,
         ): void;
-        /**
-         * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function update(
-            id: string,
-            changes: BookmarkChangesArg,
-        ): Promise<BookmarkTreeNode>;
-        /**
-         * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
-         */
-        export function update(
-            id: string,
-            changes: BookmarkChangesArg,
-            callback: (result: BookmarkTreeNode) => void,
-        ): void;
-        /**
-         * Removes a bookmark or an empty bookmark folder.
-         * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
-        export function remove(id: string): Promise<void>;
-        /**
-         * Removes a bookmark or an empty bookmark folder.
-         */
-        export function remove(id: string, callback: Function): void;
+
         /**
          * Retrieves the children of the specified BookmarkTreeNode id.
-         */
-        export function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
-        /**
-         * Retrieves the children of the specified BookmarkTreeNode id.
-         * @return The `getChildren` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome Chrome 90
          */
         export function getChildren(id: string): Promise<BookmarkTreeNode[]>;
+        export function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+
         /**
-         * @since Chrome 14
-         * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
-         * @param id The ID of the root of the subtree to retrieve.
+         * Retrieves the recently added bookmarks.
+         * @param numberOfItems The maximum number of items to return.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
          */
-        export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+        export function getRecent(numberOfItems: number): Promise<BookmarkTreeNode[]>;
+        export function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
+
         /**
-         * @since Chrome 14
          * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
          * @param id The ID of the root of the subtree to retrieve.
-         * @return The `getSubTree` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome Chrome 90
          */
         export function getSubTree(id: string): Promise<BookmarkTreeNode[]>;
+        export function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
+
+        /**
+         * Retrieves the entire Bookmarks hierarchy.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
+         */
+        export function getTree(): Promise<BookmarkTreeNode[]>;
+        export function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
+
+        interface MoveDestination {
+            parentId?: string;
+            index?: number;
+        }
+
+        /**
+         * Moves the specified BookmarkTreeNode to the provided location.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
+         */
+        export function move(id: string, destination: MoveDestination): Promise<BookmarkTreeNode>;
+        export function move(
+            id: string,
+            destination: MoveDestination,
+            callback: (result: BookmarkTreeNode) => void,
+        ): void;
+
+        /**
+         * Removes a bookmark or an empty bookmark folder.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
+         */
+        export function remove(id: string): Promise<void>;
+        export function remove(id: string, callback: () => void): void;
+
         /**
          * Recursively removes a bookmark folder.
-         * @return The `removeTree` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
          */
         export function removeTree(id: string): Promise<void>;
+        export function removeTree(id: string, callback: () => void): void;
+
+        interface SearchQuery {
+            /** A string of words and quoted phrases that are matched against bookmark URLs and titles.*/
+            query?: string;
+            /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
+            url?: string;
+            /** The title of the bookmark; matches verbatim. */
+            title?: string;
+        }
+
         /**
-         * Recursively removes a bookmark folder.
+         * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
+         * @param query Either a string of words and quoted phrases that are matched against bookmark URLs and titles, or an object. If an object, the properties `query`, `url`, and `title` may be specified and bookmarks matching all specified properties will be produced.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
          */
-        export function removeTree(id: string, callback: Function): void;
+        export function search(query: string | SearchQuery): Promise<BookmarkTreeNode[]>;
+        export function search(query: string | SearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
+
+        interface UpdateChanges {
+            title?: string;
+            url?: string;
+        }
+
+        /**
+         * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. **Note:** Currently, only 'title' and 'url' are supported.
+         *
+         * Can return its result via Promise since Chrome Chrome 90
+         */
+        export function update(id: string, changes: UpdateChanges): Promise<BookmarkTreeNode>;
+        export function update(id: string, changes: UpdateChanges, callback: (result: BookmarkTreeNode) => void): void;
+
+        /** Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this.*/
+        export const onChanged: events.Event<(id: string, changeInfo: { title: string; url?: string }) => void>;
+
+        /** Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is not called as a result of a move(). */
+        export const onChildrenReordered: events.Event<(id: string, reorderInfo: { childIds: string[] }) => void>;
+
+        /** Fired when a bookmark or folder is created. */
+        export const onCreated: events.Event<(id: string, bookmark: BookmarkTreeNode) => void>;
+
+        /** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
+        export const onImportBegan: events.Event<() => void>;
+
+        /** Fired when a bookmark import session is ended.  */
+        export const onImportEnded: events.Event<() => void>;
+
+        /** Fired when a bookmark or folder is moved to a different parent folder. */
+        export const onMoved: events.Event<
+            (
+                id: string,
+                moveInfo: {
+                    parentId: string;
+                    index: number;
+                    oldParentId: string;
+                    oldIndex: number;
+                },
+            ) => void
+        >;
 
         /** Fired when a bookmark or folder is removed. When a folder is removed recursively, a single notification is fired for the folder, and none for its contents. */
-        export var onRemoved: BookmarkRemovedEvent;
-        /** Fired when a bookmark import session is ended. */
-        export var onImportEnded: BookmarkImportEndedEvent;
-        /** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
-        export var onImportBegan: BookmarkImportBeganEvent;
-        /** Fired when a bookmark or folder changes. Note: Currently, only title and url changes trigger this. */
-        export var onChanged: BookmarkChangedEvent;
-        /** Fired when a bookmark or folder is moved to a different parent folder. */
-        export var onMoved: BookmarkMovedEvent;
-        /** Fired when a bookmark or folder is created. */
-        export var onCreated: BookmarkCreatedEvent;
-        /** Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is not called as a result of a move(). */
-        export var onChildrenReordered: BookmarkChildrenReordered;
+        export const onRemoved: events.Event<
+            (
+                id: string,
+                removeInfo: {
+                    parentId: string;
+                    index: number;
+                    /** @since Chrome 48 */
+                    node: BookmarkTreeNode;
+                },
+            ) => void
+        >;
     }
 
     ////////////////////
@@ -1526,320 +1504,356 @@ declare namespace chrome {
      * Permissions: "contentSettings"
      */
     export namespace contentSettings {
-        type ScopeEnum = "regular" | "incognito_session_only";
-
-        export interface ClearDetails {
-            /**
-             * Optional.
-             * Where to clear the setting (default: regular).
-             * The scope of the ContentSetting. One of
-             * * regular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-             * * incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
-             */
-            scope?: ScopeEnum | undefined;
+        /** @since Chrome 113 */
+        export enum AutoVerifyContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
         }
 
-        type DefaultContentSettingDetails = "allow" | "ask" | "block" | "detect_important_content" | "session_only";
-
-        export interface SetDetails {
-            /** Optional. The resource identifier for the content type.  */
-            resourceIdentifier?: ResourceIdentifier | undefined;
-            /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
-            setting: DefaultContentSettingDetails;
-            /** Optional. The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.  */
-            secondaryPattern?: string | undefined;
-            /** Optional. Where to set the setting (default: regular).  */
-            scope?: ScopeEnum | undefined;
-            /** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
-            primaryPattern: string;
+        /** @since Chrome 46 */
+        export enum CameraContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface CookieSetDetails extends SetDetails {
-            setting: "allow" | "block" | "session_only";
+        /** @since Chrome 121 */
+        export enum ClipboardContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface ImagesSetDetails extends SetDetails {
-            setting: "allow" | "block";
+        interface ContentSettingClearParams {
+            /** Where to clear the setting (default: regular). */
+            scope?: `${Scope}`;
         }
 
-        export interface JavascriptSetDetails extends SetDetails {
-            setting: "allow" | "block";
-        }
-
-        export interface LocationSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface PluginsSetDetails extends SetDetails {
-            setting: "allow" | "block" | "detect_important_content";
-        }
-
-        export interface PopupsSetDetails extends SetDetails {
-            setting: "allow" | "block";
-        }
-
-        export interface NotificationsSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface FullscreenSetDetails extends SetDetails {
-            setting: "allow";
-        }
-
-        export interface MouselockSetDetails extends SetDetails {
-            setting: "allow";
-        }
-
-        export interface MicrophoneSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface CameraSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface PpapiBrokerSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface MultipleAutomaticDownloadsSetDetails extends SetDetails {
-            setting: "allow" | "block" | "ask";
-        }
-
-        export interface GetDetails {
-            /** Optional. The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs.  */
-            secondaryUrl?: string | undefined;
-            /** Optional. A more specific identifier of the type of content for which the settings should be retrieved.  */
-            resourceIdentifier?: ResourceIdentifier | undefined;
-            /** Optional. Whether to check the content settings for an incognito session. (default false)  */
-            incognito?: boolean | undefined;
+        interface ContentSettingGetParams {
+            /** Whether to check the content settings for an incognito session. (default false) */
+            incognito?: boolean;
             /** The primary URL for which the content setting should be retrieved. Note that the meaning of a primary URL depends on the content type. */
             primaryUrl: string;
+            /** The secondary URL for which the content setting should be retrieved. Defaults to the primary URL. Note that the meaning of a secondary URL depends on the content type, and not all content types use secondary URLs. */
+            secondaryUrl?: string;
+            /** A more specific identifier of the type of content for which the settings should be retrieved. */
+            resourceIdentifier?: ResourceIdentifier;
         }
 
-        export interface ReturnedDetails {
+        interface ContentSettingGetResult<T> {
             /** The content setting. See the description of the individual ContentSetting objects for the possible values. */
-            setting: DefaultContentSettingDetails;
+            setting: T;
         }
 
-        export interface ContentSetting {
+        interface ContentSettingSetParams<T> {
+            /** The pattern for the primary URL. For details on the format of a pattern, see Content Setting Patterns. */
+            primaryPattern: string;
+            /** The resource identifier for the content type. */
+            resourceIdentifier?: ResourceIdentifier;
+            /** Where to set the setting (default: regular). */
+            scope?: `${Scope}`;
+            /** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.*/
+            secondaryPattern?: string;
+            /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
+            setting: T;
+        }
+
+        export interface ContentSetting<T extends string> {
             /**
              * Clear all content setting rules set by this extension.
+             *
+             * Can return its result via Promise since Chrome 96.
              */
-            clear(details: ClearDetails, callback?: () => void): void;
-            /**
-             * Applies a new content setting rule.
-             */
-            set(details: SetDetails, callback?: () => void): void;
-            getResourceIdentifiers(
-                callback: (
-                    /**
-                     * A list of resource identifiers for this content type, or undefined if this content type does not use resource identifiers.
-                     */
-                    resourceIdentifiers?: ResourceIdentifier[],
-                ) => void,
-            ): void;
+            clear(details: ContentSettingClearParams): Promise<void>;
+            clear(details: ContentSettingClearParams, callback: () => void): void;
+
             /**
              * Gets the current content setting for a given pair of URLs.
+             *
+             * Can return its result via Promise since Chrome 96.
              */
-            get(details: GetDetails, callback: (details: ReturnedDetails) => void): void;
+            get(details: ContentSettingGetParams): Promise<ContentSettingGetResult<T>>;
+            get(details: ContentSettingGetParams, callback: (details: ContentSettingGetResult<T>) => void): void;
+
+            /** Can return its result via Promise since Chrome 96. */
+            getResourceIdentifiers(): Promise<ResourceIdentifier[] | undefined>;
+            getResourceIdentifiers(callback: (resourceIdentifiers?: ResourceIdentifier[]) => void): void;
+
+            /**
+             * Applies a new content setting rule.
+             *
+             * Can return its result via Promise since Chrome 96.
+             */
+            set(details: ContentSettingSetParams<T>): Promise<void>;
+            set(details: ContentSettingSetParams<T>, callback: () => void): void;
         }
 
-        export interface CookieContentSetting extends ContentSetting {
-            set(details: CookieSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: CookieSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum CookiesContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            SESSION_ONLY = "session_only",
         }
 
-        export interface PopupsContentSetting extends ContentSetting {
-            set(details: PopupsSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: PopupsSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum FullscreenContentSetting {
+            ALLOW = "allow",
         }
 
-        export interface JavascriptContentSetting extends ContentSetting {
-            set(details: JavascriptSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: JavascriptSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum ImagesContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
         }
 
-        export interface NotificationsContentSetting extends ContentSetting {
-            set(details: NotificationsSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: NotificationsSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum JavascriptContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
         }
 
-        export interface PluginsContentSetting extends ContentSetting {
-            set(details: PluginsSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: PluginsSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum LocationContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface ImagesContentSetting extends ContentSetting {
-            set(details: ImagesSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: ImagesSetDetails) => void): void;
+        /** @since Chrome 46 */
+        export enum MicrophoneContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface LocationContentSetting extends ContentSetting {
-            set(details: LocationSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: LocationSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum MouselockContentSetting {
+            ALLOW = "allow",
         }
 
-        export interface FullscreenContentSetting extends ContentSetting {
-            set(details: FullscreenSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: FullscreenSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum MultipleAutomaticDownloadsContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface MouselockContentSetting extends ContentSetting {
-            set(details: MouselockSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: MouselockSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum NotificationsContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
+            ASK = "ask",
         }
 
-        export interface MicrophoneContentSetting extends ContentSetting {
-            set(details: MicrophoneSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: MicrophoneSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum PluginsContentSetting {
+            BLOCK = "block",
         }
 
-        export interface CameraContentSetting extends ContentSetting {
-            set(details: CameraSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: CameraSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum PopupsContentSetting {
+            ALLOW = "allow",
+            BLOCK = "block",
         }
 
-        export interface PpapiBrokerContentSetting extends ContentSetting {
-            set(details: PpapiBrokerSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: PpapiBrokerSetDetails) => void): void;
-        }
-
-        export interface MultipleAutomaticDownloadsContentSetting extends ContentSetting {
-            set(details: MultipleAutomaticDownloadsSetDetails, callback?: () => void): void;
-            get(details: GetDetails, callback: (details: MultipleAutomaticDownloadsSetDetails) => void): void;
+        /** @since Chrome 44 */
+        export enum PpapiBrokerContentSetting {
+            BLOCK = "block",
         }
 
         /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
         export interface ResourceIdentifier {
+            /** A human readable description of the resource.  */
+            description?: string;
             /** The resource identifier for the given content type. */
             id: string;
-            /** Optional. A human readable description of the resource.  */
-            description?: string | undefined;
         }
 
         /**
+         * The scope of the ContentSetting. One of
+         *
+         * `regular`: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         *
+         * `incognito_session_only`: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
+         * @since Chrome 44
+         */
+        export enum Scope {
+            REGULAR = "regular",
+            INCOGNITO_SESSION_ONLY = "incognito_session_only",
+        }
+
+        /**
+         * Whether to allow sites to download multiple files automatically. One of
+         *
+         * `allow`: Allow sites to download multiple files automatically,
+         *
+         * `block`: Don't allow sites to download multiple files automatically,
+         *
+         * `ask`: Ask when a site wants to download files automatically after the first file.
+         *
+         * Default is `ask`.
+         *
+         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+         */
+        export const automaticDownloads: ContentSetting<`${MultipleAutomaticDownloadsContentSetting}`>;
+
+        /**
+         * Whether to allow sites to use the Private State Tokens API. One of
+         *
+         * `allow`: Allow sites to use the Private State Tokens API,
+         *
+         * `block`: Block sites from using the Private State Tokens API.
+         *
+         * Default is `allow`.
+         *
+         * When calling `set()`, the primary URL pattern must be `<all_urls>`. The secondary URL is not used.
+         * @since Chrome 113
+         */
+        export const autoVerify: ContentSetting<`${AutoVerifyContentSetting}`>;
+
+        /**
+         * Whether to allow sites to access the camera. One of
+         *
+         * `allow`: Allow sites to access the camera,
+         *
+         * `block`: Don't allow sites to access the camera,
+         *
+         * `ask`: Ask when a site wants to access the camera.
+         *
+         * Default is `ask`.
+         *
+         * The primary URL is the URL of the document which requested camera access. The secondary URL is not used. NOTE: The 'allow' setting is not valid if both patterns are '<all\_urls>'.
+         * @since Chrome 46
+         */
+        export const camera: ContentSetting<`${CameraContentSetting}`>;
+
+        /**
+         * Whether to allow sites to access the clipboard via advanced capabilities of the Async Clipboard API. "Advanced" capabilities include anything besides writing built-in formats after a user gesture, i.e. the ability to read, the ability to write custom formats, and the ability to write without a user gesture. One of
+         *
+         * `allow`: Allow sites to use advanced clipboard capabilities,
+         *
+         * `block`: Don't allow sites to use advanced clipboard capabilties,
+         *
+         * `ask`: Ask when a site wants to use advanced clipboard capabilities.
+         *
+         * Default is `ask`.
+         *
+         * The primary URL is the URL of the document which requested clipboard access. The secondary URL is not used.
+         * @since Chrome 121
+         */
+        export const clipboard: ContentSetting<`${ClipboardContentSetting}`>;
+
+        /**
          * Whether to allow cookies and other local data to be set by websites. One of
-         * allow: Accept cookies,
-         * block: Block cookies,
-         * session_only: Accept cookies only for the current session.
-         * Default is allow.
+         *
+         * `allow`: Accept cookies,
+         *
+         * `block`: Block cookies,
+         *
+         * `session_only`: Accept cookies only for the current session.
+         *
+         * Default is `allow`.
+         *
          * The primary URL is the URL representing the cookie origin. The secondary URL is the URL of the top-level frame.
          */
-        export var cookies: CookieContentSetting;
-        /**
-         * Whether to allow sites to show pop-ups. One of
-         * allow: Allow sites to show pop-ups,
-         * block: Don't allow sites to show pop-ups.
-         * Default is block.
-         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
-         */
-        export var popups: PopupsContentSetting;
-        /**
-         * Whether to run JavaScript. One of
-         * allow: Run JavaScript,
-         * block: Don't run JavaScript.
-         * Default is allow.
-         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
-         */
-        export var javascript: JavascriptContentSetting;
-        /**
-         * Whether to allow sites to show desktop notifications. One of
-         * allow: Allow sites to show desktop notifications,
-         * block: Don't allow sites to show desktop notifications,
-         * ask: Ask when a site wants to show desktop notifications.
-         * Default is ask.
-         * The primary URL is the URL of the document which wants to show the notification. The secondary URL is not used.
-         */
-        export var notifications: NotificationsContentSetting;
-        /**
-         * Whether to run plugins. One of
-         * allow: Run plugins automatically,
-         * block: Don't run plugins automatically,
-         * detect_important_content: Only run automatically those plugins that are detected as the website's main content.
-         * Default is allow.
-         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
-         */
-        export var plugins: PluginsContentSetting;
+        export const cookies: ContentSetting<`${CookiesContentSetting}`>;
+
+        /** @deprecated No longer has any effect. Fullscreen permission is now automatically granted for all sites. Value is always `allow`. */
+        export const fullscreen: ContentSetting<`${FullscreenContentSetting}`>;
+
         /**
          * Whether to show images. One of
-         * allow: Show images,
-         * block: Don't show images.
-         * Default is allow.
+         *
+         * `allow`: Show images,
+         *
+         * `block`: Don't show images.
+         *
+         * Default is `allow`.
+         *
          * The primary URL is the URL of the top-level frame. The secondary URL is the URL of the image.
          */
-        export var images: ImagesContentSetting;
+        export const images: ContentSetting<`${ImagesContentSetting}`>;
+
         /**
-         * @since Chrome 42
+         * Whether to run JavaScript. One of
+         *
+         * `allow`: Run JavaScript,
+         *
+         * `block`: Don't run JavaScript.
+         *
+         * Default is `allow`.
+         *
+         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
+         */
+        export const javascript: ContentSetting<`${JavascriptContentSetting}`>;
+
+        /**
          * Whether to allow Geolocation. One of
-         * allow: Allow sites to track your physical location,
-         * block: Don't allow sites to track your physical location,
-         * ask: Ask before allowing sites to track your physical location.
-         * Default is ask.
+         *
+         * `allow`: Allow sites to track your physical location,
+         *
+         * `block`: Don't allow sites to track your physical location,
+         *
+         * `ask`: Ask before allowing sites to track your physical location.
+         *
+         * Default is `ask`.
+         *
          * The primary URL is the URL of the document which requested location data. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
          */
-        export var location: LocationContentSetting;
+        export const location: ContentSetting<`${LocationContentSetting}`>;
+
         /**
-         * @since Chrome 42
-         * Whether to allow sites to toggle the fullscreen mode. One of
-         * allow: Allow sites to toggle the fullscreen mode,
-         * ask: Ask when a site wants to toggle the fullscreen mode.
-         * Default is ask.
-         * The primary URL is the URL of the document which requested to toggle the fullscreen mode. The secondary URL is the URL of the top-level frame (which may or may not differ from the requesting URL).
-         */
-        export var fullscreen: FullscreenContentSetting;
-        /**
-         * @since Chrome 42
-         * Whether to allow sites to disable the mouse cursor. One of
-         * allow: Allow sites to disable the mouse cursor,
-         * block: Don't allow sites to disable the mouse cursor,
-         * ask: Ask when a site wants to disable the mouse cursor.
-         * Default is ask.
-         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
-         */
-        export var mouselock: MouselockContentSetting;
-        /**
-         * @since Chrome 46
          * Whether to allow sites to access the microphone. One of
-         * allow: Allow sites to access the microphone,
-         * block: Don't allow sites to access the microphone,
-         * ask: Ask when a site wants to access the microphone.
-         * Default is ask.
-         * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
-         */
-        export var microphone: MicrophoneContentSetting;
-        /**
+         *
+         * `allow`: Allow sites to access the microphone,
+         *
+         * `block`: Don't allow sites to access the microphone,
+         *
+         * `ask`: Ask when a site wants to access the microphone.
+         *
+         * Default is `ask`.
+         *
+         * The primary URL is the URL of the document which requested microphone access. The secondary URL is not used. NOTE: The 'allow' setting is not valid if both patterns are '<all\_urls>'.
          * @since Chrome 46
-         * Whether to allow sites to access the camera. One of
-         * allow: Allow sites to access the camera,
-         * block: Don't allow sites to access the camera,
-         * ask: Ask when a site wants to access the camera.
-         * Default is ask.
-         * The primary URL is the URL of the document which requested camera access. The secondary URL is not used.
-         * NOTE: The 'allow' setting is not valid if both patterns are ''.
          */
-        export var camera: CameraContentSetting;
+        export const microphone: ContentSetting<`${MicrophoneContentSetting}`>;
+
+        /** @deprecated No longer has any effect. Mouse lock permission is now automatically granted for all sites. Value is always `allow`. */
+        export const mouselock: ContentSetting<`${MouselockContentSetting}`>;
+
         /**
-         * @since Chrome 42
-         * Whether to allow sites to run plugins unsandboxed. One of
-         * allow: Allow sites to run plugins unsandboxed,
-         * block: Don't allow sites to run plugins unsandboxed,
-         * ask: Ask when a site wants to run a plugin unsandboxed.
-         * Default is ask.
+         * Whether to allow sites to show desktop notifications. One of
+         *
+         * `allow`: Allow sites to show desktop notifications,
+         *
+         * `block`: Don't allow sites to show desktop notifications,
+         *
+         * `ask`: Ask when a site wants to show desktop notifications.
+         *
+         * Default is `ask`.
+         *
+         * The primary URL is the URL of the document which wants to show the notification. The secondary URL is not used.
+         */
+        export const notifications: ContentSetting<`${NotificationsContentSetting}`>;
+
+        /** @deprecated With Flash support removed in Chrome 88, this permission no longer has any effect. Value is always `block`. Calls to `set()` and `clear()` will be ignored. */
+        export const plugins: ContentSetting<`${PluginsContentSetting}`>;
+
+        /**
+         * Whether to allow sites to show pop-ups. One of
+         *
+         * `allow`: Allow sites to show pop-ups,
+         *
+         * `block`: Don't allow sites to show pop-ups.
+         *
+         * Default is `block`.
+         *
          * The primary URL is the URL of the top-level frame. The secondary URL is not used.
          */
-        export var unsandboxedPlugins: PpapiBrokerContentSetting;
-        /**
-         * @since Chrome 42
-         * Whether to allow sites to download multiple files automatically. One of
-         * allow: Allow sites to download multiple files automatically,
-         * block: Don't allow sites to download multiple files automatically,
-         * ask: Ask when a site wants to download files automatically after the first file.
-         * Default is ask.
-         * The primary URL is the URL of the top-level frame. The secondary URL is not used.
-         */
-        export var automaticDownloads: MultipleAutomaticDownloadsContentSetting;
+        export const popups: ContentSetting<`${PopupsContentSetting}`>;
+
+        /** @deprecated Previously, controlled whether to allow sites to run plugins unsandboxed, however, with the Flash broker process removed in Chrome 88, this permission no longer has any effect. Value is always `block`. Calls to `set()` and `clear()` will be ignored. */
+        export const unsandboxedPlugins: ContentSetting<`${PpapiBrokerContentSetting}`>;
     }
 
     ////////////////////
@@ -2298,133 +2312,122 @@ declare namespace chrome {
      * Permissions: "debugger"
      */
     export namespace _debugger {
-        /** Debuggee identifier. Either tabId or extensionId must be specified */
+        /** Debuggee identifier. Either tabId, extensionId or targetId must be specified */
         export interface Debuggee {
-            /** Optional. The id of the tab which you intend to debug.  */
-            tabId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 27
-             * The id of the extension which you intend to debug. Attaching to an extension background page is only possible when 'silent-debugger-extension-api' flag is enabled on the target browser.
-             */
-            extensionId?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 28
-             * The opaque id of the debug target.
-             */
-            targetId?: string | undefined;
+            /** The id of the tab which you intend to debug. */
+            tabId?: number;
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used. */
+            extensionId?: string;
+            /** The opaque id of the debug target. */
+            targetId?: string;
         }
 
         /**
-         * @since Chrome 28
-         * Debug target information
+         * Debugger session identifier. One of tabId, extensionId or targetId must be specified. Additionally, an optional sessionId can be provided. If sessionId is specified for arguments sent from {@link onEvent}, it means the event is coming from a child protocol session within the root debuggee session. If sessionId is specified when passed to {@link sendCommand}, it targets a child protocol session within the root debuggee session.
+         * @since Chrome 125
          */
+        export interface DebuggerSession {
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used.*/
+            extensionId?: string;
+            /** The opaque id of the Chrome DevTools Protocol session. Identifies a child session within the root session identified by tabId, extensionId or targetId. */
+            sessionId?: string;
+            /** The id of the tab which you intend to debug. */
+            tabId?: number;
+            /** The opaque id of the debug target. */
+            targetId?: string;
+        }
+
+        /**
+         * Connection termination reason.
+         * @since Chrome 44
+         */
+        export enum DetachReason {
+            CANCELED_BY_USER = "canceled_by_user",
+            TARGET_CLOSED = "target_closed",
+        }
+
+        /** Debug target information */
         export interface TargetInfo {
             /** Target type. */
-            type: string;
+            type: `${TargetInfoType}`;
             /** Target id. */
             id: string;
-            /**
-             * Optional.
-             * @since Chrome 30
-             * The tab id, defined if type == 'page'.
-             */
-            tabId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 30
-             * The extension id, defined if type = 'background_page'.
-             */
-            extensionId?: string | undefined;
+            /** The tab id, defined if type == 'page'. */
+            tabId?: number;
+            /** The extension id, defined if type = 'background_page'. */
+            extensionId?: string;
             /** True if debugger is already attached. */
             attached: boolean;
             /** Target page title. */
             title: string;
             /** Target URL. */
             url: string;
-            /** Optional. Target favicon URL.  */
-            faviconUrl?: string | undefined;
+            /** Target favicon URL.  */
+            faviconUrl?: string;
         }
 
-        export interface DebuggerDetachedEvent
-            extends chrome.events.Event<(source: Debuggee, reason: string) => void>
-        {}
-
-        export interface DebuggerEventEvent
-            extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void>
-        {}
+        /**
+         * Target type.
+         * @since Chrome 44
+         */
+        export enum TargetInfoType {
+            BACKGROUND_PAGE = "background_page",
+            OTHER = "other",
+            PAGE = "page",
+            WORKER = "worker",
+        }
 
         /**
          * Attaches debugger to the given target.
          * @param target Debugging target to which you want to attach.
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
-         * @return The `attach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
-        /**
-         * Attaches debugger to the given target.
-         * @param target Debugging target to which you want to attach.
-         * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
-         * @param callback Called once the attach operation succeeds or fails. If the attach fails, runtime.lastError will be set to the error message.
-         */
         export function attach(target: Debuggee, requiredVersion: string, callback: () => void): void;
+
         /**
          * Detaches debugger from the given target.
          * @param target Debugging target from which you want to detach.
-         * @return The `detach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function detach(target: Debuggee): Promise<void>;
-        /**
-         * Detaches debugger from the given target.
-         * @param target Debugging target from which you want to detach.
-         * @param callback Called once the detach operation succeeds or fails. If the detach fails, runtime.lastError will be set to the error message.
-         */
         export function detach(target: Debuggee, callback: () => void): void;
+
         /**
          * Sends given command to the debugging target.
          * @param target Debugging target to which you want to send the command.
          * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
-         * @param commandParams Since Chrome 22.
-         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
-         * @return The `sendCommand` method provides its result via callback or returned as a `Promise` (MV3 only).
+         * @param commandParams JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function sendCommand(
-            target: Debuggee,
+            target: DebuggerSession,
             method: string,
             commandParams?: Object,
-        ): Promise<Object>;
-        /**
-         * Sends given command to the debugging target.
-         * @param target Debugging target to which you want to send the command.
-         * @param method Method name. Should be one of the methods defined by the remote debugging protocol.
-         * @param commandParams Since Chrome 22.
-         * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
-         * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message.
-         */
+        ): Promise<Object | undefined>;
         export function sendCommand(
-            target: Debuggee,
+            target: DebuggerSession,
             method: string,
             commandParams?: Object,
             callback?: (result?: Object) => void,
         ): void;
+
         /**
-         * @since Chrome 28
          * Returns the list of available debug targets.
-         * @return The `getTargets` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 96.
          */
         export function getTargets(): Promise<TargetInfo[]>;
-        /**
-         * @since Chrome 28
-         * Returns the list of available debug targets.
-         * Parameter result: Array of TargetInfo objects corresponding to the available debug targets.
-         */
         export function getTargets(callback: (result: TargetInfo[]) => void): void;
 
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-        export var onDetach: DebuggerDetachedEvent;
+        export const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        export var onEvent: DebuggerEventEvent;
+        export const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: Object) => void>;
     }
 
     export { _debugger as debugger };
@@ -3519,7 +3522,7 @@ declare namespace chrome {
          * Requests chrome to return the open/closed shadow roots else return null.
          * @param element reference of HTMLElement.
          */
-        export function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot;
+        export function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot | null;
     }
 
     ////////////////////
@@ -4540,134 +4543,423 @@ declare namespace chrome {
      * @platform ChromeOS only
      */
     export namespace fileSystemProvider {
-        export interface OpenedFileInfo {
-            /** A request ID to be be used by consecutive read/write and close requests. */
-            openRequestId: number;
-            /** The path of the opened file. */
-            filePath: string;
-            /** Whether the file was opened for reading or writing. */
-            mode: string;
-        }
-
-        export interface FileWatchersInfo {
-            /** The path of the entry being observed. */
-            entryPath: string;
-            /** Whether watching should include all child entries recursively. It can be true for directories only. */
-            recursive: boolean;
-            /** Optional. Tag used by the last notification for the watcher.  */
-            lastTag?: string | undefined;
-        }
-
-        export interface CloudIdentifier {
-            /** Identifier for the cloud storage provider (e.g. 'drive.google.com'). */
-            providerName: string;
-            /** The provider's identifier for the given file/directory. */
-            id: string;
-        }
-
-        export interface CloudFileInfo {
-            /** A tag that represents the version of the file. */
-            versionTag?: string | undefined;
-        }
-
-        export interface EntryMetadata {
-            /** True if it is a directory. Must be provided if requested in `options`. */
-            isDirectory?: boolean;
-            /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in `options`. */
-            name?: string;
-            /** File size in bytes. Must be provided if requested in `options`. */
-            size?: number;
-            /** The last modified time of this entry. Must be provided if requested in `options`. */
-            modificationTime?: Date;
-            /** Optional. Mime type for the entry. Always optional, but should provided if requested in `options`. */
-            mimeType?: string | undefined;
-            /** Optional. Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the onGetMetadataRequested event. */
-            thumbnail?: string | undefined;
-            /** Optional. Cloud storage representation of this entry. Must be provided if requested in `options` and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested. */
-            cloudIdentifier?: CloudIdentifier | undefined;
-            /** Optional. Information that identifies a specific file in the underlying cloud file system. Must be provided if requested in `options` and the file is backed by cloud storage. */
-            cloudFileInfo?: CloudFileInfo | undefined;
-        }
-
-        export interface FileSystemInfo {
-            /** The identifier of the file system. */
-            fileSystemId: string;
-            /** A human-readable name for the file system. */
-            displayName: string;
-            /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
-            writable: boolean;
-            /**
-             * The maximum number of files that can be opened at once. If 0, then not limited.
-             * @since Chrome 42
-             */
-            openedFilesLimit: number;
-            /**
-             * List of currently opened files.
-             * @since Chrome 42
-             */
-            openedFiles: OpenedFileInfo[];
-            /**
-             * Optional.
-             * Whether the file system supports the tag field for observing directories.
-             * @since Chrome 45
-             */
-            supportsNotifyTag?: boolean | undefined;
-            /**
-             * List of watchers.
-             * @since Chrome 45
-             */
-            watchers: FileWatchersInfo[];
-        }
-
-        /** @since Chrome 45 */
-        export interface GetActionsRequestedOptions {
+        export interface AbortRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
+            /** An ID of the request to be aborted. */
+            operationRequestId: number;
             /** The unique identifier of this request. */
             requestId: number;
-            /** List of paths of entries for the list of actions. */
-            entryPaths: string[];
         }
 
         /** @since Chrome 45 */
         export interface Action {
-            /** The identifier of the action. Any string or CommonActionId for common actions. */
+            /** The identifier of the action. Any string or {@link CommonActionId} for common actions. */
             id: string;
-            /** Optional. The title of the action. It may be ignored for common actions.  */
-            title?: string | undefined;
+            /** The title of the action. It may be ignored for common actions. */
+            title?: string;
         }
 
-        /** @since Chrome 45 */
-        export interface ExecuteActionRequestedOptions {
+        export interface AddWatcherRequestedOptions {
+            /** The path of the entry to be observed. */
+            entryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Whether observing should include all child entries recursively. It can be true for directories only. */
+            recursive: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface Change {
+            /** The type of the change which happened to the entry. */
+            changeType: `${ChangeType}`;
+            /**
+             * Information relating to the file if backed by a cloud file system.
+             * @since Chrome 125
+             */
+            cloudFileInfo?: CloudFileInfo;
+            /** The path of the changed entry. */
+            entryPath: string;
+        }
+
+        /** Type of a change detected on the observed directory. */
+        export enum ChangeType {
+            CHANGED = "CHANGED",
+            DELETED = "DELETED",
+        }
+
+        export interface CloseFileRequestedOptions {
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** A request ID used to open the file. */
+            openRequestId: number;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        /** @since Chrome 125 */
+        export interface CloudFileInfo {
+            /** A tag that represents the version of the file. */
+            versionTag?: string;
+        }
+
+        /** @since Chrome 117 */
+        export interface CloudIdentifier {
+            /** The provider's identifier for the given file/directory. */
+            id: string;
+            /** Identifier for the cloud storage provider (e.g. 'drive.google.com'). */
+            providerName: string;
+        }
+
+        /**
+         * List of common actions. `"SHARE"` is for sharing files with others. `"SAVE_FOR_OFFLINE"` for pinning (saving for offline access). `"OFFLINE_NOT_NECESSARY"` for notifying that the file doesn't need to be stored for offline access anymore. Used by {@link onGetActionsRequested} and {@link onExecuteActionRequested}.
+         * @since Chrome 45
+         */
+        export enum CommonActionId {
+            SAVE_FOR_OFFLINE = "SAVE_FOR_OFFLINE",
+            OFFLINE_NOT_NECESSARY = "OFFLINE_NOT_NECESSARY",
+            SHARE = "SHARE",
+        }
+
+        /** @since Chrome 44 */
+        export interface ConfigureRequestedOptions {
+            /** The identifier of the file system to be configured. */
+            fileSystemId: string;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface CopyEntryRequestedOptions {
             /** The identifier of the file system related to this operation. */
             fileSystemId: string;
             /** The unique identifier of this request. */
             requestId: number;
-            /** The set of paths of the entries to be used for the action. */
-            entryPaths: string[];
+            /** The source path of the entry to be copied. */
+            sourcePath: string;
+            /** The destination path for the copy operation. */
+            targetPath: string;
+        }
+
+        export interface CreateDirectoryRequestedOptions {
+            /** The path of the directory to be created. */
+            directoryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Whether the operation is recursive (for directories only). */
+            recursive: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface CreateFileRequestedOptions {
+            /** The path of the file to be created. */
+            filePath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface DeleteEntryRequestedOptions {
+            /** The path of the entry to be deleted. */
+            entryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Whether the operation is recursive (for directories only). */
+            recursive: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface EntryMetadata {
+            /**
+             * Information that identifies a specific file in the underlying cloud file system. Must be provided if requested in `options` and the file is backed by cloud storage.
+             * @since Chrome 125
+             */
+            cloudFileInfo?: CloudFileInfo;
+            /**
+             * Cloud storage representation of this entry. Must be provided if requested in `options` and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested.
+             * @since Chrome 117
+             */
+            cloudIdentifier?: CloudIdentifier;
+            /** True if it is a directory. Must be provided if requested in `options`. */
+            isDirectory?: boolean;
+            /** Mime type for the entry. Always optional, but should be provided if requested in `options`. */
+            mimeType?: string;
+            /** The last modified time of this entry. Must be provided if requested in `options`. */
+            modificationTime?: Date;
+            /** Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in `options`. */
+            name?: string;
+            /** File size in bytes. Must be provided if requested in `options`. */
+            size?: number;
+            /** Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the {@link onGetMetadataRequested} event. */
+            thumbnail?: string;
+        }
+
+        /** @since Chrome 45 */
+        export interface ExecuteActionRequestedOptions {
             /** The identifier of the action to be executed. */
             actionId: string;
+            /**
+             * The set of paths of the entries to be used for the action.
+             * @since Chrome 47
+             */
+            entryPaths: string[];
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface FileSystemInfo {
+            /** A human-readable name for the file system. */
+            displayName: string;
+            /** The identifier of the file system. */
+            fileSystemId: string;
+            /** List of currently opened files. */
+            openedFiles: OpenedFile[];
+            /** The maximum number of files that can be opened at once. If 0, then not limited. */
+            openedFilesLimit: number;
+            /**
+             * Whether the file system supports the `tag` field for observing directories.
+             * @since Chrome 45
+             */
+            supportsNotifyTag?: boolean;
+            /**
+             * List of watchers.
+             * @since Chrome 45
+             */
+            watchers: Watcher[];
+            /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+            writable: boolean;
+        }
+
+        /** @since Chrome 45 */
+        export interface GetActionsRequestedOptions {
+            /**
+             * List of paths of entries for the list of actions.
+             * @since Chrome 47
+             */
+            entryPaths: string[];
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface GetMetadataRequestedOptions {
+            /**
+             * Set to `true` if `cloudFileInfo` value is requested.
+             * @since Chrome 125
+             */
+            cloudFileInfo: boolean;
+            /**
+             * Set to `true` if `cloudIdentifier` value is requested.
+             * @since Chrome 117
+             */
+            cloudIdentifier: boolean;
+            /** The path of the entry to fetch metadata about. */
+            entryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /**
+             * Set to `true` if `is_directory` value is requested.
+             * @since Chrome 49
+             */
+            isDirectory: boolean;
+            /**
+             * Set to `true` if `mimeType` value is requested.
+             * @since Chrome 49
+             */
+            mimeType: boolean;
+            /**
+             * Set to `true` if `modificationTime` value is requested.
+             * @since Chrome 49
+             */
+            modificationTime: boolean;
+            /**
+             * Set to `true` if `name` value is requested.
+             * @since Chrome 49
+             */
+            name: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+            /**
+             * Set to `true` if `size` value is requested.
+             * @since Chrome 49
+             */
+            size: boolean;
+            /** Set to `true` if `thumbnail` value is requested. */
+            thumbnail: boolean;
         }
 
         export interface MountOptions {
-            /** The string identifier of the file system. Must be unique per each extension. */
-            fileSystemId: string;
             /** A human-readable name for the file system. */
             displayName: string;
-            /** Optional. Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).  */
-            writable?: boolean | undefined;
+            /** The string identifier of the file system. Must be unique per each extension. */
+            fileSystemId: string;
+            /** The maximum number of files that can be opened at once. If not specified, or 0, then not limited. */
+            openedFilesLimit?: number;
             /**
-             * Optional.
-             * The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
-             * @since Chrome 41
+             * Whether the framework should resume the file system at the next sign-in session. True by default.
+             * @since Chrome 64
              */
-            openedFilesLimit?: number | undefined;
+            persistent?: boolean;
             /**
-             * Optional.
-             * Whether the file system supports the tag field for observed directories.
+             * Whether the file system supports the `tag` field for observed directories.
              * @since Chrome 45
              */
-            supportsNotifyTag?: boolean | undefined;
+            supportsNotifyTag?: boolean;
+            /** Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files). */
+            writable?: boolean;
+        }
+
+        export interface MoveEntryRequestedOptions {
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** The unique identifier of this request. */
+            requestId: number;
+            /** The source path of the entry to be moved into a new place. */
+            sourcePath: string;
+            /** The destination path for the copy operation. */
+            targetPath: string;
+        }
+
+        export interface NotifyOptions {
+            /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
+            changeType: `${ChangeType}`;
+            /** List of changes to entries within the observed directory (including the entry itself) */
+            changes?: Change[];
+            /** The identifier of the file system related to this change. */
+            fileSystemId: string;
+            /** The path of the observed entry. */
+            observedPath: string;
+            /** Mode of the observed entry. */
+            recursive: boolean;
+            /** Tag for the notification. Required if the file system was mounted with the `supportsNotifyTag` option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown. */
+            tag?: string;
+        }
+
+        export interface OpenedFile {
+            /** The path of the opened file. */
+            filePath: string;
+            /** Whether the file was opened for reading or writing. */
+            mode: `${OpenFileMode}`;
+            /** A request ID to be be used by consecutive read/write and close requests. */
+            openRequestId: number;
+        }
+
+        /** Mode of opening a file. Used by {@link onOpenFileRequested}. */
+        export enum OpenFileMode {
+            READ = "READ",
+            WRITE = "WRITE",
+        }
+
+        export interface OpenFileRequestedOptions {
+            /** The path of the file to be opened. */
+            filePath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Whether the file will be used for reading or writing. */
+            mode: `${OpenFileMode}`;
+            /** A request ID which will be used by consecutive read/write and close requests. */
+            requestId: number;
+        }
+
+        /** Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, `"OK"` must be used.*/
+        export enum ProviderError {
+            OK = "OK",
+            FAILED = "FAILED",
+            IN_USE = "IN_USE",
+            EXISTS = "EXISTS",
+            NOT_FOUND = "NOT_FOUND",
+            ACCESS_DENIED = "ACCESS_DENIED",
+            TOO_MANY_OPENED = "TOO_MANY_OPENED",
+            NO_MEMORY = "NO_MEMORY",
+            NO_SPACE = "NO_SPACE",
+            NOT_A_DIRECTORY = "NOT_A_DIRECTORY",
+            INVALID_OPERATION = "INVALID_OPERATION",
+            SECURITY = "SECURITY",
+            ABORT = "ABORT",
+            NOT_A_FILE = "NOT_A_FILE",
+            NOT_EMPTY = "NOT_EMPTY",
+            INVALID_URL = "INVALID_URL",
+            IO = "IO",
+        }
+
+        export interface ReadDirectoryRequestedOptions {
+            /** The path of the directory which contents are requested. */
+            directoryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /**
+             * Set to `true` if `is_directory` value is requested.
+             * @since Chrome 49
+             */
+            isDirectory: boolean;
+            /**
+             * Set to `true` if `mimeType` value is requested.
+             * @since Chrome 49
+             */
+            mimeType: boolean;
+            /**
+             * Set to `true` if `modificationTime` value is requested.
+             * @since Chrome 49
+             */
+            modificationTime: boolean;
+            /**
+             * Set to `true` if `name` value is requested.
+             * @since Chrome 49
+             */
+            name: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+            /**
+             * Set to `true` if `size` value is requested.
+             * @since Chrome 49
+             */
+            size: boolean;
+            /**
+             * Set to `true` if `thumbnail` value is requested.
+             * @since Chrome 49
+             */
+            thumbnail: boolean;
+        }
+
+        export interface ReadFileRequestedOptions {
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Number of bytes to be returned. */
+            length: number;
+            /** Position in the file (in bytes) to start reading from. */
+            offset: number;
+            /** A request ID used to open the file. */
+            openRequestId: number;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface RemoveWatcherRequestedOptions {
+            /** The path of the watched entry. */
+            entryPath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Mode of the watcher. */
+            recursive: boolean;
+            /** The unique identifier of this request. */
+            requestId: number;
+        }
+
+        export interface TruncateRequestedOptions {
+            /** The path of the file to be truncated. */
+            filePath: string;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Number of bytes to be retained after the operation completes. */
+            length: number;
+            /** The unique identifier of this request. */
+            requestId: number;
         }
 
         export interface UnmountOptions {
@@ -4675,391 +4967,333 @@ declare namespace chrome {
             fileSystemId: string;
         }
 
-        export interface NotificationChange {
-            /** The path of the changed entry. */
-            entryPath: string;
-            /** The type of the change which happened to the entry. */
-            changeType: string;
-            /** Information relating to the file if backed by a cloud file system. */
-            cloudFileInfo?: CloudFileInfo | undefined;
-        }
-
-        export interface NotificationOptions {
-            /** The identifier of the file system related to this change. */
-            fileSystemId: string;
-            /** The path of the observed entry. */
-            observedPath: string;
-            /** Mode of the observed entry. */
-            recursive: boolean;
-            /** The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries. */
-            changeType: string;
-            /** Optional. List of changes to entries within the observed directory (including the entry itself)  */
-            changes?: NotificationChange[] | undefined;
-            /** Optional. Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.  */
-            tag?: string | undefined;
-        }
-
-        export interface RequestedEventOptions {
-            /** The identifier of the file system related to this operation. */
+        export interface UnmountRequestedOptions {
+            /** The identifier of the file system to be unmounted. */
             fileSystemId: string;
             /** The unique identifier of this request. */
             requestId: number;
         }
 
-        export interface EntryPathRequestedEventOptions extends RequestedEventOptions {
-            /** The path of the entry to which this operation is related to. */
+        export interface Watcher {
+            /** The path of the entry being observed. */
             entryPath: string;
+            /** Tag used by the last notification for the watcher. */
+            lastTag?: string;
+            /** Whether watching should include all child entries recursively. It can be true for directories only. */
+            recursive: boolean;
         }
 
-        export interface MetadataRequestedEventOptions extends EntryPathRequestedEventOptions {
-            /** Set to true if `is_directory` value is requested. */
-            isDirectory: boolean;
-            /** Set to true if `name` value is requested. */
-            name: boolean;
-            /** Set to true if `size` value is requested. */
-            size: boolean;
-            /** Set to true if `modificationTime` value is requested. */
-            modificationTime: boolean;
-            /** Set to true if `mimeType` value is requested. */
-            mimeType: boolean;
-            /** Set to true if `thumbnail` is requested. */
-            thumbnail: boolean;
-            /** Set to true if `cloudIdentifier` is requested. */
-            cloudIdentifier: boolean;
-            /** Set to true if `cloudFileInfo` is requested. */
-            cloudFileInfo: boolean;
-        }
-
-        export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
-            /** The path of the directory which is to be operated on. */
-            directoryPath: string;
-            /** Set to true if `is_directory` value is requested. */
-            isDirectory: boolean;
-            /** Set to true if `name` value is requested. */
-            name: boolean;
-            /** Set to true if `size` value is requested. */
-            size: boolean;
-            /** Set to true if `modificationTime` value is requested. */
-            modificationTime: boolean;
-            /** Set to true if `mimeType` value is requested. */
-            mimeType: boolean;
-            /** Set to true if `thumbnail` is requested. */
-            thumbnail: boolean;
-        }
-
-        export interface FilePathRequestedEventOptions extends RequestedEventOptions {
-            /** The path of the entry for the operation */
-            filePath: string;
-        }
-
-        export interface OpenFileRequestedEventOptions extends FilePathRequestedEventOptions {
-            /** Whether the file will be used for reading or writing. */
-            mode: string;
-        }
-
-        export interface OpenedFileRequestedEventOptions extends RequestedEventOptions {
+        export interface WriteFileRequestedOptions {
+            /** Buffer of bytes to be written to the file. */
+            data: ArrayBuffer;
+            /** The identifier of the file system related to this operation. */
+            fileSystemId: string;
+            /** Position in the file (in bytes) to start writing the bytes from. */
+            offset: number;
             /** A request ID used to open the file. */
             openRequestId: number;
+            /** The unique identifier of this request. */
+            requestId: number;
         }
-
-        export interface OpenedFileOffsetRequestedEventOptions extends OpenedFileRequestedEventOptions {
-            /** Position in the file (in bytes) to start reading from. */
-            offset: number;
-            /** Number of bytes to be returned. */
-            length: number;
-        }
-
-        export interface CreateDirectoryRequestedEventOptions extends RequestedEventOptions {
-            /** The path of the directory to be created. */
-            directoryPath: string;
-
-            /** Whether the operation is recursive (for directories only). */
-            recursive: boolean;
-        }
-
-        export interface EntryPathRecursiveRequestedEventOptions extends EntryPathRequestedEventOptions {
-            /** Whether the operation is recursive (for directories only). */
-            recursive: boolean;
-        }
-
-        export interface SourceTargetPathRequestedEventOptions extends RequestedEventOptions {
-            /** The source path for the operation. */
-            sourcePath: string;
-            /** The destination path for the operation. */
-            targetPath: string;
-        }
-
-        export interface FilePathLengthRequestedEventOptions extends FilePathRequestedEventOptions {
-            /** Number of bytes to be retained after the operation completes. */
-            length: number;
-        }
-
-        export interface OpenedFileIoRequestedEventOptions extends OpenedFileRequestedEventOptions {
-            /** Position in the file (in bytes) to start operating from. */
-            offset: number;
-            /** Buffer of bytes to be operated on the file. */
-            data: ArrayBuffer;
-        }
-
-        export interface OperationRequestedEventOptions extends RequestedEventOptions {
-            /** An ID of the request to which this operation is related. */
-            operationRequestId: number;
-        }
-
-        export interface RequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: RequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface MetadataRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: MetadataRequestedEventOptions,
-                    successCallback: (metadata: EntryMetadata) => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface DirectoryPathRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: DirectoryPathRequestedEventOptions,
-                    successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OpenFileRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: OpenFileRequestedEventOptions,
-                    successCallback: (metadata?: EntryMetadata) => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OpenedFileRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: OpenedFileRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OpenedFileOffsetRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: OpenedFileOffsetRequestedEventOptions,
-                    successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface CreateDirectoryRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: CreateDirectoryRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface EntryPathRecursiveRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: EntryPathRecursiveRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface FilePathRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: FilePathRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface SourceTargetPathRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: SourceTargetPathRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface FilePathLengthRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: FilePathLengthRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OpenedFileIoRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: OpenedFileIoRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OperationRequestedEvent extends
-            chrome.events.Event<
-                (
-                    options: OperationRequestedEventOptions,
-                    successCallback: Function,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface OptionlessRequestedEvent
-            extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void>
-        {}
-
-        export interface GetActionsRequested extends
-            chrome.events.Event<
-                (
-                    options: GetActionsRequestedOptions,
-                    successCallback: (actions: Action[]) => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
-
-        export interface ExecuteActionRequested extends
-            chrome.events.Event<
-                (
-                    options: ExecuteActionRequestedOptions,
-                    successCallback: () => void,
-                    errorCallback: (error: string) => void,
-                ) => void
-            >
-        {}
 
         /**
-         * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
-         * Depending on the type of the file system being mounted, the source option must be set appropriately.
-         * In case of an error, runtime.lastError will be set with a corresponding error code.
-         * @param callback A generic result callback to indicate success or failure.
+         * Returns information about a file system with the passed `fileSystemId`.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
-        export function mount(options: MountOptions, callback?: () => void): void;
-        /**
-         * Unmounts a file system with the given fileSystemId. It must be called after onUnmountRequested is invoked. Also, the providing extension can decide to perform unmounting if not requested (eg. in case of lost connection, or a file error).
-         * In case of an error, runtime.lastError will be set with a corresponding error code.
-         * @param callback A generic result callback to indicate success or failure.
-         */
-        export function unmount(options: UnmountOptions, callback?: () => void): void;
+        export function get(fileSystemId: string): Promise<FileSystemInfo>;
+        export function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
+
         /**
          * Returns all file systems mounted by the extension.
-         * @param callback Callback to receive the result of getAll function.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
+        export function getAll(): Promise<FileSystemInfo[]>;
         export function getAll(callback: (fileSystems: FileSystemInfo[]) => void): void;
+
         /**
-         * Returns information about a file system with the passed fileSystemId.
-         * @since Chrome 42
-         * @param callback Callback to receive the result of get function.
+         * Mounts a file system with the given `fileSystemId` and `displayName`. `displayName` will be shown in the left panel of the Files app. `displayName` can contain any characters including '/', but cannot be an empty string. `displayName` must be descriptive but doesn't have to be unique. The `fileSystemId` must not be an empty string.
+         *
+         * Depending on the type of the file system being mounted, the `source` option must be set appropriately.
+         *
+         * In case of an error, {@link runtime.lastError} will be set with a corresponding error code.
+         *
+         * Can return its result via Promise since Chrome 96.
          */
-        export function get(fileSystemId: string, callback: (fileSystem: FileSystemInfo) => void): void;
+        export function mount(options: MountOptions): Promise<void>;
+        export function mount(options: MountOptions, callback: () => void): void;
+
         /**
-         * Notifies about changes in the watched directory at observedPath in recursive mode. If the file system is mounted with supportsNofityTag, then tag must be provided, and all changes since the last notification always reported, even if the system was shutdown. The last tag can be obtained with getAll.
-         * To use, the file_system_provider.notify manifest option must be set to true.
-         * Value of tag can be any string which is unique per call, so it's possible to identify the last registered notification. Eg. if the providing extension starts after a reboot, and the last registered notification's tag is equal to "123", then it should call notify for all changes which happened since the change tagged as "123". It cannot be an empty string.
+         * Notifies about changes in the watched directory at `observedPath` in `recursive` mode. If the file system is mounted with `supportsNotifyTag`, then `tag` must be provided, and all changes since the last notification always reported, even if the system was shutdown. The last tag can be obtained with {@link getAll}.
+         *
+         * To use, the `file_system_provider.notify` manifest option must be set to true.
+         *
+         * Value of `tag` can be any string which is unique per call, so it's possible to identify the last registered notification. Eg. if the providing extension starts after a reboot, and the last registered notification's tag is equal to "123", then it should call {@link notify} for all changes which happened since the change tagged as "123". It cannot be an empty string.
+         *
          * Not all providers are able to provide a tag, but if the file system has a changelog, then the tag can be eg. a change number, or a revision number.
+         *
          * Note that if a parent directory is removed, then all descendant entries are also removed, and if they are watched, then the API must be notified about the fact. Also, if a directory is renamed, then all descendant entries are in fact removed, as there is no entry under their original paths anymore.
-         * In case of an error, runtime.lastError will be set will a corresponding error code.
-         * @param callback A generic result callback to indicate success or failure.
-         */
-        export function notify(options: NotificationOptions, callback: () => void): void;
-
-        /** Raised when unmounting for the file system with the fileSystemId identifier is requested. In the response, the unmount API method must be called together with successCallback. If unmounting is not possible (eg. due to a pending operation), then errorCallback must be called.  */
-        export var onUnmountRequested: RequestedEvent;
-        /** Raised when metadata of a file or a directory at entryPath is requested. The metadata must be returned with the successCallback call. In case of an error, errorCallback must be called. */
-        export var onGetMetadataRequested: MetadataRequestedEvent;
-        /** Raised when contents of a directory at directoryPath are requested. The results must be returned in chunks by calling the successCallback several times. In case of an error, errorCallback must be called. */
-        export var onReadDirectoryRequested: DirectoryPathRequestedEvent;
-        /** Raised when opening a file at filePath is requested. If the file does not exist, then the operation must fail. Maximum number of files opened at once can be specified with MountOptions. */
-        export var onOpenFileRequested: OpenFileRequestedEvent;
-        /** Raised when opening a file previously opened with openRequestId is requested to be closed. */
-        export var onCloseFileRequested: OpenedFileRequestedEvent;
-        /** Raised when reading contents of a file opened previously with openRequestId is requested. The results must be returned in chunks by calling successCallback several times. In case of an error, errorCallback must be called. */
-        export var onReadFileRequested: OpenedFileOffsetRequestedEvent;
-        /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If recursive is true, then all of the missing directories on the directory path must be created. */
-        export var onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
-        /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
-        export var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
-        /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the "EXISTS" error code. */
-        export var onCreateFileRequested: FilePathRequestedEvent;
-        /** Raised when copying an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
-        export var onCopyEntryRequested: SourceTargetPathRequestedEvent;
-        /** Raised when moving an entry (recursively if a directory) is requested. If an error occurs, then errorCallback must be called. */
-        export var onMoveEntryRequested: SourceTargetPathRequestedEvent;
-        /** Raised when truncating a file to a desired length is requested. If an error occurs, then errorCallback must be called. */
-        export var onTruncateRequested: FilePathLengthRequestedEvent;
-        /** Raised when writing contents to a file opened previously with openRequestId is requested. */
-        export var onWriteFileRequested: OpenedFileIoRequestedEvent;
-        /** Raised when aborting an operation with operationRequestId is requested. The operation executed with operationRequestId must be immediately stopped and successCallback of this abort request executed. If aborting fails, then errorCallback must be called. Note, that callbacks of the aborted operation must not be called, as they will be ignored. Despite calling errorCallback, the request may be forcibly aborted. */
-        export var onAbortRequested: OperationRequestedEvent;
-        /**
-         * Raised when showing a configuration dialog for fileSystemId is requested. If it's handled, the file_system_provider.configurable manfiest option must be set to true.
-         * @since Chrome 44
-         */
-        export var onConfigureRequested: RequestedEvent;
-        /**
-         * Raised when showing a dialog for mounting a new file system is requested. If the extension/app is a file handler, then this event shouldn't be handled. Instead app.runtime.onLaunched should be handled in order to mount new file systems when a file is opened. For multiple mounts, the file_system_provider.multiple_mounts manifest option must be set to true.
-         * @since Chrome 44
-         */
-        export var onMountRequested: OptionlessRequestedEvent;
-        /**
-         * Raised when setting a new directory watcher is requested. If an error occurs, then errorCallback must be called.
+         *
+         * In case of an error, {@link runtime.lastError} will be set will a corresponding error code.
+         *
+         * Can return its result via Promise since Chrome 96.
          * @since Chrome 45
          */
-        export var onAddWatcherRequested: EntryPathRecursiveRequestedEvent;
+        export function notify(options: NotifyOptions): Promise<void>;
+        export function notify(options: NotifyOptions, callback: () => void): void;
+
         /**
-         * Raised when the watcher should be removed. If an error occurs, then errorCallback must be called.
+         * Unmounts a file system with the given `fileSystemId`. It must be called after {@link onUnmountRequested} is invoked. Also, the providing extension can decide to perform unmounting if not requested (eg. in case of lost connection, or a file error).
+         *
+         * In case of an error, {@link runtime.lastError} will be set with a corresponding error code.
+         *
+         * Can return its result via Promise since Chrome 96.
+         */
+        export function unmount(options: UnmountOptions): Promise<void>;
+        export function unmount(options: UnmountOptions, callback: () => void): void;
+
+        /** Raised when aborting an operation with `operationRequestId` is requested. The operation executed with `operationRequestId` must be immediately stopped and `successCallback` of this abort request executed. If aborting fails, then `errorCallback` must be called. Note, that callbacks of the aborted operation must not be called, as they will be ignored. Despite calling `errorCallback`, the request may be forcibly aborted. */
+        export const onAbortRequested: events.Event<
+            (
+                options: AbortRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: `${ProviderError}`) => void,
+            ) => void
+        >;
+
+        /**
+         * Raised when setting a new directory watcher is requested. If an error occurs, then `errorCallback` must be called.
          * @since Chrome 45
          */
-        export var onRemoveWatcherRequested: EntryPathRecursiveRequestedEvent;
+        export const onAddWatcherRequested: events.Event<
+            (
+                options: AddWatcherRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: `${ProviderError}`) => void,
+            ) => void
+        >;
+
+        /** Raised when opening a file previously opened with `openRequestId` is requested to be closed.*/
+        export const onCloseFileRequested: events.Event<
+            (
+                options: CloseFileRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: `${ProviderError}`) => void,
+            ) => void
+        >;
 
         /**
-         * Raised when a list of actions for a set of files or directories at
-         * `entryPaths` is requested. All of the returned actions must
-         * be applicable to each entry. If there are no such actions, an empty array
-         * should be returned. The actions must be returned with the
-         * `successCallback` call. In case of an error,
-         * `errorCallback` must be called.
+         * Raised when showing a configuration dialog for `fileSystemId` is requested. If it's handled, the `file_system_provider.configurable` manifest option must be set to true.
+         * @since Chrome 44
          */
-        export var onGetActionsRequested: GetActionsRequested;
+        export const onConfigureRequested: events.Event<
+            (
+                options: ConfigureRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: `${ProviderError}`) => void,
+            ) => void
+        >;
+
+        /** Raised when copying an entry (recursively if a directory) is requested. If an error occurs, then `errorCallback` must be called. */
+        export const onCopyEntryRequested: events.Event<
+            (
+                options: CopyEntryRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (error: `${ProviderError}`) => void,
+            ) => void
+        >;
+
+        /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If `recursive` is true, then all of the missing directories on the directory path must be created. */
+        export const onCreateDirectoryRequested: events.Event<
+            (
+                options: CreateDirectoryRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when creating a file is requested. If the file already exists, then `errorCallback` must be called with the `"EXISTS"` error code. */
+        export const onCreateFileRequested: events.Event<
+            (
+                options: CreateFileRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when deleting an entry is requested. If `recursive` is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
+        export const onDeleteEntryRequested: events.Event<
+            (
+                options: DeleteEntryRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
 
         /**
-         * Raised when executing an action for a set of files or directories is
-         * requested. After the action is completed, `successCallback`
-         * must be called. On error, `errorCallback` must be called.
+         * Raised when executing an action for a set of files or directories is\\ requested. After the action is completed, `successCallback` must be called. On error, `errorCallback` must be called.
+         * @since Chrome 48
          */
-        export var onExecuteActionRequested: ExecuteActionRequested;
+        export const onExecuteActionRequested: events.Event<
+            (
+                options: ExecuteActionRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /**
+         * Raised when a list of actions for a set of files or directories at `entryPaths` is requested. All of the returned actions must be applicable to each entry. If there are no such actions, an empty array should be returned. The actions must be returned with the `successCallback` call. In case of an error, `errorCallback` must be called.
+         * @since Chrome 48
+         */
+        export const onGetActionsRequested: events.Event<
+            (
+                options: GetActionsRequestedOptions,
+                successCallback: (
+                    actions: Action[],
+                ) => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when metadata of a file or a directory at `entryPath` is requested. The metadata must be returned with the `successCallback` call. In case of an error, `errorCallback` must be called. */
+        export const onGetMetadataRequested: events.Event<
+            (
+                options: GetMetadataRequestedOptions,
+                successCallback: (
+                    metadata: EntryMetadata,
+                ) => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /**
+         * Raised when showing a dialog for mounting a new file system is requested. If the extension/app is a file handler, then this event shouldn't be handled. Instead `app.runtime.onLaunched` should be handled in order to mount new file systems when a file is opened. For multiple mounts, the `file_system_provider.multiple_mounts` manifest option must be set to true.
+         * @since Chrome 44
+         */
+        export const onMountRequested: events.Event<
+            (
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when moving an entry (recursively if a directory) is requested. If an error occurs, then `errorCallback` must be called. */
+        export const onMoveEntryRequested: events.Event<
+            (
+                options: MoveEntryRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when opening a file at `filePath` is requested. If the file does not exist, then the operation must fail. Maximum number of files opened at once can be specified with `MountOptions`. */
+        export const onOpenFileRequested: events.Event<
+            (
+                options: OpenFileRequestedOptions,
+                successCallback: (
+                    /**
+                     * @since Chrome 125
+                     */
+                    metadata?: EntryMetadata,
+                ) => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when contents of a directory at `directoryPath` are requested. The results must be returned in chunks by calling the `successCallback` several times. In case of an error, `errorCallback` must be called. */
+        export const onReadDirectoryRequested: events.Event<
+            (
+                options: ReadDirectoryRequestedOptions,
+                successCallback: (
+                    entries: EntryMetadata[],
+                    hasMore: boolean,
+                ) => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when reading contents of a file opened previously with `openRequestId` is requested. The results must be returned in chunks by calling `successCallback` several times. In case of an error, `errorCallback` must be called. */
+        export const onReadFileRequested: events.Event<
+            (
+                options: ReadFileRequestedOptions,
+                successCallback: (
+                    data: ArrayBuffer,
+                    hasMore: boolean,
+                ) => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /**
+         * Raised when the watcher should be removed. If an error occurs, then `errorCallback` must be called.
+         * @since Chrome 45
+         */
+        export const onRemoveWatcherRequested: events.Event<
+            (
+                options: RemoveWatcherRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when truncating a file to a desired length is requested. If an error occurs, then `errorCallback` must be called. */
+        export const onTruncateRequested: events.Event<
+            (
+                options: TruncateRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when unmounting for the file system with the `fileSystemId` identifier is requested. In the response, the {@link unmount} API method must be called together with `successCallback`. If unmounting is not possible (eg. due to a pending operation), then `errorCallback` must be called. */
+        export const onUnmountRequested: events.Event<
+            (
+                options: UnmountRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
+
+        /** Raised when writing contents to a file opened previously with `openRequestId` is requested. */
+        export const onWriteFileRequested: events.Event<
+            (
+                options: WriteFileRequestedOptions,
+                successCallback: () => void,
+                errorCallback: (
+                    error: `${ProviderError}`,
+                ) => void,
+            ) => void
+        >;
     }
 
     ////////////////////
@@ -5576,7 +5810,6 @@ declare namespace chrome {
      * Permissions: "identity"
      */
     export namespace identity {
-        /** @since Chrome 32 */
         export interface AccountInfo {
             /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
             id: string;
@@ -5584,78 +5817,81 @@ declare namespace chrome {
 
         /** @since Chrome 84 */
         export enum AccountStatus {
+            /** Specifies that Sync is enabled for the primary account. */
             SYNC = "SYNC",
+            /** Specifies the existence of a primary account, if any. */
             ANY = "ANY",
         }
 
+        /** @since Chrome 84 */
         export interface ProfileDetails {
-            /**
-             * Optional.
-             * A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
-             */
-            accountStatus?: AccountStatus | undefined;
+            /** A status of the primary account signed into a profile whose `ProfileUserInfo` should be returned. Defaults to `SYNC` account status. */
+            accountStatus?: `${AccountStatus}`;
         }
 
         export interface TokenDetails {
+            /** Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is `true`, `getAuthToken` will prompt the user as necessary. When the flag is `false` or omitted, `getAuthToken` will return failure any time a prompt would be required. */
+            interactive?: boolean;
+            /** The account ID whose token should be returned. If not specified, the function will use an account from the Chrome profile: the Sync account if there is one, or otherwise the first Google web account. */
+            account?: AccountInfo;
             /**
-             * Optional.
-             * Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
+             * The `enableGranularPermissions` flag allows extensions to opt-in early to the granular permissions consent screen, in which requested permissions are granted or denied individually.
+             * @since Chrome 87
              */
-            interactive?: boolean | undefined;
+            enableGranularPermissions?: boolean;
             /**
-             * Optional.
-             * The account ID whose token should be returned. If not specified, the primary account for the profile will be used.
-             * account is only supported when the "enable-new-profile-management" flag is set.
-             * @since Chrome 37
-             */
-            account?: AccountInfo | undefined;
-            /**
-             * Optional.
              * A list of OAuth2 scopes to request.
-             * When the scopes field is present, it overrides the list of scopes specified in manifest.json.
-             * @since Chrome 37
+             *
+             * When the `scopes` field is present, it overrides the list of scopes specified in manifest.json.
              */
-            scopes?: string[] | undefined;
+            scopes?: string[];
         }
 
-        export interface UserInfo {
-            /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified. */
+        export interface ProfileUserInfo {
+            /** An email address for the user account signed into the current profile. Empty if the user is not signed in or the `identity.email` manifest permission is not specified. */
             email: string;
-            /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified. */
+            /** A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the `identity.email` manifest permission is not specified. */
             id: string;
         }
 
-        export interface TokenInformation {
+        export interface InvalidTokenDetails {
             /** The specific token that should be removed from the cache. */
             token: string;
         }
 
-        export interface WebAuthFlowOptions {
+        export interface WebAuthFlowDetails {
             /** The URL that initiates the auth flow. */
             url: string;
+
             /**
-             * Optional.
              * Whether to launch auth flow in interactive mode.
-             * Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
-             * If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.
+             *
+             * Since some auth flows may immediately redirect to a result URL, `launchWebAuthFlow` hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.
+             *
+             * If the `interactive` flag is `true`, the window will be displayed when a page load completes. If the flag is `false` or omitted, `launchWebAuthFlow` will return with an error if the initial navigation does not complete the flow.
+             *
+             * For flows that use JavaScript for redirection, `abortOnLoadForNonInteractive` can be set to `false` in combination with setting `timeoutMsForNonInteractive` to give the page a chance to perform any redirects.
              */
-            interactive?: boolean | undefined;
+            interactive?: boolean;
+            /**
+             * Whether to terminate `launchWebAuthFlow` for non-interactive requests after the page loads. This parameter does not affect interactive flows.
+             *
+             * When set to `true` (default) the flow will terminate immediately after the page loads. When set to `false`, the flow will only terminate after the `timeoutMsForNonInteractive` passes. This is useful for identity providers that use JavaScript to perform redirections after the page loads.
+             * @since Chrome 113
+             */
+            abortOnLoadForNonInteractive?: boolean;
+            /**
+             * The maximum amount of time, in milliseconds, `launchWebAuthFlow` is allowed to run in non-interactive mode in total. Only has an effect if `interactive` is `false`.
+             * @since Chrome 113
+             */
+            timeoutMsForNonInteractive?: number;
         }
 
-        export interface SignInChangeEvent
-            extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>
-        {}
-
+        /** @since Chrome 105 */
         export interface GetAuthTokenResult {
-            /**
-             * Optional.
-             * A list of OAuth2 scopes granted to the extension.
-             */
+            /** A list of OAuth2 scopes granted to the extension. */
             grantedScopes?: string[];
-            /**
-             * Optional.
-             * The specific token associated with the request.
-             */
+            /** The specific token associated with the request. */
             token?: string;
         }
 
@@ -5665,81 +5901,86 @@ declare namespace chrome {
          *  * Removes all OAuth2 access tokens from the token cache
          *  * Removes user's account preferences
          *  * De-authorizes the user from all auth flows
-         * If `callback` is not provided, the function returns a Promise when the state has been cleared.
+         *
+         * Can return its result via Promise since Chrome 106.
          * @since Chrome 87
-         * @param callback Called when the state has been cleared.
          */
         export function clearAllCachedAuthTokens(): Promise<void>;
         export function clearAllCachedAuthTokens(callback: () => void): void;
 
         /**
          * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
+         *
          * getAccounts is only supported on dev channel.
-         * Dev channel only.
          */
         export function getAccounts(): Promise<AccountInfo[]>;
         export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
 
         /**
          * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
+         *
          * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
+         *
          * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
-         * If `callback` is not provided, the function returns a Promise that resolves with the token.
          * @param details Token options.
-         * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function getAuthToken(details: TokenDetails): Promise<GetAuthTokenResult>;
-        export function getAuthToken(
-            details: TokenDetails,
-            callback: (token?: string, grantedScopes?: string[]) => void,
-        ): void;
+        export function getAuthToken(details?: TokenDetails): Promise<GetAuthTokenResult>;
+        export function getAuthToken(details: TokenDetails, callback: (result: GetAuthTokenResult) => void): void;
+        export function getAuthToken(callback: (result: GetAuthTokenResult) => void): void;
 
         /**
          * Retrieves email address and obfuscated gaia id of the user signed into a profile.
+         *
+         * Requires the `identity.email` manifest permission. Otherwise, returns an empty result.
+         *
          * This API is different from identity.getAccounts in two ways. The information returned is available offline, and it only applies to the primary account for the profile.
-         * @since Chrome 37
+         * @param details Profile options.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function getProfileUserInfo(callback: (userInfo: UserInfo) => void): void;
-
-        /** @since Chrome 84 */
-        export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
-
-        /** @since Chrome 84 */
-        export function getProfileUserInfo(details?: ProfileDetails): Promise<UserInfo>;
+        export function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
+        export function getProfileUserInfo(
+            details: ProfileDetails,
+            callback: (userInfo: ProfileUserInfo) => void,
+        ): void;
+        export function getProfileUserInfo(callback: (userInfo: ProfileUserInfo) => void): void;
 
         /**
          * Removes an OAuth2 access token from the Identity API's token cache.
-         * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
-         * If `callback` is not provided, the function returns a Promise when the state has been removed from the cache.
+         *
+         * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with `getAuthToken`.
          * @param details Token information.
-         * @param callback Called when the token has been removed from the cache.
+         *
+         * Can return its result via Promise since Chrome 105.
          */
-        export function removeCachedAuthToken(details: TokenInformation): Promise<void>;
-        export function removeCachedAuthToken(details: TokenInformation, callback: () => void): void;
+        export function removeCachedAuthToken(details: InvalidTokenDetails): Promise<void>;
+        export function removeCachedAuthToken(details: InvalidTokenDetails, callback: () => void): void;
 
         /**
          * Starts an auth flow at the specified URL.
-         * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
+         *
+         * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern `https://<app-id>.chromiumapp.org/*`, the window will close, and the final redirect URL will be passed to the `callback` function.
+         *
          * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
          * @param details WebAuth flow options.
-         * @param callback Optional. Called with the URL redirected back to your application.
+         *
+         * Can return its result via Promise since Chrome 106
          */
-        export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
-        export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
+        export function launchWebAuthFlow(details: WebAuthFlowDetails): Promise<string | undefined>;
+        export function launchWebAuthFlow(details: WebAuthFlowDetails, callback: (responseUrl?: string) => void): void;
 
         /**
-         * Generates a redirect URL to be used in launchWebAuthFlow.
-         * The generated URLs match the pattern https://<app-id>.chromiumapp.org/*.
-         * @since Chrome 33
-         * @param path Optional. The path appended to the end of the generated URL.
+         * Generates a redirect URL to be used in `launchWebAuthFlow`.
+         *
+         * The generated URLs match the pattern `https://<app-id>.chromiumapp.org/*`.
+         * @param path The path appended to the end of the generated URL.
          */
         export function getRedirectURL(path?: string): string;
 
-        /**
-         * Fired when signin state changes for an account on the user's profile.
-         * @since Chrome 33
-         */
-        export var onSignInChanged: SignInChangeEvent;
+        /** Fired when signin state changes for an account on the user's profile. */
+        export const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     ////////////////////
@@ -7593,7 +7834,7 @@ declare namespace chrome {
         export interface SubmitJobRequest {
             /**
              * The print job to be submitted.
-             * The only supported content type is "application/pdf", and the Cloud Job Ticket shouldn't include FitToPageTicketItem, PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since they are irrelevant for native printing.
+             * Supported content types are "application/pdf" and "image/png". The Cloud Job Ticket shouldn't include `FitToPageTicketItem`, `PageRangeTicketItem` and `ReverseOrderTicketItem` fields since they are irrelevant for native printing. `VendorTicketItem` is optional
              * All other fields must be present.
              */
             job: chrome.printerProvider.PrintJob;
@@ -9599,7 +9840,7 @@ declare namespace chrome {
         }
 
         export interface Session {
-            /** The time when the window or tab was closed or modified, represented in milliseconds since the epoch. */
+            /** The time when the window or tab was closed or modified, represented in seconds since the epoch. */
             lastModified: number;
             /**
              * Optional.

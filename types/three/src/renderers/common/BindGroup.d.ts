@@ -16,9 +16,9 @@ declare class BindGroup {
     /**
      * Constructs a new bind group.
      *
-     * @param {String} name - The bind group's name.
+     * @param {string} name - The bind group's name.
      * @param {Array<Binding>} bindings - An array of bindings.
-     * @param {Number} index - The group index.
+     * @param {number} index - The group index.
      * @param {Array<Binding>} bindingsReference - An array of reference bindings.
      */
     constructor(
