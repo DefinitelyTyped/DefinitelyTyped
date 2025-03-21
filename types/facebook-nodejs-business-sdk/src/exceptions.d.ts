@@ -27,6 +27,6 @@ export declare class FacebookRequestError extends FacebookError {
     headers: { [key: string]: string };
     method: string;
     url: string;
-    data: { data: any[], id: string };
+    data: { data: object[], id: string };
 }
 export { };
