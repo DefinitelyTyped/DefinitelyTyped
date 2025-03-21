@@ -340,7 +340,6 @@ gridLayerOptions = {
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
     id: "mapbox.streets",
-    accessToken: "your.mapbox.access.token",
     minZoom: 0,
     maxZoom: 18,
     maxNativeZoom: 2,

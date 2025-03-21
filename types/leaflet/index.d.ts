@@ -1779,7 +1779,6 @@ export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
     id?: string | undefined;
-    accessToken?: string | undefined;
     minZoom?: number | undefined;
     maxZoom?: number | undefined;
     maxNativeZoom?: number | undefined;
