@@ -29,8 +29,8 @@ declare function get(key: string): Promise<string>;
 declare function source(name: string): SecretSource;
 
 declare const _default: {
-    "get": typeof get,
-    "source": typeof source,
-}
+    "get": typeof get;
+    "source": typeof source;
+};
 
 export default _default;
