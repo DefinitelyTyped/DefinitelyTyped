@@ -26,10 +26,11 @@ declare function get(key: string): Promise<string>;
  * @param name - the name the secret source set with
  * @returns a source with the name.
  */
-declare function source(sourceName: string): SecretSource;
+declare function source(name: string): SecretSource;
 
-declare let _default: {
+declare const _default: {
     "get": typeof get,
     "source": typeof source,
 }
+
 export default _default;
