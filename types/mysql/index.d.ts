@@ -286,7 +286,7 @@ export type TypeCast =
             buffer(): null | Buffer;
             geometry(): null | GeometryType;
         },
-        next: () => void,
+        next: () => any,
     ) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
