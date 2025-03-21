@@ -29,6 +29,7 @@
         "execution/index.d.ts",
         "encoding/index.d.ts",
         "data/index.d.ts",
+        "secrets/index.d.ts",
         "crypto/index.d.ts",
         "browser/index.d.ts",
 
@@ -57,6 +58,7 @@
         "test/crypto.ts",
         "test/http.ts",
         "test/websockets.ts",
+        "test/secrets.ts",
         "test/redis.ts",
         "test/global.ts"
     ]
