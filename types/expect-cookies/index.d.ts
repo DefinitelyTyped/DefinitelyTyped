@@ -10,6 +10,8 @@ declare namespace expectCookies {
         // TODO ExpectCookies.not
     }
 
+    type CustomAssertion = (req: { cookies: CookieMatcher[] }, res: { cookies: CookieMatcher[] }) => boolean;
+
     interface CookieMatcher {
         name: string;
         value?: string;
@@ -17,7 +19,7 @@ declare namespace expectCookies {
     }
 
     interface ExpectCookiesStatic extends Assertion {
-        (): unknown; // TODO (secret, asserts) => Assertion
+        (secret: string | string[] | null, asserts: CustomAssertion | CustomAssertion[]): Assertion;
     }
 }
 

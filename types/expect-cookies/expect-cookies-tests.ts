@@ -1,6 +1,51 @@
-import Cookies from "expect-cookies";
-import request from "supertest";
-import { App } from "supertest/types";
+import Cookies, { type CookieMatcher } from "expect-cookies";
+import request, { type Response } from "supertest";
+import { type App } from "supertest/types";
+
+function customAssertion(req: { cookies: CookieMatcher[] }, res: { cookies: CookieMatcher[] }): boolean {
+    throw new Error("not implemented");
+}
+
+// single custom assertion
+async function singleCustomAssertion() {
+    const agent = request.agent(app);
+    await agent.get("/set-aoeu").expect(200);
+    // $ExpectType Response
+    await agent.get("/set-snth").expect(200).expect(Cookies(null, customAssertion));
+}
+
+// empty custom assertions array
+// $ExpectType Test
+request(app()).get("/");
+
+// non-empty custom assertions array
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(Cookies(null, [customAssertion, customAssertion]));
+
+// chained custom assertion
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies(null, customAssertion)
+            .set({ name: "test" }),
+    );
+
+// secret string
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies("secret", customAssertion));
+
+// secret array
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies(["secret1", "secret2"], customAssertion));
 
 // minimal set
 // $ExpectType Test
