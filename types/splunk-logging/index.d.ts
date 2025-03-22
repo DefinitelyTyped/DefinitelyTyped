@@ -1,6 +1,11 @@
 import { CoreOptions as RequestOptions } from "request";
 
-export enum Severity {
+export {};
+
+export type Severity = "debug" | "info" | "warn" | "error";
+
+// this enum isn't actually exported, but it is used as an internal value by the Logger.
+declare enum SeverityLevel {
     DEBUG = "debug",
     INFO = "info",
     WARN = "warn",
@@ -44,7 +49,7 @@ export class Logger {
     eventFormatter: EventFormatter;
     requestOptions: RequestOptions;
     readonly serializedContextQueue: any[];
-    readonly levels: typeof Severity;
+    readonly levels: typeof SeverityLevel;
 
     constructor(config: Config);
 

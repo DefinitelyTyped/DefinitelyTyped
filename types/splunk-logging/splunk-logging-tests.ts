@@ -1,4 +1,4 @@
-import { Logger, Severity } from "splunk-logging";
+import { Logger } from "splunk-logging";
 
 const config = {
     token: "your-token-here",
@@ -48,7 +48,7 @@ const fullConfig = {
     path: "splunkPath",
     procotol: "https",
     port: 2,
-    level: Severity.INFO,
+    level: logger.levels.INFO,
     batchInterval: 3,
     maxBatchSize: 4,
     maxBatchCount: 5,
