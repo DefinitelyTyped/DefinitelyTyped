@@ -4012,7 +4012,7 @@ declare module "fs" {
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface WriteVResult {
@@ -4057,7 +4057,7 @@ declare module "fs" {
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface ReadVResult {
