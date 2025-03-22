@@ -2978,6 +2978,16 @@ _.defer(() => alert("deferred")); // $ExpectType void
     welcome("moe"); // $ExpectType any
 }
 
+// restArguments
+
+// Returns a version of the function that, when called, receives all arguments from and beyond startIndex collected into a single array.
+{
+    const raceResults = _.restArguments((words: string[]) => words.join(''));
+    raceResults("Dopey", "Grumpy", "Happy", "Sneezy", "Bashful", "Sleepy", "Doc");
+    const raceHasStartIndexResults = _.restArguments((startIndex: number ,words: string[]) => words.join(''), 1);
+    raceHasStartIndexResults(0, "Dopey", "Grumpy", "Happy", "Sneezy", "Bashful", "Sleepy", "Doc");
+}
+
 /***********
  * Objects *
  ***********/
