@@ -119,6 +119,22 @@ interface WebApp {
      * An object for controlling haptic feedback.
      */
     HapticFeedback: HapticFeedback;
+
+    /**
+     * An object for controlling the accelerometer.
+     */
+    Accelerometer: Accelerometer;
+
+    /**
+     * An object for controlling the gyroscope.
+     */
+    Gyroscope: Gyroscope;
+
+    /**
+     * An object for controlling the device orientation.
+     */
+    DeviceOrientation: DeviceOrientation;
+
     /**
      * An object for controlling cloud storage.
      */
@@ -178,6 +194,7 @@ interface WebApp {
     onEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     onEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     onEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    onEvent(eventType: "accelerometerChanged", eventHandler: () => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
@@ -195,6 +212,7 @@ interface WebApp {
     offEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     offEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     offEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    offEvent(eventType: "accelerometerChanged", eventHandler: () => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -704,6 +722,63 @@ interface HapticFeedback {
      * it only when the selection changes.
      */
     selectionChanged(): void;
+}
+
+interface Accelerometer {
+    /** Shows whether the accelerometer is currently running */
+    isStarted: boolean;
+    /** Current X-axis acceleration */
+    x: number;
+    /** Current Y-axis acceleration */
+    y: number;
+    /** Current Z-axis acceleration */
+    z: number;
+    /**
+     * Starts receiving accelerometer updates
+     * @param params Optional parameters for accelerometer updates
+     */
+    start(params?: { refresh_rate?: number }): void;
+    /** Stops receiving accelerometer updates */
+    stop(): void;
+}
+
+interface DeviceOrientation {
+    /** Shows whether the orientation sensor is currently running */
+    isStarted: boolean;
+    /** Current alpha value (rotation around Z-axis) in degrees */
+    alpha: number;
+    /** Current beta value (front/back tilt) in degrees */
+    beta: number;
+    /** Current gamma value (left/right tilt) in degrees */
+    gamma: number;
+    /**
+     * Starts receiving orientation updates
+     * @param params Optional parameters for orientation updates
+     */
+    start(params?: {
+        refresh_rate?: number;
+        need_absolute?: boolean;
+    }): void;
+    /** Stops receiving orientation updates */
+    stop(): void;
+}
+
+interface Gyroscope {
+    /** Shows whether the gyroscope is currently running */
+    isStarted: boolean;
+    /** Current rotation rate around X-axis in radians/second */
+    x: number;
+    /** Current rotation rate around Y-axis in radians/second */
+    y: number;
+    /** Current rotation rate around Z-axis in radians/second */
+    z: number;
+    /**
+     * Starts receiving gyroscope updates
+     * @param params Optional parameters for gyroscope updates
+     */
+    start(params?: { refresh_rate?: number }): void;
+    /** Stops receiving gyroscope updates */
+    stop(): void;
 }
 
 interface CloudStorage {
