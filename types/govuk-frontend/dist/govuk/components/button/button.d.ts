@@ -13,13 +13,15 @@ export class Button extends ConfigurableComponent<ButtonConfig, HTMLElement> {
      * Button default config
      *
      * @see {@link ButtonConfig}
+     * @constant
      */
     static defaults: ButtonConfig;
 
     /**
      * Button config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ButtonConfig>}
      */
     static schema: Readonly<{
         properties: {
