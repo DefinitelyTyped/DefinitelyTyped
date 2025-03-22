@@ -5,8 +5,10 @@
     "projects": [
         "https://gitlab.com/autokent/pdf-parse"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
-        "@types/node": "*",
         "@types/pdf-parse": "workspace:."
     },
     "owners": [
