@@ -4,7 +4,7 @@ declare namespace expectCookies {
     interface Assertion {
         set(expects: CookieMatcher | CookieMatcher[], assert?: boolean): this;
         reset(expects: CookieMatcher | CookieMatcher[], assert?: boolean): this;
-        // TODO ExpectCookies.new
+        "new"(expects: CookieMatcher | CookieMatcher[], assert?: boolean): this;
         // TODO ExpectCookies.renew
         // TODO ExpectCookies.contain
         // TODO ExpectCookies.not

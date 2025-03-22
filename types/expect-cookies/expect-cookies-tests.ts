@@ -133,6 +133,16 @@ request(app())
         }),
     );
 
+// new
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.new({
+            name: "aoeu",
+        }),
+    );
+
 function app(): App {
     throw new Error("Not implemented");
 }
