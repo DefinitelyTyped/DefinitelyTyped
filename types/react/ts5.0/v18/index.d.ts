@@ -2472,8 +2472,6 @@ declare namespace React {
         onProgressCapture?: ReactEventHandler<T> | undefined;
         onRateChange?: ReactEventHandler<T> | undefined;
         onRateChangeCapture?: ReactEventHandler<T> | undefined;
-        onResize?: ReactEventHandler<T> | undefined;
-        onResizeCapture?: ReactEventHandler<T> | undefined;
         onSeeked?: ReactEventHandler<T> | undefined;
         onSeekedCapture?: ReactEventHandler<T> | undefined;
         onSeeking?: ReactEventHandler<T> | undefined;
@@ -3633,6 +3631,9 @@ declare namespace React {
         width?: number | string | undefined;
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
+
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
     }
 
     // this list is "complete" in that it contains every SVG attribute
