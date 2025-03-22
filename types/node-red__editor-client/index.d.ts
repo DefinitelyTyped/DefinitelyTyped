@@ -1685,6 +1685,8 @@ declare namespace editorClient {
         hasValue?: boolean | undefined;
         /** A function to validate the value for the type. */
         validate?: ((v: string) => boolean) | RegExp | undefined;
+        /** If options is set, this can enable multiple selection of them. */
+        multiple?: boolean | undefined;
     }
 
     interface WidgetTypedInput extends JQuery {
