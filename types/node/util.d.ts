@@ -1555,11 +1555,17 @@ declare module "util" {
      * @return The parsed command line arguments:
      */
     export function parseArgs<T extends ParseArgsConfig>(config?: T): ParsedResults<T>;
-    interface ParseArgsOptionConfig {
+
+    /**
+     * Type of argument used in {@link parseArgs}.
+     */
+    export type ParseArgsOptionsType = "boolean" | "string";
+
+    export interface ParseArgsOptionDescriptor {
         /**
          * Type of argument.
          */
-        type: "string" | "boolean";
+        type: ParseArgsOptionsType;
         /**
          * Whether this option can be provided multiple times.
          * If `true`, all values will be collected in an array.
@@ -1579,8 +1585,8 @@ declare module "util" {
          */
         default?: string | boolean | string[] | boolean[] | undefined;
     }
-    interface ParseArgsOptionsConfig {
-        [longOption: string]: ParseArgsOptionConfig;
+    export interface ParseArgsOptionsConfig {
+        [longOption: string]: ParseArgsOptionDescriptor;
     }
     export interface ParseArgsConfig {
         /**
@@ -1632,7 +1638,7 @@ declare module "util" {
         : T extends true ? IfTrue
         : IfFalse;
 
-    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
+    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionDescriptor> = IfDefaultsTrue<
         T["strict"],
         O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
         string | boolean
@@ -1665,7 +1671,7 @@ declare module "util" {
 
     type PreciseTokenForOptions<
         K extends string,
-        O extends ParseArgsOptionConfig,
+        O extends ParseArgsOptionDescriptor,
     > = O["type"] extends "string" ? {
             kind: "option";
             index: number;
