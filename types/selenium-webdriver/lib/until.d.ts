@@ -139,7 +139,7 @@ export function elementTextMatches(element: WebElement, regex: RegExp): WebEleme
  * @return {!Condition.<!Array.<!WebElement>>} The new
  *     condition.
  */
-export function elementsLocated(locator: Locator): Condition<WebElement[]>;
+export function elementsLocated(locator: Locator): Promise<WebElement[]>;
 
 /**
  * Creates a condition that will wait for the given element to become stale.
