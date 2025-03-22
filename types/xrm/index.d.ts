@@ -1150,26 +1150,21 @@ declare namespace Xrm {
          * Gets an attribute matching attributeName.
          * @param T An Attribute type.
          * @param attributeNameOrIndex Name of the attribute.
-         * @returns The attribute.
-         */
-        getAttribute<T extends Attributes.Attribute>(attributeNameOrIndex: string | number): T | null;
-
-        /**
-         * Gets an attribute by name or index.
-         * @param attributeNameOrIndex Name of the attribute or the attribute index.
          * @returns The attribute or null if attribute does not exist.
          */
-        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute | null;
+        getAttribute<T extends Attributes.SpecificAttributeTypes = Attributes.SpecificAttributeTypes>(
+            attributeNameOrIndex: string | number,
+        ): T | null;
 
         /**
          * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
          * @param delegateFunction A matching delegate function
-         * @returns An collection of attributes.
+         * @returns An collection of attributes or null if there are no attributes.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         getAttribute(
-            delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
-        ): Collection.ItemCollection<Attributes.Attribute> | null;
+            delegateFunction?: Collection.MatchingDelegate<Attributes.SpecificAttributeTypes>,
+        ): Collection.ItemCollection<Attributes.SpecificAttributeTypes> | null;
 
         /**
          * Gets a control by name or index.
@@ -1177,14 +1172,9 @@ declare namespace Xrm {
          * @param controlNameOrIndex Name of the control or the control index.
          * @returns The control.
          */
-        getControl<T extends Controls.Control>(controlNameOrIndex: string | number): T | null;
-
-        /**
-         * Gets a control by name or index.
-         * @param controlNameOrIndex  Name of the control or the control index.
-         * @returns The control.
-         */
-        getControl(controlNameOrIndex: string | number): Controls.Control | null;
+        getControl<T extends Controls.SpecificControls = Controls.SpecificControls>(
+            controlNameOrIndex: string | number,
+        ): T | null;
 
         /**
          * Gets a collection of controls using a delegate function or gets all controls if delegateFunction is not provided.
@@ -1193,8 +1183,8 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         getControl(
-            delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
-        ): Collection.ItemCollection<Controls.Control> | null;
+            delegateFunction?: Collection.MatchingDelegate<Controls.SpecificControls>,
+        ): Collection.ItemCollection<Controls.SpecificControls> | null;
     }
 
     /**
@@ -1327,7 +1317,7 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms ExternalLink: formContext.ui.quickForms (Client API reference)}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui External Link: formContext.ui (Client API reference)}
          */
-        quickForms: Collection.ItemCollection<Controls.QuickFormControl>;
+        quickForms: Collection.ItemCollection<Controls.QuickFormControl> | null;
     }
 
     /**
@@ -1453,7 +1443,7 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/customize/actions External Link: Actions overview}
          * @see {@link https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/create-own-actions External Link: Create your own actions}
          */
-        invokeProcessAction<T = any>(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<T>;
+        invokeProcessAction<T = unknown>(name: string, parameters: Collection.Dictionary<any>): Async.PromiseLike<T>;
 
         /**
          * Opens a lookup control to select one or more items.
@@ -1843,9 +1833,9 @@ declare namespace Xrm {
             /**
              * Gets the item given by key or index.
              * @param itemNameOrNumber The item name or item number to get.
-             * @returns The T matching the key itemName or the T in the itemNumber-th place.
+             * @returns The T matching the key itemName, the T in the itemNumber-th place or null if there is no item.
              */
-            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
+            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType | null;
 
             /**
              * Gets the item given by key or index.
@@ -1965,7 +1955,7 @@ declare namespace Xrm {
          * Control type for Xrm.Page.ui.QuickForm.getControlType().
          * @deprecated Use {@link Xrm.Controls.ControlQuickFormType} instead.
          */
-        type ControlQuickFormType = Controls.ControlQuickFormType;
+        type ControlQuickFormType = "quickform";
 
         /**
          * Control types for Xrm.Page.Control.getControlType().
@@ -2488,7 +2478,7 @@ declare namespace Xrm {
         /**
          * The name
          */
-        name?: string | undefined;
+        name?: string;
 
         /**
          * Type of the entity.
@@ -2587,11 +2577,27 @@ declare namespace Xrm {
             | IntegerAttributeFormat
             | OptionSetAttributeFormat
             | StringAttributeFormat;
-
+        type SpecificAttributeValues =
+            | string
+            | number
+            | number[]
+            | Date
+            | boolean
+            | LookupValue[]
+            | OptionSetValue
+            | null;
+        type SpecificAttributeTypes =
+            | OptionSetAttribute
+            | LookupAttribute
+            | StringAttribute
+            | NumberAttribute
+            | DateAttribute
+            | BooleanAttribute
+            | MultiSelectOptionSetAttribute;
         /**
          * Interface for an Entity attribute.
          */
-        interface Attribute<T = any> {
+        interface Attribute<T extends SpecificAttributeValues = SpecificAttributeValues> {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
@@ -2706,7 +2712,7 @@ declare namespace Xrm {
 
             /**
              * Gets the value.
-             * @returns The value.
+             * @returns The value or null if there is no value.
              */
             getValue(): T | null;
 
@@ -2737,6 +2743,12 @@ declare namespace Xrm {
              * Values returned are: duration, none
              */
             getFormat(): IntegerAttributeFormat;
+
+            /**
+             * Gets the attribute type.
+             * @returns the string "integer" or "decimal" or "double"
+             */
+            getAttributeType(): "integer" | "decimal" | "double";
 
             /**
              * Gets the maximum value allowed.
@@ -2790,6 +2802,12 @@ declare namespace Xrm {
             getMaxLength(): number;
 
             /**
+             * Gets the attribute type.
+             * @returns the string "string"
+             */
+            getAttributeType(): "string";
+
+            /**
              * Sets the value.
              * @param value The value.
              * @remarks A String field with the {@link Attribute.getFormat|email} format enforces email
@@ -2809,7 +2827,7 @@ declare namespace Xrm {
          * Common interface for enumeration attributes (MultiOptionSet, OptionSet and Boolean).
          * @see {@link Attribute}
          */
-        interface EnumAttribute<T extends number[] | number | boolean> extends Attribute<T> {
+        interface EnumAttribute<T extends number[] | number | boolean | null> extends Attribute<T> {
             /**
              * Gets the initial value of the attribute.
              * @returns The initial value.
@@ -2831,10 +2849,16 @@ declare namespace Xrm {
             controls: Collection.ItemCollection<Controls.BooleanControl>;
 
             /**
-             * Gets the attribute format.
+             * Gets the attribute type.
              * @returns the string "boolean"
              */
             getAttributeType(): "boolean";
+
+            /**
+             * Gets the value.
+             * @returns The value or null if there is no value.
+             */
+            getValue(): boolean | null;
         }
 
         /**
@@ -2856,6 +2880,18 @@ declare namespace Xrm {
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.DateControl>;
+
+            /**
+             * Gets the attribute type.
+             * @returns the string "datetime"
+             */
+            getAttributeType(): "datetime";
+
+            /**
+             * Gets the value.
+             * @returns The value or null if there is no value.
+             */
+            getValue(): Date | null;
         }
 
         /**
@@ -2871,18 +2907,24 @@ declare namespace Xrm {
             getFormat(): OptionSetAttributeFormat;
 
             /**
+             * Gets the attribute type.
+             * @returns the string "optionset"
+             */
+            getAttributeType(): "optionset";
+
+            /**
              * Gets the option matching a value.
              * @param value The enumeration value of the option desired.
              * @returns The option.
              */
-            getOption(value: number): OptionSetValue;
+            getOption(value: number): OptionSetValue | null;
 
             /**
              * Gets the option matching a label.
              * @param label The label of the option desired.
              * @returns The option.
              */
-            getOption(label: string): OptionSetValue;
+            getOption(label: string): OptionSetValue | null;
 
             /**
              * Gets all of the options.
@@ -2894,13 +2936,12 @@ declare namespace Xrm {
              * Gets selected option.
              * @returns The selected option.
              */
-            getSelectedOption(): OptionSetValue;
-
+            getSelectedOption(): OptionSetValue | null;
             /**
              * Gets the label of the currently selected option.
              * @returns The current value's label.
              */
-            getText(): string;
+            getText(): string | null;
 
             /**
              * Sets the value.
@@ -2910,7 +2951,13 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number | null): void;
+            setValue(value: T | null): void;
+
+            /**
+             * Gets the value.
+             * @returns The value or null if there is no value.
+             */
+            getValue(): T | null;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2946,6 +2993,12 @@ declare namespace Xrm {
             getOption(label: string): OptionSetValue;
 
             /**
+             * Gets the attribute type.
+             * @returns the string "multiselectoptionset"
+             */
+            getAttributeType(): "multiselectoptionset";
+
+            /**
              * Gets all of the options.
              * @returns An array of options.
              */
@@ -2964,6 +3017,12 @@ declare namespace Xrm {
             getText(): string[];
 
             /**
+             * Gets the value.
+             * @returns The value or null if there is no value.
+             */
+            getValue(): T[] | null;
+
+            /**
              * Sets the value.
              * @param value The value.
              * @remarks     The getOptions() method returns option values as strings. You must use parseInt
@@ -2971,7 +3030,7 @@ declare namespace Xrm {
              *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
              *              with this method.
              */
-            setValue(value: number[] | null): void;
+            setValue(value: T[] | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -2993,10 +3052,22 @@ declare namespace Xrm {
             getIsPartyList(): boolean;
 
             /**
+             * Gets the attribute type.
+             * @returns the string "lookup"
+             */
+            getAttributeType(): "lookup";
+
+            /**
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.LookupControl>;
+
+            /**
+             * Gets the value.
+             * @returns The value or null if there is no value.
+             */
+            getValue(): LookupValue[] | null;
         }
     }
 
@@ -3006,27 +3077,37 @@ declare namespace Xrm {
      */
     namespace Controls {
         /**
-         * Control type for formContext.ui.quickForms.getControlType().
-         */
-        type ControlQuickFormType = "quickform";
-
-        /**
          * Control types for {@link Controls.Control.getControlType Controls.Control.getControlType()}.
          * @see {@link XrmEnum.StandardControlType}
          */
         type ControlType =
             | "standard"
             | "iframe"
-            | "lookup"
-            | "optionset"
-            | "subgrid"
-            | "webresource"
-            | "notes"
-            | "timercontrol"
             | "kbsearch"
+            | "lookup"
+            | "multiselectoptionset"
+            | "notes"
+            | "optionset"
+            | "quickform"
+            | "formcomponent"
+            | "subgrid"
+            | "timercontrol"
             | "timelinewall"
-            | ControlQuickFormType;
-
+            | "webresource"
+            | `${string}.${string}`;
+        type SpecificControls =
+            | BooleanControl
+            | KbSearchControl
+            | MultiSelectOptionSetControl
+            | DateControl
+            | GridControl
+            | IframeControl
+            | LookupControl
+            | NumberControl
+            | OptionSetControl
+            | QuickFormControl
+            | StringControl
+            | TimelineWall;
         /**
          * Interface for UI elements with labels.
          */
@@ -3253,7 +3334,7 @@ declare namespace Xrm {
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
              */
-            getControlType(): ControlType | string;
+            getControlType(): ControlType;
 
             /**
              * Gets the name of the control on the form.
@@ -3352,17 +3433,6 @@ declare namespace Xrm {
              */
             getOutputs(): { [index: string]: FieldControlOutput };
 
-            /**
-             * Gets the control's bound attribute.
-             * @template T An Attribute type.
-             * @returns The attribute.
-             */
-            getAttribute<T extends Attributes.Attribute>(): T;
-
-            /**
-             * Gets the control's bound attribute.
-             * @returns The attribute.
-             */
             getAttribute(): Attributes.Attribute;
         }
 
@@ -3410,6 +3480,12 @@ declare namespace Xrm {
              * @returns The attribute.
              */
             getAttribute(): Attributes.BooleanAttribute;
+
+            /**
+             * Gets the control type.
+             * @returns The string "standard".
+             */
+            getControlType(): "standard";
         }
 
         /**
@@ -3422,6 +3498,12 @@ declare namespace Xrm {
              * @returns The attribute.
              */
             getAttribute(): Attributes.StringAttribute;
+
+            /**
+             * Gets the control type.
+             * @returns The string "standard".
+             */
+            getControlType(): "standard";
         }
 
         /**
@@ -3434,6 +3516,12 @@ declare namespace Xrm {
              * @returns The attribute.
              */
             getAttribute(): Attributes.NumberAttribute;
+
+            /**
+             * Gets the control type.
+             * @returns The string "standard".
+             */
+            getControlType(): "standard";
         }
 
         /**
@@ -3458,6 +3546,12 @@ declare namespace Xrm {
              * @param showTimeValue true to show, false to hide the time value.
              */
             setShowTime(showTimeValue: boolean): void;
+
+            /**
+             * Gets the control type.
+             * @returns The string "standard".
+             */
+            getControlType(): "standard";
         }
 
         /**
@@ -3521,6 +3615,12 @@ declare namespace Xrm {
             getAttribute(): Attributes.LookupAttribute;
 
             /**
+             * Gets the control type.
+             * @returns The string "lookup".
+             */
+            getControlType(): "lookup";
+
+            /**
              * Gets the unique identifier of the default view.
              * @returns The default view, in Guid format.
              * @example Example return: "{00000000-0000-0000-0000-000000000000}"
@@ -3580,6 +3680,12 @@ declare namespace Xrm {
             clearOptions(): void;
 
             /**
+             * Gets the control type.
+             * @returns The string "optionset".
+             */
+            getControlType(): "optionset";
+
+            /**
              * Gets the control's bound attribute.
              *
              * @returns The attribute.
@@ -3624,6 +3730,12 @@ declare namespace Xrm {
              * @param value The value.
              */
             removeOption(value: number): void;
+
+            /**
+             * Gets the control type.
+             * @returns The string "multiselectoptionset".
+             */
+            getControlType(): "multiselectoptionset";
         }
 
         /**
@@ -3643,6 +3755,12 @@ declare namespace Xrm {
              * @returns The context type.
              */
             getContextType(): XrmEnum.GridControlContext;
+
+            /**
+             * Gets the control type.
+             * @returns The string "subgrid".
+             */
+            getControlType(): "subgrid";
 
             /**
              * Gets the logical name of the table data displayed in the grid.
@@ -3885,12 +4003,24 @@ declare namespace Xrm {
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getInitialUrl(): string;
+
+            /**
+             * Gets the control type.
+             * @returns The string "iframe".
+             */
+            getControlType(): "iframe";
+
+            /**
+             * Sets the URL of the IFrame.
+             * @param url The URL.
+             */
+            setSrc(url: string): void;
         }
 
         /**
          * Interface for a knowledge base search control
          */
-        interface KbSearchControl extends Control {
+        interface KbSearchControl extends Control, UiCanSetVisibleElement {
             /**
              * Adds an event handler to the PostSearch event.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonpostsearch External Link: addOnPostSearch (Client API reference)}
@@ -4079,15 +4209,7 @@ declare namespace Xrm {
              * @returns The control.
              * @remarks Constituent controls in a quick view control are read only.
              */
-            getControl<T extends Control>(controlNameOrIndex: string | number): T | null;
-
-            /**
-             * Gets the constituent control in a quick view control by name or index.
-             * @param controlNameOrIndex Name or index of the control.
-             * @returns The control.
-             * @remarks Constituent controls in a quick view control are read only.
-             */
-            getControl(controlNameOrIndex: string | number): Control | null;
+            getControl<T extends Control = Control>(controlNameOrIndex: string | number): T | null;
 
             /**
              * Gets the constituent controls in a quick view control.
@@ -4100,7 +4222,7 @@ declare namespace Xrm {
              * Gets the controls type.
              * @returns Returns a string value ("quickform") that categorizes quick view controls.
              */
-            getControlType(): ControlQuickFormType;
+            getControlType(): "quickform";
 
             /**
              * Gets a reference to the Section parent of the control.
@@ -4159,11 +4281,17 @@ declare namespace Xrm {
          * Interface for a Timeline control.
          * @see {@link Xrm.Controls.Control}
          */
-        interface TimelineWall extends Control {
+        interface TimelineWall extends Control, UiCanSetVisibleElement {
             /**
              * Refreshes the data displayed in a timelinewall and timer control.
              */
             refresh(): void;
+
+            /**
+             * Gets the control type.
+             * @returns The string "timelinewall".
+             */
+            getControlType(): "timelinewall";
         }
 
         /**
@@ -6051,7 +6179,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord<T = any>(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<T>;
+        retrieveRecord<T = unknown>(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<T>;
 
         /**
          * Retrieves a collection of entity records.
@@ -6069,7 +6197,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
          */
-        retrieveMultipleRecords<T = any>(
+        retrieveMultipleRecords<T = unknown>(
             entityLogicalName: string,
             options?: string,
             maxPageSize?: number,
@@ -6113,7 +6241,7 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI RetrieveMultiple request response
      */
-    interface RetrieveMultipleResult<T = any> {
+    interface RetrieveMultipleResult<T = unknown> {
         /**
          * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values as key: value pairs. The Id of the entity record is retrieved by default.
          */
