@@ -3,14 +3,17 @@ declare const expectCookies: expectCookies.ExpectCookiesStatic;
 declare namespace expectCookies {
     interface Assertion {
         set(expects: CookieMatcher | CookieMatcher[], assert?: boolean): this;
-        // TODO ExpectCookies.reset
+        reset(expects: CookieMatcher | CookieMatcher[], assert?: boolean): this;
         // TODO ExpectCookies.new
         // TODO ExpectCookies.renew
         // TODO ExpectCookies.contain
         // TODO ExpectCookies.not
     }
 
-    type CustomAssertion = (req: { cookies: CookieMatcher[] }, res: { cookies: CookieMatcher[] }) => boolean;
+    type CustomAssertion = (
+        req: { cookies: CookieMatcher[] },
+        res: { cookies: CookieMatcher[] },
+    ) => boolean;
 
     interface CookieMatcher {
         name: string;
@@ -19,7 +22,10 @@ declare namespace expectCookies {
     }
 
     interface ExpectCookiesStatic extends Assertion {
-        (secret: string | string[] | null, asserts: CustomAssertion | CustomAssertion[]): Assertion;
+        (
+            secret: string | string[] | null,
+            asserts: CustomAssertion | CustomAssertion[],
+        ): Assertion;
     }
 }
 

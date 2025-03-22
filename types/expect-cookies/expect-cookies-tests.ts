@@ -123,6 +123,16 @@ request(app())
         }, false),
     );
 
+// reset
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.reset({
+            name: "aoeu",
+        }),
+    );
+
 function app(): App {
     throw new Error("Not implemented");
 }
