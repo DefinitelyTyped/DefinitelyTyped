@@ -4469,6 +4469,10 @@
             "libraryName": "on-change",
             "asOfVersion": "1.1.0"
         },
+        "onesignal-cordova-plugin": {
+            "libraryName": "onesignal-cordova-plugin",
+            "asOfVersion": "3.0.0"
+        },
         "onetime": {
             "libraryName": "onetime",
             "asOfVersion": "4.0.0"
