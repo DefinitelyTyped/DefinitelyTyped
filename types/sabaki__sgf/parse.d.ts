@@ -17,7 +17,7 @@ export interface ParseBufferOptions<ID extends Primitive = number> {
 }
 
 export function parseTokens<ID extends Primitive = number>(
-    tokens: SGFToken[],
+    tokens: readonly SGFToken[],
     options?: ParseTokensOptions<ID>,
 ): NodeObject<ID>[];
 

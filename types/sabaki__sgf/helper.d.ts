@@ -12,4 +12,4 @@ export function parseCompressedVertices(input: string): Vertex[];
 
 export function parseDates(input: string): Dates[] | null;
 
-export function stringifyDates(input: Dates[]): string;
+export function stringifyDates(input: readonly Dates[]): string;
