@@ -25,7 +25,7 @@ declare class Draft<ID extends Primitive = number> {
 
     removeFromProperty(id: ID, property: Property, value: string): boolean;
 
-    updateProperty(id: ID, property: Property, values: string[]): boolean;
+    updateProperty(id: ID, property: Property, values: readonly string[]): boolean;
 
     removeProperty(id: ID, property: Property): boolean;
 }
