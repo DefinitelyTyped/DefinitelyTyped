@@ -1,8 +1,8 @@
-import Cookies, { type CookieMatcher } from "expect-cookies";
 import request, { type Response } from "supertest";
+import Cookies, { type SetMatcher } from "expect-cookies";
 import { type App } from "supertest/types";
 
-function customAssertion(req: { cookies: CookieMatcher[] }, res: { cookies: CookieMatcher[] }): boolean {
+function customAssertion(req: { cookies: SetMatcher[] }, res: { cookies: SetMatcher[] }): boolean {
     throw new Error("not implemented");
 }
 
@@ -133,6 +133,65 @@ request(app())
         }),
     );
 
+// reset with array
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect([
+        Cookies.reset({
+            name: "aoeu",
+        }),
+        Cookies.reset({
+            name: "snth",
+        }),
+    ]);
+
+// reset with chaining
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.reset({
+            name: "aoeu",
+        }).set({
+            name: "snth",
+        }),
+    );
+
+// reset with assert=false
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.reset({
+            name: "aoeu",
+        }, false),
+    );
+
+// reset doesn't support values
+request(app())
+    .get("/")
+    .expect(
+        Cookies.reset({
+            name: "aoeu",
+            // @ts-expect-error
+            value: "snth",
+        }),
+    );
+
+// reset doesn't support options
+request(app())
+    .get("/")
+    .expect(
+        Cookies.reset({
+            name: "aoeu",
+            // @ts-expect-error
+            options: {
+                maxAge: 10,
+            },
+        }),
+    );
+
 // new
 // $ExpectType Test
 request(app())
@@ -142,6 +201,143 @@ request(app())
             name: "aoeu",
         }),
     );
+
+// new doesn't support values
+request(app())
+    .get("/")
+    .expect(
+        Cookies.new({
+            name: "aoeu",
+            // @ts-expect-error
+            value: "snth",
+        }),
+    );
+
+// new with array
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect([
+        Cookies.new({
+            name: "aoeu",
+        }),
+        Cookies.new({
+            name: "snth",
+        }),
+    ]);
+
+// new with chaining
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.new({
+            name: "aoeu",
+        }).set({
+            name: "snth",
+        }),
+    );
+
+// new with assert=false
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(
+        Cookies.new({
+            name: "aoeu",
+        }, false),
+    );
+
+// new doesn't support options
+request(app())
+    .get("/")
+    .expect(
+        Cookies.new({
+            name: "aoeu",
+            // @ts-expect-error
+            options: {
+                maxAge: 10,
+            },
+        }),
+    );
+
+// renew, with expires
+const now = new Date();
+const expiresAgent = request.agent(
+    app(),
+);
+
+expiresAgent.get("/").then(() => {
+    // $ExpectType Test
+    expiresAgent.get("/").expect(
+        Cookies.renew({
+            name: "aoeu",
+            options: {
+                expires: now,
+            },
+        }),
+    );
+});
+
+// renew, with max-age
+const ArrayAgent = request.agent(
+    app(),
+);
+
+ArrayAgent.get("/").then(() => {
+    // $ExpectType Test
+    ArrayAgent.get("/").expect(
+        Cookies.renew({
+            name: "aoeu",
+            options: {
+                "max-age": 1000,
+            },
+        }),
+    );
+});
+
+// renew array
+const arrayAgent = request.agent(
+    app(),
+);
+
+ArrayAgent.get("/").then(() => {
+    // $ExpectType Test
+    ArrayAgent.get("/").expect(
+        Cookies.renew([
+            {
+                name: "aoeu",
+                options: {
+                    "max-age": 1000,
+                },
+            },
+            {
+                name: "snth",
+                options: {
+                    expires: now,
+                },
+            },
+        ]),
+    );
+});
+
+// renew allows only one option
+const multiAgent = request.agent(
+    app(),
+);
+
+ArrayAgent.get("/").then(() => {
+    ArrayAgent.get("/").expect(
+        Cookies.renew({
+            name: "aoeu",
+            // @ts-expect-error
+            options: {
+                "max-age": 1000,
+                expires: now,
+            },
+        }),
+    );
+});
 
 function app(): App {
     throw new Error("Not implemented");
