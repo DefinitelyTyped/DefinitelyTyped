@@ -1,9 +1,11 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
 
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
+
+  import { CSSGapShortHand } from "sap/ui/core/library";
 
   /**
    * Available Background Design.
@@ -53,7 +55,7 @@ declare module "sap/ui/layout/library" {
     /**
      * Background with bright and dark background colors
      *
-     * @deprecated (since 1.50)
+     * @deprecated As of version 1.50.
      */
     Mixed = "Mixed",
   }
@@ -373,7 +375,7 @@ declare module "sap/ui/layout/library" {
      *
      * @since 1.60.0
      */
-    type CSSGridGapShortHand = string;
+    type CSSGridGapShortHand = CSSGapShortHand;
 
     /**
      * A string type that represents one or two grid lines. Used to define the position and size of a single
@@ -424,8 +426,8 @@ declare module "sap/ui/layout/library" {
       /**
        * Uses the `GridLayout` layout to render the `SimpleForm` control
        *
-       * @deprecated (since 1.67.0) - as the `sap.ui.commons` library is deprecated, and the `GridLayout` must
-       * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+       * @deprecated As of version 1.67.0. as the `sap.ui.commons` library is deprecated, and the `GridLayout`
+       * must not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
        */
       GridLayout = "GridLayout",
       /**
@@ -437,7 +439,7 @@ declare module "sap/ui/layout/library" {
       /**
        * Uses the `ResponsiveLayout` layout to render the `SimpleForm` control
        *
-       * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout ColumnLayout}
+       * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout ColumnLayout}
        */
       ResponsiveLayout = "ResponsiveLayout",
     }
@@ -498,8 +500,8 @@ declare module "sap/ui/layout/library" {
      * It gets the full width of the row and the label is displayed above. **Note:** For labels full size has
      * no effect.
      *
-     * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-     * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+     * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+     * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
      */
     type GridElementCells = string;
   }
@@ -653,7 +655,7 @@ declare module "sap/ui/layout/BlockLayout" {
      *
      * @returns Value of property `background`
      */
-    getBackground(): BlockBackgroundType | keyof typeof BlockBackgroundType;
+    getBackground(): BlockBackgroundType;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -918,9 +920,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `backgroundColorSet`
      */
-    getBackgroundColorSet():
-      | BlockLayoutCellColorSet
-      | keyof typeof BlockLayoutCellColorSet;
+    getBackgroundColorSet(): BlockLayoutCellColorSet;
     /**
      * Gets current value of property {@link #getBackgroundColorShade backgroundColorShade}.
      *
@@ -931,9 +931,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `backgroundColorShade`
      */
-    getBackgroundColorShade():
-      | BlockLayoutCellColorShade
-      | keyof typeof BlockLayoutCellColorShade;
+    getBackgroundColorShade(): BlockLayoutCellColorShade;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -960,7 +958,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `titleAlignment`
      */
-    getTitleAlignment(): HorizontalAlign | keyof typeof HorizontalAlign;
+    getTitleAlignment(): HorizontalAlign;
     /**
      * Gets current value of property {@link #getTitleLevel titleLevel}.
      *
@@ -972,7 +970,7 @@ declare module "sap/ui/layout/BlockLayoutCell" {
      *
      * @returns Value of property `titleLevel`
      */
-    getTitleLevel(): TitleLevel | keyof typeof TitleLevel;
+    getTitleLevel(): TitleLevel;
     /**
      * Gets content of aggregation {@link #getTitleLink titleLink}.
      *
@@ -1615,7 +1613,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
      *
      * @returns Value of property `rowColorSet`
      */
-    getRowColorSet(): BlockRowColorSets | keyof typeof BlockRowColorSets;
+    getRowColorSet(): BlockRowColorSets;
     /**
      * Gets current value of property {@link #getScrollable scrollable}.
      *
@@ -1983,9 +1981,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -2496,9 +2492,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -3925,9 +3919,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
      *
      * @returns Value of property `gridAutoFlow`
      */
-    getGridAutoFlow():
-      | cssgrid.CSSGridAutoFlow
-      | keyof typeof cssgrid.CSSGridAutoFlow;
+    getGridAutoFlow(): cssgrid.CSSGridAutoFlow;
     /**
      * Gets current value of property {@link #getGridAutoRows gridAutoRows}.
      *
@@ -4937,9 +4929,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentFallDown`
      */
-    getSideContentFallDown():
-      | SideContentFallDown
-      | keyof typeof SideContentFallDown;
+    getSideContentFallDown(): SideContentFallDown;
     /**
      * Gets current value of property {@link #getSideContentPosition sideContentPosition}.
      *
@@ -4951,9 +4941,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentPosition`
      */
-    getSideContentPosition():
-      | SideContentPosition
-      | keyof typeof SideContentPosition;
+    getSideContentPosition(): SideContentPosition;
     /**
      * Gets current value of property {@link #getSideContentVisibility sideContentVisibility}.
      *
@@ -4964,9 +4952,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      *
      * @returns Value of property `sideContentVisibility`
      */
-    getSideContentVisibility():
-      | SideContentVisibility
-      | keyof typeof SideContentVisibility;
+    getSideContentVisibility(): SideContentVisibility;
     /**
      * Gets current value of property {@link #getSideContentWidthL sideContentWidthL}.
      *
@@ -7812,7 +7798,7 @@ declare module "sap/ui/layout/form/FormLayout" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * In {@link sap.ui.layout.SemanticFormElement SemanticFormElement}, delimiters are rendered. They should
      * use only a small space. So `Layout`-dependent `LayoutData` are needed.
@@ -7916,8 +7902,8 @@ declare module "sap/ui/layout/form/GridContainerData" {
    * The `GridLayout`-specific layout data for `FormContainers`.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridContainerData extends LayoutData {
     /**
@@ -8019,8 +8005,8 @@ declare module "sap/ui/layout/form/GridContainerData" {
   /**
    * Describes the settings that can be provided to the GridContainerData constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridContainerDataSettings extends $LayoutDataSettings {
     /**
@@ -8048,8 +8034,8 @@ declare module "sap/ui/layout/form/GridElementData" {
    * The `GridLayout`-specific layout data for `FormElement` fields.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridElementData extends LayoutData {
     /**
@@ -8196,8 +8182,8 @@ declare module "sap/ui/layout/form/GridElementData" {
   /**
    * Describes the settings that can be provided to the GridElementData constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridElementDataSettings extends $LayoutDataSettings {
     /**
@@ -8247,8 +8233,8 @@ declare module "sap/ui/layout/form/GridLayout" {
    * using the `layout` aggregation.
    *
    * @since 1.16.0
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export default class GridLayout extends FormLayout {
     /**
@@ -8354,8 +8340,8 @@ declare module "sap/ui/layout/form/GridLayout" {
   /**
    * Describes the settings that can be provided to the GridLayout constructor.
    *
-   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
-   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+   * @deprecated As of version 1.67.0. as `sap.ui.commons` library is deprecated and the `GridLayout` must
+   * not be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    */
   export interface $GridLayoutSettings extends $FormLayoutSettings {
     /**
@@ -9209,7 +9195,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
    * using the `layout` aggregation.
    *
    * @since 1.16.0
-   * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
+   * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
    */
   export default class ResponsiveLayout extends FormLayout {
     /**
@@ -9284,7 +9270,7 @@ declare module "sap/ui/layout/form/ResponsiveLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveLayout constructor.
    *
-   * @deprecated (since 1.93) - replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
+   * @deprecated As of version 1.93. replaced by {@link sap.ui.layout.form.ColumnLayout ColumnLayout}
    */
   export interface $ResponsiveLayoutSettings extends $FormLayoutSettings {}
 }
@@ -9704,7 +9690,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets current value of property {@link #getBreakpointL breakpointL}.
      *
@@ -9932,7 +9918,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `192`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Value of property `labelMinWidth`
      */
@@ -10022,7 +10008,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout;
     /**
      * Gets current value of property {@link #getMaxContainerCols maxContainerCols}.
      *
@@ -10052,7 +10038,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `-1`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Value of property `minWidth`
      */
@@ -10490,7 +10476,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `192`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10659,7 +10645,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Default value is `-1`.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10761,7 +10747,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Note:** This property is only used if a `ResponsiveLayout` is used as a layout.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      */
     minWidth?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -10793,7 +10779,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * **Note:** This property is only used if a `ResponsiveLayout` is used as a layout.
      *
-     * @deprecated (since 1.93) - use another `Layout`
+     * @deprecated As of version 1.93. use another `Layout`
      */
     labelMinWidth?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -11311,7 +11297,7 @@ declare module "sap/ui/layout/Grid" {
      *
      * @returns Value of property `position`
      */
-    getPosition(): GridPosition | keyof typeof GridPosition;
+    getPosition(): GridPosition;
     /**
      * Gets current value of property {@link #getVSpacing vSpacing}.
      *
@@ -11738,7 +11724,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for large screens. This value overwrites the value for large screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      *
      * @returns Value of property `indentLarge`
      */
@@ -11759,7 +11745,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for medium screens. This value overwrites the value for medium screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      *
      * @returns Value of property `indentMedium`
      */
@@ -11780,7 +11766,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for small screens. This value overwrites the value for small screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      *
      * @returns Value of property `indentSmall`
      */
@@ -11904,7 +11890,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for large screens. This value overwrites the value for large screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      *
      * @returns Value of property `spanLarge`
      */
@@ -11925,7 +11911,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for medium screens. This value overwrites the value for medium screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      *
      * @returns Value of property `spanMedium`
      */
@@ -11946,7 +11932,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for small screens. This value overwrites the value for small screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      *
      * @returns Value of property `spanSmall`
      */
@@ -11990,7 +11976,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      *
      * @returns Value of property `visibleOnLarge`
      */
@@ -12002,7 +11988,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      *
      * @returns Value of property `visibleOnMedium`
      */
@@ -12014,7 +12000,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      *
      * @returns Value of property `visibleOnSmall`
      */
@@ -12088,7 +12074,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12123,7 +12109,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12158,7 +12144,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12359,7 +12345,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12394,7 +12380,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12429,7 +12415,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12501,7 +12487,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12520,7 +12506,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12539,7 +12525,7 @@ declare module "sap/ui/layout/GridData" {
      *
      * Default value is `true`.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12724,7 +12710,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for large screens. This value overwrites the value for large screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanL` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanL` property instead.
      */
     spanLarge?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12732,7 +12718,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for medium screens. This value overwrites the value for medium screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanM` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanM` property instead.
      */
     spanMedium?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12740,7 +12726,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines a span value for small screens. This value overwrites the value for small screens
      * defined in the `span` property.
      *
-     * @deprecated (since 1.17.1) - Use the `spanS` property instead.
+     * @deprecated As of version 1.17.1. Use the `spanS` property instead.
      */
     spanSmall?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12748,7 +12734,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for large screens. This value overwrites the value for large screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentL` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentL` property instead.
      */
     indentLarge?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12756,7 +12742,7 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for medium screens. This value overwrites the value for medium screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use the `indentM` property instead.
+     * @deprecated As of version 1.17.1. Use the `indentM` property instead.
      */
     indentMedium?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -12764,28 +12750,28 @@ declare module "sap/ui/layout/GridData" {
      * Deprecated. Defines an indent value for small screens. This value overwrites the value for small screens
      * defined in the `indent` property.
      *
-     * @deprecated (since 1.17.1) - Use `indentS` property instead.
+     * @deprecated As of version 1.17.1. Use `indentS` property instead.
      */
     indentSmall?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on large screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleL` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleL` property instead.
      */
     visibleOnLarge?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on medium screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleM` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleM` property instead.
      */
     visibleOnMedium?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Deprecated. Defines if this control is visible on small screens.
      *
-     * @deprecated (since 1.17.1) - Use the `visibleS` property instead.
+     * @deprecated As of version 1.17.1. Use the `visibleS` property instead.
      */
     visibleOnSmall?: boolean | PropertyBindingInfo | `{${string}}`;
   }
@@ -13206,7 +13192,7 @@ declare module "sap/ui/layout/PaneContainer" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): Orientation | keyof typeof Orientation;
+    getOrientation(): Orientation;
     /**
      * Gets content of aggregation {@link #getPanes panes}.
      *
@@ -14484,9 +14470,9 @@ declare module "sap/ui/layout/Splitter" {
      * the control changes its size. The resize handler is enabled in every control instance by default. For
      * performance reasons this behavior can be disabled by calling disableAutoResize()
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     disableAutoResize(
@@ -14507,9 +14493,9 @@ declare module "sap/ui/layout/Splitter" {
      * Disables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized only once after moving the splitter bar.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     disableLiveResize(): void;
@@ -14518,9 +14504,9 @@ declare module "sap/ui/layout/Splitter" {
      * the control changes its size. The resize handler is enabled in every control instance by default. For
      * performance reasons this behavior can be disabled by calling disableAutoResize()
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     enableAutoResize(
@@ -14539,9 +14525,9 @@ declare module "sap/ui/layout/Splitter" {
      * Enables recalculation and resize of the splitter contents while dragging the splitter bar. This means
      * that the contents are resized several times per second when moving the splitter bar.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     enableLiveResize(): void;
@@ -14561,9 +14547,9 @@ declare module "sap/ui/layout/Splitter" {
     /**
      * Returns the current actual content sizes as pixel value - these values can change with every resize.
      *
-     * @deprecated (since 1.21) - This method is declared as protected in order to assess the need for this
-     * feature. It is declared as deprecated because the API might change in case the need for this is high
-     * enough to make it part of the official Splitter interface
+     * @deprecated As of version 1.21. This method is declared as protected in order to assess the need for
+     * this feature. It is declared as deprecated because the API might change in case the need for this is
+     * high enough to make it part of the official Splitter interface
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Array of px values that correspond to the content area sizes
@@ -14596,7 +14582,7 @@ declare module "sap/ui/layout/Splitter" {
      *
      * @returns Value of property `orientation`
      */
-    getOrientation(): Orientation | keyof typeof Orientation;
+    getOrientation(): Orientation;
     /**
      * Gets current value of property {@link #getWidth width}.
      *

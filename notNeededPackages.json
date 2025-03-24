@@ -416,6 +416,10 @@
             "libraryName": "bcp-47-match",
             "asOfVersion": "2.0.0"
         },
+        "bcryptjs": {
+            "libraryName": "bcryptjs",
+            "asOfVersion": "3.0.0"
+        },
         "bech32": {
             "libraryName": "bech32",
             "asOfVersion": "1.1.4"
@@ -1336,6 +1340,10 @@
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
+        },
+        "datadog-metrics": {
+            "libraryName": "datadog-metrics",
+            "asOfVersion": "0.11.0"
         },
         "datastore-core": {
             "libraryName": "datastore-core",
@@ -2573,6 +2581,10 @@
             "libraryName": "hexo-log",
             "asOfVersion": "4.0.0"
         },
+        "hexo-util": {
+            "libraryName": "hexo-util",
+            "asOfVersion": "3.0.0"
+        },
         "hibp": {
             "libraryName": "hibp",
             "asOfVersion": "7.3.0"
@@ -2700,6 +2712,10 @@
         "ids": {
             "libraryName": "ids",
             "asOfVersion": "0.2.2"
+        },
+        "igdb-api-node": {
+            "libraryName": "igdb-api-node",
+            "asOfVersion": "6.0.0"
         },
         "image-size": {
             "libraryName": "image-size",
@@ -3869,6 +3885,10 @@
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
         },
+        "mem-fs-editor": {
+            "libraryName": "mem-fs-editor",
+            "asOfVersion": "10.0.1"
+        },
         "memoize-one": {
             "libraryName": "memoize-one",
             "asOfVersion": "5.1.0"
@@ -4697,6 +4717,10 @@
             "libraryName": "param-case",
             "asOfVersion": "1.1.2"
         },
+        "parent-package-json": {
+            "libraryName": "parent-package-json",
+            "asOfVersion": "3.0.0"
+        },
         "park-miller": {
             "libraryName": "park-miller",
             "asOfVersion": "1.1.0"
@@ -5098,6 +5122,10 @@
         "protractor": {
             "libraryName": "protractor",
             "asOfVersion": "4.0.0"
+        },
+        "proxy": {
+            "libraryName": "proxy",
+            "asOfVersion": "2.0.0"
         },
         "ps-list": {
             "libraryName": "ps-list",
@@ -5578,6 +5606,10 @@
         "react-jss": {
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
+        },
+        "react-kawaii": {
+            "libraryName": "react-kawaii",
+            "asOfVersion": "1.3.0"
         },
         "react-leaflet": {
             "libraryName": "react-leaflet",

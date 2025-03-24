@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -18,8 +18,8 @@ declare module "sap/ui/webc/common/WebComponent" {
    * controls in the dedicated slots of the Web Component.
    *
    * @since 1.92.0
-   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * @deprecated As of version 1.118.0. Use sap.ui.core.webc.WebComponent instead!
+   * @experimental As of version 1.92.0. The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponent extends WebComponent1 {
     /**
@@ -120,8 +120,8 @@ declare module "sap/ui/webc/common/WebComponent" {
   /**
    * Describes the settings that can be provided to the WebComponent constructor.
    *
-   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * @deprecated As of version 1.118.0. Use sap.ui.core.webc.WebComponent instead!
+   * @experimental As of version 1.92.0. The API might change. It is not intended for productive usage yet!
    */
   export interface $WebComponentSettings extends $WebComponentSettings1 {}
 }
@@ -131,8 +131,8 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
 
   /**
    * @since 1.92.0
-   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponentMetadata instead!
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   * @deprecated As of version 1.118.0. Use sap.ui.core.webc.WebComponentMetadata instead!
+   * @experimental As of version 1.92.0. The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponentMetadata extends WebComponentMetadata1 {
     /**
