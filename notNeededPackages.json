@@ -6351,6 +6351,10 @@
             "libraryName": "should",
             "asOfVersion": "13.0.0"
         },
+        "signal-exit": {
+            "libraryName": "signal-exit",
+            "asOfVersion": "4.0.0"
+        },
         "signature_pad": {
             "libraryName": "signature_pad",
             "asOfVersion": "4.0.0"
