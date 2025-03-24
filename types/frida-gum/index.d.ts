@@ -381,6 +381,20 @@ declare namespace Process {
     function attachThreadObserver(callbacks: ThreadObserverCallbacks): ThreadObserver;
 
     /**
+     * Runs the JavaScript function `callback` on the thread specified by `id`.
+     * Must be used with extreme caution due to the thread potentially being
+     * interrupted in non-reentrant code. For example, you could be interrupting
+     * it while it's in the middle of some delicate code, holding a specific
+     * non-recursive lock, which you then try to implicitly acquire again when
+     * you call some function.
+     *
+     * @param id ID of the thread to run on.
+     * @param callback Function to run.
+     * @returns A Promise that resolves to the value returned by `callback`.
+     */
+    function runOnThread<T>(id: ThreadId, callback: () => T): Promise<T>;
+
+    /**
      * Looks up a module by address. Returns null if not found.
      */
     function findModuleByAddress(address: NativePointerValue): Module | null;
