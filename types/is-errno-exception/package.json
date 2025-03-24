@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/is-errno-exception",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/sosoba/is-errno-exception.git"
+    ],
+    "type": "module",
+    "types": "index.d.ts",
+    "exports": "./index.d.ts",
+    "dependencies": {
+        "@types/node": "*"
+    },    
+    "devDependencies": {
+        "@types/is-errno-exception": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sławomir Osoba",
+            "githubUsername": "sosoba"
+        }
+    ]
+}
