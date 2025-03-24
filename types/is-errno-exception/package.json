@@ -6,7 +6,6 @@
         "https://github.com/sosoba/is-errno-exception.git"
     ],
     "type": "module",
-    "types": "index.d.ts",
     "exports": "./index.d.ts",
     "dependencies": {
         "@types/node": "*"
