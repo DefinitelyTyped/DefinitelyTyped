@@ -6,6 +6,7 @@ import {
     Ai,
     AiExplainability,
     Airplane,
+    Agile,
     AppModernization,
     AudioData,
     B2bCommerce,
@@ -79,3 +80,4 @@ import * as React from "react";
 <MagicWand />; // $ExpectType Element
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
+<Agile />; // $ExpectType Element
