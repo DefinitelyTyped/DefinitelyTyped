@@ -181,8 +181,8 @@ class MyTable5 extends React.Component {
                 headerHeight={50}
                 width={1000}
                 height={500}
-                onScrollStart={(x: number, y: number) => {}}
-                onScrollEnd={(x: number, y: number) => {}}
+                onScrollStart={(x: number, y: number, firstRowIndex: number, lastRowIndex: number) => {}}
+                onScrollEnd={(x: number, y: number, firstRowIndex: number, lastRowIndex: number) => {}}
                 onContentHeightChange={(newHeight: number) => {}}
                 onRowClick={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
                 onRowContextMenu={(event: React.SyntheticEvent<Table>, rowIndex: number) => {}}
