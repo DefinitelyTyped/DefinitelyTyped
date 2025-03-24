@@ -1729,6 +1729,10 @@
             "libraryName": "@ember/test-helpers",
             "asOfVersion": "2.9.1"
         },
+        "emoji-mart": {
+            "libraryName": "emoji-mart",
+            "asOfVersion": "5.3.0"
+        },
         "emoji-regex": {
             "libraryName": "emoji-regex",
             "asOfVersion": "9.2.0"
