@@ -53,6 +53,7 @@ export interface SDK {
 
     getPlayer<TSigned extends boolean = false>(opts?: {
         signed?: TSigned;
+        scopes?: boolean;
     }): Promise<TSigned extends true ? Signed<Player> : Player>;
 
     feedback: {
