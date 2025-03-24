@@ -6763,6 +6763,10 @@
             "libraryName": "sugar",
             "asOfVersion": "2.0.2"
         },
+        "sumoselect": {
+            "libraryName": "sumoselect",
+            "asOfVersion": "3.4.9"
+        },
         "superstruct": {
             "libraryName": "superstruct",
             "asOfVersion": "0.8.0"
