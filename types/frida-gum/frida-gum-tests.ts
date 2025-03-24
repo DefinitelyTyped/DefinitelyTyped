@@ -443,6 +443,12 @@ const threadObserver = Process.attachThreadObserver({
 });
 threadObserver.detach();
 
+// $ExpectType Promise<void>
+Process.runOnThread(1, () => {});
+
+// $ExpectType Promise<boolean>
+Process.runOnThread(1, () => true);
+
 const moduleObserver = Process.attachModuleObserver({
     onAdded(module) {
         // $ExpectType Module
