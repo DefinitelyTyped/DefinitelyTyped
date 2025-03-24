@@ -24,6 +24,7 @@ import {
     IbmCloud,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    MachineLearningModel,
     MagicWand,
     MovingDolly,
     RedHatApplications,
@@ -36,7 +37,6 @@ import {
     Video_01,
     Visibility,
     WatsonLogo,
-    MachineLearningModel,
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
