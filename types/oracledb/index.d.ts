@@ -4702,38 +4702,37 @@ declare namespace OracleDB {
          * Called before invoking a public async method.
          * @param traceContext  input/output trace context object.
          */
-        onEnterFn(traceContext?: TraceContext): void;
+        onEnterFn(traceContext: TraceContext): void;
 
         /**
          * Called after invoking a public async method.
          * @param traceContext input/output trace context object.
          */
-        onExitFn(traceContext?: TraceContext): void;
+        onExitFn(traceContext: TraceContext): void;
 
         /**
          * Called when a round trip is begun.
          * @param traceContext input/output trace context object.
          */
-        onBeginRoundTrip(traceContext?: TraceContext): void;
+        onBeginRoundTrip(traceContext: TraceContext): void;
 
         /**
          * Called when a round trip has ended.
          * @param traceContext input/output trace context object.
          */
-        onEndRoundTrip(traceContext?: TraceContext): void;
+        onEndRoundTrip(traceContext: TraceContext): void;
     }
 
     /*
-     * Set the derived object which implements the hooks in TraceHandlerBase
-     * class.
+     * Assigns a derived object that implements the hooks in the TraceHandlerBase class.
+     * If no argument is provided, it clears the previously assigned instance.
      *
      * @since 6.7.0
      */
     function setTraceInstance(obj?: TraceHandlerBase): void;
 
     /*
-     * Get the derived object which implemented the hooks in TraceHandlerBase
-     * class.
+     * Retrieves the derived object that implements the hooks in the TraceHandlerBase class.
      *
      * @since 6.7.0
      */
