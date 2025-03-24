@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -114,7 +114,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
    * transport request. It is not a generic utility, but part of the Variantmanament and therefore cannot
    * be used in any other application.
    *
-   * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
+   * @deprecated As of version 1.74. The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
    */
   export default class TransportDialog extends Dialog {
@@ -190,7 +190,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
   /**
    * Describes the settings that can be provided to the TransportDialog constructor.
    *
-   * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
+   * @deprecated As of version 1.74. The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
    */
   export interface $TransportDialogSettings extends $DialogSettings {}
@@ -761,7 +761,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Value of property `headerLevel`
      */
-    getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
+    getHeaderLevel(): TitleLevel;
     /**
      * Gets current value of property {@link #getInErrorState inErrorState}.
      *
@@ -853,7 +853,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Value of property `titleStyle`
      */
-    getTitleStyle(): TitleLevel | keyof typeof TitleLevel;
+    getTitleStyle(): TitleLevel;
     /**
      * Gets current value of property {@link #getUpdateVariantInURL updateVariantInURL}.
      *

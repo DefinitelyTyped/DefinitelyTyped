@@ -137,17 +137,17 @@ declare class Buffer {
     /**
      * Return the number of channels in the buffer~ object.
      */
-    channelcount: number;
+    channelcount(): number;
 
     /**
      * Return the number of frames (samples in a single channel) in the buffer~ object.
      */
-    framecount: number;
+    framecount(): number;
 
     /**
      * Return the length of the buffer~ object in milliseconds.
      */
-    length: number;
+    length(): number;
 
     /**
      * Return an array with count samples from channel (1-based counting) starting at frame (zero-based counting).

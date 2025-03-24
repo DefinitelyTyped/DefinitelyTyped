@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -166,7 +166,7 @@ declare module "sap/ui/support/library" {
     /**
      * Preset to find usages of deprecated controls, properties, aggregations and others.
      *
-     * @experimental (since 1.120)
+     * @experimental As of version 1.120.
      */
     Deprecations = "undefined",
   }

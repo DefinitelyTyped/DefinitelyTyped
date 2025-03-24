@@ -14,6 +14,7 @@ export interface IK {
     minAngle?: number | undefined;
     maxAngle?: number | undefined;
     target: number;
+    blendFactor?: number | undefined;
 }
 
 export class CCDIKSolver {
@@ -22,8 +23,8 @@ export class CCDIKSolver {
 
     constructor(mesh: SkinnedMesh, iks?: IK[]);
 
-    update(): this;
-    updateOne(ik: IK): this;
+    update(globalBlendFactor?: number): this;
+    updateOne(ik: IK, overrideBlend?: number): this;
     createHelper(sphereSize?: number): CCDIKHelper;
 }
 

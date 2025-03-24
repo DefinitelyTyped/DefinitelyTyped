@@ -950,7 +950,7 @@ declare namespace woosmap.map {
         union(other: woosmap.map.LatLngBounds): void;
 
         /**
-         * Returns the north-east corner of this bounds.
+         * Returns the north-east corner of these bounds.
          */
         getNorthEast(): woosmap.map.LatLng;
 
@@ -1227,6 +1227,13 @@ declare namespace woosmap.map {
         nearby(
             request: woosmap.map.localities.LocalitiesNearbyRequest,
         ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
+
+        /**
+         * Search results based on a text-based input.
+         */
+        search(
+            request: woosmap.map.localities.LocalitiesSearchRequest,
+        ): Promise<woosmap.map.localities.LocalitiesSearchResponse>;
     }
 }
 declare namespace woosmap.map {
@@ -1380,7 +1387,7 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     class DatasetsOverlay {
-        constructor(datasetId: string);
+        constructor(datasetId: string, options?: woosmap.map.DatasetsOverlayOptions);
 
         /**
          * Adds or remove the overlay from the map.
@@ -3097,6 +3104,42 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * A Localities Search request to be sent to `LocalitiesService.search`
+     */
+    interface LocalitiesSearchRequest {
+        /**
+         * Used to filter over countries. Countries must be passed as an
+         * ISO 3166-1 Alpha-2 or Alpha-3 compatible country code.
+         */
+        components: woosmap.map.localities.LocalitiesComponentRestrictions;
+        /**
+         * The user entered input string.
+         */
+        input: string;
+        /**
+         * The language code, using ISO 3166-1 Alpha-2 country codes,
+         * indicating in which language the results should be returned, if possible.
+         * If language is not supplied, the Localities service will use english as default language.
+         */
+        language?: string;
+        /**
+         * The center of the search circle.
+         */
+        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * Define the distance in meters within which the API will return results.
+         * Default radius if this parameter is not set is 100 000.
+         */
+        radius?: number;
+        /**
+         * Types of targeted items.
+         * Available values are `point_of_interest`, `address`, `locality`, `postal_code`, `admin_level`, `country`.
+         */
+        types: string | string[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * A Localities Autocomplete response returned by the call to
      * `LocalitiesService.autocomplete` containing a
      * list of `LocalitiesPredictions`.
@@ -3144,6 +3187,19 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * A Localities Search response returned by the call to
+     * `LocalitiesService.search` containing a
+     * list of `LocalitiesSearchResult`.
+     */
+    interface LocalitiesSearchResponse {
+        /**
+         * The array of search results.
+         */
+        results: woosmap.map.localities.LocalitiesSearchResult[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * Defines information about a Locality.
      */
     interface LocalitiesDetailsResult {
@@ -3151,6 +3207,10 @@ declare namespace woosmap.map.localities {
          * An array containing Address Components with additional information
          */
         address_components?: woosmap.map.localities.AddressComponents[];
+        /**
+         * An array containing the categories of the result, only for points of interests.
+         */
+        categories?: string[];
         /**
          * Contains the readable text description of the result.
          */
@@ -3299,7 +3359,8 @@ declare namespace woosmap.map.localities {
         | "shopping"
         | "tourist_attraction"
         | "train_station"
-        | "zoo";
+        | "zoo"
+        | "point_of_interest";
 }
 declare namespace woosmap.map.localities {
     /**
@@ -3432,6 +3493,46 @@ declare namespace woosmap.map.localities {
          * If previous results are available, this will contain the value to pass to the `page` parameter to get the previous page.
          */
         previous_page?: number;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * The types of result returned by search.
+     */
+    type LocalitiesSearchTypes =
+        | "point_of_interest"
+        | "address"
+        | "locality"
+        | "postal_code"
+        | "route"
+        | "admin_level"
+        | "country";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about a Search element.
+     */
+    interface LocalitiesSearchResult {
+        /**
+         * An array containing the categories of the result if it's a point of interest.
+         */
+        categories?: string[];
+        /**
+         * The description for the result.
+         */
+        description?: string;
+        /**
+         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
+         */
+        public_id: string;
+        /**
+         * The title for the result.
+         */
+        title: string;
+        /**
+         * An array containing the types of the result.
+         */
+        types: woosmap.map.localities.LocalitiesSearchTypes[];
     }
 }
 declare namespace woosmap.map {
@@ -3735,6 +3836,26 @@ declare namespace woosmap.map.transit {
          * The status of the response
          */
         status: "OK" | "NOT_FOUND";
+    }
+}
+declare namespace woosmap.map {
+    interface DatasetsOverlayOptions {
+        /**
+         * Sets the line stroke color.
+         */
+        defaultLineColor?: string;
+        /**
+         * Sets the point color.
+         */
+        defaultPointColor?: string;
+        /**
+         * Sets the fill stroke color.
+         */
+        defaultPolygonFillColor?: string;
+        /**
+         * Sets the polygon stroke color.
+         */
+        defaultPolygonStrokeColor?: string;
     }
 }
 declare namespace woosmap.map {
@@ -4172,6 +4293,11 @@ declare namespace woosmap.map {
          * Triggers event to notify user has deviated from path during navigation
          */
         notifyUserDeviated(currentLocation: GeoJSONFeature): void;
+
+        /**
+         * Triggers event to notify user's proximity to destination
+         */
+        notifyProximityToDest(): void;
     }
 }
 declare namespace woosmap.map {

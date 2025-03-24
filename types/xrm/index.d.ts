@@ -2923,7 +2923,7 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+        interface MultiSelectOptionSetAttribute<T extends number = number> extends EnumAttribute<T[]> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -6083,13 +6083,21 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
-        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<UpdateResponse>;
     }
 
     /**
      * Interface for the WebAPI CreateRecord request response
      */
     interface CreateResponse {
+        entityType: string;
+        id: string;
+    }
+
+    /**
+     * Interface for the WebAPI UpdateRecord request response
+     */
+    interface UpdateResponse {
         entityType: string;
         id: string;
     }

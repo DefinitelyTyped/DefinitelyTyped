@@ -1,6 +1,13 @@
 import { RenderTarget } from "../../../core/RenderTarget.js";
+import { Vector3 } from "../../../math/Vector3.js";
 import { Scene } from "../../../scenes/Scene.js";
 import Renderer from "../Renderer.js";
+
+export interface PMREMGeneratorOptions {
+    size?: number | undefined;
+    position?: Vector3 | undefined;
+    renderTarget?: RenderTarget | null | undefined;
+}
 
 declare class PMREMGenerator {
     constructor(renderer: Renderer);
@@ -10,7 +17,7 @@ declare class PMREMGenerator {
         sigma?: number,
         near?: number,
         far?: number,
-        renderTarget?: RenderTarget | null,
+        options?: PMREMGeneratorOptions,
     ): RenderTarget;
 
     fromSceneAsync(
@@ -18,7 +25,7 @@ declare class PMREMGenerator {
         sigma?: number,
         near?: number,
         far?: number,
-        renderTarget?: RenderTarget | null,
+        options?: PMREMGeneratorOptions,
     ): Promise<RenderTarget>;
 
     dispose(): void;

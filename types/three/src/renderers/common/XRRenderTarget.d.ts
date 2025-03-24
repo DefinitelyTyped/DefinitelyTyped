@@ -1,4 +1,4 @@
-import { RenderTarget } from "../../core/RenderTarget.js";
+import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
 /**
  * A special type of render target that is used when rendering
  * with the WebXR Device API.
@@ -13,11 +13,11 @@ declare class XRRenderTarget extends RenderTarget {
     /**
      * Constructs a new XR render target.
      *
-     * @param {Number} [width=1] - The width of the render target.
-     * @param {Number} [height=1] - The height of the render target.
+     * @param {number} [width=1] - The width of the render target.
+     * @param {number} [height=1] - The height of the render target.
      * @param {Object} [options={}] - The configuration options.
      */
-    constructor(width?: number, height?: number, options?: {});
+    constructor(width?: number, height?: number, options?: RenderTargetOptions);
     copy(source: XRRenderTarget): this;
 }
 export { XRRenderTarget };

@@ -1,5 +1,6 @@
 import * as http from "http";
 import * as https from "https";
+import * as net from "net";
 import * as url from "url";
 import WebSocket from "ws";
 // eslint-disable-next-line no-duplicate-imports
@@ -27,6 +28,7 @@ import * as wslib from "ws";
     ws.send(Any as ArrayBufferView);
     ws.send(Any as { valueOf(): ArrayBuffer });
     ws.send(Any as Uint8Array);
+    ws.send(new Blob([]));
     ws.send(Any as { valueOf(): Uint8Array });
     ws.send(Any as { valueOf(): string });
 }
@@ -96,13 +98,6 @@ import * as wslib from "ws";
 }
 
 {
-    const verifyClient = (
-        info: { origin: string; secure: boolean; req: http.IncomingMessage },
-        callback: (res: boolean) => void,
-    ): void => {
-        callback(true);
-    };
-
     const wsv = new wslib.WebSocketServer({
         server: http.createServer(),
         clientTracking: true,
@@ -165,6 +160,8 @@ import * as wslib from "ws";
         verifyClient: (info: any, cb: any) => {
             cb(true, 123, "message", { Upgrade: "websocket" });
         },
+        allowSynchronousEvents: false,
+        autoPong: false,
     });
 }
 
@@ -222,12 +219,32 @@ import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    const listener = (event: WebSocket.MessageEvent) => console.log(event.data, event.target, event.type);
-    ws.addEventListener("message", listener, { once: true });
-    ws.removeEventListener("message", listener);
+
+    const listenerFn = (event: WebSocket.MessageEvent) => console.log(event.data, event.target, event.type);
+    ws.addEventListener("message", listenerFn, { once: true });
+    ws.removeEventListener("message", listenerFn);
+
+    const listenerObj = {
+        handleEvent(event: WebSocket.MessageEvent) {
+            console.log(this, event);
+        },
+    };
+    ws.addEventListener("message", listenerObj);
+    ws.removeEventListener("message", listenerObj);
 
     ws.addEventListener("open" as "open" | "close" | "error" | "message", console.log);
     ws.removeEventListener("open" as "open" | "close" | "error" | "message", console.log);
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path");
+
+    ws.addListener("redirect", (url, request) => {
+        // $ExpectType string
+        url;
+        // $ExpectType ClientRequest
+        request;
+    });
 }
 
 {
@@ -479,6 +496,23 @@ declare module "ws" {
         req;
     });
 
+    wss.on("wsClientError", (error, socket, req) => {
+        // $ExpectType Error
+        error;
+        // $ExpectType Duplex
+        socket;
+        // $ExpectType Request
+        req;
+    });
+    wss.off("wsClientError", (error, socket, req) => {
+        // $ExpectType Error
+        error;
+        // $ExpectType Duplex
+        socket;
+        // $ExpectType Request
+        req;
+    });
+
     Array.from(wss.clients).forEach(client => {
         // $ExpectType MyWebsocket
         client;
@@ -487,6 +521,9 @@ declare module "ws" {
 
 {
     const ws = new WebSocket("ws://www.host.com/path", {
+        allowSynchronousEvents: false,
+        autoPong: false,
+        createConnection: net.createConnection,
         finishRequest: (req, socket) => {
             // $ExpectType IncomingMessage
             req;

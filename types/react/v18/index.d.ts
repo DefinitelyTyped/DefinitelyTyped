@@ -2968,6 +2968,14 @@ declare namespace React {
          * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     /**
@@ -3886,6 +3894,7 @@ declare namespace React {
         textRendering?: number | string | undefined;
         to?: number | string | undefined;
         transform?: string | undefined;
+        transformOrigin?: string | undefined;
         u1?: number | string | undefined;
         u2?: number | string | undefined;
         underlinePosition?: number | string | undefined;

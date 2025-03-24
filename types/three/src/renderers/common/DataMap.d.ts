@@ -30,7 +30,7 @@ declare class DataMap<
      * Deletes the dictionary for the given object.
      *
      * @param {Object} object - The object.
-     * @return {Object?} The deleted dictionary.
+     * @return {?Object} The deleted dictionary.
      */
     delete<K extends M[keyof M]["key"]>(object: K): Extract<M[keyof M], {
         key: K;
@@ -39,7 +39,7 @@ declare class DataMap<
      * Returns `true` if the given object has a dictionary defined.
      *
      * @param {Object} object - The object to test.
-     * @return {Boolean} Whether a dictionary is defined or not.
+     * @return {boolean} Whether a dictionary is defined or not.
      */
     has(object: M[keyof M]["key"]): boolean;
     /**

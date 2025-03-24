@@ -16,6 +16,7 @@ export const modelWorldMatrix: ShaderNodeObject<ModelNode>;
 export const modelPosition: ShaderNodeObject<ModelNode>;
 export const modelScale: ShaderNodeObject<ModelNode>;
 export const modelViewPosition: ShaderNodeObject<ModelNode>;
+export const modelRadius: ShaderNodeObject<ModelNode>;
 export const modelNormalMatrix: ShaderNodeObject<Node>;
 export const modelWorldMatrixInverse: ShaderNodeObject<UniformNode<Matrix4>>;
 

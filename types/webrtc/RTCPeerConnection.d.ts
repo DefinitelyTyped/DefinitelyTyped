@@ -81,7 +81,7 @@ interface RTCIceParameters {
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicerole
-type RTCIceRole = "controlled" | "controlling" | "unknown";
+// type RTCIceRole = "controlled" | "controlling" | "unknown";
 
 interface RTCIceTransportEventMap {
     "gatheringstatechange": Event;

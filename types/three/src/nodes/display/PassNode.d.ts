@@ -1,4 +1,5 @@
 import { Camera } from "../../cameras/Camera.js";
+import { Layers } from "../../core/Layers.js";
 import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
 import { Scene } from "../../scenes/Scene.js";
 import { Texture } from "../../textures/Texture.js";
@@ -34,6 +35,14 @@ declare class PassNode extends TempNode {
 
     constructor(scope: PassNodeScope, scene: Scene, camera: Camera, options?: RenderTargetOptions);
 
+    setResolution(resolution: number): this;
+
+    getResolution(): number;
+
+    setLayers(layers: Layers): this;
+
+    getLayers(): Layers;
+
     setMRT(mrt: MRTNode | null): this;
 
     getMRT(): MRTNode | null;
@@ -44,7 +53,7 @@ declare class PassNode extends TempNode {
 
     toggleTexture(name: string): void;
 
-    getTextureNode(name?: string): ShaderNodeObject<Node>;
+    getTextureNode(name?: string): ShaderNodeObject<TextureNode>;
 
     getPreviousTextureNode(name?: string): ShaderNodeObject<Node>;
 
