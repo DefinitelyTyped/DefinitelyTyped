@@ -7131,6 +7131,10 @@
             "libraryName": "upper-case-first",
             "asOfVersion": "1.1.2"
         },
+        "url-join": {
+            "libraryName": "url-join",
+            "asOfVersion": "5.0.0"
+        },
         "url-metadata": {
             "libraryName": "url-metadata",
             "asOfVersion": "2.4.0"
