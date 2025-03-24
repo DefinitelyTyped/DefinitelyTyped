@@ -7355,6 +7355,10 @@
             "libraryName": "webpackbar",
             "asOfVersion": "5.0.0"
         },
+        "websequencediagrams": {
+            "libraryName": "websequencediagrams",
+            "asOfVersion": "2.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
