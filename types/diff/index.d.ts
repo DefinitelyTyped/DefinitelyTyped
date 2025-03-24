@@ -127,7 +127,7 @@ export interface ApplyPatchOptions {
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
     loadFile(index: ParsedDiff, callback: (err: any, data: string) => void): void;
-    patched(index: ParsedDiff, content: string, callback: (err: any) => void): void;
+    patched(index: ParsedDiff, content: string | false, callback: (err: any) => void): void;
     complete(err: any): void;
 }
 
