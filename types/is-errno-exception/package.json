@@ -9,7 +9,7 @@
     "exports": "./index.d.ts",
     "dependencies": {
         "@types/node": "*"
-    },    
+    },
     "devDependencies": {
         "@types/is-errno-exception": "workspace:."
     },
