@@ -1,3 +1,4 @@
+export { ConfigurableComponent } from "./common/configuration.mjs";
 export { version } from "./common/govuk-frontend-version.mjs";
 export { isSupported } from "./common/index.mjs";
 export { Accordion } from "./components/accordion/accordion.mjs";

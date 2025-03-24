@@ -1,12 +1,13 @@
 {
     "private": true,
     "name": "@types/oidc-provider",
-    "version": "8.5.9999",
+    "version": "8.8.9999",
     "projects": [
         "https://github.com/panva/node-oidc-provider"
     ],
     "type": "module",
     "dependencies": {
+        "@types/keygrip": "*",
         "@types/koa": "*",
         "@types/node": "*"
     },

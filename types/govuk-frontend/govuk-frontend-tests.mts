@@ -6,6 +6,7 @@ import {
     Component,
     type Config,
     type ConfigKey,
+    ConfigurableComponent,
     createAll,
     ErrorSummary,
     ExitThisPage,
@@ -53,33 +54,65 @@ class MyComponent1 extends Component {
 }
 
 class MyComponent2 extends Component<HTMLVideoElement> {
-    config: MyComponentConfig;
-
-    constructor($root: Element | null, config?: MyComponentConfig) {
+    constructor($root: Element | null) {
         super($root);
 
-        if (this.$root instanceof HTMLVideoElement) {
-            this.config = config ?? MyComponent2.defaults;
-        }
+        this.$root instanceof HTMLVideoElement;
     }
 
     static moduleName = "MyComponent2";
+}
+
+class MyComponent3 extends ConfigurableComponent<MyComponentConfig, HTMLVideoElement> {
+    constructor($root: Element | null, config?: MyComponentConfig) {
+        super($root, config);
+
+        this.$root instanceof HTMLVideoElement;
+        typeof this.config.anOption === "string";
+        typeof this.config.aNumberOption === "number";
+        typeof this.config.aBooleanOption === "boolean";
+        typeof this.config.anOptionWithNesting === "object";
+    }
+
+    static moduleName = "MyComponent3";
 
     static defaults: MyComponentConfig = {
-        hasConfig: true,
+        anOption: "itsValue",
+        aNumberOption: 1,
+        aBooleanOption: false,
+        anOptionWithNesting: {
+            aNestedOption: "itsValue",
+            anotherLevel: {
+                aDeeplyNestedOption: true,
+            },
+        },
     };
 }
 
 interface MyComponentConfig {
-    hasConfig: boolean;
+    anOption?: string;
+    aNumberOption?: number;
+    aBooleanOption?: boolean;
+    anOptionWithNesting?: {
+        aNestedOption?: string;
+        anotherLevel?: {
+            aDeeplyNestedOption: boolean;
+        };
+    };
 }
 
 new MyComponent1($root);
 new MyComponent2($root);
-new MyComponent2($root, MyComponent2.defaults);
+new MyComponent3($root);
+new MyComponent3($root, MyComponent3.defaults);
+new MyComponent3($root, {
+    anOption: "overridden",
+    aNumberOption: 12345,
+});
 
 MyComponent1.checkSupport();
 MyComponent2.checkSupport();
+MyComponent3.checkSupport();
 
 isSupported();
 
@@ -210,10 +243,28 @@ createAll(MyComponent1, undefined, {
 });
 
 createAll(MyComponent2);
-createAll(MyComponent2, MyComponent2.defaults);
-createAll(MyComponent2, MyComponent2.defaults, document.body);
-createAll(MyComponent2, MyComponent2.defaults, console.error);
-createAll(MyComponent2, MyComponent2.defaults, {
+createAll(MyComponent2, undefined);
+createAll(MyComponent2, undefined, document.body);
+createAll(MyComponent2, undefined, console.error);
+createAll(MyComponent2, undefined, {
+    scope: document.body,
+    onError: console.error,
+});
+
+createAll(MyComponent3);
+createAll(MyComponent3, { anOption: "overridden" });
+createAll(MyComponent3, { anOption: "overridden" }, document.body);
+createAll(MyComponent3, { anOption: "overridden" }, console.error);
+createAll(MyComponent3, { anOption: "overridden" }, {
+    scope: document.body,
+    onError: console.error,
+});
+
+createAll(MyComponent3);
+createAll(MyComponent3, MyComponent3.defaults);
+createAll(MyComponent3, MyComponent3.defaults, document.body);
+createAll(MyComponent3, MyComponent3.defaults, console.error);
+createAll(MyComponent3, MyComponent3.defaults, {
     scope: document.body,
     onError: console.error,
 });

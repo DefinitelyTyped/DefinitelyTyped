@@ -2,6 +2,7 @@
 export * from "./core/constants.js";
 
 // core
+export { default as ArrayNode } from "./core/ArrayNode.js";
 export { default as AssignNode } from "./core/AssignNode.js";
 export { default as AttributeNode } from "./core/AttributeNode.js";
 export { default as BypassNode } from "./core/BypassNode.js";
@@ -13,7 +14,6 @@ export {
     default as LightingModel,
     LightingModelDirectInput,
     LightingModelDirectRectAreaInput,
-    LightingModelIndirectInput,
     LightingModelReflectedLight,
 } from "./core/LightingModel.js";
 export { default as MRTNode } from "./core/MRTNode.js";
@@ -37,6 +37,8 @@ export { default as OutputStructNode } from "./core/OutputStructNode.js";
 export { default as ParameterNode } from "./core/ParameterNode.js";
 export { default as PropertyNode } from "./core/PropertyNode.js";
 export { default as StackNode } from "./core/StackNode.js";
+export { default as StructNode } from "./core/StructNode.js";
+export { default as StructTypeNode } from "./core/StructTypeNode.js";
 export { default as TempNode } from "./core/TempNode.js";
 export { default as UniformGroupNode } from "./core/UniformGroupNode.js";
 export { default as UniformNode } from "./core/UniformNode.js";
@@ -55,6 +57,7 @@ export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as LoopNode } from "./utils/LoopNode.js";
 export { default as MatcapUVNode } from "./utils/MatcapUVNode.js";
 export { default as MaxMipLevelNode } from "./utils/MaxMipLevelNode.js";
+export { default as MemberNode } from "./utils/MemberNode.js";
 export { default as ReflectorNode, ReflectorNodeParameters } from "./utils/ReflectorNode.js";
 export { default as RemapNode } from "./utils/RemapNode.js";
 export { default as RotateNode } from "./utils/RotateNode.js";
@@ -70,11 +73,11 @@ export { default as BatchNode } from "./accessors/BatchNode.js";
 export { default as BufferAttributeNode } from "./accessors/BufferAttributeNode.js";
 export { default as BufferNode } from "./accessors/BufferNode.js";
 export { default as CubeTextureNode } from "./accessors/CubeTextureNode.js";
+export { default as InstancedMeshNode } from "./accessors/InstancedMeshNode.js";
 export { default as InstanceNode } from "./accessors/InstanceNode.js";
 export { default as MaterialNode, MaterialNodeScope } from "./accessors/MaterialNode.js";
 export { default as MaterialReferenceNode } from "./accessors/MaterialReferenceNode.js";
 export { default as ModelNode } from "./accessors/ModelNode.js";
-export { default as ModelViewProjectionNode } from "./accessors/ModelViewProjectionNode.js";
 export { default as MorphNode } from "./accessors/MorphNode.js";
 export { default as Object3DNode } from "./accessors/Object3DNode.js";
 export { default as PointUVNode } from "./accessors/PointUVNode.js";
@@ -114,13 +117,8 @@ export { default as FunctionNode } from "./code/FunctionNode.js";
 export { default as ScriptableNode } from "./code/ScriptableNode.js";
 export { default as ScriptableValueNode } from "./code/ScriptableValueNode.js";
 
-// fog
-export { default as FogExp2Node } from "./fog/FogExp2Node.js";
-export { default as FogNode } from "./fog/FogNode.js";
-export { default as FogRangeNode } from "./fog/FogRangeNode.js";
-
 // geometry
-export { default as RangeNode, RangeModeBound } from "./geometry/RangeNode.js";
+export { default as RangeNode } from "./geometry/RangeNode.js";
 
 // gpgpu
 export { default as ComputeNode } from "./gpgpu/ComputeNode.js";
@@ -135,13 +133,13 @@ export { default as EnvironmentNode } from "./lighting/EnvironmentNode.js";
 export { default as HemisphereLightNode } from "./lighting/HemisphereLightNode.js";
 export { default as IESSpotLightNode } from "./lighting/IESSpotLightNode.js";
 export { default as IrradianceNode } from "./lighting/IrradianceNode.js";
-export { default as LightingContextNode } from "./lighting/LightingContextNode.js";
+export { default as LightingContextNode, LightingContext } from "./lighting/LightingContextNode.js";
 export { default as LightingNode } from "./lighting/LightingNode.js";
-export { default as LightNode, LightNodeScope } from "./lighting/LightNode.js";
 export { default as LightProbeNode } from "./lighting/LightProbeNode.js";
 export { default as LightsNode } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
 export { default as RectAreaLightNode, RectAreaLightTexturesLib } from "./lighting/RectAreaLightNode.js";
+export { default as ShadowBaseNode } from "./lighting/ShadowBaseNode.js";
 export { default as ShadowNode } from "./lighting/ShadowNode.js";
 export { default as SpotLightNode } from "./lighting/SpotLightNode.js";
 

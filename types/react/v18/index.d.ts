@@ -382,37 +382,44 @@ declare namespace React {
     // Factories
     // ----------------------------------------------------------------------
 
+    /** @deprecated */
     type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
-    /**
-     * @deprecated Please use `FunctionComponentFactory`
-     */
+    /** @deprecated */
     type SFCFactory<P> = FunctionComponentFactory<P>;
 
+    /** @deprecated */
     type FunctionComponentFactory<P> = (
         props?: Attributes & P,
         ...children: ReactNode[]
     ) => FunctionComponentElement<P>;
 
+    /** @deprecated */
     type ComponentFactory<P, T extends Component<P, ComponentState>> = (
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]
     ) => CElement<P, T>;
 
+    /** @deprecated */
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    /** @deprecated */
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
+    /** @deprecated */
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]
     ) => DOMElement<P, T>;
 
+    /** @deprecated */
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
+    /** @deprecated */
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
         (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     }
 
+    /** @deprecated */
     interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
         (
             props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null,
@@ -2010,7 +2017,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
+    function useRef<T = undefined>(initialValue?: undefined): MutableRefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
@@ -2961,6 +2968,14 @@ declare namespace React {
          * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     /**
@@ -3951,6 +3966,7 @@ declare namespace React {
     // React.DOM
     // ----------------------------------------------------------------------
 
+    /* deprecated */
     interface ReactHTML {
         a: DetailedHTMLFactory<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
         abbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -4072,6 +4088,7 @@ declare namespace React {
         webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
     }
 
+    /* deprecated */
     interface ReactSVG {
         animate: SVGFactory;
         circle: SVGFactory;
@@ -4130,6 +4147,7 @@ declare namespace React {
         view: SVGFactory;
     }
 
+    /* deprecated */
     interface ReactDOM extends ReactHTML, ReactSVG {}
 
     //

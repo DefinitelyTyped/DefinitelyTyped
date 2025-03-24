@@ -594,6 +594,11 @@ declare module "perf_hooks" {
                     buffered?: boolean | undefined;
                 },
         ): void;
+        /**
+         * @since v16.0.0
+         * @returns Current list of entries stored in the performance observer, emptying it out.
+         */
+        takeRecords(): PerformanceEntry[];
     }
     /**
      * Provides detailed network timing data regarding the loading of an application's resources.

@@ -85,24 +85,24 @@ declare module "timers" {
          */
         function setTimeout<TArgs extends any[]>(
             callback: (...args: TArgs) => void,
-            ms?: number,
+            delay?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setTimeout(callback: (args: void) => void, delay?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(
             callback: (...args: TArgs) => void,
-            ms?: number,
+            delay?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setInterval(callback: (args: void) => void, delay?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }

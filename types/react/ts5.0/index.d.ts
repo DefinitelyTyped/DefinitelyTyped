@@ -1176,7 +1176,7 @@ declare namespace React {
          * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
-        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -1275,7 +1275,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called when the component may be receiving new props.
          * React may call this even if props have not changed, so be sure to compare new and existing
@@ -1293,7 +1293,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1307,7 +1307,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1323,7 +1323,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
     function createRef<T>(): RefObject<T | null>;
@@ -1507,13 +1507,13 @@ declare namespace React {
      * @example
      *
      * ```tsx
-     * type MyComponentRef = React.ElementRef<typeof MyComponent>;
+     * type MyComponentRef = React.ComponentRef<typeof MyComponent>;
      * ```
      *
      * @example
      *
      * ```tsx
-     * type DivRef = React.ElementRef<'div'>;
+     * type DivRef = React.ComponentRef<'div'>;
      * ```
      */
     type ComponentRef<T extends ElementType> = ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
@@ -1834,10 +1834,11 @@ declare namespace React {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
+     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there’s no previous version of `value` that it can render instead.
      *
      * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
-    export function useDeferredValue<T>(value: T): T;
+    export function useDeferredValue<T>(value: T, initialValue?: T): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
@@ -1861,7 +1862,6 @@ declare namespace React {
      *
      * @param callback A function which causes state updates that can be deferred.
      */
-    export function startTransition(scope: TransitionFunction): void;
     export function startTransition(scope: TransitionFunction): void;
 
     /**
@@ -2333,6 +2333,8 @@ declare namespace React {
         // UI Events
         onScroll?: UIEventHandler<T> | undefined;
         onScrollCapture?: UIEventHandler<T> | undefined;
+        onScrollEnd?: UIEventHandler<T> | undefined;
+        onScrollEndCapture?: UIEventHandler<T> | undefined;
 
         // Wheel Events
         onWheel?: WheelEventHandler<T> | undefined;
@@ -2749,6 +2751,14 @@ declare namespace React {
          * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     /**

@@ -8,7 +8,6 @@ import { type PasswordInputConfig } from "./components/password-input/password-i
 
 export interface CompatibleClass {
     new(...args: any[]): any;
-    defaults?: object;
     moduleName: string;
 }
 
@@ -57,7 +56,9 @@ export interface Config {
  */
 export type ConfigKey = keyof Config;
 
-export interface ErrorContext<T extends CompatibleClass> {
+export type ComponentConfig<ComponentClass extends CompatibleClass> = ConstructorParameters<ComponentClass>[1];
+
+export interface ErrorContext<ComponentClass extends CompatibleClass> {
     /**
      * - Element used for component module initialisation
      */
@@ -66,17 +67,20 @@ export interface ErrorContext<T extends CompatibleClass> {
     /**
      * - Class of component
      */
-    component?: T | undefined;
+    component?: ComponentClass | undefined;
 
     /**
      * - Config supplied to component
      */
-    config: T["defaults"];
+    config: ComponentConfig<ComponentClass>;
 }
 
-export type OnErrorCallback<T extends CompatibleClass> = (error: unknown, context: ErrorContext<T>) => any;
+export type OnErrorCallback<ComponentClass extends CompatibleClass> = (
+    error: unknown,
+    context: ErrorContext<ComponentClass>,
+) => any;
 
-export interface CreateAllOptions<T extends CompatibleClass> {
+export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
     /**
      * - scope of the document to search within
      */
@@ -85,7 +89,7 @@ export interface CreateAllOptions<T extends CompatibleClass> {
     /**
      * - callback function if error throw by component on init
      */
-    onError?: OnErrorCallback<T> | undefined;
+    onError?: OnErrorCallback<ComponentClass> | undefined;
 }
 
 /**
@@ -112,14 +116,14 @@ export function initAll(
  *
  * Any component errors will be caught and logged to the console.
  *
- * @template {CompatibleClass} T
- * @param {T} Component - class of the component to create
- * @param {T["defaults"]} [config] - Config supplied to component
- * @param {OnErrorCallback<T> | Element | Document | CreateAllOptions<T> } [createAllOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
- * @returns {Array<InstanceType<T>>} - array of instantiated components
+ * @template {CompatibleClass} ComponentClass
+ * @param {ComponentClass} Component - class of the component to create
+ * @param {ComponentConfig<ComponentClass>} [config] - Config supplied to component
+ * @param {OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass> } [createAllOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
+ * @returns {Array<InstanceType<ComponentClass>>} - array of instantiated components
  */
-export function createAll<T extends CompatibleClass>(
-    Component: T,
-    config?: T["defaults"],
-    createAllOptions?: Document | Element | OnErrorCallback<T> | CreateAllOptions<T>,
-): Array<InstanceType<T>>;
+export function createAll<ComponentClass extends CompatibleClass>(
+    Component: ComponentClass,
+    config?: ComponentConfig<ComponentClass>,
+    createAllOptions?: OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass>,
+): Array<InstanceType<ComponentClass>>;

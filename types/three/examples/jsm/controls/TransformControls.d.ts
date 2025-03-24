@@ -1,6 +1,6 @@
 import { Camera, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3 } from "three";
 
-type TransformControlsMode = "translate" | "rotate" | "scale";
+export type TransformControlsMode = "translate" | "rotate" | "scale";
 
 export interface TransformControlsEventMap {
     /**

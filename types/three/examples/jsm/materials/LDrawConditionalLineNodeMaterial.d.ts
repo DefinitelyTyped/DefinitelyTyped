@@ -1,4 +1,4 @@
-import { NodeMaterial, NodeMaterialParameters } from "three/tsl";
+import { NodeMaterial, NodeMaterialParameters } from "three/webgpu";
 
 declare class LDrawConditionalLineMaterial extends NodeMaterial {
     readonly isLDrawConditionalLineMaterial: true;

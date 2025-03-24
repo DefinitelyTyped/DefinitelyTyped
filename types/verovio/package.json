@@ -1,7 +1,16 @@
 {
     "private": true,
     "name": "@types/verovio",
-    "version": "3.13.9999",
+    "version": "5.0.9999",
+    "exports": {
+        ".": "./index.d.ts",
+        "./esm": {
+            "import": "./esm/index.d.mts",
+            "require": "./esm/index.d.cts"
+        },
+        "./wasm": "./wasm/index.d.mts",
+        "./wasm-hum": "./wasm-hum/index.d.mts"
+    },
     "projects": [
         "http://www.verovio.org"
     ],

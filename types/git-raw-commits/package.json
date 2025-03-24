@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/git-raw-commits",
-    "version": "2.0.9999",
+    "type": "module",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#readme"
     ],

@@ -20,6 +20,47 @@ arb.loadActual().then(tree => {
     tree; // $ExpectType Node
     tree.isWorkspace; // $ExpectType boolean
     tree.edgesOut; // $ExpectType Map<string, Edge>
+    tree.global; // $ExpectType boolean;
+    tree.globalTop; // $ExpectType boolean;
+    tree.isLink; // $ExpectType boolean;
+    tree.isRoot; // $ExpectType boolean;
+    tree.isProjectRoot; // $ExpectType boolean;
+    tree.isRegistryDependency; // $ExpectType boolean;
+    tree.depth; // $ExpectType number;
+    tree.isTop; // $ExpectType boolean;
+    tree.top; // $ExpectType Node;
+    tree.isFsTop; // $ExpectType boolean;
+    tree.fsTop; // $ExpectType Node;
+    tree.resolveParent; // $ExpectType Node;
+    tree.binPaths; // $ExpectType string[];
+    tree.hasInstallScript; // $ExpectType boolean;
+    tree.version; // $ExpectType string;
+    tree.packageName; // $ExpectType string;
+    tree.inDepBundle; // $ExpectType boolean;
+    tree.inShrinkwrap; // $ExpectType boolean;
+    tree.isInStore; // $ExpectType boolean;
+    tree.hasShrinkwrap; // $ExpectType boolean;
+    tree.installLinks; // $ExpectType boolean;
+    tree.legacyPeerDeps; // $ExpectType boolean;
+    tree.tops; // $ExpectType Set<Node>;
+    tree.linksIn; // $ExpectType Set<Link>;
+    tree.dummy; // $ExpectType boolean;
+    tree.overrides; // $ExpectType OverrideSet | undefined;
+    for (const edge of tree.edgesOut.values()) {
+        if (edge.overrides) {
+            edge.overrides.isRoot; // $ExpectType false
+            edge.overrides.key; // $ExpectType string
+        }
+        edge.bundled;
+        edge.prod;
+        edge.dev;
+        edge.optional;
+        edge.peer;
+        edge.rawSpec;
+        edge.detach();
+        edge.reload();
+        edge.explain(); // $ExpectType Explanation
+    }
 });
 
 arb.loadVirtual().then(tree => {

@@ -73,11 +73,6 @@ export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extend
     resolveStencilBuffer: boolean;
 
     /**
-     * @default null
-     */
-    depthTexture: DepthTexture | null;
-
-    /**
      * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.
      * @default 0
      */
@@ -87,6 +82,9 @@ export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extend
 
     get texture(): TTexture;
     set texture(value: TTexture);
+
+    set depthTexture(current: DepthTexture | null);
+    get depthTexture(): DepthTexture | null;
 
     setSize(width: number, height: number, depth?: number): void;
     clone(): this;

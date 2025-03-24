@@ -340,7 +340,6 @@ gridLayerOptions = {
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
     id: "mapbox.streets",
-    accessToken: "your.mapbox.access.token",
     minZoom: 0,
     maxZoom: 18,
     maxNativeZoom: 2,
@@ -587,6 +586,7 @@ map = map
     .panBy(point)
     .panBy(pointTuple)
     .panBy(pointTuple, { animate: false, duration: 1, easeLinearity: 1, noMoveStart: true })
+    .setMaxBounds()
     .setMaxBounds(latLngBounds)
     .setMaxBounds(latLngBoundsLiteral)
     .setMinZoom(5)

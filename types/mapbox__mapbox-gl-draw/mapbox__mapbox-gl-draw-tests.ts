@@ -238,7 +238,7 @@ drawFeature.updateCoordinate("", 0, 0);
 // $ExpectType void
 drawFeature.setProperty("", 0);
 
-// $ExpectType GeoJSON
+// $ExpectType GeoJSON || GeoJSON<Geometry, GeoJsonProperties>
 drawFeature.toGeoJSON();
 
 if (drawFeature.type === "Point") {

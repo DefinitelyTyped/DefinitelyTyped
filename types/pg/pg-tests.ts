@@ -233,6 +233,7 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     keepAlive: false,
+    lock_timeout: 5000,
     log: (...args) => {
         console.log.apply(console, args);
     },
@@ -242,6 +243,7 @@ console.log(pool.totalCount);
 console.log(pool.idleCount);
 console.log(pool.waitingCount);
 console.log(pool.expiredCount);
+console.log(pool.options.lock_timeout);
 pool.connect((err, client, done) => {
     if (err) {
         console.error("error fetching client from pool", err);

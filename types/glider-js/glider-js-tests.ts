@@ -35,6 +35,7 @@ const options: Glider.Options = {
             },
         },
     ],
+    passiveListeners: true,
 };
 
 new Glider(new HTMLDivElement());

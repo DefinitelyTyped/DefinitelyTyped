@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import { Buffer } from "buffer";
+import { EventEmitter } from "events";
 
 export interface Options {
     mtime: Date;
@@ -27,7 +28,7 @@ export interface DosDateTime {
     time: number;
 }
 
-export class ZipFile {
+export class ZipFile extends EventEmitter {
     addFile(realPath: string, metadataPath: string, options?: Partial<Options>): void;
     outputStream: NodeJS.ReadableStream;
     addReadStream(input: NodeJS.ReadableStream, metadataPath: string, options?: Partial<ReadStreamOptions>): void;

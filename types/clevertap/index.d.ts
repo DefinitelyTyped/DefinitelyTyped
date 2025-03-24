@@ -43,6 +43,11 @@ interface Query {
     to: number;
 }
 
+interface MessageReportQuery {
+    from: string;
+    to: string;
+}
+
 interface QueryOptions {
     debug?: number;
     batchSize?: number;
@@ -133,6 +138,7 @@ interface CleverTap {
         options?: TargetOptions,
         callback?: Callback,
     ): Promise<any>;
+    getMessageReports(query: MessageReportQuery, options?: QueryOptions, callback?: Callback): Promise<any>;
     readonly TARGET_CREATE: "create";
     readonly TARGET_ESTIMATE: "estimate";
     readonly TARGET_LIST: "list";

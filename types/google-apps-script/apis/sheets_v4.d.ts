@@ -1084,6 +1084,10 @@ declare namespace GoogleAppsScript {
                 italic?: boolean | undefined;
                 strikethrough?: boolean | undefined;
                 underline?: boolean | undefined;
+                link?: Sheets.Schema.Link | undefined;
+            }
+            interface Link {
+                uri?: string | undefined;
             }
             interface TextFormatRun {
                 format?: Sheets.Schema.TextFormat | undefined;

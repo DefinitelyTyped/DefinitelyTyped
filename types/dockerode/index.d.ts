@@ -473,6 +473,7 @@ declare namespace Dockerode {
 
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
+        force?: boolean | undefined;
     }
 
     interface VolumeCreateResponse {
@@ -566,9 +567,11 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
+            Type: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
             Name?: string | undefined;
             Source: string;
             Destination: string;
+            Driver?: string | undefined;
             Mode: string;
             RW: boolean;
             Propagation: string;
@@ -1107,6 +1110,7 @@ declare namespace Dockerode {
         User?: string | undefined;
         WorkingDir?: string | undefined;
         abortSignal?: AbortSignal;
+        ConsoleSize?: [number, number];
     }
 
     interface ExecInspectInfo {

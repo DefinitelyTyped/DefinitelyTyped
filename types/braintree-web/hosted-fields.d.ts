@@ -225,6 +225,30 @@ export interface HostedFieldMessageOptions {
     message: string;
 }
 
+export interface HostedFieldsBillingAddress {
+    postalCode?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    company?: string | undefined;
+    streetAddress?: string | undefined;
+    extendedAddress?: string | undefined;
+    locality?: string | undefined;
+    region?: string | undefined;
+    countryCodeNumeric?: string | undefined;
+    countryCodeAlpha2?: string | undefined;
+    countryCodeAlpha3?: string | undefined;
+    countryName?: string | undefined;
+}
+
+export type TokenizationFields =
+    | "number"
+    | "cvv"
+    | "expirationDate"
+    | "expirationMonth"
+    | "expirationYear"
+    | "postalCode"
+    | "cardholderName";
+
 export interface HostedFields {
     /**
      * An object that represents CSS that will be applied in each hosted field. This object looks similar to CSS.
@@ -313,11 +337,17 @@ export interface HostedFields {
      */
     tokenize(options?: {
         vault?: boolean | undefined;
+        fieldsToTokenize?: Array<TokenizationFields> | undefined;
         cardholderName?: string | undefined;
-        billingAddress?: any;
+        billingAddress?: HostedFieldsBillingAddress | undefined;
     }): Promise<HostedFieldsTokenizePayload>;
     tokenize(
-        options: { vault?: boolean | undefined; cardholderName?: string | undefined; billingAddress?: any },
+        options: {
+            vault?: boolean | undefined;
+            fieldsToTokenize?: Array<TokenizationFields> | undefined;
+            cardholderName?: string | undefined;
+            billingAddress?: HostedFieldsBillingAddress | undefined;
+        },
         callback: callback<HostedFieldsTokenizePayload>,
     ): void;
     tokenize(callback: callback<HostedFieldsTokenizePayload>): void;

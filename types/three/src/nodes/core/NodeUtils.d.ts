@@ -17,8 +17,15 @@ export const hashArray: (array: number[]) => number;
 export const hash: (...params: number[]) => number;
 
 export function getCacheKey(object: Node, force?: boolean): number;
+
 export function getNodeChildren(object: Node): Generator<NodeChild, void>;
+
+export function getTypeFromLength(length: number): string | undefined;
+
+export function getLengthFromType(type: string): number | undefined;
+
 export function getValueType(value: unknown): string | null;
+
 export function getValueFromType(
     type: string,
     ...params: number[]

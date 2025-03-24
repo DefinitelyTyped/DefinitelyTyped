@@ -20,7 +20,7 @@ import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
 import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
 import { finished as finishedPromise, pipeline as pipelinePromise } from "node:stream/promises";
-import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
+import { ReadableStream, ReadableStreamBYOBReader, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every, setTimeout as wait } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
 
@@ -584,8 +584,29 @@ addAbortSignal(new AbortSignal(), new Readable());
 
 {
     const readable = new Readable();
+
     // $ExpectType ReadableStream<any>
     Readable.toWeb(readable);
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {});
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, { strategy: {} });
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, {
+        strategy: {
+            highWaterMark: 3,
+
+            size(chunk) {
+                // $ExpectType any
+                chunk;
+
+                return -1;
+            },
+        },
+    });
 }
 
 {
@@ -789,5 +810,24 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 {
-    new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
+    let byobReader = new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
+    byobReader = new ReadableStreamBYOBReader(new Blob([]).stream());
+
+    // $ExpectType Promise<void>
+    byobReader.cancel();
+    // $ExpectType Promise<void>
+    byobReader.cancel("reason");
+
+    // $ExpectType Promise<undefined>
+    byobReader.closed;
+
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array());
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array(), {});
+    // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>
+    byobReader.read(new Uint8Array(), { min: 1 });
+
+    // $ExpectType void
+    byobReader.releaseLock();
 }

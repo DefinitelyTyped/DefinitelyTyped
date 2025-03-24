@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/ms",
-    "version": "0.7.9999",
+    "version": "2.1.9999",
     "projects": [
-        "https://github.com/zeit/ms"
+        "https://github.com/vercel/ms"
     ],
     "devDependencies": {
         "@types/ms": "workspace:."

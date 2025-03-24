@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Agent as BaseHTTPAgent, AgentOptions } from "http";
-import { Agent as BaseHTTPSAgent } from "https";
+import { Agent as BaseHTTPAgent, AgentOptions as BaseHTTPAgentOptions } from "http";
+import { Agent as BaseHTTPSAgent, AgentOptions as BaseHTTPSAgentOptions } from "https";
 import { Server as NetServer, Socket } from "net";
 import { Duplex, Readable, ReadableOptions, Writable, WritableOptions } from "stream";
 
@@ -1276,6 +1276,8 @@ export interface PublicKeyAuthContext extends AuthContextBase {
     signature?: Buffer;
     /** The data used to verify the key, or `undefined` if the client is only checking the validity of the key. */
     blob?: Buffer;
+    /** The explicit hash algorithm to be used during verification (passed to key.verify()). */
+    hashAlgo?: string;
 }
 
 export interface PublicKey {
@@ -1631,7 +1633,7 @@ export interface SetEnvInfo {
     /** The environment variable's name. */
     key: string;
     /** The environment variable's value. */
-    value: string;
+    val: string;
 }
 
 export interface SignalInfo {
@@ -2394,7 +2396,7 @@ export interface UNIXConnectionDetails {
     socketPath: string;
 }
 
-export interface HTTPAgentOptions extends AgentOptions {
+export interface HTTPAgentOptions extends BaseHTTPAgentOptions {
     srcIP?: string;
 }
 
@@ -2402,6 +2404,10 @@ export class HTTPAgent extends BaseHTTPAgent {
     constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
 }
 
+export interface HTTPSAgentOptions extends BaseHTTPSAgentOptions {
+    srcIP?: string;
+}
+
 export class HTTPSAgent extends BaseHTTPSAgent {
-    constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
+    constructor(connectCfg: ConnectConfig, agentOptions: HTTPSAgentOptions);
 }

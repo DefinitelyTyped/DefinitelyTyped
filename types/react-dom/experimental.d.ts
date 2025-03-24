@@ -34,3 +34,15 @@ export {};
 
 declare module "." {
 }
+
+declare module "react" {
+    interface ViewTransitionInstance {
+        group: Animatable;
+        imagePair: Animatable;
+        old: Animatable;
+        new: Animatable;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface GestureProvider extends AnimationTimeline {}
+}

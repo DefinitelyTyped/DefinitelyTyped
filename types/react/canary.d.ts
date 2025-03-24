@@ -32,4 +32,11 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
     export function unstable_useCacheRefresh(): () => void;
+
+    /**
+     * Warning: Only available in development builds.
+     *
+     * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     */
+    function captureOwnerStack(): string | null;
 }

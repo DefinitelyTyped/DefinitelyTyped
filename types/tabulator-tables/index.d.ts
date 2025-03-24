@@ -3339,7 +3339,7 @@ declare class Tabulator {
      * ]
      * ```
      */
-    getRangeData: () => unknown[][];
+    getRangesData: () => unknown[][];
 
     setSheets: (data: SpreadsheetSheet[]) => void;
     addSheet: (data: SpreadsheetSheet) => void;

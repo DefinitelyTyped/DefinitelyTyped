@@ -710,4 +710,20 @@ export const version6Tests = async (): Promise<void> => {
     // by DB for SODA document.
     const key = new oracledb.JsonId([102, 241, 117, 85, 174, 103, 204, 25, 15, 172, 252, 47]);
     console.log(key.toJSON()); // 66f17555ae67cc190facfc2f
+
+    console.log("Testing createPool() with privilege parameter applicable for Thin mode...");
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        privilege: oracledb.SYSDBA,
+        homogeneous: true,
+        password: DB_PASSWORD,
+        poolIncrement: 1,
+        poolMax: 5,
+        poolMin: 3,
+        poolPingInterval: 60,
+        poolTimeout: 60,
+        queueTimeout: 60000,
+        user: DB_USER,
+    });
 };

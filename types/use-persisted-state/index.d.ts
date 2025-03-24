@@ -6,4 +6,4 @@ declare function createPersistedState<S>(key: string, provider?: Pick<Storage, "
 };
 
 export as namespace createPersistedState;
-export default createPersistedState;
+export = createPersistedState;

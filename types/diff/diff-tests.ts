@@ -24,6 +24,7 @@ Diff.diffLines(
     "line\nold value\nline",
     "line\nnew value\nline",
     {
+        stripTrailingCr: true,
         ignoreNewlineAtEof: true,
         maxEditLength: 1,
         oneChangePerToken: true,
@@ -93,6 +94,7 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: Diff.Parsed
     const verifyPatch = Diff.parsePatch(
         Diff.createTwoFilesPatch("oldFile.ts", "newFile.ts", oldStr, newStr, "old", "new", {
             context: 1,
+            stripTrailingCr: true,
         }),
     );
 

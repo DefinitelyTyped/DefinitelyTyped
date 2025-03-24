@@ -1,4 +1,4 @@
-// For Library Version: 1.131.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -96,6 +96,81 @@ declare module "sap/ui/rta/enablement/TestDelegate" {
   export default TestDelegate;
 }
 
+declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
+  /**
+   * Annotation change definition
+   */
+  export type AnnotationChangeDefinition = {
+    /**
+     * Change type
+     */
+    annotationChangeType: string;
+    /**
+     * Change content
+     */
+    content: {
+      /**
+       * Path of the property
+       */
+      annotationPath: string;
+      /**
+       * New value
+       */
+      value: string;
+    };
+    /**
+     * Url of the OData service
+     */
+    serviceUrl: string;
+  };
+
+  /**
+   * Annotation change info
+   */
+  export type AnnotationChangeInfo = {
+    /**
+     * Url of the OData service
+     */
+    serviceUrl: string;
+    /**
+     * Array of properties
+     */
+    properties: Array<{
+      /**
+       * Path of the property
+       */
+      annotationPath: string;
+      /**
+       * Name of the property
+       */
+      propertyName: string;
+      /**
+       * Current value of the property
+       */
+      currentValue: string;
+    }>;
+    /**
+     * Array of possible values for value list type properties
+     */
+    possibleValues: Array<{
+      /**
+       * Key of the option
+       */
+      key: string;
+      /**
+       * Text of the option
+       */
+      text: string;
+    }>;
+    /**
+     * Name of the property that should be filtered for initially
+     */
+    preSelectedProperty?: string;
+  };
+
+  export type getAnnotationChangeInfo = () => AnnotationChangeInfo;
+}
+
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/rta/api/startAdaptation": undefined;
@@ -105,6 +180,8 @@ declare namespace sap {
     "sap/ui/rta/Client": undefined;
 
     "sap/ui/rta/enablement/TestDelegate": undefined;
+
+    "sap/ui/rta/plugin/annotations/AnnotationChangeDialog": undefined;
 
     "sap/ui/rta/service/Action": undefined;
 

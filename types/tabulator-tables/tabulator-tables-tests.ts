@@ -1545,7 +1545,7 @@ const range1 = table.addRange(cell, cell);
 range1.clearValues();
 table.getRanges().forEach(range => range.remove());
 
-const data1 = table.getRangeData();
+const data1 = table.getRangesData();
 data1[0][0] = { name: "steve" };
 
 // Testing 6.0 features

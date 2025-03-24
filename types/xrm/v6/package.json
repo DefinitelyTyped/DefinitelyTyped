@@ -2,9 +2,13 @@
     "private": true,
     "name": "@types/xrm",
     "version": "6.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Javascript APIs available in Microsoft Dataverse/PowerApps model-driven apps and Dynamics 365 Customer Engagement (previously known as CRM).",
     "projects": [
         "http://msdn.microsoft.com/en-us/library/gg328255.aspx"
     ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Dynamics 365 & Power Platform JavaScript Client API",
     "devDependencies": {
         "@types/xrm": "workspace:."
     },

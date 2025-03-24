@@ -561,7 +561,8 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// Ref cleanups only appear because Canary types are part of compilation.
+// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -691,7 +692,7 @@ function reactNodeTests() {
     <div>{createChildren()}</div>;
     // @ts-expect-error plain objects are not allowed
     <div>{{ dave: true }}</div>;
-    // @ts-expect-error Promises as ReactNode is not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <div>{Promise.resolve("React")}</div>;
 }
 
@@ -771,10 +772,10 @@ function elementTypeTests() {
     }
 
     const ReturnPromise = () => Promise.resolve("React");
-    // @ts-expect-error Async components are not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
-        // @ts-expect-error Async components are not supported in React 18.
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         render() {
             return Promise.resolve("React");
         }
@@ -874,13 +875,13 @@ function elementTypeTests() {
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 
-    // @ts-expect-error Async components are not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <ReturnPromise />;
-    // @ts-expect-error Async components are not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(ReturnPromise);
-    // @ts-expect-error Async components are not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <RenderPromise />;
-    // @ts-expect-error Async components are not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
 
     // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
@@ -949,7 +950,8 @@ function managingRefs() {
         }}
     />;
     <div
-        // Ref cleanup is accidentally supported in React 18.
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
         ref={current => {
             // @ts-expect-error
             return function refCleanup(implicitAny) {
@@ -957,7 +959,8 @@ function managingRefs() {
         }}
     />;
     <div
-        // Ref cleanup is accidentally supported in React 18.
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
         ref={current => {
             return function refCleanup(neverPassed: string) {
             };

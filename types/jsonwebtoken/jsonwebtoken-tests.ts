@@ -56,6 +56,8 @@ token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1d" });
 token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 });
 // @ts-expect-error
 token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1quarter" });
 
 // sign with insecure key size
 token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });
@@ -312,4 +314,24 @@ jwt.decode(token, { complete: true, json: true });
     jwt.verify("", publicKey);
     jwt.verify("", publicKey, () => {});
     jwt.verify("", (header, done) => done(null, publicKey), () => {});
+}
+
+// verify callback
+{
+    let callback!: jwt.VerifyCallback;
+    let err!: jwt.VerifyErrors;
+    let decoded!: jwt.JwtPayload;
+
+    callback(err); // when error
+    callback(null, decoded); // when decoded
+}
+
+// sign callback
+{
+    let callback!: jwt.SignCallback;
+    let err!: Error;
+    let encoded!: string;
+
+    callback(err); // when error
+    callback(null, encoded); // when encoded
 }

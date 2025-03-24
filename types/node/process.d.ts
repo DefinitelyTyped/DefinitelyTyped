@@ -186,7 +186,10 @@ declare module "process" {
                 readonly inspector: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for IPv6.
+                 *
+                 * Since all Node.js builds have IPv6 support, this value is always `true`.
                  * @since v0.5.3
+                 * @deprecated This property is always true, and any checks based on it are redundant.
                  */
                 readonly ipv6: boolean;
                 /**
@@ -202,17 +205,29 @@ declare module "process" {
                 readonly tls: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for ALPN in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional ALPN support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v4.8.0
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_alpn: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for OCSP in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional OCSP support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v0.11.13
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_ocsp: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for SNI in TLS.
+                 *
+                 * In Node.js 11.0.0 and later versions, the OpenSSL dependencies feature unconditional SNI support.
+                 * This value is therefore identical to that of `process.features.tls`.
                  * @since v0.5.3
+                 * @deprecated Use `process.features.tls` instead.
                  */
                 readonly tls_sni: boolean;
                 /**
@@ -223,8 +238,10 @@ declare module "process" {
                 readonly typescript: "strip" | "transform" | false;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for libuv.
-                 * Since it's currently not possible to build Node.js without libuv, this value is always `true`.
+                 *
+                 * Since it's not possible to build Node.js without libuv, this value is always `true`.
                  * @since v0.5.3
+                 * @deprecated This property is always true, and any checks based on it are redundant.
                  */
                 readonly uv: boolean;
             }
@@ -333,11 +350,43 @@ declare module "process" {
                 TZ?: string;
             }
             interface HRTime {
+                /**
+                 * This is the legacy version of {@link process.hrtime.bigint()}
+                 * before bigint was introduced in JavaScript.
+                 *
+                 * The `process.hrtime()` method returns the current high-resolution real time in a `[seconds, nanoseconds]` tuple `Array`,
+                 * where `nanoseconds` is the remaining part of the real time that can't be represented in second precision.
+                 *
+                 * `time` is an optional parameter that must be the result of a previous `process.hrtime()` call to diff with the current time.
+                 * If the parameter passed in is not a tuple `Array`, a TypeError will be thrown.
+                 * Passing in a user-defined array instead of the result of a previous call to `process.hrtime()` will lead to undefined behavior.
+                 *
+                 * These times are relative to an arbitrary time in the past,
+                 * and not related to the time of day and therefore not subject to clock drift.
+                 * The primary use is for measuring performance between intervals:
+                 * ```js
+                 * const { hrtime } = require('node:process');
+                 * const NS_PER_SEC = 1e9;
+                 * const time = hrtime();
+                 * // [ 1800216, 25 ]
+                 *
+                 * setTimeout(() => {
+                 *   const diff = hrtime(time);
+                 *   // [ 1, 552 ]
+                 *
+                 *   console.log(`Benchmark took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds`);
+                 *   // Benchmark took 1000000552 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since 0.7.6
+                 * @legacy Use {@link process.hrtime.bigint()} instead.
+                 * @param time The result of a previous call to `process.hrtime()`
+                 */
                 (time?: [number, number]): [number, number];
                 /**
-                 * The `bigint` version of the `{@link hrtime()}` method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 * The `bigint` version of the {@link process.hrtime()} method returning the current high-resolution real time in nanoseconds as a `bigint`.
                  *
-                 * Unlike `{@link hrtime()}`, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * Unlike {@link process.hrtime()}, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
                  * ```js
                  * import { hrtime } from 'node:process';
                  *
@@ -352,6 +401,7 @@ declare module "process" {
                  *   // Benchmark took 1154389282 nanoseconds
                  * }, 1000);
                  * ```
+                 * @since v10.7.0
                  */
                 bigint(): bigint;
             }
@@ -1643,7 +1693,7 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
-                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 * This API is available through the [--permission](https://nodejs.org/api/cli.html#--permission) flag.
                  *
                  * `process.permission` is an object whose methods are used to manage permissions for the current process.
                  * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).

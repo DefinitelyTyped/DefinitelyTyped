@@ -1,16 +1,31 @@
 import { mo, po } from "gettext-parser";
+import { createReadStream } from "node:fs";
 
-let parsed = po.parse("foo", "utf-8");
-let compiled = po.compile(parsed, {});
+let parsed = po.parse("foo", { defaultCharset: "utf-8", validation: true });
+parsed = po.parse("foo", { defaultCharset: "utf-8" });
+parsed = po.parse("foo", { validation: true });
+parsed = po.parse("foo", { validation: false });
 parsed = po.parse(Buffer.from("bar"));
-compiled = po.compile(parsed, { anyOption: false });
-const stream = po.createParseStream(Buffer.from("bar"));
-stream.on("data", (data) => {
-    console.log(data);
+
+let compiled = po.compile(parsed, {});
+compiled = po.compile(parsed);
+compiled = po.compile(parsed, { foldLength: 80 });
+compiled = po.compile(parsed, { escapeCharacters: true });
+compiled = po.compile(parsed, { escapeCharacters: false });
+compiled = po.compile(parsed, { sort: true });
+compiled = po.compile(parsed, { sort: false });
+compiled = po.compile(parsed, { eol: "\n" });
+compiled = po.compile(parsed, { sort: (a, b) => a.msgid.length > b.msgid.length ? 1 : -1 });
+
+const poParseStream = po.createParseStream();
+const input = createReadStream("bar");
+input.pipe(poParseStream);
+poParseStream.on("data", (data) => {
+    console.log(data.translations[""]);
 });
 
+parsed = mo.parse(Buffer.from("bar"), "wrong-charset");
 parsed = mo.parse(compiled, "wrong-charset");
-compiled = mo.compile(parsed, { noOption: 3 });
 
 const charset: string = parsed.charset;
 

@@ -2965,6 +2965,15 @@ declare namespace OracleDB {
          * Statistics can be output to the console by calling the pool.logStatistics() method.
          */
         enableStatistics?: boolean | undefined;
+        /**
+         * The privilege to use when establishing connection to the database.
+         * This optional property should be one of the privileged connection constants.
+         * For Thin mode only, privilege is applicable in createPool. Thick mode
+         * still needs to pass it in pool.getConnection.
+         *
+         * @since 6.5.1
+         */
+        privilege?: number | undefined;
     }
 
     /**
