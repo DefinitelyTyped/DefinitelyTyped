@@ -650,7 +650,7 @@
 /types/brace-expansion/                                   @BendingBender
 /types/braces/                                            @vemoo @mrmlnc @rejunp
 /types/brainhubeu__react-carousel/                        @jackall3n @sinchang @roberthebel
-/types/braintree/                                         @smrubin @acdr @sedenardi @sebacampos
+/types/braintree/                                         @smrubin @acdr @sebacampos @claudiowilson
 /types/braintree-web/                                     @daelmaak
 /types/braintree-web-drop-in/                             @saoudrizwan @elmikosch
 /types/bramus__pagination-sequence/                       @kristjanjokull
@@ -1529,7 +1529,6 @@
 /types/dinero.js/                                         @BendingBender @juandaco @peterblazejewicz
 /types/dingtalk-robot-sender/                             @bangbang93
 /types/dir-glob/                                          @BendingBender
-/types/dir-walker-gen/                                    @aynurin
 /types/director/                                          @pastelmind
 /types/directory-structure-json/                          @vdistortion
 /types/dirname-regex/                                     @BendingBender
@@ -2218,6 +2217,7 @@
 /types/fnando__sparkline/                                 @grabofus
 /types/fnv-lite/                                          @marcind
 /types/fnv-plus/                                          @mihnea-s
+/types/focus-group/                                       @m-kawafuji
 /types/focus-within/                                      @eramdam
 /types/fold-to-ascii/                                     @mogzol
 /types/folder-hash/                                       @thekevinbrown @peterblazejewicz @marc136
@@ -2885,7 +2885,6 @@
 /types/git-user-email/                                    @BendingBender
 /types/git-user-name/                                     @BendingBender
 /types/git-username/                                      @BendingBender
-/types/gitana/                                            @tenoriojuann
 /types/gitconfiglocal/                                    @ffflorian
 /types/github-from-package/                               @e6nlaq
 /types/github-label-sync/                                 @EndBug
@@ -5574,7 +5573,6 @@
 /types/parcel-bundler/                                    @pinage404
 /types/parcel-env/                                        @fathyb
 /types/parcel__watcher/                                   @ascorbic
-/types/parent-package-json/                               @sgmccli
 /types/parents/                                           @TeamworkGuy2
 /types/parity-pmd/                                        @leovujanic
 /types/parity-pmr/                                        @leovujanic
@@ -7833,7 +7831,7 @@
 /types/system-service/                                    @leocwlam
 /types/system-sleep/                                      @ArthurKa
 /types/system-task/                                       @leocwlam
-/types/systemjs/                                          @joeldenning
+/types/systemjs/                                          @jolyndenning
 /types/systemjs/v0/                                       @ludohenin @NathanWalker @GiedriusGrabauskas @aluanhaddad
 /types/table-resolver/                                    @junalmeida
 /types/tableau/                                           @protip
