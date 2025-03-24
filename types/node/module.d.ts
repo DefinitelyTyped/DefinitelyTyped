@@ -183,17 +183,17 @@ declare module "module" {
          * key names matching the hooks.
          */
         function registerHooks(hooks: {
-			resolve?: ResolveHook,
-			load?: LoadHook,
-		}): ModuleHooks;
+            resolve?: ResolveHook,
+            load?: LoadHook,
+        }): ModuleHooks;
 
-		class ModuleHooks {
-			constructor(resolve?: ResolveHook, load?: LoadHook);
+        class ModuleHooks {
+            constructor(resolve?: ResolveHook, load?: LoadHook);
             /**
              * Remove this set of hooks.
              */
-			deregister(): void;
-		}
+            deregister(): void;
+        }
         interface StripTypeScriptTypesOptions {
             /**
              * Possible values are:
