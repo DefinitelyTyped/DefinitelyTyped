@@ -1617,6 +1617,10 @@
             "libraryName": "editly",
             "asOfVersion": "0.11.3"
         },
+        "editorjs__header": {
+            "libraryName": "@editorjs/header",
+            "asOfVersion": "2.8.2"
+        },
         "eev": {
             "libraryName": "eev",
             "asOfVersion": "0.1.2"
