@@ -425,6 +425,20 @@ async function testPromisify() {
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        123,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        null,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
     const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
@@ -619,6 +633,13 @@ async function testPromisify() {
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.readv(
+        123,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
+        null,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
