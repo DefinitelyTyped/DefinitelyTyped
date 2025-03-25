@@ -2,7 +2,7 @@ import mbxClient from "@mapbox/mapbox-sdk";
 import { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
-import Directions, { DirectionsResponse, DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
+import Directions, { DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
 import Geocoding, { GeocodeService } from "@mapbox/mapbox-sdk/services/geocoding";
 import GeocodingV6, { GeocodeService as GeocodeServiceV6 } from "@mapbox/mapbox-sdk/services/geocoding-v6";
 import Isochrone, { IsochroneService } from "@mapbox/mapbox-sdk/services/isochrone";
@@ -289,6 +289,9 @@ geocodeServiceV6
     .then(({ body }) => {
         body.features.forEach((feature) => {
             const shortCode = feature.properties.context.place?.short_code;
+            const placeFormatted = feature.properties.place_formatted;
+            const fullAddress = feature.properties.full_address;
+            const name_preferred = feature.properties.name_preferred;
         });
     });
 
