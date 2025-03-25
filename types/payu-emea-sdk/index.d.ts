@@ -124,6 +124,7 @@ declare namespace payu {
         update(options: SecureFormOptions): SecureForm;
         on(event: eventTypes, handler: () => void): SecureForm;
         on(event: "change", handler: (body: SecureFormChangeResponse) => void): SecureForm;
+        on(event: "installmentsChange", handler: (body: SecureFormInstallmentsChangeResponse) => void): SecureForm
         clear(): SecureForm;
         focus(): SecureForm;
         remove(): SecureForm;
@@ -158,6 +159,11 @@ declare namespace payu {
         error: false | SecureFormErrorMessage[];
         brand?: "visa" | "mastercard" | "maestro" | undefined;
         length?: number | undefined;
+    }
+
+    interface SecureFormInstallmentsChangeResponse {
+        numbers: number[];
+        provider: string;
     }
 
     interface TokenizeResultSuccess {
