@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 declare namespace PDFKit {
     interface PDFGradient {
         new(document: any): PDFGradient;
@@ -37,6 +35,45 @@ declare namespace PDFKit {
 }
 
 declare namespace PDFKit.Mixins {
+    /** {{{ From NodeJS */
+
+    class EventEmitter {
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        off(event: string | symbol, listener: (...args: any[]) => void): this;
+        removeAllListeners(event?: string | symbol): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
+        listeners(event: string | symbol): Function[];
+        rawListeners(event: string | symbol): Function[];
+        emit(event: string | symbol, ...args: any[]): boolean;
+        listenerCount(type: string | symbol): number;
+        // Added in Node 6...
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        eventNames(): Array<string | symbol>;
+    }
+
+    type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
+
+    interface ReadableStream extends EventEmitter {
+        readable: boolean;
+        read(size?: number): string | Buffer;
+        setEncoding(encoding: string): this;
+        pause(): this;
+        resume(): this;
+        isPaused(): boolean;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        unpipe(destination?: WritableStream): this;
+        unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
+        wrap(oldStream: ReadableStream): this;
+        [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+    }
+
+    /** }}} */
+
     interface AnnotationOption {
         Type?: string | undefined;
         Rect?: any;
@@ -355,7 +392,7 @@ declare namespace PDFKit.Mixins {
         pattern(bbox: BoundingBox, xStep: number, yStep: number, stream: string): PDFTilingPattern;
     }
 
-    type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
+    type PDFFontSource = string | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
         font(src: PDFFontSource, size?: number): this;
@@ -371,7 +408,7 @@ declare namespace PDFKit.Mixins {
         ): this;
     }
 
-    type ImageSrc = Buffer | ArrayBuffer | string;
+    type ImageSrc = Uint8Array | ArrayBuffer | string;
 
     interface ImageOption {
         width?: number | undefined;
@@ -700,7 +737,7 @@ declare namespace PDFKit {
 
     interface PDFDocument
         extends
-            NodeJS.ReadableStream,
+            Mixins.ReadableStream,
             Mixins.PDFMetadata,
             Mixins.PDFAnnotation,
             Mixins.PDFColor,
