@@ -334,7 +334,8 @@ declare namespace session {
         sameSite?: boolean | "lax" | "strict" | "none" | undefined;
     }
 
-    abstract class Store extends EventEmitter {
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    abstract class Store<T extends Record<keyof T, any[]> | [never] = [never]> extends EventEmitter<T> {
         regenerate(req: express.Request, callback: (err?: any) => any): void;
 
         load(sid: string, callback: (err: any, session?: SessionData) => any): void;

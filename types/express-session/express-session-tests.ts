@@ -113,7 +113,7 @@ app.use((req, res, next) => {
 
 // Custom Session Store
 
-class MyStore extends Store {
+class MyStore extends Store<{ test: [number, string] }> {
     private sessions: { [sid: string]: string | undefined };
 
     constructor() {
@@ -130,6 +130,7 @@ class MyStore extends Store {
     set = (sid: string, session: SessionData, callback?: (err?: any) => void): void => {
         this.sessions[sid] = JSON.stringify(session);
         if (callback) callback();
+        this.emit("test", 1, "test");
     };
 
     touch = (sid: string, session: SessionData, callback?: (err?: any) => void) => {
