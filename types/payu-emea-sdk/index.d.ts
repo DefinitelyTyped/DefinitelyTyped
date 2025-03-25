@@ -82,6 +82,7 @@ declare namespace payu {
         lang?: lang | undefined;
         disabled?: boolean | undefined;
         cardIcon?: boolean | undefined;
+        enableInstallments?: boolean | undefined;
     }
 
     type fontWeight = "normal" | "bold" | "lighter" | "bolder" | "inherit" | "initial" | "unset" | fontWeightNumber;
