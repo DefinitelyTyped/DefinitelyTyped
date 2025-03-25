@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /// <reference types="pdfkit" />
 
 /**

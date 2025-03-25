@@ -18,7 +18,7 @@ export interface TCreatedPdf {
 
     getBlob(cb: (result: Blob) => void, options?: BufferOptions): void;
     getBase64(cb: (result: string) => void, options?: BufferOptions): void;
-    getBuffer(cb: (result: Buffer) => void, options?: BufferOptions): void;
+    getBuffer(cb: (result: PDFKit.Mixins.Buffer) => void, options?: BufferOptions): void;
     getDataUrl(cb: (result: string) => void, options?: BufferOptions): void;
     getStream(options?: BufferOptions): PDFKit.PDFDocument; // minimal version 0.1.41
     open(options?: BufferOptions, win?: Window | null): void;
