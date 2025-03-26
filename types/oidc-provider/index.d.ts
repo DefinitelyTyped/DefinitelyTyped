@@ -4,7 +4,6 @@ import * as events from "node:events";
 import * as http from "node:http";
 import * as http2 from "node:http2";
 import * as https from "node:https";
-import * as url from "node:url";
 
 import KeyGrip = require("keygrip");
 import * as Koa from "koa";
@@ -18,7 +17,7 @@ export type FindAccount = (
     token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest,
 ) => CanBePromise<Account | undefined>;
 export type TokenFormat = "opaque" | "jwt";
-export type FapiProfile = "1.0 ID2" | "1.0 Final" | "2.0";
+export type FapiProfile = "1.0 Final" | "2.0";
 
 export type TTLFunction<T> = (ctx: KoaContextWithOIDC, token: T, client: Client) => number;
 
@@ -49,7 +48,7 @@ export interface JWK {
 }
 
 export interface JWKS {
-    keys: JWK[];
+    keys: Array<JWK | ExternalSigningKey>;
 }
 
 export interface AllClientMetadata {
@@ -97,7 +96,6 @@ export interface AllClientMetadata {
     request_object_signing_alg?: SigningAlgorithmWithNone | undefined;
     request_object_encryption_alg?: EncryptionAlgValues | undefined;
     request_object_encryption_enc?: EncryptionEncValues | undefined;
-    request_uris?: string[] | undefined;
     id_token_encrypted_response_alg?: EncryptionAlgValues | undefined;
     id_token_encrypted_response_enc?: EncryptionEncValues | undefined;
     userinfo_encrypted_response_alg?: EncryptionAlgValues | undefined;
@@ -106,6 +104,7 @@ export interface AllClientMetadata {
     authorization_encrypted_response_alg?: EncryptionAlgValues | undefined;
     authorization_encrypted_response_enc?: EncryptionEncValues | undefined;
     tls_client_certificate_bound_access_tokens?: boolean | undefined;
+    use_mtls_endpoint_aliases?: boolean | undefined;
 
     require_signed_request_object?: boolean | undefined;
     require_pushed_authorization_requests?: boolean | undefined;
@@ -130,7 +129,6 @@ export type ResponseType =
     | "code token"
     | "code id_token token"
     | "none";
-export type PKCEMethods = "S256" | "plain";
 export type CIBADeliveryMode = "poll" | "ping";
 export type SubjectTypes = "public" | "pairwise";
 export type ClientAuthMethod =
@@ -608,7 +606,6 @@ declare class Client {
     responseModeAllowed(type: string, responseType: ResponseType, fapiProfile: FapiProfile | undefined): boolean;
     grantTypeAllowed(type: string): boolean;
     redirectUriAllowed(redirectUri: string): boolean;
-    requestUriAllowed(requestUri: string): boolean;
     postLogoutRedirectUriAllowed(postLogoutRedirectUri: string): boolean;
     includeSid(): boolean;
     compareClientSecret(actual: string): CanBePromise<boolean>;
@@ -664,7 +661,6 @@ declare class Client {
     readonly requestObjectSigningAlg?: string | undefined;
     readonly requestObjectEncryptionAlg?: string | undefined;
     readonly requestObjectEncryptionEnc?: string | undefined;
-    readonly requestUris?: string[] | undefined;
     readonly idTokenEncryptedResponseAlg?: string | undefined;
     readonly idTokenEncryptedResponseEnc?: string | undefined;
     readonly userinfoEncryptedResponseAlg?: string | undefined;
@@ -1122,11 +1118,14 @@ export interface Configuration {
 
             requestObjects?:
                 | {
-                    request?: boolean | undefined;
-                    requestUri?: boolean | undefined;
-                    requireUriRegistration?: boolean | undefined;
+                    enabled?: boolean | undefined;
                     requireSignedRequestObject?: boolean | undefined;
-                    mode?: "lax" | "strict" | undefined;
+                    assertJwtClaimsAndHeader?: (
+                        ctx: KoaContextWithOIDC,
+                        claims: Record<string, JsonValue>,
+                        header: Record<string, JsonValue>,
+                        client: Client,
+                    ) => CanBePromise<void>;
                 }
                 | undefined;
 
@@ -1266,6 +1265,20 @@ export interface Configuration {
                         | undefined;
                 }
                 | undefined;
+
+            richAuthorizationRequests?: {
+                enabled?: boolean | undefined;
+                ack?: string | undefined;
+                /* experimental features are mostly explicit any */
+                [key: string]: any;
+            } | undefined;
+
+            externalSigningSupport?: {
+                enabled?: boolean | undefined;
+                ack?: string | undefined;
+                /* experimental features are mostly explicit any */
+                [key: string]: any;
+            } | undefined;
         }
         | undefined;
 
@@ -1273,7 +1286,7 @@ export interface Configuration {
         | ((ctx: KoaContextWithOIDC, token: AccessToken | ClientCredentials) => CanBePromise<UnknownObject | undefined>)
         | undefined;
 
-    httpOptions?: ((url: url.URL) => HttpOptions) | undefined;
+    fetch?: typeof fetch;
 
     expiresWithSession?:
         | ((ctx: KoaContextWithOIDC, token: AccessToken | AuthorizationCode | DeviceCode) => CanBePromise<boolean>)
@@ -1295,7 +1308,6 @@ export interface Configuration {
 
     pkce?:
         | {
-            methods?: PKCEMethods[] | undefined;
             required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;
         }
         | undefined;
@@ -1418,14 +1430,14 @@ export type AsymmetricSigningAlgorithm =
     | "PS256"
     | "PS384"
     | "PS512"
+    | "Ed25519"
     | "ES256"
-    | "ES256K"
     | "ES384"
     | "ES512"
-    | "EdDSA"
     | "RS256"
     | "RS384"
-    | "RS512";
+    | "RS512"
+    | "EdDSA";
 export type SymmetricSigningAlgorithm = "HS256" | "HS384" | "HS512";
 export type SigningAlgorithm = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm;
 export type SigningAlgorithmWithNone = AsymmetricSigningAlgorithm | SymmetricSigningAlgorithm;
@@ -2345,6 +2357,25 @@ export namespace errors {
     class UnmetAuthenticationRequirements extends OIDCProviderError {
         constructor(message: string, description?: string);
     }
+}
+
+/* experimental features are mostly explicit any */
+export class ExternalSigningKey {
+    get alg(): string | undefined;
+    get crv(): string | undefined;
+    get e(): string | undefined;
+    get key_ops(): string[] | undefined;
+    get kid(): string | undefined;
+    get kty(): string;
+    get n(): string | undefined;
+    get use(): "sig";
+    get x(): string | undefined;
+    get x5c(): string[] | undefined;
+    get y(): string | undefined;
+
+    keyObject(): Promise<crypto.KeyObject> | crypto.KeyObject;
+
+    sign(data: Uint8Array): Promise<Uint8Array> | Uint8Array;
 }
 
 export { Provider };
