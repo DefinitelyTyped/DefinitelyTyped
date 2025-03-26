@@ -24,6 +24,7 @@ import {
     IbmCloud,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    MachineLearningModel,
     MagicWand,
     MovingDolly,
     RedHatApplications,
@@ -77,3 +78,4 @@ import * as React from "react";
 <ShanghaiSkyline />; // $ExpectType Element
 <MagicWand />; // $ExpectType Element
 <B2bCommerce />; // $ExpectType Element
+<MachineLearningModel />; // $ExpectType Element

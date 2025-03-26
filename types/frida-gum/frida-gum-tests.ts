@@ -424,3 +424,46 @@ Process.enumerateThreads().forEach(t => {
 Process.enumerateThreads().forEach(t => {
     t.unsetHardwareWatchpoint(0);
 });
+
+const threadObserver = Process.attachThreadObserver({
+    onAdded(thread) {
+        // $ExpectType StableThreadDetails
+        thread;
+    },
+    onRemoved(thread) {
+        // $ExpectType StableThreadDetails
+        thread;
+    },
+    onRenamed(thread, previousName) {
+        // $ExpectType StableThreadDetails
+        thread;
+        // $ExpectType string | null
+        previousName;
+    },
+});
+threadObserver.detach();
+
+// $ExpectType Promise<void>
+Process.runOnThread(1, () => {});
+
+// $ExpectType Promise<boolean>
+Process.runOnThread(1, () => true);
+
+const moduleObserver = Process.attachModuleObserver({
+    onAdded(module) {
+        // $ExpectType Module
+        module;
+    },
+    onRemoved(module) {
+        // $ExpectType Module
+        module;
+    },
+});
+moduleObserver.detach();
+
+// $ExpectType Profiler
+const profiler = new Profiler();
+const sampler = new BusyCycleSampler();
+for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
+    profiler.instrument(e.address, sampler);
+}

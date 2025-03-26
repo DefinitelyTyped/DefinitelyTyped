@@ -442,7 +442,7 @@ connection.query({
         if (field.type === "TINY" && field.length === 1) {
             return (field.string() === "1"); // 1 = true, 0 = false
         }
-        next();
+        return next();
     },
 });
 
@@ -456,7 +456,7 @@ connection.query({
             }
             return (JSON.parse(string));
         }
-        next();
+        return next();
     },
 });
 

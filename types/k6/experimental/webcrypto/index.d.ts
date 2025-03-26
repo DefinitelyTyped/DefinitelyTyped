@@ -5,12 +5,20 @@
  * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/webcrypto/
  */
 
+/**
+ * @deprecated use global crypto instead.
+ */
 export const crypto: Crypto;
 
+/**
+ * @deprecated use global crypto instead.
+ */
 export interface Crypto extends SubtleCrypto {
     /**
      * Returns a SubtleCrypto object providing access to common cryptographic
      * primitives, like hashing, signing, encryption, or decryption.
+     *
+     * @deprecated use global crypto.subtle instead.
      */
     readonly subtle: SubtleCrypto;
 
@@ -20,6 +28,8 @@ export interface Crypto extends SubtleCrypto {
      * @param typedArray - The TypedArray to fill with random values.
      * @throws {QuotaExceededError} - thrown if the `byteLength` of `typedArray` exceeds 65536.
      * @returns The typedArray argument.
+     *
+     * @deprecated use global crypto.getRandomValues crypto instead.
      */
     getRandomValues(typedArray: TypedArray): TypedArray;
 
@@ -27,10 +37,15 @@ export interface Crypto extends SubtleCrypto {
      * Returns a 36 character long string containing a cryptographically random UUID v4.
      *
      * @returns A 36 character long string containing a cryptographically random UUID v4.
+     *
+     * @deprecated use global crypto.randomUUID instead.
      */
     randomUUID(): string;
 }
 
+/**
+ * @deprecated use global crypto.subtle instead.
+ */
 export interface SubtleCrypto {
     /**
      * The `decrypt()` method decrypts some encrypted data.
@@ -41,6 +56,7 @@ export interface SubtleCrypto {
      * @throws {InvalidAccessError} - if the provided key cannot be used for the decrypt operation.
      * @throws {OperationError} - if the operation failed for an operation-specific reason.
      * @returns A promise that resolves with the decrypted data (also known as "plaintext").
+     * @deprecated use global crypto.subtle.decrypt instead.
      */
     decrypt(
         algorithm: AesCtrParams | AesCbcParams | AesGcmParams | RsaOaepParams,
@@ -63,6 +79,7 @@ export interface SubtleCrypto {
      * @param algorithm names the algorithm to use.
      * @param data the data to be digested
      * @returns A promise that resolves with the digest value.
+     * @deprecated use global crypto.subtle.digest instead.
      */
     digest(
         algorithm: HashAlgorithmIdentifier | Algorithm<HashAlgorithmIdentifier>,
@@ -78,6 +95,7 @@ export interface SubtleCrypto {
      * @throws {InvalidAccessError} - if the provided key cannot be used for the encrypt operation.
      * @throws {OperationError} - if the operation failed for an operation-specific reason.
      * @returns A promise that resolves with the encrypted data (also known as "ciphertext").
+     * @deprecated use global crypto.subtle.encrypt instead.
      */
     encrypt(
         algorithm: AesCtrParams | AesCbcParams | AesGcmParams | RsaOaepParams,
@@ -97,6 +115,7 @@ export interface SubtleCrypto {
      * @throws {NotSupportedError} - if the format is not supported.
      * @throws {TypeError} - when trying to use an invalid format.
      * @returns A promise that resolves with the exported key.
+     * @deprecated use global crypto.subtle.exportKey instead.
      */
     exportKey(format: "raw" | "jwk" | "spki" | "pkcs8", key: CryptoKey): Promise<ArrayBuffer | JWK>;
 
@@ -108,6 +127,7 @@ export interface SubtleCrypto {
      * @param keyUsages indicates what can be done with the newly generated key.
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
      * @returns A promise that resolves with the newly generated `CryptoKey`.
+     * @deprecated use global crypto.subtle.generateKey instead.
      */
     generateKey(
         algorithm: AesKeyGenParams | HmacKeyGenParams,
@@ -123,6 +143,7 @@ export interface SubtleCrypto {
      * @param keyUsages indicates what can be done with the newly generated key.
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
      * @returns A promise that resolves with the newly generated `CryptoKeyPair`.
+     * @deprecated use global crypto.subtle.generateKey instead.
      */
     generateKey(
         algorithm: EcKeyGenParams | RSAHashedKeyGenParams,
@@ -143,6 +164,7 @@ export interface SubtleCrypto {
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
      * @throws {TypeError} - when trying to use an invalid format or if the `keyData` is not suited for that format.
      * @returns A promise that resolves with the imported `CryptoKey`.
+     * @deprecated use global crypto.subtle.importKey instead.
      */
     importKey(
         format: "raw" | "jwk" | "spki" | "pkcs8",
@@ -170,6 +192,7 @@ export interface SubtleCrypto {
      * @param data the data to sign.
      * @throws {InvalidAccessError} - if the provided key cannot be used for the sign operation.
      * @returns A promise that resolves with the signature.
+     * @deprecated use global crypto.subtle.sign instead.
      */
     sign(
         algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams | RsaPssParams,
@@ -186,6 +209,7 @@ export interface SubtleCrypto {
      * @param data the data to verify.
      * @throws {InvalidAccessError} - if the provided key cannot be used for the verify operation.
      * @returns A promise that resolves with a boolean indicating whether the signature is valid.
+     * @deprecated use global crypto.subtle.verify instead.
      */
     verify(
         algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams | RsaPssParams,
@@ -200,6 +224,7 @@ export interface SubtleCrypto {
      * @param algorithm defines the derivation algorithm to use.
      * @param baseKey A `CryptoKey` representing the input to the derivation algorithm. Currently, only an ECDH private key is possible.
      * @param length A number representing the number of bits to derive. Currently, the number should be a multiple of 8.
+     * @deprecated use global crypto.subtle.deriveBits instead.
      */
     deriveBits(
         algorithm: EcdhKeyDeriveParams,

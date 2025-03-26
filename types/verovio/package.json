@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/verovio",
-    "version": "5.0.9999",
+    "version": "5.1.9999",
     "exports": {
         ".": "./index.d.ts",
         "./esm": {
