@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+ 
     interface Zone {
         path: string;
         name: string;
@@ -12,8 +13,10 @@ declare namespace GorillaEngine.UI {
     interface MappingEditorProps extends Common, Bounds, Background {
         zones?: Zone[];
         refreshView(index?: number): void;
-        addZone(zone: Partial<Zone>): Zone;
-        removeZone(zone: Partial<Zone>): void;
+        selectAllZones(): void;
+        deselectAllZones(): void;
+        addZone(zone: Partial<Zone> ): Zone;
+        removeZone(zone: Partial<Zone> ): void; 
     }
 
     // tslint:disable-next-line:no-empty-interface
