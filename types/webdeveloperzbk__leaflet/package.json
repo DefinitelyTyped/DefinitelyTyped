@@ -10,5 +10,11 @@
     },
     "devDependencies": {
         "@types/webdeveloperzbk__leaflet": "workspace:."
-    }
+    },
+    "owners": [
+        {
+            "name": "Aleksey Dolzhenko",
+            "githubUsername": "webdeveloperzbk"
+        }
+    ]
 }
