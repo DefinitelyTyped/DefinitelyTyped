@@ -7735,6 +7735,10 @@
             "libraryName": "yoctodelay",
             "asOfVersion": "1.2.0"
         },
+        "yog-ral": {
+            "libraryName": "yog-ral",
+            "asOfVersion": "0.22.1"
+        },
         "yup": {
             "libraryName": "yup",
             "asOfVersion": "0.32.0"
