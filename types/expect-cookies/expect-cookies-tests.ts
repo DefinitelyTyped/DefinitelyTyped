@@ -352,6 +352,77 @@ ArrayAgent.get("/").then(() => {
     );
 });
 
+const expiresStr = "Thu, 27 Mar 2025 02:01:11 GMT";
+const expectEverything = {
+    name: "aoeu",
+    value: "snth",
+    options: {
+        domain: "example.com",
+        path: "/hello",
+        expires: expiresStr, // Note the different value type
+        secure: true,
+        httponly: true, // Note the different field name
+    },
+};
+
+// contain accepts all allowed options except 'max-age'
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.contain(expectEverything));
+
+// [FAILING] contain.value should be optional
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    // @ts-expect-error (this should be valid but expect-cookies doesn't like it)
+    .expect(Cookies.contain({ name: "aoeu" }));
+
+// contain.options should be optional
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.contain({ name: "aoeu", value: "snth" }));
+
+// [FAILING] contain.options.max-age should be allowed
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(
+        Cookies.contain({
+            name: "aoeu",
+            value: "snth",
+            // @ts-expect-error (max-age is bugged and never works properly; types should be adjusted once the bug is fixed)
+            options: { "max-age": 100 },
+        }),
+    );
+
+// all members of contain.options should be optional
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.contain({
+        name: "aoeu",
+        value: "snth",
+        options: {},
+    }));
+
+// contain should take expectation array
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.contain([]));
+
+// contain should take asserts
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(Cookies.contain(expectEverything, false));
+
 function app(): App {
     throw new Error("Not implemented");
 }

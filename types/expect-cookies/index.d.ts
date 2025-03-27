@@ -47,6 +47,30 @@ declare namespace expectCookies {
             | { "max-age": number; expires?: never }
             | { expires: Date; "max-age"?: never };
     }
+
+    interface ContainMatcher {
+        name: string;
+
+        // The docs state that value is optional; but omitting will cause
+        // the cookie's value to be compared against 'undefined' and fail
+        // the test.
+        // See: https://github.com/gregl83/expect-cookies/issues/5
+        value: string | boolean;
+
+        options?: {
+            domain?: string;
+            path?: string;
+            expires?: string; // RFC 6265 sane-cookie-date (e.g. "Fri, 26 Sep 2025 04:26:52 GMT")
+            secure?: boolean;
+            httponly?: boolean;
+
+            // Note: you should pass a numeric string for max-age, as numbers
+            // will not be evaluated properly:
+            // https://github.com/gregl83/expect-cookies/issues/4
+            // Also note that max-age has a different behavior here than in
+            // .renew.
+            "max-age"?: string;
+        };
     }
 
     interface ExpectCookiesStatic extends Assertion {
