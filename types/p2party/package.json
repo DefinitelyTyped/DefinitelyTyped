@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/p2party",
+    "version": "0.6.6",
+    "projects": [
+        "https://p2party.com"
+    ],
+    "devDependencies": {
+        "@types/p2party": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dimitris Karoukis",
+            "githubUsername": "fuzzc0re"
+        }
+    ]
+}
