@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/p2party",
-    "version": "0.6.6",
+    "version": "0.6.9999",
     "projects": [
         "https://p2party.com"
     ],
