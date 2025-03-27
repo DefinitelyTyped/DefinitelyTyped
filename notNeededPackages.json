@@ -2321,6 +2321,10 @@
             "libraryName": "git-remote-origin-url",
             "asOfVersion": "3.0.0"
         },
+        "git-revision-webpack-plugin": {
+            "libraryName": "git-revision-webpack-plugin",
+            "asOfVersion": "4.0.0"
+        },
         "github": {
             "libraryName": "github",
             "asOfVersion": "7.1.0"
