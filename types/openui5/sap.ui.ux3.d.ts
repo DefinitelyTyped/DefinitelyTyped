@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -7,8 +7,8 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ActionBarSocialActions'.
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.2) - API is not yet finished and might change completely
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.2. API is not yet finished and might change completely
    */
   export enum ActionBarSocialActions {
     /**
@@ -35,7 +35,7 @@ declare module "sap/ui/ux3/library" {
   /**
    * Marker interface for controls which are suitable as view rendering for a DataSet.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface DataSetView {
     __implements__sap_ui_ux3_DataSetView: boolean;
@@ -47,7 +47,7 @@ declare module "sap/ui/ux3/library" {
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ExactOrder'.
    *
    * @since 1.7.1
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum ExactOrder {
     /**
@@ -64,8 +64,8 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'FeederType'.
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -88,7 +88,7 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'FollowActionState'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum FollowActionState {
     /**
@@ -109,7 +109,7 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'NotificationBarStatus'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum NotificationBarStatus {
     /**
@@ -135,7 +135,7 @@ declare module "sap/ui/ux3/library" {
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ShellDesignType'.
    *
    * @since 1.12.0
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum ShellDesignType {
     /**
@@ -157,7 +157,7 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ShellHeaderType'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum ShellHeaderType {
     /**
@@ -183,7 +183,7 @@ declare module "sap/ui/ux3/library" {
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ThingViewerHeaderType'.
    *
    * @since 1.16.3
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum ThingViewerHeaderType {
     /**
@@ -201,7 +201,7 @@ declare module "sap/ui/ux3/library" {
    *
    * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'VisibleItemCountMode'.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export enum VisibleItemCountMode {
     /**
@@ -226,9 +226,9 @@ declare module "sap/ui/ux3/ShellPersonalization" {
    * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
    * considering the number of configurable properties etc.
    *
-   * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-   * @experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
-   * experimental work and might change or disappear in future versions.
+   * @deprecated As of version 1.36. This class was never released for productive use and will never be.
+   * @experimental As of version 1.0. The Shell-features Personalization, Color Picker and “Inspect”-Tool
+   * are only experimental work and might change or disappear in future versions.
    */
   const ShellPersonalization: undefined;
 
@@ -263,7 +263,7 @@ declare module "sap/ui/ux3/ActionBar" {
    * When using this control, please be aware that it fulfills rather specific requirements: it has been designed
    * for and is used within composite controls QuickView and ThingInspector.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
    */
   export default class ActionBar extends Control {
     /**
@@ -561,7 +561,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * @returns Value of property `followState`
      */
-    getFollowState(): FollowActionState | keyof typeof FollowActionState;
+    getFollowState(): FollowActionState;
     /**
      * Gets current value of property {@link #getShowFavorite showFavorite}.
      *
@@ -870,7 +870,7 @@ declare module "sap/ui/ux3/ActionBar" {
   /**
    * Describes the settings that can be provided to the ActionBar constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
    */
   export interface $ActionBarSettings extends $ControlSettings {
     /**
@@ -1033,7 +1033,7 @@ declare module "sap/ui/ux3/Collection" {
    * Collection
    *
    * @since 1.9.0
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class Collection extends UI5Element {
     /**
@@ -1454,7 +1454,7 @@ declare module "sap/ui/ux3/Collection" {
   /**
    * Describes the settings that can be provided to the Collection constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $CollectionSettings extends $ElementSettings {
     /**
@@ -1540,7 +1540,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
    * CollectionInspector
    *
    * @since 1.9.0
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class CollectionInspector extends Control {
     /**
@@ -2092,7 +2092,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
   /**
    * Describes the settings that can be provided to the CollectionInspector constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $CollectionInspectorSettings extends $ControlSettings {
     /**
@@ -2203,7 +2203,7 @@ declare module "sap/ui/ux3/DataSet" {
   /**
    * DataSet
    *
-   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a container by choice from the {@link sap.m} library, instead.
    */
   export default class DataSet extends Control {
     /**
@@ -2908,7 +2908,7 @@ declare module "sap/ui/ux3/DataSet" {
   /**
    * Describes the settings that can be provided to the DataSet constructor.
    *
-   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a container by choice from the {@link sap.m} library, instead.
    */
   export interface $DataSetSettings extends $ControlSettings {
     /**
@@ -3026,7 +3026,7 @@ declare module "sap/ui/ux3/DataSetItem" {
   /**
    * DataSet Item
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class DataSetItem extends UI5Element {
     /**
@@ -3285,7 +3285,7 @@ declare module "sap/ui/ux3/DataSetItem" {
   /**
    * Describes the settings that can be provided to the DataSetItem constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $DataSetItemSettings extends $ElementSettings {
     /**
@@ -3351,7 +3351,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
   /**
    * DataSetSimpleView provides a simple view example for DataSet usage.
    *
-   * @deprecated (since 1.38) - Use a layout by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a layout by choice from the {@link sap.m} library, instead.
    */
   export default class DataSetSimpleView
     extends Control
@@ -3811,7 +3811,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
   /**
    * Describes the settings that can be provided to the DataSetSimpleView constructor.
    *
-   * @deprecated (since 1.38) - Use a layout by choice from the {@link sap.m} library, instead.
+   * @deprecated As of version 1.38. Use a layout by choice from the {@link sap.m} library, instead.
    */
   export interface $DataSetSimpleViewSettings extends $ControlSettings {
     /**
@@ -3918,8 +3918,8 @@ declare module "sap/ui/ux3/Exact" {
    * A comprehensive UI design approach with graphical and functional elements for searching data, exploring
    * data, and acting on the data ("Explore and Act (Exact) Pattern").
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.2) - API is not yet finished and might change completely
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.2. API is not yet finished and might change completely
    */
   export default class Exact extends Control {
     /**
@@ -4279,8 +4279,8 @@ declare module "sap/ui/ux3/Exact" {
   /**
    * Describes the settings that can be provided to the Exact constructor.
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.2) - API is not yet finished and might change completely
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.2. API is not yet finished and might change completely
    */
   export interface $ExactSettings extends $ControlSettings {
     /**
@@ -4373,8 +4373,8 @@ declare module "sap/ui/ux3/ExactArea" {
    * Consists of two sections: A tool bar and a content area where arbitrary controls can be added. The ExactArea
    * is intended to be used for the Exact design approach but alternatively also in a stand alone version.
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.6) - API is not yet finished and might change completely
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.6. API is not yet finished and might change completely
    */
   export default class ExactArea extends Control {
     /**
@@ -4626,8 +4626,8 @@ declare module "sap/ui/ux3/ExactArea" {
   /**
    * Describes the settings that can be provided to the ExactArea constructor.
    *
-   * @deprecated (since 1.38)
-   * @experimental (since 1.6) - API is not yet finished and might change completely
+   * @deprecated As of version 1.38.
+   * @experimental As of version 1.6. API is not yet finished and might change completely
    */
   export interface $ExactAreaSettings extends $ControlSettings {
     /**
@@ -4670,7 +4670,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
   /**
    * An element for defining attributes and sub-attributes used within the Exact pattern.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class ExactAttribute extends UI5Element {
     /**
@@ -4877,7 +4877,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * @returns Value of property `listOrder`
      */
-    getListOrder(): ExactOrder | keyof typeof ExactOrder;
+    getListOrder(): ExactOrder;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -5180,7 +5180,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
   /**
    * Describes the settings that can be provided to the ExactAttribute constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $ExactAttributeSettings extends $ElementSettings {
     /**
@@ -5302,7 +5302,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
    * and thereby trigger the display of further information, depending on the chosen entry/entries (multiple
    * selection supported).
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class ExactBrowser extends Control {
     /**
@@ -5668,7 +5668,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * @returns Value of property `topListOrder`
      */
-    getTopListOrder(): ExactOrder | keyof typeof ExactOrder;
+    getTopListOrder(): ExactOrder;
     /**
      * Gets current value of property {@link #getTopListWidth topListWidth}.
      *
@@ -5948,7 +5948,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
   /**
    * Describes the settings that can be provided to the ExactBrowser constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $ExactBrowserSettings extends $ControlSettings {
     /**
@@ -6102,7 +6102,7 @@ declare module "sap/ui/ux3/ExactList" {
    * Internal sub-control of the ExactBrowser. The control is not intended to be used stand alone. For this
    * purpose, the ExactBrowser control can be used.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class ExactList extends Control {
     /**
@@ -6430,7 +6430,7 @@ declare module "sap/ui/ux3/ExactList" {
   /**
    * Describes the settings that can be provided to the ExactList constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $ExactListSettings extends $ControlSettings {
     /**
@@ -6506,7 +6506,7 @@ declare module "sap/ui/ux3/FacetFilter" {
   /**
    * FacetFilter Control.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.FacetFilter}
    */
   export default class FacetFilter extends Control {
     /**
@@ -6607,9 +6607,7 @@ declare module "sap/ui/ux3/FacetFilter" {
      *
      * @returns Value of property `visibleItemCountMode`
      */
-    getVisibleItemCountMode():
-      | VisibleItemCountMode
-      | keyof typeof VisibleItemCountMode;
+    getVisibleItemCountMode(): VisibleItemCountMode;
     /**
      * Checks for the provided `sap.ui.ux3.FacetFilterList` in the aggregation {@link #getLists lists}. and
      * returns its index if found or -1 otherwise.
@@ -6687,7 +6685,7 @@ declare module "sap/ui/ux3/FacetFilter" {
   /**
    * Describes the settings that can be provided to the FacetFilter constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.FacetFilter}
    */
   export interface $FacetFilterSettings extends $ControlSettings {
     /**
@@ -6727,7 +6725,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
   /**
    * List to be used with the FacetFilter control. The control is not intended to be used stand alone.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.FacetFilter}
    */
   export default class FacetFilterList extends Control {
     /**
@@ -7092,7 +7090,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
   /**
    * Describes the settings that can be provided to the FacetFilterList constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.FacetFilter}
    */
   export interface $FacetFilterListSettings extends $ControlSettings {
     /**
@@ -7194,8 +7192,8 @@ declare module "sap/ui/ux3/Feed" {
   /**
    * A container control representing a full feed page, including feeder and updates.
    *
-   * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use **any** `sap.ui.layout` container control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -8060,8 +8058,8 @@ declare module "sap/ui/ux3/Feed" {
   /**
    * Describes the settings that can be provided to the Feed constructor.
    *
-   * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use **any** `sap.ui.layout` container control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -8251,8 +8249,8 @@ declare module "sap/ui/ux3/FeedChunk" {
    * a set of properties for text, sender information, time stamp, comments, and functions such as flagging
    * the entry to be favorite, shared, or flagged.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use the `sap.m.FeedListItem` control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -9116,8 +9114,8 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
+     * @deprecated As of version 1.4.0. Not longer used. If a chunk is a comment is determined from hierarchy.
+     * If the parent is a chunk it's automatically a comment.
      *
      * @returns Value of property `commentChunk`
      */
@@ -9398,8 +9396,8 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
+     * @deprecated As of version 1.4.0. Not longer used. If a chunk is a comment is determined from hierarchy.
+     * If the parent is a chunk it's automatically a comment.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9688,8 +9686,8 @@ declare module "sap/ui/ux3/FeedChunk" {
   /**
    * Describes the settings that can be provided to the FeedChunk constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use the `sap.m.FeedListItem` control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -9723,8 +9721,8 @@ declare module "sap/ui/ux3/FeedChunk" {
      * This flag changes a FeedChunk into a CommentChunk. In this case, it can not have own comments, furthermore
      * it must be assigned to a FeedChunk.
      *
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
+     * @deprecated As of version 1.4.0. Not longer used. If a chunk is a comment is determined from hierarchy.
+     * If the parent is a chunk it's automatically a comment.
      */
     commentChunk?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -10015,8 +10013,8 @@ declare module "sap/ui/ux3/Feeder" {
    * The control can be used stand alone or in a multiple way, and generally would be integrated directly
    * into a UIArea.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use the `sap.m.FeedInput` control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -10200,7 +10198,7 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * @returns Value of property `type`
      */
-    getType(): FeederType | keyof typeof FeederType;
+    getType(): FeederType;
     /**
      * Sets a new value for property {@link #getPlaceholderText placeholderText}.
      *
@@ -10273,8 +10271,8 @@ declare module "sap/ui/ux3/Feeder" {
   /**
    * Describes the settings that can be provided to the Feeder constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
-   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * @deprecated As of version 1.38. Instead, use the `sap.m.FeedInput` control.
+   * @experimental As of version 1.2. The whole Feed/Feeder API is still under discussion, significant changes
    * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
    * Feed model topic is still open.
    */
@@ -10349,7 +10347,7 @@ declare module "sap/ui/ux3/NavigationBar" {
    * items are defined for the bar, this is made transparent to the user by showing symbols for scrolling
    * options (forwards and backwards) to see the next or previous items.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * @deprecated As of version 1.38. Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
    * control.
    */
   export default class NavigationBar extends Control {
@@ -10706,7 +10704,7 @@ declare module "sap/ui/ux3/NavigationBar" {
   /**
    * Describes the settings that can be provided to the NavigationBar constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * @deprecated As of version 1.38. Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
    * control.
    */
   export interface $NavigationBarSettings extends $ControlSettings {
@@ -10789,7 +10787,7 @@ declare module "sap/ui/ux3/NavigationItem" {
   /**
    * Is the item to be used within the NavigationBar
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * @deprecated As of version 1.38. Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
    * control.
    */
   export default class NavigationItem extends Item {
@@ -11006,7 +11004,7 @@ declare module "sap/ui/ux3/NavigationItem" {
   /**
    * Describes the settings that can be provided to the NavigationItem constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * @deprecated As of version 1.38. Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
    * control.
    */
   export interface $NavigationItemSettings extends $ItemSettings {
@@ -11064,7 +11062,7 @@ declare module "sap/ui/ux3/NotificationBar" {
    * the NotificationBar use it as high in the control hierarchy as possible.
    *
    * @since 1.7.0
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessagePopover` control.
    */
   export default class NotificationBar extends Control {
     /**
@@ -11366,9 +11364,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * @returns Value of property `visibleStatus`
      */
-    getVisibleStatus():
-      | NotificationBarStatus
-      | keyof typeof NotificationBarStatus;
+    getVisibleStatus(): NotificationBarStatus;
     /**
      * This method checks if the NotificationBar has any items (notifications or messages) to show and returns
      * true if there are any items to show. So the application should decide if the bar should be displayed.
@@ -11489,7 +11485,7 @@ declare module "sap/ui/ux3/NotificationBar" {
   /**
    * Describes the settings that can be provided to the NotificationBar constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.MessagePopover` control.
    */
   export interface $NotificationBarSettings extends $ControlSettings {
     /**
@@ -11599,7 +11595,7 @@ declare module "sap/ui/ux3/Notifier" {
   /**
    * This element can be docked to a notification bar to show notification items
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class Notifier extends UI5Element {
     /**
@@ -11880,7 +11876,7 @@ declare module "sap/ui/ux3/Notifier" {
   /**
    * Describes the settings that can be provided to the Notifier constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $NotifierSettings extends $ElementSettings {
     /**
@@ -11942,7 +11938,7 @@ declare module "sap/ui/ux3/Overlay" {
   /**
    * Overlay Control
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export default class Overlay extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -12405,7 +12401,7 @@ declare module "sap/ui/ux3/Overlay" {
   /**
    * Describes the settings that can be provided to the Overlay constructor.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface $OverlaySettings extends $ControlSettings {
     /**
@@ -12518,7 +12514,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
   /**
    * Is to be embedded into the Overlay control as content container
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export default class OverlayContainer extends Overlay {
     /**
@@ -12664,7 +12660,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
   /**
    * Describes the settings that can be provided to the OverlayContainer constructor.
    *
-   * @deprecated (since 1.38) - the concept has been discarded.
+   * @deprecated As of version 1.38. the concept has been discarded.
    */
   export interface $OverlayContainerSettings extends $OverlaySettings {
     /**
@@ -12692,7 +12688,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
    * Dialog implementation based on the Overlay. If used in a Shell it leaves the Tool-Palette, Pane-Bar and
    * Header-Items accessible.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Dialog}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Dialog}
    */
   export default class OverlayDialog extends Overlay {
     /**
@@ -12877,7 +12873,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
   /**
    * Describes the settings that can be provided to the OverlayDialog constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Dialog}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Dialog}
    */
   export interface $OverlayDialogSettings extends $OverlaySettings {
     /**
@@ -12928,7 +12924,7 @@ declare module "sap/ui/ux3/QuickView" {
    * QuickView is a small popup with a short overview of a Thing. QuickView is shown when a user holds the
    * mouse pointer over a related screen element.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.QuickView` control.
    */
   export default class QuickView extends CalloutBase {
     /**
@@ -13382,7 +13378,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * @returns Value of property `followState`
      */
-    getFollowState(): FollowActionState | keyof typeof FollowActionState;
+    getFollowState(): FollowActionState;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -13834,7 +13830,7 @@ declare module "sap/ui/ux3/QuickView" {
   /**
    * Describes the settings that can be provided to the QuickView constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.QuickView` control.
    */
   export interface $QuickViewSettings extends $CalloutBaseSettings {
     /**
@@ -14055,7 +14051,7 @@ declare module "sap/ui/ux3/Shell" {
    * to be added to a direct child of the BODY tag of a page and there should be no other parts of the page
    * consuming space outside the Shell.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Shell}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Shell}
    */
   export default class Shell extends Control {
     /**
@@ -14813,7 +14809,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * @returns Value of property `designType`
      */
-    getDesignType(): ShellDesignType | keyof typeof ShellDesignType;
+    getDesignType(): ShellDesignType;
     /**
      * Gets current value of property {@link #getFullHeightContent fullHeightContent}.
      *
@@ -14846,7 +14842,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * @returns Value of property `headerType`
      */
-    getHeaderType(): ShellHeaderType | keyof typeof ShellHeaderType;
+    getHeaderType(): ShellHeaderType;
     /**
      * Gets current value of property {@link #getLogoutButtonTooltip logoutButtonTooltip}.
      *
@@ -14917,9 +14913,9 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
-     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
-     * it from the respective elements in the Shell content.
+     * @deprecated As of version 1.7.2. According to the current Ux designs, the ThingInspector should NOT be
+     * opened like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead
+     * trigger it from the respective elements in the Shell content.
      *
      * @returns Value of property `showInspectorTool`
      */
@@ -15625,9 +15621,9 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `false`.
      *
-     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
-     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
-     * it from the respective elements in the Shell content.
+     * @deprecated As of version 1.7.2. According to the current Ux designs, the ThingInspector should NOT be
+     * opened like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead
+     * trigger it from the respective elements in the Shell content.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15713,7 +15709,7 @@ declare module "sap/ui/ux3/Shell" {
   /**
    * Describes the settings that can be provided to the Shell constructor.
    *
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Shell}
+   * @deprecated As of version 1.38. replaced by {@link sap.m.Shell}
    */
   export interface $ShellSettings extends $ControlSettings {
     /**
@@ -15756,9 +15752,9 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Whether the "Inspector" tool should be displayed or not.
      *
-     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
-     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
-     * it from the respective elements in the Shell content.
+     * @deprecated As of version 1.7.2. According to the current Ux designs, the ThingInspector should NOT be
+     * opened like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead
+     * trigger it from the respective elements in the Shell content.
      */
     showInspectorTool?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -16041,7 +16037,7 @@ declare module "sap/ui/ux3/ThingAction" {
   /**
    * Thing Action for Swatch, QuickView, Thinginspector
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class ThingAction extends UI5Element {
     /**
@@ -16242,7 +16238,7 @@ declare module "sap/ui/ux3/ThingAction" {
   /**
    * Describes the settings that can be provided to the ThingAction constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $ThingActionSettings extends $ElementSettings {
     /**
@@ -16300,7 +16296,7 @@ declare module "sap/ui/ux3/ThingGroup" {
   /**
    * Thing Group Area
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export default class ThingGroup extends UI5Element {
     /**
@@ -16577,7 +16573,7 @@ declare module "sap/ui/ux3/ThingGroup" {
   /**
    * Describes the settings that can be provided to the ThingGroup constructor.
    *
-   * @deprecated (since 1.38)
+   * @deprecated As of version 1.38.
    */
   export interface $ThingGroupSettings extends $ElementSettings {
     /**
@@ -16633,7 +16629,7 @@ declare module "sap/ui/ux3/ThingInspector" {
   /**
    * Thing Inspector
    *
-   * @deprecated (since 1.38) - There is not an exact replacement.
+   * @deprecated As of version 1.38. There is not an exact replacement.
    */
   export default class ThingInspector extends Overlay {
     /**
@@ -17122,7 +17118,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * @returns Value of property `followState`
      */
-    getFollowState(): FollowActionState | keyof typeof FollowActionState;
+    getFollowState(): FollowActionState;
     /**
      * Gets content of aggregation {@link #getHeaderContent headerContent}.
      *
@@ -17140,7 +17136,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * @returns Value of property `headerType`
      */
-    getHeaderType(): ThingViewerHeaderType | keyof typeof ThingViewerHeaderType;
+    getHeaderType(): ThingViewerHeaderType;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
@@ -17634,7 +17630,7 @@ declare module "sap/ui/ux3/ThingInspector" {
   /**
    * Describes the settings that can be provided to the ThingInspector constructor.
    *
-   * @deprecated (since 1.38) - There is not an exact replacement.
+   * @deprecated As of version 1.38. There is not an exact replacement.
    */
   export interface $ThingInspectorSettings extends $OverlaySettings {
     /**
@@ -17866,7 +17862,7 @@ declare module "sap/ui/ux3/ThingViewer" {
    * the parent container has no width defined the control will not work properly.
    *
    * @since 1.9.1
-   * @deprecated (since 1.38) - There is not an exact replacement.
+   * @deprecated As of version 1.38. There is not an exact replacement.
    */
   export default class ThingViewer extends Control {
     /**
@@ -18114,7 +18110,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * @returns Value of property `headerType`
      */
-    getHeaderType(): ThingViewerHeaderType | keyof typeof ThingViewerHeaderType;
+    getHeaderType(): ThingViewerHeaderType;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -18482,7 +18478,7 @@ declare module "sap/ui/ux3/ThingViewer" {
   /**
    * Describes the settings that can be provided to the ThingViewer constructor.
    *
-   * @deprecated (since 1.38) - There is not an exact replacement.
+   * @deprecated As of version 1.38. There is not an exact replacement.
    */
   export interface $ThingViewerSettings extends $ControlSettings {
     /**
@@ -18620,7 +18616,7 @@ declare module "sap/ui/ux3/ToolPopup" {
    * look like any common dialog box. A ToolPopup can have any content. Depending on the application type
    * and design, the structure of the texts and input fields can be for example form-like.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Popover` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Popover` control.
    */
   export default class ToolPopup extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -19721,7 +19717,7 @@ declare module "sap/ui/ux3/ToolPopup" {
   /**
    * Describes the settings that can be provided to the ToolPopup constructor.
    *
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Popover` control.
+   * @deprecated As of version 1.38. Instead, use the `sap.m.Popover` control.
    */
   export interface $ToolPopupSettings extends $ControlSettings {
     /**

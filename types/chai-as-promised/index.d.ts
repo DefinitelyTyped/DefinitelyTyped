@@ -52,6 +52,7 @@ declare global {
             Arguments: PromisedAssertion;
             equal: PromisedEqual;
             equals: PromisedEqual;
+            containSubset: PromisedContainSubset;
             eq: PromisedEqual;
             eql: PromisedEqual;
             eqls: PromisedEqual;
@@ -172,6 +173,10 @@ declare global {
 
         interface PromisedEqual {
             (value: any, message?: string): PromisedAssertion;
+        }
+
+        interface PromisedContainSubset {
+            (value: any): PromisedAssertion;
         }
 
         interface PromisedProperty {

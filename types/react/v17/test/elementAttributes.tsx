@@ -1,5 +1,13 @@
 import * as React from "react";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
+
 const testCases = [
     <span />,
     <span accessKey="s" />,
@@ -73,6 +81,12 @@ const testCases = [
     >
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
@@ -110,4 +124,13 @@ const eventCallbacksTestCases = [
     <meter onClick={e => e.currentTarget.optimum} />,
     <output onClick={e => e.currentTarget.value} />,
     <time onClick={e => e.currentTarget.dateTime} />,
+    <video onResize={e => e.currentTarget} onResizeCapture={e => e.currentTarget} />,
+];
+
+const ariaAttributesTestCases = [
+    <a aria-braillelabel="a" />,
+    <a aria-brailleroledescription="a" />,
+    <a aria-colindextext="a" />,
+    <a aria-rowindextext="a" />,
+    <a aria-description="a" />,
 ];

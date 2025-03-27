@@ -148,6 +148,7 @@ export interface LexerOptions {
     lineMode?: boolean | undefined;
     n3?: boolean | undefined;
     comments?: boolean | undefined;
+    isImpliedBy?: boolean | undefined;
 }
 
 export type TokenCallback = (error: Error, token: Token) => void;
@@ -193,6 +194,7 @@ export interface ParserOptions {
     factory?: RDF.DataFactory | undefined;
     baseIRI?: string | undefined;
     blankNodePrefix?: string | undefined;
+    isImpliedBy?: boolean | undefined;
 }
 
 export interface StreamParserOptions extends ParserOptions {
@@ -261,8 +263,10 @@ export class StreamWriter<Q extends RDF.BaseQuad = RDF.Quad> extends stream.Tran
     import(stream: RDF.Stream<Q>): EventEmitter;
 }
 
-export class StoreFactory implements RDF.DatasetCoreFactory<RDF.BaseQuad, Quad, Store> {
-    dataset(quads?: RDF.BaseQuad[]): Store;
+export class StoreFactory
+    implements RDF.DatasetCoreFactory<RDF.BaseQuad, Quad, Store>, RDF.DatasetFactory<RDF.BaseQuad, Quad, Store>
+{
+    dataset(quads?: RDF.BaseQuad[] | RDF.DatasetCore): Store;
 }
 
 export interface Rule {
@@ -285,8 +289,22 @@ export class Store<
     Q_N3 extends BaseQuad = Quad,
     OutQuad extends RDF.BaseQuad = RDF.Quad,
     InQuad extends RDF.BaseQuad = RDF.Quad,
-> implements RDF.Store<Q_RDF>, RDF.DatasetCore<OutQuad, InQuad> {
-    constructor(triples?: Q_RDF[], options?: StoreOptions);
+> implements RDF.Store<Q_RDF>, RDF.Dataset<OutQuad, InQuad> {
+    constructor(triples?: Q_RDF[] | RDF.Dataset<InQuad, InQuad>, options?: StoreOptions);
+    addAll(quads: RDF.Dataset<InQuad, InQuad> | InQuad[]): this;
+    contains(other: RDF.Dataset<InQuad, InQuad>): boolean;
+    deleteMatches(subject?: RDF.Term, predicate?: RDF.Term, object?: RDF.Term, graph?: RDF.Term): this;
+    difference(other: RDF.Dataset<InQuad, InQuad>): RDF.Dataset<OutQuad, InQuad>;
+    equals(other: RDF.Dataset<InQuad, InQuad>): boolean;
+    filter(iteratee: (quad: OutQuad, dataset: this) => boolean): RDF.Dataset<OutQuad, InQuad>;
+    intersection(other: RDF.Dataset<InQuad, InQuad>): RDF.Dataset<OutQuad, InQuad>;
+    map(iteratee: (quad: OutQuad, dataset: RDF.Dataset<OutQuad, OutQuad>) => OutQuad): RDF.Dataset<OutQuad, InQuad>;
+    reduce<A>(callback: (accumulator: A, quad: OutQuad, dataset: this) => A, initialValue?: A): A;
+    toArray(): OutQuad[];
+    toCanonical(): string;
+    toStream(): RDF.Stream<OutQuad>;
+    toString(): string;
+    union(quads: RDF.Dataset<InQuad, InQuad>): RDF.Dataset<OutQuad, InQuad>;
     readonly size: number;
     add(quad: InQuad): this;
     addQuad(
@@ -300,7 +318,7 @@ export class Store<
     addQuads(quads: Q_RDF[]): void;
     delete(quad: InQuad): this;
     has(quad: InQuad): boolean;
-    import(stream: RDF.Stream<Q_RDF>): EventEmitter;
+    import(stream: RDF.Stream<Q_RDF & InQuad>): EventEmitter & Promise<this>;
     removeQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
@@ -325,10 +343,13 @@ export class Store<
         predicate?: Term | null,
         object?: Term | null,
         graph?: Term | null,
-    ): RDF.Stream<Q_RDF> & RDF.DatasetCore<OutQuad, InQuad>;
+    ): RDF.Stream<Q_RDF> & RDF.Dataset<OutQuad, InQuad>;
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
+    forEach(callback: (quad: OutQuad, dataset: this) => void): void;
     forEach(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
+    every(iteratee: (quad: OutQuad, dataset: this) => boolean): boolean;
     every(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
+    some(iteratee: (quad: OutQuad, dataset: this) => boolean): boolean;
     some(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
     getSubjects(predicate: OTerm, object: OTerm, graph: OTerm): Array<Q_N3["subject"]>;
     forSubjects(callback: (result: Q_N3["subject"]) => void, predicate: OTerm, object: OTerm, graph: OTerm): void;

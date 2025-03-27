@@ -2542,6 +2542,17 @@ declare module "fs" {
         options: ReadAsyncOptions<TBuffer>,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: ReadSyncOptions,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
+    ): void;
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
+    ): void;
     export function read(
         fd: number,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => void,
@@ -4013,7 +4024,7 @@ declare module "fs" {
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface WriteVResult {
@@ -4058,7 +4069,7 @@ declare module "fs" {
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface ReadVResult {

@@ -24,7 +24,7 @@ export interface GuardDutyScanResultNotificationEventDetail {
         s3Throttled: boolean;
     };
     scanResultDetails: {
-        scanResultStatus: "NO_THREATS_FOUND" | "THREAT_FOUND" | "UNSUPPORTED" | "ACCESS_DENIED" | "FAILED";
+        scanResultStatus: "NO_THREATS_FOUND" | "THREATS_FOUND" | "UNSUPPORTED" | "ACCESS_DENIED" | "FAILED";
         threats: GuardDutyThreatDetail[] | null;
     };
 }

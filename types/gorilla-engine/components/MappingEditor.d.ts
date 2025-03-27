@@ -1,17 +1,19 @@
 declare namespace GorillaEngine.UI {
     interface Zone {
+        path: string;
+        name: string;
         index: number;
         rootKey: number;
         lowKey: number;
         highKey: number;
         lowVel: number;
         highVel: number;
-        samplePath: string;
     }
     interface MappingEditorProps extends Common, Bounds, Background {
-        parentPath: string;
         zones?: Zone[];
         refreshView(index?: number): void;
+        selectAllZones(): void;
+        deselectAllZones(): void;
         addZone(zone: Partial<Zone>): Zone;
         removeZone(zone: Partial<Zone>): void;
     }

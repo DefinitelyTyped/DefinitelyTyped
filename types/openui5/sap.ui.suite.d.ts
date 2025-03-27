@@ -1,4 +1,4 @@
-// For Library Version: 1.132.0
+// For Library Version: 1.134.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -42,9 +42,9 @@ declare module "sap/ui/suite/TaskCircle" {
   /**
    * This control shows a circle which radius and color depends on the given parameters
    *
-   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
-   * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * @deprecated As of version 1.108. there's no replacement for this functionality as no active use cases
+   * are known
+   * @experimental As of version 1.2. The API may change. Use with care.
    */
   export default class TaskCircle extends Control {
     /**
@@ -233,7 +233,7 @@ declare module "sap/ui/suite/TaskCircle" {
      *
      * @returns Value of property `color`
      */
-    getColor(): TaskCircleColor | keyof typeof TaskCircleColor;
+    getColor(): TaskCircleColor;
     /**
      * Gets current value of property {@link #getMaxValue maxValue}.
      *
@@ -383,9 +383,9 @@ declare module "sap/ui/suite/TaskCircle" {
   /**
    * Describes the settings that can be provided to the TaskCircle constructor.
    *
-   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
-   * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * @deprecated As of version 1.108. there's no replacement for this functionality as no active use cases
+   * are known
+   * @experimental As of version 1.2. The API may change. Use with care.
    */
   export interface $TaskCircleSettings extends $ControlSettings {
     /**
@@ -457,9 +457,9 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
    * This control shows a vertical progress bar in dependency of the given percentage. Only values between
    * 0 and 100 are valid.
    *
-   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
-   * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * @deprecated As of version 1.108. there's no replacement for this functionality as no active use cases
+   * are known
+   * @experimental As of version 1.2. The API may change. Use with care.
    */
   export default class VerticalProgressIndicator extends Control {
     /**
@@ -701,9 +701,9 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   /**
    * Describes the settings that can be provided to the VerticalProgressIndicator constructor.
    *
-   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
-   * known
-   * @experimental (since 1.2) - The API may change. Use with care.
+   * @deprecated As of version 1.108. there's no replacement for this functionality as no active use cases
+   * are known
+   * @experimental As of version 1.2. The API may change. Use with care.
    */
   export interface $VerticalProgressIndicatorSettings extends $ControlSettings {
     /**

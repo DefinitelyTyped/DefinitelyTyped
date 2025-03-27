@@ -122,6 +122,8 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {},
     );
     fs.read(1, { buffer: Buffer.from("test"), position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), { position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), () => {});
     // 2-param version using all-default options:
     fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {});
     fs.read(1, () => {});
@@ -425,6 +427,20 @@ async function testPromisify() {
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        123,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        null,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
     const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
@@ -619,6 +635,13 @@ async function testPromisify() {
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.readv(
+        123,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
+        null,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );

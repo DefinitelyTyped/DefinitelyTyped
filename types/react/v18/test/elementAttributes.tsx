@@ -1,5 +1,13 @@
 import * as React from "react";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
+
 const testCases = [
     <span />,
     <span accessKey="s" />,
@@ -37,6 +45,7 @@ const testCases = [
     <span translate="yes" />,
     <svg>
         <image crossOrigin="anonymous" />
+        <circle transformOrigin="0 0" />
     </svg>,
     <details open={true} onToggle={() => {}} name="foo" />,
     <input value={["one", "two"] as readonly string[]} />,
@@ -92,6 +101,12 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
 ];
 
 // Needed to check these HTML elements in event callbacks.

@@ -71,6 +71,20 @@ const ndOne: OneLine.OneLine = {
         // This is a mock implementation and should be replaced with your actual logic
         return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(",")}`;
     },
+    showCmp: () => {
+        // Mock implementation for showCmp
+        console.log("Showing CMP screen...");
+        const currentDomain = window.location.origin;
+        if (currentDomain) {
+            console.log(`Redirecting to: ${currentDomain}/#cmpscreen`);
+        } else {
+            console.warn("NDM: Unable to show CMP");
+        }
+    },
+    loadScript: (src: string, priority: "async" | "defer" | "instant" | "async"): void => {
+        // Mock implementation for loadScript
+        console.log(`Loading script from: ${src} with priority: ${priority}`);
+    },
 };
 
 // Test cases
