@@ -7,7 +7,6 @@
         "https://github.com/RohitM-IN/SQLParser"
     ],
     "devDependencies": {
-        "typescript": "^5.4.0",
         "@types/sqlparser-devexpress": "workspace:."
     },
     "owners": [

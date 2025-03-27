@@ -15,6 +15,7 @@
         "core/converter.d.ts",
         "core/parser.d.ts",
         "core/sanitizer.d.ts",
-        "core/tokenizer.d.ts"
+        "core/tokenizer.d.ts",
+        "index-tests.ts"
     ]
 }
