@@ -1,5 +1,5 @@
-import request, { type Response } from "supertest";
 import Cookies, { type SetMatcher } from "expect-cookies";
+import request, { type Response } from "supertest";
 import { type App } from "supertest/types";
 
 function customAssertion(req: { cookies: SetMatcher[] }, res: { cookies: SetMatcher[] }): boolean {
@@ -24,7 +24,19 @@ request(app())
     .get("/")
     .expect(Cookies(null, [customAssertion, customAssertion]));
 
-// chained custom assertion
+// chainable without arguments
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(Cookies().set({ name: "aoeu" }));
+
+// chainable with secret
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(Cookies("secret").set({ name: "aoeu" }));
+
+// chainable with custom assertion
 // $ExpectType Test
 request(app())
     .get("/")
@@ -57,13 +69,14 @@ request(app())
         }),
     );
 
-// set with value
+// set does not accept a value
 // $ExpectType Test
 request(app())
     .get("/")
     .expect(
         Cookies.set({
             name: "aoeu",
+            // @ts-expect-error
             value: "fqcn",
         }),
     );
