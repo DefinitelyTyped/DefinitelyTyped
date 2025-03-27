@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/base64-js-tests.cjs.ts",
-        "test/base64-js-tests.global.ts"
+        "store.d.ts"
     ]
 }

@@ -6,7 +6,8 @@
         "https://p2party.com"
     ],
     "devDependencies": {
-        "@types/p2party": "workspace:."
+        "@types/p2party": "workspace:.",
+        "@reduxjs/toolkit": "^2.6.1"
     },
     "owners": [
         {
