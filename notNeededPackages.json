@@ -1208,6 +1208,10 @@
             "libraryName": "core-decorators",
             "asOfVersion": "0.20.0"
         },
+        "correlation-id": {
+            "libraryName": "correlation-id",
+            "asOfVersion": "5.0.0"
+        },
         "cosmiconfig": {
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
