@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/webdeveloperzbk__leaflet",
+    "version": "2.0.0",
+    "projects": [
+        "https://github.com/webdeveloperzbk/leaflet"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/webdeveloperzbk__leaflet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleksey Dolzhenko",
+            "githubUsername": "webdeveloperzbk"
+        }
+    ]
+}
