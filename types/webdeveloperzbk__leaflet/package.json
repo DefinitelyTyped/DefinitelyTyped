@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/webdeveloperzbk__leaflet",
-    "version": "2.9.9999",
+    "version": "2.9.4",
     "projects": [
         "https://github.com/webdeveloperzbk/leaflet"
     ],
