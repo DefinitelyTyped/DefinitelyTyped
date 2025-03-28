@@ -19,6 +19,7 @@ openV2.then(font => {
     if (!isCollection(font)) {
         const { xAvgCharWidth, fsSelection } = font["OS/2"];
         const isNegative = fsSelection.negative;
+        fsSelection.bold; // $ExpectType boolean
     }
 });
 
