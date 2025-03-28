@@ -2,19 +2,19 @@ declare const expectCookies: expectCookies.ExpectCookiesStatic;
 
 declare namespace expectCookies {
     interface Assertion {
-        set(expects: SetMatcher | SetMatcher[], assert?: boolean): this;
+        set(expects: SetMatcher | ReadonlyArray<SetMatcher>, assert?: boolean): this;
 
-        reset(expects: ResetMatcher | ResetMatcher[], assert?: boolean): this;
+        reset(expects: ResetMatcher | ReadonlyArray<ResetMatcher>, assert?: boolean): this;
 
-        "new"(expects: ResetMatcher | ResetMatcher[], assert?: boolean): this;
+        "new"(expects: ResetMatcher | ReadonlyArray<ResetMatcher>, assert?: boolean): this;
 
-        renew(expects: RenewMatcher | RenewMatcher[], assert?: boolean): this;
+        renew(expects: RenewMatcher | ReadonlyArray<RenewMatcher>, assert?: boolean): this;
 
-        contain(expects: ContainMatcher | ContainMatcher[], assert?: boolean): this;
+        contain(expects: ContainMatcher | ReadonlyArray<ContainMatcher>, assert?: boolean): this;
 
         not<M extends keyof Omit<Assertion, "not">>(
             method: M,
-            expects: AssertionMatchers[M] | AssertionMatchers[M][],
+            expects: AssertionMatchers[M] | ReadonlyArray<AssertionMatchers[M]>,
         ): this;
     }
 
@@ -88,8 +88,8 @@ declare namespace expectCookies {
 
     interface ExpectCookiesStatic extends Assertion {
         (
-            secret?: string | string[] | null,
-            asserts?: CustomAssertion | CustomAssertion[],
+            secret?: string | ReadonlyArray<string> | null,
+            asserts?: CustomAssertion | ReadonlyArray<CustomAssertion>,
         ): Assertion;
     }
 }

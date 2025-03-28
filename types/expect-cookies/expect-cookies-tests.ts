@@ -1,8 +1,11 @@
-import Cookies, { type SetMatcher } from "expect-cookies";
+import Cookies, { type CustomAssertionCookie } from "expect-cookies";
 import request, { type Response } from "supertest";
 import { type App } from "supertest/types";
 
-function customAssertion(req: { cookies: SetMatcher[] }, res: { cookies: SetMatcher[] }): boolean {
+function customAssertion(
+    req: { cookies: CustomAssertionCookie[] },
+    res: { cookies: CustomAssertionCookie[] },
+): boolean {
     throw new Error("not implemented");
 }
 
