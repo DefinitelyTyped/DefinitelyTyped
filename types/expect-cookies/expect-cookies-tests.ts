@@ -388,6 +388,7 @@ request(app())
     .expect(Cookies.contain({ name: "aoeu", value: "snth" }));
 
 // [FAILING] contain.options.max-age should be allowed
+// $ExpectType Test
 request(app())
     .get("/")
     .expect(200)
@@ -412,6 +413,7 @@ request(app())
     }));
 
 // contain should take expectation array
+// $ExpectType Test
 request(app())
     .get("/")
     .expect(200)
@@ -422,6 +424,67 @@ request(app())
 request(app())
     .get("/")
     .expect(Cookies.contain(expectEverything, false));
+
+// not should support set
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(
+        Cookies.not("set", {
+            name: "aoeu",
+        }),
+    );
+
+// not should support reset
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(
+        Cookies.not("reset", {
+            name: "aoeu",
+        }),
+    );
+
+// not should support new
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(
+        Cookies.not("new", {
+            name: "aoeu",
+        }),
+    );
+
+// not should support renew
+const notContainAgent = request.agent(app());
+notContainAgent.get("/").expect(200).then(() => {
+    // $ExpectType Test
+    notContainAgent.get("/").expect(
+        Cookies.not("renew", {
+            name: "aoeu",
+            options: {
+                expires: new Date(now.getTime() + 2000),
+            },
+        }),
+    );
+});
+
+// not should support contain
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.not("contain", expectEverything));
+
+// not should accept expectation array
+// $ExpectType Test
+request(app())
+    .get("/")
+    .expect(200)
+    .expect(Cookies.not("set", []));
 
 function app(): App {
     throw new Error("Not implemented");

@@ -12,7 +12,10 @@ declare namespace expectCookies {
 
         contain(expects: ContainMatcher | ContainMatcher[], assert?: boolean): this;
 
-        // TODO ExpectCookies.not
+        not<M extends keyof Omit<Assertion, "not">>(
+            method: M,
+            expects: AssertionMatchers[M] | AssertionMatchers[M][],
+        ): this;
     }
 
     type CustomAssertion = (
@@ -26,6 +29,14 @@ declare namespace expectCookies {
         options?: Record<string, string | boolean>;
     }
 
+    interface AssertionMatchers {
+        set: SetMatcher;
+        reset: ResetMatcher;
+        new: NewMatcher;
+        renew: RenewMatcher;
+        contain: ContainMatcher;
+    }
+
     interface SetMatcher {
         name: string;
         options?: Record<string, string | boolean>;
@@ -34,6 +45,8 @@ declare namespace expectCookies {
     interface ResetMatcher {
         name: string;
     }
+
+    type NewMatcher = ResetMatcher;
 
     interface RenewMatcher {
         name: string;
