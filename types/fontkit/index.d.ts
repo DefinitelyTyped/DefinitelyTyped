@@ -318,7 +318,7 @@ export interface Os2Table {
         useTypoMetrics: boolean;
         wws: boolean;
         bold: boolean;
-        regular: boolan;
+        regular: boolean;
         oblique: boolean;
     };
     fsType: {
