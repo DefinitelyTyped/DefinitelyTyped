@@ -51,6 +51,7 @@ export { NodeUtils };
 // utils
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
+export { default as DebugNode } from "./utils/DebugNode.js";
 export { default as EquirectUVNode } from "./utils/EquirectUVNode.js";
 export { default as FunctionOverloadingNode } from "./utils/FunctionOverloadingNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";

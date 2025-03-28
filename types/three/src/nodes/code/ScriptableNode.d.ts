@@ -17,6 +17,6 @@ declare class ScriptableNode extends Node {
 export default ScriptableNode;
 
 export const scriptable: (
-    codeNode?: NodeRepresentation | null,
+    codeNode: NodeRepresentation,
     parameters?: Record<string, unknown>,
 ) => ShaderNodeObject<ScriptableNode>;

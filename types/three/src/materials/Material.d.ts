@@ -52,6 +52,7 @@ export interface MaterialParameters {
     precision?: "highp" | "mediump" | "lowp" | null | undefined;
     premultipliedAlpha?: boolean | undefined;
     forceSinglePass?: boolean | undefined;
+    allowOverride?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -478,6 +479,8 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     forceSinglePass: boolean;
+
+    allowOverride: boolean;
 
     /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.

@@ -33,13 +33,13 @@ declare class Animation {
     /**
      * Returns the user-level animation loop.
      *
-     * @return {Function} The animation loop.
+     * @return {?Function} The animation loop.
      */
     getAnimationLoop(): ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     /**
      * Defines the user-level animation loop.
      *
-     * @param {Function} callback - The animation loop.
+     * @param {?Function} callback - The animation loop.
      */
     setAnimationLoop(callback: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null): void;
     /**

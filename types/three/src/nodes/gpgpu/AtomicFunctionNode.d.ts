@@ -17,9 +17,8 @@ declare class AtomicFunctionNode extends TempNode {
     method: AtomicMethod;
     pointerNode: Node;
     valueNode: Node;
-    storeNode: Node;
 
-    constructor(method: AtomicMethod, pointerNode: Node, valueNode: Node, storeNode?: Node | null);
+    constructor(method: AtomicMethod, pointerNode: Node, valueNode: Node);
 
     static ATOMIC_LOAD: "atomicLoad";
     static ATOMIC_STORE: "atomicStore";
@@ -36,58 +35,48 @@ export const atomicFunc: (
     method: AtomicMethod,
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicLoad: (
     pointerNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicStore: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicAdd: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicSub: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicMax: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicMin: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicAnd: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicOr: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
 
 export const atomicXor: (
     pointerNode: NodeRepresentation,
     valueNode: NodeRepresentation,
-    storeNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<AtomicFunctionNode>;
