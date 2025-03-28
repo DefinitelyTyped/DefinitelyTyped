@@ -22,6 +22,18 @@ openV2.then(font => {
     }
 });
 
+// -----------------------
+// API: Font.variationAxes
+// -----------------------
+openV2.then(font => {
+    if (!isCollection(font)) {
+        font.variationAxes.wght?.name; // $ExpectType string | undefined
+        font.variationAxes.wght?.min; // $ExpectType number | undefined
+        font.variationAxes.wght?.default; // $ExpectType number | undefined
+        font.variationAxes.wght?.max; // $ExpectType number | undefined
+    }
+});
+
 // ---------------------
 // API: fontkit.openSync
 // ---------------------
