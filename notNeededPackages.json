@@ -6195,6 +6195,10 @@
             "libraryName": "@rollup/plugin-virtual",
             "asOfVersion": "3.0.0"
         },
+        "romans": {
+            "libraryName": "romans",
+            "asOfVersion": "2.0.5"
+        },
         "rosbag": {
             "libraryName": "rosbag",
             "asOfVersion": "4.0.0"
