@@ -1147,7 +1147,7 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    type MountType = "bind" | "volume" | "tmpfs";
+    type MountType = "bind" | "volume" | "tmpfs" | "image";
 
     type MountConsistency = "default" | "consistent" | "cached" | "delegated";
 
@@ -1179,6 +1179,11 @@ declare namespace Dockerode {
             | {
                 SizeBytes: number;
                 Mode: number;
+            }
+            | undefined;
+        ImageOptions?:
+            | {
+                Subpath?: string;
             }
             | undefined;
     }
