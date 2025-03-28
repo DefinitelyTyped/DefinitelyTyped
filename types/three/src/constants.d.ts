@@ -420,7 +420,7 @@ export const RGFormat: 1030;
 export const RGIntegerFormat: 1031;
 
 /**
- * {@link RGBIntegerFormat} discrads the alpha components and reads the red, green, and blue components.
+ * {@link RGBIntegerFormat} discards the alpha components and reads the red, green, and blue components.
  */
 export const RGBIntegerFormat: 1032;
 
@@ -478,7 +478,7 @@ export const RGBA_S3TC_DXT1_Format: 33777;
  */
 export const RGBA_S3TC_DXT3_Format: 33778;
 /**
- * A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs to the DXT3 compression in how the alpha compression is done.
+ * A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs from the DXT3 compression in how the alpha compression is done.
  * @remarks Require support for the _WEBGL_compressed_texture_s3tc_ WebGL extension.
  */
 export const RGBA_S3TC_DXT5_Format: 33779;

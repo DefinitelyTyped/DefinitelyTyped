@@ -68,4 +68,6 @@ export const textureLoad: (
     biasNode?: NodeRepresentation,
 ) => ShaderNodeObject<TextureNode>;
 
-export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;
+export const sampler: (value: Texture | TextureNode) => ShaderNodeObject<Node>;
+
+export const samplerComparison: (value: Texture | TextureNode) => ShaderNodeObject<Node>;
