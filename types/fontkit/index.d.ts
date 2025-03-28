@@ -47,7 +47,7 @@ export interface Font {
     availableFeatures: string[];
 
     /** An object describing the available axes in a variable font. Keys are 4 letter axis tags. */
-    variationAxes: Record<string, { name: string; min: number; default: number; max: number; }>;
+    variationAxes: Partial<Record<string, { name: string; min: number; default: number; max: number; }>>;
 
     /**
      * Returns an array of strings that map to the given glyph id.
