@@ -50,6 +50,8 @@ declare namespace NodeClam {
             active?: boolean;
             /** Check to see if socket is available when applicable */
             bypassTest?: boolean;
+            /** Connect to a TLS-Termination proxy in front of ClamAV */
+            tls?: boolean;
         };
         /** If clamdscan is found and active, it will be used by default */
         preference?: any;
