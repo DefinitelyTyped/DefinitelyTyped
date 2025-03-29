@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-single-element-tuple-type": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-    }
-}
