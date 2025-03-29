@@ -581,7 +581,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -593,7 +593,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+        function __promisify__(path: PathLike, len?: number): Promise<void>;
     }
     /**
      * Truncates the file. Returns `undefined`. A file descriptor can also be
@@ -604,7 +604,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncateSync(path: PathLike, len?: number | null): void;
+    export function truncateSync(path: PathLike, len?: number): void;
     /**
      * Truncates the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -648,7 +648,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
@@ -660,7 +660,7 @@ declare module "fs" {
          * @param fd A file descriptor.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(fd: number, len?: number | null): Promise<void>;
+        function __promisify__(fd: number, len?: number): Promise<void>;
     }
     /**
      * Truncates the file descriptor. Returns `undefined`.
@@ -670,7 +670,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncateSync(fd: number, len?: number | null): void;
+    export function ftruncateSync(fd: number, len?: number): void;
     /**
      * Asynchronously changes owner and group of a file. No arguments other than a
      * possible exception are given to the completion callback.
