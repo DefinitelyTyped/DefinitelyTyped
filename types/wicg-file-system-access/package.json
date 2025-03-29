@@ -7,7 +7,6 @@
     "projects": [
         "https://github.com/WICG/file-system-access"
     ],
-    "types": "index",
     "devDependencies": {
         "@types/wicg-file-system-access": "workspace:."
     },

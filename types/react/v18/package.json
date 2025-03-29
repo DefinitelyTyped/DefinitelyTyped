@@ -32,7 +32,6 @@
             }
         }
     },
-    "types": "index",
     "dependencies": {
         "@types/prop-types": "*",
         "csstype": "^3.0.2"

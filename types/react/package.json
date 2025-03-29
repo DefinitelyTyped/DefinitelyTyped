@@ -37,7 +37,6 @@
             }
         }
     },
-    "types": "index",
     "dependencies": {
         "csstype": "^3.0.2"
     },
