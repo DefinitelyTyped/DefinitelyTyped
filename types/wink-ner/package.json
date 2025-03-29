@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wink-ner",
+    "version": "2.1.9999",
+    "projects": [
+        "http://winkjs.org/"
+    ],
+    "devDependencies": {
+        "@types/wink-ner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jay Alfaras",
+            "githubUsername": "alfarasjb"
+        }
+    ]
+}
