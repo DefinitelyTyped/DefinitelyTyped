@@ -940,7 +940,7 @@
 /types/clone-deep/                                        @tanfonto
 /types/cloneable-readable/                                @qlonik @vaskevich
 /types/cloner/                                            @matrumz
-/types/closure-compiler/                                  @mprobst
+/types/closure-compiler/                                  @brad4d @blickly @12wrigja
 /types/cloud-env/                                         @Morfent
 /types/cloudflare-apps/                                   @MartynasZilinskas
 /types/cloudflare-turnstile/                              @lbarthon @worenga @olipayne @punkeel @migueldemoura @AleksandarHr
@@ -1571,7 +1571,7 @@
 /types/doge-seed/                                         @BendingBender
 /types/doi-regex/                                         @thewilkybarkid
 /types/dojo/                                              @vansimke
-/types/dom-background-sync/                               @h-joo @frigus02 @mprobst
+/types/dom-background-sync/                               @brad4d @blickly @12wrigja
 /types/dom-chromium-ai/                                   @christianliebel @tomayac
 /types/dom-chromium-installation-events/                  @dartess
 /types/dom-close-watcher/                                 @tbondwilkinson
@@ -1581,11 +1581,11 @@
 /types/dom-mediacapture-record/                           @elsmr @AppLover69
 /types/dom-mediacapture-transform/                        @dogben
 /types/dom-navigation/                                    @tbondwilkinson
-/types/dom-navigation-preload/                            @frigus02 @mprobst
+/types/dom-navigation-preload/                            @brad4d @blickly @12wrigja
 /types/dom-parser/                                        @gbidkar
 /types/dom-screen-wake-lock/                              @chrismilson
 /types/dom-serial/                                        @maciejmrozinski
-/types/dom-speech-recognition/                            @h-joo @frigus02 @mprobst
+/types/dom-speech-recognition/                            @brad4d @blickly @12wrigja
 /types/dom-to-image/                                      @JipSterk
 /types/dom-trust-token/                                   @taymonbeal
 /types/dom-view-transitions/                              @jakearchibald @tbondwilkinson
