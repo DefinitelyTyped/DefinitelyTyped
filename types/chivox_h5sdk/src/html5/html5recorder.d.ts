@@ -18,6 +18,8 @@ declare class Html5Recorder {
      */
     record<T extends ChivoxCoreType>(param: import("../../options").ChivoxRecordOptions<T>): void;
 
+    stream: MediaStream | null;
+
     /**
      * 停止录音
      *
