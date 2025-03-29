@@ -8,13 +8,6 @@
         "https://github.com/WICG/file-system-access"
     ],
     "types": "index",
-    "typesVersions": {
-        "<=5.0": {
-            "*": [
-                "ts5.0/*"
-            ]
-        }
-    },
     "devDependencies": {
         "@types/wicg-file-system-access": "workspace:."
     },
