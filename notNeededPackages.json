@@ -5935,6 +5935,10 @@
             "libraryName": "react-vega",
             "asOfVersion": "7.0.0"
         },
+        "react-virtualized-auto-sizer": {
+            "libraryName": "react-virtualized-auto-sizer",
+            "asOfVersion": "1.0.11"
+        },
         "react-visibility-sensor": {
             "libraryName": "react-visibility-sensor",
             "asOfVersion": "5.1.0"
