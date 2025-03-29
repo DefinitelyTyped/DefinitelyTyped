@@ -1,4 +1,5 @@
 import ChaiArrays = require("chai-arrays");
+import "chai/register-should";
 
 declare const assert: Chai.AssertStatic;
 declare const expect: Chai.ExpectStatic;
