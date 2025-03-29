@@ -1510,3 +1510,10 @@ declare module "react-native" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface UIManagerStatic extends UIManager {}
 }
+
+// https://necolas.github.io/react-native-web/docs/unstable-apis/
+export function unstable_createElement(
+    type: string,
+    props: any,
+    ...children: any[]
+  ): React.ReactElement;
