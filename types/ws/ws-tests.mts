@@ -525,7 +525,7 @@ declare module "ws" {
         autoPong: false,
         createConnection: net.createConnection,
         finishRequest: (req, socket) => {
-            // $ExpectType IncomingMessage
+            // $ExpectType ClientRequest
             req;
 
             // $ExpectType WebSocket
