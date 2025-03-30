@@ -32,6 +32,8 @@ DateTime.utc(2019, { locale: "en-GB" }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
 DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); // $ExpectType string | null
 DateTime.expandFormat("d", { locale: "en-US" }); // $ExpectType string
+const parser = DateTime.buildFormatParser("dd/MM/yyyy", { locale: "en-US" });
+DateTime.fromFormatParser("22/11/1948", parser)
 // @ts-expect-error
 new DateTime();
 
