@@ -44,7 +44,7 @@ tree.mutate((d) => {
     // $ExpectType NodeObject<number> | null
     draft.get(0);
 
-    // $ExpectType NodeObject<number> | null
+    // $ExpectType number | null
     draft.appendNode(0, { FF: ["4"] }, {});
 
     // $ExpectType boolean
