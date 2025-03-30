@@ -92,4 +92,4 @@ export interface NodeObject<ID extends Primitive = number> {
 
 export type Vertex = [number, number];
 
-export type Dates = [number, number, number];
+export type Dates = [number, number?, number?];
