@@ -5,12 +5,15 @@ import {
     StringUnitLength,
     ToISOFormat,
     ToISOTimeDurationOptions,
+    WeekSettings,
     ZoneOptions,
 } from "../index";
 import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { Duration, DurationLike, DurationUnits } from "./duration";
 import { Interval } from "./interval";
 import { Zone } from "./zone";
+
+export {}; // Turn off default exports
 
 export type DateTimeUnit = "year" | "quarter" | "month" | "week" | "day" | "hour" | "minute" | "second" | "millisecond";
 export type ToRelativeUnit = "years" | "quarters" | "months" | "weeks" | "days" | "hours" | "minutes" | "seconds";
@@ -304,6 +307,7 @@ export interface LocaleOptions {
     locale?: string | undefined;
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
+    weekSettings?: WeekSettings | undefined;
 }
 
 export type ResolvedLocaleOptions = Required<LocaleOptions>;
@@ -396,6 +400,11 @@ export interface ExplainedFormat {
 }
 
 export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
+
+declare const tokenParserBrand: unique symbol;
+export interface TokenParser {
+    [tokenParserBrand]: true;
+}
 
 /**
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
@@ -1615,6 +1624,25 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @deprecated use fromFormatExplain instead
      */
     static fromStringExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+
+    /**
+     * Build a parser for fmt using the given locale. This parser can be passed to {@link DateTime.fromFormatParser} to a parse a date in this format. This can be used to optimize cases where many dates need to be parsed in a specific format.
+     *
+     * @param fmt - the format the string is expected to be in (see description)
+     * @param options - the Locale options
+     */
+    static buildFormatParser(fmt: string, options?: LocaleOptions): TokenParser;
+
+    /**
+     * Create a DateTime from an input string and format parser.
+     *
+     * The format parser must have been created with the same locale as this call.
+     *
+     * @param text the string to parse
+     * @param formatParser - parser from {@link DateTime.buildFormatParser}
+     * @param opts options taken by fromFormat()
+     */
+    static fromFormatParser(text: string, formatParser: TokenParser, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     // FORMAT PRESETS
 
