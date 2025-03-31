@@ -435,26 +435,23 @@ export function validateTemplate(figure: TemplateFigure, template: Template): Va
 // Layout
 export interface Layout {
     colorway: string[];
-    title:
-        | string
-        | Partial<{
-            text: string;
-            font: Partial<Font>;
-            xref: "container" | "paper";
-            yref: "container" | "paper";
-            x: number;
-            y: number;
-            xanchor: "auto" | "left" | "center" | "right";
-            yanchor: "auto" | "top" | "middle" | "bottom";
-            pad: Partial<Padding>;
-            subtitle:
-                | string
-                | Partial<{
-                    text: string;
-                    font: Partial<Font>;
-                }>;
-        }>;
-    titlefont: Partial<Font>;
+    title: Partial<{
+        text: string;
+        font: Partial<Font>;
+        xref: "container" | "paper";
+        yref: "container" | "paper";
+        x: number;
+        y: number;
+        xanchor: "auto" | "left" | "center" | "right";
+        yanchor: "auto" | "top" | "middle" | "bottom";
+        pad: Partial<Padding>;
+        subtitle:
+            | string
+            | Partial<{
+                text: string;
+                font: Partial<Font>;
+            }>;
+    }>;
     autosize: boolean;
     showlegend: boolean;
     paper_bgcolor: Color;
@@ -486,6 +483,12 @@ export interface Layout {
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
     calendar: Calendar;
+
+    // these are just the most common nested property updates that you might
+    // want to pass to Plotly.relayout - *any* dotted property path through the
+    // normal nested structure is valid here, and enumerating them all including
+    // all possible [n] array indices would be infeasible (if it weren't for the
+    // array indices, the pure a.b.c bit might be doable with conditional types)
     "xaxis.range": [Datum, Datum];
     "xaxis.range[0]": Datum;
     "xaxis.range[1]": Datum;
@@ -496,8 +499,8 @@ export interface Layout {
     "xaxis.type": AxisType;
     "xaxis.autorange": boolean;
     "yaxis.autorange": boolean;
-    "xaxis.title": string;
-    "yaxis.title": string;
+    "xaxis.title": Partial<DataTitle>;
+    "yaxis.title": Partial<DataTitle>;
     ternary: {}; // TODO
     geo: {}; // TODO
     mapbox: Partial<Mapbox>;
@@ -690,12 +693,7 @@ export interface Axis {
      * Individual pieces can override this.
      */
     color: Color;
-    title: string | Partial<DataTitle>;
-    /**
-     * Former `titlefont` is now the sub-attribute `font` of `title`.
-     * To customize title font properties, please use `title.font` now.
-     */
-    titlefont: Partial<Font>;
+    title: Partial<DataTitle>;
     type: AxisType;
     autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
     autorangeoptions: Partial<AutoRangeOptions>;
@@ -1617,6 +1615,12 @@ export interface Transform {
     order: "ascending" | "descending";
 }
 
+export interface ColorBarTitle {
+    text: string;
+    font: Partial<Font>;
+    side: "right" | "top" | "bottom";
+}
+
 export interface ColorBar {
     thicknessmode: "fraction" | "pixels";
     thickness: number;
@@ -1656,9 +1660,7 @@ export interface ColorBar {
     exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
     showexponent: "all" | "first" | "last" | "none";
     minexponent: number;
-    title: string;
-    titlefont: Font;
-    titleside: "right" | "top" | "bottom";
+    title: Partial<ColorBarTitle>;
     tickvalssrc: any;
     ticktextsrc: any;
 }
