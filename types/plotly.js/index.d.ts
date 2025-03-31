@@ -1336,7 +1336,6 @@ export type Color =
     | Array<string | number | undefined | null>
     | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
-export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
 export interface PlotData {
@@ -1500,7 +1499,6 @@ export interface PlotData {
     delta: Partial<Delta>;
     gauge: Partial<Gauge>;
     number: Partial<PlotNumber>;
-    transforms: DataTransform[];
     orientation: "v" | "h";
     width: number | number[];
     boxmean: boolean | "sd";
@@ -1567,48 +1565,6 @@ export interface PlotData {
     maxdepth: number;
     uirevision: string | number;
     uid: string;
-}
-
-/**
- * These interfaces are based on attribute descriptions in
- * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
- */
-export interface TransformStyle {
-    target: number | string | number[] | string[];
-    value: Partial<PlotData>;
-}
-
-export interface TransformAggregation {
-    target: string;
-    func?:
-        | "count"
-        | "sum"
-        | "avg"
-        | "median"
-        | "mode"
-        | "rms"
-        | "stddev"
-        | "min"
-        | "max"
-        | "first"
-        | "last"
-        | undefined;
-    funcmode?: "sample" | "population" | undefined;
-    enabled?: boolean | undefined;
-}
-
-export interface Transform {
-    type: "aggregate" | "filter" | "groupby" | "sort";
-    enabled: boolean;
-    target: number | string | number[] | string[];
-    operation: string;
-    aggregations: TransformAggregation[];
-    preservegaps: boolean;
-    groups: string | number[] | string[];
-    nameformat: string;
-    styles: TransformStyle[];
-    value: any;
-    order: "ascending" | "descending";
 }
 
 export interface ColorBarTitle {
@@ -1905,9 +1861,6 @@ export interface Config {
      * This should ONLY be set via Plotly.setPlotConfig
      */
     logging: boolean | 0 | 1 | 2;
-
-    /** Set global transform to be applied to all traces with no specification needed */
-    globalTransforms: any[];
 
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
@@ -2772,15 +2725,6 @@ interface LocaleModule {
     format: Record<string, unknown>;
 }
 
-interface TransformModule {
-    moduleType: "transform";
-    name: string;
-    transform: any;
-    calcTransform: any;
-    attributes: Record<string, unknown>;
-    supplyDefaults: any;
-}
-
 interface ComponentModule {
     moduleType: "component";
     name: string;
@@ -2792,4 +2736,4 @@ interface ApiMethodModule {
     fn: any;
 }
 
-type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;
+type PlotlyModule = TraceModule | LocaleModule | ComponentModule | ApiMethodModule;

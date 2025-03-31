@@ -6,7 +6,9 @@ const graphDiv = "#test";
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 // combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
-// https://plotly.com/javascript/2d-density-plots/
+// https://plotly.com/javascript/2d-density-plots/, but with transforms removed as they
+// no longer exist in Plotly v3 (it's up to you to massage the data set before passing
+// it to Plotly, rather than letting Plotly do the transform for you).
 
 (() => {
     const testrows = [
@@ -74,35 +76,6 @@ const graphDiv = "#test";
             },
         },
         type: "scatter",
-        transforms: [
-            {
-                type: "filter",
-                target: unpack(testrows, "year"),
-                operation: "=",
-                value: "2002",
-            },
-            {
-                type: "groupby",
-                nameformat: `%{group}`,
-                groups: unpack(testrows, "continent"),
-                styles: [
-                    { target: "Asia", value: { marker: { color: "red" } } },
-                    { target: "Europe", value: { marker: { color: "blue" } } },
-                    { target: "Americas", value: { marker: { color: "orange" } } },
-                    { target: "Africa", value: { marker: { color: "green" } } },
-                    { target: "Oceania", value: { marker: { color: "purple" } } },
-                ],
-            },
-            {
-                type: "aggregate",
-                groups: unpack(testrows, "continent"),
-                aggregations: [
-                    { target: "x", func: "avg" },
-                    { target: "y", func: "avg" },
-                    { target: "marker.size", func: "sum" },
-                ],
-            },
-        ],
         width: 2,
     } as PlotData;
     const trace2 = {
