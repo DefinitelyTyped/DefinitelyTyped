@@ -713,7 +713,7 @@
 /types/bull-arena/                                        @levibostian @gtpan77
 /types/bumblebee-hotword/                                 @sheunglaili
 /types/bump-regex/                                        @silkentrance
-/types/bun/                                               @Jarred-Sumner @electroid @paperclover @robobun @dylan-conway @nektro @RiskyMH
+/types/bun/                                               @Jarred-Sumner @electroid @paperclover @robobun @dylan-conway @nektro @RiskyMH @alii
 /types/bundle-id/                                         @LeoDog896
 /types/bundle-name/                                       @LeoDog896
 /types/bunnymq/                                           @cyrilschumacher
@@ -1696,7 +1696,6 @@
 /types/ed2curve/                                          @ffflorian
 /types/edit-json-file/                                    @Twixes
 /types/editor-info/                                       @matwilko
-/types/editorjs__header/                                  @maykon-oliveira
 /types/edmonds-blossom/                                   @johnridesabike
 /types/edtr-io__mathquill/                                @magonzalez9
 /types/edx__new-relic-source-map-webpack-plugin/          @peterblazejewicz
@@ -1722,6 +1721,7 @@
 /types/electron-prompt/                                   @ffflorian
 /types/electron-spellchecker/                             @unindented
 /types/electron-squirrel-startup/                         @jlachniet
+/types/electron-to-chromium/                              @MysteryBlokHed
 /types/element-closest/                                   @hikiko4ern
 /types/element-resize-detector/                           @saranshkataria @franklixuefei
 /types/element-resize-event/                              @rogierschouten @plgregoire @BendingBender
@@ -1814,7 +1814,6 @@
 /types/emmetio__implicit-tag/                             @rfverbruggen
 /types/emoji-flags/                                       @tdukart @peterblazejewicz
 /types/emoji-js/                                          @jasondibenedetto @peterblazejewicz
-/types/emoji-mart/                                        @Jessidhia @Nicell @elviswolcott @tarrencev
 /types/emoji-strip/                                       @garyking
 /types/emojione/                                          @dbrgn @sliker
 /types/empower/                                           @vvakame
@@ -2876,7 +2875,6 @@
 /types/git-raw-commits/                                   @JasonHK
 /types/git-repo-name/                                     @BendingBender
 /types/git-rev-sync/                                      @khoi-fish @pkuczynski
-/types/git-revision-webpack-plugin/                       @andersk
 /types/git-root-dir/                                      @ffflorian
 /types/git-semver-tags/                                   @JasonHK @peterblazejewicz
 /types/git-state/                                         @BendingBender
@@ -3504,12 +3502,14 @@
 /types/is-email/                                          @stephenwade
 /types/is-empty/                                          @termosa
 /types/is-empty-object/                                   @Richienb
+/types/is-errno-exception/                                @sosoba @coigmalinowski
 /types/is-even/                                           @shawnkoon
 /types/is-expression/                                     @LeoDog896
 /types/is-extglob/                                        @LeoDog896
 /types/is-file-esm/                                       @leonsilicon
 /types/is-finite/                                         @mhegazy
 /types/is-firefox/                                        @e9x
+/types/is-fqdn/                                           @MysteryBlokHed
 /types/is-function/                                       @evangeloszotos
 /types/is-generator/                                      @Richienb
 /types/is-gif/                                            @peterblazejewicz
@@ -3897,7 +3897,6 @@
 /types/jsoneditoronline/                                  @vbortone
 /types/jsonexport/                                        @g-ongenae
 /types/jsonfile/                                          @dbowring @BendingBender @peterblazejewicz
-/types/jsonic/                                            @jacobbubu
 /types/jsonld/                                            @sandersn
 /types/jsonlines/                                         @raineorshine
 /types/jsonlint/                                          @Timmatt-Lee
@@ -3974,7 +3973,7 @@
 /types/jwt-then/                                          @phenomax
 /types/jxon/                                              @maxbogus
 /types/k-bucket/                                          @tomonari-t
-/types/k6/                                                @MStoykov @codebien @oleiade @olegbespalov @ankur22 @inancgumus @joanlopez
+/types/k6/                                                @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez
 /types/kafka-node-avro/                                   @alfamegaxq
 /types/kafkajs-snappy/                                    @matteodisabatino
 /types/kahoot.js-updated/                                 @MysteryBlokHed
@@ -5473,7 +5472,6 @@
 /types/on-wake-up/                                        @ajafff
 /types/once/                                              @denis-sokolov @BendingBender
 /types/one-time/                                          @BendingBender
-/types/onesignal-cordova-plugin/                          @broder @vaclavnovotny
 /types/onfleet__node-onfleet/                             @marcobeltempo @neilpoulin
 /types/onflow__flow-js-testing/                           @adbario
 /types/oniguruma/                                         @smhxx
@@ -6769,7 +6767,6 @@
 /types/react-wait/                                        @ifiokjr @pwlmaciejewski
 /types/react-weui/                                        @tairan
 /types/react-wheelpicker/                                 @tyirenkyi
-/types/react-widgets/                                     @rogierschouten @sanyatuning @frodehansen2 @r3nya @MBillemaz @georg94 @tzarger @vegtelenseg @calebergh @rmckeel @jankalfus
 /types/react-widgets-moment/                              @dawnmist
 /types/react-window/                                      @martynaskadisa @heyimalex @jgoz
 /types/react-window-infinite-loader/                      @Nibblesh @fnknzzz
@@ -7371,7 +7368,6 @@
 /types/siema/                                             @0x6368656174 @samnau @barroudjo
 /types/sigmajs/                                           @qinfchen
 /types/sigmund/                                           @BendingBender
-/types/signal-exit/                                       @BendingBender
 /types/signale/                                           @resir014 @rjoydip
 /types/signalfx/                                          @maxbogus
 /types/signalfx-collect/                                  @axiac
@@ -7738,7 +7734,6 @@
 /types/suitescript/                                       @darrenhillconsulting
 /types/summernote/                                        @wstaelens @crutchcorn
 /types/sumo-logger/                                       @forabi @clementallen @kristians-salna
-/types/sumoselect/                                        @nagamejun
 /types/suncalc/                                           @horiuchi
 /types/sunrise-sunset-js/                                 @hmajid2301
 /types/super-number/                                      @ffflorian
@@ -8205,8 +8200,6 @@
 /types/url-assembler/                                     @wolfgang42 @alicewriteswrongs
 /types/url-file-size/                                     @shahoob
 /types/url-format-lax/                                    @yoursunny
-/types/url-join/                                          @rogierschouten @devrelm @BendingBender
-/types/url-join/v0/                                       @rogierschouten @devrelm
 /types/url-match-patterns/                                @lionel-rowe
 /types/url-params/                                        @danielsogl
 /types/url-params-parser/                                 @peterblazejewicz
@@ -8281,7 +8274,7 @@
 /types/validate-npm-package-license/                      @carboneater
 /types/validate-npm-package-name/                         @ffflorian @peterblazejewicz
 /types/validate-objectid/                                 @ChocolateLoverRaj
-/types/validator/                                         @tgfjt @chrootsu @IOAyman @louy @deptno @builtinnya @qqilihq @keatz55 @MunifTanjim @vlapo @peterblazejewicz @Mattewn99 @dcfreire
+/types/validator/                                         @tgfjt @chrootsu @IOAyman @louy @deptno @builtinnya @qqilihq @keatz55 @MunifTanjim @vlapo @peterblazejewicz @Mattewn99 @dcfreire @WikiRik
 /types/validatorjs/                                       @LKay @danmana @MatiasOlivera
 /types/valvelet/                                          @bendingbender
 /types/vanilla-masker/                                    @BenLorantfy
@@ -8513,7 +8506,6 @@
 /types/webrtc/                                            @nakakura
 /types/webscopeio__react-textarea-autocomplete/           @michauzo
 /types/webscreens-window-placement/                       @WORMSS
-/types/websequencediagrams/                               @ffflorian
 /types/webshot-node/                                      @gliese1337
 /types/website-scraper/                                   @screendriver
 /types/websocket/                                         @loyd @flynetworks @zhaoleimxd @jdneo @MasterOdin
