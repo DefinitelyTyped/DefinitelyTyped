@@ -342,6 +342,10 @@ const sshconfig: ssh2.ConnectConfig = {
     },
 };
 
+// setNoDelay
+var Client = require("ssh2").Client;
+var conn = new Client().setNoDelay(true);
+
 //
 // # Server Examples
 //
