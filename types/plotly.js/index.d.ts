@@ -965,7 +965,6 @@ export interface LayoutAxis extends Axis {
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
-    autotick: boolean;
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
