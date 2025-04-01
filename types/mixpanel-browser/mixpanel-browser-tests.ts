@@ -38,6 +38,47 @@ mixpanel.init("token", {
 mixpanel.init("token", {
     track_pageview: "full-url",
 });
+mixpanel.init("token", {
+    autocapture: true,
+});
+mixpanel.init("token", {
+    autocapture: false,
+});
+mixpanel.init("token", {
+    autocapture: {},
+});
+mixpanel.init("token", {
+    autocapture: {
+        click: true,
+        input: true,
+        pageview: "full-url",
+        scroll: true,
+        submit: true,
+        capture_text_content: true,
+        capture_extra_attrs: ["attr"],
+        scroll_depth_percent_checkpoints: [25, 50, 75, 100],
+        scroll_capture_all: true,
+        block_url_regexes: [/\/login\/?$/, /\/payment\/?$/],
+        allow_url_regexes: [/\/login\/?$/, /\/payment\/?$/],
+        block_selectors: [".class1", "button.class2"],
+        allow_selectors: [".class1", "button.class2"],
+        block_attrs: ["attr"],
+        allow_element_callback: (element, event) => {
+            // $ExpectType HTMLElement
+            element;
+            // $ExpectType Event
+            event;
+            return true;
+        },
+        block_element_callback: (element, event) => {
+            // $ExpectType HTMLElement
+            element;
+            // $ExpectType Event
+            event;
+            return true;
+        },
+    },
+});
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();
 mixpanel.track("Registered", { Gender: "Male", Age: 21 });
