@@ -3877,6 +3877,10 @@
             "libraryName": "@materializecss/materialize",
             "asOfVersion": "2.0.3"
         },
+        "math-expression-evaluator": {
+            "libraryName": "math-expression-evaluator",
+            "asOfVersion": "2.0.0"
+        },
         "mathjs": {
             "libraryName": "mathjs",
             "asOfVersion": "9.4.1"
