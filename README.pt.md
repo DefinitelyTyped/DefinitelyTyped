@@ -152,8 +152,6 @@ Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de q
 
 Os membros do Definitely Typed frequentemente monitoram os novos PRs, porém tenha em mente de que a quantidade de PRs pode atrasar o processo.
 
-Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
 #### Removendo um pacote
 
 Quando um pacote [inclui](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.

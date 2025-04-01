@@ -193,8 +193,6 @@ declare module "libname" {
 
 Definitely Typed 的成员会定期查看新的 PR，但是请留意，当 PR 数量过多的时候，检查速度可能会减慢。
 
-如果你想要真实的示例，[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 是个很好的例子。
-
 #### 删除软件包
 
 当一个软件包[捆绑](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)了自己的类型时，应该从 Definitely Typed 中删除相应的类型以避免混淆。

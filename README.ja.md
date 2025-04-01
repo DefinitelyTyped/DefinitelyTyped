@@ -176,8 +176,6 @@ dts-gen の全オプションは[こちら](https://github.com/microsoft/Definit
 
 Definitely Typed のメンバーは常に新しい PR をチェックしていますが、他の PR の数によっては対応が遅れる場合があることをご了承ください。
 
-[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) を、パッケージのサンプルとして参考にするのがよいでしょう。
-
 #### パッケージを削除する
 
 パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。

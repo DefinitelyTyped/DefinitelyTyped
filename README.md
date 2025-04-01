@@ -188,8 +188,6 @@ If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenc
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
-
 #### Removing a package
 
 When a package [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from Definitely Typed to avoid confusion.
