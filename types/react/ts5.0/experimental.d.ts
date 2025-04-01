@@ -207,4 +207,11 @@ declare module "." {
         scope: () => void,
         options?: GestureOptions,
     ): () => void;
+
+    // @enableFragmentRefs
+    export interface FragmentInstance {}
+
+    export interface FragmentProps {
+        ref?: Ref<FragmentInstance> | undefined;
+    }
 }
