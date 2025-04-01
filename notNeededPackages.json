@@ -7659,6 +7659,10 @@
             "libraryName": "workbox-window",
             "asOfVersion": "5.0.0"
         },
+        "workerpool": {
+            "libraryName": "workerpool",
+            "asOfVersion": "9.0.0"
+        },
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
