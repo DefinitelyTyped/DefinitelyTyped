@@ -31,7 +31,8 @@ declare namespace picomatch {
     type Glob = string | string[];
 
     interface Matcher {
-        (test: string): boolean;
+        (test: string, returnObject?: false | undefined): boolean;
+        (test: string, returnObject: true): Result;
     }
 
     interface MatcherWithState extends Matcher {
