@@ -5823,6 +5823,10 @@
             "libraryName": "react-native-view-pdf",
             "asOfVersion": "0.8.2"
         },
+        "react-native-webrtc": {
+            "libraryName": "react-native-webrtc",
+            "asOfVersion": "1.100.0"
+        },
         "react-navigation": {
             "libraryName": "react-navigation",
             "asOfVersion": "3.4.0"
