@@ -240,7 +240,7 @@ declare namespace WebSocket {
      * headers. If finishRequest is set, then it has the responsibility to call
      * request.end() once it is done setting request headers.
      */
-    type FinishRequestCallback = (request: IncomingMessage, websocket: WebSocket) => void;
+    type FinishRequestCallback = (request: ClientRequest, websocket: WebSocket) => void;
 
     interface ClientOptions extends SecureContextOptions {
         protocol?: string | undefined;
