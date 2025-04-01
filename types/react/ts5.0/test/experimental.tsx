@@ -145,7 +145,6 @@ function viewTransitionTests() {
         className="enter-slide-in exit-fade-out update-cross-fade"
         enter="slide-from-left"
         exit="slide-to-right"
-        layout="slide"
         update="none"
         share="cross-fade"
     />;
@@ -160,10 +159,6 @@ function viewTransitionTests() {
             instance;
         }}
         onExit={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
-        }}
-        onLayout={instance => {
             // $ExpectType ViewTransitionInstance
             instance;
         }}

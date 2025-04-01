@@ -142,11 +142,6 @@ declare module "." {
          */
         exit?: "none" | (string & {}) | undefined;
         /**
-         * Combined with {@link className} there are no updates to the content inside this boundary itself but the boundary has resized or moved due to other changes to siblings.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        layout?: "none" | (string & {}) | undefined;
-        /**
          * "auto" will automatically assign a view-transition-name to the inner DOM node.
          * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
          *
@@ -162,10 +157,6 @@ declare module "." {
          * The `<ViewTransition>` or its parent Component is unmounted and there's no other `<ViewTransition>` with the same name being deleted.
          */
         onExit?: (instance: ViewTransitionInstance) => void;
-        /**
-         *  There are no updates to the content inside this `<ViewTransition>` boundary itself but the boundary has resized or moved due to other changes to siblings.
-         */
-        onLayout?: (instance: ViewTransitionInstance) => void;
         /**
          * This `<ViewTransition>` is being mounted and another `<ViewTransition>` instance with the same name is being unmounted elsewhere.
          */
