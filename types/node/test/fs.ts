@@ -539,6 +539,24 @@ async function testPromisify() {
     });
 }
 
+{
+    fs.truncate("path/file.txt", () => {});
+    fs.truncate("path/file.txt", 5, () => {});
+    fs.truncate("path/file.txt", undefined, () => {});
+
+    fs.truncateSync("path/file.txt");
+    fs.truncateSync("path/file.txt", 5);
+    fs.truncateSync("path/file.txt", undefined);
+
+    fs.ftruncate(123, () => {});
+    fs.ftruncate(123, 5, () => {});
+    fs.ftruncate(123, undefined, () => {});
+
+    fs.ftruncateSync(123);
+    fs.ftruncateSync(123, 5);
+    fs.ftruncateSync(123, undefined);
+}
+
 (async () => {
     const handle: FileHandle = await openAsync("test", "r");
     const writeStream = fs.createWriteStream("./index.d.ts", {
