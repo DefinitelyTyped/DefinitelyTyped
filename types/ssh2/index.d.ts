@@ -701,7 +701,7 @@ export class Client extends EventEmitter {
     /**
      * Calls setNoDelay() on the underlying socket. Disabling Nagle's algorithm improves latency at the expense of lower throughput.
      */
-    setNoDelay(noDelay: boolean): this;
+    setNoDelay(noDelay?: boolean): this;
 }
 
 export type HostVerifier = (key: Buffer, verify: VerifyCallback) => void;
