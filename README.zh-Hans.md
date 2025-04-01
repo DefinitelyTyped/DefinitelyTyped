@@ -193,7 +193,7 @@ declare module "libname" {
 
 Definitely Typed 的成员会定期查看新的 PR，但是请留意，当 PR 数量过多的时候，检查速度可能会减慢。
 
-如果你想要真实的示例，[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 是个很好的例子。
+如果你想要真实的示例，[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js) 是个很好的例子。
 
 #### 删除软件包
 

@@ -177,7 +177,7 @@ Se hai file `.d.ts` oltre all'`index.d.ts`, assicurati che siano referenziati o 
 
 I membri di Definitely Typed controllano continuamente le nuove pull request, perciò sii al corrente che un alto numero di pull request potrebbe rallentarci il lavoro.
 
-Per l'esempio di un buon package, guarda [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
+Per l'esempio di un buon package, guarda [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js).
 
 #### Rimuovere un package
 

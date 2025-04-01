@@ -188,7 +188,7 @@ If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenc
 
 Definitely Typed members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js).
 
 #### Removing a package
 

@@ -202,7 +202,7 @@ Si vous avez des fichiers `.d.ts` en plus de `index.d.ts`, assurez-vous qu'ils s
 
 Les membres de Definitely Typed surveillent régulièrement les nouveaux PRs, bien qu'il faille garder à l'esprit que le nombre d'autres PRs peut ralentir les choses.
 
-Pour un bon exemple de package, voir [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
+Pour un bon exemple de package, voir [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js).
 
 #### Supprimer un package
 
