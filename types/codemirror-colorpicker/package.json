@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "name": "@types/codemirror-colorpicker",
+    "version": "1.9.9999",
+    "projects": ["https://colorpicker.easylogic.studio/"],
+    "devDependencies": { "@types/codemirror-colorpicker": "workspace:." },
+    "owners": [{ "name": "Sam Estep", "githubUsername": "samestep" }]
+}
