@@ -149,6 +149,13 @@ export interface ModalProps {
      * (useful to change the content of the modal, display a message for example)
      */
     onClosingState?(state: boolean): void;
+
+    /**
+     * (Android only) Determines whether your modal should go under the system statusbar.
+     * 
+     * Default is false
+     */
+    statusBarTranslucent?: boolean | undefined;
 }
 
 export default class Modal extends React.Component<ModalProps> {
