@@ -15,17 +15,17 @@ export interface StickyChildArgs {
 
 export interface StickyProps {
     children: (args: StickyChildArgs) => React.ReactElement;
-    relative?: boolean | undefined;
-    isActive?: boolean | undefined;
-    className?: string | undefined;
+    relative?: boolean;
+    isActive?: boolean;
+    className?: string;
     style?: any;
-    stickyClassName?: string | undefined;
+    stickyClassName?: string;
     stickyStyle?: any;
-    topOffset?: number | undefined;
-    bottomOffset?: number | undefined;
+    topOffset?: number;
+    bottomOffset?: number;
     onStickyStateChange?(isSticky: boolean): void;
-    disableCompensation?: boolean | undefined;
-    disableHardwareAcceleration?: boolean | undefined;
+    disableCompensation?: boolean;
+    disableHardwareAcceleration?: boolean;
 }
 
 export const Sticky: React.ComponentClass<StickyProps>;
