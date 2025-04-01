@@ -125,22 +125,24 @@ declare module "." {
         name: string;
     }
 
+    export type ViewTransitionClass = "none" | "auto" | (string & {});
+
     export interface ViewTransitionProps {
         children?: ReactNode | undefined;
         /**
          * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
          */
-        default?: string | undefined;
+        default?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` or its parent Component is mounted and there's no other with the same name being deleted.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        enter?: "none" | (string & {}) | undefined;
+        enter?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` or its parent Component is unmounted and there's no other with the same name being deleted.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        exit?: "none" | (string & {}) | undefined;
+        exit?: ViewTransitionClass | undefined;
         /**
          * "auto" will automatically assign a view-transition-name to the inner DOM node.
          * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
@@ -170,12 +172,12 @@ declare module "." {
          * Combined with {@link className} if this `<ViewTransition>` is being mounted and another instance with the same name is being unmounted elsewhere.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        share?: "none" | (string & {}) | undefined;
+        share?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if the content of this `<ViewTransition>` has changed either due to DOM mutations or because an inner child has resized.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        update?: "none" | (string & {}) | undefined;
+        update?: ViewTransitionClass | undefined;
     }
 
     /**

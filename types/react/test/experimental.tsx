@@ -147,8 +147,12 @@ function viewTransitionTests() {
     />;
     <ViewTransition name="auto" />;
     <ViewTransition name="foo" />;
-    // autocomplete should display "auto"
-    <ViewTransition name="" />;
+    <ViewTransition
+        // autocomplete should display "auto"
+        name=""
+        // autocomplete should display "auto" | "none"
+        default=""
+    />;
 
     <ViewTransition
         onEnter={instance => {
