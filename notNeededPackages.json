@@ -6791,6 +6791,10 @@
             "libraryName": "subsume",
             "asOfVersion": "2.1.0"
         },
+        "subtitle": {
+            "libraryName": "subtitle",
+            "asOfVersion": "3.0.0"
+        },
         "sudo-block": {
             "libraryName": "sudo-block",
             "asOfVersion": "3.0.0"
