@@ -136,6 +136,7 @@ function taintTests() {
 
 function viewTransitionTests() {
     const ViewTransition = React.unstable_ViewTransition;
+    const addTransitionType = React.unstable_addTransitionType;
 
     <ViewTransition />;
     <ViewTransition
@@ -153,23 +154,39 @@ function viewTransitionTests() {
         // autocomplete should display "auto" | "none"
         default=""
     />;
+    <ViewTransition
+        // @ts-expect-error -- Either a string or an object with at least one property.
+        default={{}}
+    />;
+    <ViewTransition
+        // autocomplete should display "default" for keys, "auto" | "none" for values
+        default={{ default: "default" }}
+    />;
 
     <ViewTransition
-        onEnter={instance => {
+        onEnter={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onExit={instance => {
+        onExit={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onShare={instance => {
+        onShare={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onUpdate={instance => {
+        onUpdate={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
     />;
 
@@ -197,6 +214,18 @@ function viewTransitionTests() {
     <ViewTransition>
         <Div />
     </ViewTransition>;
+
+    function Component() {
+        function handleNavigation() {
+            React.startTransition(() => {
+                // @ts-expect-error
+                addTransitionType();
+                // @ts-expect-error
+                addTransitionType(undefined);
+                addTransitionType("navigation");
+            });
+        }
+    }
 }
 
 function swipeTransitionTest() {
