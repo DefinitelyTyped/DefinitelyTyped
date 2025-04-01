@@ -142,7 +142,7 @@ function viewTransitionTests() {
 
     <ViewTransition />;
     <ViewTransition
-        className="enter-slide-in exit-fade-out update-cross-fade"
+        default="enter-slide-in exit-fade-out update-cross-fade"
         enter="slide-from-left"
         exit="slide-to-right"
         update="none"

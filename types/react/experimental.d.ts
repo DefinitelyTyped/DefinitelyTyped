@@ -130,7 +130,7 @@ declare module "." {
         /**
          * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
          */
-        className?: string | undefined;
+        default?: string | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` or its parent Component is mounted and there's no other with the same name being deleted.
          * `"none"` is a special value that deactivates the view transition name under that condition.
