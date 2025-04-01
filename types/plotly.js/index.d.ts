@@ -406,6 +406,32 @@ export function animate(
     opts?: Partial<AnimationOpts>,
 ): Promise<void>;
 
+export interface ValidateResult {
+    code: string;
+    container: "data" | "layout";
+    trace: number | null;
+    path: string | (string | number)[];
+    astr: string;
+    msg: string;
+}
+export function validate(data: Data[], layout: Partial<Layout>): ValidateResult[];
+export function setPlotConfig(config: Partial<Config>): void;
+
+export type TemplateFigure = Root | { data: Data[]; layout: Partial<Layout> };
+export function makeTemplate(figure: TemplateFigure): Template;
+
+export interface ValidateTemplateResult {
+    code: string;
+    index?: number;
+    traceType?: string;
+    templateCount?: number;
+    dataCount?: number;
+    path?: string;
+    templateitemname?: string;
+    msg: string;
+}
+export function validateTemplate(figure: TemplateFigure, template: Template): ValidateTemplateResult[];
+
 // Layout
 export interface Layout {
     colorway: string[];
