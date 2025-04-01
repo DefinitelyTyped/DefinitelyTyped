@@ -228,14 +228,38 @@ function viewTransitionTests() {
     }
 }
 
+// @enableGestureTransition
 function swipeTransitionTest() {
-    const useSwipeTransition = React.unstable_useSwipeTransition;
-    // $ExpectType [value: string | null, startGesture: StartGesture]
-    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+    const startGestureTransition = React.unstable_startGestureTransition;
 
-    const gestureProvider: {} = {};
-    // $ExpectType () => void
-    startGesture(gestureProvider);
-    // @ts-expect-error -- missing gesture provider
-    startGesture();
+    const url: string = "";
+    const [renderedUrl, optimisticNavigate] = React.useOptimistic(
+        url,
+        (state, direction) => {
+            return direction === "left" ? "/?a" : "/?b";
+        },
+    );
+
+    function onScroll() {
+        const gestureProvider: {} = {};
+        // $ExpectType () => void
+        startGestureTransition(
+            gestureProvider,
+            () => {
+                optimisticNavigate("left");
+            },
+            {
+                rangeStart: 0,
+                rangeEnd: 100,
+            },
+        );
+        // @ts-expect-error -- missing gesture provider
+        startGestureTransition();
+        // @ts-expect-error -- missing scope
+        startGestureTransition(gestureProvider);
+        // options can be omitted
+        startGestureTransition(gestureProvider, () => {});
+        // options can be empty
+        startGestureTransition(gestureProvider, () => {}, {});
+    }
 }

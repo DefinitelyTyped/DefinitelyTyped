@@ -192,17 +192,19 @@ declare module "." {
 
     export function unstable_addTransitionType(type: string): void;
 
+    // @enableGestureTransition
     // Implemented by the specific renderer e.g. `react-dom`.
     // Keep in mind that augmented interfaces merge their JSDoc so if you put
     // JSDoc here and in the renderer, the IDE will display both.
     export interface GestureProvider {}
-
-    export type StartGesture = (gestureProvider: GestureProvider) => () => void;
-
+    export interface GestureOptions {
+        rangeStart?: number | undefined;
+        rangeEnd?: number | undefined;
+    }
     /** */
-    export function unstable_useSwipeTransition<Value>(
-        previous: Value,
-        current: Value,
-        next: Value,
-    ): [value: Value, startGesture: StartGesture];
+    export function unstable_startGestureTransition(
+        provider: GestureProvider,
+        scope: () => void,
+        options?: GestureOptions,
+    ): () => void;
 }
