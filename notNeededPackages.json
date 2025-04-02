@@ -1625,6 +1625,10 @@
             "libraryName": "easy-xapi-supertest",
             "asOfVersion": "1.0.0"
         },
+        "easycaptchajs": {
+            "libraryName": "easycaptchajs",
+            "asOfVersion": "1.2.0"
+        },
         "easystarjs": {
             "libraryName": "easystarjs",
             "asOfVersion": "0.3.1"
