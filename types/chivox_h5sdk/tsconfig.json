@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "lib": [
-            "es6"
+            "es6",
+            "esnext",
+            "dom"
         ],
         "module": "commonjs",
         "types": [],
