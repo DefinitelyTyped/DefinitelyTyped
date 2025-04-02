@@ -36,3 +36,11 @@ Syrup().consume({});
 
 // $ExpectType Promise<number>
 const e = Syrup().define(() => 0).consume({ "a": 3 });
+
+
+// $ExpectType Promise<number>
+const e2 = Syrup().define((options: { a: number }) => options.a).consume({ "a": 3, "unused": 5 });
+
+const e3 = Syrup()
+    .define((options: { a: number, b: number }) => options.a + options.b)
+    .consume({ "a": 3, "unused": 5 }); // this is wrong because we are not passing option b, but the way the library is used this should typecheck.

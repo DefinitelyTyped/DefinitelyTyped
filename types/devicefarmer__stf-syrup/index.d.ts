@@ -7,10 +7,8 @@ type extractBluebirdReturnR<RetT> = RetT extends Bluebird<infer RetX> ? RetX
 declare class SyrupI<
     OptionsT extends object = any, // TODO: find a way to remove any. Maybe we union all the options that are needed for each dependency?
     DepsT extends SyrupI[] = [],
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    RetT = unknown | void,
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    DepsRetsT extends (unknown | void)[] = [], // TODO: maybe we can extract DepsRetsT somehow?
+    RetT = unknown,
+    DepsRetsT extends unknown[] = [], // TODO: maybe we can extract DepsRetsT somehow?
 > {
     constructor(options: OptionsT | null);
     define<
@@ -31,8 +29,8 @@ declare class SyrupI<
         RetT,
         [...DepsRetsT, extractDesRet<DepT>]
     >;
-    consume<NewOptionsT extends OptionsT>(
-        overrides: NewOptionsT,
+    consume<OptionsT>(
+        overrides: OptionsT,
     ): Bluebird<RetT>;
     invoke(overrides: OptionsT, ...args: DepsT[]): RetT;
 }
