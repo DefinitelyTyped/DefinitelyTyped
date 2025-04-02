@@ -47,6 +47,11 @@ Module.Module === Module;
     // $ExpectType Require
     Module.createRequire(new URL("file:///usr/lib/node"));
 
+    // $ExpectType string | undefined
+    Module.findPackageJSON("..", __filename);
+    // $ExpectType string | undefined
+    Module.findPackageJSON(new URL("../", "file:///path/to/module"));
+
     // $ExpectType boolean
     Module.isBuiltin("process");
 

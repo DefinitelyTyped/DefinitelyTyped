@@ -1049,52 +1049,40 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
             matches; // $ExpectType Dirent[] | string[]
         },
     );
+    glob("**/*.js", { exclude: ["**/*.generated.js"] }, (err, matches) => {
+        matches; // $ExpectType string[]
+    });
 
-    for (const entry of globSync("**/*.js")) {
-        entry; // $ExpectType string
-    }
-    for (const entry of globSync("**/*.js", { cwd: "/" })) {
-        entry; // $ExpectType string
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: true })) {
-        entry; // $ExpectType Dirent
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
-        entry; // $ExpectType Dirent | string
-    }
+    globSync("**/*.js"); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent[]
+    globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent[]
 
-    for (
-        const entry of globSync("**/*.js", {
-            exclude: (fileName) => {
-                fileName; // $ExpectType string
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType string
-    }
-    for (
-        const entry of globSync("**/*.js", {
-            withFileTypes: true,
-            exclude: (fileName) => {
-                fileName; // $ExpectType Dirent
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType Dirent
-    }
-    for (
-        const entry of globSync("**/*.js", {
-            withFileTypes: Math.random() > 0.5,
-            exclude: (fileName) => {
-                fileName; // $ExpectType Dirent | string
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType Dirent | string
-    }
+    // $ExpectType string[]
+    globSync("**/*.js", {
+        exclude: (fileName) => {
+            fileName; // $ExpectType string
+            return false;
+        },
+    });
+    // ExpectType Dirent[]
+    globSync("**/*.js", {
+        withFileTypes: true,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent
+            return false;
+        },
+    });
+    // $ExpectType string[] | Dirent[]
+    globSync("**/*.js", {
+        withFileTypes: Math.random() > 0.5,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent | string
+            return false;
+        },
+    });
+    // $ExpectType string[]
+    globSync("**/*.js", { exclude: ["**/*.generated.js"] });
 });
 
 (async () => {

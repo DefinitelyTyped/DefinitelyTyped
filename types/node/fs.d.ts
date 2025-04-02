@@ -4272,7 +4272,7 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    interface GlobOptionsBase {
+    interface _GlobOptions<T extends Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4285,20 +4285,19 @@ declare module "fs" {
          */
         withFileTypes?: boolean | undefined;
         /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         * Function to filter out files/directories or a
+         * list of glob patterns to be excluded. If a function is provided, return
+         * `true` to exclude the item, `false` to include it.
+         * @default undefined
          */
-        exclude?: ((fileName: any) => boolean) | undefined;
+        exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent) => boolean) | undefined;
+    export interface GlobOptions extends _GlobOptions<Dirent | string> {}
+    export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: string) => boolean) | undefined;
+    export interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
         withFileTypes?: false | undefined;
-    }
-    export interface GlobOptions extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent | string) => boolean) | undefined;
     }
 
     /**

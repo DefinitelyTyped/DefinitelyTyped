@@ -1,4 +1,4 @@
-import { DatabaseSync, StatementSync } from "node:sqlite";
+import { constants, DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
@@ -27,11 +27,11 @@ import { TextEncoder } from "node:util";
     insert.run(2, null, null, null, null);
     insert.run(3, Number(8), Number(2.718), String("bar"), Buffer.from("x☃y☃"));
     insert.run(4, 99n, 0xf, "", new Uint8Array());
-    insert.get(); // $ExpectType unknown
+    insert.get(); // $ExpectType Record<string, SQLOutputValue> | undefined
 
     const query = database.prepare("SELECT * FROM data ORDER BY key");
-    query.all(); // $ExpectType unknown[]
-    query.iterate(); // $ExpectType Iterator<unknown, any, any>
+    query.all(); // $ExpectType Record<string, SQLOutputValue>[]
+    query.iterate(); // $ExpectType Iterator<Record<string, SQLOutputValue>, any, any>
 
     const sql = "INSERT INTO types (key, val) VALUES ($k, ?)";
     const stmt = database.prepare(sql);
@@ -70,4 +70,22 @@ import { TextEncoder } from "node:util";
     const changeset = session.changeset();
     targetDb.applyChangeset(changeset);
     // Now that the changeset has been applied, targetDb contains the same data as sourceDb.
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+    const session = db.createSession({
+        db: "main",
+        table: "my_table",
+    });
+    db.applyChangeset(session.changeset(), {
+        filter: (table) => {
+            table; // $ExpectType string
+            return true;
+        },
+        onConflict: (conflictType) => {
+            conflictType; // $ExpectType number
+            return constants.SQLITE_CHANGESET_ABORT;
+        },
+    });
 }

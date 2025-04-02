@@ -1910,6 +1910,34 @@ declare module "process" {
                  * @since v0.8.0
                  */
                 traceDeprecation: boolean;
+                /**
+                 * An object is "refable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "refable".
+                 */
+                ref(maybeRefable: any): void;
+                /**
+                 * An object is "unrefable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "unref'd".
+                 */
+                unref(maybeRefable: any): void;
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;
                 addListener(event: "disconnect", listener: DisconnectListener): this;
