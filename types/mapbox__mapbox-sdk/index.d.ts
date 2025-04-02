@@ -319,11 +319,7 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import {
-        Coordinates,
-        DirectionsApproach,
-        MapiRequest
-    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates, DirectionsApproach, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
@@ -874,7 +870,7 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { MapiRequest, Coordinates as MapiRequestCoordinates } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates as MapiRequestCoordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
@@ -2111,7 +2107,7 @@ declare module "@mapbox/mapbox-sdk/services/styles" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/tilequery" {
-            // eslint-disable-next-line @definitelytyped/no-self-import
+    // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
