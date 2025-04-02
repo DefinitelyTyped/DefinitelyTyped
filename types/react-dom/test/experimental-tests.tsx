@@ -13,14 +13,19 @@ function viewTransitionTests() {
                 // $ExpectType string
                 current.name;
 
-                // $ExpectType Animatable
+                // $ExpectType ViewTransitionPseudoElement
                 current.group;
-                // $ExpectType Animatable
+                // $ExpectType ViewTransitionPseudoElement
                 current.imagePair;
-                // $ExpectType Animatable
+                // $ExpectType ViewTransitionPseudoElement
                 current.old;
-                // $ExpectType Animatable
+                // $ExpectType ViewTransitionPseudoElement
                 current.new;
+
+                // $ExpectType CSSStyleDeclaration
+                current.old.getComputedStyle();
+                // @ts-expect-error -- Implemented on the pseudo elements.
+                current.getComputedStyle();
             }
         }}
     >
