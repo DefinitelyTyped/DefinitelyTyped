@@ -2197,6 +2197,10 @@
             "libraryName": "force-graph",
             "asOfVersion": "1.26.0"
         },
+        "forest-express-mongoose": {
+            "libraryName": "forest-express-mongoose",
+            "asOfVersion": "7.9.0"
+        },
         "forest-express-sequelize": {
             "libraryName": "forest-express-sequelize",
             "asOfVersion": "7.12.0"
