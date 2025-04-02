@@ -25,9 +25,9 @@ import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
 
 export type BootstrapScriptDescriptor = {
-    src: string,
-    integrity?: string | undefined,
-    crossOrigin?: string | undefined,
+    src: string;
+    integrity?: string | undefined;
+    crossOrigin?: string | undefined;
 };
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
