@@ -1012,6 +1012,10 @@
             "libraryName": "cloudevents-sdk",
             "asOfVersion": "1.0.0"
         },
+        "cloudflare": {
+            "libraryName": "cloudflare",
+            "asOfVersion": "3.0.0"
+        },
         "cnpj": {
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
