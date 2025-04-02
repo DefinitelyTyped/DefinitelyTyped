@@ -6195,6 +6195,10 @@
             "libraryName": "roads-server",
             "asOfVersion": "1.0.1"
         },
+        "roarr": {
+            "libraryName": "roarr",
+            "asOfVersion": "7.14.3"
+        },
         "rockset": {
             "libraryName": "rockset",
             "asOfVersion": "2.0.1"
