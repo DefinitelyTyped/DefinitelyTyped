@@ -721,6 +721,10 @@ declare namespace React {
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     };
+
+    export interface FragmentProps {
+        children?: React.ReactNode;
+    }
     /**
      * Lets you group elements without a wrapper node.
      *
@@ -748,7 +752,7 @@ declare namespace React {
      * </>
      * ```
      */
-    const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
+    const Fragment: ExoticComponent<FragmentProps>;
 
     /**
      * Lets you find common bugs in your components early during development.

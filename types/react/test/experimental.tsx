@@ -263,3 +263,24 @@ function swipeTransitionTest() {
         startGestureTransition(gestureProvider, () => {}, {});
     }
 }
+
+// @enableFragmentRefs
+function fragmentRefTest() {
+    <React.Fragment
+        ref={maybeInstance => {
+            // $ExpectType FragmentInstance | null
+            maybeInstance;
+
+            // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/69022/commits/57825689c7abb50a79395d1266226cfa1b31a4e1
+            const instance = maybeInstance!;
+
+            // @ts-expect-error -- Not implemented by isomorphic renderer but react-dom.
+            instance.focus;
+
+            return () => {};
+        }}
+    >
+        <div />
+        <div />
+    </React.Fragment>;
+}
