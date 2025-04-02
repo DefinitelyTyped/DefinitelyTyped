@@ -40,53 +40,6 @@ export class FileUpload extends ConfigurableComponent<
      * @param {FileUploadConfig} [config] - File Upload config
      */
     constructor($root: Element | null, config?: FileUploadConfig);
-
-    $announcements: HTMLSpanElement;
-    enteredAnotherElement: boolean;
-
-    /**
-     * Updates the visibility of the dropzone as users enters the various elements on the page
-     *
-     * @param {DragEvent} event - The `dragenter` event
-     */
-    updateDropzoneVisibility(event: DragEvent): void;
-
-    /**
-     * Show the drop zone visually
-     */
-    showDraggingState(): void;
-
-    /**
-     * Hides the drop zone visually
-     */
-    hideDraggingState(): void;
-
-    /**
-     * Handles user dropping on the component
-     *
-     * @param {DragEvent} event - The `dragenter` event
-     */
-    onDrop(event: DragEvent): void;
-
-    /**
-     * Check if the value of the underlying input has changed
-     */
-    onChange(): void;
-
-    /**
-     * When the button is clicked, emulate clicking the actual, hidden file input
-     */
-    onClick(): void;
-
-    /**
-     * Create a mutation observer to check if the input's attributes altered.
-     */
-    observeDisabledState(): void;
-
-    /**
-     * Synchronise the `disabled` state between the input and replacement button.
-     */
-    updateDisabledState(): void;
 }
 
 export type HTMLFileInputElement = HTMLInputElement & {
