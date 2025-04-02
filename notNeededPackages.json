@@ -5559,6 +5559,10 @@
             "libraryName": "react-dnd-html5-backend",
             "asOfVersion": "3.0.2"
         },
+        "react-dnd-multi-backend": {
+            "libraryName": "react-dnd-multi-backend",
+            "asOfVersion": "8.0.0"
+        },
         "react-dnd-test-backend": {
             "libraryName": "react-dnd-test-backend",
             "asOfVersion": "3.0.2"
