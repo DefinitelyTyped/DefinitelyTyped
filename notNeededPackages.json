@@ -656,6 +656,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "ceddl__ceddl-polyfill": {
+            "libraryName": "@ceddl/ceddl-polyfill",
+            "asOfVersion": "0.9.9"
+        },
         "cesium": {
             "libraryName": "cesium",
             "asOfVersion": "1.70.0"
