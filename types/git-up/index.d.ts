@@ -1,3 +1,5 @@
+import parseUrl = require("parse-url");
+
 export = gitUp;
 
 /**
@@ -12,7 +14,7 @@ export = gitUp;
  * console.log(gitUp("git@github.com:IonicaBizau/node-parse-url.git"));
  * // => {
  * //     protocols: []
- * //   , port: null
+ * //   , port: ""
  * //   , resource: "github.com"
  * //   , user: "git"
  * //   , pathname: "/IonicaBizau/node-parse-url.git"
@@ -25,7 +27,7 @@ export = gitUp;
  * console.log(gitUp("https://github.com/IonicaBizau/node-parse-url.git"));
  * // => {
  * //     protocols: [ "https" ]
- * //   , port: null
+ * //   , port: ""
  * //   , resource: "github.com"
  * //   , user: ""
  * //   , pathname: "/IonicaBizau/node-parse-url.git"
@@ -38,28 +40,14 @@ export = gitUp;
 declare function gitUp(input: string): gitUp.ParsedUrl;
 
 declare namespace gitUp {
-    interface ParsedUrl {
-        /** An array with the url protocols (usually it has one element). */
-        protocols: string[];
-        /** The domain port. */
-        port: string;
-        /** The url domain (including subdomains). */
-        resource: string;
-        /** The authentication user (usually for ssh urls). */
-        user: string | undefined;
-        /** The url pathname. */
-        pathname: string;
-        /** The url hash. */
-        hash: string;
-        /** The url querystring value. */
-        search: string;
-        /** The input url. */
-        href: string;
-        /** The git url protocol. */
-        protocol: string;
-        /** The oauth token (could appear in the https urls). */
+    interface ParsedUrl  extends parseUrl.ParsedUrl {
+        /**
+         * The oauth token (could appear in the https urls).
+         *
+         * An empty string if not found.
+         * Set from user if password is `x-oauth-basic`.
+         * Set from password if user is `x-token-auth`.
+         */
         token: string;
-        query: Record<string, string>;
-        parse_failed: false;
     }
 }
