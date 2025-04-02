@@ -347,6 +347,7 @@
         "url-state",
         "use-combined-reducers",
         "use-global-hook",
+        "use-sync-external-store",
         "vanillajs-datepicker",
         "video.js",
         "videojs-contrib-quality-levels",

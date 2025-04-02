@@ -1938,6 +1938,13 @@ declare namespace React {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
+    /**
+     * Warning: Only available in development builds.
+     *
+     * @see {@link https://react.dev/reference/react/captureOwnerStack Reference docs}
+     */
+    function captureOwnerStack(): string | null;
+
     //
     // Event System
     // ----------------------------------------------------------------------
