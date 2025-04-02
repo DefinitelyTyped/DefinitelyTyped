@@ -7267,6 +7267,10 @@
             "libraryName": "vexdb",
             "asOfVersion": "1.7.1"
         },
+        "vexflow": {
+            "libraryName": "vexflow",
+            "asOfVersion": "4.0.1"
+        },
         "vfile": {
             "libraryName": "vfile",
             "asOfVersion": "4.0.0"
