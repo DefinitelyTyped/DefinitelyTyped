@@ -4261,7 +4261,7 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    export interface GlobOptions<T extends Dirent | string = Dirent | string> {
+    interface _GlobOptions<T extends Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4281,10 +4281,11 @@ declare module "fs" {
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptions<Dirent> {
+    export interface GlobOptions extends _GlobOptions<Dirent | string> {}
+    export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptions<string> {
+    export interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
         withFileTypes?: false | undefined;
     }
 
