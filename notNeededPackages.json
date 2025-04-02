@@ -6395,6 +6395,10 @@
             "libraryName": "shebang-regex",
             "asOfVersion": "3.0.0"
         },
+        "shevyjs": {
+            "libraryName": "shevyjs",
+            "asOfVersion": "2.0.0"
+        },
         "shorten-repo-url": {
             "libraryName": "shorten-repo-url",
             "asOfVersion": "1.5.1"
