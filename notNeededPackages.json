@@ -196,6 +196,10 @@
             "libraryName": "apn",
             "asOfVersion": "2.1.2"
         },
+        "app-root-path": {
+            "libraryName": "app-root-path",
+            "asOfVersion": "3.1.0"
+        },
         "appium-adb": {
             "libraryName": "appium-adb",
             "asOfVersion": "9.12.0"
