@@ -2,7 +2,7 @@ declare namespace gitUrlParse {
     interface GitUrl {
         /** An array with the url protocols (usually it has one element). */
         protocols: string[];
-        port: number | null;
+        port: string;
         /** The url domain (including subdomains). */
         resource: string;
         /** The authentication user (usually for ssh urls). */
