@@ -25,8 +25,3 @@ function useCacheTest() {
         refresh(() => "refresh");
     }
 }
-
-function ownerStacks() {
-    // $ExpectType string | null
-    const ownerStack = React.captureOwnerStack();
-}

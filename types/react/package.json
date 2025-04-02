@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react",
-    "version": "19.0.9999",
+    "version": "19.1.9999",
     "projects": [
         "https://react.dev/"
     ],
