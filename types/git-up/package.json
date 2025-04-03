@@ -1,10 +1,13 @@
 {
     "private": true,
     "name": "@types/git-up",
-    "version": "7.0.9999",
+    "version": "8.0.9999",
     "projects": [
         "https://github.com/IonicaBizau/git-up"
     ],
+    "dependencies": {
+        "parse-url": "^9.2.0"
+    },
     "devDependencies": {
         "@types/git-up": "workspace:."
     },
