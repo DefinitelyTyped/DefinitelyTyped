@@ -730,19 +730,28 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
 
     /**
      * Create a DateTime from an input string and format string.
-     * Defaults to en-US if no locale has been specified, regardless of the system's locale. For a table of tokens and their interpretations,
+     *
+     * Defaults to en-US if no locale has been specified, regardless of the system's locale.
+     *
+     * For a table of tokens and their interpretations,
      * see [here](https://moment.github.io/luxon/#/parsing?id=table-of-tokens).
      *
      * @param text - the string to parse
-     * @param fmt - the format the string is expected to be in (see the link below for the formats)
+     * @param format - the format the string is expected to be in (see the link below for the formats)
      * @param opts - options to affect the creation
-     * @param opts.zone - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone. Defaults to 'local'.
-     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one. Defaults to false.
-     * @param opts.locale - a locale string to use when parsing. Will also set the DateTime to this locale. Defaults to 'en-US'.
-     * @param opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+     * @param opts.zone - use this zone if no offset is specified in the input string itself.
+     * Will also convert the DateTime to this zone.
+     * Defaults to 'local'.
+     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one.
+     * Defaults to false.
+     * @param opts.locale - a locale string to use when parsing.
+     * Will also set the DateTime to this locale.
+     * Defaults to 'en-US'.
+     * @param opts.numberingSystem - the numbering system to use when parsing.
+     * Will also set the resulting DateTime to this numbering system
      * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
      */
-    static fromFormat(text: string, fmt: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromFormat(text: string, format: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * @deprecated use fromFormat instead
@@ -1618,26 +1627,29 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     // MISC
 
     /**
-     * Explain how a string would be parsed by fromFormat()
+     * Explain how a string would be parsed by {@link fromFormat}
      *
      * @param text - the string to parse
-     * @param fmt - the format the string is expected to be in (see description)
-     * @param options - options taken by fromFormat()
+     * @param format - the format the string is expected to be in
+     * @param options - options taken by {@link fromFormat}
      */
-    static fromFormatExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+    static fromFormatExplain(text: string, format: string, options?: DateTimeOptions): ExplainedFormat;
 
     /**
-     * @deprecated use fromFormatExplain instead
+     * @deprecated use {@link fromFormatExplain} instead
      */
-    static fromStringExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+    static fromStringExplain(text: string, format: string, options?: DateTimeOptions): ExplainedFormat;
 
     /**
-     * Build a parser for fmt using the given locale. This parser can be passed to {@link DateTime.fromFormatParser} to a parse a date in this format. This can be used to optimize cases where many dates need to be parsed in a specific format.
+     * Build a parser for a given format using the given locale.
      *
-     * @param fmt - the format the string is expected to be in (see description)
+     * This parser can be passed to {@link fromFormatParser} to a parse a date in this format.
+     * This can be used to optimize cases where many dates need to be parsed in a specific format.
+     *
+     * @param format - the format the string is expected to be in
      * @param options - the Locale options
      */
-    static buildFormatParser(fmt: string, options?: LocaleOptions): TokenParser;
+    static buildFormatParser(format: string, options?: LocaleOptions): TokenParser;
 
     /**
      * Create a DateTime from an input string and format parser.
@@ -1645,10 +1657,10 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * The format parser must have been created with the same locale as this call.
      *
      * @param text the string to parse
-     * @param formatParser - parser from {@link DateTime.buildFormatParser}
-     * @param opts options taken by fromFormat()
+     * @param parser - parser from {@link buildFormatParser}
+     * @param options options taken by {@link fromFormat}
      */
-    static fromFormatParser(text: string, formatParser: TokenParser, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromFormatParser(text: string, parser: TokenParser, options?: DateTimeOptions): DateTimeMaybeValid;
 
     // FORMAT PRESETS
 
