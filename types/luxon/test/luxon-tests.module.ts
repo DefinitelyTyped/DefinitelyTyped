@@ -233,8 +233,13 @@ DateTime.local().toUTC(); // $ExpectType DateTime<true>
 DateTime.utc().toLocal(); // $ExpectType DateTime<true>
 
 DateTime.max(dt, now); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.max(now, now); // $ExpectType DateTime<true>
+DateTime.max(...[dt, now].filter(date => date)); // $ExpectType DateTime<true> | DateTime<false> | undefined
+DateTime.max(); // $ExpectType undefined
 DateTime.min(dt, now); // $ExpectType DateTime<true> | DateTime<false>
 DateTime.min(now, now); // $ExpectType DateTime<true>
+DateTime.min(...[dt, now].filter(date => date)); // $ExpectType DateTime<true> | DateTime<false> | undefined
+DateTime.min(); // $ExpectType undefined
 
 const anything: unknown = 0;
 if (DateTime.isDateTime(anything)) {
