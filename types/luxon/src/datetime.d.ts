@@ -1596,18 +1596,30 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param dateTimes - the DateTimes from which to choose the minimum
      */
-    static min<AllValid extends boolean>(
-        ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
+    static min<Values extends Array<DateTime<boolean>>>(
+        ...dateTimes: Values
+    ): Values extends [] ? undefined
+        :
+            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends true ? DateTime<Valid> : never
+                : never)
+            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends false ? DateTime<Invalid> : never
+                : never)
+            | ([] extends Values ? undefined : never);
 
     /**
      * Return the max of several date times
      *
      * @param dateTimes - the DateTimes from which to choose the maximum
      */
-    static max<AllValid extends boolean>(
-        ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
+    static max<Values extends Array<DateTime<boolean>>>(
+        ...dateTimes: Values
+    ): Values extends [] ? undefined
+        :
+            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends true ? DateTime<Valid> : never
+                : never)
+            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends false ? DateTime<Invalid> : never
+                : never)
+            | ([] extends Values ? undefined : never);
 
     // MISC
 
