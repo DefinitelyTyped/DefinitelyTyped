@@ -1236,6 +1236,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "couchbase": {
+            "libraryName": "couchbase",
+            "asOfVersion": "3.0.6"
+        },
         "countries-and-timezones": {
             "libraryName": "countries-and-timezones",
             "asOfVersion": "3.2.2"
