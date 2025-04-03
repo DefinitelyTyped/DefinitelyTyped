@@ -188,14 +188,14 @@ declare module 'vscode' {
 		 * The position will be {@link TextDocument.validatePosition adjusted}.
 		 *
 		 * @param position A position.
-		 * @returns A valid zero-based offset.
+		 * @returns A valid zero-based offset in UTF-16 [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
 		 */
 		offsetAt(position: Position): number;
 
 		/**
 		 * Converts a zero-based offset to a position.
 		 *
-		 * @param offset A zero-based offset.
+		 * @param offset A zero-based offset into the document. This offset is in UTF-16 [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
 		 * @returns A valid {@link Position}.
 		 */
 		positionAt(offset: number): Position;
@@ -263,6 +263,8 @@ declare module 'vscode' {
 
 		/**
 		 * The zero-based character value.
+		 *
+		 * Character offsets are expressed using UTF-16 [code units](https://developer.mozilla.org/en-US/docs/Glossary/Code_unit).
 		 */
 		readonly character: number;
 
@@ -1881,6 +1883,9 @@ declare module 'vscode' {
 		/**
 		 * A human-readable string which is rendered prominent. Supports rendering of {@link ThemeIcon theme icons} via
 		 * the `$(<name>)`-syntax.
+		 *
+		 * Note: When {@link QuickPickItem.kind kind} is set to {@link QuickPickItemKind.Default} (so a regular item
+		 * instead of a separator), it supports rendering of {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 		 */
 		label: string;
 
@@ -7737,6 +7742,18 @@ declare module 'vscode' {
 		 * https://invisible-island.net/xterm/ctlseqs/ctlseqs.html
 		 */
 		readonly isInteractedWith: boolean;
+
+		/**
+		 * The detected shell type of the {@link Terminal}. This will be `undefined` when there is
+		 * not a clear signal as to what the shell is, or the shell is not supported yet. This
+		 * value should change to the shell type of a sub-shell when launched (for example, running
+		 * `bash` inside `zsh`).
+		 *
+		 * Note that the possible values are currently defined as any of the following:
+		 * 'bash', 'cmd', 'csh', 'fish', 'gitbash', 'julia', 'ksh', 'node', 'nu', 'pwsh', 'python',
+		 * 'sh', 'wsl', 'zsh'.
+		 */
+		readonly shell: string | undefined;
 	}
 
 	/**
@@ -11923,7 +11940,7 @@ declare module 'vscode' {
 		 * Mimes type look ups are case-insensitive.
 		 *
 		 * Special mime types:
-		 * - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
+		 * - `text/uri-list` — A string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
 		 * set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the column number.
 		 */
 		get(mimeType: string): DataTransferItem | undefined;
@@ -18640,7 +18657,7 @@ declare module 'vscode' {
 		 * used to represent line coverage.
 		 * @param branchCoverage Branch coverage information
 		 * @param declarationCoverage Declaration coverage information
-		 * @param includesTests Test cases included in this coverage report, see {@link includesTests}
+		 * @param includesTests Test cases included in this coverage report, see {@link FileCoverage.includesTests}
 		 */
 		constructor(
 			uri: Uri,
@@ -19487,7 +19504,7 @@ declare module 'vscode' {
 		readonly toolInvocationToken: ChatParticipantToolToken;
 
 		/**
-		 * This is the model that is currently selected in the UI. Extensions can use this or use {@link chat.selectChatModels} to
+		 * This is the model that is currently selected in the UI. Extensions can use this or use {@link lm.selectChatModels} to
 		 * pick another model. Don't hold onto this past the lifetime of the request.
 		 */
 		readonly model: LanguageModelChat;
@@ -19780,7 +19797,7 @@ declare module 'vscode' {
 	/**
 	 * Represents a language model response.
 	 *
-	 * @see {@link LanguageModelAccess.chatRequest}
+	 * @see {@link ChatRequest}
 	 */
 	export interface LanguageModelChatResponse {
 
