@@ -57,4 +57,4 @@ declare class GameTree<ID extends Primitive = number> {
     toJSON(): NodeObject<ID>;
 }
 
-export default GameTree;
+export = GameTree;

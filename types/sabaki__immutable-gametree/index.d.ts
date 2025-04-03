@@ -1,6 +1,6 @@
-import * as Draft from "./Draft";
-import GameTree from "./GameTree";
-import * as Types from "./types";
+import * as Draft from "./src/Draft";
+import GameTree = require("./src/main");
+import * as Types from "./src/types";
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = GameTree;
