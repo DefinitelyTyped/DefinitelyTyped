@@ -5199,6 +5199,10 @@
             "libraryName": "public-ip",
             "asOfVersion": "3.1.0"
         },
+        "pubnub": {
+            "libraryName": "pubnub",
+            "asOfVersion": "8.2.8"
+        },
         "pulsar-client": {
             "libraryName": "pulsar-client",
             "asOfVersion": "1.3.0"
