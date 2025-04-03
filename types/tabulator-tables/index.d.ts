@@ -638,8 +638,13 @@ export interface OptionsRows {
      */
     selectableRowsPersistence?: boolean;
 
-    /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
+    /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument.
+     * @deprecated Use selectableRowsCheck instead
+     */
     selectableCheck?: ((row: RowComponent) => boolean) | undefined;
+
+    /** You many want to exclude certain rows from being selected. The selectableRowsCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
+    selectableRowsCheck?: ((row: RowComponent) => boolean) | undefined;
 
     /** To allow the user to move rows up and down the table, set the movableRows parameter in the options: */
     movableRows?: boolean | undefined;
