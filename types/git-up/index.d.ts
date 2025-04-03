@@ -40,7 +40,7 @@ export = gitUp;
 declare function gitUp(input: string): gitUp.ParsedUrl;
 
 declare namespace gitUp {
-    interface ParsedUrl  extends parseUrl.ParsedUrl {
+    interface ParsedUrl extends parseUrl.ParsedUrl {
         /**
          * The oauth token (could appear in the https urls).
          *
