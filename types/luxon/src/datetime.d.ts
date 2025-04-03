@@ -406,6 +406,16 @@ export interface TokenParser {
     [tokenParserBrand]: true;
 }
 
+type ManyDateTimes = Array<DateTime<boolean>>;
+
+export type PickedDateTime<Values extends ManyDateTimes> = Values extends [] ? undefined
+    :
+        | (Values extends Array<DateTime<infer AllValues>> ?
+                | (AllValues extends true ? DateTime<Valid> : never)
+                | (AllValues extends false ? DateTime<Invalid> : never)
+            : never)
+        | ([] extends Values ? undefined : never);
+
 /**
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
  * It contains class and instance methods for creating, parsing, interrogating, transforming, and formatting them.
@@ -1596,30 +1606,14 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param dateTimes - the DateTimes from which to choose the minimum
      */
-    static min<Values extends Array<DateTime<boolean>>>(
-        ...dateTimes: Values
-    ): Values extends [] ? undefined
-        :
-            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends true ? DateTime<Valid> : never
-                : never)
-            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends false ? DateTime<Invalid> : never
-                : never)
-            | ([] extends Values ? undefined : never);
+    static min<Values extends ManyDateTimes>(...dateTimes: Values): PickedDateTime<Values>;
 
     /**
      * Return the max of several date times
      *
      * @param dateTimes - the DateTimes from which to choose the maximum
      */
-    static max<Values extends Array<DateTime<boolean>>>(
-        ...dateTimes: Values
-    ): Values extends [] ? undefined
-        :
-            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends true ? DateTime<Valid> : never
-                : never)
-            | (Values extends Array<DateTime<infer AllValues>> ? AllValues extends false ? DateTime<Invalid> : never
-                : never)
-            | ([] extends Values ? undefined : never);
+    static max<Values extends ManyDateTimes>(...dateTimes: Values): PickedDateTime<Values>;
 
     // MISC
 
