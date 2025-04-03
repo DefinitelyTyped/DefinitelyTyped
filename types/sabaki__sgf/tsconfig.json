@@ -14,11 +14,12 @@
     },
     "files": [
         "index.d.ts",
-        "helper.d.ts",
-        "parse.d.ts",
-        "stringify.d.ts",
-        "tokenize.d.ts",
-        "types.d.ts",
+        "src/main.d.ts",
+        "src/helper.d.ts",
+        "src/parse.d.ts",
+        "src/stringify.d.ts",
+        "src/tokenize.d.ts",
+        "src/types.d.ts",
         "sabaki__sgf-tests.ts"
     ]
 }
