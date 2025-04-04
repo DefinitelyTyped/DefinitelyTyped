@@ -2369,6 +2369,10 @@
             "libraryName": "git-revision-webpack-plugin",
             "asOfVersion": "4.0.0"
         },
+        "git-up": {
+            "libraryName": "git-up",
+            "asOfVersion": "8.1.0"
+        },
         "github": {
             "libraryName": "github",
             "asOfVersion": "7.1.0"
