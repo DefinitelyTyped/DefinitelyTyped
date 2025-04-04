@@ -2545,6 +2545,10 @@
             "libraryName": "@hapi/hoek",
             "asOfVersion": "9.0.0"
         },
+        "hapi__inert": {
+            "libraryName": "@hapi/inert",
+            "asOfVersion": "7.1.0"
+        },
         "hapi__iron": {
             "libraryName": "@hapi/iron",
             "asOfVersion": "6.0.0"
