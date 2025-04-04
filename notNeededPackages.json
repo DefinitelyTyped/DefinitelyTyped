@@ -7347,6 +7347,10 @@
             "libraryName": "victory",
             "asOfVersion": "35.0.0"
         },
+        "videojs-contrib-quality-levels": {
+            "libraryName": "videojs-contrib-quality-levels",
+            "asOfVersion": "4.1.0"
+        },
         "videojs-hotkeys": {
             "libraryName": "videojs-hotkeys",
             "asOfVersion": "0.2.29"
