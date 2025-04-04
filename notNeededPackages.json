@@ -1036,6 +1036,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "codemirror": {
+            "libraryName": "codemirror",
+            "asOfVersion": "6.0.0"
+        },
         "colors": {
             "libraryName": "colors",
             "asOfVersion": "1.2.1"

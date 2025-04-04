@@ -7,7 +7,7 @@
     ],
     "minimumTypeScriptVersion": "5.0",
     "dependencies": {
-        "@types/codemirror": "*",
+        "@types/codemirror": "<6",
         "@types/react": "*"
     },
     "devDependencies": {
