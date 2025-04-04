@@ -1949,6 +1949,10 @@
             "libraryName": "express-jwt",
             "asOfVersion": "7.4.2"
         },
+        "express-list-endpoints": {
+            "libraryName": "express-list-endpoints",
+            "asOfVersion": "7.1.0"
+        },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
             "asOfVersion": "2.1.0"
