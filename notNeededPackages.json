@@ -3257,6 +3257,10 @@
             "libraryName": "loud-rejection",
             "asOfVersion": "2.0.0"
         },
+        "lowdb": {
+            "libraryName": "lowdb",
+            "asOfVersion": "2.0.3"
+        },
         "lower-case": {
             "libraryName": "lower-case",
             "asOfVersion": "1.1.3"
