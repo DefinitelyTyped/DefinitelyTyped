@@ -6879,6 +6879,10 @@
             "libraryName": "sumoselect",
             "asOfVersion": "3.4.9"
         },
+        "sunrise-sunset-js": {
+            "libraryName": "sunrise-sunset-js",
+            "asOfVersion": "2.2.1"
+        },
         "superstruct": {
             "libraryName": "superstruct",
             "asOfVersion": "0.8.0"
