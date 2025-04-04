@@ -9,7 +9,7 @@
         "@types/ember-cli-fastboot": "*",
         "@types/ember__component": "*",
         "@types/ember__service": "*",
-        "@types/ua-parser-js": "*"
+        "@types/ua-parser-js": "<2"
     },
     "devDependencies": {
         "@types/ember-useragent": "workspace:."
