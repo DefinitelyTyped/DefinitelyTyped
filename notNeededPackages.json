@@ -2517,6 +2517,10 @@
             "libraryName": "@hapi/catbox-memory",
             "asOfVersion": "6.0.2"
         },
+        "hapi__catbox-redis": {
+            "libraryName": "@hapi/catbox-redis",
+            "asOfVersion": "7.0.2"
+        },
         "hapi__code": {
             "libraryName": "@hapi/code",
             "asOfVersion": "8.0.0"
