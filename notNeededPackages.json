@@ -5643,6 +5643,10 @@
             "libraryName": "react-filepond",
             "asOfVersion": "7.1.0"
         },
+        "react-flags-select": {
+            "libraryName": "react-flags-select",
+            "asOfVersion": "2.0.3"
+        },
         "react-flip-move": {
             "libraryName": "react-flip-move",
             "asOfVersion": "2.9.12"
