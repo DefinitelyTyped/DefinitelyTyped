@@ -7379,6 +7379,10 @@
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
         },
+        "vite-plugin-react-control-statements": {
+            "libraryName": "vite-plugin-react-control-statements",
+            "asOfVersion": "0.0.1"
+        },
         "vso-node-api": {
             "libraryName": "vso-node-api",
             "asOfVersion": "4.0.0"
