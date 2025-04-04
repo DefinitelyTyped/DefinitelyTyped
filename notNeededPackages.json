@@ -2181,6 +2181,10 @@
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
         },
+        "flexmonster": {
+            "libraryName": "flexmonster",
+            "asOfVersion": "2.8.0"
+        },
         "flexsearch": {
             "libraryName": "flexsearch",
             "asOfVersion": "0.7.42"
