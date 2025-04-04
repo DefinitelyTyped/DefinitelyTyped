@@ -4437,6 +4437,10 @@
             "libraryName": "nodecredstash",
             "asOfVersion": "3.0.0"
         },
+        "nodemon": {
+            "libraryName": "nodemon",
+            "asOfVersion": "3.1.1"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
