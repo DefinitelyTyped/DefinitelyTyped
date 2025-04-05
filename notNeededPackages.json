@@ -3421,6 +3421,10 @@
             "libraryName": "kdbxweb",
             "asOfVersion": "2.0.0"
         },
+        "kesha-antonov__react-native-background-downloader": {
+            "libraryName": "@kesha-antonov/react-native-background-downloader",
+            "asOfVersion": "2.7.0"
+        },
         "keycloak-connect": {
             "libraryName": "keycloak-connect",
             "asOfVersion": "7.0.0"
