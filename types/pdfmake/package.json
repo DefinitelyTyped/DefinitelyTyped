@@ -6,7 +6,6 @@
         "http://pdfmake.org"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/pdfkit": "*"
     },
     "devDependencies": {
