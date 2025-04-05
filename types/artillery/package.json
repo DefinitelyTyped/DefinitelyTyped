@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/tough-cookie": "*",
+        "@types/tough-cookie": "<5",
         "got": "^11.8.5"
     },
     "devDependencies": {

@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/postman-collection": "*",
-        "@types/tough-cookie": "*"
+        "@types/tough-cookie": "<5"
     },
     "devDependencies": {
         "@types/newman": "workspace:."
