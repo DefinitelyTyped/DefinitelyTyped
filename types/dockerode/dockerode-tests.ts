@@ -88,6 +88,7 @@ async function foo() {
         const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
         const inspect = await foo.inspect();
+        const imageDescriptor = inspect.Descriptor;
         await foo.remove();
     }
 
