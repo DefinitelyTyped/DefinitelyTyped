@@ -4,7 +4,7 @@ import * as memwatch from "@airbnb/node-memwatch";
 memwatch.on("foobar");
 // @ts-expect-error
 memwatch.on("stats", "baz");
-// $ExpectType EventEmitter<DefaultEventMap>
+// $ExpectType EventEmitter<{}>
 memwatch.on("stats", (
     result, // $ExpectType GcStats
 ) => {
