@@ -1,5 +1,5 @@
-import { Color, FindColorByMode, Mode, OverridesObject, TakeColorChannels } from "../common";
-import { MapFn } from "../map";
+import { Color, FindColorByMode, Mode, OverridesObject, TakeColorChannels } from "../common.js";
+import { MapFn } from "../map.js";
 
 type ColorPosition = [Color | string, number];
 type Position = number;
@@ -8,41 +8,41 @@ type ColorsParameter = Array<Color | string | Position | ColorPosition | Positio
 
 type Interpolator<M extends Mode> = (t: number) => FindColorByMode<M>;
 
-type OverridesWithFixupFnsForChannels<M extends Mode> = {
+type InterpolateOverridesWithFixupFnsForChannels<M extends Mode> = {
     [P in keyof TakeColorChannels<M>]: {
         fixup?: (arr: number[]) => number[];
     };
 };
 
-type OverridesWithUseFnsForChannels<M extends Mode> = {
+type InterpolateOverridesWithUseFnsForChannels<M extends Mode> = {
     [P in keyof TakeColorChannels<M>]: {
         use?: Interpolator<M>;
     };
 };
 
-type OverridesFunction = (values: number[]) => number;
+type InterpolateOverridesFunction = (values: number[]) => number;
 
-type OverridesParameter<M extends Mode> =
-    | OverridesWithFixupFnsForChannels<M>
-    | OverridesFunction
+type InterpolateOverridesParameter<M extends Mode> =
+    | InterpolateOverridesWithFixupFnsForChannels<M>
+    | InterpolateOverridesFunction
     | OverridesObject<M>
-    | OverridesWithUseFnsForChannels<M>;
+    | InterpolateOverridesWithUseFnsForChannels<M>;
 
 declare function interpolate<M extends Mode = "rgb">(
     colors: ColorsParameter,
     mode?: M,
-    overrides?: OverridesParameter<M>,
+    overrides?: InterpolateOverridesParameter<M>,
 ): Interpolator<M>;
 
 declare function interpolateWith<M extends Mode>(
     premap: MapFn<M>,
-    postmap: MapFn<M>,
-): (colors: ColorsParameter, mode?: M, overrides?: OverridesParameter<M>) => Interpolator<M>;
+    postmap?: MapFn<M>,
+): (colors: ColorsParameter, mode?: M, overrides?: InterpolateOverridesParameter<M>) => Interpolator<M>;
 
 declare function interpolateWithPremultipliedAlpha<M extends Mode>(
     colors: ColorsParameter,
     mode?: M,
-    overrides?: OverridesParameter<M>,
+    overrides?: InterpolateOverridesParameter<M>,
 ): Interpolator<M>;
 
 export { interpolate, interpolateWith, interpolateWithPremultipliedAlpha };

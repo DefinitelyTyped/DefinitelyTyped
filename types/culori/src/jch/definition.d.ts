@@ -1,15 +1,15 @@
-import convertJabToJch from "./convertJabToJch";
-import convertJchToJab from "./convertJchToJab";
+import convertJabToJch from "./convertJabToJch.js";
+import convertJchToJab from "./convertJchToJab.js";
 
-import { averageAngle } from "../average";
-import { differenceHueChroma } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import { Rgb } from "../rgb/types";
-import { Jch } from "./types";
+import { averageAngle } from "../average.js";
+import { differenceHueChroma } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import { Jch } from "./types.js";
 
-declare const definition: {
+declare const modeJch: {
     mode: "jch";
 
     parse: ["--jzczhz"];
@@ -49,4 +49,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeJch;

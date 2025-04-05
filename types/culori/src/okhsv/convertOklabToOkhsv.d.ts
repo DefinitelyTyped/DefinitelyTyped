@@ -1,5 +1,5 @@
-import { Oklab } from "../oklab/types";
-import { Okhsv } from "./types";
+import { Oklab } from "../oklab/types.js";
+import { Okhsv } from "./types.js";
 
 declare function convertOklabToOkhsv(color: Omit<Oklab, "mode">): Okhsv;
 

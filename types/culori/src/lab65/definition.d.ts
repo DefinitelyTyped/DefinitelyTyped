@@ -1,8 +1,8 @@
-import lab from "../lab/definition";
-import convertLab65ToRgb from "./convertLab65ToRgb";
-import convertLab65ToXyz65 from "./convertLab65ToXyz65";
-import convertRgbToLab65 from "./convertRgbToLab65";
-import convertXyz65ToLab65 from "./convertXyz65ToLab65";
+import lab from "../lab/definition.js";
+import convertLab65ToRgb from "./convertLab65ToRgb.js";
+import convertLab65ToXyz65 from "./convertLab65ToXyz65.js";
+import convertRgbToLab65 from "./convertRgbToLab65.js";
+import convertXyz65ToLab65 from "./convertXyz65ToLab65.js";
 
 interface Lab65DefinitionMixin {
     mode: "lab65";
@@ -27,6 +27,6 @@ interface Lab65DefinitionMixin {
     };
 }
 
-declare const definition: Omit<typeof lab, keyof Lab65DefinitionMixin> & Lab65DefinitionMixin;
+declare const modeLab65: Omit<typeof lab, keyof Lab65DefinitionMixin> & Lab65DefinitionMixin;
 
-export default definition;
+export default modeLab65;

@@ -1,9 +1,9 @@
-import convertOkhsvToOklab from "./convertOkhsvToOklab";
-import convertOklabToOkhsv from "./convertOklabToOkhsv";
+import convertOkhsvToOklab from "./convertOkhsvToOklab.js";
+import convertOklabToOkhsv from "./convertOklabToOkhsv.js";
 
-import modeHsv from "../hsv/definition";
-import { Rgb } from "../rgb/types";
-import { Okhsv } from "./types";
+import modeHsv from "../hsv/definition.js";
+import { Rgb } from "../rgb/types.js";
+import { Okhsv } from "./types.js";
 
 interface OkhsvDefinitionMixin {
     mode: "okhsv";

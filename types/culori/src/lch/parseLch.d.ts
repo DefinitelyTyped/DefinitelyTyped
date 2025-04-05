@@ -1,5 +1,5 @@
-import { Lch } from "./types";
+import { Lch } from "./types.js";
 
-declare function parseLch(color: string): Lch;
+declare function parseLch(color: string): Lch | undefined;
 
 export default parseLch;
