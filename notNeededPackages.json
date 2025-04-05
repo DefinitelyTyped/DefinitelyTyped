@@ -3789,6 +3789,10 @@
             "libraryName": "markdown-it-anchor",
             "asOfVersion": "7.0.0"
         },
+        "markdown-it-highlightjs": {
+            "libraryName": "markdown-it-highlightjs",
+            "asOfVersion": "4.0.1"
+        },
         "markdown-table": {
             "libraryName": "markdown-table",
             "asOfVersion": "3.0.0"
