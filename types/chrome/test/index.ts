@@ -2884,7 +2884,29 @@ function testExtensionSendRequest() {
     chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num + 1));
 }
 
-function testContextMenusCreate() {
+// https://developer.chrome.com/docs/extensions/reference/api/contextMenus
+function testContextMenus() {
+    chrome.contextMenus.ContextType.ACTION === "action";
+    chrome.contextMenus.ContextType.ALL === "all";
+    chrome.contextMenus.ContextType.AUDIO === "audio";
+    chrome.contextMenus.ContextType.BROWSER_ACTION === "browser_action";
+    chrome.contextMenus.ContextType.EDITABLE === "editable";
+    chrome.contextMenus.ContextType.FRAME === "frame";
+    chrome.contextMenus.ContextType.IMAGE === "image";
+    chrome.contextMenus.ContextType.LAUNCHER === "launcher";
+    chrome.contextMenus.ContextType.LINK === "link";
+    chrome.contextMenus.ContextType.PAGE === "page";
+    chrome.contextMenus.ContextType.PAGE_ACTION === "page_action";
+    chrome.contextMenus.ContextType.SELECTION === "selection";
+    chrome.contextMenus.ContextType.VIDEO === "video";
+
+    chrome.contextMenus.ItemType.CHECKBOX === "checkbox";
+    chrome.contextMenus.ItemType.NORMAL === "normal";
+    chrome.contextMenus.ItemType.RADIO === "radio";
+    chrome.contextMenus.ItemType.SEPARATOR === "separator";
+
+    chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT === 6;
+
     const creationOptions: chrome.contextMenus.CreateProperties = {
         id: "dummy-id",
         documentUrlPatterns: ["https://*/*"],
@@ -2893,109 +2915,79 @@ function testContextMenusCreate() {
         contexts: ["all"],
         enabled: true,
         targetUrlPatterns: ["https://example.com/*"],
-        onclick: (info, tab: chrome.tabs.Tab) => console.log(tab),
+        onclick: () => {},
         parentId: 1,
         type: "normal",
         visible: true,
     };
-    chrome.contextMenus.create(creationOptions, () => console.log("created")); // $ExpectType string | number
-    chrome.contextMenus.create({ ...creationOptions, contexts: ["action", "page_action"] }); // $ExpectType string | number
-    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" }); // $ExpectType string | number
-    // @ts-expect-error
-    chrome.contextMenus.create({ ...creationOptions, contexts: ["wrong"] });
-}
 
-function testContextMenusRemove() {
+    chrome.contextMenus.create(creationOptions); // $ExpectType string | number
+    // @ts-expect-error Error at property 'contexts': Invalid type: expected array, found string.
+    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" });
+
     chrome.contextMenus.remove(1); // $ExpectType Promise<void>
-    chrome.contextMenus.remove(1, () => console.log("removed")); // $ExpectType void
+    chrome.contextMenus.remove("1"); // $ExpectType Promise<void>
+    chrome.contextMenus.remove(1, () => {}); // $ExpectType void
+    chrome.contextMenus.remove("1", () => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.remove(1, (invalid: any) => console.log("removed"));
-    chrome.contextMenus.remove("dummy-id");
-    chrome.contextMenus.remove("dummy-id", () => console.log("removed"));
-    // @ts-expect-error
-    chrome.contextMenus.remove("dummy-id", (invalid: any) => console.log("removed"));
-    chrome.contextMenus.remove(Math.random() > 0.5 ? "1" : 1);
-}
+    chrome.contextMenus.remove(1, () => {}).then(() => {});
 
-function testContextMenusRemoveAll() {
     chrome.contextMenus.removeAll(); // $ExpectType Promise<void>
-    chrome.contextMenus.removeAll(() => console.log("removed all")); // $ExpectType void
+    chrome.contextMenus.removeAll(() => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.removeAll((invalid: any) => console.log("removed"));
-}
+    chrome.contextMenus.removeAll(() => {}).then(() => {});
 
-function testContextMenusUpdate() {
-    chrome.contextMenus.update(1, { title: "Hello World!" }); // $ExpectType Promise<void>
-    chrome.contextMenus.update(1, { title: "Hello World!" }, () => console.log("updated")); // $ExpectType void
-    chrome.contextMenus.update(Math.random() > 0.5 ? "1" : 1, { title: "Hello World!" }, () => console.log("updated"));
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { title: "Hello World!" }, (invalid: any) => console.log("updated"));
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" });
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" }, () => console.log("updated"));
-    // @ts-expect-error
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" }, (invalid: any) => console.log("updated"));
+    const checkInfo = (info: chrome.contextMenus.OnClickData) => {
+        info.checked; // $ExpectType boolean | undefined
+        info.editable; // $ExpectType boolean
+        info.frameId; // $ExpectType number | undefined
+        info.frameUrl; // $ExpectType string | undefined
+        info.linkUrl; // $ExpectType string | undefined
+        info.mediaType; // $ExpectType "image" | "video" | "audio" | undefined
+        info.menuItemId; // $ExpectType number | string
+        info.pageUrl; // $ExpectType string | undefined
+        info.parentMenuItemId; // $ExpectType number | string | undefined
+        info.selectionText; // $ExpectType string | undefined
+        info.srcUrl; // $ExpectType string | undefined
+        info.wasChecked; // $ExpectType boolean | undefined
+    };
 
-    chrome.contextMenus.update(2, {
+    const updateProperties: Omit<chrome.contextMenus.CreateProperties, "id"> = {
         documentUrlPatterns: ["https://*/*"],
         checked: false,
         title: "Hello World!",
         contexts: ["all"],
         enabled: true,
         targetUrlPatterns: ["https://example.com/*"],
-        onclick: ({
-            checked,
-            editable,
-            frameId,
-            frameUrl,
-            linkUrl,
-            mediaType,
-            menuItemId,
-            pageUrl,
-            parentMenuItemId,
-            selectionText,
-            srcUrl,
-            wasChecked,
-        }, tab: chrome.tabs.Tab) =>
-            console.log(
-                tab,
-                checked,
-                editable,
-                frameId,
-                frameUrl,
-                linkUrl,
-                mediaType,
-                menuItemId,
-                pageUrl,
-                parentMenuItemId,
-                selectionText,
-                srcUrl,
-                wasChecked,
-            ),
+        onclick: (info, tab) => {
+            checkInfo(info);
+            tab; // $ExpectType Tab
+        },
         parentId: 1,
         type: "normal",
         visible: true,
-    });
+    };
 
+    chrome.contextMenus.update(1, updateProperties); // $ExpectType Promise<void>
+    chrome.contextMenus.update(1, updateProperties, () => {}); // $ExpectType void
+    chrome.contextMenus.update("1", updateProperties); // $ExpectType Promise<void>
+    chrome.contextMenus.update("1", updateProperties, () => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.update(1, { documentUrlPatterns: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { checked: "invalid" });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { title: 1 });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { contexts: true });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { enabled: "invalid" });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { targetUrlPatterns: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { onclick: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { parentId: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { type: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { visible: 1 });
+    chrome.contextMenus.update(1, updateProperties, () => {}).then(() => {});
+
+    chrome.contextMenus.onClicked.addListener((info, tab) => { // $ExpectType void
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.removeListener((info, tab) => { // $ExpectType void
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.hasListener((info, tab) => { // $ExpectType boolean
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/permissions
