@@ -2323,15 +2323,15 @@ declare module "fs" {
         /**
          * @default 0
          */
-        offset?: number;
+        offset?: number | undefined;
         /**
          * @default `buffer.byteLength - offset`
          */
-        length?: number;
+        length?: number | undefined;
         /**
          * @default null
          */
-        position?: number | null;
+        position?: number | undefined | null;
     }
     /**
      * Write `buffer` to the file specified by `fd`.
