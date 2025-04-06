@@ -220,7 +220,7 @@ export const useModal: any;
 export const usePagination: any;
 export const usePopover: any;
 export function usePortalManager():
-    & UsePortalManagerHook["add"]
+    & React.Memoized<UsePortalManagerHook["add"]>
     & UsePortalManagerHook;
 export const useRadioGroup: any;
 export const useSubmenu: any;
@@ -232,7 +232,7 @@ export const useTheme: any;
  */
 export const useToast: any;
 export function useToastManager():
-    & UseToastManagerHook["notify"]
+    & React.Memoized<UseToastManagerHook["notify"]>
     & UseToastManagerHook;
 export const useTree: any;
 export const useTreeItem: any;

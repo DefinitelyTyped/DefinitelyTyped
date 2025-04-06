@@ -38,7 +38,7 @@ function Comp() {
 
     React.useEffect(() => {
         NetInfo.addEventListener("change", () => {});
-    }, [NetInfo]);
+    }, React.memoizedDeps([NetInfo]));
 
     React.useEffect(() => {
         (async () => {
