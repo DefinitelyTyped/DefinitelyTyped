@@ -1627,7 +1627,7 @@ declare namespace React {
     ): LazyExoticComponent<T>;
 
     /**
-     * Helper function to cast a dependency array to the strict `MemoizedDependencyList` type.
+     * Helper, type-level function to cast a dependency array to the strict `MemoizedDependencyList` type.
      * Use this when you are sure that all non-primitive dependencies are correctly memoized.
      */
     function memoizedDeps(deps: readonly unknown[]): MemoizedDependencyList;
