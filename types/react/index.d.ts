@@ -82,26 +82,20 @@ declare namespace React {
     type MemoizedDependencyList = readonly MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
 
     /**
-     * Recursively checks if props are primitives or memoized.
-     * Non-primitive, non-memoized props will cause a type error.
+     * Validates props for memoization compatibility.
+     * - Allows primitives and values explicitly marked as `Memoized<T>`.
+     * - Maps unmemoized functions or objects/arrays to `never`, causing a type error upon assignment.
      * Functions must be wrapped in Memoized (e.g., useCallback).
-     * Other complex types (objects, arrays) are disallowed unless Memoized.
+     * Other complex types (objects, arrays) must be wrapped in Memoized (e.g., useMemo).
      */
     type RequireMemoizedPropsStrict<P> = {
-        // Check each prop K in P
-        [K in keyof P]: P[K] extends Primitive | Memoized<any> ? P[K] // Allow primitives and already Memoized values
-            // Check if it's a function
+        [K in keyof P]: P[K] extends Primitive | Memoized<unknown>
+            ? P[K] // OK: Allow primitives and already-memoized values as-is.
             : P[K] extends (...args: any[]) => any
-            // If it's a function, it *must* be Memoized (via useCallback)
-                ? P[K] extends Memoized<any> ? P[K]
-                : `Error: Function prop '${Extract<K, string>}' must be memoized with useCallback.`
-            // Check if it's an object (and not null/array which are handled by Primitive/Memoized)
-            : P[K] extends object
-            // If it's an object, it *must* be Memoized (via useMemo)
-                ? P[K] extends Memoized<any> ? P[K]
-                : `Error: Object prop '${Extract<K, string>}' must be memoized with useMemo.`
-            // If none of the above, it's likely an unmemoized complex type or invalid
-            : `Error: Prop '${Extract<K, string>}' must be primitive or explicitly memoized.`;
+                ? never // INVALID: Unmemoized function.
+                : P[K] extends object
+                    ? never // INVALID: Unmemoized object/array.
+                    : P[K]; // Allow other primitive types.
     };
     // --- End Memoization Helpers ---
 
@@ -1566,7 +1560,7 @@ declare namespace React {
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
     type MemoExoticComponent<T extends ComponentType<any>> =
-        & NamedExoticComponent<RequireMemoizedPropsStrict<CustomComponentPropsWithRef<T>>>
+        & NamedExoticComponent<RequireMemoizedPropsStrict<ComponentProps<T>>>
         & {
             readonly type: T;
         };
@@ -1589,10 +1583,10 @@ declare namespace React {
      * });
      * ```
      */
-    function memo<P extends object>(
-        Component: FunctionComponent<P>,
-        propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean,
-    ): NamedExoticComponent<P>;
+    function memo<T extends ComponentType<any>>(
+        Component: T,
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
+    ): MemoExoticComponent<T>;
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
@@ -4053,7 +4047,7 @@ declare namespace React {
         type ElementType = string | React.JSXElementConstructor<any>;
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
-            render(): React.ReactNode;
+            render(): React.ReactNode; // If C is MemoExoticComponent<T>, it uses ReactManagedAttributes<T, P>
         }
         interface ElementAttributesProperty {
             props: {};
@@ -4062,13 +4056,15 @@ declare namespace React {
             children: {};
         }
 
-        // We can't recurse forever because `type` can't be self-referential;
-        // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
         type LibraryManagedAttributes<C, P> = C extends
             React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
-            ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
-                ? ReactManagedAttributes<U, P>
-            : ReactManagedAttributes<T, P>
+            // If it's Memo, the *effective* props type checked against the JSX attributes
+            // should be the one requiring memoization.
+            ? RequireMemoizedPropsStrict<React.ComponentProps<T>> // Use the strict type for JSX checking!
+            : C extends React.LazyExoticComponent<infer T> // Handle Lazy (unchanged for now)
+                ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
+                    ? ReactManagedAttributes<U, P> // Needs recursion if Lazy wraps Memo
+                : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
         interface IntrinsicAttributes extends React.Attributes {}
