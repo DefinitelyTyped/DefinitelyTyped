@@ -66,6 +66,45 @@ export = React;
 export as namespace React;
 
 declare namespace React {
+    // --- Memoization Helpers ---
+    /** A nominal type brand for memoized values. */
+    const __memoized: unique symbol;
+    /** Represents a value explicitly memoized via React hooks (useMemo, useCallback). */
+    type Memoized<T> = T & { [__memoized]: true };
+
+    /** Represents JavaScript primitive types. */
+    type Primitive = string | number | boolean | null | undefined | symbol | bigint;
+
+    /** Allowed dependency types: primitives or explicitly memoized values. */
+    type _MemoizedDependency = Primitive | Memoized<unknown>;
+
+    /** Nominal type for dependency arrays requiring memoized non-primitive values. */
+    type MemoizedDependencyList = readonly _MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
+
+    /**
+     * Recursively checks if props are primitives or memoized.
+     * Non-primitive, non-memoized props will cause a type error.
+     * Functions must be wrapped in Memoized (e.g., useCallback).
+     * Other complex types (objects, arrays) are disallowed unless Memoized.
+     */
+     type RequireMemoizedPropsStrict<P> = {
+       // Check each prop K in P
+       [K in keyof P]: P[K] extends Primitive | Memoized<any> ? P[K] // Allow primitives and already Memoized values
+         // Check if it's a function
+         : P[K] extends (...args: any[]) => any
+           // If it's a function, it *must* be Memoized (via useCallback)
+           ? P[K] extends Memoized<any> ? P[K]
+           : `Error: Function prop '${Extract<K, string>}' must be memoized with useCallback.`
+         // Check if it's an object (and not null/array which are handled by Primitive/Memoized)
+         : P[K] extends object
+           // If it's an object, it *must* be Memoized (via useMemo)
+           ? P[K] extends Memoized<any> ? P[K]
+           : `Error: Object prop '${Extract<K, string>}' must be memoized with useMemo.`
+         // If none of the above, it's likely an unmemoized complex type or invalid
+         : `Error: Prop '${Extract<K, string>}' must be primitive or explicitly memoized.`;
+     };
+    // --- End Memoization Helpers ---
+
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -1526,7 +1565,7 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<CustomComponentPropsWithRef<T>> & {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<RequireMemoizedPropsStrict<CustomComponentPropsWithRef<T>>> & {
         readonly type: T;
     };
 
@@ -1571,7 +1610,7 @@ declare namespace React {
      * @param load A function that returns a `Promise` or another thenable (a `Promise`-like object with a
      * then method). React will not call `load` until the first time you attempt to render the returned
      * component. After React first calls load, it will wait for it to resolve, and then render the
-     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`’s
+     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`'s
      * resolved value will be cached, so React will not call load more than once. If the `Promise` rejects,
      * React will throw the rejection reason for the nearest Error Boundary to handle.
      *
@@ -1586,6 +1625,12 @@ declare namespace React {
     function lazy<T extends ComponentType<any>>(
         load: () => Promise<{ default: T }>,
     ): LazyExoticComponent<T>;
+
+    /**
+     * Helper function to cast a dependency array to the strict `MemoizedDependencyList` type.
+     * Use this when you are sure that all non-primitive dependencies are correctly memoized.
+     */
+    function memoizedDeps(deps: readonly unknown[]): MemoizedDependencyList;
 
     //
     // React Hooks
@@ -1761,7 +1806,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useLayoutEffect}
      */
-    function useLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useLayoutEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
     /**
      * Accepts a function that contains imperative, possibly effectful code.
      *
@@ -1771,7 +1816,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useEffect}
      */
-    function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -1782,7 +1827,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: DependencyList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: MemoizedDependencyList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
@@ -1795,7 +1840,7 @@ declare namespace React {
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
+    function useCallback<T extends Function>(callback: T, deps: MemoizedDependencyList): Memoized<T>;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -1803,7 +1848,7 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useMemo}
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList): T;
+    function useMemo<T>(factory: () => T, deps: MemoizedDependencyList): Memoized<T>;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
@@ -1831,7 +1876,7 @@ declare namespace React {
     }
 
     /**
-     * Returns a deferred version of the value that may “lag behind” it.
+     * Returns a deferred version of the value that may lag behind it.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately
      * based on user input and something that needs to wait for a data fetch.
@@ -1897,7 +1942,7 @@ declare namespace React {
      *
      * @see {@link https://github.com/facebook/react/pull/21913}
      */
-    export function useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
+    export function useInsertionEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
 
     /**
      * @param subscribe
