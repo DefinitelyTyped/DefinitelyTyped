@@ -11,5 +11,5 @@ interface Options {
 }
 
 declare global {
-  function getCaretCoordinates(element: HTMLElement, position: number, options?: Options): Caret;
+    function getCaretCoordinates(element: HTMLElement, position: number, options?: Options): Caret;
 }
