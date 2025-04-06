@@ -20,7 +20,7 @@ function DraggableItemss() {
                 }),
             );
         }
-    }, React.memoizedDeps([draggableContainer.current]));
+    }, React.UNSAFE_memoizedDeps([draggableContainer.current]));
 
     React.useEffect(() => {
         if (drake) {

@@ -1630,7 +1630,7 @@ declare namespace React {
      * Helper, type-level function to cast a dependency array to the strict `MemoizedDependencyList` type.
      * Use this when you are sure that all non-primitive dependencies are correctly memoized.
      */
-    function memoizedDeps(deps: readonly unknown[]): MemoizedDependencyList;
+    function UNSAFE_memoizedDeps(deps: readonly unknown[]): MemoizedDependencyList;
 
     //
     // React Hooks
