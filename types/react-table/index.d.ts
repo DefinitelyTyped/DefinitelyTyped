@@ -463,8 +463,8 @@ export interface UseFiltersColumnProps<D extends object> {
     canFilter: boolean;
     setFilter: (updater: ((filterValue: FilterValue) => FilterValue) | FilterValue) => void;
     filterValue: FilterValue;
-    preFilteredRows: Array<Row<D>>;
-    filteredRows: Array<Row<D>>;
+    preFilteredRows: React.Memoized<Array<Row<D>>>;
+    filteredRows: React.Memoized<Array<Row<D>>>;
 }
 
 export type FilterProps<D extends object> = HeaderProps<D>;
