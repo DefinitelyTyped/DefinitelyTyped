@@ -83,19 +83,15 @@ declare namespace React {
 
     /**
      * Validates props for memoization compatibility.
-     * - Allows primitives and values explicitly marked as `Memoized<T>`.
-     * - Maps unmemoized functions or objects/arrays to `never`, causing a type error upon assignment.
+     * - Allows primitives and values already explicitly marked as `Memoized<T>` to stay as is.
+     * - Maps unmemoized functions or objects/arrays to `Memoized<T>`, causing a type error upon assignment.
      * Functions must be wrapped in Memoized (e.g., useCallback).
      * Other complex types (objects, arrays) must be wrapped in Memoized (e.g., useMemo).
      */
     type RequireMemoizedPropsStrict<P> = {
         [K in keyof P]: P[K] extends Primitive | Memoized<unknown>
             ? P[K] // OK: Allow primitives and already-memoized values as-is.
-            : P[K] extends (...args: any[]) => any
-                ? never // INVALID: Unmemoized function.
-                : P[K] extends object
-                    ? never // INVALID: Unmemoized object/array.
-                    : P[K]; // Allow other primitive types.
+            : Memoized<P[K]>; // Allow other primitive types.
     };
     // --- End Memoization Helpers ---
 
