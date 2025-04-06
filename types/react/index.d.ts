@@ -76,10 +76,10 @@ declare namespace React {
     type Primitive = string | number | boolean | null | undefined | symbol | bigint;
 
     /** Allowed dependency types: primitives or explicitly memoized values. */
-    type _MemoizedDependency = Primitive | Memoized<unknown>;
+    type MemoizedDependency = Primitive | Memoized<unknown>;
 
     /** Nominal type for dependency arrays requiring memoized non-primitive values. */
-    type MemoizedDependencyList = readonly _MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
+    type MemoizedDependencyList = readonly MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
 
     /**
      * Recursively checks if props are primitives or memoized.
@@ -1603,14 +1603,14 @@ declare namespace React {
     }
 
     /**
-     * Lets you defer loading a component’s code until it is rendered for the first time.
+     * Lets you defer loading a component's code until it is rendered for the first time.
      *
      * @see {@link https://react.dev/reference/react/lazy React Docs}
      *
      * @param load A function that returns a `Promise` or another thenable (a `Promise`-like object with a
      * then method). React will not call `load` until the first time you attempt to render the returned
      * component. After React first calls load, it will wait for it to resolve, and then render the
-     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`'s
+     * resolved value's `.default` as a React component. Both the returned `Promise` and the `Promise`'s
      * resolved value will be cached, so React will not call load more than once. If the `Promise` rejects,
      * React will throw the rejection reason for the nearest Error Boundary to handle.
      *
@@ -1762,8 +1762,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1774,8 +1774,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1786,8 +1786,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1800,13 +1800,13 @@ declare namespace React {
      *
      * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
      *
-     * If you’re migrating code from a class component, `useLayoutEffect` fires in the same phase as
+     * If you're migrating code from a class component, `useLayoutEffect` fires in the same phase as
      * `componentDidMount` and `componentDidUpdate`.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useLayoutEffect}
      */
-    function useLayoutEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
+    function useLayoutEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
     /**
      * Accepts a function that contains imperative, possibly effectful code.
      *
@@ -1816,7 +1816,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useEffect}
      */
-    function useEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
+    function useEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -1827,7 +1827,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: MemoizedDependencyList): void;
+    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: ReadonlyArray<MemoizedDependency>): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
@@ -1840,7 +1840,7 @@ declare namespace React {
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    function useCallback<T extends Function>(callback: T, deps: MemoizedDependencyList): Memoized<T>;
+    function useCallback<T extends Function>(callback: T, deps: ReadonlyArray<MemoizedDependency>): Memoized<T>;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -1848,12 +1848,12 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useMemo}
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: MemoizedDependencyList): Memoized<T>;
+    function useMemo<T>(factory: () => T, deps: ReadonlyArray<MemoizedDependency>): Memoized<T>;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
-     * NOTE: We don’t recommend adding debug values to every custom hook.
-     * It’s most valuable for custom hooks that are part of shared libraries.
+     * NOTE: We don't recommend adding debug values to every custom hook.
+     * It's most valuable for custom hooks that are part of shared libraries.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useDebugValue}
@@ -1884,7 +1884,7 @@ declare namespace React {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
-     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there’s no previous version of `value` that it can render instead.
+     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there's no previous version of `value` that it can render instead.
      *
      * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
@@ -1898,7 +1898,7 @@ declare namespace React {
      *
      * The `useTransition` hook returns two values in an array.
      *
-     * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
+     * The first is a boolean, React's way of informing us whether we're waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
      * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
@@ -1942,7 +1942,7 @@ declare namespace React {
      *
      * @see {@link https://github.com/facebook/react/pull/21913}
      */
-    export function useInsertionEffect(effect: EffectCallback, deps?: MemoizedDependencyList): void;
+    export function useInsertionEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
 
     /**
      * @param subscribe
