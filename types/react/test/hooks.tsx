@@ -267,22 +267,22 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     );
 
     // useState convenience overload
-    // default to undefined only (not that useful, but type-safe -- no {} or unknown!)
-    // $ExpectType undefined
+    // default to never only (not that useful, but type-safe -- no {} or unknown!)
+    // $ExpectType never
     React.useState()[0];
-    // $ExpectType number | undefined
+    // $ExpectType number & { [__memoized]: true; }
     React.useState<number>()[0];
     // default overload
-    // $ExpectType number
+    // $ExpectType Memoized<number>
     React.useState(0)[0];
-    // $ExpectType undefined
+    // $ExpectType never
     React.useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
     // @ts-expect-error
     React.useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
-    // $ExpectType boolean
+    // $ExpectType Memoized<boolean>
     toggle;
     // make sure setState accepts a function
     setToggle(r => !r);
@@ -291,11 +291,11 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // Should not type-check since `number` will be `number` at runtime but `() => number` in the type-checker
     const [number, setNumber] = React.useState<() => number>(() => 0);
     // Should be `number`
-    // $EpectType () => number
+    // $ExpectType Memoized<() => number>
     number;
 
     const [numFunc, setNumFunc] = React.useState<() => number>(() => () => 0);
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     numFunc;
     // Undesired
     // Should not typecheck since that would update the state to `number` when the type-checker would still consider the state to be `() => number`
@@ -304,27 +304,24 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     setNumFunc(() => () => 42);
 
     // when using a function without a generic, infer the return type
-    // $ExpectType number
+    // $ExpectType Memoized<number>
     React.useState(() => 0)[0];
     // When storing a function it must be wrapped
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     React.useState<() => number>(() => () => 0)[0];
     // When storing a function, even without a generic, it must be wrapped
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     React.useState(() => () => 0)[0];
 
     // Undesired
     // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
-    // React would call the constructor causing a TypeError.
     React.useState(class {});
     // This is the correct way to store classes in state.
-    // $ExpectType typeof A
+    // $ExpectType Memoized<typeof A>
     React.useState(() => class A {})[0];
 
     const [_, setClass] = React.useState(() => class {});
     // Undesired
-    // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
-    // React would call the constructor causing a TypeError,
     setClass(class {});
     setClass(() => class {});
 
@@ -358,14 +355,14 @@ function useConcurrentHooks() {
     // $ExpectType boolean
     done;
 
-    // $ExpectType boolean
+    // $ExpectType Memoized<boolean>
     const deferredToggle = React.useDeferredValue(toggle);
 
     const [func] = React.useState(() => () => 0);
 
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     func;
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     const deferredFunc = React.useDeferredValue(func);
 
     class Constructor {}

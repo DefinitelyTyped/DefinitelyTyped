@@ -147,7 +147,7 @@ function RelayEnvironment() {
         `;
 
         commitMutation(environment, { mutation, variables: {} });
-    }, [environment]);
+    }, React.UNSAFE_memoizedDeps([environment]));
 
     return (
         <React.Suspense fallback={<div>Loading...</div>}>

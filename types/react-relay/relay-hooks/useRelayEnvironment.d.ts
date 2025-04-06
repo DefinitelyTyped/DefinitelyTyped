@@ -1,4 +1,4 @@
 import { Environment } from "relay-runtime";
-import * as React from "react";
+// No need to import React here if Memoized is not used.
 
-export function useRelayEnvironment(): React.Memoized<Environment>;
+export function useRelayEnvironment(): Environment;
