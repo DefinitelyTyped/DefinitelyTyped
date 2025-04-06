@@ -87,22 +87,22 @@ declare namespace React {
      * Functions must be wrapped in Memoized (e.g., useCallback).
      * Other complex types (objects, arrays) are disallowed unless Memoized.
      */
-     type RequireMemoizedPropsStrict<P> = {
-       // Check each prop K in P
-       [K in keyof P]: P[K] extends Primitive | Memoized<any> ? P[K] // Allow primitives and already Memoized values
-         // Check if it's a function
-         : P[K] extends (...args: any[]) => any
-           // If it's a function, it *must* be Memoized (via useCallback)
-           ? P[K] extends Memoized<any> ? P[K]
-           : `Error: Function prop '${Extract<K, string>}' must be memoized with useCallback.`
-         // Check if it's an object (and not null/array which are handled by Primitive/Memoized)
-         : P[K] extends object
-           // If it's an object, it *must* be Memoized (via useMemo)
-           ? P[K] extends Memoized<any> ? P[K]
-           : `Error: Object prop '${Extract<K, string>}' must be memoized with useMemo.`
-         // If none of the above, it's likely an unmemoized complex type or invalid
-         : `Error: Prop '${Extract<K, string>}' must be primitive or explicitly memoized.`;
-     };
+    type RequireMemoizedPropsStrict<P> = {
+        // Check each prop K in P
+        [K in keyof P]: P[K] extends Primitive | Memoized<any> ? P[K] // Allow primitives and already Memoized values
+            // Check if it's a function
+            : P[K] extends (...args: any[]) => any
+            // If it's a function, it *must* be Memoized (via useCallback)
+                ? P[K] extends Memoized<any> ? P[K]
+                : `Error: Function prop '${Extract<K, string>}' must be memoized with useCallback.`
+            // Check if it's an object (and not null/array which are handled by Primitive/Memoized)
+            : P[K] extends object
+            // If it's an object, it *must* be Memoized (via useMemo)
+                ? P[K] extends Memoized<any> ? P[K]
+                : `Error: Object prop '${Extract<K, string>}' must be memoized with useMemo.`
+            // If none of the above, it's likely an unmemoized complex type or invalid
+            : `Error: Prop '${Extract<K, string>}' must be primitive or explicitly memoized.`;
+    };
     // --- End Memoization Helpers ---
 
     //
@@ -1565,9 +1565,11 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<RequireMemoizedPropsStrict<CustomComponentPropsWithRef<T>>> & {
-        readonly type: T;
-    };
+    type MemoExoticComponent<T extends ComponentType<any>> =
+        & NamedExoticComponent<RequireMemoizedPropsStrict<CustomComponentPropsWithRef<T>>>
+        & {
+            readonly type: T;
+        };
 
     /**
      * Lets you skip re-rendering a component when its props are unchanged.
@@ -1827,7 +1829,11 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: ReadonlyArray<MemoizedDependency>): void;
+    function useImperativeHandle<T, R extends T>(
+        ref: Ref<T> | undefined,
+        init: () => R,
+        deps?: ReadonlyArray<MemoizedDependency>,
+    ): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
