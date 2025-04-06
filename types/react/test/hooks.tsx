@@ -157,13 +157,13 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     const anyCallback = React.useCallback(value => {
         // $ExpectType any
         return value;
-    }, React.memoizedDeps([]));
+    }, []);
     // $ExpectType any
     anyCallback({});
     // $ExpectType Memoized<(value: string) => number>
     const typedCallback = React.useCallback((value: string) => {
         return Number(value);
-    }, React.memoizedDeps([]));
+    }, []);
     // $ExpectType number
     typedCallback("1");
     // Argument of type '{}' is not assignable to parameter of type 'string'.
@@ -175,7 +175,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
         // $ExpectType Event
         event;
         return String(event);
-    }, React.memoizedDeps([])));
+    }, []));
 
     // test useRef and its convenience overloads
     // $ExpectType RefObject<number>
@@ -212,11 +212,11 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     const b: React.RefObject<number | undefined | null> = React.useRef(null);
     const c: React.RefObject<number | null> = React.useRef(null);
 
-    const id = React.useMemo(() => Math.random(), React.memoizedDeps([]));
-    React.useImperativeHandle(ref, () => ({ id }), React.memoizedDeps([id]));
+    const id = React.useMemo(() => Math.random(), []);
+    React.useImperativeHandle(ref, () => ({ id }), [id]);
     // was named like this in the first alpha, renamed before release
     // @ts-expect-error
-    React.useImperativeMethods(ref, () => ({}), React.memoizedDeps([id]));
+    React.useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
     // $ExpectType RefObject<boolean>
@@ -226,7 +226,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
         setState(1);
         setState(prevState => prevState - 1);
         didLayout.current = true;
-    }, React.memoizedDeps([]));
+    }, []);
     React.useEffect(() => {
         dispatch({ type: "getOlder" });
         // @ts-expect-error
@@ -234,7 +234,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
         simpleDispatch();
         setState(reducerState.age);
-    }, React.memoizedDeps([]));
+    }, []);
 
     // effects are only allowed to either be actually void or return actually void functions
     React.useEffect(() => () => {});
@@ -330,7 +330,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
     // useReducer convenience overload
 
-    return React.useCallback(() => didLayout.current, React.memoizedDeps([]));
+    return React.useCallback(() => didLayout.current, []);
 }
 
 const UsesEveryHook = React.forwardRef(
@@ -376,10 +376,10 @@ function useConcurrentHooks() {
     const deferredConstructible = React.useDeferredValue(Constructible);
 
     React.useInsertionEffect(() => {});
-    React.useInsertionEffect(() => {}, React.memoizedDeps([]));
+    React.useInsertionEffect(() => {}, []);
     React.useInsertionEffect(() => {
         return () => {};
-    }, React.memoizedDeps([toggle]));
+    }, [toggle]);
 
     return () => {
         startTransition(() => {
