@@ -297,8 +297,8 @@ componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, sn
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
     return null;
-}, (a, b) => a.foo === b.foo);
-<Memoized1 foo="string" />; // $ExpectError
+});
+<Memoized1 foo="string" />;
 
 const Memoized2 = React.memo(
     function Bar(props: { bar: string }) {

@@ -1837,8 +1837,8 @@ declare namespace React {
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
-     * NOTE: We don't recommend adding debug values to every custom hook.
-     * It's most valuable for custom hooks that are part of shared libraries.
+     * NOTE: We don’t recommend adding debug values to every custom hook.
+     * It’s most valuable for custom hooks that are part of shared libraries.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useDebugValue}
@@ -2854,7 +2854,8 @@ declare namespace React {
             | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
-            ];
+            ]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;

@@ -7,9 +7,9 @@ function EventDispatcherExample({ input }: { input: HTMLInputElement }) {
     const subscription = useMemo(
         (): Subscription<string> => ({
             getCurrentValue: () => input.value,
-            subscribe: handler => {
-                input.addEventListener("input", handler);
-                return () => input.removeEventListener("input", handler);
+            subscribe: callback => {
+                input.addEventListener("change", callback);
+                return () => input.removeEventListener("change", callback);
             },
         }),
         React.UNSAFE_memoizedDeps([input]),
