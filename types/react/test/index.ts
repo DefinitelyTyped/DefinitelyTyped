@@ -410,13 +410,13 @@ const ForwardRefRenderFunctionWithInferrence2: React.ComponentType<
 );
 
 const ForwardRefRenderFunctionWithInferrence3: React.ComponentType<
-    ForwardingRefComponentProps & { ref: React.Ref<RefComponent> }
+    ForwardingRefComponentProps & { ref: React.Ref<HTMLDivElement> }
 > = React.memo(
-    React.forwardRef<RefComponent, ForwardingRefComponentProps>(
+    React.forwardRef(
         (
-            // $ExpectType ForwardingRefComponentProps
+            // $ExpectType Omit<ForwardingRefComponentProps & { ref: Ref<HTMLDivElement>; }, "ref">
             props,
-            // $ExpectType ForwardedRef<RefComponent>
+            // $ExpectType ForwardedRef<HTMLDivElement>
             ref,
         ) => null,
     ),
@@ -767,14 +767,23 @@ const Memoized1 = React.memo(function Foo(props: { foo: string }) {
 });
 React.createElement(Memoized1, { foo: "string" });
 
+const Memoized2 = React.memo<{ bar: string }>(
+    function Bar(props: { bar: string }) {
+        return null;
+    },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar,
+);
+React.createElement(Memoized2, { bar: "string" });
+
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
-// Note: Removed Memoized2 test case which was invalid usage of React.memo
-// const functionComponent: React.FunctionComponent<any> = Memoized2;
+const functionComponent: React.FunctionComponent<any> = Memoized2;
 // deprecated. Kept for backwards compatibility.
+functionComponent.propTypes = {};
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
     foo: 42,
+    children: React.createElement(functionComponent),
 };
 
 type UnionProps =
