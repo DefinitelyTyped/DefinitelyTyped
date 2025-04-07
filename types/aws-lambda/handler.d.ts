@@ -265,5 +265,3 @@ declare global {
         ): StreamifyHandler<TEvent, TResult>;
     }
 }
-
-

@@ -208,8 +208,8 @@ const streamifyResponseHandler: AWSLambda.StreamifyHandler = (event, responseStr
         statusCode: 200,
         headers: {
             "Content-Type": "application/json",
-            "CustomHeader": "outerspace"
-        }
+            "CustomHeader": "outerspace",
+        },
     };
     responseStream = awslambda.HttpResponseStream.from(responseStream, metadata);
     responseStream.setContentType("text/plain");
