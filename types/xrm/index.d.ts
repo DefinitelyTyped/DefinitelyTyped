@@ -1173,7 +1173,7 @@ declare namespace Xrm {
 
         /**
          * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
-        * @param T An Attribute type.
+         * @param T An Attribute type.
          * @param delegateFunction A matching delegate function
          * @returns An collection of attributes.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
