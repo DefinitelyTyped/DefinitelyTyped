@@ -723,3 +723,38 @@ function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
         console.log(args.getSaveErrorInfo());
     }
 }
+
+// Demonstrate non-index/name getAttribute/getControl returns non-null array
+
+function GetAll(context: Xrm.FormContext) {
+    const allAttributes: Xrm.Attributes.Attribute[] = context.getAttribute();
+    const allAttributesTyped: Xrm.Attributes.StringAttribute[] = context.getAttribute<Xrm.Attributes.StringAttribute>();
+    const noAttributes: Xrm.Attributes.Attribute[] = context.getAttribute(() => false);
+    const noAttributesTyped: Xrm.Attributes.StringAttribute[] = context.getAttribute<Xrm.Attributes.StringAttribute>(
+        () => false,
+    );
+    if (
+        allAttributes === null
+        || allAttributesTyped === null
+        || noAttributes === null
+        || noAttributesTyped === null
+    ) {
+        throw new Error("Will return an empty array if no attributes are present.");
+    }
+
+    const allControls: Xrm.Controls.Control[] = context.getControl();
+    const allControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>();
+    const itemCollection: Xrm.Controls.Control[] = (context.getControl("mySection") as unknown as Xrm.Controls.Section)
+        .controls.get();
+    const noControls: Xrm.Controls.Control[] = context.getControl(() => false);
+    const noControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>(() => false);
+    if (
+        allControls === null
+        || allControlsTyped === null
+        || itemCollection === null
+        || noControls === null
+        || noControlsTyped === null
+    ) {
+        throw new Error("Will return an empty array if no controls are present.");
+    }
+}

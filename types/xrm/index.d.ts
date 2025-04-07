@@ -1169,7 +1169,18 @@ declare namespace Xrm {
          */
         getAttribute(
             delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
-        ): Collection.ItemCollection<Attributes.Attribute> | null;
+        ): Attributes.Attribute[];
+
+        /**
+         * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
+         * @param T An Attribute type.
+         * @param delegateFunction A matching delegate function
+         * @returns An collection of attributes.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+         */
+        getAttribute<T extends Attributes.Attribute>(
+            delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
+        ): T[];
 
         /**
          * Gets a control by name or index.
@@ -1194,7 +1205,18 @@ declare namespace Xrm {
          */
         getControl(
             delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
-        ): Collection.ItemCollection<Controls.Control> | null;
+        ): Controls.Control[];
+
+        /**
+         * Gets a collection of controls using a delegate function or gets all controls if delegateFunction is not provided.
+         * @param T A Control type.  There is no guarentee that all control types will match.
+         * @param delegateFunction A matching delegate function.
+         * @returns An collection of controls.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+         */
+        getControl<T extends Controls.Control>(
+            delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
+        ): T[];
     }
 
     /**
@@ -1859,7 +1881,7 @@ declare namespace Xrm {
              * @param delegate A matching delegate function
              * @returns A T[] whose members have been validated by delegate or a entire array of T[]
              */
-            get(delegate?: MatchingDelegate<T>): T[] | null;
+            get(delegate?: MatchingDelegate<T>): T[];
 
             /**
              * Gets the length of the collection.
