@@ -540,6 +540,10 @@
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
         },
+        "bs58": {
+            "libraryName": "bs58",
+            "asOfVersion": "5.0.0"
+        },
         "bson": {
             "libraryName": "bson",
             "asOfVersion": "4.2.0"
