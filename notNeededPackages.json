@@ -7123,6 +7123,10 @@
             "libraryName": "tiny-secp256k1",
             "asOfVersion": "2.0.0"
         },
+        "title": {
+            "libraryName": "title",
+            "asOfVersion": "4.0.0"
+        },
         "title-case": {
             "libraryName": "title-case",
             "asOfVersion": "1.1.2"
