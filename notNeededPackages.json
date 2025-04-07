@@ -6931,6 +6931,10 @@
             "libraryName": "survey-knockout",
             "asOfVersion": "0.10.0"
         },
+        "survicate__react-native-survicate": {
+            "libraryName": "@survicate/react-native-survicate",
+            "asOfVersion": "4.0.0"
+        },
         "svg-pan-zoom": {
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
