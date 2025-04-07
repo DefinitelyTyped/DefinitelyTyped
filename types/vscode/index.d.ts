@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.98 Extension API
+ * Type Definition for Visual Studio Code 1.99 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
