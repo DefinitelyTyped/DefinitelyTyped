@@ -16,8 +16,39 @@ appleReceiptVerify.validate({ receipt: "test-receipt" }, (err: appleReceiptVerif
 appleReceiptVerify
     .validate({ receipt: "test-receipt" })
     .then((products: appleReceiptVerify.PurchasedProducts[]) => {
-        console.log(products.map((p) => p.productId));
-    })
+        products.forEach((p) => {
+         const {
+                bundleId,
+                transactionId,
+                productId,
+                purchaseDate,
+                quantity,
+                expirationDate,
+                isTrialPeriod,
+                isInIntroOfferPeriod,
+                environment,
+                originalPurchaseDate,
+                applicationVersion,
+                originalApplicationVersion,
+            } = p
+        
+            console.log({
+                bundleId,
+                transactionId,
+                productId,
+                purchaseDate,
+                quantity,
+                expirationDate,
+                isTrialPeriod,
+                isInIntroOfferPeriod,
+                environment,
+                originalPurchaseDate,
+                applicationVersion,
+                originalApplicationVersion
+            })
+        })}
+     )
     .catch((err: appleReceiptVerify.ValidationError) => {
         console.error(err);
     });
+
