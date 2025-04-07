@@ -297,14 +297,14 @@ componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, sn
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
     return null;
-});
-<Memoized1 foo="string" />;
+}, (a,b) => a.foo === b.foo);
+<Memoized1 foo="string" />; // $ExpectError
 
 const Memoized2 = React.memo(
     function Bar(props: { bar: string }) {
         return null;
     },
-    (prevProps, nextProps) => prevProps.bar === nextProps.bar,
+    (prevProps: Readonly<{ bar: string }>, nextProps: Readonly<{ bar: string }>) => prevProps.bar === nextProps.bar,
 );
 <Memoized2 bar="string" />;
 
@@ -319,12 +319,10 @@ const memoized4Ref = React.createRef<HTMLDivElement>();
 const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref} />));
 <Memoized4 ref={memoized4Ref} />;
 
-const Memoized5 = React.memo<{ test: boolean }>(
-    prop => <>{prop.test}</>,
-    (prevProps, nextProps) => nextProps.test === prevProps.test,
-);
-
-<Memoized5 test />;
+const Memoized5: React.NamedExoticComponent<object> = React.memo(props => null);
+<Memoized5 />;
+// @ts-expect-error
+<Memoized5 foo />;
 
 const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6 />;

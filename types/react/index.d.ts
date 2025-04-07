@@ -49,7 +49,7 @@ type AwaitedReactNode =
     | null
     | undefined
     | React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
-        keyof React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
+    keyof React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
     ];
 
 /**
@@ -82,16 +82,33 @@ declare namespace React {
     type MemoizedDependencyList = readonly MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
 
     /**
-     * Validates props for memoization compatibility.
-     * - Allows primitives and values already explicitly marked as `Memoized<T>` to stay as is.
-     * - Maps unmemoized functions or objects/arrays to `Memoized<T>`, causing a type error upon assignment.
-     * Functions must be wrapped in Memoized (e.g., useCallback).
-     * Other complex types (objects, arrays) must be wrapped in Memoized (e.g., useMemo).
+     * Type helper to ensure that props passed to a memoized component are stable.
+     * Primitive types are allowed as-is.
+     * Functions, objects, and arrays must be explicitly marked as `Memoized<T>` (e.g., via `useCallback` or `useMemo`).
+     * Optional props follow the same rule: if present, they must be memoized if they are not primitive.
+     *
+     * @example
+     * Valid:   `{ primitive: 1, memoizedObj: useMemo(() => ({}), []), optionalPrim: undefined, optionalMemoized: undefined }`
+     * Invalid: `{ obj: {} }`, `{ fn: () => {} }`, `{ optionalObj: {} }`
      */
     type RequireMemoizedPropsStrict<P> = {
-        [K in keyof P]: P[K] extends Primitive | Memoized<unknown>
-            ? P[K] // OK: Allow primitives and already-memoized values as-is.
-            : Memoized<P[K]>; // Allow other primitive types.
+        // Map over each prop K in the props type P
+        [K in keyof P]:
+        // Exclude undefined/null to get the base type for checking against Primitive/Memoized/Ref/ReactElement
+        Exclude<P[K], undefined | null> extends
+        (| Primitive
+        | Memoized<unknown>
+        | Ref<any>
+        | ReactElement
+        | ReactNode)
+        // If the base type is Primitive, Memoized, Ref, or ReactElement, the original prop type P[K] (including undefined) is allowed.
+        ? P[K]
+        // Otherwise, the prop is a non-primitive (that's not ReactElement) and needs memoization.
+        : P[K] extends Exclude<P[K], undefined | null>
+        // If P[K] was originally required (e.g., `obj: T`), it must now be `Memoized<T>`.
+        ? Memoized<P[K]>
+        // If P[K] was originally optional (e.g., `obj?: T` which is `T | undefined`), it must now be `Memoized<T> | undefined`.
+        : Memoized<Exclude<P[K], undefined | null>> | undefined;
     };
     // --- End Memoization Helpers ---
 
@@ -1581,12 +1598,18 @@ declare namespace React {
      */
     function memo<T extends ComponentType<any>>(
         Component: T,
-        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
+        propsAreEqual?: (
+            prevProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
+            nextProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
+        ) => boolean,
     ): MemoExoticComponent<T>;
     function memo<T extends ComponentType<any>>(
         Component: T,
-        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
-    ): MemoExoticComponent<T>;
+        propsAreEqual: (
+            prevProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
+            nextProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
+        ) => boolean,
+    ): NamedExoticComponent<ComponentPropsWithRef<T>>;
 
     interface LazyExoticComponent<T extends ComponentType<any>>
         extends ExoticComponent<CustomComponentPropsWithRef<T>>
@@ -1595,14 +1618,14 @@ declare namespace React {
     }
 
     /**
-     * Lets you defer loading a component’s code until it is rendered for the first time.
+     * Lets you defer loading a component's code until it is rendered for the first time.
      *
      * @see {@link https://react.dev/reference/react/lazy React Docs}
      *
      * @param load A function that returns a `Promise` or another thenable (a `Promise`-like object with a
      * then method). React will not call `load` until the first time you attempt to render the returned
      * component. After React first calls load, it will wait for it to resolve, and then render the
-     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`’s
+     * resolved value's `.default` as a React component. Both the returned `Promise` and the `Promise`'s
      * resolved value will be cached, so React will not call load more than once. If the `Promise` rejects,
      * React will throw the rejection reason for the nearest Error Boundary to handle.
      *
@@ -1754,8 +1777,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1766,8 +1789,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1778,8 +1801,8 @@ declare namespace React {
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
      *
-     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
-     * value around similar to how you’d use instance fields in classes.
+     * Note that `useRef()` is useful for more than the `ref` attribute. It's handy for keeping any mutable
+     * value around similar to how you'd use instance fields in classes.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
@@ -1792,7 +1815,7 @@ declare namespace React {
      *
      * Prefer the standard `useEffect` when possible to avoid blocking visual updates.
      *
-     * If you’re migrating code from a class component, `useLayoutEffect` fires in the same phase as
+     * If you're migrating code from a class component, `useLayoutEffect` fires in the same phase as
      * `componentDidMount` and `componentDidUpdate`.
      *
      * @version 16.8.0
@@ -1848,8 +1871,8 @@ declare namespace React {
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
-     * NOTE: We don’t recommend adding debug values to every custom hook.
-     * It’s most valuable for custom hooks that are part of shared libraries.
+     * NOTE: We don't recommend adding debug values to every custom hook.
+     * It's most valuable for custom hooks that are part of shared libraries.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useDebugValue}
@@ -1872,7 +1895,7 @@ declare namespace React {
     }
 
     /**
-     * Returns a deferred version of the value that may “lag behind” it.
+     * Returns a deferred version of the value that may "lag behind" it.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately
      * based on user input and something that needs to wait for a data fetch.
@@ -1880,7 +1903,7 @@ declare namespace React {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
-     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there’s no previous version of `value` that it can render instead.
+     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there's no previous version of `value` that it can render instead.
      *
      * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
@@ -1894,7 +1917,7 @@ declare namespace React {
      *
      * The `useTransition` hook returns two values in an array.
      *
-     * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
+     * The first is a boolean, React's way of informing us whether we're waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
      * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
@@ -2438,16 +2461,7 @@ declare namespace React {
          * presented if they are made.
          */
         "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
-        /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
-        /**
-         * Defines a string value that labels the current element, which is intended to be converted into Braille.
-         * @see aria-label.
-         */
-        "aria-braillelabel"?: string | undefined;
-        /**
-         * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
-         * @see aria-roledescription.
-         */
+        /** Indicates a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille. */
         "aria-brailleroledescription"?: string | undefined;
         "aria-busy"?: Booleanish | undefined;
         /**
@@ -2862,11 +2876,11 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
-            | undefined
             | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
-            ];
+            ]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
@@ -4053,18 +4067,27 @@ declare namespace React {
         }
 
         type LibraryManagedAttributes<C, P> = C extends
-            React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
-            // If it's Memo, the *effective* props type checked against the JSX attributes
-            // should be the one requiring memoization.
-            ? RequireMemoizedPropsStrict<React.ComponentProps<T>> // Use the strict type for JSX checking!
-            : C extends React.LazyExoticComponent<infer T> // Handle Lazy (unchanged for now)
-                ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
-                    ? ReactManagedAttributes<U, P> // Needs recursion if Lazy wraps Memo
-                : ReactManagedAttributes<T, P>
-            : ReactManagedAttributes<C, P>;
+            React.MemoExoticComponent<infer T> // Check if C is Memo
+            ? T extends ForwardRefExoticComponent<infer RP> // Check if wrapped T is ForwardRef
+            // If T is forwardRef: Add RefAttributes (key+ref), apply strict props omitting ref
+            ? RefAttributes<ComponentRef<T>>
+            & RequireMemoizedPropsStrict<Omit<ReactManagedAttributes<T, RP>, "ref">>
+            // If T is NOT forwardRef:
+            : (T extends { new(...args: any): Component<any, any> } // Check if T is a Class Component
+                ? RefAttributes<ComponentRef<T>> // Class components get RefAttributes (key+ref)
+                : Attributes) // Function components get Attributes (key only)
+            // Apply strict memoization rules to the managed props of T
+            // RequireMemoizedPropsStrict handles exempting Ref types internally when appropriate
+            & RequireMemoizedPropsStrict<ReactManagedAttributes<T, ComponentProps<T>>>
+            : C extends React.LazyExoticComponent<infer T_Lazy> // Handle Lazy
+            // If Lazy wraps Memo or another Lazy, recurse using LibraryManagedAttributes
+            ? T_Lazy extends React.MemoExoticComponent<any> | React.LazyExoticComponent<any>
+            ? LibraryManagedAttributes<T_Lazy, P> // Recursive call
+            : ReactManagedAttributes<T_Lazy, P> // Base Lazy case
+            : ReactManagedAttributes<C, P>; // Base case for non-Memo/Lazy components
 
-        interface IntrinsicAttributes extends React.Attributes {}
-        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
+        interface IntrinsicAttributes extends React.Attributes { }
+        interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
         interface IntrinsicElements {
             // HTML
