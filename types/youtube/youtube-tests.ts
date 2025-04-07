@@ -65,7 +65,7 @@ const players: YT.Player[] = [
             },
             onAutoplayBlocked(event: YT.PlayerEvent) {
                 const targetPlayer: YT.Player = event.target;
-            }
+            },
         },
     }),
 ];
