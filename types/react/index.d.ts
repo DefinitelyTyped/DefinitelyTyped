@@ -81,35 +81,6 @@ declare namespace React {
     /** Nominal type for dependency arrays requiring memoized non-primitive values. */
     type MemoizedDependencyList = readonly MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
 
-    /**
-     * Type helper to ensure that props passed to a memoized component are stable.
-     * Primitive types are allowed as-is.
-     * Functions, objects, and arrays must be explicitly marked as `Memoized<T>` (e.g., via `useCallback` or `useMemo`).
-     * Optional props follow the same rule: if present, they must be memoized if they are not primitive.
-     *
-     * @example
-     * Valid:   `{ primitive: 1, memoizedObj: useMemo(() => ({}), []), optionalPrim: undefined, optionalMemoized: undefined }`
-     * Invalid: `{ obj: {} }`, `{ fn: () => {} }`, `{ optionalObj: {} }`
-     */
-    type RequireMemoizedPropsStrict<P> = {
-        // Map over each prop K in the props type P
-        [K in keyof P]:
-        // Exclude undefined/null to get the base type for checking against Primitive/Memoized/Ref/ReactElement
-        Exclude<P[K], undefined | null> extends
-        (| Primitive
-        | Memoized<unknown>
-        | Ref<any>
-        | ReactElement
-        | ReactNode)
-        // If the base type is Primitive, Memoized, Ref, or ReactElement, the original prop type P[K] (including undefined) is allowed.
-        ? P[K]
-        // Otherwise, the prop is a non-primitive (that's not ReactElement) and needs memoization.
-        : P[K] extends Exclude<P[K], undefined | null>
-        // If P[K] was originally required (e.g., `obj: T`), it must now be `Memoized<T>`.
-        ? Memoized<P[K]>
-        // If P[K] was originally optional (e.g., `obj?: T` which is `T | undefined`), it must now be `Memoized<T> | undefined`.
-        : Memoized<Exclude<P[K], undefined | null>> | undefined;
-    };
     // --- End Memoization Helpers ---
 
     //
@@ -1572,11 +1543,9 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> =
-        & NamedExoticComponent<RequireMemoizedPropsStrict<ComponentProps<T>>>
-        & {
-            readonly type: T;
-        };
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<CustomComponentPropsWithRef<T>> & {
+        readonly type: T;
+    };
 
     /**
      * Lets you skip re-rendering a component when its props are unchanged.
@@ -1596,20 +1565,17 @@ declare namespace React {
      * });
      * ```
      */
+    function memo<P extends object>(
+        Component: FunctionComponent<P>,
+        propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean,
+    ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (
             prevProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
             nextProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
         ) => boolean,
-    ): MemoExoticComponent<T>;
-    function memo<T extends ComponentType<any>>(
-        Component: T,
-        propsAreEqual: (
-            prevProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
-            nextProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
-        ) => boolean,
-    ): NamedExoticComponent<ComponentPropsWithRef<T>>;
+    ): NamedExoticComponent<ReactManagedAttributes<T, ComponentPropsWithRef<T>>>;
 
     interface LazyExoticComponent<T extends ComponentType<any>>
         extends ExoticComponent<CustomComponentPropsWithRef<T>>
@@ -4057,7 +4023,7 @@ declare namespace React {
         type ElementType = string | React.JSXElementConstructor<any>;
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
-            render(): React.ReactNode; // If C is MemoExoticComponent<T>, it uses ReactManagedAttributes<T, P>
+            render(): React.ReactNode;
         }
         interface ElementAttributesProperty {
             props: {};
@@ -4066,25 +4032,14 @@ declare namespace React {
             children: {};
         }
 
+        // We can't recurse forever because `type` can't be self-referential;
+        // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
         type LibraryManagedAttributes<C, P> = C extends
-            React.MemoExoticComponent<infer T> // Check if C is Memo
-            ? T extends ForwardRefExoticComponent<infer RP> // Check if wrapped T is ForwardRef
-            // If T is forwardRef: Add RefAttributes (key+ref), apply strict props omitting ref
-            ? RefAttributes<ComponentRef<T>>
-            & RequireMemoizedPropsStrict<Omit<ReactManagedAttributes<T, RP>, "ref">>
-            // If T is NOT forwardRef:
-            : (T extends { new(...args: any): Component<any, any> } // Check if T is a Class Component
-                ? RefAttributes<ComponentRef<T>> // Class components get RefAttributes (key+ref)
-                : Attributes) // Function components get Attributes (key only)
-            // Apply strict memoization rules to the managed props of T
-            // RequireMemoizedPropsStrict handles exempting Ref types internally when appropriate
-            & RequireMemoizedPropsStrict<ReactManagedAttributes<T, ComponentProps<T>>>
-            : C extends React.LazyExoticComponent<infer T_Lazy> // Handle Lazy
-            // If Lazy wraps Memo or another Lazy, recurse using LibraryManagedAttributes
-            ? T_Lazy extends React.MemoExoticComponent<any> | React.LazyExoticComponent<any>
-            ? LibraryManagedAttributes<T_Lazy, P> // Recursive call
-            : ReactManagedAttributes<T_Lazy, P> // Base Lazy case
-            : ReactManagedAttributes<C, P>; // Base case for non-Memo/Lazy components
+            React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
+            ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
+                ? ReactManagedAttributes<U, P>
+            : ReactManagedAttributes<T, P>
+            : ReactManagedAttributes<C, P>;
 
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
