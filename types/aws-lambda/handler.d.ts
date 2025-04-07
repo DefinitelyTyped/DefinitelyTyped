@@ -218,7 +218,7 @@ declare global {
     namespace awslambda {
         class HttpResponseStream extends Writable {
             static from(
-                writable: HttpResponseStream,
+                writable: Writable,
                 metadata: Record<string, unknown>,
             ): HttpResponseStream;
             setContentType: (contentType: string) => void;
