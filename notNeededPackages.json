@@ -7923,6 +7923,10 @@
             "libraryName": "ziggy-js",
             "asOfVersion": "1.8.0"
         },
+        "zinggrid": {
+            "libraryName": "zinggrid",
+            "asOfVersion": "1.3.0"
+        },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",
             "asOfVersion": "0.12.0"
