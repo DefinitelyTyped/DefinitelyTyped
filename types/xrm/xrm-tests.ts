@@ -744,11 +744,14 @@ function GetAll(context: Xrm.FormContext) {
 
     const allControls: Xrm.Controls.Control[] = context.getControl();
     const allControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>();
+    const itemCollection: Xrm.Controls.Control[] = (context.getControl("mySection") as unknown as Xrm.Controls.Section)
+        .controls.get();
     const noControls: Xrm.Controls.Control[] = context.getControl(() => false);
     const noControlsTyped: Xrm.Controls.StringControl[] = context.getControl<Xrm.Controls.StringControl>(() => false);
     if (
         allControls === null
         || allControlsTyped === null
+        || itemCollection === null
         || noControls === null
         || noControlsTyped === null
     ) {

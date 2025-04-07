@@ -1881,7 +1881,7 @@ declare namespace Xrm {
              * @param delegate A matching delegate function
              * @returns A T[] whose members have been validated by delegate or a entire array of T[]
              */
-            get(delegate?: MatchingDelegate<T>): T[] | null;
+            get(delegate?: MatchingDelegate<T>): T[];
 
             /**
              * Gets the length of the collection.
