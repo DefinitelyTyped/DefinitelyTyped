@@ -30,6 +30,7 @@ appleReceiptVerify
                 originalPurchaseDate,
                 applicationVersion,
                 originalApplicationVersion,
+                originalTransactionId
             } = p
         
             console.log({
@@ -44,7 +45,8 @@ appleReceiptVerify
                 environment,
                 originalPurchaseDate,
                 applicationVersion,
-                originalApplicationVersion
+                originalApplicationVersion,
+                originalTransactionId
             })
         })}
      )
