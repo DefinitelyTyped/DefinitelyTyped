@@ -8943,7 +8943,7 @@ declare namespace chrome {
             default_popup?: string | undefined;
         }
 
-        // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
+        /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
         export type ManifestPermissions =
             | "accessibilityFeatures.modify"
             | "accessibilityFeatures.read"
@@ -9000,11 +9000,11 @@ declare namespace chrome {
             | "privacy"
             | "processes"
             | "proxy"
+            | "readingList"
             | "scripting"
             | "search"
             | "sessions"
             | "sidePanel"
-            | "signedInDevices"
             | "storage"
             | "system.cpu"
             | "system.display"
@@ -9026,6 +9026,23 @@ declare namespace chrome {
             | "webRequest"
             | "webRequestBlocking"
             | "webRequestAuthProvider";
+
+        /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
+        export type ManifestOptionalPermissions = Exclude<
+            ManifestPermissions,
+            | "debugger"
+            | "declarativeNetRequest"
+            | "devtools"
+            | "experimental"
+            | "fontSettings"
+            | "geolocation"
+            | "proxy"
+            | "tts"
+            | "ttsEngine"
+            | "unlimitedStorage"
+            | "wallpaper"
+            | "webAuthenticationProxy"
+        >;
 
         export interface SearchProvider {
             name?: string | undefined;
@@ -9246,8 +9263,8 @@ declare namespace chrome {
                 }
                 | undefined;
             content_security_policy?: string | undefined;
-            optional_permissions?: string[] | undefined;
-            permissions?: string[] | undefined;
+            optional_permissions?: ManifestOptionalPermissions[] | string[] | undefined;
+            permissions?: ManifestPermissions[] | string[] | undefined;
             web_accessible_resources?: string[] | undefined;
         }
 
@@ -9282,7 +9299,7 @@ declare namespace chrome {
                 sandbox?: string;
             };
             host_permissions?: string[] | undefined;
-            optional_permissions?: ManifestPermissions[] | undefined;
+            optional_permissions?: ManifestOptionalPermissions[] | undefined;
             optional_host_permissions?: string[] | undefined;
             permissions?: ManifestPermissions[] | undefined;
             web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
