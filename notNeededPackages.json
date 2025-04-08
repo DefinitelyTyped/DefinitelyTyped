@@ -192,6 +192,10 @@
             "libraryName": "aphrodite",
             "asOfVersion": "2.0.0"
         },
+        "apicalypse": {
+            "libraryName": "apicalypse",
+            "asOfVersion": "1.0.0"
+        },
         "apimatic__json-bigint": {
             "libraryName": "@apimatic/json-bigint",
             "asOfVersion": "1.1.0"
