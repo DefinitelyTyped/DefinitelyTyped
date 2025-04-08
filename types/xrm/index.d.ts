@@ -2880,7 +2880,7 @@ declare namespace Xrm {
              * @returns The attribute type.
              */
             getAttributeType(): "datetime";
-            
+
             /**
              * Gets the attribute format.
              *
@@ -3035,7 +3035,7 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface LookupAttribute extends Attribute<LookupValue[]> {
-            /** 
+            /**
              * Gets the attribute type.
              */
             getAttributeType(): "lookup";
