@@ -5775,6 +5775,10 @@
             "libraryName": "react-native-appsflyer",
             "asOfVersion": "5.1.2"
         },
+        "react-native-calendars": {
+            "libraryName": "react-native-calendars",
+            "asOfVersion": "1.1267.0"
+        },
         "react-native-collapsible": {
             "libraryName": "react-native-collapsible",
             "asOfVersion": "0.11.0"
