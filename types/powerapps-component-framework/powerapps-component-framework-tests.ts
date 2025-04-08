@@ -671,6 +671,7 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
     },
     typographyTokens: ComponentFramework.typographyStyles,
     isDarkTheme: false,
+    mountNodeSelector: "#__fluentPortalMountNode",
 };
 
 const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {

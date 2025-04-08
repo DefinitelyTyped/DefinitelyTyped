@@ -160,7 +160,7 @@ npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
 다른 풀 리퀘스트(Pull request)가 많을 경우 확인이 느려질 수 있다는 걸 알아주세요.
 
-[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
+[base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/a2ff1d2088143cbacc15786c7f3b0ec67179523c/types/base64-js) 패키지는 좋은 예시 중 하나입니다.
 
 #### 패키지 삭제하기
 

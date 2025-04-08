@@ -3,7 +3,8 @@ import type { BaseTCFUserDecision } from "./integration-interfaces";
 
 declare global {
     interface Window {
-        _ucCmp: Usercentrics;
+        _ucCmp?: Usercentrics;
+        __ucCmp: Usercentrics;
     }
 }
 

@@ -421,6 +421,12 @@ export interface Layout {
             xanchor: "auto" | "left" | "center" | "right";
             yanchor: "auto" | "top" | "middle" | "bottom";
             pad: Partial<Padding>;
+            subtitle:
+                | string
+                | Partial<{
+                    text: string;
+                    font: Partial<Font>;
+                }>;
         }>;
     titlefont: Partial<Font>;
     autosize: boolean;
@@ -1313,7 +1319,6 @@ export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
-// Bar Scatter
 export interface PlotData {
     type: PlotType;
     x: Datum[] | Datum[][] | TypedArray;
@@ -1539,6 +1544,7 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    maxdepth: number;
     uirevision: string | number;
     uid: string;
 }
@@ -2754,7 +2760,6 @@ interface TransformModule {
 interface ComponentModule {
     moduleType: "component";
     name: string;
-    [key: string]: unknown;
 }
 
 interface ApiMethodModule {

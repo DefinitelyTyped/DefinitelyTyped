@@ -527,11 +527,17 @@ async function testPromisify() {
     const writeStream = fs.createWriteStream("./index.d.ts", {
         fd: handle,
     });
+
+    writeStream.addListener("close", () => {});
+    writeStream.addListener("aCustomEvent", () => {});
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
     });
+
+    readStream.addListener("open", () => {});
+    readStream.addListener("aCustomEvent", () => {});
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
     (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
@@ -895,4 +901,15 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 (async () => {
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
+});
+
+(async () => {
+    const fd = await fs.promises.open("/tmp/tmp.txt", "r");
+    fd.writeFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.writeFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
 });

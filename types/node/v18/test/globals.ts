@@ -10,16 +10,6 @@
 
 declare var RANDOM_GLOBAL_VARIABLE: true;
 
-// global aliases for compatibility
-{
-    const x: NodeModule = {} as any;
-    const y: NodeModule = {} as any;
-    x.children.push(y);
-    x.parent = require.main!;
-    require.main = y;
-    x.path; // $ExpectType string
-}
-
 // exposed gc
 {
     if (gc) {
@@ -50,4 +40,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const x = new AbortController().signal;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
+}
+
+{
+    // @ts-expect-error The pseudoglobal `NodeJS` namespace should not be addressable outside ambient contexts
+    NodeJS;
 }

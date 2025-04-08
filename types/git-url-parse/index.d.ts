@@ -1,19 +1,7 @@
+import gitUp = require("git-up");
+
 declare namespace gitUrlParse {
-    interface GitUrl {
-        /** An array with the url protocols (usually it has one element). */
-        protocols: string[];
-        port: number | null;
-        /** The url domain (including subdomains). */
-        resource: string;
-        /** The authentication user (usually for ssh urls). */
-        user: string;
-        pathname: string;
-        hash: string;
-        search: string;
-        href: string;
-        protocol: string;
-        /** The oauth token (could appear in the https urls). */
-        token: string;
+    interface GitUrl extends gitUp.ParsedUrl {
         /** The Git provider (e.g. `"github.com"`). */
         source: string;
         /** The repository owner. */

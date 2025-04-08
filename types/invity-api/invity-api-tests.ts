@@ -11,12 +11,18 @@ import {
 
 const bt: BuyTrade = {
     paymentMethodName: "TestPay",
+    tags: ["noExternalAddress"],
 };
 
 const et: ExchangeTrade = {
     send: "bitcoin" as CryptoId,
     receive: "ethereum" as CryptoId,
     quoteId: "123",
+    signData: {
+        type: "eip712-typed-data",
+        data: {},
+    },
+    status: "SIGN_DATA",
 };
 
 const sft: SellFiatTrade = {

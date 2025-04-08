@@ -54,32 +54,6 @@ declare class Renderer<optionType = { linkify: boolean }> {
 }
 
 /**
- * An interface for class member in "Tag"
- */
-interface TagType {
-    /**
-     * Tag name, with type string
-     */
-    name: string;
-    /**
-     * The parent of a tag object, with type ReactNode
-     */
-    parent: ReactNode;
-    /**
-     * The inner text of a tag object, with type string
-     */
-    text: string;
-    /**
-     * A "params" object for inner processing
-     */
-    params: object;
-    /**
-     * The children of a tag object, with type ReactNode array
-     */
-    children: ReactNode[];
-}
-
-/**
  * A class designed for handling bbcode.
  * The Tag class mostly is extended into another customized class,
  * and seldom an instance would be needed for bbcode parsing.
@@ -93,27 +67,27 @@ declare class Tag<T = { linkify: boolean }> {
      * A "TagType" object (without children attribute)
      * for initializing the class member "params"
      */
-    constructor(renderer: Renderer<T>, settings?: Partial<Omit<TagType, "children">>);
+    constructor(renderer: Renderer<T>, settings?: Partial<Omit<bbcodeToReact.TagType, "children">>);
     /**
      * Tag name, with type string
      */
-    protected name: TagType["name"];
+    protected name: bbcodeToReact.TagType["name"];
     /**
      * The parent of a tag object, with type ReactNode
      */
-    protected parent: TagType["parent"];
+    protected parent: bbcodeToReact.TagType["parent"];
     /**
      * The inner text of a tag object, with type string
      */
-    protected text: TagType["text"];
+    protected text: bbcodeToReact.TagType["text"];
     /**
      * A "params" object for inner processing
      */
-    protected params: TagType["params"];
+    protected params: bbcodeToReact.TagType["params"];
     /**
      * The children of a tag object, with type ReactNode array
      */
-    protected children: TagType["children"];
+    protected children: bbcodeToReact.TagType["children"];
     /**
      * Getter method of the "children" member of the Tag instance
      * @returns A ReactNode array representing the "children" member of the Tag instance
@@ -186,10 +160,46 @@ declare class Parser<T = { linkify: boolean }> {
     toReact(input: string): ReactNode;
 }
 
+declare namespace bbcodeToReact {
+    /**
+     * An interface for class member in "Tag"
+     */
+    interface TagType {
+        /**
+         * Tag name, with type string
+         */
+        name: string;
+        /**
+         * The parent of a tag object, with type ReactNode
+         */
+        parent: ReactNode;
+        /**
+         * The inner text of a tag object, with type string
+         */
+        text: string;
+        /**
+         * A "params" object for inner processing
+         */
+        params: object;
+        /**
+         * The children of a tag object, with type ReactNode array
+         */
+        children: ReactNode[];
+    }
+
+    type Renderer<optionType = { linkify: boolean }> = InstanceType<typeof Renderer<optionType>>;
+
+    type Tag<T = { linkify: boolean }> = InstanceType<typeof Tag<T>>;
+
+    type Parser<optionType = { linkify: boolean }> = InstanceType<typeof Parser<optionType>>;
+}
+
 /**
  * A defualt parser instance to be exported in this library
  */
-declare const parser: Parser;
+declare const bbcodeToReact: Parser & {
+    Parser: typeof Parser;
+    Tag: typeof Tag;
+};
 
-export { Parser, Tag };
-export default parser;
+export = bbcodeToReact;

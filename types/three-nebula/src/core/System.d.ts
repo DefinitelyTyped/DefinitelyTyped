@@ -42,7 +42,7 @@ export default class System {
     /**
      * @description The renderers for the system.
      */
-    renderers: Array<THREE.Renderer | CustomRenderer | GPURenderer | MeshRenderer | SpriteRenderer>;
+    renderers: Array<THREE.WebGLRenderer | CustomRenderer | GPURenderer | MeshRenderer | SpriteRenderer>;
     /**
      * @description A pool used to manage the internal system cache of objects
      */
@@ -114,4 +114,4 @@ export default class System {
     destroy(): void;
 }
 
-export type RendererUnion = THREE.Renderer | GPURenderer | SpriteRenderer | CustomRenderer | MeshRenderer;
+export type RendererUnion = THREE.WebGLRenderer | GPURenderer | SpriteRenderer | CustomRenderer | MeshRenderer;

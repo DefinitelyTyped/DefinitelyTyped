@@ -248,10 +248,19 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     const foo: string = util.toUSVString("foo");
 }
 
-access("file/that/does/not/exist", (err) => {
-    const name = util.getSystemErrorName(err!.errno!);
-    console.error(name);
-});
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorName(err!.errno!);
+        console.error(name);
+    });
+}
+
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorMessage(err!.errno!);
+        console.error(name); // no such file or directory
+    });
+}
 
 {
     util.stripVTControlCharacters("\u001B[4mvalue\u001B[0m"); // $ExpectType string
@@ -437,19 +446,20 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    // $ExpectType StacktraceObject[]
-    util.getCallSite();
-    // $ExpectType StacktraceObject[]
-    util.getCallSite(100);
+    // $ExpectType CallSiteObject[]
+    util.getCallSites();
+    // $ExpectType CallSiteObject[]
+    util.getCallSites(100);
 
-    const callSites = util.getCallSite();
+    const callSites = util.getCallSites({ sourceMap: true });
 
     console.log("Call Sites:");
     callSites.forEach((callSite, index) => {
         console.log(`CallSite ${index + 1}:`);
         console.log(`Function Name: ${callSite.functionName}`);
         console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Script ID: ${callSite.scriptId}`);
         console.log(`Line Number: ${callSite.lineNumber}`);
-        console.log(`Column Number: ${callSite.column}`);
+        console.log(`Column Number: ${callSite.columnNumber}`);
     });
 }

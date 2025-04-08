@@ -108,16 +108,22 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
-    export interface StacktraceObject {
+    export interface CallSiteObject {
         /**
-         * Returns the name of the function associated with this stack frame.
+         * Returns the name of the function associated with this call site.
          */
         functionName: string;
         /**
          * Returns the name of the resource that contains the script for the
-         * function for this StackFrame.
+         * function for this call site.
          */
         scriptName: string;
+        /**
+         * Returns the unique id of the script, as in Chrome DevTools protocol
+         * [`Runtime.ScriptId`](https://chromedevtools.github.io/devtools-protocol/1-3/Runtime/#type-ScriptId).
+         * @since v22.14.0
+         */
+        scriptId: string;
         /**
          * Returns the number, 1-based, of the line for the associate function call.
          */
@@ -125,7 +131,7 @@ declare module "util" {
         /**
          * Returns the 1-based column offset on the line for the associated function call.
          */
-        column: number;
+        columnNumber: number;
     }
     /**
      * The `util.format()` method returns a formatted string using the first argument
@@ -185,15 +191,22 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    interface GetCallSitesOptions {
+        /**
+         * Reconstruct the original location in the stacktrace from the source-map.
+         * Enabled by default with the flag `--enable-source-maps`.
+         */
+        sourceMap?: boolean | undefined;
+    }
     /**
-     * Returns an array of stacktrace objects containing the stack of
+     * Returns an array of call site objects containing the stack of
      * the caller function.
      *
      * ```js
      * const util = require('node:util');
      *
      * function exampleFunction() {
-     *   const callSites = util.getCallSite();
+     *   const callSites = util.getCallSites();
      *
      *   console.log('Call Sites:');
      *   callSites.forEach((callSite, index) => {
@@ -225,12 +238,40 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
-     * @param frames Number of frames returned in the stacktrace.
+     *
+     * It is possible to reconstruct the original locations by setting the option `sourceMap` to `true`.
+     * If the source map is not available, the original location will be the same as the current location.
+     * When the `--enable-source-maps` flag is enabled, for example when using `--experimental-transform-types`,
+     * `sourceMap` will be true by default.
+     *
+     * ```ts
+     * import util from 'node:util';
+     *
+     * interface Foo {
+     *   foo: string;
+     * }
+     *
+     * const callSites = util.getCallSites({ sourceMap: true });
+     *
+     * // With sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 7
+     * // Column Number: 26
+     *
+     * // Without sourceMap:
+     * // Function Name: ''
+     * // Script Name: example.js
+     * // Line Number: 2
+     * // Column Number: 26
+     * ```
+     * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
-     * @return An array of stacktrace objects
+     * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSite(frames?: number): StacktraceObject[];
+    export function getCallSites(frameCount?: number, options?: GetCallSitesOptions): CallSiteObject[];
+    export function getCallSites(options: GetCallSitesOptions): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
@@ -260,6 +301,20 @@ declare module "util" {
      * @since v16.0.0, v14.17.0
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
+    /**
+     * Returns the string message for a numeric error code that comes from a Node.js
+     * API.
+     * The mapping between error codes and string messages is platform-dependent.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorMessage(err.errno);
+     *   console.error(name);  // no such file or directory
+     * });
+     * ```
+     * @since v22.12.0
+     */
+    export function getSystemErrorMessage(err: number): string;
     /**
      * The `util.log()` method prints the given `string` to `stdout` with an included
      * timestamp.
@@ -303,27 +358,36 @@ declare module "util" {
      */
     export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
     /**
-     * Listens to abort event on the provided `signal` and
-     * returns a promise that is fulfilled when the `signal` is
-     * aborted. If the passed `resource` is garbage collected before the `signal` is
-     * aborted, the returned promise shall remain pending indefinitely.
+     * Listens to abort event on the provided `signal` and returns a promise that resolves when the `signal` is aborted.
+     * If `resource` is provided, it weakly references the operation's associated object,
+     * so if `resource` is garbage collected before the `signal` aborts,
+     * then returned promise shall remain pending.
+     * This prevents memory leaks in long-running or non-cancelable operations.
      *
      * ```js
      * import { aborted } from 'node:util';
      *
+     * // Obtain an object with an abortable signal, like a custom resource or operation.
      * const dependent = obtainSomethingAbortable();
      *
+     * // Pass `dependent` as the resource, indicating the promise should only resolve
+     * // if `dependent` is still in memory when the signal is aborted.
      * aborted(dependent.signal, dependent).then(() => {
-     *   // Do something when dependent is aborted.
+     *   // This code runs when `dependent` is aborted.
+     *   console.log('Dependent resource was aborted.');
      * });
      *
+     * // Simulate an event that triggers the abort.
      * dependent.on('event', () => {
-     *   dependent.abort();
+     *   dependent.abort(); // This will cause the `aborted` promise to resolve.
      * });
      * ```
      * @since v19.7.0
      * @experimental
-     * @param resource Any non-null entity, reference to which is held weakly.
+     * @param resource Any non-null object tied to the abortable operation and held weakly.
+     * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
+     * allowing Node.js to stop tracking it.
+     * This helps prevent memory leaks in long-running or non-cancelable operations.
      */
     export function aborted(signal: AbortSignal, resource: any): Promise<void>;
     /**
@@ -1307,8 +1371,6 @@ declare module "util" {
         | "strikethrough"
         | "underline";
     /**
-     * Stability: 1.1 - Active development
-     *
      * This function returns a formatted text considering the `format` passed.
      *
      * ```js
@@ -1516,9 +1578,10 @@ declare module "util" {
          */
         short?: string | undefined;
         /**
-         * The default option value when it is not set by args.
-         * It must be of the same type as the the `type` property.
-         * When `multiple` is `true`, it must be an array.
+         * The default value to
+         * be used if (and only if) the option does not appear in the arguments to be
+         * parsed. It must be of the same type as the `type` property. When `multiple`
+         * is `true`, it must be an array.
          * @since v18.11.0
          */
         default?: string | boolean | string[] | boolean[] | undefined;
@@ -1917,6 +1980,18 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
+    /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
     /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *

@@ -316,16 +316,10 @@ declare module "@mapbox/mapbox-sdk/services/datasets" {
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/directions" {
     import * as GeoJSON from "geojson";
-    import { LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import {
-        Coordinates,
-        DirectionsApproach,
-        MapboxProfile,
-        MapiRequest,
-    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates, DirectionsApproach, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
@@ -1122,6 +1116,31 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * available and applicable to a given country or area.
          */
         context: Context;
+        /**
+         * Feature id. The mapbox_id uniquely identifies a place in the Mapbox search database.
+         * Mapbox ID's are accepted in requests to the Geocoding API as a forward search, and will
+         * return the feature corresponding to that id.
+         */
+        mapbox_id: string;
+        /**
+         * Formatted string of address_number and street.
+         */
+        name: string;
+        /**
+         * The canonical or otherwise more common alias for the feature name. For example,
+         * searching for "America" will return "America" as the name, and "United States" as
+         * name_preferred.
+         */
+        name_preferred?: string;
+        /**
+         * Formatted string of result context: place region country postcode. The part of the result
+         * which comes after name.
+         */
+        place_formatted?: string;
+        /**
+         * Full formatted string of the feature, combining name_preferred and place_formatted.
+         */
+        full_address?: string;
     }
 
     interface Coordinates {
@@ -1742,7 +1761,7 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Waypoint } from "@mapbox/mapbox-sdk/services/directions";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { DirectionsApproach, MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
@@ -2088,7 +2107,6 @@ declare module "@mapbox/mapbox-sdk/services/styles" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/tilequery" {
-    import * as mapboxgl from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import

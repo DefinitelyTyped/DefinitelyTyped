@@ -31,7 +31,10 @@ const trace2 = {
 const data = [trace1, trace2];
 const tickangle: "auto" = "auto";
 const layout = {
-    title: "Sales Growth",
+    title: {
+        text: "Sales Growth",
+        subtitle: "Annual sales growth between 1999 and 2002",
+    },
     xaxis: {
         title: "Year",
         showgrid: false,
@@ -482,6 +485,24 @@ const layout = {
             labels: ["Wages", "Operating expenses", "Cost of sales", "Insurance"],
             textinfo: "label+percent",
             insidetextorientation: "radial",
+        },
+    ];
+
+    const layout = {
+        height: 700,
+        width: 700,
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "treemap",
+            labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
+            parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
+            maxdepth: 1,
         },
     ];
 

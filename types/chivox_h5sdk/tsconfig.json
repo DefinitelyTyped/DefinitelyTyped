@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es6",
+            "esnext",
+            "dom"
+        ],
+        "module": "commonjs",
+        "types": [],
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "chivox-tests.ts"
+    ]
+}

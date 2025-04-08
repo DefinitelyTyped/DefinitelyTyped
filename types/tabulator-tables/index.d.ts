@@ -515,16 +515,6 @@ export interface OptionsRows {
     addRowPos?: "bottom" | "top" | undefined;
 
     /**
-     * The selectable option can take one of a several values:
-     * false - selectable rows are disabled
-     * true - selectable rows are enabled, and you can select as many as you want
-     * integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exceeded, the first selected row will be deselected to allow the next row to be selected).
-     * "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
-     * @deprecated Use selectableRows instead
-     */
-    selectable?: boolean | number | "highlight" | undefined;
-
-    /**
      * The selectableRows option can take one of a several values:
      *
      * - false - selectable rows are disabled
@@ -580,14 +570,6 @@ export interface OptionsRows {
     selectableRangeClearCellsValue?: unknown;
 
     /**
-     * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows to toggle the selected state state of all rows the cursor passes over.
-     *
-     * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can achieve this by setting the selectableRangeMode to click
-     * @deprecated Use selectableRowsRangeMode instead
-     */
-    selectableRangeMode?: "click" | undefined;
-
-    /**
      * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows
      * to toggle the selected state state of all rows the cursor passes over.
      *
@@ -600,11 +582,6 @@ export interface OptionsRows {
      * });
      */
     selectableRowsRangeMode?: "click";
-
-    /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false.
-     * @deprecated Use selectableRowsRollingSelection instead
-     */
-    selectableRollingSelection?: boolean | undefined;
 
     /**
      * By default, row selection works on a rolling basis, if you set the selectableRows option to a numeric value then
@@ -620,11 +597,6 @@ export interface OptionsRows {
      */
     selectableRowsRollingSelection?: boolean;
 
-    /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false.
-     * @deprecated Use selectableRowsPersistence instead
-     */
-    selectablePersistence?: boolean | undefined;
-
     /**
      * By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when
      * the setData function is used). If you want the selected rows to be cleared whenever the table view is updated
@@ -638,8 +610,8 @@ export interface OptionsRows {
      */
     selectableRowsPersistence?: boolean;
 
-    /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
-    selectableCheck?: ((row: RowComponent) => boolean) | undefined;
+    /** You many want to exclude certain rows from being selected. The selectableRowsCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
+    selectableRowsCheck?: ((row: RowComponent) => boolean) | undefined;
 
     /** To allow the user to move rows up and down the table, set the movableRows parameter in the options: */
     movableRows?: boolean | undefined;
@@ -3339,7 +3311,7 @@ declare class Tabulator {
      * ]
      * ```
      */
-    getRangeData: () => unknown[][];
+    getRangesData: () => unknown[][];
 
     setSheets: (data: SpreadsheetSheet[]) => void;
     addSheet: (data: SpreadsheetSheet) => void;

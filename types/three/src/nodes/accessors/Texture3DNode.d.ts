@@ -12,6 +12,6 @@ export default class Texture3DNode extends TextureNode {
 
 export const texture3D: (
     value: Texture,
-    uvNode?: NodeRepresentation,
-    levelNode?: NodeRepresentation,
+    uvNode?: NodeRepresentation | null,
+    levelNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<Texture3DNode>;

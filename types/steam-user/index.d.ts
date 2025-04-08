@@ -1442,6 +1442,13 @@ interface TwoFactorResponse {
     shared_secret: string;
     identity_secret: string;
     revocation_code: string;
+    uri: `otpauth://totp/Steam:${string}?secret=${string}&issuer=Steam`;
+    /** unix timestamp in seconds */
+    server_time: number;
+    account_name: string;
+    token_gid: string;
+    /** present when a phone number is linked to the account */
+    phone_number_hint?: string;
     [key: string]: any;
 }
 // #endregion "Response Interfaces"

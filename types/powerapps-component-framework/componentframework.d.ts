@@ -81,6 +81,11 @@ declare namespace ComponentFramework {
          * Determines whether the dark mode variant of the theme is active
          */
         isDarkTheme?: boolean;
+
+        /**
+         * Id of the DOM element provided by the component to mount the Fluent v9 theme
+         */
+        mountNodeSelector?: string;
     }
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

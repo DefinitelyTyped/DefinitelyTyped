@@ -147,6 +147,7 @@ declare module "node:test" {
         export {
             after,
             afterEach,
+            assert,
             before,
             beforeEach,
             describe,
@@ -564,6 +565,23 @@ declare module "node:test" {
         /**
          * An object containing assertion methods bound to the test context.
          * The top-level functions from the `node:assert` module are exposed here for the purpose of creating test plans.
+         *
+         * **Note:** Some of the functions from `node:assert` contain type assertions. If these are called via the
+         * TestContext `assert` object, then the context parameter in the test's function signature **must be explicitly typed**
+         * (ie. the parameter must have a type annotation), otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.deepStrictEqual(actual, expected);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.deepStrictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          * @since v22.2.0, v20.15.0
          */
         readonly assert: TestContextAssert;
@@ -737,143 +755,72 @@ declare module "node:test" {
          */
         test: typeof test;
         /**
+         * This method polls a `condition` function until that function either returns
+         * successfully or the operation times out.
+         * @since v22.14.0
+         * @param condition An assertion function that is invoked
+         * periodically until it completes successfully or the defined polling timeout
+         * elapses. Successful completion is defined as not throwing or rejecting. This
+         * function does not accept any arguments, and is allowed to return any value.
+         * @param options An optional configuration object for the polling operation.
+         * @returns Fulfilled with the value returned by `condition`.
+         */
+        waitFor<T>(condition: () => T, options?: TestContextWaitForOptions): Promise<Awaited<T>>;
+        /**
          * Each test provides its own MockTracker instance.
          */
         readonly mock: MockTracker;
     }
-    interface TestContextAssert {
+    interface TestContextAssert extends
+        Pick<
+            typeof import("assert"),
+            | "deepEqual"
+            | "deepStrictEqual"
+            | "doesNotMatch"
+            | "doesNotReject"
+            | "doesNotThrow"
+            | "equal"
+            | "fail"
+            | "ifError"
+            | "match"
+            | "notDeepEqual"
+            | "notDeepStrictEqual"
+            | "notEqual"
+            | "notStrictEqual"
+            | "ok"
+            | "partialDeepStrictEqual"
+            | "rejects"
+            | "strictEqual"
+            | "throws"
+        >
+    {
         /**
-         * Identical to the `deepEqual` function from the `node:assert` module, but bound to the test context.
-         */
-        deepEqual: typeof import("node:assert").deepEqual;
-        /**
-         * Identical to the `deepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         * This function serializes `value` and writes it to the file specified by `path`.
          *
-         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
-         * type annotation, otherwise an error will be raised by the TypeScript compiler:
-         * ```ts
-         * import { test, type TestContext } from 'node:test';
-         *
-         * // The test function's context parameter must have a type annotation.
-         * test('example', (t: TestContext) => {
-         *   t.assert.deepStrictEqual(actual, expected);
-         * });
-         *
-         * // Omitting the type annotation will result in a compilation error.
-         * test('example', t => {
-         *   t.assert.deepStrictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
-         * });
-         * ```
-         */
-        deepStrictEqual: typeof import("node:assert").deepStrictEqual;
-        /**
-         * Identical to the `doesNotMatch` function from the `node:assert` module, but bound to the test context.
-         */
-        doesNotMatch: typeof import("node:assert").doesNotMatch;
-        /**
-         * Identical to the `doesNotReject` function from the `node:assert` module, but bound to the test context.
-         */
-        doesNotReject: typeof import("node:assert").doesNotReject;
-        /**
-         * Identical to the `doesNotThrow` function from the `node:assert` module, but bound to the test context.
-         */
-        doesNotThrow: typeof import("node:assert").doesNotThrow;
-        /**
-         * Identical to the `equal` function from the `node:assert` module, but bound to the test context.
-         */
-        equal: typeof import("node:assert").equal;
-        /**
-         * Identical to the `fail` function from the `node:assert` module, but bound to the test context.
-         */
-        fail: typeof import("node:assert").fail;
-        /**
-         * Identical to the `ifError` function from the `node:assert` module, but bound to the test context.
-         *
-         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
-         * type annotation, otherwise an error will be raised by the TypeScript compiler:
-         * ```ts
-         * import { test, type TestContext } from 'node:test';
-         *
-         * // The test function's context parameter must have a type annotation.
-         * test('example', (t: TestContext) => {
-         *   t.assert.ifError(err);
-         * });
-         *
-         * // Omitting the type annotation will result in a compilation error.
-         * test('example', t => {
-         *   t.assert.ifError(err); // Error: 't' needs an explicit type annotation.
+         * ```js
+         * test('snapshot test with default serialization', (t) => {
+         *   t.assert.fileSnapshot({ value1: 1, value2: 2 }, './snapshots/snapshot.json');
          * });
          * ```
-         */
-        ifError: typeof import("node:assert").ifError;
-        /**
-         * Identical to the `match` function from the `node:assert` module, but bound to the test context.
-         */
-        match: typeof import("node:assert").match;
-        /**
-         * Identical to the `notDeepEqual` function from the `node:assert` module, but bound to the test context.
-         */
-        notDeepEqual: typeof import("node:assert").notDeepEqual;
-        /**
-         * Identical to the `notDeepStrictEqual` function from the `node:assert` module, but bound to the test context.
-         */
-        notDeepStrictEqual: typeof import("node:assert").notDeepStrictEqual;
-        /**
-         * Identical to the `notEqual` function from the `node:assert` module, but bound to the test context.
-         */
-        notEqual: typeof import("node:assert").notEqual;
-        /**
-         * Identical to the `notStrictEqual` function from the `node:assert` module, but bound to the test context.
-         */
-        notStrictEqual: typeof import("node:assert").notStrictEqual;
-        /**
-         * Identical to the `ok` function from the `node:assert` module, but bound to the test context.
          *
-         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
-         * type annotation, otherwise an error will be raised by the TypeScript compiler:
-         * ```ts
-         * import { test, type TestContext } from 'node:test';
+         * This function differs from `context.assert.snapshot()` in the following ways:
          *
-         * // The test function's context parameter must have a type annotation.
-         * test('example', (t: TestContext) => {
-         *   t.assert.ok(condition);
-         * });
+         * * The snapshot file path is explicitly provided by the user.
+         * * Each snapshot file is limited to a single snapshot value.
+         * * No additional escaping is performed by the test runner.
          *
-         * // Omitting the type annotation will result in a compilation error.
-         * test('example', t => {
-         *   t.assert.ok(condition)); // Error: 't' needs an explicit type annotation.
-         * });
-         * ```
+         * These differences allow snapshot files to better support features such as syntax
+         * highlighting.
+         * @since v22.14.0
+         * @param value A value to serialize to a string. If Node.js was started with
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * flag, the serialized value is written to
+         * `path`. Otherwise, the serialized value is compared to the contents of the
+         * existing snapshot file.
+         * @param path The file where the serialized `value` is written.
+         * @param options Optional configuration options.
          */
-        ok: typeof import("node:assert").ok;
-        /**
-         * Identical to the `rejects` function from the `node:assert` module, but bound to the test context.
-         */
-        rejects: typeof import("node:assert").rejects;
-        /**
-         * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
-         *
-         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
-         * type annotation, otherwise an error will be raised by the TypeScript compiler:
-         * ```ts
-         * import { test, type TestContext } from 'node:test';
-         *
-         * // The test function's context parameter must have a type annotation.
-         * test('example', (t: TestContext) => {
-         *   t.assert.strictEqual(actual, expected);
-         * });
-         *
-         * // Omitting the type annotation will result in a compilation error.
-         * test('example', t => {
-         *   t.assert.strictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
-         * });
-         * ```
-         */
-        strictEqual: typeof import("node:assert").strictEqual;
-        /**
-         * Identical to the `throws` function from the `node:assert` module, but bound to the test context.
-         */
-        throws: typeof import("node:assert").throws;
+        fileSnapshot(value: any, path: string, options?: AssertSnapshotOptions): void;
         /**
          * This function implements assertions for snapshot testing.
          * ```js
@@ -887,12 +834,18 @@ declare module "node:test" {
          *   });
          * });
          * ```
-         *
-         * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
          * @since v22.3.0
-         * @experimental
+         * @param value A value to serialize to a string. If Node.js was started with
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * flag, the serialized value is written to
+         * the snapshot file. Otherwise, the serialized value is compared to the
+         * corresponding value in the existing snapshot file.
          */
         snapshot(value: any, options?: AssertSnapshotOptions): void;
+        /**
+         * A custom assertion function registered with `assert.register()`.
+         */
+        [name: string]: (...args: any[]) => void;
     }
     interface AssertSnapshotOptions {
         /**
@@ -904,6 +857,20 @@ declare module "node:test" {
          * If no serializers are provided, the test runner's default serializers are used.
          */
         serializers?: ReadonlyArray<(value: any) => any> | undefined;
+    }
+    interface TestContextWaitForOptions {
+        /**
+         * The number of milliseconds to wait after an unsuccessful
+         * invocation of `condition` before trying again.
+         * @default 50
+         */
+        interval?: number | undefined;
+        /**
+         * The poll timeout in milliseconds. If `condition` has not
+         * succeeded by the time this elapses, an error occurs.
+         * @default 1000
+         */
+        timeout?: number | undefined;
     }
 
     /**
@@ -1691,9 +1658,25 @@ declare module "node:test" {
         [Symbol.dispose](): void;
     }
     /**
-     * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
+     * An object whose methods are used to configure available assertions on the
+     * `TestContext` objects in the current process. The methods from `node:assert`
+     * and snapshot testing functions are available by default.
+     *
+     * It is possible to apply the same configuration to all files by placing common
+     * configuration code in a module
+     * preloaded with `--require` or `--import`.
+     * @since v22.14.0
+     */
+    namespace assert {
+        /**
+         * Defines a new assertion function with the provided name and function. If an
+         * assertion already exists with the same name, it is overwritten.
+         * @since v22.14.0
+         */
+        function register(name: string, fn: (this: TestContext, ...args: any[]) => void): void;
+    }
+    /**
      * @since v22.3.0
-     * @experimental
      */
     namespace snapshot {
         /**
@@ -1723,6 +1706,7 @@ declare module "node:test" {
     export {
         after,
         afterEach,
+        assert,
         before,
         beforeEach,
         describe,

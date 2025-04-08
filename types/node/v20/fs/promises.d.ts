@@ -109,7 +109,7 @@ declare module "fs/promises" {
         appendFile(
             data: string | Uint8Array,
             options?:
-                | (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<void>;
@@ -395,7 +395,7 @@ declare module "fs/promises" {
         writeFile(
             data: string | Uint8Array,
             options?:
-                | (ObjectEncodingOptions & FlagAndOpenMode & Abortable & { flush?: boolean | undefined })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<void>;

@@ -1,6 +1,7 @@
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
-export default class StackNode extends Node {
+declare class StackNode extends Node {
     isStackNode: true;
     nodes: Node[];
     outputNode: Node | null;
@@ -25,3 +26,7 @@ export default class StackNode extends Node {
      */
     else(method: () => void): this;
 }
+
+export default StackNode;
+
+export const stack: () => ShaderNodeObject<StackNode>;

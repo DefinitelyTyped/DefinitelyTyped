@@ -145,9 +145,10 @@ export class InstancedMesh<
     getMorphAt(index: number, mesh: Mesh): void;
 
     /**
-     * Sets the given local transformation matrix to the defined instance.
-     * @remarks
-     * Make sure you set {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` after updating all the matrices.
+     * Sets the given local transformation matrix to the defined instance. Make sure you set
+     * {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` after updating all
+     * the matrices.
+     * Negatively scaled matrices are not supported.
      * @param index The index of an instance. Values have to be in the range `[0, count]`. Expects a `Integer`
      * @param matrix A 4x4 matrix representing the local transformation of a single instance.
      */

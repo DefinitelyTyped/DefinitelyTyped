@@ -7,7 +7,7 @@
         "http://material-ui.com"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/react-addons-linked-state-mixin": "*"
     },
     "devDependencies": {

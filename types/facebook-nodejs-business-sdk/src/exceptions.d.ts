@@ -13,5 +13,20 @@ export declare class FacebookRequestError extends FacebookError {
      * @param  {Object}   data
      */
     constructor(response: any, method: any, url: any, data: any);
+
+    name: string;
+    message: string;
+    stack: string;
+    status: number;
+    response: {
+        message: string;
+        type: string;
+        code: number;
+        fbtrace_id: string;
+    }
+    headers: { [key: string]: string };
+    method: string;
+    url: string;
+    data: { data: object[], id: string };
 }
-export {};
+export { };

@@ -1332,6 +1332,12 @@ export class EnvelopesApi {
         callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Envelope>;
 
+    getEnvelopeDocGenFormFields(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DocGenFormFieldResponse>;
+
     getEnvelopeDocumentHtmlDefinitions(
         accountId: string,
         envelopeId: string,
@@ -17754,6 +17760,53 @@ export interface DocumentFieldsInformation {
     documentFields?:
         | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
         | undefined;
+}
+
+export interface DocGenFormFieldOption {
+    description?: string | undefined;
+    label?: string | undefined;
+    selected?: string | undefined;
+    value?: string | undefined;
+}
+
+export interface DocGenFormFieldRowValue {
+    docGenFormFieldList?: DocGenFormField[] | undefined;
+}
+
+export interface DocGenFormFieldValidation {
+    errorMessage?: string | undefined;
+    expression?: string | undefined;
+}
+
+export interface DocGenSytaxError {
+    errorCode?: string | undefined;
+    message?: string | undefined;
+    tagIdentifier?: string | undefined;
+}
+
+export interface DocGenFormField {
+    description?: string | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    options?: DocGenFormFieldOption[] | undefined;
+    predefinedValidation?: string | undefined;
+    required?: string | undefined;
+    rowValues?: DocGenFormFieldRowValue[] | undefined;
+    type?: string | undefined;
+    validation?: DocGenFormFieldValidation[] | undefined;
+    value?: string | undefined;
+}
+
+export interface DocGenFormFields {
+    docGenDocumentStatus?: string | undefined;
+    docGenErrors?: DocGenSytaxError[] | undefined;
+    docGenFormFieldList?: DocGenFormField[] | undefined;
+    documentId?: string | undefined;
+}
+
+export interface DocGenFormFieldResponse {
+    docGenFormFields?: DocGenFormFields[] | undefined;
+    errorDetails?: ErrorDetails | undefined;
 }
 
 export interface DocumentHtmlCollapsibleDisplaySettings {

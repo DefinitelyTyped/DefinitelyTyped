@@ -4,6 +4,8 @@ declare namespace OneLine {
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
         preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
         requestVideoPlayerAds(onBiddingComplete: () => void): void;
+        showCmp(): void;
+        loadScript(src: string, priority: "async" | "defer" | "instant" | "async"): void;
         buildVideoUrl(
             bidder: BidderConfig[],
             placementID: string,
@@ -72,6 +74,5 @@ declare namespace OneLine {
     type NoParamFunction = () => void;
     type ParamFunction = (arg: any) => void;
 }
-
 declare const OneLine: OneLine.OneLine;
 export = OneLine;

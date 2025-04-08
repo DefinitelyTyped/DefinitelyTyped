@@ -1,6 +1,6 @@
 import { MagnificationTextureFilter, MinificationTextureFilter } from "../constants.js";
+import { Texture3DImageData } from "./Data3DTexture.js";
 import { Texture } from "./Texture.js";
-import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates an array of textures directly from raw data, width and height and depth

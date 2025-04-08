@@ -1,5 +1,5 @@
-import { Data3DTexture } from "three";
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, Texture3DNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Data3DTexture, Node, TempNode, Texture3DNode, UniformNode } from "three/webgpu";
 
 declare class Lut3DNode extends TempNode {
     inputNode: Node;

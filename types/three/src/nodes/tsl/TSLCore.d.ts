@@ -1,7 +1,10 @@
+import { Color, ColorRepresentation } from "../../math/Color.js";
+import { Vector3 } from "../../math/Vector3.js";
 import ConstNode from "../core/ConstNode.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import StackNode from "../core/StackNode.js";
+import ConvertNode from "../utils/ConvertNode.js";
 
 export interface NodeElements {
     toGlobal: (node: Node) => Node;
@@ -35,20 +38,37 @@ export interface NodeElements {
 
 export function addMethodChaining(name: string, nodeElement: unknown): void;
 
-export type SwizzleCharacter = "x" | "y" | "z" | "w" | "r" | "g" | "b" | "a" | "s" | "t" | "p" | "q";
+type XYZWCharacter = "x" | "y" | "z" | "w";
+type RGBACharacter = "r" | "g" | "b" | "a";
+type STPQCharacter = "s" | "t" | "p" | "q";
 
-export type SwizzleOption = Exclude<
-    | `${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`,
-    "abs" | "sqrt"
->;
+type XYZWSwizzle =
+    | `${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}`;
+
+type RGBASwizzle =
+    | `${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}${RGBACharacter}${RGBACharacter}`;
+
+type STPQSwizzle =
+    | `${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}${STPQCharacter}${STPQCharacter}`;
+
+export type SwizzleOption = XYZWSwizzle | RGBASwizzle | STPQSwizzle;
 
 export type Swizzable<T extends Node = Node> =
     & T
     & {
         [Key in SwizzleOption | number]: ShaderNodeObject<Node>;
+    }
+    & {
+        [Key in SwizzleOption as `set${Uppercase<Key>}`]: (value: Node) => ShaderNodeObject<Node>;
     }
     & {
         [Key in SwizzleOption as `flip${Uppercase<Key>}`]: () => ShaderNodeObject<Node>;
@@ -70,7 +90,7 @@ export type ShaderNodeObject<T extends Node> =
     & Swizzable<T>;
 
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
-export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | ShaderNodeObject<T>;
+export type NodeRepresentation<T extends Node = Node> = number | boolean | Vector3 | Node | ShaderNodeObject<T>;
 
 /** anything that can be passed to {@link nodeObject} */
 export type NodeObjectOption = NodeRepresentation | string;
@@ -172,6 +192,13 @@ type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends 
 
 export type NodeOrType = Node | string;
 
+declare class ShaderCallNodeInternal extends Node {
+}
+
+declare class ShaderNodeInternal extends Node {}
+
+export const defined: (v: unknown) => unknown;
+
 export const getConstNodeType: (value: NodeOrType) => string | null;
 
 export class ShaderNode<T = {}, R extends Node = Node> {
@@ -207,13 +234,30 @@ export function nodeImmutable<T>(
     ...params: ProxiedTuple<GetConstructors<T>>
 ): ShaderNodeObject<ConstructedNode<T>>;
 
-export function Fn<R extends Node = ShaderNodeObject<Node>>(jsFunc: () => R): () => R;
-export function Fn<T extends any[], R extends Node = ShaderNodeObject<Node>>(
-    jsFunc: (args: T) => R,
-): (...args: ProxiedTuple<T>) => R;
-export function Fn<T extends { [key: string]: unknown }, R extends Node = ShaderNodeObject<Node>>(
-    jsFunc: (args: T) => R,
-): (args: ProxiedObject<T>) => R;
+interface Layout {
+    name: string;
+    type: string;
+    inputs: {
+        name: string;
+        type: string;
+        qualifier?: "in" | "out" | "inout";
+    }[];
+}
+
+interface ShaderNodeFn<Args extends readonly unknown[]> {
+    (...args: Args): ShaderNodeObject<ShaderCallNodeInternal>;
+    shaderNode: ShaderNodeObject<ShaderNodeInternal>;
+    setLayout: (layout: Layout) => this;
+    once: () => this;
+}
+
+export function Fn(jsFunc: () => void): ShaderNodeFn<[]>;
+export function Fn<T extends readonly unknown[]>(
+    jsFunc: (args: T) => void,
+): ShaderNodeFn<ProxiedTuple<T>>;
+export function Fn<T extends { readonly [key: string]: unknown }>(
+    jsFunc: (args: T) => void,
+): ShaderNodeFn<[ProxiedObject<T>]>;
 
 /**
  * @deprecated tslFn() has been renamed to Fn()
@@ -240,7 +284,13 @@ export const If: (boolNode: Node, method: () => void) => StackNode;
 
 export function append(node: Node): Node;
 
-export const color: ConvertType;
+interface ColorFunction {
+    (color?: ColorRepresentation): ShaderNodeObject<ConstNode<Color>>;
+    (r: number, g: number, b: number): ShaderNodeObject<ConstNode<Color>>;
+    (node: Node): ShaderNodeObject<ConvertNode>;
+}
+
+export const color: ColorFunction;
 
 export const float: ConvertType;
 export const int: ConvertType;
@@ -271,3 +321,4 @@ export const arrayBuffer: (value: ArrayBuffer) => ShaderNodeObject<ConstNode<Arr
 
 export const element: (node: NodeRepresentation, indexNode: NodeRepresentation) => ShaderNodeObject<Node>;
 export const convert: (node: NodeRepresentation, types: string) => ShaderNodeObject<Node>;
+export const split: (node: NodeRepresentation, channels?: string) => ShaderNodeObject<Node>;

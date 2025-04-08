@@ -97,12 +97,16 @@ type GetRouteParameter<S extends string> = RemoveTail<
 >;
 
 // prettier-ignore
-export type RouteParameters<Route extends string> = string extends Route ? ParamsDictionary
+export type RouteParameters<Route extends string> = Route extends `${infer Required}{${infer Optional}}${infer Next}`
+    ? ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next>
+    : ParseRouteParameters<Route>;
+
+type ParseRouteParameters<Route extends string> = string extends Route ? ParamsDictionary
     : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string }
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when Express 5 is promoted to "latest"
                     : { [P in GetRouteParameter<Rest>]: string }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
@@ -340,7 +344,7 @@ export interface CookieOptions {
     maxAge?: number | undefined;
     /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
-    /** Expiry date of the cookie in GMT. If not specified or set to 0, creates a session cookie. */
+    /** Expiry date of the cookie in GMT. If not specified (undefined), creates a session cookie. */
     expires?: Date | undefined;
     /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;
@@ -1183,14 +1187,14 @@ export interface Application<
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
-    listen(port: number, hostname: string, callback?: () => void): http.Server;
-    listen(port: number, callback?: () => void): http.Server;
-    listen(callback?: () => void): http.Server;
-    listen(path: string, callback?: () => void): http.Server;
-    listen(handle: any, listeningListener?: () => void): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, callback?: (error?: Error) => void): http.Server;
+    listen(callback?: (error?: Error) => void): http.Server;
+    listen(path: string, callback?: (error?: Error) => void): http.Server;
+    listen(handle: any, listeningListener?: (error?: Error) => void): http.Server;
 
-    router: string;
+    router: Router;
 
     settings: any;
 

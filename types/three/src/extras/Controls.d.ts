@@ -32,7 +32,7 @@ declare abstract class Controls<TEventMap extends {}> extends EventDispatcher<TE
      * Connects the controls to the DOM. This method has so called "side effects" since it adds the module's event
      * listeners to the DOM.
      */
-    connect(): void;
+    connect(element: HTMLElement): void;
 
     /**
      * Disconnects the controls from the DOM.

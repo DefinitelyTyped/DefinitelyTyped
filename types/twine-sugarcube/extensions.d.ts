@@ -683,6 +683,13 @@ declare global {
          * $('#the-box').wiki('Who //are// you?'); // Appends "Who <em>are</em> you?" to the target element
          */
         wiki(...sources: string[]): this;
+
+        /**
+         * Wikifies the passage by the given name and appends the result to the target element(s). Returns a reference to the current jQuery object for chaining.
+         * @param name The name of the passage.
+         * @since SugarCube 2.37.0
+         */
+        wikiPassage(name: string): void;
     }
 
     interface JQueryStatic {

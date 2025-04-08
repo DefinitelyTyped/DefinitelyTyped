@@ -446,6 +446,7 @@ interface XRSession extends EventTarget {
     readonly supportedFrameRates?: Float32Array | undefined;
     readonly enabledFeatures?: string[] | undefined;
     readonly isSystemKeyboardSupported: boolean;
+    readonly interactionMode?: XRInteractionMode | undefined;
 
     /**
      * Removes a callback from the animation frame painting callback from
@@ -1242,6 +1243,7 @@ interface XRWebGLBinding {
     getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
 }
 
+type XRInteractionMode = "screen-space" | "world-space";
 /**
  * END: WebXR Depth Sensing Module
  * https://www.w3.org/TR/webxr-depth-sensing-1/

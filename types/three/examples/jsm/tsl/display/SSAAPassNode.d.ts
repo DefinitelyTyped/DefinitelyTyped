@@ -1,5 +1,5 @@
-import { Camera, Color, RenderTarget, Scene } from "three";
-import { PassNode, ShaderNodeObject, UniformNode } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Camera, Color, PassNode, RenderTarget, Scene, UniformNode } from "three/webgpu";
 
 declare class SSAAPassNode extends PassNode {
     readonly isSSAAPassNode: boolean;

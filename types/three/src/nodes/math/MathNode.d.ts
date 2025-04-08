@@ -37,10 +37,8 @@ export type MathNodeMethod1 =
     | typeof MathNode.TRANSPOSE;
 
 export type MathNodeMethod2 =
-    | typeof MathNode.ATAN2
     | typeof MathNode.MIN
     | typeof MathNode.MAX
-    | typeof MathNode.MOD
     | typeof MathNode.STEP
     | typeof MathNode.REFLECT
     | typeof MathNode.DISTANCE
@@ -99,10 +97,8 @@ export default class MathNode extends TempNode {
 
     // 2 inputs
 
-    static ATAN2: "atan2";
     static MIN: "min";
     static MAX: "max";
-    static MOD: "mod";
     static STEP: "step";
     static REFLECT: "reflect";
     static DISTANCE: "distance";
@@ -124,6 +120,8 @@ export default class MathNode extends TempNode {
     bNode: Node | null;
     cNode: Node | null;
 
+    readonly isMathNode: true;
+
     constructor(method: MathNodeMethod1, aNode: Node);
     constructor(method: MathNodeMethod2, aNode: Node, bNode: Node);
     constructor(method: MathNodeMethod3, aNode: Node, bNode: Node, cNode: Node);
@@ -138,6 +136,10 @@ type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
 export const all: Unary;
 export const any: Unary;
+
+/**
+ * @deprecated "equals" is deprecated. Use "equal" inside a vector instead, like: "bvec*( equal( ... ) )"
+ */
 export const equals: Unary;
 
 export const radians: Unary;
@@ -157,7 +159,7 @@ export const cos: Unary;
 export const tan: Unary;
 export const asin: Unary;
 export const acos: Unary;
-export const atan: Unary;
+export const atan: (a: NodeRepresentation, b?: NodeRepresentation) => ShaderNodeObject<MathNode>;
 export const abs: Unary;
 export const sign: Unary;
 export const length: Unary;
@@ -169,15 +171,21 @@ export const round: Unary;
 export const reciprocal: Unary;
 export const trunc: Unary;
 export const fwidth: Unary;
-export const bitcast: Unary;
 export const transpose: Unary;
 
 type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
-export const atan2: Binary;
-export const min: Binary;
-export const max: Binary;
-export const mod: Binary;
+export const bitcast: Binary;
+export const min: (
+    x: NodeRepresentation,
+    y: NodeRepresentation,
+    ...values: NodeRepresentation[]
+) => ShaderNodeObject<MathNode>;
+export const max: (
+    x: NodeRepresentation,
+    y: NodeRepresentation,
+    ...values: NodeRepresentation[]
+) => ShaderNodeObject<MathNode>;
 export const step: Binary;
 export const reflect: Binary;
 export const distance: Binary;
@@ -185,15 +193,15 @@ export const difference: Binary;
 export const dot: Binary;
 export const cross: Binary;
 export const pow: Binary;
-export const pow2: Binary;
-export const pow3: Binary;
-export const pow4: Binary;
+export const pow2: Unary;
+export const pow3: Unary;
+export const pow4: Unary;
 export const transformDirection: Binary;
+export const cbrt: Unary;
+export const lengthSq: Unary;
 
 type Ternary = (a: NodeRepresentation, b: NodeRepresentation, c: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
-export const cbrt: Unary;
-export const lengthSq: Unary;
 export const mix: Ternary;
 export const clamp: (
     a: NodeRepresentation,
@@ -209,6 +217,18 @@ export const rand: (uv: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
 
 export const mixElement: Ternary;
 export const smoothstepElement: Ternary;
+
+/**
+ * @deprecated
+ */
+export const atan2: Binary;
+
+// GLSL alias function
+
+export const faceforward: typeof faceForward;
+export const inversesqrt: typeof inverseSqrt;
+
+// Method chaining
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
@@ -248,7 +268,6 @@ declare module "../tsl/TSLCore.js" {
         atan2: typeof atan2;
         min: typeof min;
         max: typeof max;
-        mod: typeof mod;
         step: typeof step;
         reflect: typeof reflect;
         distance: typeof distance;

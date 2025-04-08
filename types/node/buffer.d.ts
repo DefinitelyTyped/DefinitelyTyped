@@ -114,11 +114,6 @@ declare module "buffer" {
      * @param toEnc To target encoding.
      */
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
-    export const SlowBuffer: {
-        /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
-        new(size: number): Buffer;
-        prototype: Buffer;
-    };
     /**
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
@@ -237,7 +232,10 @@ declare module "buffer" {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-
+    export type WithImplicitCoercion<T> =
+        | T
+        | { valueOf(): T }
+        | (T extends string ? { [Symbol.toPrimitive](hint: "string"): T } : never);
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -256,11 +254,6 @@ declare module "buffer" {
             | "latin1"
             | "binary"
             | "hex";
-        type WithImplicitCoercion<T> =
-            | T
-            | {
-                valueOf(): T;
-            };
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.

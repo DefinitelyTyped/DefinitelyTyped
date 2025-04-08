@@ -1,5 +1,5 @@
-import { Vector2 } from "three";
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, Vector2 } from "three/webgpu";
 
 export default class AnamorphicNode extends TempNode {
     textureNode: Node;
