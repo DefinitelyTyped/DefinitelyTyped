@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/p2party",
+    "version": "0.6.9999",
+    "projects": [
+        "https://p2party.com"
+    ],
+    "devDependencies": {
+        "@types/p2party": "workspace:.",
+        "@reduxjs/toolkit": "^2.6.1"
+    },
+    "owners": [
+        {
+            "name": "Dimitris Karoukis",
+            "githubUsername": "fuzzc0re"
+        }
+    ]
+}
