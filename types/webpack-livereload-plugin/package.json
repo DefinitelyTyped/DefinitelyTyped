@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/webpack-livereload-plugin",
-    "version": "2.3.9999",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/statianzo/webpack-livereload-plugin#readme"
     ],
     "dependencies": {
-        "@types/webpack": "^4"
+        "webpack": "^5"
     },
     "devDependencies": {
         "@types/webpack-livereload-plugin": "workspace:."
