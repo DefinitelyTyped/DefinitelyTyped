@@ -5,9 +5,9 @@ import { Repository } from "./repository";
 export namespace Reference {
     const enum TYPE {
         INVALID = 0,
-        OID = 1,
+        DIRECT = 1,
         SYMBOLIC = 2,
-        LISTALL = 3,
+        ALL = 3,
     }
 
     const enum NORMALIZE {
