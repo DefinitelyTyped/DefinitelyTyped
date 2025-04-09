@@ -2754,6 +2754,11 @@ declare namespace Xrm {
          */
         interface NumberAttribute extends Attribute<number> {
             /**
+             * Get the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "integer" | "decimal" | "double" | "money";
+            /**
              * Gets the attribute format.
              * @returns The format of the attribute.
              * Values returned are: duration, none
@@ -2797,6 +2802,11 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface StringAttribute extends Attribute<string> {
+            /**
+             * Get the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "string";
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2847,16 +2857,16 @@ declare namespace Xrm {
          */
         interface BooleanAttribute extends EnumAttribute<boolean> {
             /**
-             * A collection of all the controls on the form that interface with this attribute.
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
-             */
-            controls: Collection.ItemCollection<Controls.BooleanControl>;
-
-            /**
              * Gets the attribute format.
              * @returns the string "boolean"
              */
             getAttributeType(): "boolean";
+
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
+             */
+            controls: Collection.ItemCollection<Controls.BooleanControl>;
         }
 
         /**
@@ -2865,6 +2875,12 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface DateAttribute extends Attribute<Date> {
+            /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "datetime";
+
             /**
              * Gets the attribute format.
              *
@@ -2885,6 +2901,12 @@ declare namespace Xrm {
          * @see {@link EnumAttribute}
          */
         interface OptionSetAttribute<T extends number = number> extends EnumAttribute<T> {
+            /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "optionset";
+
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -2947,6 +2969,11 @@ declare namespace Xrm {
          */
         interface MultiSelectOptionSetAttribute<T extends number = number> extends EnumAttribute<T[]> {
             /**
+             * Gets the attribute type.
+             * @returns The attribute type.
+             */
+            getAttributeType(): "multiselectoptionset";
+            /**
              * Gets the attribute format.
              * @returns The format of the attribute.
              * Values returned are: language, timezone
@@ -3008,6 +3035,11 @@ declare namespace Xrm {
          * @see {@link Attribute}
          */
         interface LookupAttribute extends Attribute<LookupValue[]> {
+            /**
+             * Gets the attribute type.
+             */
+            getAttributeType(): "lookup";
+
             /**
              * Gets a boolean value indicating whether the Lookup is a multi-value PartyList.
              * @returns true the attribute is a PartyList, otherwise false.
@@ -3275,7 +3307,7 @@ declare namespace Xrm {
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
              */
-            getControlType(): ControlType | string;
+            getControlType(): ControlType | `${string}.${string}`;
 
             /**
              * Gets the name of the control on the form.

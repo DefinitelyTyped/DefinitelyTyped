@@ -224,8 +224,8 @@ if (attribute !== null) {
     attribute.setSubmitMode(submitModeString); // Works if the string is a const
     attribute.setRequiredLevel(requirementLevel);
     attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
-
-    const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
+    // @ts-expect-error
+    const isMultiSelectAttribute = attribute.getAttributeType() === "multiselectoptionset"; // This will return false because the attribute is a LookupAttribute
 }
 /// Demonstrate v8.2 quick form controls
 
@@ -757,4 +757,15 @@ function GetAll(context: Xrm.FormContext) {
     ) {
         throw new Error("Will return an empty array if no controls are present.");
     }
+}
+
+function testAttributeType(formContext: Xrm.FormContext) {
+    const attribute = formContext.getAttribute<Xrm.Attributes.StringAttribute>("myattribute");
+    if (attribute === null) {
+        return;
+    }
+    const attributeType = attribute.getAttributeType();
+    // @ts-expect-error
+    const isNumberAttribute = attributeType === "number"; // This errors because the attribute is a StringAttribute, not a NumberAttribute
+    const isStringAttribute = attributeType === "string"; // This works because the attribute is a StringAttribute
 }
