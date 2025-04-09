@@ -1787,7 +1787,9 @@ const testData = [
 ];
 
 const headerMenuFunc = function(_e, component: ColumnComponent) {
-    return ["Item"];
+    return [{
+        label: "Test",
+    }];
 }
 
 table = new Tabulator("#test-selectableRowsCheck", {
