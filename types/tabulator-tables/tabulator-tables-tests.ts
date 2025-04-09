@@ -1782,10 +1782,6 @@ table.selectRow([1, 2, 3]);
 const selectedRows = table.getSelectedRows();
 console.log("Number of selected rows:", selectedRows.length); // Should be 2 (only rows with age >= 18)
 
-testData = [
-    { id: 1, name: "Test1" },
-];
-
 const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
     return [{
         label: "Test",
@@ -1793,11 +1789,6 @@ const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
 }
 
 table = new Tabulator("#test-selectableRowsCheck", {
-    data: testData,
-    selectableRows: true,
-    selectableRowsCheck: (row: RowComponent): boolean => {
-        return row.getData().age >= 18;
-    },
     columns: [
         { title: "ID", field: "id" },
         { title: "Name", field: "name", headerMenu: headerMenuFunc },
