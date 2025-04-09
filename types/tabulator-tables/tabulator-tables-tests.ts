@@ -1786,7 +1786,7 @@ const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
     return [{
         label: "Test",
     }];
-}
+};
 
 table = new Tabulator("#test-selectableRowsCheck", {
     columns: [
