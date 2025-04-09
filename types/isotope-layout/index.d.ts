@@ -278,19 +278,19 @@ interface Isotope {
      * @param event string
      * @param listener Function
      */
-    on(event: Isotope.Events, listener: () => void): void
+    on(event: Isotope.Events, listener: () => void): void;
     /**
      * Un-bind event listener
      * @param event string
      * @param listener Function
      */
-    off(event: Isotope.Events, listener: () => void): void
+    off(event: Isotope.Events, listener: () => void): void;
     /**
      * Bind event listener to be triggered just once
      * @param event string
      * @param listener Function
      */
-    once(event: Isotope.Events, listener: () => void): void
+    once(event: Isotope.Events, listener: () => void): void;
 }
 
 declare const Isotope: {
