@@ -2604,7 +2604,7 @@ declare namespace Xrm {
             | IntegerAttributeFormat
             | OptionSetAttributeFormat
             | StringAttributeFormat;
-        type AttributeValues = string | number | number[] | boolean | Date | LookupValue[] | OptionSetValue | null;
+        type AttributeValues = string | number | number[] | boolean | Date | LookupValue[] | OptionSetValue;
         type SpecificAttributes =
             | StringAttribute
             | NumberAttribute

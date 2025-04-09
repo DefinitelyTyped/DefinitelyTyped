@@ -776,5 +776,4 @@ function testAttributeType(formContext: Xrm.FormContext) {
     // @ts-expect-error
     const isNumberAttribute = attributeType === "number"; // This errors because the attribute is a StringAttribute, not a NumberAttribute
     const isStringAttribute = attributeType === "string"; // This works because the attribute is a StringAttribute
-
 }
