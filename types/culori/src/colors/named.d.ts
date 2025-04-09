@@ -1,4 +1,4 @@
-declare const named: {
+declare const colorsNamed: {
     aliceblue: 0xf0f8ff;
     antiquewhite: 0xfaebd7;
     aqua: 0x00ffff;
@@ -153,4 +153,4 @@ declare const named: {
     yellowgreen: 0x9acd32;
 };
 
-export default named;
+export default colorsNamed;

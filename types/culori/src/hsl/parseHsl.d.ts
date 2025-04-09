@@ -1,3 +1,5 @@
-import { Hsl } from "./types";
+import { Hsl } from "./types.js";
 
-export default function parseHsl(color: string): Hsl;
+declare function parseHsl(color: string): Hsl | undefined;
+
+export default parseHsl;

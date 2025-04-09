@@ -1,5 +1,5 @@
-import { Rgb } from "../rgb/types";
-import { Jab } from "./types";
+import { Rgb } from "../rgb/types.js";
+import { Jab } from "./types.js";
 
 declare function convertRgbToJab(color: Omit<Rgb, "mode">): Jab;
 
