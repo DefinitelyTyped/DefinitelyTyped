@@ -758,3 +758,11 @@ function GetAll(context: Xrm.FormContext) {
         throw new Error("Will return an empty array if no controls are present.");
     }
 }
+function getPossibleAttributeValues(formContext: Xrm.FormContext) {
+    const attribute = formContext.getAttribute("statuscode");
+    if (attribute === null) {
+        throw new Error("Attribute does not exist!");
+    }
+    // $ExpectType string | number | boolean | LookupValue[] | number[] | Date | null
+    const values = attribute.getValue();
+}
