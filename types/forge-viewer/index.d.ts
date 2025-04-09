@@ -2695,6 +2695,12 @@ declare namespace Autodesk {
                 shouldCreateTreeNode(node: object): boolean;
             }
         }
+
+        class FeatureFlags {
+            static set(name: string, value: boolean): void;
+            static isEnabled(name: string): boolean | undefined;
+            static print(): void;
+        }
     }
 
     namespace AEC {
