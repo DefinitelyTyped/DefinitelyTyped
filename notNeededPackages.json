@@ -6455,6 +6455,10 @@
             "libraryName": "sendgrid",
             "asOfVersion": "4.3.0"
         },
+        "seneca": {
+            "libraryName": "seneca",
+            "asOfVersion": "3.31.1"
+        },
         "sentence-case": {
             "libraryName": "sentence-case",
             "asOfVersion": "1.1.3"
