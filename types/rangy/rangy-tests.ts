@@ -1,22 +1,27 @@
-import rangy, { RangyClassApplier, RangyClassApplierOptions, RangyRange, RangySelection, RangyStatic } from "rangy";
+import * as rangy from "rangy";
+import "rangy/lib/rangy-classapplier";
+import "rangy/lib/rangy-highlighter";
+import "rangy/lib/rangy-selectionsaverestore";
+import "rangy/lib/rangy-serializer";
+import "rangy/lib/rangy-textrange";
 
 declare function assertAny(a: any): any;
 declare function assertBoolean(b: boolean): any;
 declare function assertString(s: string): any;
-declare function assertRangyRange(r: RangyRange): any;
-declare function getRangyRange(): RangyRange;
+declare function assertRangyRange(r: rangy.RangyRange): any;
+declare function getRangyRange(): rangy.RangyRange;
 
 type TextRange = any;
 
 function testRangyStatic() {
-    rangy.addInitListener((rangy: RangyStatic) => {});
+    rangy.addInitListener((rangy: rangy.RangyStatic) => {});
     rangy.createMissingNativeApi();
     rangy.shim();
     let nativeRange: Range | TextRange = rangy.createNativeRange(document);
     nativeRange = rangy.createNativeRange(window);
     nativeRange = rangy.createNativeRange(new HTMLIFrameElement());
     nativeRange = rangy.createNativeRange();
-    let rangyRange: RangyRange = rangy.createRange(document);
+    let rangyRange: rangy.RangyRange = rangy.createRange(document);
     rangyRange = rangy.createRange(window);
     rangyRange = rangy.createRange(new HTMLIFrameElement());
     rangyRange = rangy.createRange();
@@ -26,13 +31,13 @@ function testRangyStatic() {
     rangyRange = rangy.createRangyRange();
     let nativeSelection: Selection = rangy.getNativeSelection(window);
     nativeSelection = rangy.getNativeSelection();
-    let rangySelection: RangySelection = rangy.getSelection();
+    let rangySelection: rangy.RangySelection = rangy.getSelection();
     let initialized: boolean = rangy.initialized;
     let supported: boolean = rangy.supported;
 }
 
 function testRangyRange() {
-    let rangyRange: RangyRange = rangy.createRange();
+    let rangyRange: rangy.RangyRange = rangy.createRange();
     assertBoolean(rangyRange.canSurroundContents());
     rangyRange.collapseAfter(new Node());
     rangyRange.collapseBefore(new Node());
@@ -68,10 +73,10 @@ function testRangyRange() {
 }
 
 function testSelection() {
-    let selection: RangySelection = rangy.getSelection();
+    let selection: rangy.RangySelection = rangy.getSelection();
     selection.detach();
-    let ranges: RangyRange[] = selection.getAllRanges();
-    let range: RangyRange = selection.getRangeAt(0);
+    let ranges: rangy.RangyRange[] = selection.getAllRanges();
+    let range: rangy.RangyRange = selection.getRangeAt(0);
     selection.getBookmark(new Node());
     let nativeTextRange: Range = selection.getNativeTextRange();
     assertString(selection.inspect());
@@ -87,10 +92,10 @@ function testSelection() {
 }
 
 function testRangyClassApplier() {
-    function elementCreateFunction(element: Element, classApplier: RangyClassApplier): number {
+    function elementCreateFunction(element: Element, classApplier: rangy.RangyClassApplier): number {
         return 1;
     }
-    let options: RangyClassApplierOptions = {
+    let options: rangy.RangyClassApplierOptions = {
         elementTagName: "span",
         elementProperties: { name: "test-name", disabled: "true" },
         elementAttributes: { id: "test-id", type: "test-type" },
@@ -101,11 +106,11 @@ function testRangyClassApplier() {
         onElementCreate: elementCreateFunction,
         useExistingElements: false,
     };
-    let options2: RangyClassApplierOptions = { tagNames: "span, b, strong, a" };
-    let classApplier: RangyClassApplier;
+    let options2: rangy.RangyClassApplierOptions = { tagNames: "span, b, strong, a" };
+    let classApplier: rangy.RangyClassApplier;
     classApplier = rangy.createClassApplier("test", options, ["test1", "test2"]);
     classApplier = rangy.createClassApplier("test", options, "test1, test2");
-    let rangyRange: RangyRange = rangy.createRange();
+    let rangyRange: rangy.RangyRange = rangy.createRange();
     classApplier.applyToSelection();
     classApplier.applyToSelection(window);
     classApplier.undoToSelection();

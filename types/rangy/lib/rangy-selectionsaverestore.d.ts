@@ -1,11 +1,15 @@
-declare module "rangy" {
-    interface RangyStatic {
-        saveSelection(win?: Window): object | null;
-        restoreSelection(savedSelection: object, preserveDirection?: boolean): boolean;
-        saveRange(range: Range): object;
-        restoreRange(savedRange: object, normalize?: boolean): Range;
-        saveRanges(ranges: Range[], direction?: Direction | boolean): object[];
-        restoreRanges(savedRanges: object[]): Range[];
-        removeMarkers(savedSelection: object): void;
+import "./rangy-core";
+
+declare global {
+    namespace rangy {
+        function saveSelection(win?: Window): object | null;
+        function restoreSelection(savedSelection: object, preserveDirection?: boolean): boolean;
+        function saveRange(range: Range): object;
+        function restoreRange(savedRange: object, normalize?: boolean): Range;
+        function saveRanges(ranges: Range[], direction?: Direction | boolean): object[];
+        function restoreRanges(savedRanges: object[]): Range[];
+        function removeMarkers(savedSelection: object): void;
     }
 }
+
+export = rangy;

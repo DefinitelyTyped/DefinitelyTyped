@@ -1,41 +1,48 @@
-declare module "rangy" {
-    interface RangyWordOptions {
-        includeTrailingSpace?: boolean;
-        wordRegex?: RegExp;
-    }
+import "./rangy-core";
 
-    interface RangyCharacterOptions {
-        includeBlockContentTrailingSpace?: boolean;
-        includeSpaceBeforeBr?: boolean;
-        includePreLineTrailingSpace?: boolean;
-        ignoreCharacters?: string;
-    }
+declare global {
+    namespace rangy {
+        interface RangyWordOptions {
+            includeTrailingSpace?: boolean;
+            wordRegex?: RegExp;
+        }
 
-    interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions {}
+        interface RangyCharacterOptions {
+            includeBlockContentTrailingSpace?: boolean;
+            includeSpaceBeforeBr?: boolean;
+            includePreLineTrailingSpace?: boolean;
+            ignoreCharacters?: string;
+        }
 
-    interface RangyFindTextOptions {
-        caseSensitive?: boolean;
-        withinRange?: RangyRange;
-        wholeWordsOnly?: boolean;
-        wrap?: boolean;
-        direction?: "forward" | "backward";
-        wordOptions?: RangyWordOptions;
-        characterOptions?: RangyCharacterOptions;
-    }
+        interface RangyTextOptions extends RangyWordOptions, RangyCharacterOptions {}
 
-    interface RangyTextExpandOptions extends RangyTextOptions {
-        trim?: boolean;
-        trimStart?: boolean;
-        trimEnd?: boolean;
-    }
-    interface RangyTextRange {
-        moveStart(unit: string, count: number, options?: RangyTextOptions): number;
-        moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
-        move(unit: string, count: number, options?: RangyTextOptions): number;
-        expand(unit: string, options?: RangyTextExpandOptions): boolean;
-        text(): string;
-        selectCharacters(containerNode: Node, startIndex: number, endIndex: number): void;
-        toCharacterRange(containerNode: Node, options?: RangyTextOptions): { start: number; end: number };
-        findText(searchTerm: string | RegExp, options?: RangyFindTextOptions): boolean;
+        interface RangyFindTextOptions {
+            caseSensitive?: boolean;
+            withinRange?: RangyRange;
+            wholeWordsOnly?: boolean;
+            wrap?: boolean;
+            direction?: "forward" | "backward";
+            wordOptions?: RangyWordOptions;
+            characterOptions?: RangyCharacterOptions;
+        }
+
+        interface RangyTextExpandOptions extends RangyTextOptions {
+            trim?: boolean;
+            trimStart?: boolean;
+            trimEnd?: boolean;
+        }
+
+        interface RangyTextRange {
+            moveStart(unit: string, count: number, options?: RangyTextOptions): number;
+            moveEnd(unit: string, count: number, options?: RangyTextOptions): number;
+            move(unit: string, count: number, options?: RangyTextOptions): number;
+            expand(unit: string, options?: RangyTextExpandOptions): boolean;
+            text(): string;
+            selectCharacters(containerNode: Node, startIndex: number, endIndex: number): void;
+            toCharacterRange(containerNode: Node, options?: RangyTextOptions): { start: number; end: number };
+            findText(searchTerm: string | RegExp, options?: RangyFindTextOptions): boolean;
+        }
     }
 }
+
+export = rangy;
