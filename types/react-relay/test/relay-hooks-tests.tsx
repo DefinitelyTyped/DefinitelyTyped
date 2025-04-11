@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Memoized } from "react";
 import {
     EntryPoint,
     EntryPointComponent,
@@ -147,7 +148,7 @@ function RelayEnvironment() {
         `;
 
         commitMutation(environment, { mutation, variables: {} });
-    }, React.UNSAFE_memoizedDeps([environment]));
+    }, [environment as Memoized<Environment>]);
 
     return (
         <React.Suspense fallback={<div>Loading...</div>}>

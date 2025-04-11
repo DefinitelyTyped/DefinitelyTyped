@@ -1,6 +1,7 @@
 import React = require("react");
 import reactDragula = require("react-dragula");
 import { Drake } from "dragula";
+import type { MemoizedDependency } from "react";
 
 function DraggableItemss() {
     const draggableContainer = React.useRef<HTMLDivElement>(null);
@@ -20,7 +21,7 @@ function DraggableItemss() {
                 }),
             );
         }
-    }, React.UNSAFE_memoizedDeps([draggableContainer.current]));
+    }, [draggableContainer.current as MemoizedDependency]);
 
     React.useEffect(() => {
         if (drake) {

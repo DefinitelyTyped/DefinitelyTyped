@@ -28,6 +28,7 @@ import {
     WebView,
 } from "@hippy/react";
 import * as React from "react";
+import type { Memoized } from "react";
 
 function Comp() {
     const textInput = React.useRef<TextInput>(null);
@@ -38,7 +39,7 @@ function Comp() {
 
     React.useEffect(() => {
         NetInfo.addEventListener("change", () => {});
-    }, React.UNSAFE_memoizedDeps([NetInfo]));
+    }, [NetInfo as Memoized<NetInfo>]);
 
     React.useEffect(() => {
         (async () => {

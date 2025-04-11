@@ -12,7 +12,7 @@ function EventDispatcherExample({ input }: { input: HTMLInputElement }) {
                 return () => input.removeEventListener("change", callback);
             },
         }),
-        React.UNSAFE_memoizedDeps([input]),
+        [input as React.Memoized<HTMLInputElement>],
     );
 
     // $ExpectType string

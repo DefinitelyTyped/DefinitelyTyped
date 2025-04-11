@@ -702,8 +702,8 @@ React.useCallback(() => {}, [primitiveValue]);
 React.useCallback(() => {}, [primitiveValue, someObject]);
 // useCallback with mixed dependencies -> OK if all memoized/primitive
 React.useCallback(() => {}, [primitiveValue, memoizedObject, memoizedFunction]);
-// useCallback with UNSAFE_memoizedDeps escape hatch -> OK
-React.useCallback(() => {}, React.UNSAFE_memoizedDeps([someObject]));
+// useCallback with non-memoized type casted object  -> OK
+React.useCallback(() => {}, [someObject as React.Memoized<typeof someObject>]);
 
 // useMemo with unmemoized object dependency -> ERROR
 // @ts-expect-error
@@ -722,8 +722,6 @@ React.useMemo(() => 1, [primitiveValue]);
 React.useMemo(() => 1, [primitiveValue, someObject]);
 // useMemo with mixed dependencies -> OK if all memoized/primitive
 React.useMemo(() => 1, [primitiveValue, memoizedObject, memoizedFunction]);
-// useMemo with UNSAFE_memoizedDeps escape hatch -> OK
-React.useMemo(() => 1, React.UNSAFE_memoizedDeps([someObject]));
 
 // --- End Memoization Checks ---
 
