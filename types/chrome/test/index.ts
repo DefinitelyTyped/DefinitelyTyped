@@ -1314,25 +1314,25 @@ function testRuntimeOnMessageAddListener() {
     });
 }
 
-chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-    request; // $ExpectType Request
-    console.log("request: ", request);
-});
-
-chrome.devtools.performance.onProfilingStarted.addListener(() => {
-    console.log("Profiling started");
-});
-
-chrome.devtools.performance.onProfilingStopped.addListener(() => {
-    console.log("Profiling stopped");
-});
-
-chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-    harLog; // $ExpectType HARLog
-    console.log("harLog: ", harLog);
-});
-
 function testDevtools() {
+    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+        request; // $ExpectType Request
+        console.log("request: ", request);
+    });
+
+    chrome.devtools.performance.onProfilingStarted.addListener(() => {
+        console.log("Profiling started");
+    });
+
+    chrome.devtools.performance.onProfilingStopped.addListener(() => {
+        console.log("Profiling stopped");
+    });
+
+    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+        harLog; // $ExpectType HARLog
+        console.log("harLog: ", harLog);
+    });
+
     chrome.devtools.inspectedWindow.eval("1+1", undefined, result => {
         console.log(result);
     });
@@ -1344,6 +1344,25 @@ function testDevtools() {
         ignoreCache: true,
         injectedScript: "console.log(\"Hello World!\")",
     });
+
+    const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
+    view.onHidden.addListener(() => {}); // $ExpectType void
+    view.onHidden.removeListener(() => {}); // $ExpectType void
+    view.onHidden.hasListener(() => {}); // $ExpectType boolean
+    view.onHidden.hasListeners(); // $ExpectType boolean
+    view.onShown.addListener(() => {}); // $ExpectType void
+    view.onShown.removeListener(() => {}); // $ExpectType void
+    view.onShown.hasListener(() => {}); // $ExpectType boolean
+    view.onShown.hasListeners(); // $ExpectType boolean
+    view.show(); // $ExpectType void
+
+    const plugin: chrome.devtools.recorder.RecorderExtensionPlugin = {
+        replay: () => {},
+        stringify: () => {},
+        stringifyStep: () => {},
+    };
+    chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
+    chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
 }
 
 function testAssistiveWindow() {
