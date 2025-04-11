@@ -214,4 +214,19 @@ declare module "." {
     export interface FragmentProps {
         ref?: Ref<FragmentInstance> | undefined;
     }
+
+    // @enableActivity
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        children: ReactNode;
+    }
+
+    /** */
+    export const unstable_Activity: ExoticComponent<ActivityProps>;
 }
