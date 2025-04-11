@@ -435,26 +435,23 @@ export function validateTemplate(figure: TemplateFigure, template: Template): Va
 // Layout
 export interface Layout {
     colorway: string[];
-    title:
-        | string
-        | Partial<{
-            text: string;
-            font: Partial<Font>;
-            xref: "container" | "paper";
-            yref: "container" | "paper";
-            x: number;
-            y: number;
-            xanchor: "auto" | "left" | "center" | "right";
-            yanchor: "auto" | "top" | "middle" | "bottom";
-            pad: Partial<Padding>;
-            subtitle:
-                | string
-                | Partial<{
-                    text: string;
-                    font: Partial<Font>;
-                }>;
-        }>;
-    titlefont: Partial<Font>;
+    title: Partial<{
+        text: string;
+        font: Partial<Font>;
+        xref: "container" | "paper";
+        yref: "container" | "paper";
+        x: number;
+        y: number;
+        xanchor: "auto" | "left" | "center" | "right";
+        yanchor: "auto" | "top" | "middle" | "bottom";
+        pad: Partial<Padding>;
+        subtitle:
+            | string
+            | Partial<{
+                text: string;
+                font: Partial<Font>;
+            }>;
+    }>;
     autosize: boolean;
     showlegend: boolean;
     paper_bgcolor: Color;
@@ -486,6 +483,12 @@ export interface Layout {
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
     calendar: Calendar;
+
+    // these are just the most common nested property updates that you might
+    // want to pass to Plotly.relayout - *any* dotted property path through the
+    // normal nested structure is valid here, and enumerating them all including
+    // all possible [n] array indices would be infeasible (if it weren't for the
+    // array indices, the pure a.b.c bit might be doable with conditional types)
     "xaxis.range": [Datum, Datum];
     "xaxis.range[0]": Datum;
     "xaxis.range[1]": Datum;
@@ -496,8 +499,8 @@ export interface Layout {
     "xaxis.type": AxisType;
     "xaxis.autorange": boolean;
     "yaxis.autorange": boolean;
-    "xaxis.title": string;
-    "yaxis.title": string;
+    "xaxis.title": Partial<DataTitle>;
+    "yaxis.title": Partial<DataTitle>;
     ternary: {}; // TODO
     geo: {}; // TODO
     mapbox: Partial<Mapbox>;
@@ -690,12 +693,7 @@ export interface Axis {
      * Individual pieces can override this.
      */
     color: Color;
-    title: string | Partial<DataTitle>;
-    /**
-     * Former `titlefont` is now the sub-attribute `font` of `title`.
-     * To customize title font properties, please use `title.font` now.
-     */
-    titlefont: Partial<Font>;
+    title: Partial<DataTitle>;
     type: AxisType;
     autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
     autorangeoptions: Partial<AutoRangeOptions>;
@@ -967,7 +965,6 @@ export interface LayoutAxis extends Axis {
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
-    autotick: boolean;
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
@@ -1260,7 +1257,6 @@ export interface ErrorOptions {
     color: Color;
     thickness: number;
     width: number;
-    opacity: number;
 }
 
 export type ErrorBar =
@@ -1294,7 +1290,6 @@ export type PlotType =
     | "funnel"
     | "funnelarea"
     | "heatmap"
-    | "heatmapgl"
     | "histogram"
     | "histogram2d"
     | "histogram2dcontour"
@@ -1306,7 +1301,6 @@ export type PlotType =
     | "parcats"
     | "parcoords"
     | "pie"
-    | "pointcloud"
     | "sankey"
     | "scatter"
     | "scatter3d"
@@ -1342,7 +1336,6 @@ export type Color =
     | Array<string | number | undefined | null>
     | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
-export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
 export interface PlotData {
@@ -1506,7 +1499,6 @@ export interface PlotData {
     delta: Partial<Delta>;
     gauge: Partial<Gauge>;
     number: Partial<PlotNumber>;
-    transforms: DataTransform[];
     orientation: "v" | "h";
     width: number | number[];
     boxmean: boolean | "sd";
@@ -1575,46 +1567,10 @@ export interface PlotData {
     uid: string;
 }
 
-/**
- * These interfaces are based on attribute descriptions in
- * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
- */
-export interface TransformStyle {
-    target: number | string | number[] | string[];
-    value: Partial<PlotData>;
-}
-
-export interface TransformAggregation {
-    target: string;
-    func?:
-        | "count"
-        | "sum"
-        | "avg"
-        | "median"
-        | "mode"
-        | "rms"
-        | "stddev"
-        | "min"
-        | "max"
-        | "first"
-        | "last"
-        | undefined;
-    funcmode?: "sample" | "population" | undefined;
-    enabled?: boolean | undefined;
-}
-
-export interface Transform {
-    type: "aggregate" | "filter" | "groupby" | "sort";
-    enabled: boolean;
-    target: number | string | number[] | string[];
-    operation: string;
-    aggregations: TransformAggregation[];
-    preservegaps: boolean;
-    groups: string | number[] | string[];
-    nameformat: string;
-    styles: TransformStyle[];
-    value: any;
-    order: "ascending" | "descending";
+export interface ColorBarTitle {
+    text: string;
+    font: Partial<Font>;
+    side: "right" | "top" | "bottom";
 }
 
 export interface ColorBar {
@@ -1656,9 +1612,7 @@ export interface ColorBar {
     exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
     showexponent: "all" | "first" | "last" | "none";
     minexponent: number;
-    title: string;
-    titlefont: Font;
-    titleside: "right" | "top" | "bottom";
+    title: Partial<ColorBarTitle>;
     tickvalssrc: any;
     ticktextsrc: any;
 }
@@ -1907,9 +1861,6 @@ export interface Config {
      * This should ONLY be set via Plotly.setPlotConfig
      */
     logging: boolean | 0 | 1 | 2;
-
-    /** Set global transform to be applied to all traces with no specification needed */
-    globalTransforms: any[];
 
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
@@ -2774,15 +2725,6 @@ interface LocaleModule {
     format: Record<string, unknown>;
 }
 
-interface TransformModule {
-    moduleType: "transform";
-    name: string;
-    transform: any;
-    calcTransform: any;
-    attributes: Record<string, unknown>;
-    supplyDefaults: any;
-}
-
 interface ComponentModule {
     moduleType: "component";
     name: string;
@@ -2794,4 +2736,4 @@ interface ApiMethodModule {
     fn: any;
 }
 
-type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;
+type PlotlyModule = TraceModule | LocaleModule | ComponentModule | ApiMethodModule;
