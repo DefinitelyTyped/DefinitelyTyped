@@ -1006,7 +1006,7 @@ declare module "http" {
          * The request method.
          * @since v0.1.97
          */
-        method: string;
+        method: HTTPMethod;
         /**
          * The request path.
          * @since v0.4.0
@@ -1546,7 +1546,43 @@ declare module "http" {
          */
         destroy(): void;
     }
-    const METHODS: string[];
+    type HTTPMethod =
+    | 'ACL'
+    | 'BIND'
+    | 'CHECKOUT'
+    | 'CONNECT'
+    | 'COPY'
+    | 'DELETE'
+    | 'GET'
+    | 'HEAD'
+    | 'LINK'
+    | 'LOCK'
+    | 'M-SEARCH'
+    | 'MERGE'
+    | 'MKACTIVITY'
+    | 'MKCALENDAR'
+    | 'MKCOL'
+    | 'MOVE'
+    | 'NOTIFY'
+    | 'OPTIONS'
+    | 'PATCH'
+    | 'POST'
+    | 'PROPFIND'
+    | 'PROPPATCH'
+    | 'PURGE'
+    | 'PUT'
+    | 'QUERY'
+    | 'REBIND'
+    | 'REPORT'
+    | 'SEARCH'
+    | 'SOURCE'
+    | 'SUBSCRIBE'
+    | 'TRACE'
+    | 'UNBIND'
+    | 'UNLINK'
+    | 'UNLOCK'
+    | 'UNSUBSCRIBE';
+    const METHODS: HTTPMethod[];
     const STATUS_CODES: {
         [errorCode: number]: string | undefined;
         [errorCode: string]: string | undefined;
