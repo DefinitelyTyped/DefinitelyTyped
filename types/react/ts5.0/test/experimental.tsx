@@ -294,7 +294,6 @@ function activityTest() {
 
     <Activity children="peekaboo" />;
     <Activity children="peekaboo" mode={undefined} />;
-    <Activity children="peekaboo" mode={null} />;
     <Activity children="peekaboo" mode="visible" />;
     <Activity children="peekaboo" mode="hidden" />;
     // @ts-expect-error -- Forgot children

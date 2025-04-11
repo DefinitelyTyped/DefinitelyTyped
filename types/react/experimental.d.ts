@@ -223,7 +223,6 @@ declare module "." {
         mode?:
             | "hidden"
             | "visible"
-            | null
             | undefined;
         children: ReactNode;
     }
