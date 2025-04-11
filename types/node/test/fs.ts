@@ -19,6 +19,9 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
 
     fs.write(1234, "test", () => {});
+    fs.write(1234, Buffer.from("test"), () => {});
+    fs.write(1234, Buffer.from("test"), { offset: 10, length: 10, position: 10 }, () => {});
+    fs.write(1234, Buffer.from("test"), { position: null }, () => {});
 
     fs.writeFile("Harry Potter", "\"You be wizzing, Harry,\" jived Dumbledore.", {
         encoding: "ascii",
