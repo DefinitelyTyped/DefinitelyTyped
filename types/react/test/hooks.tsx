@@ -681,7 +681,9 @@ typedMemo;
 // --- Memoization Checks ---
 const someObject = { value: 1 };
 const someFunction = () => {};
+// $ExpectType Memoized<{ nested: boolean }>
 const memoizedObject = React.useMemo(() => ({ nested: true }), []);
+// $ExpectType Memoized<() => void>
 const memoizedFunction = React.useCallback(() => {}, []);
 const primitiveValue = 123;
 
@@ -692,18 +694,23 @@ React.useCallback(() => {}, [someObject]);
 // @ts-expect-error
 React.useCallback(() => {}, [someFunction]);
 // useCallback with memoized object dependency -> OK
+// $ExpectType Memoized<() => void>
 React.useCallback(() => {}, [memoizedObject]);
 // useCallback with memoized function dependency -> OK
-React.useCallback(() => {}, [memoizedFunction]);
+// $ExpectType Memoized<() => Memoized<() => void>>
+React.useCallback(() => memoizedFunction, [memoizedFunction]);
 // useCallback with primitive dependency -> OK
-React.useCallback(() => {}, [primitiveValue]);
+// $ExpectType Memoized<() => 123>
+React.useCallback(() => primitiveValue, [primitiveValue]);
 // useCallback with mixed dependencies -> ERROR if unmemoized present
 // @ts-expect-error
 React.useCallback(() => {}, [primitiveValue, someObject]);
 // useCallback with mixed dependencies -> OK if all memoized/primitive
-React.useCallback(() => {}, [primitiveValue, memoizedObject, memoizedFunction]);
+// $ExpectType Memoized<() => 123>
+React.useCallback(() => primitiveValue, [primitiveValue, memoizedObject, memoizedFunction]);
 // useCallback with non-memoized type casted object  -> OK
-React.useCallback(() => {}, [someObject as React.Memoized<typeof someObject>]);
+// $ExpectType Memoized<() => { value: number; }>
+React.useCallback(() => someObject, [someObject as React.Memoized<typeof someObject>]);
 
 // useMemo with unmemoized object dependency -> ERROR
 // @ts-expect-error
@@ -714,13 +721,16 @@ React.useMemo(() => 1, [someFunction]);
 // useMemo with memoized object dependency -> OK
 React.useMemo(() => 1, [memoizedObject]);
 // useMemo with memoized function dependency -> OK
+// $ExpectType Memoized<number>
 React.useMemo(() => 1, [memoizedFunction]);
 // useMemo with primitive dependency -> OK
+// $ExpectType Memoized<number>
 React.useMemo(() => 1, [primitiveValue]);
 // useMemo with mixed dependencies -> ERROR if unmemoized present
 // @ts-expect-error
 React.useMemo(() => 1, [primitiveValue, someObject]);
 // useMemo with mixed dependencies -> OK if all memoized/primitive
+// $ExpectType Memoized<number>
 React.useMemo(() => 1, [primitiveValue, memoizedObject, memoizedFunction]);
 
 // --- End Memoization Checks ---
