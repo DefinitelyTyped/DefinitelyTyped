@@ -1604,12 +1604,6 @@ declare namespace React {
         load: () => Promise<{ default: T }>,
     ): LazyExoticComponent<T>;
 
-    /**
-     * Helper, type-level function to cast a dependency array to the strict `MemoizedDependencyList` type.
-     * Use this when you are sure that all non-primitive dependencies are correctly memoized.
-     */
-    function UNSAFE_memoizedDeps(deps: readonly unknown[]): MemoizedDependencyList;
-
     //
     // React Hooks
     // ----------------------------------------------------------------------
