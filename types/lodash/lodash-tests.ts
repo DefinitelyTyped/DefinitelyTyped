@@ -4520,6 +4520,14 @@ fp.now(); // $ExpectType number
 
 // _.isObject
 {
+    const value: Function | (() => void) | { foo: string; } | string = anything;
+
+    if (_.isObject(value)) {
+        const result: Function | (() => void) | { foo: string; } = value;
+    } else {
+        const result: string = value;
+    }
+
     _.isObject(NaN); // $ExpectType boolean
     _(42).isObject(); // $ExpectType boolean
     _.chain([]).isObject(); // $ExpectType PrimitiveChain<boolean>
@@ -4534,6 +4542,14 @@ fp.now(); // $ExpectType number
 
 // _.isObjectLike
 {
+    const value: Function | (() => void) | { foo: string; } | string = anything;
+
+    if (_.isObjectLike(value)) {
+        const result: { foo: string; } = value;
+    } else {
+        const result: Function | (() => void) | string = value;
+    }
+
     _.isObjectLike(NaN); // $ExpectType boolean
     _(42).isObjectLike(); // $ExpectType boolean
     _.chain([]).isObjectLike(); // $ExpectType PrimitiveChain<boolean>
@@ -4542,6 +4558,17 @@ fp.now(); // $ExpectType number
 
 // _.isPlainObject
 {
+    const value: Function | (() => void) | { foo: string; } | string = anything;
+
+    if (_.isPlainObject(value)) {
+        const result: Function | (() => void) | { foo: string; } = value;
+        // @ts-expect-error
+        const result2 = value as string;
+    } else {
+        const result: Function | (() => void) | { foo: string; } | string = value;
+        const result2 = value as string;
+    }
+
     _.isPlainObject(NaN); // $ExpectType boolean
     _(42).isPlainObject(); // $ExpectType boolean
     _.chain([]).isPlainObject(); // $ExpectType PrimitiveChain<boolean>
