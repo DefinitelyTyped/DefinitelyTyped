@@ -1571,11 +1571,8 @@ declare namespace React {
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
-        propsAreEqual?: (
-            prevProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
-            nextProps: Readonly<ReactManagedAttributes<T, ComponentProps<T>>>,
-        ) => boolean,
-    ): NamedExoticComponent<ReactManagedAttributes<T, ComponentPropsWithRef<T>>>;
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
+    ): MemoExoticComponent<T>;
 
     interface LazyExoticComponent<T extends ComponentType<any>>
         extends ExoticComponent<CustomComponentPropsWithRef<T>>
