@@ -670,3 +670,62 @@ function formTest() {
         );
     }
 }
+
+// $ExpectType Memoized<{ id: number }>
+const typedMemo = React.useMemo<{ id: number }>(() => {
+    return { id: 10 };
+}, []);
+// $ExpectType Memoized<{ id: number; }>
+typedMemo;
+
+// --- Memoization Checks ---
+const someObject = { value: 1 };
+const someFunction = () => {};
+const memoizedObject = React.useMemo(() => ({ nested: true }), []);
+const memoizedFunction = React.useCallback(() => {}, []);
+const primitiveValue = 123;
+
+// useCallback with unmemoized object dependency -> ERROR
+// @ts-expect-error
+React.useCallback(() => {}, [someObject]);
+// useCallback with unmemoized function dependency -> ERROR
+// @ts-expect-error
+React.useCallback(() => {}, [someFunction]);
+// useCallback with memoized object dependency -> OK
+React.useCallback(() => {}, [memoizedObject]);
+// useCallback with memoized function dependency -> OK
+React.useCallback(() => {}, [memoizedFunction]);
+// useCallback with primitive dependency -> OK
+React.useCallback(() => {}, [primitiveValue]);
+// useCallback with mixed dependencies -> ERROR if unmemoized present
+// @ts-expect-error
+React.useCallback(() => {}, [primitiveValue, someObject]);
+// useCallback with mixed dependencies -> OK if all memoized/primitive
+React.useCallback(() => {}, [primitiveValue, memoizedObject, memoizedFunction]);
+// useCallback with UNSAFE_memoizedDeps escape hatch -> OK
+React.useCallback(() => {}, React.UNSAFE_memoizedDeps([someObject]));
+
+// useMemo with unmemoized object dependency -> ERROR
+// @ts-expect-error
+React.useMemo(() => 1, [someObject]);
+// useMemo with unmemoized function dependency -> ERROR
+// @ts-expect-error
+React.useMemo(() => 1, [someFunction]);
+// useMemo with memoized object dependency -> OK
+React.useMemo(() => 1, [memoizedObject]);
+// useMemo with memoized function dependency -> OK
+React.useMemo(() => 1, [memoizedFunction]);
+// useMemo with primitive dependency -> OK
+React.useMemo(() => 1, [primitiveValue]);
+// useMemo with mixed dependencies -> ERROR if unmemoized present
+// @ts-expect-error
+React.useMemo(() => 1, [primitiveValue, someObject]);
+// useMemo with mixed dependencies -> OK if all memoized/primitive
+React.useMemo(() => 1, [primitiveValue, memoizedObject, memoizedFunction]);
+// useMemo with UNSAFE_memoizedDeps escape hatch -> OK
+React.useMemo(() => 1, React.UNSAFE_memoizedDeps([someObject]));
+
+// --- End Memoization Checks ---
+
+// $ExpectType RefObject<{ id: number }>
+const typedRef = React.useRef<{ id: number }>({ id: 10 });
