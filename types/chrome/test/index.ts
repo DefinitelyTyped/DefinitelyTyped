@@ -1114,26 +1114,61 @@ function testStorage() {
     chrome.storage.sync.getKeys(() => {}).then(() => {});
 }
 
-// https://developer.chrome.com/apps/tts#type-TtsVoice
-async function testTtsVoice() {
-    chrome.tts.getVoices(voices =>
-        voices.forEach(voice => {
-            console.log(voice.voiceName);
-            console.log("\tlang: " + voice.lang);
-            console.log("\tremote: " + voice.remote);
-            console.log("\textensionId: " + voice.extensionId);
-            console.log("\teventTypes: " + voice.eventTypes);
-        })
-    );
+// https://developer.chrome.com/docs/extensions/reference/api/tss
+function testTts() {
+    chrome.tts.EventType.CANCELLED === "cancelled";
+    chrome.tts.EventType.END === "end";
+    chrome.tts.EventType.ERROR === "error";
+    chrome.tts.EventType.INTERRUPTED === "interrupted";
+    chrome.tts.EventType.MARKER === "marker";
+    chrome.tts.EventType.PAUSE === "pause";
+    chrome.tts.EventType.RESUME === "resume";
+    chrome.tts.EventType.SENTENCE === "sentence";
+    chrome.tts.EventType.START === "start";
+    chrome.tts.EventType.WORD === "word";
 
-    const voices = await chrome.tts.getVoices();
-    voices.forEach(voice => {
-        console.log(voice.voiceName);
-        console.log("\tlang: " + voice.lang);
-        console.log("\tremote: " + voice.remote);
-        console.log("\textensionId: " + voice.extensionId);
-        console.log("\teventTypes: " + voice.eventTypes);
+    chrome.tts.VoiceGender.FEMALE === "female";
+    chrome.tts.VoiceGender.MALE === "male";
+
+    chrome.tts.getVoices(); // $ExpectType Promise<TtsVoice[]>
+    chrome.tts.getVoices(([voice]) => { // $ExpectType void
+        voice.eventTypes; // $ExpectType ("start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume")[] | undefined
+        voice.extensionId; // $ExpectType string | undefined
+        voice.lang; // $ExpectType string | undefined
+        voice.voiceName; // $ExpectType string | undefined
+        voice.remote; // $ExpectType boolean | undefined
     });
+    // @ts-expect-error
+    chrome.tts.getVoices(() => {}).then(() => {});
+
+    chrome.tts.isSpeaking(); // $ExpectType Promise<boolean>
+    chrome.tts.isSpeaking((speaking) => { // $ExpectType void
+        speaking; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.tts.isSpeaking(() => {}).then(() => {});
+
+    chrome.tts.pause(); // $ExpectType void
+
+    chrome.tts.resume(); // $ExpectType void
+
+    const ttsOptions: chrome.tts.TtsOptions = {
+        lang: "en",
+    };
+
+    chrome.tts.speak("Hello, World!"); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", ttsOptions); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", () => {}); // $ExpectType void
+    chrome.tts.speak("Hello, World!", ttsOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tts.speak("Hello, World!", () => {}).then(() => {});
+
+    chrome.tts.stop(); // $ExpectType void
+
+    chrome.tts.onVoicesChanged.addListener(() => {}); // $ExpectType void
+    chrome.tts.onVoicesChanged.removeListener(() => {}); // $ExpectType void
+    chrome.tts.onVoicesChanged.hasListener(() => {}); // $ExpectType boolean
+    chrome.tts.onVoicesChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/ttsEngine
