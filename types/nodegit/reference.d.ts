@@ -5,8 +5,12 @@ import { Repository } from "./repository";
 export namespace Reference {
     const enum TYPE {
         INVALID = 0,
+        DIRECT = 1,
+        /** @deprecated Use {@link DIRECT} instead. */
         OID = 1,
         SYMBOLIC = 2,
+        ALL = 3,
+        /** @deprecated Use {@link ALL} instead. */
         LISTALL = 3,
     }
 
