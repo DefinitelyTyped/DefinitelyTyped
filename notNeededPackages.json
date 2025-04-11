@@ -7147,6 +7147,10 @@
             "libraryName": "tiny-secp256k1",
             "asOfVersion": "2.0.0"
         },
+        "tinymce": {
+            "libraryName": "tinymce",
+            "asOfVersion": "5.5.0"
+        },
         "title": {
             "libraryName": "title",
             "asOfVersion": "4.0.0"
