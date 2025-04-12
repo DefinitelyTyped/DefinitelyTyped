@@ -4825,6 +4825,10 @@
             "libraryName": "package-json-validator",
             "asOfVersion": "0.8.0"
         },
+        "package-name-regex": {
+            "libraryName": "package-name-regex",
+            "asOfVersion": "3.1.0"
+        },
         "pad": {
             "libraryName": "pad",
             "asOfVersion": "2.1.0"
