@@ -5295,6 +5295,10 @@
             "libraryName": "pusher-js",
             "asOfVersion": "5.1.0"
         },
+        "pvutils": {
+            "libraryName": "pvutils",
+            "asOfVersion": "1.1.0"
+        },
         "python-shell": {
             "libraryName": "python-shell",
             "asOfVersion": "1.0.2"
