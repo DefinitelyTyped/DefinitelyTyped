@@ -6071,6 +6071,10 @@
             "libraryName": "react-tooltip",
             "asOfVersion": "4.2.4"
         },
+        "react-type-animation": {
+            "libraryName": "react-type-animation",
+            "asOfVersion": "2.0.0"
+        },
         "react-vega": {
             "libraryName": "react-vega",
             "asOfVersion": "7.0.0"
