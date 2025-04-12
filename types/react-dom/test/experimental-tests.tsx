@@ -112,3 +112,39 @@ function fragmentRefTest() {
         <div />
     </React.Fragment>;
 }
+
+// @enableSrcObject
+function srcObjectTest() {
+    <img src={new Blob()} />;
+    <img src={new File([], "image.png")} />;
+    <img
+        // @ts-expect-error -- MediaStream is only valid on video/audio elements
+        src={new MediaStream()}
+    />;
+    <img
+        // @ts-expect-error -- MediaSource is only valid on video/audio elements
+        src={new MediaSource()}
+    />;
+    <img
+        // @ts-expect-error -- arbitrary object is not valid
+        src={{}}
+    />;
+
+    <audio src={new Blob()} />;
+    <audio src={new File([], "react.mp3")} />;
+    <audio src={new MediaStream()} />;
+    <audio src={new MediaSource()} />;
+    <audio
+        // @ts-expect-error -- arbitrary object is not valid
+        src={{}}
+    />;
+
+    <video src={new Blob()} />;
+    <video src={new File([], "react.mp3")} />;
+    <video src={new MediaStream()} />;
+    <video src={new MediaSource()} />;
+    <video
+        // @ts-expect-error -- arbitrary object is not valid
+        src={{}}
+    />;
+}
