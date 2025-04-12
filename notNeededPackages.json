@@ -1012,6 +1012,10 @@
             "libraryName": "cli-truncate",
             "asOfVersion": "2.0.0"
         },
+        "cli-welcome": {
+            "libraryName": "cli-welcome",
+            "asOfVersion": "3.0.0"
+        },
         "clipboard": {
             "libraryName": "clipboard",
             "asOfVersion": "2.0.7"
