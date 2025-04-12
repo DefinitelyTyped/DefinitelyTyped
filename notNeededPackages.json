@@ -2753,6 +2753,10 @@
             "libraryName": "http-terminator",
             "asOfVersion": "3.0.0"
         },
+        "httpsnippet": {
+            "libraryName": "httpsnippet",
+            "asOfVersion": "3.0.1"
+        },
         "human-object-diff": {
             "libraryName": "human-object-diff",
             "asOfVersion": "3.0.0"
