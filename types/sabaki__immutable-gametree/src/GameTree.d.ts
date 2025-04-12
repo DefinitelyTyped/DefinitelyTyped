@@ -1,5 +1,5 @@
+import { NodeObject, Primitive } from "../index";
 import { Draft } from "./Draft";
-import { NodeObject, Primitive } from "./types";
 
 interface GameTreeOptions<ID extends Primitive = number> {
     getId?: () => ID;

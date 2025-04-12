@@ -17,7 +17,6 @@
         "src/Draft.d.ts",
         "src/GameTree.d.ts",
         "src/main.d.ts",
-        "src/types.d.ts",
         "sabaki__immutable-gametree-tests.ts"
     ]
 }

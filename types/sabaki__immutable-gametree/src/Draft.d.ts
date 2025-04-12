@@ -1,4 +1,4 @@
-import { NodeObject, Primitive, Property } from "./types";
+import { NodeObject, Primitive, Property } from "../index";
 
 interface AppendNodeOption {
     disableMerging?: boolean;
