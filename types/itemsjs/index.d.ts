@@ -39,6 +39,8 @@ declare namespace itemsjs {
         removeStopWordFilter?: boolean | undefined;
         /** @default false */
         is_all_filtered_items?: boolean | undefined;
+        /** A list of item IDs to restrict the search results to */
+        ids?: Array<I extends { id: infer ID } ? ID : unknown>;
     }
 
     interface AggregationOptions<A extends string> {
