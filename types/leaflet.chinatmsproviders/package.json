@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "@types/leaflet.chinatmsproviders",
+  "version": "1.0.0",
+  "projects": [
+    "https://github.com/htoooth/Leaflet.ChineseTmsProviders"
+  ],
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/leaflet.chinatmsproviders",
+  "dependencies": {
+    "@types/leaflet": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "owners": [
+    {
+        "name": "TwoKe",
+        "githubUsername": "TwoKe945"
+    }
+  ]
+}
