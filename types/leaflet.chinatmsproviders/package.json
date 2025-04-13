@@ -1,17 +1,15 @@
 {
   "private": true,
   "name": "@types/leaflet.chinatmsproviders",
-  "version": "1.0.0",
+  "version": "1.0.9999",
   "projects": [
     "https://github.com/htoooth/Leaflet.ChineseTmsProviders"
   ],
-  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/leaflet.chinatmsproviders",
   "dependencies": {
     "@types/leaflet": "*"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  "devDependencies": {
+    "@types/leaflet.chinatmsproviders": "workspace:."
   },
   "owners": [
     {
