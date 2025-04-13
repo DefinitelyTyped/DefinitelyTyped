@@ -1,11 +1,10 @@
 {
   "private": true,
   "name": "@types/leaflet.chinatmsproviders",
-  "version": "1.0.9999",
+  "version": "3.0.6.9999",
   "projects": [
     "https://github.com/htoooth/Leaflet.ChineseTmsProviders"
   ],
-  "nonNpm": true,
   "dependencies": {
     "@types/leaflet": "*"
   },
