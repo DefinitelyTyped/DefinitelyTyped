@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet.chinatmsproviders-tests.d.ts"
+        "leaflet.chinatmsproviders-tests.ts"
     ]
 }
