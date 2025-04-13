@@ -5,6 +5,7 @@
   "projects": [
     "https://github.com/htoooth/Leaflet.ChineseTmsProviders"
   ],
+  "nonNpm": true,
   "dependencies": {
     "@types/leaflet": "*"
   },
