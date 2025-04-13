@@ -1,4 +1,4 @@
-import 'leaflet'
+import * as L from 'leaflet'
 
 declare module 'leaflet' {
 
@@ -46,5 +46,3 @@ declare module 'leaflet' {
 
 }
 
-
-export {}
