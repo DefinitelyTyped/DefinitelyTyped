@@ -45,7 +45,7 @@ declare namespace itemsjs {
         /** @default false */
         is_all_filtered_items?: boolean | undefined;
 
-        /** Restricts results to items matching the custom ID field (default: "id"). */
+        /** Restricts results to items whose values match the ID field (`id` by default or as defined in `custom_id_field`). */
         ids?: I[IdField][];
     }
 
