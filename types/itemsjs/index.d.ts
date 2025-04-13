@@ -26,7 +26,7 @@ declare namespace itemsjs {
         I extends {},
         S extends string,
         A extends keyof I & string,
-        IdField extends keyof I & string
+        IdField extends keyof I & string,
     > {
         query?: string | undefined;
         /** @default 1 */
@@ -73,7 +73,7 @@ declare namespace itemsjs {
         I extends {},
         S extends string,
         A extends keyof I & string,
-        IdField extends keyof I & string
+        IdField extends keyof I & string,
     > {
         /** Search items */
         search(options?: SearchOptions<I, S, A, IdField>): {
@@ -142,7 +142,7 @@ declare namespace itemsjs {
         I extends {},
         S extends string,
         A extends keyof I & string,
-        IdField extends string = 'id'
+        IdField extends string = "id",
     > {
         sortings?: Record<S, Sorting<I>> | undefined;
         aggregations?: Record<A, Aggregation> | undefined;
@@ -168,12 +168,10 @@ declare function itemsjs<
     I extends Record<string, any> = Record<string, any>,
     S extends string = string,
     A extends keyof I & string = keyof I & string,
-    IdField extends keyof I & string = 'id'
+    IdField extends keyof I & string = "id",
 >(
     items: I[],
-    configuration?: itemsjs.Configuration<I, S, A, IdField>
+    configuration?: itemsjs.Configuration<I, S, A, IdField>,
 ): itemsjs.ItemsJs<I, S, A, IdField>;
-
-
 
 export = itemsjs;
