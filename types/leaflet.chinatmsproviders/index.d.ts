@@ -2,12 +2,12 @@ import * as L from 'leaflet'
 
 declare module 'leaflet' {
 
-  export interface TileLayerOptions {
-    // 支持 https://github.com/gisarmory/Leaflet.InternetMapCorrection/blob/master/src/leaflet.mapCorrection.js
-    corrdType?: 'gcj02' | 'bd09' | 'wgs84';
-  }
+    interface TileLayerOptions {
+      // 支持 https://github.com/gisarmory/Leaflet.InternetMapCorrection/blob/master/src/leaflet.mapCorrection.js
+        corrdType?: 'gcj02' | 'bd09' | 'wgs84';
+    }
 
-  export type ProvidedChinaMapType =
+    type ProvidedChinaMapType =
     // 天地图
     'TianDiTu.Normal.Map' |
     'TianDiTu.Normal.Annotion' |
