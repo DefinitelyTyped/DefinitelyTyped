@@ -11,6 +11,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "lib/rangy-core.d.ts",
         "lib/rangy-classapplier.d.ts",
         "lib/rangy-highlighter.d.ts",

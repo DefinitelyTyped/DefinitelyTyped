@@ -14,7 +14,7 @@ declare function getRangyRange(): rangy.RangyRange;
 type TextRange = any;
 
 function testRangyStatic() {
-    rangy.addInitListener((rangy: rangy.RangyStatic) => {});
+    rangy.addInitListener((r: rangy.RangyStatic) => {});
     rangy.createMissingNativeApi();
     rangy.shim();
     let nativeRange: Range | TextRange = rangy.createNativeRange(document);
