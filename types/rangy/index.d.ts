@@ -1,1 +1,1 @@
-export var fake: number;
+export {};
