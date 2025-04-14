@@ -4873,6 +4873,10 @@
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
         },
+        "parse-path": {
+            "libraryName": "parse-path",
+            "asOfVersion": "7.0.2"
+        },
         "parse5": {
             "libraryName": "parse5",
             "asOfVersion": "7.0.0"
