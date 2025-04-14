@@ -1925,7 +1925,7 @@ declare namespace _ {
     interface LodashIsEmpty {
         <T extends { __trapAny: any }>(value: T): boolean;
         (value: string | null | undefined): value is '' | null | undefined;
-        (value: any[] | null | undefined): boolean;
+        (value: any[] | null | undefined): value is [] | null | undefined;
         (value: readonly any[] | null | undefined): value is Readonly<[]> | null | undefined;
         (value: Map<any, any> | Set<any> | lodash.List<any> | null | undefined): boolean;
         <T extends object>(value: T | null | undefined): value is lodash.EmptyObjectOf<T> | null | undefined;
