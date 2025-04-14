@@ -4,20 +4,23 @@ appleReceiptVerify.config({
     secret: "test-secret",
 });
 
-appleReceiptVerify.validate({ receipt: "test-receipt" }, (err: appleReceiptVerify.ValidationError, products: appleReceiptVerify.PurchasedProducts[]) => {
-    if (err) {
-        console.error(err.appleStatus);
-        console.error(err.isRetryable);
-        return;
-    }
-    console.log(products.map((p) => p.bundleId));
-});
+appleReceiptVerify.validate(
+    { receipt: "test-receipt" },
+    (err: appleReceiptVerify.ValidationError, products: appleReceiptVerify.PurchasedProducts[]) => {
+        if (err) {
+            console.error(err.appleStatus);
+            console.error(err.isRetryable);
+            return;
+        }
+        console.log(products.map((p) => p.bundleId));
+    },
+);
 
 appleReceiptVerify
     .validate({ receipt: "test-receipt" })
     .then((products: appleReceiptVerify.PurchasedProducts[]) => {
         products.forEach((p) => {
-         const {
+            const {
                 bundleId,
                 transactionId,
                 productId,
@@ -30,9 +33,9 @@ appleReceiptVerify
                 originalPurchaseDate,
                 applicationVersion,
                 originalApplicationVersion,
-                originalTransactionId
-            } = p
-        
+                originalTransactionId,
+            } = p;
+
             console.log({
                 bundleId,
                 transactionId,
@@ -46,11 +49,10 @@ appleReceiptVerify
                 originalPurchaseDate,
                 applicationVersion,
                 originalApplicationVersion,
-                originalTransactionId
-            })
-        })}
-     )
+                originalTransactionId,
+            });
+        });
+    })
     .catch((err: appleReceiptVerify.ValidationError) => {
         console.error(err);
     });
-
