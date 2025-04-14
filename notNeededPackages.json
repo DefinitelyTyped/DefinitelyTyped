@@ -6539,6 +6539,10 @@
             "libraryName": "signal-exit",
             "asOfVersion": "4.0.0"
         },
+        "signalfx": {
+            "libraryName": "signalfx",
+            "asOfVersion": "8.0.0"
+        },
         "signature_pad": {
             "libraryName": "signature_pad",
             "asOfVersion": "4.0.0"
