@@ -4185,6 +4185,10 @@
             "libraryName": "mini-css-extract-plugin",
             "asOfVersion": "2.5.0"
         },
+        "mini-html-webpack-plugin": {
+            "libraryName": "mini-html-webpack-plugin",
+            "asOfVersion": "3.0.0"
+        },
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
