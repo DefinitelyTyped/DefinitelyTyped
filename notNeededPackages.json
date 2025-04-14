@@ -52,6 +52,10 @@
             "libraryName": "@adobe/node-fetch-retry",
             "asOfVersion": "2.1.0"
         },
+        "adobe__pdfservices-node-sdk": {
+            "libraryName": "@adobe/pdfservices-node-sdk",
+            "asOfVersion": "4.0.0"
+        },
         "ads-client": {
             "libraryName": "ads-client",
             "asOfVersion": "2.0.0"
