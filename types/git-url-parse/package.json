@@ -6,7 +6,7 @@
         "https://github.com/IonicaBizau/git-url-parse"
     ],
     "dependencies": {
-        "@types/git-up": "^8.0.0"
+        "git-up": "^8.1.0"
     },
     "devDependencies": {
         "@types/git-url-parse": "workspace:."
