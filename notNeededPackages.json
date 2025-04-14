@@ -2393,6 +2393,10 @@
             "libraryName": "git-up",
             "asOfVersion": "8.1.0"
         },
+        "git-url-parse": {
+            "libraryName": "git-url-parse",
+            "asOfVersion": "16.0.2"
+        },
         "github": {
             "libraryName": "github",
             "asOfVersion": "7.1.0"
