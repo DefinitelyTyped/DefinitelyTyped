@@ -67,4 +67,8 @@ export interface IsURLOptions {
      * @default true
      */
     validate_length?: boolean | undefined;
+    /**
+     * @default 2084
+     */
+    max_allowed_length?: number | false | undefined;
 }

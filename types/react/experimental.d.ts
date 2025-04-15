@@ -229,4 +229,13 @@ declare module "." {
 
     /** */
     export const unstable_Activity: ExoticComponent<ActivityProps>;
+
+    // @enableSrcObject
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
+        srcObject: Blob;
+    }
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
+        srcObject: Blob | MediaSource | MediaStream;
+    }
 }

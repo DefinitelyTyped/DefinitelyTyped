@@ -52,6 +52,10 @@
             "libraryName": "@adobe/node-fetch-retry",
             "asOfVersion": "2.1.0"
         },
+        "adobe__pdfservices-node-sdk": {
+            "libraryName": "@adobe/pdfservices-node-sdk",
+            "asOfVersion": "4.0.0"
+        },
         "ads-client": {
             "libraryName": "ads-client",
             "asOfVersion": "2.0.0"
@@ -2393,6 +2397,10 @@
             "libraryName": "git-up",
             "asOfVersion": "8.1.0"
         },
+        "git-url-parse": {
+            "libraryName": "git-url-parse",
+            "asOfVersion": "16.0.2"
+        },
         "github": {
             "libraryName": "github",
             "asOfVersion": "7.1.0"
@@ -4181,6 +4189,10 @@
             "libraryName": "mini-css-extract-plugin",
             "asOfVersion": "2.5.0"
         },
+        "mini-html-webpack-plugin": {
+            "libraryName": "mini-html-webpack-plugin",
+            "asOfVersion": "3.0.0"
+        },
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
@@ -5299,6 +5311,10 @@
             "libraryName": "pusher-js",
             "asOfVersion": "5.1.0"
         },
+        "pvutils": {
+            "libraryName": "pvutils",
+            "asOfVersion": "1.1.0"
+        },
         "python-shell": {
             "libraryName": "python-shell",
             "asOfVersion": "1.0.2"
@@ -6075,6 +6091,10 @@
             "libraryName": "react-tooltip",
             "asOfVersion": "4.2.4"
         },
+        "react-type-animation": {
+            "libraryName": "react-type-animation",
+            "asOfVersion": "2.0.0"
+        },
         "react-vega": {
             "libraryName": "react-vega",
             "asOfVersion": "7.0.0"
@@ -6530,6 +6550,10 @@
         "signal-exit": {
             "libraryName": "signal-exit",
             "asOfVersion": "4.0.0"
+        },
+        "signalfx": {
+            "libraryName": "signalfx",
+            "asOfVersion": "8.0.0"
         },
         "signature_pad": {
             "libraryName": "signature_pad",

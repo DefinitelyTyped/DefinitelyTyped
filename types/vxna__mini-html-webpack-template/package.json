@@ -6,7 +6,7 @@
         "https://github.com/vxna/mini-html-webpack-template#readme"
     ],
     "dependencies": {
-        "@types/mini-html-webpack-plugin": "*"
+        "@types/mini-html-webpack-plugin": "<3"
     },
     "devDependencies": {
         "@types/vxna__mini-html-webpack-template": "workspace:."

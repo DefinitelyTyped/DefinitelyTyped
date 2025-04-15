@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet.chinatmsproviders",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/htoooth/Leaflet.ChineseTmsProviders"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.chinatmsproviders": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TwoKe",
+            "githubUsername": "TwoKe945"
+        }
+    ]
+}
