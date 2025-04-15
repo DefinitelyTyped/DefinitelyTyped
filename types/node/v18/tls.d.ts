@@ -636,9 +636,10 @@ declare module "tls" {
          * used.
          * @since v0.5.3
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
-         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
+         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
+         * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *
