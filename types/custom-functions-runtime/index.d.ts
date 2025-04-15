@@ -77,13 +77,13 @@ declare namespace CustomFunctions {
         parameterAddresses?: string[];
 
         /**
-         * This flag determines whether the function is being invoked as part of Formula Value Preview execution or not.
-         * If the function is being invoked from Formula Value Preview, the flag is set to true; otherwise, it is set to false.
+         * Indicates whether the function is invoked as part of the formula value preview.
+         * `true` if this invocation is to preview the formula value; otherwise, `false`.
          * 
          * @remarks
          * [Api set: CustomFunctionsRuntime 1.5]
          */
-        isInValuePreview?: string[];
+        isInValuePreview?: string;
     }
 
     /**
