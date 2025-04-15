@@ -68,6 +68,7 @@ declare namespace OneLine {
             facebook: boolean;
             google_maps: boolean;
             spotify: boolean;
+            jwplayer: boolean;
         };
     }
 
