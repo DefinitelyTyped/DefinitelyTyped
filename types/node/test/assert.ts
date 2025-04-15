@@ -141,7 +141,15 @@ assert.throws(
 
 assert["fail"](true, true, "works like a charm");
 
-assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
+declare let partialDeepStrictEqualActual: unknown;
+declare let partialDeepStrictEqualExpected: { a: number; b: number };
+assert.partialDeepStrictEqual(partialDeepStrictEqualActual, partialDeepStrictEqualExpected);
+// $ExpectType Partial<{ a: number, b: number }>
+partialDeepStrictEqualActual;
+// $ExpectType number | undefined
+partialDeepStrictEqualActual.a;
+// $ExpectType number | undefined
+partialDeepStrictEqualActual.b;
 
 {
     const a = null as any;

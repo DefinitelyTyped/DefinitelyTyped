@@ -1008,7 +1008,11 @@ declare module "assert" {
          * ```
          * @since v22.13.0
          */
-        function partialDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        function partialDeepStrictEqual<T>(
+            actual: unknown,
+            expected: T,
+            message?: string | Error,
+        ): asserts actual is Partial<T>;
         /**
          * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
          * {@link deepEqual} will behave like {@link deepStrictEqual}.
