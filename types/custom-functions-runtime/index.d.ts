@@ -78,7 +78,8 @@ declare namespace CustomFunctions {
 
         /**
          * Indicates whether the function is invoked as part of the formula value preview.
-         * `true` if this invocation is to preview the formula value; otherwise, `false`.
+         * On Desktop this is `true` if the function is invoked is to preview the formula value; otherwise it is `false`.
+         * On Mac, this is always `false`.
          * 
          * @remarks
          * [Api set: CustomFunctionsRuntime 1.5]
