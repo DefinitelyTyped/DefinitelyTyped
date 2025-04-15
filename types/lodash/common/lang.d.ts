@@ -1,5 +1,5 @@
 import _ = require("../index");
-import IS_PLAIN_OBJECT = require("../isPlainObject-symbol");
+import type IS_PLAIN_OBJECT = require("../isPlainObject-symbol");
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, @typescript-eslint/no-unsafe-function-type
 type GlobalFunction = Function;
 declare module "../index" {
@@ -1078,6 +1078,7 @@ declare module "../index" {
 
     type AnyFunction = ((...args: any[]) => any) | (new (...args: any[]) => any) | GlobalFunction | CallableFunction | NewableFunction;
     type NotFunction<T> = T extends AnyFunction ? never : T;
+    type NotArray<T> = T extends (infer _U)[] ? never : T;
     interface LoDashStatic {
         /**
          * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -1125,7 +1126,7 @@ declare module "../index" {
          * @param value The value to check.
          * @return Returns true if value is a plain object, else false.
          */
-        isPlainObject(value?: any): value is object & { [IS_PLAIN_OBJECT]: undefined; };
+        isPlainObject<T>(value?: T): value is NotFunction<NotArray<T>> & object & { [IS_PLAIN_OBJECT]: undefined; };
     }
     interface LoDashImplicitWrapper<TValue> {
         /**

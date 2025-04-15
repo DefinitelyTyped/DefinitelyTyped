@@ -20,6 +20,12 @@ interface AbcObject {
     c: boolean;
 }
 
+declare class Foo implements AbcObject {
+    a: number;
+    b: string;
+    c: boolean;
+}
+
 const abcObject: AbcObject = anything;
 const array: AbcObject[] | null | undefined = anything;
 const list: _.List<AbcObject> | null | undefined = anything;
@@ -4520,12 +4526,14 @@ fp.now(); // $ExpectType number
 
 // _.isObject
 {
-    const value: Function | (() => void) | { foo: string; } | string = anything;
+    const value: Function | (() => void) | { foo: string; } | string | undefined | null | string[] | Foo = anything;
 
     if (_.isObject(value)) {
-        const result: Function | (() => void) | { foo: string; } = value;
+        value; // $ExpectType Function | (() => void) | { foo: string; } | string[] | Foo
+        const result: Function | (() => void) | { foo: string; } | string[] | Foo = value;
     } else {
-        const result: string = value;
+        value; // $ExpectType string | undefined | null
+        const result: string | undefined | null = value;
     }
 
     _.isObject(NaN); // $ExpectType boolean
@@ -4542,12 +4550,14 @@ fp.now(); // $ExpectType number
 
 // _.isObjectLike
 {
-    const value: Function | (() => void) | { foo: string; } | string = anything;
+    const value: Function | (() => void) | { foo: string; } | string | undefined | null | string[] | Foo = anything;
 
     if (_.isObjectLike(value)) {
-        const result: { foo: string; } = value;
+        value; // $ExpectType { foo: string; } | string[] | Foo
+        const result: { foo: string; } | string[] | Foo = value;
     } else {
-        const result: Function | (() => void) | string = value;
+        value; // $ExpectType Function | (() => void) | string | undefined | null
+        const result: Function | (() => void) | string | undefined | null = value;
     }
 
     _.isObjectLike(NaN); // $ExpectType boolean
@@ -4558,14 +4568,16 @@ fp.now(); // $ExpectType number
 
 // _.isPlainObject
 {
-    const value: Function | (() => void) | { foo: string; } | string = anything;
+    const value: Function | (() => void) | { foo: string; } | string | undefined | null | string[] | Foo = anything;
 
     if (_.isPlainObject(value)) {
-        const result: Function | (() => void) | { foo: string; } = value;
+        value; // $ExpectType ({ foo: string; } & object & { [IS_PLAIN_OBJECT]: undefined; }) | (Foo & object & { [IS_PLAIN_OBJECT]: undefined; })
+        const result: { foo: string; } | Foo = value;
         // @ts-expect-error
         const result2 = value as string;
     } else {
-        const result: Function | (() => void) | { foo: string; } | string = value;
+        value; // $ExpectType Function | (() => void) | { foo: string; } | string | undefined | null | string[] | Foo
+        const result: Function | (() => void) | { foo: string; } | string | undefined | null | string[] | Foo = value;
         const result2 = value as string;
     }
 
