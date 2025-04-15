@@ -4887,7 +4887,7 @@
         },
         "parse-path": {
             "libraryName": "parse-path",
-            "asOfVersion": "7.0.2"
+            "asOfVersion": "7.0.3"
         },
         "parse5": {
             "libraryName": "parse5",
