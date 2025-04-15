@@ -96,7 +96,7 @@ export interface GetOptions {
     timeout?: number;
     withCredentials?: boolean;
     wrapperLimit?: number;
-    urlHandler?: UrlHandler;
+    urlHandler?: URLHandler;
     resolveAll?: boolean;
     allowMultipleAds?: boolean;
     followAdditionalWrappers?: boolean;
@@ -106,7 +106,7 @@ export interface ClientParseOptions {
     timeout?: number;
     withCredentials?: boolean;
     wrapperLimit?: number;
-    urlHandler?: UrlHandler;
+    urlHandler?: URLHandler;
     allowMultipleAds?: boolean;
     followAdditionalWrappers?: boolean;
     requestDuration?: number;
@@ -119,8 +119,8 @@ export interface ParserParseOptions {
     resolveAll?: boolean;
 }
 
-export interface UrlHandler {
-    get: (url: string, opts: URLHandlerOptions) => Promise<string>;
+export interface URLHandler {
+    get: (url: string, opts: URLHandlerOptions) => Promise<URLHandlerResponse>;
 }
 
 export interface URLHandlerOptions {
@@ -145,13 +145,12 @@ export type Macros = Record<string, string>;
 
 export type URLTemplateFilter = (url: string) => string;
 
-export enum VastParseEvent {
-    Error = "VAST-error",
-    Warning = "VAST-warning",
-    Resolving = "VAST-resolving",
-    Resolved = "VAST-resolved",
-    AdParsed = "VAST-ad-parsed",
-}
+export type VastParseEvent =
+    | "VAST-error"
+    | "VAST-warning"
+    | "VAST-resolving"
+    | "VAST-resolved"
+    | "VAST-ad-parsed";
 
 export interface VastResponse {
     ads: Ad[];

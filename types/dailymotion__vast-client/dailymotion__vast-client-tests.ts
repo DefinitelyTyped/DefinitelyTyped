@@ -60,7 +60,9 @@ const clientTests = async () => {
 
     const parsedVast = await vastClient.parseVAST(doc, {
         urlHandler: {
-            get: async (url, opts) => url,
+            get: async (url, opts) => ({
+                xml: doc,
+            }),
         },
     });
 
@@ -68,7 +70,7 @@ const clientTests = async () => {
 
     vastClient.hasRemainingAds() === true;
     (await vastClient.getNextAds()).ads;
-    vastClient.getParser().on(VastParseEvent.AdParsed, () => {});
+    vastClient.getParser().on("VAST-ad-parsed", () => {});
     vastClient.addURLTemplateFilter((url) => url);
     vastClient.removeLastURLTemplateFilter();
     vastClient.countURLTemplateFilters() === 1;
@@ -78,11 +80,11 @@ const clientTests = async () => {
 const vastParserTests = async () => {
     const parser = new VASTParser();
 
-    parser.on(VastParseEvent.Error, ({ maxWrapperDepth }) => {});
-    parser.on(VastParseEvent.Warning, ({ ERRORCODE }) => {});
-    parser.on(VastParseEvent.Resolving, ({ ERRORMESSAGE }) => {});
-    parser.on(VastParseEvent.Resolved, ({ parentElement }) => {});
-    parser.on(VastParseEvent.AdParsed, ({ message }) => {});
+    parser.on("VAST-error", ({ maxWrapperDepth }) => {});
+    parser.on("VAST-warning", ({ ERRORCODE }) => {});
+    parser.on("VAST-resolving", ({ ERRORMESSAGE }) => {});
+    parser.on("VAST-resolved", ({ parentElement }) => {});
+    parser.on("VAST-ad-parsed", ({ message }) => {});
 
     parser.trackVastError(
         [
