@@ -185,7 +185,7 @@ export interface URLTemplate {
   url: string;
 }
 
-interface CreativeBase {
+export interface CreativeBase {
   id: string | null;
   adId: string | null;
   sequence: number | null;

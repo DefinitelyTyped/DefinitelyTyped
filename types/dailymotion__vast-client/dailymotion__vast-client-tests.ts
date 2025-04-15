@@ -12,7 +12,7 @@ import {
   VastParseEvent,
   VASTParser,
   VASTTracker
-} from '.';
+} from '@dailymotion/vast-client';
 
 const domParser = new DOMParser();
 
