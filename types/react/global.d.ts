@@ -158,3 +158,7 @@ interface WebGLRenderingContext {}
 interface WebGL2RenderingContext {}
 
 interface TrustedHTML {}
+
+interface Blob {}
+interface MediaStream {}
+interface MediaSource {}

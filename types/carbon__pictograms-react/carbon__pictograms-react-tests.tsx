@@ -3,6 +3,7 @@ import {
     AddDocument,
     AdvancedFraudProtection,
     AdvocateMask,
+    Agile,
     Ai,
     AiExplainability,
     Airplane,
@@ -79,3 +80,4 @@ import * as React from "react";
 <MagicWand />; // $ExpectType Element
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
+<Agile />; // $ExpectType Element

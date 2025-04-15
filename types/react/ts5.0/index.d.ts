@@ -3059,6 +3059,8 @@ declare namespace React {
         width?: number | string | undefined;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {}
+
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -3068,7 +3070,12 @@ declare namespace React {
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         sizes?: string | undefined;
-        src?: string | undefined;
+        src?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES
+            ]
+            | undefined;
         srcSet?: string | undefined;
         useMap?: string | undefined;
         width?: number | string | undefined;
@@ -3252,6 +3259,8 @@ declare namespace React {
         type?: string | undefined;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {}
+
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
@@ -3262,7 +3271,12 @@ declare namespace React {
         muted?: boolean | undefined;
         playsInline?: boolean | undefined;
         preload?: string | undefined;
-        src?: string | undefined;
+        src?:
+            | string
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES
+            ]
+            | undefined;
     }
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {

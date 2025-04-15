@@ -1114,26 +1114,61 @@ function testStorage() {
     chrome.storage.sync.getKeys(() => {}).then(() => {});
 }
 
-// https://developer.chrome.com/apps/tts#type-TtsVoice
-async function testTtsVoice() {
-    chrome.tts.getVoices(voices =>
-        voices.forEach(voice => {
-            console.log(voice.voiceName);
-            console.log("\tlang: " + voice.lang);
-            console.log("\tremote: " + voice.remote);
-            console.log("\textensionId: " + voice.extensionId);
-            console.log("\teventTypes: " + voice.eventTypes);
-        })
-    );
+// https://developer.chrome.com/docs/extensions/reference/api/tss
+function testTts() {
+    chrome.tts.EventType.CANCELLED === "cancelled";
+    chrome.tts.EventType.END === "end";
+    chrome.tts.EventType.ERROR === "error";
+    chrome.tts.EventType.INTERRUPTED === "interrupted";
+    chrome.tts.EventType.MARKER === "marker";
+    chrome.tts.EventType.PAUSE === "pause";
+    chrome.tts.EventType.RESUME === "resume";
+    chrome.tts.EventType.SENTENCE === "sentence";
+    chrome.tts.EventType.START === "start";
+    chrome.tts.EventType.WORD === "word";
 
-    const voices = await chrome.tts.getVoices();
-    voices.forEach(voice => {
-        console.log(voice.voiceName);
-        console.log("\tlang: " + voice.lang);
-        console.log("\tremote: " + voice.remote);
-        console.log("\textensionId: " + voice.extensionId);
-        console.log("\teventTypes: " + voice.eventTypes);
+    chrome.tts.VoiceGender.FEMALE === "female";
+    chrome.tts.VoiceGender.MALE === "male";
+
+    chrome.tts.getVoices(); // $ExpectType Promise<TtsVoice[]>
+    chrome.tts.getVoices(([voice]) => { // $ExpectType void
+        voice.eventTypes; // $ExpectType ("start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume")[] | undefined
+        voice.extensionId; // $ExpectType string | undefined
+        voice.lang; // $ExpectType string | undefined
+        voice.voiceName; // $ExpectType string | undefined
+        voice.remote; // $ExpectType boolean | undefined
     });
+    // @ts-expect-error
+    chrome.tts.getVoices(() => {}).then(() => {});
+
+    chrome.tts.isSpeaking(); // $ExpectType Promise<boolean>
+    chrome.tts.isSpeaking((speaking) => { // $ExpectType void
+        speaking; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.tts.isSpeaking(() => {}).then(() => {});
+
+    chrome.tts.pause(); // $ExpectType void
+
+    chrome.tts.resume(); // $ExpectType void
+
+    const ttsOptions: chrome.tts.TtsOptions = {
+        lang: "en",
+    };
+
+    chrome.tts.speak("Hello, World!"); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", ttsOptions); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", () => {}); // $ExpectType void
+    chrome.tts.speak("Hello, World!", ttsOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tts.speak("Hello, World!", () => {}).then(() => {});
+
+    chrome.tts.stop(); // $ExpectType void
+
+    chrome.tts.onVoicesChanged.addListener(() => {}); // $ExpectType void
+    chrome.tts.onVoicesChanged.removeListener(() => {}); // $ExpectType void
+    chrome.tts.onVoicesChanged.hasListener(() => {}); // $ExpectType boolean
+    chrome.tts.onVoicesChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/ttsEngine
@@ -1314,25 +1349,25 @@ function testRuntimeOnMessageAddListener() {
     });
 }
 
-chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
-    request; // $ExpectType Request
-    console.log("request: ", request);
-});
-
-chrome.devtools.performance.onProfilingStarted.addListener(() => {
-    console.log("Profiling started");
-});
-
-chrome.devtools.performance.onProfilingStopped.addListener(() => {
-    console.log("Profiling stopped");
-});
-
-chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
-    harLog; // $ExpectType HARLog
-    console.log("harLog: ", harLog);
-});
-
 function testDevtools() {
+    chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
+        request; // $ExpectType Request
+        console.log("request: ", request);
+    });
+
+    chrome.devtools.performance.onProfilingStarted.addListener(() => {
+        console.log("Profiling started");
+    });
+
+    chrome.devtools.performance.onProfilingStopped.addListener(() => {
+        console.log("Profiling stopped");
+    });
+
+    chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
+        harLog; // $ExpectType HARLog
+        console.log("harLog: ", harLog);
+    });
+
     chrome.devtools.inspectedWindow.eval("1+1", undefined, result => {
         console.log(result);
     });
@@ -1344,6 +1379,25 @@ function testDevtools() {
         ignoreCache: true,
         injectedScript: "console.log(\"Hello World!\")",
     });
+
+    const view = chrome.devtools.recorder.createView("title", "replay.html"); // $ExpectType RecorderView
+    view.onHidden.addListener(() => {}); // $ExpectType void
+    view.onHidden.removeListener(() => {}); // $ExpectType void
+    view.onHidden.hasListener(() => {}); // $ExpectType boolean
+    view.onHidden.hasListeners(); // $ExpectType boolean
+    view.onShown.addListener(() => {}); // $ExpectType void
+    view.onShown.removeListener(() => {}); // $ExpectType void
+    view.onShown.hasListener(() => {}); // $ExpectType boolean
+    view.onShown.hasListeners(); // $ExpectType boolean
+    view.show(); // $ExpectType void
+
+    const plugin: chrome.devtools.recorder.RecorderExtensionPlugin = {
+        replay: () => {},
+        stringify: () => {},
+        stringifyStep: () => {},
+    };
+    chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
+    chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
 }
 
 function testAssistiveWindow() {
@@ -2884,7 +2938,29 @@ function testExtensionSendRequest() {
     chrome.extension.sendRequest<string, string>("dummy-id", "Hello World!", (num: number) => alert(num + 1));
 }
 
-function testContextMenusCreate() {
+// https://developer.chrome.com/docs/extensions/reference/api/contextMenus
+function testContextMenus() {
+    chrome.contextMenus.ContextType.ACTION === "action";
+    chrome.contextMenus.ContextType.ALL === "all";
+    chrome.contextMenus.ContextType.AUDIO === "audio";
+    chrome.contextMenus.ContextType.BROWSER_ACTION === "browser_action";
+    chrome.contextMenus.ContextType.EDITABLE === "editable";
+    chrome.contextMenus.ContextType.FRAME === "frame";
+    chrome.contextMenus.ContextType.IMAGE === "image";
+    chrome.contextMenus.ContextType.LAUNCHER === "launcher";
+    chrome.contextMenus.ContextType.LINK === "link";
+    chrome.contextMenus.ContextType.PAGE === "page";
+    chrome.contextMenus.ContextType.PAGE_ACTION === "page_action";
+    chrome.contextMenus.ContextType.SELECTION === "selection";
+    chrome.contextMenus.ContextType.VIDEO === "video";
+
+    chrome.contextMenus.ItemType.CHECKBOX === "checkbox";
+    chrome.contextMenus.ItemType.NORMAL === "normal";
+    chrome.contextMenus.ItemType.RADIO === "radio";
+    chrome.contextMenus.ItemType.SEPARATOR === "separator";
+
+    chrome.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT === 6;
+
     const creationOptions: chrome.contextMenus.CreateProperties = {
         id: "dummy-id",
         documentUrlPatterns: ["https://*/*"],
@@ -2893,109 +2969,79 @@ function testContextMenusCreate() {
         contexts: ["all"],
         enabled: true,
         targetUrlPatterns: ["https://example.com/*"],
-        onclick: (info, tab: chrome.tabs.Tab) => console.log(tab),
+        onclick: () => {},
         parentId: 1,
         type: "normal",
         visible: true,
     };
-    chrome.contextMenus.create(creationOptions, () => console.log("created")); // $ExpectType string | number
-    chrome.contextMenus.create({ ...creationOptions, contexts: ["action", "page_action"] }); // $ExpectType string | number
-    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" }); // $ExpectType string | number
-    // @ts-expect-error
-    chrome.contextMenus.create({ ...creationOptions, contexts: ["wrong"] });
-}
 
-function testContextMenusRemove() {
+    chrome.contextMenus.create(creationOptions); // $ExpectType string | number
+    // @ts-expect-error Error at property 'contexts': Invalid type: expected array, found string.
+    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" });
+
     chrome.contextMenus.remove(1); // $ExpectType Promise<void>
-    chrome.contextMenus.remove(1, () => console.log("removed")); // $ExpectType void
+    chrome.contextMenus.remove("1"); // $ExpectType Promise<void>
+    chrome.contextMenus.remove(1, () => {}); // $ExpectType void
+    chrome.contextMenus.remove("1", () => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.remove(1, (invalid: any) => console.log("removed"));
-    chrome.contextMenus.remove("dummy-id");
-    chrome.contextMenus.remove("dummy-id", () => console.log("removed"));
-    // @ts-expect-error
-    chrome.contextMenus.remove("dummy-id", (invalid: any) => console.log("removed"));
-    chrome.contextMenus.remove(Math.random() > 0.5 ? "1" : 1);
-}
+    chrome.contextMenus.remove(1, () => {}).then(() => {});
 
-function testContextMenusRemoveAll() {
     chrome.contextMenus.removeAll(); // $ExpectType Promise<void>
-    chrome.contextMenus.removeAll(() => console.log("removed all")); // $ExpectType void
+    chrome.contextMenus.removeAll(() => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.removeAll((invalid: any) => console.log("removed"));
-}
+    chrome.contextMenus.removeAll(() => {}).then(() => {});
 
-function testContextMenusUpdate() {
-    chrome.contextMenus.update(1, { title: "Hello World!" }); // $ExpectType Promise<void>
-    chrome.contextMenus.update(1, { title: "Hello World!" }, () => console.log("updated")); // $ExpectType void
-    chrome.contextMenus.update(Math.random() > 0.5 ? "1" : 1, { title: "Hello World!" }, () => console.log("updated"));
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { title: "Hello World!" }, (invalid: any) => console.log("updated"));
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" });
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" }, () => console.log("updated"));
-    // @ts-expect-error
-    chrome.contextMenus.update("dummy-id", { title: "Hello World!" }, (invalid: any) => console.log("updated"));
+    const checkInfo = (info: chrome.contextMenus.OnClickData) => {
+        info.checked; // $ExpectType boolean | undefined
+        info.editable; // $ExpectType boolean
+        info.frameId; // $ExpectType number | undefined
+        info.frameUrl; // $ExpectType string | undefined
+        info.linkUrl; // $ExpectType string | undefined
+        info.mediaType; // $ExpectType "image" | "video" | "audio" | undefined
+        info.menuItemId; // $ExpectType number | string
+        info.pageUrl; // $ExpectType string | undefined
+        info.parentMenuItemId; // $ExpectType number | string | undefined
+        info.selectionText; // $ExpectType string | undefined
+        info.srcUrl; // $ExpectType string | undefined
+        info.wasChecked; // $ExpectType boolean | undefined
+    };
 
-    chrome.contextMenus.update(2, {
+    const updateProperties: Omit<chrome.contextMenus.CreateProperties, "id"> = {
         documentUrlPatterns: ["https://*/*"],
         checked: false,
         title: "Hello World!",
         contexts: ["all"],
         enabled: true,
         targetUrlPatterns: ["https://example.com/*"],
-        onclick: ({
-            checked,
-            editable,
-            frameId,
-            frameUrl,
-            linkUrl,
-            mediaType,
-            menuItemId,
-            pageUrl,
-            parentMenuItemId,
-            selectionText,
-            srcUrl,
-            wasChecked,
-        }, tab: chrome.tabs.Tab) =>
-            console.log(
-                tab,
-                checked,
-                editable,
-                frameId,
-                frameUrl,
-                linkUrl,
-                mediaType,
-                menuItemId,
-                pageUrl,
-                parentMenuItemId,
-                selectionText,
-                srcUrl,
-                wasChecked,
-            ),
+        onclick: (info, tab) => {
+            checkInfo(info);
+            tab; // $ExpectType Tab
+        },
         parentId: 1,
         type: "normal",
         visible: true,
-    });
+    };
 
+    chrome.contextMenus.update(1, updateProperties); // $ExpectType Promise<void>
+    chrome.contextMenus.update(1, updateProperties, () => {}); // $ExpectType void
+    chrome.contextMenus.update("1", updateProperties); // $ExpectType Promise<void>
+    chrome.contextMenus.update("1", updateProperties, () => {}); // $ExpectType void
     // @ts-expect-error
-    chrome.contextMenus.update(1, { documentUrlPatterns: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { checked: "invalid" });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { title: 1 });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { contexts: true });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { enabled: "invalid" });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { targetUrlPatterns: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { onclick: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { parentId: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { type: false });
-    // @ts-expect-error
-    chrome.contextMenus.update(1, { visible: 1 });
+    chrome.contextMenus.update(1, updateProperties, () => {}).then(() => {});
+
+    chrome.contextMenus.onClicked.addListener((info, tab) => { // $ExpectType void
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.removeListener((info, tab) => { // $ExpectType void
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.hasListener((info, tab) => { // $ExpectType boolean
+        checkInfo(info);
+        tab; // $ExpectType Tab | undefined
+    });
+    chrome.contextMenus.onClicked.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/permissions

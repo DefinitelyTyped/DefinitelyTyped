@@ -1865,198 +1865,146 @@ declare namespace chrome {
      * Permissions: "contextMenus"
      */
     export namespace contextMenus {
-        export interface OnClickData {
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The text for the context selection, if any.
-             */
-            selectionText?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * A flag indicating the state of a checkbox or radio item after it is clicked.
-             */
-            checked?: boolean | undefined;
-            /**
-             * @since Chrome 35
-             * The ID of the menu item that was clicked.
-             */
-            menuItemId: number | string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The ID of the frame of the element where the context menu was
-             * clicked, if it was in a frame.
-             */
-            frameId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
-             */
-            frameUrl?: string | undefined;
-            /**
-             * @since Chrome 35
-             * A flag indicating whether the element is editable (text input, textarea, etc.).
-             */
-            editable: boolean;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
-             */
-            mediaType?: "image" | "video" | "audio" | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * A flag indicating the state of a checkbox or radio item before it was clicked.
-             */
-            wasChecked?: boolean | undefined;
-            /**
-             * @since Chrome 35
-             * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
-             */
-            pageUrl: string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * If the element is a link, the URL it points to.
-             */
-            linkUrl?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The parent ID, if any, for the item clicked.
-             */
-            parentMenuItemId?: number | string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * Will be present for elements with a 'src' URL.
-             */
-            srcUrl?: string | undefined;
-        }
-
-        type ContextType =
-            | "all"
-            | "page"
-            | "frame"
-            | "selection"
-            | "link"
-            | "editable"
-            | "image"
-            | "video"
-            | "audio"
-            | "launcher"
-            | "browser_action"
-            | "page_action"
-            | "action";
-
-        type ContextItemType = "normal" | "checkbox" | "radio" | "separator";
-
-        export interface CreateProperties {
-            /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
-            documentUrlPatterns?: string[] | undefined;
-            /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
-            checked?: boolean | undefined;
-            /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
-            title?: string | undefined;
-            /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-            contexts?: ContextType | ContextType[] | undefined;
-            /**
-             * Optional.
-             * @since Chrome 20
-             * Whether this context menu item is enabled or disabled. Defaults to true.
-             */
-            enabled?: boolean | undefined;
-            /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-            targetUrlPatterns?: string[] | undefined;
-            /**
-             * Optional.
-             * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
-             * @param info Information sent when a context menu item is clicked.
-             * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
-             */
-            onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
-            /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-            parentId?: number | string | undefined;
-            /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-            type?: ContextItemType | undefined;
-            /**
-             * Optional.
-             * @since Chrome 21
-             * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
-             */
-            id?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 62
-             * Whether the item is visible in the menu.
-             */
-            visible?: boolean | undefined;
-        }
-
-        export interface UpdateProperties extends Omit<CreateProperties, "id"> {}
-
-        export interface MenuClickedEvent
-            extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void>
-        {}
-
         /**
-         * @since Chrome 38
-         * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.
+         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
+         * @since Chrome 44
          */
-        export var ACTION_MENU_TOP_LEVEL_LIMIT: number;
+        export enum ContextType {
+            ALL = "all",
+            PAGE = "page",
+            FRAME = "frame",
+            SELECTION = "selection",
+            LINK = "link",
+            EDITABLE = "editable",
+            IMAGE = "image",
+            VIDEO = "video",
+            AUDIO = "audio",
+            LAUNCHER = "launcher",
+            BROWSER_ACTION = "browser_action",
+            PAGE_ACTION = "page_action",
+            ACTION = "action",
+        }
 
         /**
-         * Removes all context menu items added by this extension.
+         * Properties of the new context menu item.
          * @since Chrome 123
          */
-        export function removeAll(): Promise<void>;
+        export interface CreateProperties {
+            /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
+            checked?: boolean;
+            /** List of contexts this menu item will appear in. Defaults to `['page']`. */
+            contexts?: [`${ContextType}`, ...`${ContextType}`[]];
+            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns.  */
+            documentUrlPatterns?: string[];
+            /**  Whether this context menu item is enabled or disabled. Defaults to `true`. */
+            enabled?: boolean;
+            /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
+            id?: string;
+            /**  The ID of a parent menu item; this makes the item a child of a previously added item. */
+            parentId?: number | string;
+            /**  Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
+            targetUrlPatterns?: string[];
+            /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+            title?: string;
+            /** The type of menu item. Defaults to `normal`. */
+            type?: `${ItemType}`;
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
+             * @param info Information about the item clicked and the context where the click happened.
+             * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
+             */
+            onclick?: (
+                info: OnClickData,
+                tab: tabs.Tab,
+            ) => void;
+        }
+
         /**
-         * Removes all context menu items added by this extension.
-         * @param callback Called when removal is complete.
+         * The type of menu item.
+         * @since Chrome 44
          */
-        export function removeAll(callback: () => void): void;
+        export enum ItemType {
+            NORMAL = "normal",
+            CHECKBOX = "checkbox",
+            RADIO = "radio",
+            SEPARATOR = "separator",
+        }
+
+        /** Information sent when a context menu item is clicked. */
+        export interface OnClickData {
+            /** A flag indicating the state of a checkbox or radio item after it is clicked. */
+            checked?: boolean;
+            /**  A flag indicating whether the element is editable (text input, textarea, etc.). */
+            editable: boolean;
+            /**
+             * The ID of the frame of the element where the context menu was clicked, if it was in a frame.
+             * @since Chrome 51
+             */
+            frameId?: number;
+            /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
+            frameUrl?: string;
+            /** If the element is a link, the URL it points to. */
+            linkUrl?: string;
+            /** One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements. */
+            mediaType?: `${ContextType.IMAGE}` | `${ContextType.VIDEO}` | `${ContextType.AUDIO}`;
+            /** The ID of the menu item that was clicked. */
+            menuItemId: number | string;
+            /** The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu. */
+            pageUrl?: string;
+            /** The parent ID, if any, for the item clicked.*/
+            parentMenuItemId?: number | string;
+            /** The text for the context selection, if any. */
+            selectionText?: string | undefined;
+            /** Will be present for elements with a 'src' URL. */
+            srcUrl?: string | undefined;
+            /** A flag indicating the state of a checkbox or radio item before it was clicked. */
+            wasChecked?: boolean | undefined;
+        }
+
+        /** The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored. */
+        export const ACTION_MENU_TOP_LEVEL_LIMIT: 6;
+
         /**
-         * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
-         * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
+         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link chrome.runtime.lastError}.
          * @return The ID of the newly created item.
          */
         export function create(createProperties: CreateProperties, callback?: () => void): number | string;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-         * @since Chrome 123
-         */
-        export function update(id: string | number, updateProperties: UpdateProperties): Promise<void>;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-         * @param callback Called when the context menu has been updated.
-         */
-        export function update(id: string | number, updateProperties: UpdateProperties, callback: () => void): void;
+
         /**
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
-         * @since Chrome 123
+         *
+         * Can return its result via Promise since Chrome 123.
          */
         export function remove(menuItemId: string | number): Promise<void>;
-        /**
-         * Removes a context menu item.
-         * @param menuItemId The ID of the context menu item to remove.
-         * @param callback Called when the context menu has been removed.
-         */
         export function remove(menuItemId: string | number, callback: () => void): void;
 
         /**
-         * @since Chrome 21
-         * Fired when a context menu item is clicked.
+         * Removes all context menu items added by this extension.
+         *
+         * Can return its result via Promise since Chrome 123.
          */
-        export var onClicked: MenuClickedEvent;
+        export function removeAll(): Promise<void>;
+        export function removeAll(callback: () => void): void;
+
+        /**
+         * Updates a previously created context menu item.
+         * @param id The ID of the item to update.
+         * @param updateProperties The properties to update. Accepts the same values as the {@link contextMenus.create} function.
+         *
+         * Can return its result via Promise since Chrome 123.
+         */
+        export function update(id: string | number, updateProperties: Omit<CreateProperties, "id">): Promise<void>;
+        export function update(
+            id: string | number,
+            updateProperties: Omit<CreateProperties, "id">,
+            callback: () => void,
+        ): void;
+
+        /** Fired when a context menu item is clicked. */
+        export const onClicked: events.Event<(info: OnClickData, tab?: tabs.Tab) => void>;
     }
 
     ////////////////////
@@ -3069,6 +3017,71 @@ declare namespace chrome {
          * The name of the color theme set in user's DevTools settings.
          */
         export var themeName: "default" | "dark";
+    }
+
+    ////////////////////
+    // Dev Tools - Recorder
+    ////////////////////
+    /**
+     * Use the `chrome.devtools.recorder` API to customize the Recorder panel in DevTools.
+     * @since Chrome 105
+     */
+    export namespace devtools.recorder {
+        /** A plugin interface that the Recorder panel invokes to customize the Recorder panel. */
+        export interface RecorderExtensionPlugin {
+            /**
+             * Allows the extension to implement custom replay functionality.
+             *
+             * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
+             * @since Chrome 112
+             */
+            replay?(recording: object): void;
+
+            /**
+             * Converts a recording from the Recorder panel format into a string.
+             * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
+             */
+            stringify?(recording: object): void;
+
+            /**
+             * Converts a step of the recording from the Recorder panel format into a string.
+             * @param step A step of the recording of a user interaction with the page. This should match [Puppeteer's step schema](https://github.com/puppeteer/replay/blob/main/docs/api/modules/Schema.md#step).
+             */
+            stringifyStep?(step: object): void;
+        }
+
+        /**
+         * Represents a view created by extension to be embedded inside the Recorder panel.
+         * @since Chrome 112
+         */
+        export interface RecorderView {
+            /** Fired when the view is hidden. */
+            onHidden: events.Event<() => void>;
+            /** Fired when the view is shown. */
+            onShown: events.Event<() => void>;
+            /** Indicates that the extension wants to show this view in the Recorder panel. */
+            show(): void;
+        }
+
+        /**
+         * Creates a view that can handle the replay. This view will be embedded inside the Recorder panel.
+         * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
+         * @param pagePath Path of the panel's HTML page relative to the extension directory.
+         * @since Chrome 112
+         */
+        export function createView(title: string, pagePath: string): RecorderView;
+
+        /**
+         * Registers a Recorder extension plugin.
+         * @param plugin An instance implementing the RecorderExtensionPlugin interface.
+         * @param name The name of the plugin.
+         * @param mediaType The media type of the string content that the plugin produces.
+         */
+        export function registerRecorderExtensionPlugin(
+            plugin: RecorderExtensionPlugin,
+            name: string,
+            mediaType: string,
+        ): void;
     }
 
     ////////////////////
@@ -12354,133 +12367,143 @@ declare namespace chrome {
     // Text to Speech
     ////////////////////
     /**
-     * Use the `chrome.tts` API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
+     * Use the `chrome.tts` API to play synthesized text-to-speech (TTS). See also the related {@link ttsEngine} API, which allows an extension to implement a speech engine.
      *
      * Permissions: "tts"
      */
     export namespace tts {
+        /** @since Chrome 54 */
+        export enum EventType {
+            START = "start",
+            END = "end",
+            WORD = "word",
+            SENTENCE = "sentence",
+            MARKER = "marker",
+            INTERRUPTED = "interrupted",
+            CANCELLED = "cancelled",
+            ERROR = "error",
+            PAUSE = "pause",
+            RESUME = "resume",
+        }
+
         /** An event from the TTS engine to communicate the status of an utterance. */
         export interface TtsEvent {
-            /** Optional. The index of the current character in the utterance. */
-            charIndex?: number | undefined;
-            /** Optional. The error description, if the event type is 'error'. */
-            errorMessage?: string | undefined;
+            /** The index of the current character in the utterance. For word events, the event fires at the end of one word and before the beginning of the next. The `charIndex` represents a point in the text at the beginning of the next word to be spoken. */
+            charIndex?: number;
+            /** The error description, if the event type is `error`. */
+            errorMessage?: string;
             /**
-             * The length of the next part of the utterance.
-             * For example, in a word event, this is the length of the word which will be spoken next.
-             * It will be set to -1 if not set by the speech engine.
+             * The length of the next part of the utterance. For example, in a `word` event, this is the length of the word which will be spoken next. It will be set to -1 if not set by the speech engine.
+             * @since Chrome 74
              */
-            length?: number | undefined;
+            length?: number;
+            /** The type can be `start` as soon as speech has started, `word` when a word boundary is reached, `sentence` when a sentence boundary is reached, `marker` when an SSML mark element is reached, `end` when the end of the utterance is reached, `interrupted` when the utterance is stopped or interrupted before reaching the end, `cancelled` when it's removed from the queue before ever being synthesized, or `error` when any other error occurs. When pausing speech, a `pause` event is fired if a particular utterance is paused in the middle, and `resume` if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances. */
+            type: `${EventType}`;
+        }
+
+        /**
+         * The speech options for the TTS engine.
+         * @since Chrome 77
+         */
+        export interface TtsOptions {
+            /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
+            desiredEventTypes?: string[];
+            /** If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. */
+            enqueue?: boolean;
+            /** The extension ID of the speech engine to use, if known. */
+            extensionId?: string;
             /**
-             * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
-             * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
+             * Gender of voice for synthesized speech.
+             * @deprecated since Chrome 77. Gender is deprecated and will be ignored.
              */
-            type:
-                | "start"
-                | "end"
-                | "word"
-                | "sentence"
-                | "marker"
-                | "interrupted"
-                | "cancelled"
-                | "error"
-                | "pause"
-                | "resume";
+            gender?: `${VoiceGender}`;
+            /** The language to be used for synthesis, in the form _language_\-_region_. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+            lang?: string;
+            /** Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch. */
+            pitch?: number;
+            /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. */
+            rate?: number;
+            /** The TTS event types the voice must support. */
+            requiredEventTypes?: string[];
+            /** The name of the voice to use for synthesis. If empty, uses any available voice. */
+            voiceName?: string;
+            /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
+            volume?: number;
+            /**
+             * This function is called with events that occur in the process of speaking the utterance.
+             * @param event The update event from the text-to-speech engine indicating the status of this utterance.
+             */
+            onEvent?: (
+                event: TtsEvent,
+            ) => void;
         }
 
         /** A description of a voice available for speech synthesis. */
         export interface TtsVoice {
-            /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string | undefined;
+            /** All of the callback event types that this voice is capable of sending. */
+            eventTypes?: `${EventType}`[];
+            /** The ID of the extension providing this voice. */
+            extensionId?: string;
             /**
-             * Optional. This voice's gender.
-             * One of: "male", or "female"
+             * This voice's gender.
              * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
              */
-            gender?: string | undefined;
-            /** Optional. The name of the voice. */
-            voiceName?: string | undefined;
-            /** Optional. The ID of the extension providing this voice. */
-            extensionId?: string | undefined;
-            /** Optional. All of the callback event types that this voice is capable of sending. */
-            eventTypes?: string[] | undefined;
-            /**
-             * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
-             * @since Chrome 33
-             */
-            remote?: boolean | undefined;
+            gender?: `${VoiceGender}`;
+            /** The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+            lang?: string;
+            /** If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs. */
+            remote?: boolean;
+            /** The name of the voice. */
+            voiceName?: string;
         }
 
-        export interface SpeakOptions {
-            /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-            volume?: number | undefined;
-            /**
-             * Optional.
-             * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
-             */
-            enqueue?: boolean | undefined;
-            /**
-             * Optional.
-             * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
-             */
-            rate?: number | undefined;
-            /**
-             * Optional. This function is called with events that occur in the process of speaking the utterance.
-             * @param event The update event from the text-to-speech engine indicating the status of this utterance.
-             */
-            onEvent?: ((event: TtsEvent) => void) | undefined;
-            /**
-             * Optional.
-             * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
-             */
-            pitch?: number | undefined;
-            /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string | undefined;
-            /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
-            voiceName?: string | undefined;
-            /** Optional. The extension ID of the speech engine to use, if known. */
-            extensionId?: string | undefined;
-            /**
-             * Optional. Gender of voice for synthesized speech.
-             * One of: "male", or "female"
-             */
-            gender?: string | undefined;
-            /** Optional. The TTS event types the voice must support. */
-            requiredEventTypes?: string[] | undefined;
-            /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[] | undefined;
+        /** @deprecated since Chrome 70. Gender is deprecated and is ignored.*/
+        export enum VoiceGender {
+            FEMALE = "female",
+            MALE = "male",
         }
 
-        /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
-        export function isSpeaking(callback?: (speaking: boolean) => void): void;
-        /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
-        export function stop(): void;
-        /** Gets an array of all available voices. */
-        export function getVoices(): Promise<TtsVoice[]>;
-        export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
         /**
-         * Speaks text using a text-to-speech engine.
-         * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
-         * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+         * Gets an array of all available voices.
+         *
+         * Can return its result via Promise since Chrome Chrome 101
          */
-        export function speak(utterance: string, callback?: Function): void;
+        export function getVoices(): Promise<TtsVoice[]>;
+        export function getVoices(callback: (voices: TtsVoice[]) => void): void;
+
+        /**
+         * Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome.
+         *
+         * Can return its result via Promise since Chrome Chrome 101
+         */
+        export function isSpeaking(): Promise<boolean>;
+        export function isSpeaking(callback: (speaking: boolean) => void): void;
+
+        /** Pauses speech synthesis, potentially in the middle of an utterance. A call to resume or stop will un-pause speech. */
+        export function pause(): void;
+
+        /** If speech was paused, resumes speaking where it left off. */
+        export function resume(): void;
+
         /**
          * Speaks text using a text-to-speech engine.
          * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
          * @param options Optional. The speech options.
-         * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+
+         * Can return its result via Promise since Chrome Chrome 101
          */
-        export function speak(utterance: string, options: SpeakOptions, callback?: Function): void;
+        export function speak(utterance: string, options?: TtsOptions): Promise<void>;
+        export function speak(utterance: string, callback: () => void): void;
+        export function speak(utterance: string, options: TtsOptions, callback: () => void): void;
+
+        /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
+        export function stop(): void;
+
         /**
-         * Pauses speech synthesis, potentially in the middle of an utterance. A call to resume or stop will un-pause speech.
-         * @since Chrome 29
+         * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
+         * @since Chrome 124
          */
-        export function pause(): void;
-        /**
-         * If speech was paused, resumes speaking where it left off.
-         * @since Chrome 29
-         */
-        export function resume(): void;
+        const onVoicesChanged: chrome.events.Event<() => void>;
     }
 
     ////////////////////
