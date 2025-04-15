@@ -277,7 +277,7 @@ declare module "fs/promises" {
          */
         readFile(
             options?:
-                | ({ encoding?: null | undefined; } & Abortable)
+                | ({ encoding?: null | undefined } & Abortable)
                 | null,
         ): Promise<Buffer>;
         /**
@@ -286,7 +286,7 @@ declare module "fs/promises" {
          */
         readFile(
             options:
-                | ({ encoding: BufferEncoding; } & Abortable)
+                | ({ encoding: BufferEncoding } & Abortable)
                 | BufferEncoding,
         ): Promise<string>;
         /**
