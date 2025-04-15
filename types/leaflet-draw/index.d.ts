@@ -173,6 +173,14 @@ declare module "leaflet" {
     namespace DrawOptions {
         interface SimpleShapeOptions {
             /**
+             * Show the area of the drawn shape in m², ha or km².
+             * The area is only approximate and become less accurate the larger the shape is.
+             *
+             * @default false
+             */
+            showArea?: boolean | undefined;
+
+            /**
              * Determines if the draw tool remains enabled after drawing a shape.
              *
              * @default false
@@ -275,14 +283,6 @@ declare module "leaflet" {
         }
 
         interface PolygonOptions extends PolylineOptions {
-            /**
-             * Show the area of the drawn polygon in m², ha or km².
-             * The area is only approximate and become less accurate the larger the polygon is.
-             *
-             * @default false
-             */
-            showArea?: boolean | undefined;
-
             /**
              * Show the length of the drawn line.
              * The area is only approximate and become less accurate the larger the polygon is.
