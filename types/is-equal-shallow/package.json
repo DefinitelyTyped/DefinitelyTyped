@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/jonschlinkert/is-equal-shallow"
     ],
-    "dependencies": {
-        "is-primitive": "^2.0.0"
-    },
     "devDependencies": {
         "@types/is-equal-shallow": "workspace:."
     },
