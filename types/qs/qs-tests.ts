@@ -418,7 +418,7 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 (() => {
     assert.throws(
         () => qs.parse('a=1&b=2&c=3', { parameterLimit: 2, throwOnLimitExceeded: true }),
-        { name: /^RangeError$/ }
+        RangeError
     );
 });
 
