@@ -11,6 +11,7 @@ import {
     VASTClient,
     VastParseEvent,
     VASTParser,
+    VastResponse,
     VASTTracker,
 } from "@dailymotion/vast-client";
 
@@ -86,6 +87,7 @@ const vastParserTests = async () => {
     parser.trackVastError(
         [
             {
+                id: null,
                 url,
             },
         ],
@@ -217,6 +219,325 @@ const vastTrackerTests = async () => {
     vastTracker.track("impression");
     vastTracker.track("impression", macros);
     vastTracker.track("impression", macros, true);
+};
+
+const vastResponseTests = () => {
+    const vastTest: VastResponse = {
+        ads: [
+            {
+                id: null,
+                sequence: null,
+                adType: null,
+                adServingId: null,
+                categories: [],
+                expires: null,
+                viewableImpression: [],
+                system: {
+                    value: "string",
+                    version: "string",
+                },
+                title: "string",
+                description: "string",
+                advertiser: null,
+                pricing: null,
+                survey: null,
+                errorURLTemplates: [
+                    "url",
+                ],
+                impressionURLTemplates: [
+                    {
+                        id: "string",
+                        url: "url",
+                    },
+                ],
+                creatives: [
+                    {
+                        id: "string",
+                        adId: null,
+                        sequence: null,
+                        apiFramework: null,
+                        type: "string",
+                        duration: 30,
+                        skipDelay: -1,
+                        mediaFiles: [
+                            {
+                                id: "string",
+                                fileURL: "url",
+                                fileSize: 0,
+                                deliveryType: "string",
+                                mimeType: "string",
+                                mediaType: "string",
+                                codec: "string",
+                                bitrate: 177,
+                                minBitrate: 0,
+                                maxBitrate: 0,
+                                width: 640,
+                                height: 360,
+                                apiFramework: "string",
+                                scalable: null,
+                                maintainAspectRatio: null,
+                            },
+                        ],
+                        mezzanine: null,
+                        interactiveCreativeFile: null,
+                        closedCaptionFiles: [],
+                        videoClickThroughURLTemplate: {
+                            id: "string",
+                            url: "url",
+                        },
+                        videoClickTrackingURLTemplates: [
+                            {
+                                id: "string",
+                                url: "url",
+                            },
+                        ],
+                        videoCustomClickURLTemplates: [
+                            {
+                                id: "string",
+                                url: "url",
+                            },
+                        ],
+                        adParameters: null,
+                        icons: [],
+                        trackingEvents: {
+                            acceptInvitationLinear: [
+                                "url",
+                            ],
+                            closeLinear: [
+                                "url",
+                            ],
+                            complete: [
+                                "url",
+                            ],
+                            creativeView: [
+                                "url",
+                            ],
+                            exitFullscreen: [
+                                "url",
+                            ],
+                            firstQuartile: [
+                                "url",
+                            ],
+                            fullscreen: [
+                                "url",
+                            ],
+                            midpoint: [
+                                "url",
+                            ],
+                            mute: [
+                                "url",
+                            ],
+                            pause: [
+                                "url",
+                            ],
+                            resume: [
+                                "url",
+                            ],
+                            rewind: [
+                                "url",
+                            ],
+                            start: [
+                                "url",
+                            ],
+                            thirdQuartile: [
+                                "url",
+                            ],
+                            unmute: [
+                                "url",
+                            ],
+                        },
+                        universalAdIds: [],
+                    },
+                ],
+                extensions: [],
+                adVerifications: [],
+                blockedAdCategories: [],
+                followAdditionalWrappers: true,
+                allowMultipleAds: false,
+                fallbackOnNoAd: null,
+            },
+        ],
+        errorURLTemplates: [],
+        version: "string",
+    };
+
+    const vpaidTest: VastResponse = {
+        ads: [
+            {
+                id: "id",
+                sequence: null,
+                adType: null,
+                adServingId: null,
+                categories: [],
+                expires: null,
+                viewableImpression: [],
+                system: {
+                    value: "string",
+                    version: null,
+                },
+                title: "string",
+                description: "string",
+                advertiser: null,
+                pricing: null,
+                survey: null,
+                errorURLTemplates: ["url"],
+                impressionURLTemplates: [
+                    {
+                        id: null,
+                        url: "string",
+                    },
+                    {
+                        id: "id",
+                        url: "string",
+                    },
+                    {
+                        id: null,
+                        url: "string",
+                    },
+                    {
+                        id: null,
+                        url: "string",
+                    },
+                ],
+                creatives: [
+                    {
+                        id: null,
+                        adId: null,
+                        sequence: null,
+                        apiFramework: null,
+                        type: "string",
+                        duration: 15,
+                        skipDelay: -1,
+                        mediaFiles: [
+                            {
+                                id: "id",
+                                fileURL: "url",
+                                fileSize: 0,
+                                deliveryType: "string",
+                                mimeType: "string",
+                                mediaType: "string",
+                                codec: "",
+                                bitrate: 0,
+                                minBitrate: 0,
+                                maxBitrate: 0,
+                                width: 1422,
+                                height: 800,
+                                apiFramework: "string",
+                                scalable: null,
+                                maintainAspectRatio: null,
+                            },
+                        ],
+                        mezzanine: null,
+                        interactiveCreativeFile: null,
+                        closedCaptionFiles: [],
+                        videoClickThroughURLTemplate: {
+                            id: null,
+                            url: "string",
+                        },
+                        videoClickTrackingURLTemplates: [
+                            {
+                                id: null,
+                                url: "string",
+                            },
+                            {
+                                id: null,
+                                url: "string",
+                            },
+                            {
+                                id: null,
+                                url: "string",
+                            },
+                        ],
+                        videoCustomClickURLTemplates: [],
+                        adParameters: {
+                            value: "string",
+                            xmlEncoded: null,
+                        },
+                        icons: [],
+                        trackingEvents: {
+                            creativeView: ["url", "string"],
+                            start: ["url", "string", "string"],
+                            firstQuartile: ["url", "string", "string"],
+                            midpoint: ["url", "string", "string"],
+                            thirdQuartile: ["url", "string", "string"],
+                            complete: ["url", "string", "string"],
+                            mute: ["url", "string", "string"],
+                            unmute: ["url", "string", "string"],
+                            pause: ["url", "string"],
+                            fullscreen: ["url", "string"],
+                            rewind: ["url", "string"],
+                            resume: ["url", "string"],
+                            expand: ["url", "string"],
+                            collapse: ["url", "string"],
+                            acceptInvitation: ["url;"],
+                            close: ["url", "string"],
+                            skip: ["string"],
+                        },
+                        universalAdIds: [],
+                    },
+                ],
+                extensions: [
+                    {
+                        name: "string",
+                        value: null,
+                        attributes: {
+                            type: "string",
+                        },
+                        children: [
+                            {
+                                name: "string",
+                                value: null,
+                                attributes: {},
+                                children: [
+                                    {
+                                        name: "string",
+                                        value: null,
+                                        attributes: {
+                                            vendor: "string",
+                                        },
+                                        children: [
+                                            {
+                                                name: "string",
+                                                value: "string",
+                                                attributes: {
+                                                    apiFramework: "string",
+                                                    browserOptional: "string",
+                                                },
+                                                children: [],
+                                            },
+                                            {
+                                                name: "string",
+                                                value: "string",
+                                                attributes: {},
+                                                children: [],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+                adVerifications: [
+                    {
+                        resource: "string",
+                        vendor: "string",
+                        browserOptional: true,
+                        apiFramework: "string",
+                        type: null,
+                        parameters: "string",
+                        trackingEvents: {},
+                    },
+                ],
+                blockedAdCategories: [],
+                followAdditionalWrappers: true,
+                allowMultipleAds: false,
+                fallbackOnNoAd: null,
+            },
+        ],
+        errorURLTemplates: [],
+        version: "string",
+    };
 };
 
 const otherTests = async () => {

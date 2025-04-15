@@ -162,12 +162,12 @@ export interface VastResponse {
 export interface Ad {
     id: string | null;
     sequence: number | null;
-    adType: string;
-    adServingId: string;
+    adType: string | null;
+    adServingId: string | null;
     categories: Category[];
     expires: number | null;
     viewableImpression: ViewableImpression[];
-    system: string | null;
+    system: AdSystem | null;
     title: string | null;
     description: string | null;
     advertiser: string | null;
@@ -178,10 +178,19 @@ export interface Ad {
     creatives: Creative[];
     extensions: Extension[];
     adVerifications: AdVerification[];
+    blockedAdCategories: BlockedAdCategories[];
+    followAdditionalWrappers: boolean | null;
+    allowMultipleAds: boolean | null;
+    fallbackOnNoAd: boolean | null;
+}
+
+export interface AdSystem {
+    value: string | null;
+    version: string | null;
 }
 
 export interface URLTemplate {
-    id?: string | null;
+    id: string | null;
     url: string;
 }
 
@@ -191,7 +200,7 @@ export interface CreativeBase {
     sequence: number | null;
     apiFramework: string | null;
     universalAdIds: UniversalAdId[];
-    creativeExtensions: Extension[];
+    creativeExtensions?: Extension[];
 }
 
 export interface CreativeLinear extends CreativeBase {
@@ -199,12 +208,12 @@ export interface CreativeLinear extends CreativeBase {
     duration: number;
     skipDelay: number | null;
     mediaFiles: MediaFile[];
-    mezzanine: Mezzanine;
-    interactiveCreativeFile: InteractiveCreativeFile;
+    mezzanine: Mezzanine | null;
+    interactiveCreativeFile: InteractiveCreativeFile | null;
     closedCaptionFiles: ClosedCaptionFile[];
-    videoClickThroughURLTemplate: string | null;
-    videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTemplates: string[];
+    videoClickThroughURLTemplate: URLTemplate | null;
+    videoClickTrackingURLTemplates: URLTemplate[];
+    videoCustomClickURLTemplates: URLTemplate[];
     adParameters: AdParameters | null;
     icons: Icon[];
     trackingEvents: TrackingEvents;
@@ -231,7 +240,7 @@ export interface MediaFile {
     fileURL: string | null;
     deliveryType: string;
     mimeType: string | null;
-    code: string | null;
+    codec: string | null;
     bitrate: number;
     minBitrate: number;
     maxBitrate: number;
@@ -283,7 +292,7 @@ export interface NonLinearAd {
     staticResource: string | null;
     htmlResource: string | null;
     iframeResource: string | null;
-    nonlinearClickThroughURLTemplate: string | null;
+    nonlinearClickThroughURLTemplate: URLTemplate | null;
     nonlinearClickTrackingURLTemplates: URLTemplate[];
     adParameters: AdParameters | null;
 }
@@ -304,7 +313,7 @@ export interface CompanionAd {
     htmlResources: string[];
     iframeResources: string[];
     altText: string | null;
-    companionClickThroughURLTemplate: string | null;
+    companionClickThroughURLTemplate: URLTemplate | null;
     companionClickTrackingURLTemplates: URLTemplate[];
     trackingEvents: TrackingEvents;
     adParameters: AdParameters | null;
@@ -329,9 +338,9 @@ export interface Icon {
     staticResource: string | null;
     htmlResource: string | null;
     iframeResource: string | null;
-    iconClickThroughURLTemplate: string | null;
+    iconClickThroughURLTemplate: URLTemplate | null;
     iconClickTrackingURLTemplates: URLTemplate[];
-    iconViewTrackingURLTemplate: string | null;
+    iconViewTrackingURLTemplate: URLTemplate | null;
     iconClickFallbackImages: IconClickFallbackImage[];
     altText: string | null;
     hoverText: string | null;
@@ -339,18 +348,21 @@ export interface Icon {
 
 export interface Extension {
     name: string | null;
-    value: any;
+    value: string | null;
     attributes: ExtensionAttributes;
     children: Extension[];
 }
 
 export interface ExtensionAttributes {
-    type: string;
+    type?: string | null;
+    vendor?: string | null;
+    apiFramework?: string | null;
+    browserOptional?: string | null;
 }
 
 export interface UniversalAdId {
     idRegistry: string;
-    value: any;
+    idValue: string;
 }
 
 export interface AdVerification {
@@ -401,8 +413,8 @@ export type VastListener = (values: EventValues) => void;
 export interface EventValues {
     ERRORCODE?: number;
     ERRORMESSAGE?: string;
-    extensions?: any[];
-    system?: any;
+    extensions?: Extension[];
+    system?: AdSystem;
     message?: string;
     parentElement?: string;
     specVersion?: number;
