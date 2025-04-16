@@ -5,10 +5,15 @@ import nodeUnifi, {
     DeviceNameMapping,
     FullStatus,
     GuestAuthorization,
+    LanStatsSubsystem,
     SelfInfo,
     SiteStats,
     SiteSysinfo,
     UserGroup,
+    VpnStatsSubsystem,
+    WanStatsSubsystem,
+    WlanStatsSubsystem,
+    WwwStatsSubsystem,
 } from "node-unifi";
 
 // $ExpectType { Controller: typeof Controller; }
@@ -753,3 +758,134 @@ controller.customApiRequest("/api/s/default/stat/device");
 
 // $ExpectType Promise<true>
 controller.listen();
+
+declare let stats: SiteStats;
+
+// $ExpectType string
+stats.external_id;
+// ... and more test
+
+// $ExpectType (WlanStatsSubsystem | WanStatsSubsystem | WwwStatsSubsystem | LanStatsSubsystem | VpnStatsSubsystem)[]
+stats.health;
+
+declare let wlanSubsystemHealthStats: WlanStatsSubsystem;
+// $ExpectType "wlan"
+wlanSubsystemHealthStats.subsystem;
+
+declare let wwwSubsystemHealthStats: WwwStatsSubsystem;
+// $ExpectType "www"
+wwwSubsystemHealthStats.subsystem;
+// $ExpectType number;
+wwwSubsystemHealthStats.drops;
+// $ExpectType string;
+wwwSubsystemHealthStats.gw_mac;
+// $ExpectType number;
+wwwSubsystemHealthStats.latency;
+// $ExpectType number;
+wwwSubsystemHealthStats["rx_bytes-r"];
+// $ExpectType number;
+wwwSubsystemHealthStats.speedtest_lastrun;
+// $ExpectType number;
+wwwSubsystemHealthStats.speedtest_ping;
+// $ExpectType string;
+wwwSubsystemHealthStats.speedtest_status;
+// $ExpectType string;
+wwwSubsystemHealthStats.status;
+// $ExpectType number;
+wwwSubsystemHealthStats["tx_bytes-r"];
+// $ExpectType number;
+wwwSubsystemHealthStats.uptime;
+// $ExpectType number;
+wwwSubsystemHealthStats.xput_down;
+// $ExpectType number;
+wwwSubsystemHealthStats.xput_up;
+
+declare let lanSubsystemHealthStats: LanStatsSubsystem;
+// $ExpectType "lan"
+lanSubsystemHealthStats.subsystem;
+// $ExpectType string | null
+lanSubsystemHealthStats.lap_ip;
+// $ExpectType number
+lanSubsystemHealthStats.num_adopted;
+// $ExpectType number
+lanSubsystemHealthStats.num_disconnected;
+// $ExpectType number
+lanSubsystemHealthStats.num_guest;
+// $ExpectType number
+lanSubsystemHealthStats.num_iot;
+// $ExpectType number
+lanSubsystemHealthStats.num_pending;
+// $ExpectType number
+lanSubsystemHealthStats.num_sw;
+// $ExpectType number
+lanSubsystemHealthStats.num_user;
+// $ExpectType number
+lanSubsystemHealthStats["rx_bytes-r"];
+// $ExpectType string
+lanSubsystemHealthStats.status;
+// $ExpectType number
+lanSubsystemHealthStats["tx_bytes-r"];
+
+declare let vpnSubsystemHealthStats: VpnStatsSubsystem;
+// $ExpectType "vpn"
+vpnSubsystemHealthStats.subsystem;
+// $ExpectType boolean
+vpnSubsystemHealthStats.remote_user_enabled;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_num_active;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_num_inactive;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_rx_bytes;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_rx_packets;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_tx_bytes;
+// $ExpectType number
+vpnSubsystemHealthStats.remote_user_tx_packets;
+// $ExpectType boolean
+vpnSubsystemHealthStats.site_to_site_enabled;
+// $ExpectType string
+vpnSubsystemHealthStats.status;
+
+declare let wanSubsystemHealthStats: WanStatsSubsystem;
+// $ExpectType "wan"
+wanSubsystemHealthStats.subsystem;
+// $ExpectType string[]
+wanSubsystemHealthStats.gateways;
+// $ExpectType string
+wanSubsystemHealthStats.gw_mac;
+// $ExpectType string
+wanSubsystemHealthStats.gw_name;
+// $ExpectType { cpu: string, mem: string, uptime: string }
+wanSubsystemHealthStats["gw_system-stats"];
+// $ExpectType string
+wanSubsystemHealthStats.gw_version;
+// $ExpectType string
+wanSubsystemHealthStats.isp_name;
+// $ExpectType string
+wanSubsystemHealthStats.isp_organization;
+// $ExpectType string[]
+wanSubsystemHealthStats.nameservers;
+// $ExpectType string
+wanSubsystemHealthStats.netmask;
+// $ExpectType number
+wanSubsystemHealthStats.num_adopted;
+// $ExpectType number
+wanSubsystemHealthStats.num_disconnected;
+// $ExpectType number
+wanSubsystemHealthStats.num_gw;
+// $ExpectType number
+wanSubsystemHealthStats.num_pending;
+// $ExpectType number
+wanSubsystemHealthStats.num_sta;
+// $ExpectType number
+wanSubsystemHealthStats["rx_bytes-r"];
+// $ExpectType string
+wanSubsystemHealthStats.status;
+// $ExpectType number
+wanSubsystemHealthStats["tx_bytes-r"];
+// $ExpectType Record<string, unknown>
+wanSubsystemHealthStats.uptime_stats;
+// $ExpectType string
+wanSubsystemHealthStats.wan_ip;
