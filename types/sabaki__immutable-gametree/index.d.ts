@@ -1,4 +1,4 @@
-import * as Draft from "./src/Draft";
+import DraftClass = require("./src/Draft");
 import GameTree = require("./src/main");
 
 // eslint-disable-next-line @definitelytyped/export-just-namespace
@@ -90,5 +90,5 @@ declare namespace GameTree {
         children: NodeObject<ID>[];
     }
 
-    type Draft<ID extends Primitive = number> = Draft.Draft<ID>;
+    type Draft<ID extends Primitive = number> = DraftClass<ID>;
 }

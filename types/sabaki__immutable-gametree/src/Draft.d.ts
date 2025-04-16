@@ -30,4 +30,4 @@ declare class Draft<ID extends Primitive = number> {
     removeProperty(id: ID, property: Property): boolean;
 }
 
-export { Draft };
+export = Draft;
