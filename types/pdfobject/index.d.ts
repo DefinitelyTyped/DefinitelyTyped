@@ -8,6 +8,7 @@ export interface Options {
     page?: boolean | undefined;
     pdfOpenParams?: Record<string, string | number | boolean> | undefined;
     fallbackLink?: boolean | string | undefined;
+    fallbackFileNameForBase64?: string | udefined;
     width?: string | undefined;
     height?: string | undefined;
     assumptionMode?: boolean | undefined;
