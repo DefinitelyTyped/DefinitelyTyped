@@ -49,6 +49,16 @@ const getEnvelopeDocGenFormFields = async (envelopeId: string) => {
     return results;
 };
 
+const updateEnvelopeDocGenFormFields = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const formFields = await envelopesApi.getEnvelopeDocGenFormFields(params.accountId, envelopeId);
+    const results = await envelopesApi.updateEnvelopeDocGenFormFields(params.accountId, envelopeId, formFields);
+    return results;
+};
+
 const getEnvelopeWithStoredConfiguredClient = async (
     envelopeId: string,
     options: { advancedUpdate?: string | undefined; include?: string | undefined },
