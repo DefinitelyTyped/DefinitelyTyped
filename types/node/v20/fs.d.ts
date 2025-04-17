@@ -196,7 +196,7 @@ declare module "fs" {
      * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
-    export class Dirent {
+    export class Dirent<Name extends string | Buffer = string> {
         /**
          * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
@@ -239,7 +239,7 @@ declare module "fs" {
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
-        name: string;
+        name: Name;
         /**
          * The base path that this `fs.Dirent` object refers to.
          * @since v20.12.0
