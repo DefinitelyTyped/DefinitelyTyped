@@ -1,3 +1,3 @@
-declare var html: any
+declare var html: any;
 
-export = html
+export = html;

@@ -1,5 +1,5 @@
-import { SwaggerUIPresets } from "../index"
+import { SwaggerUIPresets } from "../index";
 
-declare var StandalonePreset: SwaggerUIPresets
+declare var StandalonePreset: SwaggerUIPresets;
 
-export = StandalonePreset
+export = StandalonePreset;

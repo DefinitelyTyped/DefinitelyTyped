@@ -1,3 +1,3 @@
-declare var css: any
+declare var css: any;
 
-export = css
+export = css;

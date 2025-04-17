@@ -95,12 +95,12 @@ swaggerUI.preauthorizeBasic("key", "user", "password");
 
 import SwaggerUIStandalonePreset from "swagger-ui/dist/swagger-ui-standalone-preset";
 // $ExpectType SwaggerUIPresets
-const _standAlonePreset = SwaggerUIStandalonePreset
+const _standAlonePreset = SwaggerUIStandalonePreset;
 
-import SwaggerUICSS from "swagger-ui/dist/swagger-ui.css"
+import SwaggerUICSS from "swagger-ui/dist/swagger-ui.css";
 // $ExpectType any
-const _css = SwaggerUICSS
+const _css = SwaggerUICSS;
 
-import OAuth2RedirectHTML from "swagger-ui/dist/oauth2-redirect.html"
+import OAuth2RedirectHTML from "swagger-ui/dist/oauth2-redirect.html";
 // $ExpectType any
-const _html = OAuth2RedirectHTML
+const _html = OAuth2RedirectHTML;

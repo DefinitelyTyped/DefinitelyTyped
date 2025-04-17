@@ -307,7 +307,7 @@ declare namespace SwaggerUI {
      * Presets are arrays of plugins
      * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
      */
-    type SwaggerUIPresets = SwaggerUIPlugin[]
+    type SwaggerUIPresets = SwaggerUIPlugin[];
 
     interface Indexable {
         [index: string]: any;
@@ -317,10 +317,10 @@ declare namespace SwaggerUI {
      * Internal presets
      * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
      */
-    var presets : {
-        base: SwaggerUIPresets
-        apis: SwaggerUIPresets
-    }
+    var presets: {
+        base: SwaggerUIPresets;
+        apis: SwaggerUIPresets;
+    };
 }
 
 interface SwaggerUI {
