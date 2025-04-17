@@ -1,3 +1,5 @@
+import bufferModule = require("node:buffer");
+
 // Specifically test buffer module regression.
 import {
     Blob as NodeBlob,
@@ -41,6 +43,13 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
     const value2: number = constants.MAX_STRING_LENGTH;
     const value3: number = kMaxLength;
     const value4: number = kStringMaxLength;
+}
+
+// Module variables
+{
+    // $ExpectType number
+    bufferModule.INSPECT_MAX_BYTES;
+    bufferModule.INSPECT_MAX_BYTES = 0;
 }
 
 // Module methods

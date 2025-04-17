@@ -69,7 +69,7 @@ declare module "buffer" {
      * @param input The input to validate.
      */
     export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
-    export const INSPECT_MAX_BYTES: number;
+    export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
     export const constants: {
