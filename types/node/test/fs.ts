@@ -163,6 +163,7 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     const listDir: fs.Dirent[] = fs.readdirSync("path", { withFileTypes: true });
     const listDir2: Buffer[] = fs.readdirSync("path", { withFileTypes: false, encoding: "buffer" });
     const listDir3: fs.Dirent[] = fs.readdirSync("path", { encoding: "utf8", withFileTypes: true });
+    const listDir4: fs.Dirent<Buffer>[] = fs.readdirSync("path", { encoding: "buffer", withFileTypes: true });
 
     let listB: Buffer[];
     listB = fs.readdirSync("path", { encoding: "buffer" });
@@ -172,7 +173,8 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.readdirSync("path", { encoding: enc });
     fs.readdirSync("path", {});
 
-    fs.readdir("path", { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+    fs.readdir("path", {withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+    fs.readdir("path", { withFileTypes: true , encoding: "buffer" }, (err: NodeJS.ErrnoException | null, files: fs.Dirent<Buffer>[]) => {});
 }
 
 async function testPromisify() {
@@ -414,10 +416,12 @@ async function testPromisify() {
     let names: Promise<string[]>;
     let buffers: Promise<Buffer[]>;
     let entries: Promise<fs.Dirent[]>;
+    let bufferEntries: Promise<fs.Dirent<Buffer>[]>;
 
     names = fs.promises.readdir("/path/to/dir", { encoding: "utf8", withFileTypes: false, recursive: true });
     buffers = fs.promises.readdir("/path/to/dir", { encoding: "buffer", withFileTypes: false, recursive: true });
     entries = fs.promises.readdir("/path/to/dir", { encoding: "utf8", withFileTypes: true, recursive: true });
+    bufferEntries = fs.promises.readdir("/path/to/dir", { encoding: "buffer", withFileTypes: true });
 }
 
 {
@@ -962,10 +966,10 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         entry; // $ExpectType string
     }
     for await (const entry of globAsync("**/*.js", { withFileTypes: true })) {
-        entry; // $ExpectType Dirent
+        entry; // $ExpectType Dirent<string>
     }
     for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
-        entry; // $ExpectType Dirent | string
+        entry; // $ExpectType Dirent<string> | string
     }
 
     for await (
@@ -982,33 +986,33 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         const entry of globAsync("**/*.js", {
             withFileTypes: true,
             exclude(fileName) {
-                fileName; // $ExpectType Dirent
+                fileName; // $ExpectType Dirent<string>
                 return false;
             },
         })
     ) {
-        entry; // $ExpectType Dirent
+        entry; // $ExpectType Dirent<string>
     }
     for await (
         const entry of globAsync("**/*.js", {
             withFileTypes: Math.random() > 0.5,
             exclude(fileName) {
-                fileName; // $ExpectType Dirent | string
+                fileName; // $ExpectType Dirent<string> | string
                 return false;
             },
         })
     ) {
-        entry; // $ExpectType Dirent | string
+        entry; // $ExpectType Dirent<string> | string
     }
 
     glob("**/*.js", (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
-        matches; // $ExpectType Dirent[]
+        matches; // $ExpectType Dirent<string>[]
     });
     glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
-        matches; // $ExpectType Dirent[] | string[]
+        matches; // $ExpectType Dirent<string>[] | string[]
     });
 
     glob(
@@ -1028,12 +1032,12 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         {
             withFileTypes: true,
             exclude: (fileName) => {
-                fileName; // $ExpectType Dirent
+                fileName; // $ExpectType Dirent<string>
                 return false;
             },
         },
         (err, matches) => {
-            matches; // $ExpectType Dirent[]
+            matches; // $ExpectType Dirent<string>[]
         },
     );
     glob(
@@ -1041,12 +1045,12 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         {
             withFileTypes: Math.random() > 0.5,
             exclude: (fileName) => {
-                fileName; // $ExpectType Dirent | string
+                fileName; // $ExpectType Dirent<string> | string
                 return false;
             },
         },
         (err, matches) => {
-            matches; // $ExpectType Dirent[] | string[]
+            matches; // $ExpectType Dirent<string>[] | string[]
         },
     );
     glob("**/*.js", { exclude: ["**/*.generated.js"] }, (err, matches) => {
@@ -1055,8 +1059,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
     globSync("**/*.js"); // $ExpectType string[]
     globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
-    globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent[]
-    globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent[]
+    globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
+    globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
 
     // $ExpectType string[]
     globSync("**/*.js", {
@@ -1069,15 +1073,15 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     globSync("**/*.js", {
         withFileTypes: true,
         exclude: (fileName) => {
-            fileName; // $ExpectType Dirent
+            fileName; // $ExpectType Dirent<string>
             return false;
         },
     });
-    // $ExpectType string[] | Dirent[]
+    // $ExpectType string[] | Dirent<string>[]
     globSync("**/*.js", {
         withFileTypes: Math.random() > 0.5,
         exclude: (fileName) => {
-            fileName; // $ExpectType Dirent | string
+            fileName; // $ExpectType Dirent<string> | string
             return false;
         },
     });
