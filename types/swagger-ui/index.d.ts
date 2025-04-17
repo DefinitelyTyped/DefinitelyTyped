@@ -57,7 +57,7 @@ declare namespace SwaggerUI {
          * An array of presets to use in Swagger UI.
          * Usually, you'll want to include ApisPreset if you use this option.
          */
-        presets?: SwaggerUIPlugin[] | SwaggerUIPresets[] | undefined;
+        presets?: SwaggerUIPlugin[] | SwaggerUIPreset[] | undefined;
 
         // Display
 
@@ -307,7 +307,7 @@ declare namespace SwaggerUI {
      * Presets are arrays of plugins
      * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
      */
-    type SwaggerUIPresets = SwaggerUIPlugin[];
+    type SwaggerUIPreset = SwaggerUIPlugin[];
 
     interface Indexable {
         [index: string]: any;
@@ -318,8 +318,8 @@ declare namespace SwaggerUI {
      * See https://swagger.io/docs/open-source-tools/swagger-ui/customization/overview/#presets
      */
     var presets: {
-        base: SwaggerUIPresets;
-        apis: SwaggerUIPresets;
+        base: SwaggerUIPreset;
+        apis: SwaggerUIPreset;
     };
 }
 
