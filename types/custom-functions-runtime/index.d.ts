@@ -78,8 +78,9 @@ declare namespace CustomFunctions {
 
         /**
          * Indicates whether the function is invoked as part of the formula value preview.
-         * On Desktop this is `true` if the function is invoked is to preview the formula value; otherwise it is `false`.
-         * On Mac, this is always `false`.
+         * `isInValuePreview` is read-only and can't be set by a custom functions add-in.
+         * In Excel on Windows and Mac, this value is `true` if the function is invoked is to preview the formula value; otherwise it is `false`.
+         * In Excel Online, this value is always `false`.
          * 
          * @remarks
          * [Api set: CustomFunctionsRuntime 1.5]
