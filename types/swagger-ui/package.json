@@ -5,6 +5,20 @@
     "projects": [
         "https://github.com/swagger-api/swagger-ui"
     ],
+    "exports": {
+        "./dist/swagger-ui.css": {
+            "types": "./swagger-ui.css.d.ts"
+        },
+        "./dist/oauth2-redirect.html": {
+            "types": "./oauth2-redirect.html.d.ts"
+        },
+        "./dist/swagger-ui-standalone-preset": {
+            "types": "./swagger-ui-standalone-preset.d.ts"
+        },
+        ".": {
+            "types": "./index.d.ts"
+        }
+    },
     "devDependencies": {
         "@types/swagger-ui": "workspace:."
     },
