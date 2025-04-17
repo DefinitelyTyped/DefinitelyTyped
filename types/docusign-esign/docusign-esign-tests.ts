@@ -162,3 +162,13 @@ const getDocumentWithCallback = async (envelopeId: string, documentId: string, o
     const results = await envelopesApi.getDocument(params.accountId, envelopeId, documentId, options, callback);
     return results;
 };
+
+const updateEnvelopeDocGenFormFields = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const formFields = await envelopesApi.getEnvelopeDocGenFormFields(params.accountId, envelopeId);
+    const results = await envelopesApi.updateEnvelopeDocGenFormFields(params.accountId, envelopeId, formFields);
+    return results;
+};
