@@ -8,11 +8,103 @@ declare namespace nodeUnifi {
         [key: string]: any;
     }
 
+    interface WlanStatsSubsystem {
+        subsystem: "wlan";
+        num_user: number;
+        num_guest: number;
+        num_iot: number;
+        "tx_bytes-r": number;
+        "rx_bytes-r": number;
+        status: string;
+        num_ap: number;
+        num_adopted: string;
+        num_disabled: number;
+        num_disconnected: number;
+        num_pending: number;
+    }
+
+    interface WanStatsSubsystem {
+        subsystem: "wan";
+        num_gw: number;
+        num_adopted: number;
+        num_disconnected: number;
+        num_pending: number;
+        status: string;
+        wan_ip: string;
+        gateways: string[];
+        netmask: string;
+        nameservers: string[];
+        num_sta: number;
+        "tx_bytes-r": number;
+        "rx_bytes-r": number;
+        gw_mac: string;
+        gw_name: string;
+        "gw_system-stats": { cpu: string; mem: string; uptime: string };
+        gw_version: string;
+        isp_name: string;
+        isp_organization: string;
+        uptime_stats: Record<string, unknown>;
+    }
+
+    interface WwwStatsSubsystem {
+        subsystem: "www";
+        status: string;
+        "tx_bytes-r": number;
+        "rx_bytes-r": number;
+        latency: number;
+        uptime: number;
+        drops: number;
+        xput_up: number;
+        xput_down: number;
+        speedtest_status: string;
+        speedtest_lastrun: number;
+        speedtest_ping: number;
+        gw_mac: string;
+    }
+
+    interface LanStatsSubsystem {
+        subsystem: "lan";
+        lap_ip: string | null;
+        status: string;
+        num_user: number;
+        num_guest: number;
+        num_iot: number;
+        "tx_bytes-r": number;
+        "rx_bytes-r": number;
+        num_sw: number;
+        num_adopted: number;
+        num_disconnected: number;
+        num_pending: number;
+    }
+
+    interface VpnStatsSubsystem {
+        subsystem: "vpn";
+        status: string;
+        remote_user_enabled: boolean;
+        remote_user_num_active: number;
+        remote_user_num_inactive: number;
+        remote_user_rx_bytes: number;
+        remote_user_tx_bytes: number;
+        remote_user_rx_packets: number;
+        remote_user_tx_packets: number;
+        site_to_site_enabled: boolean;
+    }
+
     interface SiteStats {
         _id: string;
+        external_id: string;
+        attr_no_delete: boolean;
+        attr_hidden_id: string;
         name: string;
         desc: string;
-        [key: string]: any;
+        num_new_alarms: number;
+        health: (
+            | WlanStatsSubsystem
+            | WanStatsSubsystem
+            | WwwStatsSubsystem
+            | LanStatsSubsystem
+            | VpnStatsSubsystem
+        )[];
     }
 
     interface GuestAuthorization {
