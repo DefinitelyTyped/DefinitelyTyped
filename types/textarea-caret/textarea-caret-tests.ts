@@ -11,7 +11,7 @@ function testImportedLibrary() {
 
 function testGlobalName() {
     element!.addEventListener("input", function() {
-        const caret = getCaretCoordinates(this, this.selectionEnd);
+        const caret = window.getCaretCoordinates(this, this.selectionEnd);
         console.log("(top, left, height) = (%s, %s, %s)", caret.top, caret.left, caret.height);
     });
 }

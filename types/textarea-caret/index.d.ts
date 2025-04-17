@@ -10,6 +10,6 @@ interface Options {
     debug?: boolean | undefined;
 }
 
-declare global {
-    function getCaretCoordinates(element: HTMLElement, position: number, options?: Options): Caret;
-}
+declare function getCaretCoordinates(element: HTMLElement, position: number, options?: Options): Caret;
+
+export as namespace getCaretCoordinates;
