@@ -2045,7 +2045,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
      */
-     export function readdir(
+    export function readdir(
         path: PathLike,
         options: {
             encoding: "buffer";

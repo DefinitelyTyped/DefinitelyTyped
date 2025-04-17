@@ -174,7 +174,11 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.readdirSync("path", {});
 
     fs.readdir("path", { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
-    fs.readdir("path", { withFileTypes: true , encoding: "buffer" }, (err: NodeJS.ErrnoException | null, files: fs.Dirent<Buffer>[]) => {});
+    fs.readdir(
+        "path",
+        { withFileTypes: true, encoding: "buffer" },
+        (err: NodeJS.ErrnoException | null, files: fs.Dirent<Buffer>[]) => {},
+    );
 }
 
 async function testPromisify() {
