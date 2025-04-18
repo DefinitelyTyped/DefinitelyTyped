@@ -71,10 +71,10 @@ declare namespace OneLine {
             jwplayer: boolean;
             dailymotion: boolean;
             omny: boolean;
-            VIMEO: boolean;
-            LIVEBLOG: boolean;
-            ART19: boolean;
-            RONINMEDIA: boolean;
+            vimeo: boolean;
+            liveblog: boolean;
+            art19: boolean;
+            roninmedia: boolean;
         };
     }
 

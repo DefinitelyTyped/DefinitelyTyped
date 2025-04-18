@@ -24,13 +24,13 @@ interface SocialConsents {
         facebook: boolean;
         google_maps: boolean;
         spotify: boolean;
-        dailymotion: boolean;
         jwplayer: boolean;
+        dailymotion: boolean;
         omny: boolean;
-        VIMEO: boolean;
-        LIVEBLOG: boolean;
-        ART19: boolean;
-        RONINMEDIA: boolean;
+        vimeo: boolean;
+        liveblog: boolean;
+        art19: boolean;
+        roninmedia: boolean;
     };
 }
 
