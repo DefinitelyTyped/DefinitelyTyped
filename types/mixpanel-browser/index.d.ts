@@ -112,6 +112,26 @@ export interface Config {
     record_max_ms: number;
     record_sessions_percent: number;
     record_canvas: boolean;
+    autocapture:
+        | boolean
+        | {
+            click?: boolean | undefined;
+            input?: boolean | undefined;
+            pageview?: string | undefined;
+            scroll?: boolean | undefined;
+            submit?: boolean | undefined;
+            capture_text_content?: boolean | undefined;
+            capture_extra_attrs?: string[] | undefined;
+            scroll_depth_percent_checkpoints?: number[] | undefined;
+            scroll_capture_all?: boolean | undefined;
+            block_url_regexes?: RegExp[] | undefined;
+            allow_url_regexes?: RegExp[] | undefined;
+            block_selectors?: string[] | undefined;
+            allow_selectors?: string[] | undefined;
+            block_attrs?: string[] | undefined;
+            allow_element_callback?: ((element: HTMLElement, event: Event) => boolean) | undefined;
+            block_element_callback?: ((element: HTMLElement, event: Event) => boolean) | undefined;
+        };
 }
 
 export type VerboseResponse =
