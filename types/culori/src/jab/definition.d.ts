@@ -1,12 +1,12 @@
-import convertJabToRgb from "./convertJabToRgb";
-import convertJabToXyz65 from "./convertJabToXyz65";
-import convertRgbToJab from "./convertRgbToJab";
-import convertXyz65ToJab from "./convertXyz65ToJab";
+import convertJabToRgb from "./convertJabToRgb.js";
+import convertJabToXyz65 from "./convertJabToXyz65.js";
+import convertRgbToJab from "./convertRgbToJab.js";
+import convertXyz65ToJab from "./convertXyz65ToJab.js";
 
-import { fixupAlpha } from "../fixup/alpha";
-import { interpolatorLinear } from "../interpolate/linear";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
 
-declare const definition: {
+declare const modeJab: {
     mode: "jab";
     channels: ["j", "a", "b", "alpha"];
 
@@ -37,4 +37,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeJab;

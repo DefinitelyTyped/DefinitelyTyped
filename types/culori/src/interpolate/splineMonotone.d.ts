@@ -1,7 +1,8 @@
-import { Interpolator } from "./Interpolator";
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
+export const interpolatorSplineMonotone: (arr: number[]) => (t: number) => number;
 
-export const interpolatorSplineMonotone: Interpolator;
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
+export const interpolatorSplineMonotone2: (arr: number[]) => (t: number) => number;
 
-export const interpolatorSplineMonotone2: Interpolator;
-
-export const interpolatorSplineMonotoneClosed: Interpolator;
+// eslint-disable-next-line @definitelytyped/prefer-declare-function
+export const interpolatorSplineMonotoneClosed: (arr: number[]) => (t: number) => number;

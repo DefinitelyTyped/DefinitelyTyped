@@ -1,9 +1,11 @@
-import convertLrgbToOklab from "./convertLrgbToOklab";
-import convertOklabToLrgb from "./convertOklabToLrgb";
-import convertOklabToRgb from "./convertOklabToRgb";
-import convertRgbToOklab from "./convertRgbToOklab";
+import convertLrgbToOklab from "./convertLrgbToOklab.js";
+import convertOklabToLrgb from "./convertOklabToLrgb.js";
+import convertOklabToRgb from "./convertOklabToRgb.js";
+import convertRgbToOklab from "./convertRgbToOklab.js";
 
-import lab from "../lab/definition";
+import lab from "../lab/definition.js";
+import parseOklab from "./parseOklab.js";
+import { Oklab } from "./types.js";
 
 interface OklabDefinitionMixin {
     mode: "oklab";
@@ -19,15 +21,19 @@ interface OklabDefinitionMixin {
     };
 
     ranges: {
-        l: [0, 0.999];
-        a: [-0.233, 0.276];
-        b: [-0.311, 0.198];
+        l: [0, 1];
+        a: [-0.4, 0.4];
+        b: [-0.4, 0.4];
     };
 
-    parse: ["--oklab"];
-    serialize: "--oklab";
+    parse: [typeof parseOklab];
+    serialize: (c: Omit<Oklab, "mode">) => string;
 }
 
-declare const definition: Omit<typeof lab, keyof OklabDefinitionMixin> & OklabDefinitionMixin;
+/**
+	Oklab, a perceptual color space for image processing by Björn Ottosson
+	Reference: https://bottosson.github.io/posts/oklab/
+ */
+declare const modeOklab: Omit<typeof lab, keyof OklabDefinitionMixin> & OklabDefinitionMixin;
 
-export default definition;
+export default modeOklab;

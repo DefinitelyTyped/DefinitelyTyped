@@ -1,16 +1,16 @@
-import convertDlchToLab65 from "./convertDlchToLab65";
-import convertLab65ToDlch from "./convertLab65ToDlch";
+import convertDlchToLab65 from "./convertDlchToLab65.js";
+import convertLab65ToDlch from "./convertLab65ToDlch.js";
 
-import { averageAngle } from "../average";
-import { differenceHueChroma } from "../difference";
-import { Dlab } from "../dlab/types";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import { Rgb } from "../rgb/types";
-import { Dlch } from "./types";
+import { averageAngle } from "../average.js";
+import { differenceHueChroma } from "../difference.js";
+import { Dlab } from "../dlab/types.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import { Dlch } from "./types.js";
 
-declare const definition: {
+declare const modeDlch: {
     mode: "dlch";
 
     parse: ["--din99o-lch"];
@@ -58,4 +58,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeDlch;

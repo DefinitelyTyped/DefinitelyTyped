@@ -1,9 +1,9 @@
-import convertOkhslToOklab from "./convertOkhslToOklab";
-import convertOklabToOkhsl from "./convertOklabToOkhsl";
+import convertOkhslToOklab from "./convertOkhslToOklab.js";
+import convertOklabToOkhsl from "./convertOklabToOkhsl.js";
 
-import modeHsl from "../hsl/definition";
-import { Rgb } from "../rgb/types";
-import { Okhsl } from "./types";
+import modeHsl from "../hsl/definition.js";
+import { Rgb } from "../rgb/types.js";
+import { Okhsl } from "./types.js";
 
 interface OkhslDefinitionMixin {
     mode: "okhsl";

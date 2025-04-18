@@ -1,5 +1,5 @@
-import { FindColorByMode, Mode, TakeColorChannels } from "./common";
-import { Rgb } from "./rgb/types";
+import { FindColorByMode, Mode, TakeColorChannels } from "./common.js";
+import { Rgb } from "./rgb/types.js";
 
 type NumberOrRange = number | [number, number];
 
