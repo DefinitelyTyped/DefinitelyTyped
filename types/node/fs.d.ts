@@ -198,7 +198,7 @@ declare module "fs" {
      * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
-    export class Dirent {
+    export class Dirent<Name extends string | Buffer = string> {
         /**
          * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
@@ -241,7 +241,7 @@ declare module "fs" {
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
-        name: string;
+        name: Name;
         /**
          * The base path that this `fs.Dirent` object refers to.
          * @since v20.12.0
@@ -2040,6 +2040,20 @@ declare module "fs" {
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
     ): void;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+        callback: (err: NodeJS.ErrnoException | null, files: Dirent<Buffer>[]) => void,
+    ): void;
     export namespace readdir {
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -2099,6 +2113,19 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             },
         ): Promise<Dirent[]>;
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+         */
+        function __promisify__(
+            path: PathLike,
+            options: {
+                encoding: "buffer";
+                withFileTypes: true;
+                recursive?: boolean | undefined;
+            },
+        ): Promise<Dirent<Buffer>[]>;
     }
     /**
      * Reads the contents of the directory.
@@ -2166,6 +2193,19 @@ declare module "fs" {
             recursive?: boolean | undefined;
         },
     ): Dirent[];
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdirSync(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Dirent<Buffer>[];
     /**
      * Closes the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
