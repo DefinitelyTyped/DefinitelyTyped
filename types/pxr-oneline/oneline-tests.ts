@@ -15,7 +15,7 @@ interface BidderConfig {
 type NoParamFunction = () => void;
 type ParamFunction = (arg: any) => void;
 
-interface SocialVendorConsents {
+interface SocialConsents {
     vendors: {
         tiktok: boolean;
         twitter: boolean;
@@ -24,6 +24,13 @@ interface SocialVendorConsents {
         facebook: boolean;
         google_maps: boolean;
         spotify: boolean;
+        dailymotion: boolean;
+        jwplayer: boolean;
+        omny: boolean;
+        VIMEO: boolean;
+        LIVEBLOG: boolean;
+        ART19: boolean;
+        RONINMEDIA: boolean;
     };
 }
 
@@ -36,13 +43,13 @@ const ndOne: OneLine.OneLine = {
             isEmpty: "isEmpty",
             isNotEmpty: "isNotEmpty",
             ageGateReady: "ageGateReady",
-            socialVendorsReady: "socialVendorsReady",
+            purposeReady: "purposeReady",
         },
         cons: {
             OneTime: "OneTime",
         },
 
-        subscribe: (topic: string, fn: NoParamFunction | ((data: SocialVendorConsents) => void)) => {
+        subscribe: (topic: string, fn: NoParamFunction | ((data: SocialConsents) => void)) => {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic: ${topic}`);
         },
