@@ -5,7 +5,9 @@ type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => 
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
 declare namespace anime {
-    type EasingOptions =
+    type EasingFunc = (t: number) => number;
+
+    type EasingLinearOptions =
         | "linear"
         | "easeInQuad"
         | "easeInCubic"
@@ -15,8 +17,11 @@ declare namespace anime {
         | "easeInExpo"
         | "easeInCirc"
         | "easeInBack"
-        | "easeInElastic"
-        | "easeInBounce"
+        | "easeInBounce";
+    type EasingLinearFunc = () => EasingFunc;
+
+    type EasingSigmoidOptions =
+        | "easeInElastic" // the Elastic() function is always a sigmoid
         | "easeOutQuad"
         | "easeOutCubic"
         | "easeOutQuart"
@@ -37,6 +42,12 @@ declare namespace anime {
         | "easeInOutBack"
         | "easeInOutElastic"
         | "easeInOutBounce";
+    type EasingSigmoidFunc = (amplitude: number, period: number) => EasingFunc;
+
+    type EasingOptions =
+        | EasingLinearOptions
+        | EasingSigmoidOptions;
+
     type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
@@ -138,28 +149,34 @@ declare namespace anime {
         from?: "first" | "last" | "center" | number | undefined;
     }
 
-    // Helpers
+    // Exported members and functions
     const version: string;
-    const speed: number;
+    let speed: number;
     let suspendWhenDocumentHidden: boolean;
     const running: AnimeInstance[];
-    const easings: { [EasingFunction: string]: (t: number) => any };
     function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;
     function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
+    function set(targets: AnimeTarget, value: { [AnyAnimatedProperty: string]: any }): void;
+    function convertPx(el: HTMLElement | SVGElement | null, val: string, unit: string): number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
         el: HTMLElement | SVGElement;
         property: string;
         totalLength: number;
     };
     function setDashoffset(el: HTMLElement | SVGElement | null): number;
-    function bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
     function stagger(
         value: number | string | ReadonlyArray<number | string>,
         options?: StaggerOptions,
     ): FunctionBasedParameter;
-    function set(targets: AnimeTarget, value: { [AnyAnimatedProperty: string]: any }): void;
-    // Timeline
     function timeline(params?: AnimeParams | readonly AnimeInstance[]): AnimeTimelineInstance;
+    function easing(easing: string | EasingFunc, duration?: number): EasingFunc;
+    const penner:
+        & {
+            [Key in EasingLinearOptions]: EasingLinearFunc;
+        }
+        & {
+            [Key in EasingSigmoidOptions]: EasingSigmoidFunc;
+        };
     function random(min: number, max: number): number;
 }
 
