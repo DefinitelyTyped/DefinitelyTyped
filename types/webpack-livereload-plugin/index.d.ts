@@ -1,19 +1,18 @@
 import { ServerOptions } from "https";
-import { Plugin, Stats } from "webpack";
-import webpack = require("webpack");
+import { Compilation, Compiler, WebpackPluginInstance, Stats } from "webpack";
 
-declare class LiveReloadPlugin extends Plugin {
+declare class LiveReloadPlugin implements WebpackPluginInstance {
     readonly isRunning: boolean;
     constructor(options?: LiveReloadPlugin.Options);
 
-    apply(compiler: webpack.Compiler): void;
+    apply(compiler: Compiler): void;
 
     start(watching: any, cb: () => void): void;
     done(stats: Stats): void;
     failed(): void;
     autoloadJs(): string;
     scriptTag(source: string): string;
-    applyCompilation(compilation: webpack.compilation.Compilation): void;
+    applyCompilation(compilation: Compilation): void;
 }
 
 declare namespace LiveReloadPlugin {
