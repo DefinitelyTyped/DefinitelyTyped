@@ -86,7 +86,7 @@ declare namespace autocannon {
 
         /**
          * A `Function` which will be passed the Client object for each connection to be made.
-         * This can be used to customise each individual connection headers and body using the API shown below.
+         * This can be used to customize each individual connection headers and body using the API shown below.
          *
          * The changes you make to the client in this function will take precedence over the default body and headers you pass in here.
          *
@@ -142,7 +142,7 @@ declare namespace autocannon {
         idReplacement?: boolean;
 
         /**
-         * A `Boolean` which allows you to setup an instance of autocannon that restarts indefinitely after emiting results with the `done` event.
+         * A `Boolean` which allows you to setup an instance of autocannon that restarts indefinitely after emitting results with the `done` event.
          * Useful for efficiently restarting your instance. To stop running forever, you must cause a `SIGINT` or call the `.stop()` function on your instance.
          * @default false
          */
@@ -225,8 +225,17 @@ declare namespace autocannon {
     }
 
     interface Request {
+        /**
+         * When present, will override opts.body
+         */
         body?: string | Buffer | undefined;
+        /**
+         * When present, will override opts.headers
+         */
         headers?: IncomingHttpHeaders | undefined;
+        /**
+         * When present, will override opts.method
+         */
         method?:
             | "ACL"
             | "BIND"
@@ -263,7 +272,29 @@ declare namespace autocannon {
             | "UNLOCK"
             | "UNSUBSCRIBE"
             | undefined;
+        /**
+         * When present, will override opts.path
+         */
         path?: string | undefined;
+        /**
+         * A Function you may provide to mutate the raw request object, e.g. request.method = 'GET'.
+         *
+         * It must return the modified request.
+         *
+         * When it returns a falsy value, autocannon will restart from first request.
+         *
+         * When using workers, you need to supply a file path that default exports a function instead.
+         */
+        setupRequest?: ((request: Request, context: object) => Request) | string | undefined;
+        /**
+         * A Function you may provide to process the received response.
+         *
+         * When using workers, you need to supply a file path that default exports a function instead.
+         */
+        onResponse?:
+            | ((status: number, body: string, context: object, headers: Request["headers"]) => void)
+            | string
+            | undefined;
     }
 
     /**
@@ -431,7 +462,7 @@ declare namespace autocannon {
         /** The number of requests with a mismatched body. */
         mismatches: number;
 
-        /** How many times the requests pipeline was reset due to setupRequest returning a falsey value. */
+        /** How many times the requests pipeline was reset due to setupRequest returning a falsy value. */
         resets: number;
 
         /** Requests counter per status code */
