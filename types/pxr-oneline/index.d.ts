@@ -49,17 +49,17 @@ declare namespace OneLine {
             isEmpty: string;
             isNotEmpty: string;
             ageGateReady: string;
-            socialVendorsReady: string;
+            purposeReady: string;
         };
         cons: {
             OneTime: string;
         };
         subscribe(topic: string, fn: NoParamFunction): void;
-        subscribe(topic: EventObject["topic"]["socialVendorsReady"], fn: (data: SocialVendorConsents) => void): void;
+        subscribe(topic: EventObject["topic"]["purposeReady"], fn: (data: SocialConsents) => void): void;
         broadcast(oneTime: boolean, topic: string, data?: any): void;
     }
 
-    interface SocialVendorConsents {
+    interface SocialConsents {
         vendors: {
             tiktok: boolean;
             twitter: boolean;
@@ -69,6 +69,12 @@ declare namespace OneLine {
             google_maps: boolean;
             spotify: boolean;
             jwplayer: boolean;
+            dailymotion: boolean;
+            omny: boolean;
+            vimeo: boolean;
+            liveblog: boolean;
+            art19: boolean;
+            roninmedia: boolean;
         };
     }
 
