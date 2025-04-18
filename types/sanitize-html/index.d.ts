@@ -78,6 +78,8 @@ declare namespace sanitize {
          */
         enforceHtmlBoundary?: boolean | undefined;
         nonBooleanAttributes?: string[];
+        onOpenTag?: ((name: string, attribs: Attributes) => void) | undefined;
+        onCloseTag?: ((name: string, isImplied: boolean) => void) | undefined;
     }
 
     const defaults: IDefaults;
