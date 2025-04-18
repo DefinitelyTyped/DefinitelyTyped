@@ -38,6 +38,18 @@ mixpanel.init("token", {
 mixpanel.init("token", {
     track_pageview: "full-url",
 });
+mixpanel.init("token", {
+    autocapture: true,
+});
+mixpanel.init("token", {
+    autocapture: {
+        pageview: "url-with-path-and-query-string",
+        capture_extra_attrs: ["id"],
+        allow_element_callback: () => false,
+        scroll_depth_percent_checkpoints: [20],
+        block_url_regexes: [/\/login\/?$/],
+    },
+});
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();
 mixpanel.track("Registered", { Gender: "Male", Age: 21 });
