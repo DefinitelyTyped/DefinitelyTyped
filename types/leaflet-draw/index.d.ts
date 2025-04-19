@@ -313,6 +313,14 @@ declare module "leaflet" {
              * @default true
              */
             metric?: boolean | undefined;
+
+            /**
+             * Show the area of the drawn rectangle in m², ha or km².
+             * The area is only approximate and become less accurate the larger the rectangle is.
+             *
+             * @default false
+             */
+            showArea?: boolean | undefined;
         }
 
         interface CircleOptions extends SimpleShapeOptions {

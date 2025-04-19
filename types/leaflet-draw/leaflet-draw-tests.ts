@@ -12,6 +12,9 @@ map.addLayer(drawnItems);
 const drawControl = new L.Control.Draw({
     position: "topleft",
     draw: {
+        rectangle: {
+            showArea: true,
+        },
         polygon: {
             allowIntersection: false,
             drawError: {
