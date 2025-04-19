@@ -2,7 +2,7 @@
 
 export function parse(acceptLanguage?: string): Language[];
 export function pick<T extends string>(
-    supportedLanguages: T[],
+    supportedLanguages: readonly T[],
     acceptLanguage: string | Language[],
     options?: PickOptions,
 ): T | null;
