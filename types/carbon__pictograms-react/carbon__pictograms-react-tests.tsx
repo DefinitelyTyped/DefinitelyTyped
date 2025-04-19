@@ -38,6 +38,7 @@ import {
     Video_01,
     Visibility,
     WatsonLogo,
+    AgileCoaching,
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
@@ -81,3 +82,4 @@ import * as React from "react";
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
 <Agile />; // $ExpectType Element
+<AgileCoaching />; // $ExpectType Element
