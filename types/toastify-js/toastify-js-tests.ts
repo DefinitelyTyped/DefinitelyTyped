@@ -63,3 +63,4 @@ const toast = Toastify({
 });
 toast.options; // $ExpectType Options
 toast.toastElement; // $ExpectType Element | null
+Toastify.defaults; // $ExpectType Options
