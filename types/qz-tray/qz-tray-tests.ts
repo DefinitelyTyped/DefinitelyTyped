@@ -49,7 +49,7 @@ const isClaimedFn = async () =>
     qz.hid.isClaimed({ vendorId: "01x10", productId: "1x", usagePage: "09x6546565", serial: "1" });
 const listDevicesFn = async () => qz.hid.listDevices();
 const openStreamFn = async () =>
-    qz.hid.openStream({ vendorId: "01x10", productId: "1x", usagePage: "09x6546565", serial: "1" });
+    qz.hid.openStream({ vendorId: "01x10", productId: "1x", usagePage: "09x6546565", serial: "1", responseSize: "8" });
 const readData = async () =>
     qz.hid.readData({ vendorId: "01x10", productId: "1x", usagePage: "09x6546565", serial: "1", responseSize: "20" });
 const releaseDeviceFn = async () =>
