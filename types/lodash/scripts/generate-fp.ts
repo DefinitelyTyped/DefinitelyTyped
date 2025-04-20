@@ -108,7 +108,6 @@ async function main() {
         "// npm install && npm run generate",
         "",
         'import lodash = require("./index");',
-        'import type IS_PLAIN_OBJECT = require("./isPlainObject-symbol");',
         "",
         "export = _;",
         "",

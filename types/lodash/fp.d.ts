@@ -3,7 +3,6 @@
 // npm install && npm run generate
 
 import lodash = require("./index");
-import type IS_PLAIN_OBJECT = require("./isPlainObject-symbol");
 
 export = _;
 
@@ -2006,7 +2005,7 @@ declare namespace _ {
     type LodashIsNumber = (value: any) => value is number;
     type LodashIsObject = (value: any) => value is object;
     type LodashIsObjectLike = <T>(value: T) => value is lodash.NotFunction<T> & object;
-    type LodashIsPlainObject = <T>(value: T) => value is lodash.NotFunction<lodash.NotArray<T>> & object & { [IS_PLAIN_OBJECT]: undefined; };
+    type LodashIsPlainObject = (value: any) => boolean;
     type LodashIsRegExp = (value: any) => value is RegExp;
     type LodashIsSafeInteger = (value: any) => boolean;
     type LodashIsSet = (value: any) => value is Set<any>;
