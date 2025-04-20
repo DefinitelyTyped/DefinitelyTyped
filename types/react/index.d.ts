@@ -68,10 +68,10 @@ export as namespace React;
 declare namespace React {
     // --- Memoization Helpers ---
     /** A nominal type brand for memoized values. */
-    const __memoized: unique symbol;
+    export const __memoized: unique symbol;
     /** Represents a value explicitly memoized via React hooks (useMemo, useCallback). */
     /** using `__memoized` instead of `[__memoized]` to avoid TS4023 */
-    type Memoized<T> = T & { __memoized: true };
+    export type Memoized<T> = T & { readonly __memoized: unknown };
 
     /** Represents JavaScript primitive types. */
     type Primitive = string | number | boolean | null | undefined | symbol | bigint;

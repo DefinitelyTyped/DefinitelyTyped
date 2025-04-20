@@ -270,7 +270,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // default to never only (not that useful, but type-safe -- no {} or unknown!)
     // $ExpectType never
     React.useState()[0];
-    // $ExpectType number & { [__memoized]: true; }
+    // $ExpectType number & { __memoized: unknown; }
     React.useState<number>()[0];
     // default overload
     // $ExpectType Memoized<number>
