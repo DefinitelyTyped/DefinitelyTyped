@@ -446,7 +446,9 @@ export interface ImapFlowOptions {
     };
     /**
      * Custom logger instance with debug(obj), info(obj), warn(obj), and error(obj) methods.
+     *
      * If `false`, logging is disabled.
+     *
      * If not provided, ImapFlow logs to console in pino format.
      */
     logger?: Logger | false;
@@ -615,11 +617,11 @@ export interface MailboxObject {
     /**
      * List of flags for this mailbox.
      */
-    flags: Set<string>;
+    flags: Set<Flag>;
     /**
      * One of special-use flags (if applicable): "\All", "\Archive", "\Drafts", "\Flagged", "\Junk", "\Sent", "\Trash". Additionally INBOX has non-standard "\Inbox" flag set.
      */
-    specialUse: Flag;
+    specialUse?: Flag;
     /**
      * `true` if mailbox was found from the output of LIST command.
      */
@@ -631,7 +633,7 @@ export interface MailboxObject {
     /**
      * A Set of flags available to use in this mailbox. If it is not set or includes special flag "\*" then any flag can be used.
      */
-    permanentFlags: Set<string>;
+    permanentFlags: Set<Flag>;
     /**
      * Unique mailbox ID if server has OBJECTID extension enabled.
      */
@@ -643,7 +645,7 @@ export interface MailboxObject {
     /**
      * If `true` then the server doesn't support the persistent storage of mod-sequences for the mailbox.
      */
-    noModseq?: string;
+    noModseq?: boolean;
     /**
      * Mailbox UIDVALIDITY value.
      */
@@ -705,11 +707,11 @@ export interface FetchMessageObject {
     /**
      * A set of message flags.
      */
-    flags?: Set<string>;
+    flags?: Set<Flag>;
     /**
      * Flag color like "red", or "yellow". This value is derived from the flags Set and it uses the same color rules as `Apple Mail`.
      */
-    flagColor?: string;
+    flagColor?: Color;
     /**
      * Message envelope.
      */
@@ -1107,7 +1109,7 @@ export interface ListResponse {
     /**
      * A `set` of flags for this mailbox.
      */
-    flags: Set<string>;
+    flags: Set<Flag>;
     /**
      * One of special-use flags (if applicable): "\All", "\Archive", "\Drafts", "\Flagged", "\Junk", "\Sent", "\Trash". Additionally INBOX has non-standard "\Inbox" flag set.
      */
@@ -1206,7 +1208,7 @@ export interface MessageStructureObject {
     /**
      * Additional parameters for Content-Type, eg "charset".
      */
-    parameters?: object;
+    parameters?: { [key: string]: any };
     /**
      * Content-ID.
      */
@@ -1230,7 +1232,7 @@ export interface MessageStructureObject {
     /**
      * Additional parameters for Content-Disposition.
      */
-    dispositionParameters?: string;
+    dispositionParameters?: { [key: string]: any };
     /**
      * An array of child nodes if this is a multipart node. Not present for normal nodes.
      */
@@ -1296,4 +1298,4 @@ export interface SpecialUseHints {
  */
 export type Flag = "\\Seen" | "\\Answered" | "\\Flagged" | "\\Deleted" | "\\Draft" | "\\Recent" | (string & {});
 
-export type Color = "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "grey";
+export type Color = "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "grey" | (string & {});
