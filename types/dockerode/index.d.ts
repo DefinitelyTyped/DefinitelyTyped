@@ -356,14 +356,14 @@ declare namespace Dockerode {
                 annotations?: { [key: string]: string } | undefined;
                 data?: string | undefined;
                 platform?:
-                | {
-                    architecture: string;
-                    os: string;
-                    'os.version'?: string | undefined;
-                    'os.features'?: string[] | undefined;
-                    variant?: string | undefined;
+                    | {
+                        architecture: string;
+                        os: string;
+                        "os.version"?: string | undefined;
+                        "os.features"?: string[] | undefined;
+                        variant?: string | undefined;
                     }
-                | undefined;
+                    | undefined;
                 artifactType?: string | undefined;
             }
             | undefined;
@@ -371,50 +371,50 @@ declare namespace Dockerode {
             | {
                 ID: string;
                 Descriptor: {
-                mediaType: string;
-                digest: string;
-                size: number;
-                urls?: string[] | undefined;
-                annotations?: { [key: string]: string } | undefined;
-                data?: string | undefined;
-                platform?:
-                    | {
-                        architecture: string;
-                        os: string;
-                        'os.version'?: string | undefined;
-                        'os.features'?: string[] | undefined;
-                        variant?: string | undefined;
-                    }
-                    | undefined;
-                artifactType?: string | undefined;
+                    mediaType: string;
+                    digest: string;
+                    size: number;
+                    urls?: string[] | undefined;
+                    annotations?: { [key: string]: string } | undefined;
+                    data?: string | undefined;
+                    platform?:
+                        | {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        }
+                        | undefined;
+                    artifactType?: string | undefined;
                 };
                 Available: boolean;
                 Size: {
-                Total: number;
-                Content: number;
+                    Total: number;
+                    Content: number;
                 };
-                Kind: 'image' | 'attestation' | 'unknown';
+                Kind: "image" | "attestation" | "unknown";
                 ImageData?:
-                | {
-                    Platform: {
-                        architecture: string;
-                        os: string;
-                        'os.version'?: string | undefined;
-                        'os.features'?: string[] | undefined;
-                        variant?: string | undefined;
-                    };
-                    Containers: string[];
-                    Size: {
-                        Total: number;
-                        Content: number;
-                    };
+                    | {
+                        Platform: {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        };
+                        Containers: string[];
+                        Size: {
+                            Total: number;
+                            Content: number;
+                        };
                     }
-                | undefined;
+                    | undefined;
                 AttestationData?:
-                | {
-                    For: string;
+                    | {
+                        For: string;
                     }
-                | undefined;
+                    | undefined;
             }[]
             | undefined;
     }
@@ -1027,14 +1027,14 @@ declare namespace Dockerode {
                 annotations?: { [key: string]: string } | undefined;
                 data?: string | undefined;
                 platform?:
-                | {
-                    architecture: string;
-                    os: string;
-                    'os.version'?: string | undefined;
-                    'os.features'?: string[] | undefined;
-                    variant?: string | undefined;
-                }
-                | undefined;
+                    | {
+                        architecture: string;
+                        os: string;
+                        "os.version"?: string | undefined;
+                        "os.features"?: string[] | undefined;
+                        variant?: string | undefined;
+                    }
+                    | undefined;
                 artifactType?: string | undefined;
             }
             | undefined;
@@ -1049,14 +1049,14 @@ declare namespace Dockerode {
                     annotations?: { [key: string]: string } | undefined;
                     data?: string | undefined;
                     platform?:
-                    | {
-                        architecture: string;
-                        os: string;
-                        'os.version'?: string | undefined;
-                        'os.features'?: string[] | undefined;
-                        variant?: string | undefined;
-                    }
-                    | undefined;
+                        | {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        }
+                        | undefined;
                     artifactType?: string | undefined;
                 };
                 Available: boolean;
@@ -1064,28 +1064,28 @@ declare namespace Dockerode {
                     Total: number;
                     Content: number;
                 };
-                Kind: 'image' | 'attestation' | 'unknown';
+                Kind: "image" | "attestation" | "unknown";
                 ImageData?:
-                | {
-                    Platform: {
-                        architecture: string;
-                        os: string;
-                        'os.version'?: string | undefined;
-                        'os.features'?: string[] | undefined;
-                        variant?: string | undefined;
-                    };
-                    Containers: string[];
-                    Size: {
-                        Total: number;
-                        Content: number;
-                    };
-                }
-                | undefined;
+                    | {
+                        Platform: {
+                            architecture: string;
+                            os: string;
+                            "os.version"?: string | undefined;
+                            "os.features"?: string[] | undefined;
+                            variant?: string | undefined;
+                        };
+                        Containers: string[];
+                        Size: {
+                            Total: number;
+                            Content: number;
+                        };
+                    }
+                    | undefined;
                 AttestationData?:
-                | {
-                    For: string;
-                }
-                | undefined;
+                    | {
+                        For: string;
+                    }
+                    | undefined;
             }[]
             | undefined;
     }

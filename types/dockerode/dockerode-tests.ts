@@ -87,7 +87,7 @@ async function foo() {
         const imageSharedSize: number = image.SharedSize;
         const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
-        const inspect = await foo.inspect({manifests: true});
+        const inspect = await foo.inspect({ manifests: true });
         const imageDescriptor = inspect.Descriptor;
         const imageManifests = inspect.Manifests;
         await foo.remove();
