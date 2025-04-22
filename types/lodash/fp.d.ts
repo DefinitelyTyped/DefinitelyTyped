@@ -734,14 +734,6 @@ declare namespace _ {
         <T, U>(start: number, end: lodash.__, value: T, array: U[] | null | undefined): LodashFill1x13<T, U>;
         <T, U>(start: lodash.__, end: number, value: T, array: U[] | null | undefined): LodashFill1x14<T, U>;
         <T, U>(start: number, end: number, value: T, array: U[] | null | undefined): Array<T | U>;
-        <U>(start: lodash.__, end: lodash.__, value: lodash.__, array: lodash.List<U> | null | undefined): LodashFill2x8<U>;
-        <U>(start: number, end: lodash.__, value: lodash.__, array: lodash.List<U> | null | undefined): LodashFill2x9<U>;
-        <U>(start: lodash.__, end: number, value: lodash.__, array: lodash.List<U> | null | undefined): LodashFill2x10<U>;
-        <U>(start: number, end: number, value: lodash.__, array: lodash.List<U> | null | undefined): LodashFill2x11<U>;
-        <T, U>(start: lodash.__, end: lodash.__, value: T, array: lodash.List<U> | null | undefined): LodashFill2x12<T, U>;
-        <T, U>(start: number, end: lodash.__, value: T, array: lodash.List<U> | null | undefined): LodashFill2x13<T, U>;
-        <T, U>(start: lodash.__, end: number, value: T, array: lodash.List<U> | null | undefined): LodashFill2x14<T, U>;
-        <T, U>(start: number, end: number, value: T, array: lodash.List<U> | null | undefined): lodash.List<T | U>;
     }
     interface LodashFill1x1 {
         (end: number): LodashFill1x3;
@@ -3306,8 +3298,6 @@ declare namespace _ {
         <T>(values: T): LodashPull1x1<T>;
         <T>(values: lodash.__, array: readonly T[]): LodashPull1x2<T>;
         <T>(values: T, array: readonly T[]): T[];
-        <T>(values: lodash.__, array: lodash.List<T>): LodashPull2x2<T>;
-        <T>(values: T, array: lodash.List<T>): lodash.List<T>;
     }
     interface LodashPull1x1<T> {
         (array: readonly T[]): T[];
@@ -3316,11 +3306,8 @@ declare namespace _ {
     type LodashPull1x2<T> = (values: T) => T[];
     type LodashPull2x2<T> = (values: T) => lodash.List<T>;
     interface LodashPullAll {
-        <T>(values: lodash.List<T>): LodashPullAll1x1<T>;
         <T>(values: lodash.__, array: readonly T[]): LodashPullAll1x2<T>;
-        <T>(values: lodash.List<T>, array: readonly T[]): T[];
         <T>(values: lodash.__, array: lodash.List<T>): LodashPullAll2x2<T>;
-        <T>(values: lodash.List<T>, array: lodash.List<T>): lodash.List<T>;
     }
     interface LodashPullAll1x1<T> {
         (array: readonly T[]): T[];
@@ -3330,27 +3317,11 @@ declare namespace _ {
     type LodashPullAll2x2<T> = (values: lodash.List<T>) => lodash.List<T>;
     interface LodashPullAllBy {
         <T>(iteratee: lodash.ValueIteratee<T>): LodashPullAllBy1x1<T>;
-        <T>(iteratee: lodash.__, values: lodash.List<T>): LodashPullAllBy1x2<T>;
-        <T>(iteratee: lodash.ValueIteratee<T>, values: lodash.List<T>): LodashPullAllBy1x3<T>;
         <T>(iteratee: lodash.__, values: lodash.__, array: readonly T[]): LodashPullAllBy1x4<T>;
         <T>(iteratee: lodash.ValueIteratee<T>, values: lodash.__, array: readonly T[]): LodashPullAllBy1x5<T>;
-        <T>(iteratee: lodash.__, values: lodash.List<T>, array: readonly T[]): LodashPullAllBy1x6<T>;
-        <T>(iteratee: lodash.ValueIteratee<T>, values: lodash.List<T>, array: readonly T[]): T[];
-        <T>(iteratee: lodash.__, values: lodash.__, array: lodash.List<T>): LodashPullAllBy2x4<T>;
-        <T>(iteratee: lodash.ValueIteratee<T>, values: lodash.__, array: lodash.List<T>): LodashPullAllBy2x5<T>;
-        <T>(iteratee: lodash.__, values: lodash.List<T>, array: lodash.List<T>): LodashPullAllBy2x6<T>;
-        <T>(iteratee: lodash.ValueIteratee<T>, values: lodash.List<T>, array: lodash.List<T>): lodash.List<T>;
         <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>): LodashPullAllBy3x1<T1, T2>;
-        <T2>(iteratee: lodash.__, values: lodash.List<T2>): LodashPullAllBy3x2<T2>;
-        <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>, values: lodash.List<T2>): LodashPullAllBy3x3<T1>;
         <T1>(iteratee: lodash.__, values: lodash.__, array: readonly T1[]): LodashPullAllBy3x4<T1>;
         <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>, values: lodash.__, array: readonly T1[]): LodashPullAllBy3x5<T1, T2>;
-        <T1, T2>(iteratee: lodash.__, values: lodash.List<T2>, array: readonly T1[]): LodashPullAllBy3x6<T1, T2>;
-        <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>, values: lodash.List<T2>, array: readonly T1[]): T1[];
-        <T1>(iteratee: lodash.__, values: lodash.__, array: lodash.List<T1>): LodashPullAllBy4x4<T1>;
-        <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>, values: lodash.__, array: lodash.List<T1>): LodashPullAllBy4x5<T1, T2>;
-        <T1, T2>(iteratee: lodash.__, values: lodash.List<T2>, array: lodash.List<T1>): LodashPullAllBy4x6<T1, T2>;
-        <T1, T2>(iteratee: lodash.ValueIteratee<T1 | T2>, values: lodash.List<T2>, array: lodash.List<T1>): lodash.List<T1>;
     }
     interface LodashPullAllBy1x1<T> {
         (values: lodash.List<T>): LodashPullAllBy1x3<T>;
@@ -3418,27 +3389,11 @@ declare namespace _ {
     type LodashPullAllBy4x6<T1, T2> = (iteratee: lodash.ValueIteratee<T1 | T2>) => lodash.List<T1>;
     interface LodashPullAllWith {
         <T>(comparator: lodash.Comparator<T>): LodashPullAllWith1x1<T>;
-        <T>(comparator: lodash.__, values: lodash.List<T>): LodashPullAllWith1x2<T>;
-        <T>(comparator: lodash.Comparator<T>, values: lodash.List<T>): LodashPullAllWith1x3<T>;
         <T>(comparator: lodash.__, values: lodash.__, array: readonly T[]): LodashPullAllWith1x4<T>;
         <T>(comparator: lodash.Comparator<T>, values: lodash.__, array: readonly T[]): LodashPullAllWith1x5<T>;
-        <T>(comparator: lodash.__, values: lodash.List<T>, array: readonly T[]): LodashPullAllWith1x6<T>;
-        <T>(comparator: lodash.Comparator<T>, values: lodash.List<T>, array: readonly T[]): T[];
-        <T>(comparator: lodash.__, values: lodash.__, array: lodash.List<T>): LodashPullAllWith2x4<T>;
-        <T>(comparator: lodash.Comparator<T>, values: lodash.__, array: lodash.List<T>): LodashPullAllWith2x5<T>;
-        <T>(comparator: lodash.__, values: lodash.List<T>, array: lodash.List<T>): LodashPullAllWith2x6<T>;
-        <T>(comparator: lodash.Comparator<T>, values: lodash.List<T>, array: lodash.List<T>): lodash.List<T>;
         <T1, T2>(comparator: lodash.Comparator2<T1, T2>): LodashPullAllWith3x1<T1, T2>;
-        <T2>(comparator: lodash.__, values: lodash.List<T2>): LodashPullAllWith3x2<T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.List<T2>): LodashPullAllWith3x3<T1>;
         <T1>(comparator: lodash.__, values: lodash.__, array: readonly T1[]): LodashPullAllWith3x4<T1>;
         <T1, T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.__, array: readonly T1[]): LodashPullAllWith3x5<T1, T2>;
-        <T1, T2>(comparator: lodash.__, values: lodash.List<T2>, array: readonly T1[]): LodashPullAllWith3x6<T1, T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.List<T2>, array: readonly T1[]): T1[];
-        <T1>(comparator: lodash.__, values: lodash.__, array: lodash.List<T1>): LodashPullAllWith4x4<T1>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.__, array: lodash.List<T1>): LodashPullAllWith4x5<T1, T2>;
-        <T1, T2>(comparator: lodash.__, values: lodash.List<T2>, array: lodash.List<T1>): LodashPullAllWith4x6<T1, T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.List<T2>, array: lodash.List<T1>): lodash.List<T1>;
     }
     interface LodashPullAllWith1x1<T> {
         (values: lodash.List<T>): LodashPullAllWith1x3<T>;
@@ -3508,8 +3463,6 @@ declare namespace _ {
         (indexes: lodash.Many<number>): LodashPullAt1x1;
         <T>(indexes: lodash.__, array: readonly T[]): LodashPullAt1x2<T>;
         <T>(indexes: lodash.Many<number>, array: readonly T[]): T[];
-        <T>(indexes: lodash.__, array: lodash.List<T>): LodashPullAt2x2<T>;
-        <T>(indexes: lodash.Many<number>, array: lodash.List<T>): lodash.List<T>;
     }
     interface LodashPullAt1x1 {
         <T>(array: readonly T[]): T[];
@@ -3735,8 +3688,8 @@ declare namespace _ {
     type LodashReject2x2<T> = (predicate: lodash.ValueIterateeCustom<T[keyof T], boolean>) => Array<T[keyof T]>;
     interface LodashRemove {
         <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
-        <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;
-        <T>(predicate: lodash.ValueIteratee<T>, array: lodash.List<T>): T[];
+        <T>(predicate: lodash.__, array: T[]): LodashRemove1x2<T>;
+        <T>(predicate: lodash.ValueIteratee<T>, array: T[]): T[];
     }
     type LodashRemove1x1<T> = (array: lodash.List<T>) => T[];
     type LodashRemove1x2<T> = (predicate: lodash.ValueIteratee<T>) => T[];
@@ -3789,7 +3742,7 @@ declare namespace _ {
     }
     type LodashResult1x1 = <TResult>(object: any) => TResult;
     type LodashResult1x2 = <TResult>(path: lodash.PropertyPath) => TResult;
-    type LodashReverse = <TList extends lodash.List<any>>(array: TList) => TList;
+    type LodashReverse = <TList extends any[]>(array: TList) => TList;
     type LodashRound = (n: number) => number;
     type LodashRunInContext = (context: object) => lodash.LoDashStatic;
     interface LodashSample {
