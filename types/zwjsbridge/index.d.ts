@@ -21,22 +21,71 @@ interface UploadFileOptions {
     type?: string;
     /** 服务端接受文件流上传地址 */
     url: string;
-    /** 上传文件数量 默认为1 */
+    /** 
+     * 上传文件数量，最多上传 9 个文件
+     * @default 9
+     */
     count?: number;
+    /** 单个文件大小限制，单位 M,即上传文件大小上限 */
+    materialSize?: number
+    sourceType?: ('camera' | 'file' | 'album')[]
+    /**
+     * 自定义相机辅助图片（仅 APP 端可用），上传后会在 APP 拍照界面覆盖展示参考图片
+     */
+    pic?: string
+    /**
+     * 文件流的入参
+     * ```js
+     * zwjsbridge 内 部处理逻辑
+     * Var file=input.files[0];
+     * Var form=new FormData();
+     * form.append(name,file)
+     * ```
+     * 
+     * @default 'file'
+     */
+    name?: string
+    /** 是否是 2.0 事项 */
+    partialFormData?: boolean
+    /** 
+     * 额外的入参
+     * ```js
+     * // jsbridge 内部处理逻辑
+     * var form = new FormData();
+     * // formData 所有的参数都会被添加到form 里
+     * form.append('a', bbb);
+     * ```
+     */
+    formData?: Record<string, any>
+    /** 上传成功回调 */
+    onSuccess?: (e: UploadFileSuccess | UploadFileFail) => void,
+    /** 上传失败回调 */
+    onFail?: (error: any) => void
 }
 
 /**
- * 文件上传返回结果
+ * 文件上传返回结果 - 成功
  */
-interface UploadFileResult {
+interface UploadFileSuccess {
     /** 上传状态 */
-    status: "success" | "fail";
+    status: "success";
     /** 上传文件地址 */
     filePath: string[];
     /** 选择文件名称 */
     fileName: string[];
-    /** 成功/错误信息 */
+    /** 成功信息 */
     msg: string;
+}
+/**
+ * 文件上传返回结果 - 失败
+ */
+interface UploadFileFail {
+    /** 上传状态 */
+    status: "fail";
+    /** 错误信息 */
+    msg: string;
+    failCount: number
+    result: 'false'
 }
 
 /**
@@ -60,6 +109,8 @@ interface DownloadFileResult {
     /** 下载成功标识 */
     success: boolean;
 }
+
+type TSourceType = ('album' | 'camera')[]
 
 interface ZWJSBridge {
     /**
@@ -286,11 +337,11 @@ interface ZWJSBridge {
     /**
      * 选择图片
      *
-     * 错误码
-     * 1001 没有摄像头或摄像头不可用
-     * 1002 没有拍照权限
-     * 1003 没有图片库权限
-     * 1004 图片上传失败
+     * **错误码**
+     * - 1001 没有摄像头或摄像头不可用
+     * - 1002 没有拍照权限
+     * - 1003 没有图片库权限
+     * - 1004 图片上传失败
      */
     chooseImage(options: {
         /**
@@ -298,12 +349,23 @@ interface ZWJSBridge {
          * 默认值为false，图片不上传到服务器。
          * 值为true时，图片上传到服务器，上传成功后返回公网可访问的URL。
          */
-        upload?: boolean;
+        upload: true;
+        /** 不传时默认从相册选择和拍照两种方式都支持，弹窗供用户选择。 */
+        sourceType?: TSourceType
+    }): Promise<{
+        /** upload取值为true时，picPath为图片的网络地址数组，支持下载 */
+        picPath: string[];
+        result: boolean
+    }>;
+    chooseImage(options: {
+        /** 图片不上传到服务器 */
+        upload?: false;
+        /** 不传时默认从相册选择和拍照两种方式都支持，弹窗供用户选择。 */
+        sourceType?: TSourceType
     }): Promise<{
         /** Base64编码格式的图片数据数组 */
         picSrc: string[];
-        /** upload取值为true时，picPath为图片的网 络地址数组，支持下载 */
-        picPath: string[];
+        result: boolean
     }>;
 
     /**
@@ -362,18 +424,17 @@ interface ZWJSBridge {
      *
      * @param options - 文件上传参数 {@link UploadFileOptions}
      *
-     * @returns 异步返回 {@link UploadFileResult} 对象
-     *
      * @example
      * ZWJSBridge.uploadFile({
-     *   type: 'image/*',
+     *   type: '.png,.jpg,.jpeg',
      *   url: 'https://xxx.com.cn/uploadFile',
-     *   count: 1
-     * }).then(res => {
-     *   console.log(res)
-     *  })
+     *   count: 1,
+     *   onSuccess: (e) => {
+     *     console.log(e)
+     *   }
+     * })
      */
-    uploadFile(options: UploadFileOptions): Promise<UploadFileResult>;
+    uploadFile(options: UploadFileOptions): void;
 
     /**
      * 文件下载
