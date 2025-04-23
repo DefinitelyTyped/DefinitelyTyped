@@ -222,9 +222,9 @@ declare module "node:sqlite" {
         function(
             name: string,
             options: FunctionOptions,
-            func: (...args: SupportedValueType[]) => SupportedValueType,
+            func: (...args: SQLOutputValue[]) => SQLInputValue,
         ): void;
-        function(name: string, func: (...args: SupportedValueType[]) => SupportedValueType): void;
+        function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
          * Opens the database specified in the `location` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
