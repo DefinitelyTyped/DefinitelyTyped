@@ -23,7 +23,14 @@ const spreedly_card_types: spreedly.SpreedlyCardType[] = [
 ];
 const spreedly_number_formats: spreedly.SpreedlyNumberFormat[] = ["prettyFormat", "maskedFormat", "toggleMask"];
 spreedly_iframe.init("key", { numberEl: "number", cvvEl: "cvv" }); // $ExpectType void
-spreedly_iframe.init("key", { numberEl: "number", cvvEl: "cvv", nonce: "exampleUUID", signature: "exampleSignature", certificateToken: "exampleCertificateToken", timestamp: "exampleTimestamp" }); // $ExpectType void
+spreedly_iframe.init("key", { // $ExpectType void
+    numberEl: "number",
+    cvvEl: "cvv",
+    nonce: "exampleUUID",
+    signature: "exampleSignature",
+    certificateToken: "exampleCertificateToken",
+    timestamp: "exampleTimestamp",
+});
 spreedly_iframe.reload(); // $ExpectType void
 spreedly_iframe.tokenizeCreditCard({ // $ExpectType void
     first_name: "First name",
