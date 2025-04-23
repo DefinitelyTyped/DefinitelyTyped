@@ -197,7 +197,15 @@ declare module "zlib" {
     interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams {}
     interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
     interface Unzip extends stream.Transform, Zlib {}
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
     interface ZstdCompress extends stream.Transform, Zlib {}
+    /**
+     * @since v22.15.0
+     * @experimental
+     */
     interface ZstdDecompress extends stream.Transform, Zlib {}
     /**
      * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
@@ -391,6 +399,7 @@ declare module "zlib" {
     function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v22.15.0
+     * @experimental
      */
     function zstdCompress(buf: InputType, callback: CompressCallback): void;
     function zstdCompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
@@ -400,10 +409,12 @@ declare module "zlib" {
     /**
      * Compress a chunk of data with `ZstdCompress`.
      * @since v22.15.0
+     * @experimental
      */
     function zstdCompressSync(buf: InputType, options?: ZstdOptions): Buffer;
     /**
      * @since v22.15.0
+     * @experimental
      */
     function zstdDecompress(buf: InputType, callback: CompressCallback): void;
     function zstdDecompress(buf: InputType, options: ZstdOptions, callback: CompressCallback): void;
@@ -413,6 +424,7 @@ declare module "zlib" {
     /**
      * Decompress a chunk of data with `ZstdDecompress`.
      * @since v22.15.0
+     * @experimental
      */
     function zstdDecompressSync(buf: InputType, options?: ZstdOptions): Buffer;
     namespace constants {
