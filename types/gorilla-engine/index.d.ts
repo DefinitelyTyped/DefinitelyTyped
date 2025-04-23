@@ -355,7 +355,9 @@ declare namespace GorillaEngine {
         /**
          * Method used to retrieve a string from the Gorilla Engine.
          * @param path The path to the string that should be retrieved.
-         * @returns the string found at the given `path` or `false` if nothing was found.
+         * @returns the string found at the given `path` or `false` if nothing was found. If a numeric 
+         * value is found at the path it's string representation is returned - the same as if the value
+         * was passed to {@link valueToStringAtPath}.
          */
         getStringAtPath(path: string): string;
 
