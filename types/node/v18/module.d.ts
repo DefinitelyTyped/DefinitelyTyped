@@ -198,7 +198,7 @@ declare module "module" {
             importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
-            format: ModuleFormat;
+            format: string | null | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
