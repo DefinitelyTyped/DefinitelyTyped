@@ -272,7 +272,7 @@ declare module "node:sqlite" {
          * ```
          * @param changeset A binary changeset or patchset.
          * @param options The configuration options for how the changes will be applied.
-         * @returns Whether the changeset was applied succesfully without being aborted.
+         * @returns Whether the changeset was applied successfully without being aborted.
          * @since v22.12.0
          */
         applyChangeset(changeset: Uint8Array, options?: ApplyChangesetOptions): boolean;
