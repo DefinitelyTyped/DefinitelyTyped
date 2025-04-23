@@ -3,7 +3,7 @@
 import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
 import { ConnectionOptions } from "tls";
 
