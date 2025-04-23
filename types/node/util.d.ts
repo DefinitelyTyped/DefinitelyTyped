@@ -391,7 +391,6 @@ declare module "util" {
      * Creates and returns an `AbortController` instance whose `AbortSignal` is marked
      * as transferable and can be used with `structuredClone()` or `postMessage()`.
      * @since v18.11.0
-     * @experimental
      * @returns A transferable AbortController
      */
     export function transferableAbortController(): AbortController;
@@ -404,7 +403,6 @@ declare module "util" {
      * channel.port2.postMessage(signal, [signal]);
      * ```
      * @since v18.11.0
-     * @experimental
      * @param signal The AbortSignal
      * @returns The same AbortSignal
      */
@@ -1820,7 +1818,6 @@ declare module "util" {
      * components. When parsed, a `MIMEType` object is returned containing
      * properties for each of these components.
      * @since v19.1.0, v18.13.0
-     * @experimental
      */
     export class MIMEType {
         /**
