@@ -2009,6 +2009,11 @@ interface TestDequeue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestEnqueue extends TestLocationInfo {
     /**
@@ -2019,6 +2024,11 @@ interface TestEnqueue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestFail extends TestLocationInfo {
     /**
