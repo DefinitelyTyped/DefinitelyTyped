@@ -17,7 +17,14 @@ declare class Stats {
 
     // Backwards Compatibility
 
+    /**
+     * @deprecated Use `dom` intead.
+     */
     domElement: HTMLDivElement;
+
+    /**
+     * @deprecated Use `showPanel` intead.
+     */
     setMode(value: number): void;
 }
 
