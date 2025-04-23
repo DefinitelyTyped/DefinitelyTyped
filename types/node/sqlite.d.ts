@@ -171,7 +171,7 @@ declare module "node:sqlite" {
      * exposed by this class execute synchronously.
      * @since v22.5.0
      */
-    class DatabaseSync {
+    class DatabaseSync implements Disposable {
         /**
          * Constructs a new `DatabaseSync` instance.
          * @param location The location of the database.
@@ -285,6 +285,13 @@ declare module "node:sqlite" {
          * @since v22.12.0
          */
         applyChangeset(changeset: Uint8Array, options?: ApplyChangesetOptions): boolean;
+        /**
+         * Closes the database connection. If the database connection is already closed
+         * then this is a no-op.
+         * @since v22.15.0
+         * @experimental
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * @since v22.12.0
