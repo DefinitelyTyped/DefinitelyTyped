@@ -230,6 +230,11 @@ declare module "node:sqlite" {
         ): void;
         function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
+         * Whether the database is currently open or not.
+         * @since v22.15.0
+         */
+        readonly isOpen: boolean;
+        /**
          * Opens the database specified in the `location` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
          * @since v22.5.0
