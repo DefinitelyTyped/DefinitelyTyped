@@ -1,5 +1,5 @@
 import * as Common from "../../Common";
-import { EntityType } from '../entities';
+import { EntityType } from "../entities";
 
 export interface CommonEntityData {
     layer: string;
