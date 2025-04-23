@@ -360,8 +360,8 @@ declare module "util" {
      *
      * ```js
      * fs.access('file/that/does/not/exist', (err) => {
-     *   const name = util.getSystemErrorMessage(err.errno);
-     *   console.error(name);  // no such file or directory
+     *   const message = util.getSystemErrorMessage(err.errno);
+     *   console.error(message);  // no such file or directory
      * });
      * ```
      * @since v22.12.0
