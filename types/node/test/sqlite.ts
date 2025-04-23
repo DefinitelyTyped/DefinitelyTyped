@@ -23,6 +23,7 @@ import { TextEncoder } from "node:util";
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
+    insert.setAllowUnknownNamedParameters(true);
     insert.run(1, 42, 3.14159, "foo", new TextEncoder().encode("a☃b☃c"));
     insert.run(2, null, null, null, null);
     insert.run(3, Number(8), Number(2.718), String("bar"), Buffer.from("x☃y☃"));

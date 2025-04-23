@@ -429,6 +429,13 @@ declare module "node:sqlite" {
          */
         setAllowBareNamedParameters(enabled: boolean): void;
         /**
+         * By default, if an unknown name is encountered while binding parameters, an
+         * exception is thrown. This method allows unknown named parameters to be ignored.
+         * @since v22.15.0
+         * @param enabled Enables or disables support for unknown named parameters.
+         */
+        setAllowUnknownNamedParameters(enabled: boolean): void;
+        /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than
          * JavaScript numbers are capable of representing. In such cases, this method can
