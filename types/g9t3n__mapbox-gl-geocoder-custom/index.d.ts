@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "mapbox__mapbox-gl-geocoder-tests.ts"
+        "g9t3n__mapbox-gl-geocoder-custom-tests.ts"
     ]
 }
