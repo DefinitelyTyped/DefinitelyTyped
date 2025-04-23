@@ -15,7 +15,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    
     "files": [
         "index.d.ts",
         "g9t3n__mapbox-gl-geocoder-custom-tests.ts"
