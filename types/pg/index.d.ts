@@ -25,9 +25,11 @@ export interface ClientConfig {
     keepAliveInitialDelayMillis?: number | undefined;
     idle_in_transaction_session_timeout?: number | undefined;
     application_name?: string | undefined;
+    fallback_application_name?: string | undefined;
     connectionTimeoutMillis?: number | undefined;
     types?: CustomTypesConfig | undefined;
     options?: string | undefined;
+    client_encoding?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
