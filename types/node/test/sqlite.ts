@@ -45,6 +45,11 @@ import { TextEncoder } from "node:util";
 }
 
 {
+    new DatabaseSync(Buffer.from(":memory:"));
+    new DatabaseSync(new URL("file:///var/lib/sqlite3/db"));
+}
+
+{
     const database = new DatabaseSync(":memory:", { allowExtension: true });
     database.loadExtension("/path/to/extension.so");
     database.enableLoadExtension(false);

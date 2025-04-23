@@ -174,13 +174,13 @@ declare module "node:sqlite" {
     class DatabaseSync implements Disposable {
         /**
          * Constructs a new `DatabaseSync` instance.
-         * @param location The location of the database.
+         * @param path The path of the database.
          * A SQLite database can be stored in a file or completely [in memory](https://www.sqlite.org/inmemorydb.html).
-         * To use a file-backed database, the location should be a file path.
-         * To use an in-memory database, the location should be the special name `':memory:'`.
+         * To use a file-backed database, the path should be a file path.
+         * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(location: string, options?: DatabaseSyncOptions);
+        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
         /**
          * Closes the database connection. An exception is thrown if the database is not
          * open. This method is a wrapper around [`sqlite3_close_v2()`](https://www.sqlite.org/c3ref/close.html).
@@ -235,7 +235,7 @@ declare module "node:sqlite" {
          */
         readonly isOpen: boolean;
         /**
-         * Opens the database specified in the `location` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
+         * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
          * @since v22.5.0
          */
