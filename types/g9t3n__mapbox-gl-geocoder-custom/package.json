@@ -12,6 +12,7 @@
     "devDependencies": {
         "@types/g9t3n__mapbox-gl-geocoder-custom": "workspace:."
     },
+    
     "owners": [
         {
             "name": "makspetrov",
