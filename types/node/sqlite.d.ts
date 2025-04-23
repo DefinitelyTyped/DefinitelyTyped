@@ -158,9 +158,10 @@ declare module "node:sqlite" {
          */
         useBigIntArguments?: boolean | undefined;
         /**
-         * If `true`, `function` can accept a variable number of
-         * arguments. If `false`, `function` must be invoked with exactly
-         * `function.length` arguments.
+         * If `true`, `function` may be invoked with any number of
+         * arguments (between zero and
+         * [`SQLITE_MAX_FUNCTION_ARG`](https://www.sqlite.org/limits.html#max_function_arg)). If `false`,
+         * `function` must be invoked with exactly `function.length` arguments.
          * @default false
          */
         varargs?: boolean | undefined;
@@ -217,7 +218,10 @@ declare module "node:sqlite" {
          * @param name The name of the SQLite function to create.
          * @param options Optional configuration settings for the function.
          * @param func The JavaScript function to call when the SQLite
-         * function is invoked.
+         * function is invoked. The return value of this function should be a valid
+         * SQLite data type: see
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v22.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
             name: string,
