@@ -4407,7 +4407,7 @@ function testUserScripts() {
     ];
     const injectionTarget: chrome.userScripts.InjectionTarget = {
         tabId: 46,
-        allFrames: true
+        allFrames: true,
     };
 
     const badExeOptions = {};
