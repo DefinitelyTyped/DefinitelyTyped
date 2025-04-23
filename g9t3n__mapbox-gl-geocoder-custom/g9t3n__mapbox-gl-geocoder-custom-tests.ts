@@ -6,6 +6,7 @@ const geocoder = new MapboxGeocoder({
     accessToken: token,
 });
 
+
 // $ExpectType MapboxGeocoder
 geocoder.query("Paris");
 
