@@ -4379,6 +4379,12 @@ function testUserScripts() {
     chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
     chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
 
+    const badScripts = [
+        {
+            id: "badScriptId",
+            matches: ["*://example.com/*"],
+        },
+    ];
     const scripts = [
         {
             id: "scriptId1",
@@ -4391,13 +4397,26 @@ function testUserScripts() {
             matches: ["*://example.org/*"],
         },
     ];
-
-    const badScripts = [
+    const jsInjections: chrome.userScripts.ScriptSource[] = [
         {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
+            file: "./the/script.js",
+        },
+        {
+            code: "console.log(\"Wow the script works!\");",
         },
     ];
+    const injectionTarget: chrome.userScripts.InjectionTarget = {
+        tabId: 46,
+        allFrames: true
+    };
+
+    const badExeOptions = {};
+    const exeOptions: chrome.userScripts.UserScriptInjection = {
+        injectImmediately: true,
+        js: jsInjections,
+        target: injectionTarget,
+        worldId: "USER_SCRIPT",
+    };
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -4407,6 +4426,11 @@ function testUserScripts() {
     });
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
+
+    // @ts-expect-error
+    chrome.userScripts.execute(badExeOptions);
+    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
+    chrome.userScripts.execute(exeOptions, () => void 0); // $ExpectType void
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
