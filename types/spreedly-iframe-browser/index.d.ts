@@ -44,6 +44,10 @@ declare namespace spreedly {
     interface InitOptions {
         numberEl: string;
         cvvEl: string;
+        nonce?: string;
+        certificateToken?: string;
+        signature?: string;
+        timestamp?: string;
     }
 
     interface TokenizeCreditCardAdditionalFields {
