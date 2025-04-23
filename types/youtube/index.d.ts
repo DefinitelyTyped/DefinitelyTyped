@@ -401,7 +401,7 @@ declare namespace YT {
      * Basic metadata about the currently loaded video.
      * Returned by the `getVideoData()` method of the YouTube Player instance.
      */
-    export interface VideoData  {
+    export interface VideoData {
         /** Unique ID of the video. */
         video_id: string;
 
