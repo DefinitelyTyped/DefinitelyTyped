@@ -36,6 +36,7 @@ run({
 // $ExpectType TestsStream
 run({
     concurrency: 1,
+    cwd: "/home/nodejs",
     files: ["test-file-name.js"],
     signal: new AbortController().signal,
     timeout: 100,

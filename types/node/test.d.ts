@@ -321,6 +321,14 @@ declare module "node:test" {
          */
         concurrency?: number | boolean | undefined;
         /**
+         * Specifies the current working directory to be used by the test runner.
+         * Serves as the base path for resolving files according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+         * @since v23.0.0
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
          * An array containing the list of files to run. If omitted, files are run according to the
          * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
          */
