@@ -1,4 +1,4 @@
-import { constants, DatabaseSync, StatementSync } from "node:sqlite";
+import { backup, constants, DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
@@ -96,4 +96,20 @@ import { TextEncoder } from "node:util";
             return constants.SQLITE_CHANGESET_ABORT;
         },
     });
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+
+    // $ExpectType Promise<void>
+    backup(
+        db,
+        "/var/lib/sqlite/backup",
+        {
+            source: "main",
+            target: "backup",
+            rate: 250,
+            progress: (progressInfo) => console.log(`${progressInfo.remainingPages}/${progressInfo.totalPages}`),
+        },
+    );
 }
