@@ -652,23 +652,6 @@ declare module "util" {
      */
     export function isArray(object: unknown): object is unknown[];
     /**
-     * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isRegExp(/some regexp/);
-     * // Returns: true
-     * util.isRegExp(new RegExp('another regexp'));
-     * // Returns: true
-     * util.isRegExp({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Deprecated
-     */
-    export function isRegExp(object: unknown): object is RegExp;
-    /**
      * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and
      * `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
