@@ -841,10 +841,10 @@ spec();
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
-lcov();
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
+// $ExpectType LcovReporter
 new lcov();
+// $ExpectType LcovReporter
+lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
