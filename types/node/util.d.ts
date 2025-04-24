@@ -669,23 +669,6 @@ declare module "util" {
      */
     export function isRegExp(object: unknown): object is RegExp;
     /**
-     * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isDate(new Date());
-     * // Returns: true
-     * util.isDate(Date());
-     * // false (without 'new' returns a String)
-     * util.isDate({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isDate} instead.
-     */
-    export function isDate(object: unknown): object is Date;
-    /**
      * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
      *
      * ```js
