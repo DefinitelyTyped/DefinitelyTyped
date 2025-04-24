@@ -2279,9 +2279,7 @@ declare module "node:test/reporters" {
      * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-coverage) flag.
      * @since v22.0.0
      */
-    // TODO: change the export to a wrapper function once node@0db38f0 is merged (breaking change)
-    // const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
-    const lcov: LcovReporter;
+    const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
 
     export { dot, junit, lcov, spec, tap, TestEvent };
 }
