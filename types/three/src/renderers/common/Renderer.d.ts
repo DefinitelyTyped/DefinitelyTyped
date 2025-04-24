@@ -62,6 +62,7 @@ export interface RendererParameters {
     samples?: number | undefined;
     getFallback?: ((error: unknown) => Backend) | null | undefined;
     colorBufferType?: TextureDataType | undefined;
+    multiview?: boolean | undefined;
 }
 /**
  * Base class for renderers.
@@ -198,6 +199,7 @@ declare class Renderer {
      * @property {?Function} [getFallback=null] - This callback function can be used to provide a fallback backend, if the primary backend can't be targeted.
      * @property {number} [colorBufferType=HalfFloatType] - Defines the type of color buffers. The default `HalfFloatType` is recommend for best
      * quality. To save memory and bandwidth, `UnsignedByteType` might be used. This will reduce rendering quality though.
+     * @property {boolean} [multiview=false] - If set to `true`, the renderer will use multiview during WebXR rendering if supported.
      */
     /**
      * Constructs a new renderer.
@@ -255,6 +257,23 @@ declare class Renderer {
      * @return {Promise} A Promise that resolves when synchronization has been finished.
      */
     waitForGPU(): Promise<void>;
+    /**
+     * Enables or disables high precision for model-view and normal-view matrices.
+     * When enabled, will use CPU 64-bit precision for higher precision instead of GPU 32-bit for higher performance.
+     *
+     * NOTE: 64-bit precision is not compatible with `InstancedMesh` and `SkinnedMesh`.
+     *
+     * @param {boolean} value - Whether to enable or disable high precision.
+     * @type {boolean}
+     */
+    set highPrecision(value: boolean);
+    /**
+     * Returns whether high precision is enabled or not.
+     *
+     * @return {boolean} Whether high precision is enabled or not.
+     * @type {boolean}
+     */
+    get highPrecision(): boolean;
     /**
      * Sets the given MRT configuration.
      *
