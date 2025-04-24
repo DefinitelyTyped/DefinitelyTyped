@@ -757,6 +757,45 @@ declare module "url" {
          */
         toJSON(): string;
     }
+    interface URLPatternComponentResult {
+        input: string;
+        groups: Record<string, string | undefined>;
+    }
+    interface URLPatternInit {
+        protocol?: string;
+        username?: string;
+        password?: string;
+        hostname?: string;
+        port?: string;
+        pathname?: string;
+        search?: string;
+        hash?: string;
+        baseURL?: string;
+    }
+    interface URLPatternOptions {
+        ignoreCase?: boolean;
+    }
+    interface URLPatternResult {
+        inputs: (string | URLPatternInit)[];
+        protocol: URLPatternComponentResult;
+        username: URLPatternComponentResult;
+        password: URLPatternComponentResult;
+        hostname: URLPatternComponentResult;
+        port: URLPatternComponentResult;
+        pathname: URLPatternComponentResult;
+        search: URLPatternComponentResult;
+        hash: URLPatternComponentResult;
+    }
+    /**
+     * @since v23.8.0
+     * @experimental
+     */
+    class URLPattern {
+        constructor(input: string | URLPatternInit, baseURL: string, options?: URLPatternOptions);
+        constructor(input?: string | URLPatternInit, options?: URLPatternOptions);
+        exec(input: string | URLPatternInit, baseURL?: string): URLPatternResult | null;
+        test(input: string | URLPatternInit, baseURL?: string): boolean;
+    }
     interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
         [Symbol.iterator](): URLSearchParamsIterator<T>;
     }
