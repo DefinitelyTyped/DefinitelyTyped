@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: k6-DefinitelyTyped
+  title: k6-DefinitelyTyped
+  description: |
+    The repository for high quality TypeScript type definitions.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: grafana/k6-DefinitelyTyped
+spec:
+  type: library
+  owner: group:default/k6-frontend
+  lifecycle: production

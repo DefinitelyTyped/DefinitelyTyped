@@ -1,0 +1,22 @@
+name: Publish TechDocs
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'catalog-info.yaml'
+      - '.github/workflows/publish-techdocs.yaml'
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+jobs:
+  publish-docs:
+    uses: grafana/shared-workflows/.github/workflows/publish-techdocs.yaml@main
+    secrets: inherit
+    with:
+      namespace: default
+      kind: component
+      name: k6-DefinitelyTyped
+      default-working-directory: .
