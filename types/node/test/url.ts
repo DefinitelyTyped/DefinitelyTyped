@@ -220,3 +220,9 @@ import * as url from "node:url";
     const parsedUrl = url.URL.parse("/foo", "https://example.org/");
     parsedUrl; // $ExpectType URL | null
 }
+
+{
+    const urlPattern = new url.URLPattern("https://nodejs.org/docs/latest/api/*.html");
+    urlPattern.exec("https://nodejs.org/docs/latest/api/dns.html");
+    urlPattern.test("https://nodejs.org/docs/latest/api/dns.html");
+}
