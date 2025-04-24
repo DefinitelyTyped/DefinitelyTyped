@@ -174,8 +174,6 @@ declare module "zlib" {
         maxOutputLength?: number | undefined;
     }
     interface Zlib {
-        /** @deprecated Use bytesWritten instead. */
-        readonly bytesRead: number;
         readonly bytesWritten: number;
         shell?: boolean | string | undefined;
         close(callback?: () => void): void;
