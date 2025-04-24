@@ -819,23 +819,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNull(0);
-     * // Returns: false
-     * util.isNull(undefined);
-     * // Returns: false
-     * util.isNull(null);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === null` instead.
-     */
-    export function isNull(object: unknown): object is null;
-    /**
      * Returns `true` if the given `object` is `null` or `undefined`. Otherwise,
      * returns `false`.
      *
