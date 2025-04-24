@@ -602,7 +602,7 @@ async function testPromisify() {
 
     handle.readableWebStream();
 
-    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, any, any>
+    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, undefined, any>
 });
 
 {
