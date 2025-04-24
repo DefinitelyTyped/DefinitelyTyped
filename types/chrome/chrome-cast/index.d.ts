@@ -110,7 +110,7 @@ declare namespace chrome {
          */
         export function initialize(
             apiConfig: chrome.cast.ApiConfig,
-            successCallback: Function,
+            objectsuccessCallback: () => void,
             errorCallback: (error: chrome.cast.Error) => void,
         ): void;
 
@@ -158,7 +158,7 @@ declare namespace chrome {
          */
         export function setCustomReceivers(
             receivers: chrome.cast.Receiver[],
-            successCallback: Function,
+            objectsuccessCallback: () => void,
             errorCallback: (error: chrome.cast.Error) => void,
         ): void;
 
@@ -169,7 +169,7 @@ declare namespace chrome {
          */
         export function setReceiverDisplayStatus(
             receiver: chrome.cast.Receiver,
-            successCallback: Function,
+            objectsuccessCallback: () => void,
             errorCallback: (error: chrome.cast.Error) => void,
         ): void;
 
@@ -292,7 +292,7 @@ declare namespace chrome {
              */
             setReceiverVolumeLevel(
                 newLevel: number,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -303,7 +303,7 @@ declare namespace chrome {
              */
             setReceiverMuted(
                 muted: boolean,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -311,13 +311,13 @@ declare namespace chrome {
              * @param successCallback
              * @param errorCallback
              */
-            leave(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
+            leave(objectsuccessCallback: () => void, errorCallback: (error: chrome.cast.Error) => void): void;
 
             /**
              * @param successCallback
              * @param errorCallback
              */
-            stop(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
+            stop(objectsuccessCallback: () => void, errorCallback: (error: chrome.cast.Error) => void): void;
 
             /**
              * @param namespace
@@ -328,7 +328,7 @@ declare namespace chrome {
             sendMessage(
                 namespace: string,
                 message: string | object,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -885,7 +885,7 @@ declare namespace chrome {
              */
             getStatus(
                 getStatusRequest: chrome.cast.media.GetStatusRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -896,7 +896,7 @@ declare namespace chrome {
              */
             play(
                 playRequest: chrome.cast.media.PlayRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -907,7 +907,7 @@ declare namespace chrome {
              */
             pause(
                 pauseRequest: chrome.cast.media.PauseRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -918,7 +918,7 @@ declare namespace chrome {
              */
             seek(
                 seekRequest: chrome.cast.media.SeekRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -929,7 +929,7 @@ declare namespace chrome {
              */
             stop(
                 stopRequest: chrome.cast.media.StopRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -940,7 +940,7 @@ declare namespace chrome {
              */
             setVolume(
                 volumeRequest: chrome.cast.media.VolumeRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -951,7 +951,7 @@ declare namespace chrome {
              */
             editTracksInfo(
                 editTracksInfoRequest: chrome.cast.media.EditTracksInfoRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -984,7 +984,7 @@ declare namespace chrome {
              */
             queueAppendItem(
                 item: chrome.cast.media.QueueItem,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -995,7 +995,7 @@ declare namespace chrome {
              */
             queueInsertItems(
                 queueInsertItemsRequest: chrome.cast.media.QueueInsertItemsRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1006,7 +1006,7 @@ declare namespace chrome {
              */
             queueJumpToItem(
                 itemId: number,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1019,7 +1019,7 @@ declare namespace chrome {
             queueMoveItemToNewIndex(
                 itemId: number,
                 newIndex: number,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1027,13 +1027,13 @@ declare namespace chrome {
              * @param successCallback
              * @param errorCallback
              */
-            queueNext(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
+            queueNext(objectsuccessCallback: () => void, errorCallback: (error: chrome.cast.Error) => void): void;
 
             /**
              * @param successCallback
              * @param errorCallback
              */
-            queuePrev(successCallback: Function, errorCallback: (error: chrome.cast.Error) => void): void;
+            queuePrev(objectsuccessCallback: () => void, errorCallback: (error: chrome.cast.Error) => void): void;
 
             /**
              * @param itemId
@@ -1042,7 +1042,7 @@ declare namespace chrome {
              */
             queueRemoveItem(
                 itemId: number,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1053,7 +1053,7 @@ declare namespace chrome {
              */
             queueReorderItems(
                 queueReorderItemsRequest: chrome.cast.media.QueueReorderItemsRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1064,7 +1064,7 @@ declare namespace chrome {
              */
             queueSetRepeatMode(
                 repeatMode: chrome.cast.media.RepeatMode,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
 
@@ -1075,7 +1075,7 @@ declare namespace chrome {
              */
             queueUpdateItems(
                 queueUpdateItemsRequest: chrome.cast.media.QueueUpdateItemsRequest,
-                successCallback: Function,
+                objectsuccessCallback: () => void,
                 errorCallback: (error: chrome.cast.Error) => void,
             ): void;
         }

@@ -1180,7 +1180,7 @@ declare namespace chrome {
         /**
          * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
          */
-        export function setIcon(details: TabIconDetails, callback?: Function): void;
+        export function setIcon(details: TabIconDetails, callback?: () => void): void;
 
         /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
         export var onClicked: BrowserClickedEvent;
@@ -2585,7 +2585,7 @@ declare namespace chrome {
             filter: RequestCookie;
         }
 
-        export interface RequestedEvent extends chrome.events.Event<Function> {}
+        export interface RequestedEvent extends chrome.events.Event<() => void> {}
 
         export var onRequest: RequestedEvent;
     }
@@ -4291,7 +4291,7 @@ declare namespace chrome {
             originAndPathMatches?: string | undefined;
         }
 
-        export interface Event<T extends Function> {
+        export interface Event<T extends (...args: any) => void> {
             /**
              * Registers an event listener callback to an event.
              * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
@@ -5397,7 +5397,7 @@ declare namespace chrome {
         /**
          * Sets the default font size.
          */
-        export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: Function): void;
+        export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: () => void): void;
         /**
          * Gets the font for a given script and generic font family.
          * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5439,7 +5439,7 @@ declare namespace chrome {
         /**
          * Sets the minimum font size.
          */
-        export function setMinimumFontSize(details: SetFontSizeDetails, callback: Function): void;
+        export function setMinimumFontSize(details: SetFontSizeDetails, callback: () => void): void;
         /**
          * Gets the default size for fixed width fonts.
          * @param details This parameter is currently unused.
@@ -5462,8 +5462,8 @@ declare namespace chrome {
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearDefaultFontSize(callback: Function): void;
-        export function clearDefaultFontSize(details: Object, callback: Function): void;
+        export function clearDefaultFontSize(callback: () => void): void;
+        export function clearDefaultFontSize(details: Object, callback: () => void): void;
         /**
          * Sets the default size for fixed width fonts.
          * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5472,7 +5472,7 @@ declare namespace chrome {
         /**
          * Sets the default size for fixed width fonts.
          */
-        export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: Function): void;
+        export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: () => void): void;
         /**
          * Clears the font set by this extension, if any.
          * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5481,7 +5481,7 @@ declare namespace chrome {
         /**
          * Clears the font set by this extension, if any.
          */
-        export function clearFont(details: FontDetails, callback: Function): void;
+        export function clearFont(details: FontDetails, callback: () => void): void;
         /**
          * Sets the font for a given script and generic font family.
          * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5490,7 +5490,7 @@ declare namespace chrome {
         /**
          * Sets the font for a given script and generic font family.
          */
-        export function setFont(details: SetFontDetails, callback: Function): void;
+        export function setFont(details: SetFontDetails, callback: () => void): void;
         /**
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
@@ -5501,8 +5501,8 @@ declare namespace chrome {
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearMinimumFontSize(callback: Function): void;
-        export function clearMinimumFontSize(details: Object, callback: Function): void;
+        export function clearMinimumFontSize(callback: () => void): void;
+        export function clearMinimumFontSize(details: Object, callback: () => void): void;
         /**
          * Gets a list of fonts on the system.
          * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5522,7 +5522,7 @@ declare namespace chrome {
          * Clears the default fixed font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearDefaultFixedFontSize(details: Object, callback: Function): void;
+        export function clearDefaultFixedFontSize(details: Object, callback: () => void): void;
 
         /** Fired when the default fixed font size setting changes. */
         export var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
@@ -11683,7 +11683,7 @@ declare namespace chrome {
          * Closes a tab.
          * @param tabId The tab to close.
          */
-        export function remove(tabId: number, callback: Function): void;
+        export function remove(tabId: number, callback: () => void): void;
         /**
          * Closes several tabs.
          * @param tabIds The list of tabs to close.
@@ -11694,7 +11694,7 @@ declare namespace chrome {
          * Closes several tabs.
          * @param tabIds The list of tabs to close.
          */
-        export function remove(tabIds: number[], callback: Function): void;
+        export function remove(tabIds: number[], callback: () => void): void;
         /**
          * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
          * @param callback
@@ -11874,7 +11874,7 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(details: InjectDetails, callback: Function): void;
+        export function insertCSS(details: InjectDetails, callback: () => void): void;
         /**
          * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
@@ -11888,7 +11888,7 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(tabId: number, details: InjectDetails, callback: Function): void;
+        export function insertCSS(tabId: number, details: InjectDetails, callback: () => void): void;
         /**
          * Highlights the given tabs.
          * @since Chrome 16
@@ -12870,19 +12870,19 @@ declare namespace chrome {
          * @param id ID of the VPN configuration to destroy.
          * @param callback Optional. Called when the configuration is destroyed or if there is an error.
          */
-        export function destroyConfig(id: string, callback?: Function): void;
+        export function destroyConfig(id: string, callback?: () => void): void;
         /**
          * Sets the parameters for the VPN session. This should be called immediately after "connected" is received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
-        export function setParameters(parameters: VpnSessionParameters, callback: Function): void;
+        export function setParameters(parameters: VpnSessionParameters, callback?: () => void): void;
         /**
          * Sends an IP packet through the tunnel created for the VPN session. This will succeed only when the VPN session is owned by the extension.
          * @param data The IP packet to be sent to the platform.
          * @param callback Optional. Called when the packet is sent or if there is an error.
          */
-        export function sendPacket(data: ArrayBuffer, callback?: Function): void;
+        export function sendPacket(data: ArrayBuffer, callback?: () => void): void;
         /**
          * Notifies the VPN session state to the platform. This will succeed only when the VPN session is owned by the extension.
          * @param state The VPN session state of the VPN client.
@@ -12890,7 +12890,7 @@ declare namespace chrome {
          * failure: VPN connection failed.
          * @param callback Optional. Called when the notification is complete or if there is an error.
          */
-        export function notifyConnectionStateChanged(state: string, callback?: Function): void;
+        export function notifyConnectionStateChanged(state: string, callback?: () => void): void;
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
         export var onPlatformMessage: VpnPlatformMessageEvent;
@@ -13163,7 +13163,7 @@ declare namespace chrome {
      * Manifest: "host_permissions"
      */
     export namespace webRequest {
-        interface WebRequestEvent<T extends Function, U extends string[]>
+        interface WebRequestEvent<T extends (...args: any) => void, U extends string[]>
             extends Omit<chrome.events.Event<T>, "addListener">
         {
             addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U): void;
@@ -13420,7 +13420,7 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         export function handlerBehaviorChanged(): Promise<void>;
-        export function handlerBehaviorChanged(callback: Function): void;
+        export function handlerBehaviorChanged(callback: () => void): void;
 
         /** Fired when a request is about to occur. */
         export const onBeforeRequest: WebRequestBodyEvent;
@@ -13754,7 +13754,7 @@ declare namespace chrome {
          */
         export function remove(windowId: number): Promise<void>;
         /** Removes (closes) a window, and all the tabs inside it. */
-        export function remove(windowId: number, callback: Function): void;
+        export function remove(windowId: number, callback: () => void): void;
         /**
          * Gets the window that was most recently focused — typically the window 'on top'.
          */
@@ -14581,7 +14581,7 @@ declare namespace chrome {
         export function isRegexSupported(regexOptions: RegexOptions): Promise<IsRegexSupportedResult>;
 
         /** Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented. */
-        export function setExtensionActionOptions(options: ExtensionActionOptions, callback: Function): void;
+        export function setExtensionActionOptions(options: ExtensionActionOptions, callback: () => void): void;
 
         /**
          * Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented.
@@ -14613,7 +14613,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
          * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
          */
-        export function updateDynamicRules(options: UpdateRuleOptions, callback: Function): void;
+        export function updateDynamicRules(options: UpdateRuleOptions, callback: () => void): void;
 
         /** Modifies the current set of dynamic rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
@@ -14639,7 +14639,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
          * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
          */
-        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: Function): void;
+        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: () => void): void;
 
         /** Updates the set of enabled static rulesets for the extension.
          * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
@@ -14664,7 +14664,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
          * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
          */
-        export function updateSessionRules(options: UpdateRuleOptions, callback: Function): void;
+        export function updateSessionRules(options: UpdateRuleOptions, callback: () => void): void;
 
         /** Modifies the current set of session scoped rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
