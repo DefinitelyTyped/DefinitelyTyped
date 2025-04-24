@@ -3352,10 +3352,17 @@ declare module "crypto" {
     ): void;
     /**
      * Computes the Diffie-Hellman secret based on a `privateKey` and a `publicKey`.
-     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'` (for Diffie-Hellman), `'ec'` (for ECDH), `'x448'`, or `'x25519'` (for ECDH-ES).
+     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'`
+     * (for Diffie-Hellman), `'ec'`, `'x448'`, or `'x25519'` (for ECDH).
+     *
+     * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+    function diffieHellman(
+        options: { privateKey: KeyObject; publicKey: KeyObject },
+        callback: (err: Error | null, secret: Buffer) => void,
+    ): void;
     /**
      * A utility for creating one-shot hash digests of data. It can be faster than the object-based `crypto.createHash()` when hashing a smaller amount of data
      * (<= 5MB) that's readily available. If the data can be big or if it is streamed, it's still recommended to use `crypto.createHash()` instead. The `algorithm`
