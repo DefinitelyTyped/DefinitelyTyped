@@ -480,6 +480,7 @@ namespace TestDropWhile {
 // _.fill
 namespace TestFill {
     let array: number[];
+    let list: _.List<number>;
 
     {
         let result: number[];
@@ -487,6 +488,14 @@ namespace TestFill {
         result = _.fill<number>(array, 42);
         result = _.fill<number>(array, 42, 0);
         result = _.fill<number>(array, 42, 0, 10);
+    }
+
+    {
+        let result: _.List<number>;
+
+        result = _.fill<number>(list, 42);
+        result = _.fill<number>(list, 42, 0);
+        result = _.fill<number>(list, 42, 0, 10);
     }
 
     {
@@ -498,11 +507,27 @@ namespace TestFill {
     }
 
     {
+        let result: _.LoDashImplicitObjectWrapper<_.List<number>>;
+
+        result = _(list).fill<number>(42);
+        result = _(list).fill<number>(42, 0);
+        result = _(list).fill<number>(42, 0, 10);
+    }
+
+    {
         let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(array).chain().fill<number>(42);
         result = _(array).chain().fill<number>(42, 0);
         result = _(array).chain().fill<number>(42, 0, 10);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<number>>;
+
+        result = _(list).chain().fill<number>(42);
+        result = _(list).chain().fill<number>(42, 0);
+        result = _(list).chain().fill<number>(42, 0, 10);
     }
 }
 
@@ -1179,6 +1204,7 @@ namespace TestObject {
 // _.pull
 namespace TestPull {
     let array: TResult[];
+    let list: _.List<TResult>;
     let value: TResult;
 
     {
@@ -1191,12 +1217,30 @@ namespace TestPull {
     }
 
     {
+        let result: _.List<TResult>;
+
+        result = _.pull<TResult>(list);
+        result = _.pull<TResult>(list, value);
+        result = _.pull<TResult>(list, value, value);
+        result = _.pull<TResult>(list, value, value, value);
+    }
+
+    {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).pull();
         result = _(array).pull(value);
         result = _(array).pull(value, value);
         result = _(array).pull(value, value, value);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
+
+        result = _(list).pull<TResult>();
+        result = _(list).pull<TResult>(value);
+        result = _(list).pull<TResult>(value, value);
+        result = _(list).pull<TResult>(value, value, value);
     }
 
     {
@@ -1207,11 +1251,21 @@ namespace TestPull {
         result = _(array).chain().pull(value, value);
         result = _(array).chain().pull(value, value, value);
     }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+
+        result = _(list).chain().pull<TResult>();
+        result = _(list).chain().pull<TResult>(value);
+        result = _(list).chain().pull<TResult>(value, value);
+        result = _(list).chain().pull<TResult>(value, value, value);
+    }
 }
 
 // _.pullAt
 namespace TestPullAt {
     let array: TResult[];
+    let list: _.List<TResult>;
 
     {
         let result: TResult[];
@@ -1220,6 +1274,11 @@ namespace TestPullAt {
         result = _.pullAt<TResult>(array, 1);
         result = _.pullAt<TResult>(array, [2, 3], 1);
         result = _.pullAt<TResult>(array, 4, [2, 3], 1);
+
+        result = _.pullAt<TResult>(list);
+        result = _.pullAt<TResult>(list, 1);
+        result = _.pullAt<TResult>(list, [2, 3], 1);
+        result = _.pullAt<TResult>(list, 4, [2, 3], 1);
     }
 
     {
@@ -1229,6 +1288,11 @@ namespace TestPullAt {
         result = _(array).pullAt(1);
         result = _(array).pullAt([2, 3], 1);
         result = _(array).pullAt(4, [2, 3], 1);
+
+        result = _(list).pullAt<TResult>();
+        result = _(list).pullAt<TResult>(1);
+        result = _(list).pullAt<TResult>([2, 3], 1);
+        result = _(list).pullAt<TResult>(4, [2, 3], 1);
     }
 
     {
@@ -1238,12 +1302,18 @@ namespace TestPullAt {
         result = _(array).chain().pullAt(1);
         result = _(array).chain().pullAt([2, 3], 1);
         result = _(array).chain().pullAt(4, [2, 3], 1);
+
+        result = _(list).chain().pullAt<TResult>();
+        result = _(list).chain().pullAt<TResult>(1);
+        result = _(list).chain().pullAt<TResult>([2, 3], 1);
+        result = _(list).chain().pullAt<TResult>(4, [2, 3], 1);
     }
 }
 
 // _.remove
 namespace TestRemove {
     let array: TResult[];
+    let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
 
     {
@@ -1255,6 +1325,13 @@ namespace TestRemove {
         result = _.remove<TResult>(array, '');
         result = _.remove<TResult>(array, '', any);
         result = _.remove<{a: number}, TResult>(array, {a: 42});
+
+        result = _.remove<TResult>(list);
+        result = _.remove<TResult>(list, predicateFn);
+        result = _.remove<TResult>(list, predicateFn, any);
+        result = _.remove<TResult>(list, '');
+        result = _.remove<TResult>(list, '', any);
+        result = _.remove<{a: number}, TResult>(list, {a: 42});
     }
 
     {
@@ -1266,6 +1343,13 @@ namespace TestRemove {
         result = _<TResult>(array).remove('');
         result = _<TResult>(array).remove('', any);
         result = _<TResult>(array).remove<{a: number}>({a: 42});
+
+        result = _(list).remove<TResult>();
+        result = _(list).remove<TResult>(predicateFn);
+        result = _(list).remove<TResult>(predicateFn, any);
+        result = _(list).remove<TResult>('');
+        result = _(list).remove<TResult>('', any);
+        result = _(list).remove<{a: number}, TResult>({a: 42});
     }
 
     {
@@ -1277,6 +1361,13 @@ namespace TestRemove {
         result = _<TResult>(array).chain().remove('');
         result = _<TResult>(array).chain().remove('', any);
         result = _<TResult>(array).chain().remove<{a: number}>({a: 42});
+
+        result = _(list).chain().remove<TResult>();
+        result = _(list).chain().remove<TResult>(predicateFn);
+        result = _(list).chain().remove<TResult>(predicateFn, any);
+        result = _(list).chain().remove<TResult>('');
+        result = _(list).chain().remove<TResult>('', any);
+        result = _(list).chain().remove<{a: number}, TResult>({a: 42});
     }
 }
 
