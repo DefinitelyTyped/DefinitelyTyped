@@ -819,26 +819,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is strictly an `Object`**and** not a`Function` (even though functions are objects in JavaScript).
-     * Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isObject(5);
-     * // Returns: false
-     * util.isObject(null);
-     * // Returns: false
-     * util.isObject({});
-     * // Returns: true
-     * util.isObject(() => {});
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value !== null && typeof value === 'object'` instead.
-     */
-    export function isObject(object: unknown): boolean;
-    /**
      * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
      *
      * ```js
