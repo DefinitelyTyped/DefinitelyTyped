@@ -5,5 +5,4 @@
 // so that they can be removed when no longer needed.
 
 /// <reference path="disposable.d.ts" />
-/// <reference path="indexable.d.ts" />
 /// <reference path="iterators.d.ts" />
