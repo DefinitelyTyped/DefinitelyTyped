@@ -867,23 +867,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBuffer({ length: 0 });
-     * // Returns: false
-     * util.isBuffer([]);
-     * // Returns: false
-     * util.isBuffer(Buffer.from('hello world'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `isBuffer` instead.
-     */
-    export function isBuffer(object: unknown): object is Buffer;
-    /**
      * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
      *
      * ```js
