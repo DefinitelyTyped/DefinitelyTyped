@@ -360,6 +360,7 @@ declare module "module" {
             type?: string | undefined;
         }
         type ModuleFormat =
+            | "addon"
             | "builtin"
             | "commonjs"
             | "commonjs-typescript"
