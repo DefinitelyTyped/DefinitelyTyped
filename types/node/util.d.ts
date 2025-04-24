@@ -802,24 +802,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * const foo = undefined;
-     * util.isUndefined(5);
-     * // Returns: false
-     * util.isUndefined(foo);
-     * // Returns: true
-     * util.isUndefined(null);
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === undefined` instead.
-     */
-    export function isUndefined(object: unknown): object is undefined;
-    /**
      * The `util.deprecate()` method wraps `fn` (which may be a function or class) in
      * such a way that it is marked as deprecated.
      *
