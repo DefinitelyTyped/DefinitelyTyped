@@ -14843,6 +14843,7 @@ declare namespace chrome {
          */
         export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
 
+        /** @since Chrome 135 */
         export interface InjectionResult {
             /** The document associated with the injection. */
             documentId: string;
@@ -14870,6 +14871,7 @@ declare namespace chrome {
             ids?: string[];
         }
 
+        /** @since Chrome 135 */
         export interface InjectionTarget {
             /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` is specified. */
             allFrames?: boolean;
@@ -14907,6 +14909,7 @@ declare namespace chrome {
             worldId?: string;
         }
 
+        /** @since Chrome 135 */
         export interface UserScriptInjection {
             /** Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
             injectImmediately?: boolean;
@@ -14977,10 +14980,6 @@ declare namespace chrome {
          * @since Chrome 135
          */
         export function execute(injection: UserScriptInjection): Promise<InjectionResult[]>;
-        /**
-         * Injects a script into a target context. By default, the script will be run at `document_idle`, or immediately if the page has already loaded. If the `injectImmediately` property is set, the script will inject without waiting, even if the page has not finished loading. If the script evaluates to a promise, the browser will wait for the promise to settle and return the resulting value.
-         * @since Chrome 135
-         */
         export function execute(injection: UserScriptInjection, callback: (result: InjectionResult[]) => void): void;
 
         /**
