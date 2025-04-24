@@ -802,23 +802,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isSymbol(5);
-     * // Returns: false
-     * util.isSymbol('foo');
-     * // Returns: false
-     * util.isSymbol(Symbol('foo'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'symbol'` instead.
-     */
-    export function isSymbol(object: unknown): object is symbol;
-    /**
      * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
      *
      * ```js
