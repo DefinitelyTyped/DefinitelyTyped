@@ -819,35 +819,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isPrimitive(5);
-     * // Returns: true
-     * util.isPrimitive('foo');
-     * // Returns: true
-     * util.isPrimitive(false);
-     * // Returns: true
-     * util.isPrimitive(null);
-     * // Returns: true
-     * util.isPrimitive(undefined);
-     * // Returns: true
-     * util.isPrimitive({});
-     * // Returns: false
-     * util.isPrimitive(() => {});
-     * // Returns: false
-     * util.isPrimitive(/^$/);
-     * // Returns: false
-     * util.isPrimitive(new Date());
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead.
-     */
-    export function isPrimitive(object: unknown): boolean;
-    /**
      * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
      *
      * ```js
