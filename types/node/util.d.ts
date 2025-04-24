@@ -819,26 +819,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * function Foo() {}
-     * const Bar = () => {};
-     *
-     * util.isFunction({});
-     * // Returns: false
-     * util.isFunction(Foo);
-     * // Returns: true
-     * util.isFunction(Bar);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'function'` instead.
-     */
-    export function isFunction(object: unknown): boolean;
-    /**
      * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
      *
      * ```js
