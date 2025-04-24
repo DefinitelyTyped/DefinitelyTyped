@@ -4221,9 +4221,13 @@ declare module "crypto" {
              * - `'PBKDF2'`
              * @since v15.0.0
              */
-            deriveBits(algorithm: EcdhKeyDeriveParams, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
             deriveBits(
-                algorithm: AlgorithmIdentifier | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams,
+                baseKey: CryptoKey,
+                length?: number | null,
+            ): Promise<ArrayBuffer>;
+            deriveBits(
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
                 length: number,
             ): Promise<ArrayBuffer>;
@@ -4245,14 +4249,9 @@ declare module "crypto" {
              * @since v15.0.0
              */
             deriveKey(
-                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm:
-                    | AlgorithmIdentifier
-                    | AesDerivedKeyParams
-                    | HmacImportParams
-                    | HkdfParams
-                    | Pbkdf2Params,
+                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
