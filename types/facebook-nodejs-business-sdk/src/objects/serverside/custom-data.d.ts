@@ -24,8 +24,8 @@ export default class CustomData {
      * @param {String} currency currency involved in the transaction Eg: usd
      * @param {String} content_name name of the Content Eg: lettuce
      * @param {String} content_category category of the content Eg: grocery
-     * @param {Array<String>} content_ids list of content unique ids involved in the event
-     * @param {Array<Content>} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {String[]} content_ids list of content unique ids involved in the event
+     * @param {Content[]} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} content_type Type of the Content group or Product SKU
      * @param {String} order_id Unique id representing the order
      * @param {Number} predicted_ltv Predicted LifeTime Value for the customer involved in the event
@@ -36,7 +36,7 @@ export default class CustomData {
      * @param {String} delivery_category The type of delivery for a purchase event
      * @param {Object} custom_properties Custom Properties to be added to the Custom Data
      */
-    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<string, any>);
+    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: ?Record<string, any>);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -144,7 +144,7 @@ export default class CustomData {
     set contents(contents: Content[]);
     /**
      * Sets the contents for the custom data.
-     * @param {Array<Content>} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
+     * @param {Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
     setContents(contents: Content[]): CustomData;
