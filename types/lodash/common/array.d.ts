@@ -342,7 +342,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T, AnyList extends List<Any>>(array: AnyList extends readonly any[] ? never : AnyList | null | undefined, value: T): List<T>;
+        fill<T, AnyList extends List<any>>(array: AnyList extends readonly any[] ? never : AnyList | null | undefined, value: T): List<T>;
         /**
          * @see _.fill
          */
@@ -350,7 +350,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T, UList extends List<U>>(array: UList extends readonly U[] ? never : UList | null | undefined, value: T, start?: number, end?: number): List<T | U>;
+        fill<T, U, UList extends List<U>>(array: UList extends readonly U[] ? never : UList | null | undefined, value: T, start?: number, end?: number): List<T | U>;
     }
     interface Collection<T> {
         /**
@@ -932,7 +932,7 @@ declare module "../index" {
         /**
          * @see _.pull
          */
-        pull<TList extends List<T>>(array: TList extends readonly T[] ? never : TList, ...values: T[]): TList;
+        pull<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, ...values: T[]): TList;
     }
     interface Collection<T> {
         /**
@@ -968,7 +968,7 @@ declare module "../index" {
         /**
          * @see _.pullAll
          */
-        pullAll<TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>): TList;
+        pullAll<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList): TList;
     }
     interface Collection<T> {
         /**
@@ -1007,7 +1007,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, iteratee?: ValueIteratee<T>): TList;
+        pullAllBy<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, iteratee?: ValueIteratee<T>): TList;
         /**
          * @see _.pullAllBy
          */
@@ -1015,7 +1015,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1List extends List<T>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1List;
+        pullAllBy<T1, T1List extends List<T1>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1054,7 +1054,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, comparator?: Comparator<T>): TList;
+        pullAllWith<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, comparator?: Comparator<T>): TList;
         /**
          * @see _.pullAllWith
          */
@@ -1062,7 +1062,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1List extends List<T1>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, comparator: Comparator2<T1, T2>): T1List;
+        pullAllWith<T1, T1List extends List<T1>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, comparator: Comparator2<T1, T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1091,7 +1091,7 @@ declare module "../index" {
         /**
          * @see _.pullAt
          */
-        pullAt<TList extends List<T>>(array: TList extends readonly T[] ? never : TList, ...indexes: Array<Many<number>>): TList;
+        pullAt<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, ...indexes: Array<Many<number>>): TList;
     }
     interface Collection<T> {
         /**
@@ -1116,7 +1116,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<TList>(array: TList extends readonly T[] ? never : TList, predicate?: ListIteratee<T>): T[];
+        remove<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, predicate?: ListIteratee<T>): T[];
     }
     interface Collection<T> {
         /**
