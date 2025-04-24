@@ -54,6 +54,9 @@
     server.addEventListener("message", (event) => {
         console.log(event.data);
     });
+    server.addEventListener("close", (event) => {
+        console.log(event.wasClean);
+    });
     server.send("some data");
 }
 
