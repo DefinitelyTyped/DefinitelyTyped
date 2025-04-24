@@ -4430,9 +4430,9 @@ function testUserScripts() {
     // @ts-expect-error
     chrome.userScripts.execute(badExeOptions);
     chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
-    chrome.userScripts.execute(exeOptions, (result) => {
+    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
         result; // $ExpectType InjectionResult[]
-    }); // $ExpectType void
+    });
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
