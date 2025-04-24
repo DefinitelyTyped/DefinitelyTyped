@@ -25,6 +25,7 @@ import { TextEncoder } from "node:util";
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
     insert.setAllowUnknownNamedParameters(true);
+    insert.columns(); // $ExpectType StatementColumnMetadata[]
     insert.run(1, 42, 3.14159, "foo", new TextEncoder().encode("a☃b☃c"));
     insert.run(2, null, null, null, null);
     insert.run(3, Number(8), Number(2.718), String("bar"), Buffer.from("x☃y☃"));
