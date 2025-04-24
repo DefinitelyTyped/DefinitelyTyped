@@ -350,7 +350,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T, U, UList extends List<U>>(array: UList extends readonly U[] ? never : UList | null | undefined, value: T, start?: number, end?: number): List<T | U>;
+        fill<T, UList extends List<any>>(array: UList extends readonly any[] ? never : UList | null | undefined, value: T, start?: number, end?: number): List<T | UList[0]>;
     }
     interface Collection<T> {
         /**
@@ -932,7 +932,7 @@ declare module "../index" {
         /**
          * @see _.pull
          */
-        pull<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, ...values: T[]): TList;
+        pull<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, ...values: TList[0][]): TList;
     }
     interface Collection<T> {
         /**
@@ -1007,7 +1007,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, iteratee?: ValueIteratee<T>): TList;
+        pullAllBy<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList, iteratee?: ValueIteratee<TList[0]>): TList;
         /**
          * @see _.pullAllBy
          */
@@ -1015,7 +1015,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T1List extends List<T1>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): T1List;
+        pullAllBy<T1List extends List<any>, T2>(array: T1List extends readonly any[] ? never : T1List, values: List<T2>, iteratee: ValueIteratee<T1List[0] | T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1054,7 +1054,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, values?: List<T>, comparator?: Comparator<T>): TList;
+        pullAllWith<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList, comparator?: Comparator<TList[0]>): TList;
         /**
          * @see _.pullAllWith
          */
@@ -1062,7 +1062,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T1List extends List<T1>, T2>(array: T1List extends readonly T1[] ? never : T1List, values: List<T2>, comparator: Comparator2<T1, T2>): T1List;
+        pullAllWith<T1List extends List<any>, T2>(array: T1List extends readonly any[] ? never : T1List, values: List<T2>, comparator: Comparator2<T1List[0], T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1116,7 +1116,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T, TList extends List<T>>(array: TList extends readonly T[] ? never : TList, predicate?: ListIteratee<T>): T[];
+        remove<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, predicate?: ListIteratee<TList[0]>): TList[0][];
     }
     interface Collection<T> {
         /**
