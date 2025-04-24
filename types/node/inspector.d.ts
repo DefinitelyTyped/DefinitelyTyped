@@ -6,7 +6,7 @@
 /**
  * The `node:inspector` module provides an API for interacting with the V8
  * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -2865,7 +2865,7 @@ declare module 'inspector' {
      * If wait is `true`, will block until a client has connected to the inspect port
      * and flow control has been passed to the debugger client.
      *
-     * See the [security warning](https://nodejs.org/docs/latest-v22.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
+     * See the [security warning](https://nodejs.org/docs/latest-v24.x/api/cli.html#warning-binding-inspector-to-a-public-ipport-combination-is-insecure)
      * regarding the `host` parameter usage.
      * @param port Port to listen on for inspector connections. Defaults to what was specified on the CLI.
      * @param host Host to listen on for inspector connections. Defaults to what was specified on the CLI.
@@ -2992,7 +2992,7 @@ declare module 'node:inspector' {
 /**
  * The `node:inspector/promises` module provides an API for interacting with the V8
  * inspector.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/inspector/promises.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/inspector/promises.js)
  * @since v19.0.0
  */
 declare module 'inspector/promises' {

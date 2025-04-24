@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -322,7 +322,7 @@ declare module "node:test" {
         concurrency?: number | boolean | undefined;
         /**
          * An array containing the list of files to run. If omitted, files are run according to the
-         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
@@ -335,7 +335,7 @@ declare module "node:test" {
         /**
          * An array containing the list of glob patterns to match test files.
          * This option cannot be used together with `files`. If omitted, files are run according to the
-         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
          * @since v22.6.0
          */
         globPatterns?: readonly string[] | undefined;
@@ -416,7 +416,7 @@ declare module "node:test" {
          */
         shard?: TestShard | undefined;
         /**
-         * enable [code coverage](https://nodejs.org/docs/latest-v22.x/api/test.html#collecting-code-coverage) collection.
+         * enable [code coverage](https://nodejs.org/docs/latest-v24.x/api/test.html#collecting-code-coverage) collection.
          * @since v22.10.0
          * @default false
          */
@@ -837,7 +837,7 @@ declare module "node:test" {
          * highlighting.
          * @since v22.14.0
          * @param value A value to serialize to a string. If Node.js was started with
-         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
          * flag, the serialized value is written to
          * `path`. Otherwise, the serialized value is compared to the contents of the
          * existing snapshot file.
@@ -860,7 +860,7 @@ declare module "node:test" {
          * ```
          * @since v22.3.0
          * @param value A value to serialize to a string. If Node.js was started with
-         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
          * flag, the serialized value is written to
          * the snapshot file. Otherwise, the serialized value is compared to the
          * corresponding value in the existing snapshot file.
@@ -2213,7 +2213,7 @@ interface TestSummary {
  * import test from 'node:test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";
@@ -2269,7 +2269,7 @@ declare module "node:test/reporters" {
     }
     /**
      * The `lcov` reporter outputs test coverage when used with the
-     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-coverage) flag.
      * @since v22.0.0
      */
     // TODO: change the export to a wrapper function once node@0db38f0 is merged (breaking change)
