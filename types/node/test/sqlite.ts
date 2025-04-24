@@ -33,7 +33,7 @@ import { TextEncoder } from "node:util";
 
     const query = database.prepare("SELECT * FROM data ORDER BY key");
     query.all(); // $ExpectType Record<string, SQLOutputValue>[]
-    query.iterate(); // $ExpectType Iterator<Record<string, SQLOutputValue>, any, any>
+    query.iterate(); // $ExpectType Iterator<Record<string, SQLOutputValue>, undefined, any>
 
     const sql = "INSERT INTO types (key, val) VALUES ($k, ?)";
     const stmt = database.prepare(sql);

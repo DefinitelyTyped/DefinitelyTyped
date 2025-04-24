@@ -250,16 +250,12 @@ declare global {
         }
 
         /** An iterable iterator returned by the Node.js API. */
-        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used IterableIterator.
-        // TODO: In next major @types/node version, change default TReturn to undefined.
-        interface Iterator<T, TReturn = any, TNext = any> extends IteratorObject<T, TReturn, TNext> {
+        interface Iterator<T, TReturn = undefined, TNext = any> extends IteratorObject<T, TReturn, TNext> {
             [Symbol.iterator](): NodeJS.Iterator<T, TReturn, TNext>;
         }
 
         /** An async iterable iterator returned by the Node.js API. */
-        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used AsyncIterableIterator.
-        // TODO: In next major @types/node version, change default TReturn to undefined.
-        interface AsyncIterator<T, TReturn = any, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
+        interface AsyncIterator<T, TReturn = undefined, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
             [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
         }
     }
