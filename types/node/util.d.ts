@@ -368,19 +368,6 @@ declare module "util" {
      */
     export function getSystemErrorMessage(err: number): string;
     /**
-     * The `util.log()` method prints the given `string` to `stdout` with an included
-     * timestamp.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.log('Timestamped message.');
-     * ```
-     * @since v0.3.0
-     * @deprecated Since v6.0.0 - Use a third party module instead.
-     */
-    export function log(string: string): void;
-    /**
      * Returns the `string` after replacing any surrogate code points
      * (or equivalently, any unpaired surrogate code units) with the
      * Unicode "replacement character" U+FFFD.
