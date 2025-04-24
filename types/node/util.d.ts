@@ -669,37 +669,6 @@ declare module "util" {
      */
     export function isRegExp(object: unknown): object is RegExp;
     /**
-     * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isError(new Error());
-     * // Returns: true
-     * util.isError(new TypeError());
-     * // Returns: true
-     * util.isError({ name: 'Error', message: 'an error occurred' });
-     * // Returns: false
-     * ```
-     *
-     * This method relies on `Object.prototype.toString()` behavior. It is
-     * possible to obtain an incorrect result when the `object` argument manipulates `@@toStringTag`.
-     *
-     * ```js
-     * import util from 'node:util';
-     * const obj = { name: 'Error', message: 'an error occurred' };
-     *
-     * util.isError(obj);
-     * // Returns: false
-     * obj[Symbol.toStringTag] = 'Error';
-     * util.isError(obj);
-     * // Returns: true
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isNativeError} instead.
-     */
-    export function isError(object: unknown): object is Error;
-    /**
      * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and
      * `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
