@@ -5,7 +5,7 @@ declare global {
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface AuthInfo {}
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface User {}
+        interface User { id: string | number; }
 
         interface Request {
             authInfo?: AuthInfo | undefined;
