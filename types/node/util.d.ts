@@ -867,23 +867,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBoolean(1);
-     * // Returns: false
-     * util.isBoolean(0);
-     * // Returns: false
-     * util.isBoolean(false);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'boolean'` instead.
-     */
-    export function isBoolean(object: unknown): object is boolean;
-    /**
      * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
      *
      * ```js
