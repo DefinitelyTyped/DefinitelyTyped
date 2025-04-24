@@ -819,25 +819,6 @@ declare module "util" {
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
     /**
-     * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNumber(false);
-     * // Returns: false
-     * util.isNumber(Infinity);
-     * // Returns: true
-     * util.isNumber(0);
-     * // Returns: true
-     * util.isNumber(NaN);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'number'` instead.
-     */
-    export function isNumber(object: unknown): object is number;
-    /**
      * Returns `true` if the given `object` is strictly an `Object`**and** not a`Function` (even though functions are objects in JavaScript).
      * Otherwise, returns `false`.
      *
