@@ -1246,12 +1246,12 @@ declare module "util" {
          * When true, `stream` is checked to see if it can handle colors.
          * @default true
          */
-        validateStream?: boolean;
+        validateStream?: boolean | undefined;
         /**
          * A stream that will be validated if it can be colored.
          * @default process.stdout
          */
-        stream?: NodeJS.WritableStream;
+        stream?: NodeJS.WritableStream | undefined;
     }
     /**
      * Stability: 1.1 - Active development
