@@ -158,6 +158,7 @@ declare module "buffer" {
              * @param encoding The encoding of `string`. **Default:** `'utf8'`.
              */
             from(string: WithImplicitCoercion<string>, encoding?: BufferEncoding): Buffer;
+            from(arrayOrString: WithImplicitCoercion<ArrayLike<number> | string>): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer

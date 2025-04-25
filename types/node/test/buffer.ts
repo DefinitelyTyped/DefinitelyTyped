@@ -149,6 +149,17 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
         Buffer.from({} as { [Symbol.toPrimitive](): number });
     }
 
+    // ArrayLike or string
+    {
+        const arrayOrString = "foo" as number[] | string;
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(arrayOrString);
+
+        const typedArrayOrString = "foo" as Uint8Array<ArrayBuffer> | string;
+        // $ExpectType Buffer || Buffer<ArrayBuffer>
+        Buffer.from(typedArrayOrString);
+    }
+
     // @ts-expect-error
     Buffer.from({});
     // @ts-expect-error
