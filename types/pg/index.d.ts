@@ -42,8 +42,9 @@ export interface Defaults extends ClientConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-    // properties from module 'pg-pool'
+    // properties from module 'node-pool'
     max?: number | undefined;
+    min?: number | undefined;
     idleTimeoutMillis?: number | undefined | null;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
