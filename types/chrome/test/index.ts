@@ -320,20 +320,116 @@ function proxySettings() {
     chrome.proxy.settings.onChange.hasListeners(); // $ExpectType boolean
 }
 
-function testNotificationCreation() {
+// https://developer.chrome.com/docs/extensions/reference/api/notifications
+function testNotification() {
+    chrome.notifications.PermissionLevel.DENIED === "denied";
+    chrome.notifications.PermissionLevel.GRANTED === "granted";
+
+    chrome.notifications.TemplateType.BASIC === "basic";
+    chrome.notifications.TemplateType.IMAGE === "image";
+    chrome.notifications.TemplateType.LIST === "list";
+    chrome.notifications.TemplateType.PROGRESS === "progress";
+
+    const notificationId = "2199ce04-c5ca-4651-a8a9-5f4afd4c5a05";
+
+    chrome.notifications.clear(notificationId); // $ExpectType Promise<boolean>
+    chrome.notifications.clear(notificationId, (wasCleared) => { // $ExpectType void
+        wasCleared; // $ExpectType boolean
+    });
     // @ts-expect-error
-    chrome.notifications.create("id", {});
+    chrome.notifications.clear(notificationId, () => {}).then(() => {});
+
+    const notificationCreateOptions: chrome.notifications.NotificationCreateOptions = {
+        title: "Title",
+        message: "Message",
+        iconUrl: "https://fakeimg.pl/300",
+        type: "basic",
+    };
+
+    chrome.notifications.create(notificationId, notificationCreateOptions); // $ExpectType Promise<string>
+    chrome.notifications.create(notificationId, notificationCreateOptions, (notificationId) => { // $ExpectType void
+        notificationId; // $ExpectType string
+    });
+    // @ts-expect-error Some of the required properties are missing: type, iconUrl, title and message.
+    chrome.notifications.create(notificationId, {});
     // @ts-expect-error
-    chrome.notifications.create("id", { message: "", type: "", title: "" });
+    chrome.notifications.create(notificationId, notificationCreateOptions, () => {}).then(() => {});
+
+    chrome.notifications.getAll(); // $ExpectType Promise<{ [key: string]: true }>
+    chrome.notifications.getAll((notifications) => { // $ExpectType void
+        notifications; // $ExpectType { [key: string]: true }
+    });
     // @ts-expect-error
-    chrome.notifications.create("id", { iconUrl: "", type: "", title: "" });
+    chrome.notifications.getAll(() => {}).then(() => {});
+
+    chrome.notifications.getPermissionLevel(); // $ExpectType Promise<"denied" | "granted">
+    chrome.notifications.getPermissionLevel((permissionLevel) => { // $ExpectType void
+        permissionLevel; // $ExpectType "denied" | "granted"
+    });
     // @ts-expect-error
-    chrome.notifications.create("id", { iconUrl: "", message: "", title: "" });
+    chrome.notifications.getPermissionLevel(() => {}).then(() => {});
+
+    chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => { // $ExpectType void
+        notificationId; // $ExpectType string
+        buttonIndex; // $ExpectType number
+    });
+    chrome.notifications.onButtonClicked.removeListener((notificationId, buttonIndex) => { // $ExpectType void
+        notificationId; // $ExpectType string
+        buttonIndex; // $ExpectType number
+    });
+    chrome.notifications.onButtonClicked.hasListener((notificationId, buttonIndex) => { // $ExpectType boolean
+        notificationId; // $ExpectType string
+        buttonIndex; // $ExpectType number
+    });
+    chrome.notifications.onButtonClicked.hasListeners(); // $ExpectType boolean
+
+    chrome.notifications.onClicked.addListener((notificationId) => { // $ExpectType void
+        notificationId; // $ExpectType string
+    });
+    chrome.notifications.onClicked.removeListener((notificationId) => { // $ExpectType void
+        notificationId; // $ExpectType string
+    });
+    chrome.notifications.onClicked.hasListener((notificationId) => { // $ExpectType boolean
+        notificationId; // $ExpectType string
+    });
+    chrome.notifications.onClicked.hasListeners(); // $ExpectType boolean
+
+    chrome.notifications.onClosed.addListener((notificationId, byUser) => { // $ExpectType void
+        notificationId; // $ExpectType string
+        byUser; // $ExpectType boolean
+    });
+    chrome.notifications.onClosed.removeListener((notificationId, byUser) => { // $ExpectType void
+        notificationId; // $ExpectType string
+        byUser; // $ExpectType boolean
+    });
+    chrome.notifications.onClosed.hasListener((notificationId, byUser) => { // $ExpectType boolean
+        notificationId; // $ExpectType string
+        byUser; // $ExpectType boolean
+    });
+    chrome.notifications.onClosed.hasListeners(); // $ExpectType boolean
+
+    chrome.notifications.onPermissionLevelChanged.addListener((permissionLevel) => { // $ExpectType void
+        permissionLevel; // $ExpectType "denied" | "granted"
+    });
+    chrome.notifications.onPermissionLevelChanged.removeListener((permissionLevel) => { // $ExpectType void
+        permissionLevel; // $ExpectType "denied" | "granted"
+    });
+    chrome.notifications.onPermissionLevelChanged.hasListener((permissionLevel) => { // $ExpectType boolean
+        permissionLevel; // $ExpectType "denied" | "granted"
+    });
+    chrome.notifications.onPermissionLevelChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.notifications.onShowSettings.addListener(() => {}); // $ExpectType void
+    chrome.notifications.onShowSettings.removeListener(() => {}); // $ExpectType void
+    chrome.notifications.onShowSettings.hasListener(() => {}); // $ExpectType boolean
+    chrome.notifications.onShowSettings.hasListeners(); // $ExpectType boolean
+
+    chrome.notifications.update(notificationId, {}); // $ExpectType Promise<boolean>
+    chrome.notifications.update(notificationId, {}, (wasUpdated) => { // $ExpectType void
+        wasUpdated; // $ExpectType boolean
+    });
     // @ts-expect-error
-    chrome.notifications.create("id", { iconUrl: "", message: "", type: "" });
-    // @ts-expect-error
-    chrome.notifications.create("id", { iconUrl: "", message: "", type: "", title: "" });
-    chrome.notifications.create("id", { iconUrl: "", message: "", type: "basic", title: "" });
+    chrome.notifications.update(notificationId, {}, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/contentSettings
