@@ -71,6 +71,15 @@ import {
 
     tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
     tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
+
+    tlsSocket.setKeyCert({
+        cert: fs.readFileSync("cert_filepath"),
+        key: fs.readFileSync("key_filepath"),
+    });
+    tlsSocket.setKeyCert(createSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
+    }));
 }
 
 {
