@@ -3,6 +3,7 @@ import * as stream from "node:stream";
 import {
     connect,
     ConnectionOptions,
+    convertALPNProtocols,
     createSecureContext,
     createServer,
     DEFAULT_CIPHERS,
@@ -71,6 +72,11 @@ import {
 
     tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
     tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
+
+    let convertResult = {};
+    convertALPNProtocols([], convertResult);
+    // $ExpectType Buffer<ArrayBuffer>
+    convertResult.ALPNProtocols;
 }
 
 {

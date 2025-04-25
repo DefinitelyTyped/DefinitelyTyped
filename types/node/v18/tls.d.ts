@@ -1159,6 +1159,13 @@ declare module "tls" {
      */
     function getCiphers(): string[];
     /**
+     * @since v6.0.0
+     */
+    function convertALPNProtocols(
+        protocols: Array<any> | Uint8Array | NodeJS.ArrayBufferView,
+        out: any,
+    ): asserts out is { ALPNProtocols: Buffer<ArrayBuffer> };
+    /**
      * The default curve name to use for ECDH key agreement in a tls server.
      * The default value is 'auto'. See tls.createSecureContext() for further
      * information.
