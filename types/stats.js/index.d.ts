@@ -18,12 +18,12 @@ declare class Stats {
     // Backwards Compatibility
 
     /**
-     * @deprecated Use `dom` intead.
+     * @deprecated Use `dom` instead.
      */
     domElement: HTMLDivElement;
 
     /**
-     * @deprecated Use `showPanel` intead.
+     * @deprecated Use `showPanel` instead.
      */
     setMode(value: number): void;
 }
