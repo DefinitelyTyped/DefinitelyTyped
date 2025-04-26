@@ -208,7 +208,7 @@ customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
-client.connection.once('rowDescription', () => {
+client.connection.once("rowDescription", () => {
     console.log("client connection rowDescription event");
 });
 // @ts-expect-error – connection is readonly
