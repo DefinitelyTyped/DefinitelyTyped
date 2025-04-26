@@ -1274,6 +1274,13 @@ export interface Configuration {
                 [key: string]: any;
             } | undefined;
 
+            rpMetadataChoices?: {
+                enabled?: boolean | undefined;
+                ack?: string | undefined;
+                /* experimental features are mostly explicit any */
+                [key: string]: any;
+            } | undefined;
+
             externalSigningSupport?: {
                 enabled?: boolean | undefined;
                 ack?: string | undefined;
