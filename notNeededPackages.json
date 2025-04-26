@@ -7375,6 +7375,10 @@
             "libraryName": "url-regex",
             "asOfVersion": "5.0.0"
         },
+        "url-template": {
+            "libraryName": "url-template",
+            "asOfVersion": "3.0.0"
+        },
         "urlencode": {
             "libraryName": "urlencode",
             "asOfVersion": "2.0.0"
