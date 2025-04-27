@@ -140,6 +140,20 @@ export function readdir(
 ): Promise<FileSystemEntryWithChildren[]>;
 
 /**
+ * Reads recursively directory content.
+ */
+export function readdir(
+    path: string | FileSystemDirectoryEntry,
+    options: {
+        /**
+         * Read recursively and attach data as `children` property.
+         * @default false
+         */
+        deep: boolean;
+    },
+): Promise<(FileSystemEntry | FileSystemEntryWithChildren)[]>;
+
+/**
  * Reads file content.
  *
  * If file does not exist - error thrown.
