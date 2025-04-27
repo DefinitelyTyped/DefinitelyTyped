@@ -8,33 +8,35 @@ const generatedPath = 'generated';
 
 const typesFolder = 'types';
 
-
 // Utility to run shell commands
 function run(cmd, shouldWarnOnly = false) {
-  console.log(`▶️ Running command: ${cmd}`);  // Print the command being run
+  console.log(`▶️ Running command: ${cmd}`); // Print the command being run
   try {
     const output = execSync(cmd, { stdio: 'pipe' }).toString();
     console.log(output); // Capture and print output
   } catch (e) {
-    if(shouldWarnOnly) {
-        console.warn(`⚠️ Warning: Command executed with warnings: ${cmd}\n`, e.message);
+    if (shouldWarnOnly) {
+      console.warn(
+        `⚠️ Warning: Command executed with warnings: ${cmd}\n`,
+        e.message
+      );
     } else {
-        console.error(`❌ Command failed: ${cmd}\n`, e.message);
-        process.exit(1);
+      console.error(`❌ Command failed: ${cmd}\n`, e.message);
+      process.exit(1);
     }
   }
 }
 
 function cleanUpGeneratedTemporaryFolders() {
-    if (fs.existsSync(generatedPath)) {
-        fs.rmSync(generatedPath, { recursive: true });
-        console.log(`🧹 Cleaned old ${generatedPath}/`);
-      }
+  if (fs.existsSync(generatedPath)) {
+    fs.rmSync(generatedPath, { recursive: true });
+    console.log(`🧹 Cleaned old ${generatedPath}/`);
+  }
 
-    if (fs.existsSync(typesFolder)) {
+  if (fs.existsSync(typesFolder)) {
     fs.rmSync(typesFolder, { recursive: true });
     console.log(`🧹 Cleaned old ${typesFolder}/`);
-    }
+  }
 }
 
 // Copy SDK src to generated/
@@ -68,7 +70,7 @@ function copySDKToGenerated() {
 }
 
 function removeObjectKeywordFromGetters(content) {
-    return content.replace(/(static get [A-Za-z0-9_]+ \(\)): Object/g, '$1');
+  return content.replace(/(static get [A-Za-z0-9_]+ \(\)): Object/g, '$1');
 }
 
 /**
@@ -78,7 +80,12 @@ function removeObjectKeywordFromGetters(content) {
  * @param {string} fileExtension - File extension to filter (e.g., '.js', '.ts')
  * @param {string} successMessage - Message to display when all transformations are complete
  */
-function walkAndTransform(rootPath, transformFn, fileExtension, successMessage) {
+function walkAndTransform(
+  rootPath,
+  transformFn,
+  fileExtension,
+  successMessage
+) {
   const walk = (currentPath) => {
     const entries = fs.readdirSync(currentPath, { withFileTypes: true });
     for (const entry of entries) {
@@ -117,22 +124,18 @@ function fixFlowFieldSyntax() {
 // Step 2: Convert to .ts using flow-to-ts
 function runFlowToTs() {
   const cmd = `npx flow-to-ts --write generated/src/*.js generated/src/**/*.js generated/src/**/**/*.js`;
-  run(cmd);  // Run the command with the resolved files
+  run(cmd); // Run the command with the resolved files
 }
 
 // Fix Promise return types for Cursor
 function fixCursorPromiseTypes(content) {
-  return content.replace(
-    /Cursor \| Promise<any>/g,
-    'Cursor | Promise<Cursor>'
-  );
+  return content.replace(/Cursor \| Promise<any>/g, 'Cursor | Promise<Cursor>');
 }
 
 // Remove void return type from setters
 function removeSetterVoidTypes(content) {
-  return content.replace(
-    /set \w+\([^)]+\): void {/g,
-    (match) => match.replace(': void', '')
+  return content.replace(/set \w+\([^)]+\): void {/g, (match) =>
+    match.replace(': void', '')
   );
 }
 
@@ -168,15 +171,13 @@ function fixCrudPromiseTypes(content) {
 }
 
 function addAsyncToPromiseMethods(content) {
-    return content.replace(
-      /^(\s*)(?!async\s)([a-zA-Z_$][\w$]*)\s*\(([^)]*)\)\s*:\s*Promise<([^>]+)>/gm,
-      (match, indent, fnName, args, returnType) => {
-        return `${indent}async ${fnName}(${args}): Promise<${returnType}>`;
-      }
-    );
+  return content.replace(
+    /^(\s*)(?!async\s)([a-zA-Z_$][\w$]*)\s*\(([^)]*)\)\s*:\s*Promise<([^>]+)>/gm,
+    (match, indent, fnName, args, returnType) => {
+      return `${indent}async ${fnName}(${args}): Promise<${returnType}>`;
+    }
+  );
 }
-
-
 
 /**
  * Add async keyword to methods and ensure they return Promise<T>
@@ -185,17 +186,17 @@ function addAsyncToPromiseMethods(content) {
  * After: async sendRequest(context: VideoUploadRequestContext): Promise<Record<string, any>> { ... }
  */
 function fixAsyncMethodSignatures(content) {
-    // First fix method signatures that return a Promise but don't declare it
-    return content.replace(
-        /(\basync\s+\w+)\(([^)]*)\):\s*([^{;]*?)(?=\s*[{])/g,
-        (match, method, params, returnType) => {
-            // Check if return type isn't already marked as a Promise
-            if (!returnType.trim().startsWith('Promise<')) {
-                return `${method}(${params}): Promise<${returnType.trim()}>`;
-            }
-            return match;
-        }
-    );
+  // First fix method signatures that return a Promise but don't declare it
+  return content.replace(
+    /(\basync\s+\w+)\(([^)]*)\):\s*([^{;]*?)(?=\s*[{])/g,
+    (match, method, params, returnType) => {
+      // Check if return type isn't already marked as a Promise
+      if (!returnType.trim().startsWith('Promise<')) {
+        return `${method}(${params}): Promise<${returnType.trim()}>`;
+      }
+      return match;
+    }
+  );
 }
 
 /**
@@ -208,7 +209,12 @@ function fixAsyncMethodSignatures(content) {
  * After: sourceObject?: string | null
  */
 function convertUndefinedToOptional(content) {
-  const sourceFile = ts.createSourceFile('temp.ts', content, ts.ScriptTarget.Latest, true);
+  const sourceFile = ts.createSourceFile(
+    'temp.ts',
+    content,
+    ts.ScriptTarget.Latest,
+    true
+  );
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
   const transformer = (context) => {
@@ -219,10 +225,14 @@ function convertUndefinedToOptional(content) {
         ts.isUnionTypeNode(node.type)
       ) {
         const types = node.type.types;
-        const hasUndefined = types.some(type => type.kind === ts.SyntaxKind.UndefinedKeyword);
+        const hasUndefined = types.some(
+          (type) => type.kind === ts.SyntaxKind.UndefinedKeyword
+        );
 
         if (hasUndefined) {
-          const newTypes = types.filter(type => type.kind !== ts.SyntaxKind.UndefinedKeyword);
+          const newTypes = types.filter(
+            (type) => type.kind !== ts.SyntaxKind.UndefinedKeyword
+          );
           const newType = ts.factory.createUnionTypeNode(newTypes);
 
           if (ts.isParameter(node)) {
@@ -261,14 +271,13 @@ function convertUndefinedToOptional(content) {
   return printer.printFile(transformed);
 }
 
-
 // Remove type annotation on constructor
 function removeTypeAnnotationOnConstructor(content) {
-    // Using a more robust pattern to capture constructor parameters including complex function types
-    return content.replace(
-        /constructor\(([\s\S]*?)\):\s*void\s*{/g,
-        'constructor($1) {'
-    );
+  // Using a more robust pattern to capture constructor parameters including complex function types
+  return content.replace(
+    /constructor\(([\s\S]*?)\):\s*void\s*{/g,
+    'constructor($1) {'
+  );
 }
 
 /**
@@ -278,16 +287,16 @@ function removeTypeAnnotationOnConstructor(content) {
  * After: createAccountControl(fields: Array<string>, params: Record<string, any> = {}, pathOverride: string | null = null): Promise<AdAccountBusinessConstraints> {
  */
 function removeOptionalMarkFromParamsWithInitializer(content) {
-    return content.replace(
-        /(\w+)\??(\s*:\s*[^=;{]*?)(\s*=\s*[^,;{]*)/g,
-        (match, paramName, type, initializer) => {
-            // If the parameter has a question mark, remove it
-            if (match.includes('?')) {
-                return `${paramName}${type}${initializer}`;
-            }
-            return match;
-        }
-    );
+  return content.replace(
+    /(\w+)\??(\s*:\s*[^=;{]*?)(\s*=\s*[^,;{]*)/g,
+    (match, paramName, type, initializer) => {
+      // If the parameter has a question mark, remove it
+      if (match.includes('?')) {
+        return `${paramName}${type}${initializer}`;
+      }
+      return match;
+    }
+  );
 }
 
 /**
@@ -297,14 +306,11 @@ function removeOptionalMarkFromParamsWithInitializer(content) {
  * After: fields: string[], params: Record<string, any>
  */
 function convertArrayGenericToArrayNotation(content) {
-    return content.replace(
-        /\bArray<([^<>]+?)>/g,
-        (match, type) => {
-            // Ensure we're not modifying types in comments
-            // The regex captures the actual type inside Array<>
-            return `${type.trim()}[]`;
-        }
-    );
+  return content.replace(/\bArray<([^<>]+?)>/g, (match, type) => {
+    // Ensure we're not modifying types in comments
+    // The regex captures the actual type inside Array<>
+    return `${type.trim()}[]`;
+  });
 }
 
 /**
@@ -324,11 +330,8 @@ function convertArrayGenericToArrayNotation(content) {
  *  *\/
  */
 function removeExtendsKeywordFromComments(content) {
-    // More precise pattern to match JSDoc @extends lines
-    return content.replace(
-        /^ *\* *@extends .*(\r?\n)/gm,
-        ''
-    );
+  // More precise pattern to match JSDoc @extends lines
+  return content.replace(/^ *\* *@extends .*(\r?\n)/gm, '');
 }
 
 // List of class names whose constructor arguments should be made optional
@@ -349,48 +352,53 @@ const CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS = [
  * Useful for classes that check for undefined in their implementation
  */
 function makeConstructorParamsOptionalForSpecifiedClasses(content) {
-    if (!CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS.length) {
-        return content;
-    }
-
-    // Create a regex pattern for matching the class declarations
-    const classPattern = new RegExp(` class (${CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS.join('|')})`, 'g');
-    let match;
-
-    match = classPattern.exec(content);
-
-    // Find if any of the target classes are in this file
-    if (match !== null) {
-        const className = match[1];
-
-        // Now find and modify the constructor for this class
-        return content.replace(
-            new RegExp(`(constructor\\s*\\()([^{]*?)(\\)\\s*{)`, 'g'),
-            (fullMatch, start, params, end) => {
-                // Add ? to each parameter that doesn't already have it
-                const paramList = params.split(',').map(param => {
-                    const trimmed = param.trim();
-                    if (!trimmed || trimmed.includes('?:') || trimmed.includes('= ')) {
-                        return trimmed; // Already optional or has default
-                    }
-                    // Add ? before the type declaration if there is one
-                    const colonPos = trimmed.indexOf(':');
-                    if (colonPos > 0) {
-                        return trimmed.substring(0, colonPos) + '?' + trimmed.substring(colonPos);
-                    }
-                    return trimmed + '?';
-                });
-
-                return `${start}${paramList.join(', ')}${end}`;
-            }
-        );
-    }
-
+  if (!CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS.length) {
     return content;
+  }
+
+  // Create a regex pattern for matching the class declarations
+  const classPattern = new RegExp(
+    ` class (${CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS.join('|')})`,
+    'g'
+  );
+  let match;
+
+  match = classPattern.exec(content);
+
+  // Find if any of the target classes are in this file
+  if (match !== null) {
+    const className = match[1];
+
+    // Now find and modify the constructor for this class
+    return content.replace(
+      new RegExp(`(constructor\\s*\\()([^{]*?)(\\)\\s*{)`, 'g'),
+      (fullMatch, start, params, end) => {
+        // Add ? to each parameter that doesn't already have it
+        const paramList = params.split(',').map((param) => {
+          const trimmed = param.trim();
+          if (!trimmed || trimmed.includes('?:') || trimmed.includes('= ')) {
+            return trimmed; // Already optional or has default
+          }
+          // Add ? before the type declaration if there is one
+          const colonPos = trimmed.indexOf(':');
+          if (colonPos > 0) {
+            return (
+              trimmed.substring(0, colonPos) + '?' + trimmed.substring(colonPos)
+            );
+          }
+          return trimmed + '?';
+        });
+
+        return `${start}${paramList.join(', ')}${end}`;
+      }
+    );
+  }
+
+  return content;
 }
 
 function removeParenthesisFromTypes(content) {
-    return content.replace(/\|\s*\(([^()]+?)\)/g, '| $1').trim();
+  return content.replace(/\|\s*\(([^()]+?)\)/g, '| $1').trim();
 }
 
 function fixTsFieldSyntax() {
@@ -408,8 +416,8 @@ function fixTsFieldSyntax() {
       content = removeExtendsKeywordFromComments(content);
       content = makeConstructorParamsOptionalForSpecifiedClasses(content);
       content = removeParenthesisFromTypes(content);
-      content = addAsyncToPromiseMethods(content)
-      content = fixAsyncMethodSignatures(content)
+      content = addAsyncToPromiseMethods(content);
+      content = fixAsyncMethodSignatures(content);
       return content;
     },
     '.ts',
@@ -419,23 +427,23 @@ function fixTsFieldSyntax() {
 
 // Step 3: Generate .d.ts
 function runTsc() {
-//   run(`npx tsc ${generatedPath}/src/**/*.ts --declaration --emitDeclarationOnly --outDir types/src`, true);
-    run('npx tsc --project tsconfig.types.json', true);
+  //   run(`npx tsc ${generatedPath}/src/**/*.ts --declaration --emitDeclarationOnly --outDir types/src`, true);
+  run('npx tsc --project tsconfig.types.json', true);
 }
 
 function removeDeclareKeywordFromSpecificClasses(content) {
-    const specificClasses = ['AbstractCrudObject'];
+  const specificClasses = ['AbstractCrudObject'];
 
-    const classPattern = new RegExp(` class (${specificClasses.join('|')})`, 'g');
-    let match;
+  const classPattern = new RegExp(` class (${specificClasses.join('|')})`, 'g');
+  let match;
 
-    match = classPattern.exec(content);
+  match = classPattern.exec(content);
 
-    if(match !== null)  {
-        return content.replace(/declare class/g, 'class');
-    }
+  if (match !== null) {
+    return content.replace(/declare class/g, 'class');
+  }
 
-    return content;
+  return content;
 }
 
 // Delete globals.d.ts file if it exists after generation
@@ -450,16 +458,16 @@ function deleteGlobalsFile() {
 }
 
 function applyFixesToDefinitionsFiles() {
-    // Use the existing walkAndTransform function instead of defining a new walk function
-    walkAndTransform(
-        path.join(typesFolder, 'generated/src'),
-        (content) => removeDeclareKeywordFromSpecificClasses(content),
-        '.d.ts',
-        'Completed fixing generated declaration files'
-    );
+  // Use the existing walkAndTransform function instead of defining a new walk function
+  walkAndTransform(
+    path.join(typesFolder, 'generated/src'),
+    (content) => removeDeclareKeywordFromSpecificClasses(content),
+    '.d.ts',
+    'Completed fixing generated declaration files'
+  );
 
-    // Delete globals.d.ts file after fixing the generated files
-    deleteGlobalsFile();
+  // Delete globals.d.ts file after fixing the generated files
+  deleteGlobalsFile();
 }
 
 /**
@@ -482,7 +490,10 @@ function extractBundleFileToRootAsIndex() {
   let bundleContent = fs.readFileSync(bundleFilePath, 'utf8');
 
   // Fix import paths in the bundle content (replace ./../src/ with ./src/)
-  bundleContent = bundleContent.replace(/from "\.\/\.\.\/src\//g, 'from "./src/');
+  bundleContent = bundleContent.replace(
+    /from "\.\/\.\.\/src\//g,
+    'from "./src/'
+  );
 
   // Ensure the parent directory exists
   const indexDir = path.dirname(indexFilePath);
@@ -493,7 +504,9 @@ function extractBundleFileToRootAsIndex() {
 
   // Write the fixed content to index.d.ts
   fs.writeFileSync(indexFilePath, bundleContent);
-  console.log(`✅ Created index.d.ts at ${indexFilePath} with fixed import paths`);
+  console.log(
+    `✅ Created index.d.ts at ${indexFilePath} with fixed import paths`
+  );
 
   // Delete the original bundle.d.ts file
   fs.unlinkSync(bundleFilePath);
@@ -547,7 +560,9 @@ function copyTypesSrcToRoot() {
 
   // Start the recursive copy
   copyDir(sourceSrcDir, targetSrcDir);
-  console.log(`✅ Successfully copied types/generated/src to root src directory`);
+  console.log(
+    `✅ Successfully copied types/generated/src to root src directory`
+  );
 }
 
 function removeTypesFilesFromProject() {
@@ -588,3 +603,4 @@ function runAllSteps() {
 runAllSteps();
 
 console.log('✅ All done. Types generated in /types');
+
