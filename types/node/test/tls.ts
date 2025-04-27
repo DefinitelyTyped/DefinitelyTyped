@@ -10,6 +10,7 @@ import {
     DEFAULT_MAX_VERSION,
     DEFAULT_MIN_VERSION,
     EphemeralKeyInfo,
+    getCACertificates,
     getCiphers,
     PeerCertificate,
     rootCertificates,
@@ -59,6 +60,7 @@ import {
 
     tlsSocket.encrypted; // $ExpectType true
 
+    const caCertificates: string[] = getCACertificates("default");
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;

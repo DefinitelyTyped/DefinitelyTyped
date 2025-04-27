@@ -54,6 +54,15 @@ util.inspect({
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
 
+{
+    util.diff("abc", "acb");
+    util.diff(["a", "b", "c"], ["a", "c", "b"]);
+
+    const diffEntry = util.diff([], [])[0];
+    diffEntry[0]; // $ExpectType -1 | 0 | 1
+    diffEntry[1]; // $ExpectType string
+}
+
 util.format("%s:%s", "foo");
 util.format("%s:%s", "foo", "bar", "baz");
 util.format(1, 2, 3);
