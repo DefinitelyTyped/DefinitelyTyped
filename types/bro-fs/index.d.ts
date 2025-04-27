@@ -31,7 +31,7 @@ export interface UsageObject {
 }
 
 export interface FileSystemEntryWithChildren extends FileSystemEntry {
-    children: FileSystemEntry[];
+    children: FileSystemEntryWithChildren[];
 }
 
 /**
