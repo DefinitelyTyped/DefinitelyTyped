@@ -62,7 +62,16 @@ import {
 }
 
 {
-    const fn: Function = compileFunction("console.log(\"test\")", [] as readonly string[], {
+    const code = "console.log(\"test\")";
+    const params = [] as const;
+
+    let fn = compileFunction(code);
+    fn = compileFunction(code, params);
+    fn = compileFunction(code, params, {});
+    fn = compileFunction(code, params, {
+        filename: "",
+        lineOffset: 0,
+        columnOffset: 0,
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,
@@ -70,6 +79,20 @@ import {
         produceCachedData: false,
         cachedData: Buffer.from("nope"),
     });
+    fn = compileFunction(code, params, {
+        cachedData: new Uint8Array(),
+    });
+    fn = compileFunction(code, params, {
+        cachedData: new DataView(new ArrayBuffer(10)),
+    });
+
+    fn satisfies Function;
+    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    fn.cachedData;
+    // $ExpectType boolean | undefined
+    fn.cachedDataProduced;
+    // $ExpectType boolean | undefined
+    fn.cachedDataRejected;
 }
 
 {
