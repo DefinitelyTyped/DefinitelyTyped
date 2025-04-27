@@ -346,6 +346,7 @@ const CLASSES_WITH_OPTIONAL_CONSTRUCTOR_PARAMS = [
   'UserData',
   'ServerEvent',
   'AbstractCrudObject',
+  'ExtendedDeviceInfo',
 ];
 /**
  * Make constructor arguments optional for specified classes

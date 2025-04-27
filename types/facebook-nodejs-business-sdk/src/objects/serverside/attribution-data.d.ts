@@ -1,3 +1,4 @@
+import AttributionModel from './attribution-model';
 /**
  * AttributionData used for attribution passback event to optimize the performance.
  */
@@ -8,7 +9,7 @@ export default class AttributionData {
     _adset_id: string;
     _campaign_id: string;
     _attribution_share: number;
-    _attribution_model: AttributionModel;
+    _attribution_model: typeof AttributionModel;
     _attr_window: number;
     /**
      * @param {String} scope Touchpoint type
@@ -20,7 +21,7 @@ export default class AttributionData {
      * @param {AttributionModel} attribution_model Attribution model used to attribute the event, check attribution-model.js file.
      * @param {Number} attr_window Attribution window in days.
      */
-    constructor(scope?: string, visit_time?: number, ad_id?: string, adset_id?: string, campaign_id?: string, attribution_share?: number, attribution_model?: AttributionModel, attr_window?: number);
+    constructor(scope?: string, visit_time?: number, ad_id?: string, adset_id?: string, campaign_id?: string, attribution_share?: number, attribution_model?: typeof AttributionModel, attr_window?: number);
     /**
      * Returns the scope of the attribution data.
      * Exmaple: 'click'.
@@ -121,18 +122,18 @@ export default class AttributionData {
      * Return the attribution model of the attribution data
      * Example: 'last-click'
      */
-    get attribution_model(): AttributionModel;
+    get attribution_model(): typeof AttributionModel;
     /**
      * Set the attribution model of the attribution data.
-     * @param {AttributionModel} attribution_model Advertiser attribution model
+     * @param {typeof AttributionModel} attribution_model Advertiser attribution model
      */
-    set attribution_model(attribution_model: AttributionModel);
+    set attribution_model(attribution_model: typeof AttributionModel);
     /**
      * Set the attribution model of the attribution data.
      * @param {String} attribution_model Advertiser attribution model
      * @returns {AttributionData}
      */
-    setAttributionModel(attribution_model: AttributionModel): AttributionData;
+    setAttributionModel(attribution_model: typeof AttributionModel): AttributionData;
     /**
      * Return the attribution window of the attribution data
      * Example: 7

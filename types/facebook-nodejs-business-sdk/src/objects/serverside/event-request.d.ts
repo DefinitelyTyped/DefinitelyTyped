@@ -18,7 +18,7 @@ export default class EventRequest {
     _debug_mode: boolean;
     _api: Record<string, any>;
     _http_service?: HttpServiceInterface | null;
-    _app_secret?: String | null;
+    _app_secret?: string | null;
     /**
      * @param {String} access_token Access Token for the user calling Graph API
      * @param {String} pixel_id Pixel Id to which you are sending the events

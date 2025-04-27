@@ -35,7 +35,7 @@ export default class CustomData {
      * @param {String} original_order_id Original order id for refund. For Refund event only.
      * @param {String} message Reason for refund. For Refund event only.
      */
-    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: SignalContent[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: ?Record<string, any>, shipping_contact?: SignalUserData, billing_contact?: SignalUserData, external_order_id?: string, original_order_id?: string, message?: string);
+    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: SignalContent[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<string, any>, shipping_contact?: SignalUserData, billing_contact?: SignalUserData, external_order_id?: string, original_order_id?: string, message?: string);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.

@@ -14,11 +14,11 @@ declare class VideoUploader {
      **/
     upload(video: AdVideo, waitForEncoding: boolean): Record<string, any>;
 }
-type SlideshowSpec = {
+interface SlideshowSpec {
     images_urls: string[];
     duration_ms: number;
     transition_ms: number;
-};
+}
 declare class VideoUploadSession {
     _accountId: string;
     _api: FacebookAdsApi;
