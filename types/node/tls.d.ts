@@ -1159,6 +1159,31 @@ declare module "tls" {
      */
     function createSecureContext(options?: SecureContextOptions): SecureContext;
     /**
+     * Returns an array containing the CA certificates from various sources, depending on `type`:
+     *
+     * * `"default"`: return the CA certificates that will be used by the Node.js TLS clients by default.
+     *   * When `--use-bundled-ca` is enabled (default), or `--use-openssl-ca` is not enabled,
+     *     this would include CA certificates from the bundled Mozilla CA store.
+     *   * When `--use-system-ca` is enabled, this would also include certificates from the system's
+     *     trusted store.
+     *   * When `NODE_EXTRA_CA_CERTS` is used, this would also include certificates loaded from the specified
+     *     file.
+     * * `"system"`: return the CA certificates that are loaded from the system's trusted store, according
+     *   to rules set by `--use-system-ca`. This can be used to get the certificates from the system
+     *   when `--use-system-ca` is not enabled.
+     * * `"bundled"`: return the CA certificates from the bundled Mozilla CA store. This would be the same
+     *   as `tls.rootCertificates`.
+     * * `"extra"`: return the CA certificates loaded from `NODE_EXTRA_CA_CERTS`. It's an empty array if
+     *   `NODE_EXTRA_CA_CERTS` is not set.
+     * @since v22.15.0
+     * @param type The type of CA certificates that will be returned. Valid values
+     * are `"default"`, `"system"`, `"bundled"` and `"extra"`.
+     * **Default:** `"default"`.
+     * @returns An array of PEM-encoded certificates. The array may contain duplicates
+     * if the same certificate is repeatedly stored in multiple sources.
+     */
+    function getCACertificates(type?: "default" | "system" | "bundled" | "extra"): string[];
+    /**
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in
      * the `ciphers` option of `{@link createSecureContext}`.

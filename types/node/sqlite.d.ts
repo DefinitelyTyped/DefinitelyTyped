@@ -158,9 +158,10 @@ declare module "node:sqlite" {
          */
         useBigIntArguments?: boolean | undefined;
         /**
-         * If `true`, `function` can accept a variable number of
-         * arguments. If `false`, `function` must be invoked with exactly
-         * `function.length` arguments.
+         * If `true`, `function` may be invoked with any number of
+         * arguments (between zero and
+         * [`SQLITE_MAX_FUNCTION_ARG`](https://www.sqlite.org/limits.html#max_function_arg)). If `false`,
+         * `function` must be invoked with exactly `function.length` arguments.
          * @default false
          */
         varargs?: boolean | undefined;
@@ -170,16 +171,16 @@ declare module "node:sqlite" {
      * exposed by this class execute synchronously.
      * @since v22.5.0
      */
-    class DatabaseSync {
+    class DatabaseSync implements Disposable {
         /**
          * Constructs a new `DatabaseSync` instance.
-         * @param location The location of the database.
+         * @param path The path of the database.
          * A SQLite database can be stored in a file or completely [in memory](https://www.sqlite.org/inmemorydb.html).
-         * To use a file-backed database, the location should be a file path.
-         * To use an in-memory database, the location should be the special name `':memory:'`.
+         * To use a file-backed database, the path should be a file path.
+         * To use an in-memory database, the path should be the special name `':memory:'`.
          * @param options Configuration options for the database connection.
          */
-        constructor(location: string, options?: DatabaseSyncOptions);
+        constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
         /**
          * Closes the database connection. An exception is thrown if the database is not
          * open. This method is a wrapper around [`sqlite3_close_v2()`](https://www.sqlite.org/c3ref/close.html).
@@ -217,16 +218,24 @@ declare module "node:sqlite" {
          * @param name The name of the SQLite function to create.
          * @param options Optional configuration settings for the function.
          * @param func The JavaScript function to call when the SQLite
-         * function is invoked.
+         * function is invoked. The return value of this function should be a valid
+         * SQLite data type: see
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v22.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
             name: string,
             options: FunctionOptions,
-            func: (...args: SupportedValueType[]) => SupportedValueType,
+            func: (...args: SQLOutputValue[]) => SQLInputValue,
         ): void;
-        function(name: string, func: (...args: SupportedValueType[]) => SupportedValueType): void;
+        function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
-         * Opens the database specified in the `location` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
+         * Whether the database is currently open or not.
+         * @since v22.15.0
+         */
+        readonly isOpen: boolean;
+        /**
+         * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
          * @since v22.5.0
          */
@@ -272,10 +281,17 @@ declare module "node:sqlite" {
          * ```
          * @param changeset A binary changeset or patchset.
          * @param options The configuration options for how the changes will be applied.
-         * @returns Whether the changeset was applied succesfully without being aborted.
+         * @returns Whether the changeset was applied successfully without being aborted.
          * @since v22.12.0
          */
         applyChangeset(changeset: Uint8Array, options?: ApplyChangesetOptions): boolean;
+        /**
+         * Closes the database connection. If the database connection is already closed
+         * then this is a no-op.
+         * @since v22.15.0
+         * @experimental
+         */
+        [Symbol.dispose](): void;
     }
     /**
      * @since v22.12.0
@@ -424,6 +440,13 @@ declare module "node:sqlite" {
          * @param enabled Enables or disables support for binding named parameters without the prefix character.
          */
         setAllowBareNamedParameters(enabled: boolean): void;
+        /**
+         * By default, if an unknown name is encountered while binding parameters, an
+         * exception is thrown. This method allows unknown named parameters to be ignored.
+         * @since v22.15.0
+         * @param enabled Enables or disables support for unknown named parameters.
+         */
+        setAllowUnknownNamedParameters(enabled: boolean): void;
         /**
          * When reading from the database, SQLite `INTEGER`s are mapped to JavaScript
          * numbers by default. However, SQLite `INTEGER`s can store values larger than

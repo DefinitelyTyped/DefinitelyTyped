@@ -105,3 +105,31 @@ itemsIds.similar(0);
 itemsIds.similar(0, {});
 
 itemsIds.similar(0, { field: "name" });
+
+// Custom id field should be an existing key in the object
+itemsjs(myitems, {
+    custom_id_field: "name",
+});
+
+itemsjs(myitems, {
+    // @ts-expect-error
+    custom_id_field: "keyThatDoesNotExist",
+});
+
+// Ids types should match the custom_id_field type
+const itemsCustomId = itemsjs(myitems, {
+    custom_id_field: "name",
+});
+// @ts-expect-error
+itemsCustomId.search({ ids: [1, 2] });
+// @ts-expect-error
+itemsCustomId.similar(1, { field: "name" });
+itemsCustomId.similar("a", { field: "name" });
+itemsCustomId.search({ ids: ["foo", "bar"] });
+itemsCustomId.search({
+    // @ts-expect-error
+    ids: [1],
+});
+itemsCustomId.search({
+    ids: ["a"],
+});

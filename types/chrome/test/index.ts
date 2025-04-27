@@ -731,8 +731,8 @@ function testGetManifest() {
         manifest.content_security_policy; // $ExpectType string | undefined
 
         manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType string[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
@@ -746,13 +746,38 @@ function testGetManifest() {
         };
 
         manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
         manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
         // @ts-expect-error
         manifest.web_accessible_resources = ["script.js"];
+
+        // @ts-expect-error Permission 'debugger' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["debugger"];
+        // @ts-expect-error Permission 'declarativeNetRequest' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["declarativeNetRequest"];
+        // @ts-expect-error Permission 'devtools' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["devtools"];
+        // @ts-expect-error Permission 'experimental' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["experimental"];
+        // @ts-expect-error Permission 'fontSettings' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["fontSettings"];
+        // @ts-expect-error Permission 'geolocation' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["geolocation"];
+        // @ts-expect-error Permission 'proxy' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["proxy"];
+        // @ts-expect-error Permission 'tts' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["tts"];
+        // @ts-expect-error Permission 'ttsEngine' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["ttsEngine"];
+        // @ts-expect-error Permission 'unlimitedStorage' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["unlimitedStorage"];
+        // @ts-expect-error Permission 'wallpaper' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["wallpaper"];
+        // @ts-expect-error Permission 'webAuthenticationProxy' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["webAuthenticationProxy"];
     }
 
     const mv2: chrome.runtime.Manifest = {
@@ -4379,6 +4404,12 @@ function testUserScripts() {
     chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
     chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
 
+    const badScripts = [
+        {
+            id: "badScriptId",
+            matches: ["*://example.com/*"],
+        },
+    ];
     const scripts = [
         {
             id: "scriptId1",
@@ -4391,13 +4422,26 @@ function testUserScripts() {
             matches: ["*://example.org/*"],
         },
     ];
-
-    const badScripts = [
+    const jsInjections: chrome.userScripts.ScriptSource[] = [
         {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
+            file: "./the/script.js",
+        },
+        {
+            code: "console.log(\"Wow the script works!\");",
         },
     ];
+    const injectionTarget: chrome.userScripts.InjectionTarget = {
+        tabId: 46,
+        allFrames: true,
+    };
+
+    const badExeOptions = {};
+    const exeOptions: chrome.userScripts.UserScriptInjection = {
+        injectImmediately: true,
+        js: jsInjections,
+        target: injectionTarget,
+        worldId: "USER_SCRIPT",
+    };
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -4407,6 +4451,13 @@ function testUserScripts() {
     });
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
+
+    // @ts-expect-error
+    chrome.userScripts.execute(badExeOptions);
+    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
+    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
+        result; // $ExpectType InjectionResult[]
+    });
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void

@@ -10,6 +10,8 @@ import {
     crc32,
     createBrotliCompress,
     createBrotliDecompress,
+    createZstdCompress,
+    createZstdDecompress,
     deflate,
     deflateRaw,
     deflateRawSync,
@@ -24,6 +26,10 @@ import {
     inflateSync,
     unzip,
     unzipSync,
+    zstdCompress,
+    zstdCompressSync,
+    zstdDecompress,
+    zstdDecompressSync,
 } from "node:zlib";
 
 const compressMe = new Buffer("some data");
@@ -149,6 +155,26 @@ brotliDecompress(
     (err: Error | null, result: Buffer) => result,
 );
 
+// zstd
+createZstdCompress(); // $ExpectType ZstdCompress
+createZstdCompress({ chunkSize: 1024 }); // $ExpectType ZstdCompress
+createZstdDecompress(); // $ExpectType ZstdDecompress
+createZstdDecompress({ chunkSize: 1024 }); // $ExpectType ZstdDecompress
+
+zstdCompress(compressMe, (err: Error | null, result: Buffer) => result);
+zstdCompress(compressMe, { finishFlush: constants.ZSTD_e_end }, (err: Error | null, result: Buffer) => result);
+zstdCompressSync(compressMe); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+zstdCompressSync(compressMe, { finishFlush: constants.ZSTD_e_end }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+
+zstdDecompress(compressMe, (err: Error | null, result: Buffer) => result);
+zstdDecompress(
+    compressMe,
+    { params: { [constants.ZSTD_d_windowLogMax]: 100 } },
+    (err: Error | null, result: Buffer) => result,
+);
+zstdDecompressSync(compressMe); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 } }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+
 {
     // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pBrotliCompress = promisify(brotliCompress);
@@ -168,6 +194,10 @@ brotliDecompress(
     const pInflateRaw = promisify(inflateRaw);
     // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pUnzip = promisify(unzip);
+    // $ExpectType (buffer: InputType, options?: ZstdOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZstdOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    const pZstdCompress = promisify(zstdCompress);
+    // $ExpectType (buffer: InputType, options?: ZstdOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZstdOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
+    const pZstdDecompress = promisify(zstdDecompress);
 
     (async () => {
         await pBrotliCompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
@@ -188,6 +218,10 @@ brotliDecompress(
         await pInflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
         await pUnzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
         await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pZstdCompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pZstdCompress(Buffer.from("buf"), { flush: constants.ZSTD_e_flush }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pZstdDecompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pZstdDecompress(Buffer.from("buf"), { flush: constants.ZSTD_e_flush }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     })();
 }
 

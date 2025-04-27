@@ -2867,7 +2867,6 @@
 /types/git-root-dir/                                    @ffflorian
 /types/git-semver-tags/                                 @JasonHK @peterblazejewicz
 /types/git-state/                                       @BendingBender
-/types/git-url-parse/                                   @ajafff
 /types/git-user-email/                                  @BendingBender
 /types/git-user-name/                                   @BendingBender
 /types/git-username/                                    @BendingBender
@@ -3487,6 +3486,7 @@
 /types/is-email/                                        @stephenwade
 /types/is-empty/                                        @termosa
 /types/is-empty-object/                                 @Richienb
+/types/is-equal-shallow/                                @akeldamas
 /types/is-errno-exception/                              @sosoba @coigmalinowski
 /types/is-even/                                         @shawnkoon
 /types/is-expression/                                   @LeoDog896
@@ -4208,6 +4208,7 @@
 /types/leaflet-side-by-side/                            @OliverBiel
 /types/leaflet.awesome-markers/                         @sebek64
 /types/leaflet.awesome-markers/v0/                      @Odrin @sebek64
+/types/leaflet.chinatmsproviders/                       @TwoKe945
 /types/leaflet.featuregroup.subgroup/                   @drtomato
 /types/leaflet.fullscreen/                              @wcomartin @danmana
 /types/leaflet.gridlayer.googlemutant/                  @ernest-rhinozeros
@@ -4896,7 +4897,6 @@
 /types/min-indent/                                      @BendingBender
 /types/mina/                                            @lhk @mattanja @kant2002
 /types/minecraft-pinger/                                @Grayson-code
-/types/mini-html-webpack-plugin/                        @peterblazejewicz
 /types/minify/                                          @peterblazejewicz
 /types/minimal-bit-array/                               @jeremejevs
 /types/minimal-request-promise/                         @stojanovic
@@ -5278,6 +5278,7 @@
 /types/node-telegram-bot-api/                           @ammuench @agadar @Dabolus @XC-Zhang @adityathebe @XieJiSS @toniop99 @konstantin24121
 /types/node-tlv/                                        @David-Tennant
 /types/node-turn/                                       @garzj
+/types/node-unifi/                                      @hkleungai
 /types/node-uuid/                                       @jeffmay
 /types/node-vagrant/                                    @MasterOdin
 /types/node-validator/                                  @kengorab
@@ -5704,7 +5705,7 @@
 /types/pet-finder-api/                                  @ncipollina
 /types/petit-dom/                                       @JamesMessinger
 /types/pexrtc/                                          @10clouds
-/types/pg/                                              @pspeter3 @HoldYourWaffle
+/types/pg/                                              @pspeter3
 /types/pg/v6/                                           @pspeter3
 /types/pg-copy-streams/                                 @fluggo
 /types/pg-cursor/                                       @Tiogshi @elias-fauser
@@ -6030,7 +6031,6 @@
 /types/purl/                                            @danfma
 /types/pusher__chatkit-client/                          @alexhayton
 /types/pushid/                                          @bmatcuk
-/types/pvutils/                                         @microshine
 /types/pwd-strength/                                    @himynameisdave
 /types/pxr-oneline/                                     @diogopxrnextday @edwinveldhuizen @bart-digitalenterprises
 /types/pym.js/                                          @igowerf
@@ -6718,7 +6718,6 @@
 /types/react-twitter-auth/                              @paulfasola @loginwashere
 /types/react-twitter-conversion-tracker/                @Coteh
 /types/react-twitter-conversion-tracker-plus/           @Coteh
-/types/react-type-animation/                            @sboh1214
 /types/react-typical/                                   @Ankan002
 /types/react-typing-animation/                          @hmajid2301
 /types/react-typing-effect/                             @Debananda
@@ -7331,7 +7330,6 @@
 /types/sigmajs/                                         @qinfchen
 /types/sigmund/                                         @BendingBender
 /types/signale/                                         @resir014 @rjoydip
-/types/signalfx/                                        @maxbogus
 /types/signalfx-collect/                                @axiac
 /types/signalr/                                         @borisyankov @keesey @GiedriusGrabauskas @101100
 /types/signalr/v1/                                      @borisyankov @keesey
