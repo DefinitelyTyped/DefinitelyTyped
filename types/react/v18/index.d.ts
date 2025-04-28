@@ -186,7 +186,7 @@ declare namespace React {
      * @see {@link RefObject}
      */
 
-    type Ref<T> = RefCallback<T> | RefObject<T> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
     /**
      * A legacy implementation of refs where you can pass a string to a ref prop.
      *
