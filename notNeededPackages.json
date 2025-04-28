@@ -4205,6 +4205,10 @@
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
         },
+        "minizlib": {
+            "libraryName": "minizlib",
+            "asOfVersion": "3.0.0"
+        },
         "mkdirp": {
             "libraryName": "mkdirp",
             "asOfVersion": "2.0.0"
@@ -4884,6 +4888,10 @@
         "parse-ms": {
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
+        },
+        "parse-numeric-range": {
+            "libraryName": "parse-numeric-range",
+            "asOfVersion": "1.3.0"
         },
         "parse5": {
             "libraryName": "parse5",
@@ -5974,6 +5982,10 @@
         "react-notifications-component": {
             "libraryName": "react-notifications-component",
             "asOfVersion": "3.2.0"
+        },
+        "react-otp-input": {
+            "libraryName": "react-otp-input",
+            "asOfVersion": "2.3.0"
         },
         "react-overlays": {
             "libraryName": "react-overlays",
@@ -7370,6 +7382,10 @@
         "url-regex": {
             "libraryName": "url-regex",
             "asOfVersion": "5.0.0"
+        },
+        "url-template": {
+            "libraryName": "url-template",
+            "asOfVersion": "3.0.0"
         },
         "urlencode": {
             "libraryName": "urlencode",

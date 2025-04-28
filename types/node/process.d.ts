@@ -1938,6 +1938,28 @@ declare module "process" {
                  * @param maybeRefable An object that may be "unref'd".
                  */
                 unref(maybeRefable: any): void;
+                /**
+                 * Replaces the current process with a new process.
+                 *
+                 * This is achieved by using the `execve` POSIX function and therefore no memory or other
+                 * resources from the current process are preserved, except for the standard input,
+                 * standard output and standard error file descriptor.
+                 *
+                 * All other resources are discarded by the system when the processes are swapped, without triggering
+                 * any exit or close events and without running any cleanup handler.
+                 *
+                 * This function will never return, unless an error occurred.
+                 *
+                 * This function is not available on Windows or IBM i.
+                 * @since v22.15.0
+                 * @experimental
+                 * @param file The name or path of the executable file to run.
+                 * @param args List of string arguments. No argument can contain a null-byte (`\u0000`).
+                 * @param env Environment key-value pairs.
+                 * No key or value can contain a null-byte (`\u0000`).
+                 * **Default:** `process.env`.
+                 */
+                execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;
                 addListener(event: "disconnect", listener: DisconnectListener): this;

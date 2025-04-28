@@ -250,3 +250,13 @@ process.env.TZ = "test";
     process.ref(timeout);
     process.unref(timeout);
 }
+
+{
+    // @ts-expect-error
+    process.execve("/bin/true");
+
+    assert(process.execve);
+    process.execve("/bin/true"); // $ExpectType never
+    process.execve("/bin/true", ["arg1", "arg2"]); // $ExpectType never
+    process.execve("/bin/true", [], { ...process.env, ENV1: "foo", ENV2: "bar" }); // $ExpectType never
+}

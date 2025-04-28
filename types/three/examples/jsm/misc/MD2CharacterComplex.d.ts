@@ -9,7 +9,7 @@ export class MD2CharacterComplex {
     maxReverseSpeed: number;
     frontAcceleration: number;
     backAcceleration: number;
-    frontDecceleration: number;
+    frontDeceleration: number;
     angularSpeed: number;
     root: Object3D;
     meshBody: Mesh | null;
