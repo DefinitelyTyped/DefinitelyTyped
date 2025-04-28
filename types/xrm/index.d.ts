@@ -1152,7 +1152,7 @@ declare namespace Xrm {
          * @param attributeNameOrIndex Name of the attribute.
          * @returns The attribute or null if attribute does not exist.
          */
-        getAttribute<T extends Attributes.Attribute = Attributes.SpecificAttributes>(
+        getAttribute<T extends Attributes.Attribute = Attributes.Attribute>(
             attributeNameOrIndex: string | number,
         ): T | null;
 
@@ -2604,15 +2604,11 @@ declare namespace Xrm {
             | IntegerAttributeFormat
             | OptionSetAttributeFormat
             | StringAttributeFormat;
+
+        /**
+         * Possible attribute values that can be set or retrieved from an attribute.
+         */
         type AttributeValues = string | number | number[] | boolean | Date | LookupValue[] | OptionSetValue;
-        type SpecificAttributes =
-            | StringAttribute
-            | NumberAttribute
-            | DateAttribute
-            | OptionSetAttribute
-            | MultiSelectOptionSetAttribute
-            | LookupAttribute
-            | BooleanAttribute;
 
         /**
          * Interface for an Entity attribute.
