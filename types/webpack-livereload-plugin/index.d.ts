@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { ServerOptions } from "https";
-import { Compilation, Compiler, WebpackPluginInstance, Stats } from "webpack";
+import { Compilation, Compiler, Stats, WebpackPluginInstance } from "webpack";
 
 declare class LiveReloadPlugin implements WebpackPluginInstance {
     readonly isRunning: boolean;
