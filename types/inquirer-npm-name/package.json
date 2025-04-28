@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/inquirer-npm-name": "workspace:."
     },
-    "owners": [
-        {
-            "name": "manuth",
-            "githubUsername": "manuth"
-        }
-    ]
+    "owners": []
 }
