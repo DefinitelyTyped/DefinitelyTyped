@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { ServerOptions } from "https";
 import { Compilation, Compiler, WebpackPluginInstance, Stats } from "webpack";
 
