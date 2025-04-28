@@ -764,7 +764,7 @@ function getPossibleAttributeValues(formContext: Xrm.FormContext) {
     if (attribute === null) {
         throw new Error("Attribute does not exist!");
     }
-    // $ExpectType string | number | boolean | LookupValue[] | number[] | Date | null
+    // $ExpectType AttributeValues | null
     const values = attribute.getValue();
 }
 function testAttributeType(formContext: Xrm.FormContext) {
