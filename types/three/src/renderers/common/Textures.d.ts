@@ -117,13 +117,6 @@ declare class Textures extends DataMap<{
      */
     needsMipmaps(texture: Texture): boolean;
     /**
-     * Returns `true` if the given texture is an environment map.
-     *
-     * @param {Texture} texture - The texture.
-     * @return {boolean} Whether the given texture is an environment map or not.
-     */
-    isEnvironmentTexture(texture: Texture): boolean;
-    /**
      * Frees internal resource when the given texture isn't
      * required anymore.
      *

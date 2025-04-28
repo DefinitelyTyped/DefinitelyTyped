@@ -378,6 +378,13 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     isRenderTargetTexture: boolean;
 
     /**
+     * Indicates if a texture should be handled like a texture array.
+     *
+     * @default false
+     */
+    isTextureArray: boolean;
+
+    /**
      * An object that can be used to store custom data about the texture.
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
@@ -432,7 +439,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     /**
      * A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_.
      */
-    onUpdate: () => void;
+    onUpdate: ((texture: Texture) => void) | null;
 
     /**
      * Transform the **UV** based on the value of this texture's

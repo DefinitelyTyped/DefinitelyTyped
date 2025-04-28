@@ -372,7 +372,6 @@ declare module "async_hooks" {
         /**
          * Binds the given function to the current execution context.
          * @since v19.8.0
-         * @experimental
          * @param fn The function to bind to the current execution context.
          * @return A new function that calls `fn` within the captured execution context.
          */
@@ -403,7 +402,6 @@ declare module "async_hooks" {
          * console.log(asyncLocalStorage.run(321, () => foo.get())); // returns 123
          * ```
          * @since v19.8.0
-         * @experimental
          * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
         static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;

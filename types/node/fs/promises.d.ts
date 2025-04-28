@@ -87,13 +87,6 @@ declare module "fs/promises" {
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
     }
-    interface ReadableWebStreamOptions {
-        /**
-         * Whether to open a normal or a `'bytes'` stream.
-         * @since v20.0.0
-         */
-        type?: "bytes" | undefined;
-    }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
@@ -244,7 +237,8 @@ declare module "fs/promises" {
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
-         * Returns a `ReadableStream` that may be used to read the files data.
+         * Returns a byte-oriented `ReadableStream` that may be used to read the file's
+         * contents.
          *
          * An error will be thrown if this method is called more than once or is called
          * after the `FileHandle` is closed or closing.
@@ -267,7 +261,7 @@ declare module "fs/promises" {
          * @since v17.0.0
          * @experimental
          */
-        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
+        readableWebStream(): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *

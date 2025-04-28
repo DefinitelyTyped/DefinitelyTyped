@@ -470,6 +470,8 @@ export interface SellProviderInfo {
     flow?: SellFiatFlowType | undefined;
     isRefundAddressRequired?: boolean | undefined;
     pendingTimeout?: number | undefined; // Time until a SUBMITTED transaction automatically changes to PENDING. Null means it does not change.
+    /** Should be used when it's necessary to have the exact amount match between the trade and the transaction */
+    lockSendAmount?: boolean;
 }
 
 export interface SellListResponse {

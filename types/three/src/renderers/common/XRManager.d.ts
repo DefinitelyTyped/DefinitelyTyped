@@ -98,12 +98,15 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
     _glProjLayer: XRProjectionLayer | null;
     _xrFrame: XRFrame | null;
     _useLayers: boolean;
+    _useMultiviewIfPossible: boolean;
+    _useMultiview: boolean;
     /**
      * Constructs a new XR manager.
      *
      * @param {Renderer} renderer - The renderer.
+     * @param {boolean} [multiview=false] - Enables multiview if the device supports it.
      */
-    constructor(renderer: Renderer);
+    constructor(renderer: Renderer, multiview?: boolean);
     /**
      * Returns an instance of `THREE.Group` that represents the transformation
      * of a XR controller in target ray space. The requested controller is defined
@@ -202,6 +205,12 @@ declare class XRManager extends EventDispatcher<XRManagerEventMap> {
      * @return {?XRFrame} The XR frame. Returns `null` when used outside a XR session.
      */
     getFrame(): XRFrame | null;
+    /**
+     * Returns `true` if the engine renders to a multiview target.
+     *
+     * @return {boolean} Whether the engine renders to a multiview render target or not.
+     */
+    useMultiview(): boolean;
     createQuadLayer(
         width: number,
         height: number,

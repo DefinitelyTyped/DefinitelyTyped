@@ -27,7 +27,8 @@ export interface NodeMaterialParameters extends MaterialParameters {
     geometryNode?: Node | null | undefined;
 
     depthNode?: Node | null | undefined;
-    shadowNode?: Node | null | undefined;
+    receivedShadowPositionNode?: Node | null | undefined;
+    castShadowPositionNode?: Node | null | undefined;
 
     outputNode?: Node | null | undefined;
 
@@ -59,7 +60,8 @@ declare class NodeMaterial extends Material {
     geometryNode: Node | null;
 
     depthNode: Node | null;
-    shadowPositionNode: Node | null;
+    receivedShadowPositionNode: Node | null;
+    castShadowPositionNode: Node | null;
     receivedShadowNode: (() => Node) | null;
     castShadowNode: Node | null;
 
@@ -68,6 +70,12 @@ declare class NodeMaterial extends Material {
 
     fragmentNode: Node | null;
     vertexNode: Node | null;
+
+    /**
+     * @deprecated ".shadowPositionNode" was renamed to ".receivedShadowPositionNode".'
+     */
+    get shadowPositionNode(): Node | null;
+    set shadowPositionNode(value: Node | null);
 
     constructor();
 

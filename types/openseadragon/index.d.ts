@@ -119,7 +119,7 @@ declare namespace OpenSeadragon {
 
     function getElementStyle(element: Element | string): CSSStyleDeclaration;
 
-    function getViewer(element: Element): Viewer;
+    function getViewer(element: string | Element): Viewer;
 
     function getMousePosition(event?: OSDEvent<any>): Point;
 
@@ -350,14 +350,14 @@ declare namespace OpenSeadragon {
         showSequenceControl?: boolean | undefined;
         sequenceControlAnchor?: ControlAnchor | undefined;
         navPrevNextWrap?: boolean | undefined;
-        zoomInButton?: string | undefined;
-        zoomOutButton?: string | undefined;
-        homeButton?: string | undefined;
-        fullPageButton?: string | undefined;
-        rotateLeftButton?: string | undefined;
-        rotateRightButton?: string | undefined;
-        previousButton?: string | undefined;
-        nextButton?: string | undefined;
+        zoomInButton?: string | Element | undefined;
+        zoomOutButton?: string | Element | undefined;
+        homeButton?: string | Element | undefined;
+        fullPageButton?: string | Element | undefined;
+        rotateLeftButton?: string | Element | undefined;
+        rotateRightButton?: string | Element | undefined;
+        previousButton?: string | Element | undefined;
+        nextButton?: string | Element | undefined;
         sequenceMode?: boolean | undefined;
         /**
          * If sequenceMode is true, display this page initially.
