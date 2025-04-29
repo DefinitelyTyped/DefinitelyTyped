@@ -2,7 +2,7 @@ export = Entity;
 declare function Entity(
     classKey: number,
     dataSet: DataSet,
-    opt_options?: EntityOptions | Record<any, any>,
+    opt_options?: EntityOptions | Record<any, any>
 ): void;
 declare class Entity {
     constructor(classKey: number, dataSet: DataSet, opt_options?: EntityOptions | Record<any, any>);
@@ -58,7 +58,14 @@ declare class Entity {
     private suggestDefaultValues_;
     protected insert_(): void;
     set(name: string, value: any): void;
+    private normalizeAndCheckFieldPermission_;
     get(name: any): any;
+    val(expr: string): string | number | null | boolean | Date;
+    str(expr: string): string;
+    num(expr: string): number;
+    bool(expr: string): boolean;
+    date(expr: string): Date | null;
+    dbkey(expr: string): DBKey | null;
     assign(values: { [x: string]: any }): void;
     edit(): void;
     cancel(): void;
@@ -74,53 +81,48 @@ declare class Entity {
 }
 declare namespace Entity {
     export {
+        fromKey,
+        fromDataSet,
+        requiresStrictMode,
+        ModelDef,
         ConfigDef,
-        DataSet,
+        Field,
+        Event,
         Emitter,
+        FieldPermissions,
+        DataSet,
         EntityOptions,
         EntityState,
-        Event,
-        Field,
-        FieldPermissions,
-        fromDataSet,
-        fromKey,
-        ModelDef,
-        requiresStrictMode,
     };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-type EntityOptions = import("./EntityOptions");
-import EntityState = require("./EntityState.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 declare function fromKey(
     key: number,
     opt_options?:
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        }
-        | Record<any, any>,
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
+        | Record<any, any>
 ): Entity;
 declare function fromDataSet(
     classKey: number,
     dataSet: DataSet,
     opt_options?:
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        }
-        | Record<any, any>,
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
+        | Record<any, any>
 ): Entity;
 declare let requiresStrictMode: boolean;
-type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
-type ConfigDef = import("@nginstack/engine/lib/classdef/ConfigDef");
-type Field = import("@nginstack/engine/lib/classdef/Field");
-type Event = import("@nginstack/engine/lib/event/Event");
-type Emitter = import("@nginstack/engine/lib/event/Emitter");
-type FieldPermissions = import("@nginstack/engine/lib/security/FieldPermissions");
-interface EntityState {
-    UNCHANGED: number;
-    ADDED: number;
-    MODIFIED: number;
-    DELETED: number;
-    DETACHED: number;
-}
+type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type ConfigDef = import('@nginstack/engine/lib/classdef/ConfigDef');
+type Field = import('@nginstack/engine/lib/classdef/Field');
+type Event = import('@nginstack/engine/lib/event/Event');
+type Emitter = import('@nginstack/engine/lib/event/Emitter');
+type FieldPermissions = import('@nginstack/engine/lib/security/FieldPermissions');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type EntityOptions = import('./EntityOptions');
+type EntityState = typeof EntityState;
+import EntityState = require('./EntityState.js');

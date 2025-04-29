@@ -1,11 +1,15 @@
 export = EntitySet;
 declare function EntitySet(
     baseClass: number,
-    dataSet: any,
-    opt_options?: EntitySetOptions | Record<any, any>,
+    dataSet: DataSet,
+    opt_options?: EntitySetOptions | Record<any, any>
 ): void;
 declare class EntitySet {
-    constructor(baseClass: number, dataSet: any, opt_options?: EntitySetOptions | Record<any, any>);
+    constructor(
+        baseClass: number,
+        dataSet: DataSet,
+        opt_options?: EntitySetOptions | Record<any, any>
+    );
     private baseClass_;
     private userKey_;
     private dataSet_;
@@ -24,7 +28,7 @@ declare class EntitySet {
     findByKey(key: number): Entity;
     some(callback: (arg0: Entity) => boolean, opt_context?: any): boolean;
     forEach(callback: (arg0: Entity) => any, opt_context?: any): void;
-    bindDataSet(dataSet: any): void;
+    bindDataSet(dataSet: DataSet): void;
     insert(data: Record<any, any>): number;
     newEntity(data: number | Record<any, any>): Entity;
     update(key: number, data: any): void;
@@ -39,30 +43,30 @@ declare class EntitySet {
     toJSONSchema(): any;
 }
 declare namespace EntitySet {
-    export { DataSet, EntitySetOptions, Field, fromClass, fromDataSet, ModelDef, persist };
+    export { fromClass, fromDataSet, persist, ModelDef, DataSet, Field, EntitySetOptions };
 }
-type EntitySetOptions = import("./EntitySetOptions");
-import Entity = require("./Entity.js");
+import Entity = require('./Entity.js');
 declare function fromClass(
     classKey: number,
     opt_options?:
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        }
-        | Record<any, any>,
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
+        | Record<any, any>
 ): EntitySet;
 declare function fromDataSet(
     baseClass: number,
-    dataSet: any,
+    dataSet: DataSet,
     opt_options?:
         | Record<any, any>
         | {
-            userKey: number;
-            fields: string[] | ((arg0: Field) => boolean);
-        },
+              userKey: number;
+              fields: string[] | ((arg0: Field) => boolean);
+          }
 ): EntitySet;
 declare function persist(entitySets: EntitySet | EntitySet[]): number;
-type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
-type DataSet = any;
-type Field = import("@nginstack/engine/lib/classdef/Field");
+type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type Field = import('@nginstack/engine/lib/classdef/Field');
+type EntitySetOptions = import('./EntitySetOptions');
