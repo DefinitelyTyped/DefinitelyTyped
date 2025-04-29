@@ -19,7 +19,7 @@ declare class TestRunner {
     testSuitesPerTestCaseId_: Record<string, TestSuite>;
     private logger_;
     breakOnFailure: boolean;
-    cluster: any;
+    cluster: import('@nginstack/engine/lib/cluster/EngineCluster');
     private readVfsTests_;
     private readLocalTests_;
     private logAndEmitEvent_;
@@ -29,9 +29,9 @@ declare class TestRunner {
     runAllTests(options: { reverseOrder?: boolean }): AggregatedTestResult;
 }
 declare namespace TestRunner {
-    export { TestCase, TestResult };
+    export { TestResult, TestCase };
 }
-import TestSuite = require("./TestSuite.js");
-import AggregatedTestResult = require("./AggregatedTestResult.js");
-type TestResult = import("./TestResult");
-type TestCase = import("./TestSuite").TestCase;
+import TestSuite = require('./TestSuite.js');
+import AggregatedTestResult = require('./AggregatedTestResult.js');
+type TestResult = import('./TestResult');
+type TestCase = import('./TestSuite').TestCase;

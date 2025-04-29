@@ -29,9 +29,9 @@ declare class TestSuite {
     tearDown(): void;
 }
 declare namespace TestSuite {
-    export { findPackageName, formatSuiteName, formatTestCaseId, TestCase };
+    export { formatSuiteName, formatTestCaseId, findPackageName, TestCase };
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 declare function formatSuiteName(filePath: string): string;
 declare function formatTestCaseId(suiteId: string, testCaseName: string): string;
 declare function findPackageName(path: string): string;
