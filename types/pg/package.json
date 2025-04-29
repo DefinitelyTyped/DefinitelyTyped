@@ -5,6 +5,13 @@
     "projects": [
         "https://github.com/brianc/node-postgres"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./lib/type-overrides": "./lib/type-overrides.d.ts"
+    },
     "dependencies": {
         "@types/node": "*",
         "pg-protocol": "*",

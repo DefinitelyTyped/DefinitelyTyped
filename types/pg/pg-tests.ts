@@ -1,6 +1,6 @@
 import { connect } from "net";
 import * as pg from "pg";
-import pgDefault, { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
@@ -25,20 +25,6 @@ const client = new Client({
 });
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
-
-const clientFromDefault = new pgDefault.Client({
-    host: "my.database-server.com",
-    port: 5334,
-    user: "database-user",
-    password: "secretpassword!!",
-    application_name: "DefinitelyTyped",
-    keepAlive: true,
-});
-clientFromDefault.setTypeParser(20, val => Number(val));
-clientFromDefault.getTypeParser(20);
-
-const res = new pgDefault.Result("array", pgDefault.types);
-res.rows.forEach(row => row);
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
