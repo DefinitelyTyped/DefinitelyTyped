@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -619,9 +619,9 @@ declare module "sap/ui/table/AnalyticalTable" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * Table which handles analytical OData backends. The AnalyticalTable only works with an AnalyticalBinding
-   * and correctly annotated OData services. Please check on the SAP Annotations for OData Version 2.0 documentation
-   * for further details.
+   * Table that handles analytical OData back-end scenarios. The `AnalyticalTable` only works with {@link sap.ui.model.analytics.AnalyticalBinding AnalyticalBinding }
+   * and correctly annotated OData services. Please check out the functionality of analytical binding and
+   * the SAP Annotations for OData Version 2.0 documentation for further details.
    */
   export default class AnalyticalTable extends Table {
     /**
@@ -3071,7 +3071,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
    */
   export default class MultiSelectionPlugin extends SelectionPlugin {
     /**
-     * Constructs an instance of sap.ui.table.plugins.MultiSelectionPlugin
+     * Constructs an instance of sap.ui.table.plugins.MultiSelectionPlugin.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -3570,20 +3570,16 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * Implements the selection methods for a table.
+   * Base class for the selection plugins. A selection plugin is responsible for the selection behavior of
+   * the table. It handles the selection state and provides information about the selection state to the table.
+   * The subclass is also responsible for firing the `selectionChange` event when the selection is changed.
+   *
+   * Do not add more than one selection plugin to a table.
    *
    * @since 1.64
-   * @experimental As of version 1.64.
    */
   export default abstract class SelectionPlugin extends UI5Element {
     /**
-     * Constructs an instance of sap.ui.table.plugins.SelectionPlugin
-     *
-     * The following restrictions apply:
-     * 	 - Do not create subclasses of the `SelectionPlugin`. The API is subject to change. **Note:** Subclasses
-     *     provided by the UI5 framework that are not explicitly marked as experimental or restricted in any other
-     *     way can be used on a regular basis.
-     *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
@@ -3749,8 +3745,6 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
   }
   /**
    * Describes the settings that can be provided to the SelectionPlugin constructor.
-   *
-   * @experimental As of version 1.64.
    */
   export interface $SelectionPluginSettings extends $ElementSettings {
     /**
@@ -11436,8 +11430,6 @@ declare namespace sap {
     "sap/ui/table/plugins/MultiSelectionPlugin": undefined;
 
     "sap/ui/table/plugins/SelectionPlugin": undefined;
-
-    "sap/ui/table/plugins/V4Aggregation": undefined;
 
     "sap/ui/table/Row": undefined;
 

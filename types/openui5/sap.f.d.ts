@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -20861,8 +20861,6 @@ declare module "sap/f/ShellBar" {
 
   import { IBar } from "sap/m/library";
 
-  import { IToolHeader } from "sap/tnt/library";
-
   import { BarContexts } from "sap/m/BarInPageEnabler";
 
   import { URI } from "sap/ui/core/library";
@@ -20901,13 +20899,9 @@ declare module "sap/f/ShellBar" {
    *
    * @since 1.63
    */
-  export default class ShellBar
-    extends Control
-    implements IShellBar, IBar, IToolHeader
-  {
+  export default class ShellBar extends Control implements IShellBar, IBar {
     __implements__sap_f_IShellBar: boolean;
     __implements__sap_m_IBar: boolean;
-    __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new `ShellBar`.
      *

@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -972,9 +972,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Illustration size
      */
-    illustrationSize?:
-      | IllustratedMessageSize
-      | keyof typeof IllustratedMessageSize;
+    illustrationSize?: IllustratedMessageSize;
     /**
      * Title
      */

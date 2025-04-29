@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -106,6 +106,10 @@ declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
      */
     annotationChangeType: string;
     /**
+     * Url of the OData service
+     */
+    serviceUrl: string;
+    /**
      * Change content
      */
     content: {
@@ -117,11 +121,25 @@ declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
        * New value
        */
       value: string;
+      /**
+       * New value as translatable text. If given, the value is ignored
+       */
+      text: string;
+      /**
+       * Object template to construct a return object. If given the applyChange function will return an object
+       * as value, which is parsed from the template string.
+       */
+      objectTemplateInfo?: {
+        /**
+         * Stringified template to be used for constructing the return object
+         */
+        templateAsString?: string;
+        /**
+         * Placeholder in the template string. Will be replaced by the new value
+         */
+        placeholder?: string;
+      };
     };
-    /**
-     * Url of the OData service
-     */
-    serviceUrl: string;
   };
 
   /**
@@ -148,6 +166,14 @@ declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
        * Current value of the property
        */
       currentValue: string;
+      /**
+       * Label of the property. If not given, the property name is used
+       */
+      label?: string;
+      /**
+       * Tooltip of the property
+       */
+      tooltip?: string;
     }>;
     /**
      * Array of possible values for value list type properties

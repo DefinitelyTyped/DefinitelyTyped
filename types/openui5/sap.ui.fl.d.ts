@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -201,7 +201,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   import { IShrinkable, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import {
+    IOverflowToolbarContent,
+    IToolbarInteractiveControl,
+  } from "sap/m/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -218,10 +221,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements
-      IShrinkable,
-      IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object
+    implements IShrinkable, IOverflowToolbarContent, IToolbarInteractiveControl
   {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -1585,6 +1585,10 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/Variant": undefined;
 
+    "sap/ui/fl/apply/_internal/flexObjects/VariantChange": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/VariantManagementChange": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/changes/DependencyHandler": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/ExtensionPointState": undefined;
@@ -1638,6 +1642,8 @@ declare namespace sap {
     "sap/ui/fl/changeHandler/BaseRename": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
+
+    "sap/ui/fl/descriptorRelated/api/DescriptorChange": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 
@@ -1750,6 +1756,8 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/Versions": undefined;
 
     "sap/ui/fl/write/api/AppVariantWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/BusinessNetworkAPI": undefined;
 
     "sap/ui/fl/write/api/ChangesWriteAPI": undefined;
 
