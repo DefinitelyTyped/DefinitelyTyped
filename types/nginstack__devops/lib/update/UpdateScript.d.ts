@@ -3,10 +3,10 @@ declare function UpdateScript(): void;
 declare class UpdateScript {
     private connection_;
     private scriptKey;
-    source: Connection;
     sourceDB: Database;
-    target: Connection;
+    source: Connection;
     targetDB: Database;
+    target: Connection;
     private versions_;
     private sysEvent_;
     result: string;
@@ -22,16 +22,17 @@ declare class UpdateScript {
     copyChildrenViewPermissions(directoryKey: number): number;
 }
 declare namespace UpdateScript {
-    export { EndPointConfig, execute, ExecutionParams, ExecutionResult };
+    export { execute, EndPointConfig, ExecutionParams, ExecutionResult };
 }
-import Connection = require("@nginstack/engine/lib/connection/Connection.js");
-import Database = require("@nginstack/engine/lib/database/Database.js");
+import Database = require('@nginstack/engine/lib/database/Database.js');
+import Connection = require('@nginstack/engine/lib/connection/Connection.js');
 declare function execute(params: ExecutionParams): ExecutionResult;
 interface EndPointConfig {
     host: string;
     dbName: string;
     userName: string;
     password: string;
+    authToken: string;
 }
 interface ExecutionParams {
     scriptKey: number;
