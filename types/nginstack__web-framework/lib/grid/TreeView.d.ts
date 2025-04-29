@@ -10,7 +10,7 @@ declare namespace TreeView {
     export { AbstractTree as AbstractTree_ };
     export { TreeChild as TreeChild_ };
 }
-import StringList = require("@nginstack/engine/lib/string/StringList.js");
+import StringList = require('@nginstack/engine/lib/string/StringList.js');
 declare function AbstractTree(treeView: any, parent: any): void;
 declare class AbstractTree {
     private constructor();
@@ -42,7 +42,8 @@ declare class TreeChild {
     css: any;
     fHtml: string;
     getHtml(): string;
+    getLabelHtml(): string;
     getIsLast(): boolean;
     getIsFirst(): boolean;
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');

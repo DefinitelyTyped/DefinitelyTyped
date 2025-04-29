@@ -1,9 +1,7 @@
 export = Header;
 declare function Header(): void;
 declare class Header {
-    private cssExtractor_;
     filtersDisplay: string;
-    mustIncludeCssFiles: boolean;
     showDateTime: boolean;
     showEnterpriseName: boolean;
     showUserAndDatabaseName: boolean;
@@ -26,7 +24,7 @@ declare class Header {
                 group: string;
                 value: any;
             }>;
-        },
+        }
     ): void;
     onAfterComplement: Event;
     private sanitize_;
@@ -35,35 +33,30 @@ declare class Header {
         outputObj: {
             write: (arg0: string) => any;
         },
-        opt_options?: {
+        options?: {
             colspan?: number;
-            css?: string;
             enterpriseLogo?: number;
-            layoutId?: number;
             mailObject?: Email;
             filters?: Array<{
                 label: string;
                 group: string;
                 value: any;
             }>;
-        },
+        }
     ): void;
     private MAX_FILTER_VALUE_SIZE_;
     formatFiltersToHeader(
-        filters: Array<{
-            label: string;
-            group: string;
-            value: any;
-        }>,
+        filters: FilterDef[],
         convertTagsToLiterals: boolean,
-        showAll: boolean,
+        showAll: boolean
     ): string;
 }
 declare namespace Header {
-    export { Email, Event, groupFilters, SimpleLayout, Visualization };
+    export { groupFilters, Event, Email, SimpleLayout, Visualization, FilterDef };
 }
-type Event = import("@nginstack/engine/lib/event/Event");
 declare function groupFilters(filters: any): any[];
-type Email = import("@nginstack/engine/lib/email/Email");
-type SimpleLayout = import("./SimpleLayout");
-type Visualization = import("../dsv/Visualization");
+type Event = import('@nginstack/engine/lib/event/Event');
+type Email = import('@nginstack/engine/lib/email/Email');
+type SimpleLayout = import('./SimpleLayout');
+type Visualization = import('../dsv/Visualization');
+type FilterDef = import('../simple-layout/SimpleLayout').FilterDef;

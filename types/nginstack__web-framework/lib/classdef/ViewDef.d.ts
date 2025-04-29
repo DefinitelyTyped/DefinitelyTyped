@@ -37,6 +37,7 @@ declare class ViewDef {
     zoomImageWidth: number;
     zoomImageHeight: number;
     zoomImageOnHover: boolean;
+    defaultGlobalActionName: string;
     canNavigate: boolean;
     tooltip: string;
     icon: string;
@@ -54,8 +55,8 @@ declare class ViewDef {
 declare namespace ViewDef {
     export { Field };
 }
-import Logger = require("@nginstack/engine/lib/log/Logger.js");
-import GlobalActionSet = require("./GlobalActionSet.js");
-import CellThumbnail = require("./CellThumbnail.js");
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
-type Field = import("@nginstack/engine/lib/classdef/Field");
+import Logger = require('@nginstack/engine/lib/log/Logger.js');
+import GlobalActionSet = require('./GlobalActionSet.js');
+import CellThumbnail = require('./CellThumbnail.js');
+import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
+type Field = import('@nginstack/engine/lib/classdef/Field');
