@@ -10,7 +10,7 @@ parser.end();
 const parsedManifest = parser.manifest.playlists?.[0].contentProtection?.["com.apple.fps.1_0"]?.attributes.resoltion;
 
 const parser2 = new Parser({
-    url: "https://exmaple.com/video.m3u8?param_a=34&param_b=abc",
+    uri: "https://exmaple.com/video.m3u8?param_a=34&param_b=abc",
     mainDefinitions: {
         param_c: "def",
     },
