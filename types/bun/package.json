@@ -6,7 +6,7 @@
         "https://bun.sh"
     ],
     "dependencies": {
-        "bun-types": "1.2.10"
+        "bun-types": "1.2.11"
     },
     "devDependencies": {
         "@types/bun": "workspace:."
