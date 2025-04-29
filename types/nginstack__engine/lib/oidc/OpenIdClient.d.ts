@@ -34,6 +34,8 @@ declare namespace OpenIdClient {
         AuthorizationRequestOptions,
     };
 }
+type CryptoPKey = import('../crypto/CryptoPKey');
+type TokenIntrospectionResponse = import('../oauth2/OAuth2Client').TokenIntrospectionResponse;
 interface OpenIdClientConstructorOptions {
     clientId?: string;
     clientSecret?: string;
@@ -45,8 +47,6 @@ interface OpenIdClientConstructorOptions {
     introspectionEndpoint?: string;
     revocationEndpoint?: string;
 }
-type CryptoPKey = import('../crypto/CryptoPKey');
-type TokenIntrospectionResponse = import('../oauth2/OAuth2Client').TokenIntrospectionResponse;
 interface AuthorizationRequestOptions {
     redirectUri: string;
     scopes?: string | string[];

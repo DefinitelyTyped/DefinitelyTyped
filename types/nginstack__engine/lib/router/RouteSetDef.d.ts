@@ -1,7 +1,7 @@
 export = RouteSetDef;
 declare function RouteSetDef(): void;
 declare class RouteSetDef {
-    routes: Array<RouteDef | RouteSetDef>;
+    routes: Array<import('./RouteDef') | import('./RouteSetDef')>;
     apiName: string;
     apiHelp: ResourceString;
     groupName: string;
@@ -18,6 +18,6 @@ declare class RouteSetDef {
 declare namespace RouteSetDef {
     export { isLike, ResourceString, RouteDef };
 }
-type RouteDef = import('./RouteDef');
-type ResourceString = import('../i18n/ResourceString');
 declare function isLike(obj: any): boolean;
+type ResourceString = import('../i18n/ResourceString');
+type RouteDef = import('./RouteDef');
