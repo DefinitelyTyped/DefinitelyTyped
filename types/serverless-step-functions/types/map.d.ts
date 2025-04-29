@@ -66,7 +66,7 @@ export type Map = {
     // JSONPath style fields
     InputPath?: Path | null;
     OutputPath?: Path | null;
-    ItemsPath?: Path | null;
+    ItemsPath?: ReferencePath;
     ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
 
