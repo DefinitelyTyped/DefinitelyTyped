@@ -328,4 +328,4 @@ export const native: typeof Pg | null;
 import { DatabaseError } from "pg-protocol";
 export { DatabaseError };
 
-export type Result = new (rowMode: string, t: typeof types) => QueryResult;
+export type Result = new(rowMode: string, t: typeof types) => QueryResult;
