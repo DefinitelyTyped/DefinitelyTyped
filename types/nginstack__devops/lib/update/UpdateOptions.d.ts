@@ -42,6 +42,6 @@ declare class UpdateOptions {
     private sourceDatabase_;
     toJSON(): any;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import Connection = require('@nginstack/engine/lib/connection/Connection.js');
-import Database = require('@nginstack/engine/lib/database/Database.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import Connection = require("@nginstack/engine/lib/connection/Connection.js");
+import Database = require("@nginstack/engine/lib/database/Database.js");

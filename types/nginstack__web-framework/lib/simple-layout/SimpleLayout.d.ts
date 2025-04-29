@@ -18,11 +18,11 @@ declare class SimpleLayout {
     layout: LayoutConfig;
     groups: StringList;
     columns: StringList;
-    onCss: import('@nginstack/engine/lib/event/Event');
+    onCss: import("@nginstack/engine/lib/event/Event");
     header: Header;
-    onHeader: import('@nginstack/engine/lib/event/Event');
+    onHeader: import("@nginstack/engine/lib/event/Event");
     footer: Footer;
-    onFooter: import('@nginstack/engine/lib/event/Event');
+    onFooter: import("@nginstack/engine/lib/event/Event");
     private logger_;
     process: Process | Email;
     private lastColumnsBuffer;
@@ -121,7 +121,7 @@ declare class SimpleLayout {
     newTreeRecord(
         nodeId: number | string,
         parentNodeId: number | string,
-        collapsed?: boolean
+        collapsed?: boolean,
     ): void;
     newRecord(
         checkGroup?: any[],
@@ -130,7 +130,7 @@ declare class SimpleLayout {
         showBottomLine?: boolean,
         treeNodeId?: number | string,
         parentTreeNodeId?: number | string,
-        patterns?: string[]
+        patterns?: string[],
     ): boolean;
     private start;
     private MAX_FILTER_VALUE_;
@@ -182,7 +182,7 @@ declare class SimpleLayout {
         css?: string,
         showTopLine?: boolean,
         showBottomLine?: boolean,
-        convertToHtmlString?: boolean
+        convertToHtmlString?: boolean,
     ): void;
     writeImage(uri: number | string, options?: number | Record<any, any>): void;
     formatImageTag(
@@ -191,7 +191,7 @@ declare class SimpleLayout {
             style?: string;
             id?: string;
             cssClass?: string;
-        }
+        },
     ): string;
     writeIcon(icon: string, options?: number | Record<any, any>): void;
     formatIconTag(icon: string): string;
@@ -207,26 +207,26 @@ declare class SimpleLayout {
 declare namespace SimpleLayout {
     export {
         columnsTotalByGroupId,
+        ColumnWriteOptions,
         defaults,
-        formatCssStyle,
         Event,
+        FilterDef,
+        formatCssStyle,
         Grid,
         Process,
-        ColumnWriteOptions,
-        FilterDef,
-        TreeRowColumn,
-        TreeRow,
         SimpleLayoutStats,
+        TreeRow,
+        TreeRowColumn,
     };
 }
-import LayoutConfig = require('../process/LayoutConfig.js');
-import StringList = require('@nginstack/engine/lib/string/StringList.js');
-import Header = require('./Header.js');
-import Footer = require('./Footer.js');
-import Email = require('@nginstack/engine/lib/email/Email.js');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import Link = require('../anchor/Link.js');
-import Column = require('./Column.js');
+import LayoutConfig = require("../process/LayoutConfig.js");
+import StringList = require("@nginstack/engine/lib/string/StringList.js");
+import Header = require("./Header.js");
+import Footer = require("./Footer.js");
+import Email = require("@nginstack/engine/lib/email/Email.js");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import Link = require("../anchor/Link.js");
+import Column = require("./Column.js");
 declare let columnsTotalByGroupId: any;
 declare let defaults: {};
 declare function formatCssStyle(options?: {
@@ -235,10 +235,10 @@ declare function formatCssStyle(options?: {
     userKey?: number | DBKey;
     media?: string;
 }): string;
-type Event = import('@nginstack/engine/lib/event/Event');
-type Grid = import('../grid/Grid');
-type Process = import('../process/Process.js');
-type ColumnWriteOptions = import('./Column.js').ColumnWriteOptions;
+type Event = import("@nginstack/engine/lib/event/Event");
+type Grid = import("../grid/Grid");
+type Process = import("../process/Process.js");
+type ColumnWriteOptions = import("./Column.js").ColumnWriteOptions;
 interface FilterDef {
     label: string;
     group: string;
@@ -262,4 +262,4 @@ interface TreeRow {
 interface SimpleLayoutStats {
     bufferLength: any;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

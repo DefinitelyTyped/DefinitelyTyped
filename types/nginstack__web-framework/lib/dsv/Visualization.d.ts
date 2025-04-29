@@ -13,7 +13,7 @@ declare class Visualization {
         processKey: number;
         useRawData: boolean;
     }>;
-    onCreate: import('@nginstack/engine/lib/event/Event');
+    onCreate: import("@nginstack/engine/lib/event/Event");
     protected afterCreate_(): void;
     initialized: boolean;
     protected prepareHeaderFromDefinition_(): void;
@@ -23,7 +23,7 @@ declare class Visualization {
     protected prepareSegmentFromDefinition_(
         segment: any,
         definition: any,
-        properties: string[]
+        properties: string[],
     ): void;
     canExport: boolean;
     protected dataSource_: DataSource;
@@ -47,12 +47,12 @@ declare class Visualization {
     protected initFilters_(): never;
 }
 declare namespace Visualization {
-    export { Event, DataSet, DataSource, VisualizationFilters, DataExporter };
+    export { DataExporter, DataSet, DataSource, Event, VisualizationFilters };
 }
-import ReportHeader = require('../simple-layout/Header.js');
-import ReportFooter = require('../simple-layout/Footer.js');
-type Event = import('@nginstack/engine/lib/event/Event');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-type DataSource = import('@nginstack/datasource/lib/DataSource');
-type VisualizationFilters = import('./VisualizationFilters');
-type DataExporter = import('../export/DataExporter');
+import ReportHeader = require("../simple-layout/Header.js");
+import ReportFooter = require("../simple-layout/Footer.js");
+type Event = import("@nginstack/engine/lib/event/Event");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataSource = import("@nginstack/datasource/lib/DataSource");
+type VisualizationFilters = import("./VisualizationFilters");
+type DataExporter = import("../export/DataExporter");

@@ -1,1 +1,1 @@
-export const PATH = 'PATH';
+export const PATH = "PATH";

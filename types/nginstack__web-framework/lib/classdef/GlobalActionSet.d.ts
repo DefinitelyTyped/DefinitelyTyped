@@ -11,5 +11,5 @@ declare class GlobalActionSet {
     isEmpty(): boolean;
     clone(): GlobalActionSet;
 }
-import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
-import GlobalAction = require('./GlobalAction.js');
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
+import GlobalAction = require("./GlobalAction.js");

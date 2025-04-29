@@ -20,5 +20,5 @@ declare class DataVisualization {
     protected initFilters_(): void;
     filters: VisualizationFilters;
 }
-import DataSourceQuery = require('@nginstack/datasource/lib/DataSourceQuery.js');
-import VisualizationFilters = require('./VisualizationFilters.js');
+import DataSourceQuery = require("@nginstack/datasource/lib/DataSourceQuery.js");
+import VisualizationFilters = require("./VisualizationFilters.js");

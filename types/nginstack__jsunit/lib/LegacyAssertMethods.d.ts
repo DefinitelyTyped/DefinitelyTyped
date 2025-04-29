@@ -8,13 +8,13 @@ export function checkEqualNumbers(
     expected: number,
     actual: number,
     delta: number,
-    msg: string
+    msg: string,
 ): void;
 export function checkNotEqualNumbers(
     expected: number,
     actual: number,
     delta: number,
-    msg: string
+    msg: string,
 ): void;
 export function checkEqualDates(expected: Date, actual: Date, msg: string): void;
 export function checkNotEqualDates(expected: Date, actual: Date, msg: string): void;

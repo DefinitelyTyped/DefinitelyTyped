@@ -14,4 +14,4 @@ declare class ReportVisualizationColumns {
 declare namespace ReportVisualizationColumns {
     function fromArray(arr: ReportVisualizationColumn[]): ReportVisualizationColumns;
 }
-import ReportVisualizationColumn = require('./ReportVisualizationColumn.js');
+import ReportVisualizationColumn = require("./ReportVisualizationColumn.js");

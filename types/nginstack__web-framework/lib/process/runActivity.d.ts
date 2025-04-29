@@ -7,7 +7,7 @@ declare function runActivity(
     parameters: any,
     iconClass: any,
     lastShownProcessId: any,
-    validateLastActivity: any
+    validateLastActivity: any,
 ): any;
 declare namespace runActivity {
     let processManager_: any;

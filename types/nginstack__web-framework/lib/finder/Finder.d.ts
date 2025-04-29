@@ -19,7 +19,7 @@ declare class Finder {
         sender: any,
         speedFill: any,
         dsResult: any,
-        ignoreDuplicatedOccurrences: any
+        ignoreDuplicatedOccurrences: any,
     ): void;
     getFindObject(classKey: any, onLookupAddResult: any, field: any): any;
     find(
@@ -30,11 +30,11 @@ declare class Finder {
         isClassLookup: any,
         speedFill: any,
         dsResult: any,
-        ignoreDuplicatedOccurrences: any
+        ignoreDuplicatedOccurrences: any,
     ): any;
 }
 declare namespace Finder {
     function getInstance(): Finder;
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import StringList = require('@nginstack/engine/lib/string/StringList.js');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import StringList = require("@nginstack/engine/lib/string/StringList.js");

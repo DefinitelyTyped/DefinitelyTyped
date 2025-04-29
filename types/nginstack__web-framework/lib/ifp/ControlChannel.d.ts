@@ -37,12 +37,12 @@ declare class ControlChannel {
     getMessageForNavigator(
         sequenceToListen: any,
         retry: any,
-        disableContinueOptimization: any
+        disableContinueOptimization: any,
     ): any;
-    handleNavigatorResponse(ctrlMessage: any): 'ctrl:continue' | 'ctrl:stop:-1' | 'ctrl:setok';
+    handleNavigatorResponse(ctrlMessage: any): "ctrl:continue" | "ctrl:stop:-1" | "ctrl:setok";
 }
 declare namespace ControlChannel {
-    export { formatErrorPayload, getInstance, TaskProgressData, DetailedError };
+    export { DetailedError, formatErrorPayload, getInstance, TaskProgressData };
 }
 declare function formatErrorPayload(
     error: Error | DetailedError,
@@ -50,7 +50,7 @@ declare function formatErrorPayload(
         stackTrace?: string | string[];
         ticket?: string;
         dialogTitle?: string;
-    }
+    },
 ): string;
 declare function getInstance(): ControlChannel;
 interface TaskProgressData {
@@ -62,4 +62,4 @@ interface TaskProgressData {
     updated: boolean;
     startTime: Date;
 }
-type DetailedError = import('@nginstack/engine/lib/error/DetailedError');
+type DetailedError = import("@nginstack/engine/lib/error/DetailedError");

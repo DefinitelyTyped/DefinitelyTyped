@@ -5,5 +5,5 @@ declare function formatIconTag(
         style?: string;
         id?: string;
         cssClass?: string;
-    }
+    },
 ): string;

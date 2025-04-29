@@ -33,5 +33,5 @@ declare namespace IClauseFrom {
     function createSequenceAlias(): number;
     function resetSequenceAlias(): void;
 }
-import IQuery = require('./IQuery.js');
-import IJoinManager = require('./IJoinManager.js');
+import IQuery = require("./IQuery.js");
+import IJoinManager = require("./IJoinManager.js");
