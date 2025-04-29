@@ -325,4 +325,25 @@ import * as Pg from ".";
 
 export const native: typeof Pg | null;
 
-export { DatabaseError } from "pg-protocol";
+import { DatabaseError } from "pg-protocol";
+export { DatabaseError };
+
+import TypeOverrides = require("./lib/type-overrides");
+
+export type Result = new (rowMode: string, t: typeof types) => QueryResult;
+
+declare const PG: {
+    defaults: typeof defaults,
+    Client: typeof Client,
+    Query: typeof Query,
+    Pool: typeof Pool,
+    Connection: typeof Connection,
+    types: typeof types,
+    DatabaseError: typeof DatabaseError,
+    TypeOverrides: typeof TypeOverrides,
+    escapeIdentifier: typeof escapeIdentifier,
+    escapeLiteral: typeof escapeLiteral,
+    Result: Result,
+}
+
+export default PG;
