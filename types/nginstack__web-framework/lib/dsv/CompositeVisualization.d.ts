@@ -7,7 +7,6 @@ declare class CompositeVisualization {
     private autoCreateFilters_;
     adjustItemHeadersAndFooters: boolean;
     canExport: boolean;
-    private cssExtractor_;
     private addSlot_;
     private handleItemHeadersAndFooters_;
     getExportableData(): Array<{
@@ -32,8 +31,8 @@ declare class CompositeVisualization {
     private validateLayout_;
 }
 declare namespace CompositeVisualization {
-    export { DataExporter, VisualizationDef };
+    export { VisualizationDef, DataExporter };
 }
-import VisualizationFilters = require("./VisualizationFilters.js");
-type VisualizationDef = import("./VisualizationDef");
-type DataExporter = import("../export/DataExporter");
+import VisualizationFilters = require('./VisualizationFilters.js');
+type VisualizationDef = import('./VisualizationDef');
+type DataExporter = import('../export/DataExporter');

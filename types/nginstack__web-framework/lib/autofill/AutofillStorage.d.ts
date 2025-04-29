@@ -1,6 +1,6 @@
-export = AutofillStore;
-declare function AutofillStore(): void;
-declare class AutofillStore {
+export = AutofillStorage;
+declare function AutofillStorage(): void;
+declare class AutofillStorage {
     private ds_;
     private logger_;
     private modified_;
@@ -16,11 +16,11 @@ declare class AutofillStore {
     deleteEntry(entry: AutofillRecordKey): void;
     private findEntry_;
 }
-declare namespace AutofillStore {
-    export { AutofillRecord, AutofillRecordKey, getInstance };
+declare namespace AutofillStorage {
+    export { getInstance, AutofillRecordKey, AutofillRecord };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-declare function getInstance(): AutofillStore;
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+declare function getInstance(): AutofillStorage;
 interface AutofillRecordKey {
     processKey: number;
     interactionName: string;
