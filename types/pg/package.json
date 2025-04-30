@@ -10,7 +10,7 @@
             "import": "./index.d.mts",
             "require": "./index.d.ts"
         },
-        "./lib/type-overrides": "./lib/type-overrides.d.ts"
+        "./lib/*": "./lib/*.d.ts"
     },
     "dependencies": {
         "@types/node": "*",
