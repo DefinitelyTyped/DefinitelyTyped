@@ -103,6 +103,25 @@ interface WebApp {
      */
     isClosingConfirmationEnabled: boolean;
     /**
+     * True, if the Mini App is currently being displayed in fullscreen mode.
+     */
+    isFullscreen: boolean;
+    /**
+     * True, if the Mini App’s orientation is currently locked.
+     * False, if orientation changes freely based on the device’s rotation.
+     */
+    isOrientationLocked: boolean;
+    /**
+     * An object representing the device's safe area insets,
+     * accounting for system UI elements like notches or navigation bars.
+     */
+    safeAreaInset: SafeAreaInset;
+    /**
+     * An object representing the safe area for displaying content within the app,
+     * free from overlapping Telegram UI elements.
+     */
+    contentSafeAreaInset: ContentSafeAreaInset;
+    /**
      * An object for controlling the back button which can be displayed in the
      * header of the Web App in the Telegram interface.
      */
@@ -135,19 +154,42 @@ interface WebApp {
      */
     BiometricManager: BiometricManager;
     /**
+     * An object for accessing device orientation data on the device.
+     */
+    Accelerometer: Accelerometer;
+    /**
+     * An object for accessing device orientation data on the device.
+     */
+    DeviceOrientation: DeviceOrientation;
+    /**
+     * An object for accessing gyroscope data on the device.
+     */
+    Gyroscope: Gyroscope;
+    /**
+     * An object for controlling location on the device.
+     */
+    LocationManager: LocationManager;
+    /**
+     * An object for storing and retrieving data from the device's local storage.
+     */
+    DeviceStorage: DeviceStorage;
+    /**
+     * An object for storing and retrieving data from the device's secure storage.
+     */
+    SecureStorage: SecureStorage;
+    /**
      * Returns true if the user's app supports a version of the Bot API that is
      * equal to or higher than the version passed as the parameter.
      */
     isVersionAtLeast(version: string): boolean;
     /**
-     * A method that sets the app header color in the `#RRGGBB` format. You can
-     * also use keywords bg_color and secondary_bg_color.
+     * A method that sets the app header color in the `#RRGGBB` format.
+     * You can also use keywords bg_color and secondary_bg_color.
      */
-    // string & {} prevents this from eagerly collapsing into just string
     setHeaderColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
-     * A method that sets the app background color in the `#RRGGBB` format or
-     * you can use keywords bg_color, secondary_bg_color instead.
+     * A method that sets the app background color in the `#RRGGBB` format
+     * or you can use keywords bg_color, secondary_bg_color instead.
      */
     setBackgroundColor(color: "bg_color" | "secondary_bg_color" | "bottom_bar_bg_color" | (string & {})): void;
     /**
@@ -1312,57 +1354,400 @@ interface StoryWidgetLink {
 
 export interface LocationData {
     /**
-     Latitude in degrees.
+     * Latitude in degrees.
      */
     latitude: number;
     /**
-     Longitude in degrees.
+     * Longitude in degrees.
      */
     longitude: number;
     /**
-     Altitude above sea level in meters. null if altitude data is not available on the device.
+     * Altitude above sea level in meters. null if altitude data is not available on the device.
      */
     altitude: number | null;
     /**
-     The direction the device is moving in degrees (0 = North, 90 = East, 180 = South, 270 = West). null if course data is not available on the device.
+     * The direction the device is moving in degrees (0 = North, 90 = East, 180 = South, 270 = West).
+     * null if course data is not available on the device.
      */
     course: number | null;
     /**
-     The speed of the device in m/s. null if speed data is not available on the device.
+     * The speed of the device in m/s. null if speed data is not available on the device.
      */
     speed: number | null;
     /**
-     Accuracy of the latitude and longitude values in meters. null if horizontal accuracy data is not available on the device.
+     * Accuracy of the latitude and longitude values in meters.
+     * null if horizontal accuracy data is not available on the device.
      */
     horizontal_accuracy: number | null;
     /**
-     Accuracy of the altitude value in meters. null if vertical accuracy data is not available on the device.
+     * Accuracy of the altitude value in meters.
+     * null if vertical accuracy data is not available on the device.
      */
     vertical_accuracy: number | null;
     /**
-     Accuracy of the course value in degrees. null if course accuracy data is not available on the device.
+     * Accuracy of the course value in degrees.
+     * null if course accuracy data is not available on the device.
      */
     course_accuracy: number | null;
     /**
-     Accuracy of the speed value in m/s. null if speed accuracy data is not available on the device.
+     * Accuracy of the speed value in m/s.
+     * null if speed accuracy data is not available on the device.
      */
     speed_accuracy: number | null;
 }
 
 export interface EmojiStatusParams {
     /**
-     Optional. The duration for which the status will remain set, in seconds.
+     * Optional. The duration for which the status will remain set, in seconds.
      */
     duration?: number;
 }
 
 export interface DownloadFileParams {
     /**
-     The HTTPS URL of the file to be downloaded.
+     * The HTTPS URL of the file to be downloaded.
      */
     url: string;
     /**
-     The suggested name for the downloaded file.
+     * The suggested name for the downloaded file.
      */
     file_name: string;
+}
+
+export interface SafeAreaInset {
+    /**
+     * The top inset in pixels, representing the space to avoid at the top of the screen.
+     * Also available as the CSS variable var(--tg-safe-area-inset-top).
+     */
+    top: number;
+    /**
+     * The bottom inset in pixels, representing the space to avoid at the bottom of the screen.
+     * Also available as the CSS variable var(--tg-safe-area-inset-bottom).
+     */
+    bottom: number;
+    /**
+     * The left inset in pixels, representing the space to avoid on the left side of the screen.
+     * Also available as the CSS variable var(--tg-safe-area-inset-left).
+     */
+    left: number;
+    /**
+     * The right inset in pixels, representing the space to avoid on the right side of the screen.
+     * Also available as the CSS variable var(--tg-safe-area-inset-right).
+     */
+    right: number;
+}
+
+export interface ContentSafeAreaInset {
+    /**
+     * The top inset in pixels, representing the space to avoid at the top of the content area.
+     * Also available as the CSS variable var(--tg-content-safe-area-inset-top).
+     */
+    top: number;
+    /**
+     * The bottom inset in pixels, representing the space to avoid at the bottom of the content area.
+     * Also available as the CSS variable var(--tg-content-safe-area-inset-bottom).
+     */
+    bottom: number;
+    /**
+     * The left inset in pixels, representing the space to avoid on the left side of the content area.
+     * Also available as the CSS variable var(--tg-content-safe-area-inset-left).
+     */
+    left: number;
+    /**
+     * The right inset in pixels, representing the space to avoid on the right side of the content area.
+     * Also available as the CSS variable var(--tg-content-safe-area-inset-right).
+     */
+    right: number;
+}
+
+export interface Accelerometer {
+    /**
+     * Indicates whether accelerometer tracking is currently active.
+     */
+    isStarted: boolean;
+    /**
+     * The current acceleration in the X-axis, measured in m/s².
+     */
+    x: number;
+    /**
+     * The current acceleration in the Y-axis, measured in m/s².
+     */
+    y: number;
+    /**
+     * The current acceleration in the Z-axis, measured in m/s².
+     */
+    z: number;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Starts tracking accelerometer data using params of type AccelerometerStartParams.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating whether tracking was successfully started.
+     */
+    start: (params: AccelerometerStartParams, callback?: (success: boolean) => void) => Accelerometer;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Stops tracking accelerometer data.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating
+     * whether tracking was successfully stopped.
+     */
+    stop: (callback?: (success: boolean) => void) => Accelerometer;
+}
+
+export interface AccelerometerStartParams {
+    /**
+     * Optional.
+     * The refresh rate in milliseconds, with acceptable values ranging from 20 to 1000.
+     * Set to 1000 by default. Note that refresh_rate may not be supported on all platforms,
+     * so the actual tracking frequency may differ from the specified value.
+     */
+    refresh_rate?: number;
+}
+
+export interface DeviceOrientation {
+    /**
+     * Indicates whether device orientation tracking is currently active.
+     */
+    isStarted: boolean;
+    /**
+     * A boolean that indicates whether or not the device is providing orientation data in absolute values.
+     */
+    absolute: boolean;
+    /**
+     * The rotation around the Z-axis, measured in radians.
+     */
+    alpha: number;
+    /**
+     * The rotation around the X-axis, measured in radians.
+     */
+    beta: number;
+    /**
+     * The rotation around the Y-axis, measured in radians.
+     */
+    gamma: number;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Starts tracking device orientation data using params of type DeviceOrientationStartParams.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating whether tracking was successfully started.
+     */
+    start: (params: DeviceOrientationStartParams, callback?: (success: boolean) => void) => DeviceOrientation;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Stops tracking device orientation data.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating whether tracking was successfully stopped.
+     */
+    stop: (callback?: (success: boolean) => void) => DeviceOrientation;
+}
+
+export interface DeviceOrientationStartParams {
+    /**
+     * Optional.
+     * The refresh rate in milliseconds, with acceptable values ranging from 20 to 1000.
+     * Set to 1000 by default. Note that refresh_rate may not be supported on all platforms,
+     * so the actual tracking frequency may differ from the specified value.
+     */
+    refresh_rate?: number;
+    /**
+     * Optional.
+     * Pass true to receive absolute orientation data,
+     * allowing you to determine the device's attitude relative to magnetic north.
+     * Use this option if implementing features like a compass in your app.
+     * If relative data is sufficient, pass false. Set to false by default.
+     *
+     * Note: Keep in mind that some devices may not support absolute orientation data.
+     * In such cases, you will receive relative data even if need_absolute=true is passed.
+     * Check the DeviceOrientation.absolute parameter to determine whether the data provided is absolute or relative.
+     */
+    need_absolute?: boolean;
+}
+
+export interface Gyroscope {
+    /**
+     * Indicates whether gyroscope tracking is currently active.
+     */
+    isStarted: boolean;
+    /**
+     * The current rotation rate around the X-axis, measured in rad/s.
+     */
+    x: number;
+    /**
+     * The current rotation rate around the Y-axis, measured in rad/s.
+     */
+    y: number;
+    /**
+     * The current rotation rate around the Z-axis, measured in rad/s.
+     */
+    z: number;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Starts tracking gyroscope data using params of type GyroscopeStartParams.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating whether tracking was successfully started.
+     */
+    start: (params: GyroscopeStartParams, callback?: (success: boolean) => void) => Gyroscope;
+    /**
+     * **Bot API 8.0+**
+     *
+     * Stops tracking gyroscope data.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a boolean indicating whether tracking was successfully stopped.
+     */
+    stop: (callback?: (success: boolean) => void) => Gyroscope;
+}
+
+export interface GyroscopeStartParams {
+    /**
+     * Optional.
+     * The refresh rate in milliseconds, with acceptable values ranging from 20 to 1000.
+     * Set to 1000 by default. Note that refresh_rate may not be supported on all platforms,
+     * so the actual tracking frequency may differ from the specified value.
+     */
+    refresh_rate?: number;
+}
+
+export interface LocationManager {
+    /**
+     * Shows whether the LocationManager object has been initialized.
+     */
+    isInited: boolean;
+    /**
+     * Shows whether location services are available on the current device.
+     */
+    isLocationAvailable: boolean;
+    /**
+     * Shows whether permission to use location has been requested.
+     */
+    isAccessRequested: boolean;
+    /**
+     * Shows whether permission to use location has been granted.
+     */
+    isAccessGranted: boolean;
+    /**
+     * Bot API 8.0+
+     *
+     * A method that initializes the LocationManager object.
+     * It should be called before the object's first use.
+     * If an optional callback parameter is provided,
+     * the callback function will be called when the object is initialized.
+     */
+    init: (callback?: () => void) => LocationManager;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that requests location data.
+     * The callback function will be called with null as the first argument
+     * if access to location was not granted,
+     * or an object of type LocationData as the first argument if access was successful.
+     */
+    getLocation: (callback: (locationData: LocationData | null) => void) => LocationManager;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that opens the location access settings for bots.
+     * Useful when you need to request location access from users who haven't granted it yet.
+     *
+     * Note that this method can be called only in response to user interaction with the Mini App interface
+     * (e.g., a click inside the Mini App or on the main button).
+     */
+    openSettings: () => LocationManager;
+}
+
+export interface DeviceStorage {
+    /**
+     * Bot API 9.0+
+     *
+     * A method that stores a value in the device's local storage using the specified key.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error.
+     * In case of success, the first argument will be null and the second argument will be a boolean
+     * indicating whether the value was stored.
+     */
+    setItem: (key: string, value: string, callback?: (error: string | null, success: boolean) => void) => DeviceStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that receives a value from the device's local storage using the specified key.
+     * In case of an error, the callback function will be called and the first argument will contain the error.
+     * In case of success, the first argument will be null and the value will be passed as the second argument.
+     */
+    getItem: (key: string, callback?: (error: string | null, item: string) => void) => DeviceStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that removes a value from the device's local storage using the specified key.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error.
+     * In case of success, the first argument will be null
+     * and the second argument will be a boolean indicating whether the value was removed.
+     */
+    removeItem: (key: string, callback?: (error: string | null, success: boolean) => void) => DeviceStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that clears all keys previously stored by the bot in the device's local storage.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error.
+     * In case of success, the first argument will be null
+     * and the second argument will be a boolean indicating whether all values were removed.
+     */
+    clear: (callback?: (error: string | null, success: boolean) => void) => DeviceStorage;
+}
+
+export interface SecureStorage {
+    /**
+     * Bot API 9.0+
+     *
+     * A method that stores a value in the device's secure storage using the specified key.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error.
+     * In case of success, the first argument will be null
+     * and the second argument will be a boolean indicating whether the value was stored.
+     */
+    setItem: (key: string, value: string, callback?: (error: string | null, success: boolean) => void) => SecureStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that receives a value from the device's secure storage using the specified key.
+     * In case of an error, the callback function will be called and the first argument will contain the error.
+     * In case of success, the first argument will be null and the value will be passed as the second argument.
+     * If the key was not found, the second argument will be null,
+     * and the third argument will be a boolean indicating whether the key can be restored from the current device.
+     */
+    getItem: (key: string, callback?: (error: string | null, item: string | null, restorable: boolean) => void) => SecureStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * Attempts to restore a key that previously existed on the current device.
+     * When called, the user will be asked for permission to restore the value.
+     * If the user declines or an error occurs, the first argument in the callback will contain the error.
+     * If restored successfully, the first argument will be null and the second argument will contain the restored value.
+     */
+    restoreItem: (key: string, callback?: (error: string | null, item: string) => void) => SecureStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that removes a value from the device's secure storage using the specified key.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error.
+     * In case of success, the first argument will be null
+     * and the second argument will be a boolean indicating whether the value was removed.
+     */
+    removeItem: (key: string, callback?: (error: string | null, success: boolean) => void) => SecureStorage;
+    /**
+     * Bot API 9.0+
+     *
+     * A method that clears all keys previously stored by the bot in the device's secure storage.
+     * If an optional callback parameter was passed, the callback function will be called.
+     * In case of an error, the first argument will contain the error. In case of success,
+     * the first argument will be null
+     * and the second argument will be a boolean indicating whether all values were removed.
+     */
+    clear: (callback?: (error: string | null, success: boolean) => void) => SecureStorage;
 }
