@@ -162,14 +162,18 @@ interface WebApp {
      * A method that sets the app event handler. Check the list of available
      * events.
      */
+    onEvent(eventType: "activated", eventHandler: ActivatedCallback): void;
+    onEvent(eventType: "deactivated", eventHandler: DeactivatedCallback): void;
     onEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
+    onEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
+    onEvent(eventType: "safeAreaChanged", eventHandler: SafeAreaChangedChangedCallback): void;
+    onEvent(eventType: "contentSafeAreaChanged", eventHandler: ContentSafeAreaChangedCallback): void;
     onEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
     onEvent(eventType: "secondaryButtonClicked", eventHandler: SecondaryButtonClickedCallback): void;
     onEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
     onEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
-    onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
-    onEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
     onEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
+    onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
     onEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
     onEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
     onEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
@@ -178,15 +182,44 @@ interface WebApp {
     onEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     onEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     onEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    onEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
+    onEvent(eventType: "fullscreenFailed", eventHandler: FullscreenFailedCallback): void;
+    onEvent(eventType: "homeScreenAdded", eventHandler: HomeScreenAddedCallback): void;
+    onEvent(eventType: "homeScreenChecked", eventHandler: HomeScreenCheckedCallback): void;
+    onEvent(eventType: "accelerometerStarted", eventHandler: AccelerometerStartedCallback): void;
+    onEvent(eventType: "accelerometerStopped", eventHandler: AccelerometerStoppedCallback): void;
+    onEvent(eventType: "accelerometerChanged", eventHandler: AccelerometerChangedCallback): void;
+    onEvent(eventType: "accelerometerFailed", eventHandler: AccelerometerFailedCallback): void;
+    onEvent(eventType: "deviceOrientationStarted", eventHandler: DeviceOrientationStartedCallback): void;
+    onEvent(eventType: "deviceOrientationStopped", eventHandler: DeviceOrientationStoppedCallback): void;
+    onEvent(eventType: "deviceOrientationChanged", eventHandler: DeviceOrientationChangedCallback): void;
+    onEvent(eventType: "deviceOrientationFailed", eventHandler: DeviceOrientationFailedCallback): void;
+    onEvent(eventType: "gyroscopeStarted", eventHandler: GyroscopeStartedCallback): void;
+    onEvent(eventType: "gyroscopeStopped", eventHandler: GyroscopeStoppedCallback): void;
+    onEvent(eventType: "gyroscopeChanged", eventHandler: GyroscopeChangedCallback): void;
+    onEvent(eventType: "gyroscopeFailed", eventHandler: GyroscopeFailedCallback): void;
+    onEvent(eventType: "locationManagerUpdated", eventHandler: LocationManagerUpdatedCallback): void;
+    onEvent(eventType: "locationRequested", eventHandler: LocationRequestedCallback): void;
+    onEvent(eventType: "shareMessageSent", eventHandler: ShareMessageSentCallback): void;
+    onEvent(eventType: "shareMessageFailed", eventHandler: ShareMessageFailedCallback): void;
+    onEvent(eventType: "emojiStatusSet", eventHandler: EmojiStatusSetCallback): void;
+    onEvent(eventType: "emojiStatusFailed", eventHandler: EmojiStatusFailedCallback): void;
+    onEvent(eventType: "emojiStatusAccessRequested", eventHandler: EmojiStatusAccessRequestedCallback): void;
+    onEvent(eventType: "fileDownloadRequested", eventHandler: FileDownloadRequestedCallback): void;
 
     /** A method that deletes a previously set event handler. */
+    offEvent(eventType: "activated", eventHandler: ActivatedCallback): void;
+    offEvent(eventType: "deactivated", eventHandler: DeactivatedCallback): void;
     offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
+    offEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
+    offEvent(eventType: "safeAreaChanged", eventHandler: SafeAreaChangedChangedCallback): void;
+    offEvent(eventType: "contentSafeAreaChanged", eventHandler: ContentSafeAreaChangedCallback): void;
     offEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
+    offEvent(eventType: "secondaryButtonClicked", eventHandler: SecondaryButtonClickedCallback): void;
     offEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
     offEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
-    offEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
-    offEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
     offEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
+    offEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
     offEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
     offEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
     offEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
@@ -195,6 +228,30 @@ interface WebApp {
     offEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
     offEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
     offEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
+    offEvent(eventType: "fullscreenChanged", eventHandler: FullscreenChangedCallback): void;
+    offEvent(eventType: "fullscreenFailed", eventHandler: FullscreenFailedCallback): void;
+    offEvent(eventType: "homeScreenAdded", eventHandler: HomeScreenAddedCallback): void;
+    offEvent(eventType: "homeScreenChecked", eventHandler: HomeScreenCheckedCallback): void;
+    offEvent(eventType: "accelerometerStarted", eventHandler: AccelerometerStartedCallback): void;
+    offEvent(eventType: "accelerometerStopped", eventHandler: AccelerometerStoppedCallback): void;
+    offEvent(eventType: "accelerometerChanged", eventHandler: AccelerometerChangedCallback): void;
+    offEvent(eventType: "accelerometerFailed", eventHandler: AccelerometerFailedCallback): void;
+    offEvent(eventType: "deviceOrientationStarted", eventHandler: DeviceOrientationStartedCallback): void;
+    offEvent(eventType: "deviceOrientationStopped", eventHandler: DeviceOrientationStoppedCallback): void;
+    offEvent(eventType: "deviceOrientationChanged", eventHandler: DeviceOrientationChangedCallback): void;
+    offEvent(eventType: "deviceOrientationFailed", eventHandler: DeviceOrientationFailedCallback): void;
+    offEvent(eventType: "gyroscopeStarted", eventHandler: GyroscopeStartedCallback): void;
+    offEvent(eventType: "gyroscopeStopped", eventHandler: GyroscopeStoppedCallback): void;
+    offEvent(eventType: "gyroscopeChanged", eventHandler: GyroscopeChangedCallback): void;
+    offEvent(eventType: "gyroscopeFailed", eventHandler: GyroscopeFailedCallback): void;
+    offEvent(eventType: "locationManagerUpdated", eventHandler: LocationManagerUpdatedCallback): void;
+    offEvent(eventType: "locationRequested", eventHandler: LocationRequestedCallback): void;
+    offEvent(eventType: "shareMessageSent", eventHandler: ShareMessageSentCallback): void;
+    offEvent(eventType: "shareMessageFailed", eventHandler: ShareMessageFailedCallback): void;
+    offEvent(eventType: "emojiStatusSet", eventHandler: EmojiStatusSetCallback): void;
+    offEvent(eventType: "emojiStatusFailed", eventHandler: EmojiStatusFailedCallback): void;
+    offEvent(eventType: "emojiStatusAccessRequested", eventHandler: EmojiStatusAccessRequestedCallback): void;
+    offEvent(eventType: "fileDownloadRequested", eventHandler: FileDownloadRequestedCallback): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -360,8 +417,12 @@ interface WebApp {
     disableVerticalSwipes(): void;
 }
 
+type ActivatedCallback = () => void;
+type DeactivatedCallback = () => void;
 type ThemeChangedCallback = () => void;
 type ViewportChangedCallback = (eventData: { isStateStable: boolean }) => void;
+type SafeAreaChangedChangedCallback = () => void;
+type ContentSafeAreaChangedCallback = () => void;
 type MainButtonClickedCallback = () => void;
 type SecondaryButtonClickedCallback = () => void;
 type BackButtonClickedCallback = () => void;
@@ -376,6 +437,30 @@ type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
 type BiometricManagerUpdatedCallback = () => void;
 type BiometricAuthRequestedCallback = (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void;
 type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
+type FullscreenChangedCallback = () => void
+type FullscreenFailedCallback = (eventData: {error: "UNSUPPORTED" | "ALREADY_FULLSCREEN"}) => void;
+type HomeScreenAddedCallback = () => void;
+type HomeScreenCheckedCallback = (eventData: { status: "unsupported" | "unknown" | "added" | "missed" }) => void;
+type AccelerometerStartedCallback = () => void;
+type AccelerometerStoppedCallback = () => void;
+type AccelerometerChangedCallback = () => void;
+type AccelerometerFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type DeviceOrientationStartedCallback = () => void;
+type DeviceOrientationStoppedCallback = () => void;
+type DeviceOrientationChangedCallback = () => void;
+type DeviceOrientationFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type GyroscopeStartedCallback = () => void;
+type GyroscopeStoppedCallback = () => void;
+type GyroscopeChangedCallback = () => void;
+type GyroscopeFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type LocationManagerUpdatedCallback = () => void;
+type LocationRequestedCallback = (eventData: {locationData: LocationData}) => void;
+type ShareMessageSentCallback = () => void;
+type ShareMessageFailedCallback = (eventData: {error: "UNSUPPORTED" | "MESSAGE_EXPIRED" | "MESSAGE_SEND_FAILED" | "USER_DECLINED" | "UNKNOWN_ERROR"} ) => void;
+type EmojiStatusSetCallback = () => void;
+type EmojiStatusFailedCallback = (eventData: {error: "UNSUPPORTED" | "SUGGESTED_EMOJI_INVALID" | "DURATION_INVALID" | "USER_DECLINED" | "SERVER_ERROR" | "UNKNOWN_ERROR" } ) => void;
+type EmojiStatusAccessRequestedCallback = ( eventData: {status: "allowed" | "cancelled" }) => void;
+type FileDownloadRequestedCallback = (eventData: {status: "downloading" | "cancelled"}) => void;
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram
@@ -1101,4 +1186,43 @@ interface StoryWidgetLink {
     url: string;
     /** The name to be displayed for the widget link, 0-48 characters. */
     name?: string;
+}
+
+export interface LocationData {
+    /**
+     Latitude in degrees.
+     */
+    latitude: number;
+    /**
+     Longitude in degrees.
+     */
+    longitude: number;
+    /**
+     Altitude above sea level in meters. null if altitude data is not available on the device.
+     */
+    altitude: number | null;
+    /**
+     The direction the device is moving in degrees (0 = North, 90 = East, 180 = South, 270 = West). null if course data is not available on the device.
+     */
+    course: number | null;
+    /**
+     The speed of the device in m/s. null if speed data is not available on the device.
+     */
+    speed: number | null;
+    /**
+     Accuracy of the latitude and longitude values in meters. null if horizontal accuracy data is not available on the device.
+     */
+    horizontal_accuracy: number | null;
+    /**
+     Accuracy of the altitude value in meters. null if vertical accuracy data is not available on the device.
+     */
+    vertical_accuracy: number | null;
+    /**
+     Accuracy of the course value in degrees. null if course accuracy data is not available on the device.
+     */
+    course_accuracy: number | null;
+    /**
+     Accuracy of the speed value in m/s. null if speed accuracy data is not available on the device.
+     */
+    speed_accuracy: number | null;
 }
