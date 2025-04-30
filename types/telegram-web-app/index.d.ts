@@ -296,10 +296,7 @@ interface WebApp {
      *  optional callback parameter was passed, the callback function will be
      *  called and the invoice status will be passed as the first argument.
      */
-    openInvoice(
-        url: string,
-        callback: (status: "paid" | "cancelled" | "failed" | "pending") => void,
-    ): void;
+    openInvoice(url: string, callback: (status: "paid" | "cancelled" | "failed" | "pending") => void): void;
     /**
      * A method that shows a native popup described by the params argument of
      * the type PopupParams. The Web App will receive the event popupClosed when
@@ -375,9 +372,7 @@ interface WebApp {
      * number. The second argument, contingent upon success, will be an object
      * detailing the shared contact information or a cancellation response.
      */
-    requestContact(
-        callback?: (success: boolean, response: RequestContactResponse) => void,
-    ): void;
+    requestContact(callback?: (success: boolean, response: RequestContactResponse) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -427,40 +422,60 @@ type MainButtonClickedCallback = () => void;
 type SecondaryButtonClickedCallback = () => void;
 type BackButtonClickedCallback = () => void;
 type SettingsButtonClickedCallback = () => void;
-type InvoiceClosedCallback = (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void;
+type InvoiceClosedCallback = (eventData: {
+    url: string;
+    status: "paid" | "cancelled" | "failed" | "pending";
+}) => void;
 type PopupClosedCallback = (eventData: { button_id: string | null }) => void;
 type QrTextReceivedCallback = (eventData: { data: string }) => void;
 type ScanQrPopupClosedCallback = () => void;
 type ClipboardTextReceivedCallback = (eventData: { data: string | null }) => void;
-type WriteAccessRequestedCallback = (eventData: { status: "allowed" | "cancelled" }) => void;
+type WriteAccessRequestedCallback = (eventData: {
+    status: "allowed" | "cancelled";
+}) => void;
 type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
 type BiometricManagerUpdatedCallback = () => void;
-type BiometricAuthRequestedCallback = (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void;
+type BiometricAuthRequestedCallback = (eventData: {
+    isAuthenticated: boolean;
+    biometricToken?: string;
+}) => void;
 type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
-type FullscreenChangedCallback = () => void
-type FullscreenFailedCallback = (eventData: {error: "UNSUPPORTED" | "ALREADY_FULLSCREEN"}) => void;
+type FullscreenChangedCallback = () => void;
+type FullscreenFailedCallback = (eventData: {
+    error: "UNSUPPORTED" | "ALREADY_FULLSCREEN";
+}) => void;
 type HomeScreenAddedCallback = () => void;
-type HomeScreenCheckedCallback = (eventData: { status: "unsupported" | "unknown" | "added" | "missed" }) => void;
+type HomeScreenCheckedCallback = (eventData: {
+    status: "unsupported" | "unknown" | "added" | "missed";
+}) => void;
 type AccelerometerStartedCallback = () => void;
 type AccelerometerStoppedCallback = () => void;
 type AccelerometerChangedCallback = () => void;
-type AccelerometerFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type AccelerometerFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
 type DeviceOrientationStartedCallback = () => void;
 type DeviceOrientationStoppedCallback = () => void;
 type DeviceOrientationChangedCallback = () => void;
-type DeviceOrientationFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type DeviceOrientationFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
 type GyroscopeStartedCallback = () => void;
 type GyroscopeStoppedCallback = () => void;
 type GyroscopeChangedCallback = () => void;
-type GyroscopeFailedCallback = (eventData: {error: "UNSUPPORTED"} ) => void;
+type GyroscopeFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
 type LocationManagerUpdatedCallback = () => void;
-type LocationRequestedCallback = (eventData: {locationData: LocationData}) => void;
+type LocationRequestedCallback = (eventData: { locationData: LocationData }) => void;
 type ShareMessageSentCallback = () => void;
-type ShareMessageFailedCallback = (eventData: {error: "UNSUPPORTED" | "MESSAGE_EXPIRED" | "MESSAGE_SEND_FAILED" | "USER_DECLINED" | "UNKNOWN_ERROR"} ) => void;
+type ShareMessageFailedCallback = (eventData: {
+    error: "UNSUPPORTED" | "MESSAGE_EXPIRED" | "MESSAGE_SEND_FAILED" | "USER_DECLINED" | "UNKNOWN_ERROR";
+}) => void;
 type EmojiStatusSetCallback = () => void;
-type EmojiStatusFailedCallback = (eventData: {error: "UNSUPPORTED" | "SUGGESTED_EMOJI_INVALID" | "DURATION_INVALID" | "USER_DECLINED" | "SERVER_ERROR" | "UNKNOWN_ERROR" } ) => void;
-type EmojiStatusAccessRequestedCallback = ( eventData: {status: "allowed" | "cancelled" }) => void;
-type FileDownloadRequestedCallback = (eventData: {status: "downloading" | "cancelled"}) => void;
+type EmojiStatusFailedCallback = (eventData: {
+    error: "UNSUPPORTED" | "SUGGESTED_EMOJI_INVALID" | "DURATION_INVALID" | "USER_DECLINED" | "SERVER_ERROR" | "UNKNOWN_ERROR";
+}) => void;
+type EmojiStatusAccessRequestedCallback = (eventData: {
+    status: "allowed" | "cancelled";
+}) => void;
+type FileDownloadRequestedCallback = (eventData: {
+    status: "downloading" | "cancelled";
+}) => void;
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram
@@ -568,41 +583,37 @@ interface PopupParams {
 /**
  * This object describes the native popup button.
  */
-type PopupButton =
-    & {
-        /**
-         * Identifier of the button, 0-64 characters. Set to empty string by
-         * default. If the button is pressed, its id is returned in the callback
-         * and the popupClosed event.
-         */
-        id?: string;
-        /**
-         * Type of the button. Set to default by default. Can be one of these
-         * values:
-         * - `default`, a button with the default style,
-         * - `ok`, a button with the localized text “OK”,
-         * - `close`, a button with the localized text “Close”,
-         * - `cancel`, a button with the localized text “Cancel”,
-         * - `destructive`, a button with a style that indicates a destructive
-         *   action (e.g. “Remove”, “Delete”, etc.).
-         */
-        type?: "default" | "ok" | "close" | "cancel" | "destructive";
-        /**
-         * The text to be displayed on the button, 0-64 characters. Required if
-         * type is default or destructive. Irrelevant for other types.
-         */
-        text?: string;
-    }
-    & (
-        | {
-            type: "default" | "destructive";
-            text: string;
-        }
-        | {
-            type: "ok" | "close" | "cancel";
-            text?: string;
-        }
-    );
+type PopupButton = {
+    /**
+     * Identifier of the button, 0-64 characters. Set to empty string by default.
+     * If the button is pressed, its id is returned in the callback and the popupClosed event.
+     */
+    id?: string;
+    /**
+     * Type of the button. Set to default by default. Can be one of these
+     * values:
+     * - `default`, a button with the default style,
+     * - `ok`, a button with the localized text “OK”,
+     * - `close`, a button with the localized text “Close”,
+     * - `cancel`, a button with the localized text “Cancel”,
+     * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+     */
+    type?: "default" | "ok" | "close" | "cancel" | "destructive";
+    /**
+     * The text to be displayed on the button, 0-64 characters. Required if
+     * type is default or destructive. Irrelevant for other types.
+     */
+    text?: string;
+} & (
+    | {
+          type: "default" | "destructive";
+          text: string;
+      }
+    | {
+          type: "ok" | "close" | "cancel";
+          text?: string;
+      }
+);
 
 /**
  * This object controls the back button, which can be displayed in the header of
@@ -927,10 +938,7 @@ interface BiometricManager {
      * the first argument will be a boolean indicating whether the user granted
      * access.
      */
-    requestAccess: (
-        params: BiometricRequestAccessParams,
-        callback?: BiometricRequestAccessCallback,
-    ) => BiometricManager;
+    requestAccess: (params: BiometricRequestAccessParams, callback?: BiometricRequestAccessCallback) => BiometricManager;
     /**
      * A method that authenticates the user using biometrics according to the
      * params argument of type BiometricAuthenticateParams. If an optional
@@ -940,10 +948,7 @@ interface BiometricManager {
      *
      * If so, the second argument will be a biometric token.
      */
-    authenticate: (
-        params: BiometricAuthenticateParams,
-        callback?: BiometricAuthenticateCallback,
-    ) => BiometricManager;
+    authenticate: (params: BiometricAuthenticateParams, callback?: BiometricAuthenticateCallback) => BiometricManager;
     /**
      * A method that updates the biometric token in secure storage on the
      * device. To remove the token, pass an empty string. If an optional
@@ -951,10 +956,7 @@ interface BiometricManager {
      * the first argument will be a boolean indicating whether the token was
      * updated.
      */
-    updateBiometricToken: (
-        token: string,
-        callback?: BiometricUpdateBiometricTokenCallback,
-    ) => BiometricManager;
+    updateBiometricToken: (token: string, callback?: BiometricUpdateBiometricTokenCallback) => BiometricManager;
     /**
      * A method that opens the biometric access settings for bots. Useful when
      * you need to request biometrics access to users who haven't granted it
