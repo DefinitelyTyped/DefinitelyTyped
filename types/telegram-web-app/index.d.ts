@@ -37,6 +37,13 @@ interface WebApp {
      */
     themeParams: ThemeParams;
     /**
+     *  **Bot API 8.0+**
+     *
+     *  True, if the Mini App is currently active.
+     *  False, if the Mini App is minimized.
+     */
+    isActive: boolean;
+    /**
      *  True if the Web App is expanded to the maximum available height.
      *  False, if the Web App occupies part of the screen and can be expanded to the
      *  full height using the expand() method.
@@ -342,10 +349,52 @@ interface WebApp {
      * the type StoryShareParams describes additional sharing settings. */
     shareToStory(media_url: string, params?: StoryShareParams): void;
     /**
-     * A method that requests text from the clipboard. The Web App will receive
-     * the event clipboardTextReceived. If an optional callback parameter was
-     * passed, the callback function will be called and the text from the
-     * clipboard will be passed as the first argument.
+     *  **Bot API 8.0+**
+     *
+     *  A method that opens a dialog allowing the user to share a message provided by the bot.
+     *  If an optional callback parameter is provided,
+     *  the callback function will be called with a boolean as the first argument,
+     *  indicating whether the message was successfully sent.
+     */
+    shareMessage(msg_id: number, callback?: (success: boolean) => void): void;
+    /**
+     *  **Bot API 8.0+**
+     *
+     *  A method that opens a dialog allowing the user to set the specified custom emoji as their status.
+     *  An optional params argument of type EmojiStatusParams specifies additional settings,such as duration.
+     *  If an optional callback parameter is provided,
+     *  the callback function will be called with a boolean as the first argument,
+     *  indicating whether the status was set.
+     *
+     *  Note: this method opens a native dialog and cannot be used to set the emoji status without manual user interaction.
+     *  For fully programmatic changes, you should instead use the Bot API method setUserEmojiStatus
+     *  after obtaining authorization to do so via the Mini App method requestEmojiStatusAccess.
+     */
+    setEmojiStatus(custom_emoji_id: string, params?: EmojiStatusParams, callback?: (success: boolean) => void): void;
+    /**
+     *  **Bot API 8.0+**
+     *
+     *  A method that shows a native popup requesting permission for the bot to manage user's emoji status.
+     *  If an optional callback parameter was passed,
+     *  the callback function will be called when the popup is closed
+     *  and the first argument will be a boolean indicating whether the user granted this access.
+     */
+    requestEmojiStatusAccess(callback?: (success: boolean) => void): void;
+    /**
+     *  **Bot API 8.0+**
+     *
+     *  A method that displays a native popup prompting the user to download a file
+     *  specified by the params argument of type DownloadFileParams.
+     *  If an optional callback parameter is provided,
+     *  the callback function will be called when the popup is closed,
+     *  with the first argument as a boolean indicating whether the user accepted the download request.
+     */
+    downloadFile(params: DownloadFileParams, callback?: (success: boolean) => void): void;
+    /**
+     * A method that requests text from the clipboard.
+     * The Web App will receive the event clipboardTextReceived.
+     * If an optional callback parameter was passed,
+     * the callback function will be called and the text from the clipboard will be passed as the first argument.
      *
      * Note: this method can be called only for Web Apps launched from the
      * attachment menu and only in response to a user interaction with the Web
@@ -398,18 +447,67 @@ interface WebApp {
      */
     isVerticalSwipesEnabled: boolean;
     /**
-     * **Bot API 7.7+** A method that enables vertical swipes to close or
-     * minimize the Mini App. For user convenience, it is recommended to always
-     * enable swipes unless they conflict with the Mini App's own gestures.
+     * **Bot API 7.7+**
+     * A method that enables vertical swipes to close or minimize the Mini App.
+     * For user convenience, it is recommended to always enable swipes unless they conflict
+     * with the Mini App's own gestures.
      */
     enableVerticalSwipes(): void;
     /**
-     * **Bot API 7.7+** A method that disables vertical swipes to close or
-     * minimize the Mini App. This method is useful if your Mini App uses swipe
-     * gestures that may conflict with the gestures for minimizing and closing
-     * the app.
+     * **Bot API 7.7+**
+     * A method that disables vertical swipes to close or minimize the Mini App.
+     * This method is useful if your Mini App uses swipe gestures that may conflict
+     * with the gestures for minimizing and closing the app.
      */
     disableVerticalSwipes(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that requests opening the Mini App in fullscreen mode.
+     * Although the header is transparent in fullscreen mode,
+     * it is recommended that the Mini App sets the header color using the setHeaderColor method.
+     * This color helps determine a contrasting color for the status bar and other UI controls.
+     */
+    requestFullscreen(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that requests exiting fullscreen mode.
+     */
+    exitFullscreen(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that locks the Mini App’s orientation to its current mode (either portrait or landscape).
+     * Once locked, the orientation remains fixed, regardless of device rotation.
+     * This is useful if a stable orientation is needed during specific interactions.
+     */
+    lockOrientation(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that unlocks the Mini App’s orientation, allowing it to follow the device's rotation freely.
+     * Use this to restore automatic orientation adjustments based on the device orientation.
+     */
+    unlockOrientation(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that prompts the user to add the Mini App to the home screen.
+     * After successfully adding the icon, the homeScreenAdded event will be triggered if supported by the device.
+     * Note that if the device cannot determine the installation status,
+     * the event may not be received even if the icon has been added.
+     */
+    addToHomeScreen(): void;
+    /**
+     * **Bot API 8.0+**
+     *
+     * A method that checks if adding to the home screen is supported and if the Mini App has already been added.
+     * If an optional callback parameter is provided,
+     * the callback function will be called with a single argument status,
+     * which is a string indicating the home screen status.
+     */
+    checkHomeScreenStatus(callback?: (status: "unsupported" | "unknown" | "added" | "missed") => void): void;
 }
 
 type ActivatedCallback = () => void;
@@ -514,48 +612,66 @@ interface ThemeParams {
      */
     button_text_color?: string;
     /**
-     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format.
+     * **Bot API 6.1+**
+     *
+     * Secondary background color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
      */
     secondary_bg_color?: string;
     /**
-     * **Bot API 7.0+** Header background color in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Header background color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-header-bg-color)`.
      */
     header_bg_color?: string;
     /**
-     * **Bot API 7.10+** Bottom background color in the #RRGGBB format.
+     * **Bot API 7.10+**
+     *
+     * Bottom background color in the #RRGGBB format.
      * Also available as the CSS variable var(--tg-theme-bottom-bar-bg-color).
      */
     bottom_bar_bg_color?: string;
     /**
-     * **Bot API 7.0+** Accent text color in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Accent text color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-accent-text-color)`.
      */
     accent_text_color?: string;
     /**
-     * **Bot API 7.0+** Background color for the section in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Background color for the section in the `#RRGGBB` format.
      * It is recommended to use this in conjunction with *secondary_bg_color*.
      * Also available as the CSS variable `var(--tg-theme-section-bg-color)`.
      */
     section_bg_color?: string;
     /**
-     * **Bot API 7.0+** Header text color for the section in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Header text color for the section in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
      */
     section_header_text_color?: `#${string}`;
     /**
-     * **Bot API 7.6+** Section separator color in the `#RRGGBB` format.
+     * **Bot API 7.6+**
+     *
+     * Section separator color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-section-separator-color)`.
      */
     section_separator_color?: string;
     /**
-     * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Subtitle text color in the `#RRGGBB` format.
      *  Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
      */
     subtitle_text_color?: string;
     /**
-     * **Bot API 7.0+** Text color for destructive actions in the `#RRGGBB` format.
+     * **Bot API 7.0+**
+     *
+     * Text color for destructive actions in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-destructive-text-color)`.
      */
     destructive_text_color?: string;
@@ -745,24 +861,29 @@ interface SettingsButton {
      */
     isVisible: boolean;
     /**
-     * **Bot API 7.0+** A method that sets the press event handler for the
-     * Settings item in the context menu. An alias for
-     * `Telegram.WebApp.onEvent('settingsButtonClicked', callback)`
+     * **Bot API 7.0+**
+     *
+     * A method that sets the press event handler for the Settings item in the context menu.
+     * An alias for `Telegram.WebApp.onEvent('settingsButtonClicked', callback)`
      */
     onClick(callback: () => void): SettingsButton;
     /**
-     * **Bot API 7.0+** A method that removes the press event handler from the
-     * Settings item in the context menu. An alias for
-     * `Telegram.WebApp.offEvent('settingsButtonClicked', callback)`
+     * **Bot API 7.0+**
+     *
+     * A method that removes the press event handler from the Settings item in the context menu.
+     * An alias for `Telegram.WebApp.offEvent('settingsButtonClicked', callback)`
      */
     offClick(callback: () => void): SettingsButton;
     /**
-     * **Bot API 7.0+** A method to make the Settings item in the context menu
-     * visible.
+     * **Bot API 7.0+**
+     *
+     * A method to make the Settings item in the context menu visible.
      */
     show(): SettingsButton;
     /**
-     * **Bot API 7.0+** A method to hide the Settings item in the context menu.
+     * **Bot API 7.0+**
+     *
+     * A method to hide the Settings item in the context menu.
      */
     hide(): SettingsButton;
 }
@@ -950,13 +1071,13 @@ interface BiometricManager {
      */
     authenticate: (params: BiometricAuthenticateParams, callback?: BiometricAuthenticateCallback) => BiometricManager;
     /**
-     * A method that updates the biometric token in secure storage on the
-     * device. To remove the token, pass an empty string. If an optional
-     * callback parameter was passed, the callback function will be called and
-     * the first argument will be a boolean indicating whether the token was
-     * updated.
+     * A method that updates the biometric token in secure storage on the device.
+     * To remove the token, pass an empty string.
+     * If an optional callback parameter was passed,
+     * the callback function will be called
+     * and the first argument will be a boolean indicating whether the token was updated.
      */
-    updateBiometricToken: (token: string, callback?: BiometricUpdateBiometricTokenCallback) => BiometricManager;
+    updateBiometricToken: (token: string, callback?: (success: boolean) => void) => BiometricManager;
     /**
      * A method that opens the biometric access settings for bots. Useful when
      * you need to request biometrics access to users who haven't granted it
@@ -971,7 +1092,6 @@ interface BiometricManager {
 
 type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;
 type BiometricAuthenticateCallback = (isAuthenticated: boolean, biometricToken?: string) => void;
-type BiometricUpdateBiometricTokenCallback = (applied: boolean) => void;
 
 /**
  * This object describes the native popup for requesting permission to use
@@ -1227,4 +1347,22 @@ export interface LocationData {
      Accuracy of the speed value in m/s. null if speed accuracy data is not available on the device.
      */
     speed_accuracy: number | null;
+}
+
+export interface EmojiStatusParams {
+    /**
+     Optional. The duration for which the status will remain set, in seconds.
+     */
+    duration?: number;
+}
+
+export interface DownloadFileParams {
+    /**
+     The HTTPS URL of the file to be downloaded.
+     */
+    url: string;
+    /**
+     The suggested name for the downloaded file.
+     */
+    file_name: string;
 }
