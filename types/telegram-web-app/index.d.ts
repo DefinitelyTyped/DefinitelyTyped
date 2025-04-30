@@ -612,7 +612,13 @@ export type ShareMessageFailedCallback = (eventData: {
 }) => void;
 export type EmojiStatusSetCallback = () => void;
 export type EmojiStatusFailedCallback = (eventData: {
-    error: "UNSUPPORTED" | "SUGGESTED_EMOJI_INVALID" | "DURATION_INVALID" | "USER_DECLINED" | "SERVER_ERROR" | "UNKNOWN_ERROR";
+    error:
+        | "UNSUPPORTED"
+        | "SUGGESTED_EMOJI_INVALID"
+        | "DURATION_INVALID"
+        | "USER_DECLINED"
+        | "SERVER_ERROR"
+        | "UNKNOWN_ERROR";
 }) => void;
 export type EmojiStatusAccessRequestedCallback = (eventData: {
     status: "allowed" | "cancelled";
@@ -745,37 +751,39 @@ export interface PopupParams {
 /**
  * This object describes the native popup button.
  */
-export type PopupButton = {
-    /**
-     * Identifier of the button, 0-64 characters. Set to empty string by default.
-     * If the button is pressed, its id is returned in the callback and the popupClosed event.
-     */
-    id?: string;
-    /**
-     * Type of the button. Set to default by default. Can be one of these
-     * values:
-     * - `default`, a button with the default style,
-     * - `ok`, a button with the localized text “OK”,
-     * - `close`, a button with the localized text “Close”,
-     * - `cancel`, a button with the localized text “Cancel”,
-     * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
-     */
-    type?: "default" | "ok" | "close" | "cancel" | "destructive";
-    /**
-     * The text to be displayed on the button, 0-64 characters. Required if
-     * type is default or destructive. Irrelevant for other types.
-     */
-    text?: string;
-} & (
-    | {
-          type: "default" | "destructive";
-          text: string;
-      }
-    | {
-          type: "ok" | "close" | "cancel";
-          text?: string;
-      }
-);
+export type PopupButton =
+    & {
+        /**
+         * Identifier of the button, 0-64 characters. Set to empty string by default.
+         * If the button is pressed, its id is returned in the callback and the popupClosed event.
+         */
+        id?: string;
+        /**
+         * Type of the button. Set to default by default. Can be one of these
+         * values:
+         * - `default`, a button with the default style,
+         * - `ok`, a button with the localized text “OK”,
+         * - `close`, a button with the localized text “Close”,
+         * - `cancel`, a button with the localized text “Cancel”,
+         * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+         */
+        type?: "default" | "ok" | "close" | "cancel" | "destructive";
+        /**
+         * The text to be displayed on the button, 0-64 characters. Required if
+         * type is default or destructive. Irrelevant for other types.
+         */
+        text?: string;
+    }
+    & (
+        | {
+            type: "default" | "destructive";
+            text: string;
+        }
+        | {
+            type: "ok" | "close" | "cancel";
+            text?: string;
+        }
+    );
 
 /**
  * This object controls the back button, which can be displayed in the header of
@@ -1105,7 +1113,10 @@ export interface BiometricManager {
      * the first argument will be a boolean indicating whether the user granted
      * access.
      */
-    requestAccess: (params: BiometricRequestAccessParams, callback?: BiometricRequestAccessCallback) => BiometricManager;
+    requestAccess: (
+        params: BiometricRequestAccessParams,
+        callback?: BiometricRequestAccessCallback,
+    ) => BiometricManager;
     /**
      * A method that authenticates the user using biometrics according to the
      * params argument of type BiometricAuthenticateParams. If an optional
@@ -1724,7 +1735,10 @@ export interface SecureStorage {
      * If the key was not found, the second argument will be null,
      * and the third argument will be a boolean indicating whether the key can be restored from the current device.
      */
-    getItem: (key: string, callback?: (error: string | null, item: string | null, restorable: boolean) => void) => SecureStorage;
+    getItem: (
+        key: string,
+        callback?: (error: string | null, item: string | null, restorable: boolean) => void,
+    ) => SecureStorage;
     /**
      * Bot API 9.0+
      *
