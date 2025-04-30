@@ -1,12 +1,16 @@
-declare var Telegram: Telegram;
+declare global {
+    interface Window {
+        Telegram: Telegram;
+    }
+}
 
-type Color = string | false;
+export type Color = string | false;
 
-interface Telegram {
+export interface Telegram {
     WebApp: WebApp;
 }
 
-interface WebApp {
+export interface WebApp {
     /**
      * A string with raw data transferred to the Web App, convenient for
      * validating data. WARNING: Validate data from this field before using it
@@ -552,68 +556,68 @@ interface WebApp {
     checkHomeScreenStatus(callback?: (status: "unsupported" | "unknown" | "added" | "missed") => void): void;
 }
 
-type ActivatedCallback = () => void;
-type DeactivatedCallback = () => void;
-type ThemeChangedCallback = () => void;
-type ViewportChangedCallback = (eventData: { isStateStable: boolean }) => void;
-type SafeAreaChangedChangedCallback = () => void;
-type ContentSafeAreaChangedCallback = () => void;
-type MainButtonClickedCallback = () => void;
-type SecondaryButtonClickedCallback = () => void;
-type BackButtonClickedCallback = () => void;
-type SettingsButtonClickedCallback = () => void;
-type InvoiceClosedCallback = (eventData: {
+export type ActivatedCallback = () => void;
+export type DeactivatedCallback = () => void;
+export type ThemeChangedCallback = () => void;
+export type ViewportChangedCallback = (eventData: { isStateStable: boolean }) => void;
+export type SafeAreaChangedChangedCallback = () => void;
+export type ContentSafeAreaChangedCallback = () => void;
+export type MainButtonClickedCallback = () => void;
+export type SecondaryButtonClickedCallback = () => void;
+export type BackButtonClickedCallback = () => void;
+export type SettingsButtonClickedCallback = () => void;
+export type InvoiceClosedCallback = (eventData: {
     url: string;
     status: "paid" | "cancelled" | "failed" | "pending";
 }) => void;
-type PopupClosedCallback = (eventData: { button_id: string | null }) => void;
-type QrTextReceivedCallback = (eventData: { data: string }) => void;
-type ScanQrPopupClosedCallback = () => void;
-type ClipboardTextReceivedCallback = (eventData: { data: string | null }) => void;
-type WriteAccessRequestedCallback = (eventData: {
+export type PopupClosedCallback = (eventData: { button_id: string | null }) => void;
+export type QrTextReceivedCallback = (eventData: { data: string }) => void;
+export type ScanQrPopupClosedCallback = () => void;
+export type ClipboardTextReceivedCallback = (eventData: { data: string | null }) => void;
+export type WriteAccessRequestedCallback = (eventData: {
     status: "allowed" | "cancelled";
 }) => void;
-type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
-type BiometricManagerUpdatedCallback = () => void;
-type BiometricAuthRequestedCallback = (eventData: {
+export type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
+export type BiometricManagerUpdatedCallback = () => void;
+export type BiometricAuthRequestedCallback = (eventData: {
     isAuthenticated: boolean;
     biometricToken?: string;
 }) => void;
-type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
-type FullscreenChangedCallback = () => void;
-type FullscreenFailedCallback = (eventData: {
+export type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
+export type FullscreenChangedCallback = () => void;
+export type FullscreenFailedCallback = (eventData: {
     error: "UNSUPPORTED" | "ALREADY_FULLSCREEN";
 }) => void;
-type HomeScreenAddedCallback = () => void;
-type HomeScreenCheckedCallback = (eventData: {
+export type HomeScreenAddedCallback = () => void;
+export type HomeScreenCheckedCallback = (eventData: {
     status: "unsupported" | "unknown" | "added" | "missed";
 }) => void;
-type AccelerometerStartedCallback = () => void;
-type AccelerometerStoppedCallback = () => void;
-type AccelerometerChangedCallback = () => void;
-type AccelerometerFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
-type DeviceOrientationStartedCallback = () => void;
-type DeviceOrientationStoppedCallback = () => void;
-type DeviceOrientationChangedCallback = () => void;
-type DeviceOrientationFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
-type GyroscopeStartedCallback = () => void;
-type GyroscopeStoppedCallback = () => void;
-type GyroscopeChangedCallback = () => void;
-type GyroscopeFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
-type LocationManagerUpdatedCallback = () => void;
-type LocationRequestedCallback = (eventData: { locationData: LocationData }) => void;
-type ShareMessageSentCallback = () => void;
-type ShareMessageFailedCallback = (eventData: {
+export type AccelerometerStartedCallback = () => void;
+export type AccelerometerStoppedCallback = () => void;
+export type AccelerometerChangedCallback = () => void;
+export type AccelerometerFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
+export type DeviceOrientationStartedCallback = () => void;
+export type DeviceOrientationStoppedCallback = () => void;
+export type DeviceOrientationChangedCallback = () => void;
+export type DeviceOrientationFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
+export type GyroscopeStartedCallback = () => void;
+export type GyroscopeStoppedCallback = () => void;
+export type GyroscopeChangedCallback = () => void;
+export type GyroscopeFailedCallback = (eventData: { error: "UNSUPPORTED" }) => void;
+export type LocationManagerUpdatedCallback = () => void;
+export type LocationRequestedCallback = (eventData: { locationData: LocationData }) => void;
+export type ShareMessageSentCallback = () => void;
+export type ShareMessageFailedCallback = (eventData: {
     error: "UNSUPPORTED" | "MESSAGE_EXPIRED" | "MESSAGE_SEND_FAILED" | "USER_DECLINED" | "UNKNOWN_ERROR";
 }) => void;
-type EmojiStatusSetCallback = () => void;
-type EmojiStatusFailedCallback = (eventData: {
+export type EmojiStatusSetCallback = () => void;
+export type EmojiStatusFailedCallback = (eventData: {
     error: "UNSUPPORTED" | "SUGGESTED_EMOJI_INVALID" | "DURATION_INVALID" | "USER_DECLINED" | "SERVER_ERROR" | "UNKNOWN_ERROR";
 }) => void;
-type EmojiStatusAccessRequestedCallback = (eventData: {
+export type EmojiStatusAccessRequestedCallback = (eventData: {
     status: "allowed" | "cancelled";
 }) => void;
-type FileDownloadRequestedCallback = (eventData: {
+export type FileDownloadRequestedCallback = (eventData: {
     status: "downloading" | "cancelled";
 }) => void;
 
@@ -622,7 +626,7 @@ type FileDownloadRequestedCallback = (eventData: {
  * user's app in real time. This object contains the user's current theme
  * settings:
  */
-interface ThemeParams {
+export interface ThemeParams {
     /**
      * Background color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-bg-color)`.
@@ -722,7 +726,7 @@ interface ThemeParams {
 /**
  * This object describes the native popup.
  */
-interface PopupParams {
+export interface PopupParams {
     /**
      * The text to be displayed in the popup title, 0-64 characters.
      */
@@ -741,7 +745,7 @@ interface PopupParams {
 /**
  * This object describes the native popup button.
  */
-type PopupButton = {
+export type PopupButton = {
     /**
      * Identifier of the button, 0-64 characters. Set to empty string by default.
      * If the button is pressed, its id is returned in the callback and the popupClosed event.
@@ -777,7 +781,7 @@ type PopupButton = {
  * This object controls the back button, which can be displayed in the header of
  * the Web App in the Telegram interface.
  */
-interface BackButton {
+export interface BackButton {
     /**
      * Shows whether the button is visible. Set to false by default.
      */
@@ -806,7 +810,7 @@ interface BackButton {
  * This object controls the main button, which is displayed at the bottom of the
  * Web App in the Telegram interface.
  */
-interface BottomButton {
+export interface BottomButton {
     /** Current button text. Set to CONTINUE by default. */
     text: string;
     /** Current button color. Set to themeParams.button_color by default. */
@@ -876,7 +880,7 @@ interface BottomButton {
     setParams(params: MainButtonParams): BottomButton;
 }
 
-interface MainButtonParams {
+export interface MainButtonParams {
     /** button text */
     text?: string;
     /** button color */
@@ -897,7 +901,7 @@ interface MainButtonParams {
  * This object controls the Settings item in the context menu of the Mini App in
  * the Telegram interface.
  */
-interface SettingsButton {
+export interface SettingsButton {
     /**
      * Shows whether the context menu item is visible. Set to false by default.
      */
@@ -933,7 +937,7 @@ interface SettingsButton {
 /**
  *  This object controls haptic feedback.
  */
-interface HapticFeedback {
+export interface HapticFeedback {
     /**
      * A method tells that an impact occurred. The Telegram app may play the
      * appropriate haptics based on style value passed. Style can be one of
@@ -965,7 +969,7 @@ interface HapticFeedback {
     selectionChanged(): void;
 }
 
-interface CloudStorage {
+export interface CloudStorage {
     /**
      * A method that stores a value in the cloud storage using the specified
      * key.
@@ -1042,18 +1046,18 @@ interface CloudStorage {
     getKeys(callback?: CloudStorageGetKeysCallback): CloudStorage;
 }
 
-type CloudStorageSetItemCallback = (error: string | null, success: null | true) => void;
-type CloudStorageGetItemCallback = (error: string | null, value: null | string) => void;
-type CloudStorageGetItemsCallback = (error: string | null, values: null | Record<string, string>) => void;
-type CloudStorageRemoveItemCallback = (error: string | null, success: null | true) => void;
-type CloudStorageRemoveItemsCallback = (error: string | null, success: null | true) => void;
-type CloudStorageGetKeysCallback = (error: string | null, keys: null | string[]) => void;
+export type CloudStorageSetItemCallback = (error: string | null, success: null | true) => void;
+export type CloudStorageGetItemCallback = (error: string | null, value: null | string) => void;
+export type CloudStorageGetItemsCallback = (error: string | null, values: null | Record<string, string>) => void;
+export type CloudStorageRemoveItemCallback = (error: string | null, success: null | true) => void;
+export type CloudStorageRemoveItemsCallback = (error: string | null, success: null | true) => void;
+export type CloudStorageGetKeysCallback = (error: string | null, keys: null | string[]) => void;
 
 /**
  * This object controls biometrics on the device. Before the first use of this
  * object, it needs to be initialized using the init method.
  */
-interface BiometricManager {
+export interface BiometricManager {
     /**
      * Shows whether biometrics object is initialized.
      */
@@ -1132,14 +1136,14 @@ interface BiometricManager {
     openSettings: () => BiometricManager;
 }
 
-type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;
-type BiometricAuthenticateCallback = (isAuthenticated: boolean, biometricToken?: string) => void;
+export type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;
+export type BiometricAuthenticateCallback = (isAuthenticated: boolean, biometricToken?: string) => void;
 
 /**
  * This object describes the native popup for requesting permission to use
  * biometrics.
  */
-interface BiometricRequestAccessParams {
+export interface BiometricRequestAccessParams {
     /**
      * The text to be displayed to a user in the popup describing why the bot
      * needs access to biometrics, 0-128 characters.
@@ -1151,7 +1155,7 @@ interface BiometricRequestAccessParams {
  * This object describes the native popup for authenticating the user using
  * biometrics.
  */
-interface BiometricAuthenticateParams {
+export interface BiometricAuthenticateParams {
     /**
      * The text to be displayed to a user in the popup describing why you are
      * asking them to authenticate and what action you will be taking based on
@@ -1164,7 +1168,7 @@ interface BiometricAuthenticateParams {
  * This object contains data that is transferred to the Web App when it is
  * opened. It is empty if the Web App was launched from a keyboard button.
  */
-interface WebAppInitData {
+export interface WebAppInitData {
     /**
      * A unique identifier for the Web App session, required for sending
      * messages via the answerWebAppQuery method.
@@ -1219,7 +1223,7 @@ interface WebAppInitData {
 }
 
 /** This object contains the data of the Web App user. */
-interface WebAppUser {
+export interface WebAppUser {
     /**
      * A unique identifier for the user or bot. This number may have more than
      * 32 significant bits and some programming languages may have
@@ -1254,7 +1258,7 @@ interface WebAppUser {
 /**
  * This object represents a chat.
  */
-interface WebAppChat {
+export interface WebAppChat {
     /**
      * Unique identifier for this chat. This number may have more than 32
      * significant bits and some programming languages may have
@@ -1284,7 +1288,7 @@ interface WebAppChat {
 /**
  * This object describes the native popup for scanning QR codes.
  */
-interface ScanQrPopupParams {
+export interface ScanQrPopupParams {
     /**
      * The text to be displayed under the 'Scan QR' heading, 0-64 characters.
      */
@@ -1295,7 +1299,7 @@ interface ScanQrPopupParams {
  * This object describes contact information shared when requestContact was
  * approved by the user.
  */
-interface RequestContactResponseSent {
+export interface RequestContactResponseSent {
     /** Status 'sent' indicates that contact information has been shared. */
     status: "sent";
     /** A status message or result as a string. */
@@ -1325,17 +1329,17 @@ interface RequestContactResponseSent {
 /**
  * This object only contains a status to indicate the cancellation.
  */
-interface RequestContactResponseCancelled {
+export interface RequestContactResponseCancelled {
     /** Status 'cancelled', indicates that user cancelled the contact share
      * request. */
     status: "cancelled";
 }
 
-type RequestContactResponse = RequestContactResponseSent | RequestContactResponseCancelled;
+export type RequestContactResponse = RequestContactResponseSent | RequestContactResponseCancelled;
 
 /** This object describes additional sharing settings for the native story
  * editor. */
-interface StoryShareParams {
+export interface StoryShareParams {
     /** The caption to be added to the media, 0-200 characters for regular users
      * and 0-2048 characters for premium subscribers. */
     text?: string;
@@ -1345,7 +1349,7 @@ interface StoryShareParams {
 }
 
 /** This object describes a widget link to be included in the story. */
-interface StoryWidgetLink {
+export interface StoryWidgetLink {
     /** The URL to be included in the story. */
     url: string;
     /** The name to be displayed for the widget link, 0-48 characters. */
