@@ -17,7 +17,7 @@ export interface ClientConfig {
     host?: string | undefined;
     connectionString?: string | undefined;
     keepAlive?: boolean | undefined;
-    stream?: () => stream.Duplex | stream.Duplex | undefined;
+    stream?: () => stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
