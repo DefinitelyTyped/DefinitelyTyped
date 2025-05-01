@@ -40,7 +40,7 @@ export function parse<T>(csvString: string, config: ParseWorkerConfig<T> & { dow
  */
 export function parse<T>(
     csvString: string,
-    config?: ParseConfig<T> & { download?: false | undefined; worker?: false | undefined },
+    config?: ParseConfig<T> & { download?: false | undefined; worker?: false | undefined }
 ): ParseResult<T>;
 /**
  * Parse string, remote files or  local files
@@ -50,13 +50,12 @@ export function parse<T>(
  */
 export function parse<T>(
     source: LocalFile | string,
-    config:
-        & ParseLocalConfig<T, LocalFile>
-        & (
+    config: ParseLocalConfig<T, LocalFile> &
+        (
             | (ParseConfig<T> & { download?: false | undefined; worker?: false | undefined })
             | (ParseWorkerConfig<T> & { download?: false | undefined })
             | ParseRemoteConfig<T>
-        ),
+        )
 ): void;
 /**
  * Parse in a node streaming style
@@ -254,6 +253,11 @@ export interface ParseConfig<T = any, TInput = undefined> {
      */
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
+    /**
+     * To skip first N number of lines when converting a CSV file to JSON.
+     * @default 0
+     */
+    skipFirstNLines?: number | undefined;
 }
 
 export interface ParseWorkerConfig<T = any> extends ParseConfig<T> {
