@@ -198,6 +198,7 @@ declare module "@mapbox/mapbox-sdk/lib/classes/mapi-error" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/datasets" {
+    import * as GeoJSON from "geojson";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -1844,6 +1845,7 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/static" {
+    import * as GeoJSON from "geojson";
     import { AnyLayer, LngLatBoundsLike, LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
@@ -2107,6 +2109,7 @@ declare module "@mapbox/mapbox-sdk/services/styles" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/tilequery" {
+    import * as GeoJSON from "geojson";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -2122,7 +2125,9 @@ declare module "@mapbox/mapbox-sdk/services/tilequery" {
          * Get a static map image..
          * @param request
          */
-        listFeatures(request: TileQueryRequest): MapiRequest;
+        listFeatures(
+            request: TileQueryRequest,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.Point, TileQueryResponseProperty>>;
     }
 
     interface TileQueryRequest {
@@ -2150,7 +2155,27 @@ declare module "@mapbox/mapbox-sdk/services/tilequery" {
          * Queries for a specific geometry type.
          */
         geometry?: GeometryType | undefined;
-        layers?: string[] | undefined;
+        /**
+         * A comma-separated list of bands to query, rather than querying all bands.
+         * If a specified layer does not exist, it is skipped.
+         * If no bands exist, returns an empty `FeatureCollection`.
+         */
+        bands?: string | undefined;
+        /**
+         * A comma-separated list of layers to query, rather than querying all layers.
+         * If a specified layer does not exist, it is skipped.
+         * If no layers exist, returns an empty `FeatureCollection`.
+         */
+        layers?: string | undefined;
+    }
+
+    interface TileQueryResponseProperty {
+        tilequery: {
+            distance: number;
+            geometry: GeometryType;
+            layer: string;
+        };
+        [name: string]: any;
     }
 
     type GeometryType = "polygon" | "linestring" | "point";
