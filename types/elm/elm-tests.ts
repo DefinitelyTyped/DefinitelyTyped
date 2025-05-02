@@ -1,7 +1,13 @@
-declare var Elm: ElmInstance<ShanghaiPorts>;
+declare var Elm: ElmInstance<ShanghaiPorts, ShanghaiFlags>;
+
+interface ShanghaiFlags {
+    coordinates: [number, number];
+    incomingShip: Ship;
+    outgoingShip: string;
+}
 
 interface ShanghaiPorts {
-    coordinates: PortToElm<number[]>;
+    coordinates: PortToElm<[number, number]>;
     incomingShip: PortToElm<Ship>;
     outgoingShip: PortToElm<string>;
     totalCapacity: PortFromElm<number>;
@@ -22,7 +28,7 @@ var shanghai = Elm.Main.init({
     },
 });
 
-function logger(x: any) {
+function logger(x: number) {
     console.log(x);
 }
 shanghai.ports.totalCapacity.subscribe(logger);
