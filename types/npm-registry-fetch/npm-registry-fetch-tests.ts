@@ -80,7 +80,7 @@ const retryObject: fetch.FetchRetryObjectOptions = {
 
 const optsWithRetry: fetch.Options = {
     retry: retryObject,
-}
+};
 
 fetch("/"); // $ExpectType Promise<Response>
 fetch("/", opts); // $ExpectType Promise<Response>
