@@ -40,7 +40,7 @@ export function parse<T>(csvString: string, config: ParseWorkerConfig<T> & { dow
  */
 export function parse<T>(
     csvString: string,
-    config?: ParseConfig<T> & { download?: false | undefined; worker?: false | undefined }
+    config?: ParseConfig<T> & { download?: false | undefined; worker?: false | undefined },
 ): ParseResult<T>;
 /**
  * Parse string, remote files or  local files
@@ -50,12 +50,13 @@ export function parse<T>(
  */
 export function parse<T>(
     source: LocalFile | string,
-    config: ParseLocalConfig<T, LocalFile> &
-        (
+    config:
+        & ParseLocalConfig<T, LocalFile>
+        & (
             | (ParseConfig<T> & { download?: false | undefined; worker?: false | undefined })
             | (ParseWorkerConfig<T> & { download?: false | undefined })
             | ParseRemoteConfig<T>
-        )
+        ),
 ): void;
 /**
  * Parse in a node streaming style
