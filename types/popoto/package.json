@@ -6,7 +6,11 @@
         "https://popotojs.com/"
     ],
     "dependencies": {
-        "@types/d3": "*",
+        "@types/d3-force": "<3",
+        "@types/d3-shape": "<3",
+        "@types/d3-scale": "<3",
+        "@types/d3-voronoi": "*",
+        "@types/d3-zoom": "<3",
         "neo4j-driver-lite": "^4.3.3"
     },
     "devDependencies": {

@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/d3",
     "version": "7.4.9999",
+    "type": "module",
     "projects": [
         "https://github.com/d3/d3",
         "https://d3js.org"

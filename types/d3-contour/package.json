@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/d3-contour",
     "version": "3.0.9999",
+    "type": "module",
     "projects": [
         "https://d3js.org/d3-contour/"
     ],

@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@types/d3-geo": "workspace:.",
-        "@types/d3-selection": "*"
+        "@types/d3-selection": "<3"
     },
     "owners": [
         {

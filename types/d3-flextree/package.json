@@ -6,7 +6,7 @@
         "https://github.com/klortho/d3-flextree"
     ],
     "dependencies": {
-        "@types/d3-hierarchy": "*"
+        "@types/d3-hierarchy": "^1.1.5"
     },
     "devDependencies": {
         "@types/d3-flextree": "workspace:."

@@ -10,7 +10,7 @@
         "@types/d3-selection": "^1"
     },
     "devDependencies": {
-        "@types/d3-interpolate": "*",
+        "@types/d3-interpolate": "<3",
         "@types/d3-transition": "workspace:."
     },
     "owners": [
