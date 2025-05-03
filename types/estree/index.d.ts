@@ -427,6 +427,8 @@ export interface CatchClause extends BaseNode {
 export interface Identifier extends BaseNode, BaseExpression, BasePattern {
     type: "Identifier";
     name: string;
+    start?: number;
+    end?: number;
 }
 
 export type Literal = SimpleLiteral | RegExpLiteral | BigIntLiteral;
