@@ -4659,6 +4659,13 @@ function testPrinting() {
     // @ts-expect-error
     chrome.printing.cancelJob("", () => {}).then(() => {});
 
+    chrome.printing.getJobStatus(""); // $ExpectType Promise<"PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED">
+    chrome.printing.getJobStatus("", status => { // $ExpectType void
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
+    });
+    // @ts-expect-error
+    chrome.printing.getJobStatus("", status => {}).then(status => {});
+
     chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
     chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
     // @ts-expect-error
@@ -4685,15 +4692,15 @@ function testPrinting() {
 
     chrome.printing.onJobStatusChanged.addListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.removeListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.hasListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.hasListeners();
 }

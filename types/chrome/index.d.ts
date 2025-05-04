@@ -7882,6 +7882,13 @@ declare namespace chrome {
         export function cancelJob(jobId: string, callback: () => void): void;
 
         /**
+         * Returns the status of the print job. This call will fail with a runtime error if the print job with the given `jobId` doesn't exist. `jobId`: The id of the print job to return the status of. This should be the same id received in a {@link SubmitJobResponse}.
+         * @since Chrome 135
+         */
+        export function getJobStatus(jobId: string): Promise<`${JobStatus}`>;
+        export function getJobStatus(jobId: string, callback: (status: `${JobStatus}`) => void): void;
+
+        /**
          * Returns the status and capabilities of the printer in CDD format. This call will fail with a runtime error if no printers with given id are installed.
          * Can return its result via Promise in Manifest V3 or later since Chrome 100.
          */
@@ -7905,7 +7912,7 @@ declare namespace chrome {
         /**
          * Event fired when the status of the job is changed. This is only fired for the jobs created by this extension.
          */
-        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: JobStatus) => void>;
+        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: `${JobStatus}`) => void>;
     }
 
     ////////////////////
