@@ -4,6 +4,7 @@ import {
     AdvancedFraudProtection,
     AdvocateMask,
     Agile,
+    AgileCoaching,
     Ai,
     AiExplainability,
     Airplane,
@@ -38,7 +39,6 @@ import {
     Video_01,
     Visibility,
     WatsonLogo,
-    AgileCoaching,
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
