@@ -30,11 +30,14 @@ import * as url from "node:url";
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    // TODO: add test for all remaining options
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        headersTimeout: 50000,
+        rejectNonStandardBodyWrites: false,
     }, reqListener);
 
     server.close();

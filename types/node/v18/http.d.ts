@@ -268,6 +268,13 @@ declare module "http" {
          */
         connectionsCheckingInterval?: number | undefined;
         /**
+         * Sets the timeout value in milliseconds for receiving the complete HTTP headers from the client.
+         * See {@link Server.headersTimeout} for more information.
+         * @default 60000
+         * @since 18.0.0
+         */
+        headersTimeout?: number | undefined;
+        /**
          * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
          * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
          * Default: @see stream.getDefaultHighWaterMark().
@@ -313,6 +320,12 @@ declare module "http" {
          * If the header's value is an array, the items will be joined using `; `.
          */
         uniqueHeaders?: Array<string | string[]> | undefined;
+        /**
+         * If set to `true`, an error is thrown when writing to an HTTP response which does not have a body.
+         * @default false
+         * @since v18.17.0, v20.2.0
+         */
+        rejectNonStandardBodyWrites?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
