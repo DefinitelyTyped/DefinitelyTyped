@@ -289,6 +289,7 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
+    readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);
 
