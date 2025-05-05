@@ -1,6 +1,6 @@
 /// <reference types="webrtc" />
 
-declare interface ImageCapture {
+interface ImageCapture {
     takePhoto(photoSettings?: PhotoSettings): Promise<Blob>;
 
     getPhotoCapabilities(): Promise<PhotoCapabilities>;
