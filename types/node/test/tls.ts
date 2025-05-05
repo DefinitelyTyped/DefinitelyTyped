@@ -97,6 +97,14 @@ import {
         cert: fs.readFileSync("cert_filepath"),
         key: fs.readFileSync("key_filepath"),
     });
+
+    _server.addContext(
+        "example",
+        createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        }),
+    );
 }
 
 {
