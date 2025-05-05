@@ -1004,6 +1004,12 @@ test("waitFor()", (t) => {
     t.waitFor(async () => true);
 });
 
+test("test plan options", (t) => {
+    t.plan(1, { wait: true });
+    t.plan(1, { wait: false });
+    t.plan(1, { wait: 1000 });
+});
+
 // @ts-expect-error Should not be able to instantiate a TestContext
 const invalidTestContext = new TestContext();
 

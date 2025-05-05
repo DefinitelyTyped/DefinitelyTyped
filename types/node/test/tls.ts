@@ -10,6 +10,7 @@ import {
     DEFAULT_MAX_VERSION,
     DEFAULT_MIN_VERSION,
     EphemeralKeyInfo,
+    getCACertificates,
     getCiphers,
     PeerCertificate,
     rootCertificates,
@@ -59,6 +60,7 @@ import {
 
     tlsSocket.encrypted; // $ExpectType true
 
+    const caCertificates: string[] = getCACertificates("default");
     const ciphers: string[] = getCiphers();
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
@@ -69,6 +71,15 @@ import {
 
     tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
     tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
+
+    tlsSocket.setKeyCert({
+        cert: fs.readFileSync("cert_filepath"),
+        key: fs.readFileSync("key_filepath"),
+    });
+    tlsSocket.setKeyCert(createSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
+    }));
 }
 
 {

@@ -1,5 +1,3 @@
-export type exports = string;
-declare let NONE: string;
-declare let COPY: string;
-declare let COPY_ADDING_SUFFIX: string;
-export {};
+export const NONE = "none";
+export const COPY = "copy";
+export const COPY_ADDING_SUFFIX = "copyAddingSuffix";

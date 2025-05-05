@@ -1,30 +1,33 @@
+import { Camera } from "../../cameras/Camera.js";
+import { BufferGeometry } from "../../core/BufferGeometry.js";
+import { Object3D } from "../../core/Object3D.js";
 import { Light } from "../../lights/Light.js";
 import { LightShadow } from "../../lights/LightShadow.js";
-import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import { Material } from "../../materials/Material.js";
+import { Group } from "../../objects/Group.js";
+import ClippingContext from "../../renderers/common/ClippingContext.js";
+import Renderer from "../../renderers/common/Renderer.js";
+import { Scene } from "../../scenes/Scene.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
+import LightsNode from "./LightsNode.js";
 import ShadowBaseNode from "./ShadowBaseNode.js";
 
-export const BasicShadowFilter: (
-    depthTexture: NodeRepresentation,
-    shadowCoord: NodeRepresentation,
-) => ShaderNodeObject<Node>;
-
-export const PCFShadowFilter: (
-    depthTexture: NodeRepresentation,
-    shadowCoord: NodeRepresentation,
-    shadow: NodeRepresentation,
-) => ShaderNodeObject<Node>;
-
-export const PCFSoftShadowFilter: (
-    depthTexture: NodeRepresentation,
-    shadowCoord: NodeRepresentation,
-    shadow: NodeRepresentation,
-) => ShaderNodeObject<Node>;
-
-export const VSMShadowFilter: (
-    depthTexture: NodeRepresentation,
-    shadowCoord: NodeRepresentation,
-) => ShaderNodeObject<Node>;
+export const getShadowRenderObjectFunction: (
+    renderer: Renderer,
+    shadow: LightShadow,
+    shadowType: number,
+    useVelocity: boolean,
+) => (
+    object: Object3D,
+    scene: Scene,
+    _camera: Camera,
+    geometry: BufferGeometry,
+    material: Material,
+    group: Group,
+    lightsNode: LightsNode,
+    clippingContext?: ClippingContext | null,
+    passId?: string | null,
+) => void;
 
 declare class ShadowNode extends ShadowBaseNode {
     constructor(light: Light, shadow: LightShadow | null);
@@ -33,4 +36,3 @@ declare class ShadowNode extends ShadowBaseNode {
 export default ShadowNode;
 
 export const shadow: (light: Light, shadow?: LightShadow) => ShaderNodeObject<ShadowNode>;
-export const shadows: ShaderNodeObject<Node>;

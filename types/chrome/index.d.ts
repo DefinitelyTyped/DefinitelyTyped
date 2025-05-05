@@ -7882,6 +7882,13 @@ declare namespace chrome {
         export function cancelJob(jobId: string, callback: () => void): void;
 
         /**
+         * Returns the status of the print job. This call will fail with a runtime error if the print job with the given `jobId` doesn't exist. `jobId`: The id of the print job to return the status of. This should be the same id received in a {@link SubmitJobResponse}.
+         * @since Chrome 135
+         */
+        export function getJobStatus(jobId: string): Promise<`${JobStatus}`>;
+        export function getJobStatus(jobId: string, callback: (status: `${JobStatus}`) => void): void;
+
+        /**
          * Returns the status and capabilities of the printer in CDD format. This call will fail with a runtime error if no printers with given id are installed.
          * Can return its result via Promise in Manifest V3 or later since Chrome 100.
          */
@@ -7905,7 +7912,7 @@ declare namespace chrome {
         /**
          * Event fired when the status of the job is changed. This is only fired for the jobs created by this extension.
          */
-        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: JobStatus) => void>;
+        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: `${JobStatus}`) => void>;
     }
 
     ////////////////////
@@ -12226,131 +12233,111 @@ declare namespace chrome {
      */
     export namespace tabGroups {
         /** An ID that represents the absence of a group. */
-        export var TAB_GROUP_ID_NONE: -1;
+        export const TAB_GROUP_ID_NONE: -1;
 
-        export type ColorEnum = "grey" | "blue" | "red" | "yellow" | "green" | "pink" | "purple" | "cyan" | "orange";
+        /** The group's color. */
+        export enum Color {
+            BLUE = "blue",
+            CYAN = "cyan",
+            GREEN = "green",
+            GREY = "grey",
+            ORANGE = "orange",
+            PINK = "pink",
+            PURPLE = "purple",
+            RED = "red",
+            YELLOW = "yellow",
+        }
 
         export interface TabGroup {
             /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
             collapsed: boolean;
             /** The group's color. */
-            color: ColorEnum;
+            color: `${Color}`;
             /** The ID of the group. Group IDs are unique within a browser session. */
             id: number;
-            /** Optional. The title of the group. */
-            title?: string | undefined;
+            /** The title of the group. */
+            title?: string;
             /** The ID of the window that contains the group. */
             windowId: number;
         }
 
         export interface MoveProperties {
-            /** The position to move the group to. Use -1 to place the group at the end of the window. */
+            /** The position to move the group to. Use `-1` to place the group at the end of the window. */
             index: number;
-            /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
-            windowId?: number | undefined;
+            /** The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with {@link windows.windowTypeEnum windows.windowType} type `"normal"`. */
+            windowId?: number;
         }
 
         export interface QueryInfo {
-            /** Optional. Whether the groups are collapsed. */
-            collapsed?: boolean | undefined;
-            /** Optional. The color of the groups. */
-            color?: ColorEnum | undefined;
-            /** Optional. Match group titles against a pattern. */
-            title?: string | undefined;
-            /** Optional. The ID of the window that contains the group. */
-            windowId?: number | undefined;
+            /** Whether the groups are collapsed. */
+            collapsed?: boolean;
+            /** The color of the groups. */
+            color?: `${Color}`;
+            /** Match group titles against a pattern. */
+            title?: string;
+            /** The ID of the parent window, or {@link windows.WINDOW_ID_CURRENT} for the current window. */
+            windowId?: number;
         }
 
         export interface UpdateProperties {
-            /** Optional. Whether the group should be collapsed. */
-            collapsed?: boolean | undefined;
-            /** Optional. The color of the group. */
-            color?: ColorEnum | undefined;
-            /** Optional. The title of the group. */
-            title?: string | undefined;
+            /** Whether the group should be collapsed. */
+            collapsed?: boolean;
+            /** The color of the group. */
+            color?: `${Color}`;
+            /** The title of the group. */
+            title?: string;
         }
 
         /**
          * Retrieves details about the specified group.
-         * @param groupId The ID of the tab group.
-         * @param callback Called with the retrieved tab group.
+         *
+         * Can return its result via Promise since Chrome 90.
          */
+        export function get(groupId: number): Promise<TabGroup>;
         export function get(groupId: number, callback: (group: TabGroup) => void): void;
 
         /**
-         * Retrieves details about the specified group.
-         * @param groupId The ID of the tab group.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(groupId: number): Promise<TabGroup>;
-
-        /**
          * Moves the group and all its tabs within its window, or to a new window.
          * @param groupId The ID of the group to move.
-         * @param moveProperties Information on how to move the group.
-         * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function move(groupId: number, moveProperties: MoveProperties): Promise<TabGroup>;
-
-        /**
-         * Moves the group and all its tabs within its window, or to a new window.
-         * @param groupId The ID of the group to move.
-         * @param moveProperties Information on how to move the group.
-         * @param callback Optional.
-         */
+        export function move(groupId: number, moveProperties: MoveProperties): Promise<TabGroup | undefined>;
         export function move(
             groupId: number,
             moveProperties: MoveProperties,
-            callback: (group: TabGroup) => void,
+            callback: (group?: TabGroup) => void,
         ): void;
 
         /**
          * Gets all groups that have the specified properties, or all groups if no properties are specified.
-         * @param queryInfo Object with search parameters.
-         * @param callback Called with retrieved tab groups.
+         *
+         * Can return its result via Promise since Chrome 90.
          */
+        export function query(queryInfo: QueryInfo): Promise<TabGroup[]>;
         export function query(queryInfo: QueryInfo, callback: (result: TabGroup[]) => void): void;
 
         /**
-         * Gets all groups that have the specified properties, or all groups if no properties are specified.
-         * @param queryInfo Object with search parameters.
-         * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function query(queryInfo: QueryInfo): Promise<TabGroup[]>;
-
-        /**
-         * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+         * Modifies the properties of a group. Properties that are not specified in `updateProperties` are not modified.
          * @param groupId The ID of the group to modify.
-         * @param updateProperties Information on how to update the group.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function update(groupId: number, updateProperties: UpdateProperties): Promise<TabGroup>;
-
-        /**
-         * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
-         * @param groupId The ID of the group to modify.
-         * @param updateProperties Information on how to update the group.
-         * @param callback Optional.
-         */
+        export function update(groupId: number, updateProperties: UpdateProperties): Promise<TabGroup | undefined>;
         export function update(
             groupId: number,
             updateProperties: UpdateProperties,
-            callback: (group: TabGroup) => void,
+            callback: (group?: TabGroup) => void,
         ): void;
 
-        export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupRemovedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupUpdated extends chrome.events.Event<(group: TabGroup) => void> {}
-
         /** Fired when a group is created. */
-        export var onCreated: TabGroupCreatedEvent;
+        export const onCreated: events.Event<(group: TabGroup) => void>;
         /** Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group, as well as for the group itself. This event is not fired when a group is moved between windows; instead, it will be removed from one window and created in another. */
-        export var onMoved: TabGroupMovedEvent;
-        /** Fired when a group is closed, either directly by the user or automatically because it contained zero. */
-        export var onRemoved: TabGroupRemovedEvent;
+        export const onMoved: events.Event<(group: TabGroup) => void>;
+        /** Fired when a group is closed, either directly by the user or automatically because it contained zero tabs. */
+        export const onRemoved: events.Event<(group: TabGroup) => void>;
         /** Fired when a group is updated. */
-        export var onUpdated: TabGroupUpdated;
+        export const onUpdated: events.Event<(group: TabGroup) => void>;
     }
 
     ////////////////////
@@ -14860,6 +14847,18 @@ declare namespace chrome {
          */
         export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
 
+        /** @since Chrome 135 */
+        export interface InjectionResult {
+            /** The document associated with the injection. */
+            documentId: string;
+            /** The error, if any. `error` and `result` are mutually exclusive. */
+            error?: string;
+            /** The frame associated with the injection. */
+            frameId: number;
+            /** The result of the script execution. */
+            result: any;
+        }
+
         export interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
             csp?: string;
@@ -14874,6 +14873,18 @@ declare namespace chrome {
 
         export interface UserScriptFilter {
             ids?: string[];
+        }
+
+        /** @since Chrome 135 */
+        export interface InjectionTarget {
+            /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` is specified. */
+            allFrames?: boolean;
+            /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
+            documentIds?: string[];
+            /** The IDs of specific frames to inject into. */
+            frameIds?: number[];
+            /** The ID of the tab into which to inject. */
+            tabId: number;
         }
 
         export interface RegisteredUserScript {
@@ -14899,6 +14910,20 @@ declare namespace chrome {
              * Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
              * @since Chrome 133
              */
+            worldId?: string;
+        }
+
+        /** @since Chrome 135 */
+        export interface UserScriptInjection {
+            /** Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
+            injectImmediately?: boolean;
+            /** The list of ScriptSource objects defining sources of scripts to be injected into the target. */
+            js: ScriptSource[];
+            /** Details specifying the target into which to inject the script. */
+            target: InjectionTarget;
+            /** The JavaScript "world" to run the script in. The default is `USER_SCRIPT`. */
+            world?: ExecutionWorld;
+            /** Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved. */
             worldId?: string;
         }
 
@@ -14953,6 +14978,13 @@ declare namespace chrome {
          */
         export function getWorldConfigurations(): Promise<WorldProperties[]>;
         export function getWorldConfigurations(callback: (worlds: WorldProperties[]) => void): void;
+
+        /**
+         * Injects a script into a target context. By default, the script will be run at `document_idle`, or immediately if the page has already loaded. If the `injectImmediately` property is set, the script will inject without waiting, even if the page has not finished loading. If the script evaluates to a promise, the browser will wait for the promise to settle and return the resulting value.
+         * @since Chrome 135
+         */
+        export function execute(injection: UserScriptInjection): Promise<InjectionResult[]>;
+        export function execute(injection: UserScriptInjection, callback: (result: InjectionResult[]) => void): void;
 
         /**
          * Registers one or more user scripts for this extension.

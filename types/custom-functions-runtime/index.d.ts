@@ -82,7 +82,7 @@ declare namespace CustomFunctions {
          * This value is `true` if the function is invoked to preview the formula value; otherwise it is `false`.
          * 
          * @remarks
-         * [Api set: CustomFunctionsRuntime 1.5]
+         * [Api set: CustomFunctionsRuntime BETA (PREVIEW ONLY)]
          */
         isInValuePreview?: string;
     }

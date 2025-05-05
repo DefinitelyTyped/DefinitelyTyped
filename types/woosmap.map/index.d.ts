@@ -3071,7 +3071,7 @@ declare namespace woosmap.map.localities {
      * A Localities Nearby request to be sent to `LocalitiesService.nearby`
      */
     interface LocalitiesNearbyRequest {
-        categories?: string;
+        categories?: string | string[];
         /**
          * The language code, using ISO 3166-1 Alpha-2 country codes,
          * indicating in which language the results should be returned, if possible.
@@ -3108,10 +3108,25 @@ declare namespace woosmap.map.localities {
      */
     interface LocalitiesSearchRequest {
         /**
+         * The categories of points of interest to return. Multiple categories can be passed as an array of comma separated strings.
+         * Example: `categories=['tourism', 'education']`
+         */
+        categories?: string | string[];
+        /**
          * Used to filter over countries. Countries must be passed as an
          * ISO 3166-1 Alpha-2 or Alpha-3 compatible country code.
          */
         components: woosmap.map.localities.LocalitiesComponentRestrictions;
+        /**
+         * The categories of points of interest to exclude from results. Multiple categories can be passed as an array of comma separated strings.
+         * Example: `excluded_categories=['hospitality.hostel','hospitality.guest_house']`
+         */
+        excluded_categories?: string | string[];
+        /**
+         * The types of suggestions to exclude.
+         * see available types to exclude [https://developers.woosmap.com/products/localities/search/#types](https://developers.woosmap.com/products/localities/search/#types)
+         */
+        excluded_types?: string | string[];
         /**
          * The user entered input string.
          */

@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -3313,7 +3313,7 @@ declare module "sap/ui/mdc/library" {
     /**
      * Describes the filter conditions
      */
-    filter?: State.XCondition;
+    filter?: Record<string, State.XCondition[]>;
     /**
      * Describes the filter fields
      */
@@ -3468,7 +3468,12 @@ declare module "sap/ui/mdc/library" {
         /**
          * Closes the container
          */
-        close(): void;
+        close(
+          /**
+           * If set, closing must not restore the focus on the field
+           */
+          bDoNotRestoreFocus: boolean
+        ): void;
         /**
          * Opens the container
          *
@@ -3541,7 +3546,12 @@ declare module "sap/ui/mdc/library" {
         /**
          * Closes the container
          */
-        close(): void;
+        close(
+          /**
+           * If set, closing must not restore the focus on the field
+           */
+          bDoNotRestoreFocus: boolean
+        ): void;
         /**
          * Determines the item (key and description) for a given value.
          *
@@ -21683,13 +21693,23 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     /**
      * Closes the container
      */
-    close(): void;
+    close(
+      /**
+       * If set, closing must not restore the focus on the field
+       */
+      bDoNotRestoreFocus: boolean
+    ): void;
     /**
      * Closes the container control or element.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    closeContainer(): void;
+    closeContainer(
+      /**
+       * If set, closing must not restore the focus on the field
+       */
+      bDoNotRestoreFocus: boolean
+    ): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
      *

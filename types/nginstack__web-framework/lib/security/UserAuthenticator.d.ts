@@ -4,7 +4,6 @@ declare class UserAuthenticator {
     private _messages;
     userPolicyKey: number;
     defaultPasswordRule: any;
-    private _isKeyOfGroupOrUser;
     getResultMessage(authResult: any): any;
     private authenticateUser;
     validateUserAccess(userId: string, remoteAddress: string): number;

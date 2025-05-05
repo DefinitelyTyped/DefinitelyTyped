@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/uxap/library" {
   /**
@@ -7487,6 +7487,15 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * If you want to change some of the button properties, you would need to bind them to a model.
      */
     getCustomAnchorBarButton(): Button;
+    /**
+     * Returns the effectively applied title level. Could be different than "titleLevel" property, according
+     * to internal UX rules.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns the effective title level
+     */
+    getEffectiveTitleLevel(): string;
     /**
      * Gets current value of property {@link #getImportance importance}.
      *

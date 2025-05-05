@@ -11,6 +11,7 @@ import { Texture } from "../textures/Texture.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 
 export interface RenderTargetOptions {
+    depth?: number | undefined;
     wrapS?: Wrapping | undefined;
     wrapT?: Wrapping | undefined;
     magFilter?: MagnificationTextureFilter | undefined;
@@ -32,6 +33,7 @@ export interface RenderTargetOptions {
      */
     samples?: number | undefined;
     count?: number | undefined;
+    multiview?: boolean | undefined;
 }
 
 export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extends EventDispatcher<{ dispose: {} }> {
@@ -77,6 +79,13 @@ export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extend
      * @default 0
      */
     samples: number;
+
+    /**
+     * Whether to this target is used in multiview rendering.
+     *
+     * @default false
+     */
+    multiview: boolean;
 
     constructor(width?: number, height?: number, options?: RenderTargetOptions);
 

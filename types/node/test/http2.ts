@@ -264,11 +264,11 @@ import { URL } from "node:url";
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
         unknownProtocolTimeout: 123,
     };
-    // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-    const secureServerOptions: SecureServerOptions = Object.assign({}, serverOptions);
-    secureServerOptions.ca = "";
+    const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
         // Http2ServerRequest
 
@@ -384,9 +384,7 @@ import { URL } from "node:url";
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
     };
-    // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-    const secureClientSessionOptions: SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
-    secureClientSessionOptions.ca = "";
+    const secureClientSessionOptions: SecureClientSessionOptions = { ...clientSessionOptions, ca: "..." };
     const onConnectHandler = (session: Http2Session, socket: Socket) => {};
 
     const serverHttp2Session: ServerHttp2Session = {} as any;
@@ -481,8 +479,6 @@ import { URL } from "node:url";
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        streamResetBurst: 1000,
-        streamResetRate: 33,
         unknownProtocolTimeout: 123,
     };
 
