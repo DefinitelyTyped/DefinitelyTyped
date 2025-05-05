@@ -6443,6 +6443,10 @@
             "libraryName": "sade",
             "asOfVersion": "1.8.0"
         },
+        "safe-flat": {
+            "libraryName": "safe-flat",
+            "asOfVersion": "2.1.0"
+        },
         "safe-regex-test": {
             "libraryName": "safe-regex-test",
             "asOfVersion": "1.1.0"
