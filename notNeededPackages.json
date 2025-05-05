@@ -4909,6 +4909,10 @@
             "libraryName": "parse-numeric-range",
             "asOfVersion": "1.3.0"
         },
+        "parse-path": {
+            "libraryName": "parse-path",
+            "asOfVersion": "7.1.0"
+        },
         "parse5": {
             "libraryName": "parse5",
             "asOfVersion": "7.0.0"
