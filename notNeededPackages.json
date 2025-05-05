@@ -1993,6 +1993,10 @@
             "libraryName": "express-request-id",
             "asOfVersion": "3.0.0"
         },
+        "express-slow-down": {
+            "libraryName": "express-slow-down",
+            "asOfVersion": "2.0.0"
+        },
         "express-unless": {
             "libraryName": "express-unless",
             "asOfVersion": "2.0.1"
