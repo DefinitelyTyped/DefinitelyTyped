@@ -277,36 +277,26 @@ declare module "fs/promises" {
          * data will be a string.
          */
         readFile(
-            options?: {
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } | null,
+            options?:
+                | ({ encoding?: null | undefined } & Abortable)
+                | null,
         ): Promise<Buffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options:
-                | {
-                    encoding: BufferEncoding;
-                    flag?: OpenMode | undefined;
-                }
+                | ({ encoding: BufferEncoding } & Abortable)
                 | BufferEncoding,
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options?:
-                | (ObjectEncodingOptions & {
-                    flag?: OpenMode | undefined;
-                })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<string | Buffer>;
