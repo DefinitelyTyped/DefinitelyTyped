@@ -4525,6 +4525,10 @@
             "libraryName": "node-xlsx",
             "asOfVersion": "0.21.0"
         },
+        "node-zendesk": {
+            "libraryName": "node-zendesk",
+            "asOfVersion": "5.0.0"
+        },
         "nodecredstash": {
             "libraryName": "nodecredstash",
             "asOfVersion": "3.0.0"
