@@ -7991,6 +7991,10 @@
             "libraryName": "yog-ral",
             "asOfVersion": "0.22.1"
         },
+        "yoga-layout": {
+            "libraryName": "yoga-layout",
+            "asOfVersion": "3.1.0"
+        },
         "yup": {
             "libraryName": "yup",
             "asOfVersion": "0.32.0"
