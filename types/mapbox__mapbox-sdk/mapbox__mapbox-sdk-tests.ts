@@ -1,5 +1,5 @@
 import mbxClient from "@mapbox/mapbox-sdk";
-import { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
 import Directions, { DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
@@ -10,6 +10,12 @@ import MapMatching, { MapMatchingResponse, MapMatchingService } from "@mapbox/ma
 import Optimization, { OptimizationService } from "@mapbox/mapbox-sdk/services/optimization";
 import StaticMap, { StaticMapService } from "@mapbox/mapbox-sdk/services/static";
 import Styles, { StylesService } from "@mapbox/mapbox-sdk/services/styles";
+import TileQuery, {
+    GeometryType,
+    TileQueryRequest,
+    TileQueryResponseProperty,
+    TileQueryService,
+} from "@mapbox/mapbox-sdk/services/tilequery";
 import { LineString } from "geojson";
 
 const config: SdkConfig = {
@@ -332,3 +338,76 @@ optimizationService.getOptimization({
     roundtrip: true,
     steps: true,
 });
+
+{
+    let tileQueryService: TileQueryService;
+    tileQueryService = TileQuery({ accessToken: "" } satisfies SdkConfig);
+    tileQueryService = TileQuery(new MapiClient({ accessToken: "" }));
+
+    // Required request params
+    let mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+        } satisfies TileQueryRequest,
+    );
+
+    // Optional request params
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            radius: 0,
+            limit: 5,
+            dedupe: true,
+            bands: "band1,band2",
+            layers: "layer1,layer2",
+        } satisfies TileQueryRequest,
+    );
+
+    // Optional Geometry params
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "linestring" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "point" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "polygon" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+
+    const featureCollection = mapiRequest.response!.body;
+    // $ExpectType "FeatureCollection"
+    featureCollection.type;
+
+    const [feature] = featureCollection.features;
+    // $ExpectType "Feature"
+    feature.type;
+    // $ExpectType string | number | undefined
+    feature.id;
+
+    // $ExpectType "Point"
+    feature.geometry.type;
+    // $ExpectType Position
+    feature.geometry.coordinates;
+
+    feature.properties satisfies TileQueryResponseProperty;
+    // $ExpectType number
+    feature.properties.tilequery.distance;
+    // $ExpectType GeometryType
+    feature.properties.tilequery.geometry;
+    // $ExpectType string
+    feature.properties.tilequery.layer;
+}
