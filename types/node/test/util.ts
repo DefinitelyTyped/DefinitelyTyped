@@ -80,6 +80,12 @@ console.log(
 console.log(
     util.styleText(["red", "green"], "text"),
 );
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
+);
 
 // util.callbackify
 class callbackifyTest {

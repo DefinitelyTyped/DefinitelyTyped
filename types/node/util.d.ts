@@ -1466,6 +1466,18 @@ declare module "util" {
         | "reset"
         | "strikethrough"
         | "underline";
+    export interface StyleTextOptions {
+        /**
+         * When true, `stream` is checked to see if it can handle colors.
+         * @default true
+         */
+        validateStream?: boolean | undefined;
+        /**
+         * A stream that will be validated if it can be colored.
+         * @default process.stdout
+         */
+        stream?: NodeJS.WritableStream | undefined;
+    }
     /**
      * This function returns a formatted text considering the `format` passed
      * for printing in a terminal. It is aware of the terminal's capabilities
@@ -1518,6 +1530,7 @@ declare module "util" {
             | Modifiers
             | Array<ForegroundColors | BackgroundColors | Modifiers>,
         text: string,
+        options?: StyleTextOptions,
     ): string;
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
