@@ -13,9 +13,9 @@ interface ImageCapture {
 }
 
 declare var ImageCapture: {
-    prototype: ImageCapture
+    prototype: ImageCapture;
     new(videoTrack: MediaStreamTrack): ImageCapture;
-}
+};
 
 interface PhotoCapabilities {
     redEyeReduction?: "never" | "always" | "controllable";
