@@ -11,6 +11,10 @@
     },
     "owners": [
         {
+            "name": "Jordan Eldredge",
+            "githubUsername": "captbaritone"
+        },
+        {
             "name": "Eloy Durán",
             "githubUsername": "alloy"
         },
