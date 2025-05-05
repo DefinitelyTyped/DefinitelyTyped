@@ -133,3 +133,8 @@ itemsCustomId.search({
 itemsCustomId.search({
     ids: ["a"],
 });
+
+// @ts-expect-error Can only pass objects
+itemsjs("foo");
+// @ts-expect-error Can only pass objects
+itemsjs(123);
