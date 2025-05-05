@@ -716,6 +716,10 @@
             "libraryName": "cheap-ruler",
             "asOfVersion": "2.5.0"
         },
+        "cheerio": {
+            "libraryName": "cheerio",
+            "asOfVersion": "1.0.0"
+        },
         "chokidar": {
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
