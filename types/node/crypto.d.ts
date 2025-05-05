@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/crypto.js)
  */
 declare module "crypto" {
     import * as stream from "node:stream";
@@ -96,7 +96,7 @@ declare module "crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v22.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v24.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -3352,10 +3352,17 @@ declare module "crypto" {
     ): void;
     /**
      * Computes the Diffie-Hellman secret based on a `privateKey` and a `publicKey`.
-     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'` (for Diffie-Hellman), `'ec'` (for ECDH), `'x448'`, or `'x25519'` (for ECDH-ES).
+     * Both keys must have the same `asymmetricKeyType`, which must be one of `'dh'`
+     * (for Diffie-Hellman), `'ec'`, `'x448'`, or `'x25519'` (for ECDH).
+     *
+     * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+    function diffieHellman(
+        options: { privateKey: KeyObject; publicKey: KeyObject },
+        callback: (err: Error | null, secret: Buffer) => void,
+    ): void;
     /**
      * A utility for creating one-shot hash digests of data. It can be faster than the object-based `crypto.createHash()` when hashing a smaller amount of data
      * (<= 5MB) that's readily available. If the data can be big or if it is streamed, it's still recommended to use `crypto.createHash()` instead. The `algorithm`
@@ -3382,7 +3389,7 @@ declare module "crypto" {
      * @since v21.7.0, v20.12.0
      * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different input encoding is desired for a string input, user
      *             could encode the string into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing the encoded `TypedArray` into this API instead.
-     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v22.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
+     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v24.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
      */
     function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
     function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;

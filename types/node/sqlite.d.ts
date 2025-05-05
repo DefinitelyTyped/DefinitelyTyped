@@ -40,7 +40,7 @@
  * ```
  * @since v22.5.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/sqlite.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
@@ -220,7 +220,7 @@ declare module "node:sqlite" {
          * @param func The JavaScript function to call when the SQLite
          * function is invoked. The return value of this function should be a valid
          * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v22.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
          * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
@@ -322,6 +322,38 @@ declare module "node:sqlite" {
          */
         close(): void;
     }
+    interface StatementColumnMetadata {
+        /**
+         * The unaliased name of the column in the origin
+         * table, or `null` if the column is the result of an expression or subquery.
+         * This property is the result of [`sqlite3_column_origin_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        column: string | null;
+        /**
+         * The unaliased name of the origin database, or
+         * `null` if the column is the result of an expression or subquery. This
+         * property is the result of [`sqlite3_column_database_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        database: string | null;
+        /**
+         * The name assigned to the column in the result set of a
+         * `SELECT` statement. This property is the result of
+         * [`sqlite3_column_name()`](https://www.sqlite.org/c3ref/column_name.html).
+         */
+        name: string;
+        /**
+         * The unaliased name of the origin table, or `null` if
+         * the column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_table_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        table: string | null;
+        /**
+         * The declared data type of the column, or `null` if the
+         * column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_decltype()`](https://www.sqlite.org/c3ref/column_decltype.html).
+         */
+        type: string | null;
+    }
     interface StatementResultingChanges {
         /**
          * The number of rows modified, inserted, or deleted by the most recently completed `INSERT`, `UPDATE`, or `DELETE` statement.
@@ -366,6 +398,14 @@ declare module "node:sqlite" {
             namedParameters: Record<string, SQLInputValue>,
             ...anonymousParameters: SQLInputValue[]
         ): Record<string, SQLOutputValue>[];
+        /**
+         * This method is used to retrieve information about the columns returned by the
+         * prepared statement.
+         * @since v23.11.0
+         * @returns An array of objects. Each object corresponds to a column
+         * in the prepared statement, and contains the following properties:
+         */
+        columns(): StatementColumnMetadata[];
         /**
          * The source SQL text of the prepared statement with parameter
          * placeholders replaced by the values that were used during the most recent
@@ -465,6 +505,66 @@ declare module "node:sqlite" {
          */
         readonly sourceSQL: string;
     }
+    interface BackupOptions {
+        /**
+         * Name of the source database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`][]
+         * @default 'main'
+         */
+        source?: string | undefined;
+        /**
+         * Name of the target database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`][]
+         * @default 'main'
+         */
+        target?: string | undefined;
+        /**
+         * Number of pages to be transmitted in each batch of the backup.
+         * @default 100
+         */
+        rate?: number | undefined;
+        /**
+         * Callback function that will be called with the number of pages copied and the total number of
+         * pages.
+         */
+        progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
+    }
+    interface BackupProgressInfo {
+        totalPages: number;
+        remainingPages: number;
+    }
+    /**
+     * This method makes a database backup. This method abstracts the
+     * [`sqlite3_backup_init()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupinit),
+     * [`sqlite3_backup_step()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupstep)
+     * and [`sqlite3_backup_finish()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupfinish) functions.
+     *
+     * The backed-up database can be used normally during the backup process. Mutations coming from the same connection - same
+     * `DatabaseSync` - object will be reflected in the backup right away. However, mutations from other connections will cause
+     * the backup process to restart.
+     *
+     * ```js
+     * import { backup, DatabaseSync } from 'node:sqlite';
+     *
+     * const sourceDb = new DatabaseSync('source.db');
+     * const totalPagesTransferred = await backup(sourceDb, 'backup.db', {
+     *   rate: 1, // Copy one page at a time.
+     *   progress: ({ totalPages, remainingPages }) => {
+     *     console.log('Backup in progress', { totalPages, remainingPages });
+     *   },
+     * });
+     *
+     * console.log('Backup completed', totalPagesTransferred);
+     * ```
+     * @since v23.8.0
+     * @param sourceDb The database to backup. The source database must be open.
+     * @param path The path where the backup will be created. If the file already exists,
+     * the contents will be overwritten.
+     * @param options Optional configuration for the backup. The
+     * following properties are supported:
+     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     */
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
     /**
      * @since v22.13.0
      */

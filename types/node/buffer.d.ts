@@ -46,7 +46,7 @@ type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : impo
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/buffer.js)
  */
 declare module "buffer" {
     import { BinaryLike } from "node:crypto";

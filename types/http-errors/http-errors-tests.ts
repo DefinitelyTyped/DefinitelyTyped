@@ -1,6 +1,6 @@
 import create = require("http-errors");
 import express = require("express");
-import * as util from "util";
+import { types } from "util";
 
 const app = express();
 
@@ -132,10 +132,10 @@ create(404) instanceof create.HttpError;
 (new create["404"]()) instanceof create.HttpError;
 (new create["500"]()) instanceof create.HttpError;
 
-// should support util.isError()
-util.isError(create(404));
-util.isError(new create["404"]());
-util.isError(new create["500"]());
+// should support util.types.isNativeError()
+types.isNativeError(create(404));
+types.isNativeError(new create["404"]());
+types.isNativeError(new create["500"]());
 
 // should support isHttpError
 create.isHttpError(1); // non-http-error type

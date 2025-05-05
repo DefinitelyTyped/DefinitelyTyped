@@ -1,4 +1,4 @@
-import { constants, DatabaseSync, StatementSync } from "node:sqlite";
+import { backup, constants, DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
@@ -25,6 +25,7 @@ import { TextEncoder } from "node:util";
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
     insert.setAllowUnknownNamedParameters(true);
+    insert.columns(); // $ExpectType StatementColumnMetadata[]
     insert.run(1, 42, 3.14159, "foo", new TextEncoder().encode("a☃b☃c"));
     insert.run(2, null, null, null, null);
     insert.run(3, Number(8), Number(2.718), String("bar"), Buffer.from("x☃y☃"));
@@ -33,7 +34,7 @@ import { TextEncoder } from "node:util";
 
     const query = database.prepare("SELECT * FROM data ORDER BY key");
     query.all(); // $ExpectType Record<string, SQLOutputValue>[]
-    query.iterate(); // $ExpectType Iterator<Record<string, SQLOutputValue>, any, any>
+    query.iterate(); // $ExpectType Iterator<Record<string, SQLOutputValue>, undefined, any>
 
     const sql = "INSERT INTO types (key, val) VALUES ($k, ?)";
     const stmt = database.prepare(sql);
@@ -95,4 +96,20 @@ import { TextEncoder } from "node:util";
             return constants.SQLITE_CHANGESET_ABORT;
         },
     });
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+
+    // $ExpectType Promise<void>
+    backup(
+        db,
+        "/var/lib/sqlite/backup",
+        {
+            source: "main",
+            target: "backup",
+            rate: 250,
+            progress: (progressInfo) => console.log(`${progressInfo.remainingPages}/${progressInfo.totalPages}`),
+        },
+    );
 }

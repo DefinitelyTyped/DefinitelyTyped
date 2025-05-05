@@ -194,7 +194,7 @@ declare module "process" {
                 readonly ipv6: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build supports
-                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v22.x/api/modules.md#loading-ecmascript-modules-using-require).
+                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v24.x/api/modules.md#loading-ecmascript-modules-using-require).
                  * @since v22.10.0
                  */
                 readonly require_module: boolean;
@@ -231,8 +231,9 @@ declare module "process" {
                  */
                 readonly tls_sni: boolean;
                 /**
-                 * A value that is `"strip"` if Node.js is run with `--experimental-strip-types`,
-                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` otherwise.
+                 * A value that is `"strip"` by default,
+                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
+                 * Node.js is run with `--no-experimental-strip-types`.
                  * @since v22.10.0
                  */
                 readonly typescript: "strip" | "transform" | false;
@@ -748,7 +749,7 @@ declare module "process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v22.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v24.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -1491,6 +1492,18 @@ declare module "process" {
                  */
                 readonly ppid: number;
                 /**
+                 * The `process.threadCpuUsage()` method returns the user and system CPU time usage of
+                 * the current worker thread, in an object with properties `user` and `system`, whose
+                 * values are microsecond values (millionth of a second).
+                 *
+                 * The result of a previous call to `process.threadCpuUsage()` can be passed as the
+                 * argument to the function, to get a diff reading.
+                 * @since v23.9.0
+                 * @param previousValue A previous return value from calling
+                 * `process.threadCpuUsage()`
+                 */
+                threadCpuUsage(previousValue?: CpuUsage): CpuUsage;
+                /**
                  * The `process.title` property returns the current process title (i.e. returns
                  * the current value of `ps`). Assigning a new value to `process.title` modifies
                  * the current value of `ps`.
@@ -1571,7 +1584,7 @@ declare module "process" {
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v22.x/api/process.html#processavailablememory) for more information.
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v24.x/api/process.html#processavailablememory) for more information.
                  * @experimental
                  * @since v20.13.0
                  */
@@ -1845,7 +1858,7 @@ declare module "process" {
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
                  * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
-                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v22.x/api/report.html).
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v24.x/api/report.html).
                  * @since v11.8.0
                  */
                 report: ProcessReport;
