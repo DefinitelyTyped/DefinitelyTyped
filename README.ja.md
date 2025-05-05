@@ -11,10 +11,10 @@ _[管理マニュアルへのリンク](./docs/admin.md)_
 このセクションではリポジトリと公開プロセスの稼働状況を追跡できます。
 PR やパッケージに何か不具合がある場合は、これらが役に立つかもしれません。
 
-- 直近のビルドの[型チェックと Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) が正常終了したか: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-- 次バージョンの TypeScript 上で全パッケージの型チェックと Lint が正常終了したか: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-- 1時間以内に全パッケージが [npm に公開](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)されているか: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-- Definitely Typed 上で [typescript-bot](https://github.com/typescript-bot) がアクティブかどうか: [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- 直近のビルドの[型チェックと Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) が正常終了したか: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
+- 次バージョンの TypeScript 上で全パッケージの型チェックと Lint が正常終了したか: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
+- 1時間以内に全パッケージが [npm に公開](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)されているか: [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
+- Definitely Typed 上で [typescript-bot](https://github.com/typescript-bot) がアクティブかどうか: [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
 - 現在の[運用基盤のステータス更新](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 掲載されているもので何かが正常ではなかったり、結果が失敗になっているものがある場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript)までご連絡ください。
