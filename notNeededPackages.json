@@ -2801,6 +2801,10 @@
             "libraryName": "i18next-xhr-backend",
             "asOfVersion": "1.4.2"
         },
+        "iamport-react-native": {
+            "libraryName": "iamport-react-native",
+            "asOfVersion": "2.0.0"
+        },
         "icon-gen": {
             "libraryName": "icon-gen",
             "asOfVersion": "2.1.0"
