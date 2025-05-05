@@ -112,6 +112,9 @@ const handlerProvider: HandlerProvider = (handle: string) => {
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 
+// Minimal
+new Environment({ network });
+
 const isServer = false;
 
 const options = {
