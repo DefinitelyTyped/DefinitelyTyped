@@ -1,5 +1,6 @@
 import ChaiJsonSchema = require("chai-json-schema");
 import { TV4 } from "tv4";
+import "chai/register-should";
 
 declare const assert: Chai.AssertStatic;
 declare const expect: Chai.ExpectStatic;
