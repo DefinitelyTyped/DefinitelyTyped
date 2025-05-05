@@ -448,6 +448,8 @@ declare module "buffer" {
              */
             subarray(start?: number, end?: number): Buffer;
         }
+        type NonSharedBuffer = Buffer;
+        type AllowSharedBuffer = Buffer;
     }
     /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
     var SlowBuffer: {

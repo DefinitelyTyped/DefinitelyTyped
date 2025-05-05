@@ -450,6 +450,8 @@ declare module "buffer" {
              */
             subarray(start?: number, end?: number): Buffer<TArrayBuffer>;
         }
+        type NonSharedBuffer = Buffer<ArrayBuffer>;
+        type AllowSharedBuffer = Buffer<ArrayBufferLike>;
     }
     /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
     var SlowBuffer: {

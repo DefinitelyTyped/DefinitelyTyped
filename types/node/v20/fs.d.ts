@@ -2682,7 +2682,7 @@ declare module "fs" {
             } & Abortable)
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2717,7 +2717,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2726,7 +2726,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     export namespace readFile {
         /**
@@ -2742,7 +2742,7 @@ declare module "fs" {
                 encoding?: null | undefined;
                 flag?: string | undefined;
             } | null,
-        ): Promise<Buffer>;
+        ): Promise<NonSharedBuffer>;
         /**
          * Asynchronously reads the entire contents of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2776,7 +2776,7 @@ declare module "fs" {
                 })
                 | BufferEncoding
                 | null,
-        ): Promise<string | Buffer>;
+        ): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the contents of the `path`.
@@ -2808,7 +2808,7 @@ declare module "fs" {
             encoding?: null | undefined;
             flag?: string | undefined;
         } | null,
-    ): Buffer;
+    ): NonSharedBuffer;
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2840,7 +2840,7 @@ declare module "fs" {
             })
             | BufferEncoding
             | null,
-    ): string | Buffer;
+    ): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions
