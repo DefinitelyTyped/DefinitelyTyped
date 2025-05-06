@@ -5,12 +5,12 @@ export interface ProxyAgentConfigurationInputType {
 }
 
 export interface ProxyAgentConfigurationType {
-    readonly HTTP_PROXY: string | null;
-    readonly HTTPS_PROXY: string | null;
-    readonly NO_PROXY: string | null;
+    HTTP_PROXY: string | null;
+    HTTPS_PROXY: string | null;
+    NO_PROXY: string | null;
 }
 
 export function bootstrap(configurationInput?: ProxyAgentConfigurationInputType): boolean;
 export function createGlobalProxyAgent(
-    configurationInput: ProxyAgentConfigurationInputType,
+    configurationInput?: ProxyAgentConfigurationInputType,
 ): ProxyAgentConfigurationType;

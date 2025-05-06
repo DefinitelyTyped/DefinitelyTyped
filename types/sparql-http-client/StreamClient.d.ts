@@ -2,7 +2,7 @@ import { Environment } from "@rdfjs/environment/Environment.js";
 import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from "@rdfjs/types";
 import { Client, SimpleClient } from "./index.js";
 import StreamQuery from "./StreamQuery.js";
-import StreamStore from "./StreamStore.js";
+import { StreamStore } from "./StreamStore.js";
 
 export interface Options<Q extends BaseQuad = BaseQuad> {
     factory?: Environment<DataFactory<Q> | DatasetCoreFactory>;

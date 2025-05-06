@@ -6,7 +6,7 @@ declare class FieldGroup {
     label: string;
     id: number;
     name: string;
-    parent: string;
+    parent: any;
     private css;
     collapsed: boolean;
     autoSanitize: boolean;

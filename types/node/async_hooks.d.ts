@@ -372,7 +372,6 @@ declare module "async_hooks" {
         /**
          * Binds the given function to the current execution context.
          * @since v19.8.0
-         * @experimental
          * @param fn The function to bind to the current execution context.
          * @return A new function that calls `fn` within the captured execution context.
          */
@@ -403,7 +402,6 @@ declare module "async_hooks" {
          * console.log(asyncLocalStorage.run(321, () => foo.get())); // returns 123
          * ```
          * @since v19.8.0
-         * @experimental
          * @return A new function with the signature `(fn: (...args) : R, ...args) : R`.
          */
         static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
@@ -534,6 +532,70 @@ declare module "async_hooks" {
          * @experimental
          */
         enterWith(store: T): void;
+    }
+    /**
+     * @since v17.2.0, v16.14.0
+     * @return A map of provider types to the corresponding numeric id.
+     * This map contains all the event types that might be emitted by the `async_hooks.init()` event.
+     */
+    namespace asyncWrapProviders {
+        const NONE: number;
+        const DIRHANDLE: number;
+        const DNSCHANNEL: number;
+        const ELDHISTOGRAM: number;
+        const FILEHANDLE: number;
+        const FILEHANDLECLOSEREQ: number;
+        const FIXEDSIZEBLOBCOPY: number;
+        const FSEVENTWRAP: number;
+        const FSREQCALLBACK: number;
+        const FSREQPROMISE: number;
+        const GETADDRINFOREQWRAP: number;
+        const GETNAMEINFOREQWRAP: number;
+        const HEAPSNAPSHOT: number;
+        const HTTP2SESSION: number;
+        const HTTP2STREAM: number;
+        const HTTP2PING: number;
+        const HTTP2SETTINGS: number;
+        const HTTPINCOMINGMESSAGE: number;
+        const HTTPCLIENTREQUEST: number;
+        const JSSTREAM: number;
+        const JSUDPWRAP: number;
+        const MESSAGEPORT: number;
+        const PIPECONNECTWRAP: number;
+        const PIPESERVERWRAP: number;
+        const PIPEWRAP: number;
+        const PROCESSWRAP: number;
+        const PROMISE: number;
+        const QUERYWRAP: number;
+        const SHUTDOWNWRAP: number;
+        const SIGNALWRAP: number;
+        const STATWATCHER: number;
+        const STREAMPIPE: number;
+        const TCPCONNECTWRAP: number;
+        const TCPSERVERWRAP: number;
+        const TCPWRAP: number;
+        const TTYWRAP: number;
+        const UDPSENDWRAP: number;
+        const UDPWRAP: number;
+        const SIGINTWATCHDOG: number;
+        const WORKER: number;
+        const WORKERHEAPSNAPSHOT: number;
+        const WRITEWRAP: number;
+        const ZLIB: number;
+        const CHECKPRIMEREQUEST: number;
+        const PBKDF2REQUEST: number;
+        const KEYPAIRGENREQUEST: number;
+        const KEYGENREQUEST: number;
+        const KEYEXPORTREQUEST: number;
+        const CIPHERREQUEST: number;
+        const DERIVEBITSREQUEST: number;
+        const HASHREQUEST: number;
+        const RANDOMBYTESREQUEST: number;
+        const RANDOMPRIMEREQUEST: number;
+        const SCRYPTREQUEST: number;
+        const SIGNREQUEST: number;
+        const TLSWRAP: number;
+        const VERIFYREQUEST: number;
     }
 }
 declare module "node:async_hooks" {

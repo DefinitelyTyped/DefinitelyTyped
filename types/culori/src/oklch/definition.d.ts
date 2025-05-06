@@ -1,7 +1,8 @@
-import lch from "../lch/definition";
-import { Oklab } from "../oklab/types";
-import { Rgb } from "../rgb/types";
-import { Oklch } from "./types";
+import lch from "../lch/definition.js";
+import { Oklab } from "../oklab/types.js";
+import { Rgb } from "../rgb/types.js";
+import parseOklch from "./parseOklch.js";
+import { Oklch } from "./types.js";
 
 interface OklchDefinitionMixin {
     mode: "oklch";
@@ -16,16 +17,16 @@ interface OklchDefinitionMixin {
         oklab: (c: Omit<Oklab, "mode">) => Oklch;
     };
 
-    parse: ["--oklch"];
-    serialize: "--oklch";
+    parse: [typeof parseOklch];
+    serialize: (c: Omit<Oklch, "mode">) => string;
 
     ranges: {
-        l: [0, 0.999];
-        c: [0, 0.322];
+        l: [0, 1];
+        c: [0, 0.4];
         h: [0, 360];
     };
 }
 
-declare const definition: Omit<typeof lch, keyof OklchDefinitionMixin> & OklchDefinitionMixin;
+declare const modeOklch: Omit<typeof lch, keyof OklchDefinitionMixin> & OklchDefinitionMixin;
 
-export default definition;
+export default modeOklch;

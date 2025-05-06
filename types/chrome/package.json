@@ -3,16 +3,14 @@
     "name": "@types/chrome",
     "version": "0.0.9999",
     "projects": [
-        "http://developer.chrome.com/extensions/"
+        "https://developer.chrome.com/docs/extensions"
     ],
     "dependencies": {
         "@types/filesystem": "*",
         "@types/har-format": "*"
     },
     "devDependencies": {
-        "@types/chrome": "workspace:.",
-        "@types/jquery": "*",
-        "@types/jqueryui": "*"
+        "@types/chrome": "workspace:."
     },
     "owners": [
         {

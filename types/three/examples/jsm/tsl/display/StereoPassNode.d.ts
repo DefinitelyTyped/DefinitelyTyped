@@ -1,5 +1,5 @@
-import { Camera, Scene, StereoCamera } from "three";
-import { PassNode, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Camera, PassNode, Scene, StereoCamera } from "three/webgpu";
 
 declare class StereoPassNode extends PassNode {
     readonly isStereoPassNode: true;

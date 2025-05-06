@@ -272,15 +272,15 @@ export interface TableProps extends React.ClassAttributes<Table> {
 
     /**
      * Callback that is called when scrolling starts with current horizontal
-     * and vertical scroll values.
+     * and vertical scroll values, as well as the first and last row index.
      */
-    onScrollStart?: ((x: number, y: number) => void) | undefined;
+    onScrollStart?: ((x: number, y: number, firstRowIndex: number, lastRowIndex: number) => void) | undefined;
 
     /**
      * Callback that is called when scrolling ends or stops with new horizontal
-     * and vertical scroll values.
+     * and vertical scroll values, as well as the first and last row index.
      */
-    onScrollEnd?: ((x: number, y: number) => void) | undefined;
+    onScrollEnd?: ((x: number, y: number, firstRowIndex: number, lastRowIndex: number) => void) | undefined;
 
     /**
      * If enabled scroll events will not be propagated outside of the table.

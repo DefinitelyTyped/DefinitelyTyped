@@ -1,5 +1,5 @@
-import { Vector3 } from "three";
-import { NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { TempNode, TextureNode, UniformNode, Vector3 } from "three/webgpu";
 
 interface LensflareNodeParams {
     ghostTint?: NodeRepresentation | undefined;

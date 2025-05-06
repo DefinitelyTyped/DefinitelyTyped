@@ -25,3 +25,9 @@ cluster.on("setup", (settings: ClusterSettings) => {});
 {
     const workers: NodeJS.Dict<Worker> = cluster.workers!;
 }
+
+{
+    const worker = new Worker();
+    // $ExpectType Worker
+    worker.disconnect();
+}

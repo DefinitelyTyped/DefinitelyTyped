@@ -201,3 +201,20 @@ const mixedUntypedCallbackTypedHandler: CustomHandler = (
     context: AWSLambda.Context,
     cb: AWSLambda.Callback,
 ) => {};
+
+// Test streamifyResponse
+const streamifyResponseHandler: AWSLambda.StreamifyHandler = (event, responseStream, context) => {
+    const metadata = {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "application/json",
+            "CustomHeader": "outerspace",
+        },
+    };
+    responseStream = awslambda.HttpResponseStream.from(responseStream, metadata);
+    responseStream.setContentType("text/plain");
+    responseStream.write("Hello, world!");
+    responseStream.end();
+};
+
+awslambda.streamifyResponse(streamifyResponseHandler);

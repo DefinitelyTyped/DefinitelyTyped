@@ -7,10 +7,10 @@
     ],
     "dependencies": {
         "@types/react": "^18",
-        "@types/wordpress__shortcode": "*",
         "@wordpress/components": "^27.2.0",
         "@wordpress/data": "^9.13.0",
-        "@wordpress/element": "^5.0.0"
+        "@wordpress/element": "^5.0.0",
+        "@wordpress/shortcode": "^4.14.0"
     },
     "devDependencies": {
         "@types/wordpress__blocks": "workspace:."

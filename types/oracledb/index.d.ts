@@ -1642,6 +1642,8 @@ declare namespace OracleDB {
 
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
+        /** Registration ID of affected registration. */
+        regId: bigint;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
         type: number;
     }
@@ -2965,6 +2967,15 @@ declare namespace OracleDB {
          * Statistics can be output to the console by calling the pool.logStatistics() method.
          */
         enableStatistics?: boolean | undefined;
+        /**
+         * The privilege to use when establishing connection to the database.
+         * This optional property should be one of the privileged connection constants.
+         * For Thin mode only, privilege is applicable in createPool. Thick mode
+         * still needs to pass it in pool.getConnection.
+         *
+         * @since 6.5.1
+         */
+        privilege?: number | undefined;
     }
 
     /**
@@ -4658,6 +4669,96 @@ declare namespace OracleDB {
     function startup(creds: DBCredentials, opts?: StartupOptions): Promise<void>;
     function startup(creds: DBCredentials, opts: StartupOptions, cb: (err: Error) => void): void;
     function startup(creds: DBCredentials, cb: (err: Error) => void): void;
+
+    /**
+     * Type representing the trace context object.
+     *
+     * @since 6.7.0
+     */
+    type TraceContext = Record<string, any>;
+
+    /**
+     * Base class for handling tracing.
+     *
+     * @since 6.7.0
+     */
+    class TraceHandlerBase {
+        constructor();
+
+        /**
+         * Checks if sending traces is enabled.
+         */
+        isEnabled(): boolean;
+
+        /**
+         * Enables sending traces.
+         */
+        enable(): void;
+
+        /**
+         * Disables sending traces.
+         */
+        disable(): void;
+
+        /**
+         * Called before invoking a public async method.
+         * @param traceContext  input/output trace context object.
+         */
+        onEnterFn(traceContext: TraceContext): void;
+
+        /**
+         * Called after invoking a public async method.
+         * @param traceContext input/output trace context object.
+         */
+        onExitFn(traceContext: TraceContext): void;
+
+        /**
+         * Called when a round trip is begun.
+         * @param traceContext input/output trace context object.
+         */
+        onBeginRoundTrip(traceContext: TraceContext): void;
+
+        /**
+         * Called when a round trip has ended.
+         * @param traceContext input/output trace context object.
+         */
+        onEndRoundTrip(traceContext: TraceContext): void;
+    }
+
+    /*
+     * Assigns a derived object that implements the hooks in the TraceHandlerBase class.
+     * If no argument is provided, it clears the previously assigned instance.
+     *
+     * @since 6.7.0
+     */
+    function setTraceInstance(obj?: TraceHandlerBase): void;
+
+    /*
+     * Retrieves the derived object that implements the hooks in the TraceHandlerBase class.
+     *
+     * @since 6.7.0
+     */
+    function getTraceInstance(): TraceHandlerBase | undefined;
+
+    /*
+     * Verify if Tracing is enabled.
+     *
+     * @since 6.7.0
+     */
+    function isEnabled(): boolean | undefined;
+
+    /**
+     * traceHandler property containing the TraceHandlerBase class.
+     *
+     * @since 6.7.0
+     */
+    interface traceHandler {
+        TraceHandlerBase: typeof TraceHandlerBase;
+        setTraceInstance(obj?: TraceHandlerBase): void;
+        getTraceInstance(): TraceHandlerBase | undefined;
+        isEnabled(): boolean | undefined;
+    }
+    const traceHandler: traceHandler;
 }
 
 export = OracleDB;

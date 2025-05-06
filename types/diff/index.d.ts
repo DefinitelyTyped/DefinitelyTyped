@@ -61,6 +61,11 @@ export interface LinesOptions extends BaseOptions {
      * friendly output.
      */
     newlineIsToken?: boolean | undefined;
+
+    /**
+     * `true` to remove all trailing CR (`\r`) characters before performing the diff. Defaults to false. This helps to get a useful diff when diffing UNIX text files against Windows text files.
+     */
+    stripTrailingCr?: boolean | undefined;
 }
 
 export interface JsonOptions extends LinesOptions {
@@ -122,7 +127,7 @@ export interface ApplyPatchOptions {
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
     loadFile(index: ParsedDiff, callback: (err: any, data: string) => void): void;
-    patched(index: ParsedDiff, content: string, callback: (err: any) => void): void;
+    patched(index: ParsedDiff, content: string | false, callback: (err: any) => void): void;
     complete(err: any): void;
 }
 

@@ -11,5 +11,5 @@ declare namespace typeIs {
     function hasBody(request: IncomingMessage): boolean;
     function is(mediaType: string, types: string[]): string | false;
     function is(mediaType: string, ...types: string[]): string | false;
-    function mimeMatch(expected: false | string, actual: string): boolean;
+    function match(expected: false | string, actual: string): boolean;
 }

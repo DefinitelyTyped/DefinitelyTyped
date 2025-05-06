@@ -1015,6 +1015,7 @@ declare module "assert" {
                 | "deepStrictEqual"
                 | "ifError"
                 | "strict"
+                | "AssertionError"
             >
             & {
                 (value: unknown, message?: string | Error): asserts value;
@@ -1030,6 +1031,7 @@ declare module "assert" {
                 deepStrictEqual: typeof deepStrictEqual;
                 ifError: typeof ifError;
                 strict: typeof strict;
+                AssertionError: typeof AssertionError;
             };
     }
     export = assert;

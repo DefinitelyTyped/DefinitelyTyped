@@ -31,7 +31,12 @@ export default class TextureNode extends UniformNode<Texture> {
 
     getSampler(): boolean;
 
+    /**
+     * @deprecated
+     */
     uv(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    sample(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
 
     blur(amountNode: NodeRepresentation): ShaderNodeObject<Node>;
 
@@ -63,4 +68,6 @@ export const textureLoad: (
     biasNode?: NodeRepresentation,
 ) => ShaderNodeObject<TextureNode>;
 
-export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;
+export const sampler: (value: Texture | TextureNode) => ShaderNodeObject<Node>;
+
+export const samplerComparison: (value: Texture | TextureNode) => ShaderNodeObject<Node>;

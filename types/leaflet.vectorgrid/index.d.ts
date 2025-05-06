@@ -73,7 +73,9 @@ declare module "leaflet" {
         /** A factory method which will be used to instantiate the per-tile renderers. */
         rendererFactory?: TileFactoryFunction<T>;
         /** A data structure holding initial symbolizer definitions for the vector features. */
-        vectorTileLayerStyles?: Record<string, PathOptions>;
+        vectorTileLayerStyles?:
+            | Record<string, PathOptions>
+            | ((properties: Record<string, string>, zoom: number) => PathOptions);
         /** Whether this VectorGrid fires Interactive Layer events. */
         interactive?: boolean;
         /**

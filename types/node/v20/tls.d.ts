@@ -399,6 +399,14 @@ declare module "tls" {
             callback: (err: Error | null) => void,
         ): undefined | boolean;
         /**
+         * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
+         * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.
+         * @since v22.5.0, v20.17.0
+         * @param context An object containing at least `key` and `cert` properties from the {@link createSecureContext()} `options`,
+         * or a TLS context object created with {@link createSecureContext()} itself.
+         */
+        setKeyCert(context: SecureContextOptions | SecureContext): void;
+        /**
          * The `tlsSocket.setMaxSendFragment()` method sets the maximum TLS fragment size.
          * Returns `true` if setting the limit succeeded; `false` otherwise.
          *
@@ -639,7 +647,7 @@ declare module "tls" {
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
          * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *

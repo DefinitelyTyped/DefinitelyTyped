@@ -19,6 +19,9 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
 
     fs.write(1234, "test", () => {});
+    fs.write(1234, Buffer.from("test"), () => {});
+    fs.write(1234, Buffer.from("test"), { offset: 10, length: 10, position: 10 }, () => {});
+    fs.write(1234, Buffer.from("test"), { position: null }, () => {});
 
     fs.writeFile("Harry Potter", "\"You be wizzing, Harry,\" jived Dumbledore.", {
         encoding: "ascii",
@@ -122,6 +125,8 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {},
     );
     fs.read(1, { buffer: Buffer.from("test"), position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), { position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), () => {});
     // 2-param version using all-default options:
     fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {});
     fs.read(1, () => {});
@@ -425,6 +430,20 @@ async function testPromisify() {
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        123,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        null,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
     const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
@@ -523,17 +542,43 @@ async function testPromisify() {
     });
 }
 
+{
+    fs.truncate("path/file.txt", () => {});
+    fs.truncate("path/file.txt", 5, () => {});
+    fs.truncate("path/file.txt", undefined, () => {});
+
+    fs.truncateSync("path/file.txt");
+    fs.truncateSync("path/file.txt", 5);
+    fs.truncateSync("path/file.txt", undefined);
+
+    fs.ftruncate(123, () => {});
+    fs.ftruncate(123, 5, () => {});
+    fs.ftruncate(123, undefined, () => {});
+
+    fs.ftruncateSync(123);
+    fs.ftruncateSync(123, 5);
+    fs.ftruncateSync(123, undefined);
+}
+
 (async () => {
     const handle: FileHandle = await openAsync("test", "r");
     const writeStream = fs.createWriteStream("./index.d.ts", {
         fd: handle,
     });
+
+    writeStream.addListener("close", () => {});
+    writeStream.addListener("aCustomEvent", () => {});
+
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
         signal: new AbortSignal(),
     });
+
+    readStream.addListener("close", () => {});
+    readStream.addListener("aCustomEvent", () => {});
+
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
     (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
@@ -611,6 +656,13 @@ async function testPromisify() {
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.readv(
+        123,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
+        null,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
@@ -1000,50 +1052,53 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
             matches; // $ExpectType Dirent[] | string[]
         },
     );
+    glob("**/*.js", { exclude: ["**/*.generated.js"] }, (err, matches) => {
+        matches; // $ExpectType string[]
+    });
 
-    for (const entry of globSync("**/*.js")) {
-        entry; // $ExpectType string
-    }
-    for (const entry of globSync("**/*.js", { cwd: "/" })) {
-        entry; // $ExpectType string
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: true })) {
-        entry; // $ExpectType Dirent
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
-        entry; // $ExpectType Dirent | string
-    }
+    globSync("**/*.js"); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent[]
+    globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent[]
 
-    for (
-        const entry of globSync("**/*.js", {
-            exclude: (fileName) => {
-                fileName; // $ExpectType string
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType string
-    }
-    for (
-        const entry of globSync("**/*.js", {
-            withFileTypes: true,
-            exclude: (fileName) => {
-                fileName; // $ExpectType Dirent
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType Dirent
-    }
-    for (
-        const entry of globSync("**/*.js", {
-            withFileTypes: Math.random() > 0.5,
-            exclude: (fileName) => {
-                fileName; // $ExpectType Dirent | string
-                return false;
-            },
-        })
-    ) {
-        entry; // $ExpectType Dirent | string
-    }
+    // $ExpectType string[]
+    globSync("**/*.js", {
+        exclude: (fileName) => {
+            fileName; // $ExpectType string
+            return false;
+        },
+    });
+    // ExpectType Dirent[]
+    globSync("**/*.js", {
+        withFileTypes: true,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent
+            return false;
+        },
+    });
+    // $ExpectType string[] | Dirent[]
+    globSync("**/*.js", {
+        withFileTypes: Math.random() > 0.5,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent | string
+            return false;
+        },
+    });
+    // $ExpectType string[]
+    globSync("**/*.js", { exclude: ["**/*.generated.js"] });
+});
+
+(async () => {
+    const fd = await fs.promises.open("/tmp/tmp.txt", "r");
+    fd.writeFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.writeFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.readFile({ encoding: "utf-8", flag: "r" });
 });

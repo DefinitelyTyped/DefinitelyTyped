@@ -2,20 +2,8 @@
  * Various tests of ShaderNode and related type inference
  */
 
-import {
-    color,
-    ConstNode,
-    MaterialNode,
-    Node,
-    nodeArray,
-    nodeImmutable,
-    PropertyNode,
-    ShaderNode,
-    ShaderNodeObject,
-    Swizzable,
-    tslFn,
-    vec3,
-} from "three/webgpu";
+import { color, nodeArray, nodeImmutable, ShaderNode, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/tsl";
+import { ConstNode, MaterialNode, Node, PropertyNode } from "three/webgpu";
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

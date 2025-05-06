@@ -653,8 +653,8 @@ declare namespace Reveal {
          * @param callback
          */
         addKeyBinding(
-            binding: string | { keyCode: number; key: string; description: string },
-            callback: (event: KeyboardEvent) => void,
+            keyCode: number | { keyCode: number; key: string; description: string },
+            callback: string | ((event: KeyboardEvent) => void),
         ): void;
 
         /**

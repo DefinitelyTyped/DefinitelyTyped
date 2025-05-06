@@ -711,7 +711,8 @@ function elementTypeTests() {
         }
     }
 
-    const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
+    const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }): Promise<React.ReactNode> =>
+        children;
     const FCPromiseReactNode: React.FC = ReturnReactNode;
     class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
         // Undesired behavior.

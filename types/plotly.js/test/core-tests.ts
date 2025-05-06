@@ -31,7 +31,10 @@ const trace2 = {
 const data = [trace1, trace2];
 const tickangle: "auto" = "auto";
 const layout = {
-    title: "Sales Growth",
+    title: {
+        text: "Sales Growth",
+        subtitle: "Annual sales growth between 1999 and 2002",
+    },
     xaxis: {
         title: "Year",
         showgrid: false,
@@ -492,6 +495,24 @@ const layout = {
 
     Plotly.newPlot("myDiv", data, layout);
 })();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "treemap",
+            labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
+            parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
+            maxdepth: 1,
+        },
+    ];
+
+    const layout = {
+        height: 700,
+        width: 700,
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -791,6 +812,51 @@ function rand() {
     Plotly.addFrames(graphDiv, frames);
 
     Plotly.deleteFrames(graphDiv, [2]);
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.validate
+(() => {
+    const validateResult = Plotly.validate(data, layout);
+    for (let res of validateResult) {
+        console.log(res.code, res.msg);
+    }
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.setPlotConfig
+(() => {
+    Plotly.setPlotConfig({
+        locale: "en",
+        logging: 1,
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.makeTemplate with div ID
+(() => {
+    Plotly.makeTemplate(graphDiv);
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.makeTemplate with {data, layout}
+(() => {
+    Plotly.makeTemplate({ data: data, layout: layout });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.validateTemplate
+(() => {
+    const tmpl = Plotly.makeTemplate({ data: data, layout: layout });
+    const validateResult = Plotly.validateTemplate(graphDiv, tmpl);
+    for (const res of validateResult) {
+        console.log(res.code, res.msg);
+    }
 })();
 //////////////////////////////////////////////////////////////////////
 

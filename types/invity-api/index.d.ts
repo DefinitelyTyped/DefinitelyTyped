@@ -110,7 +110,14 @@ export type BuyCryptoPaymentMethod =
     | "payid"
     | "toss";
 
-export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget";
+export type BuyTradeTag =
+    | "renewed"
+    | "alternativeCurrency"
+    | "bestRate"
+    | "favorite"
+    | "wantCrypto"
+    | "widget"
+    | "noExternalAddress";
 
 export interface BuyProviderInfo {
     name: string; // simplex
@@ -228,6 +235,7 @@ export type ExchangeTradeStatus =
     | "CONVERTING" // send tx was mined, money is on exchange, receive tx not yet created
     | "APPROVAL_REQ" // it is necessary to perform APPROVAL transaction for DEX
     | "APPROVAL_PENDING" // waiting for DEX approval tx to be confirmed
+    | "SIGN_DATA" // it is necessary to sign data for DEX
     | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
@@ -239,7 +247,7 @@ export type ExchangeMaximum =
     | number // actual maximum amount in 'send' currency
     | "NONE"; // exchange does not have a maximum trade size
 
-export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
+export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget" | "noExternalAddress";
 export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {
@@ -320,6 +328,10 @@ export interface ExchangeTrade {
             value: string;
         }
         | undefined;
+    signData?: {
+        type: "eip712-typed-data";
+        data: object;
+    };
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
     tradeForm?: FormResponse;
@@ -458,6 +470,8 @@ export interface SellProviderInfo {
     flow?: SellFiatFlowType | undefined;
     isRefundAddressRequired?: boolean | undefined;
     pendingTimeout?: number | undefined; // Time until a SUBMITTED transaction automatically changes to PENDING. Null means it does not change.
+    /** Should be used when it's necessary to have the exact amount match between the trade and the transaction */
+    lockSendAmount?: boolean;
 }
 
 export interface SellListResponse {

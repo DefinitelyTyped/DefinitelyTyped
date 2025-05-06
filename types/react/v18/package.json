@@ -14,6 +14,22 @@
                 "default": "./index.d.ts"
             }
         },
+        "./canary": {
+            "types@<=5.0": {
+                "default": "./ts5.0/canary.d.ts"
+            },
+            "types": {
+                "default": "./canary.d.ts"
+            }
+        },
+        "./experimental": {
+            "types@<=5.0": {
+                "default": "./ts5.0/experimental.d.ts"
+            },
+            "types": {
+                "default": "./experimental.d.ts"
+            }
+        },
         "./jsx-runtime": {
             "types@<=5.0": {
                 "default": "./ts5.0/jsx-runtime.d.ts"

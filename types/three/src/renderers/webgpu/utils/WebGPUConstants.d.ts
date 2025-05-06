@@ -112,7 +112,7 @@ export enum GPUTextureFormat {
     // Packed 32-bit formats
     RGB9E5UFloat = "rgb9e5ufloat",
     RGB10A2Unorm = "rgb10a2unorm",
-    RG11B10uFloat = "rgb10a2unorm",
+    RG11B10UFloat = "rgb10a2unorm",
 
     // 64-bit formats
 

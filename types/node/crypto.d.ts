@@ -682,9 +682,10 @@ declare module "crypto" {
          */
         type: KeyObjectType;
     }
-    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm" | "chacha20-poly1305";
+    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm";
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
+    type CipherChaCha20Poly1305Types = "chacha20-poly1305";
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -695,6 +696,10 @@ declare module "crypto" {
     }
     interface CipherOCBOptions extends stream.TransformOptions {
         authTagLength: number;
+    }
+    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
+        /** @default 16 */
+        authTagLength?: number | undefined;
     }
     /**
      * Creates and returns a `Cipher` object, with the given `algorithm`, `key` and
@@ -744,6 +749,12 @@ declare module "crypto" {
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
+    function createCipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
     function createCipheriv(
         algorithm: string,
         key: CipherKey,
@@ -943,6 +954,15 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
+    interface CipherChaCha20Poly1305 extends Cipher {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
+                plaintextLength: number;
+            },
+        ): this;
+        getAuthTag(): Buffer;
+    }
     /**
      * Creates and returns a `Decipher` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
@@ -990,6 +1010,12 @@ declare module "crypto" {
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
+    function createDecipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
     function createDecipheriv(
         algorithm: string,
         key: CipherKey,
@@ -1171,6 +1197,15 @@ declare module "crypto" {
         setAAD(
             buffer: NodeJS.ArrayBufferView,
             options?: {
+                plaintextLength: number;
+            },
+        ): this;
+    }
+    interface DecipherChaCha20Poly1305 extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
                 plaintextLength: number;
             },
         ): this;
@@ -4186,9 +4221,13 @@ declare module "crypto" {
              * - `'PBKDF2'`
              * @since v15.0.0
              */
-            deriveBits(algorithm: EcdhKeyDeriveParams, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
             deriveBits(
-                algorithm: AlgorithmIdentifier | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams,
+                baseKey: CryptoKey,
+                length?: number | null,
+            ): Promise<ArrayBuffer>;
+            deriveBits(
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
                 length: number,
             ): Promise<ArrayBuffer>;
@@ -4210,14 +4249,9 @@ declare module "crypto" {
              * @since v15.0.0
              */
             deriveKey(
-                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm:
-                    | AlgorithmIdentifier
-                    | AesDerivedKeyParams
-                    | HmacImportParams
-                    | HkdfParams
-                    | Pbkdf2Params,
+                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;

@@ -473,6 +473,7 @@ declare namespace Dockerode {
 
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
+        force?: boolean | undefined;
     }
 
     interface VolumeCreateResponse {
@@ -566,9 +567,11 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
+            Type: "bind" | "volume" | "image" | "tmpfs" | "npipe" | "cluster";
             Name?: string | undefined;
             Source: string;
             Destination: string;
+            Driver?: string | undefined;
             Mode: string;
             RW: boolean;
             Propagation: string;
@@ -942,6 +945,22 @@ declare namespace Dockerode {
             Layers?: string[] | undefined;
             BaseLayer?: string | undefined;
         };
+        Descriptor?: {
+            mediaType: string;
+            digest: string;
+            size: number;
+            urls?: string[] | undefined;
+            annotations?: { [key: string]: string } | undefined;
+            data?: string | undefined;
+            platform?: {
+                architecture: string;
+                os: string;
+                "os.version"?: string | undefined;
+                "os.features"?: string[] | undefined;
+                variant?: string | undefined;
+            } | undefined;
+            artifactType?: string | undefined;
+        } | undefined;
     }
 
     interface ImageBuildOptions {
@@ -955,7 +974,7 @@ declare namespace Dockerode {
         remote?: string | undefined;
         q?: boolean | undefined;
         cachefrom?: string | undefined;
-        pull?: string | undefined;
+        pull?: boolean | undefined;
         rm?: boolean | undefined;
         forcerm?: boolean | undefined;
         memory?: number | undefined;
@@ -1107,6 +1126,7 @@ declare namespace Dockerode {
         User?: string | undefined;
         WorkingDir?: string | undefined;
         abortSignal?: AbortSignal;
+        ConsoleSize?: [number, number];
     }
 
     interface ExecInspectInfo {
@@ -1143,7 +1163,7 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    type MountType = "bind" | "volume" | "tmpfs";
+    type MountType = "bind" | "volume" | "tmpfs" | "image";
 
     type MountConsistency = "default" | "consistent" | "cached" | "delegated";
 
@@ -1175,6 +1195,11 @@ declare namespace Dockerode {
             | {
                 SizeBytes: number;
                 Mode: number;
+            }
+            | undefined;
+        ImageOptions?:
+            | {
+                Subpath?: string;
             }
             | undefined;
     }

@@ -1025,3 +1025,8 @@ function cacheTest() {
         a => a,
     );
 }
+
+function ownerStacks() {
+    // $ExpectType string | null
+    const ownerStack = React.captureOwnerStack();
+}

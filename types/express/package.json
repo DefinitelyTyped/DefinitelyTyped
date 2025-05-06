@@ -8,7 +8,6 @@
     "dependencies": {
         "@types/body-parser": "*",
         "@types/express-serve-static-core": "^5.0.0",
-        "@types/qs": "*",
         "@types/serve-static": "*"
     },
     "devDependencies": {

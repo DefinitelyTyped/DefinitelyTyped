@@ -43,6 +43,7 @@ async function topLevel() {
         languageModelCapabilities.defaultTopK,
         languageModelCapabilities.maxTopK,
         languageModelCapabilities.defaultTemperature,
+        languageModelCapabilities.maxTemperature,
         languageModelCapabilities.languageAvailable("de"),
     );
 

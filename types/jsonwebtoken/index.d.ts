@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import type { createPrivateKey, createPublicKey, KeyObject } from "crypto";
+import type { StringValue } from "ms";
 
 export class JsonWebTokenError extends Error {
     inner: Error;
@@ -39,10 +40,8 @@ export interface SignOptions {
      */
     algorithm?: Algorithm | undefined;
     keyid?: string | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    notBefore?: string | number | undefined;
+    expiresIn?: StringValue | number;
+    notBefore?: StringValue | number | undefined;
     audience?: string | string[] | undefined;
     subject?: string | undefined;
     issuer?: string | undefined;
@@ -86,12 +85,12 @@ export type VerifyErrors =
     | TokenExpiredError;
 export type VerifyCallback<T = Jwt | JwtPayload | string> = (
     error: VerifyErrors | null,
-    decoded: T | undefined,
+    decoded?: T | undefined,
 ) => void;
 
 export type SignCallback = (
     error: Error | null,
-    encoded: string | undefined,
+    encoded?: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1

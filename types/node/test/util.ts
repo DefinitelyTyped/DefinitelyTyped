@@ -54,6 +54,15 @@ util.inspect({
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
 
+{
+    util.diff("abc", "acb");
+    util.diff(["a", "b", "c"], ["a", "c", "b"]);
+
+    const diffEntry = util.diff([], [])[0];
+    diffEntry[0]; // $ExpectType -1 | 0 | 1
+    diffEntry[1]; // $ExpectType string
+}
+
 util.format("%s:%s", "foo");
 util.format("%s:%s", "foo", "bar", "baz");
 util.format(1, 2, 3);
@@ -70,6 +79,12 @@ console.log(
 );
 console.log(
     util.styleText(["red", "green"], "text"),
+);
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
 );
 
 // util.callbackify
@@ -248,10 +263,19 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     const foo: string = util.toUSVString("foo");
 }
 
-access("file/that/does/not/exist", (err) => {
-    const name = util.getSystemErrorName(err!.errno!);
-    console.error(name);
-});
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorName(err!.errno!);
+        console.error(name);
+    });
+}
+
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorMessage(err!.errno!);
+        console.error(name); // no such file or directory
+    });
+}
 
 {
     util.stripVTControlCharacters("\u001B[4mvalue\u001B[0m"); // $ExpectType string
@@ -412,6 +436,49 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
+    let optionConfig: util.ParseArgsOptionDescriptor;
+
+    optionConfig = {
+        type: "boolean",
+    };
+
+    optionConfig = {
+        default: "default",
+        multiple: false,
+        short: "s",
+        type: "string",
+    };
+
+    optionConfig = {
+        default: ["a", "b", "c"],
+        multiple: true,
+        type: "string",
+    };
+
+    util.parseArgs({
+        options: {
+            longOption: optionConfig,
+        },
+    });
+
+    let optionsConfig: util.ParseArgsOptionsConfig;
+
+    optionsConfig = {};
+
+    optionsConfig = {
+        longOption: optionConfig,
+    };
+
+    util.parseArgs(optionsConfig);
+}
+
+{
+    let argsType: util.ParseArgsOptionsType;
+    argsType = "boolean";
+    argsType = "string";
+}
+
+{
     const controller: AbortController = util.transferableAbortController();
     const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
     util.aborted(signal, {}).then(() => {});
@@ -437,19 +504,20 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    // $ExpectType StacktraceObject[]
-    util.getCallSite();
-    // $ExpectType StacktraceObject[]
-    util.getCallSite(100);
+    // $ExpectType CallSiteObject[]
+    util.getCallSites();
+    // $ExpectType CallSiteObject[]
+    util.getCallSites(100);
 
-    const callSites = util.getCallSite();
+    const callSites = util.getCallSites({ sourceMap: true });
 
     console.log("Call Sites:");
     callSites.forEach((callSite, index) => {
         console.log(`CallSite ${index + 1}:`);
         console.log(`Function Name: ${callSite.functionName}`);
         console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Script ID: ${callSite.scriptId}`);
         console.log(`Line Number: ${callSite.lineNumber}`);
-        console.log(`Column Number: ${callSite.column}`);
+        console.log(`Column Number: ${callSite.columnNumber}`);
     });
 }

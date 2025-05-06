@@ -1,4 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node, TempNode } from "three/webgpu";
 
 declare class FilmNode extends TempNode {
     inputNode: Node;

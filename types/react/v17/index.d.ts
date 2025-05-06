@@ -1591,6 +1591,16 @@ declare namespace React {
          * presented if they are made.
          */
         "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
+        /**
+         * Defines a string value that labels the current element, which is intended to be converted into Braille.
+         * @see aria-label.
+         */
+        "aria-braillelabel"?: string | undefined;
+        /**
+         * Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
+         * @see aria-roledescription.
+         */
+        "aria-brailleroledescription"?: string | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
         "aria-busy"?: Booleanish | undefined;
         /**
@@ -1609,6 +1619,11 @@ declare namespace React {
          */
         "aria-colindex"?: number | undefined;
         /**
+         * Defines a human readable text alternative of aria-colindex.
+         * @see aria-rowindextext.
+         */
+        "aria-colindextext"?: string | undefined;
+        /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
@@ -1625,6 +1640,11 @@ declare namespace React {
          * @see aria-labelledby
          */
         "aria-describedby"?: string | undefined;
+        /**
+         * Defines a string value that describes or annotates the current element.
+         * @see related aria-describedby.
+         */
+        "aria-description"?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
@@ -1749,6 +1769,11 @@ declare namespace React {
          * @see aria-rowcount @see aria-rowspan.
          */
         "aria-rowindex"?: number | undefined;
+        /**
+         * Defines a human readable text alternative of aria-rowindex.
+         * @see aria-colindextext.
+         */
+        "aria-rowindextext"?: string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
@@ -1924,6 +1949,14 @@ declare namespace React {
          * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
          */
         is?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts}
+         */
+        exportparts?: string | undefined;
+        /**
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part}
+         */
+        part?: string | undefined;
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2495,6 +2528,9 @@ declare namespace React {
         width?: number | string | undefined;
         disablePictureInPicture?: boolean | undefined;
         disableRemotePlayback?: boolean | undefined;
+
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
     }
 
     // this list is "complete" in that it contains every SVG attribute

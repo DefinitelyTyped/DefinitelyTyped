@@ -1,5 +1,5 @@
-import { Vector2 } from "three";
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, TextureNode, Vector2 } from "three/webgpu";
 
 declare class GaussianBlurNode extends TempNode {
     textureNode: TextureNode;

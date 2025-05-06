@@ -10,7 +10,7 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 (() => {
     let obj = qs.parse("a=z&b[c]=z&d=z&d=z&e[][f]=z");
     obj; // $ExpectType ParsedQs
-    obj.a; // $ExpectType string | ParsedQs | string[] | ParsedQs[] | undefined || string | string[] | ParsedQs | ParsedQs[] | undefined
+    obj.a; // $ExpectType string | ParsedQs | (string | ParsedQs)[] | undefined
     assert.deepEqual(obj, { a: "c" });
 
     var str = qs.stringify(obj);
@@ -355,6 +355,12 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 (() => {
     var sparseArray = qs.parse("a[1]=2&a[3]=5", { allowSparse: true });
     assert.deepEqual(sparseArray, { a: [, "2", , "5"] });
+});
+
+(() => {
+    var heterogeneousArray = qs.parse("user[0]=Alice&user[1][name]=Bob");
+    var expected: qs.ParsedQs = { user: ["Alice", { name: "Bob" }] };
+    assert.deepEqual(heterogeneousArray, expected);
 });
 
 (() => {

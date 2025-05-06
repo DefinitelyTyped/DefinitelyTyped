@@ -319,6 +319,20 @@ MyTelegramBot.sendInvoice(
     ],
     { is_flexible: true, start_parameter: "start_parameter" },
 );
+MyTelegramBot.createInvoiceLink(
+    "Invoice Title",
+    "Invoice Description",
+    "Invoice Payload",
+    "Providertoken",
+    "Currency",
+    [
+        {
+            label: "$",
+            amount: 1200,
+        },
+    ],
+    { photo_url: "url", need_email: false, send_phone_number_to_provider: false, is_flexible: true },
+);
 MyTelegramBot.answerShippingQuery("shippingQueryId", true, {
     shipping_options: [
         {

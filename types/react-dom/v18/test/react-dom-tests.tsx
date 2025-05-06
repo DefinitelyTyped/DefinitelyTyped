@@ -371,7 +371,7 @@ function createRoot() {
     root.render(<div>initial render</div>);
     root.render(false);
 
-    // @ts-expect-error React 19 feature
+    // Will not type-check in a real project but accepted in DT tests since canary.d.ts is part of compilation.
     ReactDOMClient.createRoot(document);
 }
 
