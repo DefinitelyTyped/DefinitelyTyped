@@ -177,6 +177,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.addListener("connect", () => {});
+    _socket = _socket.addListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.addListener("data", data => {
         buffer = data;
     });
@@ -202,6 +212,7 @@ import * as net from "node:net";
     /// emit
     bool = _socket.emit("close", bool);
     bool = _socket.emit("connect");
+    bool = _socket.emit("connectionAttemptFailed", str, num, num, error);
     bool = _socket.emit("data", buffer);
     bool = _socket.emit("drain");
     bool = _socket.emit("end");
@@ -216,6 +227,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.on("connect", () => {});
+    _socket = _socket.on("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.on("data", data => {
         buffer = data;
     });
@@ -243,6 +264,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.once("connect", () => {});
+    _socket = _socket.once("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.once("data", data => {
         buffer = data;
     });
@@ -270,6 +301,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.prependListener("connect", () => {});
+    _socket = _socket.prependListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.prependListener("data", data => {
         buffer = data;
     });
@@ -297,6 +338,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.prependOnceListener("connect", () => {});
+    _socket = _socket.prependOnceListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.prependOnceListener("data", data => {
         buffer = data;
     });
