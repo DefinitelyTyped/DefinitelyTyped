@@ -1301,7 +1301,7 @@ declare class Maxobj {
      * Sets the value of the attribute specified by attribute_name.
      * C'74 docs say value is number | number[] | string but it definitely isn't and can take variadic inputs
      */
-    setattr(attrname: string, value: unknown): void;
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Returns an Array value containing the names of available attributes for the object's box.
@@ -1475,7 +1475,7 @@ declare class Patcher {
     /**
      * Sets the value of the attribute specified by attribute_name.
      */
-    setattr(attrname: string, value: any): void;
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.
