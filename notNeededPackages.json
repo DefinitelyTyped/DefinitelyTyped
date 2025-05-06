@@ -4297,6 +4297,10 @@
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
         },
+        "mongoose-aggregate-paginate-v2": {
+            "libraryName": "mongoose-aggregate-paginate-v2",
+            "asOfVersion": "1.1.2"
+        },
         "mongoose-autopopulate": {
             "libraryName": "mongoose-autopopulate",
             "asOfVersion": "0.16.0"
