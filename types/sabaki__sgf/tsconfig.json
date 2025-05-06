@@ -19,7 +19,6 @@
         "src/parse.d.ts",
         "src/stringify.d.ts",
         "src/tokenize.d.ts",
-        "src/types.d.ts",
         "sabaki__sgf-tests.ts"
     ]
 }

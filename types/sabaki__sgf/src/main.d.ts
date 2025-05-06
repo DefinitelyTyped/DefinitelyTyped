@@ -10,12 +10,9 @@ import {
 import { parse, parseBuffer, parseFile, parseTokens } from "./parse";
 import { stringify } from "./stringify";
 import { tokenize, tokenizeBuffer, tokenizeBufferIter, tokenizeIter } from "./tokenize";
-import { Dates, NodeObject, Property, SGFToken, Vertex } from "./types";
 
 export {
-    Dates,
     escapeString,
-    NodeObject,
     parse,
     parseBuffer,
     parseCompressedVertices,
@@ -23,8 +20,6 @@ export {
     parseFile,
     parseTokens,
     parseVertex,
-    Property,
-    SGFToken,
     stringify,
     stringifyDates,
     stringifyVertex,
@@ -33,5 +28,4 @@ export {
     tokenizeBufferIter,
     tokenizeIter,
     unescapeString,
-    Vertex,
 };

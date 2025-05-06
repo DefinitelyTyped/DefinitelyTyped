@@ -1,15 +1,18 @@
 /// <reference types="node" />
 
-import { SGFToken } from "./types";
+import { Types } from "../index";
 
 export interface TokenizeBufferIterOptions {
     encoding?: string;
 }
 
-export function tokenizeIter(contents: string): Generator<SGFToken, void>;
+export function tokenizeIter(contents: string): Generator<Types.SGFToken, void>;
 
-export function tokenize(contents: string): SGFToken[];
+export function tokenize(contents: string): Types.SGFToken[];
 
-export function tokenizeBufferIter(buffer: Buffer, options?: TokenizeBufferIterOptions): Generator<SGFToken, void>;
+export function tokenizeBufferIter(
+    buffer: Buffer,
+    options?: TokenizeBufferIterOptions,
+): Generator<Types.SGFToken, void>;
 
-export function tokenizeBuffer(buffer: Buffer, options?: TokenizeBufferIterOptions): SGFToken[];
+export function tokenizeBuffer(buffer: Buffer, options?: TokenizeBufferIterOptions): Types.SGFToken[];
