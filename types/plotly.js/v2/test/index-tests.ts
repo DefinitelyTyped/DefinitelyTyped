@@ -6,9 +6,7 @@ const graphDiv = "#test";
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 // combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
-// https://plotly.com/javascript/2d-density-plots/, but with transforms removed as they
-// no longer exist in Plotly v3 (it's up to you to massage the data set before passing
-// it to Plotly, rather than letting Plotly do the transform for you).
+// https://plotly.com/javascript/2d-density-plots/
 
 (() => {
     const testrows = [
@@ -76,6 +74,35 @@ const graphDiv = "#test";
             },
         },
         type: "scatter",
+        transforms: [
+            {
+                type: "filter",
+                target: unpack(testrows, "year"),
+                operation: "=",
+                value: "2002",
+            },
+            {
+                type: "groupby",
+                nameformat: `%{group}`,
+                groups: unpack(testrows, "continent"),
+                styles: [
+                    { target: "Asia", value: { marker: { color: "red" } } },
+                    { target: "Europe", value: { marker: { color: "blue" } } },
+                    { target: "Americas", value: { marker: { color: "orange" } } },
+                    { target: "Africa", value: { marker: { color: "green" } } },
+                    { target: "Oceania", value: { marker: { color: "purple" } } },
+                ],
+            },
+            {
+                type: "aggregate",
+                groups: unpack(testrows, "continent"),
+                aggregations: [
+                    { target: "x", func: "avg" },
+                    { target: "y", func: "avg" },
+                    { target: "marker.size", func: "sum" },
+                ],
+            },
+        ],
         width: 2,
     } as PlotData;
     const trace2 = {
@@ -101,21 +128,15 @@ const graphDiv = "#test";
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
-        title: {
-            text: "Gapminder",
-        },
+        title: "Gapminder",
         xaxis: {
-            title: {
-                text: "Life Expectancy",
-            },
+            title: "Life Expectancy",
             domain: [0, 0.85],
             showgrid: false,
             zeroline: false,
         },
         yaxis: {
-            title: {
-                text: "GDP per Cap",
-            },
+            title: "GDP per Cap",
             showline: false,
             domain: [0, 0.85],
             showgrid: false,
@@ -144,7 +165,7 @@ const graphDiv = "#test";
             type: "scatter",
         } as PlotData,
     ];
-    const layout2 = { title: { text: "Revenue" } };
+    const layout2 = { title: "Revenue" };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 (() => {
@@ -292,13 +313,7 @@ const graphDiv = "#test";
         yanchor: "top",
     };
 
-    const layout: Partial<Layout> = {
-        showlegend: true,
-        title: { text: "January 2013 Sales Report" },
-        template,
-        modebar,
-        legend,
-    };
+    const layout: Partial<Layout> = { showlegend: true, title: "January 2013 Sales Report", template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -399,9 +414,7 @@ const graphDiv = "#test";
         },
     ];
     const layout: Partial<Layout> = {
-        title: {
-            text: "Grouped Box Plot",
-        },
+        title: "Grouped Box Plot",
         boxmode: "overlay",
     };
 
@@ -412,9 +425,7 @@ const graphDiv = "#test";
     const data: Array<Partial<PlotData>> = [
         {
             colorbar: {
-                title: {
-                    text: "Test",
-                },
+                title: "Test",
             },
             locationmode: "ISO-3",
             locations: ["USA", "NLD"],
@@ -425,9 +436,7 @@ const graphDiv = "#test";
     ];
     const layout: Partial<Layout> = {
         showlegend: true,
-        title: {
-            text: "World Map",
-        },
+        title: "World Map",
         geo: {
             projection: { type: "Mercator" },
             showcoastlines: true,
@@ -568,9 +577,7 @@ const graphDiv = "#test";
 // update only values within nested objects
 (() => {
     const update = {
-        title: { // updates the title
-            text: "some new title",
-        },
+        title: "some new title", // updates the title
         "xaxis.range": [0, 5], // updates the xaxis range
         "yaxis.range[1]": 15, // updates the end of the yaxis range
     } as Layout;
@@ -582,9 +589,7 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: { // updates the title
-            text: "some new title",
-        },
+        title: "some new title", // updates the title
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -615,9 +620,7 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: { // updates the title
-            text: "some new title",
-        },
+        title: "some new title", // updates the title
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
