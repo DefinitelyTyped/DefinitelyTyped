@@ -42,7 +42,7 @@ const tx = paystackPop.newTransaction({
         console.log(response);
     },
     onCancel() {
-        console.log('cancelled');
+        console.log("cancelled");
     },
     onError: (error) => {
         console.log(error);
@@ -60,7 +60,7 @@ paystackPop.resumeTransaction({
         console.log(response);
     },
     onCancel() {
-        console.log('cancelled');
+        console.log("cancelled");
     },
     onError: (error) => {
         console.log(error);
