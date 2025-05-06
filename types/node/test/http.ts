@@ -392,6 +392,9 @@ import * as url from "node:url";
     http.request(new url.URL("http://www.example.com"), opts);
     http.get(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
     http.request(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
+
+    http.request("http://www.example.com/xyz", { headers: ["extra", "header"] });
+    http.request("http://www.example.com/xyz", { headers: { extra: "header" } });
 }
 
 {

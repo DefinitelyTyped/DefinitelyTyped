@@ -207,7 +207,7 @@ declare module "http" {
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
+        headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         hints?: LookupOptions["hints"];
         host?: string | null | undefined;
         hostname?: string | null | undefined;
