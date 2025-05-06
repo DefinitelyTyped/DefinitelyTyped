@@ -1292,9 +1292,9 @@ declare class Maxobj {
     getattr(attrname: string): number | number[] | string;
 
     /*
-    * Gets the value of an attribute's attribute
-    * V8 ONLY!
-    */
+     * Gets the value of an attribute's attribute
+     * V8 ONLY!
+     */
     getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
 
     /**
@@ -1460,8 +1460,10 @@ declare class Patcher {
 
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     * C74 docs say that this is a string[] but that is definitely incorrect!
      */
-    getattr(attrname: string): string[];
+    getattr(attrname: string): number | number[] | string;
+
 
     /**
      * Get the value of a specified patcher attribute's attribute
@@ -1847,7 +1849,6 @@ declare function refresh(): void;
  * https://docs.cycling74.com/max8/vignettes/jsmgraphics
  */
 declare class MGraphics {
-
     constructor(width: number, height: number);
 
     /**
