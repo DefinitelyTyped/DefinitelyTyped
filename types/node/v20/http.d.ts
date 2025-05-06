@@ -48,6 +48,7 @@ declare module "http" {
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
+        "accept-encoding"?: string | undefined;
         "accept-language"?: string | undefined;
         "accept-patch"?: string | undefined;
         "accept-ranges"?: string | undefined;
