@@ -54,7 +54,16 @@ console.log(status.checkoutUrl, paystackPop.isLoaded());
 
 paystackPop.resumeTransaction({
     accessCode: "121212",
-});
+}, {
+    onSuccess(response) {
+        console.log(response);
+    },
+    onCancel() {
+    },
+    onError: (error) => {
+        console.log(error);
+    },
+);
 
 paystackPop.paymentRequest({
     key: "pk_test_TYooMQauvdEDq54NiTphI7jx",
