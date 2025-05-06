@@ -228,7 +228,7 @@ declare class PaystackInline {
              */
             accessCode: string;
         }, 
-        callbacks?: Pick<NewTransactionOptions, 'onSuccess' | 'onCancel' | 'onError' | 'onLoad'> | undefined
+        callbacks?: Pick<NewTransactionOptions, 'onSuccess' | 'onCancel' | 'onError' | 'onLoad'>
     ): PopupTransaction;
 
     /**
