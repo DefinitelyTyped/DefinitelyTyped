@@ -2319,6 +2319,20 @@ declare module "fs" {
      * @since v0.1.96
      */
     export function fsyncSync(fd: number): void;
+    export interface WriteOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `buffer.byteLength - offset`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: number | undefined | null;
+    }
     /**
      * Write `buffer` to the file specified by `fd`.
      *
@@ -2388,6 +2402,20 @@ declare module "fs" {
         callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param options An object with the following properties:
+     * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+     * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     */
+    export function write<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: WriteOptions,
+        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+    ): void;
+    /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write.
@@ -2437,6 +2465,22 @@ declare module "fs" {
             offset?: number,
             length?: number,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param options An object with the following properties:
+         * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+         * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            buffer?: TBuffer,
+            options?: WriteOptions,
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
