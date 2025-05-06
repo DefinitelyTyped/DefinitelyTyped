@@ -1299,8 +1299,9 @@ declare class Maxobj {
 
     /**
      * Sets the value of the attribute specified by attribute_name.
+     * C'74 docs say value is number | number[] | string but it definitely isn't and can take variadic inputs
      */
-    setattr(attrname: string, value: number | number[] | string): void;
+    setattr(attrname: string, value: unknown): void;
 
     /**
      * Returns an Array value containing the names of available attributes for the object's box.
