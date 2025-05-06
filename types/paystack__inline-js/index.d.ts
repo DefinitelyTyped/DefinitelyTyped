@@ -221,12 +221,15 @@ declare class PaystackInline {
 
     isLoaded(): boolean;
 
-    resumeTransaction(options: {
-        /**
-         * Access code created on the API via the https://paystack.com/docs/#initialize-a-transaction endpoint
-         */
-        accessCode: string;
-    }): PopupTransaction;
+    resumeTransaction(
+        options: {
+            /**
+             * Access code created on the API via the https://paystack.com/docs/#initialize-a-transaction endpoint
+             */
+            accessCode: string;
+        }, 
+        callbacks?: Pick<NewTransactionOptions, 'onSuccess' | 'onCancel' | 'onError' | 'onLoad'> | undefined
+    ): PopupTransaction;
 
     /**
      * Use this to cancel a transaction and hide the checkout iFrame.
