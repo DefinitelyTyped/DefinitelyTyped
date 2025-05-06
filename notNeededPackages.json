@@ -7599,6 +7599,10 @@
             "libraryName": "webix",
             "asOfVersion": "5.1.1"
         },
+        "webmidi": {
+            "libraryName": "webmidi",
+            "asOfVersion": "3.0.1"
+        },
         "webpack-chain": {
             "libraryName": "webpack-chain",
             "asOfVersion": "5.2.0"
