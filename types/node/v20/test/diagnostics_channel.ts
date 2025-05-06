@@ -137,4 +137,9 @@ const hasSubs = hasSubscribers("test");
         undefined,
         callback,
     );
+
+    // $ExpectType boolean
+    channels.hasSubscribers;
+    // @ts-expect-error - Only getter is implemented for `hasSubscribers`
+    channels.hasSubscribers = false;
 }
