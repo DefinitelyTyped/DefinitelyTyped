@@ -206,6 +206,11 @@ const FunctionComponent4: React.FunctionComponent = props => null;
 
 const FunctionComponent5: React.FunctionComponent = () => false;
 
+// async function component
+const FunctionComponent6: React.FunctionComponent<SCProps> = async (props: SCProps) => {
+    return props.foo ? React.createElement("div", null, props.foo) : null;
+};
+
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(
@@ -474,6 +479,7 @@ type SVGIntrinsicAsRef = React.ElementRef<"svg">; // $ExpectType SVGSVGElement
 type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
 type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
 type LazyComponentAsRef = React.ElementRef<typeof LazyComponent>; // $ExpectType RefComponent
+type FunctionComponentAsyncAsRef = React.ElementRef<typeof FunctionComponent6>; // $ExpectType never
 
 //
 // Attributes
