@@ -6,7 +6,7 @@ inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);
-maxclasswrap("MyExternal", "CoolStuff"): void;
+maxclasswrap("MyExternal", "CoolStuff");
 error("This is a test error.\n");
 error("This is a", "multiple string", "error\n");
 cpost("This is cpost.\n");
