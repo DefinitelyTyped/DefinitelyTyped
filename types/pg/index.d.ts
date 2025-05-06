@@ -326,3 +326,13 @@ import * as Pg from ".";
 export const native: typeof Pg | null;
 
 export { DatabaseError } from "pg-protocol";
+
+export class Result<R extends QueryResultRow = any> implements QueryResult<R> {
+    command: string;
+    rowCount: number | null;
+    oid: number;
+    fields: FieldDef[];
+    rows: R[];
+
+    constructor(rowMode: string, t: typeof types);
+}
