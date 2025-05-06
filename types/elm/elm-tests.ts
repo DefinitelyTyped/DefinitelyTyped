@@ -1,4 +1,12 @@
-declare var Elm: ElmInstance<ShanghaiPorts, ShanghaiFlags>;
+declare var Elm: ElmInstance<{}, {}>;
+
+Elm.Main.init();
+
+declare var Shanghai: ElmInstance<
+    ShanghaiPorts,
+    ShanghaiFlags, // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ["Shanghai"]
+>;
 
 interface ShanghaiFlags {
     coordinates: [number, number];
@@ -20,7 +28,7 @@ interface Ship {
 
 // initialize the Shanghai component which keeps track of
 // shipping data in and out of the Port of Shanghai.
-var shanghai = Elm.Main.init({
+var shanghai = Shanghai.Shanghai.init({
     flags: {
         coordinates: [0, 0],
         incomingShip: { name: "", capacity: 0 },
