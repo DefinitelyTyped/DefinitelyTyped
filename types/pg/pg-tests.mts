@@ -1,14 +1,14 @@
 import pg, {
-    defaults,
     Client,
-    Query,
-    Pool,
     Connection,
-    types,
     DatabaseError,
-    TypeOverrides,
+    defaults,
     escapeIdentifier,
     escapeLiteral,
+    Pool,
+    Query,
+    TypeOverrides,
+    types,
 } from "pg";
 
 const client = new pg.Client({
