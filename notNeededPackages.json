@@ -7999,6 +7999,10 @@
             "libraryName": "y18n",
             "asOfVersion": "5.0.0"
         },
+        "yallist": {
+            "libraryName": "yallist",
+            "asOfVersion": "5.0.0"
+        },
         "yaml": {
             "libraryName": "yaml",
             "asOfVersion": "1.9.0"
