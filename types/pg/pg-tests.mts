@@ -42,3 +42,7 @@ const client2 = new Client({
 });
 client2.setTypeParser(20, val => Number(val));
 client2.getTypeParser(20);
+
+const myFunc = (c: Client) => {
+    c.on("drain", () => {});
+};

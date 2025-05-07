@@ -1,34 +1,32 @@
-import type * as pg from "./index.d.ts";
-
+import {
+    Client,
+    Connection,
+    DatabaseError,
+    defaults,
+    escapeIdentifier,
+    escapeLiteral,
+    Pool,
+    Query,
+    Result,
+    types,
+} from "./index.js";
 import TypeOverrides = require("./lib/type-overrides");
 
-export type * from "./index.d.ts";
-
-export const defaults: typeof pg.defaults;
-export const Client: typeof pg.Client;
-export const Query: typeof pg.Query;
-export const Pool: typeof pg.Pool;
-export const Connection: typeof pg.Connection;
-export const types: typeof pg.types;
-export const DatabaseError: typeof pg.DatabaseError;
-export const escapeIdentifier: typeof pg.escapeIdentifier;
-export const escapeLiteral: typeof pg.escapeLiteral;
-export const Result: typeof pg.Result;
-
-export { TypeOverrides };
-
 declare const PG: {
-    defaults: typeof pg.defaults;
-    Client: typeof pg.Client;
-    Query: typeof pg.Query;
-    Pool: typeof pg.Pool;
-    Connection: typeof pg.Connection;
-    types: typeof pg.types;
-    DatabaseError: typeof pg.DatabaseError;
+    defaults: typeof defaults;
+    Client: typeof Client;
+    Query: typeof Query;
+    Pool: typeof Pool;
+    Connection: typeof Connection;
+    types: typeof types;
+    DatabaseError: typeof DatabaseError;
     TypeOverrides: typeof TypeOverrides;
-    escapeIdentifier: typeof pg.escapeIdentifier;
-    escapeLiteral: typeof pg.escapeLiteral;
-    Result: typeof pg.Result;
+    escapeIdentifier: typeof escapeIdentifier;
+    escapeLiteral: typeof escapeLiteral;
+    Result: typeof Result;
 };
 
+export type * from "./index.d.ts";
+export { Client, Connection, DatabaseError, defaults, escapeIdentifier, escapeLiteral, Pool, Query, Result, types };
+export { TypeOverrides };
 export default PG;
