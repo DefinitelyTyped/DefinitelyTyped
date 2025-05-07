@@ -2355,12 +2355,12 @@ declare namespace chrome {
         export function sendCommand(
             target: DebuggerSession,
             method: string,
-            commandParams?: object,
+            commandParams?: { [key: string]: unknown },
         ): Promise<object | undefined>;
         export function sendCommand(
             target: DebuggerSession,
             method: string,
-            commandParams?: object,
+            commandParams?: { [key: string]: unknown },
             callback?: (result?: object) => void,
         ): void;
 
@@ -2942,13 +2942,13 @@ declare namespace chrome {
              * @param rootTitle An optional title for the root of the expression tree.
              * @param callback A callback invoked after the sidebar is updated with the object.
              */
-            setObject(jsonObject: object, rootTitle?: string, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string, callback?: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param callback A callback invoked after the sidebar is updated with the object.
              */
-            setObject(jsonObject: object, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
              * @param path Relative path of an extension page to display within the sidebar.
@@ -3035,19 +3035,19 @@ declare namespace chrome {
              * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
              * @since Chrome 112
              */
-            replay?(recording: object): void;
+            replay?(recording: { [key: string]: unknown }): void;
 
             /**
              * Converts a recording from the Recorder panel format into a string.
              * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
              */
-            stringify?(recording: object): void;
+            stringify?(recording: { [key: string]: unknown }): void;
 
             /**
              * Converts a step of the recording from the Recorder panel format into a string.
              * @param step A step of the recording of a user interaction with the page. This should match [Puppeteer's step schema](https://github.com/puppeteer/replay/blob/main/docs/api/modules/Schema.md#step).
              */
-            stringifyStep?(step: object): void;
+            stringifyStep?(step: { [key: string]: unknown }): void;
         }
 
         /**
@@ -5412,25 +5412,25 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `getDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getDefaultFontSize(details?: object): Promise<FontSizeDetails>;
+        export function getDefaultFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the default font size.
          * @param details This parameter is currently unused.
          */
         export function getDefaultFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getDefaultFontSize(details: object, callback: (options: FontSizeDetails) => void): void;
+        export function getDefaultFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
         /**
          * Gets the minimum font size.
          * @param details This parameter is currently unused.
          * @return The `getMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getMinimumFontSize(details?: object): Promise<FontSizeDetails>;
+        export function getMinimumFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the minimum font size.
          * @param details This parameter is currently unused.
          */
         export function getMinimumFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getMinimumFontSize(details: object, callback: (options: FontSizeDetails) => void): void;
+        export function getMinimumFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
         /**
          * Sets the minimum font size.
          * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5445,25 +5445,25 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `getDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getDefaultFixedFontSize(details?: object): Promise<FontSizeDetails>;
+        export function getDefaultFixedFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the default size for fixed width fonts.
          * @param details This parameter is currently unused.
          */
         export function getDefaultFixedFontSize(callback: (details: FontSizeDetails) => void): void;
-        export function getDefaultFixedFontSize(details: object, callback: (details: FontSizeDetails) => void): void;
+        export function getDefaultFixedFontSize(details: unknown, callback: (details: FontSizeDetails) => void): void;
         /**
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
          * @return The `clearDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearDefaultFontSize(details?: object): Promise<void>;
+        export function clearDefaultFontSize(details?: unknown): Promise<void>;
         /**
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
         export function clearDefaultFontSize(callback: () => void): void;
-        export function clearDefaultFontSize(details: object, callback: () => void): void;
+        export function clearDefaultFontSize(details: unknown, callback: () => void): void;
         /**
          * Sets the default size for fixed width fonts.
          * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5496,13 +5496,13 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `clearMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearMinimumFontSize(details?: object): Promise<void>;
+        export function clearMinimumFontSize(details?: unknown): Promise<void>;
         /**
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
         export function clearMinimumFontSize(callback: () => void): void;
-        export function clearMinimumFontSize(details: object, callback: () => void): void;
+        export function clearMinimumFontSize(details: unknown, callback: () => void): void;
         /**
          * Gets a list of fonts on the system.
          * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5517,12 +5517,12 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `clearDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearDefaultFixedFontSize(details: object): Promise<void>;
+        export function clearDefaultFixedFontSize(details: unknown): Promise<void>;
         /**
          * Clears the default fixed font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearDefaultFixedFontSize(details: object, callback: () => void): void;
+        export function clearDefaultFixedFontSize(details: unknown, callback: () => void): void;
 
         /** Fired when the default fixed font size setting changes. */
         export var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
@@ -5551,12 +5551,12 @@ declare namespace chrome {
             /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
             timeToLive?: number | undefined;
             /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
-            data: object;
+            data: { [key: string]: unknown };
         }
 
         export interface IncomingMessage {
             /** The message data. */
-            data: object;
+            data: { [key: string]: unknown };
             /**
              * Optional.
              * The sender who issued the message.
@@ -6245,7 +6245,7 @@ declare namespace chrome {
         }
 
         export interface MenuItemParameters {
-            items: object[];
+            items: MenuItem[];
             engineId: string;
         }
 
@@ -7186,7 +7186,7 @@ declare namespace chrome {
          * @since Chrome 29
          * @param callback Returns the set of notification_ids currently in the system.
          */
-        export function getAll(callback: (notifications: object) => void): void;
+        export function getAll(callback: (notifications: { [key: string]: true }) => void): void;
         /**
          * Retrieves whether the user has enabled notifications from this app or extension.
          * @since Chrome 32
@@ -7626,7 +7626,7 @@ declare namespace chrome {
          */
         export function getKeyPair(
             certificate: ArrayBuffer,
-            parameters: object,
+            parameters: { [key: string]: unknown },
             callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
         ): void;
         /**
@@ -7640,7 +7640,7 @@ declare namespace chrome {
          */
         export function getKeyPairBySpki(
             publicKeySpkiDer: ArrayBuffer,
-            parameters: object,
+            parameters: { [key: string]: unknown },
             callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
         ): void;
         /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
@@ -7716,7 +7716,7 @@ declare namespace chrome {
             /** The print job title. */
             title: string;
             /** Print ticket in  CJT format. */
-            ticket: object;
+            ticket: { [key: string]: unknown };
             /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
             contentType: string;
             /** Blob containing the document data to print. Format must match |contentType|. */
@@ -9508,7 +9508,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: object,
+            message: { [key: string]: unknown },
             responseCallback: (response: any) => void,
         ): void;
         /**
@@ -9519,7 +9519,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: object,
+            message: { [key: string]: unknown },
         ): Promise<any>;
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
@@ -10205,7 +10205,11 @@ declare namespace chrome {
             address: string;
         }
 
-        export function create(type: string, options?: object, callback?: (createInfo: CreateInfo) => void): void;
+        export function create(
+            type: string,
+            options?: { [key: string]: unknown },
+            callback?: (createInfo: CreateInfo) => void,
+        ): void;
         export function destroy(socketId: number): void;
         export function connect(
             socketId: number,
@@ -12840,7 +12844,7 @@ declare namespace chrome {
         export interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> {}
 
         export interface VpnConfigCreationEvent
-            extends chrome.events.Event<(id: string, name: string, data: object) => void>
+            extends chrome.events.Event<(id: string, name: string, data: { [key: string]: unknown }) => void>
         {}
 
         export interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> {}

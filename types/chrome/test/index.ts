@@ -3005,8 +3005,8 @@ function testRuntimeSendMessage() {
 }
 
 function testRuntimeSendNativeMessage() {
-    chrome.runtime.sendNativeMessage("application", console.log).then(() => {});
-    chrome.runtime.sendNativeMessage("application", console.log, (num: number) => alert(num + 1));
+    chrome.runtime.sendNativeMessage("application", {}).then(() => {});
+    chrome.runtime.sendNativeMessage("application", {}, (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
