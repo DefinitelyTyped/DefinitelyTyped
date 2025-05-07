@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
 declare namespace chrome {
     ////////////////////
     // Cast
@@ -210,7 +211,7 @@ declare namespace chrome {
              * @param opt_details
              * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Error
              */
-            constructor(code: chrome.cast.ErrorCode, description?: string, details?: object);
+            constructor(code: chrome.cast.ErrorCode, description?: string, details?: Object);
 
             code: chrome.cast.ErrorCode;
             description: string | null;
@@ -513,9 +514,9 @@ declare namespace chrome {
              */
             constructor(mediaInfo: chrome.cast.media.MediaInfo);
 
-            activeTrackIds: number[];
+            activeTrackIds: Number[];
             autoplay: boolean;
-            customData: object;
+            customData: Object;
             itemId: number;
             media: chrome.cast.media.MediaInfo;
             preloadTime: number;
@@ -529,7 +530,7 @@ declare namespace chrome {
              */
             constructor(items: chrome.cast.media.QueueItem[]);
 
-            customData: object;
+            customData: Object;
             items: chrome.cast.media.QueueItem[];
             repeatMode: chrome.cast.media.RepeatMode;
             startIndex: number;
@@ -542,7 +543,7 @@ declare namespace chrome {
              */
             constructor(itemsToInsert: chrome.cast.media.QueueItem[]);
 
-            customData: object;
+            customData: Object;
             insertBefore: number;
             items: chrome.cast.media.QueueItem[];
         }
@@ -554,7 +555,7 @@ declare namespace chrome {
              */
             constructor(itemIdsToRemove: number[]);
 
-            customData: object;
+            customData: Object;
             itemIds: number[];
         }
 
@@ -565,7 +566,7 @@ declare namespace chrome {
              */
             constructor(itemIdsToReorder: number[]);
 
-            customData: object;
+            customData: Object;
             insertBefore: number;
             itemIds: number[];
         }
@@ -577,7 +578,7 @@ declare namespace chrome {
              */
             constructor(itemsToUpdate: chrome.cast.media.QueueItem[]);
 
-            customData: object;
+            customData: Object;
             item: chrome.cast.media.QueueItem[];
         }
 
@@ -650,7 +651,7 @@ declare namespace chrome {
              */
             constructor();
 
-            customData: object;
+            customData: Object;
         }
 
         export class PauseRequest {
@@ -659,7 +660,7 @@ declare namespace chrome {
              */
             constructor();
 
-            customData: object;
+            customData: Object;
         }
 
         export class PlayRequest {
@@ -668,7 +669,7 @@ declare namespace chrome {
              */
             constructor();
 
-            customData: object;
+            customData: Object;
         }
 
         export class SeekRequest {
@@ -679,7 +680,7 @@ declare namespace chrome {
 
             currentTime: number;
             resumeState: chrome.cast.media.ResumeState;
-            customData: object;
+            customData: Object;
         }
 
         export class StopRequest {
@@ -688,7 +689,7 @@ declare namespace chrome {
              */
             constructor();
 
-            customData: object;
+            customData: Object;
         }
 
         export class VolumeRequest {
@@ -699,7 +700,7 @@ declare namespace chrome {
             constructor(volume: chrome.cast.Volume);
 
             volume: chrome.cast.Volume;
-            customData: object;
+            customData: Object;
         }
 
         export class LoadRequest {
@@ -712,7 +713,7 @@ declare namespace chrome {
             activeTrackIds: number[];
             autoplay: boolean;
             currentTime: number;
-            customData: object;
+            customData: Object;
             media: chrome.cast.media.MediaInfo;
             playbackRate?: number | undefined;
         }
@@ -847,7 +848,7 @@ declare namespace chrome {
             duration?: number | null;
             tracks?: chrome.cast.media.Track[] | null;
             textTrackStyle?: chrome.cast.media.TextTrackStyle | null;
-            customData?: object | null;
+            customData?: Object | null;
         }
 
         export class Media {
@@ -860,7 +861,7 @@ declare namespace chrome {
 
             activeTrackIds?: number[] | null;
             currentItemId?: number | null;
-            customData?: object | null;
+            customData?: Object | null;
             idleReason: chrome.cast.media.IdleReason | null;
             items?: chrome.cast.media.QueueItem[] | null;
             liveSeekableRange?: chrome.cast.media.LiveSeekableRange | undefined;
@@ -1095,7 +1096,7 @@ declare namespace chrome {
             name: string;
             language: string;
             subtype: chrome.cast.media.TextTrackType;
-            customData: object;
+            customData: Object;
         }
 
         export class TextTrackStyle {
@@ -1115,7 +1116,7 @@ declare namespace chrome {
             fontFamily: string;
             fontGenericFamily: chrome.cast.media.TextTrackFontGenericFamily;
             fontStyle: chrome.cast.media.TextTrackFontStyle;
-            customData: object;
+            customData: Object;
         }
 
         export class LiveSeekableRange {
