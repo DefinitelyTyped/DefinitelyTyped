@@ -111,3 +111,18 @@ function handler2(event: AWSCloudFrontFunction.Event): AWSCloudFrontFunction.Req
 
     return response(locale, request.uri);
 }
+
+import cf from "cloudfront";
+
+const kvsHandle = cf.kvs("example-kvs-id");
+
+(async () => {
+    const value1 = await kvsHandle.get("key");
+    const value2 = await kvsHandle.get("key", { format: "string" });
+    const value3 = await kvsHandle.get("key", { format: "bytes" });
+    const value4 = await kvsHandle.get("key", { format: "json" }); 
+
+    const exists = await kvsHandle.exists("key");
+
+    const meta = await kvsHandle.meta();
+})();
