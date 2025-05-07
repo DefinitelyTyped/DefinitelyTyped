@@ -68,7 +68,7 @@ declare module "vm" {
          * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
             | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -620,7 +620,13 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        importModuleDynamically?:
+            | ((
+                specifier: string,
+                referrer: SourceTextModule,
+                importAttributes: ImportAttributes,
+            ) => Module | Promise<Module>)
+            | undefined;
     }
     class SourceTextModule extends Module {
         /**

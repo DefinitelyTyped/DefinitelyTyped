@@ -69,7 +69,7 @@ declare module "vm" {
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
             | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
@@ -815,7 +815,13 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        importModuleDynamically?:
+            | ((
+                specifier: string,
+                referrer: SourceTextModule,
+                importAttributes: ImportAttributes,
+            ) => Module | Promise<Module>)
+            | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command

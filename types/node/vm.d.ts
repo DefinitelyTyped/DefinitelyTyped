@@ -856,7 +856,13 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        importModuleDynamically?:
+            | ((
+                specifier: string,
+                referrer: SourceTextModule,
+                importAttributes: ImportAttributes,
+            ) => Module | Promise<Module>)
+            | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command

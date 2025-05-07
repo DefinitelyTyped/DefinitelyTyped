@@ -144,3 +144,33 @@ import {
         this.setExport("default", obj);
     });
 });
+
+{
+    const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+
+    const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType SourceTextModule
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+}
