@@ -46,3 +46,6 @@ client2.getTypeParser(20);
 const myFunc = (c: Client) => {
     c.on("drain", () => {});
 };
+const myFunc2 = (c: pg.Client) => {
+    c.on("drain", () => {});
+};
