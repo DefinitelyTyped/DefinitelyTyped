@@ -5911,6 +5911,10 @@
             "libraryName": "react-native-maps",
             "asOfVersion": "0.24.2"
         },
+        "react-native-material-menu": {
+            "libraryName": "react-native-material-menu",
+            "asOfVersion": "2.0.0"
+        },
         "react-native-mauron85-background-geolocation": {
             "libraryName": "@mauron85/react-native-background-geolocation",
             "asOfVersion": "0.5.3"
