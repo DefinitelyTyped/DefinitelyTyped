@@ -1465,7 +1465,6 @@ declare class Patcher {
      */
     getattr(attrname: string): number | number[] | string;
 
-
     /**
      * Get the value of a specified patcher attribute's attribute
      * V8 ONLY!
