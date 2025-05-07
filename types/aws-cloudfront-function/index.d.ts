@@ -71,7 +71,7 @@ declare module "cloudfront" {
         get(key: string): Promise<string>;
         get(key: string, options: { format: "string" }): Promise<string>;
         get(key: string, options: { format: "bytes" }): Promise<Uint8Array>;
-        get(options: { format: "json" }): Promise<unknown>;
+        get(key: string, options: { format: "json" }): Promise<unknown>;
 
         /**
          * Check if the key exists in the store.
