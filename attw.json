@@ -250,7 +250,6 @@
         "react-dom",
         "react-dom/v18",
         "react-dynamic-number",
-        "react-embed-gist",
         "react-facebook-login",
         "react-highlight",
         "react-holder",
