@@ -3519,6 +3519,112 @@ async function testBrowsingDataForPromise() {
     await chrome.browsingData.removeIndexedDB({});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/certificateProvider
+function testCertificateProvider() {
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_MD5_SHA1 === "RSASSA_PKCS1_v1_5_MD5_SHA1";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA1 === "RSASSA_PKCS1_v1_5_SHA1";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA256 === "RSASSA_PKCS1_v1_5_SHA256";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA384 === "RSASSA_PKCS1_v1_5_SHA384";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA512 === "RSASSA_PKCS1_v1_5_SHA512";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA256 === "RSASSA_PSS_SHA256";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA384 === "RSASSA_PSS_SHA384";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA512 === "RSASSA_PSS_SHA512";
+
+    chrome.certificateProvider.Error.GENERAL_ERROR === "GENERAL_ERROR";
+
+    chrome.certificateProvider.Hash.MD5_SHA1 === "MD5_SHA1";
+    chrome.certificateProvider.Hash.SHA1 === "SHA1";
+    chrome.certificateProvider.Hash.SHA256 === "SHA256";
+    chrome.certificateProvider.Hash.SHA384 === "SHA384";
+    chrome.certificateProvider.Hash.SHA512 === "SHA512";
+
+    chrome.certificateProvider.PinRequestErrorType.INVALID_PIN === "INVALID_PIN";
+    chrome.certificateProvider.PinRequestErrorType.INVALID_PUK === "INVALID_PUK";
+    chrome.certificateProvider.PinRequestErrorType.MAX_ATTEMPTS_EXCEEDED === "MAX_ATTEMPTS_EXCEEDED";
+    chrome.certificateProvider.PinRequestErrorType.UNKNOWN_ERROR === "UNKNOWN_ERROR";
+
+    chrome.certificateProvider.PinRequestType.PIN === "PIN";
+    chrome.certificateProvider.PinRequestType.PUK === "PUK";
+
+    const reportSignatureDetails: chrome.certificateProvider.ReportSignatureDetails = {
+        error: "GENERAL_ERROR",
+        signRequestId: 1,
+    };
+
+    chrome.certificateProvider.reportSignature(reportSignatureDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.reportSignature(reportSignatureDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.reportSignature(reportSignatureDetails, () => {}).then(() => {});
+
+    const requestPinDetails: chrome.certificateProvider.RequestPinDetails = {
+        attemptsLeft: 0,
+        errorType: "INVALID_PIN",
+        requestType: "PIN",
+        signRequestId: 0,
+    };
+
+    chrome.certificateProvider.requestPin(requestPinDetails); // $ExpectType Promise<PinResponseDetails | undefined>
+    chrome.certificateProvider.requestPin(requestPinDetails, (details) => { // $ExpectType void
+        details; // $ExpectType PinResponseDetails | undefined
+        if (!details) return;
+        details.userInput; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.certificateProvider.requestPin(requestPinDetails, () => {}).then(() => {});
+
+    const setCertificatesDetails: chrome.certificateProvider.SetCertificatesDetails = {
+        certificatesRequestId: 0,
+        clientCertificates: [{ certificateChain: [], supportedAlgorithms: [] }],
+        error: "GENERAL_ERROR",
+    };
+
+    chrome.certificateProvider.setCertificates(setCertificatesDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.setCertificates(setCertificatesDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.setCertificates(setCertificatesDetails, () => {}).then(() => {});
+
+    const stopPinRequestDetails: chrome.certificateProvider.StopPinRequestDetails = {
+        signRequestId: 0,
+        errorType: "INVALID_PIN",
+    };
+
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails, () => {}).then(() => {});
+
+    chrome.certificateProvider.onCertificatesUpdateRequested.addListener((request) => { // $ExpectType void
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.removeListener((request) => { // $ExpectType void
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.hasListener((request) => { // $ExpectType boolean
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.hasListeners(); // $ExpectType boolean
+
+    chrome.certificateProvider.onSignatureRequested.addListener((request) => { // $ExpectType void
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.removeListener((request) => { // $ExpectType void
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.hasListener((request) => { // $ExpectType boolean
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/commands
 async function testCommands() {
     await chrome.commands.getAll();
