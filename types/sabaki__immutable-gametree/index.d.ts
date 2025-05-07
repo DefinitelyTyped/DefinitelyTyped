@@ -90,5 +90,6 @@ declare namespace GameTree {
         children: NodeObject<ID>[];
     }
 
+    type TypedGameTree<ID extends Primitive = number> = GameTree<ID>;
     type Draft<ID extends Primitive = number> = DraftClass<ID>;
 }
