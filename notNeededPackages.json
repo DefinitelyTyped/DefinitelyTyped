@@ -6515,6 +6515,10 @@
             "libraryName": "@seatsio/seatsio-types",
             "asOfVersion": "2.0.0"
         },
+        "secure-json-parse": {
+            "libraryName": "secure-json-parse",
+            "asOfVersion": "2.4.0"
+        },
         "selfsigned": {
             "libraryName": "selfsigned",
             "asOfVersion": "2.1.0"
