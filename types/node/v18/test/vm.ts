@@ -156,9 +156,9 @@ import {
 {
     const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
         async importModuleDynamically(specifier, referrer, importAttributes) {
-            console.log(specifier); // 'foo.json'
-            console.log(referrer); // The compiled vm.Script
-            console.log(importAttributes); // { type: 'json' }
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
             const m = new SyntheticModule(["bar"], () => {});
             await m.link(() => {
                 throw new Error("unreachable");
@@ -170,9 +170,9 @@ import {
 
     const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
         async importModuleDynamically(specifier, referrer, importAttributes) {
-            console.log(specifier); // 'foo.json'
-            console.log(referrer); // The compiled vm.SourceTextModule
-            console.log(importAttributes); // { type: 'json' }
+            specifier; // $ExpectType string
+            referrer; // $ExpectType SourceTextModule
+            importAttributes; // $ExpectType ImportAttributes
             const m = new SyntheticModule(["bar"], () => {});
             await m.link(() => {
                 throw new Error("unreachable");
