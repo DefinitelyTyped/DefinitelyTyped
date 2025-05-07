@@ -148,3 +148,25 @@ function srcObjectTest() {
         src={{}}
     />;
 }
+
+// @enableDefaultTransitionIndicator
+function defaultTransitionIndicatorTest() {
+    ReactDOMClient.createRoot(document.createElement("div"), {
+        onDefaultTransitionIndicator: () => {
+            return () => {};
+        },
+    });
+    ReactDOMClient.createRoot(document.createElement("div"), {
+        // @ts-expect-error -- forgot cleanup
+        onDefaultTransitionIndicator: () => {},
+    });
+    ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
+        onDefaultTransitionIndicator: () => {
+            return () => {};
+        },
+    });
+    ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
+        // @ts-expect-error -- forgot cleanup
+        onDefaultTransitionIndicator: () => {},
+    });
+}
