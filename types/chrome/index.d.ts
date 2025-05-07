@@ -9508,7 +9508,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: { [key: string]: unknown },
+            message: object,
             responseCallback: (response: any) => void,
         ): void;
         /**
@@ -9519,7 +9519,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: { [key: string]: unknown },
+            message: object,
         ): Promise<any>;
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
