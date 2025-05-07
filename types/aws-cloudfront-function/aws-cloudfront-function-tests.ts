@@ -116,7 +116,9 @@ import cf from "cloudfront";
 
 const kvsHandle = cf.kvs("example-kvs-id");
 
-async function handler3(event: AWSCloudFrontFunction.Event): Promise<AWSCloudFrontFunction.Request | AWSCloudFrontFunction.Response> {
+async function handler3(
+    event: AWSCloudFrontFunction.Event,
+): Promise<AWSCloudFrontFunction.Request | AWSCloudFrontFunction.Response> {
     const _value1 = await kvsHandle.get("key");
     const _value2 = await kvsHandle.get("key", { format: "string" });
     const _value3 = await kvsHandle.get("key", { format: "bytes" });
