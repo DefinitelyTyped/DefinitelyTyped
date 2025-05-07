@@ -65,10 +65,10 @@ router.get("/users.json", async (req: Request, res: Response) => {
         console.log("offset: " + value.offset);
         console.log("docs: ");
         console.dir(value.docsCustom);
-        res.json(value);
+        return res.json(value);
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 });
 
@@ -90,10 +90,10 @@ router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
 
     try {
         const value: AggregatePaginateResult<HobbyStats> = await UserModel.aggregatePaginate(aggregate, options);
-        res.json(value);
+        return res.json(value);
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 });
 
@@ -117,10 +117,10 @@ router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
 
     try {
         const value: AggregatePaginateResult<HobbyStats> = await UserModel.aggregatePaginate(aggregate, options);
-        res.json(value);
+        return res.json(value);
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        return res.status(500).send(err);
     }
 });
 // #endregion

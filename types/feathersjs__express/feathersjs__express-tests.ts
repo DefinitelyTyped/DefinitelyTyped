@@ -13,6 +13,7 @@ const feathersServiceDummy = {
 };
 const expressMiddlewareDummy = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     next();
+    return app;
 };
 
 app.use(express.json());
