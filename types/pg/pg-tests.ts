@@ -1,6 +1,16 @@
 import { connect } from "net";
 import * as pg from "pg";
-import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import {
+    Client,
+    Connection,
+    CustomTypesConfig,
+    DatabaseError,
+    defaults,
+    Pool,
+    QueryArrayConfig,
+    TypeOverrides as TypeOverridesNamed,
+    types,
+} from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
@@ -206,6 +216,9 @@ const customTypeOverrides = new TypeOverrides();
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 const customCustomTypeOverrides = new TypeOverrides(customTypes);
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+const customTypeOverridesFromNamed = new TypeOverridesNamed();
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 client.connection.once("rowDescription", () => {

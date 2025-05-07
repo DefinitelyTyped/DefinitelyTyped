@@ -8,9 +8,9 @@ import {
     Pool,
     Query,
     Result,
+    TypeOverrides,
     types,
 } from "./index.js";
-import TypeOverrides = require("./lib/type-overrides");
 
 declare const PG: {
     defaults: typeof defaults;
@@ -27,6 +27,17 @@ declare const PG: {
 };
 
 export type * from "./index.d.ts";
-export { Client, Connection, DatabaseError, defaults, escapeIdentifier, escapeLiteral, Pool, Query, Result, types };
-export { TypeOverrides };
+export {
+    Client,
+    Connection,
+    DatabaseError,
+    defaults,
+    escapeIdentifier,
+    escapeLiteral,
+    Pool,
+    Query,
+    Result,
+    TypeOverrides,
+    types,
+};
 export default PG;

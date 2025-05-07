@@ -326,6 +326,8 @@ import * as Pg from ".";
 export const native: typeof Pg | null;
 
 export { DatabaseError } from "pg-protocol";
+import TypeOverrides = require("./lib/type-overrides");
+export { TypeOverrides };
 
 export class Result<R extends QueryResultRow = any> implements QueryResult<R> {
     command: string;
