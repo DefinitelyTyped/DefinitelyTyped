@@ -152,3 +152,33 @@ import {
         this.setExport("default", obj);
     });
 });
+
+{
+    const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            console.log(specifier); // 'foo.json'
+            console.log(referrer); // The compiled vm.Script
+            console.log(importAttributes); // { type: 'json' }
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+
+    const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            console.log(specifier); // 'foo.json'
+            console.log(referrer); // The compiled vm.SourceTextModule
+            console.log(importAttributes); // { type: 'json' }
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+}

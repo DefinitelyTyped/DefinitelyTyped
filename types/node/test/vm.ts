@@ -153,7 +153,7 @@ import {
             console.log(importAttributes); // { type: 'json' }
             const m = new SyntheticModule(["bar"], () => {});
             await m.link(() => {
-                throw new Error();
+                throw new Error("unreachable");
             });
             m.setExport("bar", { hello: "world" });
             return m;
@@ -167,7 +167,7 @@ import {
             console.log(importAttributes); // { type: 'json' }
             const m = new SyntheticModule(["bar"], () => {});
             await m.link(() => {
-                throw new Error();
+                throw new Error("unreachable");
             });
             m.setExport("bar", { hello: "world" });
             return m;
