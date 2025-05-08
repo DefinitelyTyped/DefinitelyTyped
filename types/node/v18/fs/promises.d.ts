@@ -695,6 +695,19 @@ declare module "fs/promises" {
         },
     ): Promise<Dirent[]>;
     /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Promise<Dirent<Buffer>[]>;
+    /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
      * resolved with the`linkString` upon success.
      *
