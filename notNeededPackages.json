@@ -704,6 +704,10 @@
             "libraryName": "chardet",
             "asOfVersion": "1.0.0"
         },
+        "chart.js": {
+            "libraryName": "chart.js",
+            "asOfVersion": "4.0.1"
+        },
         "chartist": {
             "libraryName": "chartist",
             "asOfVersion": "1.0.0"
