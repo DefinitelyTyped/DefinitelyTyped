@@ -24,6 +24,15 @@
 
 // NOTE: These definitions support Node.js and TypeScript 5.7+.
 
+// Reference required TypeScript libs:
+/// <reference lib="es2015.collection" />
+/// <reference lib="es2015.generator" />
+/// <reference lib="es2015.iterable" />
+/// <reference lib="es2017.sharedmemory" />
+/// <reference lib="es2018.asyncgenerator" />
+/// <reference lib="es2018.asynciterable" />
+/// <reference lib="es2020.bigint" />
+
 // TypeScript backwards-compatibility definitions:
 /// <reference path="compatibility/index.d.ts" />
 
