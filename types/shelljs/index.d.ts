@@ -848,30 +848,30 @@ export interface ExecOutputReturnValue {
 export const cmd: CmdFunction;
 
 export interface CmdFunction {
-	(arg1: string, ...args: [...string[], string | CmdOptions]): ShellString;
+    (arg1: string, ...args: [...string[], string | CmdOptions]): ShellString;
 }
 
 export interface CmdOptions {
-	/**
-	 * Change the current working directory only for this `cmd()` invocation.
-	 *
-	 * @default process.cwd()
-	 */
-	cwd?: string;
+    /**
+     * Change the current working directory only for this `cmd()` invocation.
+     *
+     * @default process.cwd()
+     */
+    cwd?: string;
 
-	/**
-	 * Raise or decrease the default buffer size for stdout/stderr.
-	 *
-	 * @default 20,971,520 (or 20 * 1024 * 1024)
- 	 */
-	maxBuffer?: number;
+    /**
+     * Raise or decrease the default buffer size for stdout/stderr.
+     *
+     * @default 20,971,520 (or 20 * 1024 * 1024)
+     */
+    maxBuffer?: number;
 
-	/**
-	 * Change the default timeout.
-	 *
-	 * @default 0
-	 */
-	timeout?: number;
+    /**
+     * Change the default timeout.
+     *
+     * @default 0
+     */
+    timeout?: number;
 }
 
 export interface ShellReturnValue extends ExecOutputReturnValue {
