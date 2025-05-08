@@ -54,6 +54,11 @@ const ndOne: OneLine.OneLine = {
             console.log(`Subscribed to topic: ${topic}`);
         },
 
+        subscribeSocialConsents: (fn: NoParamFunction | ((data: SocialConsents) => void)) => {
+            // Mock implementation for subscribe
+            console.log(`Subscribed to topic`);
+        },
+
         broadcast: (oneTime: boolean, topic: string, data?: any) => {
             // Mock implementation for broadcast
             console.log(`Broadcasting to topic: ${topic} with data: ${data}`);

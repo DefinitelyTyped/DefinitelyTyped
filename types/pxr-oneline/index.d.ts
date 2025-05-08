@@ -55,6 +55,7 @@ declare namespace OneLine {
             OneTime: string;
         };
         subscribe(topic: string, fn: NoParamFunction): void;
+        subscribeSocialConsents(fn: (data: SocialConsents) => void): void;
         subscribe(topic: EventObject["topic"]["purposeReady"], fn: (data: SocialConsents) => void): void;
         broadcast(oneTime: boolean, topic: string, data?: any): void;
     }
