@@ -7191,6 +7191,10 @@
             "libraryName": "tesseract.js",
             "asOfVersion": "2.0.0"
         },
+        "testing-library__cypress": {
+            "libraryName": "@testing-library/cypress",
+            "asOfVersion": "7.0.0"
+        },
         "testing-library__dom": {
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
