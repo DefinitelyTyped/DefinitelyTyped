@@ -920,9 +920,9 @@ function testDebugger() {
         sessionId: "123",
     };
 
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<Object | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<object | undefined>
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
-        result; // $ExpectType Object | undefined
+        result; // $ExpectType object | undefined
     });
     // @ts-expect-error
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
@@ -930,17 +930,17 @@ function testDebugger() {
     chrome.debugger.onEvent.addListener((source, methodName, params) => { // $ExpectType void
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.removeListener((source, methodName, params) => { // $ExpectType void
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.hasListener((source, methodName, params) => { // $ExpectType boolean
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.hasListeners(); // $ExpectType boolean
 
@@ -3005,8 +3005,8 @@ function testRuntimeSendMessage() {
 }
 
 function testRuntimeSendNativeMessage() {
-    chrome.runtime.sendNativeMessage("application", console.log).then(() => {});
-    chrome.runtime.sendNativeMessage("application", console.log, (num: number) => alert(num + 1));
+    chrome.runtime.sendNativeMessage("application", {}).then(() => {});
+    chrome.runtime.sendNativeMessage("application", {}, (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
