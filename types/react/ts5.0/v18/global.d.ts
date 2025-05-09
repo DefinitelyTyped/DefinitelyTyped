@@ -157,4 +157,7 @@ interface TouchList {}
 interface WebGLRenderingContext {}
 interface WebGL2RenderingContext {}
 
+// See: https://www.w3.org/TR/trusted-types/
 interface TrustedHTML {}
+interface TrustedScript {}
+interface TrustedScriptURL {}
