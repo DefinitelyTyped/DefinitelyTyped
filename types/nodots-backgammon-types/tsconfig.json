@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": []
+  },
+  "files": [
+    "index.d.ts",
+    "nodots-backgammon-types-tests.ts"
+  ]
+} 
