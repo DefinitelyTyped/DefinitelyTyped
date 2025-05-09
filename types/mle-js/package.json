@@ -1,0 +1,24 @@
+{
+    "name": "@types/mle-js",
+    "version": "23.7.9999",
+    "private": true,
+    "dependencies": {
+        "mle-js": "23.7.0"
+    },
+    "devDependencies": {
+        "@types/mle-js": "workspace:."
+    },
+    "projects": [
+        "https://oracle-samples.github.io/mle-modules"
+    ],
+    "owners": [
+        {
+            "name": "Lucas Braun",
+            "githubUsername": "lucasbraun"
+        },
+        {
+            "name": "Gyorgy Rethy",
+            "githubUsername": "GyorgyR"
+        }
+    ]
+}
