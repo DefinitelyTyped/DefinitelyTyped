@@ -66,7 +66,6 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/child_process.js)
  */
 declare module "child_process" {
-    import { ObjectEncodingOptions } from "node:fs";
     import { Abortable, EventEmitter } from "node:events";
     import * as dgram from "node:dgram";
     import * as net from "node:net";
@@ -892,8 +891,15 @@ declare module "child_process" {
         encoding: BufferEncoding;
     }
     interface ExecOptionsWithBufferEncoding extends ExecOptions {
-        encoding: BufferEncoding | null; // specify `null`.
+        encoding: "buffer" | null; // specify `null`.
     }
+    interface ExecOptionsWithOtherEncoding extends ExecOptions {
+        encoding: string;
+    }
+    interface ExecOptionsWithNullishEncoding extends ExecOptions {
+        encoding?: string | null | undefined;
+    }
+
     interface ExecException extends Error {
         cmd?: string | undefined;
         killed?: boolean | undefined;
@@ -995,26 +1001,20 @@ declare module "child_process" {
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     function exec(
         command: string,
-        options: {
-            encoding: "buffer" | null;
-        } & ExecOptions,
+        options: ExecOptionsWithBufferEncoding,
         callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void,
     ): ChildProcess;
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
     function exec(
         command: string,
-        options: {
-            encoding: BufferEncoding;
-        } & ExecOptions,
+        options: ExecOptionsWithStringEncoding,
         callback?: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     function exec(
         command: string,
-        options: {
-            encoding: BufferEncoding;
-        } & ExecOptions,
+        options: ExecOptionsWithOtherEncoding,
         callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
@@ -1026,7 +1026,10 @@ declare module "child_process" {
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function exec(
         command: string,
-        options: (ObjectEncodingOptions & ExecOptions) | undefined | null,
+        options:
+            | ExecOptionsWithNullishEncoding
+            | undefined
+            | null,
         callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
     interface PromiseWithChild<T> extends Promise<T> {
@@ -1039,21 +1042,24 @@ declare module "child_process" {
         }>;
         function __promisify__(
             command: string,
-            options: {
-                encoding: "buffer" | null;
-            } & ExecOptions,
+            options: ExecOptionsWithBufferEncoding,
         ): PromiseWithChild<{
             stdout: Buffer;
             stderr: Buffer;
         }>;
         function __promisify__(
             command: string,
-            options: {
-                encoding: BufferEncoding;
-            } & ExecOptions,
+            options: ExecOptionsWithStringEncoding,
         ): PromiseWithChild<{
             stdout: string;
             stderr: string;
+        }>;
+        function __promisify__(
+            command: string,
+            options: ExecOptionsWithOtherEncoding,
+        ): PromiseWithChild<{
+            stdout: string | Buffer;
+            stderr: string | Buffer;
         }>;
         function __promisify__(
             command: string,
@@ -1064,7 +1070,10 @@ declare module "child_process" {
         }>;
         function __promisify__(
             command: string,
-            options?: (ObjectEncodingOptions & ExecOptions) | null,
+            options:
+                | ExecOptionsWithNullishEncoding
+                | undefined
+                | null,
         ): PromiseWithChild<{
             stdout: string | Buffer;
             stderr: string | Buffer;
@@ -1084,7 +1093,10 @@ declare module "child_process" {
         encoding: "buffer" | null;
     }
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
-        encoding: BufferEncoding;
+        encoding: string;
+    }
+    interface ExecFileOptionsWithNullishEncoding extends ExecFileOptions {
+        encoding?: string | null | undefined;
     }
     type ExecFileException =
         & Omit<ExecException, "code">
@@ -1153,80 +1165,72 @@ declare module "child_process" {
      * @param args List of string arguments.
      * @param callback Called with the output when process terminates.
      */
-    function execFile(file: string): ChildProcess;
-    function execFile(
-        file: string,
-        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
-    ): ChildProcess;
-    function execFile(file: string, args?: readonly string[] | null): ChildProcess;
-    function execFile(
-        file: string,
-        args: readonly string[] | undefined | null,
-        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
-    ): ChildProcess;
     // no `options` definitely means stdout/stderr are `string`.
     function execFile(
         file: string,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     function execFile(
         file: string,
         options: ExecFileOptionsWithBufferEncoding,
-        callback: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithBufferEncoding,
-        callback: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
     ): ChildProcess;
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
     function execFile(
         file: string,
         options: ExecFileOptionsWithStringEncoding,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithStringEncoding,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     function execFile(
         file: string,
         options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
+        callback?: (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
     function execFile(
         file: string,
         options: ExecFileOptions,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptions,
-        callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function execFile(
         file: string,
-        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
+        options:
+            | ExecFileOptionsWithNullishEncoding
+            | undefined
+            | null,
         callback:
             | ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void)
             | undefined
@@ -1235,7 +1239,10 @@ declare module "child_process" {
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
-        options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
+        options:
+            | ExecFileOptionsWithNullishEncoding
+            | undefined
+            | null,
         callback:
             | ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void)
             | undefined
@@ -1315,7 +1322,10 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
+            options:
+                | ExecFileOptionsWithNullishEncoding
+                | undefined
+                | null,
         ): PromiseWithChild<{
             stdout: string | Buffer;
             stderr: string | Buffer;
@@ -1323,7 +1333,10 @@ declare module "child_process" {
         function __promisify__(
             file: string,
             args: readonly string[] | undefined | null,
-            options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
+            options:
+                | ExecFileOptionsWithNullishEncoding
+                | undefined
+                | null,
         ): PromiseWithChild<{
             stdout: string | Buffer;
             stderr: string | Buffer;
