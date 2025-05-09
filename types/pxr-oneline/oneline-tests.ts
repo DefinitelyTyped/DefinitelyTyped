@@ -57,11 +57,6 @@ const ndOne: OneLine.OneLine = {
             // Mock implementation for subscribe
             console.log(`Subscribed to topic`);
         },
-
-        broadcast: (oneTime: boolean, topic: string, data?: any) => {
-            // Mock implementation for broadcast
-            console.log(`Broadcasting to topic: ${topic} with data: ${data}`);
-        },
     },
     adUnitRequest: (arrFoAdIds?: string[], allowReload?: boolean) => {
         // Mock implementation for adUnitRequest
