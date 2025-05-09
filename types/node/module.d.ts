@@ -225,12 +225,12 @@ declare module "module" {
              * See [load hook](https://nodejs.org/docs/latest-v22.x/api/module.html#loadurl-context-nextload).
              * @default undefined
              */
-            load?: LoadHook | undefined;
+            load?: LoadHookSync | undefined;
             /**
              * See [resolve hook](https://nodejs.org/docs/latest-v22.x/api/module.html#resolvespecifier-context-nextresolve).
              * @default undefined
              */
-            resolve?: ResolveHook | undefined;
+            resolve?: ResolveHookSync | undefined;
         }
         interface ModuleHooks {
             /**
@@ -429,6 +429,14 @@ declare module "module" {
                 context?: Partial<ResolveHookContext>,
             ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
+        type ResolveHookSync = (
+            specifier: string,
+            context: ResolveHookContext,
+            nextResolve: (
+                specifier: string,
+                context?: Partial<ResolveHookContext>,
+            ) => ResolveFnOutput,
+        ) => ResolveFnOutput;
         interface LoadHookContext {
             /**
              * Export conditions of the relevant `package.json`
@@ -468,6 +476,14 @@ declare module "module" {
                 context?: Partial<LoadHookContext>,
             ) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
+        type LoadHookSync = (
+            url: string,
+            context: LoadHookContext,
+            nextLoad: (
+                url: string,
+                context?: Partial<LoadHookContext>,
+            ) => LoadFnOutput,
+        ) => LoadFnOutput;
         /**
          * `path` is the resolved path for the file for which a corresponding source map
          * should be fetched.
