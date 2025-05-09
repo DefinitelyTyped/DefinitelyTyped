@@ -5731,6 +5731,10 @@
             "libraryName": "react-email-editor",
             "asOfVersion": "1.7.0"
         },
+        "react-embed-gist": {
+            "libraryName": "react-embed-gist",
+            "asOfVersion": "1.0.22"
+        },
         "react-fade-in": {
             "libraryName": "react-fade-in",
             "asOfVersion": "2.0.0"
