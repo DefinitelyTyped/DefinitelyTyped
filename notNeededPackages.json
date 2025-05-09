@@ -5227,6 +5227,10 @@
             "libraryName": "printf",
             "asOfVersion": "0.3.0"
         },
+        "private-ip": {
+            "libraryName": "private-ip",
+            "asOfVersion": "2.3.3"
+        },
         "prosemirror-changeset": {
             "libraryName": "prosemirror-changeset",
             "asOfVersion": "2.2.0"
