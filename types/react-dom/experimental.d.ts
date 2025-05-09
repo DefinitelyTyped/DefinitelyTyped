@@ -76,10 +76,11 @@ declare module "react" {
 }
 
 declare module "./client" {
+    type TransitionIndiciatorCleanup = () => VoidOrUndefinedOnly;
     interface RootOptions {
-        onDefaultTransitionIndicator?: (() => () => VoidOrUndefinedOnly) | undefined;
+        onDefaultTransitionIndicator?: (() => void | TransitionIndiciatorCleanup) | undefined;
     }
     interface HydrationOptions {
-        onDefaultTransitionIndicator?: (() => () => VoidOrUndefinedOnly) | undefined;
+        onDefaultTransitionIndicator?: (() => void | TransitionIndiciatorCleanup) | undefined;
     }
 }

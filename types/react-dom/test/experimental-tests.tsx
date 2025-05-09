@@ -157,7 +157,7 @@ function defaultTransitionIndicatorTest() {
         },
     });
     ReactDOMClient.createRoot(document.createElement("div"), {
-        // @ts-expect-error -- forgot cleanup
+        // No cleanup is fine e.g. if optimistic state is used
         onDefaultTransitionIndicator: () => {},
     });
     ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
@@ -166,7 +166,7 @@ function defaultTransitionIndicatorTest() {
         },
     });
     ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
-        // @ts-expect-error -- forgot cleanup
+        // No cleanup is fine e.g. if optimistic state is used
         onDefaultTransitionIndicator: () => {},
     });
 }
