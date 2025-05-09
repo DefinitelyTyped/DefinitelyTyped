@@ -43,7 +43,6 @@ const ndOne: OneLine.OneLine = {
             isEmpty: "isEmpty",
             isNotEmpty: "isNotEmpty",
             ageGateReady: "ageGateReady",
-            purposeReady: "purposeReady",
         },
         cons: {
             OneTime: "OneTime",
