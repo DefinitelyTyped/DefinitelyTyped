@@ -218,7 +218,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new(props: any): Component<any> }
-            | ((props: any) => ReactNode)
+            | ((props: any) => ReactNode | Promise<ReactNode>)
             | keyof JSX.IntrinsicElements,
     > = ComponentRef<C>;
 
