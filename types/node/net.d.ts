@@ -109,8 +109,8 @@ declare module "net" {
          * @since v0.1.90
          * @param [encoding='utf8'] Only used when data is `string`.
          */
-        write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
+        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
+        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
         /**
          * Initiate a connection on a given socket.
          *
