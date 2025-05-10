@@ -15,7 +15,7 @@
     "dependencies": {
         "@types/node": "*",
         "pg-protocol": "*",
-        "pg-types": "^4.0.1"
+        "pg-types": "^2.2.0"
     },
     "devDependencies": {
         "@types/pg": "workspace:."
