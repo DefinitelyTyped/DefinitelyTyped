@@ -5611,6 +5611,10 @@
             "libraryName": "react-axe",
             "asOfVersion": "3.5.0"
         },
+        "react-bootstrap": {
+            "libraryName": "react-bootstrap",
+            "asOfVersion": "1.1.0"
+        },
         "react-bootstrap-daterangepicker": {
             "libraryName": "react-bootstrap-daterangepicker",
             "asOfVersion": "7.0.0"
