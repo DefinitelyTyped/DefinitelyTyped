@@ -4701,6 +4701,10 @@
             "libraryName": "otplib",
             "asOfVersion": "10.0.0"
         },
+        "overlayscrollbars": {
+            "libraryName": "overlayscrollbars",
+            "asOfVersion": "2.0.0"
+        },
         "overwatch-api": {
             "libraryName": "overwatch-api",
             "asOfVersion": "0.7.1"
