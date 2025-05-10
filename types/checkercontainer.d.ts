@@ -1,5 +1,7 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonChecker } from './checker'
@@ -17,7 +19,7 @@ export type BackgammonCheckercontainerPosition =
   | BarPosition
   | OffPosition
 type CheckerContainerKind = 'point' | 'bar' | 'off'
-export interface BackgammonCheckercontainer {
+export type BackgammonCheckercontainer = {
   id: string
   kind: CheckerContainerKind
   position: BackgammonCheckercontainerPosition

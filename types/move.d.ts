@@ -1,9 +1,16 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonBoard } from '.'
-import type { BackgammonCheckercontainer, BackgammonMoveDestination, BackgammonMoveOrigin, BackgammonPoint } from './checkercontainer'
+import {
+  BackgammonCheckercontainer,
+  BackgammonMoveDestination,
+  BackgammonMoveOrigin,
+  BackgammonPoint,
+} from './checkercontainer'
 import { BackgammonDieValue } from './dice'
 import { BackgammonMoveDirection } from './game'
 import {
@@ -21,7 +28,7 @@ export type BackgammonMoveKind =
   | 'point-to-point'
   | 'reenter'
   | 'bear-off'
-export interface BackgammonMoveSkeleton {
+export type BackgammonMoveSkeleton = {
   dieValue: BackgammonDieValue
   direction: BackgammonMoveDirection
   origin: BackgammonMoveOrigin

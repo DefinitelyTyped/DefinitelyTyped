@@ -1,5 +1,7 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonColor } from './game'
@@ -7,22 +9,22 @@ export type BackgammonDieValue = 1 | 2 | 3 | 4 | 5 | 6
 export type BackgammonDieOrder = 0 | 1
 export type BackgammonRoll = [BackgammonDieValue, BackgammonDieValue]
 export type BackgammonDiceStateKind = 'inactive' | 'rolling' | 'rolled'
-interface BaseDice {
+type BaseDice = {
   id: string
   color: BackgammonColor
   currentRoll?: BackgammonRoll | undefined
   total?: number
 }
-interface Dice extends BaseDice {
+type Dice = BaseDice & {
   stateKind: BackgammonDiceStateKind
 }
-export interface BackgammonDiceInactive extends Dice {
+export type BackgammonDiceInactive = Dice & {
   stateKind: 'inactive'
 }
-export interface BackgammonDiceRolling extends Dice {
+export type BackgammonDiceRolling = Dice & {
   stateKind: 'rolling'
 }
-export interface BackgammonDiceRolled extends Dice {
+export type BackgammonDiceRolled = Dice & {
   stateKind: 'rolled'
   currentRoll: BackgammonRoll
   total: number

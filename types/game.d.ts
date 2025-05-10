@@ -1,5 +1,7 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonBoard } from './board'
@@ -24,7 +26,15 @@ export type Longitude = 'east' | 'west'
 export type BackgammonColor = 'black' | 'white'
 export type BackgammonMoveDirection = 'clockwise' | 'counterclockwise'
 export type BackgammonPips = IntegerRange<1, 167>
-export interface BaseGame {
+export declare const MAX_PIP_COUNT = 167
+export declare const CHECKERS_PER_PLAYER = 15
+export type BackgammonGameStateKind =
+  | 'rolling-for-start'
+  | 'rolled-for-start'
+  | 'rolling'
+  | 'moving'
+  | 'completed'
+type BaseGame = {
   id: string
   players: BackgammonPlayers
   board: BackgammonBoard
@@ -35,39 +45,39 @@ export interface BaseGame {
   activePlayer?: BackgammonPlayer
   inactivePlayer?: BackgammonPlayer
 }
-interface Game extends BaseGame {
+type Game = BaseGame & {
   stateKind: BackgammonGameStateKind
 }
-export interface BackgammonGameRollingForStart extends Game {
+export type BackgammonGameRollingForStart = Game & {
   stateKind: 'rolling-for-start'
 }
-export interface BackgammonGameRolledForStart extends Game {
+export type BackgammonGameRolledForStart = Game & {
   stateKind: 'rolled-for-start'
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerRolling
   inactivePlayer: BackgammonPlayerInactive
 }
-export interface BackgammonGameRolling extends Game {
+export type BackgammonGameRolling = Game & {
   stateKind: 'rolling'
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerActive
   inactivePlayer: BackgammonPlayerInactive
 }
-export interface BackgammonGameRolled extends Game {
+export type BackgammonGameRolled = Game & {
   stateKind: 'rolled'
   activeColor: BackgammonColor
   activePlayer: BackgammonPlayerActive
   inactivePlayer: BackgammonPlayerInactive
   activePlay: BackgammonPlayRolled
 }
-export interface BackgammonGameMoving extends Game {
+export type BackgammonGameMoving = Game & {
   stateKind: 'moving'
   activeColor: BackgammonColor
   activePlay: BackgammonPlayMoving
   activePlayer: BackgammonPlayerActive
   inactivePlayer: BackgammonPlayerInactive
 }
-export interface BackgammonGameCompleted extends Game {
+export type BackgammonGameCompleted = Game & {
   stateKind: 'completed'
   winner: BackgammonPlayerWinner
 }
@@ -118,13 +128,4 @@ export interface GameClass {
   ) => [BackgammonPlayerActive, BackgammonPlayerInactive]
   sanityCheckMovingGame: (game: BackgammonGame) => BackgammonGameMoving | false
 }
-export const MAX_PIP_COUNT = 167
-export const CHECKERS_PER_PLAYER = 15
-export type BackgammonGameStateKind =
-  | 'rolling-for-start'
-  | 'rolled-for-start'
-  | 'rolling'
-  | 'rolled'
-  | 'moving'
-  | 'completed'
 export {}

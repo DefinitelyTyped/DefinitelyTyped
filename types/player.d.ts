@@ -1,5 +1,7 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonChecker } from './checker'
@@ -24,8 +26,7 @@ export type BackgammonPlayerStateKind =
   | 'moving'
   | 'moved'
   | 'winner'
-
-interface BasePlayer {
+type BasePlayer = {
   id?: string
   color: BackgammonColor
   direction: BackgammonMoveDirection

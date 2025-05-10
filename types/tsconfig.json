@@ -5,12 +5,12 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "noEmit": true,
-    "types": [],
-    "lib": ["es6"]
+    "types": []
   },
   "files": [
     "index.d.ts",
-    "index-tests.ts"
+    "nodots-backgammon-types-tests.ts"
   ]
 } 

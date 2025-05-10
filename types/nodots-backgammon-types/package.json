@@ -2,6 +2,8 @@
   "name": "@types/nodots-backgammon-types",
   "version": "1.0.9999",
   "private": true,
+  "nonNpm": true,
+  "nonNpmDescription": "Types for a non-npm package, not published to npm.",
   "devDependencies": {
     "@types/nodots-backgammon-types": "workspace:."
   },

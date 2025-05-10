@@ -1,5 +1,7 @@
+// Type definitions for nodots-backgammon-types
 // Project: https://github.com/nodots/nodots-backgammon-types
 // Definitions by: Ken Riley <https://github.com/nodots>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.5
 
 import { BackgammonMoves, BackgammonMoveCompleted } from './move'
@@ -12,7 +14,7 @@ import {
 import { BackgammonBoard } from './board'
 import { BackgammonCube } from './cube'
 import { BackgammonMoveOrigin } from './checkercontainer'
-export interface BackgammonPlayResult {
+export type BackgammonPlayResult = {
   board: BackgammonBoard
   play: BackgammonPlay
   move: BackgammonMoveCompleted
@@ -23,38 +25,37 @@ export type BackgammonPlayStateKind =
   | 'moving'
   | 'moved'
   | 'confirmed'
-  | 'doubled'
-interface BasePlay {
+type BasePlay = {
   id: string
   player: BackgammonPlayer
   board: BackgammonBoard
   moves?: BackgammonMoves
 }
-interface Play extends BasePlay {
+type Play = BasePlay & {
   stateKind: BackgammonPlayStateKind
 }
-export interface BackgammonPlayRolling extends Play {
+export type BackgammonPlayRolling = Play & {
   stateKind: 'rolling'
   player: BackgammonPlayerRolling
 }
-export interface BackgammonPlayRolled extends Play {
+export type BackgammonPlayRolled = Play & {
   stateKind: 'rolled'
   player: BackgammonPlayerRolled
   moves: BackgammonMoves
 }
-export interface BackgammonPlayDoubled extends Play {
+export type BackgammonPlayDoubled = Play & {
   stateKind: 'doubled'
 }
-export interface BackgammonPlayMoving extends Play {
+export type BackgammonPlayMoving = Play & {
   stateKind: 'moving'
   player: BackgammonPlayerMoving
   moves: BackgammonMoves
 }
-export interface BackgammonPlayMoved extends Play {
+export type BackgammonPlayMoved = Play & {
   stateKind: 'moved'
   player: BackgammonPlayer
 }
-export interface BackgammonPlayConfirmed extends Play {
+export type BackgammonPlayConfirmed = Play & {
   stateKind: 'confirmed'
   player: BackgammonPlayer
 }
@@ -65,11 +66,11 @@ export type BackgammonPlay =
   | BackgammonPlayMoving
   | BackgammonPlayMoved
   | BackgammonMoveCompleted
-export interface BackgammonRollResults {
+export type BackgammonRollResults = {
   player: BackgammonPlayerRolled
   activePlay: BackgammonPlayRolled
 }
-export interface BackgammonPlayResults {
+export type BackgammonPlayResults = {
   board: BackgammonBoard
   play: BackgammonPlay
 }
