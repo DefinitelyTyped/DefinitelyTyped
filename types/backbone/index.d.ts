@@ -8,13 +8,7 @@ declare namespace Backbone {
     type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
     type _Result<T> = T | (() => T);
     type _StringKey<T> = keyof T & string;
-
-    interface AddOptions extends Silenceable {
-        at?: number | undefined;
-        merge?: boolean | undefined;
-        sort?: boolean | undefined;
-    }
-
+    
     interface CollectionSetOptions extends Parseable, Silenceable {
         add?: boolean | undefined;
         remove?: boolean | undefined;
@@ -22,6 +16,8 @@ declare namespace Backbone {
         at?: number | undefined;
         sort?: boolean | undefined;
     }
+
+    type AddOptions = _Omit<CollectionSetOptions, "add" | "remove">;
 
     interface HistoryOptions extends Silenceable {
         pushState?: boolean | undefined;
