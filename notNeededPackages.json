@@ -4509,6 +4509,10 @@
             "libraryName": "node-pg-migrate",
             "asOfVersion": "2.15.0"
         },
+        "node-powershell": {
+            "libraryName": "node-powershell",
+            "asOfVersion": "5.0.0"
+        },
         "node-resque": {
             "libraryName": "node-resque",
             "asOfVersion": "6.0.1"
