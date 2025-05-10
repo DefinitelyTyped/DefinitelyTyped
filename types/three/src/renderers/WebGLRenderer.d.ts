@@ -202,8 +202,6 @@ export class WebGLRenderer {
 
     shadowMap: WebGLShadowMap;
 
-    pixelRatio: number;
-
     capabilities: WebGLCapabilities;
     properties: WebGLProperties;
     renderLists: WebGLRenderLists;
