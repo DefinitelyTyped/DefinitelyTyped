@@ -2,24 +2,29 @@
 
 import * as React from "react";
 
-interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
-    width: string | number;
-    height: string | number;
-    updateOnResize: boolean;
+declare namespace ReactHolder {
+    interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
+        /** @default '100' */
+        width: string | number;
+        /** @default '100' */
+        height: string | number;
+        updateOnResize?: boolean | undefined;
 
-    // config args
-    theme?: string | undefined;
-    random?: boolean | undefined;
-    bg?: string | undefined;
-    fg?: string | undefined;
-    text?: string | undefined;
-    size?: number | undefined;
-    font?: string | undefined;
-    align?: string | undefined;
-    outline?: boolean | undefined;
-    lineWrap?: number | undefined;
+        // config args
+        theme?: string | undefined;
+        random?: boolean | undefined;
+        bg?: string | undefined;
+        fg?: string | undefined;
+        text?: string | undefined;
+        size?: number | undefined;
+        font?: string | undefined;
+        align?: string | undefined;
+        outline?: boolean | undefined;
+        lineWrap?: number | undefined;
+    }
 }
 
-declare class ReactHolder extends React.Component<ReactHolderProp> {
+declare class ReactHolder extends React.Component<ReactHolder.ReactHolderProp> {
 }
-export default ReactHolder;
+
+export = ReactHolder;
