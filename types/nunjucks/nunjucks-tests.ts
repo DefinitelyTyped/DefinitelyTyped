@@ -101,3 +101,25 @@ nunjucks.Loader.extend({
 function foo(async: boolean) {
     nunjucks.Loader.extend(new nunjucks.WebLoader(undefined, { async }));
 }
+
+const ObjSubclass = nunjucks.Obj.extend({ foo: 'bar' });
+const objClass = new ObjSubclass();
+objClass.typename;
+objClass.foo;
+
+const CustomNode = nunjucks.nodes.Node.extend({
+    fields: ['a', 'b'],
+});
+
+const customNode = new CustomNode(1, 2, 3, 4);
+customNode.typename;
+customNode.iterFields((v, k) => v);
+
+const customValue = new nunjucks.nodes.Value(1, 2, '3');
+customValue.value;
+customValue.typename;
+
+const pairNode = new nunjucks.nodes.Pair(1, 2);
+
+const filterAsyncNode = new nunjucks.nodes.FilterAsync(1, 2);
+filterAsyncNode.args.typename;
