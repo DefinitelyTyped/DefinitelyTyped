@@ -101,7 +101,7 @@ export class ImapFlow extends EventEmitter {
     ): Promise<DownloadObject>;
 
     /**
-     * Fetch multiple attachments as an object with `part` as key and `DownloadObject` as the value.
+     * Fetch multiple attachments as an object with `part` as key and `DownloadManyObject` as the value.
      * @param range UID or sequence number for the message to fetch.
      * @param parts A list of bodystructure parts.
      * @param options.uid If `true` then uses UID number instead of sequence number for range.
@@ -112,7 +112,7 @@ export class ImapFlow extends EventEmitter {
         options?: {
             uid?: boolean;
         },
-    ): Promise<{ [key: string]: DownloadObject }>;
+    ): Promise<{ [key: string]: DownloadManyObject }>;
 
     /**
      * Opens a mailbox if not already open and returns a lock.
@@ -599,7 +599,47 @@ export interface DownloadObject {
          */
         disposition?: string;
         /**
+         * Encoding of the body part.
+         */
+        encoding?: string;
+        flowed?: true;
+        delSp?: true;
+        /**
          * Filename of the streamed body part.
+         */
+        filename?: string;
+    };
+}
+
+export interface DownloadManyObject {
+    /**
+     * Streamed content
+     */
+    content: Buffer;
+    /**
+     * Content metadata
+     */
+    meta: {
+        /**
+         * Content-Type of the Buffered file.
+         */
+        contentType?: string;
+        /**
+         * Charset of the Buffered file.
+         */
+        charset?: string;
+        /**
+         * Buffered file encoding.
+         */
+        encoding?: string;
+        /**
+         * Content-Disposition of the Buffered file.
+         */
+        disposition?: string;
+        flowed?: true;
+        delSp?: true;
+        /**
+         * Filename of the streamed Buffer.
          */
         filename?: string;
     };
