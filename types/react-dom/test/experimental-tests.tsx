@@ -148,3 +148,25 @@ function srcObjectTest() {
         src={{}}
     />;
 }
+
+// @enableDefaultTransitionIndicator
+function defaultTransitionIndicatorTest() {
+    ReactDOMClient.createRoot(document.createElement("div"), {
+        onDefaultTransitionIndicator: () => {
+            return () => {};
+        },
+    });
+    ReactDOMClient.createRoot(document.createElement("div"), {
+        // No cleanup is fine e.g. if optimistic state is used
+        onDefaultTransitionIndicator: () => {},
+    });
+    ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
+        onDefaultTransitionIndicator: () => {
+            return () => {};
+        },
+    });
+    ReactDOMClient.hydrateRoot(document.createElement("div"), null, {
+        // No cleanup is fine e.g. if optimistic state is used
+        onDefaultTransitionIndicator: () => {},
+    });
+}
