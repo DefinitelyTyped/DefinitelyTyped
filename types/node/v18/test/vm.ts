@@ -5,6 +5,7 @@ import {
     isContext,
     measureMemory,
     MemoryMeasurement,
+    runInContext,
     runInNewContext,
     runInThisContext,
     Script,
@@ -177,31 +178,74 @@ import {
 });
 
 {
-    const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
-        async importModuleDynamically(specifier, referrer, importAttributes) {
+    let code = "import(\"foo.json\", { with: { type: \"json\" } })";
+    let context = createContext();
+
+    // $ExpectType Script
+    new Script(code, {
+        importModuleDynamically(specifier, referrer, importAttributes) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
-            const m = new SyntheticModule(["bar"], () => {});
-            await m.link(() => {
-                throw new Error("unreachable");
-            });
-            m.setExport("bar", { hello: "world" });
-            return m;
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
         },
     });
 
-    const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
-        async importModuleDynamically(specifier, referrer, importAttributes) {
+    runInThisContext(code, {
+        importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
+        },
+    });
+
+    runInContext(code, context, {
+        importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
+        },
+    });
+
+    runInNewContext(code, context, {
+        importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
+        },
+    });
+
+    compileFunction(code, ["param"], {
+        importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
+            importAttributes; // $ExpectType ImportAttributes
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
+        },
+    });
+
+    // $ExpectType SourceTextModule
+    new SourceTextModule(code, {
+        importModuleDynamically(specifier, referrer, importAttributes) {
             specifier; // $ExpectType string
             referrer; // $ExpectType SourceTextModule
             importAttributes; // $ExpectType ImportAttributes
-            const m = new SyntheticModule(["bar"], () => {});
-            await m.link(() => {
-                throw new Error("unreachable");
-            });
-            m.setExport("bar", { hello: "world" });
-            return m;
+
+            const module = new SyntheticModule(["bar"], () => {});
+            return Math.random() < 1 ? module : new Promise(res => res(module));
         },
     });
 }
