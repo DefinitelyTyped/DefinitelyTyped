@@ -56,6 +56,29 @@ declare module "vm" {
          */
         columnOffset?: number | undefined;
     }
+    type ImportModuleDynamically<
+        Mode extends "Script" | "Function" | "SourceTextModule" | "Context" = never,
+    > = Mode extends never ? unknown
+        :
+            | (
+                // When importModuleDynamically is `vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER`
+                Mode extends "Script" | "Function" | "Context" ? typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+                    : never
+            )
+            | (
+                // When importModuleDynamically is a function
+                (
+                    specifier: string,
+                    script: Mode extends "Script" ? Script
+                        : Mode extends "Function" ? ReturnType<typeof compileFunction>
+                        : Mode extends "SourceTextModule" ? SourceTextModule
+                        : Mode extends "Context" ? Context
+                        : never,
+                    importAttributes: ImportAttributes,
+                ) =>
+                    | Module
+                    | Promise<Module>
+            );
     interface ScriptOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
@@ -68,10 +91,7 @@ declare module "vm" {
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
-        importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
-            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
-            | undefined;
+        importModuleDynamically?: ImportModuleDynamically<"Script"> | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
@@ -114,14 +134,24 @@ declare module "vm" {
          * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: ScriptOptions["cachedData"] | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: ImportModuleDynamically<"Script"> | undefined;
     }
     interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: ScriptOptions["cachedData"] | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: ImportModuleDynamically<"Script"> | undefined;
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -141,6 +171,12 @@ declare module "vm" {
          * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
          */
         contextExtensions?: Object[] | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: ImportModuleDynamically<"Function"> | undefined;
     }
     interface CreateContextOptions {
         /**
@@ -175,6 +211,12 @@ declare module "vm" {
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
         microtaskMode?: "afterEvaluate" | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: ImportModuleDynamically<"Context"> | undefined;
     }
     type MeasureMemoryMode = "summary" | "detailed";
     interface MeasureMemoryOptions {
@@ -824,13 +866,12 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?:
-            | ((
-                specifier: string,
-                referrer: SourceTextModule,
-                importAttributes: ImportAttributes,
-            ) => Module | Promise<Module>)
-            | undefined;
+        /**
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        importModuleDynamically?: ImportModuleDynamically<"SourceTextModule"> | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command
