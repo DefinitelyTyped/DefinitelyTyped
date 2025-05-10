@@ -728,6 +728,10 @@
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
         },
+        "chordsheetjs": {
+            "libraryName": "chordsheetjs",
+            "asOfVersion": "6.2.0"
+        },
         "chunked-dc": {
             "libraryName": "chunked-dc",
             "asOfVersion": "0.2.2"
