@@ -6,11 +6,12 @@
         "https://github.com/expressjs/compression"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/node": "*"
+
     },
     "devDependencies": {
-        "@types/compression": "workspace:.",
-        "@types/node": "*"
+        "@types/compression": "workspace:."
     },
     "owners": [
         {
