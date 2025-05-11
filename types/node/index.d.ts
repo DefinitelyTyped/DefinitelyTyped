@@ -28,8 +28,9 @@
 /// <reference lib="es2020" />
 /// <reference lib="esnext.disposable" />
 
-// TypeScript backwards-compatibility definitions:
-/// <reference path="compatibility/index.d.ts" />
+// TypeScript library definitions required for backwards-compatibility:
+/// <reference path="compatibility/float16array.d.ts" />
+/// <reference path="compatibility/iterators.d.ts" />
 
 // Definitions specific to TypeScript 5.7+:
 /// <reference path="globals.typedarray.d.ts" />
