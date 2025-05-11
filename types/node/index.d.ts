@@ -22,14 +22,14 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support Node.js and TypeScript 5.7+.
+// NOTE: These definitions support Node.js and TypeScript 5.8+.
 
 // Reference required TypeScript libraries:
 /// <reference lib="es2020" />
 /// <reference lib="esnext.disposable" />
 
-// TypeScript backwards-compatibility definitions:
-/// <reference path="compatibility/index.d.ts" />
+// TypeScript library polyfills required for older TS versions:
+/// <reference path="compatibility/iterators.d.ts" />
 
 // Definitions specific to TypeScript 5.7+:
 /// <reference path="globals.typedarray.d.ts" />

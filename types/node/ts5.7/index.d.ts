@@ -22,7 +22,7 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support Node.js and TypeScript 5.2 through 5.6.
+// NOTE: These definitions support Node.js and TypeScript 5.7.
 
 // Reference required TypeScript libraries:
 /// <reference lib="es2020" />
@@ -32,9 +32,9 @@
 /// <reference path="./compatibility/float16array.d.ts" />
 /// <reference path="../compatibility/iterators.d.ts" />
 
-// Definitions specific to TypeScript 5.2 through 5.6:
-/// <reference path="./globals.typedarray.d.ts" />
-/// <reference path="./buffer.buffer.d.ts" />
+// Definitions specific to TypeScript 5.7+:
+/// <reference path="../globals.typedarray.d.ts" />
+/// <reference path="../buffer.buffer.d.ts" />
 
 // Definitions for Node.js modules that are not specific to any version of TypeScript:
 /// <reference path="../globals.d.ts" />
