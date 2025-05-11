@@ -87,7 +87,7 @@ declare namespace compression {
          */
         brotli?: zlib.BrotliOptions | undefined;
 
-        /** 
+        /**
          * This is the default encoding to use when the client does not specify an encoding in the request's Accept-Encoding header.
          * @default 'identity'
          */

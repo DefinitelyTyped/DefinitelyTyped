@@ -24,8 +24,8 @@ app.use(
         brotli: {
             params: {
                 [zlib.constants.BROTLI_PARAM_QUALITY]: 4,
-                [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_DEFAULT_MODE
-            }
+                [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_DEFAULT_MODE,
+            },
         },
         info: true,
     }),
@@ -45,7 +45,7 @@ app.use(
     }),
 );
 
-app.use(compression({ enforceEncoding: 'br' }))
+app.use(compression({ enforceEncoding: "br" }));
 
 // compression.filter
 
