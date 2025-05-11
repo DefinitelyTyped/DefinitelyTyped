@@ -4,5 +4,4 @@
 // If adding declarations to this directory, please specify which versions of TypeScript require them,
 // so that they can be removed when no longer needed.
 
-/// <reference path="disposable.d.ts" />
 /// <reference path="iterators.d.ts" />
