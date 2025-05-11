@@ -12,6 +12,7 @@ declare global {
             | Int32Array<TArrayBuffer>
             | BigUint64Array<TArrayBuffer>
             | BigInt64Array<TArrayBuffer>
+            | Float16Array<TArrayBuffer>
             | Float32Array<TArrayBuffer>
             | Float64Array<TArrayBuffer>;
         type ArrayBufferView<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> =
