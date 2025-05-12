@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-fivem-nui-utils",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Conviicts/react-fivem-nui-utils"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-fivem-nui-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jode-vri",
+            "githubUsername": "Conviicts"
+        }
+    ]
+}
