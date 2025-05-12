@@ -66,6 +66,82 @@ declare namespace proj4 {
         axis?: string | undefined;
     }
 
+    interface PROJJSONDefinition {
+        $schema?: string;
+        type: string;
+        name?: string;
+        id?: {
+            authority: string;
+            code: number;
+        };
+        scope?: string;
+        area?: string;
+        bbox?: {
+            south_latitude: number;
+            west_longitude: number;
+            north_latitude: number;
+            east_longitude: number;
+        };
+        components?: PROJJSONDefinition[];
+        datum?: {
+            type: string;
+            name: string;
+        };
+        datum_ensemble?: {
+            name: string;
+            members: {
+                name: string;
+                id?: {
+                    authority: string;
+                    code: number;
+                };
+            }[];
+            ellipsoid?: {
+                name: string;
+                semi_major_axis: number;
+                inverse_flattening?: number;
+            };
+            accuracy?: string;
+            id?: {
+                authority: string;
+                code: number;
+            };
+        };
+        coordinate_system?: {
+            subtype: string;
+            axis: {
+                name: string;
+                abbreviation?: string;
+                direction: string;
+                unit: string;
+            }[];
+        };
+        conversion?: {
+            name: string;
+            method: {
+                name: string;
+            };
+            parameters: {
+                name: string;
+                value: number;
+                unit?: string;
+            }[];
+        };
+        transformation?: {
+            name: string;
+            method: {
+                name: string;
+            };
+            parameters: {
+                name: string;
+                value: number;
+                unit?: string;
+                type?: string;
+                file_name?: string;
+            }[];
+        };
+    }
+
     const defaultDatum: string;
 
     function Proj(srsCode: any, callback?: any): InterfaceProjection;
@@ -80,7 +156,7 @@ declare namespace proj4 {
 
     function toPoint(array: number[]): InterfaceCoordinates;
 
-    function defs(name: string, projection: string | ProjectionDefinition): void;
+    function defs(name: string, projection: string | ProjectionDefinition | PROJJSONDefinition): void;
     function defs(name: string[][]): undefined[];
     function defs(name: string): ProjectionDefinition;
     function nadgrid(key: string, grid: ArrayBuffer): void;
@@ -96,14 +172,17 @@ declare namespace proj4 {
     const version: string;
 }
 
-declare function proj4(fromProjection: string, toProjection?: string): proj4.Converter;
+declare function proj4(
+    fromProjection: string | proj4.PROJJSONDefinition,
+    toProjection?: string | proj4.PROJJSONDefinition,
+): proj4.Converter;
 declare function proj4<T extends proj4.TemplateCoordinates>(
-    toProjection: string,
+    toProjection: string | proj4.PROJJSONDefinition,
     coordinates: T,
 ): T;
 declare function proj4<T extends proj4.TemplateCoordinates>(
-    fromProjection: string,
-    toProjection: string,
+    fromProjection: string | proj4.PROJJSONDefinition,
+    toProjection: string | proj4.PROJJSONDefinition,
     coordinates: T,
 ): T;
 
