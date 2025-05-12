@@ -2986,9 +2986,10 @@ declare namespace chrome {
          * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
          * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
          * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked.
+         * Parameter lineNumber: Specifies the line number within the resource that was clicked.
          */
         export function setOpenResourceHandler(
-            callback?: (resource: chrome.devtools.inspectedWindow.Resource) => void,
+            callback?: (resource: chrome.devtools.inspectedWindow.Resource, lineNumber: number) => void,
         ): void;
         /**
          * @since Chrome 38

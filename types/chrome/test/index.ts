@@ -1396,6 +1396,11 @@ function testDevtools() {
     };
     chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
+
+    chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
+        resource; // $ExpectType Resource
+        lineNumber; // $ExpectType number
+    });
 }
 
 function testAssistiveWindow() {
