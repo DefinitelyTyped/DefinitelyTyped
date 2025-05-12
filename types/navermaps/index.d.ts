@@ -342,7 +342,7 @@ declare namespace naver.maps {
          *
          * Style Editor에서 발행한 My Style ID입니다. GL 서브 모듈에서만 적용됩니다.
          */
-        customStyleId?: string
+        customStyleId?: string;
     }
 
     /**
