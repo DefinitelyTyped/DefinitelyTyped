@@ -1,10 +1,10 @@
 import fetchMeta from "fetch-meta-tags";
 
 (async () => {
-    // $ExpectType fetchedMeta
+    // $ExpectType fetchedMeta<"https://alessandrorabitti.com/">
     const data1 = await fetchMeta("https://alessandrorabitti.com/");
 
-    // $ExpectType fetchedMeta
+    // $ExpectType fetchedMeta<"https://alessandrorabitti.com/">
     const data2 = await fetchMeta("https://alessandrorabitti.com/", { cache: 'no-cache' });
 
     // @ts-expect-error
