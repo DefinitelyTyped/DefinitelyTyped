@@ -451,6 +451,11 @@ deck.initialize({
     },
 });
 
+// $ExpectType Promise<void>
+deck.initialize({
+    showNotes: "separate-page",
+}).then(() => {});
+
 // Alternate representations
 
 // $ExpectType Promise<void>
@@ -821,7 +826,10 @@ deck.hasNavigatedVertically();
 // Adds/removes a custom key binding
 
 // $ExpectType void
-deck.addKeyBinding("enter", () => {});
+deck.addKeyBinding(82, () => {});
+
+// $ExpectType void
+deck.addKeyBinding(82, "next");
 
 // $ExpectType void
 deck.addKeyBinding({ keyCode: 1, key: "enter", description: "description" }, () => {});

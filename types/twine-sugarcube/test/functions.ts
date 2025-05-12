@@ -50,6 +50,13 @@ elem = setPageElement(document.getElementById("#elem") as HTMLElement, "passage"
 let strArray: string[] = tags("passage");
 strArray = tags("passage1", "pasage2");
 
+declare function getElement(): HTMLElement;
+
+triggerEvent("click");
+triggerEvent("event", document);
+triggerEvent("event", getElement());
+triggerEvent("event", [getElement()], { bubbles: true });
+
 let tmpVar = temporary().varName;
 
 n = time();

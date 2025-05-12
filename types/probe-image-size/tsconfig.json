@@ -14,6 +14,10 @@
     },
     "files": [
         "index.d.ts",
-        "probe-image-size-tests.ts"
+        "probe-image-size-tests.ts",
+        "lib/parse_sync/bmp.d.ts",
+        "lib/parse_sync/ico.d.ts",
+        "lib/parse_sync/png.d.ts",
+        "stream.d.ts"
     ]
 }

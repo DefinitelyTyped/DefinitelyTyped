@@ -34,8 +34,8 @@ const keyData = "-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----";
 key.importKey(keyData, "pkcs8");
 const defaultPem = key.exportKey(); // $ExpectType string
 const publicPem = key.exportKey("pkcs8-public-pem"); // $ExpectType string
-const publicDer = key.exportKey("pkcs8-public-der"); // $ExpectType Buffer
-const privateDer = key.exportKey("pkcs1-der"); // $ExpectType Buffer
+const publicDer = key.exportKey("pkcs8-public-der"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+const privateDer = key.exportKey("pkcs1-der"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 const privateOpenSSH = key.exportKey("openssh-private"); // $ExpectType string
 const publicOpenSSH = key.exportKey("openssh-public"); // $ExpectType string
 key.importKey(
@@ -58,8 +58,8 @@ key.importKey(
     "components",
 );
 const publicComponents = key.exportKey("components-public");
-let b = publicComponents.n; // $ExpectType Buffer
-let bn = publicComponents.e; // $ExpectType number | Buffer
+let b = publicComponents.n; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+let bn = publicComponents.e; // $ExpectType number | Buffer || number | Buffer<ArrayBufferLike>
 const privateComponents = key.exportKey("components-private");
 b = privateComponents.n;
 bn = privateComponents.e;

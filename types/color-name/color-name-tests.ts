@@ -1,5 +1,5 @@
-import * as colorname from "color-name";
+import colorname, { type RGB } from "color-name";
 
-let color: [number, number, number] = colorname.aliceblue;
+let color: colorname.RGB = colorname.aliceblue;
 color = colorname.darkkhaki;
 color = colorname.gainsboro;

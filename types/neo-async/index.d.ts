@@ -65,7 +65,7 @@ export interface DataContainer<T> {
 }
 
 export interface CallbackContainer {
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     callback: Function;
 }
 
@@ -535,15 +535,15 @@ export function doDuring<E = Error>(
     callback: ErrorCallback<E>,
 ): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function compose(...fns: Function[]): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function seq(...fns: Function[]): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function applyEach(fns: Function[], ...argsAndCallback: any[]): void; // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function applyEachSeries(fns: Function[], ...argsAndCallback: any[]): void; // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function queue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): QueueObject<T>;
@@ -594,9 +594,9 @@ export function retryable<T, E = Error>(
     opts: number | (RetryOptions & { arity?: number }),
     task: AsyncFunction<T, E>,
 ): AsyncFunction<T, E>;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
@@ -665,19 +665,19 @@ export function transform<T, R, E = Error>(
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
 
 // Utils
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function memoize(fn: Function, hasher?: Function): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function unmemoize(fn: Function): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function ensureAsync(fn: (...argsAndCallback: any[]) => void): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function constant(...values: any[]): AsyncFunction<any>;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function asyncify(fn: Function): (...args: any[]) => any;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function wrapSync(fn: Function): Function;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function log(fn: Function, ...args: any[]): void;
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function dir(fn: Function, ...args: any[]): void;

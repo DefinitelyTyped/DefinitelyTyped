@@ -6,7 +6,7 @@
         "https://npmjs.com/package/libnpmpublish"
     ],
     "dependencies": {
-        "@npm/types": "*",
+        "@npm/types": "^1",
         "@types/node-fetch": "*",
         "@types/npm-registry-fetch": "*"
     },

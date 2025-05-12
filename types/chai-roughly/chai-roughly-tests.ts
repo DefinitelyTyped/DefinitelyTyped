@@ -1,9 +1,8 @@
-import chai = require("chai");
-import chaiOequal = require("chai-roughly");
+import chaiRougly = require("chai-roughly");
 
-chai.use(chaiOequal);
+import("chai").then(({ use }) => use(chaiRougly));
 
-import { assert, expect } from "chai";
+declare const expect: Chai.ExpectStatic;
 
 expect(1.2).to.be.roughly().equal(1.1999999999);
 expect(1.2).to.roughly().equal(1.1999999999);

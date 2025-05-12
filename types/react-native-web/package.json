@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-web",
+    "version": "0.19.9999",
+    "projects": [
+        "https://github.com/necolas/react-native-web#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fábio Henriques",
+            "githubUsername": "fabioh8010"
+        },
+        {
+            "name": "Błażej Kustra",
+            "githubUsername": "blazejkustra"
+        }
+    ]
+}

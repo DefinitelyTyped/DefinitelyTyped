@@ -11,6 +11,8 @@ export interface QuaternionLike {
     readonly w: number;
 }
 
+export type QuaternionTuple = [x: number, y: number, z: number, w: number];
+
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
  *
@@ -136,6 +138,7 @@ export class Quaternion {
      * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
+    toArray(array?: QuaternionTuple, offset?: 0): QuaternionTuple;
 
     /**
      * Copies x, y, z and w into the provided array-like.

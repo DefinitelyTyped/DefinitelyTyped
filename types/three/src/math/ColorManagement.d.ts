@@ -1,42 +1,45 @@
-import {
-    ColorSpace,
-    ColorSpacePrimaries,
-    ColorSpaceTransfer,
-    DisplayP3ColorSpace,
-    LinearDisplayP3ColorSpace,
-    LinearSRGBColorSpace,
-    SRGBColorSpace,
-} from "../constants.js";
+import { ColorSpaceTransfer } from "../constants.js";
 import { Color } from "./Color.js";
+import { Matrix3 } from "./Matrix3.js";
+import { Vector3 } from "./Vector3.js";
 
-export type WorkingColorSpace = typeof LinearSRGBColorSpace | typeof LinearDisplayP3ColorSpace;
-export type DefinedColorSpace =
-    | typeof LinearSRGBColorSpace
-    | typeof SRGBColorSpace
-    | typeof LinearDisplayP3ColorSpace
-    | typeof DisplayP3ColorSpace;
+export interface ColorSpaceDefinition {
+    primaries: [number, number, number, number, number, number];
+    whitePoint: [number, number];
+    transfer: ColorSpaceTransfer;
+    toXYZ: Matrix3;
+    fromXYZ: Matrix3;
+    luminanceCoefficients: [number, number, number];
+    workingColorSpaceConfig?: { unpackColorSpace: string };
+    outputColorSpaceConfig?: { drawingBufferColorSpace: string };
+}
 
 export interface ColorManagement {
     /**
-     * @default false
+     * @default true
      */
     enabled: boolean;
 
     /**
      * @default LinearSRGBColorSpace
      */
-    get workingColorSpace(): WorkingColorSpace;
-    set workingColorSpace(colorSpace: WorkingColorSpace);
+    workingColorSpace: string;
 
-    convert: (color: Color, sourceColorSpace: DefinedColorSpace, targetColorSpace: DefinedColorSpace) => Color;
+    spaces: Record<string, ColorSpaceDefinition>;
 
-    fromWorkingColorSpace: (color: Color, targetColorSpace: DefinedColorSpace) => Color;
+    convert: (color: Color, sourceColorSpace: string, targetColorSpace: string) => Color;
 
-    toWorkingColorSpace: (color: Color, sourceColorSpace: DefinedColorSpace) => Color;
+    fromWorkingColorSpace: (color: Color, targetColorSpace: string) => Color;
 
-    getPrimaries: (colorSpace: DefinedColorSpace) => ColorSpacePrimaries;
+    toWorkingColorSpace: (color: Color, sourceColorSpace: string) => Color;
 
-    getTransfer: (colorSpace: ColorSpace) => ColorSpaceTransfer;
+    getPrimaries: (colorSpace: string) => [number, number, number, number, number, number];
+
+    getTransfer: (colorSpace: string) => ColorSpaceTransfer;
+
+    getLuminanceCoefficients: (target: Vector3, colorSpace?: string) => [number, number, number];
+
+    define: (colorSpaces: Record<string, ColorSpaceDefinition>) => void;
 }
 
 export const ColorManagement: ColorManagement;

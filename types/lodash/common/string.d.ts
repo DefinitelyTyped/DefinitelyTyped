@@ -29,19 +29,19 @@ declare module "../index" {
          * @param string The string to capitalize.
          * @return Returns the capitalized string.
          */
-        capitalize(string?: string): string;
+        capitalize<T extends string>(string?: T): string extends T ? string : Capitalize<Lowercase<T>>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.capitalize
          */
-        capitalize(): string;
+        capitalize(): string extends TValue ? string : Capitalize<Lowercase<TValue extends string ? TValue : never>>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.capitalize
          */
-        capitalize(): StringChain;
+        capitalize(): StringChain<string extends TValue ? string : Capitalize<Lowercase<TValue extends string ? TValue : never>>>;
     }
 
     interface LoDashStatic {
@@ -198,19 +198,19 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the converted string.
          */
-        lowerFirst(string?: string): string;
+        lowerFirst<T extends string = string>(string?: T): Uncapitalize<T>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.lowerFirst
          */
-        lowerFirst(): string;
+        lowerFirst(): TValue extends string ? Uncapitalize<TValue> : string;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.lowerFirst
          */
-        lowerFirst(): StringChain;
+        lowerFirst(): StringChain<TValue extends string ? Uncapitalize<TValue> : string>;
     }
 
     interface LoDashStatic {
@@ -533,19 +533,19 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the lower cased string.
          */
-        toLower(string?: string): string;
+        toLower<T extends string = string>(string?: T): Lowercase<T>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toLower
          */
-        toLower(): string;
+        toLower(): TValue extends string ? Lowercase<TValue> : string;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toLower
          */
-        toLower(): StringChain;
+        toLower(): StringChain<TValue extends string ? Lowercase<TValue> : string>;
     }
 
     interface LoDashStatic {
@@ -555,19 +555,19 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the upper cased string.
          */
-        toUpper(string?: string): string;
+        toUpper<T extends string = string>(string?: T): Uppercase<T>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.toUpper
          */
-        toUpper(): string;
+        toUpper(): TValue extends string ? Uppercase<TValue> : string;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toUpper
          */
-        toUpper(): StringChain;
+        toUpper(): StringChain<TValue extends string ? Uppercase<TValue> : string>;
     }
 
     interface LoDashStatic {
@@ -744,19 +744,19 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the converted string.
          */
-        upperFirst(string?: string): string;
+        upperFirst<T extends string = string>(string?: T): Capitalize<T>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.upperFirst
          */
-        upperFirst(): string;
+        upperFirst(): TValue extends string ? Capitalize<TValue> : string;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.upperFirst
          */
-        upperFirst(): StringChain;
+        upperFirst(): StringChain<TValue extends string ? Capitalize<TValue> : string>;
     }
 
     interface LoDashStatic {

@@ -95,7 +95,7 @@ export type LexV2DialogAction =
 
 export type LexV2ResultDialogAction =
     | (LevV2DialogActionWithoutSlot & { slotToElicit?: never })
-    | { type: "ElicitSlot"; slotToElicit: string; slotElicitationStyle: "Default" | "SpellByLetter" | "SpellByWord" };
+    | { type: "ElicitSlot"; slotToElicit: string; slotElicitationStyle?: "Default" | "SpellByLetter" | "SpellByWord" };
 
 export interface LexV2Result {
     sessionState: {

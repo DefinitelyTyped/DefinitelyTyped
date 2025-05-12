@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/poool-access",
-    "version": "5.17.9999",
+    "version": "5.18.9999",
     "nonNpm": true,
     "nonNpmDescription": "poool-access",
     "projects": [

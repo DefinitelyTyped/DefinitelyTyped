@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/textfit": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Muhun Kim",
-            "githubUsername": "x86chi"
-        }
-    ]
+    "owners": []
 }

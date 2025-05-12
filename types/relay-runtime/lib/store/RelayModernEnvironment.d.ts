@@ -15,7 +15,7 @@ import {
     OperationTracker,
     OptimisticResponseConfig,
     OptimisticUpdateFunction,
-    RequiredFieldLogger,
+    RelayFieldLogger,
     SelectorStoreUpdater,
     SingularReaderSelector,
     Snapshot,
@@ -31,21 +31,21 @@ export interface EnvironmentConfig {
     readonly operationLoader?: OperationLoader | null | undefined;
     readonly network: Network;
     readonly scheduler?: TaskScheduler | null | undefined;
-    readonly store: Store;
+    readonly store?: Store;
     readonly missingFieldHandlers?: readonly MissingFieldHandler[] | null | undefined;
     readonly operationTracker?: OperationTracker | null | undefined;
     readonly getDataID?: GetDataID | null | undefined;
     readonly UNSTABLE_defaultRenderPolicy?: RenderPolicy | null | undefined;
     readonly options?: unknown | undefined;
     readonly isServer?: boolean | undefined;
-    readonly requiredFieldLogger?: RequiredFieldLogger | null | undefined;
+    readonly relayFieldLogger?: RelayFieldLogger | null | undefined;
     readonly shouldProcessClientComponents?: boolean | null | undefined;
 }
 
 export default class RelayModernEnvironment implements Environment {
     options: unknown;
     configName: string | null | undefined;
-    requiredFieldLogger: RequiredFieldLogger;
+    relayFieldLogger: RelayFieldLogger;
     constructor(config: EnvironmentConfig);
     getStore(): Store;
     getNetwork(): Network;

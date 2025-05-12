@@ -19,6 +19,7 @@ const themeDark: Turnstile.Theme = "dark";
 
 const widgetSizeNormal: Turnstile.WidgetSize = "normal";
 const widgetSizeCompact: Turnstile.WidgetSize = "compact";
+const widgetSizeFlexible: Turnstile.WidgetSize = "flexible";
 
 const failureRetryModeNever: Turnstile.FailureRetryMode = "never";
 const failureRetryModeAuto: Turnstile.FailureRetryMode = "auto";
@@ -34,6 +35,9 @@ const refreshExpiredAuto: Turnstile.RefreshExpiredMode = "auto";
 const refreshTimeoutNever: Turnstile.RefreshTimeoutMode = "never";
 const refreshTimeoutManual: Turnstile.RefreshTimeoutMode = "manual";
 const refreshTimeoutAuto: Turnstile.RefreshTimeoutMode = "auto";
+
+const executionRender: Turnstile.ExecutionMode = "render";
+const executionExecute: Turnstile.ExecutionMode = "execute";
 
 // @ts-expect-error
 turnstile.ready();

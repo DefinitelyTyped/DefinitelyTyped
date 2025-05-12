@@ -161,7 +161,7 @@ declare namespace Mail {
 }
 
 /** Creates an object for exposing the Mail API */
-declare class Mail<T = any> extends EventEmitter {
+declare class Mail<T = any, DefaultTransportOptions = TransportOptions> extends EventEmitter {
     options: Mail.Options;
     meta: Map<string, any>;
     dkim: DKIM;
@@ -171,7 +171,9 @@ declare class Mail<T = any> extends EventEmitter {
     /** Usage: typeof transporter.MailMessage */
     MailMessage: MailMessage<T>;
 
-    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: TransportOptions);
+    _defaults: DefaultTransportOptions;
+
+    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: DefaultTransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

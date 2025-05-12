@@ -917,7 +917,7 @@ namespace MeteorTests {
     var buffer: unknown;
 
     check(buffer, Match.Where(EJSON.isBinary));
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     buffer;
 
     /**
@@ -1286,7 +1286,7 @@ Meteor.absoluteUrl.defaultOptions = {
 Random.choice([1, 2, 3]); // $ExpectType number | undefined
 Random.choice('String'); // $ExpectType string
 
-EJSON.newBinary(5); // $ExpectType Uint8Array
+EJSON.newBinary(5); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
 // Connection
 Meteor.onConnection(connection => {

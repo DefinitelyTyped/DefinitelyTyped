@@ -16,4 +16,4 @@ declare namespace ChaiHtml {
 
 declare const chaiHtml: Chai.ChaiPlugin;
 declare namespace chaiHtml {}
-export = chaiHtml;
+export default chaiHtml;

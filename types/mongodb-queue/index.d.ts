@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { Db, MongoError } from "mongodb";
 
 declare function mongodbQueue(db: Db, name: string, opts?: mongodbQueue.QueueOptions): mongodbQueue.Queue;

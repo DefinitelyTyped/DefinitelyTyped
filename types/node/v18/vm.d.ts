@@ -17,7 +17,7 @@
  * code are reflected in the context object.
  *
  * ```js
- * const vm = require('vm');
+ * import vm from 'node:vm';
  *
  * const x = 1;
  *
@@ -58,7 +58,7 @@ declare module "vm" {
     }
     interface ScriptOptions extends BaseOptions {
         /**
-         * V8's code cache data for the supplied source.
+         * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
@@ -68,7 +68,7 @@ declare module "vm" {
          * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
             | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -108,18 +108,24 @@ declare module "vm" {
         microtaskMode?: CreateContextOptions["microtaskMode"];
     }
     interface RunningCodeOptions extends RunningScriptOptions {
-        cachedData?: ScriptOptions["cachedData"];
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        cachedData?: ScriptOptions["cachedData"];
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | undefined;
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         /**
          * Specifies whether to produce new cache data.
          * Default: `false`,
@@ -201,7 +207,7 @@ declare module "vm" {
          * The globals are contained in the `context` object.
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * const context = {
          *   animal: 'cat',
@@ -237,7 +243,7 @@ declare module "vm" {
          * contained within each individual `context`.
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * const script = new vm.Script('globalVar = "set"');
          *
@@ -262,7 +268,7 @@ declare module "vm" {
          * executes that code multiple times:
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * global.globalVar = 0;
          *
@@ -319,7 +325,7 @@ declare module "vm" {
      * will remain unchanged.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * global.globalVar = 3;
      *
@@ -366,7 +372,7 @@ declare module "vm" {
      * The following example compiles and executes different scripts using a single `contextified` object:
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = { globalVar: 1 };
      * vm.createContext(contextObject);
@@ -395,7 +401,7 @@ declare module "vm" {
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = {
      *   animal: 'cat',
@@ -427,7 +433,7 @@ declare module "vm" {
      * the JavaScript [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function to run the same code:
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      * let localVar = 'initial value';
      *
      * const vmResult = vm.runInThisContext('localVar = "vm";');
@@ -454,12 +460,11 @@ declare module "vm" {
      *
      * ```js
      * 'use strict';
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const code = `
      * ((require) => {
-     *   const http = require('http');
-     *
+     *   const http = require('node:http');
      *   http.createServer((request, response) => {
      *     response.writeHead(200, { 'Content-Type': 'text/plain' });
      *     response.end('Hello World\\n');
@@ -509,7 +514,7 @@ declare module "vm" {
      * the memory occupied by each heap space in the current V8 instance.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      * // Measure the memory used by the main context.
      * vm.measureMemory({ mode: 'summary' })
      *   // This is the same as vm.measureMemory()
@@ -613,6 +618,9 @@ declare module "vm" {
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
         cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
         lineOffset?: BaseOptions["lineOffset"] | undefined;
@@ -621,7 +629,13 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        importModuleDynamically?:
+            | ((
+                specifier: string,
+                referrer: SourceTextModule,
+                importAttributes: ImportAttributes,
+            ) => Module | Promise<Module>)
+            | undefined;
     }
     class SourceTextModule extends Module {
         /**

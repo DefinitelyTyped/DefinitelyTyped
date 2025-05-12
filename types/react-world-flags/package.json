@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-world-flags",
-    "version": "1.4.9999",
+    "version": "1.6.9999",
     "projects": [
         "https://github.com/smucode/react-world-flags#readme"
     ],

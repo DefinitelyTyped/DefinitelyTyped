@@ -1,6 +1,7 @@
 import { inspect } from "node:util";
 import {
     compileFunction,
+    constants,
     createContext,
     isContext,
     measureMemory,
@@ -13,48 +14,37 @@ import {
 } from "node:vm";
 
 {
-    const sandbox = {
+    const contextObject = {
         animal: "cat",
         count: 2,
     };
 
-    const context = createContext(sandbox, {
-        name: "test",
-        origin: "file://test.js",
-        codeGeneration: {
-            strings: true,
-            wasm: true,
-        },
-    });
-    console.log(isContext(context));
-    const script = new Script("count += 1; name = \"kitty\"");
+    runInNewContext("count += 1; name = \"kitty\"", contextObject);
+    console.log(contextObject);
+    // Prints: { animal: 'cat', count: 3, name: 'kitty' }
 
-    for (let i = 0; i < 10; ++i) {
-        script.runInContext(context);
-    }
-
-    console.log(inspect(sandbox));
-
-    runInNewContext("count += 1; name = \"kitty\"", sandbox);
-    console.log(inspect(sandbox));
+    // This would throw if the context is created from a contextified object.
+    // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary global objects that
+    // can be frozen.
+    const frozenContext = runInNewContext("Object.freeze(globalThis); globalThis;", constants.DONT_CONTEXTIFY);
 }
 
 {
-    const sandboxes = [{}, {}, {}];
-
     const script = new Script("globalVar = \"set\"");
 
-    sandboxes.forEach((sandbox) => {
-        script.runInNewContext(sandbox);
-        script.runInThisContext();
+    const contexts = [{}, {}, {}];
+    contexts.forEach((context) => {
+        script.runInNewContext(context);
     });
 
-    console.log(inspect(sandboxes));
+    console.log(contexts);
+    // Prints: [{ globalVar: 'set' }, { globalVar: 'set' }, { globalVar: 'set' }]
 
-    const localVar = "initial value";
-    runInThisContext("localVar = \"vm\";");
-
-    console.log(localVar);
+    // This would throw if the context is created from a contextified object.
+    // vm.constants.DONT_CONTEXTIFY allows creating contexts with ordinary
+    // global objects that can be frozen.
+    const freezeScript = new Script("Object.freeze(globalThis); globalThis;");
+    const frozenContext = freezeScript.runInNewContext(constants.DONT_CONTEXTIFY);
 }
 
 {
@@ -62,7 +52,16 @@ import {
 }
 
 {
-    const fn: Function = compileFunction("console.log(\"test\")", [] as readonly string[], {
+    const code = "console.log(\"test\")";
+    const params = [] as const;
+
+    let fn = compileFunction(code);
+    fn = compileFunction(code, params);
+    fn = compileFunction(code, params, {});
+    fn = compileFunction(code, params, {
+        filename: "",
+        lineOffset: 0,
+        columnOffset: 0,
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,
@@ -70,6 +69,20 @@ import {
         produceCachedData: false,
         cachedData: Buffer.from("nope"),
     });
+    fn = compileFunction(code, params, {
+        cachedData: new Uint8Array(),
+    });
+    fn = compileFunction(code, params, {
+        cachedData: new DataView(new ArrayBuffer(10)),
+    });
+
+    fn satisfies Function;
+    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    fn.cachedData;
+    // $ExpectType boolean | undefined
+    fn.cachedDataProduced;
+    // $ExpectType boolean | undefined
+    fn.cachedDataRejected;
 }
 
 {
@@ -85,6 +98,8 @@ import {
         {},
         { timeout: 5, microtaskMode: "afterEvaluate" },
     );
+
+    runInNewContext("globalThis", constants.DONT_CONTEXTIFY);
 }
 
 {
@@ -152,3 +167,33 @@ import {
         this.setExport("default", obj);
     });
 });
+
+{
+    const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+
+    const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType SourceTextModule
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+}

@@ -1,11 +1,12 @@
 import { BBox, Feature, FeatureCollection, GeoJSON, GeoJsonTypes, Geometry, Point, Position } from "geojson";
 import {
-    CircleLayer,
-    FillLayer,
+    CircleLayerSpecification,
+    ControlPosition,
+    FillLayerSpecification,
     IControl,
-    LineLayer,
+    LineLayerSpecification,
     Map,
-    MapboxEvent,
+    MapEvent,
     MapMouseEvent as MapboxMapMouseEvent,
     MapTouchEvent as MapboxMapTouchEvent,
 } from "mapbox-gl";
@@ -16,16 +17,18 @@ export as namespace MapboxDraw;
 declare namespace MapboxDraw {
     type DrawMode = DrawModes[keyof DrawModes];
 
-    type DrawEventType =
-        | "draw.create"
-        | "draw.delete"
-        | "draw.update"
-        | "draw.render"
-        | "draw.combine"
-        | "draw.uncombine"
-        | "draw.modechange"
-        | "draw.actionable"
-        | "draw.selectionchange";
+    interface DrawEvents {
+        "draw.create": MapboxDraw.DrawCreateEvent;
+        "draw.delete": MapboxDraw.DrawDeleteEvent;
+        "draw.update": MapboxDraw.DrawUpdateEvent;
+        "draw.selectionchange": MapboxDraw.DrawSelectionChangeEvent;
+        "draw.render": MapboxDraw.DrawRenderEvent;
+        "draw.combine": MapboxDraw.DrawCombineEvent;
+        "draw.uncombine": MapboxDraw.DrawUncombineEvent;
+        "draw.modechange": MapboxDraw.DrawModeChangeEvent;
+        "draw.actionable": MapboxDraw.DrawActionableEvent;
+    }
+    type DrawEventType = keyof DrawEvents;
 
     interface DrawModes {
         DRAW_LINE_STRING: "draw_line_string";
@@ -178,7 +181,7 @@ declare namespace MapboxDraw {
     }
 
     interface DrawCustomModeThis {
-        map: mapboxgl.Map;
+        map: Map;
 
         drawConfig: MapboxDrawOptions;
 
@@ -389,13 +392,13 @@ declare namespace MapboxDraw {
             isOfMetaType: (
                 type: Constants["meta"][keyof Constants["meta"]],
             ) => (e: MapMouseEvent | MapTouchEvent) => boolean;
-            isShiftMousedown: (e: MapboxEvent) => boolean;
+            isShiftMousedown: (e: MapEvent) => boolean;
             isActiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
             isInactiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
             noTarget: (e: MapMouseEvent | MapTouchEvent) => boolean;
             isFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
             isVertex: (e: MapMouseEvent | MapTouchEvent) => boolean;
-            isShiftDown: (e: MapboxEvent) => boolean;
+            isShiftDown: (e: MapEvent) => boolean;
             isEscapeKey: (e: KeyboardEvent) => boolean;
             isEnterKey: (e: KeyboardEvent) => boolean;
             isTrue: () => boolean;
@@ -503,7 +506,9 @@ declare namespace MapboxDraw {
 
         StringSet(items?: Array<string | number>): StringSet;
 
-        theme: Array<(FillLayer | LineLayer | CircleLayer) & { id: ThemeLayerId }>;
+        theme: Array<
+            (FillLayerSpecification | LineLayerSpecification | CircleLayerSpecification) & { id: ThemeLayerId }
+        >;
 
         /**
          * Derive a dense array (no `undefined`s) from a single value or array.
@@ -552,7 +557,7 @@ declare class MapboxDraw implements IControl {
 
     modes: MapboxDraw.DrawModes;
 
-    getDefaultPosition: () => string;
+    getDefaultPosition: () => ControlPosition;
 
     constructor(options?: MapboxDraw.MapboxDrawOptions);
 
@@ -595,7 +600,7 @@ declare class MapboxDraw implements IControl {
 
     setFeatureProperty(featureId: string, property: string, value: any): this;
 
-    onAdd(map: mapboxgl.Map): HTMLElement;
+    onAdd(map: Map): HTMLElement;
 
-    onRemove(map: mapboxgl.Map): any;
+    onRemove(map: Map): any;
 }

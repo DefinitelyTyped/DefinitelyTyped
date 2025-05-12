@@ -1219,6 +1219,10 @@ interface IStaticCanvasOptions {
      * a zoomed canvas will then produce zoomed SVG output.
      */
     svgViewportTransformation?: boolean | undefined;
+    /**
+     * When the option is enabled, PointerEvent is used instead of MouseEvent.
+     */
+    enablePointerEvents?: boolean | undefined;
 }
 
 export interface StaticCanvas
@@ -4992,7 +4996,7 @@ export class IText extends Text {
      * @param {Number} start
      * @param {Number} end default to start + 1
      */
-    insertChars(text: string, style: any[], start: number, end: number): void;
+    insertChars(text: string, style?: any[], start?: number, end?: number): void;
     /**
      * Moves cursor down
      * @param {Event} e Event object

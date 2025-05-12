@@ -11,6 +11,7 @@ export interface ReflectorOptions {
 
 export class Reflector extends Mesh {
     type: "Reflector";
+    forceUpdate: boolean;
     camera: PerspectiveCamera;
 
     constructor(geometry?: BufferGeometry, options?: ReflectorOptions);

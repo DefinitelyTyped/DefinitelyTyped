@@ -1,6 +1,8 @@
 import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import * as os from "node:os";
+import { fileURLToPath } from "node:url";
 
 {
     let eventEmitter: EventEmitter;
@@ -50,10 +52,11 @@ import EventEmitter = require("node:events");
 }
 
 {
-    const report = process.report!;
+    const report = process.report;
+    report.compact = true;
     report.directory = "asd";
     report.filename = "asdasd";
-    const rep: string = report.getReport(new Error());
+    report.getReport(new Error()); // $ExpectType object
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
@@ -120,7 +123,12 @@ import EventEmitter = require("node:events");
     // This is some additional information
 }
 
-const hrtimeBigint: bigint = process.hrtime.bigint();
+// $ExpectType [number, number]
+process.hrtime();
+// $ExpectType [number, number]
+process.hrtime([0, 0]);
+// $ExpectType bigint
+process.hrtime.bigint();
 
 process.allowedNodeEnvironmentFlags.has("asdf");
 
@@ -128,6 +136,11 @@ process.env.TZ = "test";
 
 {
     const arch: NodeJS.Architecture = process.arch;
+}
+
+{
+    const module = { exports: {} };
+    process.dlopen(module, fileURLToPath(new URL("src", "process.ts")), os.constants.dlopen.RTLD_NOW);
 }
 
 {

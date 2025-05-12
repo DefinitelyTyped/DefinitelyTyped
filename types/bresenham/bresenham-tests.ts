@@ -8,5 +8,5 @@ bresenham(0, 0, 10, 12);
 bresenham(0, 0, 10, 12, (x: number, y: number) => {
 });
 
-// $ExpectType Generator<Point, any, unknown>
+// $ExpectType Generator<Point, any, unknown> || Generator<Point, any, any>
 generatorFn(0, 0, 10, 12);

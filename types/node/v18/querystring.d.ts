@@ -3,7 +3,7 @@
  * query strings. It can be accessed using:
  *
  * ```js
- * const querystring = require('querystring');
+ * import querystring from 'node:querystring';
  * ```
  *
  * `querystring` is more performant than `URLSearchParams` but is not a
@@ -25,9 +25,8 @@ declare module "querystring" {
             | string
             | number
             | boolean
-            | readonly string[]
-            | readonly number[]
-            | readonly boolean[]
+            | bigint
+            | ReadonlyArray<string | number | boolean | bigint>
             | null
         >
     {}

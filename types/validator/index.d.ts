@@ -41,6 +41,11 @@ declare namespace validator {
     export function equals(str: string, comparison: string): boolean;
 
     /**
+     * Check if the string is an ABA routing number for US bank account / cheque.
+     */
+    export function isAbaRouting(str: string): boolean;
+
+    /**
      * Check if the string is a date that's after the specified date.
      *
      * @param [date] - Date string (defaults to now)
@@ -576,12 +581,23 @@ declare namespace validator {
      */
     export function isHSL(str: string): boolean;
 
+    export interface IsRgbColorOptions {
+        /**
+         * If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+         */
+        includePercentValues?: boolean | undefined;
+        /**
+         * `allowSpaces` defaults to `true`, which prohibits whitespace. If set to false, whitespace between color values is allowed, such as `rgb(255, 255, 255)` or even `rgba(255,       128,        0,      0.7)`.
+         */
+        allowSpaces?: boolean | undefined;
+    }
+
     /**
      * Check if the string is a rgb or rgba color.
      *
-     * @param [includePercentValues=true] - If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
+     * @param [options] - Options
      */
-    export function isRgbColor(str: string, includePercentValues?: boolean): boolean;
+    export function isRgbColor(str: string, options?: IsRgbColorOptions): boolean;
 
     export type IdentityCardLocale =
         | "ar-LY"
@@ -594,6 +610,7 @@ declare namespace validator {
         | "IT"
         | "LK"
         | "NO"
+        | "PK"
         | "PL"
         | "TH"
         | "zh-CN"
@@ -694,12 +711,22 @@ declare namespace validator {
      */
     export function isISIN(str: string): boolean;
 
+    /**
+     * Check if the string is a valid [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) officially assigned script code.
+     */
+    export function isISO15924(str: string): boolean;
+
     export const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
      */
     export function isISO31661Alpha3(str: string): boolean;
+
+    /**
+     * Check if the string is a valid [ISO 3166-1 numeric](https://en.wikipedia.org/wiki/ISO_3166-1_numeric) officially assigned country code.
+     */
+    export function isISO31661Numeric(str: string): boolean;
 
     /**
      * check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
@@ -797,6 +824,10 @@ declare namespace validator {
          * @default undefined
          */
         max?: number | undefined;
+        /**
+         * @default undefined
+         */
+        discreteLengths?: number | Array<number> | undefined;
     }
 
     /**
@@ -808,29 +839,26 @@ declare namespace validator {
      */
     export function isLength(str: string, options?: IsLengthOptions): boolean;
 
-    /**
-     * Check  if the string matches the format of a country's license plate.
-     */
-    export function isLicensePlate(
-        str: string,
-        locale:
-            | "cs-CZ"
-            | "de-DE"
-            | "de-LI"
-            | "en-IN"
-            | "es-AR"
-            | "hu-HU"
-            | "pt-BR"
-            | "pt-PT"
-            | "sq-AL"
-            | "sv-SE"
-            | "any",
-    ): boolean;
+    export type LicensePlateLocale =
+        | "cs-CZ"
+        | "de-DE"
+        | "de-LI"
+        | "en-IN"
+        | "en-SG"
+        | "es-AR"
+        | "hu-HU"
+        | "pt-BR"
+        | "pt-PT"
+        | "sq-AL"
+        | "sv-SE"
+        | "en-PK"
+        | "any";
 
     /**
-     * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
+     * Check if the string matches the format of a country's license plate.
      */
-    export function isLuhnNumber(str: string): boolean;
+    export function isLicensePlate(str: string, locale: LicensePlateLocale): boolean;
+    export function isLicensePlate(str: string, locale: string): unknown;
 
     /**
      * Check if the string is a locale.
@@ -867,6 +895,11 @@ declare namespace validator {
          */
         eui?: "48" | "64" | undefined;
     }
+
+    /**
+     * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
+     */
+    export function isLuhnNumber(str: string): boolean;
 
     /**
      * Check if the string is a MAC address.
@@ -953,6 +986,7 @@ declare namespace validator {
         | "es-HN"
         | "es-EC"
         | "es-ES"
+        | "es-GT"
         | "es-PE"
         | "es-MX"
         | "es-PA"
@@ -981,6 +1015,7 @@ declare namespace validator {
         | "ko-KR"
         | "lt-LT"
         | "lv-LV"
+        | "mk-MK"
         | "ms-MY"
         | "mz-MZ"
         | "nb-NO"
@@ -1086,6 +1121,7 @@ declare namespace validator {
         | "CA"
         | "CH"
         | "CN"
+        | "CO"
         | "CZ"
         | "DE"
         | "DK"
@@ -1206,9 +1242,33 @@ declare namespace validator {
      */
     export function isUppercase(str: string): boolean;
 
-    export type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "7" | "all" | 1 | 2 | 3 | 4 | 5 | 7;
     /**
-     * Check if the string is a UUID (version 1, 2, 3, 4, 5 or 7).
+     * Check if the string is a [ULID](https://github.com/ulid/spec).
+     */
+    export function isULID(str: string): boolean;
+
+    export type UUIDVersion =
+        | "1"
+        | "2"
+        | "3"
+        | "4"
+        | "5"
+        | "6"
+        | "7"
+        | "8"
+        | "nil"
+        | "max"
+        | "all"
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8;
+    /**
+     * Check if the string is a UUID (version 1-8, nil, max, all).
      *
      * @param [version="all"] - UUID version
      */
@@ -1344,6 +1404,19 @@ declare namespace validator {
          * @default true
          */
         yahoo_remove_subaddress?: boolean | undefined;
+        /**
+         * Yandex Mail addresses are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
+         * Please note that when `all_lowercase` is `true`, Yandex Mail addresses are lowercased regardless of the value of this setting.
+         *
+         * @default true
+         */
+        yandex_lowercase?: boolean | undefined;
+        /**
+         * All Yandex domains are equal, this explicitly sets the domain to 'yandex.ru'
+         *
+         * @default true
+         */
+        yandex_convert_yandexru?: boolean | undefined;
         /**
          * iCloud addresses (including MobileMe) are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, iCloud addresses are lowercased regardless of the value of this setting.

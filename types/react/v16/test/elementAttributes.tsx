@@ -1,5 +1,13 @@
 import * as React from "react";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
+
 const testCases = [
     <span />,
     <span accessKey="s" />,
@@ -23,6 +31,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,
@@ -57,4 +66,10 @@ const testCases = [
     >
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
 ];

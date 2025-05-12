@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sabaki__immutable-gametree",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/SabakiHQ/immutable-gametree"
+    ],
+    "devDependencies": {
+        "@types/sabaki__immutable-gametree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiroki Takizawa",
+            "githubUsername": "tkzwhr"
+        }
+    ]
+}

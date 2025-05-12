@@ -1,8 +1,10 @@
-import { assert, expect, should, use } from "chai";
 import ChaiArrays = require("chai-arrays");
+import "chai/register-should";
 
-use(ChaiArrays);
-should();
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
+
+import("chai").then(({ use }) => use(ChaiArrays));
 
 const arr: any[] = [1, 2, 3];
 const str = "abcdef";

@@ -20,6 +20,7 @@ declare namespace slug {
 
     function extend(entry: CharMap): void;
     function reset(): void;
+    function setLocale(locale: string): void;
 
     interface Mode {
         charmap?: CharMap | null | undefined;

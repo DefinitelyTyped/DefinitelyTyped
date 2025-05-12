@@ -16,7 +16,7 @@ declare module "../index" {
         /**
          * @see _.chain
          */
-        chain(value: string): StringChain;
+        chain<T extends string>(value: T): StringChain<T>;
         /**
          * @see _.chain
          */
@@ -48,7 +48,7 @@ declare module "../index" {
         /**
          * @see _.chain
          */
-        chain(): StringChain;
+        chain<T extends string>(): StringChain<T>;
     }
     interface Object<T> {
         /**

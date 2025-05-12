@@ -3,8 +3,6 @@ import timestring = require("timestring");
 // @ts-expect-error
 timestring();
 // @ts-expect-error
-timestring(1);
-// @ts-expect-error
 timestring("1s", "parsec");
 // @ts-expect-error
 timestring("1s", "ms", "options");
@@ -23,3 +21,5 @@ timestring("1 day", "hours", { hoursPerDay: 25 });
 timestring("1 week", undefined, { daysPerWeek: 8 });
 // $ExpectType number
 timestring("1 week", undefined, {});
+// $ExpectType number
+timestring(1);

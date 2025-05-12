@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -48,6 +48,7 @@ declare module "http" {
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
+        "accept-encoding"?: string | undefined;
         "accept-language"?: string | undefined;
         "accept-patch"?: string | undefined;
         "accept-ranges"?: string | undefined;
@@ -161,7 +162,7 @@ declare module "http" {
         location?: string | undefined;
         "max-forwards"?: string | undefined;
         origin?: string | undefined;
-        prgama?: string | string[] | undefined;
+        pragma?: string | string[] | undefined;
         "proxy-authenticate"?: string | string[] | undefined;
         "proxy-authorization"?: string | undefined;
         "public-key-pins"?: string | undefined;
@@ -206,7 +207,7 @@ declare module "http" {
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
+        headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         hints?: LookupOptions["hints"];
         host?: string | null | undefined;
         hostname?: string | null | undefined;
@@ -231,7 +232,7 @@ declare module "http" {
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > {
         /**
          * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
@@ -267,6 +268,13 @@ declare module "http" {
          * @default 30000
          */
         connectionsCheckingInterval?: number | undefined;
+        /**
+         * Sets the timeout value in milliseconds for receiving the complete HTTP headers from the client.
+         * See {@link Server.headersTimeout} for more information.
+         * @default 60000
+         * @since 18.0.0
+         */
+        headersTimeout?: number | undefined;
         /**
          * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
          * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
@@ -313,17 +321,23 @@ declare module "http" {
          * If the header's value is an array, the items will be joined using `; `.
          */
         uniqueHeaders?: Array<string | string[]> | undefined;
+        /**
+         * If set to `true`, an error is thrown when writing to an HTTP response which does not have a body.
+         * @default false
+         * @since v18.17.0, v20.2.0
+         */
+        rejectNonStandardBodyWrites?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
     class Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > extends NetServer {
         constructor(requestListener?: RequestListener<Request, Response>);
         constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
@@ -341,8 +355,8 @@ declare module "http" {
          * @since v0.9.12
          * @param [msecs=0 (no timeout)]
          */
-        setTimeout(msecs?: number, callback?: () => void): this;
-        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: (socket: Socket) => void): this;
+        setTimeout(callback: (socket: Socket) => void): this;
         /**
          * Limits maximum incoming headers count. If set to 0, no limit will be applied.
          * @since v0.7.0
@@ -587,6 +601,42 @@ declare module "http" {
          * @param value Header value
          */
         setHeader(name: string, value: number | string | readonly string[]): this;
+        /**
+         * Sets multiple header values for implicit headers. headers must be an instance of
+         * `Headers` or `Map`, if a header already exists in the to-be-sent headers, its
+         * value will be replaced.
+         *
+         * ```js
+         * const headers = new Headers({ foo: 'bar' });
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * or
+         *
+         * ```js
+         * const headers = new Map([['foo', 'bar']]);
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * When headers have been set with `outgoingMessage.setHeaders()`, they will be
+         * merged with any headers passed to `response.writeHead()`, with the headers passed
+         * to `response.writeHead()` given precedence.
+         *
+         * ```js
+         * // Returns content-type = text/plain
+         * const server = http.createServer((req, res) => {
+         *   const headers = new Headers({ 'Content-Type': 'text/html' });
+         *   res.setHeaders(headers);
+         *   res.writeHead(200, { 'Content-Type': 'text/plain' });
+         *   res.end('ok');
+         * });
+         * ```
+         *
+         * @since v19.6.0, v18.15.0
+         * @param name Header name
+         * @param value Header value
+         */
+        setHeaders(headers: Headers | Map<string, number | string | readonly string[]>): this;
         /**
          * Append a single header value for the header object.
          *
@@ -910,7 +960,7 @@ declare module "http" {
          * may run into a 'ECONNRESET' error.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -934,7 +984,7 @@ declare module "http" {
          * automatic error retry base on it.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          * const agent = new http.Agent({ keepAlive: true });
          *
          * function retriableRequest() {
@@ -1499,11 +1549,11 @@ declare module "http" {
      */
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
         requestListener?: RequestListener<Request, Response>,
@@ -1529,7 +1579,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

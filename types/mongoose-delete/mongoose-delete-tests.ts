@@ -3,6 +3,7 @@ import MongooseDelete = require("mongoose-delete");
 
 interface PetDocument extends MongooseDelete.SoftDeleteDocument {
     name: string;
+    age: number;
 }
 
 // Custom methods
@@ -17,6 +18,7 @@ interface PetModel extends MongooseDelete.SoftDeleteModel<PetDocument, {}, PetMe
 
 const PetSchema = new mongoose.Schema<PetDocument>({
     name: String,
+    age: Number,
 });
 // Override all methods
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all" });

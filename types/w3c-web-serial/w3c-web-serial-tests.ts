@@ -200,3 +200,18 @@ async function example_8() {
     // Then later... revoke permission to the serial port.
     await port.forget();
 }
+
+async function testConnectedAttribute() {
+    const port = await navigator.serial.requestPort();
+
+    if (port.connected) {
+        // The port is logically connected.
+    }
+}
+
+async function testGetInfo() {
+    const port = await navigator.serial.requestPort();
+    const info = port.getInfo();
+
+    const { usbVendorId, usbProductId, bluetoothServiceClassId } = info;
+}

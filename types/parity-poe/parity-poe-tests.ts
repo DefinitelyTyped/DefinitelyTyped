@@ -9,7 +9,7 @@ const message: POEMessage = {
  * formatInbound tests
  */
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 formatInbound(message);
 
 // Invalid type
@@ -38,7 +38,7 @@ parseInbound("");
  * formatOutbound tests
  */
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 formatOutbound(message);
 
 // Invalid type

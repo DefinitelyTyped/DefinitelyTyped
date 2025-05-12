@@ -1,19 +1,27 @@
+import mbxClient from "@mapbox/mapbox-sdk";
 import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
-import Directions, { DirectionsResponse, DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
+import Directions, { DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
 import Geocoding, { GeocodeService } from "@mapbox/mapbox-sdk/services/geocoding";
 import GeocodingV6, { GeocodeService as GeocodeServiceV6 } from "@mapbox/mapbox-sdk/services/geocoding-v6";
+import Isochrone, { IsochroneService } from "@mapbox/mapbox-sdk/services/isochrone";
 import MapMatching, { MapMatchingResponse, MapMatchingService } from "@mapbox/mapbox-sdk/services/map-matching";
 import Optimization, { OptimizationService } from "@mapbox/mapbox-sdk/services/optimization";
 import StaticMap, { StaticMapService } from "@mapbox/mapbox-sdk/services/static";
 import Styles, { StylesService } from "@mapbox/mapbox-sdk/services/styles";
+import TileQuery, {
+    GeometryType,
+    TileQueryRequest,
+    TileQueryResponseProperty,
+    TileQueryService,
+} from "@mapbox/mapbox-sdk/services/tilequery";
 import { LineString } from "geojson";
 
 const config: SdkConfig = {
     accessToken: "access-token",
 };
-const client = new MapiClient(config);
+const client = mbxClient(config);
 
 const directionsService: DirectionsService = Directions(client);
 
@@ -66,8 +74,7 @@ const drivingDirectionsRequest: MapiRequest = directionsService.getDirections({
     maxWidth: 10,
 });
 
-drivingDirectionsRequest.send().then((response: MapiResponse) => {
-});
+drivingDirectionsRequest.send().then((response: MapiResponse) => {});
 
 const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirections({
     profile: "driving-traffic",
@@ -78,7 +85,32 @@ const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirect
     maxWidth: 10,
 });
 
-drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {
+drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {});
+
+const isochroneService: IsochroneService = Isochrone(client);
+
+const isochroneRequestLine = isochroneService.getContours({ coordinates: [-3.599431, 54.507913], minutes: [20, 40] });
+
+const isochroneRequestPoly = isochroneService.getContours({
+    coordinates: [-3.599431, 54.507913],
+    minutes: [20, 40],
+    polygons: true,
+});
+
+isochroneRequestLine.send().then((response) => {
+    const body = response.body;
+    const features = body.features;
+    features.map((feature) => {
+        feature.geometry.type === "LineString";
+    });
+});
+
+isochroneRequestPoly.send().then((response) => {
+    const body = response.body;
+    const features = body.features;
+    features.map((feature) => {
+        feature.geometry.type === "Polygon";
+    });
 });
 
 const mapMatchingService: MapMatchingService = MapMatching(client);
@@ -126,6 +158,22 @@ staticMapService.getStaticImage({
             geoJson: geoOverlay,
         },
     ],
+});
+
+staticMapService.getStaticImage({
+    width: 16,
+    height: 16,
+    overlays: [
+        {
+            marker: {
+                // @ts-expect-error - Object literal may only specify known properties, and 'lng' does not exist in type '[number, number]'
+                coordinates: { lng: 0, lat: 0 },
+            },
+        },
+    ],
+    position: "auto",
+    ownerId: "owner-id",
+    styleId: "some-style",
 });
 
 staticMapService.getStaticImage({
@@ -202,6 +250,14 @@ staticMapService.getStaticImage({
     layer_id: "building",
 });
 
+staticMapService.getStaticImage({
+    ownerId: "owner-id",
+    styleId: "some-style",
+    width: 16,
+    height: 16,
+    position: { bbox: [-7.66571044921875, 49.882247460433376, 1.7633056640625, 58.67051177185283] },
+});
+
 const geocodeService: GeocodeService = Geocoding(config);
 geocodeService
     .forwardGeocode({
@@ -211,7 +267,7 @@ geocodeService
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.short_code;
         });
     });
@@ -225,7 +281,7 @@ geocodeServiceV6
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.properties.context.place?.short_code;
         });
     });
@@ -237,8 +293,11 @@ geocodeServiceV6
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.properties.context.place?.short_code;
+            const placeFormatted = feature.properties.place_formatted;
+            const fullAddress = feature.properties.full_address;
+            const name_preferred = feature.properties.name_preferred;
         });
     });
 
@@ -279,3 +338,76 @@ optimizationService.getOptimization({
     roundtrip: true,
     steps: true,
 });
+
+{
+    let tileQueryService: TileQueryService;
+    tileQueryService = TileQuery({ accessToken: "" } satisfies SdkConfig);
+    tileQueryService = TileQuery(new MapiClient({ accessToken: "" }));
+
+    // Required request params
+    let mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+        } satisfies TileQueryRequest,
+    );
+
+    // Optional request params
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            radius: 0,
+            limit: 5,
+            dedupe: true,
+            bands: "band1,band2",
+            layers: "layer1,layer2",
+        } satisfies TileQueryRequest,
+    );
+
+    // Optional Geometry params
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "linestring" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "point" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+    mapiRequest = tileQueryService.listFeatures(
+        {
+            mapIds: ["id"],
+            coordinates: [2, 3],
+            geometry: "polygon" satisfies GeometryType,
+        } satisfies TileQueryRequest,
+    );
+
+    const featureCollection = mapiRequest.response!.body;
+    // $ExpectType "FeatureCollection"
+    featureCollection.type;
+
+    const [feature] = featureCollection.features;
+    // $ExpectType "Feature"
+    feature.type;
+    // $ExpectType string | number | undefined
+    feature.id;
+
+    // $ExpectType "Point"
+    feature.geometry.type;
+    // $ExpectType Position
+    feature.geometry.coordinates;
+
+    feature.properties satisfies TileQueryResponseProperty;
+    // $ExpectType number
+    feature.properties.tilequery.distance;
+    // $ExpectType GeometryType
+    feature.properties.tilequery.geometry;
+    // $ExpectType string
+    feature.properties.tilequery.layer;
+}

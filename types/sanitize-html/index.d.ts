@@ -19,7 +19,7 @@ declare namespace sanitize {
 
     type AllowedAttribute = string | { name: string; multiple?: boolean | undefined; values: string[] };
 
-    type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape";
+    type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape" | "completelyDiscard";
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IDefaults {
@@ -61,7 +61,7 @@ declare namespace sanitize {
         allowedTags?: string[] | false | undefined;
         allowVulnerableTags?: boolean | undefined;
         textFilter?: ((text: string, tagName: string) => string) | undefined;
-        exclusiveFilter?: ((frame: IFrame) => boolean) | undefined;
+        exclusiveFilter?: ((frame: IFrame) => boolean | "excludeTag") | undefined;
         nestingLimit?: number | undefined;
         nonTextTags?: string[] | undefined;
         /** @default true */
@@ -78,6 +78,8 @@ declare namespace sanitize {
          */
         enforceHtmlBoundary?: boolean | undefined;
         nonBooleanAttributes?: string[];
+        onOpenTag?: ((name: string, attribs: Attributes) => void) | undefined;
+        onCloseTag?: ((name: string, isImplied: boolean) => void) | undefined;
     }
 
     const defaults: IDefaults;

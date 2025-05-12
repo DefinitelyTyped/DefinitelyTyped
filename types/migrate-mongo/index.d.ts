@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as mongo from "mongodb";
 
 export function init(): Promise<void>;

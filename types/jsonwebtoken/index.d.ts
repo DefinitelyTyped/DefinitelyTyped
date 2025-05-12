@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
-import { KeyObject } from "crypto";
+import type { createPrivateKey, createPublicKey, KeyObject } from "crypto";
+import type { StringValue } from "ms";
 
 export class JsonWebTokenError extends Error {
     inner: Error;
@@ -39,10 +40,8 @@ export interface SignOptions {
      */
     algorithm?: Algorithm | undefined;
     keyid?: string | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    notBefore?: string | number | undefined;
+    expiresIn?: StringValue | number;
+    notBefore?: StringValue | number | undefined;
     audience?: string | string[] | undefined;
     subject?: string | undefined;
     issuer?: string | undefined;
@@ -86,12 +85,12 @@ export type VerifyErrors =
     | TokenExpiredError;
 export type VerifyCallback<T = Jwt | JwtPayload | string> = (
     error: VerifyErrors | null,
-    decoded: T | undefined,
+    decoded?: T | undefined,
 ) => void;
 
 export type SignCallback = (
     error: Error | null,
-    encoded: string | undefined,
+    encoded?: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
@@ -144,13 +143,17 @@ export type Algorithm =
 
 export type SigningKeyCallback = (
     error: Error | null,
-    signingKey?: Secret,
+    signingKey?: Secret | PublicKey,
 ) => void;
 
 export type GetPublicKeyOrSecret = (
     header: JwtHeader,
     callback: SigningKeyCallback,
 ) => void;
+
+export type PublicKey = Parameters<typeof createPublicKey>[0];
+
+export type PrivateKey = Parameters<typeof createPrivateKey>[0];
 
 export type Secret =
     | string
@@ -167,7 +170,7 @@ export type Secret =
  */
 export function sign(
     payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
+    secretOrPrivateKey: Secret | PrivateKey,
     options?: SignOptions,
 ): string;
 export function sign(
@@ -185,12 +188,12 @@ export function sign(
  */
 export function sign(
     payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
+    secretOrPrivateKey: Secret | PrivateKey,
     callback: SignCallback,
 ): void;
 export function sign(
     payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
+    secretOrPrivateKey: Secret | PrivateKey,
     options: SignOptions,
     callback: SignCallback,
 ): void;
@@ -208,13 +211,21 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
 export function verify(
     token: string,
-    secretOrPublicKey: Secret,
+    secretOrPublicKey: Secret | PublicKey,
+    options: VerifyOptions & { complete: true },
+): Jwt;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret | PublicKey,
     options?: VerifyOptions & { complete?: false },
 ): JwtPayload | string;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret | PublicKey,
+    options?: VerifyOptions,
+): Jwt | JwtPayload | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -227,24 +238,24 @@ export function verify(token: string, secretOrPublicKey: Secret, options?: Verif
  */
 export function verify(
     token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | PublicKey | GetPublicKeyOrSecret,
     callback?: VerifyCallback<JwtPayload | string>,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | PublicKey | GetPublicKeyOrSecret,
     options: VerifyOptions & { complete: true },
     callback?: VerifyCallback<Jwt>,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | PublicKey | GetPublicKeyOrSecret,
     options?: VerifyOptions & { complete?: false },
     callback?: VerifyCallback<JwtPayload | string>,
 ): void;
 export function verify(
     token: string,
-    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    secretOrPublicKey: Secret | PublicKey | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;

@@ -1,6 +1,19 @@
-import { cron, date, env, every, HttpEventHandler, HttpRequest, HttpResponse, on, sleep } from "mokapi";
-import { KafkaRecord } from "mokapi/kafka";
-import { LdapSearchRequest, LdapSearchResponse } from "mokapi/ldap";
+import {
+    cron,
+    date,
+    env,
+    every,
+    HttpEventHandler,
+    HttpRequest,
+    HttpResponse,
+    KafkaEventHandler,
+    KafkaEventMessage,
+    LdapEventHandler,
+    LdapSearchRequest,
+    LdapSearchResponse,
+    on,
+    sleep,
+} from "mokapi";
 
 const handler = () => {
     return false;
@@ -25,9 +38,6 @@ on("kafka", (): boolean => {
 });
 // @ts-expect-error
 on("kafka", (s: string): boolean => {
-    return false;
-});
-on("kafka", (r: KafkaRecord): boolean => {
     return false;
 });
 on("ldap", (): boolean => {
@@ -130,6 +140,7 @@ h = (req: HttpRequest, res: HttpResponse) => {
     // @ts-expect-error
     res.statusCode = "200";
     res.statusCode = 200;
+    res.data.name = "foo";
     // @ts-expect-error
     res.body = {};
     // @ts-expect-error
@@ -165,3 +176,66 @@ on("http", function(request, response) {
     }
     return false;
 });
+
+// @ts-expect-error
+let kafka: KafkaEventHandler = () => {};
+// @ts-expect-error
+kafka = (r: KafkaEventMessage) => {};
+kafka = (r: KafkaEventMessage): boolean => {
+    return false;
+};
+kafka = (record: KafkaEventMessage): boolean => {
+    // @ts-expect-error
+    record.offset = 12;
+    // @ts-expect-error
+    record.key = 123;
+    record.key = "key";
+    // @ts-expect-error
+    record.value = 12;
+    record.value = "value";
+    // @ts-expect-error
+    record.headers = 123;
+    record.headers = {};
+    record.headers = null;
+    record.headers = { foo: "bar" };
+
+    return false;
+};
+
+// @ts-expect-error
+let ldap: LdapEventHandler = () => {};
+ldap = () => {
+    return false;
+};
+// @ts-expect-error
+ldap = (s: string) => {
+    return false;
+};
+ldap = (req: LdapSearchRequest) => {
+    return false;
+};
+// @ts-expect-error
+h = (req: LdapSearchRequest, s: string) => {
+    return false;
+};
+ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
+    return false;
+};
+ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
+    // @ts-expect-error
+    res.results = "";
+    // @ts-expect-error
+    res.results.push({});
+    // @ts-expect-error
+    res.results.push({ dn: 12 });
+    res.results.push({ dn: "foo", attributes: {} });
+    // @ts-expect-error
+    res.results.push({ dn: "foo", attributes: { foo: "bar" } });
+    res.results.push({ dn: "foo", attributes: { foo: ["bar"] } });
+    res.status = 0;
+    // @ts-expect-error
+    res.message = 12;
+    res.message = "";
+
+    return false;
+};

@@ -9,7 +9,6 @@ import {
     SystemDefinition,
     THREE,
 } from "aframe";
-import * as threeDeprecated from "three/examples/jsm/deprecated/Geometry";
 
 // Global
 const threeCamera = new AFRAME.THREE.OrthographicCamera();
@@ -98,7 +97,7 @@ const Component = registerComponent("test-component", {
 
 // Scene
 const scene = document.querySelector("a-scene");
-scene.hasLoaded;
+scene?.hasLoaded;
 
 // System
 
@@ -122,8 +121,23 @@ AFRAME.registerGeometry("a-test-geometry", {
         groupIndex: { default: 0 },
     },
     init(data) {
-        this.geometry = new threeDeprecated.Geometry();
+        this.geometry = new THREE.BufferGeometry();
         const temp = data.groupIndex;
         temp;
     },
 });
+
+// DOM types unaffected
+
+const div = document.createElement("div");
+
+const height: number = div.clientHeight;
+
+const button = document.querySelector<HTMLButtonElement>("button");
+button?.click();
+
+const div2 = document.createElement("div");
+const height2: number = div2.clientHeight;
+
+const button2 = document.querySelector("button");
+button2?.click();

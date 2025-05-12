@@ -103,9 +103,9 @@ let quxProm: Bluebird<Qux> = Bluebird.resolve(qux);
 let numThen: PromiseLike<number>;
 let strThen: PromiseLike<string>;
 let anyThen: PromiseLike<any>;
-let boolThen: PromiseLike<boolean>;
+let boolThen!: PromiseLike<boolean>;
 let objThen: PromiseLike<object>;
-let voidThen: PromiseLike<void>;
+let voidThen!: PromiseLike<void>;
 
 let fooThen: PromiseLike<Foo> = fooProm;
 let barThen: PromiseLike<Bar> = barProm;

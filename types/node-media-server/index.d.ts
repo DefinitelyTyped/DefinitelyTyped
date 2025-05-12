@@ -34,6 +34,9 @@ interface AuthConfig {
     play?: boolean;
     publish?: boolean;
     secret?: string;
+    api?: boolean;
+    api_user?: string;
+    api_pass?: string;
 }
 
 interface TransConfig {

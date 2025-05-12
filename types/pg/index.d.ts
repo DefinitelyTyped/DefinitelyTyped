@@ -3,7 +3,7 @@
 import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
 import { ConnectionOptions } from "tls";
 
@@ -21,12 +21,15 @@ export interface ClientConfig {
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
+    lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
     idle_in_transaction_session_timeout?: number | undefined;
     application_name?: string | undefined;
+    fallback_application_name?: string | undefined;
     connectionTimeoutMillis?: number | undefined;
     types?: CustomTypesConfig | undefined;
     options?: string | undefined;
+    client_encoding?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -41,14 +44,15 @@ export interface Defaults extends ClientConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-    // properties from module 'node-pool'
+    // properties from module 'pg-pool'
     max?: number | undefined;
-    min?: number | undefined;
-    idleTimeoutMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined | null;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
     maxUses?: number | undefined;
+    maxLifetimeSeconds?: number | undefined;
+    Client?: (new() => ClientBase) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
@@ -158,6 +162,14 @@ export class Connection extends events.EventEmitter {
     end(): void;
 }
 
+export interface PoolOptions extends PoolConfig {
+    max: number;
+    maxUses: number;
+    allowExitOnIdle: boolean;
+    maxLifetimeSeconds: number;
+    idleTimeoutMillis: number | null;
+}
+
 /**
  * {@link https://node-postgres.com/apis/pool}
  */
@@ -172,6 +184,12 @@ export class Pool extends events.EventEmitter {
     readonly totalCount: number;
     readonly idleCount: number;
     readonly waitingCount: number;
+    readonly expiredCount: number;
+
+    readonly ending: boolean;
+    readonly ended: boolean;
+
+    options: PoolOptions;
 
     connect(): Promise<PoolClient>;
     connect(
@@ -273,6 +291,7 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
+    readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);
 
@@ -307,3 +326,15 @@ import * as Pg from ".";
 export const native: typeof Pg | null;
 
 export { DatabaseError } from "pg-protocol";
+import TypeOverrides = require("./lib/type-overrides");
+export { TypeOverrides };
+
+export class Result<R extends QueryResultRow = any> implements QueryResult<R> {
+    command: string;
+    rowCount: number | null;
+    oid: number;
+    fields: FieldDef[];
+    rows: R[];
+
+    constructor(rowMode: string, t: typeof types);
+}

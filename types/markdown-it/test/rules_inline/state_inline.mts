@@ -45,7 +45,6 @@ const state = new StateInline("__foobar__", md, {}, tokens);
     state.delimiters.push({
         marker: marker,
         length: scanned.length,
-        jump: 0,
         token: state.tokens.length - 1,
         end: -1,
         open: scanned.can_open,

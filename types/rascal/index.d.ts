@@ -165,6 +165,11 @@ export interface Recovery {
     immediateNack?: boolean | undefined;
 }
 
+export interface ConnectionDetails {
+    vhost: string;
+    connectionUrl: string;
+}
+
 export interface SubscriptionConfig {
     vhost?: string | undefined;
     queue?: string | undefined;
@@ -432,16 +437,20 @@ declare const testConfig: {
 };
 
 type AckOrNack = (err?: Error, recovery?: Recovery | Recovery[]) => void;
+type CallbackReturn<T> = T | Promise<T>;
 
 export class SubscriberSessionAsPromised extends EventEmitter {
     name: string;
     cancel(): Promise<void>;
 
-    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
+    on(
+        event: "message",
+        listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
+    ): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => CallbackReturn<void>): this;
     on(
         event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
-        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
     ): this;
 }
 
@@ -459,6 +468,7 @@ declare class BrokerAsPromised extends EventEmitter {
     unsubscribeAll(): Promise<void>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriberSessionAsPromised>;
     subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriberSessionAsPromised[]>;
+    getConnections(): ConnectionDetails[];
 }
 
 export class SubscriptionSession extends EventEmitter {
@@ -466,11 +476,14 @@ export class SubscriptionSession extends EventEmitter {
     isCancelled(): boolean;
     cancel(next: ErrorCb): void;
 
-    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
+    on(
+        event: "message",
+        listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
+    ): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => CallbackReturn<void>): this;
     on(
         event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
-        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
+        listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => CallbackReturn<void>,
     ): this;
 }
 
@@ -507,6 +520,7 @@ declare class Broker extends EventEmitter {
     subscribeAll(next: Cb<Error, SubscriptionSession[]>): void;
     subscribeAll(filter: (config: SubscriptionConfig) => boolean, next: Cb<Error, SubscriptionSession[]>): void;
     unsubscribeAll(next: ErrorCb): void;
+    getConnections(): ConnectionDetails[];
 }
 
 export class PublicationSession extends EventEmitter {
@@ -538,6 +552,7 @@ export class Vhost extends EventEmitter {
     returnConfirmChannel(channel: Channel): void;
     destroyConfirmChannel(channel: Channel): void;
     isPaused(): boolean;
+    getConnectionDetails(): ConnectionDetails;
 }
 
 declare function createBroker(config: BrokerConfig, next: CreateCb): void;

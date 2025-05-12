@@ -54,6 +54,15 @@ util.inspect({
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
 
+{
+    util.diff("abc", "acb");
+    util.diff(["a", "b", "c"], ["a", "c", "b"]);
+
+    const diffEntry = util.diff([], [])[0];
+    diffEntry[0]; // $ExpectType -1 | 0 | 1
+    diffEntry[1]; // $ExpectType string
+}
+
 util.format("%s:%s", "foo");
 util.format("%s:%s", "foo", "bar", "baz");
 util.format(1, 2, 3);
@@ -70,6 +79,12 @@ console.log(
 );
 console.log(
     util.styleText(["red", "green"], "text"),
+);
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
 );
 
 // util.callbackify
@@ -248,10 +263,19 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     const foo: string = util.toUSVString("foo");
 }
 
-access("file/that/does/not/exist", (err) => {
-    const name = util.getSystemErrorName(err!.errno!);
-    console.error(name);
-});
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorName(err!.errno!);
+        console.error(name);
+    });
+}
+
+{
+    access("file/that/does/not/exist", (err) => {
+        const name = util.getSystemErrorMessage(err!.errno!);
+        console.error(name); // no such file or directory
+    });
+}
 
 {
     util.stripVTControlCharacters("\u001B[4mvalue\u001B[0m"); // $ExpectType string
@@ -270,7 +294,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -322,6 +346,7 @@ access("file/that/does/not/exist", (err) => {
             x: { type: "string", multiple: true },
         },
     });
+
     // $ExpectType (string | boolean)[] | undefined
     result.values.x;
     // $ExpectType string | boolean | undefined
@@ -334,6 +359,123 @@ access("file/that/does/not/exist", (err) => {
 
     // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
     const result = util.parseArgs(config);
+}
+
+{
+    // args are passed `type: "boolean"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean | undefined
+    result.values.alpha; // false
+}
+
+{
+    // args are passed `default: "true"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean", default: true },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+
+    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean
+    result.values.alpha; // false
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
+}
+
+{
+    // allow negative options and multiple as true
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha", "--no-alpha"],
+        options: {
+            alpha: { type: "boolean", multiple: true },
+        },
+        allowNegative: true,
+    });
+
+    // $ExpectType { alpha?: boolean[] | undefined; }
+    result.values;
+
+    // $ExpectType boolean[] | undefined
+    result.values.alpha; // [false, true, false]
+}
+
+{
+    // allow negative options and passed multiple arguments
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean | undefined
+    result.values.alpha; // true
+}
+
+{
+    let optionConfig: util.ParseArgsOptionDescriptor;
+
+    optionConfig = {
+        type: "boolean",
+    };
+
+    optionConfig = {
+        default: "default",
+        multiple: false,
+        short: "s",
+        type: "string",
+    };
+
+    optionConfig = {
+        default: ["a", "b", "c"],
+        multiple: true,
+        type: "string",
+    };
+
+    util.parseArgs({
+        options: {
+            longOption: optionConfig,
+        },
+    });
+
+    let optionsConfig: util.ParseArgsOptionsConfig;
+
+    optionsConfig = {};
+
+    optionsConfig = {
+        longOption: optionConfig,
+    };
+
+    util.parseArgs(optionsConfig);
+}
+
+{
+    let argsType: util.ParseArgsOptionsType;
+    argsType = "boolean";
+    argsType = "string";
 }
 
 {
@@ -359,4 +501,23 @@ access("file/that/does/not/exist", (err) => {
     for (const [name, value] of params) {
         console.log(name, value);
     }
+}
+
+{
+    // $ExpectType CallSiteObject[]
+    util.getCallSites();
+    // $ExpectType CallSiteObject[]
+    util.getCallSites(100);
+
+    const callSites = util.getCallSites({ sourceMap: true });
+
+    console.log("Call Sites:");
+    callSites.forEach((callSite, index) => {
+        console.log(`CallSite ${index + 1}:`);
+        console.log(`Function Name: ${callSite.functionName}`);
+        console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Script ID: ${callSite.scriptId}`);
+        console.log(`Line Number: ${callSite.lineNumber}`);
+        console.log(`Column Number: ${callSite.columnNumber}`);
+    });
 }

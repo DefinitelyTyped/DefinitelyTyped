@@ -1,8 +1,20 @@
 import { PixelFormat, TextureDataType } from "../../constants.js";
 
 export interface WebGLCapabilitiesParameters {
+    /**
+     * shader precision. Can be "highp", "mediump" or "lowp".
+     */
     precision?: string | undefined;
+
+    /**
+     * default is false.
+     */
     logarithmicDepthBuffer?: boolean | undefined;
+
+    /**
+     * default is false.
+     */
+    reverseDepthBuffer?: boolean | undefined;
 }
 
 export class WebGLCapabilities {
@@ -18,6 +30,7 @@ export class WebGLCapabilities {
 
     precision: string;
     logarithmicDepthBuffer: boolean;
+    reverseDepthBuffer: boolean;
 
     maxTextures: number;
     maxVertexTextures: number;

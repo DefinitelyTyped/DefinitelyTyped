@@ -8,9 +8,9 @@
  * It can be accessed using:
  *
  * ```js
- * const net = require('node:net');
+ * import net from 'node:net';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/net.js)
  */
 declare module "net" {
     import * as stream from "node:stream";
@@ -29,6 +29,7 @@ declare module "net" {
     interface SocketConstructorOpts {
         fd?: number | undefined;
         allowHalfOpen?: boolean | undefined;
+        onread?: OnReadOpts | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
         signal?: AbortSignal;
@@ -37,20 +38,15 @@ declare module "net" {
         buffer: Uint8Array | (() => Uint8Array);
         /**
          * This function is called for every chunk of incoming data.
-         * Two arguments are passed to it: the number of bytes written to buffer and a reference to buffer.
-         * Return false from this function to implicitly pause() the socket.
+         * Two arguments are passed to it: the number of bytes written to `buffer` and a reference to `buffer`.
+         * Return `false` from this function to implicitly `pause()` the socket.
          */
-        callback(bytesWritten: number, buf: Uint8Array): boolean;
+        callback(bytesWritten: number, buffer: Uint8Array): boolean;
     }
-    interface ConnectOpts {
-        /**
-         * If specified, incoming data is stored in a single buffer and passed to the supplied callback when data arrives on the socket.
-         * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
-         * still be emitted as normal and methods like pause() and resume() will also behave as expected.
-         */
-        onread?: OnReadOpts | undefined;
-    }
-    interface TcpSocketConnectOpts extends ConnectOpts {
+    // TODO: remove empty ConnectOpts placeholder at next major @types/node version.
+    /** @deprecated */
+    interface ConnectOpts {}
+    interface TcpSocketConnectOpts {
         port: number;
         host?: string | undefined;
         localAddress?: string | undefined;
@@ -69,8 +65,9 @@ declare module "net" {
          * @since v18.13.0
          */
         autoSelectFamilyAttemptTimeout?: number | undefined;
+        blockList?: BlockList | undefined;
     }
-    interface IpcSocketConnectOpts extends ConnectOpts {
+    interface IpcSocketConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
@@ -380,7 +377,7 @@ declare module "net" {
         addListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
         addListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         addListener(
             event: "connectionAttemptTimeout",
@@ -400,7 +397,7 @@ declare module "net" {
         emit(event: "close", hadError: boolean): boolean;
         emit(event: "connect"): boolean;
         emit(event: "connectionAttempt", ip: string, port: number, family: number): boolean;
-        emit(event: "connectionAttemptFailed", ip: string, port: number, family: number): boolean;
+        emit(event: "connectionAttemptFailed", ip: string, port: number, family: number, error: Error): boolean;
         emit(event: "connectionAttemptTimeout", ip: string, port: number, family: number): boolean;
         emit(event: "data", data: Buffer): boolean;
         emit(event: "drain"): boolean;
@@ -413,7 +410,10 @@ declare module "net" {
         on(event: "close", listener: (hadError: boolean) => void): this;
         on(event: "connect", listener: () => void): this;
         on(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
-        on(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        on(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number, error: Error) => void,
+        ): this;
         on(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
         on(event: "data", listener: (data: Buffer) => void): this;
         on(event: "drain", listener: () => void): this;
@@ -428,7 +428,10 @@ declare module "net" {
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: (hadError: boolean) => void): this;
         once(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
-        once(event: "connectionAttemptFailed", listener: (ip: string, port: number, family: number) => void): this;
+        once(
+            event: "connectionAttemptFailed",
+            listener: (ip: string, port: number, family: number, error: Error) => void,
+        ): this;
         once(event: "connectionAttemptTimeout", listener: (ip: string, port: number, family: number) => void): this;
         once(event: "connect", listener: () => void): this;
         once(event: "data", listener: (data: Buffer) => void): this;
@@ -447,7 +450,7 @@ declare module "net" {
         prependListener(event: "connectionAttempt", listener: (ip: string, port: number, family: number) => void): this;
         prependListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         prependListener(
             event: "connectionAttemptTimeout",
@@ -472,7 +475,7 @@ declare module "net" {
         ): this;
         prependOnceListener(
             event: "connectionAttemptFailed",
-            listener: (ip: string, port: number, family: number) => void,
+            listener: (ip: string, port: number, family: number, error: Error) => void,
         ): this;
         prependOnceListener(
             event: "connectionAttemptTimeout",
@@ -490,17 +493,18 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
-        port?: number | undefined;
-        host?: string | undefined;
         backlog?: number | undefined;
-        path?: string | undefined;
         exclusive?: boolean | undefined;
-        readableAll?: boolean | undefined;
-        writableAll?: boolean | undefined;
+        host?: string | undefined;
         /**
          * @default false
          */
         ipv6Only?: boolean | undefined;
+        reusePort?: boolean | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
     }
     interface ServerOpts {
         /**
@@ -532,6 +536,21 @@ declare module "net" {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @since v18.17.0, v20.1.0
+         */
+        highWaterMark?: number | undefined;
+        /**
+         * `blockList` can be used for disabling inbound
+         * access to specific IP addresses, IP ranges, or IP subnets. This does not
+         * work if the server is behind a reverse proxy, NAT, etc. because the address
+         * checked against the block list is the address of the proxy, or the one
+         * specified by the NAT.
+         * @since v22.13.0
+         */
+        blockList?: BlockList | undefined;
     }
     interface DropArgument {
         localAddress?: string;
@@ -783,6 +802,12 @@ declare module "net" {
          * @since v15.0.0, v14.18.0
          */
         rules: readonly string[];
+        /**
+         * Returns `true` if the `value` is a `net.BlockList`.
+         * @since v22.13.0
+         * @param value Any JS value
+         */
+        static isBlockList(value: unknown): value is BlockList;
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
@@ -812,7 +837,7 @@ declare module "net" {
      * on port 8124:
      *
      * ```js
-     * const net = require('node:net');
+     * import net from 'node:net';
      * const server = net.createServer((c) => {
      *   // 'connection' listener.
      *   console.log('client connected');
@@ -894,6 +919,9 @@ declare module "net" {
     function getDefaultAutoSelectFamily(): boolean;
     /**
      * Sets the default value of the `autoSelectFamily` option of `socket.connect(options)`.
+     * @param value The new default value.
+     * The initial default value is `true`, unless the command line option
+     * `--no-network-family-autoselection` is provided.
      * @since v19.4.0
      */
     function setDefaultAutoSelectFamily(value: boolean): void;
@@ -992,6 +1020,14 @@ declare module "net" {
          * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
+        /**
+         * @since v22.13.0
+         * @param input An input string containing an IP address and optional port,
+         * e.g. `123.1.2.3:1234` or `[1::1]:1234`.
+         * @returns Returns a `SocketAddress` if parsing was successful.
+         * Otherwise returns `undefined`.
+         */
+        static parse(input: string): SocketAddress | undefined;
     }
 }
 declare module "node:net" {

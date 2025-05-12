@@ -296,6 +296,40 @@ export interface Chunk {
     ts: number;
 }
 /**
+ * _non-standard_
+ *
+ * This object describes the initiator of a request (the location of the
+ * code that issued the request) and is used to populate the Entry's
+ * non-standard `_initiator` field.
+ */
+export interface Initiator {
+    /**
+     * presumably equivalent to _initiator_type
+     *
+     * values "parser" and "other" have been observed in Chrome's HARs
+     */
+    "type": string;
+    /**
+     * The URL of the code file in which the code that issued the
+     * request represented by the Entry (this object's parent) resides.
+     * This would otherwise be the string in the Entry's `_initiator` field.
+     */
+    "url"?: string | null | undefined;
+    /**
+     * The line number of the code that issued the request represented
+     * by the Entry to which this Initiator object has been attached.
+     */
+    "lineNumber"?: number | null | undefined;
+    /**
+     * The column number of the code that issued the request.
+     */
+    "column"?: number | null | undefined;
+    /**
+     * The detail information that would be in `_initiator_detail`.
+     */
+    "detail"?: string | null | undefined;
+}
+/**
  * This object represents an array with all exported HTTP requests. Sorting
  * entries by `startedDateTime` (starting from the oldest) is preferred way how
  * to export data since it can make importing faster.
@@ -421,15 +455,15 @@ export interface Entry {
     /** _non-standard_  */
     _index?: number | null | undefined;
     /** _non-standard_  */
-    _initiator?: string | null | undefined;
+    _initiator?: Initiator | string | null | undefined;
     /** _non-standard_  */
-    _initiator_column?: string | null | undefined;
+    _initiator_column?: number | null | undefined;
     /** _non-standard_  */
     _initiator_detail?: string | null | undefined;
     /** _non-standard_  */
     _initiator_function?: string | null | undefined;
     /** _non-standard_  */
-    _initiator_line?: string | null | undefined;
+    _initiator_line?: number | null | undefined;
     /** _non-standard_  */
     _initiator_type?: string | null | undefined;
     /** _non-standard_  */

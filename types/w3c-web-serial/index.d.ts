@@ -7,8 +7,8 @@ type FlowControlType = "none" | "hardware";
 /*~ https://wicg.github.io/serial/#dom-serialoptions */
 interface SerialOptions {
     baudRate: number;
-    dataBits?: number | undefined;
-    stopBits?: number | undefined;
+    dataBits?: 7 | 8 | undefined;
+    stopBits?: 1 | 2 | undefined;
     parity?: ParityType | undefined;
     bufferSize?: number | undefined;
     flowControl?: FlowControlType | undefined;
@@ -33,12 +33,17 @@ interface SerialInputSignals {
 interface SerialPortInfo {
     usbVendorId?: number | undefined;
     usbProductId?: number | undefined;
+    /** If the port is a service on a Bluetooth device this member will be a BluetoothServiceUUID
+     * containing the service class UUID. Otherwise it will be undefined. */
+    bluetoothServiceClassId?: number | string | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialport */
 declare class SerialPort extends EventTarget {
-    onconnect: ((this: this, ev: Event) => any) | null;
-    ondisconnect: ((this: this, ev: Event) => any) | null;
+    onconnect: ((this: this, ev: Event) => void) | null;
+    ondisconnect: ((this: this, ev: Event) => void) | null;
+    /** A flag indicating the logical connection state of serial port */
+    readonly connected: boolean;
     readonly readable: ReadableStream<Uint8Array> | null;
     readonly writable: WritableStream<Uint8Array> | null;
 
@@ -51,7 +56,7 @@ declare class SerialPort extends EventTarget {
 
     addEventListener(
         type: "connect" | "disconnect",
-        listener: (this: this, ev: Event) => any,
+        listener: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     addEventListener(
@@ -61,7 +66,7 @@ declare class SerialPort extends EventTarget {
     ): void;
     removeEventListener(
         type: "connect" | "disconnect",
-        callback: (this: this, ev: Event) => any,
+        callback: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     removeEventListener(
@@ -75,23 +80,30 @@ declare class SerialPort extends EventTarget {
 interface SerialPortFilter {
     usbVendorId?: number | undefined;
     usbProductId?: number | undefined;
+    bluetoothServiceClassId?: number | string | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialportrequestoptions */
 interface SerialPortRequestOptions {
     filters?: SerialPortFilter[] | undefined;
+    /** A list of BluetoothServiceUUID values representing Bluetooth service class IDs.
+     * Bluetooth ports with custom service class IDs are excluded from the list of ports
+     * presented to the user unless the service class ID is included in this list.
+     *
+     * {@link https://wicg.github.io/serial/#serialportrequestoptions-dictionary} */
+    allowedBluetoothServiceClassIds?: Array<number | string> | undefined;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serial */
 declare class Serial extends EventTarget {
-    onconnect: ((this: this, ev: Event) => any) | null;
-    ondisconnect: ((this: this, ev: Event) => any) | null;
+    onconnect: ((this: this, ev: Event) => void) | null;
+    ondisconnect: ((this: this, ev: Event) => void) | null;
 
     getPorts(): Promise<SerialPort[]>;
     requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>;
     addEventListener(
         type: "connect" | "disconnect",
-        listener: (this: this, ev: Event) => any,
+        listener: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     addEventListener(
@@ -101,7 +113,7 @@ declare class Serial extends EventTarget {
     ): void;
     removeEventListener(
         type: "connect" | "disconnect",
-        callback: (this: this, ev: Event) => any,
+        callback: (this: this, ev: Event) => void,
         useCapture?: boolean,
     ): void;
     removeEventListener(

@@ -57,7 +57,7 @@ declare var jiff: {
      *  x is a value, the new value will be returned.
      */
     patch(changes: jiff.JSONPatch, x: jiff.JSONValue, options?: jiff.PatchOptions): jiff.JSONValue;
-    patchInPlace(patch: jiff.JSONPatch, a: jiff.JSONValue, options?: jiff.PatchOptions): void;
+    patchInPlace(patch: jiff.JSONPatch, a: jiff.JSONValue, options?: jiff.PatchOptions): jiff.JSONValue;
 };
 
 export = jiff;

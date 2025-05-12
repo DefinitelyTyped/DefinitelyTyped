@@ -37,6 +37,11 @@ const newProxyUrl = HttpProxy.createProxyServer({
     target: "http://localhost:9015",
 });
 
+const newProxyKnownMethod = HttpProxy.createProxyServer({
+    target: "http://localhost:9015",
+    method: "POST",
+});
+
 const newProxyComplete = HttpProxy.createProxyServer({
     target: {
         protocol: "http:",

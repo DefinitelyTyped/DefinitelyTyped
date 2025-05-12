@@ -73,6 +73,36 @@ const showAllStyle: cytoscape.Stylesheet[] = [
         },
     },
     {
+        selector: "node .background-multi-image",
+        style: {
+            "background-image": [
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
+            ],
+            "background-image-opacity": [0.5, 1.0],
+            "background-image-crossorigin": ["anonymous", "use-credentials"],
+            "background-image-smoothing": ["yes", "no"],
+            "background-image-containment": ["inside", "over"],
+            "background-width": [24, "60%"],
+            "background-height": ["60%", 24],
+            "background-fit": ["contain", "cover"],
+            "background-repeat": ["repeat-x", "repeat-y"],
+            "background-position-x": [24, 24],
+            "background-position-y": [0, 10],
+            "background-offset-x": [0, 0],
+            "background-offset-y": [10, 10],
+            "background-width-relative-to": ["inner", "include-padding"],
+            "background-height-relative-to": ["inner", "include-padding"],
+            "background-clip": ["node", "none"],
+        },
+    },
+    {
         selector: "$node > node",
         css: parentCSS,
     },
@@ -82,6 +112,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "text-rotation": "autorotate",
             "target-arrow-shape": "triangle",
             "curve-style": "taxi",
+            "line-outline-width": "1px",
+            "line-outline-color": "black",
             "source-endpoint": "outside-to-node",
             "target-endpoint": "outside-to-node",
             "line-opacity": 0.5,
@@ -156,6 +188,20 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "pie-15-background-size": 5,
             "pie-16-background-color": "001100",
             "pie-16-background-size": 5,
+        },
+    },
+    {
+        selector: "node.border",
+        style: {
+            "border-width": 5,
+            "border-style": "dashed",
+            "border-color": "red",
+            "border-opacity": 0.85,
+            "border-position": "inside",
+            "border-cap": "round",
+            "border-join": "bevel",
+            "border-dash-pattern": [6, 3],
+            "border-dash-offset": 5,
         },
     },
 ];
@@ -605,7 +651,7 @@ nodes.maxIndegree(loops);
 nodes.minOutdegree(loops);
 nodes.maxOutdegree(loops);
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const getsetPos = <T extends Function>(func: T): T => {
     func("x", func("x"));
     func(func());
@@ -683,6 +729,9 @@ eles.classes(oneOf("test", undefined));
 eles.classes();
 eles.flashClass("test flash", oneOf(1000, undefined));
 assert(ele.hasClass("test"));
+
+nodes.addClass("border");
+nodes.removeClass("border");
 
 eles.style("background-color", "green");
 Object.keys(eles.style()).map(key => eles.style(key));
@@ -1076,3 +1125,6 @@ const coseAllOptions: CoseLayoutOptions = {
     minTemp: 10.0,
 };
 cy.layout(coseAllOptions);
+
+const ccn = cy.nodes().closenessCentralityNormalized({ directed: false });
+ccn.closeness(cy.nodes()[0]);

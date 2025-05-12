@@ -3,9 +3,9 @@ interface Document {
 }
 
 interface ViewTransition {
-    finished: Promise<void>;
-    ready: Promise<void>;
-    updateCallbackDone: Promise<void>;
+    readonly ready: Promise<void>;
+    readonly finished: Promise<void>;
+    readonly updateCallbackDone: Promise<void>;
     skipTransition(): void;
 }
 

@@ -1,4 +1,5 @@
 import * as p from "node:process";
+import { finalization } from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
 import { constants } from "node:os";
@@ -53,10 +54,11 @@ import { fileURLToPath } from "node:url";
 }
 
 {
-    const report = process.report!;
+    const report = process.report;
+    report.compact = true;
     report.directory = "asd";
     report.filename = "asdasd";
-    const rep: string = report.getReport(new Error());
+    report.getReport(new Error()); // $ExpectType object
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
@@ -127,7 +129,12 @@ import { fileURLToPath } from "node:url";
     // This is some additional information
 }
 
-const hrtimeBigint: bigint = process.hrtime.bigint();
+// $ExpectType [number, number]
+process.hrtime();
+// $ExpectType [number, number]
+process.hrtime([0, 0]);
+// $ExpectType bigint
+process.hrtime.bigint();
 
 process.allowedNodeEnvironmentFlags.has("asdf");
 
@@ -210,4 +217,46 @@ process.env.TZ = "test";
     if (!process.sourceMapsEnabled) {
         process.setSourceMapsEnabled(true);
     }
+}
+
+{
+    const fs = globalThis.process.getBuiltinModule("fs");
+    fs.constants.F_OK;
+}
+
+{
+    const myDisposableObject = {
+        dispose() {
+            // Free your resources synchronously
+        },
+    };
+
+    function onFinalize(obj: typeof myDisposableObject, event: string) {
+        // You can do whatever you want with the object
+        obj.dispose();
+    }
+
+    finalization.register(myDisposableObject, onFinalize);
+    finalization.registerBeforeExit(myDisposableObject, onFinalize);
+
+    // Do something
+
+    myDisposableObject.dispose();
+    finalization.unregister(myDisposableObject);
+}
+
+{
+    const timeout = setTimeout(() => {}, 1000);
+    process.ref(timeout);
+    process.unref(timeout);
+}
+
+{
+    // @ts-expect-error
+    process.execve("/bin/true");
+
+    assert(process.execve);
+    process.execve("/bin/true"); // $ExpectType never
+    process.execve("/bin/true", ["arg1", "arg2"]); // $ExpectType never
+    process.execve("/bin/true", [], { ...process.env, ENV1: "foo", ENV2: "bar" }); // $ExpectType never
 }

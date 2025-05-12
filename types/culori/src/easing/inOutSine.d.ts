@@ -1,3 +1,3 @@
-declare function inOutSine(t: number): number;
+declare function easingInOutSine(t: number): number;
 
-export default inOutSine;
+export default easingInOutSine;

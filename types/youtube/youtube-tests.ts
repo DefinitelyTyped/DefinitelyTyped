@@ -63,6 +63,9 @@ const players: YT.Player[] = [
             onApiChange(event: YT.PlayerEvent) {
                 const targetPlayer: YT.Player = event.target;
             },
+            onAutoplayBlocked(event: YT.PlayerEvent) {
+                const targetPlayer: YT.Player = event.target;
+            },
         },
     }),
 ];
@@ -280,6 +283,10 @@ player.addEventListener("onPlaybackQualityChange", (event: YT.OnPlaybackQualityC
 player.addEventListener("onPlaybackRateChange", (event: YT.OnPlaybackRateChangeEvent) => {});
 player.addEventListener("onError", (event: YT.OnErrorEvent) => {});
 player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
+
+player.addEventListener("onStateChange", (event) => {
+    ensureNumeric<typeof event.data>();
+});
 
 const frame: HTMLIFrameElement = player.getIframe();
 

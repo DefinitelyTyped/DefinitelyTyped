@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/chai-xml": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Jeff Goddard",
-            "githubUsername": "jedigo"
-        }
-    ]
+    "owners": []
 }

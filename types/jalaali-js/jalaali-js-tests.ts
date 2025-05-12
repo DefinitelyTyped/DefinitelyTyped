@@ -6,6 +6,8 @@ import {
     isValidJalaaliDate,
     j2d,
     jalaaliMonthLength,
+    jalaaliToDateObject,
+    jalaaliWeek,
     jalCal,
     toGregorian,
     toJalaali,
@@ -40,3 +42,7 @@ d2j(2457490); // { jy: 1395, jm: 1, jd: 23 }
 g2d(2016, 4, 11); // 2457490
 
 d2g(2457490); // { gy: 2016, gm: 4, gd: 11 }
+
+jalaaliToDateObject(1400, 4, 30, 0, 0, 0, 0); // new Date(2021, 6, 21)
+
+jalaaliWeek(1400, 4, 30); // { saturday: { jy: 1400, jm: 4, jd: 26 }, friday: { jy: 1400, jm: 5, jd: 1 } }

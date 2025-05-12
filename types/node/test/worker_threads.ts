@@ -97,12 +97,25 @@ import { createContext } from "node:vm";
     const typedArray2 = new Float64Array(pooledBuffer);
 
     workerThreads.markAsUntransferable(pooledBuffer);
+    workerThreads.isMarkedAsUntransferable(pooledBuffer); // $ExpectType boolean
 
     const { port1 } = new workerThreads.MessageChannel();
     port1.postMessage(typedArray1, [typedArray1.buffer] as readonly workerThreads.TransferListItem[]);
 
     console.log(typedArray1);
     console.log(typedArray2);
+}
+
+{
+    const anyObject = { foo: "bar" };
+    workerThreads.markAsUncloneable(anyObject);
+    const { port1 } = new MessageChannel();
+    try {
+        // This will throw an error, because anyObject is not cloneable.
+        port1.postMessage(anyObject);
+    } catch (error) {
+        // error.name === 'DataCloneError'
+    }
 }
 
 {
@@ -176,6 +189,10 @@ import { createContext } from "node:vm";
         // emit message event
         worker.postMessage({ port: port2 }, [port2]);
         port1.postMessage("From main to parent");
+        worker.postMessageToThread(10, { port: port2 }, [port2], 1000);
+        worker.postMessageToThread(10, { port: port2 }, [port2]);
+        worker.postMessageToThread(10, { x: 100 }, 1000);
+        worker.postMessageToThread(10, { x: 100 });
 
         // close event
         setTimeout(() => {

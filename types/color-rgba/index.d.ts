@@ -4,7 +4,7 @@
  * `color` can be a CSS color string,
  * an array with channel values, an object etc.,
  */
-declare function rgba(string: ColorValue): [number, number, number, number] | undefined;
+declare function rgba(string: ColorValue): [number, number, number, number] | [];
 
 type ColorValue = string | RGBTuple | RGBColor | RGBKeyedColor | HSL;
 

@@ -45,7 +45,7 @@ declare class Server<TIncomingMessage = http.IncomingMessage, TServerResponse = 
     ): void;
 
     /**
-     * Used for proxying regular HTTP(S) requests
+     * Used for proxying WS(S) requests
      * @param req - Client request.
      * @param socket - Client socket.
      * @param head - Client head.
@@ -193,6 +193,8 @@ declare namespace Server {
         selfHandleResponse?: boolean | undefined;
         /** Buffer */
         buffer?: stream.Stream | undefined;
+        /** Explicitly set the method type of the ProxyReq */
+        method?: string | undefined;
     }
 
     type StartCallback<TIncomingMessage = http.IncomingMessage, TServerResponse = http.ServerResponse> = (

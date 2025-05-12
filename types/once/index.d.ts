@@ -45,7 +45,7 @@ declare namespace once {
 
 declare global {
     interface Function {
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         once(): Function & once.FnProps<any>;
     }
 }

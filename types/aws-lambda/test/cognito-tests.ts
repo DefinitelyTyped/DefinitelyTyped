@@ -124,7 +124,7 @@ const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, 
     bool = session.challengeResult;
     boolOrUndefined = request.userNotFound;
 
-    str = response.challengeName;
+    strOrUndefined = response.challengeName;
     bool = response.failAuthentication;
     bool = response.issueTokens;
 

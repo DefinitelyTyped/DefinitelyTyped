@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/crypto.js)
  */
 declare module "crypto" {
     import * as stream from "node:stream";
@@ -96,7 +96,7 @@ declare module "crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v20.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v22.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -610,11 +610,6 @@ declare module "crypto" {
          */
         asymmetricKeyType?: KeyType | undefined;
         /**
-         * For asymmetric keys, this property represents the size of the embedded key in
-         * bytes. This property is `undefined` for symmetric keys.
-         */
-        asymmetricKeySize?: number | undefined;
-        /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
          * through this property can be used to uniquely identify a key or to compromise
@@ -668,15 +663,29 @@ declare module "crypto" {
          */
         symmetricKeySize?: number | undefined;
         /**
+         * Converts a `KeyObject` instance to a `CryptoKey`.
+         * @since 22.10.0
+         */
+        toCryptoKey(
+            algorithm:
+                | webcrypto.AlgorithmIdentifier
+                | webcrypto.RsaHashedImportParams
+                | webcrypto.EcKeyImportParams
+                | webcrypto.HmacImportParams,
+            extractable: boolean,
+            keyUsages: readonly webcrypto.KeyUsage[],
+        ): webcrypto.CryptoKey;
+        /**
          * Depending on the type of this `KeyObject`, this property is either`'secret'` for secret (symmetric) keys, `'public'` for public (asymmetric) keys
          * or `'private'` for private (asymmetric) keys.
          * @since v11.6.0
          */
         type: KeyObjectType;
     }
-    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm" | "chacha20-poly1305";
+    type CipherCCMTypes = "aes-128-ccm" | "aes-192-ccm" | "aes-256-ccm";
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
+    type CipherChaCha20Poly1305Types = "chacha20-poly1305";
     type BinaryLike = string | NodeJS.ArrayBufferView;
     type CipherKey = BinaryLike | KeyObject;
     interface CipherCCMOptions extends stream.TransformOptions {
@@ -688,48 +697,10 @@ declare module "crypto" {
     interface CipherOCBOptions extends stream.TransformOptions {
         authTagLength: number;
     }
-    /**
-     * Creates and returns a `Cipher` object that uses the given `algorithm` and `password`.
-     *
-     * The `options` argument controls stream behavior and is optional except when a
-     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the`authTagLength` option is required and specifies the length of the
-     * authentication tag in bytes, see `CCM mode`. In GCM mode, the `authTagLength`option is not required but can be used to set the length of the authentication
-     * tag that will be returned by `getAuthTag()` and defaults to 16 bytes.
-     * For `chacha20-poly1305`, the `authTagLength` option defaults to 16 bytes.
-     *
-     * The `algorithm` is dependent on OpenSSL, examples are `'aes192'`, etc. On
-     * recent OpenSSL releases, `openssl list -cipher-algorithms` will
-     * display the available cipher algorithms.
-     *
-     * The `password` is used to derive the cipher key and initialization vector (IV).
-     * The value must be either a `'latin1'` encoded string, a `Buffer`, a`TypedArray`, or a `DataView`.
-     *
-     * **This function is semantically insecure for all**
-     * **supported ciphers and fatally flawed for ciphers in counter mode (such as CTR,**
-     * **GCM, or CCM).**
-     *
-     * The implementation of `crypto.createCipher()` derives keys using the OpenSSL
-     * function [`EVP_BytesToKey`](https://www.openssl.org/docs/man3.0/man3/EVP_BytesToKey.html) with the digest algorithm set to MD5, one
-     * iteration, and no salt. The lack of salt allows dictionary attacks as the same
-     * password always creates the same key. The low iteration count and
-     * non-cryptographically secure hash algorithm allow passwords to be tested very
-     * rapidly.
-     *
-     * In line with OpenSSL's recommendation to use a more modern algorithm instead of [`EVP_BytesToKey`](https://www.openssl.org/docs/man3.0/man3/EVP_BytesToKey.html) it is recommended that
-     * developers derive a key and IV on
-     * their own using {@link scrypt} and to use {@link createCipheriv} to create the `Cipher` object. Users should not use ciphers with counter mode
-     * (e.g. CTR, GCM, or CCM) in `crypto.createCipher()`. A warning is emitted when
-     * they are used in order to avoid the risk of IV reuse that causes
-     * vulnerabilities. For the case when IV is reused in GCM, see [Nonce-Disrespecting Adversaries](https://github.com/nonce-disrespect/nonce-disrespect) for details.
-     * @since v0.1.94
-     * @deprecated Since v10.0.0 - Use {@link createCipheriv} instead.
-     * @param options `stream.transform` options
-     */
-    function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
-    /** @deprecated since v10.0.0 use `createCipheriv()` */
-    function createCipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): CipherGCM;
-    /** @deprecated since v10.0.0 use `createCipheriv()` */
-    function createCipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Cipher;
+    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
+        /** @default 16 */
+        authTagLength?: number | undefined;
+    }
     /**
      * Creates and returns a `Cipher` object, with the given `algorithm`, `key` and
      * initialization vector (`iv`).
@@ -779,6 +750,12 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): CipherChaCha20Poly1305;
+    function createCipheriv(
         algorithm: string,
         key: CipherKey,
         iv: BinaryLike | null,
@@ -793,7 +770,7 @@ declare module "crypto" {
      * * Using the `cipher.update()` and `cipher.final()` methods to produce
      * the encrypted data.
      *
-     * The {@link createCipher} or {@link createCipheriv} methods are
+     * The {@link createCipheriv} method is
      * used to create `Cipher` instances. `Cipher` objects are not to be created
      * directly using the `new` keyword.
      *
@@ -977,37 +954,15 @@ declare module "crypto" {
         ): this;
         getAuthTag(): Buffer;
     }
-    /**
-     * Creates and returns a `Decipher` object that uses the given `algorithm` and `password` (key).
-     *
-     * The `options` argument controls stream behavior and is optional except when a
-     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the `authTagLength` option is required and specifies the length of the
-     * authentication tag in bytes, see `CCM mode`.
-     * For `chacha20-poly1305`, the `authTagLength` option defaults to 16 bytes.
-     *
-     * **This function is semantically insecure for all**
-     * **supported ciphers and fatally flawed for ciphers in counter mode (such as CTR,**
-     * **GCM, or CCM).**
-     *
-     * The implementation of `crypto.createDecipher()` derives keys using the OpenSSL
-     * function [`EVP_BytesToKey`](https://www.openssl.org/docs/man3.0/man3/EVP_BytesToKey.html) with the digest algorithm set to MD5, one
-     * iteration, and no salt. The lack of salt allows dictionary attacks as the same
-     * password always creates the same key. The low iteration count and
-     * non-cryptographically secure hash algorithm allow passwords to be tested very
-     * rapidly.
-     *
-     * In line with OpenSSL's recommendation to use a more modern algorithm instead of [`EVP_BytesToKey`](https://www.openssl.org/docs/man3.0/man3/EVP_BytesToKey.html) it is recommended that
-     * developers derive a key and IV on
-     * their own using {@link scrypt} and to use {@link createDecipheriv} to create the `Decipher` object.
-     * @since v0.1.94
-     * @deprecated Since v10.0.0 - Use {@link createDecipheriv} instead.
-     * @param options `stream.transform` options
-     */
-    function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use `createDecipheriv()` */
-    function createDecipher(algorithm: CipherGCMTypes, password: BinaryLike, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use `createDecipheriv()` */
-    function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
+    interface CipherChaCha20Poly1305 extends Cipher {
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
+                plaintextLength: number;
+            },
+        ): this;
+        getAuthTag(): Buffer;
+    }
     /**
      * Creates and returns a `Decipher` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
@@ -1056,6 +1011,12 @@ declare module "crypto" {
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
+        algorithm: CipherChaCha20Poly1305Types,
+        key: CipherKey,
+        iv: BinaryLike,
+        options?: CipherChaCha20Poly1305Options,
+    ): DecipherChaCha20Poly1305;
+    function createDecipheriv(
         algorithm: string,
         key: CipherKey,
         iv: BinaryLike | null,
@@ -1070,7 +1031,7 @@ declare module "crypto" {
      * * Using the `decipher.update()` and `decipher.final()` methods to
      * produce the unencrypted data.
      *
-     * The {@link createDecipher} or {@link createDecipheriv} methods are
+     * The {@link createDecipheriv} method is
      * used to create `Decipher` instances. `Decipher` objects are not to be created
      * directly using the `new` keyword.
      *
@@ -1240,6 +1201,15 @@ declare module "crypto" {
             },
         ): this;
     }
+    interface DecipherChaCha20Poly1305 extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(
+            buffer: NodeJS.ArrayBufferView,
+            options: {
+                plaintextLength: number;
+            },
+        ): this;
+    }
     interface PrivateKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
@@ -1364,6 +1334,7 @@ declare module "crypto" {
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
@@ -1459,9 +1430,9 @@ declare module "crypto" {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
+        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput): Buffer;
         sign(
-            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
             outputFormat: BinaryToTextEncoding,
         ): string;
     }
@@ -2211,7 +2182,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v0.11.14
      */
-    function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicEncrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `key`.`buffer` was previously encrypted using
      * the corresponding private key, for example using {@link privateEncrypt}.
@@ -2223,7 +2197,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v1.1.0
      */
-    function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicDecrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `privateKey`. `buffer` was previously encrypted using
      * the corresponding public key, for example using {@link publicEncrypt}.
@@ -2232,7 +2209,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_OAEP_PADDING`.
      * @since v0.11.14
      */
-    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * Encrypts `buffer` with `privateKey`. The returned data can be decrypted using
      * the corresponding public key, for example using {@link publicDecrypt}.
@@ -2241,7 +2218,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_PADDING`.
      * @since v1.1.0
      */
-    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * ```js
      * const {
@@ -3336,12 +3313,12 @@ declare module "crypto" {
     function sign(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
     ): Buffer;
     function sign(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
         callback: (error: Error | null, data: Buffer) => void,
     ): void;
     /**
@@ -3388,8 +3365,8 @@ declare module "crypto" {
      * Example:
      *
      * ```js
-     * const crypto = require('node:crypto');
-     * const { Buffer } = require('node:buffer');
+     * import crypto from 'node:crypto';
+     * import { Buffer } from 'node:buffer';
      *
      * // Hashing a string and return the result as a hex-encoded string.
      * const string = 'Node.js';
@@ -3405,7 +3382,7 @@ declare module "crypto" {
      * @since v21.7.0, v20.12.0
      * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different input encoding is desired for a string input, user
      *             could encode the string into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing the encoded `TypedArray` into this API instead.
-     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v20.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
+     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v22.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
      */
     function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
     function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
@@ -3721,10 +3698,20 @@ declare module "crypto" {
          */
         readonly validFrom: string;
         /**
+         * The date/time from which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validFromDate: Date;
+        /**
          * The date/time until which this certificate is considered valid.
          * @since v15.6.0
          */
         readonly validTo: string;
+        /**
+         * The date/time until which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validToDate: Date;
         constructor(buffer: BinaryLike);
         /**
          * Checks whether the certificate matches the given email address.
@@ -4106,7 +4093,7 @@ declare module "crypto" {
             saltLength: number;
         }
         /**
-         * Calling `require('node:crypto').webcrypto` returns an instance of the `Crypto` class.
+         * Importing the `webcrypto` object (`import { webcrypto } from 'node:crypto'`) gives an instance of the `Crypto` class.
          * `Crypto` is a singleton that provides access to the remainder of the crypto API.
          * @since v15.0.0
          */
@@ -4234,9 +4221,13 @@ declare module "crypto" {
              * - `'PBKDF2'`
              * @since v15.0.0
              */
-            deriveBits(algorithm: EcdhKeyDeriveParams, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
             deriveBits(
-                algorithm: AlgorithmIdentifier | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams,
+                baseKey: CryptoKey,
+                length?: number | null,
+            ): Promise<ArrayBuffer>;
+            deriveBits(
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
                 length: number,
             ): Promise<ArrayBuffer>;
@@ -4258,14 +4249,9 @@ declare module "crypto" {
              * @since v15.0.0
              */
             deriveKey(
-                algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
+                algorithm: EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
                 baseKey: CryptoKey,
-                derivedKeyAlgorithm:
-                    | AlgorithmIdentifier
-                    | AesDerivedKeyParams
-                    | HmacImportParams
-                    | HkdfParams
-                    | Pbkdf2Params,
+                derivedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams,
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;

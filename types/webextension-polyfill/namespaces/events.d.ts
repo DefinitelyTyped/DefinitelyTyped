@@ -4,14 +4,6 @@
 
 /**
  * Namespace: browser.events
- *
- * The <code>chrome.events</code> namespace contains common types used by APIs dispatching events to notify you when
- * something interesting happens.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace Events {
     /**
@@ -33,12 +25,12 @@ export namespace Events {
         /**
          * List of conditions that can trigger the actions.
          */
-        conditions: any[];
+        conditions: unknown[];
 
         /**
          * List of actions that are triggered if one of the condtions is fulfilled.
          */
-        actions: any[];
+        actions: unknown[];
 
         /**
          * Optional priority of this rule. Defaults to 100.
@@ -50,6 +42,7 @@ export namespace Events {
     /**
      * An object which allows the addition and removal of listeners for a Chrome event.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     interface Event<T extends (...args: any[]) => any> {
         /**
          * Registers an event listener <em>callback</em> to an event.
@@ -57,7 +50,7 @@ export namespace Events {
          * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
          * @param ...params Further parameters, depending on the event.
          */
-        addListener(callback: T, ...params: any[]): void;
+        addListener(callback: T, ...params: unknown[]): void;
 
         /**
          * Deregisters an event listener <em>callback</em> from an event.
@@ -71,11 +64,6 @@ export namespace Events {
          * @returns True if <em>callback</em> is registered to the event.
          */
         hasListener(callback: T): boolean;
-
-        /**
-         * @returns True if any event listeners are registered to the event.
-         */
-        hasListeners(): boolean;
     }
 
     /**

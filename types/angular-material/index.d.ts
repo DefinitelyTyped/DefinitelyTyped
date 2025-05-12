@@ -122,7 +122,7 @@ declare module "angular" {
         interface IDialogService {
             // indexer used to call preset dialog created with $mdDialogProvider
             // see: https://material.angularjs.org/latest/api/service/$mdDialog#custom-presets
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             [presetName: string]: Function;
 
             show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
@@ -517,7 +517,7 @@ declare module "angular" {
         }
 
         interface IUtilService {
-            // eslint-disable-next-line @typescript-eslint/ban-types -- debounce takes in a user provided function
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- debounce takes in a user provided function
             debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
             enableScrolling(): void;
         }

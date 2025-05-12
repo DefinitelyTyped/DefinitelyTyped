@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/geojson": "*",
-        "@types/mapbox-gl": "*"
+        "mapbox-gl": "*"
     },
     "devDependencies": {
         "@types/mapbox__mapbox-gl-draw": "workspace:."
@@ -24,6 +24,10 @@
         {
             "name": "Joel Daros",
             "githubUsername": "joel-daros"
+        },
+        {
+            "name": "Brook Jordan",
+            "githubUsername": "brookjordan"
         }
     ]
 }

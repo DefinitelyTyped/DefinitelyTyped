@@ -1,8 +1,10 @@
+// Ensure our types support promise-based servers
+/* eslint @typescript-eslint/no-misused-promises: "error" */
 import supertest = require("supertest");
 import express = require("express");
 
 import { Server as HttpServer } from "http";
-import { Http2SecureServer, Http2Server } from "http2";
+import type { Http2SecureServer, Http2Server, Http2ServerRequest, Http2ServerResponse } from "http2";
 import { Server as HttpsServer } from "https";
 
 const app = express();
@@ -14,6 +16,7 @@ supertest({} as HttpServer).get("/user").expect(200);
 supertest({} as HttpsServer).get("/user").expect(200);
 supertest({} as Http2Server).get("/user").expect(200);
 supertest({} as Http2SecureServer).get("/user").expect(200);
+supertest({} as (request: Http2ServerRequest, response: Http2ServerResponse) => Promise<void>).get("/user").expect(200);
 
 request.get("/user")
     .set("Accept", "*/*")

@@ -8,6 +8,12 @@
     "devDependencies": {
         "@types/tabulator-tables": "workspace:."
     },
+    "exports": {
+        ".": {
+            "require": "./index.d.ts",
+            "import": "./index.d.mts"
+        }
+    },
     "owners": [
         {
             "name": "Josh Harris",

@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/svg2ttf": "*",
-        "@types/svgicons2svgfont": "*",
+        "@types/svgicons2svgfont": "<14",
         "@types/ttf2woff": "*"
     },
     "devDependencies": {

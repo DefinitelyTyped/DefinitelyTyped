@@ -1,5 +1,4 @@
 import {
-    ColorSpace,
     MagnificationTextureFilter,
     MinificationTextureFilter,
     PixelFormatGPU,
@@ -12,6 +11,7 @@ import { Texture } from "../textures/Texture.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 
 export interface RenderTargetOptions {
+    depth?: number | undefined;
     wrapS?: Wrapping | undefined;
     wrapT?: Wrapping | undefined;
     magFilter?: MagnificationTextureFilter | undefined;
@@ -20,7 +20,7 @@ export interface RenderTargetOptions {
     format?: number | undefined; // RGBAFormat
     type?: TextureDataType | undefined; // UnsignedByteType
     anisotropy?: number | undefined; // 1
-    colorSpace?: ColorSpace | undefined;
+    colorSpace?: string | undefined;
     internalFormat?: PixelFormatGPU | null | undefined; // null
     depthBuffer?: boolean | undefined; // true
     stencilBuffer?: boolean | undefined; // false
@@ -33,6 +33,7 @@ export interface RenderTargetOptions {
      */
     samples?: number | undefined;
     count?: number | undefined;
+    multiview?: boolean | undefined;
 }
 
 export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extends EventDispatcher<{ dispose: {} }> {
@@ -74,20 +75,25 @@ export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extend
     resolveStencilBuffer: boolean;
 
     /**
-     * @default null
-     */
-    depthTexture: DepthTexture | null;
-
-    /**
      * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.
      * @default 0
      */
     samples: number;
 
+    /**
+     * Whether to this target is used in multiview rendering.
+     *
+     * @default false
+     */
+    multiview: boolean;
+
     constructor(width?: number, height?: number, options?: RenderTargetOptions);
 
     get texture(): TTexture;
     set texture(value: TTexture);
+
+    set depthTexture(current: DepthTexture | null);
+    get depthTexture(): DepthTexture | null;
 
     setSize(width: number, height: number, depth?: number): void;
     clone(): this;

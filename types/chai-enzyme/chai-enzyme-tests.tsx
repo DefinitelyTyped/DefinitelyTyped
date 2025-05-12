@@ -1,7 +1,8 @@
 import * as React from "react";
 import chaiEnzyme = require("chai-enzyme");
-import { expect } from "chai";
 import { shallow } from "enzyme";
+
+declare const expect: Chai.ExpectStatic;
 
 const Test = () => <div />;
 
@@ -11,7 +12,7 @@ class Test2 extends React.Component {
     }
 }
 
-chai.use(chaiEnzyme());
+import("chai").then(chai => chai.use(chaiEnzyme()));
 
 const wrapper = shallow(<Test />);
 

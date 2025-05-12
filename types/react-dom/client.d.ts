@@ -5,12 +5,33 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
 import React = require("react");
+
+export {};
+
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+export interface ReactFormState {
+    [REACT_FORM_STATE_SIGIL]: never;
+}
+
 export interface HydrationOptions {
+    formState?: ReactFormState | null;
     /**
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
+    onUncaughtError?:
+        | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+        | undefined;
     onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+    onCaughtError?:
+        | ((
+            error: unknown,
+            errorInfo: {
+                componentStack?: string | undefined;
+                errorBoundary?: React.Component<unknown> | undefined;
+            },
+        ) => void)
+        | undefined;
 }
 
 export interface RootOptions {
@@ -18,11 +39,22 @@ export interface RootOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
+    onUncaughtError?:
+        | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+        | undefined;
     onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+    onCaughtError?:
+        | ((
+            error: unknown,
+            errorInfo: {
+                componentStack?: string | undefined;
+                errorBoundary?: React.Component<unknown> | undefined;
+            },
+        ) => void)
+        | undefined;
 }
 
 export interface ErrorInfo {
-    digest?: string;
     componentStack?: string;
 }
 
@@ -41,6 +73,7 @@ export interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAI
 export type Container =
     | Element
     | DocumentFragment
+    | Document
     | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS[
         keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS
     ];

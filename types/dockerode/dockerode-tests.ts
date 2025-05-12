@@ -88,6 +88,7 @@ async function foo() {
         const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
         const inspect = await foo.inspect();
+        const imageDescriptor = inspect.Descriptor;
         await foo.remove();
     }
 
@@ -147,6 +148,18 @@ container.start((err, data) => {
     // NOOP
 });
 
+container.exec({
+    Cmd: ["echo", "hello"],
+    AttachStdin: true,
+    AttachStdout: true,
+    AttachStderr: true,
+    Tty: true,
+    User: "root",
+    ConsoleSize: [80, 24],
+}, (err, data) => {
+    // NOOP
+});
+
 container.remove((err, data) => {
     // NOOP
 });
@@ -156,12 +169,12 @@ container.remove({ v: true, force: false, link: true }, (err, data) => {
 });
 
 container.logs((err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
 container.logs({}, (err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
@@ -171,20 +184,20 @@ container.logs({ follow: true }, (err, logs) => {
 });
 
 container.logs({ follow: false }, (err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ since: 0, until: 10, stdout: true, stderr: true });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ since: "12345.987654321", until: "54321.123456789", stdout: true, stderr: true });
 
 // $ExpectType Promise<ReadableStream>
 container.logs({ follow: true });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ follow: false });
 
 container.stats((err, logs) => {
@@ -315,7 +328,7 @@ docker.buildImage(
     },
 );
 
-docker.buildImage(".", { nocache: true }, (err, response) => {
+docker.buildImage(".", { nocache: true, version: "2", pull: true }, (err, response) => {
     // NOOP
 });
 
@@ -380,6 +393,14 @@ docker.createVolume({ Name: "volumeName" }, (err, volume) => {
     });
 
     volume.remove({ abortSignal: new AbortController().signal }, (err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ force: true }, (err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ force: true, abortSignal: new AbortController().signal }, (err, data) => {
         // NOOP
     });
 });

@@ -9,6 +9,4 @@ export class RawShaderMaterial extends ShaderMaterial {
      * @defaultValue `true`
      */
     readonly isRawShaderMaterial: true;
-
-    override readonly type: "RawShaderMaterial";
 }

@@ -101,7 +101,7 @@ Component.extend({
     tagName: "input",
     attributeBindings: ["disabled"],
     disabled: computed(() => {
-        if ("someLogic") {
+        if ("bogus" > "logic") {
             return true;
         } else {
             return false;

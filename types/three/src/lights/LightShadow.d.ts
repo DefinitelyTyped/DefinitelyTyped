@@ -1,10 +1,22 @@
 import { Camera } from "../cameras/Camera.js";
+import { TextureDataType } from "../constants.js";
+import { Object3DJSONObject } from "../core/Object3D.js";
 import { Frustum } from "../math/Frustum.js";
 import { Matrix4 } from "../math/Matrix4.js";
-import { Vector2 } from "../math/Vector2.js";
+import { Vector2, Vector2Tuple } from "../math/Vector2.js";
 import { Vector4 } from "../math/Vector4.js";
 import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
 import { Light } from "./Light.js";
+
+export interface LightShadowJSON {
+    intensity?: number;
+    bias?: number;
+    normalBias?: number;
+    radius?: number;
+    mapSize?: Vector2Tuple;
+
+    camera: Omit<Object3DJSONObject, "matrix">;
+}
 
 /**
  * Serves as a base class for the other shadow classes.
@@ -76,6 +88,13 @@ export class LightShadow<TCamera extends Camera = Camera> {
     mapSize: Vector2;
 
     /**
+     * The type of shadow texture. The default is `UnsignedByteType`.
+     *
+     * @default UnsignedByteType
+     */
+    mapType: TextureDataType;
+
+    /**
      * The depth map generated using the internal camera; a location beyond a pixel's depth is in shadow. Computed internally during rendering.
      * @defaultValue null
      */
@@ -127,7 +146,7 @@ export class LightShadow<TCamera extends Camera = Camera> {
     /**
      * Serialize this LightShadow.
      */
-    toJSON(): {};
+    toJSON(): LightShadowJSON;
 
     /**
      * Gets the shadow cameras frustum

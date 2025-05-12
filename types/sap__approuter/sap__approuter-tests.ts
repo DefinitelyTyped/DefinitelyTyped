@@ -2,7 +2,7 @@
  * These tests are mostly extracted from the README file and `doc/extending.md` (both in @sap/approuter (the source npm
  * package).
  */
-import { MiddlewareHandler, StartOptions } from "@sap/approuter";
+import { MiddlewareHandler, RouterConfigOptions, StartOptions } from "@sap/approuter";
 import approuter = require("@sap/approuter");
 import xsrfHandler = require("@sap/approuter/lib/middleware/xsrf-token-handler");
 
@@ -72,7 +72,7 @@ ar.start({
 });
 
 let customRouterConfig: unknown;
-const options = {
+const options: RouterConfigOptions = {
     xsappConfig: {
         routes: [
             {
@@ -175,3 +175,23 @@ function middlewareHandlerWithCustomProps(): MiddlewareHandler<RequestWithSessio
 }
 
 ar.beforeRequestHandler.use("/my-ext", middlewareHandlerWithCustomProps);
+
+/*************** start options ***************/
+
+const startOptions: StartOptions = {
+    port: 5000,
+    xsappConfig: {
+        sessionTimeout: 3600,
+    },
+    httpsOptions: {
+        key: "key",
+        cert: "cert",
+    },
+    workingDir: "/path/to/working/dir",
+    extensions: [],
+    getRouterConfig: () => null,
+    getSessionSecret: () => "session",
+    getToken: () => "token",
+};
+
+ar.start(startOptions);

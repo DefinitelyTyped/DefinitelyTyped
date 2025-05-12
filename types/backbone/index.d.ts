@@ -148,6 +148,7 @@ declare namespace Backbone {
     }
     interface Events_Off<BaseT> {
         <T extends BaseT>(this: T, eventName?: string | null, callback?: EventHandler | null, context?: any): T;
+        <T extends BaseT>(this: T, eventMap: EventMap, context?: any): T;
     }
     interface Events_Trigger<BaseT> {
         <T extends BaseT>(this: T, eventName: string, ...args: any[]): T;
@@ -158,6 +159,7 @@ declare namespace Backbone {
     }
     interface Events_Stop<BaseT> {
         <T extends BaseT>(this: T, object?: any, events?: string, callback?: EventHandler): T;
+        <T extends BaseT>(this: T, object: any, eventMap: EventMap): T;
     }
 
     /**
@@ -174,6 +176,7 @@ declare namespace Backbone {
         on(eventName: string, callback: EventHandler, context?: any): this;
         on(eventMap: EventMap, context?: any): this;
         off(eventName?: string | null, callback?: EventHandler | null, context?: any): this;
+        off(eventMap: EventMap, context?: any): this;
         trigger(eventName: string, ...args: any[]): this;
         bind(eventName: string, callback: EventHandler, context?: any): this;
         bind(eventMap: EventMap, context?: any): this;
@@ -186,6 +189,7 @@ declare namespace Backbone {
         listenToOnce(object: any, events: string, callback: EventHandler): this;
         listenToOnce(object: any, eventMap: EventMap): this;
         stopListening(object?: any, events?: string, callback?: EventHandler): this;
+        stopListening(object: any, eventMap: EventMap): this;
     }
 
     class ModelBase extends EventsMixin {
@@ -311,7 +315,7 @@ declare namespace Backbone {
          */
         static extend(properties: any, classProperties?: any): any;
 
-        model: new(...args: any[]) => TModel;
+        model: (new(...args: any[]) => TModel) | ((...args: any[]) => TModel);
         models: TModel[];
         length: number;
 
@@ -336,8 +340,8 @@ declare namespace Backbone {
             | { bivarianceHack(element: TModel): number | string }["bivarianceHack"]
             | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
-        add(model: {} | TModel, options?: AddOptions): TModel;
         add(models: Array<{} | TModel>, options?: AddOptions): TModel[];
+        add(model: {} | TModel, options?: AddOptions): TModel;
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
@@ -554,7 +558,7 @@ declare namespace Backbone {
          * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        events(): EventsHash;
+        events: _Result<EventsHash>;
 
         // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
         model: TModel extends Model ? TModel : undefined;

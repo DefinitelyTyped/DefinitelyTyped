@@ -46,7 +46,7 @@ pubEmitterSocket.connect({ a, b, c });
 // @ts-expect-error
 pubEmitterSocket.connect();
 
-// $ExpectType (args: Buffer | Buffer[]) => void
+// $ExpectType (args: Buffer | Buffer[]) => void || (args: Buffer<ArrayBufferLike> | Buffer<ArrayBufferLike>[]) => void
 repSocket.onmessage(netSocket);
 
 // @ts-expect-error
@@ -64,7 +64,7 @@ repSocket.onmessage({});
 // $ExpectType string
 reqSocket.id();
 
-// $ExpectType (args: Buffer | Buffer[]) => void
+// $ExpectType (args: Buffer | Buffer[]) => void || (args: Buffer<ArrayBufferLike> | Buffer<ArrayBufferLike>[]) => void
 reqSocket.onmessage();
 
 // $ExpectType void

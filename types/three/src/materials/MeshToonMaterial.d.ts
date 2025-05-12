@@ -44,11 +44,6 @@ export class MeshToonMaterial extends Material {
     readonly isMeshToonMaterial: true;
 
     /**
-     * @default 'MeshToonMaterial'
-     */
-    type: string;
-
-    /**
      * @default { 'TOON': '' }
      */
     defines: { [key: string]: any };

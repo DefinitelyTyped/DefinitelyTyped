@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/random-string",
-    "version": "0.0.9999",
+    "version": "0.2.9999",
     "projects": [
         "https://github.com/valiton/node-random-string"
     ],

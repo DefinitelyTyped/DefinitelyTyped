@@ -8,10 +8,10 @@ Pager();
 const page = pages.get(10);
 page; // $ExpectType Page
 page.offset; // $ExpectType number
-page.buffer; // $ExpectType Buffer
+page.buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 pages.get(10, false); // $ExpectType Page
 pages.get(10, true); // $ExpectType Page | undefined
 pages.set(10, new Buffer(10));
 pages.updated(page);
 pages.lastUpdate(); // $ExpectType Page | null
-pages.toBuffer(); // $ExpectType Buffer
+pages.toBuffer(); // $ExpectType Buffer || Buffer<ArrayBufferLike>

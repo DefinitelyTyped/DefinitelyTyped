@@ -34,10 +34,4 @@ export class Group<TEventMap extends Object3DEventMap = Object3DEventMap> extend
      * @defaultValue `true`
      */
     readonly isGroup: true;
-
-    /**
-     * @override
-     * @defaultValue `Group`
-     */
-    override readonly type: string | "Group";
 }

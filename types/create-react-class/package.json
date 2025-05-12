@@ -6,12 +6,10 @@
         "https://facebook.github.io/react/"
     ],
     "dependencies": {
-        "@types/react": "*",
-        "@types/prop-types": "*"
+        "@types/react": "*"
     },
     "devDependencies": {
         "@types/create-react-class": "workspace:.",
-        "@types/react-dom": "*",
         "@types/react-dom-factories": "*"
     },
     "owners": [

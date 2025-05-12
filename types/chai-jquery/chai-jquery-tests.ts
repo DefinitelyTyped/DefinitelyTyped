@@ -1,8 +1,7 @@
 // tests taken from https://github.com/chaijs/chai-jquery
 
 declare var $: ChaiJQueryStatic;
-import chai = require("chai");
-var expect = chai.expect;
+var expect: Chai.ExpectStatic;
 
 function test_attr() {
     expect($("#foo")).to.have.attr("id");

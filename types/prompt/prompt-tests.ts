@@ -64,6 +64,7 @@ prompt.get(
                 },
                 password: {
                     hidden: true,
+                    replace: "*",
                 },
             },
         },

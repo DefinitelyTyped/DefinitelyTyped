@@ -35,7 +35,7 @@ export default function googlePay () {
       buttonColor: 'black',
     },
     callbacks: {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+      // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
       onPaymentAuthorized: (paymentData: GooglePayPaymentData): Promise<GooglePayPaymentAuthorizationResult> | void => {
         if (paymentData.email === 'test@example.com') {
           return Promise.reject({

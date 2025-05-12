@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/expressjs/cookie-parser"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/express": "*"
     },
     "devDependencies": {

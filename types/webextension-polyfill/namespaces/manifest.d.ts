@@ -2,28 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.manifest
- *
- * Permissions: -
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Copyright 2014 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- * Copyright 2013 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Experiments } from "./experiments";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.manifest
+ */
 export namespace Manifest {
     /**
      * Common properties for all manifest.json files
@@ -42,6 +26,9 @@ export namespace Manifest {
          */
         browser_specific_settings?: BrowserSpecificSettings;
 
+        /**
+         * Name must be at least 2, at should be at most 75 characters
+         */
         name: string;
 
         /**
@@ -105,6 +92,7 @@ export namespace Manifest {
         icons?: Record<string, ExtensionFileUrl>;
 
         /**
+         * The 'split' value is not supported.
          * Optional.
          */
         incognito?: WebExtensionManifestIncognitoEnum;
@@ -112,10 +100,14 @@ export namespace Manifest {
         /**
          * Optional.
          */
-        background?:
-            | WebExtensionManifestBackgroundC1Type
-            | WebExtensionManifestBackgroundC2Type
-            | WebExtensionManifestBackgroundC3Type;
+        background?: WebExtensionManifestBackgroundType;
+
+        /**
+         * Alias property for options_ui.page, ignored when options_ui.page is set. When using this property the options page is
+         * always opened in a new tab.
+         * Optional.
+         */
+        options_page?: ExtensionURL;
 
         /**
          * Optional.
@@ -146,6 +138,11 @@ export namespace Manifest {
          * Optional.
          */
         host_permissions?: MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        optional_host_permissions?: MatchPattern[];
 
         /**
          * Optional.
@@ -265,15 +262,6 @@ export namespace Manifest {
         dictionaries: Record<string, string>;
     }
 
-    /**
-     * Represents a WebExtension site permissions manifest.json file
-     */
-    interface WebExtensionSitePermissionsManifest extends ManifestBase {
-        site_permissions: SitePermission[];
-
-        install_origins: [string];
-    }
-
     interface ThemeIcons {
         /**
          * A light icon to use for dark themes
@@ -291,6 +279,8 @@ export namespace Manifest {
         size: number;
     }
 
+    type OptionalOnlyPermission = "trialML" | "userScripts";
+
     type OptionalPermissionNoPrompt =
         | "idle"
         | "cookies"
@@ -299,6 +289,7 @@ export namespace Manifest {
         | "search"
         | "activeTab"
         | "webRequest"
+        | "webRequestAuthProvider"
         | "webRequestBlocking"
         | "webRequestFilterResponse"
         | "webRequestFilterResponse.serviceWorkerScript";
@@ -324,15 +315,16 @@ export namespace Manifest {
         | "proxy"
         | "nativeMessaging"
         | "sessions"
+        | "tabGroups"
         | "tabs"
         | "tabHide"
         | "topSites"
         | "webNavigation"
         | "identity.email";
 
-    type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
+    type OptionalPermissionOrOrigin = OptionalPermission | OptionalOnlyPermission | MatchPattern;
 
-    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy" | "urlbar";
+    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy";
 
     type PermissionNoPrompt =
         | OptionalPermissionNoPrompt
@@ -353,8 +345,6 @@ export namespace Manifest {
     type Permission = PermissionNoPrompt | OptionalPermission | "declarativeNetRequest" | string;
 
     type PermissionOrOrigin = Permission | MatchPattern;
-
-    type SitePermission = "midi" | "midi-sysex";
 
     type HttpURL = string;
 
@@ -386,6 +376,11 @@ export namespace Manifest {
          * Optional.
          */
         strict_max_version?: string;
+
+        /**
+         * Optional.
+         */
+        admin_install_only?: boolean;
     }
 
     interface GeckoAndroidSpecificProperties {
@@ -475,17 +470,32 @@ export namespace Manifest {
         all_frames?: boolean;
 
         /**
-         * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has
-         * access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is <code>false</code>.
+         * If match_about_blank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension
+         * has access to its parent document. Ignored if match_origin_as_fallback is specified. By default it is <code>false</code>.
          * Optional.
          */
         match_about_blank?: boolean;
+
+        /**
+         * If match_origin_as_fallback is true, then the code is also injected in about:, data:,
+         * blob: when their origin matches the pattern in 'matches', even if the actual document origin is opaque (due to the use
+         * of CSP sandbox or iframe sandbox). Match patterns in 'matches' must specify a wildcard path glob. By default it is <code>
+         * false</code>.
+         * Optional.
+         */
+        match_origin_as_fallback?: boolean;
 
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
          * Optional.
          */
         run_at?: ExtensionTypes.RunAt;
+
+        /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExtensionTypes.ExecutionWorld;
     }
 
     type IconPath = Record<string, ExtensionFileUrl> | ExtensionFileUrl;
@@ -660,42 +670,49 @@ export namespace Manifest {
         url?: string;
     }
 
-    type WebExtensionManifestIncognitoEnum = "not_allowed" | "spanning";
+    /**
+     * The 'split' value is not supported.
+     */
+    type WebExtensionManifestIncognitoEnum = "not_allowed" | "spanning" | "split";
 
-    interface WebExtensionManifestBackgroundC1Type {
-        page: ExtensionURL;
+    /**
+     * Only supported for page/scripts; not for service_worker yet, see bug 1775574
+     */
+    type WebExtensionManifestBackgroundTypeEnum = "module" | "classic";
+
+    type WebExtensionManifestBackgroundPreferredEnvironmentItemEnum = "service_worker" | "document";
+
+    interface WebExtensionManifestBackgroundType {
+        /**
+         * Optional.
+         */
+        service_worker?: ExtensionURL;
+
+        /**
+         * Optional.
+         */
+        page?: ExtensionURL;
+
+        /**
+         * Optional.
+         */
+        scripts?: ExtensionURL[];
+
+        /**
+         * Only supported for page/scripts; not for service_worker yet, see bug 1775574
+         * Optional.
+         */
+        type?: WebExtensionManifestBackgroundTypeEnum;
 
         /**
          * Optional.
          */
         persistent?: boolean;
-    }
-
-    type WebExtensionManifestBackgroundC2TypeEnum = "module" | "classic";
-
-    interface WebExtensionManifestBackgroundC2Type {
-        scripts: ExtensionURL[];
 
         /**
          * Optional.
          */
-        type?: WebExtensionManifestBackgroundC2TypeEnum;
-
-        /**
-         * Optional.
-         */
-        persistent?: boolean;
-    }
-
-    interface WebExtensionManifestBackgroundC3Type {
-        service_worker: ExtensionURL;
-
-        /**
-         * Even though Manifest V3, does not support multiple background scripts, you can optionally declare the service worker as
-         * an ES Module by specifying "type": "module", which allows you to import further code.
-         * Optional.
-         */
-        type?: "module";
+        preferred_environment?: WebExtensionManifestBackgroundPreferredEnvironmentItemEnum[];
     }
 
     interface WebExtensionManifestOptionsUiType {
@@ -750,37 +767,6 @@ export namespace Manifest {
         extension_ids?: Array<ExtensionID | "*">;
     }
 
-    interface WebExtensionManifestChromeSettingsOverridesSearchProviderParamsItemType {
-        /**
-         * A url parameter name
-         */
-        name: string;
-
-        /**
-         * The type of param can be either "purpose" or "pref".
-         * Optional.
-         */
-        condition?: "purpose" | "pref";
-
-        /**
-         * The preference to retrieve the value from.
-         * Optional.
-         */
-        pref?: string;
-
-        /**
-         * The context that initiates a search, required if condition is "purpose".
-         * Optional.
-         */
-        purpose?: "contextmenu" | "searchbar" | "homepage" | "keyword" | "newtab";
-
-        /**
-         * A url parameter value.
-         * Optional.
-         */
-        value?: string;
-    }
-
     interface WebExtensionManifestChromeSettingsOverridesSearchProviderType {
         name: string;
 
@@ -826,11 +812,6 @@ export namespace Manifest {
         suggest_url_post_params?: string;
 
         /**
-         * Optional.
-         */
-        search_form?: string;
-
-        /**
          * Encoding of the search term.
          * Optional.
          */
@@ -841,13 +822,6 @@ export namespace Manifest {
          * Optional.
          */
         is_default?: boolean;
-
-        /**
-         * A list of optional search url parameters. This allows the additon of search url parameters based on how the search is
-         * performed in Firefox.
-         * Optional.
-         */
-        params?: WebExtensionManifestChromeSettingsOverridesSearchProviderParamsItemType[];
     }
 
     interface WebExtensionManifestChromeSettingsOverridesType {

@@ -1,7 +1,7 @@
 import polar = require("array-polar");
 
 polar([0, 1, 1, 0]); // $ExpectType number[]
-polar(new Uint8Array([0, 1, 1, 0])); // $ExpectType Uint8Array
+polar(new Uint8Array([0, 1, 1, 0])); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 polar({ 0: 0, 1: 1, 2: 1, 3: 0, length: 4 }); // $ExpectType { 0: number; 1: number; 2: number; 3: number; length: number; }
 polar([0, 1, 1, 0], [1, 1]); // $ExpectType number[]
 polar([0, 1, 1, 0], [1, 1] as const); // $ExpectType number[]

@@ -77,7 +77,6 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 <DualListBox
@@ -88,23 +87,22 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 
 /** Filtering error examples. */
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
 <DualListBox
     options={flatOptions}
     filter={{
         available: flatOptions.map(o => o.value),
         selected: [],
     }}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     onFilterChange={() => {}}
     filterPlaceholder={""}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterCallback={(option: Option<string>) => true}
 />;
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
 <DualListBox
     options={flatOptions}
     canFilter={false}
@@ -112,8 +110,10 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         available: flatOptions.map(o => o.value),
         selected: [],
     }}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     onFilterChange={() => {}}
     filterPlaceholder={""}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterCallback={(option: Option<string>) => true}
 />;
 
@@ -133,17 +133,20 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 /** Preserving select order. */
 <DualListBox options={flatOptions} preserveSelectOrder />;
 
-/** `moveKeyCodes` example. */
-<DualListBox options={flatOptions} moveKeyCodes={[13, 32]} />;
+/** `moveKeys` example. */
+<DualListBox options={flatOptions} moveKeys={[" ", "Enter"]} />;
 
 /** `icons` example. */
 <DualListBox
     options={flatOptions}
     icons={{
-        moveLeft: <span className="fa fa-chevron-left" />,
-        moveAllLeft: [<span key={0} className="fa fa-chevron-left" />, <span key={1} className="fa fa-chevron-left" />],
-        moveRight: <span className="fa fa-chevron-right" />,
-        moveAllRight: [
+        moveToAvailable: <span className="fa fa-chevron-left" />,
+        moveAllToAvailable: [
+            <span key={0} className="fa fa-chevron-left" />,
+            <span key={1} className="fa fa-chevron-left" />,
+        ],
+        moveToSelected: <span className="fa fa-chevron-right" />,
+        moveAllToSelected: [
             <span key={0} className="fa fa-chevron-right" />,
             <span key={1} className="fa fa-chevron-right" />,
         ],
@@ -165,10 +168,13 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
     allowDuplicates
     available={flatOptions.map(o => o.value)}
     icons={{
-        moveLeft: <span className="fa fa-chevron-left" />,
-        moveAllLeft: [<span key={0} className="fa fa-chevron-left" />, <span key={1} className="fa fa-chevron-left" />],
-        moveRight: <span className="fa fa-chevron-right" />,
-        moveAllRight: [
+        moveToAvailable: <span className="fa fa-chevron-left" />,
+        moveAllToAvailable: [
+            <span key={0} className="fa fa-chevron-left" />,
+            <span key={1} className="fa fa-chevron-left" />,
+        ],
+        moveToSelected: <span className="fa fa-chevron-right" />,
+        moveAllToSelected: [
             <span key={0} className="fa fa-chevron-right" />,
             <span key={1} className="fa fa-chevron-right" />,
         ],
@@ -178,7 +184,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         moveBottom: <span className="fa fa-double-angle-down" />,
     }}
     lang={{ availableHeader: "Available", selectedHeader: "Selected" }}
-    moveKeyCodes={[13, 32]}
+    moveKeys={[" ", "Enter"]}
     simpleValue={false}
     onChange={optionsChange}
     canFilter
@@ -187,11 +193,12 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
     disabled
     preserveSelectOrder
     showHeaderLabels
     showNoOptionsText
     showOrderButtons
+    getOptionLabel={(option) => option.label}
+    getOptionValue={(option) => option.value}
 />;

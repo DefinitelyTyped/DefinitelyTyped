@@ -9,6 +9,7 @@ import blacklistFunc from "validator/lib/blacklist";
 import containsFunc from "validator/lib/contains";
 import equalsFunc from "validator/lib/equals";
 import escapeFunc from "validator/lib/escape";
+import isAbaRoutingFunc from "validator/lib/isAbaRouting";
 import isAfterFunc from "validator/lib/isAfter";
 import isAlphaFunc from "validator/lib/isAlpha";
 import isAlphanumericFunc from "validator/lib/isAlphanumeric";
@@ -46,8 +47,10 @@ import isIPFunc from "validator/lib/isIP";
 import isIPRange from "validator/lib/isIPRange";
 import isISBNFunc from "validator/lib/isISBN";
 import isISINFunc from "validator/lib/isISIN";
+import isISO15924Func from "validator/lib/isISO15924";
 import isISO31661Alpha2Func from "validator/lib/isISO31661Alpha2";
 import isISO31661Alpha3Func from "validator/lib/isISO31661Alpha3";
+import isISO31661NumericFunc from "validator/lib/isISO31661Numeric";
 import isISO4217Func from "validator/lib/isISO4217";
 import { isFreightContainerID as isFreightContainerIDFunc, isISO6346 as isISO6346Func } from "validator/lib/isISO6346";
 import isISO6391Func from "validator/lib/isISO6391";
@@ -58,8 +61,10 @@ import isJSONFunc from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
 import isLatLongFunc from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
+import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
 import isLowercaseFunc from "validator/lib/isLowercase";
+import isLuhnNumberFunc from "validator/lib/isLuhnNumber";
 import isMACAddressFunc from "validator/lib/isMACAddress";
 import isMailtoURIFunc from "validator/lib/isMailtoURI";
 import isMD5Func from "validator/lib/isMD5";
@@ -79,6 +84,7 @@ import isStrongPasswordFunc from "validator/lib/isStrongPassword";
 import isSurrogatePairFunc from "validator/lib/isSurrogatePair";
 import isTaxIDFunc from "validator/lib/isTaxID";
 import isTimeFunc from "validator/lib/isTime";
+import isULIDFunc from "validator/lib/isULID";
 import isUppercaseFunc from "validator/lib/isUppercase";
 import isURLFunc from "validator/lib/isURL";
 import isUUIDFunc from "validator/lib/isUUID";
@@ -110,6 +116,10 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _escape = validator.escape;
     _escape = escapeFunc;
+
+    // $ExpectType (str: string) => boolean
+    let _isAbaRouting = validator.isAbaRouting;
+    _isAbaRouting = isAbaRoutingFunc;
 
     let _isAfter = validator.isAfter;
     _isAfter = isAfterFunc;
@@ -220,6 +230,9 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isISIN = validator.isISIN;
     _isISIN = isISINFunc;
 
+    let _isISO15924 = validator.isISO15924;
+    _isISO15924 = isISO15924Func;
+
     let _isISO8601 = validator.isISO8601;
     _isISO8601 = isISO8601Func;
 
@@ -228,6 +241,9 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
+
+    let _isISO31661Numeric = validator.isISO31661Numeric;
+    _isISO31661Numeric = isISO31661NumericFunc;
 
     validator.isISO4217; // $ExpectType (str: string) => boolean
     isISO4217Func; // $ExpectType (str: string) => boolean
@@ -264,11 +280,19 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isLength = validator.isLength;
     _isLength = isLengthFunc;
 
+    // $ExpectType { (str: string, locale: LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
+    let _isLicensePlate = validator.isLicensePlate;
+    _isLicensePlate = isLicensePlateFunc;
+
     let _isLocale = validator.isLocale;
     _isLocale = isLocaleFunc;
 
     let _isLowercase = validator.isLowercase;
     _isLowercase = isLowercaseFunc;
+
+    // $ExpectType (str: string) => boolean
+    let _isLuhnNumber = validator.isLuhnNumber;
+    _isLuhnNumber = isLuhnNumberFunc;
 
     let _isMACAddress = validator.isMACAddress;
     _isMACAddress = isMACAddressFunc;
@@ -317,6 +341,9 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _isTime = validator.isTime;
     _isTime = isTimeFunc;
+
+    let _isULID = validator.isULID;
+    _isULID = isULIDFunc;
 
     let _isURL = validator.isURL;
     _isURL = isURLFunc;
@@ -385,6 +412,7 @@ import blacklistFuncEs from "validator/es/lib/blacklist";
 import containsFuncEs from "validator/es/lib/contains";
 import equalsFuncEs from "validator/es/lib/equals";
 import escapeFuncEs from "validator/es/lib/escape";
+import isAbaRoutingFuncEs from "validator/es/lib/isAbaRouting";
 import isAfterFuncEs from "validator/es/lib/isAfter";
 import isAlphaFuncEs from "validator/es/lib/isAlpha";
 import isAlphanumericFuncEs from "validator/es/lib/isAlphanumeric";
@@ -421,8 +449,10 @@ import isIPFuncEs from "validator/es/lib/isIP";
 import isIPRangeFuncEs from "validator/es/lib/isIPRange";
 import isISBNFuncEs from "validator/es/lib/isISBN";
 import isISINFuncEs from "validator/es/lib/isISIN";
+import isISO15924FuncEs from "validator/es/lib/isISO15924";
 import isISO31661Alpha2FuncEs, { CountryCodes } from "validator/es/lib/isISO31661Alpha2";
 import isISO31661Alpha3FuncEs from "validator/es/lib/isISO31661Alpha3";
+import isISO31661NumericFuncEs from "validator/es/lib/isISO31661Numeric";
 import isISO4217FuncEs, { CurrencyCodes } from "validator/es/lib/isISO4217";
 import isIso6346FuncEs from "validator/es/lib/isISO6346";
 import isISO6391FuncEs from "validator/es/lib/isISO6391";
@@ -433,8 +463,10 @@ import isJSONFuncEs from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
 import isLatLongFuncEs from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
+import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
 import isLowercaseFuncEs from "validator/es/lib/isLowercase";
+import isLuhnNumberFuncEs from "validator/es/lib/isLuhnNumber";
 import isMACAddressFuncEs from "validator/es/lib/isMACAddress";
 import isMailtoURIFuncEs from "validator/es/lib/isMailtoURI";
 import isMD5FuncEs from "validator/es/lib/isMD5";
@@ -454,6 +486,7 @@ import isStrongPasswordFuncEs from "validator/es/lib/isStrongPassword";
 import isSurrogatePairFuncEs from "validator/es/lib/isSurrogatePair";
 import isTaxIDFuncEs from "validator/es/lib/isTaxID";
 import isTimeFuncEs from "validator/es/lib/isTime";
+import isULIDFuncEs from "validator/es/lib/isULID";
 import isUppercaseFuncEs from "validator/es/lib/isUppercase";
 import isURLFuncEs from "validator/es/lib/isURL";
 import isUUIDFuncEs from "validator/es/lib/isUUID";
@@ -493,6 +526,8 @@ const any: any = null;
     result = validator.contains("Sampletestsample", "sample", { ignoreCase: true, minOccurrences: 2 });
 
     result = validator.equals("sample", "sample");
+
+    result = validator.isAbaRouting("sample");
 
     result = validator.isAfter("sample");
     result = validator.isAfter("sample", new Date().toString());
@@ -649,7 +684,39 @@ const any: any = null;
 
     result = validator.isDivisibleBy("sample", 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {
+    const isEmailOptionsWithAllowDisplayName: validator.IsEmailOptions = {
+        allow_display_name: true,
+    };
+
+    const isEmailOptionsWithRequireDisplayName: validator.IsEmailOptions = {
+        require_display_name: true,
+    };
+
+    const isEmailOptionsWithAllowUtf8LocalPart: validator.IsEmailOptions = {
+        allow_utf8_local_part: true,
+    };
+
+    const isEmailOptionsWithRequiredTld: validator.IsEmailOptions = {
+        require_tld: true,
+    };
+
+    const isEmailOptionsWitIgnoreMaxLength: validator.IsEmailOptions = {
+        ignore_max_length: true,
+    };
+
+    const isEmailOptionsWithAllowIpDomain: validator.IsEmailOptions = {
+        allow_ip_domain: true,
+    };
+
+    const isEmailOptionsWithDomainSpecificValidation: validator.IsEmailOptions = {
+        domain_specific_validation: true,
+    };
+
+    const isEmailOptionsWithAllowUnderscores: validator.IsEmailOptions = {
+        allow_underscores: true,
+    };
+
+    const isEmailOptionsWithBlacklistedHosts: validator.IsEmailOptions = {
         host_blacklist: ["domain"],
     };
 
@@ -662,7 +729,15 @@ const any: any = null;
     };
 
     result = validator.isEmail("sample");
-    result = validator.isEmail("sample", isEmailOptions);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowDisplayName);
+    result = validator.isEmail("sample", isEmailOptionsWithRequireDisplayName);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowUtf8LocalPart);
+    result = validator.isEmail("sample", isEmailOptionsWithRequiredTld);
+    result = validator.isEmail("sample", isEmailOptionsWitIgnoreMaxLength);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowIpDomain);
+    result = validator.isEmail("sample", isEmailOptionsWithDomainSpecificValidation);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowUnderscores);
+    result = validator.isEmail("sample", isEmailOptionsWithBlacklistedHosts);
     result = validator.isEmail("sample", isEmailOptionsWithBlacklistedCharacters);
     result = validator.isEmail("sample", isEmailOptionsWithWhitelistedHosts);
 
@@ -703,7 +778,10 @@ const any: any = null;
     result = validator.isHSL("sample");
 
     result = validator.isRgbColor("sample");
-    result = validator.isRgbColor("sample", true);
+    result = validator.isRgbColor("sample", { includePercentValues: true });
+    result = validator.isRgbColor("sample", { includePercentValues: false });
+    result = validator.isRgbColor("sample", { includePercentValues: true, allowSpaces: true });
+    result = validator.isRgbColor("sample", { allowSpaces: false });
 
     result = validator.isHexadecimal("sample");
 
@@ -717,6 +795,7 @@ const any: any = null;
     result = validator.isIdentityCard("sample", "IT");
     result = validator.isIdentityCard("sample", "LK");
     result = validator.isIdentityCard("sample", "NO");
+    result = validator.isIdentityCard("sample", "PK");
     result = validator.isIdentityCard("sample", "PL");
     result = validator.isIdentityCard("sample", "TH");
     result = validator.isIdentityCard("sample", "zh-CN");
@@ -743,6 +822,8 @@ const any: any = null;
 
     result = validator.isISIN("sample");
 
+    result = validator.isISO15924("sample");
+
     const isISO8601Options: validator.IsISO8601Options = {
         strict: true,
     };
@@ -751,6 +832,7 @@ const any: any = null;
 
     result = validator.isISO31661Alpha2("sample");
     result = validator.isISO31661Alpha3("sample");
+    result = validator.isISO31661Numeric("sample");
 
     result = validator.isISO6391("sample");
 
@@ -774,9 +856,16 @@ const any: any = null;
     result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
 
+    const licensePlateLocale: validator.LicensePlateLocale = "any";
+    result = validator.isLicensePlate("sample", licensePlateLocale);
+    // $ExpectType unknown
+    validator.isLicensePlate("sample", "");
+
     result = validator.isLocale("sample");
 
     result = validator.isLowercase("sample");
+
+    result = validator.isLuhnNumber("sample");
 
     result = validator.isMACAddress("sample", { no_separators: true, eui: "48" });
     result = validator.isMACAddress("sample", { no_separators: true, eui: "64" });
@@ -821,6 +910,7 @@ const any: any = null;
     result = validator.isMobilePhone("sample", "en-ZA");
     result = validator.isMobilePhone("sample", "en-ZM");
     result = validator.isMobilePhone("sample", "es-ES");
+    result = validator.isMobilePhone("sample", "es-GT");
     result = validator.isMobilePhone("sample", "fa-IR");
     result = validator.isMobilePhone("sample", "fi-FI");
     result = validator.isMobilePhone("sample", "fo-FO");
@@ -834,6 +924,7 @@ const any: any = null;
     result = validator.isMobilePhone("sample", "kl-GL");
     result = validator.isMobilePhone("sample", "ko-KR");
     result = validator.isMobilePhone("sample", "lt-LT");
+    result = validator.isMobilePhone("sample", "mk-MK");
     result = validator.isMobilePhone("sample", "ms-MY");
     result = validator.isMobilePhone("sample", "nb-NO");
     result = validator.isMobilePhone("sample", "nn-NO");
@@ -875,6 +966,7 @@ const any: any = null;
     result = validator.isPostalCode("sample", "BG");
     result = validator.isPostalCode("sample", "CA");
     result = validator.isPostalCode("sample", "CH");
+    result = validator.isPostalCode("sample", "CO");
     result = validator.isPostalCode("sample", "CZ");
     result = validator.isPostalCode("sample", "DE");
     result = validator.isPostalCode("sample", "DK");
@@ -915,6 +1007,8 @@ const any: any = null;
     result = validator.isTime("sample");
     result = validator.isTime("sample", isTimeOptions);
 
+    result = validator.isULID("sample");
+
     const isURLOptions: validator.IsURLOptions = {
         require_host: true,
     };
@@ -923,18 +1017,24 @@ const any: any = null;
 
     result = validator.isUUID("sample");
     result = validator.isUUID("sample", "all");
+    result = validator.isUUID("sample", "nil");
+    result = validator.isUUID("sample", "max");
     result = validator.isUUID("sample", "1");
     result = validator.isUUID("sample", "2");
     result = validator.isUUID("sample", "3");
     result = validator.isUUID("sample", "4");
     result = validator.isUUID("sample", "5");
+    result = validator.isUUID("sample", "6");
     result = validator.isUUID("sample", "7");
+    result = validator.isUUID("sample", "8");
     result = validator.isUUID("sample", 1);
     result = validator.isUUID("sample", 2);
     result = validator.isUUID("sample", 3);
     result = validator.isUUID("sample", 4);
     result = validator.isUUID("sample", 5);
+    result = validator.isUUID("sample", 6);
     result = validator.isUUID("sample", 7);
+    result = validator.isUUID("sample", 8);
 
     result = validator.isUppercase("sample");
 

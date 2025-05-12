@@ -2,25 +2,76 @@
 import { EventEmitter } from "events";
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
-    static isOurError(error: any): boolean;
+    static isOurError(error: Error): boolean;
+    static newStatus(options: CircuitBreaker.StatusOptions): CircuitBreaker.Status;
 
     constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options<TI>);
 
+    /**
+     * Gets the name of this circuit
+     */
     readonly name: string;
+
+    /**
+     * Gets the name of this circuit group
+     */
     readonly group: string;
+
+    /**
+     * Gets whether the circuit is enabled or not
+     */
     readonly enabled: boolean;
+    /**
+     * Gets whether this circuit is in the pendingClosed state
+     */
     readonly pendingClose: boolean;
+
+    /**
+     * True if the circuit is currently closed. False otherwise.
+     */
     readonly closed: boolean;
+
+    /**
+     * True if the circuit is currently opened. False otherwise.
+     */
     readonly opened: boolean;
+
+    /**
+     * True if the circuit is currently half opened. False otherwise.
+     */
     readonly halfOpen: boolean;
+
+    /**
+     * Determines if the circuit has been shutdown.
+     */
     readonly isShutdown: boolean;
+
+    /**
+     * The current {@link CircuitBreaker.Status} of this {@link CircuitBreaker}
+     */
     readonly status: CircuitBreaker.Status;
+
+    /**
+     * Get the current stats for the circuit.
+     */
     readonly stats: CircuitBreaker.Stats;
+
+    /**
+     * Gets whether the circuit is currently in warm up phase
+     */
     readonly warmUp: boolean;
+
+    /**
+     * Gets the volume threshold for this circuit
+     */
     readonly volumeThreshold: number;
 
     /**
-     * Execute the action for this circuit with a provided this argument
+     * Execute the action for this circuit using context as this.
+     * If the action fails or times out, the returned promise will be rejected.
+     * If the action succeeds, the promise will resolve with the resolved value from action.
+     * If a fallback function was provided, it will be invoked in the event of any failure or timeout.
+     * Any parameters in addition to `context` will be passed to the circuit function.
      */
     call(context: any, ...args: TI): Promise<TR>;
 
@@ -30,7 +81,7 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     toJSON(): { state: CircuitBreaker.State; status: CircuitBreaker.Stats };
 
     /**
-     * Clears the cache of this CircuitBreaker
+     * Clears the cache of this {@link CircuitBreaker}
      */
     clearCache(): void;
 
@@ -65,7 +116,7 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     enable(): void;
 
     /**
-     * Provide a fallback function for this CircuitBreaker.
+     * Provide a fallback function for this {@link CircuitBreaker}.
      * This function will be executed when the circuit is fired and fails.
      * It will always be preceded by a `failure` event, and `breaker.fire` returns a rejected Promise.
      */
@@ -76,6 +127,7 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
      * If the action fails or times out, the returned promise will be rejected.
      * If the action succeeds, the promise will resolve with the resolved value from action.
      * If a fallback function was provided, it will be invoked in the event of any failure or timeout.
+     * Any parameters passed to this function will be proxied to the circuit function.
      */
     fire(...args: TI): Promise<TR>;
 
@@ -94,26 +146,72 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
      */
     healthCheck(func: () => Promise<void>, interval?: number): void;
 
-    /* tslint:disable:unified-signatures */
+    /**
+     * Emitted after `options.resetTimeout` has elapsed, allowing for a single attempt to call the service again.
+     * If that attempt is successful, the circuit will be closed. Otherwise it remains open.
+     */
     on(event: "halfOpen", listener: (resetTimeout: number) => void): this;
+    /**
+     * Emitted when the breaker is reset allowing the action to execute again.
+     */
     on(event: "close", listener: () => void): this;
+    /**
+     * Emitted when the breaker opens because the action has failure percentage greater than `options.errorThresholdPercentage`.
+     */
     on(event: "open", listener: () => void): this;
+    /**
+     * Emitted when the circuit breaker has been shut down.
+     */
     on(event: "shutdown", listener: () => void): this;
+    /**
+     * Emitted when the circuit breaker action is executed.
+     */
     on(event: "fire", listener: (args: TI) => void): this;
+    /**
+     * Emitted when the circuit breaker is using the cache and finds a value.
+     */
     on(event: "cacheHit", listener: () => void): this;
+    /**
+     * Emitted when the circuit breaker does not find a value in the cache, but the cache option is enabled.
+     */
     on(event: "cacheMiss", listener: () => void): this;
+    /**
+     * Emitted when the circuit breaker is open and failing fast.
+     */
     on(event: "reject", listener: (err: Error) => void): this;
+    /**
+     * Emitted when the circuit breaker action takes longer than `options.timeout`.
+     */
     on(event: "timeout", listener: (err: Error) => void): this;
+    /**
+     * Emitted when the circuit breaker action succeeds.
+     */
     on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
+    /**
+     * Emitted when the rate limit has been reached and there are no more locks to be obtained.
+     */
     on(event: "semaphoreLocked", listener: (err: Error) => void): this;
+    /**
+     * Emitted with the user-supplied health check function returns a rejected promise.
+     */
     on(event: "healthCheckFailed", listener: (err: Error) => void): this;
+    /**
+     * Emitted when the circuit breaker executes a fallback function.
+     */
     on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
+    /**
+     * Emitted when the circuit breaker action fails.
+     */
     on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
-    /* tslint:enable:unified-signatures */
 }
 
 declare namespace CircuitBreaker {
     interface Options<TI extends unknown[] = unknown[]> {
+        /**
+         * A {@link Status} object that might have pre-prime stats
+         */
+        status?: Status | undefined;
+
         /**
          * The time in milliseconds that action should be allowed to execute before timing out.
          * Timeout can be disabled by setting this to `false`.
@@ -124,7 +222,8 @@ declare namespace CircuitBreaker {
         /**
          * The number of times the circuit can fail before opening.
          * @default 10
-         * @deprecated see options.errorThresholdPercentage
+         * @deprecated
+         * @see {@link Options.errorThresholdPercentage}
          */
         maxFailures?: number | undefined;
 
@@ -143,8 +242,8 @@ declare namespace CircuitBreaker {
 
         /**
          * Sets the number of buckets the rolling statistical window is divided into.
-         * So, if options.rollingCountTimeout is 10,000, and options.rollingCountBuckets is 10, then the
-         * statistical window will be 1,000 1 second snapshots in the statistical window.
+         * So, if `options.rollingCountTimeout` is 10,000, and `options.rollingCountBuckets` is 10, then the
+         * statistical window will be 1,000 per 1 second snapshots in the statistical window.
          * @default 10
          */
         rollingCountBuckets?: number | undefined;
@@ -156,6 +255,7 @@ declare namespace CircuitBreaker {
         name?: string | undefined;
 
         /**
+         * (Undocumented)
          * A grouping key for reporting.
          * Defaults to the computed value of `name`
          */
@@ -170,9 +270,9 @@ declare namespace CircuitBreaker {
 
         /**
          * The number of concurrent requests allowed.
-         * If the number currently executing function calls is equal to options.capacity, further calls
+         * If the number currently executing function calls is equal to `options.capacity`, further calls
          * to `fire()` are rejected until at least one of the current requests completes.
-         * @default MAX_SAFE_INTEGER
+         * @default Number.MAX_SAFE_INTEGER
          */
         capacity?: number | undefined;
 
@@ -223,13 +323,13 @@ declare namespace CircuitBreaker {
         /**
          * The cache time to live (TTL) in milliseconds.
          * The default value is 0, which means the cache will never be cleared.
-         * @default 0
+         * @default 0 (no TTL)
          */
         cacheTTL?: number;
 
         /**
          * An optional function that will be called to generate a cache key for the circuit's function.
-         * The function is passed the original `fire` arguments. If no `cacheKey` function is supplied, a JSON.stringify of the arguments will be used as the key.
+         * The function is passed the original `fire` arguments. If no `cacheKey` function is supplied, a `JSON.stringify` of the arguments will be used as the key.
          * @default (...args) => JSON.stringify(args)
          */
         cacheGetKey?: ((...args: TI) => string) | undefined;
@@ -239,6 +339,11 @@ declare namespace CircuitBreaker {
          * If a cacheTransport is provided, the cache will be stored there instead.
          */
         cacheTransport?: CacheTransport | undefined;
+
+        /**
+         * If present, Opossum can signal upon timeout and properly abort your on going requests instead of leaving it in the background.
+         */
+        abortController?: AbortController | undefined;
 
         /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.
@@ -258,6 +363,22 @@ declare namespace CircuitBreaker {
         window: Window;
 
         on(event: "snapshot", listener: (snapshot: Stats) => void): this;
+    }
+
+    interface StatusOptions extends
+        Pick<
+            CircuitBreaker.Options,
+            | "rollingCountBuckets"
+            | "rollingCountTimeout"
+            | "rollingPercentilesEnabled"
+            | "enableSnapshots"
+            | "rotateBucketController"
+        >
+    {
+        /**
+         * object of previous stats
+         */
+        stats?: Stats;
     }
 
     interface Bucket {
@@ -291,7 +412,10 @@ declare namespace CircuitBreaker {
         lastTimerAt: symbol;
     }
 
-    interface CacheTransport {
+    /**
+     * Simple in-memory cache implementation
+     */
+    interface MemoryCache {
         /**
          * Get cache value by key
          * @param {string} key Cache key
@@ -312,6 +436,8 @@ declare namespace CircuitBreaker {
          */
         flush(): void;
     }
+
+    type CacheTransport = MemoryCache;
 }
 
 export = CircuitBreaker;

@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/mu2": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Jeff Goddard",
-            "githubUsername": "jedigo"
-        }
-    ]
+    "owners": []
 }

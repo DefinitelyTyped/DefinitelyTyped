@@ -5,16 +5,12 @@ import { VRButton } from "three/addons/webxr/VRButton.js";
 import { XRControllerModelFactory } from "three/addons/webxr/XRControllerModelFactory.js";
 import { XRHandModelFactory } from "three/addons/webxr/XRHandModelFactory.js";
 
-interface Hand extends THREE.Group {
-    joints: { [key: string]: any };
-}
-
 const container = document.createElement("div");
 let camera: THREE.PerspectiveCamera;
 let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
-let hand1: Hand;
-let hand2: Hand;
+let hand1: THREE.XRHandSpace;
+let hand2: THREE.XRHandSpace;
 let controller1: THREE.Group;
 let controller2: THREE.Group;
 let controllerGrip1: THREE.Group;
@@ -105,7 +101,7 @@ function init() {
     controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
     scene.add(controllerGrip1);
 
-    hand1 = renderer.xr.getHand(0) as Hand;
+    hand1 = renderer.xr.getHand(0);
     hand1.addEventListener("pinchstart", onPinchStartLeft);
     hand1.addEventListener("pinchend", () => {
         scaling.active = false;
@@ -119,7 +115,7 @@ function init() {
     controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
     scene.add(controllerGrip2);
 
-    hand2 = renderer.xr.getHand(1) as Hand;
+    hand2 = renderer.xr.getHand(1);
     hand2.addEventListener("pinchstart", onPinchStartRight);
     hand2.addEventListener("pinchend", onPinchEndRight);
     hand2.add(handModelFactory.createHandModel(hand2));
@@ -152,11 +148,11 @@ function onWindowResize() {
 }
 
 const SphereRadius = 0.05;
-function onPinchStartLeft(event: THREE.Event<"pinchstart", Hand>) {
+function onPinchStartLeft(event: THREE.Event<"pinchstart", THREE.XRHandSpace>) {
     const controller = event.target;
 
     if (grabbing) {
-        const indexTip = controller.joints["index-finger-tip"];
+        const indexTip = controller.joints["index-finger-tip"]!;
         const sphere = collideObject(indexTip);
 
         if (sphere) {
@@ -166,7 +162,7 @@ function onPinchStartLeft(event: THREE.Event<"pinchstart", Hand>) {
                 scaling.active = true;
                 scaling.object = sphere;
                 scaling.initialScale = sphere.scale.x;
-                scaling.initialDistance = indexTip.position.distanceTo(hand2.joints["index-finger-tip"].position);
+                scaling.initialDistance = indexTip.position.distanceTo(hand2.joints["index-finger-tip"]!.position);
                 return;
             }
         }
@@ -181,7 +177,7 @@ function onPinchStartLeft(event: THREE.Event<"pinchstart", Hand>) {
     const spawn = new THREE.Mesh(geometry, material);
     spawn.geometry.computeBoundingSphere();
 
-    const indexTip = controller.joints["index-finger-tip"];
+    const indexTip = controller.joints["index-finger-tip"]!;
     spawn.position.copy(indexTip.position);
     spawn.quaternion.copy(indexTip.quaternion);
 
@@ -202,9 +198,9 @@ function collideObject(indexTip: THREE.Group) {
     return null;
 }
 
-function onPinchStartRight(event: THREE.Event<"pinchstart", Hand>) {
+function onPinchStartRight(event: THREE.Event<"pinchstart", THREE.XRHandSpace>) {
     const controller = event.target;
-    const indexTip = controller.joints["index-finger-tip"];
+    const indexTip = controller.joints["index-finger-tip"]!;
     const object = collideObject(indexTip);
     if (object) {
         grabbing = true;
@@ -214,7 +210,7 @@ function onPinchStartRight(event: THREE.Event<"pinchstart", Hand>) {
     }
 }
 
-function onPinchEndRight(event: THREE.Event<"pinchend", Hand>) {
+function onPinchEndRight(event: THREE.Event<"pinchend", THREE.XRHandSpace>) {
     const controller = event.target;
 
     if (controller.userData.selected !== undefined) {
@@ -237,8 +233,8 @@ function animate() {
 
 function render() {
     if (scaling.active && scaling.object) {
-        const indexTip1Pos = hand1.joints["index-finger-tip"].position;
-        const indexTip2Pos = hand2.joints["index-finger-tip"].position;
+        const indexTip1Pos = hand1.joints["index-finger-tip"]!.position;
+        const indexTip2Pos = hand2.joints["index-finger-tip"]!.position;
         const distance = indexTip1Pos.distanceTo(indexTip2Pos);
         const newScale = scaling.initialScale + distance / scaling.initialDistance - 1;
         scaling.object.scale.setScalar(newScale);

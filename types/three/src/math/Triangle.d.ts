@@ -82,5 +82,29 @@ export class Triangle {
         v3: Vector4,
         target: Vector4,
     ): Vector4 | null;
+    static getInterpolatedAttribute(
+        attr: BufferAttribute,
+        i1: number,
+        i2: number,
+        i3: number,
+        barycoord: Vector3,
+        target: Vector2,
+    ): Vector2;
+    static getInterpolatedAttribute(
+        attr: BufferAttribute,
+        i1: number,
+        i2: number,
+        i3: number,
+        barycoord: Vector3,
+        target: Vector3,
+    ): Vector3;
+    static getInterpolatedAttribute(
+        attr: BufferAttribute,
+        i1: number,
+        i2: number,
+        i3: number,
+        barycoord: Vector3,
+        target: Vector4,
+    ): Vector4;
     static isFrontFacing(a: Vector3, b: Vector3, c: Vector3, direction: Vector3): boolean;
 }

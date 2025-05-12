@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/expect-cookies",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/gregl83/expect-cookies"
+    ],
+    "devDependencies": {
+        "@types/expect-cookies": "workspace:.",
+        "@types/express": "^5.0.9999",
+        "@types/supertest": "^6.0.9999"
+    },
+    "owners": [
+        {
+            "name": "Dolan Murvihill",
+            "githubUsername": "dmurvihill"
+        }
+    ]
+}

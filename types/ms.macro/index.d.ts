@@ -8,4 +8,6 @@
  * const ONE_DAY = ms`1 day`;
  * const TWO_DAYS = ms`2 days`;
  */
-export default function ms(value: string | TemplateStringsArray): number;
+declare function ms(value: string | TemplateStringsArray): number;
+
+export = ms;

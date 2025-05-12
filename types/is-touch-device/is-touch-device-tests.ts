@@ -1,3 +1,4 @@
 import isTouchDevice from "is-touch-device";
 
-if (isTouchDevice()) {}
+// $ExpectType boolean
+isTouchDevice();

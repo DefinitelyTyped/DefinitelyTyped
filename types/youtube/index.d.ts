@@ -584,10 +584,16 @@ declare namespace YT {
         onError?: PlayerEventHandler<OnErrorEvent> | undefined;
 
         /**
-         * Event fired to indicate thath the player has loaded, or unloaded, a module
+         * Event fired to indicate that the player has loaded, or unloaded, a module
          * with exposed API methods. This currently only occurs for closed captioning.
          */
         onApiChange?: PlayerEventHandler<PlayerEvent> | undefined;
+
+        /**
+         * Event fired any time the browser blocks autoplay or scripted video
+         * playback features, collectively referred to as "autoplay"
+         */
+        onAutoplayBlocked?: PlayerEventHandler<PlayerEvent> | undefined;
     }
 
     /**
@@ -979,7 +985,10 @@ declare namespace YT {
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        addEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        addEventListener<EventName extends keyof Events>(
+            eventName: EventName,
+            listener: NonNullable<Events[EventName]>,
+        ): void;
 
         /**
          * Remove an event listener for the specified event.
@@ -987,9 +996,9 @@ declare namespace YT {
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        removeEventListener<TEvent extends PlayerEvent>(
-            eventName: keyof Events,
-            listener: (event: TEvent) => void,
+        removeEventListener<EventName extends keyof Events>(
+            eventName: EventName,
+            listener: NonNullable<Events[EventName]>,
         ): void;
 
         /**

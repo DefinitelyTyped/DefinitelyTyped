@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/diagnostics_channel.js)
  */
 declare module "diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
@@ -259,7 +259,7 @@ declare module "diagnostics_channel" {
          * @param store The store to unbind from the channel.
          * @return `true` if the store was found, `false` otherwise.
          */
-        unbindStore(store: any): void;
+        unbindStore(store: AsyncLocalStorage<StoreType>): boolean;
         /**
          * Applies the given data to any AsyncLocalStorage instances bound to the channel
          * for the duration of the given function, then publishes to the channel within
@@ -540,13 +540,32 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceCallback<Fn extends (this: any, ...args: any) => any>(
+        traceCallback<Fn extends (this: any, ...args: any[]) => any>(
             fn: Fn,
-            position: number | undefined,
-            context: ContextType | undefined,
-            thisArg: any,
+            position?: number,
+            context?: ContextType,
+            thisArg?: any,
             ...args: Parameters<Fn>
         ): void;
+        /**
+         * `true` if any of the individual channels has a subscriber, `false` if not.
+         *
+         * This is a helper method available on a {@link TracingChannel} instance to check
+         * if any of the [TracingChannel Channels](https://nodejs.org/api/diagnostics_channel.html#tracingchannel-channels) have subscribers.
+         * A `true` is returned if any of them have at least one subscriber, a `false` is returned otherwise.
+         *
+         * ```js
+         * const diagnostics_channel = require('node:diagnostics_channel');
+         *
+         * const channels = diagnostics_channel.tracingChannel('my-channel');
+         *
+         * if (channels.hasSubscribers) {
+         *   // Do something
+         * }
+         * ```
+         * @since v22.0.0, v20.13.0
+         */
+        readonly hasSubscribers: boolean;
     }
 }
 declare module "node:diagnostics_channel" {

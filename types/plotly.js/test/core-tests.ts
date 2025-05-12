@@ -31,15 +31,22 @@ const trace2 = {
 const data = [trace1, trace2];
 const tickangle: "auto" = "auto";
 const layout = {
-    title: "Sales Growth",
+    title: {
+        text: "Sales Growth",
+        subtitle: "Annual sales growth between 1999 and 2002",
+    },
     xaxis: {
-        title: "Year",
+        title: {
+            text: "Year",
+        },
         showgrid: false,
         zeroline: false,
         tickangle,
     },
     yaxis: {
-        title: "Percent",
+        title: {
+            text: "Percent",
+        },
         showline: false,
     },
     uirevision: "true",
@@ -68,7 +75,7 @@ const layout = {
         opacity: 0.6,
         meanline: { visible: true },
     } as ViolinData;
-    Plotly.newPlot(graphDiv, [violinTrace], { title: "Sales growth" });
+    Plotly.newPlot(graphDiv, [violinTrace], { title: { text: "Sales growth" } });
 
     const candlestickTrace: Partial<CandlestickData> = {
         x: [
@@ -244,7 +251,7 @@ const layout = {
         type: "candlestick",
         xaxis: "x",
     };
-    Plotly.newPlot(graphDiv, [candlestickTrace], { title: "Stock price" });
+    Plotly.newPlot(graphDiv, [candlestickTrace], { title: { text: "Stock price" } });
 })();
 (() => {
     const data: Array<Partial<SankeyData>> = [
@@ -269,7 +276,9 @@ const layout = {
         },
     ];
     const layout = {
-        title: "Basic Sankey",
+        title: {
+            text: "Basic Sankey",
+        },
         font: {
             size: 10,
         },
@@ -286,7 +295,7 @@ const layout = {
             type: "scatter",
         } as ScatterData,
     ];
-    const layout2 = { title: "Revenue" };
+    const layout2 = { title: { text: "Revenue" } };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 
@@ -421,7 +430,9 @@ const layout = {
     ];
 
     const layout = {
-        title: "Global Emissions 1990-2011",
+        title: {
+            text: "Global Emissions 1990-2011",
+        },
         annotations: [
             {
                 font: {
@@ -482,6 +493,24 @@ const layout = {
             labels: ["Wages", "Operating expenses", "Cost of sales", "Insurance"],
             textinfo: "label+percent",
             insidetextorientation: "radial",
+        },
+    ];
+
+    const layout = {
+        height: 700,
+        width: 700,
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "treemap",
+            labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
+            parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
+            maxdepth: 1,
         },
     ];
 
@@ -591,7 +620,9 @@ const layout = {
 // update only values within nested objects
 (() => {
     const update: Partial<Layout> = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         "xaxis.range": [0, 5], // updates the xaxis range
         "yaxis.range[1]": 15, // updates the end of the yaxis range
     };
@@ -603,7 +634,9 @@ const layout = {
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -617,7 +650,9 @@ const layout = {
         type: "bar",
     };
     const layout_update: Partial<Layout> = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         barmode: "stack",
         barnorm: "fraction",
         bargap: 0,
@@ -715,6 +750,17 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
+// Plotly.toImage with null dimensions
+(() => {
+    // Plotly.toImage will turn the plot in the given div into a data URL string
+    // toImage takes the div as the first argument and an object specifying image properties as the other
+    Plotly.toImage(graphDiv, { format: "png", width: null, height: null, scale: 2 }).then(dataUrl => {
+        // use the dataUrl
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
 // Plotly.toImage + scale parameter
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
@@ -741,6 +787,14 @@ function rand() {
 (() => {
     // downloadImage will accept the div as the first argument and an object specifying image properties as the other
     Plotly.downloadImage(graphDiv, { format: "png", width: 800, height: 600, filename: "newplot" });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.downloadImage with null dimensions
+(() => {
+    // downloadImage will accept the div as the first argument and an object specifying image properties as the other
+    Plotly.downloadImage(graphDiv, { format: "png", width: null, height: null, filename: "newplot" });
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -772,6 +826,51 @@ function rand() {
     Plotly.addFrames(graphDiv, frames);
 
     Plotly.deleteFrames(graphDiv, [2]);
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.validate
+(() => {
+    const validateResult = Plotly.validate(data, layout);
+    for (let res of validateResult) {
+        console.log(res.code, res.msg);
+    }
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.setPlotConfig
+(() => {
+    Plotly.setPlotConfig({
+        locale: "en",
+        logging: 1,
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.makeTemplate with div ID
+(() => {
+    Plotly.makeTemplate(graphDiv);
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.makeTemplate with {data, layout}
+(() => {
+    Plotly.makeTemplate({ data: data, layout: layout });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.validateTemplate
+(() => {
+    const tmpl = Plotly.makeTemplate({ data: data, layout: layout });
+    const validateResult = Plotly.validateTemplate(graphDiv, tmpl);
+    for (const res of validateResult) {
+        console.log(res.code, res.msg);
+    }
 })();
 //////////////////////////////////////////////////////////////////////
 

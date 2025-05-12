@@ -54,6 +54,8 @@ export class Bundle {
     elements: Message[];
 }
 
+export type ClientSendArgs = Array<ArgumentType | Message | MessageLike>;
+
 export type ClientSendCallback = (err: Error | null) => void;
 
 export type ClientCloseCallback = () => void;
@@ -69,8 +71,10 @@ export class Client {
 
     /** Send a message to the server */
     send(addressOrMessage: string | Message | MessageLike): void;
-    send(address: string, ...args: [...Array<Message | MessageLike>, ClientSendCallback]): void;
-    send(...args: [...Array<Message | MessageLike>, ClientSendCallback]): void;
+    send(address: string, ...args: ClientSendArgs): void;
+    send(address: string, ...args: [...ClientSendArgs, ClientSendCallback]): void;
+    send(...args: ClientSendArgs): void;
+    send(...args: [...ClientSendArgs, ClientSendCallback]): void;
 
     /** Send a Bundle message to the server */
     send(bundle: Bundle, callback?: ClientSendCallback): void;

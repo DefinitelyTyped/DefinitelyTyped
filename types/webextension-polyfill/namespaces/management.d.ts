@@ -2,19 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.management
- *
- * The <code>browser.management</code> API provides ways to manage the list of extensions that are installed and running.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.management
+ */
 export namespace Management {
     /**
      * Information about an icon belonging to an extension.
@@ -46,10 +39,10 @@ export namespace Management {
     /**
      * How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,
      * <br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>
-     * : The extension was installed by other software on the machine,<br><var>other</var>
-     * : The extension was installed by other means.
+     * : The extension was installed by other software on the machine,<br><var>admin</var>
+     * : The extension was installed by policy,<br><var>other</var>: The extension was installed by other means.
      */
-    type ExtensionInstallType = "development" | "normal" | "sideload" | "other";
+    type ExtensionInstallType = "development" | "normal" | "sideload" | "admin" | "other";
 
     /**
      * Information about an installed extension.
@@ -198,8 +191,6 @@ export namespace Management {
 
         /**
          * Installs and enables a theme extension from the given url.
-         *
-         * @param options
          */
         install(options: InstallOptionsType): Promise<InstallCallbackResultType>;
 
@@ -227,29 +218,21 @@ export namespace Management {
 
         /**
          * Fired when an addon has been disabled.
-         *
-         * @param info
          */
         onDisabled: Events.Event<(info: ExtensionInfo) => void>;
 
         /**
          * Fired when an addon has been enabled.
-         *
-         * @param info
          */
         onEnabled: Events.Event<(info: ExtensionInfo) => void>;
 
         /**
          * Fired when an addon has been installed.
-         *
-         * @param info
          */
         onInstalled: Events.Event<(info: ExtensionInfo) => void>;
 
         /**
          * Fired when an addon has been uninstalled.
-         *
-         * @param info
          */
         onUninstalled: Events.Event<(info: ExtensionInfo) => void>;
     }

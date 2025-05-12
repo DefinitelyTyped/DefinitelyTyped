@@ -15,9 +15,9 @@ async function exercise(): Promise<void> {
 
     // Buffer version
     for await (const entry of rrdir(Buffer.from("dir"))) {
-        // $ExpectType Entry<Uint8Array>
+        // $ExpectType Entry<Uint8Array> || Entry<Uint8Array<ArrayBufferLike>>
         entry;
-        // $ExpectType Uint8Array
+        // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
         entry.path;
         // $ExpectType boolean | undefined
         entry.directory;
@@ -28,12 +28,12 @@ async function exercise(): Promise<void> {
     // $ExpectType Entry<string>[]
     await rrdirAsync("dir");
 
-    // $ExpectType Entry<Uint8Array>[]
+    // $ExpectType Entry<Uint8Array>[] || Entry<Uint8Array<ArrayBufferLike>>[]
     await rrdirAsync(Buffer.from("dir"));
 }
 
 // $ExpectType Entry<string>[]
 rrdirSync("dir");
 
-// $ExpectType Entry<Uint8Array>[]
+// $ExpectType Entry<Uint8Array>[] || Entry<Uint8Array<ArrayBufferLike>>[]
 rrdirSync(Buffer.from("dir"));

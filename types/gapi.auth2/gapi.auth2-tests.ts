@@ -5,6 +5,7 @@ function test_init() {
         client_id: "my-id",
         cookie_policy: "single_host_origin",
         scope: "https://www.googleapis.com/auth/plus.login",
+        enable_granular_consent: true,
         fetch_basic_profile: true,
     });
 }
@@ -15,7 +16,9 @@ function test_getAuthInstance() {
         cookie_policy: "single_host_origin",
         scope: "https://www.googleapis.com/auth/plus.login",
         fetch_basic_profile: true,
+        use_fedcm: true,
         ux_mode: "popup",
+        plugin_name: "test_plugin_name",
         redirect_uri: "https://www.example.com",
     });
     const auth: gapi.auth2.GoogleAuth = gapi.auth2.getAuthInstance();

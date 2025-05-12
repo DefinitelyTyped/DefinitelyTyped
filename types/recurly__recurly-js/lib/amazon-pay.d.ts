@@ -17,7 +17,7 @@ export type AmazonPayOptions = {
   sandbox?: boolean;
 };
 
-export type AmazonPayEvent = 'ready' | 'token' | 'error' | 'close' | 'done';
+export type AmazonPayEvent = 'ready' | 'token' | 'error' | 'cancel' | 'done';
 
 export interface AmazonPayInstance extends Emitter<AmazonPayEvent> {
   /**

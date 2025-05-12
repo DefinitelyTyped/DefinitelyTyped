@@ -64,7 +64,7 @@ export function detect(data: IntArrayType | string, encodings?: Encoding | Encod
 export function convert(data: IntArrayType, to: Encoding, from?: Encoding): number[];
 export function convert(data: string, to: Encoding, from?: Encoding): string;
 export function convert(data: IntArrayType | string, options: ConvertStringOptions): string;
-export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
+export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): Uint16Array;
 export function convert(data: IntArrayType | string, options: ConvertArrayOptions): number[];
 export function convert(data: string, options: ConvertUnknownOptions): string;
 export function convert(data: IntArrayType, options: ConvertUnknownOptions): number[];

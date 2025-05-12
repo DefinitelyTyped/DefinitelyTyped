@@ -13,6 +13,10 @@ declare namespace Isotope {
         | "cellsByColumn"
         | "horiz";
     type Elements = HTMLElement[] | HTMLElement | JQuery | NodeList;
+    type Events =
+        | "arrangeComplete"
+        | "layoutComplete"
+        | "removeComplete";
 
     interface IsotopeOptions {
         /**
@@ -159,8 +163,9 @@ declare namespace Isotope {
 
     interface Masonry {
         columnWidth?: number | string | undefined;
-        fitWidth?: boolean | undefined;
         gutter?: number | string | undefined;
+        horizontalOrder?: boolean | undefined;
+        fitWidth?: boolean | undefined;
     }
 
     interface MasonryHorizontal {
@@ -268,6 +273,24 @@ interface Isotope {
      * @param elements Element, jQuery Object, NodeList, or Array of Elements
      */
     updateSortData(elements: Isotope.Elements): void;
+    /**
+     * Bind event listener
+     * @param event string
+     * @param listener Function
+     */
+    on(event: Isotope.Events, listener: () => void): void;
+    /**
+     * Un-bind event listener
+     * @param event string
+     * @param listener Function
+     */
+    off(event: Isotope.Events, listener: () => void): void;
+    /**
+     * Bind event listener to be triggered just once
+     * @param event string
+     * @param listener Function
+     */
+    once(event: Isotope.Events, listener: () => void): void;
 }
 
 declare const Isotope: {

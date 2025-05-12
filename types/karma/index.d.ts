@@ -190,7 +190,7 @@ export interface UpstreamProxy {
 
 // description of inline plugins
 export type PluginName = string;
-// eslint-disable-next-line @typescript-eslint/ban-types -- support for constructor function and classes
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- support for constructor function and classes
 export type ConstructorFn = Function | (new(...params: any[]) => any);
 export type FactoryFn = (...params: any[]) => any;
 export type ConstructorFnType = ["type", ConstructorFn];

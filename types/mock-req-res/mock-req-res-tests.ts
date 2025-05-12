@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 import { mockRequest, mockResponse } from "mock-req-res";
 
 const handler: RequestHandler = (req: Request, res: Response) => {
-    return res.status(200).json(`Hello from handler with an originalUrl value of '${req.originalUrl}'`);
+    res.status(200).json(`Hello from handler with an originalUrl value of '${req.originalUrl}'`);
 };
 
 const req = mockRequest({ originalUrl: "/" });

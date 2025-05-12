@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/utils-merge",
-    "version": "0.0.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/jaredhanson/utils-merge"
     ],

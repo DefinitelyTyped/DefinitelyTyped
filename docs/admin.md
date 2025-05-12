@@ -4,7 +4,7 @@ Welcome! This is a resource for the person who is on call for Definitely Typed. 
 assigned to Definitely Typed duty, where they do a week on-call. You can see the [schedule here](http://aka.ms/DTRotation).
 
 When on-call, your goal is to try to keep on top of the many open PRs for Definitely Typed; they are categorized into
-different sections inside the [Projects board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) on this repo.
+different sections inside the [Projects board](https://github.com/orgs/DefinitelyTyped/projects/1) on this repo.
 
 You should scan from left to right through the boards, and ideally try to start at the oldest PR in a section and work
 your way through to the newest. There is a tool: [`focus-dt`](https://github.com/DefinitelyTyped/focus-dt) which can help with this.

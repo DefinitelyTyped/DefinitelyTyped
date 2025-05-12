@@ -1,11 +1,12 @@
 import * as React from "react";
 
-interface DocumentTitleProps {
-    title: string;
-    children?: React.ReactElement | number | string | null | undefined;
+declare namespace DocumentTitle {
+    interface DocumentTitleProps {
+        title: string;
+        children?: React.ReactElement | number | string | null | undefined;
+    }
 }
 
-declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {
-}
+declare class DocumentTitle extends React.Component<DocumentTitle.DocumentTitleProps> {}
 
-export default DocumentTitle;
+export = DocumentTitle;

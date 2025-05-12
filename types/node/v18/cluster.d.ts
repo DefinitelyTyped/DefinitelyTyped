@@ -231,6 +231,7 @@ declare module "cluster" {
          * the `'disconnect'` event has not been emitted after some time.
          *
          * ```js
+         * import net from 'node:net';
          * if (cluster.isPrimary) {
          *   const worker = cluster.fork();
          *   let timeout;
@@ -248,7 +249,6 @@ declare module "cluster" {
          *   });
          *
          * } else if (cluster.isWorker) {
-         *   const net = require('node:net');
          *   const server = net.createServer((socket) => {
          *     // Connections never end
          *   });
@@ -265,7 +265,7 @@ declare module "cluster" {
          * @since v0.7.7
          * @return A reference to `worker`.
          */
-        disconnect(): void;
+        disconnect(): this;
         /**
          * This function returns `true` if the worker is connected to its primary via its
          * IPC channel, `false` otherwise. A worker is connected to its primary after it

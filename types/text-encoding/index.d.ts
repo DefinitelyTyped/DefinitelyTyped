@@ -26,6 +26,8 @@ interface TextEncodeOptions {
 
 interface TextDecoderOptions {
     stream?: boolean | undefined;
+    fatal?: boolean;
+    ignoreBOM?: boolean;
 }
 
 interface TextEncoder {
@@ -35,6 +37,8 @@ interface TextEncoder {
 
 interface TextDecoder {
     readonly encoding: string;
+    readonly fatal: boolean;
+    readonly ignoreBOM: boolean;
     decode(input?: Uint8Array, options?: TextDecoderOptions): string;
 }
 

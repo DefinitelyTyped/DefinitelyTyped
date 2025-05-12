@@ -2,18 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.notifications
- *
- * Permissions: "notifications"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.notifications
+ */
 export namespace Notifications {
     type TemplateType = "basic" | "image" | "list" | "progress";
 

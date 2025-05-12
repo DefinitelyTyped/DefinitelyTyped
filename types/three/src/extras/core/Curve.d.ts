@@ -1,6 +1,12 @@
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 
+export interface CurveJSON {
+    metadata: { version: number; type: string; generator: string };
+    arcLengthDivisions: number;
+    type: string;
+}
+
 /**
  * An abstract base class for creating a {@link Curve} object that contains methods for interpolation
  * @remarks
@@ -146,11 +152,11 @@ export abstract class Curve<TVector extends Vector2 | Vector3> {
     /**
      * Returns a JSON object representation of this instance.
      */
-    toJSON(): {};
+    toJSON(): CurveJSON;
 
     /**
      * Copies the data from the given JSON object to this instance.
      * @param json
      */
-    fromJSON(json: {}): this;
+    fromJSON(json: CurveJSON): this;
 }

@@ -574,6 +574,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the first element of array.
          */
+        head<T>(array: readonly [T, ...unknown[]]): T;
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface String {
@@ -1450,6 +1451,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the slice of array.
          */
+        tail<T extends unknown[]>(array: readonly [unknown, ...T]): T;
         tail<T>(array: List<T> | null | undefined): T[];
     }
     interface Collection<T> {

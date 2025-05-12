@@ -1,2 +1,1 @@
-export function escape(str: string): string;
-export function unescape(str: string): string;
+export { escape, unescape } from "./index.d.cjs";

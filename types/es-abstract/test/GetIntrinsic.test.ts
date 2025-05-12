@@ -23,7 +23,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%"); // $ExpectType ArrayBuffer
 
     GetIntrinsic("%ArrayIteratorPrototype%"); // $ExpectType IterableIterator<any>
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
 
     GetIntrinsic("%AsyncFunction%"); // $ExpectType FunctionConstructor
     GetIntrinsic("%AsyncFunction.prototype%"); // $ExpectType Function
@@ -31,7 +31,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%"); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic("%AsyncGeneratorFunction%"); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic("%AsyncGeneratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncGeneratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
     GetIntrinsic("%AsyncIteratorPrototype%"); // $ExpectType AsyncIterable<any>
 
     GetIntrinsic("%Atomics%"); // $ExpectType Atomics
@@ -41,8 +41,8 @@ declare const boolean: boolean;
     GetIntrinsic("%BooleanPrototype%"); // $ExpectType Boolean
 
     GetIntrinsic("%DataView%"); // $ExpectType DataViewConstructor
-    GetIntrinsic("%DataView.prototype%"); // $ExpectType DataView
-    GetIntrinsic("%DataViewPrototype%"); // $ExpectType DataView
+    GetIntrinsic("%DataView.prototype%"); // $ExpectType DataView || DataView<ArrayBufferLike>
+    GetIntrinsic("%DataViewPrototype%"); // $ExpectType DataView || DataView<ArrayBufferLike>
 
     GetIntrinsic("%Date%"); // $ExpectType DateConstructor
     GetIntrinsic("%Date.prototype%"); // $ExpectType Date
@@ -65,12 +65,12 @@ declare const boolean: boolean;
     GetIntrinsic("%EvalErrorPrototype%"); // $ExpectType EvalError
 
     GetIntrinsic("%Float32Array%"); // $ExpectType Float32ArrayConstructor
-    GetIntrinsic("%Float32Array.prototype%"); // $ExpectType Float32Array
-    GetIntrinsic("%Float32ArrayPrototype%"); // $ExpectType Float32Array
+    GetIntrinsic("%Float32Array.prototype%"); // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
+    GetIntrinsic("%Float32ArrayPrototype%"); // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
 
     GetIntrinsic("%Float64Array%"); // $ExpectType Float64ArrayConstructor
-    GetIntrinsic("%Float64Array.prototype%"); // $ExpectType Float64Array
-    GetIntrinsic("%Float64ArrayPrototype%"); // $ExpectType Float64Array
+    GetIntrinsic("%Float64Array.prototype%"); // $ExpectType Float64Array || Float64Array<ArrayBufferLike>
+    GetIntrinsic("%Float64ArrayPrototype%"); // $ExpectType Float64Array || Float64Array<ArrayBufferLike>
 
     GetIntrinsic("%Function%"); // $ExpectType FunctionConstructor
     GetIntrinsic("%Function.prototype%"); // $ExpectType Function
@@ -78,20 +78,20 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%"); // $ExpectType GeneratorFunction
     GetIntrinsic("%GeneratorFunction%"); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic("%GeneratorPrototype%"); // $ExpectType Generator<any, any, unknown>
+    GetIntrinsic("%GeneratorPrototype%"); // $ExpectType Generator<any, any, unknown> || Generator<any, any, any>
     GetIntrinsic("%IteratorPrototype%"); // $ExpectType Iterable<any>
 
     GetIntrinsic("%Int8Array%"); // $ExpectType Int8ArrayConstructor
-    GetIntrinsic("%Int8Array.prototype%"); // $ExpectType Int8Array
-    GetIntrinsic("%Int8ArrayPrototype%"); // $ExpectType Int8Array
+    GetIntrinsic("%Int8Array.prototype%"); // $ExpectType Int8Array || Int8Array<ArrayBufferLike>
+    GetIntrinsic("%Int8ArrayPrototype%"); // $ExpectType Int8Array || Int8Array<ArrayBufferLike>
 
     GetIntrinsic("%Int16Array%"); // $ExpectType Int16ArrayConstructor
-    GetIntrinsic("%Int16Array.prototype%"); // $ExpectType Int16Array
-    GetIntrinsic("%Int16ArrayPrototype%"); // $ExpectType Int16Array
+    GetIntrinsic("%Int16Array.prototype%"); // $ExpectType Int16Array || Int16Array<ArrayBufferLike>
+    GetIntrinsic("%Int16ArrayPrototype%"); // $ExpectType Int16Array || Int16Array<ArrayBufferLike>
 
     GetIntrinsic("%Int32Array%"); // $ExpectType Int32ArrayConstructor
-    GetIntrinsic("%Int32Array.prototype%"); // $ExpectType Int32Array
-    GetIntrinsic("%Int32ArrayPrototype%"); // $ExpectType Int32Array
+    GetIntrinsic("%Int32Array.prototype%"); // $ExpectType Int32Array || Int32Array<ArrayBufferLike>
+    GetIntrinsic("%Int32ArrayPrototype%"); // $ExpectType Int32Array || Int32Array<ArrayBufferLike>
 
     expectType<typeof isFinite>(GetIntrinsic("%isFinite%"));
     expectType<typeof isNaN>(GetIntrinsic("%isNaN%"));
@@ -182,20 +182,20 @@ declare const boolean: boolean;
     GetIntrinsic("%TypeErrorPrototype%"); // $ExpectType TypeError
 
     GetIntrinsic("%Uint8Array%"); // $ExpectType Uint8ArrayConstructor
-    GetIntrinsic("%Uint8Array.prototype%"); // $ExpectType Uint8Array
-    GetIntrinsic("%Uint8ArrayPrototype%"); // $ExpectType Uint8Array
+    GetIntrinsic("%Uint8Array.prototype%"); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+    GetIntrinsic("%Uint8ArrayPrototype%"); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
     GetIntrinsic("%Uint8ClampedArray%"); // $ExpectType Uint8ClampedArrayConstructor
-    GetIntrinsic("%Uint8ClampedArray.prototype%"); // $ExpectType Uint8ClampedArray
-    GetIntrinsic("%Uint8ClampedArrayPrototype%"); // $ExpectType Uint8ClampedArray
+    GetIntrinsic("%Uint8ClampedArray.prototype%"); // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBufferLike>
+    GetIntrinsic("%Uint8ClampedArrayPrototype%"); // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBufferLike>
 
     GetIntrinsic("%Uint16Array%"); // $ExpectType Uint16ArrayConstructor
-    GetIntrinsic("%Uint16Array.prototype%"); // $ExpectType Uint16Array
-    GetIntrinsic("%Uint16ArrayPrototype%"); // $ExpectType Uint16Array
+    GetIntrinsic("%Uint16Array.prototype%"); // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
+    GetIntrinsic("%Uint16ArrayPrototype%"); // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
 
     GetIntrinsic("%Uint32Array%"); // $ExpectType Uint32ArrayConstructor
-    GetIntrinsic("%Uint32Array.prototype%"); // $ExpectType Uint32Array
-    GetIntrinsic("%Uint32ArrayPrototype%"); // $ExpectType Uint32Array
+    GetIntrinsic("%Uint32Array.prototype%"); // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
+    GetIntrinsic("%Uint32ArrayPrototype%"); // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
 
     GetIntrinsic("%URIError%"); // $ExpectType URIErrorConstructor
     GetIntrinsic("%URIError.prototype%"); // $ExpectType URIError
@@ -232,7 +232,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", false); // $ExpectType ArrayBuffer
 
     GetIntrinsic("%ArrayIteratorPrototype%", false); // $ExpectType IterableIterator<any>
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
 
     GetIntrinsic("%AsyncFunction%", false); // $ExpectType FunctionConstructor
     GetIntrinsic("%AsyncFunction.prototype%", false); // $ExpectType Function
@@ -240,7 +240,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", false); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic("%AsyncGeneratorFunction%", false); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic("%AsyncGeneratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncGeneratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
     GetIntrinsic("%AsyncIteratorPrototype%", false); // $ExpectType AsyncIterable<any>
 
     GetIntrinsic("%Atomics%", false); // $ExpectType Atomics
@@ -250,8 +250,8 @@ declare const boolean: boolean;
     GetIntrinsic("%BooleanPrototype%", false); // $ExpectType Boolean
 
     GetIntrinsic("%DataView%", false); // $ExpectType DataViewConstructor
-    GetIntrinsic("%DataView.prototype%", false); // $ExpectType DataView
-    GetIntrinsic("%DataViewPrototype%", false); // $ExpectType DataView
+    GetIntrinsic("%DataView.prototype%", false); // $ExpectType DataView || DataView<ArrayBufferLike>
+    GetIntrinsic("%DataViewPrototype%", false); // $ExpectType DataView || DataView<ArrayBufferLike>
 
     GetIntrinsic("%Date%", false); // $ExpectType DateConstructor
     GetIntrinsic("%Date.prototype%", false); // $ExpectType Date
@@ -274,12 +274,12 @@ declare const boolean: boolean;
     GetIntrinsic("%EvalErrorPrototype%", false); // $ExpectType EvalError
 
     GetIntrinsic("%Float32Array%", false); // $ExpectType Float32ArrayConstructor
-    GetIntrinsic("%Float32Array.prototype%", false); // $ExpectType Float32Array
-    GetIntrinsic("%Float32ArrayPrototype%", false); // $ExpectType Float32Array
+    GetIntrinsic("%Float32Array.prototype%", false); // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
+    GetIntrinsic("%Float32ArrayPrototype%", false); // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
 
     GetIntrinsic("%Float64Array%", false); // $ExpectType Float64ArrayConstructor
-    GetIntrinsic("%Float64Array.prototype%", false); // $ExpectType Float64Array
-    GetIntrinsic("%Float64ArrayPrototype%", false); // $ExpectType Float64Array
+    GetIntrinsic("%Float64Array.prototype%", false); // $ExpectType Float64Array || Float64Array<ArrayBufferLike>
+    GetIntrinsic("%Float64ArrayPrototype%", false); // $ExpectType Float64Array || Float64Array<ArrayBufferLike>
 
     GetIntrinsic("%Function%", false); // $ExpectType FunctionConstructor
     GetIntrinsic("%Function.prototype%", false); // $ExpectType Function
@@ -287,20 +287,20 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", false); // $ExpectType GeneratorFunction
     GetIntrinsic("%GeneratorFunction%", false); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic("%GeneratorPrototype%", false); // $ExpectType Generator<any, any, unknown>
+    GetIntrinsic("%GeneratorPrototype%", false); // $ExpectType Generator<any, any, unknown> || Generator<any, any, any>
     GetIntrinsic("%IteratorPrototype%", false); // $ExpectType Iterable<any>
 
     GetIntrinsic("%Int8Array%", false); // $ExpectType Int8ArrayConstructor
-    GetIntrinsic("%Int8Array.prototype%", false); // $ExpectType Int8Array
-    GetIntrinsic("%Int8ArrayPrototype%", false); // $ExpectType Int8Array
+    GetIntrinsic("%Int8Array.prototype%", false); // $ExpectType Int8Array || Int8Array<ArrayBufferLike>
+    GetIntrinsic("%Int8ArrayPrototype%", false); // $ExpectType Int8Array || Int8Array<ArrayBufferLike>
 
     GetIntrinsic("%Int16Array%", false); // $ExpectType Int16ArrayConstructor
-    GetIntrinsic("%Int16Array.prototype%", false); // $ExpectType Int16Array
-    GetIntrinsic("%Int16ArrayPrototype%", false); // $ExpectType Int16Array
+    GetIntrinsic("%Int16Array.prototype%", false); // $ExpectType Int16Array || Int16Array<ArrayBufferLike>
+    GetIntrinsic("%Int16ArrayPrototype%", false); // $ExpectType Int16Array || Int16Array<ArrayBufferLike>
 
     GetIntrinsic("%Int32Array%", false); // $ExpectType Int32ArrayConstructor
-    GetIntrinsic("%Int32Array.prototype%", false); // $ExpectType Int32Array
-    GetIntrinsic("%Int32ArrayPrototype%", false); // $ExpectType Int32Array
+    GetIntrinsic("%Int32Array.prototype%", false); // $ExpectType Int32Array || Int32Array<ArrayBufferLike>
+    GetIntrinsic("%Int32ArrayPrototype%", false); // $ExpectType Int32Array || Int32Array<ArrayBufferLike>
 
     expectType<typeof isFinite>(GetIntrinsic("%isFinite%", false));
     expectType<typeof isNaN>(GetIntrinsic("%isNaN%", false));
@@ -391,20 +391,20 @@ declare const boolean: boolean;
     GetIntrinsic("%TypeErrorPrototype%", false); // $ExpectType TypeError
 
     GetIntrinsic("%Uint8Array%", false); // $ExpectType Uint8ArrayConstructor
-    GetIntrinsic("%Uint8Array.prototype%", false); // $ExpectType Uint8Array
-    GetIntrinsic("%Uint8ArrayPrototype%", false); // $ExpectType Uint8Array
+    GetIntrinsic("%Uint8Array.prototype%", false); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+    GetIntrinsic("%Uint8ArrayPrototype%", false); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
     GetIntrinsic("%Uint8ClampedArray%", false); // $ExpectType Uint8ClampedArrayConstructor
-    GetIntrinsic("%Uint8ClampedArray.prototype%", false); // $ExpectType Uint8ClampedArray
-    GetIntrinsic("%Uint8ClampedArrayPrototype%", false); // $ExpectType Uint8ClampedArray
+    GetIntrinsic("%Uint8ClampedArray.prototype%", false); // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBufferLike>
+    GetIntrinsic("%Uint8ClampedArrayPrototype%", false); // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBufferLike>
 
     GetIntrinsic("%Uint16Array%", false); // $ExpectType Uint16ArrayConstructor
-    GetIntrinsic("%Uint16Array.prototype%", false); // $ExpectType Uint16Array
-    GetIntrinsic("%Uint16ArrayPrototype%", false); // $ExpectType Uint16Array
+    GetIntrinsic("%Uint16Array.prototype%", false); // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
+    GetIntrinsic("%Uint16ArrayPrototype%", false); // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
 
     GetIntrinsic("%Uint32Array%", false); // $ExpectType Uint32ArrayConstructor
-    GetIntrinsic("%Uint32Array.prototype%", false); // $ExpectType Uint32Array
-    GetIntrinsic("%Uint32ArrayPrototype%", false); // $ExpectType Uint32Array
+    GetIntrinsic("%Uint32Array.prototype%", false); // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
+    GetIntrinsic("%Uint32ArrayPrototype%", false); // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
 
     GetIntrinsic("%URIError%", false); // $ExpectType URIErrorConstructor
     GetIntrinsic("%URIError.prototype%", false); // $ExpectType URIError
@@ -441,7 +441,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", true); // $ExpectType ArrayBuffer | undefined
 
     GetIntrinsic("%ArrayIteratorPrototype%", true); // $ExpectType IterableIterator<any> | undefined
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined ||  AsyncGenerator<any, any, any> | undefined
 
     GetIntrinsic("%AsyncFunction%", true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%AsyncFunction.prototype%", true); // $ExpectType Function | undefined
@@ -449,7 +449,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", true); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic("%AsyncGeneratorFunction%", true); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic("%AsyncGeneratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncGeneratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
     GetIntrinsic("%AsyncIteratorPrototype%", true); // $ExpectType AsyncIterable<any> | undefined
 
     GetIntrinsic("%Atomics%", true); // $ExpectType Atomics | undefined
@@ -459,8 +459,8 @@ declare const boolean: boolean;
     GetIntrinsic("%BooleanPrototype%", true); // $ExpectType Boolean | undefined
 
     GetIntrinsic("%DataView%", true); // $ExpectType DataViewConstructor | undefined
-    GetIntrinsic("%DataView.prototype%", true); // $ExpectType DataView | undefined
-    GetIntrinsic("%DataViewPrototype%", true); // $ExpectType DataView | undefined
+    GetIntrinsic("%DataView.prototype%", true); // $ExpectType DataView | undefined || DataView<ArrayBufferLike> | undefined
+    GetIntrinsic("%DataViewPrototype%", true); // $ExpectType DataView | undefined || DataView<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Date%", true); // $ExpectType DateConstructor | undefined
     GetIntrinsic("%Date.prototype%", true); // $ExpectType Date | undefined
@@ -483,12 +483,12 @@ declare const boolean: boolean;
     GetIntrinsic("%EvalErrorPrototype%", true); // $ExpectType EvalError | undefined
 
     GetIntrinsic("%Float32Array%", true); // $ExpectType Float32ArrayConstructor | undefined
-    GetIntrinsic("%Float32Array.prototype%", true); // $ExpectType Float32Array | undefined
-    GetIntrinsic("%Float32ArrayPrototype%", true); // $ExpectType Float32Array | undefined
+    GetIntrinsic("%Float32Array.prototype%", true); // $ExpectType Float32Array | undefined || Float32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Float32ArrayPrototype%", true); // $ExpectType Float32Array | undefined || Float32Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Float64Array%", true); // $ExpectType Float64ArrayConstructor | undefined
-    GetIntrinsic("%Float64Array.prototype%", true); // $ExpectType Float64Array | undefined
-    GetIntrinsic("%Float64ArrayPrototype%", true); // $ExpectType Float64Array | undefined
+    GetIntrinsic("%Float64Array.prototype%", true); // $ExpectType Float64Array | undefined || Float64Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Float64ArrayPrototype%", true); // $ExpectType Float64Array | undefined || Float64Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Function%", true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%Function.prototype%", true); // $ExpectType Function | undefined
@@ -496,20 +496,20 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", true); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic("%GeneratorFunction%", true); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic("%GeneratorPrototype%", true); // $ExpectType Generator<any, any, unknown> | undefined
+    GetIntrinsic("%GeneratorPrototype%", true); // $ExpectType Generator<any, any, unknown> | undefined || Generator<any, any, any> | undefined
     GetIntrinsic("%IteratorPrototype%", true); // $ExpectType Iterable<any> | undefined
 
     GetIntrinsic("%Int8Array%", true); // $ExpectType Int8ArrayConstructor | undefined
-    GetIntrinsic("%Int8Array.prototype%", true); // $ExpectType Int8Array | undefined
-    GetIntrinsic("%Int8ArrayPrototype%", true); // $ExpectType Int8Array | undefined
+    GetIntrinsic("%Int8Array.prototype%", true); // $ExpectType Int8Array | undefined || Int8Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int8ArrayPrototype%", true); // $ExpectType Int8Array | undefined || Int8Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Int16Array%", true); // $ExpectType Int16ArrayConstructor | undefined
-    GetIntrinsic("%Int16Array.prototype%", true); // $ExpectType Int16Array | undefined
-    GetIntrinsic("%Int16ArrayPrototype%", true); // $ExpectType Int16Array | undefined
+    GetIntrinsic("%Int16Array.prototype%", true); // $ExpectType Int16Array | undefined || Int16Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int16ArrayPrototype%", true); // $ExpectType Int16Array | undefined || Int16Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Int32Array%", true); // $ExpectType Int32ArrayConstructor | undefined
-    GetIntrinsic("%Int32Array.prototype%", true); // $ExpectType Int32Array | undefined
-    GetIntrinsic("%Int32ArrayPrototype%", true); // $ExpectType Int32Array | undefined
+    GetIntrinsic("%Int32Array.prototype%", true); // $ExpectType Int32Array | undefined || Int32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int32ArrayPrototype%", true); // $ExpectType Int32Array | undefined || Int32Array<ArrayBufferLike> | undefined
 
     expectType<typeof isFinite | undefined>(GetIntrinsic("%isFinite%", true));
     expectType<typeof isNaN | undefined>(GetIntrinsic("%isNaN%", true));
@@ -600,20 +600,20 @@ declare const boolean: boolean;
     GetIntrinsic("%TypeErrorPrototype%", true); // $ExpectType TypeError | undefined
 
     GetIntrinsic("%Uint8Array%", true); // $ExpectType Uint8ArrayConstructor | undefined
-    GetIntrinsic("%Uint8Array.prototype%", true); // $ExpectType Uint8Array | undefined
-    GetIntrinsic("%Uint8ArrayPrototype%", true); // $ExpectType Uint8Array | undefined
+    GetIntrinsic("%Uint8Array.prototype%", true); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint8ArrayPrototype%", true); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint8ClampedArray%", true); // $ExpectType Uint8ClampedArrayConstructor | undefined
-    GetIntrinsic("%Uint8ClampedArray.prototype%", true); // $ExpectType Uint8ClampedArray | undefined
-    GetIntrinsic("%Uint8ClampedArrayPrototype%", true); // $ExpectType Uint8ClampedArray | undefined
+    GetIntrinsic("%Uint8ClampedArray.prototype%", true); // $ExpectType Uint8ClampedArray | undefined || Uint8ClampedArray<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint8ClampedArrayPrototype%", true); // $ExpectType Uint8ClampedArray | undefined || Uint8ClampedArray<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint16Array%", true); // $ExpectType Uint16ArrayConstructor | undefined
-    GetIntrinsic("%Uint16Array.prototype%", true); // $ExpectType Uint16Array | undefined
-    GetIntrinsic("%Uint16ArrayPrototype%", true); // $ExpectType Uint16Array | undefined
+    GetIntrinsic("%Uint16Array.prototype%", true); // $ExpectType Uint16Array | undefined || Uint16Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint16ArrayPrototype%", true); // $ExpectType Uint16Array | undefined || Uint16Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint32Array%", true); // $ExpectType Uint32ArrayConstructor | undefined
-    GetIntrinsic("%Uint32Array.prototype%", true); // $ExpectType Uint32Array | undefined
-    GetIntrinsic("%Uint32ArrayPrototype%", true); // $ExpectType Uint32Array | undefined
+    GetIntrinsic("%Uint32Array.prototype%", true); // $ExpectType Uint32Array | undefined || Uint32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint32ArrayPrototype%", true); // $ExpectType Uint32Array | undefined || Uint32Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%URIError%", true); // $ExpectType URIErrorConstructor | undefined
     GetIntrinsic("%URIError.prototype%", true); // $ExpectType URIError | undefined
@@ -650,7 +650,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", boolean); // $ExpectType ArrayBuffer | undefined
 
     GetIntrinsic("%ArrayIteratorPrototype%", boolean); // $ExpectType IterableIterator<any> | undefined
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
 
     GetIntrinsic("%AsyncFunction%", boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%AsyncFunction.prototype%", boolean); // $ExpectType Function | undefined
@@ -658,7 +658,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", boolean); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic("%AsyncGeneratorFunction%", boolean); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic("%AsyncGeneratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncGeneratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
     GetIntrinsic("%AsyncIteratorPrototype%", boolean); // $ExpectType AsyncIterable<any> | undefined
 
     GetIntrinsic("%Atomics%", boolean); // $ExpectType Atomics | undefined
@@ -668,8 +668,8 @@ declare const boolean: boolean;
     GetIntrinsic("%BooleanPrototype%", boolean); // $ExpectType Boolean | undefined
 
     GetIntrinsic("%DataView%", boolean); // $ExpectType DataViewConstructor | undefined
-    GetIntrinsic("%DataView.prototype%", boolean); // $ExpectType DataView | undefined
-    GetIntrinsic("%DataViewPrototype%", boolean); // $ExpectType DataView | undefined
+    GetIntrinsic("%DataView.prototype%", boolean); // $ExpectType DataView | undefined || DataView<ArrayBufferLike> | undefined
+    GetIntrinsic("%DataViewPrototype%", boolean); // $ExpectType DataView | undefined || DataView<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Date%", boolean); // $ExpectType DateConstructor | undefined
     GetIntrinsic("%Date.prototype%", boolean); // $ExpectType Date | undefined
@@ -692,12 +692,12 @@ declare const boolean: boolean;
     GetIntrinsic("%EvalErrorPrototype%", boolean); // $ExpectType EvalError | undefined
 
     GetIntrinsic("%Float32Array%", boolean); // $ExpectType Float32ArrayConstructor | undefined
-    GetIntrinsic("%Float32Array.prototype%", boolean); // $ExpectType Float32Array | undefined
-    GetIntrinsic("%Float32ArrayPrototype%", boolean); // $ExpectType Float32Array | undefined
+    GetIntrinsic("%Float32Array.prototype%", boolean); // $ExpectType Float32Array | undefined || Float32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Float32ArrayPrototype%", boolean); // $ExpectType Float32Array | undefined || Float32Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Float64Array%", boolean); // $ExpectType Float64ArrayConstructor | undefined
-    GetIntrinsic("%Float64Array.prototype%", boolean); // $ExpectType Float64Array | undefined
-    GetIntrinsic("%Float64ArrayPrototype%", boolean); // $ExpectType Float64Array | undefined
+    GetIntrinsic("%Float64Array.prototype%", boolean); // $ExpectType Float64Array | undefined || Float64Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Float64ArrayPrototype%", boolean); // $ExpectType Float64Array | undefined || Float64Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Function%", boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%Function.prototype%", boolean); // $ExpectType Function | undefined
@@ -705,20 +705,20 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", boolean); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic("%GeneratorFunction%", boolean); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic("%GeneratorPrototype%", boolean); // $ExpectType Generator<any, any, unknown> | undefined
+    GetIntrinsic("%GeneratorPrototype%", boolean); // $ExpectType Generator<any, any, unknown> | undefined || Generator<any, any, any> | undefined
     GetIntrinsic("%IteratorPrototype%", boolean); // $ExpectType Iterable<any> | undefined
 
     GetIntrinsic("%Int8Array%", boolean); // $ExpectType Int8ArrayConstructor | undefined
-    GetIntrinsic("%Int8Array.prototype%", boolean); // $ExpectType Int8Array | undefined
-    GetIntrinsic("%Int8ArrayPrototype%", boolean); // $ExpectType Int8Array | undefined
+    GetIntrinsic("%Int8Array.prototype%", boolean); // $ExpectType Int8Array | undefined || Int8Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int8ArrayPrototype%", boolean); // $ExpectType Int8Array | undefined || Int8Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Int16Array%", boolean); // $ExpectType Int16ArrayConstructor | undefined
-    GetIntrinsic("%Int16Array.prototype%", boolean); // $ExpectType Int16Array | undefined
-    GetIntrinsic("%Int16ArrayPrototype%", boolean); // $ExpectType Int16Array | undefined
+    GetIntrinsic("%Int16Array.prototype%", boolean); // $ExpectType Int16Array | undefined || Int16Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int16ArrayPrototype%", boolean); // $ExpectType Int16Array | undefined || Int16Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Int32Array%", boolean); // $ExpectType Int32ArrayConstructor | undefined
-    GetIntrinsic("%Int32Array.prototype%", boolean); // $ExpectType Int32Array | undefined
-    GetIntrinsic("%Int32ArrayPrototype%", boolean); // $ExpectType Int32Array | undefined
+    GetIntrinsic("%Int32Array.prototype%", boolean); // $ExpectType Int32Array | undefined || Int32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Int32ArrayPrototype%", boolean); // $ExpectType Int32Array | undefined || Int32Array<ArrayBufferLike> | undefined
 
     expectType<typeof isFinite | undefined>(GetIntrinsic("%isFinite%", boolean));
     expectType<typeof isNaN | undefined>(GetIntrinsic("%isNaN%", boolean));
@@ -809,20 +809,20 @@ declare const boolean: boolean;
     GetIntrinsic("%TypeErrorPrototype%", boolean); // $ExpectType TypeError | undefined
 
     GetIntrinsic("%Uint8Array%", boolean); // $ExpectType Uint8ArrayConstructor | undefined
-    GetIntrinsic("%Uint8Array.prototype%", boolean); // $ExpectType Uint8Array | undefined
-    GetIntrinsic("%Uint8ArrayPrototype%", boolean); // $ExpectType Uint8Array | undefined
+    GetIntrinsic("%Uint8Array.prototype%", boolean); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint8ArrayPrototype%", boolean); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint8ClampedArray%", boolean); // $ExpectType Uint8ClampedArrayConstructor | undefined
-    GetIntrinsic("%Uint8ClampedArray.prototype%", boolean); // $ExpectType Uint8ClampedArray | undefined
-    GetIntrinsic("%Uint8ClampedArrayPrototype%", boolean); // $ExpectType Uint8ClampedArray | undefined
+    GetIntrinsic("%Uint8ClampedArray.prototype%", boolean); // $ExpectType Uint8ClampedArray | undefined || Uint8ClampedArray<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint8ClampedArrayPrototype%", boolean); // $ExpectType Uint8ClampedArray | undefined || Uint8ClampedArray<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint16Array%", boolean); // $ExpectType Uint16ArrayConstructor | undefined
-    GetIntrinsic("%Uint16Array.prototype%", boolean); // $ExpectType Uint16Array | undefined
-    GetIntrinsic("%Uint16ArrayPrototype%", boolean); // $ExpectType Uint16Array | undefined
+    GetIntrinsic("%Uint16Array.prototype%", boolean); // $ExpectType Uint16Array | undefined || Uint16Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint16ArrayPrototype%", boolean); // $ExpectType Uint16Array | undefined || Uint16Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%Uint32Array%", boolean); // $ExpectType Uint32ArrayConstructor | undefined
-    GetIntrinsic("%Uint32Array.prototype%", boolean); // $ExpectType Uint32Array | undefined
-    GetIntrinsic("%Uint32ArrayPrototype%", boolean); // $ExpectType Uint32Array | undefined
+    GetIntrinsic("%Uint32Array.prototype%", boolean); // $ExpectType Uint32Array | undefined || Uint32Array<ArrayBufferLike> | undefined
+    GetIntrinsic("%Uint32ArrayPrototype%", boolean); // $ExpectType Uint32Array | undefined || Uint32Array<ArrayBufferLike> | undefined
 
     GetIntrinsic("%URIError%", boolean); // $ExpectType URIErrorConstructor | undefined
     GetIntrinsic("%URIError.prototype%", boolean); // $ExpectType URIError | undefined

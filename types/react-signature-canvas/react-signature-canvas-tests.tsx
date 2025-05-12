@@ -34,15 +34,30 @@ class Example extends React.Component {
 
     componentDidMount() {
         if (this.canvasRef.current) {
+            /** $ExpectType void */
             this.canvasRef.current.clear();
+            /** $ExpectType void */
             this.canvasRef.current.fromData([[new SignaturePad.Point(1, 2, 3)]]);
+            /** $ExpectType void */
             this.canvasRef.current.fromDataURL("url");
+            /** $ExpectType void */
             this.canvasRef.current.fromDataURL("url", { height: 1, width: 4 });
-            const isEmptyResult: boolean = this.canvasRef.current.isEmpty();
+            /** $ExpectType HTMLCanvasElement */
+            this.canvasRef.current.getCanvas();
+            /** $ExpectType SignaturePad */
+            this.canvasRef.current.getSignaturePad();
+            /** $ExpectType HTMLCanvasElement */
+            this.canvasRef.current.getTrimmedCanvas();
+            /** $ExpectType boolean */
+            this.canvasRef.current.isEmpty();
+            /** $ExpectType void */
             this.canvasRef.current.off();
+            /** $ExpectType void */
             this.canvasRef.current.on();
-            const toDataResult: SignaturePad.Point[][] = this.canvasRef.current.toData();
-            const toDataURLResult: string = this.canvasRef.current.toDataURL();
+            /** $ExpectType SignaturePad.Point[][] */
+            this.canvasRef.current.toData();
+            /** $ExpectType string */
+            this.canvasRef.current.toDataURL();
         }
     }
 

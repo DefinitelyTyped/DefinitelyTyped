@@ -1,8 +1,9 @@
 export class WebGLProperties {
     constructor();
 
-    get(object: any): any;
-    remove(object: any): void;
-    update(object: any, key: any, value: any): any;
-    dispose(): void;
+    has: (object: unknown) => boolean;
+    get: (object: unknown) => unknown;
+    remove: (object: unknown) => void;
+    update: (object: unknown, key: unknown, value: unknown) => unknown;
+    dispose: () => void;
 }

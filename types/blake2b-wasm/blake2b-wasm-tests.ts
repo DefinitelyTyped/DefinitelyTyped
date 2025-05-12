@@ -38,22 +38,22 @@ hash.finalized; // $ExpectType boolean
 hash.pointer; // $ExpectType number
 
 hash.update(new Uint8Array(10)); // $ExpectType Blake2b
-hash.digest(); // $ExpectType Uint8Array
-hash.digest("binary"); // $ExpectType Uint8Array
+hash.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+hash.digest("binary"); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 hash.digest("hex"); // $ExpectType string
-hash.digest(new Uint8Array(10)); // $ExpectType Uint8Array
-hash.digest(Buffer.alloc(10)); // $ExpectType Buffer
-hash.final(); // $ExpectType Uint8Array
-hash.final("binary"); // $ExpectType Uint8Array
+hash.digest(new Uint8Array(10)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+hash.digest(Buffer.alloc(10)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+hash.final(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+hash.final("binary"); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 hash.final("hex"); // $ExpectType string
-hash.final(new Uint8Array(10)); // $ExpectType Uint8Array
-hash.final(Buffer.alloc(10)); // $ExpectType Buffer
+hash.final(new Uint8Array(10)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+hash.final(Buffer.alloc(10)); // $ExpectType Buffer || Buffer<ArrayBuffer>
 hash.ready(); // $ExpectType Promise<void>
 // $ExpectType Promise<void>
 hash.ready(err => {
     err; // $ExpectType Error | undefined
 });
-hash.getPartialHash(); // $ExpectType Uint8Array
+hash.getPartialHash(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 hash.setPartialHash([1]); // $ExpectType void
 hash.setPartialHash(new Uint8Array(1)); // $ExpectType void
 

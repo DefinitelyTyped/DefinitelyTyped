@@ -6,8 +6,8 @@ const test = (config: karma.Config) => {
     config.set({
         // global config of your BrowserStack account
         browserStack: {
-            username: "jamesbond" || process.env.BROWSERSTACK_USERNAME,
-            accessKey: "007" || process.env.BROWSERSTACK_ACCESS_KEY,
+            username: process.env.BROWSERSTACK_USERNAME,
+            accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
             build: process.env.BUILD_NUMBER,
             captureTimeout: 100,
             forcelocal: true,

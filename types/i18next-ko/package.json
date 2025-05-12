@@ -12,11 +12,6 @@
     "devDependencies": {
         "@types/i18next-ko": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Daniel Waxweiler",
-            "githubUsername": "dwaxweiler"
-        }
-    ],
+    "owners": [],
     "minimumTypeScriptVersion": "5.0"
 }

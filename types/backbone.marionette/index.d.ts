@@ -871,7 +871,7 @@ export interface ViewOptions<TModel extends Backbone.Model> extends Backbone.Vie
 export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> implements ViewMixin, RegionsMixin {
     constructor(options?: ViewOptions<TModel>);
 
-    events(): EventsHash;
+    events: Backbone._Result<EventsHash>;
 
     /**
      * Returns a new HTML DOM node instance. The resulting node can be

@@ -33,6 +33,7 @@ const navigateListener = (e: NavigateEvent) => {
     const canIntercept: boolean = e.canIntercept;
     const userInitiated: boolean = e.userInitiated;
     const hashChange: boolean = e.hashChange;
+    const hasUAVisualTransition: boolean = e.hasUAVisualTransition;
     const destination: NavigationDestination = e.destination;
     const url: string = destination.url;
     const key: string | null = destination.key;

@@ -6,7 +6,9 @@ import { Express } from "express";
 import * as http from "http";
 import * as https from "https";
 
-type Server = createTestServer.TestServer & Omit<Express, "listen"> & { get: (url: string, response: string) => void };
+type Server = createTestServer.TestServer & Omit<Express, "listen"> & {
+    get: (url: string, response: string | (() => string)) => void;
+};
 
 /**
  * Returns a Promise which resolves to an (already listening) server.

@@ -13,7 +13,7 @@ import {
     OperationLoader,
     OptimisticResponseConfig,
     OptimisticUpdateFunction,
-    RequiredFieldLogger,
+    RelayFieldLogger,
     SelectorStoreUpdater,
     SingularReaderSelector,
     Snapshot,
@@ -39,7 +39,7 @@ export type MultiActorEnvironmentConfig = Readonly<{
     logFn?: LogFunction | null;
     missingFieldHandlers?: readonly MissingFieldHandler[] | null;
     operationLoader?: OperationLoader | null;
-    requiredFieldLogger?: RequiredFieldLogger | null;
+    relayFieldLogger?: RelayFieldLogger | null;
     scheduler?: TaskScheduler | null;
     shouldProcessClientComponents?: boolean | null;
     treatMissingFieldsAsNull?: boolean;

@@ -181,6 +181,9 @@ declare class HammerInput {
     /** Center position for multi-touch, or just the single pointer. */
     center: HammerPoint;
 
+    /** The amount of multi-taps being recognized. */
+    tapCount?: number;
+
     /** Source event object, type TouchEvent, MouseEvent or PointerEvent. */
     srcEvent: TouchEvent | MouseEvent | PointerEvent;
 

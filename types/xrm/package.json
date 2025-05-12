@@ -2,8 +2,10 @@
     "private": true,
     "name": "@types/xrm",
     "version": "9.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Javascript APIs available in Microsoft Dataverse/PowerApps model-driven apps and Dynamics 365 Customer Engagement (previously known as CRM).",
     "projects": [
-        "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview"
+        "https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference"
     ],
     "devDependencies": {
         "@types/xrm": "workspace:."
@@ -36,6 +38,10 @@
         {
             "name": "Danish Naglekar",
             "githubUsername": "power-maverick"
+        },
+        {
+            "name": "Gavin Canon-Phratsachack",
+            "githubUsername": "gncnpk"
         }
     ]
 }

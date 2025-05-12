@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.identity
- *
- * Use the chrome.identity API to get OAuth2 access tokens.
- * Permissions: "identity"
- */
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.identity
+ */
 export namespace Identity {
     /**
      * An object encapsulating an OAuth account id.
@@ -33,8 +30,6 @@ export namespace Identity {
     interface Static {
         /**
          * Starts an auth flow at the specified URL.
-         *
-         * @param details
          */
         launchWebAuthFlow(details: LaunchWebAuthFlowDetailsType): Promise<string>;
 

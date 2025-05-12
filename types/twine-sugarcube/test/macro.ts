@@ -30,6 +30,14 @@ Macro.add("thing", {
                 }
             }),
         );
+        element.addEventListener(
+            "keydown",
+            this.shadowHandler(ev => {
+                if (ev.shiftKey) {
+                    // do something
+                }
+            }),
+        );
         $(element).appendTo(this.output);
     },
 });

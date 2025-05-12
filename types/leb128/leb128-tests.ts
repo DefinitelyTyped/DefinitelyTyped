@@ -5,12 +5,12 @@ declare const buffer: Buffer;
 const stream = new Stream(buffer);
 stream.write(buffer);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 stream.read(1024);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 leb128.signed.encode(42);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 leb128.signed.encode("42");
 
 // $ExpectType string
@@ -25,9 +25,9 @@ leb128.signed.read(stream);
 // $ExpectType BN
 leb128.signed.readBn(stream);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 leb128.unsigned.encode(42);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 leb128.unsigned.encode("42");
 
 // $ExpectType string

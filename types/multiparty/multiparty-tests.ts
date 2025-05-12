@@ -4,8 +4,8 @@ import util = require("util");
 
 http.createServer(function(req: http.IncomingMessage, res: http.ServerResponse) {
     if (req.url === "/upload" && req.method === "POST") {
-        var count = 0;
-        var form = new multiparty.Form();
+        let count = 0;
+        const form = new multiparty.Form();
 
         // Errors may be emitted
         // Note that if you are listening to 'part' events, the same error may be
@@ -48,6 +48,11 @@ http.createServer(function(req: http.IncomingMessage, res: http.ServerResponse) 
             console.log("Field Name: " + name + ", Field Value: " + value);
         });
 
+        form.on("file", function(name: string, value: multiparty.File) {
+            // decide what to do
+            console.log("File Name: " + name + ", File Path: " + value.path);
+        });
+
         // Close emitted after form parsed
         form.on("close", function() {
             console.log("Upload completed!");
@@ -56,6 +61,16 @@ http.createServer(function(req: http.IncomingMessage, res: http.ServerResponse) 
 
         // Parse req
         form.parse(req);
+
+        form.parse(req, (error, fields, files) => {
+            if (error instanceof Error) {
+                error; // $ExpectType Error
+            } else {
+                error; // $ExpectType null
+                fields; // $ExpectType Record<string, string[] | undefined>
+                files; // $ExpectType Record<string, File[] | undefined>
+            }
+        });
     }
 
     // show a file upload form

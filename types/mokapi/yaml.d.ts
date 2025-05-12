@@ -11,7 +11,7 @@ import { JSONValue } from ".";
  *   console.log(outout[0].orderId)
  * }
  */
-export function parse(text: string): JSONValue;
+export function parse(text: string): any;
 
 /**
  * Converts a JavaScript value to a YAML string.

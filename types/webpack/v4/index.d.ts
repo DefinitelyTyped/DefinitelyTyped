@@ -1061,7 +1061,7 @@ declare namespace webpack {
             };
             getChildIdsByOrders(): any;
             getChildIdsByOrdersMap(includeDirectChildren?: boolean): any;
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             getChunkModuleMaps(filterFn: Function): { id: any; hash: any };
             hasModuleInGraph(
                 filterFn: (module: Module) => boolean,
@@ -1398,7 +1398,7 @@ declare namespace webpack {
                 request: string,
             ): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             addEntry(context: any, entry: any, name: any, callback: Function): void;
 
             getPath(filename: string, data: {
@@ -1450,6 +1450,7 @@ declare namespace webpack {
             afterPlugins: SyncHook<Compiler>;
             afterResolvers: SyncHook<Compiler>;
             entryOption: SyncBailHook;
+            assetEmitted: AsyncSeriesHook<string, string>;
         }
 
         interface MultiStats {

@@ -1,13 +1,28 @@
 import { Camera } from "../cameras/Camera.js";
-import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
+
+export interface LODJSONObject extends Object3DJSONObject {
+    autoUpdate?: boolean;
+
+    levels: Array<{
+        object: string;
+        distance: number;
+        hysteresis: number;
+    }>;
+}
+
+export interface LODJSON extends Object3DJSON {
+    object: LODJSONObject;
+}
 
 /**
  * Every level is associated with an object, and rendering can be switched between them at the distances specified
  * @remarks
  * Typically you would create, say, three meshes, one for far away (low detail), one for mid range (medium detail) and one for close up (high detail).
  * @example
- * ```typescript
- * const {@link LOD} = new THREE.LOD();
+ * const lod = new THREE.LOD();
+ * const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+ *
  * //Create spheres with 3 levels of detail and create new {@link LOD} levels for them
  * for (let i = 0; i & lt; 3; i++) {
  *     const geometry = new THREE.IcosahedronGeometry(10, 3 - i)
@@ -15,7 +30,7 @@ import { Object3D, Object3DEventMap } from "../core/Object3D.js";
  *     lod.addLevel(mesh, i * 75);
  * }
  * scene.add(lod);
- * ```
+ *
  * @see Example: {@link https://threejs.org/examples/#webgl_lod | webgl / {@link LOD} }
  * @see {@link https://threejs.org/docs/index.html#api/en/objects/LOD | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/objects/LOD.js | Source}
@@ -68,6 +83,13 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
     addLevel(object: Object3D, distance?: number, hysteresis?: number): this;
 
     /**
+     * Removes an existing level, based on the distance from the camera. Returns `true` when the level has been removed.
+     * Otherwise `false`.
+     * @param distance Distance of the level to delete.
+     */
+    removeLabel(distance: number): boolean;
+
+    /**
      * Get the currently active {@link LOD} level
      * @remarks
      * As index of the levels array.
@@ -85,4 +107,6 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
      * @param camera
      */
     update(camera: Camera): void;
+
+    toJSON(meta?: JSONMeta): LODJSON;
 }

@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/multiparty",
-    "version": "0.0.9999",
+    "version": "4.2.9999",
     "projects": [
-        "https://github.com/andrewrk/node-multiparty"
+        "https://github.com/pillarjs/multiparty"
     ],
     "dependencies": {
         "@types/node": "*"

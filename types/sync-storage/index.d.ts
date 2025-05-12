@@ -1,7 +1,7 @@
 /*
  *  Init prepares the SyncStorage to work synchronously, by getting all values for all keys previously saved on RN AsyncStorage.
  */
-export function init(): void;
+export function init(): Promise<any[]>;
 /*
  *  Returns value of key
  */

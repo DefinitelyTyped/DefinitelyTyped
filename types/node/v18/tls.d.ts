@@ -4,7 +4,7 @@
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('tls');
+ * import tls from 'node:tls';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tls.js)
  */
@@ -636,9 +636,10 @@ declare module "tls" {
          * used.
          * @since v0.5.3
          * @param hostname A SNI host name or wildcard (e.g. `'*'`)
-         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc).
+         * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
+         * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *
@@ -1000,8 +1001,8 @@ declare module "tls" {
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -1046,8 +1047,8 @@ declare module "tls" {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.

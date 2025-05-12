@@ -1,7 +1,7 @@
 // tests taken from https://www.npmjs.com/package/chai-html
 
 import { expect, use } from "chai";
-import * as chaiHtml from "chai-html";
+import chaiHtml from "chai-html";
 
 use(chaiHtml);
 

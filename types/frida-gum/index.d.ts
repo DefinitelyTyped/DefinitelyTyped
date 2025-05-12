@@ -372,6 +372,29 @@ declare namespace Process {
     function enumerateThreads(): ThreadDetails[];
 
     /**
+     * Starts observing threads, calling the provided callbacks as threads are
+     * added, removed, and renamed. Calls `onAdded` with all existing threads
+     * right away, so the initial state vs. updates can be managed easily
+     * without worrying about race conditions.
+     * All callbacks are optional, but at least one of them must be provided.
+     */
+    function attachThreadObserver(callbacks: ThreadObserverCallbacks): ThreadObserver;
+
+    /**
+     * Runs the JavaScript function `callback` on the thread specified by `id`.
+     * Must be used with extreme caution due to the thread potentially being
+     * interrupted in non-reentrant code. For example, you could be interrupting
+     * it while it's in the middle of some delicate code, holding a specific
+     * non-recursive lock, which you then try to implicitly acquire again when
+     * you call some function.
+     *
+     * @param id ID of the thread to run on.
+     * @param callback Function to run.
+     * @returns A Promise that resolves to the value returned by `callback`.
+     */
+    function runOnThread<T>(id: ThreadId, callback: () => T): Promise<T>;
+
+    /**
      * Looks up a module by address. Returns null if not found.
      */
     function findModuleByAddress(address: NativePointerValue): Module | null;
@@ -395,6 +418,15 @@ declare namespace Process {
      * Enumerates modules loaded right now.
      */
     function enumerateModules(): Module[];
+
+    /**
+     * Starts observing modules, calling the provided callbacks as modules are
+     * added and removed. Calls `onAdded` with all existing modules right away,
+     * so the initial state vs. updates can be managed easily without worrying
+     * about race conditions.
+     * Both callbacks are optional, but at least one of them must be provided.
+     */
+    function attachModuleObserver(callbacks: ModuleObserverCallbacks): ModuleObserver;
 
     /**
      * Looks up a memory range by address. Returns null if not found.
@@ -491,22 +523,40 @@ declare class Module {
     enumerateDependencies(): ModuleDependencyDetails[];
 
     /**
-     * Looks up the absolute address of the export named `exportName`.
+     * Looks up the absolute address of the export named `name`.
      *
      * Returns null if the export doesn't exist.
      *
-     * @param exportName Export name to find the address of.
+     * @param name Export name to find the address of.
      */
-    findExportByName(exportName: string): NativePointer | null;
+    findExportByName(name: string): NativePointer | null;
 
     /**
-     * Looks up the absolute address of the export named `exportName`.
+     * Looks up the absolute address of the export named `name`.
      *
      * Throws an exception if the export doesn't exist.
      *
-     * @param exportName Export name to find the address of.
+     * @param name Export name to find the address of.
      */
-    getExportByName(exportName: string): NativePointer;
+    getExportByName(name: string): NativePointer;
+
+    /**
+     * Looks up the absolute address of the symbol named `name`.
+     *
+     * Returns null if the symbol doesn't exist.
+     *
+     * @param name Symbol name to find the address of.
+     */
+    findSymbolByName(name: string): NativePointer | null;
+
+    /**
+     * Looks up the absolute address of the symbol named `name`.
+     *
+     * Throws an exception if the symbol doesn't exist.
+     *
+     * @param name Symbol name to find the address of.
+     */
+    getSymbolByName(name: string): NativePointer;
 
     /**
      * Loads the specified module.
@@ -556,6 +606,51 @@ declare class Module {
      * @param exportName Export name to find the address of.
      */
     static getExportByName(moduleName: string | null, exportName: string): NativePointer;
+}
+
+declare class ThreadObserver {
+    /**
+     * Detaches observer previously attached through `Process#attachThreadObserver()`.
+     */
+    detach(): void;
+}
+
+interface ThreadObserverCallbacks {
+    /**
+     * Called synchronously when a Thread has been added.
+     */
+    onAdded?(thread: StableThreadDetails): void;
+
+    /**
+     * Called synchronously when a Thread has been removed.
+     */
+    onRemoved?(thread: StableThreadDetails): void;
+
+    /**
+     * Called synchronously when a Thread has been renamed.
+     */
+    onRenamed?(thread: StableThreadDetails, previousName: string | null): void;
+}
+
+type StableThreadDetails = Omit<ThreadDetails, "state" | "context">;
+
+declare class ModuleObserver {
+    /**
+     * Detaches observer previously attached through `Process#attachModuleObserver()`.
+     */
+    detach(): void;
+}
+
+interface ModuleObserverCallbacks {
+    /**
+     * Called synchronously when a Module has been added.
+     */
+    onAdded?(module: Module): void;
+
+    /**
+     * Called synchronously when a Module has been removed.
+     */
+    onRemoved?(module: Module): void;
 }
 
 declare class ModuleMap {
@@ -812,6 +907,11 @@ interface MemoryAccessCallbacks {
 
 interface MemoryAccessDetails {
     /**
+     * The ID of the thread performing the access.
+     */
+    threadId: ThreadId;
+
+    /**
      * The kind of operation that triggered the access.
      */
     operation: MemoryOperation;
@@ -847,6 +947,11 @@ interface MemoryAccessDetails {
      * Overall number of pages that were initially monitored.
      */
     pagesTotal: number;
+
+    /**
+     * CPU registers. You may also update register values by assigning to these keys.
+     */
+    context: CpuContext;
 }
 
 declare namespace Thread {
@@ -925,6 +1030,11 @@ type ThreadState =
     | "uninterruptible"
     | "halted";
 
+type HardwareBreakpointId = number;
+type HardwareWatchpointId = number;
+
+type HardwareWatchpointConditions = "r" | "w" | "rw";
+
 interface ThreadDetails {
     /**
      * OS-specific ID.
@@ -945,6 +1055,60 @@ interface ThreadDetails {
      * Snapshot of CPU registers.
      */
     context: CpuContext;
+
+    /**
+     * Where the thread started its execution, if applicable and available.
+     */
+    entrypoint?: ThreadEntrypoint;
+
+    /**
+     * Set a hardware breakpoint.
+     *
+     * @param id ID of the breakpoint.
+     * @param address The address of the breakpoint.
+     */
+    setHardwareBreakpoint(id: HardwareBreakpointId, address: NativePointerValue): void;
+
+    /**
+     * Unset a hardware breakpoint.
+     *
+     * @param id ID of the breakpoint.
+     */
+    unsetHardwareBreakpoint(id: HardwareBreakpointId): void;
+
+    /**
+     * Set a harware watchpoint.
+     *
+     * @param id ID of the watchpoint.
+     * @param address The address of the region to be watched.
+     * @param size The size of the region to be watched.
+     * @param conditions The conditions to be watched for.
+     */
+    setHardwareWatchpoint(
+        id: HardwareWatchpointId,
+        address: NativePointerValue,
+        size: number | UInt64,
+        conditions: HardwareWatchpointConditions,
+    ): void;
+
+    /**
+     * Unset a hardware watchpoint.
+     *
+     * @param id ID of the watchpoint.
+     */
+    unsetHardwareWatchpoint(id: HardwareWatchpointId): void;
+}
+
+interface ThreadEntrypoint {
+    /**
+     * The thread's start routine.
+     */
+    routine: NativePointer;
+
+    /**
+     * Parameter passed to `routine`, if available.
+     */
+    parameter?: NativePointer;
 }
 
 interface KernelModuleDetails {
@@ -1684,6 +1848,7 @@ declare class NativePointer {
     writeUtf8String(value: string): NativePointer;
     writeUtf16String(value: string): NativePointer;
     writeAnsiString(value: string): NativePointer;
+    writeVolatile(value: ArrayBuffer | number[]): NativePointer;
 }
 
 type PointerAuthenticationKey = "ia" | "ib" | "da" | "db";
@@ -4487,6 +4652,95 @@ declare namespace Cloak {
      * @returns Whether `fd` is cloaked.
      */
     function hasFileDescriptor(fd: number): boolean;
+}
+
+/**
+ * Simple worst-case profiler built on top of Interceptor.
+ *
+ * Unlike a conventional profiler, which samples call stacks at a certain
+ * frequency, you decide the exact functions that you're interested in
+ * profiling.
+ *
+ * When any of those functions gets called, the profiler grabs a sample on
+ * entry, and another one upon return. It then subtracts the two, to compute how
+ * expensive the call was. If the resulting value is greater than what it's seen
+ * previously for the specific function, that value becomes its new worst-case.
+ *
+ * Whenever a new worst-case has been discovered, it isn't necessarily enough to
+ * know that most of the time/cycles/etc. was spent by a specific function. That
+ * function may only be slow with certain input arguments, for example.
+ *
+ * This is a situation where you can pass in `ProfilerInstrumentCallbacks` to
+ * implement a `describe()` callback for the specific function. Your callback
+ * should capture relevant context from the argument list and/or other state,
+ * and return a string that describes the new worst-case that was just
+ * discovered.
+ *
+ * When you later decide to call `generateReport()`, you'll find your computed
+ * descriptions embedded in each worst-case entry.
+ */
+declare class Profiler {
+    /**
+     * Starts instrumenting the specified function using the specified sampler.
+     */
+    instrument(functionAddress: NativePointerValue, sampler: Sampler, callbacks?: ProfilerInstrumentCallbacks): void;
+
+    /**
+     * Generates an XML report from the live profiler state. May be called at
+     * any point, and as many times as desired.
+     */
+    generateReport(): string;
+}
+
+interface ProfilerInstrumentCallbacks {
+    /**
+     * Called synchronously when a new worst-case has been discovered, and a
+     * description should be captured from the argument list and/or other
+     * relevant state.
+     */
+    describe?(this: InvocationContext, args: InvocationArguments): string;
+}
+
+declare abstract class Sampler {
+    /**
+     * Retrieves a new sample. What it denotes depends on the specific sampler.
+     */
+    sample(): bigint;
+}
+
+/**
+ * Sampler that measures CPU cycles, e.g. using the RDTSC instruction on x86.
+ */
+declare class CycleSampler extends Sampler {}
+
+/**
+ * Sampler that measures CPU cycles only spent by the current thread, e.g.
+ * using QueryThreadCycleTime() on Windows.
+ */
+declare class BusyCycleSampler extends Sampler {}
+
+/**
+ * Sampler that measures passage of time.
+ */
+declare class WallClockSampler extends Sampler {}
+
+/**
+ * Sampler that measures time spent in user-space.
+ */
+declare class UserTimeSampler extends Sampler {
+    constructor(threadId?: ThreadId);
+}
+
+/**
+ * Sampler that counts the number of calls to malloc(), calloc(), and realloc().
+ */
+declare class MallocCountSampler extends Sampler {}
+
+/**
+ * Sampler that counts the number of calls to functions of your choosing.
+ */
+declare class CallCountSampler extends Sampler {
+    constructor(functions: NativePointerValue[]);
 }
 
 declare namespace ObjC {

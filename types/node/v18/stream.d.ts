@@ -9,7 +9,7 @@
  * To access the `stream` module:
  *
  * ```js
- * const stream = require('stream');
+ * import stream from 'node:stream';
  * ```
  *
  * The `stream` module is useful for creating new types of stream instances. It is
@@ -20,12 +20,11 @@ declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
     import { Blob as NodeBlob } from "node:buffer";
     import * as streamPromises from "node:stream/promises";
-    import * as streamConsumers from "node:stream/consumers";
     import * as streamWeb from "node:stream/web";
 
     type ComposeFnParam = (source: any) => void;
 
-    class internal extends EventEmitter {
+    class Stream extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
             options?: {
@@ -37,10 +36,10 @@ declare module "stream" {
             options?: { signal: AbortSignal },
         ): T;
     }
-    namespace internal {
-        class Stream extends internal {
-            constructor(opts?: ReadableOptions);
-        }
+    namespace Stream {
+        export { Stream, streamPromises as promises };
+    }
+    namespace Stream {
         interface StreamOptions<T extends Stream> extends Abortable {
             emitClose?: boolean | undefined;
             highWaterMark?: number | undefined;
@@ -49,9 +48,9 @@ declare module "stream" {
             destroy?(this: T, error: Error | null, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean | undefined;
         }
-        interface ReadableOptions extends StreamOptions<Readable> {
+        interface ReadableOptions<T extends Readable = Readable> extends StreamOptions<T> {
             encoding?: BufferEncoding | undefined;
-            read?(this: Readable, size: number): void;
+            read?(this: T, size: number): void;
         }
         interface ArrayOptions {
             /** the maximum concurrent invocations of `fn` to call on the stream at once. **Default: 1**. */
@@ -86,7 +85,12 @@ declare module "stream" {
              * @since v17.0.0
              * @experimental
              */
-            static toWeb(streamReadable: Readable): streamWeb.ReadableStream;
+            static toWeb(
+                streamReadable: Readable,
+                options?: {
+                    strategy?: streamWeb.QueuingStrategy | undefined;
+                },
+            ): streamWeb.ReadableStream;
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
@@ -326,7 +330,7 @@ declare module "stream" {
              * the method does nothing.
              *
              * ```js
-             * const fs = require('fs');
+             * import fs from 'node:fs';
              * const readable = getReadableStreamSomehow();
              * const writable = fs.createWriteStream('file.txt');
              * // All the data from readable goes into 'file.txt',
@@ -364,7 +368,7 @@ declare module "stream" {
              * // Pull off a header delimited by \n\n.
              * // Use unshift() if we get too much.
              * // Call the callback with (error, header, stream).
-             * const { StringDecoder } = require('string_decoder');
+             * import { StringDecoder } from 'node:string_decoder';
              * function parseHeader(stream, callback) {
              *   stream.on('error', callback);
              *   stream.on('readable', onReadable);
@@ -422,8 +426,8 @@ declare module "stream" {
              * libraries.
              *
              * ```js
-             * const { OldReader } = require('./old-api-module.js');
-             * const { Readable } = require('stream');
+             * import { OldReader } from './old-api-module.js';
+             * import { Readable } from 'node:stream';
              * const oreader = new OldReader();
              * const myReader = new Readable().wrap(oreader);
              *
@@ -445,7 +449,7 @@ declare module "stream" {
              * or exiting a `for await...of` iteration using a `break`, `return`, or `throw` will not destroy the stream.
              * **Default: `true`**.
              */
-            iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+            iterator(options?: { destroyOnReturn?: boolean }): NodeJS.AsyncIterator<any>;
             /**
              * This method allows mapping over the stream. The *fn* function will be called for every chunk in the stream.
              * If the *fn* function returns a promise - that promise will be `await`ed before being passed to the result stream.
@@ -674,31 +678,31 @@ declare module "stream" {
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
             /**
              * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
              * @since v18.18.0
              */
             [Symbol.asyncDispose](): Promise<void>;
         }
-        interface WritableOptions extends StreamOptions<Writable> {
+        interface WritableOptions<T extends Writable = Writable> extends StreamOptions<T> {
             decodeStrings?: boolean | undefined;
             defaultEncoding?: BufferEncoding | undefined;
             write?(
-                this: Writable,
+                this: T,
                 chunk: any,
                 encoding: BufferEncoding,
                 callback: (error?: Error | null) => void,
             ): void;
             writev?(
-                this: Writable,
+                this: T,
                 chunks: Array<{
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
                 callback: (error?: Error | null) => void,
             ): void;
-            final?(this: Writable, callback: (error?: Error | null) => void): void;
+            final?(this: T, callback: (error?: Error | null) => void): void;
         }
         /**
          * @since v0.9.4
@@ -865,7 +869,7 @@ declare module "stream" {
              *
              * ```js
              * // Write 'hello, ' and then end with 'world!'.
-             * const fs = require('fs');
+             * import fs from 'node:fs';
              * const file = fs.createWriteStream('example.txt');
              * file.write('hello, ');
              * file.end('world!');
@@ -1006,26 +1010,13 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
-        interface DuplexOptions extends ReadableOptions, WritableOptions {
+        interface DuplexOptions<T extends Duplex = Duplex> extends ReadableOptions<T>, WritableOptions<T> {
             allowHalfOpen?: boolean | undefined;
             readableObjectMode?: boolean | undefined;
             writableObjectMode?: boolean | undefined;
             readableHighWaterMark?: number | undefined;
             writableHighWaterMark?: number | undefined;
             writableCorked?: number | undefined;
-            construct?(this: Duplex, callback: (error?: Error | null) => void): void;
-            read?(this: Duplex, size: number): void;
-            write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-            writev?(
-                this: Duplex,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Duplex, callback: (error?: Error | null) => void): void;
-            destroy?(this: Duplex, error: Error | null, callback: (error?: Error | null) => void): void;
         }
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -1037,17 +1028,7 @@ declare module "stream" {
          * * `crypto streams`
          * @since v0.9.4
          */
-        class Duplex extends Readable implements Writable {
-            readonly writable: boolean;
-            readonly writableEnded: boolean;
-            readonly writableFinished: boolean;
-            readonly writableHighWaterMark: number;
-            readonly writableLength: number;
-            readonly writableObjectMode: boolean;
-            readonly writableCorked: number;
-            readonly writableNeedDrain: boolean;
-            readonly closed: boolean;
-            readonly errored: Error | null;
+        class Duplex extends Stream implements NodeJS.ReadWriteStream {
             /**
              * If `false` then the stream will automatically end the writable side when the
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
@@ -1092,24 +1073,6 @@ declare module "stream" {
                     | Promise<any>
                     | Object,
             ): Duplex;
-            _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
-            _writev?(
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            _final(callback: (error?: Error | null) => void): void;
-            write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
-            write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
-            setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): this;
-            end(chunk: any, cb?: () => void): this;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
-            cork(): void;
-            uncork(): void;
             /**
              * Event emitter
              * The defined events on documents including:
@@ -1210,28 +1173,11 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
+        interface Duplex extends Readable, Writable {}
         type TransformCallback = (error?: Error | null, data?: any) => void;
-        interface TransformOptions extends DuplexOptions {
-            construct?(this: Transform, callback: (error?: Error | null) => void): void;
-            read?(this: Transform, size: number): void;
-            write?(
-                this: Transform,
-                chunk: any,
-                encoding: BufferEncoding,
-                callback: (error?: Error | null) => void,
-            ): void;
-            writev?(
-                this: Transform,
-                chunks: Array<{
-                    chunk: any;
-                    encoding: BufferEncoding;
-                }>,
-                callback: (error?: Error | null) => void,
-            ): void;
-            final?(this: Transform, callback: (error?: Error | null) => void): void;
-            destroy?(this: Transform, error: Error | null, callback: (error?: Error | null) => void): void;
-            transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
-            flush?(this: Transform, callback: TransformCallback): void;
+        interface TransformOptions<T extends Transform = Transform> extends DuplexOptions<T> {
+            transform?(this: T, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
+            flush?(this: T, callback: TransformCallback): void;
         }
         /**
          * Transform streams are `Duplex` streams where the output is in some way
@@ -1261,7 +1207,7 @@ declare module "stream" {
          * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream.
          *
          * ```js
-         * const fs = require('fs');
+         * import fs from 'node:fs';
          *
          * const controller = new AbortController();
          * const read = addAbortSignal(
@@ -1324,7 +1270,7 @@ declare module "stream" {
          * or has experienced an error or a premature close event.
          *
          * ```js
-         * const { finished } = require('stream');
+         * import { finished } from 'node:stream';
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1345,7 +1291,7 @@ declare module "stream" {
          * The `finished` API provides promise version:
          *
          * ```js
-         * const { finished } = require('stream/promises');
+         * import { finished } from 'node:stream/promises';
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1421,9 +1367,9 @@ declare module "stream" {
          * properly cleaning up and provide a callback when the pipeline is complete.
          *
          * ```js
-         * const { pipeline } = require('stream');
-         * const fs = require('fs');
-         * const zlib = require('zlib');
+         * import { pipeline } from 'node:stream';
+         * import fs from 'node:fs';
+         * import zlib from 'node:zlib';
          *
          * // Use the pipeline API to easily pipe a series of streams
          * // together and get notified when the pipeline is fully done.
@@ -1449,7 +1395,7 @@ declare module "stream" {
          * an`AbortError`.
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
+         * import { pipeline } from 'node:stream/promises';
          *
          * async function run() {
          *   await pipeline(
@@ -1467,7 +1413,7 @@ declare module "stream" {
          * as the last argument:
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
+         * import { pipeline } from 'node:stream/promises';
          *
          * async function run() {
          *   const ac = new AbortController();
@@ -1488,8 +1434,8 @@ declare module "stream" {
          * The `pipeline` API also supports async generators:
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
+         * import { pipeline } from 'node:stream/promises';
+         * import fs from 'node:fs';
          *
          * async function run() {
          *   await pipeline(
@@ -1513,8 +1459,8 @@ declare module "stream" {
          * pipeline (i.e. first argument) or the pipeline will never complete.
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
+         * import { pipeline } from 'node:stream/promises';
+         * import fs from 'node:fs';
          *
          * async function run() {
          *   await pipeline(
@@ -1547,9 +1493,9 @@ declare module "stream" {
          * See the example below:
          *
          * ```js
-         * const fs = require('fs');
-         * const http = require('http');
-         * const { pipeline } = require('stream');
+         * import fs from 'node:fs';
+         * import http from 'node:http';
+         * import { pipeline } from 'node:stream';
          *
          * const server = http.createServer((req, res) => {
          *   const fileStream = fs.createReadStream('./fileNotExist.txt');
@@ -1719,11 +1665,8 @@ declare module "stream" {
          * @since v17.4.0
          */
         function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
-
-        const promises: typeof streamPromises;
-        const consumers: typeof streamConsumers;
     }
-    export = internal;
+    export = Stream;
 }
 declare module "node:stream" {
     import stream = require("stream");

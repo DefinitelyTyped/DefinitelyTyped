@@ -141,6 +141,11 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
     initialization: {
         paymentId: 123456789,
     },
+    customization: {
+        visual: {
+            hidePixQrCode: true,
+        },
+    },
     callbacks: {},
 });
 

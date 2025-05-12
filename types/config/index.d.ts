@@ -1,3 +1,5 @@
+import { ConfigPaths, ConfigPathValues, HasBeenAugmented } from "./utils";
+
 declare var c: c.IConfig;
 
 declare namespace c {
@@ -45,8 +47,34 @@ declare namespace c {
         setModuleDefaults(moduleName: string, defaults: any): any;
     }
 
+    /**
+     * By augmenting this interface with your own config, you can greatly improve the IntelliSense for the `get` method:
+     * - Dot notation paths for the `setting` parameter
+     * - Correctly typed return values
+     *
+     * @example
+     * declare module 'config' {
+     *   interface IConfig extends MyConfig {}
+     * }
+     *
+     * @example
+     * declare module 'config' {
+     *   interface IConfig {
+     *     myConfig: {
+     *       myString: string;
+     *       myNumber: number;
+     *     };
+     *   }
+     * }
+     *
+     * @example
+     * const knownToBeStringTyped = config.get('myConfig.myString');
+     */
     interface IConfig {
-        get<T>(setting: string): T;
+        get: HasBeenAugmented<IConfig> extends true
+            ? <T extends ConfigPaths<IConfig>>(setting: T) => ConfigPathValues<IConfig, T>
+            : <T>(setting: string) => T;
+        has(setting: ConfigPaths<IConfig>): boolean;
         has(setting: string): boolean;
         util: IUtil;
     }

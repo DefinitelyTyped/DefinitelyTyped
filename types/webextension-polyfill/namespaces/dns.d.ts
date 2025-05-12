@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.dns
- *
- * Asynchronous DNS API
- * Permissions: "dns"
  */
 export namespace Dns {
     /**
@@ -46,7 +43,6 @@ export namespace Dns {
         /**
          * Resolves a hostname to a DNS record.
          *
-         * @param hostname
          * @param flags Optional.
          */
         resolve(hostname: string, flags?: ResolveFlags): Promise<DNSRecord>;

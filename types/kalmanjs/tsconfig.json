@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "paths": {
+            "kalmanjs": ["./index.d.ts"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/kalmanjs-global.test.ts",
+        "test/kalmanjs-module.test.ts"
+    ]
+}

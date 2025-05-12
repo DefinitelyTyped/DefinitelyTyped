@@ -1,1 +1,3 @@
-export default function isTouchDevice(): boolean;
+declare function isTouchDevice(): boolean;
+
+export = isTouchDevice;

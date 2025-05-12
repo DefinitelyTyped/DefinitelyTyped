@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.135.0
 
 declare module "sap/uxap/library" {
   /**
@@ -292,7 +292,7 @@ declare module "sap/uxap/AnchorBar" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Returns an sap.ui.core.delegate.ScrollEnablement object used to handle scrolling.
      *
@@ -707,9 +707,7 @@ declare module "sap/uxap/BlockBase" {
      *
      * @returns Value of property `formAdjustment`
      */
-    getFormAdjustment():
-      | BlockBaseFormAdjustment
-      | keyof typeof BlockBaseFormAdjustment;
+    getFormAdjustment(): BlockBaseFormAdjustment;
     /**
      * Gets content of aggregation {@link #getMappings mappings}.
      *
@@ -1644,9 +1642,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `contentRole`
      */
-    getContentRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getContentRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getFooterLabel footerLabel}.
      *
@@ -1672,9 +1668,20 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `footerRole`
      */
-    getFooterRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getFooterRole(): AccessibleLandmarkRole;
+    /**
+     * Gets current value of property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     *
+     * @returns Value of property `headerContentLabel`
+     */
+    getHeaderContentLabel(): string;
     /**
      * Gets current value of property {@link #getHeaderLabel headerLabel}.
      *
@@ -1700,9 +1707,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `headerRole`
      */
-    getHeaderRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getHeaderRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getNavigationLabel navigationLabel}.
      *
@@ -1728,9 +1733,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `navigationRole`
      */
-    getNavigationRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getNavigationRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getRootLabel rootLabel}.
      *
@@ -1756,7 +1759,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `rootRole`
      */
-    getRootRole(): AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole;
+    getRootRole(): AccessibleLandmarkRole;
     /**
      * Sets a new value for property {@link #getContentLabel contentLabel}.
      *
@@ -1838,6 +1841,26 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
        * New value for property `footerRole`
        */
       sFooterRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderContentLabel(
+      /**
+       * New value for property `headerContentLabel`
+       */
+      sHeaderContentLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderLabel headerLabel}.
@@ -2061,6 +2084,16 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * is set.
      */
     footerLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     */
+    headerContentLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -2418,7 +2451,7 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * Adds some breadCrumbLink to the aggregation {@link #getBreadCrumbsLinks breadCrumbsLinks}.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2593,7 +2626,7 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * Destroys all the breadCrumbsLinks in the aggregation {@link #getBreadCrumbsLinks breadCrumbsLinks}.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2743,7 +2776,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * A list of all the active link elements in the BreadCrumbs control.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      */
     getBreadCrumbsLinks(): Link[];
     /**
@@ -2754,13 +2787,11 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1) - without replacement.
+     * @deprecated As of version 1.40.1. without replacement.
      *
      * @returns Value of property `headerDesign`
      */
-    getHeaderDesign():
-      | ObjectPageHeaderDesign
-      | keyof typeof ObjectPageHeaderDesign;
+    getHeaderDesign(): ObjectPageHeaderDesign;
     /**
      * Gets current value of property {@link #getIsActionAreaAlwaysVisible isActionAreaAlwaysVisible}.
      *
@@ -2881,7 +2912,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * @returns Value of property `objectImageBackgroundColor`
      */
-    getObjectImageBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
+    getObjectImageBackgroundColor(): AvatarColor;
     /**
      * Gets current value of property {@link #getObjectImageDensityAware objectImageDensityAware}.
      *
@@ -2904,7 +2935,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * @returns Value of property `objectImageShape`
      */
-    getObjectImageShape(): AvatarShape | keyof typeof AvatarShape;
+    getObjectImageShape(): AvatarShape;
     /**
      * Gets current value of property {@link #getObjectImageURI objectImageURI}.
      *
@@ -3004,7 +3035,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      * Checks for the provided `sap.m.Link` in the aggregation {@link #getBreadCrumbsLinks breadCrumbsLinks}.
      * and returns its index if found or -1 otherwise.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -3035,7 +3066,7 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * Inserts a breadCrumbLink into the aggregation {@link #getBreadCrumbsLinks breadCrumbsLinks}.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3077,7 +3108,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -3085,7 +3116,7 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * Removes a breadCrumbLink from the aggregation {@link #getBreadCrumbsLinks breadCrumbsLinks}.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      *
      * @returns The removed breadCrumbLink or `null`
      */
@@ -3547,7 +3578,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      * Determines the design of the header - Light or Dark. **Note: **This property is deprecated. It will continue
      * to work in the Blue Crystal theme, but it will not be taken into account for the Belize themes.
      *
-     * @deprecated (since 1.40.1) - without replacement.
+     * @deprecated As of version 1.40.1. without replacement.
      */
     headerDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
@@ -3606,7 +3637,7 @@ declare module "sap/uxap/ObjectPageHeader" {
     /**
      * A list of all the active link elements in the BreadCrumbs control.
      *
-     * @deprecated (since 1.50) - use the `breadcrumbs` aggregation instead.
+     * @deprecated As of version 1.50. use the `breadcrumbs` aggregation instead.
      */
     breadCrumbsLinks?: Link[] | Link | AggregationBindingInfo | `{${string}}`;
 
@@ -3841,7 +3872,7 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
      *
      * @returns Value of property `importance`
      */
-    getImportance(): Importance | keyof typeof Importance;
+    getImportance(): Importance;
     /**
      * Sets a new value for property {@link #getHideIcon hideIcon}.
      *
@@ -4066,13 +4097,11 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1) - without replacement.
+     * @deprecated As of version 1.40.1. without replacement.
      *
      * @returns Value of property `contentDesign`
      */
-    getContentDesign():
-      | ObjectPageHeaderDesign
-      | keyof typeof ObjectPageHeaderDesign;
+    getContentDesign(): ObjectPageHeaderDesign;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -4135,7 +4164,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1) - without replacement.
+     * @deprecated As of version 1.40.1. without replacement.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4156,7 +4185,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      * Determines the design of the header - Light or Dark. **Note: **This property is deprecated. It will continue
      * to work in the Blue Crystal theme, but it will not be taken into account for the Belize themes.
      *
-     * @deprecated (since 1.40.1) - without replacement.
+     * @deprecated As of version 1.40.1. without replacement.
      */
     contentDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
@@ -5302,9 +5331,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * @returns Value of property `backgroundDesignAnchorBar`
      */
-    getBackgroundDesignAnchorBar():
-      | BackgroundDesign
-      | keyof typeof BackgroundDesign;
+    getBackgroundDesignAnchorBar(): BackgroundDesign;
     /**
      * Gets current value of property {@link #getEnableLazyLoading enableLazyLoading}.
      *
@@ -5495,7 +5522,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * @returns Value of property `sectionTitleLevel`
      */
-    getSectionTitleLevel(): TitleLevel | keyof typeof TitleLevel;
+    getSectionTitleLevel(): TitleLevel;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedSection selectedSection},
      * or `null`.
@@ -5600,9 +5627,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      *
      * @returns Value of property `subSectionLayout`
      */
-    getSubSectionLayout():
-      | ObjectPageSubSectionLayout
-      | keyof typeof ObjectPageSubSectionLayout;
+    getSubSectionLayout(): ObjectPageSubSectionLayout;
     /**
      * Gets current value of property {@link #getToggleHeaderOnTitleClick toggleHeaderOnTitleClick}.
      *
@@ -7088,7 +7113,7 @@ declare module "sap/uxap/ObjectPageSection" {
      *
      * @returns Value of property `anchorBarButtonColor`
      */
-    getAnchorBarButtonColor(): IconColor | keyof typeof IconColor;
+    getAnchorBarButtonColor(): IconColor;
     /**
      * Gets content of aggregation {@link #getHeading heading}.
      *
@@ -7119,6 +7144,9 @@ declare module "sap/uxap/ObjectPageSection" {
      * Gets content of aggregation {@link #getSubSections subSections}.
      *
      * The list of Subsections.
+     *
+     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
+     * reasons.
      */
     getSubSections(): ObjectPageSubSection[];
     /**
@@ -7330,6 +7358,9 @@ declare module "sap/uxap/ObjectPageSection" {
 
     /**
      * The list of Subsections.
+     *
+     * Note: If multiple subsections are used, it is highly recommended to set a title for the section for accessibility
+     * reasons.
      */
     subSections?:
       | ObjectPageSubSection[]
@@ -7457,6 +7488,15 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      */
     getCustomAnchorBarButton(): Button;
     /**
+     * Returns the effectively applied title level. Could be different than "titleLevel" property, according
+     * to internal UX rules.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns the effective title level
+     */
+    getEffectiveTitleLevel(): string;
+    /**
      * Gets current value of property {@link #getImportance importance}.
      *
      * Determines whether the section will be hidden on low resolutions.
@@ -7467,7 +7507,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      *
      * @returns Value of property `importance`
      */
-    getImportance(): Importance | keyof typeof Importance;
+    getImportance(): Importance;
     /**
      * Returns the control name text.
      *
@@ -7508,7 +7548,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      *
      * @returns Value of property `titleLevel`
      */
-    getTitleLevel(): TitleLevel | keyof typeof TitleLevel;
+    getTitleLevel(): TitleLevel;
     /**
      * Gets current value of property {@link #getTitleVisible titleVisible}.
      *
@@ -7923,7 +7963,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
      *
      * @returns Value of property `mode`
      */
-    getMode(): ObjectPageSubSectionMode | keyof typeof ObjectPageSubSectionMode;
+    getMode(): ObjectPageSubSectionMode;
     /**
      * Gets content of aggregation {@link #getMoreBlocks moreBlocks}.
      *

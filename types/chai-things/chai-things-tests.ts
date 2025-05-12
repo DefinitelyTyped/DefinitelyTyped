@@ -1,6 +1,7 @@
-import * as chai from "chai";
 import * as chaiThings from "chai-things";
-chai.use(chaiThings);
+import("chai").then(({ use }) => use(chaiThings));
+
+declare const expect: Chai.ExpectStatic;
 
 function test_somethingSyntax() {
     [].should.not.include.something();
@@ -15,19 +16,19 @@ function test_somethingSyntax() {
     array.should.include.something.with.property("b", 2);
     array.should.not.include.something.with.property("b", 3);
 
-    chai.expect(array).to.include.something();
-    chai.expect(array).to.include.something.that.deep.equals({ b: 2 });
-    chai.expect(array).to.include.something.that.not.deep.equals({ b: 2 });
-    chai.expect(array).not.to.include.something.that.deep.equals({ c: 3 });
-    chai.expect(array).to.include.something.that.not.deep.equals({ c: 3 });
-    chai.expect(array).to.include.something.with.property("b", 2);
-    chai.expect(array).not.to.include.something.with.property("b", 3);
+    expect(array).to.include.something();
+    expect(array).to.include.something.that.deep.equals({ b: 2 });
+    expect(array).to.include.something.that.not.deep.equals({ b: 2 });
+    expect(array).not.to.include.something.that.deep.equals({ c: 3 });
+    expect(array).to.include.something.that.not.deep.equals({ c: 3 });
+    expect(array).to.include.something.with.property("b", 2);
+    expect(array).not.to.include.something.with.property("b", 3);
 
     var array2 = [{ a: "b" }, { a: "b" }];
     array2.should.include.something.that.have.property("a");
     array2.should.include.something.that.have.property("a").not.equal("d");
-    chai.expect(array2).to.include.something.that.have.property("a");
-    chai.expect(array2).to.include.something.that.have.property("a").not.equal("d");
+    expect(array2).to.include.something.that.have.property("a");
+    expect(array2).to.include.something.that.have.property("a").not.equal("d");
 }
 
 function test_somethingVariantsSyntax() {
@@ -43,15 +44,15 @@ function test_somethingVariantsSyntax() {
     array.should.include.some();
     array.should.include.some.that.deep.equal({ b: 2 });
 
-    chai.expect(array).to.include.a.thing();
-    chai.expect(array).to.include.a.thing.that.deep.equals({ b: 2 });
-    chai.expect(array).to.include.an.item();
-    chai.expect(array).to.include.an.item.that.deep.equals({ b: 2 });
-    chai.expect(array).to.include.one.that.deep.equals({ b: 2 });
-    chai.expect(array).to.include.some();
-    chai.expect(array).to.include.some.that.deep.equal({ b: 2 });
-    chai.expect(array).to.contain.a.thing();
-    chai.expect(array).to.contain.a.thing.with.property("a", 1);
+    expect(array).to.include.a.thing();
+    expect(array).to.include.a.thing.that.deep.equals({ b: 2 });
+    expect(array).to.include.an.item();
+    expect(array).to.include.an.item.that.deep.equals({ b: 2 });
+    expect(array).to.include.one.that.deep.equals({ b: 2 });
+    expect(array).to.include.some();
+    expect(array).to.include.some.that.deep.equal({ b: 2 });
+    expect(array).to.contain.a.thing();
+    expect(array).to.contain.a.thing.with.property("a", 1);
 }
 
 function test_allSyntax() {

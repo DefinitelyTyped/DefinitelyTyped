@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/espree",
-    "version": "10.0.9999",
+    "version": "10.1.9999",
     "type": "module",
     "exports": {
         ".": {
@@ -14,7 +14,7 @@
         "https://github.com/eslint/espree"
     ],
     "dependencies": {
-        "acorn": "^8.11.3",
+        "acorn": "^8.12.0",
         "eslint-visitor-keys": "^4.0.0"
     },
     "devDependencies": {

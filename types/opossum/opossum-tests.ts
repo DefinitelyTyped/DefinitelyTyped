@@ -1,39 +1,58 @@
-import * as fs from "fs";
+/// <reference types="node"/>
+import { EventEmitter } from "node:events";
+import * as fs from "node:fs";
+import { promisify } from "node:util";
+
 import * as CircuitBreaker from "opossum";
-import { promisify } from "util";
 
 let breaker: CircuitBreaker;
 const callbackNoArgs = async () => console.log("foo");
 
 CircuitBreaker.isOurError(new Error()); // $ExpectType boolean
 
+CircuitBreaker.newStatus({}); // $ExpectType Status
+CircuitBreaker.newStatus({ rollingCountBuckets: 20 }); // $ExpectType Status
+CircuitBreaker.newStatus({ rollingCountTimeout: 500 }); // $ExpectType Status
+CircuitBreaker.newStatus({ rollingPercentilesEnabled: true }); // $ExpectType Status
+CircuitBreaker.newStatus({ enableSnapshots: true }); // $ExpectType Status
+CircuitBreaker.newStatus({ rotateBucketController: new EventEmitter() }); // $ExpectType Status
+
+breaker = new CircuitBreaker(async () => true, {});
+breaker = new CircuitBreaker(async () => true, { status: CircuitBreaker.newStatus({}) });
+breaker = new CircuitBreaker(async () => true, { timeout: 1000 });
+breaker = new CircuitBreaker(async () => true, { maxFailures: 50 });
+breaker = new CircuitBreaker(async () => true, { resetTimeout: 10 });
+breaker = new CircuitBreaker(async () => true, { rollingCountTimeout: 500 });
+breaker = new CircuitBreaker(async () => true, { rollingCountBuckets: 20 });
+breaker = new CircuitBreaker(async () => true, { name: "test" });
+breaker = new CircuitBreaker(async () => true, { group: "group" });
+breaker = new CircuitBreaker(async () => true, { rollingPercentilesEnabled: true });
+breaker = new CircuitBreaker(async () => true, { capacity: 1 });
+breaker = new CircuitBreaker(async () => true, { errorThresholdPercentage: 1 });
+breaker = new CircuitBreaker(async () => true, { enabled: true });
+breaker = new CircuitBreaker(async () => true, { allowWarmUp: true });
+breaker = new CircuitBreaker(async () => true, { volumeThreshold: 1 });
 breaker = new CircuitBreaker(async () => true, {
-    timeout: 1000,
-    maxFailures: 50,
-    resetTimeout: 10,
-    rollingCountTimeout: 500,
-    rollingCountBuckets: 20,
-    name: "test",
-    group: "group",
-    rollingPercentilesEnabled: true,
-    capacity: 1,
-    errorThresholdPercentage: 1,
-    enabled: true,
-    allowWarmUp: true,
-    volumeThreshold: 1,
-    cache: true,
-    cacheTTL: 100,
-    cacheGetKey: (...args) => JSON.stringify(args),
-    cacheTransport: {
-        get: (key) => key,
-        set: (key, value, ttl) => {},
-        flush: () => {},
-    },
     errorFilter: (err) => {
         err; // $ExpectType any
         return true;
     },
 });
+breaker = new CircuitBreaker(async () => true, { cache: true });
+breaker = new CircuitBreaker(async () => true, { cacheTTL: 100 });
+breaker = new CircuitBreaker(async () => true, {
+    cacheGetKey: (...args) => JSON.stringify(args),
+});
+breaker = new CircuitBreaker(async () => true, {
+    cacheTransport: {
+        get: (key) => key,
+        set: (key, value, ttl) => {},
+        flush: () => {},
+    },
+});
+breaker = new CircuitBreaker(async () => true, { abortController: new AbortController() });
+breaker = new CircuitBreaker(async () => true, { enableSnapshots: true });
+breaker = new CircuitBreaker(async () => true, { rotateBucketController: new EventEmitter() });
 
 breaker.name; // $ExpectType string
 breaker.group; // $ExpectType string
@@ -45,8 +64,42 @@ breaker.halfOpen; // $ExpectType boolean
 breaker.warmUp; // $ExpectType boolean
 breaker.isShutdown; // $ExpectType boolean
 breaker.volumeThreshold; // $ExpectType number
+breaker.status; // $ExpectType Status
+breaker.status.stats; // $ExpectType Stats
 breaker.status.stats.latencyMean; // $ExpectType number
+breaker.status.stats.failures; // $ExpectType number
+breaker.status.stats.fallbacks; // $ExpectType number
+breaker.status.stats.successes; // $ExpectType number
+breaker.status.stats.rejects; // $ExpectType number
+breaker.status.stats.fires; // $ExpectType number
+breaker.status.stats.timeouts; // $ExpectType number
+breaker.status.stats.cacheHits; // $ExpectType number
+breaker.status.stats.cacheMisses; // $ExpectType number
+breaker.status.stats.semaphoreRejections; // $ExpectType number
+breaker.status.stats.percentiles; // $ExpectType { [percentile: number]: number }
+breaker.status.stats.latencyTimes; // $ExpectType number[]
+breaker.status.stats.latencyMean; // $ExpectType number
+breaker.stats; // $ExpectType Stats
+breaker.stats.latencyMean; // $ExpectType number
+breaker.stats.failures; // $ExpectType number
+breaker.stats.fallbacks; // $ExpectType number
+breaker.stats.successes; // $ExpectType number
+breaker.stats.rejects; // $ExpectType number
+breaker.stats.fires; // $ExpectType number
+breaker.stats.timeouts; // $ExpectType number
+breaker.stats.cacheHits; // $ExpectType number
+breaker.stats.cacheMisses; // $ExpectType number
+breaker.stats.semaphoreRejections; // $ExpectType number
+breaker.stats.percentiles; // $ExpectType { [percentile: number]: number }
 breaker.stats.latencyTimes; // $ExpectType number[]
+breaker.stats.latencyMean; // $ExpectType number
+
+// @ts-expect-error
+breaker.healthCheck();
+breaker.healthCheck(async () => {}); // ExpectType void
+// @ts-expect-error
+breaker.healthCheck(async () => {}, "300");
+breaker.healthCheck(async () => {}, 300); // ExpectType void
 
 breaker.clearCache(); // $ExpectType void
 breaker.open(); // $ExpectType void

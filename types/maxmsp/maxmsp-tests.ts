@@ -6,6 +6,7 @@ inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);
+maxclasswrap("MyExternal", "CoolStuff");
 error("This is a test error.\n");
 error("This is a", "multiple string", "error\n");
 cpost("This is cpost.\n");
@@ -22,6 +23,9 @@ const myBuffer = new Buffer("audio_buffer");
 myBuffer.peek(1, 5, 10);
 myBuffer.poke(1, 5, [0.1, 0.2, 0.3]);
 myBuffer.send("sizeinsamps", 44100);
+post(myBuffer.channelcount());
+post(myBuffer.framecount());
+post(myBuffer.length());
 
 // Dict usage example
 const d = new Dict("test_dict");
@@ -103,6 +107,7 @@ const liveApiCallback = (args: any) => {
 };
 
 const liveApiInstance = new LiveAPI(liveApiCallback, "live_set tracks 0 devices 0");
+const liveApiInstance_empty = new LiveAPI();
 
 // Accessing properties
 post(liveApiInstance.id);
@@ -157,6 +162,7 @@ testmax.enablerefresh(1);
 testmax.externs();
 testmax.fileformat(".tx", "TEXT");
 testmax.fixwidthratio(1.1);
+testmax.getcolor("live_lcd_bg");
 testmax.getdefaultpatcherheight("my_receiver");
 testmax.getdefaultpatcherwidth("my_receiver");
 testmax.getenablepathcache("my_receiver");
@@ -399,7 +405,7 @@ post(fieldName);
 const value = mySQLResult.value(0, 0);
 post(value);
 
-const myMGraphics = new MGraphics();
+const myMGraphics = new MGraphics(23, 23);
 
 myMGraphics.autosketch = 1;
 myMGraphics.relative_coords = 1;
@@ -571,6 +577,15 @@ sketchInstance.glbegin(["LINES"]);
 sketchInstance.glvertex(20, 20);
 sketchInstance.glvertex(100, 100);
 sketchInstance.glend();
+
+// Test gl color methods
+const COLOR_TEST: Color = [0, 0, 0, 1];
+sketchInstance.glclearcolor(0, 0, 0, 1);
+sketchInstance.glclearcolor(COLOR_TEST);
+sketchInstance.glcolor(0, 0, 0, 1);
+sketchInstance.glcolor(COLOR_TEST);
+sketchInstance.glcolormask(0, 0, 0, 1);
+sketchInstance.glcolormask(COLOR_TEST);
 
 // Create a dummy instance of Image
 const imageInstance = new Image();

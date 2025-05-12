@@ -1,5 +1,5 @@
 import { Passage, PassageBase } from "./passage";
-import { SaveDetails, SaveObject } from "./save";
+import { SaveDetails, SaveObject, SaveType } from "./save";
 
 type SaveObjectHander = (save: SaveObject, details: SaveDetails) => void;
 type DescriptionHandler = (this: Passage) => string | null;
@@ -62,6 +62,7 @@ export interface ConfigAPI {
          *
          * @default true
          * @since 2.0.0
+         * @deprecated in 2.37.0 in favor of the Config.enableOptionalDebugging setting.
          * @example
          * // No error is returned when = is used within an <<if>> or <<elseif>> conditional
          * Config.macros.ifAssignmentError = false;
@@ -140,6 +141,7 @@ export interface ConfigAPI {
          *   then the passage's excerpt is used instead.
          * @default null
          * @since 2.0.0
+         * @deprecated 2.37.0. See the Config.saves.descriptions setting for its replacement.
          * @example
          * // Uses passages' titles
          * Config.passages.descriptions = true;
@@ -155,6 +157,7 @@ export interface ConfigAPI {
          *         return "description";
          *     }
          * };
+         * @deprecated 2.37.0 in favor of Config.saves.descriptions
          */
         descriptions: true | { [x: string]: string } | DescriptionHandler | null;
         /**
@@ -257,6 +260,8 @@ export interface ConfigAPI {
          *
          * **NOTE**: If the autosave cannot be loaded, for any reason, then the start passage is loaded instead.
          * @since 2.0.0
+         * @deprecated in 2.37.0. The default UI now includes a Continue button, which loads the latest save.
+         * If disabling or replacing the default UI, see the Save.browser.continue() method to replicate the functionality.
          * @example
          * // Automatically loads the autosave
          * Config.saves.autoload = true;
@@ -283,6 +288,8 @@ export interface ConfigAPI {
          * disallow saving on the start passage the very first time it's displayed (at story startup).
          * @since 2.0.0
          * @since 2.30.0: Added function values and deprecated string values.
+         * @deprecated in 2.37.0. See the Config.saves.maxAutoSaves setting to set the number of available auto saves
+         * and the Config.saves.isAllowed setting to control when new auto saves are created.
          * @example
          * // Autosaves every passage
          * Config.saves.autosave = true;
@@ -296,6 +303,46 @@ export interface ConfigAPI {
          * };
          */
         autosave: true | string | string[] | (() => boolean) | null;
+
+        /**
+         * Sets browser saves descriptions. If unset, a brief description of the current turn is used. If a callback function is assigned,
+         * it is passed one parameter, the type of save being attempted. If its return value is truthy, the returned description is used,
+         * elsewise the default description is used.
+         * @param saveType type of the save to be created
+         * @returns Description to be used for the save
+         * @since 2.37.0
+         * @example
+         * // Using passages' names
+         * Config.saves.descriptions = function (saveType) {
+         * 	return passage();
+         * };
+         *
+         * // Using descriptions mapped by passages' names
+         * const saveDescriptions = {
+         * 	"passage_title_a" : "description text a…",
+         * 	"passage_title_b" : "description text b…",
+         * 	"passage_title_c" : "description text c…"
+         * };
+         * Config.saves.descriptions = function (saveType) {
+         * 	return saveDescriptions[passage()];
+         * };
+         *
+         * // Using the provided save type
+         * Config.saves.descriptions = function (saveType) {
+         * 	const base = `(${L10n.get("turn")} ${State.turns})`;
+         * 	switch (saveType) {
+         * 		case Save.Type.Auto:
+         * 			return `${base} A browser auto save…`;
+         * 		case Save.Type.Base64:
+         * 			return `${base} A base64 save…`;
+         * 		case Save.Type.Disk:
+         * 			return `${base} A local disk save…`;
+         * 		case Save.Type.Slot:
+         * 			return `${base} A browser slot save…`;
+         * 	}
+         * };
+         */
+        descriptions: (saveType: SaveType) => string | null | undefined;
 
         /**
          * Sets the story ID associated with saves.
@@ -316,8 +363,41 @@ export interface ConfigAPI {
          * Config.saves.isAllowed = function () {
          *     // code
          * };
+         *
+         * // Attempt a new auto save only on passages tagged with autosave. Other save types are not limited:
+         * Config.saves.isAllowed = function (saveType) {
+         *  if (saveType === Save.Type.Auto) {
+         *      return tags().includes("autosave");
+         * 	}
+         *  return true;
+         * };
+         *
+         * // Attempt a new auto save only on every eighth turn and limit all other save types to passages tagged with cansave.
+         * // Using an `if` statement
+         * Config.saves.isAllowed = function (saveType) {
+         * 	if (saveType === Save.Type.Auto) {
+         * 		return turns() % 8 === 0;
+         * 	}
+         * 	return tags().includes("cansave");
+         * };
          */
-        isAllowed: (() => boolean) | null;
+        isAllowed: ((saveType: SaveType) => boolean) | null;
+
+        /**
+         * Sets the maximum number of available auto saves. Using a value of 0 disables auto saves.
+         *
+         * NOTE: When enabled, an auto save is attempted each turn by default. Thus, it is recommended that the
+         * Config.saves.isAllowed setting be used to limit the frequency.
+         *
+         * WARNING: As available browser-based storage is very limited, it is strongly recommended that the number
+         * of available saves not be set too high. A range of 1–10 is suggested.
+         * @default 0
+         * @since 2.37.0
+         *
+         * @example
+         * Config.saves.maxAutoSaves = 3;
+         */
+        maxAutoSaves: number;
 
         /**
          * Performs any required pre-processing before the save data is loaded. The callback is passed one parameter, the
@@ -357,6 +437,7 @@ export interface ConfigAPI {
          *
          * @default 8
          * @since 2.0.0
+         * @deprecated in 2.37.0. See the Config.saves.maxSlotSaves setting for its replacement.
          * @example
          * Config.saves.slots = 4;
          */
@@ -368,6 +449,7 @@ export interface ConfigAPI {
          * WARNING: Mobile browsers can be fickle, so saving to disk may not work as expected in all browsers.
          * @default true
          * @since 2.34.0
+         * @deprecated in 2.37.0. Saving to disk on mobile devices is now unconditionally enabled.
          * @example
          * // To disable saving to disk on mobile devices.
          * Config.saves.tryDiskOnMobile = false;
@@ -484,6 +566,19 @@ export interface ConfigAPI {
      * <</if>>
      */
     debug: boolean;
+
+    /**
+     * Determines whether various optional debugging errors and warnings are enabled outside of test mode.
+     * @default false
+     * @see Config.debug setting.
+     * @since 2.37.0
+     * List of optional errors and warnings: (not exhaustive)
+     * <<if>> macro assignment error. If enabled, returns an error when the = assignment operator is used within its conditional — e.g., <<if $suspect = "Bob">>.
+     * Does not flag other assignment operators.
+     * @example
+     * Config.enableOptionalDebugging = true;
+     */
+    enableOptionalDebugging: boolean;
 
     /**
      * Sets the integer delay (in milliseconds) before the loading screen is dismissed, once the document has signaled its

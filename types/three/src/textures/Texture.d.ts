@@ -1,7 +1,6 @@
 import {
     AnyMapping,
     AnyPixelFormat,
-    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -11,11 +10,48 @@ import {
     Wrapping,
 } from "../constants.js";
 import { EventDispatcher } from "../core/EventDispatcher.js";
+import { RenderTarget } from "../core/RenderTarget.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
 import { CompressedTextureMipmap } from "./CompressedTexture.js";
 import { CubeTexture } from "./CubeTexture.js";
 import { Source } from "./Source.js";
+
+export interface TextureJSON {
+    metadata: { version: number; type: string; generator: string };
+
+    uuid: string;
+    name: string;
+
+    image: string;
+
+    mapping: AnyMapping;
+    channel: number;
+
+    repeat: [x: number, y: number];
+    offset: [x: number, y: number];
+    center: [x: number, y: number];
+    rotation: number;
+
+    wrap: [wrapS: number, wrapT: number];
+
+    format: AnyPixelFormat;
+    internalFormat: PixelFormatGPU | null;
+    type: TextureDataType;
+    colorSpace: string;
+
+    minFilter: MinificationTextureFilter;
+    magFilter: MagnificationTextureFilter;
+    anisotropy: number;
+
+    flipY: boolean;
+
+    generateMipmaps: boolean;
+    premultiplyAlpha: boolean;
+    unpackAlignment: number;
+
+    userData?: Record<string, unknown>;
+}
 
 /** Shim for OffscreenCanvas. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -63,7 +99,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -333,13 +369,20 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.NoColorSpace}
      */
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     /**
      * Indicates whether a texture belongs to a render target or not
      * @defaultValue `false`
      */
     isRenderTargetTexture: boolean;
+
+    /**
+     * Indicates if a texture should be handled like a texture array.
+     *
+     * @default false
+     */
+    isTextureArray: boolean;
 
     /**
      * An object that can be used to store custom data about the texture.
@@ -391,10 +434,12 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      */
     static DEFAULT_MAPPING: Mapping;
 
+    renderTarget: RenderTarget | null;
+
     /**
      * A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_.
      */
-    onUpdate: () => void;
+    onUpdate: ((texture: Texture) => void) | null;
 
     /**
      * Transform the **UV** based on the value of this texture's
@@ -417,11 +462,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     updateMatrix(): void;
 
     /**
-     * Make copy of the texture
-     * @remarks Note this is not a **"deep copy"**, the image is shared
-     * @remarks
-     * Besides, cloning a texture does not automatically mark it for a texture upload
-     * You have to set {@link needsUpdate | .needsUpdate} to `true` as soon as it's image property (the data source) is fully loaded or ready.
+     * Make copy of the texture. Note this is not a "deep copy", the image is shared. Cloning the texture automatically
+     * marks it for texture upload.
      */
     clone(): this;
 
@@ -431,7 +473,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * Convert the texture to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Optional object containing metadata.
      */
-    toJSON(meta?: string | {}): {};
+    toJSON(meta?: string | {}): TextureJSON;
 
     /**
      * Frees the GPU-related resources allocated by this instance

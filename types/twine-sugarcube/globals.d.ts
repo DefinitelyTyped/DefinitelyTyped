@@ -4,6 +4,7 @@ import { EngineAPI } from "./engine";
 import { MacroAPI } from "./macro";
 import { SaveAPI } from "./save";
 import { ScriptingAPI } from "./scripting";
+import { SerialAPI } from "./serial";
 import { SettingsAPI } from "./settings";
 import { StateAPI } from "./state";
 import { StoryAPI } from "./story";
@@ -37,6 +38,13 @@ declare global {
      * @since 2.0.0
      */
     const Macro: MacroAPI;
+
+    /**
+     * Serial API
+     * @since 2.37.0
+     */
+    const Serial: SerialAPI;
+
     /**
      * @since 2.28.0
      */

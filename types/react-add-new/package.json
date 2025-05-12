@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-add-new",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/grigorischristainas/react-add-new"
+    ],
+    "devDependencies": {
+        "@types/react-add-new": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antonis Balasas",
+            "githubUsername": "antoniom"
+        }
+    ]
+}

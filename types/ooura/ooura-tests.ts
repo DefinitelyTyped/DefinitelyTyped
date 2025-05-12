@@ -5,9 +5,9 @@ const inputR = new Float64Array([1, 2, 3, 4, 1, 2, 3, 4]);
 
 const oouraReal = new Ooura(inputR.length, { type: "real", radix: 4 }); // $ExpectType Ooura
 
-const outputR = oouraReal.scalarArrayFactory(); // $ExpectType Float64Array
-const backReR = oouraReal.vectorArrayFactory(); // $ExpectType Float64Array
-const backImR = oouraReal.vectorArrayFactory(); // $ExpectType Float64Array
+const outputR = oouraReal.scalarArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
+const backReR = oouraReal.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
+const backImR = oouraReal.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
 
 oouraReal.fft(inputR.buffer, backReR.buffer, backImR.buffer); // $ExpectType void
 oouraReal.ifft(outputR.buffer, backReR.buffer, backImR.buffer); // $ExpectType void
@@ -17,10 +17,10 @@ const inputReC = new Float64Array([1, 2, 3, 4]);
 const inputImC = new Float64Array([2, 3, 4, 5]);
 const oouraComplex = new Ooura(inputReC.length * 2, { type: "complex", radix: 4 }); // $ExpectType Ooura
 
-const outputReC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
-const outputImC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
-const backReC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
-const backImC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
+const outputReC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
+const outputImC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
+const backReC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
+const backImC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array || Float64Array<ArrayBuffer>
 
 oouraComplex.fft(inputReC.buffer, inputImC.buffer, outputReC.buffer, outputImC.buffer); // $ExpectType void
 oouraComplex.ifft(outputReC.buffer, outputImC.buffer, backReC.buffer, backImC.buffer); // $ExpectType void

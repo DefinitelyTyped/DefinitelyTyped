@@ -64,7 +64,7 @@ declare namespace WechatMiniprogram.Component {
     }
     type DataOption = Record<string, any>;
     type PropertyOption = Record<string, AllProperty>;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     type MethodOption = Record<string, Function>;
 
     interface Data<D extends DataOption> {

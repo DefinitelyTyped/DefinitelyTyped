@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/slack-winston": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Elliot Blackburn",
-            "githubUsername": "BlueHatbRit"
-        }
-    ]
+    "owners": []
 }

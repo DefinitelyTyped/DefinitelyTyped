@@ -28,7 +28,7 @@ declare class QRCode {
      * @param  opt Set the container. Defaults to `{ container: "svg" }`.
      * @return The svg string.
      */
-    svg(opt?: { container: "svg" | "g" | "none" }): string;
+    svg(opt?: { container: "svg" | "svg-viewbox" | "g" | "none" }): string;
     /**
      * Writes this QRCode to a file. Requires `fs`.
      * @param  file The filename to write to

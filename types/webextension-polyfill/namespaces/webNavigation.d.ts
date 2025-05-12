@@ -2,20 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.webNavigation
- *
- * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
- * in-flight.
- * Permissions: "webNavigation"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.webNavigation
+ */
 export namespace WebNavigation {
     /**
      * Cause of the navigation. The same transition types as defined in the history API are used.
@@ -359,7 +350,7 @@ export namespace WebNavigation {
     /**
      * Fired when a navigation is about to occur.
      */
-    interface onBeforeNavigateEvent extends Events.Event<(details: OnBeforeNavigateDetailsType) => void> {
+    interface OnBeforeNavigateEvent extends Events.Event<(details: OnBeforeNavigateDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -375,7 +366,7 @@ export namespace WebNavigation {
      * might still be downloading, but at least part of the document has been received from the server and the browser has
      * decided to switch to the new document.
      */
-    interface onCommittedEvent extends Events.Event<(details: OnCommittedDetailsType) => void> {
+    interface OnCommittedEvent extends Events.Event<(details: OnCommittedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -389,7 +380,7 @@ export namespace WebNavigation {
     /**
      * Fired when the page's DOM is fully constructed, but the referenced resources may not finish loading.
      */
-    interface onDOMContentLoadedEvent extends Events.Event<(details: OnDOMContentLoadedDetailsType) => void> {
+    interface OnDOMContentLoadedEvent extends Events.Event<(details: OnDOMContentLoadedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -403,7 +394,7 @@ export namespace WebNavigation {
     /**
      * Fired when a document, including the resources it refers to, is completely loaded and initialized.
      */
-    interface onCompletedEvent extends Events.Event<(details: OnCompletedDetailsType) => void> {
+    interface OnCompletedEvent extends Events.Event<(details: OnCompletedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -418,7 +409,7 @@ export namespace WebNavigation {
      * Fired when an error occurs and the navigation is aborted. This can happen if either a network error occurred,
      * or the user aborted the navigation.
      */
-    interface onErrorOccurredEvent extends Events.Event<(details: OnErrorOccurredDetailsType) => void> {
+    interface OnErrorOccurredEvent extends Events.Event<(details: OnErrorOccurredDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -432,7 +423,7 @@ export namespace WebNavigation {
     /**
      * Fired when a new window, or a new tab in an existing window, is created to host a navigation.
      */
-    interface onCreatedNavigationTargetEvent
+    interface OnCreatedNavigationTargetEvent
         extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void>
     {
         /**
@@ -448,7 +439,7 @@ export namespace WebNavigation {
     /**
      * Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.
      */
-    interface onReferenceFragmentUpdatedEvent
+    interface OnReferenceFragmentUpdatedEvent
         extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void>
     {
         /**
@@ -467,7 +458,7 @@ export namespace WebNavigation {
     /**
      * Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL.
      */
-    interface onHistoryStateUpdatedEvent extends Events.Event<(details: OnHistoryStateUpdatedDetailsType) => void> {
+    interface OnHistoryStateUpdatedEvent extends Events.Event<(details: OnHistoryStateUpdatedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -497,51 +488,49 @@ export namespace WebNavigation {
         /**
          * Fired when a navigation is about to occur.
          */
-        onBeforeNavigate: onBeforeNavigateEvent;
+        onBeforeNavigate: OnBeforeNavigateEvent;
 
         /**
          * Fired when a navigation is committed. The document (and the resources it refers to, such as images and subframes)
          * might still be downloading, but at least part of the document has been received from the server and the browser has
          * decided to switch to the new document.
          */
-        onCommitted: onCommittedEvent;
+        onCommitted: OnCommittedEvent;
 
         /**
          * Fired when the page's DOM is fully constructed, but the referenced resources may not finish loading.
          */
-        onDOMContentLoaded: onDOMContentLoadedEvent;
+        onDOMContentLoaded: OnDOMContentLoadedEvent;
 
         /**
          * Fired when a document, including the resources it refers to, is completely loaded and initialized.
          */
-        onCompleted: onCompletedEvent;
+        onCompleted: OnCompletedEvent;
 
         /**
          * Fired when an error occurs and the navigation is aborted. This can happen if either a network error occurred,
          * or the user aborted the navigation.
          */
-        onErrorOccurred: onErrorOccurredEvent;
+        onErrorOccurred: OnErrorOccurredEvent;
 
         /**
          * Fired when a new window, or a new tab in an existing window, is created to host a navigation.
          */
-        onCreatedNavigationTarget: onCreatedNavigationTargetEvent;
+        onCreatedNavigationTarget: OnCreatedNavigationTargetEvent;
 
         /**
          * Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.
          */
-        onReferenceFragmentUpdated: onReferenceFragmentUpdatedEvent;
+        onReferenceFragmentUpdated: OnReferenceFragmentUpdatedEvent;
 
         /**
          * Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab.
-         *
-         * @param details
          */
         onTabReplaced: Events.Event<(details: OnTabReplacedDetailsType) => void>;
 
         /**
          * Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL.
          */
-        onHistoryStateUpdated: onHistoryStateUpdatedEvent;
+        onHistoryStateUpdated: OnHistoryStateUpdatedEvent;
     }
 }

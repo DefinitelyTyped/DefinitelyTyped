@@ -1230,6 +1230,16 @@ function sample18() {
     canvas.freeDrawingBrush.decimate = 2;
 }
 
+function sample19() {
+    const canvas = new fabric.Canvas("c");
+    const textbox = new fabric.Textbox("original text");
+    canvas.add(textbox);
+    textbox.insertChars("c", [], 4, 7);
+    textbox.insertChars("new chars", undefined, 2, 4);
+    textbox.insertChars("more new chars", undefined, 1);
+    textbox.insertChars("even more new chars");
+}
+
 function testIntersection() {
     const a1 = new fabric.Point(50, 400);
     const a2 = new fabric.Point(250, 40);

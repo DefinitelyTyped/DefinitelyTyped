@@ -101,7 +101,7 @@ function testAllSettled() {
     const resolved2 = RSVP.resolve("wat");
     const rejected = RSVP.reject(new Error("oh teh noes"));
     const pending = new RSVP.Promise<{ neato: string }>((resolve, reject) => {
-        if ("something") {
+        if ("bogus" > "logic") {
             resolve({ neato: "yay" });
         } else {
             reject("nay");

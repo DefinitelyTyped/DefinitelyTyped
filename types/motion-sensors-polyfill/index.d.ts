@@ -38,7 +38,7 @@ export class GravitySensor extends Accelerometer {
     constructor(options?: AccelerometerSensorOptions);
 }
 
-interface GyroscopeSensorOptions {
+interface GyroscopeSensorOptions extends SensorOptions {
     referenceFrame?: GyroscopeLocalCoordinateSystem | undefined; // defauts to "device"
 }
 

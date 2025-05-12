@@ -103,6 +103,12 @@ export interface MJMLParsingOptions {
      * see mjml-parser-xml
      */
     preprocessors?: Array<((xml: string) => string)> | undefined;
+
+    /**
+     * Add media queries specific to printer when converting mjml into html. When enabling this option,
+     * the html might not be compatible with all email clients anymore.
+     */
+    printerSupport?: boolean | undefined;
 }
 
 export interface MJMLMinifyOptions {
@@ -128,19 +134,19 @@ export type MJMLJsonObject = MJMLJsonWithChildren | MJMLJsonWithContent | MJMLJs
 
 export interface MJMLJsonWithChildren {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     children: MJMLJsonObject[];
 }
 
 export interface MJMLJsonWithContent {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
     content: string;
 }
 
 export interface MJMLJsonSelfClosingTag {
     tagName: string;
-    attributes: object;
+    attributes: Record<string, unknown>;
 }
 
 /**

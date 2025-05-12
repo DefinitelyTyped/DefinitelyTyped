@@ -223,6 +223,30 @@ const Test: React.FunctionComponent = () => {
                 <CSSTransition timeout={500} nodeRef={nodeRef} onEnter={handleEnterNoNode}>
                     <div ref={nodeRef}>{"test"}</div>
                 </CSSTransition>
+
+                <Transition
+                    // @ts-expect-error
+                    appear="test"
+                    timeout={500}
+                >
+                    <div>{"test"}</div>
+                </Transition>
+
+                <Transition
+                    // @ts-expect-error
+                    enter={null}
+                    timeout={500}
+                >
+                    <div>{"test"}</div>
+                </Transition>
+
+                <CSSTransition
+                    // @ts-expect-error
+                    exit={2}
+                    timeout={500}
+                >
+                    <div>{"test"}</div>
+                </CSSTransition>
             </TransitionGroup>
         </>
     );

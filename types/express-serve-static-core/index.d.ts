@@ -61,7 +61,7 @@ export interface RequestHandler<
         req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
         res: Response<ResBody, LocalsObj>,
         next: NextFunction,
-    ): void;
+    ): void | Promise<void>;
 }
 
 export type ErrorRequestHandler<
@@ -75,7 +75,7 @@ export type ErrorRequestHandler<
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
     res: Response<ResBody, LocalsObj>,
     next: NextFunction,
-) => void;
+) => void | Promise<void>;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -97,12 +97,16 @@ type GetRouteParameter<S extends string> = RemoveTail<
 >;
 
 // prettier-ignore
-export type RouteParameters<Route extends string> = string extends Route ? ParamsDictionary
+export type RouteParameters<Route extends string> = Route extends `${infer Required}{${infer Optional}}${infer Next}`
+    ? ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next>
+    : ParseRouteParameters<Route>;
+
+type ParseRouteParameters<Route extends string> = string extends Route ? ParamsDictionary
     : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string }
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when Express 5 is promoted to "latest"
                     : { [P in GetRouteParameter<Rest>]: string }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
@@ -244,13 +248,6 @@ export interface IRouter extends RequestHandler {
     param(name: string, handler: RequestParamHandler): this;
 
     /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-
-    /**
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
@@ -347,7 +344,7 @@ export interface CookieOptions {
     maxAge?: number | undefined;
     /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
-    /** Expiry date of the cookie in GMT. If not specified or set to 0, creates a session cookie. */
+    /** Expiry date of the cookie in GMT. If not specified (undefined), creates a session cookie. */
     expires?: Date | undefined;
     /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;
@@ -526,21 +523,6 @@ export interface Request<
     accepted: MediaType[];
 
     /**
-     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
-     *
-     * Return the value of param `name` when present or `defaultValue`.
-     *
-     *  - Checks route placeholders, ex: _/user/:id_
-     *  - Checks body params, ex: id=12, {"id":12}
-     *  - Checks query string params, ex: ?id=12
-     *
-     * To utilize request bodies, `req.body`
-     * should be an object. This can be done by using
-     * the `connect.bodyParser()` middleware.
-     */
-    param(name: string, defaultValue?: any): string;
-
-    /**
      * Check if the incoming request contains the "Content-Type"
      * header field, and it contains the give mime `type`.
      *
@@ -619,12 +601,12 @@ export interface Request<
     readonly path: string;
 
     /**
-     * Parse the "Host" header field hostname.
+     * Contains the hostname derived from the `Host` HTTP header.
      */
     readonly hostname: string;
 
     /**
-     * @deprecated Use hostname instead.
+     * Contains the host derived from the `Host` HTTP header.
      */
     readonly host: string;
 
@@ -813,23 +795,6 @@ export interface Response<
     sendFile(path: string, options: SendFileOptions, fn?: Errback): void;
 
     /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, fn: Errback): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions, fn: Errback): void;
-
-    /**
      * Transfer the file at the given `path` as an attachment.
      *
      * Optionally providing an alternate attachment `filename`,
@@ -840,7 +805,7 @@ export interface Response<
      * The optional options argument passes through to the underlying
      * res.sendFile() call, and takes the exact same parameters.
      *
-     * This method uses `res.sendfile()`.
+     * This method uses `res.sendFile()`.
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
@@ -984,10 +949,6 @@ export interface Response<
     /**
      * Set the location header to `url`.
      *
-     * The given `url` can also be the name of a mapped url, for
-     * example by default express supports "back" which redirects
-     * to the _Referrer_ or _Referer_ headers or "/".
-     *
      * Examples:
      *
      *    res.location('/foo/bar').;
@@ -1014,22 +975,17 @@ export interface Response<
      * defaulting to 302.
      *
      * The resulting `url` is determined by `res.location()`, so
-     * it will play nicely with mounted apps, relative paths,
-     * `"back"` etc.
+     * it will play nicely with mounted apps, relative paths, etc.
      *
      * Examples:
      *
-     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
-     *    res.redirect('http://example.com', 301);
      *    res.redirect('../login'); // /blog/post/1 -> /blog/login
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
-    /** @deprecated use res.redirect(status, url) instead */
-    redirect(url: string, status: number): void;
 
     /**
      * Render `view` with the given `options` and optional callback `fn`.
@@ -1159,13 +1115,6 @@ export interface Application<
     param(name: string | string[], handler: RequestParamHandler): this;
 
     /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-
-    /**
      * Return the app's absolute pathname
      * based on the parent(s) that have
      * mounted it.
@@ -1238,14 +1187,14 @@ export interface Application<
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
-    listen(port: number, hostname: string, callback?: () => void): http.Server;
-    listen(port: number, callback?: () => void): http.Server;
-    listen(callback?: () => void): http.Server;
-    listen(path: string, callback?: () => void): http.Server;
-    listen(handle: any, listeningListener?: () => void): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
+    listen(port: number, callback?: (error?: Error) => void): http.Server;
+    listen(callback?: (error?: Error) => void): http.Server;
+    listen(path: string, callback?: (error?: Error) => void): http.Server;
+    listen(handle: any, listeningListener?: (error?: Error) => void): http.Server;
 
-    router: string;
+    router: Router;
 
     settings: any;
 

@@ -5,6 +5,7 @@ import {
     copyFile,
     cp as cpAsync,
     FileHandle,
+    glob as globAsync,
     open as openAsync,
     watch as watchAsync,
     writeFile as writeFileAsync,
@@ -12,12 +13,15 @@ import {
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
-import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
+import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
 
 {
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
 
     fs.write(1234, "test", () => {});
+    fs.write(1234, Buffer.from("test"), () => {});
+    fs.write(1234, Buffer.from("test"), { offset: 10, length: 10, position: 10 }, () => {});
+    fs.write(1234, Buffer.from("test"), { position: null }, () => {});
 
     fs.writeFile("Harry Potter", "\"You be wizzing, Harry,\" jived Dumbledore.", {
         encoding: "ascii",
@@ -121,6 +125,8 @@ import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {},
     );
     fs.read(1, { buffer: Buffer.from("test"), position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), { position: 123n }, () => {});
+    fs.read(1, Buffer.from("test"), () => {});
     // 2-param version using all-default options:
     fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {});
     fs.read(1, () => {});
@@ -160,6 +166,7 @@ import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
     const listDir: fs.Dirent[] = fs.readdirSync("path", { withFileTypes: true });
     const listDir2: Buffer[] = fs.readdirSync("path", { withFileTypes: false, encoding: "buffer" });
     const listDir3: fs.Dirent[] = fs.readdirSync("path", { encoding: "utf8", withFileTypes: true });
+    const listDir4: fs.Dirent<Buffer>[] = fs.readdirSync("path", { encoding: "buffer", withFileTypes: true });
 
     let listB: Buffer[];
     listB = fs.readdirSync("path", { encoding: "buffer" });
@@ -170,6 +177,11 @@ import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
     fs.readdirSync("path", {});
 
     fs.readdir("path", { withFileTypes: true }, (err: NodeJS.ErrnoException | null, files: fs.Dirent[]) => {});
+    fs.readdir(
+        "path",
+        { withFileTypes: true, encoding: "buffer" },
+        (err: NodeJS.ErrnoException | null, files: fs.Dirent<Buffer>[]) => {},
+    );
 }
 
 async function testPromisify() {
@@ -411,16 +423,32 @@ async function testPromisify() {
     let names: Promise<string[]>;
     let buffers: Promise<Buffer[]>;
     let entries: Promise<fs.Dirent[]>;
+    let bufferEntries: Promise<fs.Dirent<Buffer>[]>;
 
     names = fs.promises.readdir("/path/to/dir", { encoding: "utf8", withFileTypes: false, recursive: true });
     buffers = fs.promises.readdir("/path/to/dir", { encoding: "buffer", withFileTypes: false, recursive: true });
     entries = fs.promises.readdir("/path/to/dir", { encoding: "utf8", withFileTypes: true, recursive: true });
+    bufferEntries = fs.promises.readdir("/path/to/dir", { encoding: "buffer", withFileTypes: true });
 }
 
 {
     fs.writev(
         1,
         [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        123,
+        (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.writev(
+        1,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
+        null,
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
@@ -522,35 +550,70 @@ async function testPromisify() {
     });
 }
 
+{
+    fs.truncate("path/file.txt", () => {});
+    fs.truncate("path/file.txt", 5, () => {});
+    fs.truncate("path/file.txt", undefined, () => {});
+
+    fs.truncateSync("path/file.txt");
+    fs.truncateSync("path/file.txt", 5);
+    fs.truncateSync("path/file.txt", undefined);
+
+    fs.ftruncate(123, () => {});
+    fs.ftruncate(123, 5, () => {});
+    fs.ftruncate(123, undefined, () => {});
+
+    fs.ftruncateSync(123);
+    fs.ftruncateSync(123, 5);
+    fs.ftruncateSync(123, undefined);
+}
+
 (async () => {
     const handle: FileHandle = await openAsync("test", "r");
     const writeStream = fs.createWriteStream("./index.d.ts", {
         fd: handle,
     });
+
+    writeStream.addListener("close", () => {});
+    writeStream.addListener("aCustomEvent", () => {});
+
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
+        signal: new AbortSignal(),
     });
+
+    readStream.addListener("close", () => {});
+    readStream.addListener("aCustomEvent", () => {});
+
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
-    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     (await handle.read({
         buffer: new Uint32Array(),
         offset: 1,
         position: 2,
         length: 3,
-    })).buffer; // $ExpectType Uint32Array
+    })).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+    (await handle.read(
+        new Uint32Array(),
+    )).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+    (await handle.read(
+        new Uint32Array(),
+        { position: 1 },
+    )).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
 
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from("hurr"));
 
     await handle.write("hurr", 0, "utf-8");
     await handle.write(Buffer.from("hurr"), 0, 42, 10);
+    await handle.write(Buffer.from("hurr"), { position: 1 });
 
     handle.readableWebStream();
 
-    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterableIterator<string>
+    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterator<string, any, any>
 });
 
 {
@@ -601,6 +664,13 @@ async function testPromisify() {
         123,
         [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
+        },
+    );
+    fs.readv(
+        123,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
+        null,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
@@ -834,8 +904,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
 {
     watchAsync("y33t"); // $ExpectType AsyncIterable<FileChangeInfo<string>>
-    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
-    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
+    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
+    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
 
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8" }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
 }
@@ -895,4 +965,148 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 (async () => {
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
+});
+
+// glob
+(async () => {
+    for await (const entry of globAsync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: true })) {
+        entry; // $ExpectType Dirent<string>
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
+        entry; // $ExpectType Dirent<string> | string
+    }
+
+    for await (
+        const entry of globAsync("**/*.js", {
+            exclude(fileName) {
+                fileName; // $ExpectType string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType string
+    }
+    for await (
+        const entry of globAsync("**/*.js", {
+            withFileTypes: true,
+            exclude(fileName) {
+                fileName; // $ExpectType Dirent<string>
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent<string>
+    }
+    for await (
+        const entry of globAsync("**/*.js", {
+            withFileTypes: Math.random() > 0.5,
+            exclude(fileName) {
+                fileName; // $ExpectType Dirent<string> | string
+                return false;
+            },
+        })
+    ) {
+        entry; // $ExpectType Dirent<string> | string
+    }
+
+    glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob("**/*.js", { withFileTypes: true }, (err, matches) => {
+        matches; // $ExpectType Dirent<string>[]
+    });
+    glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
+        matches; // $ExpectType Dirent<string>[] | string[]
+    });
+
+    glob(
+        "**/*.js",
+        {
+            exclude: (fileName) => {
+                fileName; // $ExpectType string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType string[]
+        },
+    );
+    glob(
+        "**/*.js",
+        {
+            withFileTypes: true,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent<string>
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType Dirent<string>[]
+        },
+    );
+    glob(
+        "**/*.js",
+        {
+            withFileTypes: Math.random() > 0.5,
+            exclude: (fileName) => {
+                fileName; // $ExpectType Dirent<string> | string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType Dirent<string>[] | string[]
+        },
+    );
+    glob("**/*.js", { exclude: ["**/*.generated.js"] }, (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+
+    globSync("**/*.js"); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
+    globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
+
+    // $ExpectType string[]
+    globSync("**/*.js", {
+        exclude: (fileName) => {
+            fileName; // $ExpectType string
+            return false;
+        },
+    });
+    // ExpectType Dirent[]
+    globSync("**/*.js", {
+        withFileTypes: true,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent<string>
+            return false;
+        },
+    });
+    // $ExpectType string[] | Dirent<string>[]
+    globSync("**/*.js", {
+        withFileTypes: Math.random() > 0.5,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent<string> | string
+            return false;
+        },
+    });
+    // $ExpectType string[]
+    globSync("**/*.js", { exclude: ["**/*.generated.js"] });
+});
+
+(async () => {
+    const fd = await fs.promises.open("/tmp/tmp.txt", "r");
+    fd.writeFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.writeFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.readFile({ encoding: "utf-8", flag: "r" });
 });

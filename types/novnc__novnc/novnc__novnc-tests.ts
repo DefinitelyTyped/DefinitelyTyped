@@ -1,8 +1,8 @@
-import * as InputUtil from "@novnc/novnc/core/input/util";
-import RFB from "@novnc/novnc/core/rfb";
-import * as BrowserUtil from "@novnc/novnc/core/util/browser";
+import * as InputUtil from "@novnc/novnc/lib/input/util";
+import RFB from "@novnc/novnc/lib/rfb";
+import * as BrowserUtil from "@novnc/novnc/lib/util/browser";
 
-/* @novnc/novnc/core/rfb */
+/* @novnc/novnc/lib/rfb */
 
 // $ExpectType NoVncClient
 const rfb = new RFB(window.document.body, "wss://example.local", {
@@ -14,6 +14,7 @@ const rfb = new RFB(window.document.body, "wss://example.local", {
 rfb.viewOnly; // $ExpectType boolean
 rfb.focusOnClick; // $ExpectType boolean
 rfb.clipViewport; // $ExpectType boolean
+rfb.clippingViewport; // $ExpectType boolean
 rfb.dragViewport; // $ExpectType boolean
 rfb.scaleViewport; // $ExpectType boolean
 rfb.resizeSession; // $ExpectType boolean
@@ -36,7 +37,7 @@ rfb.clipboardPasteFrom("test"); // $ExpectType void
 rfb.toDataURL(); // $ExpectType string
 rfb.toBlob((blob) => blob); // $ExpectType void
 
-/* @novnc/novnc/core/util/browser */
+/* @novnc/novnc/lib/util/browser */
 
 BrowserUtil.isTouchDevice; // $ExpectType boolean
 BrowserUtil.dragThreshold; // $ExpectType number
@@ -48,7 +49,7 @@ BrowserUtil.isIOS(); // $ExpectType boolean
 BrowserUtil.isSafari(); // $ExpectType boolean
 BrowserUtil.isFirefox(); // $ExpectType boolean
 
-/* @novnc/novnc/core/input/util */
+/* @novnc/novnc/lib/input/util */
 
 const keyboardEvent = {
     char: "test",

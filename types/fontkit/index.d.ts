@@ -46,6 +46,9 @@ export interface Font {
     /** an array of all OpenType feature tags (or mapped AAT tags) supported by the font */
     availableFeatures: string[];
 
+    /** An object describing the available axes in a variable font. Keys are 4 letter axis tags. */
+    variationAxes: Partial<Record<string, { name: string; min: number; default: number; max: number }>>;
+
     /**
      * Returns an array of strings that map to the given glyph id.
      */
@@ -314,6 +317,9 @@ export interface Os2Table {
         underscore: boolean;
         useTypoMetrics: boolean;
         wws: boolean;
+        bold: boolean;
+        regular: boolean;
+        oblique: boolean;
     };
     fsType: {
         bitmapOnly: boolean;

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/rfb" {
+declare module "@novnc/novnc/lib/rfb" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
@@ -102,6 +102,12 @@ declare module "@novnc/novnc/core/rfb" {
          * value of `capabilities`.
          */
         capabilities: CustomEvent<{ capabilities: NoVncClient["capabilities"] }>;
+
+        /**
+         * The `clippingviewport` event is fired whenever `clippingViewport` changes between true and false.
+         * The `detail` property is a `boolean` with the new value of `clippingViewport`.
+         */
+        clippingviewport: CustomEvent<NoVncClient["clippingViewport"]>;
     }
 
     type NoVncEventType = keyof NoVncEvents;
@@ -219,6 +225,12 @@ declare module "@novnc/novnc/core/rfb" {
         };
 
         /**
+         * Is a `boolean` indicating if the remote session is currently being clipped to its container.
+         * Only relevant if `clipViewport` is enabled.
+         */
+        readonly clippingViewport: boolean;
+
+        /**
          * Disconnect from the server.
          */
         disconnect(): void;
@@ -309,7 +321,7 @@ declare module "@novnc/novnc/core/rfb" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/util/browser" {
+declare module "@novnc/novnc/lib/util/browser" {
     let isTouchDevice: boolean;
     let dragThreshold: number;
 
@@ -324,7 +336,7 @@ declare module "@novnc/novnc/core/util/browser" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/input/util" {
+declare module "@novnc/novnc/lib/input/util" {
     interface KeyboardEventBase {
         char?: string;
         charCode?: number;

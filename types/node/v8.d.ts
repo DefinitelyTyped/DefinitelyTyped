@@ -2,9 +2,9 @@
  * The `node:v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
  *
  * ```js
- * const v8 = require('node:v8');
+ * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -114,6 +114,87 @@ declare module "v8" {
      */
     function getHeapStatistics(): HeapInfo;
     /**
+     * It returns an object with a structure similar to the
+     * [`cppgc::HeapStatistics`](https://v8docs.nodesource.com/node-22.4/d7/d51/heap-statistics_8h_source.html)
+     * object. See the [V8 documentation](https://v8docs.nodesource.com/node-22.4/df/d2f/structcppgc_1_1_heap_statistics.html)
+     * for more information about the properties of the object.
+     *
+     * ```js
+     * // Detailed
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 152,
+     *   space_statistics: [
+     *     {
+     *       name: 'NormalPageSpace0',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace1',
+     *       committed_size_bytes: 131072,
+     *       resident_size_bytes: 131072,
+     *       used_size_bytes: 152,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace2',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace3',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'LargePageSpace',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *   ],
+     *   type_names: [],
+     *   detail_level: 'detailed',
+     * });
+     * ```
+     *
+     * ```js
+     * // Brief
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 128864,
+     *   space_statistics: [],
+     *   type_names: [],
+     *   detail_level: 'brief',
+     * });
+     * ```
+     * @since v22.15.0
+     * @param detailLevel **Default:** `'detailed'`. Specifies the level of detail in the returned statistics.
+     * Accepted values are:
+     * * `'brief'`:  Brief statistics contain only the top-level
+     * allocated and used
+     * memory statistics for the entire heap.
+     * * `'detailed'`: Detailed statistics also contain a break
+     * down per space and page, as well as freelist statistics
+     * and object type histograms.
+     */
+    function getCppHeapStatistics(detailLevel?: "brief" | "detailed"): object;
+    /**
      * Returns statistics about the V8 heap spaces, i.e. the segments which make up
      * the V8 heap. Neither the ordering of heap spaces, nor the availability of a
      * heap space can be guaranteed as the statistics are provided via the
@@ -176,7 +257,7 @@ declare module "v8" {
      *
      * ```js
      * // Print GC events to stdout for one minute.
-     * const v8 = require('node:v8');
+     * import v8 from 'node:v8';
      * v8.setFlagsFromString('--trace_gc');
      * setTimeout(() => { v8.setFlagsFromString('--notrace_gc'); }, 60e3);
      * ```
@@ -243,7 +324,7 @@ declare module "v8" {
      *
      * ```js
      * // Print heap snapshot to the console
-     * const v8 = require('node:v8');
+     * import v8 from 'node:v8';
      * const stream = v8.getHeapSnapshot();
      * stream.pipe(process.stdout);
      * ```
@@ -268,12 +349,12 @@ declare module "v8" {
      * for a duration depending on the heap size.
      *
      * ```js
-     * const { writeHeapSnapshot } = require('node:v8');
-     * const {
+     * import { writeHeapSnapshot } from 'node:v8';
+     * import {
      *   Worker,
      *   isMainThread,
      *   parentPort,
-     * } = require('node:worker_threads');
+     * } from 'node:worker_threads';
      *
      * if (isMainThread) {
      *   const worker = new Worker(__filename);
@@ -445,7 +526,7 @@ declare module "v8" {
      * @since v8.0.0
      * @param buffer A buffer returned by {@link serialize}.
      */
-    function deserialize(buffer: NodeJS.TypedArray): any;
+    function deserialize(buffer: NodeJS.ArrayBufferView): any;
     /**
      * The `v8.takeCoverage()` method allows the user to write the coverage started by `NODE_V8_COVERAGE` to disk on demand. This method can be invoked multiple
      * times during the lifetime of the process. Each time the execution counter will
@@ -466,7 +547,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @experimental
      * @since v18.10.0, v16.18.0
      */
@@ -550,7 +631,7 @@ declare module "v8" {
          * Here's an example.
          *
          * ```js
-         * const { GCProfiler } = require('v8');
+         * import { GCProfiler } from 'node:v8';
          * const profiler = new GCProfiler();
          * profiler.start();
          * setTimeout(() => {
@@ -736,12 +817,12 @@ declare module "v8" {
      * ```js
      * 'use strict';
      *
-     * const fs = require('node:fs');
-     * const zlib = require('node:zlib');
-     * const path = require('node:path');
-     * const assert = require('node:assert');
+     * import fs from 'node:fs';
+     * import zlib from 'node:zlib';
+     * import path from 'node:path';
+     * import assert from 'node:assert';
      *
-     * const v8 = require('node:v8');
+     * import v8 from 'node:v8';
      *
      * class BookShelf {
      *   storage = new Map();

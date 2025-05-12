@@ -1,12 +1,12 @@
-import { averageAngle } from "../average";
-import { differenceHueSaturation } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertHsvToRgb from "./convertHsvToRgb";
-import convertRgbToHsv from "./convertRgbToHsv";
+import { averageAngle } from "../average.js";
+import { differenceHueSaturation } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertHsvToRgb from "./convertHsvToRgb.js";
+import convertRgbToHsv from "./convertRgbToHsv.js";
 
-declare const definition: {
+declare const modeHsv: {
     mode: "hsv";
 
     toMode: {
@@ -42,4 +42,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeHsv;

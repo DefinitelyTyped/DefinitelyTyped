@@ -17,11 +17,19 @@ export interface SDK {
 
     deviceInfo: DeviceInfo;
 
-    features: Partial<{
+    features: {
         LoadingAPI: {
             ready(): void;
         };
-    }>;
+        GameplayAPI: {
+            start(): void;
+            stop(): void;
+        };
+        GamesAPI: {
+            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
+        };
+    };
 
     clipboard: {
         writeText(text: string): void;
@@ -45,6 +53,7 @@ export interface SDK {
 
     getPlayer<TSigned extends boolean = false>(opts?: {
         signed?: TSigned;
+        scopes?: boolean;
     }): Promise<TSigned extends true ? Signed<Player> : Player>;
 
     feedback: {
@@ -91,6 +100,9 @@ export interface SDK {
 
     dispatchEvent(eventName: SdkEventName, detail?: any): Promise<unknown>;
 
+    on(eventName: GameAPIEventName | SdkEventName, listener: () => void): () => void;
+
+    /** @deprecated */
     onEvent(eventName: SdkEventName, listener: () => void): () => void;
 
     shortcut: {
@@ -105,6 +117,16 @@ export interface SDK {
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
 
     isAvailableMethod(methodName: string): Promise<boolean>;
+
+    serverTime(): number;
+}
+
+interface Game {
+    appID: string;
+    title: string;
+    url: string;
+    coverURL: string;
+    iconURL: string;
 }
 
 interface ClientFeature {
@@ -258,6 +280,8 @@ export interface LeaderboardDescription {
 export type FeedbackError = "NO_AUTH" | "GAME_RATED" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
 
 export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
+
+export type GameAPIEventName = "game_api_pause" | "game_api_resume";
 
 export type SdkEventName = "EXIT" | "HISTORY_BACK";
 

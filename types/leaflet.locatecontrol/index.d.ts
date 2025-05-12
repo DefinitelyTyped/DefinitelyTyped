@@ -35,7 +35,12 @@ declare module "leaflet" {
             textElementTag?: string | undefined;
             circlePadding?: number[] | undefined;
             metric?: boolean | undefined;
-            createButtonCallback?: ((container: HTMLDivElement, options: LocateOptions) => void) | undefined;
+            createButtonCallback?:
+                | ((
+                    container: HTMLDivElement,
+                    options: LocateOptions,
+                ) => { link: HTMLAnchorElement; icon: HTMLElement })
+                | undefined;
             onLocationError?: ((event: ErrorEvent, control: Locate) => void) | undefined;
             onLocationOutsideMapBounds?: ((control: Locate) => void) | undefined;
             showPopup?: boolean | undefined;
@@ -58,3 +63,9 @@ declare module "leaflet" {
         function locate(options?: Control.LocateOptions): Control.Locate;
     }
 }
+
+export type LocateOptions = L.Control.LocateOptions;
+
+// Usage with bundler or esm
+// https://github.com/domoritz/leaflet-locatecontrol/blob/b20d77e4184fdfc59ff0037f8d95471a49af6f81/README.md#with-npm
+export class LocateControl extends L.Control.Locate {}

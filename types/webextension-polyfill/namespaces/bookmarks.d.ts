@@ -2,20 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.bookmarks
- *
- * Use the <code>browser.bookmarks</code> API to create, organize, and otherwise manipulate bookmarks.
- * Also see $(topic:override)[Override Pages], which you can use to create a custom Bookmark Manager page.
- * Permissions: "bookmarks"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.bookmarks
+ */
 export namespace Bookmarks {
     /**
      * Indicates the reason why this node is unmodifiable. The <var>managed</var> value indicates that this node was configured
@@ -211,8 +202,6 @@ export namespace Bookmarks {
 
         /**
          * Retrieves the children of the specified BookmarkTreeNode id.
-         *
-         * @param id
          */
         getChildren(id: string): Promise<BookmarkTreeNode[]>;
 
@@ -247,72 +236,48 @@ export namespace Bookmarks {
 
         /**
          * Creates a bookmark or folder under the specified parentId.  If url is NULL or missing, it will be a folder.
-         *
-         * @param bookmark
          */
         create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
 
         /**
          * Moves the specified BookmarkTreeNode to the provided location.
-         *
-         * @param id
-         * @param destination
          */
         move(id: string, destination: MoveDestinationType): Promise<BookmarkTreeNode>;
 
         /**
          * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified
          * properties will be left unchanged.  <b>Note:</b> Currently, only 'title' and 'url' are supported.
-         *
-         * @param id
-         * @param changes
          */
         update(id: string, changes: UpdateChangesType): Promise<BookmarkTreeNode>;
 
         /**
          * Removes a bookmark or an empty bookmark folder.
-         *
-         * @param id
          */
         remove(id: string): Promise<void>;
 
         /**
          * Recursively removes a bookmark folder.
-         *
-         * @param id
          */
         removeTree(id: string): Promise<void>;
 
         /**
          * Fired when a bookmark or folder is created.
-         *
-         * @param id
-         * @param bookmark
          */
         onCreated: Events.Event<(id: string, bookmark: BookmarkTreeNode) => void>;
 
         /**
          * Fired when a bookmark or folder is removed.  When a folder is removed recursively,
          * a single notification is fired for the folder, and none for its contents.
-         *
-         * @param id
-         * @param removeInfo
          */
         onRemoved: Events.Event<(id: string, removeInfo: OnRemovedRemoveInfoType) => void>;
 
         /**
          * Fired when a bookmark or folder changes.  <b>Note:</b> Currently, only title and url changes trigger this.
-         *
-         * @param id
-         * @param changeInfo
          */
         onChanged: Events.Event<(id: string, changeInfo: OnChangedChangeInfoType) => void>;
 
         /**
          * Fired when a bookmark or folder is moved to a different parent folder.
-         *
-         * @param id
-         * @param moveInfo
          */
         onMoved: Events.Event<(id: string, moveInfo: OnMovedMoveInfoType) => void>;
     }

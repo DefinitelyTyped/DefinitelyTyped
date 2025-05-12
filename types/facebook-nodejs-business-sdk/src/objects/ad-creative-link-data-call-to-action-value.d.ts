@@ -13,6 +13,7 @@ export default class AdCreativeLinkDataCallToActionValue extends AbstractCrudObj
         link: "link";
         link_caption: "link_caption";
         link_format: "link_format";
+        object_store_urls: "object_store_urls";
         page: "page";
         product_link: "product_link";
         whatsapp_number: "whatsapp_number";

@@ -126,11 +126,17 @@ export namespace Poool {
 
     type EngageEventsList =
         | "ready"
+        | "onReady"
         | "seen"
+        | "onSeen"
         | "click"
+        | "onClick"
         | "formSubmit"
+        | "onFormSubmit"
         | "destroy"
-        | "error";
+        | "onDestroy"
+        | "error"
+        | "onError";
 
     type EngageTextsType =
         | "form_optional"
@@ -215,6 +221,11 @@ export namespace Poool {
 
     interface Engage {
         /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
+
+        /**
          * Creates a new Engage instance (required to display Engage elements) using your app ID.
          *
          * @param key - Your poool app ID
@@ -265,7 +276,7 @@ export namespace Poool {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/methods#on
          */
-        on(event: EngageEventsList, callback: (...props: any) => any): Engage;
+        on(event: EngageEventsList, callback: (...props: any) => any, opts?: { once?: boolean }): Engage;
 
         /**
          * @param event the event name

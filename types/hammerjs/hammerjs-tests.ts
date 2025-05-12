@@ -111,6 +111,7 @@
 
     mc.on("singletap doubletap", function(ev) {
         myElement.textContent += ev.type + " ";
+        myElement.textContent += ev.tapCount + " ";
     });
 })();
 
@@ -134,6 +135,7 @@
 
     mc.on("singletap doubletap", function(ev) {
         myElement.textContent += ev.type + " ";
+        myElement.textContent += ev.tapCount + " ";
     });
 })();
 

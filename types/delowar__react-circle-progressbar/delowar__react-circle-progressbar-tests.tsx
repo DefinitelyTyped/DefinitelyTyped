@@ -1,44 +1,62 @@
-import Progress from "@delowar/react-circle-progressbar";
+import Progress, { Gradient, ProgressProps, Shadow } from "@delowar/react-circle-progressbar";
 import * as React from "react";
 
-// Basic Usage
-const basic = () => <Progress percent={40} />;
+// With no required props
+<Progress />;
 
-// with children
-const withChildren = () => <Progress percent={40}>40%</Progress>;
+// With optional props
+<Progress
+    size={180}
+    borderWidth={15}
+    borderBgWidth={15}
+    fillColor="#288feb"
+    emptyColor="#288feb"
+    background="none"
+    className="custom-class"
+    percent={40}
+    linecap="round"
+    transition={200}
+    viewport
+    onViewport={(element) => {
+        // $ExpectType ReactElement<unknown, string | JSXElementConstructor<any>>
+        element;
+    }}
+>
+    40%
+</Progress>;
 
-// Default Gradient
-const gradient = () => <Progress isGradient />;
+// With empty Gradient
+<Progress
+    isGradient
+    gradient={{}}
+/>;
 
-// Customize Gradient
-const customGradient = () => (
-    <Progress
-        isGradient
-        gradient={{
-            angle: 90,
-            startColor: "#ff0000",
-            stopColor: "#ffff00",
-        }}
-    />
-);
+// With optional Gradient values
+<Progress
+    isGradient
+    gradient={{ angle: 0, startColor: "#ff0000", stopColor: "#ffff00" }}
+/>;
 
-// Default Shadow
-const shadow = () => <Progress isBgShadow />;
+// With empty Shadow
+<Progress
+    isShadow
+    shadow={{}}
+/>;
 
-// Customize Shadow
-const customShadow = () => (
-    <Progress
-        isBgShadow
-        bgShadow={{
-            inset: true,
-            vertical: 2,
-            horizontal: 2,
-            blur: 4,
-            opacity: 0.4,
-            color: "#000000",
-        }}
-        emptyColor="#f7f7f7"
-        borderWidth="6"
-        borderBgWidth="30"
-    />
-);
+// With optional Shadow values
+<Progress
+    isShadow
+    shadow={{ inset: false, vertical: 3, horizontal: 0, blur: 0, opacity: 0.4, color: "#000000" }}
+/>;
+
+// With empty BG Shadow
+<Progress
+    isBgShadow
+    bgShadow={{}}
+/>;
+
+// With optional BG Shadow values
+<Progress
+    isBgShadow
+    bgShadow={{ inset: false, vertical: 3, horizontal: 0, blur: 0, opacity: 0.4, color: "#000000" }}
+/>;

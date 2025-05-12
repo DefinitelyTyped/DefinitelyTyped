@@ -1,10 +1,10 @@
 import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from "three";
-import Renderer from "../renderers/common/Renderer.js";
-import WebGPURenderer from "../renderers/webgpu/WebGPURenderer.js";
+import { Renderer, WebGPURenderer } from "three/webgpu";
 import { WorkerPool } from "../utils/WorkerPool.js";
 
 export interface KTX2LoaderWorkerConfig {
     astcSupported: boolean;
+    astcHDRSupported: boolean;
     etc1Supported: boolean;
     etc2Supported: boolean;
     dxtSupported: boolean;
@@ -43,6 +43,10 @@ export class KTX2Loader extends Loader<CompressedTexture> {
      * @param renderer A renderer instance.
      */
     detectSupport(renderer: WebGLRenderer | WebGPURenderer): this;
+
+    init(): Promise<void>;
+
+    parse(buffer: ArrayBuffer, onLoad?: (texture: CompressedTexture) => void, onError?: (err: unknown) => void): void;
 
     /**
      * Disposes the loader object, de-allocating any Web Workers created.

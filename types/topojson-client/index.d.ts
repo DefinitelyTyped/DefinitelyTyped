@@ -49,9 +49,15 @@ export function feature<P extends Properties = GeoJSON.GeoJsonProperties>(
     object: GeometryObject<P> | string,
 ): GeoJSON.Feature<GeoJSON.GeometryObject, P> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, P>;
 
-export function merge(topology: Topology, objects: Array<Polygon | MultiPolygon>): GeoJSON.MultiPolygon;
+export function merge(
+    topology: Topology,
+    objects: GeometryCollection | Array<Polygon | MultiPolygon>,
+): GeoJSON.MultiPolygon;
 
-export function mergeArcs(topology: Topology, objects: Array<Polygon | MultiPolygon>): MultiPolygon;
+export function mergeArcs(
+    topology: Topology,
+    objects: GeometryCollection | Array<Polygon | MultiPolygon>,
+): MultiPolygon;
 
 export function mesh(
     topology: Topology,

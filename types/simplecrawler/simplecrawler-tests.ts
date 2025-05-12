@@ -47,6 +47,6 @@ crawler.httpsAgent; // $ExpectType Agent
 crawler.start();
 crawler.on("fetchcomplete", (queueItem, responseBody, response) => {
     queueItem; // $ExpectType QueueItem
-    responseBody; // $ExpectType string | Buffer
+    responseBody; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     response; // $ExpectType IncomingMessage
 });

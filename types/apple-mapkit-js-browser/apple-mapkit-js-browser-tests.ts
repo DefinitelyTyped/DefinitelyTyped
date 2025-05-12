@@ -12,7 +12,9 @@ const map: mapkit.Map = new mapkit.Map(document.querySelector<HTMLElement>(".tes
     loadPriority: "LandCover",
 });
 
-const colors = mapkit.Map.ColorSchemes.Dark;
+const colorDark = mapkit.Map.ColorSchemes.Dark;
+const colorLight = mapkit.Map.ColorSchemes.Light;
+const colorAdaptive = mapkit.Map.ColorSchemes.Adaptive;
 
 const coordinate = new mapkit.Coordinate(1000, 1000);
 const factory = (coordinate: mapkit.Coordinate) => {
@@ -144,3 +146,44 @@ search.autocomplete("Apple", (error, data) => {}, {
 
 // Check that all StyleConstructorOptions are optional
 const style = new mapkit.Style({});
+
+let pointList = [
+    new mapkit.Coordinate(41, -109.05),
+    new mapkit.Coordinate(41, -102.05),
+    new mapkit.Coordinate(37, -102.05),
+    new mapkit.Coordinate(37, -109.05),
+];
+let pointListList = [pointList, pointList];
+
+// PolygonOverlay
+{
+    // ctor
+    {
+        let rectangle: mapkit.PolygonOverlay;
+
+        rectangle = new mapkit.PolygonOverlay(pointList);
+
+        rectangle = new mapkit.PolygonOverlay(pointListList);
+    }
+
+    // get points
+    {
+        let rectangle: mapkit.PolygonOverlay;
+        let points: mapkit.Coordinate[][];
+
+        rectangle = new mapkit.PolygonOverlay(pointList);
+        points = rectangle.points;
+
+        rectangle = new mapkit.PolygonOverlay(pointListList);
+        points = rectangle.points;
+    }
+
+    // set points
+    {
+        const rectangle = new mapkit.PolygonOverlay(pointList);
+
+        rectangle.points = pointList;
+
+        rectangle.points = [pointList, pointList];
+    }
+}

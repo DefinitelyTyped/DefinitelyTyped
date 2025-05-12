@@ -8,6 +8,12 @@ zipfile.addFile("path/to/file.txt", "path/in/zipfile.txt");
 // pipe() can be called any time after the constructor
 // $ExpectType ReadableStream
 zipfile.outputStream;
+
+// $ExpectType ZipFile
+zipfile.on("error", (err) => {
+    console.error("error", err);
+});
+
 zipfile.outputStream.pipe(fs.createWriteStream("output.zip")).on("close", () => {
     console.log("done");
 });

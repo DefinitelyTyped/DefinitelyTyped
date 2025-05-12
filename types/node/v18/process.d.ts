@@ -141,28 +141,84 @@ declare module "process" {
                 TZ?: string;
             }
             interface HRTime {
+                /**
+                 * This is the legacy version of {@link process.hrtime.bigint()}
+                 * before bigint was introduced in JavaScript.
+                 *
+                 * The `process.hrtime()` method returns the current high-resolution real time in a `[seconds, nanoseconds]` tuple `Array`,
+                 * where `nanoseconds` is the remaining part of the real time that can't be represented in second precision.
+                 *
+                 * `time` is an optional parameter that must be the result of a previous `process.hrtime()` call to diff with the current time.
+                 * If the parameter passed in is not a tuple `Array`, a TypeError will be thrown.
+                 * Passing in a user-defined array instead of the result of a previous call to `process.hrtime()` will lead to undefined behavior.
+                 *
+                 * These times are relative to an arbitrary time in the past,
+                 * and not related to the time of day and therefore not subject to clock drift.
+                 * The primary use is for measuring performance between intervals:
+                 * ```js
+                 * const { hrtime } = require('node:process');
+                 * const NS_PER_SEC = 1e9;
+                 * const time = hrtime();
+                 * // [ 1800216, 25 ]
+                 *
+                 * setTimeout(() => {
+                 *   const diff = hrtime(time);
+                 *   // [ 1, 552 ]
+                 *
+                 *   console.log(`Benchmark took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds`);
+                 *   // Benchmark took 1000000552 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since 0.7.6
+                 * @legacy Use {@link process.hrtime.bigint()} instead.
+                 * @param time The result of a previous call to `process.hrtime()`
+                 */
                 (time?: [number, number]): [number, number];
+                /**
+                 * The `bigint` version of the {@link process.hrtime()} method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 *
+                 * Unlike {@link process.hrtime()}, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * ```js
+                 * import { hrtime } from 'node:process';
+                 *
+                 * const start = hrtime.bigint();
+                 * // 191051479007711n
+                 *
+                 * setTimeout(() => {
+                 *   const end = hrtime.bigint();
+                 *   // 191052633396993n
+                 *
+                 *   console.log(`Benchmark took ${end - start} nanoseconds`);
+                 *   // Benchmark took 1154389282 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since v10.7.0
+                 */
                 bigint(): bigint;
             }
             interface ProcessReport {
                 /**
+                 * Write reports in a compact format, single-line JSON, more easily consumable by log processing systems
+                 * than the default multi-line format designed for human consumption.
+                 * @since v13.12.0, v12.17.0
+                 */
+                compact: boolean;
+                /**
                  * Directory where the report is written.
+                 * The default value is the empty string, indicating that reports are written to the current
                  * working directory of the Node.js process.
-                 * @default '' indicating that reports are written to the current
                  */
                 directory: string;
                 /**
-                 * Filename where the report is written.
-                 * The default value is the empty string.
-                 * @default '' the output filename will be comprised of a timestamp,
-                 * PID, and sequence number.
+                 * Filename where the report is written. If set to the empty string, the output filename will be comprised
+                 * of a timestamp, PID, and sequence number. The default value is the empty string.
                  */
                 filename: string;
                 /**
-                 * Returns a JSON-formatted diagnostic report for the running process.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * Returns a JavaScript Object representation of a diagnostic report for the running process.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  */
-                getReport(err?: Error): string;
+                getReport(err?: Error): object;
                 /**
                  * If true, a diagnostic report is generated on fatal errors,
                  * such as out of memory errors or failed C++ assertions.
@@ -188,18 +244,19 @@ declare module "process" {
                 /**
                  * Writes a diagnostic report to a file. If filename is not provided, the default filename
                  * includes the date, time, PID, and a sequence number.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  *
+                 * If the value of filename is set to `'stdout'` or `'stderr'`, the report is written
+                 * to the stdout or stderr of the process respectively.
                  * @param fileName Name of the file where the report is written.
                  * This should be a relative path, that will be appended to the directory specified in
                  * `process.report.directory`, or the current working directory of the Node.js process,
                  * if unspecified.
-                 * @param error A custom error used for reporting the JavaScript stack.
+                 * @param err A custom error used for reporting the JavaScript stack.
                  * @return Filename of the generated report.
                  */
-                writeReport(fileName?: string): string;
-                writeReport(error?: Error): string;
                 writeReport(fileName?: string, err?: Error): string;
+                writeReport(err?: Error): string;
             }
             interface ResourceUsage {
                 fsRead: number;
@@ -452,6 +509,33 @@ declare module "process" {
                  * @since v0.7.2
                  */
                 debugPort: number;
+                /**
+                 * The `process.dlopen()` method allows dynamically loading shared objects. It is primarily used by `require()` to load C++ Addons, and
+                 * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
+                 * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
+                 *
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v20.x/api/os.html#dlopen-constants)`
+                 * documentation for details.
+                 *
+                 * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
+                 * are then accessible via `module.exports`.
+                 *
+                 * The example below shows how to load a C++ Addon, named `local.node`, that exports a `foo` function. All the symbols are loaded before the call returns, by passing the `RTLD_NOW` constant.
+                 * In this example the constant is assumed to be available.
+                 *
+                 * ```js
+                 * import { dlopen } from 'node:process';
+                 * import { constants } from 'node:os';
+                 * import { fileURLToPath } from 'node:url';
+                 *
+                 * const module = { exports: {} };
+                 * dlopen(module, fileURLToPath(new URL('local.node', import.meta.url)),
+                 *        constants.dlopen.RTLD_NOW);
+                 * module.exports.foo();
+                 * ```
+                 * @since v0.1.16
+                 */
+                dlopen(module: object, filename: string, flags?: number): void;
                 /**
                  * The `process.emitWarning()` method can be used to emit custom or application
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.
@@ -1402,11 +1486,11 @@ declare module "process" {
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
-                 * `process.report` is an object whose methods are used to generate diagnostic
-                 * reports for the current process. Additional documentation is available in the `report documentation`.
+                 * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v18.x/api/report.html).
                  * @since v11.8.0
                  */
-                report?: ProcessReport | undefined;
+                report: ProcessReport;
                 /**
                  * ```js
                  * import { resourceUsage } from 'process';

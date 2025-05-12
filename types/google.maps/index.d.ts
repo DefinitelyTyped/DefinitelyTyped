@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.57
+// Google Maps JS API Version: 3.58
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -97,6 +97,16 @@ declare namespace google.maps {
      * <code>null</code>, the layer will be removed.
      */
     setMap(map: google.maps.Map | null): void;
+  }
+  /**
+   * The display options for the Camera control.
+   */
+  export interface CameraControlOptions {
+    /**
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
+     */
+    position?: google.maps.ControlPosition | null;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -312,6 +322,29 @@ declare namespace google.maps {
     REQUIRED_AND_HIDES_OPTIONAL = 'REQUIRED_AND_HIDES_OPTIONAL',
   }
   /**
+   * Identifiers for map color schemes. Specify these by value, or by using the
+   * constant&#39;s name. For example, <code>'FOLLOW_SYSTEM'</code> or
+   * <code>google.maps.ColorScheme.FOLLOW_SYSTEM</code>.
+   *
+   * Access by calling `const {ColorScheme} = await
+   * google.maps.importLibrary("core")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum ColorScheme {
+    /**
+     * The dark color scheme for a map.
+     */
+    DARK = 'DARK',
+    /**
+     * The color scheme is selected based on system preferences.
+     */
+    FOLLOW_SYSTEM = 'FOLLOW_SYSTEM',
+    /**
+     * The light color scheme for a map. Default value for legacy Maps JS.
+     */
+    LIGHT = 'LIGHT',
+  }
+  /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
    * An enum representing the spatial relationship between the area and the
@@ -513,6 +546,7 @@ declare namespace google.maps {
     getCameraParams(): google.maps.CameraParams;
   }
   export interface CoreLibrary {
+    ColorScheme: typeof google.maps.ColorScheme;
     ControlPosition: typeof google.maps.ControlPosition;
     event: typeof google.maps.event;
     LatLng: typeof google.maps.LatLng;
@@ -2166,11 +2200,11 @@ declare namespace google.maps {
      * populated for reverse geocoding requests and only when {@link
      * google.maps.ExtraGeocodeComputation.ADDRESS_DESCRIPTORS} is enabled.
      */
-    address_descriptor?: google.maps.AddressDescriptor;
+    address_descriptor?: google.maps.AddressDescriptor | null;
     /**
      * The plus code associated with the location.
      */
-    plus_code?: google.maps.places.PlacePlusCode;
+    plus_code?: google.maps.places.PlacePlusCode | null;
     /**
      * The list of {@link google.maps.GeocoderResult}s.
      */
@@ -4057,6 +4091,14 @@ declare namespace google.maps {
      */
     backgroundColor?: string | null;
     /**
+     * The enabled/disabled state of the Camera control.
+     */
+    cameraControl?: boolean | null;
+    /**
+     * The display options for the Camera control.
+     */
+    cameraControlOptions?: google.maps.CameraControlOptions | null;
+    /**
      * The initial Map center.
      */
     center?: google.maps.LatLng | null | google.maps.LatLngLiteral;
@@ -4066,6 +4108,12 @@ declare namespace google.maps {
      * @defaultValue <code>true</code>
      */
     clickableIcons?: boolean | null;
+    /**
+     * The initial Map color scheme. This option can only be set when the map is
+     * initialized.
+     * @defaultValue {@link google.maps.ColorScheme.LIGHT}
+     */
+    colorScheme?: string | null;
     /**
      * Size in pixels of the controls appearing on the map. This value must be
      * supplied directly when creating the Map, updating this value later may
@@ -4517,7 +4565,7 @@ declare namespace google.maps {
      * @param id Identifier of the MapType to add to the registry.
      * @param mapType MapType object to add to the registry.
      */
-    set(id: string, mapType: unknown): void;
+    set(id: string, mapType: any): void;
   }
   /**
    * The <code>MapTypeStyle</code> is a collection of selectors and stylers that
@@ -4562,8 +4610,8 @@ declare namespace google.maps {
   export interface Maps3DLibrary {
     AltitudeMode: typeof google.maps.maps3d.AltitudeMode;
     CenterChangeEvent: typeof google.maps.maps3d.CenterChangeEvent;
-    ClickEvent: typeof google.maps.maps3d.ClickEvent;
     HeadingChangeEvent: typeof google.maps.maps3d.HeadingChangeEvent;
+    LocationClickEvent: typeof google.maps.maps3d.LocationClickEvent;
     Map3DElement: typeof google.maps.maps3d.Map3DElement;
     Polygon3DElement: typeof google.maps.maps3d.Polygon3DElement;
     Polyline3DElement: typeof google.maps.maps3d.Polyline3DElement;
@@ -5458,7 +5506,14 @@ declare namespace google.maps {
     AutocompleteSessionToken: typeof google.maps.places.AutocompleteSessionToken;
     AutocompleteSuggestion: typeof google.maps.places.AutocompleteSuggestion;
     BusinessStatus: typeof google.maps.places.BusinessStatus;
+    ConnectorAggregation: typeof google.maps.places.ConnectorAggregation;
+    EVChargeOptions: typeof google.maps.places.EVChargeOptions;
+    EVConnectorType: typeof google.maps.places.EVConnectorType;
     FormattableText: typeof google.maps.places.FormattableText;
+    FuelOptions: typeof google.maps.places.FuelOptions;
+    FuelPrice: typeof google.maps.places.FuelPrice;
+    FuelType: typeof google.maps.places.FuelType;
+    Money: typeof google.maps.places.Money;
     OpeningHours: typeof google.maps.places.OpeningHours;
     OpeningHoursPeriod: typeof google.maps.places.OpeningHoursPeriod;
     OpeningHoursPoint: typeof google.maps.places.OpeningHoursPoint;
@@ -8555,7 +8610,6 @@ declare namespace google.maps.drawing {
      */
     overlay:
       | google.maps.Marker
-      | null
       | google.maps.Polygon
       | google.maps.Polyline
       | google.maps.Rectangle
@@ -12305,7 +12359,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring center change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {CenterChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12316,7 +12370,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring center change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {CenterChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12327,36 +12381,8 @@ declare namespace google.maps.maps3d {
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
-   * This event is created from clicking a Map3DElement.
-   *
-   * Access by calling `const {ClickEvent} = await
-   * google.maps.importLibrary("maps3d")`. See
-   * https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export class ClickEvent extends Event {
-    /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-     *
-     * This event is created from clicking a Map3DElement.
-     *
-     * Access by calling `const {ClickEvent} = await
-     * google.maps.importLibrary("maps3d")`. See
-     * https://developers.google.com/maps/documentation/javascript/libraries.
-     */
-    constructor();
-    /**
-     * The latitude/longitude/altitude that was below the cursor when the event
-     * occurred. Please note, that at coarser levels, less accurate data will be
-     * returned. Also, sea floor elevation may be returned for the altitude
-     * value when clicking at the water surface from higher camera positions.
-     */
-    position: google.maps.LatLngAltitude | null;
-  }
-  /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-   *
    * This event is created from monitoring heading change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {HeadingChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12367,13 +12393,42 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring heading change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {HeadingChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from clicking a Map3DElement.
+   *
+   * Access by calling `const {LocationClickEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class LocationClickEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from clicking a Map3DElement.
+     *
+     * Access by calling `const {LocationClickEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+    /**
+     * The latitude/longitude/altitude that was below the cursor when the event
+     * occurred. Please note, that at coarser levels, less accurate data will be
+     * returned. Also, sea floor elevation may be returned for the altitude
+     * value when clicking at the water surface from higher camera positions.
+     * This event bubbles up through the DOM tree.
+     */
+    position: google.maps.LatLngAltitude | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12595,8 +12650,7 @@ declare namespace google.maps.maps3d {
      */
     extruded?: boolean | null;
     /**
-     * The fill color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The fill color. All CSS3 colors are supported.
      */
     fillColor?: string | null;
     /**
@@ -12622,8 +12676,7 @@ declare namespace google.maps.maps3d {
      */
     outerCoordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
-     * The stroke color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The stroke color. All CSS3 colors are supported.
      */
     strokeColor?: string | null;
     /**
@@ -12753,8 +12806,7 @@ declare namespace google.maps.maps3d {
      */
     geodesic?: boolean | null;
     /**
-     * The outer color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The outer color. All CSS3 colors are supported.
      */
     outerColor?: string | null;
     /**
@@ -12767,8 +12819,7 @@ declare namespace google.maps.maps3d {
      */
     outerWidth?: number | null;
     /**
-     * The stroke color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The stroke color. All CSS3 colors are supported.
      */
     strokeColor?: string | null;
     /**
@@ -12848,7 +12899,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring range change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {RangeChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12859,7 +12910,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring range change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {RangeChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12871,7 +12922,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring roll change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {RollChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12882,7 +12933,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring roll change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {RollChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12894,7 +12945,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring a steady state of
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {SteadyChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12905,7 +12956,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring a steady state of
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {SteadyChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12922,7 +12973,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring tilt change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {TiltChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12933,7 +12984,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring tilt change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {TiltChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -13500,7 +13551,7 @@ declare namespace google.maps.places {
   export interface AutocompleteRequest {
     /**
      * Included primary <a
-     * href="https://developers.google.com/maps/documentation/places/javascript/place-types">Place
+     * href="https://developers.google.com/maps/documentation/javascript/place-types">Place
      * type</a> (for example, &quot;restaurant&quot; or
      * &quot;gas_station&quot;). <br/><br/> A Place is only returned if its
      * primary type is included in this list. Up to 5 values can be specified.
@@ -13823,6 +13874,129 @@ declare namespace google.maps.places {
     country: string | string[] | null;
   }
   /**
+   * EV charging information, aggregated for connectors of the same type and the
+   * same charge rate.
+   *
+   * Access by calling `const {ConnectorAggregation} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ConnectorAggregation {
+    /**
+     * The time when the connector availability information in this aggregation
+     * was last updated.
+     */
+    availabilityLastUpdateTime: Date | null;
+    /**
+     * Number of connectors in this aggregation that are currently available.
+     */
+    availableCount: number | null;
+    /**
+     * Number of connectors in this aggregation.
+     */
+    count: number;
+    /**
+     * The static max charging rate in kw of each connector of the aggregation.
+     */
+    maxChargeRateKw: number;
+    /**
+     * Number of connectors in this aggregation that are currently out of
+     * service.
+     */
+    outOfServiceCount: number | null;
+    /**
+     * The connector type of this aggregation.
+     */
+    type: google.maps.places.EVConnectorType | null;
+  }
+  /**
+   * Information about the EV charging station hosted in the place.
+   *
+   * Access by calling `const {EVChargeOptions} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class EVChargeOptions {
+    /**
+     * A list of EV charging connector aggregations that contain connectors of
+     * the same type and same charge rate.
+     */
+    connectorAggregations: google.maps.places.ConnectorAggregation[];
+    /**
+     * Number of connectors at this station. Because some ports can have
+     * multiple connectors but only be able to charge one car at a time, the
+     * number of connectors may be greater than the total number of cars which
+     * can charge simultaneously.
+     */
+    connectorCount: number;
+  }
+  /**
+   * EV charging connector types.
+   *
+   * Access by calling `const {EVConnectorType} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum EVConnectorType {
+    /**
+     * Combined Charging System (AC and DC). Based on SAE Type-1 J-1772
+     * connector.
+     */
+    CCS_COMBO_1 = 'CCS_COMBO_1',
+    /**
+     * Combined Charging System (AC and DC). Based on Type-2 Mennekes connector.
+     */
+    CCS_COMBO_2 = 'CCS_COMBO_2',
+    /**
+     * CHAdeMO type connector.
+     */
+    CHADEMO = 'CHADEMO',
+    /**
+     * J1772 type 1 connector.
+     */
+    J1772 = 'J1772',
+    /**
+     * Other connector types.
+     */
+    OTHER = 'OTHER',
+    /**
+     * The generic TESLA connector. This is NACS in the North America but can be
+     * non-NACS in other parts of the world (e.g. CCS Combo 2 (CCS2) or GB/T).
+     * This value is less representative of an actual connector type, and more
+     * represents the ability to charge a Tesla brand vehicle at a Tesla owned
+     * charging station.
+     */
+    TESLA = 'TESLA',
+    /**
+     * IEC 62196 type 2 connector. Often referred to as MENNEKES.
+     */
+    TYPE_2 = 'TYPE_2',
+    /**
+     * GB/T type corresponds to the GB/T standard in China. This type covers all
+     * GB_T types.
+     */
+    UNSPECIFIED_GB_T = 'UNSPECIFIED_GB_T',
+    /**
+     * Unspecified wall outlet.
+     */
+    UNSPECIFIED_WALL_OUTLET = 'UNSPECIFIED_WALL_OUTLET',
+  }
+  /**
+   * EV-related options that can be specified for a place search request.
+   */
+  export interface EVSearchOptions {
+    /**
+     * The list of preferred EV connector types. A place that does not support
+     * any of the listed connector types is filtered out.
+     */
+    connectorTypes?: google.maps.places.EVConnectorType[];
+    /**
+     * Minimum required charging rate in kilowatts. A place with a charging rate
+     * less than the specified rate is filtered out.
+     */
+    minimumChargingRateKw?: number;
+  }
+  /**
    * Options for fetching Place fields.
    */
   export interface FetchFieldsRequest {
@@ -13939,6 +14113,123 @@ declare namespace google.maps.places {
      */
     text: string;
   }
+  /**
+   * The most recent information about fuel options in a gas station. This
+   * information is updated regularly.
+   *
+   * Access by calling `const {FuelOptions} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class FuelOptions {
+    /**
+     * A list of fuel prices for each type of fuel this station has, one entry
+     * per fuel type.
+     */
+    fuelPrices: google.maps.places.FuelPrice[];
+  }
+  /**
+   * Fuel price information for a given type of fuel.
+   *
+   * Access by calling `const {FuelPrice} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class FuelPrice {
+    /**
+     * The price of the fuel.
+     */
+    price: google.maps.places.Money | null;
+    /**
+     * The type of fuel.
+     */
+    type: google.maps.places.FuelType | null;
+    /**
+     * The time the fuel price was last updated.
+     */
+    updateTime: Date | null;
+  }
+  /**
+   * Types of fuel.
+   *
+   * Access by calling `const {FuelType} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum FuelType {
+    /**
+     * Bio-diesel.
+     */
+    BIO_DIESEL = 'BIO_DIESEL',
+    /**
+     * Diesel fuel.
+     */
+    DIESEL = 'DIESEL',
+    /**
+     * E 80.
+     */
+    E80 = 'E80',
+    /**
+     * E 85.
+     */
+    E85 = 'E85',
+    /**
+     * LPG.
+     */
+    LPG = 'LPG',
+    /**
+     * Methane.
+     */
+    METHANE = 'METHANE',
+    /**
+     * Midgrade.
+     */
+    MIDGRADE = 'MIDGRADE',
+    /**
+     * Premium.
+     */
+    PREMIUM = 'PREMIUM',
+    /**
+     * Regular unleaded.
+     */
+    REGULAR_UNLEADED = 'REGULAR_UNLEADED',
+    /**
+     * SP 100.
+     */
+    SP100 = 'SP100',
+    /**
+     * SP 91.
+     */
+    SP91 = 'SP91',
+    /**
+     * SP 91 E10.
+     */
+    SP91_E10 = 'SP91_E10',
+    /**
+     * SP 92.
+     */
+    SP92 = 'SP92',
+    /**
+     * SP 95.
+     */
+    SP95 = 'SP95',
+    /**
+     * SP95 E10.
+     */
+    SP95_E10 = 'SP95_E10',
+    /**
+     * SP 98.
+     */
+    SP98 = 'SP98',
+    /**
+     * SP 99.
+     */
+    SP99 = 'SP99',
+    /**
+     * Truck diesel.
+     */
+    TRUCK_DIESEL = 'TRUCK_DIESEL',
+  }
   export type LocationBias =
     | google.maps.LatLng
     | google.maps.LatLngLiteral
@@ -13950,6 +14241,34 @@ declare namespace google.maps.places {
   export type LocationRestriction =
     | google.maps.LatLngBounds
     | google.maps.LatLngBoundsLiteral;
+  /**
+   * A representation of an amount of money with its currency type.
+   *
+   * Access by calling `const {Money} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Money {
+    /**
+     * The three-letter currency code, defined in ISO 4217.
+     */
+    currencyCode: string;
+    /**
+     * Number of nano (10^-9) units of the amount.
+     */
+    nanos: number;
+    /**
+     * Returns a human-readable representation of the amount of money with its
+     * currency symbol.
+     */
+    toString(): string;
+    /**
+     * The whole units of the amount. For example, if {@link
+     * google.maps.places.Money.currencyCode} is &quot;USD&quot;, then 1 unit is
+     * 1 US dollar.
+     */
+    units: number;
+  }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
@@ -14182,6 +14501,12 @@ declare namespace google.maps.places {
      */
     displayName?: string | null;
     /**
+     * The language of the location&#39;s display name. <code>null</code> if
+     * there is no name. <code>undefined</code> if the name data has not been
+     * loaded from the server.
+     */
+    displayNameLanguageCode?: string | null;
+    /**
      * The editorial summary for this place. <code>null</code> if there is no
      * editorial summary. <code>undefined</code> if this field has not yet been
      * requested.
@@ -14193,6 +14518,11 @@ declare namespace google.maps.places {
      * has not yet been requested.
      */
     editorialSummaryLanguageCode?: string | null;
+    /**
+     * EV Charge options provided by the place. <code>undefined</code> if the EV
+     * charge options have not been called for from the server.
+     */
+    evChargeOptions?: google.maps.places.EVChargeOptions | null;
     fetchFields(
       options: google.maps.places.FetchFieldsRequest,
     ): Promise<{place: google.maps.places.Place}>;
@@ -14200,6 +14530,11 @@ declare namespace google.maps.places {
      * The locations’s full address.
      */
     formattedAddress?: string | null;
+    /**
+     * Fuel options provided by the place. <code>undefined</code> if the fuel
+     * options have not been called for from the server.
+     */
+    fuelOptions?: google.maps.places.FuelOptions | null;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Calculates the Date representing the next OpeningHoursTime. Returns
@@ -14315,6 +14650,24 @@ declare namespace google.maps.places {
      * <li><code>Very Expensive</code></li> </ul>
      */
     priceLevel?: google.maps.places.PriceLevel | null;
+    /**
+     * The location&#39;s primary type. <code>null</code> if there is no type.
+     * <code>undefined</code> if the type data has not been loaded from the
+     * server.
+     */
+    primaryType?: string | null;
+    /**
+     * The location&#39;s primary type display name. <code>null</code> if there
+     * is no type. <code>undefined</code> if the type data has not been loaded
+     * from the server.
+     */
+    primaryTypeDisplayName?: string | null;
+    /**
+     * The language of the location&#39;s primary type display name.
+     * <code>null</code> if there is no type. <code>undefined</code> if the type
+     * data has not been loaded from the server.
+     */
+    primaryTypeDisplayNameLanguageCode?: string | null;
     /**
      * A rating, between 1.0 to 5.0, based on user reviews of this Place.
      */
@@ -15647,6 +16000,10 @@ declare namespace google.maps.places {
    * Request interface for {@link google.maps.places.Place.searchByText}.
    */
   export interface SearchByTextRequest {
+    /**
+     * EV-related options that can be specified for a place search request.
+     */
+    evSearchOptions?: google.maps.places.EVSearchOptions;
     /**
      * Fields to be included in the response, <a
      * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which

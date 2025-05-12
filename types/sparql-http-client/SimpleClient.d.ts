@@ -11,7 +11,7 @@ interface StoreConstructor {
     new<Q extends BaseQuad = Quad>(options: { client: SimpleClientImpl }): Store<Q>;
 }
 
-interface BaseOptions {
+export interface Options {
     factory?: Environment<DataFactory | DatasetCoreFactory>;
     fetch?: typeof fetch;
     headers?: HeadersInit;
@@ -19,21 +19,10 @@ interface BaseOptions {
     user?: string;
     Query?: QueryConstructor;
     Store?: StoreConstructor;
+    endpointUrl?: string;
+    storeUrl?: string;
+    updateUrl?: string;
 }
-
-interface OptionWithQueryEndpoint extends BaseOptions {
-    endpointUrl: string;
-}
-
-interface OptionWithStoreEndpoint extends BaseOptions {
-    storeUrl: string;
-}
-
-interface OptionWithUpdateEndpoint extends BaseOptions {
-    updateUrl: string;
-}
-
-export type Options = OptionWithQueryEndpoint | OptionWithStoreEndpoint | OptionWithUpdateEndpoint;
 
 interface QueryOptions {
     headers?: HeadersInit;

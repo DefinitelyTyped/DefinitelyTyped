@@ -1,6 +1,6 @@
 /*
  * Max globals
- * https://docs.cycling74.com/max7/vignettes/jsglobal
+ * https://docs.cycling74.com/max8/vignettes/jsglobal
  */
 declare var inspector: number;
 declare var inlets: number;
@@ -15,9 +15,15 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(...messages: any[]): void;
-declare function cpost(...message: any[]): void;
-declare function post(...message: any[]): void;
+
+// See https://cycling74.com/forums/any-plans-to-update-support-for-recent-versions-of-js#reply-67264ffa39a940001350f9ab
+declare function maxclasswrap(external_name: string, javascript_class_name: string): void;
+declare function error(message?: any): void;
+declare function error(...messages: any): void;
+declare function cpost(args?: any): void;
+declare function cpost(...args: any): void;
+declare function post(args?: any): void;
+declare function post(...args: any): void;
 /**
  * Sends a message to the named Max object.
  * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
@@ -125,7 +131,7 @@ type MaxMessage =
 /**
  * The Buffer object in JavaScript is a companion to the buffer~ object you instantiate in Max patchers,
  * and provides the ability to access samples and metadata for the buffer~ object with the associated name.
- * https://docs.cycling74.com/max7/vignettes/jsbuffer
+ * https://docs.cycling74.com/max8/vignettes/jsbuffer
  */
 declare class Buffer {
     /**
@@ -137,17 +143,17 @@ declare class Buffer {
     /**
      * Return the number of channels in the buffer~ object.
      */
-    channelcount: number;
+    channelcount(): number;
 
     /**
      * Return the number of frames (samples in a single channel) in the buffer~ object.
      */
-    framecount: number;
+    framecount(): number;
 
     /**
      * Return the length of the buffer~ object in milliseconds.
      */
-    length: number;
+    length(): number;
 
     /**
      * Return an array with count samples from channel (1-based counting) starting at frame (zero-based counting).
@@ -170,7 +176,7 @@ declare class Buffer {
 /**
  * The Dict object in JS is a companion to the dict object you create in a Max patcher. It provides the ability to access structured data (a dictionary) associated with a name.
  * Example code can be found in the "js" tab of the dict help patcher.
- * https://docs.cycling74.com/max7/vignettes/jsdict
+ * https://docs.cycling74.com/max8/vignettes/jsdict
  */
 declare class Dict {
     /**
@@ -323,7 +329,7 @@ declare class Dict {
 
 /**
  * The File object provides a means of reading and writing files from Javascript.
- * https://docs.cycling74.com/max7/vignettes/jsfileobject
+ * https://docs.cycling74.com/max8/vignettes/jsfileobject
  */
 declare class File {
     /**
@@ -494,7 +500,7 @@ declare class File {
 
 /**
  * The Folder object is a js “external object” defined in the Max object called jsfolder. It is used to iterate through files in a folder.
- * https://docs.cycling74.com/max7/vignettes/jsfolderobject
+ * https://docs.cycling74.com/max8/vignettes/jsfolderobject
  */
 declare class Folder {
     /**
@@ -572,7 +578,7 @@ declare class Folder {
  * messages completely outside of js. Executing methods stored in Global objects from Max is not supported. However, methods are certainly among the kinds of things you can store within a Global
  * object. A Global is basically a reference to a Javascript object that you can't access directly. The object is connected to the Max symbol with the name you supplied as an argument (this allows it
  * to be accessed from Max). Every time you access a Global, it hands off the access to the secret hidden Javascript object. This means you can create any number of Global objects in your code, in any
- * number of js instances, and if they all have the same name, they will all share the same data. In this way, a Global resembles a namespace. https://docs.cycling74.com/max7/vignettes/jsglobalobject
+ * number of js instances, and if they all have the same name, they will all share the same data. In this way, a Global resembles a namespace. https://docs.cycling74.com/max8/vignettes/jsglobalobject
  */
 declare class Global {
     /**
@@ -598,7 +604,7 @@ declare class Global {
 /**
  * The LiveAPI object provides a means of communicating with the Live API functions from JavaScript. For background information on this functionality, please see the Live API Overview and Live Object
  * Model documents, as well as the Reference pages for live.path, live.object and live.observer objects, which provide the same basic functionality as the LiveAPI object, but from the Max patcher.
- * https://docs.cycling74.com/max7/vignettes/jsliveapi
+ * https://docs.cycling74.com/max8/vignettes/jsliveapi
  */
 declare class LiveAPI {
     /**
@@ -608,7 +614,7 @@ declare class LiveAPI {
      * (the object sends a bang from its left outlet when the Device is fully initialized, including the Live API). Legacy note: previous versions of the LiveAPI object required the jsthis object's
      * this.patcher property as the first argument. For backward-compatibility, this first argument is still supported, but is no longer necessary.
      */
-    constructor(callback: any, name: string);
+    constructor(callback?: any, name?: string);
 
     /**
      * The id of the Live object referred to by the LiveAPI object. These ids are dynamic and awarded in realtime from the Live application, so should not be stored and used over multiple runs of Max
@@ -830,6 +836,11 @@ declare class Max {
      * value of 1.1 would make boxes wider than they needed to be, and a value of 0.9 would make boxes narrower than they need to be.
      */
     fixwidthratio(ratio: number): void;
+
+    /**
+     * The word getcolor followed by string color name returns a Color type.
+     */
+    getcolor(name: string): Color;
 
     /**
      * The word getdefaultpatcherheight followed by a symbol used as the name of a receive object, causes Max to report the current default patcher height in pixels to the named receive object (See
@@ -1158,7 +1169,7 @@ declare class MaxobjConnection {
 /**
  * A Maxobj is a Javascript representation of a Max object in a patcher. It is returned by various methods of a Javascript Patcher object, such as newobject().One important thing to keep in mind about
  * a Maxobj is that it could eventually refer to an object that no longer exists if the underlying Max object is freed. The valid property can be used to test for this condition.
- * https://docs.cycling74.com/max7/vignettes/jsmaxobj
+ * https://docs.cycling74.com/max8/vignettes/jsmaxobj
  */
 declare class Maxobj {
     constructor();
@@ -1265,6 +1276,12 @@ declare class Maxobj {
     understands(message: string): boolean;
 
     /**
+     * Returns an Array value containing the current value(s) of the (UI) object.
+     * A single value would be returned by "...()[0]"
+     */
+    getvalueof(): any;
+
+    /**
      * Returns an Array value containing the names of available attributes for the object.
      */
     getattrnames(): string[];
@@ -1272,12 +1289,19 @@ declare class Maxobj {
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
      */
-    getattr(attribute_name: string): unknown;
+    getattr(attrname: string): number | number[] | string;
+
+    /*
+     * Gets the value of an attribute's attribute
+     * V8 ONLY!
+     */
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
 
     /**
      * Sets the value of the attribute specified by attribute_name.
+     * C'74 docs say value is number | number[] | string but it definitely isn't and can take variadic inputs
      */
-    setattr(attribute_name: string, anything: unknown): void;
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Returns an Array value containing the names of available attributes for the object's box.
@@ -1362,7 +1386,7 @@ declare class MaxobjListenerData<Tvalue> {
 
 /**
  * The Patcher object is a Javascript representation of a Max patcher. You can find, create, modify, and iterate through objects within a patcher, send messages to a patcher that you would use with
- * the thispatcher object, etc. https://docs.cycling74.com/max7/vignettes/jspatcherobject
+ * the thispatcher object, etc. https://docs.cycling74.com/max8/vignettes/jspatcherobject
  */
 declare class Patcher {
     /**
@@ -1437,8 +1461,20 @@ declare class Patcher {
 
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     * C74 docs say that this is a string[] but that is definitely incorrect!
      */
-    getattr(attribute_name: string): unknown;
+    getattr(attrname: string): number | number[] | string;
+
+    /**
+     * Get the value of a specified patcher attribute's attribute
+     * V8 ONLY!
+     */
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     */
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.
@@ -1528,7 +1564,7 @@ declare class Patcher {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PolyBuffer                                                                                                         //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jspolybuffer
+// https://docs.cycling74.com/max8/vignettes/jspolybuffer
 
 /**
  * The PolyBuffer object in JS is a companion to the polybuffer~ object you create in a Max patcher. It provides the ability to access a group of buffer~ objects associated with a name.
@@ -1570,7 +1606,7 @@ declare class PolyBuffer {
 
 /**
  * A task is a function that can be scheduled or repeated. You can set the arguments to the function as well as the object that will be this when the function is called.
- * https://docs.cycling74.com/max7/vignettes/jstaskobject
+ * https://docs.cycling74.com/max8/vignettes/jstaskobject
  */
 declare class Task {
     /**
@@ -1617,7 +1653,7 @@ declare class Task {
      * Repeat a task function. The optional number argument specifies the number of repetitions. If the argument is not present or is negative, the task repeats until it is cancelled. The optional
      * initialdelay argument sets the delay in milliseconds until the first iteration. See documentation for an example.
      */
-    repeat(times: number): void;
+    repeat(n?: number, initialdelay?: number): void;
 
     /**
      * Run the task once, right now. Equivalent to calling the task function with its arguments.
@@ -1637,7 +1673,7 @@ declare class Task {
 
 /**
  * The Wind object is a property of a Patcher that represents its window. You cannot create a new Wind or access other types of windows such as that of a Max table object.
- * https://docs.cycling74.com/max7/vignettes/jswindobj
+ * https://docs.cycling74.com/max8/vignettes/jswindobj
  */
 declare class Wind {
     /**
@@ -1729,7 +1765,7 @@ declare class Wind {
 
 /**
  * The SQLite object provides access to the SQLite database system (see http://www.sqlite.org for more information). A companion object, SQLResult, is required for most database operations.
- * https://docs.cycling74.com/max7/vignettes/jssqliteobject
+ * https://docs.cycling74.com/max8/vignettes/jssqliteobject
  */
 declare class SQLite {
     /**
@@ -1770,11 +1806,11 @@ declare class SQLite {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SQLResult                                                                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jssqlresultobject
+// https://docs.cycling74.com/max8/vignettes/jssqlresultobject
 
 /**
  * An SQLResult object is a container for results obtained in an SQLite.exec call. Not every exec() call will produce results, but any database query (SELECT in particular) will generate an SQLResult
- * object even if the result is empty. https://docs.cycling74.com/max7/vignettes/jssqlresultobject
+ * object even if the result is empty. https://docs.cycling74.com/max8/vignettes/jssqlresultobject
  */
 declare class SQLResult {
     constructor();
@@ -1802,7 +1838,7 @@ declare class SQLResult {
 }
 
 /*
- * JSUI: https://docs.cycling74.com/max7/vignettes/jsuiobject
+ * JSUI: https://docs.cycling74.com/max8/vignettes/jsuiobject
  */
 
 declare var mgraphics: MGraphics;
@@ -1810,10 +1846,10 @@ declare var sketch: Sketch;
 declare function refresh(): void;
 
 /**
- * https://docs.cycling74.com/max7/vignettes/jsmgraphics
+ * https://docs.cycling74.com/max8/vignettes/jsmgraphics
  */
 declare class MGraphics {
-    constructor();
+    constructor(width: number, height: number);
 
     /**
      * When autosketch is set to 1, the drawing commands will immediately be drawn without waiting a drawing execution command. While this is convenient, it is less flexible than working with
@@ -2331,7 +2367,7 @@ declare class Pattern {
 /**
  * Sketch Every instance of jsui has an instance of Sketch bound to the variable "sketch". This is often the only instance of Sketch you will need to use. However, if you want to do things like render
  * sprites, have multiple layers of images, or use drawing commands to create alpha channels for images, then you can create additional instances to render in. By default, when any function in your
- * jsui object has been called the context is already set for the instance of Sketch bound to the variable "sketch". https://docs.cycling74.com/max7/vignettes/jssketchobject
+ * jsui object has been called the context is already set for the instance of Sketch bound to the variable "sketch". https://docs.cycling74.com/max8/vignettes/jssketchobject
  */
 declare class Sketch {
     /**
@@ -2663,10 +2699,13 @@ declare class Sketch {
     glbindtexture(image_object: string): void;
     glblendfunc(src_function: string, dst_function: string): void;
     glclear(): void;
+    glclearcolor(color: Color): void;
     glclearcolor(red: number, green: number, blue: number, alpha: number): void;
     glcleardepth(depth: number): void;
     glclipplane(plane: number, coeff1: number, coeff2: number, coeff3: number, coeff4: number): void;
+    glcolor(color: Color): void;
     glcolor(red: number, green: number, blue: number, alpha: number): void;
+    glcolormask(color: Color): void;
     glcolormask(red: number, green: number, blue: number, alpha: number): void;
     glcolormaterial(face: number, mode: any[]): void;
     glcullface(face: number): void;
@@ -2732,14 +2771,14 @@ declare class Sketch {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Image                                                                                                              //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jsimageobject
+// https://docs.cycling74.com/max8/vignettes/jsimageobject
 
 /**
  * Image The Image object can be used to draw images in an instance of the Sketch. It is possible to load image files from disk, create images from instances of Sketch, or generate them manually. The
  * Image object has several methods to assist in manipulating images once generated. Note that alphablending is on by default in sketch. Certain file formats which contain alpha channels such as PICT
  * or TIFF may have their alpha channel set all off. File formats which do not contain an alpha channel such as JPEG, by default have an alpha channel of all on. If you are having trouble seeing an
  * image when attempting to draw in an instance of Sketch, you may want to either turn off blending with gldisable("blend"), or set the alpha channel to be all on with clearchannel("alpha",1.).
- * https://docs.cycling74.com/max7/vignettes/jsimageobject
+ * https://docs.cycling74.com/max8/vignettes/jsimageobject
  */
 declare class Image {
     /**

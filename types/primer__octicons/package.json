@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/primer__octicons",
-    "version": "19.6.9999",
+    "version": "19.11.9999",
     "projects": [
         "https://github.com/primer/octicons"
     ],

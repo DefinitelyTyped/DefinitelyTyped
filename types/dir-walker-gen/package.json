@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/dir-walker-gen": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Shavkat Aynurin",
-            "githubUsername": "aynurin"
-        }
-    ]
+    "owners": []
 }
