@@ -75,7 +75,7 @@ export namespace AIPrompt {
     /**
      * Represents a single piece of content within a language model message.
      */
-    export interface LanguageModelMessageContent {
+    interface LanguageModelMessageContent {
         type: LanguageModelMessageType;
         content: LanguageModelMessageContentValue;
     }
@@ -83,7 +83,7 @@ export namespace AIPrompt {
     /**
      * Represents a complete message in a language model prompt, including its role and content parts.
      */
-    export interface LanguageModelMessage {
+    interface LanguageModelMessage {
         role: LanguageModelMessageRole;
         content: LanguageModelMessageContent[];
     }
@@ -92,7 +92,7 @@ export namespace AIPrompt {
      * A shorthand for a simple text message within a language model prompt.
      * Equivalent to `{ role: providedValue.role, content: [{ type: "text", content: providedValue.content }] }`.
      */
-    export interface LanguageModelMessageShorthand {
+    interface LanguageModelMessageShorthand {
         role: LanguageModelMessageRole;
         content: string; // Represents the text content
     }
@@ -102,7 +102,7 @@ export namespace AIPrompt {
      * It can be a sequence of canonical messages, a sequence of shorthand messages,
      * or a single string (shorthand for a user message with text content).
      */
-    export type LanguageModelPrompt =
+    type LanguageModelPrompt =
         | LanguageModelMessage[]
         | LanguageModelMessageShorthand[]
         | string; // Shorthand for [{ role: "user", content: [{ type: "text", content: providedValue }] }]
@@ -111,14 +111,14 @@ export namespace AIPrompt {
      * Defines the initial prompts for creating a language model.
      * Omits the single string shorthand available in LanguageModelPrompt.
      */
-    export type LanguageModelInitialPrompts =
+    type LanguageModelInitialPrompts =
         | LanguageModelMessage[]
         | LanguageModelMessageShorthand[];
 
     /**
      * Describes an expected type of input for the language model, including content type and languages.
      */
-    export interface LanguageModelExpectedInput {
+    interface LanguageModelExpectedInput {
         type: LanguageModelMessageType;
         languages: string[]; // sequence<DOMString>
     }
@@ -126,7 +126,7 @@ export namespace AIPrompt {
     /**
      * Core options for creating or checking availability of a LanguageModel.
      */
-    export interface LanguageModelCreateCoreOptions {
+    interface LanguageModelCreateCoreOptions {
         topK?: number; // Unrestricted double, allowing +Infinity
         temperature?: number; // Unrestricted double, allowing +Infinity
         expectedInputs?: LanguageModelExpectedInput[];
@@ -135,7 +135,7 @@ export namespace AIPrompt {
     /**
      * Options for creating a LanguageModel instance.
      */
-    export interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
+    interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback; // Unified to use the non-prefixed CreateMonitorCallback
         initialPrompts?: LanguageModelInitialPrompts;
@@ -144,7 +144,7 @@ export namespace AIPrompt {
     /**
      * Options for the prompt and promptStreaming methods of a LanguageModel.
      */
-    export interface LanguageModelPromptOptions {
+    interface LanguageModelPromptOptions {
         responseConstraint?: object; // Can be refined if the structure is known, e.g., Record<string, any>
         signal?: AbortSignal;
     }
@@ -152,21 +152,21 @@ export namespace AIPrompt {
     /**
      * Options for the append method of a LanguageModel.
      */
-    export interface LanguageModelAppendOptions {
+    interface LanguageModelAppendOptions {
         signal?: AbortSignal;
     }
 
     /**
      * Options for cloning a LanguageModel instance.
      */
-    export interface LanguageModelCloneOptions {
+    interface LanguageModelCloneOptions {
         signal?: AbortSignal;
     }
 
     /**
      * Parameters of a created LanguageModel instance.
      */
-    export interface LanguageModelParams {
+    interface LanguageModelParams {
         readonly defaultTopK: number; // unsigned long
         readonly maxTopK: number; // unsigned long
         readonly defaultTemperature: number; // float
@@ -177,7 +177,7 @@ export namespace AIPrompt {
      * A dictionary that can be used to construct a language model prompt,
      * typically representing a single message part.
      */
-    export interface LanguageModelPromptDict {
+    interface LanguageModelPromptDict {
         role?: LanguageModelMessageRole; // Defaults to "user"
         type?: LanguageModelMessageType; // Defaults to "text". Note: LanguageModelMessageContent also has a 'type'.
         content: LanguageModelMessageContent; // Required. This object itself contains 'type' and 'content' (value).
@@ -186,7 +186,7 @@ export namespace AIPrompt {
     /**
      * Represents a language model instance capable of generating responses to prompts.
      */
-    export interface LanguageModel extends EventTarget {
+    interface LanguageModel extends EventTarget {
         /**
          * Generates a response from the language model based on the input prompt.
          * Throws "NotSupportedError" DOMException if role = "system" is used in certain contexts.
@@ -243,7 +243,7 @@ export namespace AIPrompt {
     /**
      * Represents the constructor and static methods for the LanguageModel API.
      */
-    export interface LanguageModelConstructor {
+    interface LanguageModelConstructor {
         /**
          * Creates a new LanguageModel instance.
          */
@@ -270,25 +270,25 @@ export namespace AIPrompt {
 export namespace AIWritingAssistance {
 
     // ---- Summarizer ----
-    export enum SummarizerType {
+    enum SummarizerType {
         TlDr = "tl;dr",
         Teaser = "teaser",
         KeyPoints = "key-points",
         Headline = "headline",
     }
 
-    export enum SummarizerFormat {
+    enum SummarizerFormat {
         PlainText = "plain-text",
         Markdown = "markdown",
     }
 
-    export enum SummarizerLength {
+    enum SummarizerLength {
         Short = "short",
         Medium = "medium",
         Long = "long",
     }
 
-    export interface SummarizerCreateCoreOptions {
+    interface SummarizerCreateCoreOptions {
         type?: SummarizerType;
         format?: SummarizerFormat;
         length?: SummarizerLength;
@@ -297,18 +297,18 @@ export namespace AIWritingAssistance {
         outputLanguage?: string;
     }
 
-    export interface SummarizerCreateOptions extends SummarizerCreateCoreOptions {
+    interface SummarizerCreateOptions extends SummarizerCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback;
         sharedContext?: string;
     }
 
-    export interface SummarizerSummarizeOptions {
+    interface SummarizerSummarizeOptions {
         signal?: AbortSignal;
         context?: string;
     }
 
-    export interface Summarizer extends AI.DestroyableModel {
+    interface Summarizer extends AI.DestroyableModel {
         summarize(
             input: string,
             options?: SummarizerSummarizeOptions
@@ -334,7 +334,7 @@ export namespace AIWritingAssistance {
         readonly inputQuota: number;
     }
 
-    export interface SummarizerConstructor {
+    interface SummarizerConstructor {
         create(options?: SummarizerCreateOptions): Promise<Summarizer>;
         availability(options?: SummarizerCreateCoreOptions): Promise<AI.Availability>;
         prototype: Summarizer;
@@ -343,24 +343,24 @@ export namespace AIWritingAssistance {
 
 
     // ---- Writer ----
-    export enum WriterTone {
+    enum WriterTone {
         Formal = "formal",
         Neutral = "neutral",
         Casual = "casual",
     }
 
-    export enum WriterFormat {
+    enum WriterFormat {
         PlainText = "plain-text",
         Markdown = "markdown",
     }
 
-    export enum WriterLength {
+    enum WriterLength {
         Short = "short",
         Medium = "medium",
         Long = "long",
     }
 
-    export interface WriterCreateCoreOptions {
+    interface WriterCreateCoreOptions {
         tone?: WriterTone;
         format?: WriterFormat;
         length?: WriterLength;
@@ -369,18 +369,18 @@ export namespace AIWritingAssistance {
         outputLanguage?: string;
     }
 
-    export interface WriterCreateOptions extends WriterCreateCoreOptions {
+    interface WriterCreateOptions extends WriterCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback;
         sharedContext?: string;
     }
 
-    export interface WriterWriteOptions {
+    interface WriterWriteOptions {
         context?: string;
         signal?: AbortSignal;
     }
 
-    export interface Writer extends AI.DestroyableModel {
+    interface Writer extends AI.DestroyableModel {
         write(
             input: string,
             options?: WriterWriteOptions
@@ -406,7 +406,7 @@ export namespace AIWritingAssistance {
         readonly inputQuota: number;
     }
 
-    export interface WriterConstructor {
+    interface WriterConstructor {
         create(options?: WriterCreateOptions): Promise<Writer>;
         availability(options?: WriterCreateCoreOptions): Promise<AI.Availability>;
         prototype: Writer;
@@ -415,25 +415,25 @@ export namespace AIWritingAssistance {
 
 
     // ---- Rewriter ----
-    export enum RewriterTone {
+    enum RewriterTone {
         AsIs = "as-is",
         MoreFormal = "more-formal",
         MoreCasual = "more-casual",
     }
 
-    export enum RewriterFormat {
+    enum RewriterFormat {
         AsIs = "as-is",
         PlainText = "plain-text",
         Markdown = "markdown",
     }
 
-    export enum RewriterLength {
+    enum RewriterLength {
         AsIs = "as-is",
         Shorter = "shorter",
         Longer = "longer",
     }
 
-    export interface RewriterCreateCoreOptions {
+    interface RewriterCreateCoreOptions {
         tone?: RewriterTone;
         format?: RewriterFormat;
         length?: RewriterLength;
@@ -442,18 +442,18 @@ export namespace AIWritingAssistance {
         outputLanguage?: string;
     }
 
-    export interface RewriterCreateOptions extends RewriterCreateCoreOptions {
+    interface RewriterCreateOptions extends RewriterCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback;
         sharedContext?: string;
     }
 
-    export interface RewriterRewriteOptions {
+    interface RewriterRewriteOptions {
         context?: string;
         signal?: AbortSignal;
     }
 
-    export interface Rewriter extends AI.DestroyableModel {
+    interface Rewriter extends AI.DestroyableModel {
         rewrite(
             input: string,
             options?: RewriterRewriteOptions
@@ -479,7 +479,7 @@ export namespace AIWritingAssistance {
         readonly inputQuota: number;
     }
 
-    export interface RewriterConstructor {
+    interface RewriterConstructor {
         create(options?: RewriterCreateOptions): Promise<Rewriter>;
         availability(options?: RewriterCreateCoreOptions): Promise<AI.Availability>;
         prototype: Rewriter;
@@ -492,21 +492,21 @@ export namespace AIWritingAssistance {
 export namespace AITranslation {
 
     // ---- Translator ----
-    export interface TranslatorCreateCoreOptions {
+    interface TranslatorCreateCoreOptions {
         sourceLanguage: string; // Required
         targetLanguage: string; // Required
     }
 
-    export interface TranslatorCreateOptions extends TranslatorCreateCoreOptions {
+    interface TranslatorCreateOptions extends TranslatorCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback;
     }
 
-    export interface TranslatorTranslateOptions {
+    interface TranslatorTranslateOptions {
         signal?: AbortSignal;
     }
 
-    export interface Translator extends AI.DestroyableModel {
+    interface Translator extends AI.DestroyableModel {
         translate(
             input: string,
             options?: TranslatorTranslateOptions
@@ -527,7 +527,7 @@ export namespace AITranslation {
         readonly inputQuota: number;
     }
 
-    export interface TranslatorConstructor {
+    interface TranslatorConstructor {
         create(options: TranslatorCreateOptions): Promise<Translator>; // Options are required
         availability(options: TranslatorCreateCoreOptions): Promise<AI.Availability>; // Options are required
         prototype: Translator;
@@ -536,25 +536,25 @@ export namespace AITranslation {
 
 
     // ---- LanguageDetector ----
-    export interface LanguageDetectionResult {
+    interface LanguageDetectionResult {
         detectedLanguage: string;
         confidence: number; // double
     }
 
-    export interface LanguageDetectorCreateCoreOptions {
+    interface LanguageDetectorCreateCoreOptions {
         expectedInputLanguages?: string[];
     }
 
-    export interface LanguageDetectorCreateOptions extends LanguageDetectorCreateCoreOptions {
+    interface LanguageDetectorCreateOptions extends LanguageDetectorCreateCoreOptions {
         signal?: AbortSignal;
         monitor?: AI.CreateMonitorCallback;
     }
 
-    export interface LanguageDetectorDetectOptions {
+    interface LanguageDetectorDetectOptions {
         signal?: AbortSignal;
     }
 
-    export interface LanguageDetector extends AI.DestroyableModel {
+    interface LanguageDetector extends AI.DestroyableModel {
         detect(
             input: string,
             options?: LanguageDetectorDetectOptions
@@ -569,7 +569,7 @@ export namespace AITranslation {
         readonly inputQuota: number;
     }
 
-    export interface LanguageDetectorConstructor {
+    interface LanguageDetectorConstructor {
         create(options?: LanguageDetectorCreateOptions): Promise<LanguageDetector>;
         availability(options?: LanguageDetectorCreateCoreOptions): Promise<AI.Availability>;
         prototype: LanguageDetector;
