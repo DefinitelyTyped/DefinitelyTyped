@@ -10,7 +10,7 @@
         "@types/express": "*",
         "@types/node": "*",
         "@types/redis": "^2.8.0",
-        "mongodb": "^4.5.0"
+        "mongodb": "^6.16.0"
     },
     "devDependencies": {
         "@types/acl": "workspace:."
