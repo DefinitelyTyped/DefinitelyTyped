@@ -30,6 +30,9 @@ async function topLevel() {
     });
     console.log(languageModel2);
 
+    const languageModelAvailability = await LanguageModel.availability();
+    console.log(languageModelAvailability);
+
     const languageModelParams = await LanguageModel.params();
     console.log(
         languageModelParams.defaultTopK,
@@ -112,14 +115,8 @@ async function topLevel() {
         },
     });
 
-    const summarizerCapabilities = await Summarizer.capabilities();
-    console.log(
-        summarizerCapabilities.available,
-        summarizerCapabilities.supportsType("teaser"),
-        summarizerCapabilities.supportsFormat("plain-text"),
-        summarizerCapabilities.supportsLength("long"),
-        summarizerCapabilities.languageAvailable("de"),
-    );
+    const summarizerAvailability = await Summarizer.availability();
+    console.log(summarizerAvailability);
 
     const summarizerResult: string = await summarizer.summarize("foo", {
         signal: (new AbortController()).signal,
@@ -150,14 +147,8 @@ async function topLevel() {
         },
     });
 
-    const writerCapabilities = await Writer.capabilities();
-    console.log(
-        writerCapabilities.available,
-        writerCapabilities.supportsTone("casual"),
-        writerCapabilities.supportsFormat("plain-text"),
-        writerCapabilities.supportsLength("long"),
-        writerCapabilities.languageAvailable("de"),
-    );
+    const writerAvailability = await Writer.availability();
+    console.log(writerAvailability);
 
     const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
     console.log(writerResult);
@@ -185,14 +176,8 @@ async function topLevel() {
         },
     });
 
-    const rewriterCapabilities = await Rewriter.capabilities();
-    console.log(
-        rewriterCapabilities.available,
-        rewriterCapabilities.supportsTone("more-casual"),
-        rewriterCapabilities.supportsFormat("plain-text"),
-        rewriterCapabilities.supportsLength("as-is"),
-        rewriterCapabilities.languageAvailable("de"),
-    );
+    const rewriterAvailability = await Rewriter.availability();
+    console.log(rewriterAvailability);
 
     const rewriterResult: string = await rewriter.rewrite("foo", {
         signal: (new AbortController()).signal,
@@ -226,11 +211,11 @@ async function topLevel() {
         translator.targetLanguage,
     );
 
-    const translatorCapabilities = await Translator.capabilities();
-    console.log(
-        translatorCapabilities.available,
-        translatorCapabilities.languagePairAvailable("de", "en"),
-    );
+    const translatorAvailability = await Translator.availability({
+        sourceLanguage: "de",
+        targetLanguage: "en",
+    });
+    console.log(translatorAvailability);
 
     const translatorResult: string = await translator.translate("foo", {
         signal: (new AbortController()).signal,
@@ -256,11 +241,8 @@ async function topLevel() {
         },
     });
 
-    const languageDetectorCapabilities = await LanguageDetector.capabilities();
-    console.log(
-        languageDetectorCapabilities.available,
-        languageDetectorCapabilities.languageAvailable("de"),
-    );
+    const languageDetectorAvailability = await LanguageDetector.availability();
+    console.log(languageDetectorAvailability);
 
     const [languageDetectorResult]: LanguageDetectionResult[] = await languageDetector.detect("foo", {
         signal: (new AbortController()).signal,
