@@ -689,6 +689,7 @@ async function selectiveLoadingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promi
     await viewer.waitForLoadDone();
 
     const propHashes = await fakeLoadedModel.getPropertyHashes();
+    const propHashesWithFiltering = await fakeLoadedModel.getPropertyHashes(/name/, /category/);
     viewer.unloadDocumentNode(fakeLoadedModel.getDocumentNode());
 
     const matches = JSON.stringify(query).matchAll(/(["'])\?([\w\d\s]+)\1/g);
