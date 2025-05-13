@@ -13,7 +13,7 @@ async function topLevel() {
         temperature: 0,
         signal: (new AbortController()).signal,
         initialPrompts: [{ role: "assistant", content: "foo" }, { role: "user", content: "foo" }],
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
@@ -108,7 +108,7 @@ async function topLevel() {
         type: "tl;dr",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
@@ -140,7 +140,7 @@ async function topLevel() {
         length: "long",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
@@ -169,7 +169,7 @@ async function topLevel() {
         length: "as-is",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
@@ -199,7 +199,7 @@ async function topLevel() {
         sourceLanguage: "de",
         targetLanguage: "en",
         signal: (new AbortController()).signal,
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
@@ -234,7 +234,7 @@ async function topLevel() {
 
     const languageDetector = await LanguageDetector.create({
         signal: (new AbortController()).signal,
-        monitor(m: AICreateMonitor) {
+        monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
             });
