@@ -3,7 +3,7 @@ export namespace AI {
     /**
      * Represents the availability status of an AI model or feature.
      */
-    export enum Availability {
+    enum Availability {
         Unavailable = "unavailable",
         Downloadable = "downloadable",
         Downloading = "downloading",
@@ -13,7 +13,7 @@ export namespace AI {
     /**
      * A mixin interface for models that can be destroyed to free up resources.
      */
-    export interface DestroyableModel {
+    interface DestroyableModel {
         /**
          * Destroys the model instance, releasing any associated resources.
          */
@@ -23,7 +23,7 @@ export namespace AI {
     /**
      * An EventTarget that monitors the download progress of a model.
      */
-    export interface CreateMonitor extends EventTarget {
+    interface CreateMonitor extends EventTarget {
         /**
          * Event handler for download progress events.
          */
@@ -34,7 +34,7 @@ export namespace AI {
      * Callback function to receive a CreateMonitor instance.
      * @param monitor The CreateMonitor instance to observe download progress.
      */
-    export type CreateMonitorCallback = (monitor: CreateMonitor) => void;
+    type CreateMonitorCallback = (monitor: CreateMonitor) => void;
 
     // Note: Types like ImageBitmapSource, AudioBuffer, BufferSource, AbortSignal,
     // ReadableStream, EventTarget are assumed to be globally available
@@ -48,7 +48,7 @@ export namespace AIPrompt {
      * Represents the possible types of content in a language model message.
      * It can be an ImageBitmapSource, AudioBuffer, BufferSource (e.g., for binary data), or a string.
      */
-    export type LanguageModelMessageContentValue =
+    type LanguageModelMessageContentValue =
         | ImageBitmapSource
         | AudioBuffer
         | BufferSource
@@ -57,7 +57,7 @@ export namespace AIPrompt {
     /**
      * Defines the role of the author of a message in a language model prompt.
      */
-    export enum LanguageModelMessageRole {
+    enum LanguageModelMessageRole {
         System = "system", // Instructions or context for the model
         User = "user",     // Input from the end-user
         Assistant = "assistant", // Responses from the model
@@ -66,7 +66,7 @@ export namespace AIPrompt {
     /**
      * Defines the type of content in a language model message part.
      */
-    export enum LanguageModelMessageType {
+    enum LanguageModelMessageType {
         Text = "text",
         Image = "image",
         Audio = "audio",
