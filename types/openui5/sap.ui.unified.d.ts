@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1376,6 +1376,21 @@ declare module "sap/ui/unified/Calendar" {
       oInitialFocusedDate?: object
     ): this;
     /**
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of dates can be selected.
+     *
+     * **Note:** This property should be set to `false` if `singleSelection` is set to `false`, as selecting
+     * multiple intervals is not supported.
+     *
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setIntervalSelection(
+      /**
+       * Indicates if `intervalSelection` should be enabled
+       */
+      bEnabled: boolean
+    ): this;
+    /**
      * Sets the associated {@link #getLegend legend}.
      *
      * @since 1.38.5
@@ -1533,6 +1548,22 @@ declare module "sap/ui/unified/Calendar" {
        * New value for property `showWeekNumbers`
        */
       bShowWeekNumbers?: boolean
+    ): this;
+    /**
+     * Setter for the property `singleSelection`. If set to `true` only a single date or single interval, when
+     * `intervalSelection` is set to `true`, can be selected.
+     *
+     * **Note:** This property should be set to `true` if `intervalSelection` is set to `true`, as selecting
+     * multiple intervals is not supported.
+     *
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setSingleSelection(
+      /**
+       * Indicates if `singleSelection` should be enabled
+       */
+      bEnabled: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.

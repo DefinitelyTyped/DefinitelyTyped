@@ -60,9 +60,9 @@
 {
     const stream = new ReadableStream<string>({ start: (controller) => controller.enqueue("hello") }); // $ExpectType ReadableStream<string>
     const compressionStream = new CompressionStream("gzip");
-    const encodedStream = stream.pipeThrough(new TextEncoderStream()); // $ExpectType ReadableStream<Uint8Array> || ReadableStream<Uint8Array<ArrayBufferLike>>
-    const compressedStream = encodedStream.pipeThrough(compressionStream); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>>
-    compressedStream.pipeThrough(new DecompressionStream("gzip")); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>>
+    const encodedStream = stream.pipeThrough(new TextEncoderStream()); // $ExpectType ReadableStream<Uint8Array> || ReadableStream<Uint8Array<ArrayBufferLike>> || ReadableStream<Uint8Array<ArrayBuffer>>
+    const compressedStream = encodedStream.pipeThrough(compressionStream); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>> || ReadableStream<Uint8Array<ArrayBuffer>>
+    compressedStream.pipeThrough(new DecompressionStream("gzip")); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>> || ReadableStream<Uint8Array<ArrayBuffer>>
     void (async () => {
         const reader = compressedStream.getReader();
         const readNext = async () => {

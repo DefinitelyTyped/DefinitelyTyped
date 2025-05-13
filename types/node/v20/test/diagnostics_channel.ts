@@ -47,6 +47,8 @@ const hasSubs = hasSubscribers("test");
     channels.start.bindStore(store, (data) => {
         return data.requestId;
     });
+    // $ExpectType boolean
+    channels.start.unbindStore(store);
 
     channels.subscribe({
         start(message) {
@@ -137,4 +139,9 @@ const hasSubs = hasSubscribers("test");
         undefined,
         callback,
     );
+
+    // $ExpectType boolean
+    channels.hasSubscribers;
+    // @ts-expect-error - Only getter is implemented for `hasSubscribers`
+    channels.hasSubscribers = false;
 }

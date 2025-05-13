@@ -206,6 +206,9 @@ Module.Module === Module;
 
         return nextLoad(url);
     };
+
+    const moduleHooks = Module.registerHooks({ load, resolve });
+    moduleHooks.deregister();
 }
 
 // Compile cache

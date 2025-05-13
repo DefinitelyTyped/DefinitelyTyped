@@ -14,6 +14,7 @@ export default class BusinessAssetSharingAgreement extends AbstractCrudObject {
     }>;
     static get RequestStatus(): Readonly<{
         approve: "APPROVE";
+        canceled: "CANCELED";
         decline: "DECLINE";
         expired: "EXPIRED";
         in_progress: "IN_PROGRESS";

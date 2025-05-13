@@ -466,6 +466,7 @@ declare namespace jasmine {
     }
 
     interface Clock {
+        autoTick(): void;
         install(): Clock;
         uninstall(): void;
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */

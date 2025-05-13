@@ -1180,7 +1180,7 @@ declare namespace chrome {
         /**
          * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
          */
-        export function setIcon(details: TabIconDetails, callback?: Function): void;
+        export function setIcon(details: TabIconDetails, callback?: () => void): void;
 
         /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
         export var onClicked: BrowserClickedEvent;
@@ -1865,198 +1865,146 @@ declare namespace chrome {
      * Permissions: "contextMenus"
      */
     export namespace contextMenus {
-        export interface OnClickData {
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The text for the context selection, if any.
-             */
-            selectionText?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * A flag indicating the state of a checkbox or radio item after it is clicked.
-             */
-            checked?: boolean | undefined;
-            /**
-             * @since Chrome 35
-             * The ID of the menu item that was clicked.
-             */
-            menuItemId: number | string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The ID of the frame of the element where the context menu was
-             * clicked, if it was in a frame.
-             */
-            frameId?: number | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The URL of the frame of the element where the context menu was clicked, if it was in a frame.
-             */
-            frameUrl?: string | undefined;
-            /**
-             * @since Chrome 35
-             * A flag indicating whether the element is editable (text input, textarea, etc.).
-             */
-            editable: boolean;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
-             */
-            mediaType?: "image" | "video" | "audio" | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * A flag indicating the state of a checkbox or radio item before it was clicked.
-             */
-            wasChecked?: boolean | undefined;
-            /**
-             * @since Chrome 35
-             * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
-             */
-            pageUrl: string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * If the element is a link, the URL it points to.
-             */
-            linkUrl?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * The parent ID, if any, for the item clicked.
-             */
-            parentMenuItemId?: number | string;
-            /**
-             * Optional.
-             * @since Chrome 35
-             * Will be present for elements with a 'src' URL.
-             */
-            srcUrl?: string | undefined;
-        }
-
-        type ContextType =
-            | "all"
-            | "page"
-            | "frame"
-            | "selection"
-            | "link"
-            | "editable"
-            | "image"
-            | "video"
-            | "audio"
-            | "launcher"
-            | "browser_action"
-            | "page_action"
-            | "action";
-
-        type ContextItemType = "normal" | "checkbox" | "radio" | "separator";
-
-        export interface CreateProperties {
-            /** Optional. Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This applies to frames as well.) For details on the format of a pattern, see Match Patterns.  */
-            documentUrlPatterns?: string[] | undefined;
-            /** Optional. The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio item can be selected at a time in a given group of radio items.  */
-            checked?: boolean | undefined;
-            /** Optional. The text to be displayed in the item; this is required unless type is 'separator'. When the context is 'selection', you can use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".  */
-            title?: string | undefined;
-            /** Optional. List of contexts this menu item will appear in. Defaults to ['page'] if not specified.  */
-            contexts?: ContextType | ContextType[] | undefined;
-            /**
-             * Optional.
-             * @since Chrome 20
-             * Whether this context menu item is enabled or disabled. Defaults to true.
-             */
-            enabled?: boolean | undefined;
-            /** Optional. Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and the href of anchor tags.  */
-            targetUrlPatterns?: string[] | undefined;
-            /**
-             * Optional.
-             * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead, they should register a listener for chrome.contextMenus.onClicked.
-             * @param info Information sent when a context menu item is clicked.
-             * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
-             */
-            onclick?: ((info: OnClickData, tab: chrome.tabs.Tab) => void) | undefined;
-            /** Optional. The ID of a parent menu item; this makes the item a child of a previously added item.  */
-            parentId?: number | string | undefined;
-            /** Optional. The type of menu item. Defaults to 'normal' if not specified.  */
-            type?: ContextItemType | undefined;
-            /**
-             * Optional.
-             * @since Chrome 21
-             * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
-             */
-            id?: string | undefined;
-            /**
-             * Optional.
-             * @since Chrome 62
-             * Whether the item is visible in the menu.
-             */
-            visible?: boolean | undefined;
-        }
-
-        export interface UpdateProperties extends Omit<CreateProperties, "id"> {}
-
-        export interface MenuClickedEvent
-            extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void>
-        {}
-
         /**
-         * @since Chrome 38
-         * The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.
+         * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
+         * @since Chrome 44
          */
-        export var ACTION_MENU_TOP_LEVEL_LIMIT: number;
+        export enum ContextType {
+            ALL = "all",
+            PAGE = "page",
+            FRAME = "frame",
+            SELECTION = "selection",
+            LINK = "link",
+            EDITABLE = "editable",
+            IMAGE = "image",
+            VIDEO = "video",
+            AUDIO = "audio",
+            LAUNCHER = "launcher",
+            BROWSER_ACTION = "browser_action",
+            PAGE_ACTION = "page_action",
+            ACTION = "action",
+        }
 
         /**
-         * Removes all context menu items added by this extension.
+         * Properties of the new context menu item.
          * @since Chrome 123
          */
-        export function removeAll(): Promise<void>;
+        export interface CreateProperties {
+            /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
+            checked?: boolean;
+            /** List of contexts this menu item will appear in. Defaults to `['page']`. */
+            contexts?: [`${ContextType}`, ...`${ContextType}`[]];
+            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns.  */
+            documentUrlPatterns?: string[];
+            /**  Whether this context menu item is enabled or disabled. Defaults to `true`. */
+            enabled?: boolean;
+            /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
+            id?: string;
+            /**  The ID of a parent menu item; this makes the item a child of a previously added item. */
+            parentId?: number | string;
+            /**  Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
+            targetUrlPatterns?: string[];
+            /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+            title?: string;
+            /** The type of menu item. Defaults to `normal`. */
+            type?: `${ItemType}`;
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
+             * @param info Information about the item clicked and the context where the click happened.
+             * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
+             */
+            onclick?: (
+                info: OnClickData,
+                tab: tabs.Tab,
+            ) => void;
+        }
+
         /**
-         * Removes all context menu items added by this extension.
-         * @param callback Called when removal is complete.
+         * The type of menu item.
+         * @since Chrome 44
          */
-        export function removeAll(callback: () => void): void;
+        export enum ItemType {
+            NORMAL = "normal",
+            CHECKBOX = "checkbox",
+            RADIO = "radio",
+            SEPARATOR = "separator",
+        }
+
+        /** Information sent when a context menu item is clicked. */
+        export interface OnClickData {
+            /** A flag indicating the state of a checkbox or radio item after it is clicked. */
+            checked?: boolean;
+            /**  A flag indicating whether the element is editable (text input, textarea, etc.). */
+            editable: boolean;
+            /**
+             * The ID of the frame of the element where the context menu was clicked, if it was in a frame.
+             * @since Chrome 51
+             */
+            frameId?: number;
+            /** The URL of the frame of the element where the context menu was clicked, if it was in a frame. */
+            frameUrl?: string;
+            /** If the element is a link, the URL it points to. */
+            linkUrl?: string;
+            /** One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements. */
+            mediaType?: `${ContextType.IMAGE}` | `${ContextType.VIDEO}` | `${ContextType.AUDIO}`;
+            /** The ID of the menu item that was clicked. */
+            menuItemId: number | string;
+            /** The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu. */
+            pageUrl?: string;
+            /** The parent ID, if any, for the item clicked.*/
+            parentMenuItemId?: number | string;
+            /** The text for the context selection, if any. */
+            selectionText?: string | undefined;
+            /** Will be present for elements with a 'src' URL. */
+            srcUrl?: string | undefined;
+            /** A flag indicating the state of a checkbox or radio item before it was clicked. */
+            wasChecked?: boolean | undefined;
+        }
+
+        /** The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored. */
+        export const ACTION_MENU_TOP_LEVEL_LIMIT: 6;
+
         /**
-         * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in chrome.runtime.lastError).
-         * @param callback Called when the item has been created in the browser. If there were any problems creating the item, details will be available in chrome.runtime.lastError.
+         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link chrome.runtime.lastError}.
          * @return The ID of the newly created item.
          */
         export function create(createProperties: CreateProperties, callback?: () => void): number | string;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-         * @since Chrome 123
-         */
-        export function update(id: string | number, updateProperties: UpdateProperties): Promise<void>;
-        /**
-         * Updates a previously created context menu item.
-         * @param id The ID of the item to update.
-         * @param updateProperties The properties to update. Accepts the same values as the create function.
-         * @param callback Called when the context menu has been updated.
-         */
-        export function update(id: string | number, updateProperties: UpdateProperties, callback: () => void): void;
+
         /**
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
-         * @since Chrome 123
+         *
+         * Can return its result via Promise since Chrome 123.
          */
         export function remove(menuItemId: string | number): Promise<void>;
-        /**
-         * Removes a context menu item.
-         * @param menuItemId The ID of the context menu item to remove.
-         * @param callback Called when the context menu has been removed.
-         */
         export function remove(menuItemId: string | number, callback: () => void): void;
 
         /**
-         * @since Chrome 21
-         * Fired when a context menu item is clicked.
+         * Removes all context menu items added by this extension.
+         *
+         * Can return its result via Promise since Chrome 123.
          */
-        export var onClicked: MenuClickedEvent;
+        export function removeAll(): Promise<void>;
+        export function removeAll(callback: () => void): void;
+
+        /**
+         * Updates a previously created context menu item.
+         * @param id The ID of the item to update.
+         * @param updateProperties The properties to update. Accepts the same values as the {@link contextMenus.create} function.
+         *
+         * Can return its result via Promise since Chrome 123.
+         */
+        export function update(id: string | number, updateProperties: Omit<CreateProperties, "id">): Promise<void>;
+        export function update(
+            id: string | number,
+            updateProperties: Omit<CreateProperties, "id">,
+            callback: () => void,
+        ): void;
+
+        /** Fired when a context menu item is clicked. */
+        export const onClicked: events.Event<(info: OnClickData, tab?: tabs.Tab) => void>;
     }
 
     ////////////////////
@@ -2407,13 +2355,13 @@ declare namespace chrome {
         export function sendCommand(
             target: DebuggerSession,
             method: string,
-            commandParams?: Object,
-        ): Promise<Object | undefined>;
+            commandParams?: { [key: string]: unknown },
+        ): Promise<object | undefined>;
         export function sendCommand(
             target: DebuggerSession,
             method: string,
-            commandParams?: Object,
-            callback?: (result?: Object) => void,
+            commandParams?: { [key: string]: unknown },
+            callback?: (result?: object) => void,
         ): void;
 
         /**
@@ -2427,7 +2375,7 @@ declare namespace chrome {
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
         export const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        export const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: Object) => void>;
+        export const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: object) => void>;
     }
 
     export { _debugger as debugger };
@@ -2637,7 +2585,7 @@ declare namespace chrome {
             filter: RequestCookie;
         }
 
-        export interface RequestedEvent extends chrome.events.Event<Function> {}
+        export interface RequestedEvent extends chrome.events.Event<() => void> {}
 
         export var onRequest: RequestedEvent;
     }
@@ -2721,7 +2669,7 @@ declare namespace chrome {
                     /**
                      * Set to undefined if the resource content was set successfully; describes error otherwise.
                      */
-                    error?: Object,
+                    error?: object,
                 ) => void,
             ): void;
         }
@@ -2994,13 +2942,13 @@ declare namespace chrome {
              * @param rootTitle An optional title for the root of the expression tree.
              * @param callback A callback invoked after the sidebar is updated with the object.
              */
-            setObject(jsonObject: Object, rootTitle?: string, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string, callback?: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param callback A callback invoked after the sidebar is updated with the object.
              */
-            setObject(jsonObject: Object, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
              * @param path Relative path of an extension page to display within the sidebar.
@@ -3038,9 +2986,10 @@ declare namespace chrome {
          * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
          * @param callback A function that is called when the user clicks on a valid resource link in Developer Tools window. Note that if the user clicks an invalid URL or an XHR, this function is not called.
          * Parameter resource: A devtools.inspectedWindow.Resource object for the resource that was clicked.
+         * Parameter lineNumber: Specifies the line number within the resource that was clicked.
          */
         export function setOpenResourceHandler(
-            callback?: (resource: chrome.devtools.inspectedWindow.Resource) => void,
+            callback?: (resource: chrome.devtools.inspectedWindow.Resource, lineNumber: number) => void,
         ): void;
         /**
          * @since Chrome 38
@@ -3069,6 +3018,71 @@ declare namespace chrome {
          * The name of the color theme set in user's DevTools settings.
          */
         export var themeName: "default" | "dark";
+    }
+
+    ////////////////////
+    // Dev Tools - Recorder
+    ////////////////////
+    /**
+     * Use the `chrome.devtools.recorder` API to customize the Recorder panel in DevTools.
+     * @since Chrome 105
+     */
+    export namespace devtools.recorder {
+        /** A plugin interface that the Recorder panel invokes to customize the Recorder panel. */
+        export interface RecorderExtensionPlugin {
+            /**
+             * Allows the extension to implement custom replay functionality.
+             *
+             * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
+             * @since Chrome 112
+             */
+            replay?(recording: { [key: string]: unknown }): void;
+
+            /**
+             * Converts a recording from the Recorder panel format into a string.
+             * @param recording A recording of the user interaction with the page. This should match [Puppeteer's recording schema](https://github.com/puppeteer/replay/blob/main/docs/api/interfaces/Schema.UserFlow.md).
+             */
+            stringify?(recording: { [key: string]: unknown }): void;
+
+            /**
+             * Converts a step of the recording from the Recorder panel format into a string.
+             * @param step A step of the recording of a user interaction with the page. This should match [Puppeteer's step schema](https://github.com/puppeteer/replay/blob/main/docs/api/modules/Schema.md#step).
+             */
+            stringifyStep?(step: { [key: string]: unknown }): void;
+        }
+
+        /**
+         * Represents a view created by extension to be embedded inside the Recorder panel.
+         * @since Chrome 112
+         */
+        export interface RecorderView {
+            /** Fired when the view is hidden. */
+            onHidden: events.Event<() => void>;
+            /** Fired when the view is shown. */
+            onShown: events.Event<() => void>;
+            /** Indicates that the extension wants to show this view in the Recorder panel. */
+            show(): void;
+        }
+
+        /**
+         * Creates a view that can handle the replay. This view will be embedded inside the Recorder panel.
+         * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
+         * @param pagePath Path of the panel's HTML page relative to the extension directory.
+         * @since Chrome 112
+         */
+        export function createView(title: string, pagePath: string): RecorderView;
+
+        /**
+         * Registers a Recorder extension plugin.
+         * @param plugin An instance implementing the RecorderExtensionPlugin interface.
+         * @param name The name of the plugin.
+         * @param mediaType The media type of the string content that the plugin produces.
+         */
+        export function registerRecorderExtensionPlugin(
+            plugin: RecorderExtensionPlugin,
+            name: string,
+            mediaType: string,
+        ): void;
     }
 
     ////////////////////
@@ -4278,7 +4292,7 @@ declare namespace chrome {
             originAndPathMatches?: string | undefined;
         }
 
-        export interface Event<T extends Function> {
+        export interface Event<T extends (...args: any) => void> {
             /**
              * Registers an event listener callback to an event.
              * @param callback Called when an event occurs. The parameters of this function depend on the type of event.
@@ -4503,7 +4517,7 @@ declare namespace chrome {
 
         export interface SelectionResult {
             /** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
-            entry?: Object | null | undefined;
+            entry?: object | null | undefined;
             /** Whether the file has been selected. */
             success: boolean;
         }
@@ -5384,7 +5398,7 @@ declare namespace chrome {
         /**
          * Sets the default font size.
          */
-        export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: Function): void;
+        export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: () => void): void;
         /**
          * Gets the font for a given script and generic font family.
          * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5399,25 +5413,25 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `getDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getDefaultFontSize(details?: Object): Promise<FontSizeDetails>;
+        export function getDefaultFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the default font size.
          * @param details This parameter is currently unused.
          */
         export function getDefaultFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getDefaultFontSize(details: Object, callback: (options: FontSizeDetails) => void): void;
+        export function getDefaultFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
         /**
          * Gets the minimum font size.
          * @param details This parameter is currently unused.
          * @return The `getMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getMinimumFontSize(details?: object): Promise<FontSizeDetails>;
+        export function getMinimumFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the minimum font size.
          * @param details This parameter is currently unused.
          */
         export function getMinimumFontSize(callback: (options: FontSizeDetails) => void): void;
-        export function getMinimumFontSize(details: object, callback: (options: FontSizeDetails) => void): void;
+        export function getMinimumFontSize(details: unknown, callback: (options: FontSizeDetails) => void): void;
         /**
          * Sets the minimum font size.
          * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5426,31 +5440,31 @@ declare namespace chrome {
         /**
          * Sets the minimum font size.
          */
-        export function setMinimumFontSize(details: SetFontSizeDetails, callback: Function): void;
+        export function setMinimumFontSize(details: SetFontSizeDetails, callback: () => void): void;
         /**
          * Gets the default size for fixed width fonts.
          * @param details This parameter is currently unused.
          * @return The `getDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only).
          */
-        export function getDefaultFixedFontSize(details?: Object): Promise<FontSizeDetails>;
+        export function getDefaultFixedFontSize(details?: unknown): Promise<FontSizeDetails>;
         /**
          * Gets the default size for fixed width fonts.
          * @param details This parameter is currently unused.
          */
         export function getDefaultFixedFontSize(callback: (details: FontSizeDetails) => void): void;
-        export function getDefaultFixedFontSize(details: Object, callback: (details: FontSizeDetails) => void): void;
+        export function getDefaultFixedFontSize(details: unknown, callback: (details: FontSizeDetails) => void): void;
         /**
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
          * @return The `clearDefaultFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearDefaultFontSize(details?: Object): Promise<void>;
+        export function clearDefaultFontSize(details?: unknown): Promise<void>;
         /**
          * Clears the default font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearDefaultFontSize(callback: Function): void;
-        export function clearDefaultFontSize(details: Object, callback: Function): void;
+        export function clearDefaultFontSize(callback: () => void): void;
+        export function clearDefaultFontSize(details: unknown, callback: () => void): void;
         /**
          * Sets the default size for fixed width fonts.
          * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5459,7 +5473,7 @@ declare namespace chrome {
         /**
          * Sets the default size for fixed width fonts.
          */
-        export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: Function): void;
+        export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: () => void): void;
         /**
          * Clears the font set by this extension, if any.
          * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5468,7 +5482,7 @@ declare namespace chrome {
         /**
          * Clears the font set by this extension, if any.
          */
-        export function clearFont(details: FontDetails, callback: Function): void;
+        export function clearFont(details: FontDetails, callback: () => void): void;
         /**
          * Sets the font for a given script and generic font family.
          * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -5477,19 +5491,19 @@ declare namespace chrome {
         /**
          * Sets the font for a given script and generic font family.
          */
-        export function setFont(details: SetFontDetails, callback: Function): void;
+        export function setFont(details: SetFontDetails, callback: () => void): void;
         /**
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
          * @return The `clearMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearMinimumFontSize(details?: Object): Promise<void>;
+        export function clearMinimumFontSize(details?: unknown): Promise<void>;
         /**
          * Clears the minimum font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearMinimumFontSize(callback: Function): void;
-        export function clearMinimumFontSize(details: Object, callback: Function): void;
+        export function clearMinimumFontSize(callback: () => void): void;
+        export function clearMinimumFontSize(details: unknown, callback: () => void): void;
         /**
          * Gets a list of fonts on the system.
          * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5504,12 +5518,12 @@ declare namespace chrome {
          * @param details This parameter is currently unused.
          * @return The `clearDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function clearDefaultFixedFontSize(details: Object): Promise<void>;
+        export function clearDefaultFixedFontSize(details: unknown): Promise<void>;
         /**
          * Clears the default fixed font size set by this extension, if any.
          * @param details This parameter is currently unused.
          */
-        export function clearDefaultFixedFontSize(details: Object, callback: Function): void;
+        export function clearDefaultFixedFontSize(details: unknown, callback: () => void): void;
 
         /** Fired when the default fixed font size setting changes. */
         export var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
@@ -5538,12 +5552,12 @@ declare namespace chrome {
             /** Optional. Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The maximum and a default value of time-to-live is 86400 seconds (1 day). */
             timeToLive?: number | undefined;
             /** Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed gcm.MAX_MESSAGE_SIZE. */
-            data: Object;
+            data: { [key: string]: unknown };
         }
 
         export interface IncomingMessage {
             /** The message data. */
-            data: Object;
+            data: { [key: string]: unknown };
             /**
              * Optional.
              * The sender who issued the message.
@@ -5563,7 +5577,7 @@ declare namespace chrome {
             /** Optional. The ID of the message with this error, if error is related to a specific message. */
             messageId?: string | undefined;
             /** Additional details related to the error, when available. */
-            detail: Object;
+            detail: object;
         }
 
         export interface MessageReceptionEvent extends chrome.events.Event<(message: IncomingMessage) => void> {}
@@ -6232,7 +6246,7 @@ declare namespace chrome {
         }
 
         export interface MenuItemParameters {
-            items: Object[];
+            items: MenuItem[];
             engineId: string;
         }
 
@@ -7173,7 +7187,7 @@ declare namespace chrome {
          * @since Chrome 29
          * @param callback Returns the set of notification_ids currently in the system.
          */
-        export function getAll(callback: (notifications: Object) => void): void;
+        export function getAll(callback: (notifications: { [key: string]: true }) => void): void;
         /**
          * Retrieves whether the user has enabled notifications from this app or extension.
          * @since Chrome 32
@@ -7613,7 +7627,7 @@ declare namespace chrome {
          */
         export function getKeyPair(
             certificate: ArrayBuffer,
-            parameters: Object,
+            parameters: { [key: string]: unknown },
             callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
         ): void;
         /**
@@ -7627,7 +7641,7 @@ declare namespace chrome {
          */
         export function getKeyPairBySpki(
             publicKeySpkiDer: ArrayBuffer,
-            parameters: Object,
+            parameters: { [key: string]: unknown },
             callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void,
         ): void;
         /** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
@@ -7703,7 +7717,7 @@ declare namespace chrome {
             /** The print job title. */
             title: string;
             /** Print ticket in  CJT format. */
-            ticket: Object;
+            ticket: { [key: string]: unknown };
             /** The document content type. Supported formats are "application/pdf" and "image/pwg-raster". */
             contentType: string;
             /** Blob containing the document data to print. Format must match |contentType|. */
@@ -7869,6 +7883,13 @@ declare namespace chrome {
         export function cancelJob(jobId: string, callback: () => void): void;
 
         /**
+         * Returns the status of the print job. This call will fail with a runtime error if the print job with the given `jobId` doesn't exist. `jobId`: The id of the print job to return the status of. This should be the same id received in a {@link SubmitJobResponse}.
+         * @since Chrome 135
+         */
+        export function getJobStatus(jobId: string): Promise<`${JobStatus}`>;
+        export function getJobStatus(jobId: string, callback: (status: `${JobStatus}`) => void): void;
+
+        /**
          * Returns the status and capabilities of the printer in CDD format. This call will fail with a runtime error if no printers with given id are installed.
          * Can return its result via Promise in Manifest V3 or later since Chrome 100.
          */
@@ -7892,7 +7913,7 @@ declare namespace chrome {
         /**
          * Event fired when the status of the job is changed. This is only fired for the jobs created by this extension.
          */
-        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: JobStatus) => void>;
+        export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: `${JobStatus}`) => void>;
     }
 
     ////////////////////
@@ -8943,7 +8964,7 @@ declare namespace chrome {
             default_popup?: string | undefined;
         }
 
-        // Source: https://developer.chrome.com/docs/extensions/mv3/declare_permissions/
+        /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
         export type ManifestPermissions =
             | "accessibilityFeatures.modify"
             | "accessibilityFeatures.read"
@@ -9000,11 +9021,11 @@ declare namespace chrome {
             | "privacy"
             | "processes"
             | "proxy"
+            | "readingList"
             | "scripting"
             | "search"
             | "sessions"
             | "sidePanel"
-            | "signedInDevices"
             | "storage"
             | "system.cpu"
             | "system.display"
@@ -9026,6 +9047,23 @@ declare namespace chrome {
             | "webRequest"
             | "webRequestBlocking"
             | "webRequestAuthProvider";
+
+        /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
+        export type ManifestOptionalPermissions = Exclude<
+            ManifestPermissions,
+            | "debugger"
+            | "declarativeNetRequest"
+            | "devtools"
+            | "experimental"
+            | "fontSettings"
+            | "geolocation"
+            | "proxy"
+            | "tts"
+            | "ttsEngine"
+            | "unlimitedStorage"
+            | "wallpaper"
+            | "webAuthenticationProxy"
+        >;
 
         export interface SearchProvider {
             name?: string | undefined;
@@ -9246,8 +9284,8 @@ declare namespace chrome {
                 }
                 | undefined;
             content_security_policy?: string | undefined;
-            optional_permissions?: string[] | undefined;
-            permissions?: string[] | undefined;
+            optional_permissions?: ManifestOptionalPermissions[] | string[] | undefined;
+            permissions?: ManifestPermissions[] | string[] | undefined;
             web_accessible_resources?: string[] | undefined;
         }
 
@@ -9282,7 +9320,7 @@ declare namespace chrome {
                 sandbox?: string;
             };
             host_permissions?: string[] | undefined;
-            optional_permissions?: ManifestPermissions[] | undefined;
+            optional_permissions?: ManifestOptionalPermissions[] | undefined;
             optional_host_permissions?: string[] | undefined;
             permissions?: ManifestPermissions[] | undefined;
             web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
@@ -9471,7 +9509,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: Object,
+            message: object,
             responseCallback: (response: any) => void,
         ): void;
         /**
@@ -9482,7 +9520,7 @@ declare namespace chrome {
          */
         export function sendNativeMessage(
             application: string,
-            message: Object,
+            message: object,
         ): Promise<any>;
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
@@ -10168,7 +10206,11 @@ declare namespace chrome {
             address: string;
         }
 
-        export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
+        export function create(
+            type: string,
+            options?: { [key: string]: unknown },
+            callback?: (createInfo: CreateInfo) => void,
+        ): void;
         export function destroy(socketId: number): void;
         export function connect(
             socketId: number,
@@ -11653,7 +11695,7 @@ declare namespace chrome {
          * Closes a tab.
          * @param tabId The tab to close.
          */
-        export function remove(tabId: number, callback: Function): void;
+        export function remove(tabId: number, callback: () => void): void;
         /**
          * Closes several tabs.
          * @param tabIds The list of tabs to close.
@@ -11664,7 +11706,7 @@ declare namespace chrome {
          * Closes several tabs.
          * @param tabIds The list of tabs to close.
          */
-        export function remove(tabIds: number[], callback: Function): void;
+        export function remove(tabIds: number[], callback: () => void): void;
         /**
          * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
          * @param callback
@@ -11844,7 +11886,7 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(details: InjectDetails, callback: Function): void;
+        export function insertCSS(details: InjectDetails, callback: () => void): void;
         /**
          * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
@@ -11858,7 +11900,7 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(tabId: number, details: InjectDetails, callback: Function): void;
+        export function insertCSS(tabId: number, details: InjectDetails, callback: () => void): void;
         /**
          * Highlights the given tabs.
          * @since Chrome 16
@@ -12196,131 +12238,111 @@ declare namespace chrome {
      */
     export namespace tabGroups {
         /** An ID that represents the absence of a group. */
-        export var TAB_GROUP_ID_NONE: -1;
+        export const TAB_GROUP_ID_NONE: -1;
 
-        export type ColorEnum = "grey" | "blue" | "red" | "yellow" | "green" | "pink" | "purple" | "cyan" | "orange";
+        /** The group's color. */
+        export enum Color {
+            BLUE = "blue",
+            CYAN = "cyan",
+            GREEN = "green",
+            GREY = "grey",
+            ORANGE = "orange",
+            PINK = "pink",
+            PURPLE = "purple",
+            RED = "red",
+            YELLOW = "yellow",
+        }
 
         export interface TabGroup {
             /** Whether the group is collapsed. A collapsed group is one whose tabs are hidden. */
             collapsed: boolean;
             /** The group's color. */
-            color: ColorEnum;
+            color: `${Color}`;
             /** The ID of the group. Group IDs are unique within a browser session. */
             id: number;
-            /** Optional. The title of the group. */
-            title?: string | undefined;
+            /** The title of the group. */
+            title?: string;
             /** The ID of the window that contains the group. */
             windowId: number;
         }
 
         export interface MoveProperties {
-            /** The position to move the group to. Use -1 to place the group at the end of the window. */
+            /** The position to move the group to. Use `-1` to place the group at the end of the window. */
             index: number;
-            /** Optional. The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with chrome.windows.WindowType type "normal". */
-            windowId?: number | undefined;
+            /** The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with {@link windows.windowTypeEnum windows.windowType} type `"normal"`. */
+            windowId?: number;
         }
 
         export interface QueryInfo {
-            /** Optional. Whether the groups are collapsed. */
-            collapsed?: boolean | undefined;
-            /** Optional. The color of the groups. */
-            color?: ColorEnum | undefined;
-            /** Optional. Match group titles against a pattern. */
-            title?: string | undefined;
-            /** Optional. The ID of the window that contains the group. */
-            windowId?: number | undefined;
+            /** Whether the groups are collapsed. */
+            collapsed?: boolean;
+            /** The color of the groups. */
+            color?: `${Color}`;
+            /** Match group titles against a pattern. */
+            title?: string;
+            /** The ID of the parent window, or {@link windows.WINDOW_ID_CURRENT} for the current window. */
+            windowId?: number;
         }
 
         export interface UpdateProperties {
-            /** Optional. Whether the group should be collapsed. */
-            collapsed?: boolean | undefined;
-            /** Optional. The color of the group. */
-            color?: ColorEnum | undefined;
-            /** Optional. The title of the group. */
-            title?: string | undefined;
+            /** Whether the group should be collapsed. */
+            collapsed?: boolean;
+            /** The color of the group. */
+            color?: `${Color}`;
+            /** The title of the group. */
+            title?: string;
         }
 
         /**
          * Retrieves details about the specified group.
-         * @param groupId The ID of the tab group.
-         * @param callback Called with the retrieved tab group.
+         *
+         * Can return its result via Promise since Chrome 90.
          */
+        export function get(groupId: number): Promise<TabGroup>;
         export function get(groupId: number, callback: (group: TabGroup) => void): void;
 
         /**
-         * Retrieves details about the specified group.
-         * @param groupId The ID of the tab group.
-         * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function get(groupId: number): Promise<TabGroup>;
-
-        /**
          * Moves the group and all its tabs within its window, or to a new window.
          * @param groupId The ID of the group to move.
-         * @param moveProperties Information on how to move the group.
-         * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function move(groupId: number, moveProperties: MoveProperties): Promise<TabGroup>;
-
-        /**
-         * Moves the group and all its tabs within its window, or to a new window.
-         * @param groupId The ID of the group to move.
-         * @param moveProperties Information on how to move the group.
-         * @param callback Optional.
-         */
+        export function move(groupId: number, moveProperties: MoveProperties): Promise<TabGroup | undefined>;
         export function move(
             groupId: number,
             moveProperties: MoveProperties,
-            callback: (group: TabGroup) => void,
+            callback: (group?: TabGroup) => void,
         ): void;
 
         /**
          * Gets all groups that have the specified properties, or all groups if no properties are specified.
-         * @param queryInfo Object with search parameters.
-         * @param callback Called with retrieved tab groups.
+         *
+         * Can return its result via Promise since Chrome 90.
          */
+        export function query(queryInfo: QueryInfo): Promise<TabGroup[]>;
         export function query(queryInfo: QueryInfo, callback: (result: TabGroup[]) => void): void;
 
         /**
-         * Gets all groups that have the specified properties, or all groups if no properties are specified.
-         * @param queryInfo Object with search parameters.
-         * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function query(queryInfo: QueryInfo): Promise<TabGroup[]>;
-
-        /**
-         * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
+         * Modifies the properties of a group. Properties that are not specified in `updateProperties` are not modified.
          * @param groupId The ID of the group to modify.
-         * @param updateProperties Information on how to update the group.
-         * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise since Chrome 90.
          */
-        export function update(groupId: number, updateProperties: UpdateProperties): Promise<TabGroup>;
-
-        /**
-         * Modifies the properties of a group. Properties that are not specified in updateProperties are not modified.
-         * @param groupId The ID of the group to modify.
-         * @param updateProperties Information on how to update the group.
-         * @param callback Optional.
-         */
+        export function update(groupId: number, updateProperties: UpdateProperties): Promise<TabGroup | undefined>;
         export function update(
             groupId: number,
             updateProperties: UpdateProperties,
-            callback: (group: TabGroup) => void,
+            callback: (group?: TabGroup) => void,
         ): void;
 
-        export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupRemovedEvent extends chrome.events.Event<(group: TabGroup) => void> {}
-        export interface TabGroupUpdated extends chrome.events.Event<(group: TabGroup) => void> {}
-
         /** Fired when a group is created. */
-        export var onCreated: TabGroupCreatedEvent;
+        export const onCreated: events.Event<(group: TabGroup) => void>;
         /** Fired when a group is moved within a window. Move events are still fired for the individual tabs within the group, as well as for the group itself. This event is not fired when a group is moved between windows; instead, it will be removed from one window and created in another. */
-        export var onMoved: TabGroupMovedEvent;
-        /** Fired when a group is closed, either directly by the user or automatically because it contained zero. */
-        export var onRemoved: TabGroupRemovedEvent;
+        export const onMoved: events.Event<(group: TabGroup) => void>;
+        /** Fired when a group is closed, either directly by the user or automatically because it contained zero tabs. */
+        export const onRemoved: events.Event<(group: TabGroup) => void>;
         /** Fired when a group is updated. */
-        export var onUpdated: TabGroupUpdated;
+        export const onUpdated: events.Event<(group: TabGroup) => void>;
     }
 
     ////////////////////
@@ -12354,133 +12376,143 @@ declare namespace chrome {
     // Text to Speech
     ////////////////////
     /**
-     * Use the `chrome.tts` API to play synthesized text-to-speech (TTS). See also the related ttsEngine API, which allows an extension to implement a speech engine.
+     * Use the `chrome.tts` API to play synthesized text-to-speech (TTS). See also the related {@link ttsEngine} API, which allows an extension to implement a speech engine.
      *
      * Permissions: "tts"
      */
     export namespace tts {
+        /** @since Chrome 54 */
+        export enum EventType {
+            START = "start",
+            END = "end",
+            WORD = "word",
+            SENTENCE = "sentence",
+            MARKER = "marker",
+            INTERRUPTED = "interrupted",
+            CANCELLED = "cancelled",
+            ERROR = "error",
+            PAUSE = "pause",
+            RESUME = "resume",
+        }
+
         /** An event from the TTS engine to communicate the status of an utterance. */
         export interface TtsEvent {
-            /** Optional. The index of the current character in the utterance. */
-            charIndex?: number | undefined;
-            /** Optional. The error description, if the event type is 'error'. */
-            errorMessage?: string | undefined;
+            /** The index of the current character in the utterance. For word events, the event fires at the end of one word and before the beginning of the next. The `charIndex` represents a point in the text at the beginning of the next word to be spoken. */
+            charIndex?: number;
+            /** The error description, if the event type is `error`. */
+            errorMessage?: string;
             /**
-             * The length of the next part of the utterance.
-             * For example, in a word event, this is the length of the word which will be spoken next.
-             * It will be set to -1 if not set by the speech engine.
+             * The length of the next part of the utterance. For example, in a `word` event, this is the length of the word which will be spoken next. It will be set to -1 if not set by the speech engine.
+             * @since Chrome 74
              */
-            length?: number | undefined;
+            length?: number;
+            /** The type can be `start` as soon as speech has started, `word` when a word boundary is reached, `sentence` when a sentence boundary is reached, `marker` when an SSML mark element is reached, `end` when the end of the utterance is reached, `interrupted` when the utterance is stopped or interrupted before reaching the end, `cancelled` when it's removed from the queue before ever being synthesized, or `error` when any other error occurs. When pausing speech, a `pause` event is fired if a particular utterance is paused in the middle, and `resume` if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances. */
+            type: `${EventType}`;
+        }
+
+        /**
+         * The speech options for the TTS engine.
+         * @since Chrome 77
+         */
+        export interface TtsOptions {
+            /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
+            desiredEventTypes?: string[];
+            /** If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. */
+            enqueue?: boolean;
+            /** The extension ID of the speech engine to use, if known. */
+            extensionId?: string;
             /**
-             * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
-             * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
+             * Gender of voice for synthesized speech.
+             * @deprecated since Chrome 77. Gender is deprecated and will be ignored.
              */
-            type:
-                | "start"
-                | "end"
-                | "word"
-                | "sentence"
-                | "marker"
-                | "interrupted"
-                | "cancelled"
-                | "error"
-                | "pause"
-                | "resume";
+            gender?: `${VoiceGender}`;
+            /** The language to be used for synthesis, in the form _language_\-_region_. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+            lang?: string;
+            /** Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch. */
+            pitch?: number;
+            /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. */
+            rate?: number;
+            /** The TTS event types the voice must support. */
+            requiredEventTypes?: string[];
+            /** The name of the voice to use for synthesis. If empty, uses any available voice. */
+            voiceName?: string;
+            /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
+            volume?: number;
+            /**
+             * This function is called with events that occur in the process of speaking the utterance.
+             * @param event The update event from the text-to-speech engine indicating the status of this utterance.
+             */
+            onEvent?: (
+                event: TtsEvent,
+            ) => void;
         }
 
         /** A description of a voice available for speech synthesis. */
         export interface TtsVoice {
-            /** Optional. The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string | undefined;
+            /** All of the callback event types that this voice is capable of sending. */
+            eventTypes?: `${EventType}`[];
+            /** The ID of the extension providing this voice. */
+            extensionId?: string;
             /**
-             * Optional. This voice's gender.
-             * One of: "male", or "female"
+             * This voice's gender.
              * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
              */
-            gender?: string | undefined;
-            /** Optional. The name of the voice. */
-            voiceName?: string | undefined;
-            /** Optional. The ID of the extension providing this voice. */
-            extensionId?: string | undefined;
-            /** Optional. All of the callback event types that this voice is capable of sending. */
-            eventTypes?: string[] | undefined;
-            /**
-             * Optional. If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs.
-             * @since Chrome 33
-             */
-            remote?: boolean | undefined;
+            gender?: `${VoiceGender}`;
+            /** The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
+            lang?: string;
+            /** If true, the synthesis engine is a remote network resource. It may be higher latency and may incur bandwidth costs. */
+            remote?: boolean;
+            /** The name of the voice. */
+            voiceName?: string;
         }
 
-        export interface SpeakOptions {
-            /** Optional. Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
-            volume?: number | undefined;
-            /**
-             * Optional.
-             * If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance.
-             */
-            enqueue?: boolean | undefined;
-            /**
-             * Optional.
-             * Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0.
-             */
-            rate?: number | undefined;
-            /**
-             * Optional. This function is called with events that occur in the process of speaking the utterance.
-             * @param event The update event from the text-to-speech engine indicating the status of this utterance.
-             */
-            onEvent?: ((event: TtsEvent) => void) | undefined;
-            /**
-             * Optional.
-             * Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to a voice's default pitch.
-             */
-            pitch?: number | undefined;
-            /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
-            lang?: string | undefined;
-            /** Optional. The name of the voice to use for synthesis. If empty, uses any available voice. */
-            voiceName?: string | undefined;
-            /** Optional. The extension ID of the speech engine to use, if known. */
-            extensionId?: string | undefined;
-            /**
-             * Optional. Gender of voice for synthesized speech.
-             * One of: "male", or "female"
-             */
-            gender?: string | undefined;
-            /** Optional. The TTS event types the voice must support. */
-            requiredEventTypes?: string[] | undefined;
-            /** Optional. The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[] | undefined;
+        /** @deprecated since Chrome 70. Gender is deprecated and is ignored.*/
+        export enum VoiceGender {
+            FEMALE = "female",
+            MALE = "male",
         }
 
-        /** Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome. */
-        export function isSpeaking(callback?: (speaking: boolean) => void): void;
-        /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
-        export function stop(): void;
-        /** Gets an array of all available voices. */
-        export function getVoices(): Promise<TtsVoice[]>;
-        export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
         /**
-         * Speaks text using a text-to-speech engine.
-         * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
-         * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+         * Gets an array of all available voices.
+         *
+         * Can return its result via Promise since Chrome Chrome 101
          */
-        export function speak(utterance: string, callback?: Function): void;
+        export function getVoices(): Promise<TtsVoice[]>;
+        export function getVoices(callback: (voices: TtsVoice[]) => void): void;
+
+        /**
+         * Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome.
+         *
+         * Can return its result via Promise since Chrome Chrome 101
+         */
+        export function isSpeaking(): Promise<boolean>;
+        export function isSpeaking(callback: (speaking: boolean) => void): void;
+
+        /** Pauses speech synthesis, potentially in the middle of an utterance. A call to resume or stop will un-pause speech. */
+        export function pause(): void;
+
+        /** If speech was paused, resumes speaking where it left off. */
+        export function resume(): void;
+
         /**
          * Speaks text using a text-to-speech engine.
          * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
          * @param options Optional. The speech options.
-         * @param callback Optional. Called right away, before speech finishes. Check chrome.runtime.lastError to make sure there were no errors. Use options.onEvent to get more detailed feedback.
+
+         * Can return its result via Promise since Chrome Chrome 101
          */
-        export function speak(utterance: string, options: SpeakOptions, callback?: Function): void;
+        export function speak(utterance: string, options?: TtsOptions): Promise<void>;
+        export function speak(utterance: string, callback: () => void): void;
+        export function speak(utterance: string, options: TtsOptions, callback: () => void): void;
+
+        /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
+        export function stop(): void;
+
         /**
-         * Pauses speech synthesis, potentially in the middle of an utterance. A call to resume or stop will un-pause speech.
-         * @since Chrome 29
+         * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
+         * @since Chrome 124
          */
-        export function pause(): void;
-        /**
-         * If speech was paused, resumes speaking where it left off.
-         * @since Chrome 29
-         */
-        export function resume(): void;
+        const onVoicesChanged: chrome.events.Event<() => void>;
     }
 
     ////////////////////
@@ -12813,7 +12845,7 @@ declare namespace chrome {
         export interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> {}
 
         export interface VpnConfigCreationEvent
-            extends chrome.events.Event<(id: string, name: string, data: Object) => void>
+            extends chrome.events.Event<(id: string, name: string, data: { [key: string]: unknown }) => void>
         {}
 
         export interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> {}
@@ -12830,19 +12862,19 @@ declare namespace chrome {
          * @param id ID of the VPN configuration to destroy.
          * @param callback Optional. Called when the configuration is destroyed or if there is an error.
          */
-        export function destroyConfig(id: string, callback?: Function): void;
+        export function destroyConfig(id: string, callback?: () => void): void;
         /**
          * Sets the parameters for the VPN session. This should be called immediately after "connected" is received from the platform. This will succeed only when the VPN session is owned by the extension.
          * @param parameters The parameters for the VPN session.
          * @param callback Called when the parameters are set or if there is an error.
          */
-        export function setParameters(parameters: VpnSessionParameters, callback: Function): void;
+        export function setParameters(parameters: VpnSessionParameters, callback?: () => void): void;
         /**
          * Sends an IP packet through the tunnel created for the VPN session. This will succeed only when the VPN session is owned by the extension.
          * @param data The IP packet to be sent to the platform.
          * @param callback Optional. Called when the packet is sent or if there is an error.
          */
-        export function sendPacket(data: ArrayBuffer, callback?: Function): void;
+        export function sendPacket(data: ArrayBuffer, callback?: () => void): void;
         /**
          * Notifies the VPN session state to the platform. This will succeed only when the VPN session is owned by the extension.
          * @param state The VPN session state of the VPN client.
@@ -12850,7 +12882,7 @@ declare namespace chrome {
          * failure: VPN connection failed.
          * @param callback Optional. Called when the notification is complete or if there is an error.
          */
-        export function notifyConnectionStateChanged(state: string, callback?: Function): void;
+        export function notifyConnectionStateChanged(state: string, callback?: () => void): void;
 
         /** Triggered when a message is received from the platform for a VPN configuration owned by the extension. */
         export var onPlatformMessage: VpnPlatformMessageEvent;
@@ -13123,7 +13155,7 @@ declare namespace chrome {
      * Manifest: "host_permissions"
      */
     export namespace webRequest {
-        interface WebRequestEvent<T extends Function, U extends string[]>
+        interface WebRequestEvent<T extends (...args: any) => void, U extends string[]>
             extends Omit<chrome.events.Event<T>, "addListener">
         {
             addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U): void;
@@ -13380,7 +13412,7 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         export function handlerBehaviorChanged(): Promise<void>;
-        export function handlerBehaviorChanged(callback: Function): void;
+        export function handlerBehaviorChanged(callback: () => void): void;
 
         /** Fired when a request is about to occur. */
         export const onBeforeRequest: WebRequestBodyEvent;
@@ -13714,7 +13746,7 @@ declare namespace chrome {
          */
         export function remove(windowId: number): Promise<void>;
         /** Removes (closes) a window, and all the tabs inside it. */
-        export function remove(windowId: number, callback: Function): void;
+        export function remove(windowId: number, callback: () => void): void;
         /**
          * Gets the window that was most recently focused — typically the window 'on top'.
          */
@@ -14541,7 +14573,7 @@ declare namespace chrome {
         export function isRegexSupported(regexOptions: RegexOptions): Promise<IsRegexSupportedResult>;
 
         /** Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented. */
-        export function setExtensionActionOptions(options: ExtensionActionOptions, callback: Function): void;
+        export function setExtensionActionOptions(options: ExtensionActionOptions, callback: () => void): void;
 
         /**
          * Configures if the action count for tabs should be displayed as the extension action's badge text and provides a way for that action count to be incremented.
@@ -14573,7 +14605,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
          * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, internal errors, and others.
          */
-        export function updateDynamicRules(options: UpdateRuleOptions, callback: Function): void;
+        export function updateDynamicRules(options: UpdateRuleOptions, callback: () => void): void;
 
         /** Modifies the current set of dynamic rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
@@ -14599,7 +14631,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to set of enabled rulesets.
          * This can happen for multiple reasons, such as invalid ruleset IDs, rule count limit exceeded, or internal errors.
          */
-        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: Function): void;
+        export function updateEnabledRulesets(options: UpdateRulesetOptions, callback: () => void): void;
 
         /** Updates the set of enabled static rulesets for the extension.
          * The rulesets with IDs listed in options.disableRulesetIds are first removed, and then the rulesets listed in options.enableRulesetIds are added.
@@ -14624,7 +14656,7 @@ declare namespace chrome {
          * In case of an error, runtime.lastError will be set and no change will be made to the rule set.
          * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
          */
-        export function updateSessionRules(options: UpdateRuleOptions, callback: Function): void;
+        export function updateSessionRules(options: UpdateRuleOptions, callback: () => void): void;
 
         /** Modifies the current set of session scoped rules for the extension.
          * The rules with IDs listed in options.removeRuleIds are first removed, and then the rules given in options.addRules are added.
@@ -14820,6 +14852,18 @@ declare namespace chrome {
          */
         export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
 
+        /** @since Chrome 135 */
+        export interface InjectionResult {
+            /** The document associated with the injection. */
+            documentId: string;
+            /** The error, if any. `error` and `result` are mutually exclusive. */
+            error?: string;
+            /** The frame associated with the injection. */
+            frameId: number;
+            /** The result of the script execution. */
+            result: any;
+        }
+
         export interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
             csp?: string;
@@ -14834,6 +14878,18 @@ declare namespace chrome {
 
         export interface UserScriptFilter {
             ids?: string[];
+        }
+
+        /** @since Chrome 135 */
+        export interface InjectionTarget {
+            /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` is specified. */
+            allFrames?: boolean;
+            /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
+            documentIds?: string[];
+            /** The IDs of specific frames to inject into. */
+            frameIds?: number[];
+            /** The ID of the tab into which to inject. */
+            tabId: number;
         }
 
         export interface RegisteredUserScript {
@@ -14859,6 +14915,20 @@ declare namespace chrome {
              * Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
              * @since Chrome 133
              */
+            worldId?: string;
+        }
+
+        /** @since Chrome 135 */
+        export interface UserScriptInjection {
+            /** Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
+            injectImmediately?: boolean;
+            /** The list of ScriptSource objects defining sources of scripts to be injected into the target. */
+            js: ScriptSource[];
+            /** Details specifying the target into which to inject the script. */
+            target: InjectionTarget;
+            /** The JavaScript "world" to run the script in. The default is `USER_SCRIPT`. */
+            world?: ExecutionWorld;
+            /** Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved. */
             worldId?: string;
         }
 
@@ -14913,6 +14983,13 @@ declare namespace chrome {
          */
         export function getWorldConfigurations(): Promise<WorldProperties[]>;
         export function getWorldConfigurations(callback: (worlds: WorldProperties[]) => void): void;
+
+        /**
+         * Injects a script into a target context. By default, the script will be run at `document_idle`, or immediately if the page has already loaded. If the `injectImmediately` property is set, the script will inject without waiting, even if the page has not finished loading. If the script evaluates to a promise, the browser will wait for the promise to settle and return the resulting value.
+         * @since Chrome 135
+         */
+        export function execute(injection: UserScriptInjection): Promise<InjectionResult[]>;
+        export function execute(injection: UserScriptInjection, callback: (result: InjectionResult[]) => void): void;
 
         /**
          * Registers one or more user scripts for this extension.

@@ -30,11 +30,15 @@ import * as url from "node:url";
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    // TODO: add test for all remaining options
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        headersTimeout: 50000,
+        requireHostHeader: false,
+        rejectNonStandardBodyWrites: false,
     }, reqListener);
 
     server.close();
@@ -383,6 +387,9 @@ import * as url from "node:url";
     http.request(new url.URL("http://www.example.com"), opts);
     http.get(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
     http.request(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
+
+    http.request("http://www.example.com/xyz", { headers: ["extra", "header"] });
+    http.request("http://www.example.com/xyz", { headers: { extra: "header" } });
 }
 
 {

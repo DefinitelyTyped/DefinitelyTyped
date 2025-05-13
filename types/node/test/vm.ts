@@ -52,7 +52,16 @@ import {
 }
 
 {
-    const fn: Function = compileFunction("console.log(\"test\")", [] as readonly string[], {
+    const code = "console.log(\"test\")";
+    const params = [] as const;
+
+    let fn = compileFunction(code);
+    fn = compileFunction(code, params);
+    fn = compileFunction(code, params, {});
+    fn = compileFunction(code, params, {
+        filename: "",
+        lineOffset: 0,
+        columnOffset: 0,
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,
@@ -60,6 +69,20 @@ import {
         produceCachedData: false,
         cachedData: Buffer.from("nope"),
     });
+    fn = compileFunction(code, params, {
+        cachedData: new Uint8Array(),
+    });
+    fn = compileFunction(code, params, {
+        cachedData: new DataView(new ArrayBuffer(10)),
+    });
+
+    fn satisfies Function;
+    // $ExpectType Buffer<ArrayBufferLike> | undefined
+    fn.cachedData;
+    // $ExpectType boolean | undefined
+    fn.cachedDataProduced;
+    // $ExpectType boolean | undefined
+    fn.cachedDataRejected;
 }
 
 {
@@ -144,3 +167,33 @@ import {
         this.setExport("default", obj);
     });
 });
+
+{
+    const script = new Script("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType Script
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+
+    const module = new SourceTextModule("import(\"foo.json\", { with: { type: \"json\" } })", {
+        async importModuleDynamically(specifier, referrer, importAttributes) {
+            specifier; // $ExpectType string
+            referrer; // $ExpectType SourceTextModule
+            importAttributes; // $ExpectType ImportAttributes
+            const m = new SyntheticModule(["bar"], () => {});
+            await m.link(() => {
+                throw new Error("unreachable");
+            });
+            m.setExport("bar", { hello: "world" });
+            return m;
+        },
+    });
+}

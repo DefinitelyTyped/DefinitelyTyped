@@ -6,6 +6,7 @@ import * as zlib from "node:zlib";
 const heapStats = v8.getHeapStatistics();
 const numOfDetached = heapStats.number_of_detached_contexts;
 const heapSpaceStats = v8.getHeapSpaceStatistics();
+const cppHeapStats = v8.getCppHeapStatistics("detailed");
 
 const zapsGarbage: number = heapStats.does_zap_garbage;
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -413,12 +413,6 @@ declare namespace sap {
      * @since 1.50
      */
     namespace support {
-      /**
-       * The CoreFacade interface allows rule developers to access the metadata, models, UI areas and components
-       * of the Core.
-       *
-       * Usage: The CoreFacade is passed as second argument to all rule check functions.
-       */
       class CoreFacade {
         /**
          * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -427,26 +421,46 @@ declare namespace sap {
 
         /**
          * Gets the Components from the Core object.
+         *
+         *
+         * @returns Object with all components, keyed by their ID
          */
-        getComponents(): void;
+        getComponents(): Record<
+          import("sap/ui/core/library").ID,
+          import("sap/ui/core/Component").default
+        >;
         /**
          * Gets the Metadata from the Core object.
+         *
+         * @deprecated As of version 1.119. without replacement. In future major versions, the Core no longer has
+         * a class nature and no longer inherits from sap.ui.base.Object and therefore no longer has metadata.
+         *
+         * @returns Metadata object describing the Core object
          */
-        getMetadata(): void;
+        getMetadata(): import("sap/ui/base/Metadata").default;
         /**
          * Gets the Models from the Core object.
+         *
+         * @deprecated As of version 1.118.0. without replacement. In future major versions, the Core no longer
+         * has global models.
+         *
+         * @returns Object with all models, keyed by their name
          */
-        getModels(): void;
+        getModels():
+          | Record<string, import("sap/ui/model/Model").default>
+          | undefined;
         /**
          * Gets the UI areas from the Core object.
+         *
+         *
+         * @returns Object with all UIAreas, keyed by their ID
          */
-        getUIAreas(): void;
+        getUIAreas(): Record<
+          import("sap/ui/core/library").ID,
+          import("sap/ui/core/UIArea").default
+        >;
       }
-      /**
-       * The IssueManagerFacade allows rule developers to add new issues.
-       *
-       * Usage: The IssueManagerFacade is passed as first argument to all rule check functions.
-       */
+
       class IssueManagerFacade {
         /**
          * @ui5-protected Do not call from applications (only from related classes in the framework)

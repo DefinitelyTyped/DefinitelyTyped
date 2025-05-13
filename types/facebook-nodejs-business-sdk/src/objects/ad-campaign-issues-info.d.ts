@@ -10,5 +10,6 @@ export default class AdCampaignIssuesInfo extends AbstractCrudObject {
         error_summary: "error_summary";
         error_type: "error_type";
         level: "level";
+        mid: "mid";
     }>;
 }

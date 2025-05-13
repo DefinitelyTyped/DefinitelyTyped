@@ -51,7 +51,7 @@ declare module "readline" {
      * and is read from, the `input` stream.
      * @since v0.1.104
      */
-    export class Interface extends EventEmitter {
+    export class Interface extends EventEmitter implements Disposable {
         readonly terminal: boolean;
         /**
          * The current input data being processed by node.
@@ -208,6 +208,11 @@ declare module "readline" {
          * @since v0.1.98
          */
         close(): void;
+        /**
+         * Alias for `rl.close()`.
+         * @since v22.15.0
+         */
+        [Symbol.dispose](): void;
         /**
          * The `rl.write()` method will write either `data` or a key sequence identified
          * by `key` to the `output`. The `key` argument is supported only if `output` is

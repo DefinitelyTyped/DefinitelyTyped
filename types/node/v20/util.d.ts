@@ -1241,6 +1241,18 @@ declare module "util" {
         | "reset"
         | "strikethrough"
         | "underline";
+    export interface StyleTextOptions {
+        /**
+         * When true, `stream` is checked to see if it can handle colors.
+         * @default true
+         */
+        validateStream?: boolean | undefined;
+        /**
+         * A stream that will be validated if it can be colored.
+         * @default process.stdout
+         */
+        stream?: NodeJS.WritableStream | undefined;
+    }
     /**
      * Stability: 1.1 - Active development
      *
@@ -1281,6 +1293,7 @@ declare module "util" {
             | Modifiers
             | Array<ForegroundColors | BackgroundColors | Modifiers>,
         text: string,
+        options?: StyleTextOptions,
     ): string;
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.

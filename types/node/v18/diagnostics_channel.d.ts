@@ -260,7 +260,7 @@ declare module "diagnostics_channel" {
          * @param store The store to unbind from the channel.
          * @return `true` if the store was found, `false` otherwise.
          */
-        unbindStore(store: any): void;
+        unbindStore(store: AsyncLocalStorage<StoreType>): boolean;
         /**
          * Applies the given data to any AsyncLocalStorage instances bound to the channel
          * for the duration of the given function, then publishes to the channel within

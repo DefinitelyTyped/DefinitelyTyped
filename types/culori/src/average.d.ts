@@ -1,5 +1,5 @@
-import { Color, FindColorByMode, Mode, NonEmptyArray, OverridesFunction, OverridesObject } from "./common";
-import { Rgb } from "./rgb/types";
+import { Color, FindColorByMode, Mode, NonEmptyArray, OverridesFunction, OverridesObject } from "./common.js";
+import { Rgb } from "./rgb/types.js";
 
 declare function averageAngle(val: number[]): number;
 

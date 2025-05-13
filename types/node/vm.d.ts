@@ -58,7 +58,7 @@ declare module "vm" {
     }
     interface ScriptOptions extends BaseOptions {
         /**
-         * V8's code cache data for the supplied source.
+         * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: Buffer | NodeJS.ArrayBufferView | undefined;
         /** @deprecated in favor of `script.createCachedData()` */
@@ -110,18 +110,24 @@ declare module "vm" {
         microtaskMode?: CreateContextOptions["microtaskMode"];
     }
     interface RunningCodeOptions extends RunningScriptOptions {
-        cachedData?: ScriptOptions["cachedData"];
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        cachedData?: ScriptOptions["cachedData"];
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
-        cachedData?: Buffer | undefined;
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         /**
          * Specifies whether to produce new cache data.
          * @default false
@@ -848,6 +854,9 @@ declare module "vm" {
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
+        /**
+         * Provides an optional data with V8's code cache data for the supplied source.
+         */
         cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
         lineOffset?: BaseOptions["lineOffset"] | undefined;
@@ -856,7 +865,13 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
+        importModuleDynamically?:
+            | ((
+                specifier: string,
+                referrer: SourceTextModule,
+                importAttributes: ImportAttributes,
+            ) => Module | Promise<Module>)
+            | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command

@@ -114,6 +114,87 @@ declare module "v8" {
      */
     function getHeapStatistics(): HeapInfo;
     /**
+     * It returns an object with a structure similar to the
+     * [`cppgc::HeapStatistics`](https://v8docs.nodesource.com/node-22.4/d7/d51/heap-statistics_8h_source.html)
+     * object. See the [V8 documentation](https://v8docs.nodesource.com/node-22.4/df/d2f/structcppgc_1_1_heap_statistics.html)
+     * for more information about the properties of the object.
+     *
+     * ```js
+     * // Detailed
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 152,
+     *   space_statistics: [
+     *     {
+     *       name: 'NormalPageSpace0',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace1',
+     *       committed_size_bytes: 131072,
+     *       resident_size_bytes: 131072,
+     *       used_size_bytes: 152,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace2',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace3',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'LargePageSpace',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *   ],
+     *   type_names: [],
+     *   detail_level: 'detailed',
+     * });
+     * ```
+     *
+     * ```js
+     * // Brief
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 128864,
+     *   space_statistics: [],
+     *   type_names: [],
+     *   detail_level: 'brief',
+     * });
+     * ```
+     * @since v22.15.0
+     * @param detailLevel **Default:** `'detailed'`. Specifies the level of detail in the returned statistics.
+     * Accepted values are:
+     * * `'brief'`:  Brief statistics contain only the top-level
+     * allocated and used
+     * memory statistics for the entire heap.
+     * * `'detailed'`: Detailed statistics also contain a break
+     * down per space and page, as well as freelist statistics
+     * and object type histograms.
+     */
+    function getCppHeapStatistics(detailLevel?: "brief" | "detailed"): object;
+    /**
      * Returns statistics about the V8 heap spaces, i.e. the segments which make up
      * the V8 heap. Neither the ordering of heap spaces, nor the availability of a
      * heap space can be guaranteed as the statistics are provided via the

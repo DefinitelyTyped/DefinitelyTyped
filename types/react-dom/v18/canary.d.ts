@@ -70,6 +70,7 @@ declare module "." {
         type?: string | undefined;
         nonce?: string | undefined;
         referrerPolicy?: ReferrerPolicy | undefined;
+        media?: string | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
 
