@@ -513,6 +513,21 @@ declare namespace Mixpanel {
         delete_user(): void;
     }
 
+    // a simple “user context” shape
+    export interface UserContext {
+        distinct_id: string;
+        [key: string]: any;
+    }
+
+    // feature-flags config
+    export interface FlagsConfig {
+        /**
+         * An arbitrary context object that will be sent
+         * along to your feature-flag evaluation engine
+         */
+        context?: UserContext;
+    }
+
     interface Config {
         /**
          * @default HTTP_PROTOCOL + 'api.mixpanel.com'
@@ -649,6 +664,10 @@ declare namespace Mixpanel {
          * @default []
          */
         property_blacklist?: string[] | undefined;
+        /**
+         * Feature-flags options
+         */
+        flags?: FlagsConfig;
     }
 
     type Query = string | Element | Element[];
