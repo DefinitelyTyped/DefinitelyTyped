@@ -213,6 +213,7 @@ declare namespace Calendar {
 
     interface EventInput {
         id?: number | string;
+        allDay?: boolean;
         start: Date | isoDateTimeString;
         end: Date | isoDateTimeString;
         title?: Content;
@@ -290,6 +291,7 @@ declare namespace Calendar {
         dayMaxEvents?: boolean;
         dayPopoverFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         displayEventEnd?: boolean;
+        dragConstraint?: (info: EventDropInfo) => boolean;
         dragScroll?: boolean;
         duration?: DurationInput;
         editable?: boolean;
@@ -339,11 +341,13 @@ declare namespace Calendar {
         noEventsContent?: Content | (() => Content);
         nowIndicator?: boolean;
         pointer?: boolean;
+        resizeConstraint?: (info: EventResizeInfo) => boolean;
         resources?: ResourceInput[];
         resourceLabelContent?: Content | ((info: ResourceLabelInfo) => Content);
         resourceLabelDidMount?: (info: ResourceDidMountInfo) => void;
         select?: (info: SelectInfo) => void;
         selectable?: boolean;
+        selectConstraint?: (info: SelectInfo) => boolean;
         selectBackgroundColor?: string;
         selectLongPressDelay?: number;
         selectMinDistance?: number;
@@ -352,6 +356,7 @@ declare namespace Calendar {
         slotEventOverlap?: boolean;
         slotHeight?: number;
         slotLabelFormat?: Intl.DateTimeFormatOptions | ((time: Date) => Content);
+        slotLabelInterval?: DurationInput;
         slotMaxTime?: DurationInput;
         slotMinTime?: DurationInput;
         slotWidth?: number;
@@ -360,6 +365,7 @@ declare namespace Calendar {
         unselect?: (info: UnselectInfo) => void;
         unselectAuto?: boolean;
         unselectCancel?: string;
+        validRange?: { start?: Date | isoDateString; end?: Date | isoDateString };
         view?: string;
         viewDidMount?: (info: { view: View }) => void;
         views?: Record<string, Options>;

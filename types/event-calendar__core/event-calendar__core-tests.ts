@@ -28,6 +28,7 @@ cal.setOption("date", tomorrow.toISOString())
     .setOption("date", tomorrow.toISOString());
 cal.addEvent({
     id: "123",
+    allDay: true,
     start: new Date(),
     end: new Date(Date.now() + 60 * 60 * 1000),
     title: "an event",
@@ -149,6 +150,7 @@ cal = new Calendar({
             dayMaxEvents: true,
             dayPopoverFormat: dateFormat,
             displayEventEnd: true,
+            dragConstraint: (_info: Calendar.EventDropInfo) => true,
             dragScroll: true,
             duration: { days: 7 },
             editable: true,
@@ -215,6 +217,7 @@ cal = new Calendar({
             noEventsContent: "content",
             nowIndicator: true,
             pointer: true,
+            resizeConstraint: (_info: Calendar.EventResizeInfo) => true,
             resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
             resourceLabelContent: "content",
             resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
@@ -222,6 +225,7 @@ cal = new Calendar({
                 return (info.allDay || (info.jsEvent.target === document.body) || !!info.view.title);
             },
             selectable: true,
+            selectConstraint: (_info: Calendar.SelectInfo) => true,
             selectBackgroundColor: "red",
             selectLongPressDelay: 100,
             selectMinDistance: 10,
@@ -230,6 +234,7 @@ cal = new Calendar({
             slotEventOverlap: true,
             slotHeight: 24,
             slotLabelFormat: dateFormat,
+            slotLabelInterval: { minutes: 30 },
             slotMinTime: 300,
             slotMaxTime: "04:00:00",
             slotWidth: 100,
@@ -240,6 +245,7 @@ cal = new Calendar({
             unselectCancel: "div.foo",
             view: "resourceTimeGrid",
             viewDidMount: (_info: { view: Calendar.View }) => {},
+            validRange: { start: "2025-01-01", end: "2025-12-31" },
             views: {
                 resourceTimeGrid: {
                     selectMinDistance: 200,
