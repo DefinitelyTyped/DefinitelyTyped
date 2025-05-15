@@ -259,7 +259,7 @@ declare module "diagnostics_channel" {
          * @param store The store to unbind from the channel.
          * @return `true` if the store was found, `false` otherwise.
          */
-        unbindStore(store: any): void;
+        unbindStore(store: AsyncLocalStorage<StoreType>): boolean;
         /**
          * Applies the given data to any AsyncLocalStorage instances bound to the channel
          * for the duration of the given function, then publishes to the channel within
@@ -547,6 +547,25 @@ declare module "diagnostics_channel" {
             thisArg?: any,
             ...args: Parameters<Fn>
         ): void;
+        /**
+         * `true` if any of the individual channels has a subscriber, `false` if not.
+         *
+         * This is a helper method available on a {@link TracingChannel} instance to check
+         * if any of the [TracingChannel Channels](https://nodejs.org/api/diagnostics_channel.html#tracingchannel-channels) have subscribers.
+         * A `true` is returned if any of them have at least one subscriber, a `false` is returned otherwise.
+         *
+         * ```js
+         * const diagnostics_channel = require('node:diagnostics_channel');
+         *
+         * const channels = diagnostics_channel.tracingChannel('my-channel');
+         *
+         * if (channels.hasSubscribers) {
+         *   // Do something
+         * }
+         * ```
+         * @since v22.0.0, v20.13.0
+         */
+        readonly hasSubscribers: boolean;
     }
 }
 declare module "node:diagnostics_channel" {

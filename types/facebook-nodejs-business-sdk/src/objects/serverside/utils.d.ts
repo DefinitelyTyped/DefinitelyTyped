@@ -22,8 +22,8 @@ export default class ServerSideUtils {
      */
     static normalizeCity(city: string): string;
     /**
-     * Normalizes the given currency string and returns acceptable three letter  ISO code
-     * @param  {String} [currency] country value to be normalized.
+     * Normalizes the given currency string and returns acceptable three letter ISO code
+     * @param  {String} [currency] Currency value to be normalized.
      * @return {String} Normalized ISO currency code.
      */
     static normalizeCurrency(currency: string): string;
@@ -34,7 +34,6 @@ export default class ServerSideUtils {
      */
     static normalizeDeliveryCategory(input: string): string;
     /**
-     * Normalizes the given email to RFC 822 standard and returns acceptable email value
      * @param  {String} [email] email value to be normalized.
      * @return {String} Normalized email value.
      */
@@ -44,7 +43,7 @@ export default class ServerSideUtils {
      * @param  {String} [gender] gender value to be normalized.
      * @return {String} Normalized gender value.
      */
-    static normalizeGender(gender: string): string;
+    static normalizeGender(gender: string): string | null;
     /**
     * Normalizes the 5 character name field.
     * @param  {String} [name] name value to be normalized.
@@ -68,7 +67,7 @@ export default class ServerSideUtils {
      * @param  {String} [zip] zip value to be normalized.
      * @return {String} Normalized zip code value.
      */
-    static normalizeZip(zip: string): string;
+    static normalizeZip(zip: string): string | null;
     /**
      * Normalizes the given date of birth day
      * @param  {String} [dobd] value to be normalized.
@@ -98,5 +97,5 @@ export default class ServerSideUtils {
      * @param  {String} [input] String to be hashed
      * @return {String} SHA 256 Hash of the string
      */
-    static toSHA256(input: string | null | undefined): any;
+    static toSHA256(input?: string | null): any;
 }

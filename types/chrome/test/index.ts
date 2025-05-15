@@ -680,33 +680,6 @@ async function testTabInterface() {
     tab.sessionId; // $ExpectType string | undefined
 }
 
-// tabGroups: https://developer.chrome.com/extensions/tabGroups#
-async function testTabGroupInterface() {
-    const options = { collapsed: false, title: "Test" };
-
-    chrome.tabGroups.query(options, tabGroups => {
-        // $ExpectType TabGroup[]
-        tabGroups;
-
-        const [tabGroup] = tabGroups;
-        tabGroup.collapsed; // $ExpectType boolean
-        tabGroup.color; // $ExpectType ColorEnum
-        tabGroup.id; // $ExpectType number
-        tabGroup.title; // $ExpectType string | undefined
-        tabGroup.windowId; // $ExpectType number
-
-        tabGroup.color = "grey";
-        tabGroup.color = "blue";
-        tabGroup.color = "red";
-        tabGroup.color = "yellow";
-        tabGroup.color = "green";
-        tabGroup.color = "pink";
-        tabGroup.color = "purple";
-        tabGroup.color = "cyan";
-        tabGroup.color = "orange";
-    });
-}
-
 // https://developer.chrome.com/extensions/runtime#method-openOptionsPage
 function testOptionsPage() {
     chrome.runtime.openOptionsPage();
@@ -731,8 +704,8 @@ function testGetManifest() {
         manifest.content_security_policy; // $ExpectType string | undefined
 
         manifest.host_permissions; // $ExpectType any
-        manifest.optional_permissions; // $ExpectType string[] | undefined
-        manifest.permissions; // $ExpectType string[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | string[] | undefined
+        manifest.permissions; // $ExpectType ManifestPermissions[] |string[] | undefined
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
@@ -746,13 +719,38 @@ function testGetManifest() {
         };
 
         manifest.host_permissions; // $ExpectType string[] | undefined
-        manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.optional_permissions; // $ExpectType ManifestOptionalPermissions[] | undefined
         manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
         manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
         // @ts-expect-error
         manifest.web_accessible_resources = ["script.js"];
+
+        // @ts-expect-error Permission 'debugger' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["debugger"];
+        // @ts-expect-error Permission 'declarativeNetRequest' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["declarativeNetRequest"];
+        // @ts-expect-error Permission 'devtools' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["devtools"];
+        // @ts-expect-error Permission 'experimental' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["experimental"];
+        // @ts-expect-error Permission 'fontSettings' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["fontSettings"];
+        // @ts-expect-error Permission 'geolocation' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["geolocation"];
+        // @ts-expect-error Permission 'proxy' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["proxy"];
+        // @ts-expect-error Permission 'tts' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["tts"];
+        // @ts-expect-error Permission 'ttsEngine' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["ttsEngine"];
+        // @ts-expect-error Permission 'unlimitedStorage' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["unlimitedStorage"];
+        // @ts-expect-error Permission 'wallpaper' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["wallpaper"];
+        // @ts-expect-error Permission 'webAuthenticationProxy' cannot be listed as optional. This permission will be omitted.
+        manifest.optional_permissions = ["webAuthenticationProxy"];
     }
 
     const mv2: chrome.runtime.Manifest = {
@@ -922,9 +920,9 @@ function testDebugger() {
         sessionId: "123",
     };
 
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<Object | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<object | undefined>
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
-        result; // $ExpectType Object | undefined
+        result; // $ExpectType object | undefined
     });
     // @ts-expect-error
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
@@ -932,17 +930,17 @@ function testDebugger() {
     chrome.debugger.onEvent.addListener((source, methodName, params) => { // $ExpectType void
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.removeListener((source, methodName, params) => { // $ExpectType void
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.hasListener((source, methodName, params) => { // $ExpectType boolean
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType Object | undefined
+        params; // $ExpectType object | undefined
     });
     chrome.debugger.onEvent.hasListeners(); // $ExpectType boolean
 
@@ -1398,6 +1396,11 @@ function testDevtools() {
     };
     chrome.devtools.recorder.registerRecorderExtensionPlugin({}, "MyPlugin", "application/json"); // $ExpectType void
     chrome.devtools.recorder.registerRecorderExtensionPlugin(plugin, "MyPlugin", "application/json"); // $ExpectType void
+
+    chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
+        resource; // $ExpectType Resource
+        lineNumber; // $ExpectType number
+    });
 }
 
 function testAssistiveWindow() {
@@ -2594,12 +2597,109 @@ async function testTabs() {
     chrome.tabs.onZoomChange.hasListeners(); // $ExpectType boolean
 }
 
-// https://developer.chrome.com/docs/extensions/reference/tabGroups
-async function testTabGroupsForPromise() {
-    await chrome.tabGroups.get(0);
-    await chrome.tabGroups.move(0, { index: 0 });
-    await chrome.tabGroups.query({});
-    await chrome.tabGroups.update(0, {});
+// https://developer.chrome.com/docs/extensions/reference/api/tabGroups
+async function testTabGroup() {
+    chrome.tabGroups.Color.BLUE === "blue";
+    chrome.tabGroups.Color.CYAN === "cyan";
+    chrome.tabGroups.Color.GREEN === "green";
+    chrome.tabGroups.Color.GREY === "grey";
+    chrome.tabGroups.Color.ORANGE === "orange";
+    chrome.tabGroups.Color.PINK === "pink";
+    chrome.tabGroups.Color.PURPLE === "purple";
+    chrome.tabGroups.Color.RED === "red";
+    chrome.tabGroups.Color.YELLOW === "yellow";
+
+    chrome.tabGroups.TAB_GROUP_ID_NONE === -1;
+
+    const groupId = 1;
+
+    chrome.tabGroups.get(groupId); // $ExpectType Promise<TabGroup>
+    chrome.tabGroups.get(groupId, (group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    // @ts-expect-error
+    chrome.tabGroups.get(() => {}).then(() => {});
+
+    const moveProperties: chrome.tabGroups.MoveProperties = {
+        index: 0,
+        windowId: 0,
+    };
+
+    chrome.tabGroups.move(groupId, moveProperties); // $ExpectType Promise<TabGroup | undefined>
+    chrome.tabGroups.move(groupId, moveProperties, (group) => { // $ExpectType void
+        group; // $ExpectType TabGroup | undefined
+    });
+    // @ts-expect-error
+    chrome.tabGroups.move(() => {}).then(() => {});
+
+    const queryInfo: chrome.tabGroups.QueryInfo = {
+        collapsed: false,
+        title: "Test",
+    };
+
+    chrome.tabGroups.query(queryInfo); // $ExpectType Promise<TabGroup[]>
+    chrome.tabGroups.query(queryInfo, (groups) => { // $ExpectType void
+        groups; // $ExpectType TabGroup[]
+    });
+    // @ts-expect-error
+    chrome.tabGroups.query(() => {}).then(() => {});
+
+    const updateProperties: chrome.tabGroups.UpdateProperties = {
+        collapsed: false,
+        title: "Test",
+        color: "blue",
+    };
+
+    chrome.tabGroups.update(groupId, updateProperties); // $ExpectType Promise<TabGroup | undefined>
+    chrome.tabGroups.update(groupId, updateProperties, (group) => { // $ExpectType void
+        group; // $ExpectType TabGroup | undefined
+    });
+    // @ts-expect-error
+    chrome.tabGroups.update(() => {}).then(() => {});
+
+    chrome.tabGroups.onCreated.addListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onCreated.removeListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onCreated.hasListener((group) => { // $ExpectType boolean
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onCreated.hasListeners(); // $ExpectType boolean
+
+    chrome.tabGroups.onMoved.addListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onMoved.removeListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onMoved.hasListener((group) => { // $ExpectType boolean
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onMoved.hasListeners(); // $ExpectType boolean
+
+    chrome.tabGroups.onRemoved.addListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onRemoved.removeListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onRemoved.hasListener((group) => { // $ExpectType boolean
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onRemoved.hasListeners(); // $ExpectType boolean
+
+    chrome.tabGroups.onUpdated.addListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onUpdated.removeListener((group) => { // $ExpectType void
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onUpdated.hasListener((group) => { // $ExpectType boolean
+        group; // $ExpectType TabGroup
+    });
+    chrome.tabGroups.onUpdated.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/windows
@@ -2910,8 +3010,8 @@ function testRuntimeSendMessage() {
 }
 
 function testRuntimeSendNativeMessage() {
-    chrome.runtime.sendNativeMessage("application", console.log).then(() => {});
-    chrome.runtime.sendNativeMessage("application", console.log, (num: number) => alert(num + 1));
+    chrome.runtime.sendNativeMessage("application", {}).then(() => {});
+    chrome.runtime.sendNativeMessage("application", {}, (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
@@ -4379,6 +4479,12 @@ function testUserScripts() {
     chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
     chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
 
+    const badScripts = [
+        {
+            id: "badScriptId",
+            matches: ["*://example.com/*"],
+        },
+    ];
     const scripts = [
         {
             id: "scriptId1",
@@ -4391,13 +4497,26 @@ function testUserScripts() {
             matches: ["*://example.org/*"],
         },
     ];
-
-    const badScripts = [
+    const jsInjections: chrome.userScripts.ScriptSource[] = [
         {
-            id: "badScriptId",
-            matches: ["*://example.com/*"],
+            file: "./the/script.js",
+        },
+        {
+            code: "console.log(\"Wow the script works!\");",
         },
     ];
+    const injectionTarget: chrome.userScripts.InjectionTarget = {
+        tabId: 46,
+        allFrames: true,
+    };
+
+    const badExeOptions = {};
+    const exeOptions: chrome.userScripts.UserScriptInjection = {
+        injectImmediately: true,
+        js: jsInjections,
+        target: injectionTarget,
+        worldId: "USER_SCRIPT",
+    };
 
     chrome.userScripts.getWorldConfigurations(); // $ExpectType Promise<WorldProperties[]>
     chrome.userScripts.getWorldConfigurations(([world]) => { // $ExpectType void
@@ -4407,6 +4526,13 @@ function testUserScripts() {
     });
     // @ts-expect-error
     chrome.userScripts.getWorldConfigurations(() => {}).then(() => {});
+
+    // @ts-expect-error
+    chrome.userScripts.execute(badExeOptions);
+    chrome.userScripts.execute(exeOptions); // $ExpectType Promise<InjectionResult[]>
+    chrome.userScripts.execute(exeOptions, (result) => { // $ExpectType void
+        result; // $ExpectType InjectionResult[]
+    });
 
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
@@ -4538,6 +4664,13 @@ function testPrinting() {
     // @ts-expect-error
     chrome.printing.cancelJob("", () => {}).then(() => {});
 
+    chrome.printing.getJobStatus(""); // $ExpectType Promise<"PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED">
+    chrome.printing.getJobStatus("", status => { // $ExpectType void
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
+    });
+    // @ts-expect-error
+    chrome.printing.getJobStatus("", status => {}).then(status => {});
+
     chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
     chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
     // @ts-expect-error
@@ -4564,15 +4697,15 @@ function testPrinting() {
 
     chrome.printing.onJobStatusChanged.addListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.removeListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.hasListener((jobId, status) => {
         jobId; // $ExpectType string
-        status; // $ExpectType JobStatus
+        status; // $ExpectType "PENDING" | "IN_PROGRESS" | "FAILED" | "CANCELED" | "PRINTED"
     });
     chrome.printing.onJobStatusChanged.hasListeners();
 }

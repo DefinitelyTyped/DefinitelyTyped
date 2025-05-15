@@ -1,4 +1,5 @@
 import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
 import TempNode from "../core/TempNode.js";
 import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
@@ -10,7 +11,7 @@ export default DebugNode;
 
 export const debug: (
     node: NodeRepresentation,
-    callback?: ((code: string) => void) | null,
+    callback?: ((node: NodeBuilder, code: string) => void) | null,
 ) => ShaderNodeObject<DebugNode>;
 
 declare module "../tsl/TSLCore.js" {

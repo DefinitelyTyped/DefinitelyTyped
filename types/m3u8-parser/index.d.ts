@@ -124,7 +124,7 @@ export interface Manifest {
 
 export class Parser extends Stream {
     constructor(options?: {
-        url?: string;
+        uri?: string;
         mainDefinitions?: Record<string, string>;
     });
     lineStream: LineStream;

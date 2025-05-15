@@ -10,6 +10,16 @@ export default class Destination extends AbstractCrudObject {
         applinks: "applinks";
         category_specific_fields: "category_specific_fields";
         currency: "currency";
+        custom_label_0: "custom_label_0";
+        custom_label_1: "custom_label_1";
+        custom_label_2: "custom_label_2";
+        custom_label_3: "custom_label_3";
+        custom_label_4: "custom_label_4";
+        custom_number_0: "custom_number_0";
+        custom_number_1: "custom_number_1";
+        custom_number_2: "custom_number_2";
+        custom_number_3: "custom_number_3";
+        custom_number_4: "custom_number_4";
         description: "description";
         destination_id: "destination_id";
         id: "id";
@@ -37,8 +47,8 @@ export default class Destination extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Destination>;
 }

@@ -1,13 +1,15 @@
 export = IdoDB;
 declare function IdoDB(): void;
 declare class IdoDB {
-    tableExists(tableName: string): void;
-    getTablesNames(): any[];
+    name: string;
+    uniqueId: number;
+    size: number;
+    tableExists(tableName: string): boolean;
+    getTableNames(): string[];
     dropTable(tableName: string): void;
     getTable(tableName: string): DataSet;
     getDBStatistics(): string;
-    uniqueId: any;
-    name: any;
+    close(): void;
 }
 declare namespace IdoDB {
     export { DataSet };

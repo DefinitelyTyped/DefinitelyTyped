@@ -2,7 +2,7 @@ export = Accumulator;
 declare function Accumulator(simpleLayout: SimpleLayout): void;
 declare class Accumulator {
     constructor(simpleLayout: SimpleLayout);
-    simpleLayout: SimpleLayout;
+    simpleLayout: import("./SimpleLayout");
     groupingValues: any[];
     setGroupingDepth(width: any): void;
     feed(value: any): void;

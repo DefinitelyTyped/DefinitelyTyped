@@ -14,6 +14,7 @@ const rfb = new RFB(window.document.body, "wss://example.local", {
 rfb.viewOnly; // $ExpectType boolean
 rfb.focusOnClick; // $ExpectType boolean
 rfb.clipViewport; // $ExpectType boolean
+rfb.clippingViewport; // $ExpectType boolean
 rfb.dragViewport; // $ExpectType boolean
 rfb.scaleViewport; // $ExpectType boolean
 rfb.resizeSession; // $ExpectType boolean

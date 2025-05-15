@@ -8,6 +8,7 @@ export default class AudioVisualReferenceMatch extends AbstractCrudObject {
         audio_conflicting_segments: "audio_conflicting_segments";
         audio_current_conflict_resolved_segments: "audio_current_conflict_resolved_segments";
         audio_segment_resolution_history: "audio_segment_resolution_history";
+        conflict_status: "conflict_status";
         conflict_type: "conflict_type";
         conflicting_countries: "conflicting_countries";
         country_resolution_history: "country_resolution_history";

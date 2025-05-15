@@ -19,6 +19,16 @@ let map = new naver.maps.Map("map", {
 });
 
 /**
+ * GL Submodules
+ */
+let glMap = new naver.maps.Map("map", {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 13,
+    gl: true,
+    customStyleId: "94230366-adba-4e0e-ac5a-e82a0e137b5e",
+});
+
+/**
  * Change any combination of center, zoom and padding with an animated transition
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-map-options.example.html
  */
@@ -39,6 +49,7 @@ map.fitBounds(dokdo);
 map.panTo(jeju);
 map.panToBounds(seoul);
 map.panBy(new naver.maps.Point(10, 10));
+map.stop();
 
 /**
  * Event Basic Example

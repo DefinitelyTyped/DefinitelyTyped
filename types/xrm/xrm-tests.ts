@@ -759,6 +759,14 @@ function GetAll(context: Xrm.FormContext) {
     }
 }
 
+function getPossibleAttributeValues(formContext: Xrm.FormContext) {
+    const attribute = formContext.getAttribute("statuscode");
+    if (attribute === null) {
+        throw new Error("Attribute does not exist!");
+    }
+    // $ExpectType AttributeValues | null
+    const values = attribute.getValue();
+}
 function testAttributeType(formContext: Xrm.FormContext) {
     const attribute = formContext.getAttribute<Xrm.Attributes.StringAttribute>("myattribute");
     if (attribute === null) {

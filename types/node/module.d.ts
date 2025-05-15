@@ -220,6 +220,31 @@ declare module "module" {
             options?: RegisterOptions<Data>,
         ): void;
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        interface RegisterHooksOptions {
+            /**
+             * See [load hook](https://nodejs.org/docs/latest-v22.x/api/module.html#loadurl-context-nextload).
+             * @default undefined
+             */
+            load?: LoadHook | undefined;
+            /**
+             * See [resolve hook](https://nodejs.org/docs/latest-v22.x/api/module.html#resolvespecifier-context-nextresolve).
+             * @default undefined
+             */
+            resolve?: ResolveHook | undefined;
+        }
+        interface ModuleHooks {
+            /**
+             * Deregister the hook instance.
+             */
+            deregister(): void;
+        }
+        /**
+         * Register [hooks](https://nodejs.org/docs/latest-v22.x/api/module.html#customization-hooks)
+         * that customize Node.js module resolution and loading behavior.
+         * @since v22.15.0
+         * @experimental
+         */
+        function registerHooks(options: RegisterHooksOptions): ModuleHooks;
         interface StripTypeScriptTypesOptions {
             /**
              * Possible values are:

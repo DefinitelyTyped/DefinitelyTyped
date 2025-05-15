@@ -47,6 +47,8 @@ const hasSubs = hasSubscribers("test");
     channels.start.bindStore(store, (data) => {
         return data.requestId;
     });
+    // $ExpectType boolean
+    channels.start.unbindStore(store);
 
     channels.subscribe({
         start(message) {

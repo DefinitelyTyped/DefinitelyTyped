@@ -1,10 +1,12 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/tnt/library" {
   /**
    * Interface for controls suitable for the `header` aggregation of {@link sap.tnt.ToolPage}.
    *
    * @since 1.68
+   * @deprecated As of version 1.135. This interface is not needed anymore. The `ToolPage` now accepts any
+   * control as a header or subheader.
    */
   export interface IToolHeader {
     __implements__sap_tnt_IToolHeader: boolean;
@@ -784,6 +786,53 @@ declare module "sap/tnt/NavigationList" {
       oItem: NavigationListItemBase
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -838,6 +887,24 @@ declare module "sap/tnt/NavigationList" {
      */
     destroyItems(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachItemPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: NavigationList$ItemPressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -854,6 +921,19 @@ declare module "sap/tnt/NavigationList" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:itemPress itemPress} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireItemPress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: NavigationList$ItemPressEventParameters
     ): this;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
@@ -1119,7 +1199,30 @@ declare module "sap/tnt/NavigationList" {
      * Fired when an item is selected.
      */
     itemSelect?: (oEvent: NavigationList$ItemSelectEvent) => void;
+
+    /**
+     * Fired when an item is pressed.
+     */
+    itemPress?: (oEvent: NavigationList$ItemPressEvent) => void;
   }
+
+  /**
+   * Parameters of the NavigationList#itemPress event.
+   */
+  export interface NavigationList$ItemPressEventParameters {
+    /**
+     * The pressed item.
+     */
+    item?: Item;
+  }
+
+  /**
+   * Event object of the NavigationList#itemPress event.
+   */
+  export type NavigationList$ItemPressEvent = Event<
+    NavigationList$ItemPressEventParameters,
+    NavigationList
+  >;
 
   /**
    * Parameters of the NavigationList#itemSelect event.
@@ -2326,6 +2429,53 @@ declare module "sap/tnt/SideNavigation" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachItemPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -2410,6 +2560,24 @@ declare module "sap/tnt/SideNavigation" {
      */
     destroyItem(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:itemPress itemPress} event of this `sap.tnt.SideNavigation`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachItemPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: SideNavigation$ItemPressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -2426,6 +2594,19 @@ declare module "sap/tnt/SideNavigation" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:itemPress itemPress} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireItemPress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: SideNavigation$ItemPressEventParameters
     ): this;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
@@ -2460,7 +2641,7 @@ declare module "sap/tnt/SideNavigation" {
      * Default value is `Decorated`.
      *
      * @since 1.134
-     * @experimental
+     * @experimental As of version 1.134.
      *
      * @returns Value of property `design`
      */
@@ -2555,7 +2736,7 @@ declare module "sap/tnt/SideNavigation" {
      * Default value is `Decorated`.
      *
      * @since 1.134
-     * @experimental
+     * @experimental As of version 1.134.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2705,7 +2886,7 @@ declare module "sap/tnt/SideNavigation" {
      * to achieve a Side Navigation Overlay Mode.
      *
      * @since 1.134
-     * @experimental
+     * @experimental As of version 1.134.
      */
     design?:
       | (SideNavigationDesign | keyof typeof SideNavigationDesign)
@@ -2740,7 +2921,30 @@ declare module "sap/tnt/SideNavigation" {
      * Fired when an item is selected.
      */
     itemSelect?: (oEvent: SideNavigation$ItemSelectEvent) => void;
+
+    /**
+     * Fired when an item is pressed.
+     */
+    itemPress?: (oEvent: SideNavigation$ItemPressEvent) => void;
   }
+
+  /**
+   * Parameters of the SideNavigation#itemPress event.
+   */
+  export interface SideNavigation$ItemPressEventParameters {
+    /**
+     * The pressed item.
+     */
+    item?: Item;
+  }
+
+  /**
+   * Event object of the SideNavigation#itemPress event.
+   */
+  export type SideNavigation$ItemPressEvent = Event<
+    SideNavigation$ItemPressEventParameters,
+    SideNavigation
+  >;
 
   /**
    * Parameters of the SideNavigation#itemSelect event.
@@ -2766,8 +2970,6 @@ declare module "sap/tnt/ToolHeader" {
     default as OverflowToolbar,
     $OverflowToolbarSettings,
   } from "sap/m/OverflowToolbar";
-
-  import { IToolHeader } from "sap/tnt/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2809,11 +3011,7 @@ declare module "sap/tnt/ToolHeader" {
    *
    * @since 1.34
    */
-  export default class ToolHeader
-    extends OverflowToolbar
-    implements IToolHeader
-  {
-    __implements__sap_tnt_IToolHeader: boolean;
+  export default class ToolHeader extends OverflowToolbar {
     /**
      * Constructor for a new ToolHeader.
      *
@@ -2982,8 +3180,6 @@ declare module "sap/tnt/ToolPage" {
 
   import { PageBackgroundDesign } from "sap/m/library";
 
-  import { IToolHeader } from "sap/tnt/library";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SideNavigation from "sap/tnt/SideNavigation";
@@ -3123,7 +3319,7 @@ declare module "sap/tnt/ToolPage" {
      *
      * The control to appear in the header area.
      */
-    getHeader(): IToolHeader;
+    getHeader(): Control;
     /**
      * Gets content of aggregation {@link #getMainContents mainContents}.
      *
@@ -3154,7 +3350,7 @@ declare module "sap/tnt/ToolPage" {
      *
      * @since 1.93
      */
-    getSubHeader(): IToolHeader;
+    getSubHeader(): Control;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContents mainContents}.
      * and returns its index if found or -1 otherwise.
@@ -3238,7 +3434,7 @@ declare module "sap/tnt/ToolPage" {
       /**
        * The header to set
        */
-      oHeader: IToolHeader
+      oHeader: Control
     ): this;
     /**
      * Sets the aggregated {@link #getSideContent sideContent}.
@@ -3275,7 +3471,7 @@ declare module "sap/tnt/ToolPage" {
       /**
        * The subHeader to set
        */
-      oSubHeader: IToolHeader
+      oSubHeader: Control
     ): this;
     /**
      * Toggles the expand/collapse state of the SideContent.
@@ -3307,14 +3503,14 @@ declare module "sap/tnt/ToolPage" {
     /**
      * The control to appear in the header area.
      */
-    header?: IToolHeader;
+    header?: Control;
 
     /**
      * The control to appear in the subheader area.
      *
      * @since 1.93
      */
-    subHeader?: IToolHeader;
+    subHeader?: Control;
 
     /**
      * The side menu of the layout.

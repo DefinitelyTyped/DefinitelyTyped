@@ -1,4 +1,4 @@
-// NAVER Maps JavaScript API Version: 3.7
+// NAVER Maps JavaScript API Version: 3.8
 
 /// <reference types="geojson" />
 
@@ -331,6 +331,18 @@ declare namespace naver.maps {
          * 빈 타일 이미지 URL을 설정할 수 있는 옵션입니다.
          */
         blankTileImage?: null | string;
+        /**
+         * An option to enable the GL submodule vector map. This option is applied only in the GL submodule.
+         *
+         * GL 서브 모듈 벡터맵을 활성화할 수 있는 옵션입니다. GL 서브 모듈을 반드시 로드해야 옵션이 적용됩니다.
+         */
+        gl?: boolean;
+        /**
+         * An option to set the My Style ID issued by the Style Editor. This option is applied only in the GL submodule.
+         *
+         * Style Editor에서 발행한 My Style ID입니다. GL 서브 모듈에서만 적용됩니다.
+         */
+        customStyleId?: string;
     }
 
     /**
@@ -1281,6 +1293,7 @@ declare namespace naver.maps {
         setZoom(zoom: number, effect?: boolean): void;
         updateBy(coord: Coord | CoordLiteral, zoom: number): void;
         zoomBy(deltaZoom: number, zoomOrigin?: Coord | CoordLiteral, effect?: boolean): void;
+        stop(): void;
     }
 
     /**

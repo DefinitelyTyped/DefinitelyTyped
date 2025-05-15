@@ -6,7 +6,7 @@ import CanvasBodyElement from "./canvas-body-element";
 import Canvas from "./canvas";
 import VideoCopyrightMatch from "./video-copyright-match";
 import PageUserMessageThreadLabel from "./page-user-message-thread-label";
-import AdsPixel from "./ads-pixel";
+import Dataset from "./dataset";
 import ImageCopyright from "./image-copyright";
 import AdVideo from "./ad-video";
 import InstagramUser from "./instagram-user";
@@ -240,6 +240,16 @@ export default class Page extends AbstractCrudObject {
         vegetarian: "Vegetarian";
         vietnamese: "Vietnamese";
     }>;
+    static get GenAiProvenanceType(): Readonly<{
+        c2pa: "C2PA";
+        c2pa_metadata_edited: "C2PA_METADATA_EDITED";
+        explicit: "EXPLICIT";
+        explicit_imagine: "EXPLICIT_IMAGINE";
+        explicit_imagine_me: "EXPLICIT_IMAGINE_ME";
+        invisible_watermark: "INVISIBLE_WATERMARK";
+        iptc: "IPTC";
+        iptc_metadata_edited: "IPTC_METADATA_EDITED";
+    }>;
     static get PickupOptions(): Readonly<{
         curbside: "CURBSIDE";
         in_store: "IN_STORE";
@@ -256,6 +266,7 @@ export default class Page extends AbstractCrudObject {
         analyze: "ANALYZE";
         cashier_role: "CASHIER_ROLE";
         create_content: "CREATE_CONTENT";
+        global_structure_management: "GLOBAL_STRUCTURE_MANAGEMENT";
         manage: "MANAGE";
         manage_jobs: "MANAGE_JOBS";
         manage_leads: "MANAGE_LEADS";
@@ -283,6 +294,7 @@ export default class Page extends AbstractCrudObject {
         analyze: "ANALYZE";
         cashier_role: "CASHIER_ROLE";
         create_content: "CREATE_CONTENT";
+        global_structure_management: "GLOBAL_STRUCTURE_MANAGEMENT";
         manage: "MANAGE";
         manage_jobs: "MANAGE_JOBS";
         manage_leads: "MANAGE_LEADS";
@@ -304,35 +316,6 @@ export default class Page extends AbstractCrudObject {
         profile_plus_revenue: "PROFILE_PLUS_REVENUE";
         read_page_mailboxes: "READ_PAGE_MAILBOXES";
         view_monetization_insights: "VIEW_MONETIZATION_INSIGHTS";
-    }>;
-    static get Alignment(): Readonly<{
-        left: "LEFT";
-        right: "RIGHT";
-    }>;
-    static get EntryPointIcon(): Readonly<{
-        chat_angular_icon: "CHAT_ANGULAR_ICON";
-        chat_round_icon: "CHAT_ROUND_ICON";
-        messenger_icon: "MESSENGER_ICON";
-        none: "NONE";
-    }>;
-    static get EntryPointLabel(): Readonly<{
-        ask_us: "ASK_US";
-        chat: "CHAT";
-        help: "HELP";
-        none: "NONE";
-    }>;
-    static get GreetingDialogDisplay(): Readonly<{
-        hide: "HIDE";
-        show: "SHOW";
-        welcome_message: "WELCOME_MESSAGE";
-    }>;
-    static get GuestChatMode(): Readonly<{
-        disabled: "DISABLED";
-        enabled: "ENABLED";
-    }>;
-    static get MobileChatDisplay(): Readonly<{
-        app_switch: "APP_SWITCH";
-        chat_tab: "CHAT_TAB";
     }>;
     static get BackdatedTimeGranularity(): Readonly<{
         day: "day";
@@ -374,10 +357,14 @@ export default class Page extends AbstractCrudObject {
         scheduled: "SCHEDULED";
         scheduled_recurring: "SCHEDULED_RECURRING";
     }>;
+    static get Category(): Readonly<{
+        utility: "UTILITY";
+    }>;
     static get MessagingType(): Readonly<{
         message_tag: "MESSAGE_TAG";
         response: "RESPONSE";
         update: "UPDATE";
+        utility: "UTILITY";
     }>;
     static get NotificationType(): Readonly<{
         no_push: "NO_PUSH";
@@ -399,6 +386,13 @@ export default class Page extends AbstractCrudObject {
     static get Platform(): Readonly<{
         instagram: "INSTAGRAM";
         messenger: "MESSENGER";
+    }>;
+    static get Actions(): Readonly<{
+        ban_user: "BAN_USER";
+        block_user: "BLOCK_USER";
+        move_to_spam: "MOVE_TO_SPAM";
+        unban_user: "UNBAN_USER";
+        unblock_user: "UNBLOCK_USER";
     }>;
     static get Model(): Readonly<{
         arabic: "ARABIC";
@@ -434,6 +428,7 @@ export default class Page extends AbstractCrudObject {
         awards: "awards";
         bio: "bio";
         birthday: "birthday";
+        call_permission_reply: "call_permission_reply";
         calls: "calls";
         category: "category";
         checkins: "checkins";
@@ -462,6 +457,7 @@ export default class Page extends AbstractCrudObject {
         live_videos: "live_videos";
         local_delivery: "local_delivery";
         location: "location";
+        marketing_message_delivery_failed: "marketing_message_delivery_failed";
         mcom_invoice_change: "mcom_invoice_change";
         members: "members";
         mention: "mention";
@@ -473,6 +469,7 @@ export default class Page extends AbstractCrudObject {
         message_mention: "message_mention";
         message_reactions: "message_reactions";
         message_reads: "message_reads";
+        message_template_status_update: "message_template_status_update";
         messages: "messages";
         messaging_account_linking: "messaging_account_linking";
         messaging_appointments: "messaging_appointments";
@@ -484,6 +481,7 @@ export default class Page extends AbstractCrudObject {
         messaging_game_plays: "messaging_game_plays";
         messaging_handovers: "messaging_handovers";
         messaging_in_thread_lead_form_submit: "messaging_in_thread_lead_form_submit";
+        messaging_integrity: "messaging_integrity";
         messaging_optins: "messaging_optins";
         messaging_optouts: "messaging_optouts";
         messaging_payments: "messaging_payments";
@@ -493,7 +491,6 @@ export default class Page extends AbstractCrudObject {
         messaging_referrals: "messaging_referrals";
         mission: "mission";
         name: "name";
-        otp_verification: "otp_verification";
         page_about_story: "page_about_story";
         page_change_proposal: "page_change_proposal";
         page_upcoming_change: "page_upcoming_change";
@@ -519,12 +516,6 @@ export default class Page extends AbstractCrudObject {
         videos: "videos";
         website: "website";
     }>;
-    static get Action(): Readonly<{
-        spam: "SPAM";
-    }>;
-    static get ActionType(): Readonly<{
-        report_thread: "REPORT_THREAD";
-    }>;
     getAbTests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAbTest(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PagePostExperiment>;
     createAcknowledgeOrder(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
@@ -549,7 +540,6 @@ export default class Page extends AbstractCrudObject {
     getCanvases(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCanvase(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Canvas>;
     getChatPlugin(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createChatPlugin(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getCommerceMerchantSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCommerceOrders(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCommercePayouts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -557,20 +547,20 @@ export default class Page extends AbstractCrudObject {
     getConversations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCopyrightManualClaim(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<VideoCopyrightMatch>;
     getCrosspostWhitelistedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCtxOptimizationEligibility(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCustomLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCustomLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PageUserMessageThreadLabel>;
     deleteCustomUserSettings(params?: Record<string, any>): Promise<any>;
     getCustomUserSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCustomUserSetting(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getDataSet(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createDataSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    getDataset(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createDataset(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Dataset>;
     getEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createExtendThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getFantasyGames(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getFeed(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createFeed(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getGlobalBrandChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getImageCopyrights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createImageCopyright(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ImageCopyright>;
     getIndexedVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -586,16 +576,20 @@ export default class Page extends AbstractCrudObject {
     createLocation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getMediaFingerprints(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createMediaFingerprint(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<MediaFingerprint>;
-    createMessageAttachMEnt(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createMessageAttachment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    deleteMessageTemplates(params?: Record<string, any>): Promise<any>;
+    getMessageTemplates(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessageTemplate(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createMessage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getMessagingFeatureReview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMessengerCallSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createMessengerCallSetting(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getMessengerLeadForMs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createMessengerLeadForM(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
+    getMessengerLeadForms(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessengerLeadForm(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     deleteMessengerProfile(params?: Record<string, any>): Promise<any>;
     getMessengerProfile(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createMessengerProfile(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
+    createModerateConversation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createNlpConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getNotificationMessageTokens(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createNotificationMessagesDevSupport(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
@@ -603,7 +597,6 @@ export default class Page extends AbstractCrudObject {
     createPageBackedInstagramAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<InstagramUser>;
     createPageWhatsAppNumberVerification(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createPassThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    createPassThreadMetadatum(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getPersonas(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPersona(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Persona>;
     createPhotoStory(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
@@ -614,16 +607,16 @@ export default class Page extends AbstractCrudObject {
     getPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPublishedPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getRatings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createReleaseThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     createRequestThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getRoles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getRtbDynamicPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getScheduleDPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getScheduledPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSecondaryReceivers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSetting(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getShopSetupStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getStoreLocations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getStories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
     getSubscribedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -631,7 +624,6 @@ export default class Page extends AbstractCrudObject {
     getTabs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTagged(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createTakeThreadControl(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    createThreadAction(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getThreadOwner(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getThreads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createUnlinkAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;

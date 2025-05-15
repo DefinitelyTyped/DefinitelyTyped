@@ -4,6 +4,7 @@ import {
     AdvancedFraudProtection,
     AdvocateMask,
     Agile,
+    AgileCoaching,
     Ai,
     AiExplainability,
     Airplane,
@@ -81,3 +82,4 @@ import * as React from "react";
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
 <Agile />; // $ExpectType Element
+<AgileCoaching />; // $ExpectType Element

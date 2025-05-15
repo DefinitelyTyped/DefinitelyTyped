@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/base/assert" {
   /**
@@ -1516,7 +1516,8 @@ declare module "sap/base/i18n/ResourceBundle" {
         enhanceWith?: Configuration[];
         /**
          * Whether the first bundle should be loaded asynchronously Note: Fallback bundles loaded by {@link #getText }
-         * are always loaded synchronously.
+         * are always loaded synchronously. **As of version 1.135, synchronous loading is deprecated.** The `async`
+         * parameter must have the value `true`.
          */
         async?: boolean;
       }
@@ -5187,6 +5188,20 @@ declare module "sap/ui/core/Theming" {
      * @since 1.118.0
      */
     notifyContentDensityChanged(): void;
+    /**
+     * Sets the favicon. The path must be relative to the current origin. Absolute URLs are not allowed.
+     *
+     * @since 1.135
+     *
+     * @returns A promise that resolves when the favicon has been set with undefined
+     */
+    setFavicon(
+      /**
+       * A string containing a specific relative path to the favicon, 'true' to use a favicon from custom theme
+       * or the default favicon in case no custom favicon is maintained, 'false' or undefined to disable the favicon
+       */
+      vFavicon: string | boolean | undefined
+    ): Promise<undefined>;
     /**
      * Allows setting the theme name
      *
@@ -11644,9 +11659,9 @@ declare module "sap/ui/base/ManagedObject" {
 
   import Event from "sap/ui/base/Event";
 
-  import Binding from "sap/ui/model/Binding";
-
   import Context from "sap/ui/model/Context";
+
+  import Binding from "sap/ui/model/Binding";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -12472,6 +12487,9 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * For more information on the `oBindingInfo.key` property and its usage, see {@link https://ui5.sap.com/#/topic/7cdff73f308b4b10bdf7d83b7aba72e7 Extended Change Detection}.
      *
+     * Providing sorters and/or filters as positional parameters is deprecated as of 1.135.0. Provide them as
+     * part of a `BindingInfo` object instead.
+     *
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -12481,9 +12499,14 @@ declare module "sap/ui/base/ManagedObject" {
        */
       sName: string,
       /**
-       * Binding info
+       * A `BindingInfo` object or just the path, if no further properties are required
        */
-      oBindingInfo: AggregationBindingInfo
+      vBindingInfo: AggregationBindingInfo | string,
+      /**
+       * The template to clone for each item in the aggregation; either a template `Element` or a factory function
+       * must be given
+       */
+      vTemplate?: ManagedObject | ((p1: string, p2: Context) => ManagedObject)
     ): this;
     /**
      * Bind the object to the referenced entity in the model, which is used as the binding context to resolve
@@ -12520,14 +12543,17 @@ declare module "sap/ui/base/ManagedObject" {
      * Also see {@link https://ui5.sap.com/#/topic/91f05e8b6f4d1014b6dd926db0e91070 Context Binding} in the
      * documentation.
      *
+     * As of 1.135, providing 'parameters' as positional parameter is deprecated. Provide them as part of a
+     * `BindingInfo` object instead.
+     *
      *
      * @returns Returns `this` to allow method chaining
      */
     bindObject(
       /**
-       * Binding info
+       * A `BindingInfo` object or just the path, if no further properties are required
        */
-      oBindingInfo: ObjectBindingInfo
+      vBindingInfo: ObjectBindingInfo | string
     ): this;
     /**
      * Binds a property to the model.
@@ -12590,6 +12616,9 @@ declare module "sap/ui/base/ManagedObject" {
      * Also see {@link https://ui5.sap.com/#/topic/91f0652b6f4d1014b6dd926db0e91070 Property Binding} in the
      * documentation.
      *
+     * Providing a type, formatter, or bindingMode as a positional parameter is deprecated as of 1.135.0. Provide
+     * them as part of a `BindingInfo` object instead.
+     *
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -12600,9 +12629,9 @@ declare module "sap/ui/base/ManagedObject" {
        */
       sName: string,
       /**
-       * Binding information
+       * A `BindingInfo` object or just the path, if no further properties are required
        */
-      oBindingInfo: PropertyBindingInfo
+      vBindingInfo: PropertyBindingInfo | string
     ): this;
     /**
      * Clones a tree of objects starting with the object on which clone is called first (root object).
@@ -18652,6 +18681,8 @@ declare module "sap/ui/core/Component" {
      *
      * The properties can also be defined in the descriptor. These properties can be overwritten by the local
      * properties of that function.
+     *
+     * Synchronous Component creation is deprecated as of 1.135.0.
      *
      * @since 1.47.0
      *
@@ -26998,7 +27029,7 @@ declare module "sap/ui/core/Element" {
     static registry: registry;
 
     /**
-     * Returns the nearest [UI5 Element]{@link sap.ui.core.Element} that wraps the given DOM element.
+     * Returns the nearest {@link sap.ui.core.Element UI5 Element} that wraps the given DOM element.
      *
      * A DOM element or a CSS selector is accepted as a given parameter. When a CSS selector is given as parameter,
      * only the first DOM element that matches the CSS selector is taken to find the nearest UI5 Element that
@@ -27285,13 +27316,16 @@ declare module "sap/ui/core/Element" {
      */
     bindElement(
       /**
-       * the binding path or an object with more detailed binding options
+       * A `BindingInfo` object or just the path, if no further properties are required
        */
-      vPath: string | ObjectBindingInfo,
+      vBindingInfo: ObjectBindingInfo | string,
       /**
        * map of additional parameters for this binding. Only taken into account when `vPath` is a string. In that
        * case it corresponds to `mParameters` of {@link sap.ui.base.ManagedObject.ObjectBindingInfo}. The supported
        * parameters are listed in the corresponding model-specific implementation of `sap.ui.model.ContextBinding`.
+       *
+       * Providing 'parameters' as positional parameter is deprecated as of 1.135.0. Provide them as part of a
+       * `BindingInfo` object instead.
        */
       mParameters?: object
     ): this;
@@ -30769,15 +30803,18 @@ declare module "sap/ui/core/Fragment" {
        */
       mOptions: {
         /**
-         * must be supplied if no `definition` parameter is given. The fragment name must correspond to an XML fragment
-         * which can be loaded via the module system (fragmentName + suffix `.fragment.<typeExtension>`)
-         * and which contains the fragment definition. If `mOptions.controller` is supplied, the (event handler)
-         * methods referenced in the fragment will be called on that controller. Note that fragments may require
-         * a controller to be given and certain methods to be implemented by it.
+         * Must be provided if no `definition` parameter is given. The fragment name must correspond to an XML fragment
+         * which can be loaded via the module system and must contain the fragment definition. It can be specified
+         * either in dot notation (fragmentName + suffix `.fragment.<typeExtension>`) or, for JS fragments,
+         * in module name syntax (`module:my/sample/AsyncButton`). If `mOptions.controller` is supplied, the (event
+         * handler) methods referenced in the fragment will be called on that controller. Note that fragments may
+         * require a controller to be given and certain methods to be implemented by it.
          */
         name?: string;
         /**
-         * the fragment type, e.g. `"XML"`, `"JS"`, or `"HTML"` (type `"HTML"` is deprecated). Default is `"XML"`
+         * the fragment type, e.g. `"XML"`, `"JS"`, or `"HTML"` (type `"HTML"` is deprecated). Default is `"XML"`.
+         * If the fragment name is given in module name syntax (e.g., `module:my/sample/AsyncButton`) the type must
+         * be omitted.
          */
         type?: string;
         /**
@@ -34486,15 +34523,16 @@ declare module "sap/ui/core/LocaleData" {
       sCurrencySymbol: string
     ): string;
     /**
-     * Returns the number of digits of the specified currency.
+     * Returns the number of digits of the given currency considering a custom currency first and falling back
+     * to the CLDR data if no custom currency is defined.
      *
      * @since 1.21.1
      *
-     * @returns digits of the currency
+     * @returns The number of digits for the given currency
      */
     getCurrencyDigits(
       /**
-       * ISO 4217 currency code
+       * The ISO 4217 currency code
        */
       sCurrency: string
     ): int;
@@ -35335,14 +35373,14 @@ declare module "sap/ui/core/LocaleData" {
      * @since 1.54
      *
      * @returns The unit format pattern for the given unit name as a map from a pattern key like `"unitPattern-count-other"`
-     * to the corresponding pattern
+     * to the corresponding pattern or `undefined` if no corresponding pattern is found
      */
     getUnitFormat(
       /**
        * unit name, e.g. "duration-hour"
        */
       sUnit: string
-    ): Record<string, string>;
+    ): Record<string, string> | undefined;
     /**
      * Retrieves unit format patterns for all units see {@link #getResolvedUnitFormat} for an example of a unit
      * format pattern.
@@ -36795,7 +36833,8 @@ declare module "sap/ui/core/mvc/Controller" {
       mOptions: {
         /**
          * The controller name that corresponds to a JS module that can be loaded via the module system (mOptions.name
-         * + suffix ".controller.js")
+         * + suffix ".controller.js"). It can be specified either in dot notation (`my.sample.Controller`) or in
+         * module name syntax (`module:my/sample/Controller`).
          */
         name: string;
       }
@@ -36999,8 +37038,9 @@ declare module "sap/ui/core/mvc/Controller" {
        */
       mOptions: {
         /**
-         * The Fragment name, which must correspond to a Fragment which can be loaded via the module system (fragmentName
-         * + suffix ".fragment.[typeextension]") and which contains the Fragment definition.
+         * The fragment name, which must correspond to a fragment which can be loaded via the module system (mOptions.name
+         * + suffix ".fragment.[typeextension]") and must contain the fragment definition. It can be specified either
+         * in dot notation (`my.sample.myFragment`) or, for JS fragments, in module name syntax (`module:my/sample/myFragment`).
          */
         name: string;
         /**
@@ -37012,11 +37052,12 @@ declare module "sap/ui/core/mvc/Controller" {
          */
         autoPrefixId?: boolean;
         /**
-         * the ID of the Fragment
+         * the ID of the fragment
          */
         id?: string;
         /**
-         * the Fragment type, e.g. "XML", "JS", or "HTML" (see above). Default is "XML"
+         * the fragment type, e.g. "XML", "JS", or "HTML" (see above). Default is "XML". If the fragment name is
+         * given in module name syntax (e.g., `module:my/sample/myFragment`) the type must be omitted.
          */
         type?: string;
       }
@@ -37125,6 +37166,11 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     protected constructor();
+    /**
+     * The `overrides` definition object, which is used to specify methods of the base class to override. The
+     * names of this object's properties are method names like `onInit` and the values are the respective implementation.
+     */
+    static readonly overrides?: Overrides;
 
     /**
      * Creates a new subclass of class sap.ui.core.mvc.ControllerExtension with name `sClassName` and enriches
@@ -37265,6 +37311,15 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
      */
     getView(): View;
   }
+  /**
+   * The type of the `overrides` property
+   */
+  export type Overrides = { [key: string]: any } & Partial<
+    Pick<
+      (typeof import("sap/ui/core/mvc/Controller").default)["prototype"],
+      "onAfterRendering" | "onBeforeRendering" | "onExit" | "onInit"
+    >
+  >;
 }
 
 declare module "sap/ui/core/mvc/HTMLView" {
@@ -37918,14 +37973,17 @@ declare module "sap/ui/core/mvc/View" {
    * ```
    *
    *
-   * Other Methods: Besides `createContent`, there are two other methods that a view can implement: Method
-   * {@link #getControllerName getControllerName} defines the name of the controller that should be instantiated
-   * and used for the view. The name must be in class name notation (dot notation), without the `".controller"`
-   * suffix. The suffix will be added by the framework when loading the module containing the controller.
-   *
-   * {@link #getAutoPrefixId getAutoPrefixId} defines whether the IDs of controls created during the execution
-   * of `createContent` will be prefixed with the ID of the view automatically. The default implementation
-   * of this method returns `false`.
+   * Other Methods: Besides `createContent`, there are other methods that a view can implement:
+   * 	 - Method {@link #getControllerName getControllerName} defines the name of the controller that should
+   *     be instantiated and used for the view. The name must be in class name notation (dot notation), without
+   *     the `".controller"` suffix. The suffix will be added by the framework when loading the module containing
+   *     the controller.
+   * 	 - Method {@link #getControllerModuleName getControllerModuleName} defines the module name of the controller
+   *     that should be loaded for the view. Unlike `getControllerName`, the name must be in `sap.ui.define/sap.ui.require`
+   *     syntax (slash-separated name without '.js' suffix).
+   * 	 - {@link #getAutoPrefixId getAutoPrefixId} defines whether the IDs of controls created during the execution
+   *     of `createContent` will be prefixed with the ID of the view automatically. The default implementation
+   *     of this method returns `false`.
    */
   export default abstract class View extends Control {
     /**
@@ -38550,6 +38608,16 @@ declare module "sap/ui/core/mvc/View" {
      * @returns Controller of this view.
      */
     getController(): Controller;
+    /**
+     * An optional method that views can implement to return the controller's module name in `sap.ui.define/sap.ui.require`
+     * syntax (slash-separated name without '.js' suffix). If no controller instance is provided at the time
+     * of View instantiation AND this method exists, the View attempts to load and instantiate the controller
+     * and to connect it to itself.
+     *
+     *
+     * @returns Name of the module name from which to load the view definition.
+     */
+    getControllerModuleName(): string;
     /**
      * An (optional) method to be implemented by Views. When no controller instance is given at View instantiation
      * time AND this method exists and returns the (package and class) name of a controller, the View tries
@@ -71576,6 +71644,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Note: For a transient context (see {@link #isTransient}) a wrong path is returned unless all key properties
      * are available within the initial data.
+     * See:
+     * 	#requestCanonicalPath
      *
      * @since 1.39.0
      *
@@ -71833,6 +71903,10 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       oParameters: {
         /**
+         * Whether the node should be copied instead of moved (@experimental as of version 1.135.0)
+         */
+        copy?: boolean;
+        /**
          * The next sibling's context, or `null` to turn this node into the last sibling. Omitting the sibling moves
          * this node to a position determined by the server.
          */
@@ -71888,6 +71962,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Note: For a transient context (see {@link #isTransient}) a wrong path is returned unless all key properties
      * are available within the initial data.
+     * See:
+     * 	#getCanonicalPath
      *
      * @since 1.39.0
      *
@@ -72364,7 +72440,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     /**
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
      * is deselected, but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set and
-     * the '$filter' or '$search' parameter is changed.
+     * the '$filter' or '$search' parameter is changed. In all other cases, the caller of this method needs
+     * to evaluate whether the changed parameters invalidate the current selection and then deselect the header
+     * context if needed.
      *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -73031,7 +73109,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     /**
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
      * is deselected, but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set and
-     * the '$filter' or '$search' parameter is changed.
+     * the '$filter' or '$search' parameter is changed. In all other cases, the caller of this method needs
+     * to evaluate whether the changed parameters invalidate the current selection and then deselect the header
+     * context if needed.
      *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -73535,6 +73615,17 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       | ODataListBinding
       | ODataPropertyBinding
       | undefined;
+    /**
+     * Returns the count of selected elements as a number of type `Edm.Int64`. The count is bindable via the
+     * header context (see {@link #getHeaderContext}) and path `$selectionCount`; it is either available synchronously
+     * or unknown. It is unknown if the binding is relative but has no context and also if the list binding's
+     * {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext header context} is selected ("select all").
+     *
+     * @since 1.135.0
+     *
+     * @returns The count of selected elements or `undefined` if the count or the header context is not available.
+     */
+    getSelectionCount(): number | undefined;
     /**
      * Returns the group ID of the binding that is used for update requests. The update group ID of the binding
      * is alternatively defined by
@@ -74568,6 +74659,17 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
       sPropertyPath: string
     ): ValueListType;
     /**
+     * Tells whether this metadata model's service prefers requests to use a resource path with navigation properties
+     * instead of a canonical path, thus reflecting the object composition. See "com.sap.vocabularies.Common.v1.AddressViaNavigationPath"
+     * for more details.
+     *
+     * @since 1.135.0
+     *
+     * @returns `true` if the "com.sap.vocabularies.Common.v1.AddressViaNavigationPath" tag is present, `undefined`
+     * if it is missing or metadata is not (yet) available
+     */
+    isAddressViaNavigationPath(): boolean | undefined;
+    /**
      * Method not supported
      * See:
      * 	sap.ui.model.Model#refresh
@@ -75434,7 +75536,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         $$canonicalPath?: boolean;
         /**
          * Whether the selection state of the list binding is cleared when a filter is changed; this includes dynamic
-         * filters, '$filter', '$search', and `$$aggregation.search`. Supported since 1.120.13.
+         * filters, '$filter', '$search', and `$$aggregation.search`. Supported since 1.120.13. Since 1.135.0, the
+         * selection state is validated when reloading the list binding's data. The {@link sap.ui.model.odata.v4.Context#isSelected selection states of contexts }
+         * which no longer match the current filter are reset. **Note:** The selection state is not validated if
+         * the `$$aggregation` parameter is used.
          */
         $$clearSelectionOnFilter?: boolean;
         /**
@@ -75521,6 +75626,16 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * binding refers to an action advertisement the binding's mode must be {@link sap.ui.model.BindingMode.OneTime}.
      * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (since 1.130.0) for complex types and
      * collections thereof; for entity types, use {@link #bindContext} instead.
+     *
+     * Since 1.135.0, the binding may also point to an array element inside a collection of primitive type,
+     * for example in the context of geography locations. Let's assume "GeoLocation" is a structural property
+     * of type "Edm.GeographyPoint", then "coordinates" is a structural property of type "Collection(Edm.Double)":
+     *
+     * ```javascript
+     *
+     * <Text id="longitude" text="{Address/GeoLocation/coordinates/0}"/>
+     * ```
+     *
      * See:
      * 	sap.ui.base.ManagedObject#bindProperty
      * 	sap.ui.model.Model#bindProperty
@@ -87528,6 +87643,7 @@ declare namespace sap {
        *     },
        *
        *     // activate real async loading and module definitions
+       *     // (will become obsolete in 2.0 contexts as async will be the only mode there)
        *     async: true,
        *
        *     // provide dependency and export metadata for non-UI5 modules
@@ -87669,6 +87785,8 @@ declare namespace sap {
            * on the application bootstrap tag.
            *
            * **Note:** Switching back from async to sync is not supported and trying to do so will throw an `Error`
+           *
+           * In the next major version of UI5, this option will become obsolete as async will be the only mode.
            */
           async?: boolean;
           /**
@@ -88028,6 +88146,8 @@ declare namespace sap {
     "sap/ui/core/dnd/DropInfo": undefined;
 
     "sap/ui/core/Element": undefined;
+
+    "sap/ui/core/ElementHooks": undefined;
 
     "sap/ui/core/ElementMetadata": undefined;
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.135.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -374,6 +374,7 @@ declare module "sap/ui/layout/library" {
      * 	{@link https://developer.mozilla.org/en-US/docs/Web/CSS/gap}
      *
      * @since 1.60.0
+     * @deprecated As of version 1.135. use {@link sap.ui.core.CSSGapShortHand} instead
      */
     type CSSGridGapShortHand = CSSGapShortHand;
 
@@ -1778,7 +1779,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
 
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import GridBasicLayout from "sap/ui/layout/cssgrid/GridBasicLayout";
 
@@ -2024,7 +2025,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Returns the layout configuration of the `CSSGrid`.
      *
@@ -2239,7 +2240,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -2354,7 +2355,7 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
      * It is a shorthand for gridRowGap and gridColumnGap. If some of them is set, the gridGap value will have
      * less priority and will be overwritten.
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}
@@ -2397,7 +2398,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
 
   import { cssgrid } from "sap/ui/layout/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -2525,7 +2526,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Gets current value of property {@link #getGridRowGap gridRowGap}.
      *
@@ -2649,7 +2650,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -2739,7 +2740,7 @@ declare module "sap/ui/layout/cssgrid/GridBasicLayout" {
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-gap MDN web docs: grid-gap}
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}
@@ -3826,7 +3827,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
 
   import { cssgrid } from "sap/ui/layout/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, CSSGapShortHand } from "sap/ui/core/library";
 
   import ManagedObjectMetadata from "sap/ui/base/ManagedObjectMetadata";
 
@@ -3952,7 +3953,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
      *
      * @returns Value of property `gridGap`
      */
-    getGridGap(): cssgrid.CSSGridGapShortHand;
+    getGridGap(): CSSGapShortHand;
     /**
      * Gets current value of property {@link #getGridRowGap gridRowGap}.
      *
@@ -4076,7 +4077,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
       /**
        * New value for property `gridGap`
        */
-      sGridGap?: cssgrid.CSSGridGapShortHand
+      sGridGap?: CSSGapShortHand
     ): this;
     /**
      * Sets a new value for property {@link #getGridRowGap gridRowGap}.
@@ -4166,7 +4167,7 @@ declare module "sap/ui/layout/cssgrid/GridSettings" {
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-gap MDN web docs: grid-gap}
      */
-    gridGap?: cssgrid.CSSGridGapShortHand | PropertyBindingInfo | `{${string}}`;
+    gridGap?: CSSGapShortHand | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the value for the CSS display:grid property {@link https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows MDN web docs: grid-auto-rows}

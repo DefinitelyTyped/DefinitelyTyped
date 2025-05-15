@@ -61,7 +61,7 @@ export interface ShaderMaterialJSON extends MaterialJSON {
     defines?: Record<string, unknown>;
 
     vertexShader: string;
-    ragmentShader: string;
+    fragmentShader: string;
 
     lights: boolean;
     clipping: boolean;

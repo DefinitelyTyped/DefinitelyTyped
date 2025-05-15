@@ -399,6 +399,14 @@ declare module "tls" {
             callback: (err: Error | null) => void,
         ): undefined | boolean;
         /**
+         * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
+         * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.
+         * @since v22.5.0, v20.17.0
+         * @param context An object containing at least `key` and `cert` properties from the {@link createSecureContext()} `options`,
+         * or a TLS context object created with {@link createSecureContext()} itself.
+         */
+        setKeyCert(context: SecureContextOptions | SecureContext): void;
+        /**
          * The `tlsSocket.setMaxSendFragment()` method sets the maximum TLS fragment size.
          * Returns `true` if setting the limit succeeded; `false` otherwise.
          *
@@ -639,7 +647,7 @@ declare module "tls" {
          * @param context An object containing any of the possible properties from the {@link createSecureContext} `options` arguments (e.g. `key`, `cert`, `ca`, etc), or a TLS context object created
          * with {@link createSecureContext} itself.
          */
-        addContext(hostname: string, context: SecureContextOptions): void;
+        addContext(hostname: string, context: SecureContextOptions | SecureContext): void;
         /**
          * Returns the session ticket keys.
          *
@@ -1158,6 +1166,31 @@ declare module "tls" {
      * @since v0.11.13
      */
     function createSecureContext(options?: SecureContextOptions): SecureContext;
+    /**
+     * Returns an array containing the CA certificates from various sources, depending on `type`:
+     *
+     * * `"default"`: return the CA certificates that will be used by the Node.js TLS clients by default.
+     *   * When `--use-bundled-ca` is enabled (default), or `--use-openssl-ca` is not enabled,
+     *     this would include CA certificates from the bundled Mozilla CA store.
+     *   * When `--use-system-ca` is enabled, this would also include certificates from the system's
+     *     trusted store.
+     *   * When `NODE_EXTRA_CA_CERTS` is used, this would also include certificates loaded from the specified
+     *     file.
+     * * `"system"`: return the CA certificates that are loaded from the system's trusted store, according
+     *   to rules set by `--use-system-ca`. This can be used to get the certificates from the system
+     *   when `--use-system-ca` is not enabled.
+     * * `"bundled"`: return the CA certificates from the bundled Mozilla CA store. This would be the same
+     *   as `tls.rootCertificates`.
+     * * `"extra"`: return the CA certificates loaded from `NODE_EXTRA_CA_CERTS`. It's an empty array if
+     *   `NODE_EXTRA_CA_CERTS` is not set.
+     * @since v22.15.0
+     * @param type The type of CA certificates that will be returned. Valid values
+     * are `"default"`, `"system"`, `"bundled"` and `"extra"`.
+     * **Default:** `"default"`.
+     * @returns An array of PEM-encoded certificates. The array may contain duplicates
+     * if the same certificate is repeatedly stored in multiple sources.
+     */
+    function getCACertificates(type?: "default" | "system" | "bundled" | "extra"): string[];
     /**
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in

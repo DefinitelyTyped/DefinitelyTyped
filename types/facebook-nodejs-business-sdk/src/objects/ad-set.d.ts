@@ -20,6 +20,7 @@ export default class AdSet extends AbstractCrudObject {
         bid_info: "bid_info";
         bid_strategy: "bid_strategy";
         billing_event: "billing_event";
+        brand_safety_config: "brand_safety_config";
         budget_remaining: "budget_remaining";
         campaign: "campaign";
         campaign_active_time: "campaign_active_time";
@@ -40,7 +41,8 @@ export default class AdSet extends AbstractCrudObject {
         frequency_control_specs: "frequency_control_specs";
         full_funnel_exploration_mode: "full_funnel_exploration_mode";
         id: "id";
-        instagram_actor_id: "instagram_actor_id";
+        instagram_user_id: "instagram_user_id";
+        is_ba_skip_delayed_eligible: "is_ba_skip_delayed_eligible";
         is_budget_schedule_enabled: "is_budget_schedule_enabled";
         is_dynamic_creative: "is_dynamic_creative";
         issues_info: "issues_info";
@@ -49,6 +51,8 @@ export default class AdSet extends AbstractCrudObject {
         lifetime_imps: "lifetime_imps";
         lifetime_min_spend_target: "lifetime_min_spend_target";
         lifetime_spend_cap: "lifetime_spend_cap";
+        max_budget_spend_percentage: "max_budget_spend_percentage";
+        min_budget_spend_percentage: "min_budget_spend_percentage";
         multi_optimization_goal_weight: "multi_optimization_goal_weight";
         name: "name";
         optimization_goal: "optimization_goal";
@@ -107,6 +111,7 @@ export default class AdSet extends AbstractCrudObject {
         with_issues: "WITH_ISSUES";
     }>;
     static get OptimizationGoal(): Readonly<{
+        advertiser_siloed_value: "ADVERTISER_SILOED_VALUE";
         ad_recall_lift: "AD_RECALL_LIFT";
         app_installs: "APP_INSTALLS";
         app_installs_and_offsite_conversions: "APP_INSTALLS_AND_OFFSITE_CONVERSIONS";
@@ -126,6 +131,7 @@ export default class AdSet extends AbstractCrudObject {
         offsite_conversions: "OFFSITE_CONVERSIONS";
         page_likes: "PAGE_LIKES";
         post_engagement: "POST_ENGAGEMENT";
+        profile_and_page_engagement: "PROFILE_AND_PAGE_ENGAGEMENT";
         profile_visit: "PROFILE_VISIT";
         quality_call: "QUALITY_CALL";
         quality_lead: "QUALITY_LEAD";
@@ -168,8 +174,10 @@ export default class AdSet extends AbstractCrudObject {
         app: "APP";
         applinks_automatic: "APPLINKS_AUTOMATIC";
         facebook: "FACEBOOK";
+        facebook_page: "FACEBOOK_PAGE";
         instagram_direct: "INSTAGRAM_DIRECT";
         instagram_profile: "INSTAGRAM_PROFILE";
+        instagram_profile_and_facebook_page: "INSTAGRAM_PROFILE_AND_FACEBOOK_PAGE";
         messaging_instagram_direct_messenger: "MESSAGING_INSTAGRAM_DIRECT_MESSENGER";
         messaging_instagram_direct_messenger_whatsapp: "MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP";
         messaging_instagram_direct_whatsapp: "MESSAGING_INSTAGRAM_DIRECT_WHATSAPP";
@@ -214,10 +222,15 @@ export default class AdSet extends AbstractCrudObject {
     static get RegionalRegulatedCategories(): Readonly<{
         value_0: "0";
         value_1: "1";
+        value_2: "2";
+        value_3: "3";
+        value_4: "4";
+        value_5: "5";
     }>;
     static get TuneForCategory(): Readonly<{
         credit: "CREDIT";
         employment: "EMPLOYMENT";
+        financial_products_services: "FINANCIAL_PRODUCTS_SERVICES";
         housing: "HOUSING";
         issues_elections_politics: "ISSUES_ELECTIONS_POLITICS";
         none: "NONE";
@@ -246,6 +259,7 @@ export default class AdSet extends AbstractCrudObject {
     getDeliveryEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
+    getMessageDeliveryEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AdSet>;

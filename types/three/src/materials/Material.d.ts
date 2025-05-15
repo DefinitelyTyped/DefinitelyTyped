@@ -287,7 +287,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendDst: BlendingDstFactor;
 
     /**
-     * The tranparency of the .blendDst. Default is null.
+     * The transparency of the .blendDst. Default is null.
      * @default null
      */
     blendDstAlpha: number | null;
@@ -299,7 +299,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendEquation: BlendingEquation;
 
     /**
-     * The tranparency of the .blendEquation. Default is null.
+     * The transparency of the .blendEquation. Default is null.
      * @default null
      */
     blendEquationAlpha: number | null;
@@ -317,7 +317,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     blendSrc: BlendingSrcFactor | BlendingDstFactor;
 
     /**
-     * The tranparency of the .blendSrc. Default is null.
+     * The transparency of the .blendSrc. Default is null.
      * @default null
      */
     blendSrcAlpha: number | null;
@@ -628,9 +628,4 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     set needsUpdate(value: boolean);
-
-    /**
-     * @deprecated onBuild() has been removed.
-     */
-    onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 }
