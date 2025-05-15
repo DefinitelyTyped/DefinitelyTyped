@@ -1,4 +1,4 @@
-import { ComponentClass, ComponentType, ReactNode, ReactInstance } from "react";
+import { ComponentClass, ComponentType, ReactInstance, ReactNode } from "react";
 import { ImageStyle, StyleProp, TextProps, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 type Nullish = null | undefined;
