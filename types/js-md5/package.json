@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/js-md5",
-    "version": "0.7.9999",
+    "version": "0.8.3",
     "projects": [
         "https://github.com/emn178/js-md5"
     ],
