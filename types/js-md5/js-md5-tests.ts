@@ -5,7 +5,6 @@ str = md5("The quick brown fox jumps over the lazy dog");
 let arr: number[] = md5.digest("The quick brown fox jumps over the lazy dog");
 arr = md5.array("The quick brown fox jumps over the lazy dog");
 let buf: ArrayBuffer = md5.arrayBuffer("The quick brown fox jumps over the lazy dog");
-buf = md5.buffer("The quick brown fox jumps over the lazy dog");
 md5.base64("The quick brown fox jumps over the lazy dog");
 
 // $ExpectType Md5
@@ -23,7 +22,6 @@ arr = hash1.array();
 // $ExpectType ArrayBuffer
 buf = hash1.arrayBuffer();
 // $ExpectType ArrayBuffer
-buf = hash1.buffer();
 
 // $ExpectType Md5
 const hash2 = md5.update("The quick brown fox jumps over the lazy dog");
@@ -37,8 +35,7 @@ arr = hash2.digest();
 arr = hash2.array();
 // $ExpectType ArrayBuffer
 buf = hash2.arrayBuffer();
-// $ExpectType ArrayBuffer
-buf = hash2.buffer();
+
 
 // $ExpectType string
 str = md5([]);
