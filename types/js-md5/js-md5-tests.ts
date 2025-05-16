@@ -21,7 +21,7 @@ arr = hash1.digest();
 arr = hash1.array();
 // $ExpectType ArrayBuffer
 buf = hash1.arrayBuffer();
-// $ExpectType ArrayBuffer
+
 
 // $ExpectType Hasher
 const hash2 = md5.update("The quick brown fox jumps over the lazy dog");
