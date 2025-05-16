@@ -29,9 +29,6 @@ const mockAst = {
 
     // $ExpectType Visitor
     visitor = new Visitor();
-    visitor["Literal"] = (node: any) => {
-        node.value;
-    };
     // $ExpectType void
     visitor.visit(mockAst);
 }
