@@ -7,9 +7,9 @@ arr = md5.array("The quick brown fox jumps over the lazy dog");
 let buf: ArrayBuffer = md5.arrayBuffer("The quick brown fox jumps over the lazy dog");
 md5.base64("The quick brown fox jumps over the lazy dog");
 
-// $ExpectType Md5
+// $ExpectType Hasher
 const hash1 = md5.create();
-// $ExpectType Md5
+// $ExpectType Hasher
 hash1.update("The quick brown fox jumps over the lazy dog");
 // $ExpectType string
 str = hash1.hex();
@@ -23,7 +23,7 @@ arr = hash1.array();
 buf = hash1.arrayBuffer();
 // $ExpectType ArrayBuffer
 
-// $ExpectType Md5
+// $ExpectType Hasher
 const hash2 = md5.update("The quick brown fox jumps over the lazy dog");
 // $ExpectType string
 str = hash2.hex();
