@@ -10,5 +10,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "html-to-docx-tests.ts"]
+    "files": ["index.d.ts", "turbodocx__html-to-docx-tests.ts"]
 }

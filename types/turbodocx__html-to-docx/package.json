@@ -1,15 +1,16 @@
 {
     "private": true,
-    "name": "@types/@turbodocx/html-to-docx",
-    "version": "1.12.0",
+    "name": "@types/turbodocx__html-to-docx",
+    "version": "1.12.9999",
     "projects": [
-        "https://github.com/turbodocx/html-to-docx#readme"
+        "https://github.com/turbodocx/html-to-docx#readme",
+        "https://TurboDocx.com"
     ],
     "dependencies": {
         "@types/node": "*"
     },
     "devDependencies": {
-        "@types/@turbodocx/html-to-docx": "workspace:."
+        "@types/turbodocx__html-to-docx": "workspace:."
     },
     "owners": [
         {
