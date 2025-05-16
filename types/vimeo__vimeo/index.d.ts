@@ -1,7 +1,7 @@
 export type CompleteCallback = (err: Error | null, result: any, statusCode?: number, headers?: object) => void;
 export interface CompleteCallbackObject {
     statusCode?: number | undefined;
-    result: any;
+    body: any;
     headers?: object | undefined;
 }
 
