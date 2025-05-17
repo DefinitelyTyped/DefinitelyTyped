@@ -95,6 +95,10 @@ declare module "http" {
         range?: string | undefined;
         referer?: string | undefined;
         "retry-after"?: string | undefined;
+        "sec-fetch-site"?: string | undefined;
+        "sec-fetch-mode"?: string | undefined;
+        "sec-fetch-user"?: string | undefined;
+        "sec-fetch-dest"?: string | undefined;
         "sec-websocket-accept"?: string | undefined;
         "sec-websocket-extensions"?: string | undefined;
         "sec-websocket-key"?: string | undefined;
