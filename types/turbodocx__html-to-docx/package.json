@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/turbodocx__html-to-docx",
+    "version": "1.12.9999",
+    "projects": [
+        "https://github.com/turbodocx/html-to-docx#readme",
+        "https://TurboDocx.com"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/turbodocx__html-to-docx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TurboDocx Engineering",
+            "githubUsername": "turbodocx"
+        }
+    ]
+}
