@@ -5535,6 +5535,10 @@
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
         },
+        "rc-tooltip": {
+            "libraryName": "rc-tooltip",
+            "asOfVersion": "4.0.0"
+        },
         "rc-tree": {
             "libraryName": "rc-tree",
             "asOfVersion": "3.0.0"
