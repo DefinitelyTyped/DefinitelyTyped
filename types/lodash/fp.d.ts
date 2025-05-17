@@ -1776,13 +1776,13 @@ declare namespace _ {
     type LodashIntersectionBy1x5<T1> = (array: lodash.List<T1> | null) => T1[];
     type LodashIntersectionBy1x6<T1, T2> = (iteratee: lodash.ValueIteratee<T1 | T2>) => T1[];
     interface LodashIntersectionWith {
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x1<T1, T2>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x1<T1, T2>;
         <T1>(comparator: lodash.__, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x2<T1>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
         <T2>(comparator: lodash.__, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x4<T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x5<T1>;
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x5<T1>;
         <T1, T2>(comparator: lodash.__, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): LodashIntersectionWith1x6<T1, T2>;
-        <T1, T2>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
+        <T1, T2>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
     }
     interface LodashIntersectionWith1x1<T1, T2> {
         (array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x3<T1, T2>;
@@ -1790,18 +1790,18 @@ declare namespace _ {
         (array: lodash.List<T1> | null | undefined, values: lodash.List<T2>): T1[];
     }
     interface LodashIntersectionWith1x2<T1> {
-        <T2>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x3<T1, T2>;
+        <T2>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x3<T1, T2>;
         <T2>(comparator: lodash.__, values: lodash.List<T2>): LodashIntersectionWith1x6<T1, T2>;
-        <T2>(comparator: lodash.Comparator2<T1, T2>, values: lodash.List<T2>): T1[];
+        <T2>(comparator: lodash.Comparator2<T1, T1 | T2>, values: lodash.List<T2>): T1[];
     }
     type LodashIntersectionWith1x3<T1, T2> = (values: lodash.List<T2>) => T1[];
     interface LodashIntersectionWith1x4<T2> {
-        <T1>(comparator: lodash.Comparator2<T1, T2>): LodashIntersectionWith1x5<T1>;
+        <T1>(comparator: lodash.Comparator2<T1, T1 | T2>): LodashIntersectionWith1x5<T1>;
         <T1>(comparator: lodash.__, array: lodash.List<T1> | null | undefined): LodashIntersectionWith1x6<T1, T2>;
-        <T1>(comparator: lodash.Comparator2<T1, T2>, array: lodash.List<T1> | null | undefined): T1[];
+        <T1>(comparator: lodash.Comparator2<T1, T1 | T2>, array: lodash.List<T1> | null | undefined): T1[];
     }
     type LodashIntersectionWith1x5<T1> = (array: lodash.List<T1> | null | undefined) => T1[];
-    type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
+    type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T1 | T2>) => T1[];
     type LodashInvert = (object: object) => lodash.Dictionary<string>;
     interface LodashInvertBy {
         <T>(interatee: lodash.ValueIteratee<T>): LodashInvertBy1x1<T>;

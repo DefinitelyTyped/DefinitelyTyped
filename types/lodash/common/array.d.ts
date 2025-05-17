@@ -760,15 +760,15 @@ declare module "../index" {
          * _.intersectionWith(objects, others, _.isEqual);
          * // => [{ 'x': 1, 'y': 2 }]
          */
-        intersectionWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T2>): T1[];
+        intersectionWith<T1, T2>(array: List<T1> | null | undefined, values: List<T2>, comparator: Comparator2<T1, T1 | T2>): T1[];
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T2 | T3>): T1[];
+        intersectionWith<T1, T2, T3>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, comparator: Comparator2<T1, T1 | T2 | T3>): T1[];
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T2 | T3 | T4>>): T1[];
+        intersectionWith<T1, T2, T3, T4>(array: List<T1> | null | undefined, values1: List<T2>, values2: List<T3>, ...values: Array<List<T4> | Comparator2<T1, T1 | T2 | T3 | T4>>): T1[];
         /**
          * @see _.intersectionWith
          */
@@ -778,7 +778,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T2>): Collection<T>;
+        intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T | T2>): Collection<T>;
         /**
          * @see _.intersectionWith
          */
@@ -788,7 +788,7 @@ declare module "../index" {
         /**
          * @see _.intersectionWith
          */
-        intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T2>): CollectionChain<T>;
+        intersectionWith<T2>(values: List<T2>, comparator: Comparator2<T, T | T2>): CollectionChain<T>;
         /**
          * @see _.intersectionWith
          */
