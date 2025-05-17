@@ -11,6 +11,7 @@ type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
+type NativeInputEvent = InputEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
@@ -2003,6 +2004,10 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
+        data: string;
+    }
+
     export type ModifierKey =
         | "Alt"
         | "AltGraph"
@@ -2123,6 +2128,7 @@ declare namespace React {
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
     type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type InputEventHandler<T = Element> = EventHandler<InputEvent<T>>;
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
@@ -2181,7 +2187,7 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T> | undefined;
         onChangeCapture?: FormEventHandler<T> | undefined;
-        onBeforeInput?: FormEventHandler<T> | undefined;
+        onBeforeInput?: InputEventHandler<T> | undefined;
         onBeforeInputCapture?: FormEventHandler<T> | undefined;
         onInput?: FormEventHandler<T> | undefined;
         onInputCapture?: FormEventHandler<T> | undefined;
