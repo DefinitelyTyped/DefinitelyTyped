@@ -412,13 +412,17 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
-    assert.deepEqual(qs.parse('a=1&b=2&c=3', { parameterLimit: 5, throwOnLimitExceeded: true }), { a: '1', b: '2', c: '3' });
+    assert.deepEqual(qs.parse("a=1&b=2&c=3", { parameterLimit: 5, throwOnLimitExceeded: true }), {
+        a: "1",
+        b: "2",
+        c: "3",
+    });
 });
 
 (() => {
     assert.throws(
-        () => qs.parse('a=1&b=2&c=3', { parameterLimit: 2, throwOnLimitExceeded: true }),
-        RangeError
+        () => qs.parse("a=1&b=2&c=3", { parameterLimit: 2, throwOnLimitExceeded: true }),
+        RangeError,
     );
 });
 
