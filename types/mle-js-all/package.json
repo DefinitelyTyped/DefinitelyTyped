@@ -1,0 +1,23 @@
+{
+    "name": "@types/mle-js-all",
+    "version": "23.8.9999",
+    "private": true,
+    "devDependencies": {
+        "@types/mle-js-all": "workspace:."
+    },
+    "projects": [
+        "https://oracle-samples.github.io/mle-modules"
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "TypeScript definitions for Bundle of all declarations of pre-defined JavaScript modules that ship with Oracle Database",
+    "owners": [
+        {
+            "name": "Lucas Braun",
+            "githubUsername": "lucasbraun"
+        },
+        {
+            "name": "Gyorgy Rethy",
+            "githubUsername": "GyorgyR"
+        }
+    ]
+}
