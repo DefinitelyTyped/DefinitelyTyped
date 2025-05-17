@@ -662,7 +662,7 @@ declare module "net" {
          * Callback should take two arguments `err` and `count`.
          * @since v0.9.7
          */
-        getConnections(cb: (error: Error | null, count: number) => void): void;
+        getConnections(cb: (error: Error | null, count: number) => void): this;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
