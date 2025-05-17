@@ -1,4 +1,5 @@
 import express = require("express");
+import * as zlib from "zlib";
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.
 
@@ -80,6 +81,17 @@ declare namespace compression {
          * @see {@link https://www.npmjs.com/package/compressible|compressible module}
          */
         filter?: CompressionFilter | undefined;
+
+        /**
+         * Options for brotli compression.
+         */
+        brotli?: zlib.BrotliOptions | undefined;
+
+        /**
+         * This is the default encoding to use when the client does not specify an encoding in the request's Accept-Encoding header.
+         * @default 'identity'
+         */
+        enforceEncoding?: string | undefined;
 
         /**
          * The level of zlib compression to apply to responses. A higher level will result in better compression, but
