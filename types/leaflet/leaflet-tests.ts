@@ -615,7 +615,8 @@ map = map
     .addHandler("Hello World", L.Handler)
     .remove()
     .whenReady(() => {})
-    .whenReady(() => {}, {});
+    .whenReady(() => {}, {})
+    .whenReady(({ target: {} }) => {}, {});
 
 const elementToDrag = document.createElement("div");
 const draggable = new L.Draggable(elementToDrag);

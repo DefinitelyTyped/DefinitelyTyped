@@ -2923,7 +2923,7 @@ export class Map extends Evented {
     getPane(pane: string | HTMLElement): HTMLElement | undefined;
     getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
     getContainer(): HTMLElement;
-    whenReady(fn: () => void, context?: any): this;
+    whenReady(fn: (event: { target: Map }) => void, context?: any): this;
 
     // Methods for getting map state
     getCenter(): LatLng;
