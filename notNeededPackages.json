@@ -1585,6 +1585,10 @@
             "libraryName": "dice-coefficient",
             "asOfVersion": "2.0.0"
         },
+        "diff": {
+            "libraryName": "diff",
+            "asOfVersion": "8.0.0"
+        },
         "diff2html": {
             "libraryName": "diff2html",
             "asOfVersion": "3.0.0"
