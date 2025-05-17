@@ -16,6 +16,7 @@ import {
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
+    CodeConversion,
     ContentDesign,
     Dashboard,
     DoctorPatient,
@@ -83,3 +84,4 @@ import * as React from "react";
 <MachineLearningModel />; // $ExpectType Element
 <Agile />; // $ExpectType Element
 <AgileCoaching />; // $ExpectType Element
+<CodeConversion />; // $ExpectType Element
