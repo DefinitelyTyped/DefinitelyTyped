@@ -5,8 +5,7 @@
         zwlog.sendPV({
             miniAppId: "2002308510",
             miniAppName: "小程序名称",
-            pageId: "页面 ID",
-            pageName: "页面名称",
+            Page_duration: 0.3,
             t2: 0.3,
             t0: 0.3,
             log_status: "02",
