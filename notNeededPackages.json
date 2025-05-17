@@ -5823,6 +5823,14 @@
             "libraryName": "react-inspector",
             "asOfVersion": "6.0.1"
         },
+        "react-instantsearch": {
+            "libraryName": "react-instantsearch",
+            "asOfVersion": "7.0.0"
+        },
+        "react-instantsearch-core": {
+            "libraryName": "react-instantsearch-core",
+            "asOfVersion": "7.0.0"
+        },
         "react-interactive": {
             "libraryName": "react-interactive",
             "asOfVersion": "1.0.0"
