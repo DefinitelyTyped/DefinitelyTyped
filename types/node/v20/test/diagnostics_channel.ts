@@ -79,6 +79,7 @@ const hasSubs = hasSubscribers("test");
     const a: number = 1;
     const b: string = "2";
 
+    // $ExpectType string
     channels.traceSync(
         function(a, b) {
             this; // $ExpectType string
@@ -92,10 +93,12 @@ const hasSubs = hasSubscribers("test");
         b,
     );
 
+    // $ExpectType string
     channels.traceSync(function() {
         return "something";
     }, { requestId: 42 });
 
+    // $ExpectType Promise<string>
     channels.tracePromise(
         async function(a, b) {
             this; // $ExpectType string
@@ -109,14 +112,83 @@ const hasSubs = hasSubscribers("test");
         b,
     );
 
+    // $ExpectType Promise<string>
     channels.tracePromise(async function() {
         return "something";
     }, { requestId: 42 });
 
     const callback = (err: unknown, result: string) => {};
 
+    // $ExpectType string
     channels.traceCallback(
-        function(arg1, callback) {
+        function(arg1, arg2, arg3, callback): void {
+            // $ExpectType number
+            arg1;
+            // $ExpectType number
+            arg2;
+            // $ExpectType string
+            arg3;
+            callback(null, "result");
+        },
+        3,
+        {
+            requestId: 42,
+        },
+        "thisArg",
+        42,
+        1,
+        "k",
+        callback,
+    );
+
+    // $ExpectType string
+    channels.traceCallback(
+        function(arg1, arg2, callback): void {
+            // $ExpectType number
+            arg1;
+            // $ExpectType number
+            arg2;
+
+            callback(null, "result");
+        },
+        2,
+        {
+            requestId: 42,
+        },
+        "thisArg",
+        42,
+        1,
+        callback,
+    );
+    // $ExpectType string
+    channels.traceCallback(
+        function(arg1, arg2, callback, arg4, arg5): void {
+            // $ExpectType number
+            arg1;
+            // $ExpectType number
+            arg2;
+            // $ExpectType null
+            arg4;
+            // $ExpectType RegExp
+            arg5;
+
+            callback(null, "result");
+        },
+        2,
+        {
+            requestId: 42,
+        },
+        "thisArg",
+        42,
+        1,
+        callback,
+        null,
+        /[]/,
+    );
+
+    // $ExpectType string
+    channels.traceCallback(
+        function(arg1, callback): void {
             callback(null, "result");
         },
         1,
@@ -128,6 +200,42 @@ const hasSubs = hasSubscribers("test");
         callback,
     );
 
+    // $ExpectType string
+    channels.traceCallback(
+        function(arg1, callback, arg3, arg4): void {
+            // $ExpectType number
+            arg1;
+            // $ExpectType string
+            arg3;
+            // $ExpectType number
+            arg4;
+            callback(null, "result");
+        },
+        1,
+        {
+            requestId: 42,
+        },
+        "thisArg",
+        42,
+        callback,
+        "0",
+        0,
+    );
+
+    // $ExpectType string
+    channels.traceCallback(
+        function(callback) {
+            callback(null, "result");
+        },
+        0,
+        {
+            requestId: 42,
+        },
+        undefined,
+        callback,
+    );
+
+    // $ExpectType string
     channels.traceCallback(
         function(callback) {
             callback(null, "result");

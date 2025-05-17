@@ -297,7 +297,12 @@ declare module "diagnostics_channel" {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runStores(): void;
+        runStores<ThisArg = any, Args extends any[] = any[], Result = any>(
+            context: ContextType,
+            fn: (this: ThisArg, ...args: Args) => Result,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
     }
     interface TracingChannelSubscribers<ContextType extends object> {
         start: (message: ContextType) => void;
@@ -441,12 +446,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceSync<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => any,
+        traceSync<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Result;
         /**
          * Trace a promise-returning function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce an `asyncStart event` and `asyncEnd event` when a promise continuation is reached. It may also
@@ -476,12 +481,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return Chained from promise returned by the given function
          */
-        tracePromise<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => Promise<any>,
+        tracePromise<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Promise<Result>,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Promise<Result>;
         /**
          * Trace a callback-receiving function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce a `asyncStart event` and `asyncEnd event` around the callback execution. It may also produce an `error event` if the given function throws an error or
@@ -540,6 +545,87 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
+        traceCallback<ThisArg = any, Callback extends any = any, ArgLast extends any[] = any[]>(
+            fn: (this: ThisArg, callback: Callback, ...args: ArgLast) => any,
+            position: 0 | undefined,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            callback?: Callback,
+            ...argLast: ArgLast
+        ): Callback extends ((error: unknown, result: infer Result) => void) ? Result : any;
+        traceCallback<ThisArg = any, Callback = any, Arg0 = any, ArgLast extends any[] = any[]>(
+            fn: (this: ThisArg, arg0: Arg0, callback: Callback, ...args: ArgLast) => any,
+            position: 1,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            arg0?: Arg0,
+            callback?: Callback,
+            ...argLast: ArgLast
+        ): Callback extends undefined ? never
+            : Callback extends ((error: unknown, result: infer Result) => void) ? Result
+            : any;
+        traceCallback<ThisArg = any, Callback = any, Arg0 = any, Arg1 = any, ArgLast extends any[] = any[]>(
+            fn: (this: ThisArg, arg0: Arg0, arg1: Arg1, callback: Callback, ...args: ArgLast) => any,
+            position: 2,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            arg0?: Arg0,
+            arg1?: Arg1,
+            callback?: Callback,
+            ...argLast: ArgLast
+        ): Callback extends undefined ? never
+            : Callback extends ((error: unknown, result: infer Result) => void) ? Result
+            : any;
+        traceCallback<ThisArg = any, Callback = any, Arg0 = any, Arg1 = any, Arg2 = any, ArgLast extends any[] = any[]>(
+            fn: (this: ThisArg, arg0: Arg0, arg1: Arg1, arg2: Arg2, callback: Callback, ...args: ArgLast) => any,
+            position: 3,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            arg0?: Arg0,
+            arg1?: Arg1,
+            arg2?: Arg2,
+            callback?: Callback,
+            ...argLast: ArgLast
+        ): Callback extends undefined ? never
+            : Callback extends ((error: unknown, result: infer Result) => void) ? Result
+            : any;
+        traceCallback<
+            ThisArg = any,
+            Callback = any,
+            Arg0 = any,
+            Arg1 = any,
+            Arg2 = any,
+            Arg3 = any,
+            ArgLast extends any[] = any[],
+        >(
+            fn: (
+                this: ThisArg,
+                arg0: Arg0,
+                arg1: Arg1,
+                arg2: Arg2,
+                arg3: Arg3,
+                callback: Callback,
+                ...args: ArgLast
+            ) => any,
+            position: 4,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            arg0?: Arg0,
+            arg1?: Arg1,
+            arg2?: Arg2,
+            arg3?: Arg3,
+            callback?: Callback,
+            ...argLast: ArgLast
+        ): Callback extends undefined ? never
+            : Callback extends ((error: unknown, result: infer Result) => void) ? Result
+            : any;
+        traceCallback<ThisArg = any, Args extends any[] = any[]>(
+            fn: (this: ThisArg, ...args: Args) => any,
+            position?: number,
+            context?: ContextType,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): any;
         traceCallback<Fn extends (this: any, ...args: any[]) => any>(
             fn: Fn,
             position?: number,
