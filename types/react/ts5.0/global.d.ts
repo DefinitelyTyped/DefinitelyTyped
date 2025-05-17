@@ -151,6 +151,39 @@ interface SVGTSpanElement extends SVGElement {}
 interface SVGUseElement extends SVGElement {}
 interface SVGViewElement extends SVGElement {}
 
+interface MathMLElement extends Element {}
+interface MathMLMActionElement extends MathMLElement {}
+interface MathMLMathElement extends MathMLElement {}
+interface MathMLMerrorElement extends MathMLElement {}
+interface MathMLMfracElement extends MathMLElement {}
+interface MathMLMiElement extends MathMLElement {}
+interface MathMLMmultiscriptsElement extends MathMLElement {}
+interface MathMLMnElement extends MathMLElement {}
+interface MathMLMoElement extends MathMLElement {}
+interface MathMLMoverElement extends MathMLElement {}
+interface MathMLMpaddedElement extends MathMLElement {}
+interface MathMLMphantomElement extends MathMLElement {}
+interface MathMLMprescriptsElement extends MathMLElement {}
+interface MathMLMrootElement extends MathMLElement {}
+interface MathMLMrowElement extends MathMLElement {}
+interface MathMLMsElement extends MathMLElement {}
+interface MathMLMspaceElement extends MathMLElement {}
+interface MathMLMsqrtElement extends MathMLElement {}
+interface MathMLMstyleElement extends MathMLElement {}
+interface MathMLMsubElement extends MathMLElement {}
+interface MathMLMsubsupElement extends MathMLElement {}
+interface MathMLMsupElement extends MathMLElement {}
+interface MathMLMtableElement extends MathMLElement {}
+interface MathMLMtdElement extends MathMLElement {}
+interface MathMLMtextElement extends MathMLElement {}
+interface MathMLMtrElement extends MathMLElement {}
+interface MathMLMunderElement extends MathMLElement {}
+interface MathMLMunderoverElement extends MathMLElement {}
+interface MathMLSemanticsElement extends MathMLElement {}
+
+interface MathMLAnnotationElement extends MathMLElement {}
+interface MathMLAnnotationXmlElement extends MathMLElement {}
+
 interface FormData {}
 interface Text {}
 interface TouchList {}
