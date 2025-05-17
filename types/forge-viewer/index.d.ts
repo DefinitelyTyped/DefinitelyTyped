@@ -783,7 +783,7 @@ declare namespace Autodesk {
                     needsExternalId?: boolean | undefined;
                 },
             ): Promise<PropertySet>;
-            getPropertyHashes(): Promise<string[]>;
+            getPropertyHashes(nameRE?: RegExp, categoryRE?: RegExp): Promise<string[]>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
