@@ -1565,6 +1565,14 @@
             "libraryName": "dexie",
             "asOfVersion": "1.3.1"
         },
+        "dhis2__ui-constants": {
+            "libraryName": "@dhis2/ui-constants",
+            "asOfVersion": "9.0.0"
+        },
+        "dhis2__ui-icons": {
+            "libraryName": "@dhis2/ui-icons",
+            "asOfVersion": "9.0.0"
+        },
         "dialog-polyfill": {
             "libraryName": "dialog-polyfill",
             "asOfVersion": "0.5.2"
