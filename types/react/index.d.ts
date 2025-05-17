@@ -66,6 +66,24 @@ export = React;
 export as namespace React;
 
 declare namespace React {
+    // --- Memoization Helpers ---
+    /** A nominal type brand for memoized values. */
+    export const __memoized: unique symbol;
+    /** Represents a value explicitly memoized via React hooks (useMemo, useCallback). */
+    /** using `__memoized` instead of `[__memoized]` to avoid TS4023 */
+    export type Memoized<T> = T & { readonly __memoized: unknown };
+
+    /** Represents JavaScript primitive types. */
+    type Primitive = string | number | boolean | null | undefined | symbol | bigint;
+
+    /** Allowed dependency types: primitives or explicitly memoized values. */
+    type MemoizedDependency = Primitive | Memoized<unknown>;
+
+    /** Nominal type for dependency arrays requiring memoized non-primitive values. */
+    type MemoizedDependencyList = readonly MemoizedDependency[] & { readonly __brand: "MemoizedDependencyList" };
+
+    // --- End Memoization Helpers ---
+
     //
     // React Elements
     // ----------------------------------------------------------------------
@@ -1661,7 +1679,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+    function useState<S>(initialState: S | (() => S)): [Memoized<S>, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
@@ -1669,7 +1687,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+    function useState<S = undefined>(): [Memoized<S | undefined>, Dispatch<SetStateAction<S | undefined>>];
     /**
      * An alternative to `useState`.
      *
@@ -1747,7 +1765,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useLayoutEffect}
      */
-    function useLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useLayoutEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
     /**
      * Accepts a function that contains imperative, possibly effectful code.
      *
@@ -1757,7 +1775,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useEffect}
      */
-    function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
@@ -1768,7 +1786,11 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
-    function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: DependencyList): void;
+    function useImperativeHandle<T, R extends T>(
+        ref: Ref<T> | undefined,
+        init: () => R,
+        deps?: ReadonlyArray<MemoizedDependency>,
+    ): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
@@ -1781,7 +1803,7 @@ declare namespace React {
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
+    function useCallback<T extends Function>(callback: T, deps: ReadonlyArray<MemoizedDependency>): Memoized<T>;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -1789,7 +1811,7 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useMemo}
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList): T;
+    function useMemo<T>(factory: () => T, deps: ReadonlyArray<MemoizedDependency>): Memoized<T>;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
@@ -1883,7 +1905,7 @@ declare namespace React {
      *
      * @see {@link https://github.com/facebook/react/pull/21913}
      */
-    export function useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
+    export function useInsertionEffect(effect: EffectCallback, deps?: ReadonlyArray<MemoizedDependency>): void;
 
     /**
      * @param subscribe
@@ -2805,11 +2827,11 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
-            | undefined
             | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
-            ];
+            ]
+            | undefined;
         formEncType?: string | undefined;
         formMethod?: string | undefined;
         formNoValidate?: boolean | undefined;
