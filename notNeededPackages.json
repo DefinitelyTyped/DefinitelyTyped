@@ -6319,6 +6319,10 @@
             "libraryName": "refractor",
             "asOfVersion": "4.0.0"
         },
+        "registry-auth-token": {
+            "libraryName": "registry-auth-token",
+            "asOfVersion": "5.0.1"
+        },
         "rehype-react": {
             "libraryName": "rehype-react",
             "asOfVersion": "6.0.0"
