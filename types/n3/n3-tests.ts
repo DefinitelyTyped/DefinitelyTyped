@@ -434,6 +434,23 @@ function test_doc_utility() {
     const namedNode1: RDF.NamedNode = N3Util.prefix("http://www.w3.org/2000/01/rdf-schema#")("label");
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)("rdfs")("label");
     const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)("rdfs")("label");
+
+    const term = N3.DataFactory.literal("Mickey Mouse") as RDF.Term;
+    if (N3Util.isNamedNode(term)) {
+        const namedNodeTerm: RDF.NamedNode = term;
+    }
+    if (N3Util.isBlankNode(term)) {
+        const blankNodeTerm: RDF.BlankNode = term;
+    }
+    if (N3Util.isLiteral(term)) {
+        const literalTerm: RDF.Literal = term;
+    }
+    if (N3Util.isVariable(term)) {
+        const variableTerm: RDF.Variable = term;
+    }
+    if (N3Util.isDefaultGraph(term)) {
+        const defaultGraphTerm: RDF.DefaultGraph = term;
+    }
 }
 
 function test_parser_options() {
