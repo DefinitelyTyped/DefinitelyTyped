@@ -2948,7 +2948,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.requestWillBeSent` event to connected frontends. This event indicates that
          * the application is about to send an HTTP request.
          * @since v22.6.0
-         * @experimental
          */
         function requestWillBeSent(params: RequestWillBeSentEventDataType): void;
         /**
@@ -2957,7 +2956,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.responseReceived` event to connected frontends. This event indicates that
          * HTTP response is available.
          * @since v22.6.0
-         * @experimental
          */
         function responseReceived(params: ResponseReceivedEventDataType): void;
         /**
@@ -2966,7 +2964,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.loadingFinished` event to connected frontends. This event indicates that
          * HTTP request has finished loading.
          * @since v22.6.0
-         * @experimental
          */
         function loadingFinished(params: LoadingFinishedEventDataType): void;
         /**
@@ -2975,7 +2972,6 @@ declare module 'inspector' {
          * Broadcasts the `Network.loadingFailed` event to connected frontends. This event indicates that
          * HTTP request has failed to load.
          * @since v22.7.0
-         * @experimental
          */
         function loadingFailed(params: LoadingFailedEventDataType): void;
     }
