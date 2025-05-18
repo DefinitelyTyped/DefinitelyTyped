@@ -2976,8 +2976,19 @@ async function testDeclarativeNetRequest() {
     // @ts-expect-error
     chrome.declarativeNetRequest.testMatchOutcome(testMatchRequestDetails, () => {}).then(() => {});
 
+    const rule: chrome.declarativeNetRequest.Rule = {
+        id: 1,
+        priority: 1,
+        action: { type: "allow", requestHeaders: [], responseHeaders: [] },
+        condition: {
+            domainType: "firstParty",
+            excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
+            excludedRequestMethods: [chrome.declarativeNetRequest.RequestMethod.POST, "get"],
+        },
+    };
+
     const updateRuleOptions: chrome.declarativeNetRequest.UpdateRuleOptions = {
-        addRules: [],
+        addRules: [rule],
         removeRuleIds: [1, 2, 3],
     };
 
