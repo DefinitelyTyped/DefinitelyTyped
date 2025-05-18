@@ -209,7 +209,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
