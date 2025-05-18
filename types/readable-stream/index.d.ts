@@ -1,6 +1,5 @@
 /// <reference types="node" />
 
-import * as SafeBuffer from "safe-buffer";
 import type * as NodeStream from "stream";
 
 declare class StringDecoder {
@@ -235,7 +234,7 @@ declare namespace _Readable {
         next: Entry<D> | null;
     }
 
-    interface BufferList<D extends SafeBuffer.Buffer = SafeBuffer.Buffer> {
+    interface BufferList<D extends Buffer = Buffer> {
         head: Entry<D>;
         tail: Entry<D>;
         length: number;
