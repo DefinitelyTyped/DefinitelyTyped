@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -5158,26 +5158,16 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
       iColumns?: int
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of months can be selected.
      *
-     * Determines if an interval of dates can be selected.
      *
-     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
-     * multiple intervals is not supported.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @since 1.74
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setIntervalSelection(
       /**
-       * New value for property `intervalSelection`
+       * Indicates if `intervalSelection` should be enabled
        */
-      bIntervalSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * sets a minimum and maximum month
@@ -7478,26 +7468,16 @@ declare module "sap/ui/unified/calendar/YearPicker" {
       oDate: Date | UI5Date
     ): this;
     /**
-     * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
+     * Setter for the property `intervalSelection`. If set to `true`, an interval of years can be selected.
      *
-     * Determines if an interval of dates can be selected.
      *
-     * **Note:** This property should be set to `false` if `_singleSelection` is set to `false`, as selecting
-     * multiple intervals is not supported.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     * @since 1.74
-     *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Reference to `this` for method chaining
      */
     setIntervalSelection(
       /**
-       * New value for property `intervalSelection`
+       * Indicates if `intervalSelection` should be enabled
        */
-      bIntervalSelection?: boolean
+      bEnabled: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
@@ -18015,7 +17995,7 @@ declare module "sap/ui/unified/FileUploaderXHRSettings" {
 declare module "sap/ui/unified/Menu" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IContextMenu, ID, Dock, Collision } from "sap/ui/core/library";
+  import { IContextMenu, ID, Collision } from "sap/ui/core/library";
 
   import { IMenuItem } from "sap/ui/unified/library";
 
@@ -18024,6 +18004,8 @@ declare module "sap/ui/unified/Menu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Element from "sap/ui/core/Element";
+
+  import Popup from "sap/ui/core/Popup";
 
   import {
     PropertyBindingInfo,
@@ -18519,11 +18501,11 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The reference docking location of the menu for positioning the menu on the screen
        */
-      my: Dock,
+      my: typeof Popup.Dock | keyof typeof Popup.Dock,
       /**
        * The 'of' element's reference docking location for positioning the menu on the screen
        */
-      at: Dock,
+      at: typeof Popup.Dock | keyof typeof Popup.Dock,
       /**
        * The menu is positioned relatively to this element based on the given dock locations
        */

@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -13,7 +13,9 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
   interface ControlVariantApplyAPI {
     /**
      * Activates the passed variant applicable to the passed control/component. If the Variant is not available
-     * and the backend supports lazy loading, a backend request is made to fetch the variant.
+     * and the backend supports lazy loading, a backend request is made to fetch the variant. If the flag standardVariant
+     * is set to true, the standard variant is activated and the variantReference is ignored. In this scenario
+     * the passed element must be the variant management control.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -31,6 +33,10 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
          * Reference to the variant that needs to be activated
          */
         variantReference: string;
+        /**
+         * If set to true, the standard variant is activated and the variantReference is ignored
+         */
+        standardVariant?: boolean;
       }
     ): Promise<any>;
     /**
