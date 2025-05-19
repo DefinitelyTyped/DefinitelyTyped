@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -2702,6 +2702,8 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
 
   import ValueHelpPropagationReason from "sap/ui/mdc/enums/ValueHelpPropagationReason";
 
+  import Control from "sap/ui/core/Control";
+
   import Container from "sap/ui/mdc/valuehelp/base/Container";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
@@ -3073,9 +3075,35 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
       oConfig: object
     ): void;
     /**
+     * Provides a hook to run time-critical tasks once a control connects to a value help.
+     *
+     * This method allows for working around any delays that might occur during user interaction treatment of
+     * the connecting `control`. For example, `setTimeout` or `debouncing` are used in {@link sap.ui.mdc.field.FieldBase FieldBase }
+     * to prevent triggering value help requests too early/often.
+     *
+     * @since 1.136
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    onControlConnect(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * Control to which the `ValueHelp` element is connected
+       */
+      oControl: Control,
+      /**
+       * Connect configuration object
+       */
+      oConfig?: /* was: sap.ui.mdc.valuehelp.base.ConnectConfig */ any
+    ): void;
+    /**
      * Requests additional content for the value help.
      *
-     * This function is called when the value help is opened or a key or description is requested.
+     * This method is called during the opening phase of a `ValueHelp`, if a new content is displayed for a
+     * `CollectiveSearch` dialog or if one of the following methods is called: {@link sap.ui.mdc.ValueHelp#getItemForValue getItemForValue},
+     * {@link sap.ui.mdc.ValueHelp#requestShowTypeahead requestShowTypeahead}, {@link sap.ui.mdc.ValueHelp#requestShowValueHelp requestShowValueHelp}
      *
      * So depending on the value help {@link sap.ui.mdc.valuehelp.base.Content Content} used, all content controls
      * and data need to be assigned. Once they are assigned and the data is set, the returned `Promise` needs
@@ -3758,6 +3786,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import ActionToolbarActionAlignment from "sap/ui/mdc/enums/ActionToolbarActionAlignment";
+
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
@@ -3849,7 +3879,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
     /**
      * Gets current value of property {@link #getLayoutInformation layoutInformation}.
      *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      *
      * Default value is `...see text or source`.
      *
@@ -3883,7 +3914,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
     /**
      * Sets a new value for property {@link #getLayoutInformation layoutInformation}.
      *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3899,12 +3931,27 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
       oLayoutInformation?: object
     ): this;
   }
+
+  export type ActionToolbarActionLayoutInformation = {
+    /**
+     * The name of the aggregation where the action is displayed. Currently only `end` is supported.
+     */
+    aggregationName: string;
+    /**
+     * The alignment of the action defining if it's displayed before or after the aggregation.
+     */
+    alignment:
+      | ActionToolbarActionAlignment
+      | keyof typeof ActionToolbarActionAlignment;
+  };
+
   /**
    * Describes the settings that can be provided to the ActionToolbarAction constructor.
    */
   export interface $ActionToolbarActionSettings extends $ControlSettings {
     /**
-     * Contains the information where the action is displayed on the `ActionToolbar`.
+     * Contains the information where the action is displayed on the `ActionToolbar`. The `layoutInformation`
+     * has to be of type {@link sap.ui.mdc.actiontoolbar.ActionToolbarActionLayoutInformation}.
      */
     layoutInformation?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -8243,6 +8290,46 @@ declare module "sap/ui/mdc/enums/ReasonMode" {
     Variant = "Variant",
   }
   export default ReasonMode;
+}
+
+declare module "sap/ui/mdc/enums/RequestShowContainerReason" {
+  /**
+   * Enumeration of the possible triggers for {@link sap.ui.mdc.ValueHelp ValueHelp}
+   *
+   * @since 1.136
+   */
+  enum RequestShowContainerReason {
+    /**
+     * Content may have been filtered during it's {@link sap.ui.mdc.valuehelp.base.FilterableListContent#onBeforeShow onBeforeShow }
+     * phase or a `filterValue` change occured while the `ValueHelp` was already open.
+     */
+    Filter = "Filter",
+    /**
+     * A connected control receives focus.
+     */
+    Focus = "Focus",
+    /**
+     * {@link sap.ui.mdc.ValueHelp#navigate ValueHelp arrow-navigation} was triggered.
+     */
+    Navigate = "Navigate",
+    /**
+     * A connected control was focused using the Tab key.
+     */
+    Tab = "Tab",
+    /**
+     * A connected control was activated through a click or tap action.
+     */
+    Tap = "Tap",
+    /**
+     * Text was entered or modified in a connected control.
+     */
+    Typing = "Typing",
+    /**
+     * A connected control fired a {@link sap.m.Input.valueHelpRequest valueHelpRequest}.
+     */
+    ValueHelpRequest = "ValueHelpRequest",
+  }
+  export default RequestShowContainerReason;
 }
 
 declare module "sap/ui/mdc/enums/TableGrowingMode" {
@@ -19101,6 +19188,18 @@ declare module "sap/ui/mdc/table/GridTableType" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getEnableColumnFreeze enableColumnFreeze}.
+     *
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.136
+     *
+     * @returns Value of property `enableColumnFreeze`
+     */
+    getEnableColumnFreeze(): boolean;
+    /**
      * Gets current value of property {@link #getFixedColumnCount fixedColumnCount}.
      *
      * Defines the number of fixed columns.
@@ -19188,6 +19287,25 @@ declare module "sap/ui/mdc/table/GridTableType" {
      * @returns Value of property `showHeaderSelector`
      */
     getShowHeaderSelector(): boolean;
+    /**
+     * Sets a new value for property {@link #getEnableColumnFreeze enableColumnFreeze}.
+     *
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.136
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnableColumnFreeze(
+      /**
+       * New value for property `enableColumnFreeze`
+       */
+      bEnableColumnFreeze?: boolean
+    ): this;
     /**
      * Sets a new value for property {@link #getFixedColumnCount fixedColumnCount}.
      *
@@ -19358,6 +19476,13 @@ declare module "sap/ui/mdc/table/GridTableType" {
      * Determines whether the header selector is shown.
      */
     showHeaderSelector?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the number of fixed columns is configurable via the column menu.
+     *
+     * @since 1.136
+     */
+    enableColumnFreeze?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the number of fixed columns.
@@ -23980,7 +24105,7 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      *
      * Default value is `true`.
      *
@@ -24072,7 +24197,7 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -24122,7 +24247,7 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * small lists, all values are meant to be shown, independent of the typing in the connected field. In this
      * case this property must be set to `false`.
      *
-     * If not set, the list opens if the user clicks into the connected field.
+     * By default, if not set, the list opens if the user clicks into the connected field.
      */
     filterList?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -25440,6 +25565,8 @@ declare namespace sap {
     "sap/ui/mdc/enums/ProcessingStrategy": undefined;
 
     "sap/ui/mdc/enums/ReasonMode": undefined;
+
+    "sap/ui/mdc/enums/RequestShowContainerReason": undefined;
 
     "sap/ui/mdc/enums/TableGrowingMode": undefined;
 

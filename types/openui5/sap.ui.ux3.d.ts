@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -19469,11 +19469,11 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The ToolPopup's content reference position for docking
        */
-      my?: typeof Popup.Dock,
+      my?: typeof Popup.Dock | keyof typeof Popup.Dock,
       /**
        * The "of" element's reference point for docking to
        */
-      at?: typeof Popup.Dock
+      at?: typeof Popup.Dock | keyof typeof Popup.Dock
     ): this;
     /**
      * Removes all the controls from the aggregation {@link #getButtons buttons}.
