@@ -137,14 +137,28 @@ app.route("/:foo").get<{}, any, any, { q: string }>(req => {
     req.query.a;
 });
 
+// Query can use the helper extended type
+app.get<{}, any, any, { q: express.ExtendedQuery }>("/:foo", req => {
+    req.query.q; // $ExpectType ExtendedQuery
+    // @ts-expect-error
+    req.query.a;
+});
+
+// Query can the helper extended type - under route
+app.route("/:foo").get<{}, any, any, { q: express.ExtendedQuery }>(req => {
+    req.query.q; // $ExpectType ExtendedQuery
+    // @ts-expect-error
+    req.query.a;
+});
+
 // Query will be defaulted to Query type
 app.get("/:foo", req => {
-    req.query; // $ExpectType ParsedQs
+    req.query; // $ExpectType Query
 });
 
 // Query will be defaulted to Query type - under route
 app.route("/:foo").get(req => {
-    req.query; // $ExpectType ParsedQs
+    req.query; // $ExpectType Query
 });
 
 // Next can receive a Error parameter to delegate to Error handler
@@ -342,6 +356,8 @@ app.get("/:readonly", req => {
     req.stale = true;
     // @ts-expect-error
     req.xhr = true;
+    // @ts-expect-error
+    req.query = true;
 });
 
 // Starting with Express 5 RequestHandler can be async
