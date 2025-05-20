@@ -2,6 +2,7 @@
 /// <reference types="node" />
 
 import { SendOptions } from "send";
+import { ParsedQs } from "qs";
 
 declare global {
     namespace Express {
@@ -11,17 +12,16 @@ declare global {
         interface Response {}
         interface Locals {}
         interface Application {}
+
+        interface Query extends ParsedQs {}
     }
 }
 
 import { EventEmitter } from "events";
 import * as http from "http";
-import { ParsedQs } from "qs";
 import { Options as RangeParserOptions, Ranges as RangeParserRanges, Result as RangeParserResult } from "range-parser";
 
 export {};
-
-export type Query = ParsedQs;
 
 export interface NextFunction {
     (err?: any): void;
@@ -53,7 +53,7 @@ export interface RequestHandler<
     P = ParamsDictionary,
     ResBody = any,
     ReqBody = any,
-    ReqQuery = ParsedQs,
+    ReqQuery = Express.Query,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > {
     // tslint:disable-next-line callable-types (This is extended from and can't extend from a type alias in ts<2.2)
@@ -68,7 +68,7 @@ export type ErrorRequestHandler<
     P = ParamsDictionary,
     ResBody = any,
     ReqBody = any,
-    ReqQuery = ParsedQs,
+    ReqQuery = Express.Query,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > = (
     err: any,
@@ -83,7 +83,7 @@ export type RequestHandlerParams<
     P = ParamsDictionary,
     ResBody = any,
     ReqBody = any,
-    ReqQuery = ParsedQs,
+    ReqQuery = Express.Query,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > =
     | RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
@@ -122,7 +122,7 @@ export interface IRouterMatcher<
         P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
@@ -135,7 +135,7 @@ export interface IRouterMatcher<
         P = RouteParameters<Path>,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
@@ -147,7 +147,7 @@ export interface IRouterMatcher<
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         path: PathParams,
@@ -158,7 +158,7 @@ export interface IRouterMatcher<
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         path: PathParams,
@@ -175,7 +175,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
@@ -186,7 +186,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         P = RouteParameters<Route>,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
@@ -197,7 +197,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
@@ -208,7 +208,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         P = ParamsDictionary,
         ResBody = any,
         ReqBody = any,
-        ReqQuery = ParsedQs,
+        ReqQuery = Express.Query,
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (This generic is meant to be passed explicitly.)
@@ -396,7 +396,7 @@ export interface Request<
     P = ParamsDictionary,
     ResBody = any,
     ReqBody = any,
-    ReqQuery = ParsedQs,
+    ReqQuery = Express.Query,
     LocalsObj extends Record<string, any> = Record<string, any>,
 > extends http.IncomingMessage, Express.Request {
     /**
