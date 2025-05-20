@@ -432,6 +432,46 @@ export interface LoaderOptions {
      * ```
      */
     warnRuleAsWarning?: boolean | undefined;
+
+
+    /**
+     * Default: `"modern"` for `sass (dart-sass)` and `sass-embedded`, or `"legacy"` for `node-sass`
+     *
+     * Allows you to switch between the legacy and modern APIs. You can find more information [here](https://sass-lang.com/documentation/js-api). The modern-compiler option enables the modern API with support for [Shared Resources](https://github.com/sass/sass/blob/main/accepted/shared-resources.d.ts.md).
+     *
+     * > [!NOTE]
+     * > Using modern-compiler and sass-embedded together significantly improve performance and decrease built time. We strongly recommend their use. We will enable them by default in a future major release.
+     * 
+     * > [!WARNING]
+     * > The sass options are different for the legacy and modern APIs. Please look at docs how to migrate to the modern options.
+     * 
+     * **webpack.config.js**
+     * ```js
+     * module.exports = {
+     *   module: {
+     *     rules: [
+     *       {
+     *         test: /\.s[ac]ss$/i,
+     *         use: [
+     *           "style-loader",
+     *           "css-loader",
+     *           {
+     *             loader: "sass-loader",
+     *             options: {
+     *               api: "modern-compiler",
+     *               sassOptions: {
+     *                 // Your sass options
+     *               },
+     *             },
+     *           },
+     *         ],
+     *       },
+     *     ],
+     *   },
+     * };
+     * ```
+     */
+    api: "legacy" | "modern" | "modern-compiler";
 }
 
 export namespace LoaderOptions {
