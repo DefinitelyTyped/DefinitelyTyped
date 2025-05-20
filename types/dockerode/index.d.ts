@@ -336,6 +336,25 @@ declare namespace Dockerode {
 
     type Duration = number;
 
+    interface ImageDescriptor {
+        mediaType: string;
+        digest: string;
+        size: number;
+        urls?: string[] | undefined;
+        annotations?: { [key: string]: string } | undefined;
+        data?: string | undefined;
+        platform?:
+            | {
+                architecture: string;
+                os: string;
+                "os.version"?: string | undefined;
+                "os.features"?: string[] | undefined;
+                variant?: string | undefined;
+            }
+            | undefined;
+        artifactType?: string | undefined;
+    }
+
     interface ImageInfo {
         Id: string;
         ParentId: string;
@@ -347,47 +366,11 @@ declare namespace Dockerode {
         SharedSize: number;
         Labels: { [label: string]: string };
         Containers: number;
-        Descriptor?:
-            | {
-                mediaType: string;
-                digest: string;
-                size: number;
-                urls?: string[] | undefined;
-                annotations?: { [key: string]: string } | undefined;
-                data?: string | undefined;
-                platform?:
-                    | {
-                        architecture: string;
-                        os: string;
-                        "os.version"?: string | undefined;
-                        "os.features"?: string[] | undefined;
-                        variant?: string | undefined;
-                    }
-                    | undefined;
-                artifactType?: string | undefined;
-            }
-            | undefined;
+        Descriptor?: ImageDescriptor | undefined;
         Manifests?:
             | {
                 ID: string;
-                Descriptor: {
-                    mediaType: string;
-                    digest: string;
-                    size: number;
-                    urls?: string[] | undefined;
-                    annotations?: { [key: string]: string } | undefined;
-                    data?: string | undefined;
-                    platform?:
-                        | {
-                            architecture: string;
-                            os: string;
-                            "os.version"?: string | undefined;
-                            "os.features"?: string[] | undefined;
-                            variant?: string | undefined;
-                        }
-                        | undefined;
-                    artifactType?: string | undefined;
-                };
+                Descriptor: ImageDescriptor;
                 Available: boolean;
                 Size: {
                     Total: number;
@@ -405,8 +388,7 @@ declare namespace Dockerode {
                         };
                         Containers: string[];
                         Size: {
-                            Total: number;
-                            Content: number;
+                            Unpacked: number;
                         };
                     }
                     | undefined;
