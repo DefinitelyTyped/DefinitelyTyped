@@ -33,7 +33,7 @@ declare module "klaw" {
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
             read(): Item;
-            [Symbol.asyncIterator](): AsyncIteratorObject<Item, any>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<Item>;
         }
     }
 
