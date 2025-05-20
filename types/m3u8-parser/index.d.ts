@@ -43,7 +43,7 @@ export interface Segment {
     key?: {
         method: string;
         uri: string;
-        iv: string;
+        iv?: Uint32Array;
     };
     map?: {
         uri: string;
