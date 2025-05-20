@@ -402,6 +402,7 @@ export interface LoaderOptions {
      * true
      */
     webpackImporter?: boolean | undefined;
+
     /**
      * Treats the @warn rule as a webpack warning.
      *
@@ -433,7 +434,6 @@ export interface LoaderOptions {
      */
     warnRuleAsWarning?: boolean | undefined;
 
-
     /**
      * Default: `"modern"` for `sass (dart-sass)` and `sass-embedded`, or `"legacy"` for `node-sass`
      *
@@ -441,10 +441,10 @@ export interface LoaderOptions {
      *
      * > [!NOTE]
      * > Using modern-compiler and sass-embedded together significantly improve performance and decrease built time. We strongly recommend their use. We will enable them by default in a future major release.
-     * 
+     *
      * > [!WARNING]
      * > The sass options are different for the legacy and modern APIs. Please look at docs how to migrate to the modern options.
-     * 
+     *
      * **webpack.config.js**
      * ```js
      * module.exports = {
@@ -471,7 +471,7 @@ export interface LoaderOptions {
      * };
      * ```
      */
-    api: "legacy" | "modern" | "modern-compiler";
+    api?: "legacy" | "modern" | "modern-compiler";
 }
 
 export namespace LoaderOptions {

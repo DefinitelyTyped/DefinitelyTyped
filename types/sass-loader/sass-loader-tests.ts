@@ -15,6 +15,7 @@ const loaderOptions: SassLoader.Options = {
         sourceMap: true,
     },
     webpackImporter: true,
+    api: 'modern-compiler'
 };
 
 const loaderOptionsWithCallback: SassLoader.Options = {
