@@ -1,7 +1,7 @@
 // Shared infrastructure
 // https://webmachinelearning.github.io/writing-assistance-apis/#supporting
 
-declare interface CreateMonitor extends EventTarget {
+interface CreateMonitor extends EventTarget {
     ondownloadprogress: ((this: CreateMonitor, ev: ProgressEvent) => any) | null;
 
     addEventListener<K extends keyof CreateMonitorEventMap>(
