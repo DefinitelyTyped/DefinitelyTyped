@@ -6,13 +6,13 @@ async function topLevel() {
         initialPrompts: [{ role: "user", content: "foo" }, { role: "system", content: "foo" }],
     });
 
-    // Positive tests
-    // System prompt in create options
-    const languageModel1 = await LanguageModel.create({
+    const languageModel = await LanguageModel.create({
         topK: 1,
         temperature: 0,
+        expectedInputs: [{ type: "text", languages: ["de"] }],
+        expectedOutputs: [{ type: "image", languages: ["de"] }],
         signal: (new AbortController()).signal,
-        initialPrompts: [{ role: "assistant", content: "foo" }, { role: "user", content: "foo" }],
+        initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo" }],
         monitor(m: CreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -20,18 +20,16 @@ async function topLevel() {
         },
     });
 
-    // System prompt in initial prompts
-    const languageModel2 = await LanguageModel.create({
-        initialPrompts: [
-            { role: "system", content: "foo" },
-            { role: "assistant", content: "foo" },
-            { role: "user", content: "foo" },
-        ],
-    });
-    console.log(languageModel2);
+    const languageModelAvailability1: Availability = await LanguageModel.availability();
+    console.log(languageModelAvailability1);
 
-    const languageModelAvailability = await LanguageModel.availability();
-    console.log(languageModelAvailability);
+    const languageModelAvailability2: Availability = await LanguageModel.availability({
+        topK: 1,
+        temperature: 0,
+        expectedInputs: [{ type: "image" }],
+        expectedOutputs: [{ type: "text", languages: ["de"] }],
+    });
+    console.log(languageModelAvailability2);
 
     const languageModelParams = await LanguageModel.params();
     console.log(
@@ -41,42 +39,43 @@ async function topLevel() {
         languageModelParams.maxTemperature,
     );
 
-    languageModel1.addEventListener("contextoverflow", () => {});
+    const schema = {
+        type: "object",
+        required: ["name"],
+        additionalProperties: false,
+        properties: {
+            name: {
+                type: "string",
+            },
+        },
+    };
 
-    const promptTokens1: number = await languageModel1.measureInputUsage("foo", {
+    const assistantResult1: string = await languageModel.prompt("foo", {
         signal: (new AbortController()).signal,
+        responseConstraint: schema,
     });
-    console.log(promptTokens1);
-
-    const promptTokens2: number = await languageModel1.measureInputUsage({ role: "assistant", content: "foo" }, {
-        signal: (new AbortController()).signal,
-    });
-    console.log(promptTokens2);
-
-    const promptTokens3: number = await languageModel1.measureInputUsage([
-        { role: "assistant", content: "foo" },
-        { role: "user", content: "bar" },
-    ], { signal: (new AbortController()).signal });
-    console.log(promptTokens3);
-
-    const assistantResult1: string = await languageModel1.prompt("foo", { signal: (new AbortController()).signal });
     console.log(assistantResult1);
 
-    const assistantResult2: string = await languageModel1.prompt({ role: "assistant", content: "foo" });
+    const assistantResult2: string = await languageModel.prompt([{ role: "assistant", content: "foo" }]);
     console.log(assistantResult2);
 
-    const assistantResult3: string = await languageModel1.prompt([
+    const assistantResult3: string = await languageModel.prompt([
         { role: "assistant", content: "foo" },
-        { role: "user", content: "bar" },
+        { role: "user", content: [{ type: "image", value: new Image() }] },
     ]);
     console.log(assistantResult3);
 
-    for await (const chunk of languageModel1.promptStreaming("foo", { signal: (new AbortController()).signal })) {
+    for await (
+        const chunk of languageModel.promptStreaming("foo", {
+            signal: (new AbortController()).signal,
+            responseConstraint: schema,
+        })
+    ) {
         console.log(chunk);
     }
 
     for await (
-        const chunk of languageModel1.promptStreaming({ role: "assistant", content: "foo" }, {
+        const chunk of languageModel.promptStreaming([{ role: "assistant", content: "foo" }], {
             signal: (new AbortController()).signal,
         })
     ) {
@@ -84,28 +83,72 @@ async function topLevel() {
     }
 
     for await (
-        const chunk of languageModel1.promptStreaming([
+        const chunk of languageModel.promptStreaming([
             { role: "assistant", content: "foo" },
-            { role: "user", content: "bar" },
+            { role: "user", content: [{ type: "image", value: new Image() }] },
         ], { signal: (new AbortController()).signal })
     ) {
         console.log(chunk);
     }
 
-    const languageModelClone1: AILanguageModel = await languageModel1.clone();
+    await languageModel.append("foo");
+    await languageModel.append([{ role: "assistant", content: "foo" }]);
+    await languageModel.append("foo", { signal: (new AbortController()).signal });
+    await languageModel.append([{ role: "assistant", content: "foo" }], { signal: (new AbortController()).signal });
+
+    const languageModelInputUsage1: number = await languageModel.measureInputUsage("foo", {
+        signal: (new AbortController()).signal,
+    });
+    console.log(languageModelInputUsage1);
+
+    const languageModelInputUsage2: number = await languageModel.measureInputUsage([{
+        role: "assistant",
+        content: "foo",
+    }], {
+        signal: (new AbortController()).signal,
+    });
+    console.log(languageModelInputUsage2);
+
+    const languageModelInputUsage3: number = await languageModel.measureInputUsage([
+        { role: "assistant", content: "foo" },
+        { role: "user", content: "bar" },
+    ], { signal: (new AbortController()).signal });
+    console.log(languageModelInputUsage3);
+
+    console.log(
+        languageModel.inputUsage,
+        languageModel.inputQuota,
+    );
+
+    const quotaoverflowListener = (e: Event) => {
+        console.log(e);
+    };
+    languageModel.onquotaoverflow = quotaoverflowListener;
+    languageModel.addEventListener("quotaoverflow", quotaoverflowListener);
+    languageModel.removeEventListener("quotaoverflow", quotaoverflowListener);
+
+    console.log(
+        languageModel.topK,
+        languageModel.temperature,
+    );
+
+    const languageModelClone1: LanguageModel = await languageModel.clone();
     console.log(languageModelClone1);
 
-    const languageModelClone2: AILanguageModel = await languageModel1.clone({ signal: (new AbortController()).signal });
+    const languageModelClone2: LanguageModel = await languageModel.clone({ signal: (new AbortController()).signal });
     console.log(languageModelClone2);
 
-    languageModel1.destroy();
+    languageModel.destroy();
 
     // Summarizer
 
     const summarizer = await Summarizer.create({
-        length: "short",
-        format: "plain-text",
         type: "tl;dr",
+        format: "plain-text",
+        length: "short",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
@@ -115,8 +158,18 @@ async function topLevel() {
         },
     });
 
-    const summarizerAvailability = await Summarizer.availability();
-    console.log(summarizerAvailability);
+    const summarizerAvailability1: Availability = await Summarizer.availability();
+    console.log(summarizerAvailability1);
+
+    const summarizerAvailability2: Availability = await Summarizer.availability({
+        type: "teaser",
+        format: "plain-text",
+        length: "long",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
+    });
+    console.log(summarizerAvailability2);
 
     const summarizerResult: string = await summarizer.summarize("foo", {
         signal: (new AbortController()).signal,
@@ -130,6 +183,22 @@ async function topLevel() {
         console.log(chunk);
     }
 
+    console.log(
+        summarizer.sharedContext,
+        summarizer.type,
+        summarizer.format,
+        summarizer.length,
+        summarizer.expectedInputLanguages,
+        summarizer.expectedContextLanguages,
+        summarizer.outputLanguage,
+    );
+
+    const summarizerInputUsage: number = await summarizer.measureInputUsage("foo", {
+        signal: (new AbortController()).signal,
+        context: "foo",
+    });
+    console.log(summarizerInputUsage, summarizer.inputQuota);
+
     summarizer.destroy();
 
     // Writer
@@ -138,6 +207,9 @@ async function topLevel() {
         tone: "casual",
         format: "plain-text",
         length: "long",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
@@ -147,8 +219,17 @@ async function topLevel() {
         },
     });
 
-    const writerAvailability = await Writer.availability();
-    console.log(writerAvailability);
+    const writerAvailability1: Availability = await Writer.availability();
+    console.log(writerAvailability1);
+
+    const writerAvailability2: Availability = await Writer.availability({
+        tone: "casual",
+        format: "plain-text",
+        length: "long",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
+    });
 
     const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
     console.log(writerResult);
@@ -159,6 +240,20 @@ async function topLevel() {
         console.log(chunk);
     }
 
+    console.log(
+        writer.sharedContext,
+        writer.tone,
+        writer.format,
+        writer.length,
+
+        writer.expectedInputLanguages,
+        writer.expectedContextLanguages,
+        writer.outputLanguage,
+    );
+
+    const writerInputUsage: number = await writer.measureInputUsage("foo", { signal: (new AbortController()).signal, context: "foo" });
+    console.log(writerInputUsage, writer.inputQuota);
+
     writer.destroy();
 
     // Rewriter
@@ -167,6 +262,9 @@ async function topLevel() {
         tone: "as-is",
         format: "plain-text",
         length: "as-is",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
         sharedContext: "foo",
         signal: (new AbortController()).signal,
         monitor(m: CreateMonitor) {
@@ -176,8 +274,18 @@ async function topLevel() {
         },
     });
 
-    const rewriterAvailability = await Rewriter.availability();
-    console.log(rewriterAvailability);
+    const rewriterAvailability1: Availability = await Rewriter.availability();
+    console.log(rewriterAvailability1);
+
+    const rewriterAvailability2: Availability = await Rewriter.availability({
+        tone: "more-casual",
+        format: "plain-text",
+        length: "as-is",
+        expectedInputLanguages: ["de"],
+        expectedContextLanguages: ["de"],
+        outputLanguage: "en",
+    });
+    console.log(rewriterAvailability2);
 
     const rewriterResult: string = await rewriter.rewrite("foo", {
         signal: (new AbortController()).signal,
@@ -190,6 +298,22 @@ async function topLevel() {
     ) {
         console.log(chunk);
     }
+
+    console.log(
+        rewriter.sharedContext,
+        rewriter.tone,
+        rewriter.format,
+        rewriter.length,
+        rewriter.expectedInputLanguages,
+        rewriter.expectedContextLanguages,
+        rewriter.outputLanguage,
+    );
+
+    const rewriterInputUsage: number = await rewriter.measureInputUsage("foo", {
+        signal: (new AbortController()).signal,
+        context: "foo",
+    });
+    console.log(rewriterInputUsage, rewriter.inputQuota);
 
     rewriter.destroy();
 
@@ -206,16 +330,10 @@ async function topLevel() {
         },
     });
 
-    console.log(
-        translator.sourceLanguage,
-        translator.targetLanguage,
-    );
-
-    const translatorAvailability = await Translator.availability({
+    const translatorAvailability: Availability = await Translator.availability({
         sourceLanguage: "de",
         targetLanguage: "en",
     });
-    console.log(translatorAvailability);
 
     const translatorResult: string = await translator.translate("foo", {
         signal: (new AbortController()).signal,
@@ -227,6 +345,17 @@ async function topLevel() {
     ) {
         console.log(chunk);
     }
+
+    console.log(
+        translator.sourceLanguage,
+        translator.targetLanguage,
+    );
+
+    const translatorInputUsage: number = await translator.measureInputUsage("foo", { signal: (new AbortController()).signal });
+    console.log(
+        translatorInputUsage,
+        translator.inputQuota,
+    );
 
     translator.destroy();
 
@@ -241,8 +370,13 @@ async function topLevel() {
         },
     });
 
-    const languageDetectorAvailability = await LanguageDetector.availability();
-    console.log(languageDetectorAvailability);
+    const languageDetectorAvailability1: Availability = await LanguageDetector.availability();
+    console.log(languageDetectorAvailability1);
+
+    const languageDetectorAvailability2: Availability = await LanguageDetector.availability({
+        expectedInputLanguages: ["de"],
+    });
+    console.log(languageDetectorAvailability2);
 
     const [languageDetectorResult]: LanguageDetectionResult[] = await languageDetector.detect("foo", {
         signal: (new AbortController()).signal,
