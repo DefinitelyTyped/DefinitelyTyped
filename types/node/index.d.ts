@@ -27,6 +27,7 @@
 // Reference required TypeScript libraries:
 /// <reference lib="es2020" />
 /// <reference lib="esnext.disposable" />
+/// <reference lib="esnext.float16" />
 
 // Iterator definitions required for compatibility with TypeScript <5.6:
 /// <reference path="compatibility/iterators.d.ts" />
