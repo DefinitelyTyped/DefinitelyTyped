@@ -6,7 +6,6 @@ metadata:
   description: |
     The repository for high quality TypeScript type definitions.
   annotations:
-    backstage.io/techdocs-ref: dir:.
     github.com/project-slug: grafana/k6-DefinitelyTyped
 spec:
   type: library
