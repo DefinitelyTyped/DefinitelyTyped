@@ -245,13 +245,15 @@ async function topLevel() {
         writer.tone,
         writer.format,
         writer.length,
-
         writer.expectedInputLanguages,
         writer.expectedContextLanguages,
         writer.outputLanguage,
     );
 
-    const writerInputUsage: number = await writer.measureInputUsage("foo", { signal: (new AbortController()).signal, context: "foo" });
+    const writerInputUsage: number = await writer.measureInputUsage("foo", {
+        signal: (new AbortController()).signal,
+        context: "foo",
+    });
     console.log(writerInputUsage, writer.inputQuota);
 
     writer.destroy();
@@ -351,7 +353,9 @@ async function topLevel() {
         translator.targetLanguage,
     );
 
-    const translatorInputUsage: number = await translator.measureInputUsage("foo", { signal: (new AbortController()).signal });
+    const translatorInputUsage: number = await translator.measureInputUsage("foo", {
+        signal: (new AbortController()).signal,
+    });
     console.log(
         translatorInputUsage,
         translator.inputQuota,
