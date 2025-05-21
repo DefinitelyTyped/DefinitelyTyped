@@ -12,7 +12,6 @@ export interface Options {
     compressionLevel: number;
 }
 
-
 export interface FileOptions extends Options {
     fileComment: string;
 }
@@ -41,8 +40,15 @@ export class ZipFile extends EventEmitter {
     addFile(realPath: string, metadataPath: string, options?: Partial<FileOptions>): void;
     outputStream: NodeJS.ReadableStream;
     addReadStream(input: NodeJS.ReadableStream, metadataPath: string, options?: Partial<ReadStreamOptions>): void;
-    addReadStreamLazy(metadataPath: string, getReadStreamFunction: (cb: (err: any, readStream: NodeJS.ReadableStream) => void) => void): void;
-    addReadStreamLazy(metadataPath: string, options: Partial<ReadStreamOptions>, getReadStreamFunction: (cb: (err: any, readStream: NodeJS.ReadableStream) => void) => void): void;
+    addReadStreamLazy(
+        metadataPath: string,
+        getReadStreamFunction: (cb: (err: any, readStream: NodeJS.ReadableStream) => void) => void,
+    ): void;
+    addReadStreamLazy(
+        metadataPath: string,
+        options: Partial<ReadStreamOptions>,
+        getReadStreamFunction: (cb: (err: any, readStream: NodeJS.ReadableStream) => void) => void,
+    ): void;
     addBuffer(buffer: Buffer, metadataPath: string, options?: Partial<Options>): void;
     end(options?: EndOptions, calculatedTotalSizeCallback?: () => void): void;
 
