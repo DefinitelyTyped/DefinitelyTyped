@@ -277,7 +277,6 @@ declare module "process" {
                 | "mipsel"
                 | "ppc64"
                 | "riscv64"
-                | "s390"
                 | "s390x"
                 | "x64";
             type Signals =
@@ -1523,7 +1522,7 @@ declare module "process" {
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
                  * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`,
-                 * `'mipsel'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * `'mipsel'`, `'ppc64'`, `'riscv64'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
