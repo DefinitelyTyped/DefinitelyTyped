@@ -12,6 +12,7 @@ import { TextEncoder } from "node:util";
         value TEXT
     ) STRICT
     `);
+    database.location("data"); // $ExpectType string | null
 
     database.function(
         "COUNT_ARGS",
