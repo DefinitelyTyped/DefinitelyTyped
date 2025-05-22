@@ -10,7 +10,7 @@ async function topLevel() {
         topK: 1,
         temperature: 0,
         expectedInputs: [{ type: "text", languages: ["de"] }],
-        expectedOutputs: [{ type: "image", languages: ["de"] }],
+        expectedOutputs: [{ type: "text", languages: ["de"] }],
         signal: (new AbortController()).signal,
         initialPrompts: [{ role: "system", content: "foo" }, { role: "assistant", content: "foo" }],
         monitor(m: CreateMonitor) {
