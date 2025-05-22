@@ -21,6 +21,22 @@ import { TextEncoder } from "node:util";
         },
     );
 
+    database.aggregate(
+        "LAST",
+        {
+            start: null,
+            step: (previous, current) => current,
+        },
+    );
+    database.aggregate<number>(
+        "COUNT_NUMBERS",
+        {
+            step: (count, value) => count + (typeof value === "number" ? 1 : 0),
+            start: () => 0,
+            result: (count) => count,
+        },
+    );
+
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
