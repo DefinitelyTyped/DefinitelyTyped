@@ -1300,10 +1300,43 @@ declare module "node:test" {
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
 
         /**
-         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, and Node.js builtin modules.
-         * Any references to the original module prior to mocking are not impacted.
+         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
+         * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
+         * order to enable module mocking, Node.js must be started with the
+         * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-module-mocks)
+         * command-line flag.
          *
-         * Only available through the [--experimental-test-module-mocks](https://nodejs.org/api/cli.html#--experimental-test-module-mocks) flag.
+         * The following example demonstrates how a mock is created for a module.
+         *
+         * ```js
+         * test('mocks a builtin module in both module systems', async (t) => {
+         *   // Create a mock of 'node:readline' with a named export named 'fn', which
+         *   // does not exist in the original 'node:readline' module.
+         *   const mock = t.mock.module('node:readline', {
+         *     namedExports: { fn() { return 42; } },
+         *   });
+         *
+         *   let esmImpl = await import('node:readline');
+         *   let cjsImpl = require('node:readline');
+         *
+         *   // cursorTo() is an export of the original 'node:readline' module.
+         *   assert.strictEqual(esmImpl.cursorTo, undefined);
+         *   assert.strictEqual(cjsImpl.cursorTo, undefined);
+         *   assert.strictEqual(esmImpl.fn(), 42);
+         *   assert.strictEqual(cjsImpl.fn(), 42);
+         *
+         *   mock.restore();
+         *
+         *   // The mock is restored, so the original builtin module is returned.
+         *   esmImpl = await import('node:readline');
+         *   cjsImpl = require('node:readline');
+         *
+         *   assert.strictEqual(typeof esmImpl.cursorTo, 'function');
+         *   assert.strictEqual(typeof cjsImpl.cursorTo, 'function');
+         *   assert.strictEqual(esmImpl.fn, undefined);
+         *   assert.strictEqual(cjsImpl.fn, undefined);
+         * });
+         * ```
          * @since v22.3.0
          * @experimental
          * @param specifier A string identifying the module to mock.
