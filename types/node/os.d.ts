@@ -417,7 +417,8 @@ declare module "os" {
     const EOL: string;
     /**
      * Returns the operating system CPU architecture for which the Node.js binary was
-     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`,
+     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`,
+     * `'mips'`, `'mipsel'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`,
      * and `'x64'`.
      *
      * The return value is equivalent to [process.arch](https://nodejs.org/docs/latest-v24.x/api/process.html#processarch).
@@ -445,7 +446,8 @@ declare module "os" {
      */
     function platform(): NodeJS.Platform;
     /**
-     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`, `mips`, `mips64`, `ppc64`, `ppc64le`, `s390`, `s390x`, `i386`, `i686`, `x86_64`.
+     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`,
+     * `mips`, `mips64`, `ppc64`, `ppc64le`, `s390x`, `i386`, `i686`, `x86_64`.
      *
      * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
      * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
