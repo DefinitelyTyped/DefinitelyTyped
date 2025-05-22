@@ -309,6 +309,12 @@ declare module "node:sqlite" {
          */
         readonly isOpen: boolean;
         /**
+         * Whether the database is currently within a transaction. This method
+         * is a wrapper around [`sqlite3_get_autocommit()`](https://sqlite.org/c3ref/get_autocommit.html).
+         * @since v24.0.0
+         */
+        readonly isTransaction: boolean;
+        /**
          * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
          * @since v22.5.0
