@@ -6,8 +6,7 @@
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react"
     ],
     "dependencies": {
-        "@types/react": "*",
-        "react": "^19.1.0"
+        "@types/react": "*"
     },
     "devDependencies": {
         "@types/tonic-ui__react": "workspace:."
