@@ -243,16 +243,10 @@ declare module "fs" {
          */
         name: Name;
         /**
-         * The base path that this `fs.Dirent` object refers to.
-         * @since v20.12.0
+         * The path to the parent directory of the file this `fs.Dirent` object refers to.
+         * @since v20.12.0, v18.20.0
          */
         parentPath: string;
-        /**
-         * Alias for `dirent.parentPath`.
-         * @since v20.1.0
-         * @deprecated Since v20.12.0
-         */
-        path: string;
     }
     /**
      * A class representing a directory stream.
