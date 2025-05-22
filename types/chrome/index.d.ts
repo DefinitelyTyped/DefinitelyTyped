@@ -150,21 +150,18 @@ declare namespace chrome {
      * @since Chrome 88, MV3
      */
     export namespace action {
-        /** @deprecated Use BadgeColorDetails instead. */
-        export interface BadgeBackgroundColorDetails extends BadgeColorDetails {}
-
         export interface BadgeColorDetails {
-            /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
+            /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is `[255, 0, 0, 255]`. Can also be a string with a CSS value, with opaque red being `#FF0000` or `#F00`. */
             color: string | ColorArray;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number;
         }
 
         export interface BadgeTextDetails {
-            /** Any number of characters can be passed, but only about four can fit in the space. */
-            text: string;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
+            /** Any number of characters can be passed, but only about four can fit in the space. If an empty string (`''`) is passed, the badge text is cleared. If `tabId` is specified and `text` is null, the text for the specified tab is cleared and defaults to the global badge text. */
+            text?: string;
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number;
         }
 
         export type ColorArray = [number, number, number, number];
@@ -172,34 +169,35 @@ declare namespace chrome {
         export interface TitleDetails {
             /** The string the action should display when moused over. */
             title: string;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            tabId?: number;
         }
 
         export interface PopupDetails {
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** The html file to show in a popup. If set to the empty string (''), no popup is shown. */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            tabId?: number;
+            /** The html file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
         export interface TabIconDetails {
-            /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-            path?: string | { [index: number]: string } | undefined;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** Optional. Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'  */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
+            /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+            path?: string | { [index: number]: string };
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            tabId?: number;
+            /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+            imageData?: ImageData | { [index: number]: ImageData };
         }
 
+        /** @since Chrome 99 */
         export interface OpenPopupOptions {
-            /** Optional. The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
-            windowId?: number | undefined;
+            /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
+            windowId?: number;
         }
 
         export interface TabDetails {
-            /** Optional. The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
-            tabId?: number | undefined;
+            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
+            tabId?: number;
         }
 
         /**
@@ -218,232 +216,154 @@ declare namespace chrome {
         }
 
         /**
-         * @since Chrome 88
          * Disables the action for a tab.
-         * @param tabId The id of the tab for which you want to modify the action.
-         * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         * @param tabId The ID of the tab for which you want to modify the action.
+         *
+         * Can return its result via Promise.
          */
         export function disable(tabId?: number): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Disables the action for a tab.
-         * @param tabId The id of the tab for which you want to modify the action.
-         * @param callback
-         */
         export function disable(callback: () => void): void;
         export function disable(tabId: number, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Enables the action for a tab. By default, actions are enabled.
-         * @param tabId The id of the tab for which you want to modify the action.
-         * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         * @param tabId The ID of the tab for which you want to modify the action.
+         *
+         * Can return its result via Promise.
          */
         export function enable(tabId?: number): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Enables the action for a tab. By default, actions are enabled.
-         * @param tabId The id of the tab for which you want to modify the action.
-         * @param callback
-         */
         export function enable(callback: () => void): void;
         export function enable(tabId: number, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Gets the background color of the action.
-         */
-        export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
-        /**
-         * @since Chrome 88
-         * Gets the background color of the action.
-         * @return The `getBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only).
+         *
+         * Can return its result via Promise.
          */
         export function getBadgeBackgroundColor(details: TabDetails): Promise<ColorArray>;
+        export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
 
         /**
-         * @since Chrome 88
-         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned.
-         * If displayActionCountAsBadgeText is enabled, a placeholder text will be returned unless the
-         * declarativeNetRequestFeedback permission is present or tab-specific badge text was provided.
+         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermissions declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
+         *
+         * Can return its result via Promise.
          */
+        export function getBadgeText(details: TabDetails): Promise<string>;
         export function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
 
         /**
-         * @since Chrome 88
-         * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned.
-         * If displayActionCountAsBadgeText is enabled, a placeholder text will be returned unless the
-         * declarativeNetRequestFeedback permission is present or tab-specific badge text was provided.
-         * @return The `getBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getBadgeText(details: TabDetails): Promise<string>;
-
-        /**
-         * @since Chrome 110
          * Gets the text color of the action.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 110
          */
+        export function getBadgeTextColor(details: TabDetails): Promise<ColorArray>;
         export function getBadgeTextColor(details: TabDetails, callback: (result: ColorArray) => void): void;
 
         /**
-         * @since Chrome 110
-         * Gets the text color of the action.
-         * @return The `getBadgeTextColor` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getBadgeTextColor(details: TabDetails): Promise<ColorArray>;
-
-        /**
-         * @since Chrome 88
          * Gets the html document set as the popup for this action.
+         *
+         * Can return its result via Promise.
          */
+        export function getPopup(details: TabDetails): Promise<string>;
         export function getPopup(details: TabDetails, callback: (result: string) => void): void;
 
         /**
-         * @since Chrome 88
-         * Gets the html document set as the popup for this action.
-         * @return The `getPopup` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getPopup(details: TabDetails): Promise<string>;
-
-        /**
-         * @since Chrome 88
          * Gets the title of the action.
+         *
+         * Can return its result via Promise.
          */
+        export function getTitle(details: TabDetails): Promise<string>;
         export function getTitle(details: TabDetails, callback: (result: string) => void): void;
 
         /**
-         * @since Chrome 88
-         * Gets the title of the action.
-         * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getTitle(details: TabDetails): Promise<string>;
-
-        /**
-         * @since Chrome 91
          * Returns the user-specified settings relating to an extension's action.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 91
          */
+        export function getUserSettings(): Promise<UserSettings>;
         export function getUserSettings(callback: (userSettings: UserSettings) => void): void;
 
         /**
-         * @since Chrome 91
-         * Returns the user-specified settings relating to an extension's action.
-         * @return The `getUserSettings` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getUserSettings(): Promise<UserSettings>;
-
-        /**
+         * Indicates whether the extension action is enabled for a tab (or globally if no `tabId` is provided). Actions enabled using only {@link declarativeContent} always return false.
+         *
+         * Can return its result via Promise.
          * @since Chrome 110
-         * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
-         */
-        export function isEnabled(tabId: number | undefined, callback: (isEnabled: boolean) => void): void;
-
-        /**
-         * @since Chrome 110
-         * Indicates whether the extension action is enabled for a tab (or globally if no tabId is provided). Actions enabled using only declarativeContent always return false.
-         * @return True if the extension action is enabled.
          */
         export function isEnabled(tabId?: number): Promise<boolean>;
+        export function isEnabled(callback: (isEnabled: boolean) => void): void;
+        export function isEnabled(tabId: number, callback: (isEnabled: boolean) => void): void;
 
         /**
-         * @since Chrome 99
-         * Opens the extension's popup.
+         * Opens the extension's popup. Between Chrome 118 and Chrome 126, this is only available to policy installed extensions.
+         *
          * @param options Specifies options for opening the popup.
-         * () => {...}
-         * @return The `openPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 127
          */
         export function openPopup(options?: OpenPopupOptions): Promise<void>;
-
-        /**
-         * @since Chrome 99
-         * Opens the extension's popup.
-         * @param options Specifies options for opening the popup.
-         */
         export function openPopup(callback: () => void): void;
         export function openPopup(options: OpenPopupOptions, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Sets the background color for the badge.
-         * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
          */
         export function setBadgeBackgroundColor(details: BadgeColorDetails): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Sets the background color for the badge.
-         */
         export function setBadgeBackgroundColor(details: BadgeColorDetails, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Sets the badge text for the action. The badge is displayed on top of the icon.
-         * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
          */
         export function setBadgeText(details: BadgeTextDetails): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Sets the badge text for the action. The badge is displayed on top of the icon.
-         */
         export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
 
         /**
-         * @since Chrome 110
          * Sets the text color for the badge.
-         * @return The `setBadgeTextColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 110
          */
         export function setBadgeTextColor(details: BadgeColorDetails): Promise<void>;
-
-        /**
-         * @since Chrome 100
-         * Sets the text color for the badge.
-         */
         export function setBadgeTextColor(details: BadgeColorDetails, callback: () => void): void;
 
         /**
-         * @since Chrome 88
-         * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
-         * or as dictionary of either one of those. Either the path or the imageData property must be specified.
-         * @return The `setIcon` method provides its result via callback or returned as a `Promise` (MV3 only). Since Chrome 96.
+         * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
+         *
+         * Can return its result via Promise.
          */
         export function setIcon(details: TabIconDetails): Promise<void>;
         export function setIcon(details: TabIconDetails, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Sets the html document to be opened as a popup when the user clicks on the action's icon.
-         * @return The `setPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
          */
         export function setPopup(details: PopupDetails): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Sets the html document to be opened as a popup when the user clicks on the action's icon.
-         */
         export function setPopup(details: PopupDetails, callback: () => void): void;
 
         /**
-         * @since Chrome 88
          * Sets the title of the action. This shows up in the tooltip.
-         * @return The `setTitle` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+         *
+         * Can return its result via Promise.
          */
         export function setTitle(details: TitleDetails): Promise<void>;
-
-        /**
-         * @since Chrome 88
-         * Sets the title of the action. This shows up in the tooltip.
-         */
         export function setTitle(details: TitleDetails, callback: () => void): void;
 
         /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
-        export const onClicked: chrome.events.Event<(tab: chrome.tabs.Tab) => void>;
+        export const onClicked: events.Event<(tab: chrome.tabs.Tab) => void>;
 
         /**
          * Fired when user-specified settings relating to an extension's action change.
          * @since Chrome 130
          */
-        export const onUserSettingsChanged: chrome.events.Event<(change: UserSettingsChange) => void>;
+        export const onUserSettingsChanged: events.Event<(change: UserSettingsChange) => void>;
     }
 
     ////////////////////

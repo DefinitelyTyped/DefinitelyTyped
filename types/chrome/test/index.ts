@@ -1793,52 +1793,157 @@ function testBrowserAcionSetTitle() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/action
 async function testAction() {
-    await chrome.action.disable();
-    await chrome.action.enable();
-    await chrome.action.disable(0);
-    await chrome.action.enable(0);
-    await chrome.action.getBadgeBackgroundColor({});
-    await chrome.action.getBadgeText({});
-    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
-    const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
-    const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
-    await chrome.action.getPopup({});
-    await chrome.action.getTitle({});
-    await chrome.action.getUserSettings();
-    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
-    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
-    const isEnabled1: boolean = await chrome.action.isEnabled();
-    const isEnabled2: boolean = await chrome.action.isEnabled(0);
-    await chrome.action.openPopup({ windowId: 1 });
-    await chrome.action.setBadgeBackgroundColor({ color: "white" });
-    await chrome.action.setBadgeText({ text: "text1" });
-    await chrome.action.setBadgeTextColor({ color: "white" });
-    await chrome.action.setIcon({ path: { "16": "path/to/icon.png" } });
-    await chrome.action.setPopup({ popup: "popup1" });
-    await chrome.action.setTitle({ title: "title1" });
+    const tabId = 0;
 
-    chrome.action.onClicked.addListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.removeListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.hasListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.hasListeners();
+    chrome.action.disable(); // $ExpectType Promise<void>
+    chrome.action.disable(tabId); // $ExpectType Promise<void>
+    chrome.action.disable(() => void 0); // $ExpectType void
+    chrome.action.disable(tabId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.disable(() => {}).then(() => {});
 
-    chrome.action.onUserSettingsChanged.addListener((change) => {
+    chrome.action.enable(); // $ExpectType Promise<void>
+    chrome.action.enable(tabId); // $ExpectType Promise<void>
+    chrome.action.enable(() => void 0); // $ExpectType void
+    chrome.action.enable(tabId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.enable(() => {}).then(() => {});
+
+    const tabDetails: chrome.action.TabDetails = { tabId };
+
+    chrome.action.getBadgeBackgroundColor(tabDetails); // $ExpectType Promise<ColorArray>
+    chrome.action.getBadgeBackgroundColor(tabDetails, (result) => { // $ExpectType void
+        result[0]; // $ExpectType number
+        result[1]; // $ExpectType number
+        result[2]; // $ExpectType number
+        result[3]; // $ExpectType number
+        // @ts-expect-error
+        result[4];
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeBackgroundColor(tabDetails, () => {}).then(() => {});
+
+    chrome.action.getBadgeText(tabDetails); // $ExpectType Promise<string>
+    chrome.action.getBadgeText(tabDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeText(tabDetails, () => {}).then(() => {});
+
+    chrome.action.getBadgeTextColor(tabDetails); // $ExpectType Promise<ColorArray>
+    chrome.action.getBadgeTextColor(tabDetails, (result) => { // $ExpectType void
+        result[0]; // $ExpectType number
+        result[1]; // $ExpectType number
+        result[2]; // $ExpectType number
+        result[3]; // $ExpectType number
+        // @ts-expect-error
+        result[4];
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeTextColor(tabDetails, () => {}).then(() => {});
+
+    const popupDetails: chrome.action.PopupDetails = { tabId, popup: "index.html" };
+
+    chrome.action.getPopup(popupDetails); // $ExpectType Promise<string>
+    chrome.action.getPopup(popupDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getPopup(popupDetails, () => {}).then(() => {});
+
+    chrome.action.getTitle(popupDetails); // $ExpectType Promise<string>
+    chrome.action.getTitle(popupDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getTitle(popupDetails, () => {}).then(() => {});
+
+    chrome.action.getUserSettings(); // $ExpectType Promise<UserSettings>
+    chrome.action.getUserSettings(userSettings => { // $ExpectType void
+        userSettings.isOnToolbar; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.action.getUserSettings(() => {}).then(() => {});
+
+    chrome.action.isEnabled(); // $ExpectType Promise<boolean>
+    chrome.action.isEnabled(tabId); // $ExpectType Promise<boolean>
+    chrome.action.isEnabled((isEnabled) => { // $ExpectType void
+        isEnabled; // $ExpectType boolean
+    });
+    chrome.action.isEnabled(tabId, (isEnabled) => {
+        isEnabled; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.action.isEnabled(tabId, () => {}).then(() => {});
+
+    const openPopupOptions: chrome.action.OpenPopupOptions = { windowId: 1 };
+
+    chrome.action.openPopup(); // $ExpectType Promise<void>
+    chrome.action.openPopup(openPopupOptions); // $ExpectType Promise<void>
+    chrome.action.openPopup(() => {}); // $ExpectType void
+    chrome.action.openPopup(openPopupOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.openPopup(() => {}).then(() => {});
+
+    const badgeColorDetails: chrome.action.BadgeColorDetails = { color: [0, 0, 0, 0], tabId };
+
+    chrome.action.setBadgeBackgroundColor(badgeColorDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeBackgroundColor(badgeColorDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeBackgroundColor(() => {}).then(() => {});
+
+    const badgeTextDetails: chrome.action.BadgeTextDetails = { text: "text1", tabId };
+
+    chrome.action.setBadgeText(badgeTextDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeText(badgeTextDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeText(() => {}).then(() => {});
+
+    chrome.action.setBadgeTextColor(badgeColorDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeTextColor(badgeColorDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeTextColor(() => {}).then(() => {});
+
+    const tabIconDetails: chrome.action.TabIconDetails = { path: { "16": "path/to/icon.png" }, tabId };
+
+    chrome.action.setIcon(tabIconDetails); // $ExpectType Promise<void>
+    chrome.action.setIcon(tabIconDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setIcon(() => {}).then(() => {});
+
+    chrome.action.setPopup(popupDetails); // $ExpectType Promise<void>
+    chrome.action.setPopup(popupDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setPopup(() => {}).then(() => {});
+
+    const titleDetails: chrome.action.TitleDetails = { title: "title1", tabId };
+
+    chrome.action.setTitle(titleDetails); // $ExpectType Promise<void>
+    chrome.action.setTitle(titleDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setTitle(() => {}).then(() => {});
+
+    chrome.action.onClicked.addListener((tab) => { // $ExpectType void
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.removeListener((tab) => { // $ExpectType void
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListener((tab) => { // $ExpectType boolean
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListeners(); // $ExpectType boolean
+
+    chrome.action.onUserSettingsChanged.addListener((change) => { // $ExpectType void
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.removeListener((change) => {
+    chrome.action.onUserSettingsChanged.removeListener((change) => { // $ExpectType void
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.hasListener((change) => {
+    chrome.action.onUserSettingsChanged.hasListener((change) => { // $ExpectType boolean
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.hasListeners();
+    chrome.action.onUserSettingsChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
