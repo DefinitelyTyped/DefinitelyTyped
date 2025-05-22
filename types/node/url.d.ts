@@ -420,14 +420,12 @@ declare module "url" {
          * Threads, `Blob` objects registered within one Worker will not be available
          * to other workers or the main thread.
          * @since v16.7.0
-         * @experimental
          */
         static createObjectURL(blob: NodeBlob): string;
         /**
          * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
          * ID that isn't registered will silently fail.
          * @since v16.7.0
-         * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
         static revokeObjectURL(id: string): void;
