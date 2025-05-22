@@ -426,7 +426,7 @@ const AccordionApp = () => {
             {["item1", "item2", "item3"].map((item, index) => (
                 <AccordionItem
                     key={item}
-                    {...{ onToggle: (ctx)=> ctx?.isExpanded} }
+                    {...{ onToggle: (ctx) => ctx?.isExpanded }}
                 >
                     <AccordionToggle
                         {...{} as TonicProps}
