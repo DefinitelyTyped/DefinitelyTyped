@@ -420,7 +420,6 @@ declare module "util" {
      * });
      * ```
      * @since v19.7.0
-     * @experimental
      * @param resource Any non-null object tied to the abortable operation and held weakly.
      * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
      * allowing Node.js to stop tracking it.
