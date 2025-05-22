@@ -120,12 +120,12 @@ async function topLevel() {
         languageModel.inputQuota,
     );
 
-    const quotaoverflowListener = (e: Event) => {
+    const quotaOverflowListener = (e: Event) => {
         console.log(e);
     };
-    languageModel.onquotaoverflow = quotaoverflowListener;
-    languageModel.addEventListener("quotaoverflow", quotaoverflowListener);
-    languageModel.removeEventListener("quotaoverflow", quotaoverflowListener);
+    languageModel.onquotaoverflow = quotaOverflowListener;
+    languageModel.addEventListener("quotaoverflow", quotaOverflowListener);
+    languageModel.removeEventListener("quotaoverflow", quotaOverflowListener);
 
     console.log(
         languageModel.topK,
