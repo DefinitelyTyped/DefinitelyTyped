@@ -974,34 +974,30 @@ declare module "url" {
         values(): URLSearchParamsIterator<string>;
         [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
     }
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
+    import {
+        URL as _URL,
+        URLPattern as _URLPattern,
+        URLPatternInit as _URLPatternInit,
+        URLPatternResult as _URLPatternResult,
+        URLSearchParams as _URLSearchParams,
+    } from "url";
     global {
-        interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
-        interface Global {
-            URL: typeof _URL;
-            URLSearchParams: typeof _URLSearchParams;
-        }
-        /**
-         * `URL` class is a global reference for `import { URL } from 'url'`
-         * https://nodejs.org/api/url.html#the-whatwg-url-api
-         * @since v10.0.0
-         */
         var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer T;
         } ? T
             : typeof _URL;
-        /**
-         * `URLSearchParams` class is a global reference for `import { URLSearchParams } from 'node:url'`
-         * https://nodejs.org/api/url.html#class-urlsearchparams
-         * @since v10.0.0
-         */
+        interface URLSearchParams extends _URLSearchParams {}
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer T;
         } ? T
             : typeof _URLSearchParams;
+        interface URLPatternInit extends _URLPatternInit {}
+        interface URLPatternResult extends _URLPatternResult {}
+        interface URLPattern extends _URLPattern {}
+        var URLPattern: typeof _URLPattern;
     }
 }
 declare module "node:url" {
