@@ -76,7 +76,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Readable` from a web `ReadableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 readableStream: streamWeb.ReadableStream,
@@ -85,7 +84,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `ReadableStream` from a `Readable`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(
                 streamReadable: Readable,
@@ -101,7 +99,6 @@ declare module "stream" {
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
-             * @experimental
              */
             readonly readableAborted: boolean;
             /**
@@ -113,7 +110,6 @@ declare module "stream" {
             /**
              * Returns whether `'data'` has been emitted.
              * @since v16.7.0, v14.18.0
-             * @experimental
              */
             readonly readableDidRead: boolean;
             /**
@@ -719,7 +715,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Writable` from a web `WritableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 writableStream: streamWeb.WritableStream,
@@ -728,7 +723,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `WritableStream` from a `Writable`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(streamWritable: Writable): streamWeb.WritableStream;
             /**
@@ -737,6 +731,11 @@ declare module "stream" {
              * @since v11.4.0
              */
             readonly writable: boolean;
+            /**
+             * Returns whether the stream was destroyed or errored before emitting `'finish'`.
+             * @since v18.0.0, v16.17.0
+             */
+            readonly writableAborted: boolean;
             /**
              * Is `true` after `writable.end()` has been called. This property
              * does not indicate whether the data has been flushed, for this use `writable.writableFinished` instead.
@@ -1084,7 +1083,6 @@ declare module "stream" {
             /**
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
-             * @experimental
              */
             static toWeb(streamDuplex: Duplex): {
                 readable: streamWeb.ReadableStream;
@@ -1093,7 +1091,6 @@ declare module "stream" {
             /**
              * A utility method for creating a `Duplex` from a web `ReadableStream` and `WritableStream`.
              * @since v17.0.0
-             * @experimental
              */
             static fromWeb(
                 duplexStream: {
@@ -1644,13 +1641,11 @@ declare module "stream" {
         /**
          * Returns whether the stream has encountered an error.
          * @since v17.3.0, v16.14.0
-         * @experimental
          */
         function isErrored(stream: Readable | Writable | NodeJS.ReadableStream | NodeJS.WritableStream): boolean;
         /**
          * Returns whether the stream is readable.
          * @since v17.4.0, v16.14.0
-         * @experimental
          */
         function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
     }
