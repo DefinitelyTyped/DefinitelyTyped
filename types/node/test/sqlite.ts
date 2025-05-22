@@ -5,6 +5,7 @@ import { TextEncoder } from "node:util";
     const database = new DatabaseSync(":memory:", { open: false });
     database.open();
     database.isOpen; // $ExpectType boolean
+    database.isTransaction; // $ExpectType boolean
 
     database.exec(`
     CREATE TABLE data(
