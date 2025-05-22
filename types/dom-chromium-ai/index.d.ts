@@ -209,7 +209,7 @@ interface SummarizerSummarizeOptions {
     context?: string;
 }
 
-type SummarizerType = "tl;dr" | "teaser" | "key-points" | "headline";
+type SummarizerType = "tldr" | "teaser" | "key-points" | "headline";
 type SummarizerFormat = "plain-text" | "markdown";
 type SummarizerLength = "short" | "medium" | "long";
 

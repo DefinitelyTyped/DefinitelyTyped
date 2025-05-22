@@ -143,7 +143,7 @@ async function topLevel() {
     // Summarizer
 
     const summarizer = await Summarizer.create({
-        type: "tl;dr",
+        type: "tldr",
         format: "plain-text",
         length: "short",
         expectedInputLanguages: ["de"],
