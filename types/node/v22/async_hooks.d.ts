@@ -320,6 +320,16 @@ declare module "async_hooks" {
          */
         triggerAsyncId(): number;
     }
+    interface AsyncLocalStorageOptions {
+        /**
+         * The default value to be used when no store is provided.
+         */
+        defaultValue?: any;
+        /**
+         * A name for the `AsyncLocalStorage` value.
+         */
+        name?: string | undefined;
+    }
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
@@ -358,8 +368,8 @@ declare module "async_hooks" {
      * http.get('http://localhost:8080');
      * // Prints:
      * //   0: start
-     * //   1: start
      * //   0: finish
+     * //   1: start
      * //   1: finish
      * ```
      *
@@ -369,6 +379,11 @@ declare module "async_hooks" {
      * @since v13.10.0, v12.17.0
      */
     class AsyncLocalStorage<T> {
+        /**
+         * Creates a new instance of `AsyncLocalStorage`. Store is only provided within a
+         * `run()` call or after an `enterWith()` call.
+         */
+        constructor(options?: AsyncLocalStorageOptions);
         /**
          * Binds the given function to the current execution context.
          * @since v19.8.0
@@ -430,6 +445,11 @@ declare module "async_hooks" {
          * @since v13.10.0, v12.17.0
          */
         getStore(): T | undefined;
+        /**
+         * The name of the `AsyncLocalStorage` instance if provided.
+         * @since v24.0.0
+         */
+        readonly name: string;
         /**
          * Runs a function synchronously within a context and returns its
          * return value. The store is not accessible outside of the callback function.
