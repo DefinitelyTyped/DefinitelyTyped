@@ -5,8 +5,9 @@
     "nonNpm": true,
     "nonNpmDescription": "dom-chromium-ai",
     "projects": [
-        "https://github.com/explainers-by-googlers/writing-assistance-apis",
-        "https://github.com/explainers-by-googlers/prompt-api"
+        "https://github.com/webmachinelearning/prompt-api",
+        "https://github.com/webmachinelearning/writing-assistance-apis/",
+        "https://github.com/webmachinelearning/translation-api/"
     ],
     "minimumTypeScriptVersion": "5.5",
     "devDependencies": {
