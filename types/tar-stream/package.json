@@ -5,6 +5,14 @@
     "projects": [
         "https://github.com/mafintosh/tar-stream"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.5": {
+            "*": [
+                "ts5.5/*"
+            ]
+        }
+    },
     "dependencies": {
         "@types/node": "*"
     },

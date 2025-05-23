@@ -41,12 +41,12 @@ export interface Pack extends stream.Readable {
     entry(headers: Headers, callback?: Callback): stream.Writable;
     entry(headers: Headers, buffer?: string | Buffer, callback?: Callback): stream.Writable;
     finalize(): void;
-    [Symbol.asyncIterator](): AsyncIteratorObject<Buffer, any>;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
 }
 
 export interface Entry extends stream.Readable {
     header: Headers;
-    [Symbol.asyncIterator](): AsyncIteratorObject<Buffer, any>;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
 }
 
 export interface Extract extends stream.Writable {

@@ -58,7 +58,7 @@ interface _IReadable extends _IEventEmitter {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
-    iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any>;
+    iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
     map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
     filter(
         fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>,
@@ -215,8 +215,8 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
 
-    iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any>;
-    [Symbol.asyncIterator](): AsyncIteratorObject<any, any>;
+    iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+    [Symbol.asyncIterator](): AsyncIterableIterator<any>;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -356,8 +356,8 @@ declare namespace _Readable {
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
         _undestroy(): void;
-        iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any>;
-        [Symbol.asyncIterator](): AsyncIteratorObject<any, any>;
+        iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+        [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         // end-Readable
 
         constructor(options?: DuplexOptions);
