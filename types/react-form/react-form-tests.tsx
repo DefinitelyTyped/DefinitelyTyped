@@ -238,16 +238,14 @@ const InputFieldThird = React.forwardRef((props: InputFieldThirdProps, ref) => {
     );
 });
 
+const defaultValues = {
+    name: "tanner",
+    age: "29",
+    email: "tanner@gmail.com",
+    friends: ["jaylen"],
+};
+
 function ThirdApp() {
-    const defaultValues = React.useMemo(
-        () => ({
-            name: "tanner",
-            age: "29",
-            email: "tanner@gmail.com",
-            friends: ["jaylen"],
-        }),
-        [],
-    );
     const {
         Form,
         values,
