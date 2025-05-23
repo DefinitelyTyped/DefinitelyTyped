@@ -400,16 +400,26 @@ declare namespace PDFKit.Mixins {
 
     interface CellStyle {
         /** The border for the cell (default 1pt) */
-        border?: boolean | number | Array<boolean | number> | { top?: number, right?: number, bottom?: number, left?: number} | undefined;
+        border?: boolean | number | Array<boolean | number> | {
+            top?: number;
+            right?: number;
+            bottom?: number;
+            left?: number;
+        } | undefined;
         /** The border colors for the cell (default black) */
-        borderColor?: string | Array<string> | { top?: ColorValue, right?: ColorValue, bottom?: ColorValue, left?: ColorValue};
+        borderColor?: string | Array<string> | {
+            top?: ColorValue;
+            right?: ColorValue;
+            bottom?: ColorValue;
+            left?: ColorValue;
+        };
         /** Set the background color of the cell */
         backgroundColor?: ColorValue;
     }
 
     interface TableOptions {
         /** The position of the table (default {x: doc.x, y: doc.y}) */
-        position?: {x?: number, y?: number};
+        position?: { x?: number; y?: number };
         /** The maximum width the table can expand to (defaults to the remaining content width (offset from the tables position)) */
         maxWidth?: number;
         /** Column definitions of the table. (default auto) */
@@ -417,7 +427,9 @@ declare namespace PDFKit.Mixins {
         /** Row definitions of the table. (default *) */
         rowStyles?: number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined);
         /** Defaults to apply to every cell */
-        defaultStyle?: (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined)) & { width?: number };
+        defaultStyle?:
+            & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
+            & { width?: number };
         /** The data to render (not required, you can call .row()). This can be an iterable (async or sync) */
         data?: Array<Array<string | CellOptions>>;
         /** Whether to show the debug lines for all the cells (default false) */
@@ -436,7 +448,7 @@ declare namespace PDFKit.Mixins {
         /** Font options for the cell */
         font?: any;
         /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
-        align?: { x?: 'right' | 'left', y?: 'top' | 'bottom' };
+        align?: { x?: "right" | "left"; y?: "top" | "bottom" };
         /** The text stroke (default 0) */
         textStroke?: number | boolean;
         /** Sets the text stroke color of the cells text (default black) */
