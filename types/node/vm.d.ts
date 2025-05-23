@@ -60,6 +60,7 @@ declare module "vm" {
         specifier: string,
         referrer: T,
         importAttributes: ImportAttributes,
+        phase: "source" | "evaluation",
     ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
@@ -72,6 +73,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -123,6 +125,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -138,6 +141,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -166,6 +170,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<ReturnType<typeof compileFunction>>
@@ -209,6 +214,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Context>
@@ -908,6 +914,7 @@ declare module "vm" {
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
          * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
