@@ -2275,7 +2275,7 @@ async function testTabs() {
     const frameId = 0;
     const documentId = "id";
 
-    const windowCaptureOptions: chrome.tabs.CaptureVisibleTabOptions = {
+    const windowCaptureOptions: chrome.extensionTypes.ImageDetails = {
         quality: 100,
         format: "jpeg",
     };
