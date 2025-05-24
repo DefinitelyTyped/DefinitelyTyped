@@ -901,9 +901,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pullAt(array); // $ExpectType AbcObject[]
     _.pullAt(array, 1); // $ExpectType AbcObject[]
     _.pullAt(array, [2, 3], 4); // $ExpectType AbcObject[]
-    _.pullAt(readonlyArray); // $ExpectType AbcObject[]
-    _.pullAt(readonlyArray, 1); // $ExpectType AbcObject[]
-    _.pullAt(readonlyArray, [2, 3], 4); // $ExpectType AbcObject[]
+    _.pullAt(readonlyArray); // @ts-expect-error
+    _.pullAt(readonlyArray, 1); // @ts-expect-error
+    _.pullAt(readonlyArray, [2, 3], 4); // @ts-expect-error
     _.pullAt(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, 1); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, [2, 3], 4); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -985,13 +985,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         return [];
     });
 
-    _.pullAllBy(readonlyArray); // $ExpectType AbcObject[]
-    _.pullAllBy(readonlyArray, values, "a"); // $ExpectType AbcObject[]
-    // $ExpectType AbcObject[]
-    _.pullAllBy(readonlyArray, values, (value) => {
-        value; // $ExpectType AbcObject
-        return [];
-    });
+    _.pullAllBy(readonlyArray); // @ts-expect-error
+    _.pullAllBy(readonlyArray, values, "a"); // @ts-expect-error
 
     _.pullAllBy(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAllBy(list, values); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
