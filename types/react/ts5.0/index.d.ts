@@ -3763,7 +3763,7 @@ declare namespace React {
     interface MathMLAttributes<T> extends DOMAttributes<T> {
         className?: string | undefined;
         dir?: "ltr" | "rtl" | undefined;
-        displaystyle?: boolean | undefined;
+        displaystyle?: "false" | "true" | undefined;
         href?: string | undefined;
         id?: string | undefined;
         nonce?: string | undefined;
