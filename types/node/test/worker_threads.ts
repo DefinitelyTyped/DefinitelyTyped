@@ -151,6 +151,7 @@ import { createContext } from "node:vm";
 {
     workerThreads.setEnvironmentData("test", 1);
     workerThreads.setEnvironmentData(123, { a: 1 });
+    workerThreads.setEnvironmentData(123, undefined);
     workerThreads.getEnvironmentData("test"); // $ExpectType Serializable
     workerThreads.getEnvironmentData(1); // $ExpectType Serializable
 }

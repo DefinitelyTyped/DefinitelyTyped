@@ -701,7 +701,7 @@ declare module "worker_threads" {
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.
      */
-    function setEnvironmentData(key: Serializable, value: Serializable): void;
+    function setEnvironmentData(key: Serializable, value?: Serializable): void;
 
     import {
         BroadcastChannel as _BroadcastChannel,
