@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
@@ -431,7 +431,6 @@ declare module "events" {
          * }
          * ```
          * @since v20.5.0
-         * @experimental
          * @return Disposable that removes the `abort` listener.
          */
         static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;

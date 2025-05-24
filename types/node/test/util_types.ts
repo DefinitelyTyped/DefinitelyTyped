@@ -28,15 +28,16 @@ if (types.isBooleanObject(object)) {
     object; // $ExpectType Boolean
 }
 if (types.isBoxedPrimitive(object)) {
-    // TODO: As of ts 4.3 $ExpectType errors due to order of the types (which should not matter)
-    // Should investigate this some time, until then skipping this test.
-    // object; // $ExpectType String | Number | Boolean | Symbol | BigInt
+    object; // $ExpectType String | Number | Boolean | Symbol | BigInt
 }
 if (types.isDataView(object)) {
     object; // $ExpectType DataView || DataView<ArrayBufferLike>
 }
 if (types.isDate(object)) {
     object; // $ExpectType Date
+}
+if (types.isFloat16Array(object)) {
+    object; // $ExpectType Float16Array || Float16Array<ArrayBufferLike>
 }
 if (types.isFloat32Array(object)) {
     object; // $ExpectType Float32Array || Float32Array<ArrayBufferLike>

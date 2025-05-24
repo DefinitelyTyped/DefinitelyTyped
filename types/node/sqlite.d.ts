@@ -40,7 +40,7 @@
  * ```
  * @since v22.5.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/sqlite.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/sqlite.js)
  */
 declare module "node:sqlite" {
     type SQLInputValue = null | number | bigint | string | NodeJS.ArrayBufferView;
@@ -89,6 +89,14 @@ declare module "node:sqlite" {
          * @default false
          */
         allowExtension?: boolean | undefined;
+        /**
+         * The [busy timeout](https://sqlite.org/c3ref/busy_timeout.html) in milliseconds. This is the maximum amount of
+         * time that SQLite will wait for a database lock to be released before
+         * returning an error.
+         * @since v24.0.0
+         * @default 0
+         */
+        timeout?: number | undefined;
     }
     interface CreateSessionOptions {
         /**
@@ -166,6 +174,31 @@ declare module "node:sqlite" {
          */
         varargs?: boolean | undefined;
     }
+    interface AggregateOptions<T extends SQLInputValue = SQLInputValue> extends FunctionOptions {
+        /**
+         * The identity value for the aggregation function. This value is used when the aggregation
+         * function is initialized. When a `Function` is passed the identity will be its return value.
+         */
+        start: T | (() => T);
+        /**
+         * The function to call for each row in the aggregation. The
+         * function receives the current state and the row value. The return value of
+         * this function should be the new state.
+         */
+        step: (accumulator: T, ...args: SQLOutputValue[]) => T;
+        /**
+         * The function to call to get the result of the
+         * aggregation. The function receives the final state and should return the
+         * result of the aggregation.
+         */
+        result?: ((accumulator: T) => SQLInputValue) | undefined;
+        /**
+         * When this function is provided, the `aggregate` method will work as a window function.
+         * The function receives the current state and the dropped row value. The return value of this function should be the
+         * new state.
+         */
+        inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
+    }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
      * exposed by this class execute synchronously.
@@ -181,6 +214,38 @@ declare module "node:sqlite" {
          * @param options Configuration options for the database connection.
          */
         constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        /**
+         * Registers a new aggregate function with the SQLite database. This method is a wrapper around
+         * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
+         *
+         * When used as a window function, the `result` function will be called multiple times.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * db.exec(`
+         *   CREATE TABLE t3(x, y);
+         *   INSERT INTO t3 VALUES ('a', 4),
+         *                         ('b', 5),
+         *                         ('c', 3),
+         *                         ('d', 8),
+         *                         ('e', 1);
+         * `);
+         *
+         * db.aggregate('sumint', {
+         *   start: 0,
+         *   step: (acc, value) => acc + value,
+         * });
+         *
+         * db.prepare('SELECT sumint(y) as total FROM t3').get(); // { total: 21 }
+         * ```
+         * @since v24.0.0
+         * @param name The name of the SQLite function to create.
+         * @param options Function configuration settings.
+         */
+        aggregate(name: string, options: AggregateOptions): void;
+        aggregate<T extends SQLInputValue>(name: string, options: AggregateOptions<T>): void;
         /**
          * Closes the database connection. An exception is thrown if the database is not
          * open. This method is a wrapper around [`sqlite3_close_v2()`](https://www.sqlite.org/c3ref/close.html).
@@ -204,6 +269,15 @@ declare module "node:sqlite" {
          */
         enableLoadExtension(allow: boolean): void;
         /**
+         * This method is a wrapper around [`sqlite3_db_filename()`](https://sqlite.org/c3ref/db_filename.html)
+         * @since v24.0.0
+         * @param dbName Name of the database. This can be `'main'` (the default primary database) or any other
+         * database that has been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html) **Default:** `'main'`.
+         * @returns The location of the database file. When using an in-memory database,
+         * this method returns null.
+         */
+        location(dbName?: string): string | null;
+        /**
          * This method allows one or more SQL statements to be executed without returning
          * any results. This method is useful when executing SQL statements read from a
          * file. This method is a wrapper around [`sqlite3_exec()`](https://www.sqlite.org/c3ref/exec.html).
@@ -220,7 +294,7 @@ declare module "node:sqlite" {
          * @param func The JavaScript function to call when the SQLite
          * function is invoked. The return value of this function should be a valid
          * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v22.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
+         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
          * The result defaults to `NULL` if the return value is `undefined`.
          */
         function(
@@ -234,6 +308,12 @@ declare module "node:sqlite" {
          * @since v22.15.0
          */
         readonly isOpen: boolean;
+        /**
+         * Whether the database is currently within a transaction. This method
+         * is a wrapper around [`sqlite3_get_autocommit()`](https://sqlite.org/c3ref/get_autocommit.html).
+         * @since v24.0.0
+         */
+        readonly isTransaction: boolean;
         /**
          * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
@@ -322,6 +402,38 @@ declare module "node:sqlite" {
          */
         close(): void;
     }
+    interface StatementColumnMetadata {
+        /**
+         * The unaliased name of the column in the origin
+         * table, or `null` if the column is the result of an expression or subquery.
+         * This property is the result of [`sqlite3_column_origin_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        column: string | null;
+        /**
+         * The unaliased name of the origin database, or
+         * `null` if the column is the result of an expression or subquery. This
+         * property is the result of [`sqlite3_column_database_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        database: string | null;
+        /**
+         * The name assigned to the column in the result set of a
+         * `SELECT` statement. This property is the result of
+         * [`sqlite3_column_name()`](https://www.sqlite.org/c3ref/column_name.html).
+         */
+        name: string;
+        /**
+         * The unaliased name of the origin table, or `null` if
+         * the column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_table_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        table: string | null;
+        /**
+         * The declared data type of the column, or `null` if the
+         * column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_decltype()`](https://www.sqlite.org/c3ref/column_decltype.html).
+         */
+        type: string | null;
+    }
     interface StatementResultingChanges {
         /**
          * The number of rows modified, inserted, or deleted by the most recently completed `INSERT`, `UPDATE`, or `DELETE` statement.
@@ -366,6 +478,14 @@ declare module "node:sqlite" {
             namedParameters: Record<string, SQLInputValue>,
             ...anonymousParameters: SQLInputValue[]
         ): Record<string, SQLOutputValue>[];
+        /**
+         * This method is used to retrieve information about the columns returned by the
+         * prepared statement.
+         * @since v23.11.0
+         * @returns An array of objects. Each object corresponds to a column
+         * in the prepared statement, and contains the following properties:
+         */
+        columns(): StatementColumnMetadata[];
         /**
          * The source SQL text of the prepared statement with parameter
          * placeholders replaced by the values that were used during the most recent
@@ -465,6 +585,66 @@ declare module "node:sqlite" {
          */
         readonly sourceSQL: string;
     }
+    interface BackupOptions {
+        /**
+         * Name of the source database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html)
+         * @default 'main'
+         */
+        source?: string | undefined;
+        /**
+         * Name of the target database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html)
+         * @default 'main'
+         */
+        target?: string | undefined;
+        /**
+         * Number of pages to be transmitted in each batch of the backup.
+         * @default 100
+         */
+        rate?: number | undefined;
+        /**
+         * Callback function that will be called with the number of pages copied and the total number of
+         * pages.
+         */
+        progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
+    }
+    interface BackupProgressInfo {
+        totalPages: number;
+        remainingPages: number;
+    }
+    /**
+     * This method makes a database backup. This method abstracts the
+     * [`sqlite3_backup_init()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupinit),
+     * [`sqlite3_backup_step()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupstep)
+     * and [`sqlite3_backup_finish()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupfinish) functions.
+     *
+     * The backed-up database can be used normally during the backup process. Mutations coming from the same connection - same
+     * `DatabaseSync` - object will be reflected in the backup right away. However, mutations from other connections will cause
+     * the backup process to restart.
+     *
+     * ```js
+     * import { backup, DatabaseSync } from 'node:sqlite';
+     *
+     * const sourceDb = new DatabaseSync('source.db');
+     * const totalPagesTransferred = await backup(sourceDb, 'backup.db', {
+     *   rate: 1, // Copy one page at a time.
+     *   progress: ({ totalPages, remainingPages }) => {
+     *     console.log('Backup in progress', { totalPages, remainingPages });
+     *   },
+     * });
+     *
+     * console.log('Backup completed', totalPagesTransferred);
+     * ```
+     * @since v23.8.0
+     * @param sourceDb The database to backup. The source database must be open.
+     * @param path The path where the backup will be created. If the file already exists,
+     * the contents will be overwritten.
+     * @param options Optional configuration for the backup. The
+     * following properties are supported:
+     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     */
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
     /**
      * @since v22.13.0
      */
