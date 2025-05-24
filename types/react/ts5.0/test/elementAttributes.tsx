@@ -234,7 +234,8 @@ const testCases = [
     >
     </mspace>,
     <msqrt></msqrt>,
-    <mstyle displaystyle={false} mathcolor="teal"></mstyle>,
+    <mstyle displaystyle="false" mathcolor="teal"></mstyle>,
+    <mstyle displaystyle="true" mathcolor="teal"></mstyle>,
     <msub></msub>,
     <msubsup></msubsup>,
     <msup></msup>,
