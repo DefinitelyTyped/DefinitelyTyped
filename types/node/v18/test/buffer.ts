@@ -164,11 +164,11 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
 
     // ArrayLike or string
     {
-        const arrayOrString = "foo" as number[] | string;
+        let arrayOrString!: number[] | string;
         // $ExpectType Buffer || Buffer<ArrayBuffer>
         Buffer.from(arrayOrString);
 
-        const typedArrayOrString = "foo" as Uint8Array<ArrayBuffer> | string;
+        let typedArrayOrString!: Uint8Array | string;
         // $ExpectType Buffer || Buffer<ArrayBuffer>
         Buffer.from(typedArrayOrString);
     }
