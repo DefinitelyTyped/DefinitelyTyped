@@ -310,7 +310,7 @@ export class Store<
     addQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
     ): void;
@@ -322,7 +322,7 @@ export class Store<
     removeQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
     ): void;
@@ -336,8 +336,8 @@ export class Store<
         graph?: Term | null,
     ): EventEmitter;
     deleteGraph(graph: Q_RDF["graph"] | string): EventEmitter;
-    getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
-    readQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Iterable<OutQuad>;
+    getQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): Quad[];
+    readQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): Iterable<OutQuad>;
     match(
         subject?: Term | null,
         predicate?: Term | null,
