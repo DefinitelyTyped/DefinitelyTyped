@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "types": [],
+    "lib": ["es6"]
+  },
+  "files": [
+    "index.d.ts",
+    "index-tests.ts"
+  ]
+} 
