@@ -310,7 +310,7 @@ export class Store<
     addQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
     ): void;
@@ -322,7 +322,7 @@ export class Store<
     removeQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
     ): void;
