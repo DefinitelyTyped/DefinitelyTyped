@@ -4353,6 +4353,7 @@ declare namespace React {
             view: React.SVGProps<SVGViewElement>;
 
             // MathML
+            /** @deprecated */
             maction: React.MathMLProps<React.MathMLMActionAttributes, MathMLMActionElement>;
             math: React.MathMLProps<React.MathMLMathAttributes, MathMLMathElement>;
             merror: React.MathMLProps<React.MathMLMerrorAttributes, MathMLMerrorElement>;
