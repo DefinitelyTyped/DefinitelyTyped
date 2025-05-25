@@ -585,5 +585,16 @@ function test_reasoner() {
     new N3.Reasoner(store).reason(new N3.Store<RDF.BaseQuad>());
 }
 
+function test_base_iri_constructor() {
+    // Test BaseIRI constructor with various base IRIs
+    const baseIri: N3.BaseIRI = new N3.BaseIRI("http://example.org/");
+
+    // Test BaseIRI.supports static method
+    const supported1: boolean = N3.BaseIRI.supports("http://example.org/");
+
+    // Test converting absolute IRIs to relative
+    const relative1: string = baseIri.toRelative("http://example.org/path/resource");
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
