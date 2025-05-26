@@ -6,9 +6,7 @@ import yargsSingleton = require("yargs/yargs");
 
 import * as fs from "fs";
 import * as path from "path";
-import { Arguments, BuilderArguments, CompletionCallback } from "yargs";
-
-const stringVal = "string";
+import { Arguments, BuilderArguments, CamelCaseKey, CompletionCallback } from "yargs";
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -1628,4 +1626,8 @@ function BuilderArguments() {
         // $ExpectType string
         argv.a;
     };
+}
+
+function camelCaseKey_type() {
+    const camelCaseKey: CamelCaseKey<"foo-bar"> = "fooBar";
 }

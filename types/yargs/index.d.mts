@@ -22,6 +22,8 @@ export type {
     AsyncCompletionFunction,
     BuilderArguments,
     BuilderCallback,
+    CamelCase,
+    CamelCaseKey,
     Choices,
     CommandBuilder,
     CommandModule,
