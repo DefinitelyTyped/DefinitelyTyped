@@ -179,7 +179,7 @@ export interface ReactSliderProps<T extends number | readonly number[] = number>
      *
      * @default props => <div {...props} />
      */
-    renderMark?: ((props: HTMLPropsWithRefCallback<HTMLSpanElement>) => JSX.Element | null) | undefined;
+    renderMark?: ((props: HTMLPropsWithRefCallback<HTMLSpanElement | null>) => JSX.Element | null) | undefined;
 
     /**
      * Provide a custom render function for dynamic thumb content.
