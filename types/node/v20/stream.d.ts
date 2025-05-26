@@ -738,6 +738,12 @@ declare module "stream" {
              */
             readonly writable: boolean;
             /**
+             * Returns whether the stream was destroyed or errored before emitting `'finish'`.
+             * @since v18.0.0, v16.17.0
+             * @experimental
+             */
+            readonly writableAborted: boolean;
+            /**
              * Is `true` after `writable.end()` has been called. This property
              * does not indicate whether the data has been flushed, for this use `writable.writableFinished` instead.
              * @since v12.9.0
