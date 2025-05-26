@@ -2156,17 +2156,17 @@ declare module "@mapbox/mapbox-sdk/services/tilequery" {
          */
         geometry?: GeometryType | undefined;
         /**
-         * A comma-separated list of bands to query, rather than querying all bands.
+         * An array of bands to query, rather than querying all bands.
          * If a specified layer does not exist, it is skipped.
          * If no bands exist, returns an empty `FeatureCollection`.
          */
-        bands?: string | undefined;
+        bands?: string[] | undefined;
         /**
-         * A comma-separated list of layers to query, rather than querying all layers.
+         * An array of layers to query, rather than querying all layers.
          * If a specified layer does not exist, it is skipped.
          * If no layers exist, returns an empty `FeatureCollection`.
          */
-        layers?: string | undefined;
+        layers?: string[] | undefined;
     }
 
     interface TileQueryResponseProperty {
