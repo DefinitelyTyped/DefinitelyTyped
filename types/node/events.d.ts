@@ -100,7 +100,9 @@ declare module "events" {
          */
         lowWaterMark?: number | undefined;
     }
-    interface EventEmitter<Events extends EventMap<Events> = {}> extends NodeJS.EventEmitter<Events> {}
+    interface EventEmitter<Events extends EventMap<Events> = EventEmitter.NoEventMap>
+        extends NodeJS.EventEmitter<Events>
+    {}
     type EventMap<Events> = Record<keyof Events, unknown[]>;
     type Args<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ? (
             | Events[EventName]
@@ -111,17 +113,15 @@ declare module "events" {
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
             : any[]);
-    type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
-        : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
-    type EventNameParam<Events extends EventMap<Events>, EventName> = {} extends Events ? string | symbol
-        : EventName | EventNames<Events>;
-    type Listener<Events extends EventMap<Events>, EventName> = {} extends Events ? ((...args: any[]) => void)
-        : (EventName extends (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap) ?
-                | (EventName extends keyof Events ? ((...args: Events[EventName]) => void) : never)
-                | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-                    ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
-                    : never)
-            : ((...args: any[]) => void));
+    type EventNames<Events extends EventMap<Events>> = keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap;
+    type EventNameParam<Events extends EventMap<Events>, EventName> = EventName | EventNames<Events>;
+    type Listener<Events extends EventMap<Events>, EventName> = EventName extends
+        (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap) ?
+            | (EventName extends keyof Events ? ((...args: Events[EventName]) => void) : never)
+            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
+                : never)
+        : ((...args: any[]) => void);
     /**
      * The `EventEmitter` class is defined and exposed by the `node:events` module:
      *
@@ -135,7 +135,7 @@ declare module "events" {
      * It supports the following option:
      * @since v0.1.26
      */
-    class EventEmitter<Events extends EventMap<Events> = {}> {
+    class EventEmitter<Events extends EventMap<Events> = EventEmitter.NoEventMap> {
         constructor(options?: EventEmitterOptions);
 
         [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
@@ -598,6 +598,8 @@ declare module "events" {
             readonly asyncResource: EventEmitterReferencingAsyncResource;
         }
 
+        export type NoEventMap = Record<string | symbol, any[]>;
+
         /** The events always emitted by EventEmitter itself */
         export interface EventEmitterBuiltInEventMap {
             newListener: [eventName: string | symbol, listener: Function];
@@ -612,7 +614,7 @@ declare module "events" {
     }
     global {
         namespace NodeJS {
-            interface EventEmitter<Events extends EventMap<Events> = {}> {
+            interface EventEmitter<Events extends EventMap<Events> = EventEmitter.NoEventMap> {
                 [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
                     error: Error,
                     event: EventName,
@@ -836,9 +838,10 @@ declare module "events" {
                  * ```
                  * @since v0.1.26
                  */
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 listeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
-                ): Array<Listener<Events, EventName>>;
+                ): Array<() => void>;
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -869,9 +872,10 @@ declare module "events" {
                  * ```
                  * @since v9.4.0
                  */
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 rawListeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
-                ): Array<Listener<Events, EventName>>;
+                ): Array<() => void>;
                 /**
                  * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
