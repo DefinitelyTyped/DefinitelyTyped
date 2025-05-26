@@ -842,7 +842,7 @@ declare module "events" {
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 listeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
-                ): Array<() => void>;
+                ): Array<(...args: any[]) => void>;
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -876,7 +876,7 @@ declare module "events" {
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 rawListeners<EventName extends string | symbol>(
                     eventName: EventNameParam<Events, EventName>,
-                ): Array<() => void>;
+                ): Array<(...args: any[]) => void>;
                 /**
                  * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
