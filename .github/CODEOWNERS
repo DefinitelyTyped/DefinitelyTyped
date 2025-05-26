@@ -7937,7 +7937,7 @@
 /types/token-introspection/                             @DanielRose
 /types/token-stream/                                    @MaikoTan
 /types/tokgen/                                          @l-jonas
-/types/tonic-ui__react/                                 @derekhawker @ZachLegros
+/types/tonic-ui__react/                                 @derekhawker @ZachLegros @georgids9
 /types/tonic-ui__react-icons/                           @ZachLegros @derekhawker
 /types/toobusy-js/                                      @atd-schubert @BendingBender
 /types/tooltipster/                                     @stephenlautier @pjmagee @VorobeY1326 @leonard-thieu @janhi @joeskeen
