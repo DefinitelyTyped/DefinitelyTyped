@@ -66,6 +66,12 @@ export class DefaultGraph implements RDF.DefaultGraph {
     static subclass(type: any): void;
 }
 
+export class BaseIRI {
+    constructor(base: string);
+    static supports(base: string): boolean;
+    toRelative(iri: string): string;
+}
+
 export type Quad_Subject = NamedNode | BlankNode | Variable;
 export type Quad_Predicate = NamedNode | Variable;
 export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
