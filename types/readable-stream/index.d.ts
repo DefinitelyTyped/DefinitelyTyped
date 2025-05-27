@@ -302,6 +302,7 @@ declare namespace _Readable {
 
         readonly readableAborted: boolean;
         readonly readableDidRead: boolean;
+        readonly writableAborted: boolean;
         readonly writableEnded: boolean;
         readonly writableFinished: boolean;
         readonly writableCorked: number;
@@ -651,6 +652,7 @@ declare namespace _Readable {
     }
 
     class Writable extends _Writable {
+        readonly writableAborted: boolean;
         readonly writableEnded: boolean;
         readonly writableFinished: boolean;
         readonly writableObjectMode: boolean;
