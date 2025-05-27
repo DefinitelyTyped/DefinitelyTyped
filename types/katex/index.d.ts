@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 export interface TrustContext {
     command: string;
     url: string;
