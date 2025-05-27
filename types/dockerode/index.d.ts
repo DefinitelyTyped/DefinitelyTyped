@@ -475,11 +475,15 @@ declare namespace Dockerode {
         Name: string;
         CheckDuplicate?: boolean | undefined;
         Driver?: string | undefined;
+        Scope?: string | undefined;
+        EnableIPv4?: boolean | undefined;
+        EnableIPv6?: boolean | undefined;
+        IPAM?: IPAM | undefined;
         Internal?: boolean | undefined;
         Attachable?: boolean | undefined;
         Ingress?: boolean | undefined;
-        IPAM?: IPAM | undefined;
-        EnableIPv6?: boolean | undefined;
+        ConfigOnly?: boolean | undefined;
+        ConfigFrom?: { Network?: string } | undefined;
         Options?: { [option: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
 
