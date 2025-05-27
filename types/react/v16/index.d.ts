@@ -2296,6 +2296,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
@@ -2404,6 +2405,7 @@ declare namespace React {
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         /** @deprecated */
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -2438,6 +2440,7 @@ declare namespace React {
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        blocking?: "render" | (string & {}) | undefined;
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
