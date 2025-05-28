@@ -1,18 +1,24 @@
 {
     "private": true,
     "name": "@types/layui-src",
-    "version": "2.6.9999",
+    "version": "2.9.9999",
     "projects": [
-        "https://github.com/sentsin/layui/releases/tag/v2.6.8"
+        "https://github.com/layui/layui"
     ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
     "devDependencies": {
-        "@types/jquery": "*",
         "@types/layui-src": "workspace:."
     },
     "owners": [
         {
             "name": "javabitar",
             "githubUsername": "javabitar"
+        },
+        {
+            "name": "sight",
+            "githubUsername": "Sight-wcg"
         }
     ]
 }
