@@ -60,9 +60,9 @@ declare namespace google.ima {
             settings?: CompanionAdSelectionSettings,
         ): CompanionAd[];
         /**
-         * Returns the content type of the currently selected creative, 
-         * or empty string if no creative is selected or the content type is unavailable. 
-         * For linear ads, the content type is only going to be available after the START event, 
+         * Returns the content type of the currently selected creative,
+         * or empty string if no creative is selected or the content type is unavailable.
+         * For linear ads, the content type is only going to be available after the START event,
          * when the media file is selected.
          * @return the content type of the currently selected creative
          */
