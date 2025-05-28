@@ -46,7 +46,7 @@ import { createContext } from "node:vm";
         const subChannel = new workerThreads.MessageChannel();
         worker.postMessage(
             { hereIsYourPort: subChannel.port1 },
-            [subChannel.port1] as readonly workerThreads.TransferListItem[],
+            [subChannel.port1],
         );
         subChannel.port2.on("message", (value) => {
             console.log("received:", value);
@@ -100,7 +100,7 @@ import { createContext } from "node:vm";
     workerThreads.isMarkedAsUntransferable(pooledBuffer); // $ExpectType boolean
 
     const { port1 } = new workerThreads.MessageChannel();
-    port1.postMessage(typedArray1, [typedArray1.buffer] as readonly workerThreads.TransferListItem[]);
+    port1.postMessage(typedArray1, [typedArray1.buffer]);
 
     console.log(typedArray1);
     console.log(typedArray2);
@@ -122,7 +122,7 @@ import { createContext } from "node:vm";
     (async () => {
         const fileHandle = await fs.promises.open("thefile.txt", "r");
         const worker = new workerThreads.Worker(__filename);
-        worker.postMessage("some message", [fileHandle] as readonly workerThreads.TransferListItem[]);
+        worker.postMessage("some message", [fileHandle]);
     })();
 }
 
@@ -224,4 +224,15 @@ import { createContext } from "node:vm";
             }, 125);
         });
     }
+}
+
+// structuredClone
+{
+    structuredClone(123); // $ExpectType 123
+    structuredClone("hello"); // $ExpectType "hello"
+    structuredClone({ test: 123 }); // $ExpectType { test: number; }
+    structuredClone([{ test: 123 }]); // $ExpectType { test: number; }[]
+
+    const arrayBuffer = new ArrayBuffer(0);
+    structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }

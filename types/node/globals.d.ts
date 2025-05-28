@@ -266,11 +266,6 @@ declare global {
 
     // Global DOM types
 
-    function structuredClone<T>(
-        value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
-
     interface DOMException extends _DOMException {}
     var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
         : NodeDOMExceptionConstructor;
