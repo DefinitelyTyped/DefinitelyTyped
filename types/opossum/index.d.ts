@@ -345,6 +345,8 @@ declare namespace CircuitBreaker {
          */
         abortController?: AbortController | undefined;
 
+        autoRenewAbortController?: boolean | undefined;
+
         /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.
          * Passing false will result in snapshots not being emitted
