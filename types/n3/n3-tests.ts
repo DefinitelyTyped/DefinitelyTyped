@@ -320,6 +320,14 @@ function test_doc_storing() {
         N3.DataFactory.namedNode("http://ex.org/Dog"),
     );
     store.addQuad(
+        N3.DataFactory.namedNode("http://ex.org/Pluto"),
+        N3.DataFactory.namedNode("http://ex.org/type"),
+        // @ts-expect-error
+        [
+            N3.DataFactory.namedNode("http://ex.org/Dog"),
+        ],
+    );
+    store.addQuad(
         N3.DataFactory.quad(
             N3.DataFactory.namedNode("http://ex.org/Mickey"),
             N3.DataFactory.namedNode("http://ex.org/type"),
@@ -337,6 +345,14 @@ function test_doc_storing() {
         N3.DataFactory.namedNode("http://ex.org/Mickey"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         N3.DataFactory.namedNode("http://ex.org/Mouse"),
+    );
+    store.removeQuad(
+        N3.DataFactory.namedNode("http://ex.org/Mickey"),
+        N3.DataFactory.namedNode("http://ex.org/type"),
+        // @ts-expect-error
+        [
+            N3.DataFactory.namedNode("http://ex.org/Mouse"),
+        ],
     );
     store.removeQuad(
         N3.DataFactory.quad(
