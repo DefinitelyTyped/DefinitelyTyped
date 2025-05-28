@@ -6,6 +6,10 @@
     // $ExpectType 0 | 2
     evt.eventPhase;
 
+    const ce = new CustomEvent("", { detail: "" });
+    // $ExpectType string
+    ce.detail;
+
     const et: EventTarget = new EventTarget();
     et.addEventListener("", () => {}, { passive: true });
 }

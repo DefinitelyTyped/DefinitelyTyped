@@ -26,6 +26,11 @@ interface Event {
     readonly type: string;
 }
 
+type __CustomEvent<T = any> = typeof globalThis extends { onmessage: any } ? {} : CustomEvent<T>;
+interface CustomEvent<T = any> extends Event {
+    readonly detail: T;
+}
+
 type __EventTarget = typeof globalThis extends { onmessage: any } ? {} : EventTarget;
 interface EventTarget {
     addEventListener(
@@ -45,6 +50,10 @@ interface EventInit {
     bubbles?: boolean;
     cancelable?: boolean;
     composed?: boolean;
+}
+
+interface CustomEventInit<T = any> extends EventInit {
+    detail?: T;
 }
 
 interface EventListenerOptions {
@@ -72,6 +81,13 @@ declare global {
         : {
             prototype: Event;
             new(type: string, eventInitDict?: EventInit): Event;
+        };
+
+    interface CustomEvent<T = any> extends __CustomEvent<T> {}
+    var CustomEvent: typeof globalThis extends { onmessage: any; CustomEvent: infer T } ? T
+        : {
+            prototype: CustomEvent;
+            new<T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
         };
 
     interface EventTarget extends __EventTarget {}
