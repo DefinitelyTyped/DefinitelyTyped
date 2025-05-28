@@ -3997,7 +3997,7 @@ declare class Notification {
      * @param repeats - If true the notification will be sent daily on the specified time, otherwise it will only be sent once. Defaults to false.
      * @see https://docs.scriptable.app/notification/#-setdailytrigger
      */
-    setDailyTrigger(hour: number, minute: number, repeats: boolean = false): void;
+    setDailyTrigger(hour: number, minute: number, repeats?: boolean): void;
 
     /**
      * _Sets the notification to be triggered weekly._
