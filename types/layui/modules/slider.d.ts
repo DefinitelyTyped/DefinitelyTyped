@@ -8,7 +8,7 @@ declare namespace Layui {
          * 滑块类型
          * @default 'default'
          */
-        type?: 'default' | 'vertical';
+        type?: "default" | "vertical";
         /**
          * 滑动条最小值
          * @default 0

@@ -29,7 +29,7 @@ declare namespace Layui {
          * - `parent` 横向父级菜单
          * - `-` 分割线
          */
-        type?: 'normal' | 'group' | 'parent' | '-';
+        type?: "normal" | "group" | "parent" | "-";
         /**
          * 子级菜单数据项。参数同父级，可无限嵌套
          */
@@ -58,7 +58,7 @@ declare namespace Layui {
          * 触发组件的事件类型。支持所有事件
          * @default 'click'
          */
-        trigger?: keyof HTMLElementEventMap
+        trigger?: keyof HTMLElementEventMap;
         /**
          * 是否初始即显示组件面板
          * @default false
@@ -69,7 +69,7 @@ declare namespace Layui {
          * @default 'left'
          * @since 2.6.8
          */
-        align?: 'left' | 'center' | 'right';
+        align?: "left" | "center" | "right";
         /**
          * 是否允许菜单组展开收缩
          * @default true
@@ -123,7 +123,7 @@ declare namespace Layui {
          * - 默认无需设置，即父级菜单不触发事件
          * @since 2.8.0
          */
-        clickScope?: 'all';
+        clickScope?: "all";
         /**
          * 自定义 data 数据源中常用的字段名称
          * @since 2.8.15
@@ -174,7 +174,7 @@ declare namespace Layui {
         config: Required<DropdownOptions>;
         /**
          * 重载面板
-         * @param options 
+         * @param options
          */
         reload(options?: Partial<DropdownOptions> | object): void;
         /**
@@ -198,7 +198,7 @@ declare namespace Layui {
         index: number;
         /**
          * 全局设置
-         * @param options 
+         * @param options
          */
         set(options: Partial<DropdownOptions>): Dropdown;
         /**

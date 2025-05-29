@@ -1,7 +1,7 @@
 declare namespace Layui {
     /**
      * 按钮回调
-     * 
+     *
      * - yes 和 btn1 触发时默认不关闭弹层，需主动调用 layer.close 关闭
      * - btn2 即以后的回调触发时默认关闭，返回 false 阻止关闭
      * - 开启 btnAsync 异步按钮时，所有按钮行为一致，回调触发时默认关闭，返回 false 阻止关闭
@@ -9,7 +9,11 @@ declare namespace Layui {
      * @param layero 当前层的jqDOM
      * @param that 实例对象(2.8+)
      */
-    type LayerBtnCallback = (index: number, layero: JQuery, that: any) => boolean | Promise<boolean> | JQueryDeferred<boolean> | void;
+    type LayerBtnCallback = (
+        index: number,
+        layero: JQuery,
+        that: any,
+    ) => boolean | Promise<boolean> | JQueryDeferred<boolean> | void;
     /**
      * 点击标题栏关闭按钮的回调函数
      * @param index 当前层索引参数
@@ -43,16 +47,16 @@ declare namespace Layui {
      * 输入层
      * @param value 输入的值
      * @param index 当前层实例的索引
-     * @param layero 当前层的 jQuery 对象 
+     * @param layero 当前层的 jQuery 对象
      */
     type LayerCallbackPrompt = (value: string, index: number, layero: JQuery) => void;
     type layerTypeMap = {
-        0: 'dialog',
-        1: 'page',
-        2: 'iframe',
-        3: 'loading',
-        4: 'tips'
-    }
+        0: "dialog";
+        1: "page";
+        2: "iframe";
+        3: "loading";
+        4: "tips";
+    };
     type LayerType = keyof layerTypeMap;
     type LayerIndex = number;
     /**
@@ -62,13 +66,13 @@ declare namespace Layui {
     interface LayerOptions {
         /**
          * 弹层类型。可选值有：
-         * 
+         *
          * - 0 dialog 信息框（默认），同时只能存在一个层
          * - 1 page 页面层，可同时存在多个层
          * - 2 iframe 内联框架层，可同时存在多个层
          * - 3 loading 加载层，同时只能存在一个层
          * - 4 tips 贴士层，可配置同时存在多个层
-         * 
+         *
          * layer 弹层由以上 5 种类型构成。不同的类型代表不同的弹出形态，layer 提供的所有的弹出方式均由此衍生
          * @default 0
          */
@@ -82,13 +86,13 @@ declare namespace Layui {
         title?: string | boolean | [text: string, style: string];
         /**
          * 弹层内容。 可传入的值比较灵活，支持以下使用场景：
-         * 
+         *
          * - 若 `type: 1`（页面层）: 则 `content` 可传入值如下：
-         * 
+         *
          * ```
          * // 普通字符
          * layer.open({
-         *   type: 1, 
+         *   type: 1,
          *   content: '传入任意文本或 HTML'
          * });
          * // 捕获页面已存在的 DOM 元素或 jQuery 对象
@@ -97,30 +101,32 @@ declare namespace Layui {
          *   content: $('#id') // 捕获层
          * });
          * ```
-         * 
+         *
          * 注意： 若采用捕获层，则捕获的元素必须存放在 `<body>` 根节点下，否则可能被父级容器的相对定位所影响
          * - 若 `type: 2`（iframe 层）: 则 `content` 可传入值如下：
-         * 
+         *
          * ```
          * // iframe URL
          * layer.open({
-         *   type: 2, 
+         *   type: 2,
          *   content: 'http://cn.bing.com' // URL
-         * }); 
+         * });
          * // 是否屏蔽 iframe 滚动条
          * layer.open({
-         *   type: 2, 
+         *   type: 2,
          *   // 数组第二个成员设为 no，即屏蔽 iframe 滚动条
          *   content: ['http://cn.bing.com', 'yes']
-         * }); 
+         * });
          * ```
-         * 
+         *
          * - 若为其他弹层类型，传入普通字符即可
-         * 
+         *
          * @default ''
-         * 
          */
-        content?: string | HTMLElement | JQuery | [iframeUrl: string, showScrollbar: 'yes' | 'no'] | [tipsContent: string, tipsReferenceEl: string | HTMLElement];
+        content?: string | HTMLElement | JQuery | [iframeUrl: string, showScrollbar: "yes" | "no"] | [
+            tipsContent: string,
+            tipsReferenceEl: string | HTMLElement,
+        ];
         /**
          * 弹层的主题风格。通过赋值对应的 className，实现对主题样式的定制
          * @default ''
@@ -130,7 +136,7 @@ declare namespace Layui {
          * skin: 'layui-layer-molv' // 内置墨绿主题
          * skin: 'layui-layer-win10' // 内置 Windows 10 风格主题(2.8.0)
          */
-        skin?: 'layui-layer-lan' | 'layui-layer-molv' | 'layui-layer-win10' | (string & {});
+        skin?: "layui-layer-lan" | "layui-layer-molv" | "layui-layer-win10" | (string & {});
         /**
          * 设置弹层的宽高，其值支持以下可选类型：支持以下可选类型：
          * - 若为 `array` 类型，则可同时设置宽高
@@ -142,7 +148,7 @@ declare namespace Layui {
          *   - `area: 'auto'` 宽度和高度均自适应
          * @default 'auto'
          */
-        area?: 'auto' | `${number}px` | [width: 'auto' | `${number}px`, height: 'auto' | `${number}px`];
+        area?: "auto" | `${number}px` | [width: "auto" | `${number}px`, height: "auto" | `${number}px`];
         /**
          * 弹层的偏移坐标。 支持以下可选值：
          * - `offset: 'auto'` 坐标始终垂直水平居中
@@ -156,11 +162,14 @@ declare namespace Layui {
          * - `offset: 'rb'` 右下角
          * - `offset: 'lt'` 左上角
          * - `offset: 'lb'` 左下角
-         * 
+         *
          * 当设置边缘坐标时，可配合 `anim` 属性实现抽屉弹出效果
          * @default  'auto'
          */
-        offset?: 'auto' | 't' | 'r' | 'b' | 'l' | 'rt' | 'rb' | 'lt' | 'lb' | `${number}px` | [y: `${number}px`, x: `${number}px`];
+        offset?: "auto" | "t" | "r" | "b" | "l" | "rt" | "rb" | "lt" | "lb" | `${number}px` | [
+            y: `${number}px`,
+            x: `${number}px`,
+        ];
         /**
          * 提示图标。信息框和加载层的私有参数
          * - 当 type 为 0(信息框)可以传入 0-6 启用图标
@@ -173,16 +182,16 @@ declare namespace Layui {
         icon?: number;
         /**
          * 自定义按钮。
-         * 
+         *
          * 信息框模式时(type:0)，btn 默认是一个确认按钮，其它层类型则默认不显示，加载层和tips层则无效。
          * 按钮可无限数量，每一个按钮均会按照数组顺序生成对应的回调函数。
-         * 
+         *
          * 2.8.0- 按钮1 的回调为 `yes`，2.8.0+ `yes` 和 `btn1` 等效，推荐非 confirm 使用 btn1
-         * 
+         *
          * @default '确认'
          * @example
          * ```js
-         * // eg1       
+         * // eg1
          * layer.confirm('询问框？', {
          *   btn: ['按钮1', '按钮2', '按钮3']
          * });
@@ -211,13 +220,13 @@ declare namespace Layui {
          * - `btnAlign: 'r'` 按钮右对齐。默认值，无需设置
          * @default 'r'
          */
-        btnAlign?: 'l' | 'c' | 'r';
+        btnAlign?: "l" | "c" | "r";
         /**
          * 是否开启标题栏的关闭图标，或设置关闭图标风格
          * - `closeBtn: 0` 不显示关闭图标
          * - `closeBtn: 1` 关闭图标默认风格 X
          * - `closeBtn: 2` 关闭图标风格二 O+X
-         * 
+         *
          * `title: false` 时强制为 2
          *  @default 1
          */
@@ -238,7 +247,7 @@ declare namespace Layui {
         shadeClose?: boolean;
         /**
          * 弹层自动关闭所需的毫秒数
-         * 
+         *
          * 提示框、加载层、Tips 层三种弹出模式默认开启
          * @default 0
          * @example
@@ -248,14 +257,14 @@ declare namespace Layui {
         time?: number;
         /**
          * 弹层的唯一索引值
-         * 
+         *
          * 一般用于页面层或 iframe 层弹出时的状态识别，设置该属性可防止弹层的重复弹出
          * @default ''
          */
         id?: string;
         /**
          * 弹层的出场动画。支持以下可选值：
-         * 
+         *
          * - `anim: 0` 平滑放大。默认
          * - `anim: 1` 从上掉落
          * - `anim: 2` 从最底部往上滑入
@@ -263,16 +272,16 @@ declare namespace Layui {
          * - `anim: 4` 从左翻滚
          * - `anim: 5` 渐显
          * - `anim: 6` 抖动
-         * 
+         *
          * 边缘抽屉动画,一般配合 `offset` 属性实现边缘弹出(2.8+)
-         * 
+         *
          * - `anim: 'slideDown'` 从上边缘往下
          * - `anim: 'slideLeft'` 从右边缘往左
          * - `anim: 'slideUp'` 从下边缘往上
          * - `anim: 'slideRight'`  从左边缘往右
          * @default 0
          */
-        anim?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 'slideDown' | 'slideLeft' | 'slideRight' | 'slideUp' | (string & {});
+        anim?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | "slideDown" | "slideLeft" | "slideRight" | "slideUp" | (string & {});
         /**
          * 是否开启弹层关闭时的动画
          * @default true
@@ -280,7 +289,7 @@ declare namespace Layui {
         isOutAnim?: boolean;
         /**
          * 是否开启标题栏的最大化和最小化图标
-         * 
+         *
          * 该参数值对 `type:1` 和 `type:2` 有效
          * @default false
          */
@@ -326,14 +335,14 @@ declare namespace Layui {
         moveOut?: boolean;
         /**
          * 设置 tips 层的吸附位置和背景色，tips 层的私有属性
-         * 
+         *
          * - 若为 `number` 类型，则支持 `1-4` 的可选值，分别代表*上右下左*的吸附位置。如： `tips: 1`
          * - 若为 `array` 类型，则支持设置吸附位置和背景色，如：
-         * 
+         *
          * ```js
          * tips: [1, '#000'] // 吸附在触发元素上方的深色贴士层
          * ```
-         * @default 2 
+         * @default 2
          * @example
          * layui.layer.tips('提示内容','#abc',{tips:1})
          * layui.layer.tips('提示内容','#abc',{tips:[1, 'red']})  // 指定颜色
@@ -360,7 +369,7 @@ declare namespace Layui {
         removeFocus?: boolean;
         /**
          * 关闭弹层时，是否将弹层设置为隐藏状态（而非移除），当再次打开，直接显示原来的弹层。
-         * 
+         *
          * 若设为 true，则必须设置 id 属性
          * @default false
          * @since 2.8.3
@@ -370,7 +379,7 @@ declare namespace Layui {
          * 异步按钮。开启之后，除 `layer.prompt` 的按钮外，
          * 按钮回调的返回值将支持 `boolean | Promise<boolean> | JQueryDeferred<boolean>` 类型，
          * 返回 `false` 或 `Promise.reject` 时阻止关闭。
-         * 
+         *
          * 注意，此时 `yes` 和 `btn1`(两者等效) 回调的默认行为发生了变化，即由触发时不关闭弹层变为关闭弹层
          * @default false
          * @since 2.9.13
@@ -378,7 +387,7 @@ declare namespace Layui {
         btnAsync?: boolean;
         /**
          * 确定按钮回调方法，yes 和 btn1 等效
-         * 
+         *
          * - yes 和 btn1 触发时默认不关闭弹层，需主动调用 layer.close 关闭
          * - btn2 即以后的回调触发时默认关闭，返回 false 阻止关闭
          * - 开启 btnAsync 异步按钮时，所有按钮行为一致，回调触发时默认关闭，返回 false 阻止关闭
@@ -386,7 +395,7 @@ declare namespace Layui {
         yes?: LayerBtnCallback;
         /**
          * 确定按钮回调方法，yes 和 btn1 等效
-         * 
+         *
          * - yes 和 btn1 触发时默认不关闭弹层，需主动调用 layer.close 关闭
          * - btn2 即以后的回调触发时默认关闭，返回 false 阻止关闭
          * - 开启 btnAsync 异步按钮时，所有按钮行为一致，回调触发时默认关闭，返回 false 阻止关闭
@@ -394,7 +403,7 @@ declare namespace Layui {
         btn1?: LayerBtnCallback;
         /**
          * 自定义按钮回调
-         * 
+         *
          * - yes 和 btn1 触发时默认不关闭弹层，需主动调用 layer.close 关闭
          * - btn2 即以后的回调触发时默认关闭，返回 false 阻止关闭
          * - 开启 btnAsync 异步按钮时，所有按钮行为一致，回调触发时默认关闭，返回 false 阻止关闭
@@ -402,7 +411,7 @@ declare namespace Layui {
         btn2?: LayerBtnCallback;
         /**
          * 自定义按钮回调
-         * 
+         *
          * - yes 和 btn1 触发时默认不关闭弹层，需主动调用 layer.close 关闭
          * - btn2 即以后的回调触发时默认关闭，返回 false 阻止关闭
          * - 开启 btnAsync 异步按钮时，所有按钮行为一致，回调触发时默认关闭，返回 false 阻止关闭
@@ -476,10 +485,14 @@ declare namespace Layui {
          * @param that 实例对象
          * @since 2.9.11
          */
-        beforeEnd?(layero: JQuery, index: number, that: any): boolean | JQueryDeferred<boolean> | Promise<boolean> | void;
+        beforeEnd?(
+            layero: JQuery,
+            index: number,
+            that: any,
+        ): boolean | JQueryDeferred<boolean> | Promise<boolean> | void;
         /**
          * 只提供默认的一种拖拽风格
-         * 
+         *
          * 固定 1，不能修改
          * @internal
          */
@@ -511,7 +524,7 @@ declare namespace Layui {
     interface LayerConfigOptions extends LayerOptions {
         /**
          * layer.js 所在的目录，可以是绝对目录，也可以是相对目录
-         * 
+         *
          * 仅用于 layer 独立版本
          * @example
          * path: '/res/layer/'
@@ -519,7 +532,7 @@ declare namespace Layui {
         path?: string;
         /**
          * 要加载的拓展css皮肤
-         * 
+         *
          * - 如果是独立版的 layer，则将 myskin 存放在 ./skin 目录下
          * - 如果是 layui 中使用 layer，则将 myskin 存放在 ./css/modules/layer 目录下
          * @example
@@ -528,7 +541,7 @@ declare namespace Layui {
         extend?: string[] | string;
     }
 
-    interface LayerPromptOptions extends Omit<LayerOptions, 'type' | 'yes' | 'content' | 'btn' | 'skin'> {
+    interface LayerPromptOptions extends Omit<LayerOptions, "type" | "yes" | "content" | "btn" | "skin"> {
         /**
          * 输入框类型。支持以下可选值：
          * - 0 文本输入框
@@ -554,7 +567,7 @@ declare namespace Layui {
         placeholder?: string;
     }
 
-    interface LayerTabOptions extends Omit<LayerOptions, 'type' | 'skin' | 'title' | 'content'> {
+    interface LayerTabOptions extends Omit<LayerOptions, "type" | "skin" | "title" | "content"> {
         tab: Array<{ title: string; content: string }>;
     }
 
@@ -576,7 +589,7 @@ declare namespace Layui {
         start?: number;
         /**
          * 相册包含的图片，数组格式
-         * @example 
+         * @example
          * ```js
          * "data": [{
          *     "alt": "图片名",
@@ -609,10 +622,27 @@ declare namespace Layui {
         thumb?: string;
     }
 
-    interface LayerPhotosOptions extends Omit<LayerOptions, 'type' | 'id' | 'area' | 'title' | 'closeBtn' | 'shade' | 'move' | 'moveType' | 'moveOut' | 'scrollbar' | 'isOutAnim' | 'skin' | 'end'> {
+    interface LayerPhotosOptions extends
+        Omit<
+            LayerOptions,
+            | "type"
+            | "id"
+            | "area"
+            | "title"
+            | "closeBtn"
+            | "shade"
+            | "move"
+            | "moveType"
+            | "moveOut"
+            | "scrollbar"
+            | "isOutAnim"
+            | "skin"
+            | "end"
+        >
+    {
         /**
          * 图片层的数据源
-         * 
+         *
          * JSON 对象或者选择器，元素的 jQUery 对象，用于构造 img
          */
         photos?: LayerPhotosData | string | JQuery;
@@ -661,7 +691,7 @@ declare namespace Layui {
         config(options: LayerConfigOptions, fn?: any): void;
         /**
          * 执行初始化，就绪后执行回调参数
-         * 
+         *
          * 初始化就绪 (CSS完成的回调)，当你在页面一打开就要执行弹层时可放入回调中
          * @param callback 就绪后的回调
          */
@@ -680,7 +710,11 @@ declare namespace Layui {
          * @param yes 点击确定后的回调
          * @see https://layui.dev/docs/2/layer/#alert
          */
-        alert(content: any, options?: Omit<LayerOptions, 'type' | 'yes' | 'content'>, yes?: LayerBtnCallback): LayerIndex;
+        alert(
+            content: any,
+            options?: Omit<LayerOptions, "type" | "yes" | "content">,
+            yes?: LayerBtnCallback,
+        ): LayerIndex;
         /**
          * 普通信息框
          * @param content 内容
@@ -695,7 +729,7 @@ declare namespace Layui {
          * @param yes 确认回调
          * @param cancel 点击第二个按钮（默认「取消」）后的回调函数
          * @see https://layui.dev/docs/2/layer/#confirm
-         * @example 
+         * @example
          * ```js
          * layer.confirm('is not?', {
          *    icon: 3,
@@ -713,14 +747,19 @@ declare namespace Layui {
          * });
          * ```
          */
-        confirm(content: any, options?: Omit<LayerOptions, 'type'>, yes?: LayerBtnCallback, cancel?: LayerCallbackCancel): LayerIndex;
+        confirm(
+            content: any,
+            options?: Omit<LayerOptions, "type">,
+            yes?: LayerBtnCallback,
+            cancel?: LayerCallbackCancel,
+        ): LayerIndex;
         /**
          * 询问框
          * @param content 提示内容
          * @param yes 确认回调
          * @param cancel 点击第二个按钮（默认「取消」）后的回调函数
          * @see https://layui.dev/docs/2/layer/#confirm
-         * @example 
+         * @example
          * ```js
          * layer.confirm('is not?', (index,layero) => {
          *   // do something
@@ -738,7 +777,11 @@ declare namespace Layui {
          * @param end 关闭后的回调
          * @see https://layui.dev/docs/2/layer/#msg
          */
-        msg(content: string, options?: Omit<LayerOptions, 'type' | 'skin' | 'title' | 'resize' | 'end'>, end?: LayerCallbackEnd): LayerIndex;
+        msg(
+            content: string,
+            options?: Omit<LayerOptions, "type" | "skin" | "title" | "resize" | "end">,
+            end?: LayerCallbackEnd,
+        ): LayerIndex;
         /**
          * 提示框
          * @param content 提示内容
@@ -752,13 +795,13 @@ declare namespace Layui {
          * @param options 基础属性选项
          * @see https://layui.dev/docs/2/layer/#load
          */
-        load(icon?: 0 | 1 | 2, options?: Omit<LayerOptions, 'type' | 'resize'>): LayerIndex;
+        load(icon?: 0 | 1 | 2, options?: Omit<LayerOptions, "type" | "resize">): LayerIndex;
         /**
          * 加载层
          * @param options 基础属性选项
          * @see https://layui.dev/docs/2/layer/#load
          */
-        load(options?: Omit<LayerOptions, 'type' | 'resize'>): LayerIndex;
+        load(options?: Omit<LayerOptions, "type" | "resize">): LayerIndex;
         /**
          * tips 层
          * @param content 显示的内容
@@ -766,13 +809,17 @@ declare namespace Layui {
          * @param options 基础属性选项
          * @see https://layui.dev/docs/2/layer/#tips
          */
-        tips(content?: string, referenceEl?: string | HTMLElement | JQuery, options?: Omit<LayerOptions, 'type' | 'content' | 'closeBtn' | 'resize'>): LayerIndex;
+        tips(
+            content?: string,
+            referenceEl?: string | HTMLElement | JQuery,
+            options?: Omit<LayerOptions, "type" | "content" | "closeBtn" | "resize">,
+        ): LayerIndex;
         /**
          * 输入层
          * @param options 参数
          * @param yes 点击确定后的回调函数，用该参数而不是用 options 的 yes
          * @see https://layui.dev/docs/2/layer/#prompt
-         * @example 
+         * @example
          * ```js
          * layui.layer.prompt({
          *    formType: 2, // 输入框类型，支持0（文本）默认1（密码）2（多行文本）
@@ -792,7 +839,7 @@ declare namespace Layui {
          * 输入层
          * @param yes 点击确定的回调
          * @see https://layui.dev/docs/2/layer/#prompt
-         * @example 
+         * @example
          * ```js
          * layer.prompt(function(value, index, elem){
          *   alert(value); // 得到 value
@@ -803,7 +850,7 @@ declare namespace Layui {
         prompt(yes?: LayerCallbackPrompt): LayerIndex;
         /**
          * 标签层
-         * @param options 
+         * @param options
          * @see https://layui.dev/docs/2/layer/#tab
          */
         tab(options: LayerTabOptions): LayerIndex;
@@ -836,7 +883,10 @@ declare namespace Layui {
          * @param callback 关闭后执行的回调(2.9.0)
          * @since 2.8.0
          */
-        closeLast(type?: layerTypeMap[keyof layerTypeMap] | Array<layerTypeMap[keyof layerTypeMap]>, callback?: AnyFn): void;
+        closeLast(
+            type?: layerTypeMap[keyof layerTypeMap] | Array<layerTypeMap[keyof layerTypeMap]>,
+            callback?: AnyFn,
+        ): void;
         /**
          * 重新定义层的样式
          * @param index 打开弹层时返回的唯一索引

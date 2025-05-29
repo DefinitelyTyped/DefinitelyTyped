@@ -2,7 +2,7 @@ declare namespace Layui {
     interface TableColumnOptions {
         /**
          * 设置字段名。通常是表格数据列的唯一标识
-         * 
+         *
          * 若未设置则用索引值代替，但不建议这么做
          */
         field?: string;
@@ -22,7 +22,7 @@ declare namespace Layui {
          */
         width?: string | number;
         /**
-         * 设置当前列的最小宽度，一般用于列宽自动分配的情况。其优先级高于基础属性中的 {@link TableOptions.cellMinWidth|cellMinWidth} 
+         * 设置当前列的最小宽度，一般用于列宽自动分配的情况。其优先级高于基础属性中的 {@link TableOptions.cellMinWidth|cellMinWidth}
          * @default 60
          */
         minWidth?: number;
@@ -33,18 +33,18 @@ declare namespace Layui {
         maxWidth?: number;
         /**
          * 设置单元格被展开后的宽度。若设置的值的小于当前列宽，则展开后的列宽保持不变。
-         * 
+         *
          * 注：当 expandedMode 属性为默认值时有效。
          * @since 2.8.15
          */
         expandedWidth?: number;
         /**
          * 设置当前表头单元格展开方式，优先级高于 {@link TableOptions.cellExpandedMode|cellExpandedMode}
-         * 
+         *
          * 默认多行展开
          * @since 2.8.17
          */
-        expandedMode?: 'tips';
+        expandedMode?: "tips";
         /**
          * 设定列类型
          * - normal 常规列，无需设定
@@ -54,10 +54,10 @@ declare namespace Layui {
          * - space 空列
          * @default 'normal''
          */
-        type?: 'normal' | 'checkbox' | 'radio' | 'space' | 'numbers';
+        type?: "normal" | "checkbox" | "radio" | "space" | "numbers";
         /**
          * 设置全选状态，当列设置 type: 'checkbox' 时才有效
-         * 
+         *
          * 如果设置 true，则表示复选框默认全部选中
          * @default false
          */
@@ -66,21 +66,21 @@ declare namespace Layui {
          * 设置固定列，即不跟随 table 横向滚动条而滚动。可选值有：
          * - left 固定在左
          * - right 固定在右
-         * 
+         *
          * 注意：如果是固定在左，该列必须放在表头最前面；
          * 如果是固定在右，该列必须放在表头最后面;
          * 多级表头设置固定列时，父列和子列均需设置;
          * 非 right' 就是 'left'
          */
-        fixed?: 'left' | 'right';
+        fixed?: "left" | "right";
         /**
          * 设置列的自定义模板，核心属性。模板遵循 laytpl 组件语法。
-         * 
+         *
          * templet 有三种使用方式
          * - 设置模版选择器 `templet: '#id'`
          * - 设置模板内容 `templet: '<div>test</div>'`
          * - 设置模板函数 `templet: function(d){return d.xx + str}`
-         * 
+         *
          * 回调参数 d 从 v2.6.8 新增 LAY_COL 字段，可得到当前列的表头配置信息
          */
         templet?: string | ((d: TableColumnOptionsForTemplet) => string);
@@ -97,7 +97,12 @@ declare namespace Layui {
          * ```
          * @since 2.6.9
          */
-        exportTemplate?: string | ((d: TableColumnOptionsForTemplet, obj: { td: (field: TableColumnOptions['field']) => JQuery }) => string);
+        exportTemplate?:
+            | string
+            | ((
+                d: TableColumnOptionsForTemplet,
+                obj: { td: (field: TableColumnOptions["field"]) => JQuery },
+            ) => string);
         /**
          * 是否开启该列的自动合计功能，默认不开启。
          *  1. parseData 中包含totalRow 可以映射自定字段
@@ -118,7 +123,7 @@ declare namespace Layui {
          *   "msg": "",
          *   "count": 1000
          * }
-         * 
+         *
          * // 在合计行自定义模板中输出后端返回的合计数据
          * // 获取后端接口返回数据中的统计字段。此处 TOTAL_ROW 即对应返回据中的 totalRow
          * totalRow: '分数：{{= d.TOTAL_ROW.score }}'
@@ -133,7 +138,7 @@ declare namespace Layui {
          * - edit: () => 'text' （2.7.5）
          * @default false
          */
-        edit?: 'text' | 'textarea' | boolean | ((d: TableColumnOptionsForTemplet) => 'text' | 'textarea');
+        edit?: "text" | "textarea" | boolean | ((d: TableColumnOptionsForTemplet) => "text" | "textarea");
         /**
          * 是否初始隐藏列
          * @default false
@@ -155,7 +160,7 @@ declare namespace Layui {
         escape?: boolean;
         /**
          * 是否开启列的排序功能
-         * 
+         *
          * 注意：不推荐对值同时存在“数字和普通字符”的列开启排序，
          * 因为会进入字典序排序计算中，如：'张三' > '2' > '100'，
          * 这可能并不是你想要的结果，但字典序排列采用的是 ASCII 码比对
@@ -164,7 +169,7 @@ declare namespace Layui {
         sort?: boolean;
         /**
          * 是否禁用拖拽列宽。
-         * 
+         *
          * 默认情况下会根据列类型 type 属性来决定是否禁用，如复选框列，会自动禁用。
          * 而其它普通列，默认允许拖拽列宽，当然你也可以设置 true 来禁用该功能。
          * @default false
@@ -172,7 +177,7 @@ declare namespace Layui {
         unresize?: boolean;
         /**
          * 自定义单元格点击事件名，以便在 单元格工具事件 中完成对该单元格的事件处理
-         * 
+         *
          * 比如：table.on('tool(tableFilter)', function(obj){obj.event=''})
          */
         event?: string;
@@ -184,7 +189,7 @@ declare namespace Layui {
          * 单元格排列方式。可选值有：left（默认）、center（居中）、right（居右）
          * @default 'left''
          */
-        align?: 'left' | 'center' | 'right';
+        align?: "left" | "center" | "right";
         /**
          * 单元格所占列数。一般用于多级表头
          * @default 1
@@ -196,8 +201,8 @@ declare namespace Layui {
          */
         rowspan?: number;
         /**
-         * 绑定行工具模板。用法同 templet 参数完全相同（因为历史兼容问题所以保留）。 
-         * 
+         * 绑定行工具模板。用法同 templet 参数完全相同（因为历史兼容问题所以保留）。
+         *
          * 可在每行对应的列中出现一些自定义的操作性按钮
          * @deprecated 2.8.0 已弃用
          */
@@ -216,9 +221,9 @@ declare namespace Layui {
 
     /**
      * table 的 templet 回调参数格式
-     * 
+     *
      * tips:templet回调中可以使用 d.xx  xx为任意参数
-     * 
+     *
      * 2.8.0 序号: `LAY_INDEX` → `LAY_NUM`；下标: `LAY_TABLE_INDEX` → `LAY_INDEX`
      */
     interface TableColumnOptionsForTemplet {
@@ -250,7 +255,7 @@ declare namespace Layui {
         /**
          * 该属性不存在，只是提示你：可以用 d.xxx 使用当前行中的任意数据属性
          */
-        '可以用 d.xx 来使用当前行的其他属性': never;
+        "可以用 d.xx 来使用当前行的其他属性": never;
         [index: string]: any;
     }
 
@@ -369,15 +374,15 @@ declare namespace Layui {
         url?: string | null;
         /**
          * 表头属性集，通过二维数组定义多级表头。方法渲染时必填。
-         * 
+         *
          * 一维是表头层级，二维是列定义
          * @see https://layui.dev/docs/2/table/#options.cols
          */
         cols: TableColumnOptions[][];
         /**
          * 本地数据模式
-         * 
-         * 当设置 data 模式时，count 的值取 data.length，即对一段已知数据进行分页展示。 
+         *
+         * 当设置 data 模式时，count 的值取 data.length，即对一段已知数据进行分页展示。
          * 此时在 page 属性中设置 count 无效。 若要在同一页显示所有数据，可将 limit 设置
          * 成 data.length，即与 count 等同即可，那么默认的分页栏只会显示 1 页，若要自定义
          * 分页结构，可通过 pagebar 属性结合 laypage 组件来重新自定义分页排版
@@ -404,9 +409,12 @@ declare namespace Layui {
          * - print: 打印
          */
         defaultToolbar?: Array<
-            'filter' | 'exports' | 'print' | '' |
-            { title?: string; layEvent?: string; icon?: string } |
-            { name?: string; layEvent?: string; icon?: string; onClick?: (obj?: object) => void }
+            "filter" | "exports" | "print" | "" | { title?: string; layEvent?: string; icon?: string } | {
+                name?: string;
+                layEvent?: string;
+                icon?: string;
+                onClick?: (obj?: object) => void;
+            }
         >;
         /**
          * 设置容器宽度，默认自适应
@@ -437,8 +445,8 @@ declare namespace Layui {
         cellMaxWidth?: number;
         /**
          * 用于定义表格的多行样式，如每行的高度等。
-         * 
-         * 该参数一旦设置，单元格将会开启多行模式，且鼠标 hover 时会通过显示滚动条的方式查看到更多内容。 
+         *
+         * 该参数一旦设置，单元格将会开启多行模式，且鼠标 hover 时会通过显示滚动条的方式查看到更多内容。
          * @example lineStyle: 'height: 95px;'
          * @since 2.7.0
          */
@@ -455,12 +463,12 @@ declare namespace Layui {
          */
         css?: string;
         /**
-          * 用于设置所有单元格默认展开方式，可选值有：
-          * - tips 悬浮展开方式
-          * - default 多行展开方式（默认）
-          * @since 2.8.17
-          */
-        cellExpandedMode?: 'tips';
+         * 用于设置所有单元格默认展开方式，可选值有：
+         * - tips 悬浮展开方式
+         * - default 多行展开方式（默认）
+         * @since 2.8.17
+         */
+        cellExpandedMode?: "tips";
         /**
          * 用于设置所有单元格默认展开后的宽度。当 cellExpandedMode 属性为默认值时有效
          * @default 60
@@ -469,7 +477,7 @@ declare namespace Layui {
         cellExpandedWidth?: number;
         /**
          * 是否开启对内容的编码（转义 html）
-         * 
+         *
          * 默认 true，2.6.11 之前默认为 false
          * @default true
          */
@@ -483,7 +491,7 @@ declare namespace Layui {
          * 开启分页，PageOptions 时排除 jump 和 elem
          * @default false
          */
-        page?: boolean | Omit<LayPageOptions, 'elem' | 'jump'>;
+        page?: boolean | Omit<LayPageOptions, "elem" | "jump">;
         /**
          * 开启分页区域的自定义模板，用法同 toolbar 属性
          * @since 2.7.0
@@ -491,14 +499,14 @@ declare namespace Layui {
         pagebar?: string | HTMLElement | boolean;
         /**
          * 每页显示的条数。值需对应 limits 参数的选项
-         * 
+         *
          * 优先级低于 page 属性中的 limit 属性
          * @default 10
          */
         limit?: number;
         /**
          * 每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]
-         * 
+         *
          * 优先级低于 page 参数中的 limits 参数
          */
         limits?: number[];
@@ -519,13 +527,13 @@ declare namespace Layui {
          * - `default` 默认方式，无需设置。即重载数据或切换分页时，纵向滚动条置顶，横向滚动条位置不变
          * @since 2.7.3
          */
-        scrollPos?: 'fixed' | 'reset ' | 'default ';
+        scrollPos?: "fixed" | "reset " | "default ";
         /**
          * 单元格编辑的事件触发方式
          * @default 'click'
          * @since 2.7.0
          */
-        editTrigger?: 'click' | 'dbclick';
+        editTrigger?: "click" | "dbclick";
         /**
          * 定义 table 的大标题（在文件导出等地方会用到）
          */
@@ -545,12 +553,12 @@ declare namespace Layui {
          * - field 排序字段。对应 cols 设定的各字段名
          * - type 排序方式。可选值 : 'asc','desc',null，即：升序、降序、默认
          */
-        initSort?: { field: string; type?: null | 'desc' | 'asc' };
+        initSort?: { field: string; type?: null | "desc" | "asc" };
         /**
          * 用于设定表格风格
          * @default 'grid
          */
-        skin?: 'grid' | 'line' | 'row' | 'nob';
+        skin?: "grid" | "line" | "row" | "nob";
         /**
          * 是否开启隔行背景
          * @default false
@@ -560,7 +568,7 @@ declare namespace Layui {
          * 设定表格尺寸
          * @default 'md'
          */
-        size?: 'sm' | 'md' | 'lg';
+        size?: "sm" | "md" | "lg";
         /**
          * 数据渲染之前的回调函数
          * @param options 各项基础参数
@@ -604,7 +612,7 @@ declare namespace Layui {
         headers?: object;
         /**
          * 发送到服务端的内容编码类型
-         * 
+         *
          * 若要发送 json 内容，可以设置：`contentType: 'application/json'`
          */
         contentType?: string;
@@ -629,7 +637,7 @@ declare namespace Layui {
         request?: TableRequestRename;
         /**
          * 可以借助 response 重新设定本地识别响应字段名
-         * 
+         *
          * 当默认支持的名称和服务端不一致可以通过本方式或者 parseData 来对应
          * @deprecated 2.8.0 已弃用，请使用 {@link TableOptions.parseData|parseData}
          */
@@ -645,17 +653,17 @@ declare namespace Layui {
          * 选中方式
          * @default 'checkbox''
          */
-        type?: 'checkbox' | 'radio';
+        type?: "checkbox" | "radio";
         /**
          * 选中行的下标。即数据的所在数组下标（0 开头）。可设置 `all` 表示全选
          * 数组类型 2.9.1+
          */
-        index: string | number | Array<string | number> | 'all';
+        index: string | number | Array<string | number> | "all";
         /**
          * 选中状态值
          * - 若传递该属性，则赋值固定值
          * - 若不传递该属性（默认），则 checkbox 将在 true|false 中自动切换值，而 radio 将赋值 true 固定值(2.8.4+)
-         * 
+         *
          * 注意：若 index 指定为多选或全选，checked 应当显式传递固定值
          * @default true
          */
@@ -704,7 +712,10 @@ declare namespace Layui {
          * @param fields 要更新的列字段对象
          * @param related 更新其他包含自定义模板并可能存在关联的列视图(2.7.4)
          */
-        update(fields: Record<string, any>, related?: boolean | ((field: string, index: string | number) => void)): void;
+        update(
+            fields: Record<string, any>,
+            related?: boolean | ((field: string, index: string | number) => void),
+        ): void;
         /**
          * 设置行选中状态
          */
@@ -713,7 +724,9 @@ declare namespace Layui {
     /**
      * 点击table中checkbox后回调参数的类型
      */
-    interface TableOnCheckbox<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnCheckbox<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * 当前选中状态
          */
@@ -721,7 +734,7 @@ declare namespace Layui {
         /**
          * 若触发的是全选，则为：all；若触发的是单选，则为：one
          */
-        type: 'all' | 'one';
+        type: "all" | "one";
         /**
          * 获取当前列的配置信息
          * @since 2.8.3
@@ -732,7 +745,9 @@ declare namespace Layui {
     /**
      * Table 单选事件
      */
-    interface TableOnRadio<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnRadio<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * 当前选中状态
          */
@@ -770,7 +785,9 @@ declare namespace Layui {
     /**
      * 点击table中工具列后回调参数的类型
      */
-    interface TableOnTool<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnTool<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * lay-event 属性值
          */
@@ -786,7 +803,9 @@ declare namespace Layui {
      * 双击table中工具列后回调参数的类型
      * @since 2.7.0
      */
-    interface TableOnToolDouble<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnToolDouble<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * lay-event 属性值
          */
@@ -801,7 +820,9 @@ declare namespace Layui {
     /**
      * 点击table中行后回调参数的类型
      */
-    interface TableOnRow<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions>{
+    interface TableOnRow<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * jQuery 事件对象
          */
@@ -811,7 +832,9 @@ declare namespace Layui {
     /**
      * 双击table中行后回调参数的类型
      */
-    interface TableOnRowDouble<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnRowDouble<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * jQuery 事件对象
          */
@@ -821,7 +844,9 @@ declare namespace Layui {
     /**
      * 点击table中单元格编辑后回调参数的类型
      */
-    interface TableOnEdit<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnEdit<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * 字段名
          */
@@ -862,7 +887,7 @@ declare namespace Layui {
         /**
          * 当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
          */
-        type: null | 'desc' | 'asc';
+        type: null | "desc" | "asc";
     }
 
     /**
@@ -893,7 +918,9 @@ declare namespace Layui {
      * 行右键菜单事件，需设置属性 `defaultContextmenu:false` 才生效
      * @since 2.8.0
      */
-    interface TableOnRowContextmenu<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> extends TableOnCommon<TOptions, TSetRowOptions> {
+    interface TableOnRowContextmenu<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions>
+        extends TableOnCommon<TOptions, TSetRowOptions>
+    {
         /**
          * jQuery 事件对象
          */
@@ -969,7 +996,7 @@ declare namespace Layui {
         /**
          * 是否全选
          */
-        isAll: boolean
+        isAll: boolean;
         /**
          * 选中的原始缓存数据，包含内部特定字段
          * @since 2.9.17
@@ -991,30 +1018,30 @@ declare namespace Layui {
             /**
              * 是否选中状态的字段名
              */
-            checkName: 'LAY_CHECKED';
+            checkName: "LAY_CHECKED";
             /**
              * 初始下标索引名，用于恢复排序
-             * 
+             *
              * 2.8.0之前 为 LAY_TABLE_INDEX
              */
-            indexName: 'LAY_INDEX';
+            indexName: "LAY_INDEX";
             /**
              * 初始下标索引名，仅用于内部恢复当前页表格排序
              * @since 2.9.20
              */
-            initIndexName: 'LAY_INDEX_INIT';
+            initIndexName: "LAY_INDEX_INIT";
             /**
              * 序号
              */
-            numbersName: 'LAY_NUM';
+            numbersName: "LAY_NUM";
             /**
              * 禁用状态的特定字段名
              */
-            disabledName: 'LAY_DISABLED';
+            disabledName: "LAY_DISABLED";
         };
         /**
-         * 清除表格数据中的临时 Key 
-         * 
+         * 清除表格数据中的临时 Key
+         *
          * 例如 LAY_CHECKED、LAY_TABLE_INDEX 等
          * @internal
          * @param data
@@ -1027,7 +1054,11 @@ declare namespace Layui {
          * @param callback 回调
          * @param cols 列配置项，默认为当前表格的 cols 参数值
          */
-        eachCols(id: string, callback: (index: string, colDef: TableColumnOptions) => void, cols?: Array<Array<TableColumnOptions>>): void;
+        eachCols(
+            id: string,
+            callback: (index: string, colDef: TableColumnOptions) => void,
+            cols?: Array<Array<TableColumnOptions>>,
+        ): void;
         /**
          * 获取表格当前选中行相关数据
          * @param id table 渲染时的 id 属性值
@@ -1048,7 +1079,7 @@ declare namespace Layui {
          * @deprecated 2.8.0 此签名已弃用
          * @see https://layui.dev/docs/2/table/#table.exportFile
          */
-        exportFile(id: string, data?: null, type?: 'csv' | 'xls'): void;
+        exportFile(id: string, data?: null, type?: "csv" | "xls"): void;
         /**
          * 导出 table 中数据到文件
          * @param id table 渲染时的 id 属性值。指定 id 后下载文件名默认为 table 中 title
@@ -1059,7 +1090,7 @@ declare namespace Layui {
          * @since 2.7.0
          * @see https://layui.dev/docs/2/table/#table.exportFile
          */
-        exportFile(id: string, data?: null, opts?: { type?: 'csv' | 'xls'; title?: string }): void;
+        exportFile(id: string, data?: null, opts?: { type?: "csv" | "xls"; title?: string }): void;
         /**
          * 导出自定数据到文件
          * @param colName 数据表头
@@ -1068,7 +1099,7 @@ declare namespace Layui {
          * @deprecated 2.8.0 此签名已弃用
          * @see https://layui.dev/docs/2/table/#table.exportFile
          */
-        exportFile(colName: Array<string>, data: Array<Array<any>>, type?: 'csv' | 'xls'): void;
+        exportFile(colName: Array<string>, data: Array<Array<any>>, type?: "csv" | "xls"): void;
         /**
          * 导出自定数据到文件
          * @param colName 数据表头
@@ -1079,10 +1110,14 @@ declare namespace Layui {
          * @since 2.7.0
          * @see https://layui.dev/docs/2/table/#table.exportFile
          */
-        exportFile(colName: Array<string>, data: Array<Array<any>>, opts?: { type?: 'csv' | 'xls'; title?: string }): void;
+        exportFile(
+            colName: Array<string>,
+            data: Array<Array<any>>,
+            opts?: { type?: "csv" | "xls"; title?: string },
+        ): void;
         /**
          * 获取表格当前页的所有行数据
-         * 
+         *
          * 对应接口返回的原始数据，不包含 table 组件内部的特定字段
          * @param id table 参数中的id
          * @see https://layui.dev/docs/2/table/#table.getData
@@ -1090,21 +1125,21 @@ declare namespace Layui {
         getData(id: string): Array<any>;
         /**
          * 静态表格渲染
-         * 
+         *
          * 该方法用于将已输出在页面中的静态表格内容转换为动态 table 组件
          * @param filter `<table>` 元素对应的 `lay-filter` 属性值
          * @param option 基础属性选项
          * @see https://layui.dev/docs/2/table/#table.init
          */
-        init(filter: TableFilter, option?: Omit<Partial<TableOptions>, 'elem'>): object;
+        init(filter: TableFilter, option?: Omit<Partial<TableOptions>, "elem">): object;
         /**
          * 表格事件
-         * 
+         *
          * `table.on('event(filter)', callback);`
-         * 
+         *
          * - 参数 event(filter) 是事件的特定结构。 event 为事件名，支持的事件见下表。filter 为元素属性 lay-filter 对应的值
          * - 参数 callback 为事件执行时的回调函数，并返回一个包含各项成员的 object 类型的参数
-         * 
+         *
          * |  event | 描述 |
          * | --- | --- |
          * | toolbar | 头部工具栏事件 |
@@ -1130,7 +1165,7 @@ declare namespace Layui {
         on<K extends string>(event: `${K}(${TableFilter})`, callback: AnyFn): void;
         /**
          * 表格重载
-         * 
+         *
          * 对表格的视图和数据在内的全部重载，所有属性均会参与到重载中，对应的表格会有一个直观的刷新效果
          * @param id table 渲染时的 id 属性值
          * @param option 基础属性选项
@@ -1140,7 +1175,7 @@ declare namespace Layui {
         reload(id: string, option?: Partial<TableOptions>, deep?: boolean): TableRenderReturn;
         /**
          * 仅数据重载
-         * 
+         *
          * 对表格的数据重载，与数据无关的属性不会参与到重载中。因此若只是更新数据，该方法可大幅提升体验
          * @param id table 渲染时的 id 属性值
          * @param option 基础属性选项
@@ -1196,7 +1231,13 @@ declare namespace Layui {
          * @since 2.8.0
          * @see https://layui.dev/docs/2/table/#table.hideCol
          */
-        hideCol(id: string, cols: boolean | { field: TableColumnOptions['field']; hide: boolean } | Array<{ field: TableColumnOptions['field']; hide: boolean }>): void;
+        hideCol(
+            id: string,
+            cols:
+                | boolean
+                | { field: TableColumnOptions["field"]; hide: boolean }
+                | Array<{ field: TableColumnOptions["field"]; hide: boolean }>,
+        ): void;
         /**
          * 更新指定行数据
          * @param id table 渲染时的 `id` 属性值
@@ -1217,12 +1258,12 @@ declare namespace Layui {
                 /**
                  * 行数据
                  */
-                data: Record<string, any> | Array<Record<string, any>>
+                data: Record<string, any> | Array<Record<string, any>>;
             },
             /**
              * 是否更新关联的行数据
              */
-            related?: boolean | ((field: string, index: number) => boolean)
+            related?: boolean | ((field: string, index: number) => boolean),
         ): void;
         /**
          * 返回行节点代码

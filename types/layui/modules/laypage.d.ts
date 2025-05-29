@@ -16,7 +16,7 @@ declare namespace Layui {
          */
         limit?: number;
         /**
-         * 每页条数的选择项。如果 layout 参数开启了 limit， 
+         * 每页条数的选择项。如果 layout 参数开启了 limit，
          * 则会出现每页条数的select选择框。
          * 默认：[10, 20, 30, 40, 50]
          */
@@ -61,7 +61,7 @@ declare namespace Layui {
          * - refresh 页面刷新区
          * - skip 快捷跳页区
          */
-        layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'refresh' | 'skip'>;
+        layout?: Array<"count" | "prev" | "page" | "next" | "limit" | "refresh" | "skip">;
         /**
          * 自定义主题。支持传入：颜色值，或任意普通字符
          * - theme: '#c00'
@@ -80,7 +80,7 @@ declare namespace Layui {
          *   return item + ' / page';
          * }
          * ```
-         * 
+         *
          * @since 2.8.18
          */
         limitTemplet?: (item: string) => string;
@@ -110,7 +110,7 @@ declare namespace Layui {
         jump?(obj: LayPageOptionsForCallback, first: boolean): void;
     }
 
-    interface LayPageOptionsForCallback extends Omit<Required<LayPageOptions>, 'count' | 'curr' | 'limit' | 'groups'> {
+    interface LayPageOptionsForCallback extends Omit<Required<LayPageOptions>, "count" | "curr" | "limit" | "groups"> {
         /**
          * 数据总数。一般通过服务端得到
          */
@@ -148,7 +148,7 @@ declare namespace Layui {
         on(elem: HTMLElement | null, event: string, listener: (this: HTMLElement, ...args: any) => any): void;
         /**
          * laypage 组件渲染，核心方法
-         * @param options 
+         * @param options
          */
         render(options: LayPageOptions): any;
     }

@@ -33,12 +33,12 @@ declare const layer: Layui.Layer;
 declare const LAYUI_GLOBAL: { dir: string };
 
 interface Window {
-  layui: Layui;
-  lay: Layui.LayStatic;
-  layer: Layui.Layer;
-  /**
-   * 动态加载等特殊场景设置 layui 目录
-   * @since 2.6.6
-   */
-  LAYUI_GLOBAL: { dir: string };
+    layui: Layui;
+    lay: Layui.LayStatic;
+    layer: Layui.Layer;
+    /**
+     * 动态加载等特殊场景设置 layui 目录
+     * @since 2.6.6
+     */
+    LAYUI_GLOBAL: { dir: string };
 }

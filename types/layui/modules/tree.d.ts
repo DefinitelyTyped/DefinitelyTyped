@@ -47,16 +47,16 @@ declare namespace Layui {
     interface TreeClickData {
         data: any;
         elem: JQuery;
-        state: 'open' | 'close' | 'normal';
+        state: "open" | "close" | "normal";
     }
 
     interface TreeOperateData {
         data: any;
         elem: JQuery;
-        type: LiteralStringUnion<'add' | 'update' | 'del'>;
+        type: LiteralStringUnion<"add" | "update" | "del">;
     }
 
-    type TreeReloadReturn = Pick<Tree, 'config' | 'reload' | 'getChecked' | 'setChecked'>;
+    type TreeReloadReturn = Pick<Tree, "config" | "reload" | "getChecked" | "setChecked">;
 
     interface TreeOptions {
         /**
@@ -78,7 +78,7 @@ declare namespace Layui {
         showCheckbox?: boolean;
         /**
          * 是否开启节点的右侧操作图标。支持以下可选值：
-         * 
+         *
          * - 若为 true，则默认显示「改删」图标
          * - 若为 数组，则可自由配置操作图标，如：edit:['add', 'update', 'del'] ，且图标将按照数组的顺序显示
          * @default false
@@ -91,7 +91,7 @@ declare namespace Layui {
         accordion?: boolean;
         /**
          * 是否仅允许节点左侧图标控制展开伸缩
-         * 
+         *
          * - 默认为 false，即点击节点本身也可控制伸缩
          * - 若值为 true，则只能通过节点左侧图标来展开收缩
          * @default false

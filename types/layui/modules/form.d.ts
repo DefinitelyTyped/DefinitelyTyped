@@ -28,7 +28,10 @@ declare namespace Layui {
          * @param elem 当前进入验证的表单项的 DOM 元素
          * @return 返回验证信息；返回 true 阻止默认提示风格
          */
-        (value: string, elem: HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): string | boolean | void;
+        (
+            value: string,
+            elem: HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+        ): string | boolean | void;
     }
     interface LayFormVerifyConfig {
         [index: string]: LayFormVerifyConfigCallback | [RegExp, string];
@@ -99,7 +102,7 @@ declare namespace Layui {
          * @param type 对应表单组件类型，若不填，则指向所有类型
          * @param filter 对应 class="layui-form" 所在元素的 lay-filter 属性值，用于指定需渲染的表单区域
          */
-        render(type?: 'input' | 'select' | 'checkbox' | 'radio' | null, filter?: string): Form;
+        render(type?: "input" | "select" | "checkbox" | "radio" | null, filter?: string): Form;
         /**
          * 允许指定表单元素的 jQuery 对象，从而完成定向渲染。且支持两种方式的指向：
          * - 若 jQuery 对象指向表单域容器（class="layui-form"），则渲染该表单域中的所有表单项(2.8.0)

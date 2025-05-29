@@ -5,7 +5,7 @@ declare namespace Layui {
     interface UtilBarOptions {
         /**
          * 默认false。如果值为true，则显示第一个bar，带有一个默认图标
-         * 
+         *
          * 如果值为图标字符，则显示第二个bar，并覆盖默认图标
          * @deprecated 2.8.0 已废弃，请使用 {@link UtilBarOptions.bars|bars}
          * @see {@link UtilBarOptions.bars|bars}
@@ -13,7 +13,7 @@ declare namespace Layui {
         bar1?: boolean | string;
         /**
          * 默认false。如果值为true，则显示第二个bar，带有一个默认图标
-         * 
+         *
          * 如果值为图标字符，则显示第二个bar，并覆盖默认图标
          * @deprecated 2.8.0 已废弃，请使用 {@link UtilBarOptions.bars|bars}
          * @see {@link UtilBarOptions.bars|bars}
@@ -104,12 +104,12 @@ declare namespace Layui {
         css?: { [key: string]: string | number | boolean };
         /**
          * 点击bar的回调，函数返回一个type参数，用于区分 bar 类型
-         * 
+         *
          * 支持的类型有：bar1、bar2、top
          * @param type  bar1、bar2、top
          * @deprecated 2.8.0 已废弃，请使用 {@link UtilBarOptions.on|on}
          */
-        click?(type: LiteralStringUnion<'bar1' | 'bar2' | 'top'>): void;
+        click?(type: LiteralStringUnion<"bar1" | "bar2" | "top">): void;
     }
 
     /**
@@ -123,7 +123,7 @@ declare namespace Layui {
         /**
          * 打开页面的方式或窗口 name
          */
-        target?: LiteralStringUnion<'_blank' | '_parent' | '_self' | '_top'>;
+        target?: LiteralStringUnion<"_blank" | "_parent" | "_self" | "_top">;
         /**
          * 打开的页面内容。若设置了 url 属性，则该属性无效
          */
@@ -179,7 +179,7 @@ declare namespace Layui {
         timer: number;
     }
 
-    type TypeToTriggeredEventMap<TElement> = JQuery.TypeToTriggeredEventMap<TElement, undefined, any, any>
+    type TypeToTriggeredEventMap<TElement> = JQuery.TypeToTriggeredEventMap<TElement, undefined, any, any>;
 
     type TriggerEvent<TElement> = keyof Layui.OmitIndexSignature<TypeToTriggeredEventMap<TElement>>;
 
@@ -202,7 +202,7 @@ declare namespace Layui {
          * - date（包含天/时/分/秒的对象）
          * - serverTime（当前服务器时间戳或Date对象）
          * - timer（计时器返回的ID值，用于clearTimeout）
-         * 
+         *
          * @deprecated 2.8.8 此签名已弃用
          */
         countdown(
@@ -212,7 +212,7 @@ declare namespace Layui {
         ): void;
         /**
          * 倒计时
-         * @param options 
+         * @param options
          * @since 2.8.8
          */
         countdown(options: UtilCountdownOptions): UtilCountdownReturn;
@@ -224,9 +224,9 @@ declare namespace Layui {
         timeAgo(time: number | Date, onlyDate?: boolean): string;
         /**
          * 转化时间戳或日期对象为日期格式字符
-         * 
+         *
          * 参数 `format` 所有可用的格式列表 :
-         * 
+         *
          * | 格式 | 示例 | 描述 |
          * | --- | --- | --- |
          * | yy | 23 | 年，两位数 (2.8.13+) |
@@ -245,21 +245,21 @@ declare namespace Layui {
          * | s | 0-59 | 秒 (2.8.13+) |
          * | ss | 00-59 | 秒，两位数 |
          * | SSS | 000-999 | 毫秒，三位数 (2.8.13+) |
-         * 
+         *
          * @param time 毫秒数或日期对象
          * @param format 默认：yyyy-MM-dd HH:mm:ss
          * @param option 参数选项
          * @example
          * ```js
-         * customMeridiem: function(hours, minutes){ 
-         *   return hours < 12 ? '上午' : '下午'; 
+         * customMeridiem: function(hours, minutes){
+         *   return hours < 12 ? '上午' : '下午';
          * }
          * ```
          */
         toDateString(
             time: number | Date,
             format?: string,
-            option?: { customMeridiem?: (hours: number, minutes: number) => string }
+            option?: { customMeridiem?: (hours: number, minutes: number) => string },
         ): string;
         /**
          * 数字前置补零
@@ -291,7 +291,11 @@ declare namespace Layui {
          * @deprecated 2.8.0 已弃用,请使用 {@link Util.on|util.on}
          * @see {@link Util.event|util.on}
          */
-        event(attr: string, obj: { [index: string]: (othis: JQuery) => any }, eventType?: TriggerEvent<HTMLBodyElement>): void;
+        event(
+            attr: string,
+            obj: { [index: string]: (othis: JQuery) => any },
+            eventType?: TriggerEvent<HTMLBodyElement>,
+        ): void;
         /**
          * 批量事件处理
          * @param attr 触发事件的元素属性名，默认值 'lay-on'
@@ -301,10 +305,10 @@ declare namespace Layui {
          * @since 2.8.0
          * @since 2.9.0 事件处理函数新增第二个参数 e 事件对象；新增事件集合返回值；
          */
-        on<TEventType extends TriggerEvent<TElement> = 'click', TElement = HTMLBodyElement>(
+        on<TEventType extends TriggerEvent<TElement> = "click", TElement = HTMLBodyElement>(
             attr: string,
             events: {
-                [attrValue: string]: (othis: JQuery, e?: TypeToTriggeredEventMap<TElement>[TEventType]) => any
+                [attrValue: string]: (othis: JQuery, e?: TypeToTriggeredEventMap<TElement>[TEventType]) => any;
             },
             trigger?: TEventType,
         ): typeof events;
@@ -318,16 +322,16 @@ declare namespace Layui {
          * @returns 返回当前 events 参数设置的事件集合
          * @since 2.9.0
          */
-        on<TEventType extends TriggerEvent<TElement> = 'click', TElement = HTMLBodyElement>(
+        on<TEventType extends TriggerEvent<TElement> = "click", TElement = HTMLBodyElement>(
             attr: string,
             events: {
-                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any
+                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any;
             },
             options?: {
                 trigger?: TEventType | TriggerEvent<TElement>;
-                elem?: string | TElement | JQuery<TElement>
+                elem?: string | TElement | JQuery<TElement>;
             },
-        ): typeof events
+        ): typeof events;
         /**
          * 批量事件处理
          * @param events 事件集合
@@ -335,12 +339,12 @@ declare namespace Layui {
          * @returns 返回当前 events 参数设置的事件集合
          * @since 2.9.0
          */
-        on<TEventType extends TriggerEvent<TElement> = 'click', TElement = HTMLBodyElement>(
+        on<TEventType extends TriggerEvent<TElement> = "click", TElement = HTMLBodyElement>(
             events: {
-                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any
+                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any;
             },
             trigger?: TEventType,
-        ): typeof events
+        ): typeof events;
         /**
          * 批量事件处理
          * @param events 事件集合
@@ -350,13 +354,13 @@ declare namespace Layui {
          * @returns 返回当前 events 参数设置的事件集合
          * @since 2.9.0
          */
-        on<TEventType extends TriggerEvent<TElement> = 'click', TElement = HTMLBodyElement>(
+        on<TEventType extends TriggerEvent<TElement> = "click", TElement = HTMLBodyElement>(
             events: {
-                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any
+                [attrValue: string]: (othis: JQuery, e: TypeToTriggeredEventMap<TElement>[TEventType]) => any;
             },
             options?: {
                 trigger?: TEventType | TriggerEvent<TElement>;
-                elem?: string | TElement | JQuery<TElement>
+                elem?: string | TElement | JQuery<TElement>;
             },
         ): typeof events;
     }

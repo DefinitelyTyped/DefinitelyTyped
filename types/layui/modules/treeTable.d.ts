@@ -31,7 +31,7 @@ declare namespace Layui {
     interface TreeTableTreeOptionsForAsync {
         /**
          * 是否开启异步加载模式。只有开启时 async 的其他属性配置才有效
-         * 
+         *
          * 注意： 异步加载子节点不应跟 simpleData 同时开启，可以是 url+simpleData 的方式，
          * 获取完整的简单数据进行转换。若开启异步加载模式，即表示按需异步加载子节点
          * @default false
@@ -83,7 +83,11 @@ declare namespace Layui {
          * @param callback 子节点的渲染函数，参数为子节点数据
          * @since 2.8.4
          */
-        format?(trData: Record<string, any>, options: Required<TreeTableOptions>, callback: (nodeList: Array<object>) => void): void;
+        format?(
+            trData: Record<string, any>,
+            options: Required<TreeTableOptions>,
+            callback: (nodeList: Array<object>) => void,
+        ): void;
     }
 
     /**
@@ -112,7 +116,7 @@ declare namespace Layui {
          * @default 'all'
          * @since 2.8.12
          */
-        cascade?: 'all' | 'parent' | 'children' | 'none';
+        cascade?: "all" | "parent" | "children" | "none";
     }
 
     /**
@@ -353,7 +357,7 @@ declare namespace Layui {
      * @see https://layui.dev/docs/2/treeTable
      * @since 2.8.0
      */
-    interface TreeTable extends Omit<Table, 'setRowChecked' | 'updateRow'> {
+    interface TreeTable extends Omit<Table, "setRowChecked" | "updateRow"> {
         /**
          * treeTable 组件渲染，核心方法
          * @param option 基础参数
@@ -483,9 +487,12 @@ declare namespace Layui {
          * @since 2.8.4
          * @see https://layui.dev/docs/2/treeTable/#getNodesByFilter
          */
-        getNodesByFilter(id: string, filter: (item: any) => boolean, opts?: { isSingle?: boolean; parentNode?: object }): object;
+        getNodesByFilter(
+            id: string,
+            filter: (item: any) => boolean,
+            opts?: { isSingle?: boolean; parentNode?: object },
+        ): object;
         /**
-         *
          * @param id treeTable 渲染时的 id 属性值
          * @param includeHalfCheck 是否包含半选状态的数据(2.8.4)
          * @since 2.8.0
@@ -494,12 +501,12 @@ declare namespace Layui {
         checkStatus(id: string, includeHalfCheck?: boolean): TablecheckStatusReturn;
         /**
          * 表格事件
-         * 
+         *
          * `treeTable.on('event(filter)', callback);`
-         * 
+         *
          * - 参数 event(filter) 是事件的特定结构。 event 为事件名，支持的事件见下表。filter 为元素属性 lay-filter 对应的值
          * - 参数 callback 为事件执行时的回调函数，并返回一个包含各项成员的 object 类型的参数
-         * 
+         *
          * |  event | 描述 |
          * | --- | --- |
          * | toolbar | 头部工具栏事件 |
@@ -520,8 +527,14 @@ declare namespace Layui {
          * @param callback 事件回调参数
          * @see https://layui.dev/docs/2/table/#table.on
          */
-        on<K extends keyof TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>>(event: `${K}(${TableFilter})`, callback: TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>[K]): void;
-        on<K extends keyof TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>>(event: K, callback: TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>[K]): void;
+        on<K extends keyof TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>>(
+            event: `${K}(${TableFilter})`,
+            callback: TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>[K],
+        ): void;
+        on<K extends keyof TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>>(
+            event: K,
+            callback: TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>[K],
+        ): void;
         on<K extends string>(event: `${K}(${TableFilter})`, callback: AnyFn): void;
         /**
          * @internal

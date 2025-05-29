@@ -31,7 +31,7 @@ declare namespace Layui {
          * - `video` 视频类型
          * - `audio` 音频类型
          */
-        accept?: 'images' | 'file' | 'video' | 'audio';
+        accept?: "images" | "file" | "video" | "audio";
         /**
          * 规定打开文件选择框筛选出的文件类型，多个 MIME 类型可用逗号隔开。示例：
          * ```
@@ -50,7 +50,7 @@ declare namespace Layui {
         force?: string | null;
         /**
          * 允许上传的文件后缀。一般结合 accept 属性来设定。
-         * 
+         *
          * - 假设 accept: 'file' 类型时，那么设置 exts: 'zip|rar|7z' 即代表只允许上传压缩格式的文件。
          * - 默认为常见图片后缀，即 jpg|png|gif|bmp|jpeg|svg
          */
@@ -142,7 +142,13 @@ declare namespace Layui {
          * @param res 返回值（纯文本）2.9.13+
          * @param xhr jQuery xhr 对象 2.9.16+
          */
-        error?(this: UploadOptionsThis, index: string, upload: (files?: Blob[]) => void, res: string, xhr: JQuery.jqXHR): void;
+        error?(
+            this: UploadOptionsThis,
+            index: string,
+            upload: (files?: Blob[]) => void,
+            res: string,
+            xhr: JQuery.jqXHR,
+        ): void;
         /**
          *  当文件全部被提交后，才触发
          * @param obj 回调参数
@@ -155,7 +161,13 @@ declare namespace Layui {
          * @param event 事件
          * @param index 当前文件索引  (选择文件时自动生成的：new Date().getTime()+'-'+i)
          */
-        progress?(this: UploadOptionsThis, percent: number, elem: HTMLElement, event: ProgressEvent, index: string): void;
+        progress?(
+            this: UploadOptionsThis,
+            percent: number,
+            elem: HTMLElement,
+            event: ProgressEvent,
+            index: string,
+        ): void;
     }
 
     type UploadOptionsThis = Required<UploadOptions>;
@@ -188,7 +200,7 @@ declare namespace Layui {
         preview(callback: (index: string, file: File, result: string) => void): void;
         /**
          * 上传单个文件
-         * 
+         *
          * 对上传失败的单个文件重新上传，一般在某个事件中使用
          * @param index 索引 (选择文件时自动生成的：new Date().getTime()+'-'+i)
          * @param file 文件
@@ -233,11 +245,11 @@ declare namespace Layui {
         /**
          * 数据格式错误的提示
          */
-        'data-format-error'?: string;
+        "data-format-error"?: string;
         /**
          * 文件格式校验失败的提示
          */
-        'check-error'?: string;
+        "check-error"?: string;
         /**
          * 上传失败的提示
          */
@@ -245,15 +257,15 @@ declare namespace Layui {
         /**
          * 限制 number 属性的提示。若设置，需为函数写法
          */
-        'limit-number'?: (options: UploadOptionsThis, fileLength: number) => string;
+        "limit-number"?: (options: UploadOptionsThis, fileLength: number) => string;
         /**
          * 限制 size 属性的提示。若设置，需为函数写法
          */
-        'limit-size'?: (options: UploadOptionsThis, limitSize: number) => string;
+        "limit-size"?: (options: UploadOptionsThis, limitSize: number) => string;
         /**
          * IE 下跨域的提示
          */
-        'cross-domain'?: string;
+        "cross-domain"?: string;
     }
 
     /**

@@ -26,7 +26,7 @@ declare namespace Layui {
          * - `fade` 渐隐渐显切换
          * @default 'default'
          */
-        anim?: 'default' | 'updown' | 'fade';
+        anim?: "default" | "updown" | "fade";
         /**
          * 是否自动切换
          * - `true` 自动滚动，鼠标移入会暂停、移出重新恢复
@@ -34,7 +34,7 @@ declare namespace Layui {
          * - `alway` 始终自动滚动，不受鼠标移入移出影响（2.7.0）
          * @default true
          */
-        autoplay?: boolean | 'always';
+        autoplay?: boolean | "always";
         /**
          * 自动切换的时间间隔，单位：ms（毫秒），不能低于 800
          * @default 3000
@@ -52,17 +52,17 @@ declare namespace Layui {
          * - `none` 始终不显示
          * @default 'hover'
          */
-        arrow?: 'hover' | 'always' | 'none';
+        arrow?: "hover" | "always" | "none";
         /**
          * 指示器位置
          * - `inside` 容器内部
          * - `outside` 容器外部
          * - `none` 不显示
-         * 
+         *
          * 如果设定了 anim: 'updown'，则 indicator 参数的 outside 值无效
          * @default 'inside'
          */
-        indicator?: 'insider' | 'outsider' | 'none';
+        indicator?: "insider" | "outsider" | "none";
         /**
          * 指示器的触发事件
          * @default 'click'

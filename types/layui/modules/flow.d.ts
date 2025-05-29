@@ -38,7 +38,7 @@ declare namespace Layui {
          * @default 'bottom'
          * @since 2.9.7
          */
-        direction?: 'bottom' | 'top';
+        direction?: "bottom" | "top";
         /**
          * 自定义"加载更多"按钮文本
          * @since 2.9.11

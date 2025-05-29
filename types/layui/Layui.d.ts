@@ -2,7 +2,7 @@ interface Layui extends Layui.GlobalModules {
     // -----------------Static members of layui-------------------------------------
     $: JQueryStatic;
     /**
-     * 版本号 
+     * 版本号
      */
     v: string;
 
@@ -24,7 +24,7 @@ interface Layui extends Layui.GlobalModules {
      * @since 2.6.8
      * @example
      * ```js
-     * layui._isArray([1,6]); // true	
+     * layui._isArray([1,6]); // true
      * layui._isArray($('div')); // true
      * layui._isArray(document.querySelectorAll('div')); // true
      * ```
@@ -37,7 +37,7 @@ interface Layui extends Layui.GlobalModules {
      * @since 2.6.9
      * @example
      * ```js
-     * layui._isArray([1,6]); // true	
+     * layui._isArray([1,6]); // true
      * layui._isArray($('div')); // true
      * layui._isArray(document.querySelectorAll('div')); // true
      * ```
@@ -52,8 +52,8 @@ interface Layui extends Layui.GlobalModules {
      * @since 2.6.8
      * @example
      * ```js
-     * layui._typeof([]); // array 
-     * layui._typeof({}); // object 
+     * layui._typeof([]); // array
+     * layui._typeof({}); // object
      * layui._typeof(new Date()); // date
      * ```
      */
@@ -66,8 +66,8 @@ interface Layui extends Layui.GlobalModules {
      * @since 2.6.9
      * @example
      * ```js
-     * layui._typeof([]); // array 
-     * layui._typeof({}); // object 
+     * layui._typeof([]); // array
+     * layui._typeof({}); // object
      * layui._typeof(new Date()); // date
      * ```
      */
@@ -103,16 +103,16 @@ interface Layui extends Layui.GlobalModules {
      *   key: 'nickname',
      *   value: '张三'
      * });
-     * 
+     *
      * // 【删】：删除 test 表的 nickname 字段
      * layui.data('test', {
      *   key: 'nickname',
      *   remove: true
      * });
      * layui.data('test', null); // 删除 test 表
-     * 
+     *
      * // 【改】：同【增】，会覆盖已经存储的数据
-     * 
+     *
      * // 【查】：向 test 表读取全部的数据
      * var localTest = layui.data('test');
      * console.log(localTest.nickname); // 获得“张三”
@@ -131,16 +131,16 @@ interface Layui extends Layui.GlobalModules {
      *   key: 'nickname',
      *   value: '张三'
      * });
-     * 
+     *
      * // 【删】：删除 test 表的 nickname 字段
      * layui.sessionData('test', {
      *   key: 'nickname',
      *   remove: true
      * });
      * layui.sessionData('test', null); // 删除 test 表
-     * 
+     *
      * // 【改】：同【增】，会覆盖已经存储的数据
-     * 
+     *
      * // 【查】：向 test 表读取全部的数据
      * var localTest = layui.sessionData('test');
      * console.log(localTest.nickname); // 获得“张三”
@@ -166,7 +166,9 @@ interface Layui extends Layui.GlobalModules {
      * 获取浏览器信息
      * @see https://layui.dev/docs/2/base.html#api
      */
-    device<K extends PropertyKey>(key?: K): K extends string ? Layui.deviceReturn & Record<K, boolean | string | undefined> : Layui.deviceReturn;
+    device<K extends PropertyKey>(
+        key?: K,
+    ): K extends string ? Layui.deviceReturn & Record<K, boolean | string | undefined> : Layui.deviceReturn;
     /**
      * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句
      * @param collection Array 对象
@@ -174,7 +176,10 @@ interface Layui extends Layui.GlobalModules {
      * @see https://layui.dev/docs/2/base.html#api
      */
     each<T>(collection: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => any): Layui;
-    each<T, K extends keyof T>(collection: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => any): Layui;
+    each<T, K extends keyof T>(
+        collection: T,
+        callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => any,
+    ): Layui;
     /**
      * 执行自定义模块事件，搭配 onevent 使用
      * @param modName 模块名称，比如form
@@ -187,11 +192,11 @@ interface Layui extends Layui.GlobalModules {
      * // 实例一：按照select后边括号内容filter来匹配，比如filter空或没有括号则可匹配到
      * layui.onevent("form", "select()", console.log);
      * layui.event("form","select()",[1,2,3]);
-     * 
+     *
      * // 实例二：{*}可匹配全部filter
      * layui.onevent("form", "select(xx)", console.log)
      * layui.event("form","select({*})",[1,2,3]);
-     * 
+     *
      * // 实例三：filter严格匹配
      * layui.onevent("form", "select(xx)", console.log);
      * layui.event("form","select(xx)",[1,2,3]);
@@ -225,7 +230,7 @@ interface Layui extends Layui.GlobalModules {
      * layui.hint().error('出错啦','warn');
      * ```
      */
-    hint(): { error: (msg: any, type?: string | 'log' | 'info' | 'error' | 'warn' | 'debug') => void };
+    hint(): { error: (msg: any, type?: string | "log" | "info" | "error" | "warn" | "debug") => void };
     /**
      * 图片预加载
      * @param url 图片地址直接作为 Image.src 值
@@ -354,7 +359,10 @@ interface Layui extends Layui.GlobalModules {
      * @param callback 回调函数，从 layui 2.6 开始，首个参数是 callback 函数，则表示引用所有内置模块到 `layui.xx`
      * @param exports 无任何用途，可不传
      */
-    use(callback: (this: Layui, module: { config: Layui.PlainObject; time: number }) => any, exports?: any[]): { v: string };
+    use(
+        callback: (this: Layui, module: { config: Layui.PlainObject; time: number }) => any,
+        exports?: any[],
+    ): { v: string };
     /**
      * 弃用某模块，以便重新扩展新的同名模块
      * @param modules 模块名称，支持数组，可同时弃用多个模块
@@ -364,7 +372,7 @@ interface Layui extends Layui.GlobalModules {
     disuse(modules: Layui.MaybeArray<Layui.LiteralStringUnion<keyof Layui.GlobalModules>>): any;
     /**
      * 防抖
-     * @param fn 
+     * @param fn
      * @param wait
      * @see https://layui.dev/docs/2/base.html#api
      * @since 2.8.3

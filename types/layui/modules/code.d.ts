@@ -22,7 +22,7 @@ declare namespace Layui {
          * @default false
          * @since 2.8.0
          */
-        preview?: boolean | 'iframe';
+        preview?: boolean | "iframe";
         /**
          * 开启预览后的面板布局方式，值为一个数组，数组的可选成员有：
          * - code 代码区域
@@ -34,7 +34,7 @@ declare namespace Layui {
          * ```
          * @since 2.8.0
          */
-        layout?: Array<'code' | 'preview'>;
+        layout?: Array<"code" | "preview">;
         /**
          * 设置 Code 和预览区域的公共样式
          * @since 2.8.0
@@ -73,7 +73,7 @@ declare namespace Layui {
          * 自定义扩展 2.8.17
          * @since 2.8.0
          */
-        tools?: Array<'full' | 'window' | { title: string[]; type: string; event: (obj: any) => void }>;
+        tools?: Array<"full" | "window" | { title: string[]; type: string; event: (obj: any) => void }>;
         /**
          * 点击工具栏的回调函数，函数返回 tools 设置的名称
          * @param othis 当前图标元素对象
@@ -161,7 +161,7 @@ declare namespace Layui {
         codeRender?(code: string, opts: Required<CodeOptions>): string;
         /**
          * 用于解析 code 内容，例如去掉注释，替换链接等
-         * 
+         *
          * 内部私有方法
          * @internal
          * @param code 当前 code 内容
@@ -173,7 +173,7 @@ declare namespace Layui {
          * 指定语法高亮器，支持 `hljs,prism,shiki`
          * @since 2.8.17
          */
-        highlighter?: 'hljs' | 'prism' | 'shiki';
+        highlighter?: "hljs" | "prism" | "shiki";
         /**
          * 指定语言类型
          * @since 2.8.17
@@ -198,7 +198,7 @@ declare namespace Layui {
         code?: string;
     }
 
-    interface CodeReturn{
+    interface CodeReturn {
         config: Required<CodeOptions>;
         reload(opts?: Partial<CodeOptions>): void;
         updateOptions(opts: Partial<CodeOptions>): Required<CodeOptions>;
@@ -212,9 +212,9 @@ declare namespace Layui {
     interface Code {
         /**
          * 渲染代码面板
-         * @param options 
+         * @param options
          * @param _mod 传入 `reloadCode` 则重新渲染代码面板。仅供内部使用的私有属性
          */
-        (options?: CodeOptions, _mod?: 'reloadCode' ): CodeReturn;
+        (options?: CodeOptions, _mod?: "reloadCode"): CodeReturn;
     }
 }

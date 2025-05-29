@@ -9,14 +9,14 @@ declare namespace Layui {
          */
         color?: string;
         /**
-         * 颜色显示/输入格式，支持 
-         * - `hex` 
-         * - `rgb`。 
-         * 
+         * 颜色显示/输入格式，支持
+         * - `hex`
+         * - `rgb`。
+         *
          * 若同时开启 alpha 属性，则颜色值自动变为 rgba
          * @default 'hex'
          */
-        format?: 'hex' | 'rgb' | 'rgba';
+        format?: "hex" | "rgb" | "rgba";
         /**
          * 是否开启透明度。当同时开启 format: 'rgb' 时，color 值将采用 rgba 格式
          * @default false
@@ -43,7 +43,7 @@ declare namespace Layui {
          * 下拉框大小
          * @default 'sm'
          */
-        size?: 'lg' | 'sm' | 'xs';
+        size?: "lg" | "sm" | "xs";
         /**
          * 颜色被改变的回调
          * @param color 当前颜色值

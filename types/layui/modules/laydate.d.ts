@@ -22,7 +22,7 @@ declare namespace Layui {
          * - datetime 日期时间选择器，可选择：年月日、时分秒
          * @default 'date'
          */
-        type?: 'year' | 'month' | 'date' | 'time' | 'datetime';
+        type?: "year" | "month" | "date" | "time" | "datetime";
         /**
          * 开启左右面板的范围选择，将会根据 type 类型呈现对应的范围选择面板。该属性值支持以下类型：
          * - 若为 boolean 类型，即表示是否开启范围选择，若设为 true，则开始日期与结束日期默认采用 - 连接符
@@ -62,7 +62,7 @@ declare namespace Layui {
          * | m | 分钟，允许一位 |
          * | ss | 秒数，输出两个字符。若不足两位，则前面补零 |
          * | s | 秒数，允许一位 |
-         * 
+         *
          * @default 'yyyy-MM-dd'
          */
         format?: string;
@@ -80,7 +80,12 @@ declare namespace Layui {
          * ]
          * ```
          */
-        holidays?: string[][] | ((ymd: { year: number; month: number; date: number }, render: (val: string | string[][]) => void) => void);
+        holidays?:
+            | string[][]
+            | ((
+                ymd: { year: number; month: number; date: number },
+                render: (val: string | string[][]) => void,
+            ) => void);
         /**
          * 初始值
          * - 若为 `string` 类型，则必须和 `format` 属性格式对应
@@ -92,7 +97,7 @@ declare namespace Layui {
          * value: new Date(1534766888000) // 参数即为：2018-08-20 20:08:08 的毫秒数
          * ```
          * - 当开启 `range` 时，初始设置日期范围值
-         * 
+         *
          * ```
          * // 开始日期 - 结束日期
          * value: '1900-01-01 - 2100-01-01'
@@ -136,31 +141,31 @@ declare namespace Layui {
          *     value: function(){  // 数组类型可指定时间范围
          *       var now = new Date();
          *       now.setFullYear(now.getFullYear() + 1);
-         *       return [new Date(), now]; 
+         *       return [new Date(), now];
          *     }
          *   },
          * ]
          * ```
          */
-        shortcuts?: { text: string, value: string | Date | Date[] | (() => string | Date | Date[]) }[];
+        shortcuts?: { text: string; value: string | Date | Date[] | (() => string | Date | Date[]) }[];
         /**
          * 设置起始周。 支持 0-6 的数字，0 即代表从周日开始
          * @default 0
          * @since 2.7.0
          */
-        weekStart?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+        weekStart?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
         /**
          * 用于是否在面板左下角显示当前结果的预览。当 `type:datetime` 时强制为 `false`。
          * @default true
          */
         isPreview?: boolean;
         /**
-         * 限制可供选择的最小日期时间值。默认值： 
-         * - `min: '1900-1-1'` 
+         * 限制可供选择的最小日期时间值。默认值：
+         * - `min: '1900-1-1'`
          * - `max: '2099-12-31'`
-         * 
+         *
          * 属性值支持以下可选类型：
-         * 
+         *
          * - 若值为字符类型，则：年月日必须用 `-` 连接，且时分秒必须用 `:` 连接。 此处无需遵循 `format` 设定的格式；
          * - 若值为整数类型，且数字 ＜ 86400000，则数字代表天数，如： `min: -7` 即代表最小日期在 7 天前，正数代表若干天后；
          * - 若值为整数类型，且数字 ≥ 86400000，则数字代表毫秒数，如：`max: 4073558400000` 即代表最大日期在公元 3000年1月1日。
@@ -173,12 +178,12 @@ declare namespace Layui {
          */
         min?: string | number;
         /**
-         * 限制可供选择的最小日期时间值。默认值： 
-         * - `min: '1900-1-1'` 
+         * 限制可供选择的最小日期时间值。默认值：
+         * - `min: '1900-1-1'`
          * - `max: '2099-12-31'`
-         * 
+         *
          * 属性值支持以下可选类型：
-         * 
+         *
          * - 若值为字符类型，则：年月日必须用 `-` 连接，且时分秒必须用 `:` 连接。 此处无需遵循 `format` 设定的格式；
          * - 若值为整数类型，且数字 ＜ 86400000，则数字代表天数，如： `min: -7` 即代表最小日期在 7 天前，正数代表若干天后；
          * - 若值为整数类型，且数字 ≥ 86400000，则数字代表毫秒数，如：`max: 4073558400000` 即代表最大日期在公元 3000年1月1日。
@@ -206,13 +211,13 @@ declare namespace Layui {
         closeStop?: string;
         /**
          * 设置组件面板的定位方式。支持以下可选值：
-         * 
+         *
          * - `absolute`  绝对定位，始终吸附在绑定元素周围。
          * - `fixed` 固定定位，初始吸附在绑定元素周围，不随浏览器滚动条所左右。一般用于在固定定位的弹层中使用。
          * - `static` 静态定位，控件将直接嵌套显示在指定容器中。用法详见：[#示例](#demo-static)
          * @default 'absolute'
          */
-        position?: 'abolute' | 'fixed' | 'static';
+        position?: "abolute" | "fixed" | "static";
         /**
          * 设置组件面板的层叠顺序。一般用于解决与其它元素的互相被遮掩的问题。若 `position: 'static'` 时，则该属性无效。
          * @default 99999999
@@ -233,7 +238,7 @@ declare namespace Layui {
         /**
          * 工具按钮。默认值：['clear', 'now', 'confirm']
          */
-        btns?: Array<'clear' | 'now' | 'confirm'>;
+        btns?: Array<"clear" | "now" | "confirm">;
         /**
          * 是否在选中目标值时即自动确认
          * 开启 range 时，该参数无效
@@ -244,7 +249,7 @@ declare namespace Layui {
         /**
          * 语言
          */
-        lang?: 'cn' | 'en';
+        lang?: "cn" | "en";
         /**
          * 主题
          * @example
@@ -257,7 +262,7 @@ declare namespace Layui {
          * theme: ['#FF5722', '#FF5723'] // 定义主色和辅色 （2.8.4）
          * ```
          */
-        theme?: MaybeArray<LiteralStringUnion<'molv' | 'grid' | 'circle'>>;
+        theme?: MaybeArray<LiteralStringUnion<"molv" | "grid" | "circle">>;
         /**
          * 是否显示公历节日
          * @default false
@@ -267,7 +272,9 @@ declare namespace Layui {
          * 自定义日期标记
          * @since 2.9.9 支持函数类型
          */
-        mark?: { [key: string]: string } | ((ymd: { year: number; month: number; date: number }, render: ((val: object) => void) | string) => void);
+        mark?:
+            | { [key: string]: string }
+            | ((ymd: { year: number; month: number; date: number }, render: ((val: object) => void) | string) => void);
         /**
          * @internal
          */
@@ -296,7 +303,7 @@ declare namespace Layui {
          * @return 返回值为 true 的日期会被禁用
          * @since 2.9.8
          */
-        disabledDate?(date: Date, type: 'start' | 'end'): void | boolean;
+        disabledDate?(date: Date, type: "start" | "end"): void | boolean;
         /**
          * 设置不可选取的时间
          * @param date 当前的日期对象
@@ -306,11 +313,11 @@ declare namespace Layui {
          */
         disabledTime?(
             date: Date,
-            type: 'start' | 'end'
+            type: "start" | "end",
         ): {
             hours?(): number[];
             minutes?(hour: number): number[];
-            seconds?(hour: number, minute: number): number[]
+            seconds?(hour: number, minute: number): number[];
         };
         /**
          * 自定义单元格内容
@@ -323,7 +330,7 @@ declare namespace Layui {
         cellRender?(
             ymd: { year: number; month: number; date: number },
             render: (val: string | HTMLElement | JQuery) => void,
-            info: { type: 'year' | 'month' | 'date' }
+            info: { type: "year" | "month" | "date" },
         ): void;
         /**
          * 控件初始打开的回调
@@ -399,12 +406,12 @@ declare namespace Layui {
         index: number;
         /**
          * 设置全局参数
-         * @param options 
+         * @param options
          */
         set(options?: Partial<LayDateOptions>): Laydate;
         /**
          * 主体 CSS 等待事件
-         * @param callback 
+         * @param callback
          */
         ready(callback: AnyFn): Laydate;
         /**
@@ -421,11 +428,11 @@ declare namespace Layui {
         reload(id: string, options?: Partial<LayDateOptions>): void;
         /**
          * 配置基础路径
-         * 
+         *
          * 如果你不是采用 layui 或者普通 script 标签方式加载的 laydate.js
          * 而是采用 requirejs 等其它方式引用 laydate
          * 那么你需要设置基础路径，以便加载 `laydate.css`
-         *  
+         *
          * @deprecated 2.8.0 之后不再提供独立版本
          */
         path: string;
@@ -444,8 +451,8 @@ declare namespace Layui {
                 /**
                  * 提示层自动消失所需的毫秒数
                  */
-                ms: number
-            }
+                ms: number;
+            },
         ): void;
         /**
          * 获取 laydate 对应 id 的实例
@@ -454,7 +461,7 @@ declare namespace Layui {
          */
         getInst(id: string): Laydate;
         /**
-         * 解除实例绑定 
+         * 解除实例绑定
          * @remark 对目标元素对应的实例的完全解除，即触发元素事件时，不再执行组件渲染
          * @param id 组件渲染时定义的 id 属性值
          * @since 2.8.0

@@ -7,7 +7,7 @@ declare namespace Layui {
         /**
          * 结束符号
          */
-        close?: string
+        close?: string;
     }
 
     interface LayTplReturn {

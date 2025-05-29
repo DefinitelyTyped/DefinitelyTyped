@@ -78,17 +78,17 @@ declare namespace Layui {
         off<K extends keyof HTMLElementEventMap>(
             eventName: K,
             fn: (this: TElement, e: HTMLElementEventMap[K]) => any,
-            options?: boolean | EventListenerOptions
+            options?: boolean | EventListenerOptions,
         ): this;
         off<K extends keyof DocumentEventMap>(
             eventName: K,
             fn: (this: TElement, e: DocumentEventMap[K]) => any,
-            options?: boolean | EventListenerOptions
+            options?: boolean | EventListenerOptions,
         ): this;
         off<K extends keyof WindowEventMap>(
             eventName: K,
             fn: (this: TElement, e: WindowEventMap[K]) => any,
-            options?: boolean | EventListenerOptions
+            options?: boolean | EventListenerOptions,
         ): this;
         /**
          * 事件绑定，注意：只支持内置事件，不支持自定义事件
@@ -99,23 +99,23 @@ declare namespace Layui {
         on<K extends keyof HTMLElementEventMap>(
             eventName: K,
             fn: (this: TElement, e: HTMLElementEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): this;
         on<K extends keyof DocumentEventMap>(
             eventName: K,
             fn: (this: TElement, e: DocumentEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): this;
         on<K extends keyof WindowEventMap>(
             eventName: K,
             fn: (this: TElement, e: WindowEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): this;
         /**
          * 移除元素
          * @param elem 实际是 removeChild(elem)
          */
-        remove(elem: HTMLElement): this
+        remove(elem: HTMLElement): this;
         /**
          * 移除指定的 `attribute`
          * @param key 属性名
@@ -167,7 +167,7 @@ declare namespace Layui {
         /**
          * 滑动方向
          */
-        direction: 'none' | 'right' | 'left' | 'up' | 'down';
+        direction: "none" | "right" | "left" | "up" | "down";
         /**
          * 开始时间
          */
@@ -179,16 +179,16 @@ declare namespace Layui {
          * 元素的定位模式
          * @default 'absolute'
          */
-        position?: 'absolute' | 'fixed';
+        position?: "absolute" | "fixed";
         /**
          * 点击类型，默认为 'left'，如果 {@link opts.target} 是 document 或 body 元素，则为 'right'
          */
-        clickType?: 'left' | 'right';
+        clickType?: "left" | "right";
         /**
          * 对齐方式
          * @default 'left'
          */
-        align?: 'left' | 'center' | 'right';
+        align?: "left" | "center" | "right";
         /**
          * 顶部没有足够区域显示时，是否允许底部溢出
          */
@@ -209,18 +209,18 @@ declare namespace Layui {
         /**
          * 相对于触发元素的额外偏移量[x,y]
          */
-        offset?: [offsetX: number, offsetY: number]
+        offset?: [offsetX: number, offsetY: number];
     }
 
     type LayOnClickOutsideScope = HTMLElement | Document | Window;
-    type LayOnClickOutsideScopeEventMap<SElement> = SElement extends Window
-        ? WindowEventMap
-        : SElement extends Document
-        ? DocumentEventMap
-        : SElement extends HTMLElement
-        ? HTMLElementEventMap
+    type LayOnClickOutsideScopeEventMap<SElement> = SElement extends Window ? WindowEventMap
+        : SElement extends Document ? DocumentEventMap
+        : SElement extends HTMLElement ? HTMLElementEventMap
         : never;
-    type LayOnClickOutsideEventMap<SElement> = Pick<LayOnClickOutsideScopeEventMap<SElement>, 'click' | 'mousedown' | 'mouseup' | 'touchstart' | 'touchend' | 'pointerdown' | 'pointerup'>;
+    type LayOnClickOutsideEventMap<SElement> = Pick<
+        LayOnClickOutsideScopeEventMap<SElement>,
+        "click" | "mousedown" | "mouseup" | "touchstart" | "touchend" | "pointerdown" | "pointerup"
+    >;
     interface LayOnClickOutsideOpsions<E extends keyof LayOnClickOutsideEventMap<S>, S extends LayOnClickOutsideScope> {
         /**
          * 监听的事件类型
@@ -235,7 +235,7 @@ declare namespace Layui {
         /**
          * 忽略监听的元素或选择器字符串
          */
-        ignore?: Array<string | HTMLElement>
+        ignore?: Array<string | HTMLElement>;
         /**
          * 对内部事件侦听器使用捕获阶段
          * @default true
@@ -303,12 +303,15 @@ declare namespace Layui {
          */
         stope(event: Event | JQuery.Event): void;
         /**
-        * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句
-        * @param collection 集合，可以是数组或对象等可遍历的元素
-        * @param callback 回调函数，返回 true 停止遍历，和 jQUery.each 相反
-        */
+         * 对象（Array、Object、DOM 对象等）遍历，可用于取代 for 语句
+         * @param collection 集合，可以是数组或对象等可遍历的元素
+         * @param callback 回调函数，返回 true 停止遍历，和 jQUery.each 相反
+         */
         each<T>(collection: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => any): Lay;
-        each<T, K extends keyof T>(collection: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => any): Lay;
+        each<T, K extends keyof T>(
+            collection: T,
+            callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => any,
+        ): Lay;
         /**
          * 数字前置补零
          * @param num 原始数字
@@ -338,7 +341,7 @@ declare namespace Layui {
         hasScrollbar(): boolean;
         /**
          * 创建 style 样式
-         * @param options 
+         * @param options
          * 可配置的选项
          * - target: 目标容器，指定后会将样式追加到目标容器，默认 `body`；
          * - id: 样式元素的 id，默认自增
@@ -350,7 +353,7 @@ declare namespace Layui {
          *   <!-- 样式追加到目标容器 -->
          *   <style id="LAY-STYLE-DF-0">.card{color: #000}</style>
          * </div>
-         * 
+         *
          * lay.style({
          *   target: '#targetEl',
          *   text: '.card{color: #000}'
@@ -370,7 +373,7 @@ declare namespace Layui {
          *   <li>菜单1</li>
          *   <li>菜单2</li>
          * </ul>
-         * 
+         *
          * // 下拉菜单将被定位到按钮附近
          * lay.position(
          *   $('#targetEl')[0],
@@ -390,14 +393,14 @@ declare namespace Layui {
          * @example
          * ```js
          * <div id="testEl" lay-options="{color:red}" lay-toc="{hot: true}"></div>
-         * 
+         *
          * var elem = $('#testEl')
          * lay.options(elem) // {color:red}
          * lay.options(elem[0]) // {color:red}
          * lay.options('#testEl') // {color:red}
          * lay.options('#testEl', {attr: 'lay-toc'}) // {hot: true}
          * lay.options('#testEl', 'lay-toc') // {hot: true}
-         * 
+         *
          * $('#testEl').attr('lay-toc') // '{hot: true}'
          * ```
          */
@@ -421,7 +424,7 @@ declare namespace Layui {
          *   color: green;
          * }
          * </style>
-         * 
+         *
          * lay.getStyleRules($('#test')[0], function(rule, index){
          *   if(rule.selectorText === '.lay-card'){
          *     console.log(index, rule.cssText) // 0 '.lay-card{color: #000}'
@@ -431,7 +434,10 @@ declare namespace Layui {
          * }) // RuleList
          * ```
          */
-        getStyleRules(style: HTMLStyleElement, callback: (ruleItem: CSSStyleRule, index: number) => boolean): CSSRuleList;
+        getStyleRules(
+            style: HTMLStyleElement,
+            callback: (ruleItem: CSSStyleRule, index: number) => boolean,
+        ): CSSRuleList;
         clipboard: {
             /**
              * 剪贴板写入文本
@@ -466,7 +472,7 @@ declare namespace Layui {
                 onTouchStart(e: TouchEvent, state: LayTouchSwipeState): void;
                 onTouchMove(e: TouchEvent, state: LayTouchSwipeState): void;
                 onTouchEnd(e: TouchEvent, state: LayTouchSwipeState): void;
-            }
+            },
         ): void;
         /**
          * 监听指定元素外部的点击
@@ -476,12 +482,12 @@ declare namespace Layui {
          * @return 返回一个停止事件监听的函数
          */
         onClickOutside<
-            E extends keyof LayOnClickOutsideEventMap<S> = 'pointerdown',
-            S extends LayOnClickOutsideScope = Document
+            E extends keyof LayOnClickOutsideEventMap<S> = "pointerdown",
+            S extends LayOnClickOutsideScope = Document,
         >(
             target: HTMLElement,
             handler: (e: LayOnClickOutsideEventMap<S>[E]) => void,
-            options?: LayOnClickOutsideOpsions<E, S>
+            options?: LayOnClickOutsideOpsions<E, S>,
         ): Fn;
         /**
          * 判断一个对象是否具有某个自身的属性，而不考虑继承的属性

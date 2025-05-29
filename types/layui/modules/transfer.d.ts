@@ -51,7 +51,7 @@ declare namespace Layui {
          * - cs 开启搜索，且匹配时区分大小写(2.7+)
          * @default false
          */
-        showSearch?: boolean | 'cs';
+        showSearch?: boolean | "cs";
         /**
          * 定义左右穿梭框宽度
          */
