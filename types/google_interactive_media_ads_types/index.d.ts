@@ -1,9 +1,9 @@
-
 /**
  * @file TypeScript declarations for the publicly documented APIs of the
- * IMA HTML5 client-side SDK. Also used to generate JavaScript externs.
- * @see https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js
+ * IMA HTML5 client-side SDK.
+ * @see https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference
  */
+
 /**
  * The google.ima namespace provides access to the SDK's classes, interfaces,
  * enumerations, and properties.
@@ -19,30 +19,35 @@ declare namespace google.ima {
      *     unavailable.
      */
     getAdId(): string;
+
     /**
      * Returns the ad's pod information.
      * @return The ad's pod information.
      */
     getAdPodInfo(): AdPodInfo;
+
     /**
      * The source ad server information included in the ad response.
      * @return The source ad server of the ad, or the empty string if this
      *     information is unavailable.
      */
     getAdSystem(): string;
+
     /**
      * The advertiser name as defined by the serving party.
      * @return The advertiser name, or the empty string if this information is
      *     unavailable.
      */
     getAdvertiserName(): string;
+
     /**
      * Identifies the API needed to execute the ad. This corresponds with the
      * apiFramework specified in vast.
      * @return The API framework need to execute the ad, or null if this
      *     information is unavailable.
      */
-    getApiFramework(): string | null;
+    getApiFramework(): string|null;
+
     /**
      * Gets the companion ads for this ad based on companion ad slot size.
      * Optionally, advanced selection settings are accepted.
@@ -56,10 +61,11 @@ declare namespace google.ima {
      *     size.
      */
     getCompanionAds(
-      adSlotWidth: number,
-      adSlotHeight: number,
-      settings?: CompanionAdSelectionSettings,
-    ): CompanionAd[];
+        adSlotWidth: number,
+        adSlotHeight: number,
+        settings?: CompanionAdSelectionSettings,
+        ): CompanionAd[];
+
     /**
      * Returns the ISCI (Industry Standard Commercial Identifier) code for an
      * ad, or empty string if the code is unavailable. This is the Ad-ID of the
@@ -67,42 +73,49 @@ declare namespace google.ima {
      * @return The ad ID of the creative.
      */
     getCreativeAdId(): string;
+
     /**
      * Retrieves the ID of the selected creative for the ad.
      * @return The ID of the selected creative for the ad, or the empty string
      *     if this information is unavailable.
      */
     getCreativeId(): string;
+
     /**
      * Returns the first deal ID present in the wrapper chain for the current
      * ad, starting from the top. Returns the empty string if unavailable.
      * @return The deal ID.
      */
     getDealId(): string;
+
     /**
      * Returns the description of this ad from the VAST response.
      * @return The description, empty if not specified.
      */
     getDescription(): string;
+
     /**
      * Returns the duration of the selected creative, or -1 for non-linear
      * creatives.
      * @return The selected creative duration in seconds, -1 if non-linear.
      */
     getDuration(): number;
+
     /**
      * Returns the height of the selected non-linear creative.
      * @return The height of the selected non-linear creative or 0 for a linear
      *     creative.
      */
     getHeight(): number;
+
     /**
      * Returns the URL of the media file chosen from the ad based on the media
      * selection settings currently in use. Returns null if this information is
      * unavailable. Available on STARTED event.
      * @return The media URL.
      */
-    getMediaUrl(): string | null;
+    getMediaUrl(): string|null;
+
     /**
      * Returns the minimum suggested duration in seconds that the nonlinear
      * creative should be displayed. Returns -2 if the minimum suggested
@@ -112,23 +125,27 @@ declare namespace google.ima {
      *     be displayed.
      */
     getMinSuggestedDuration(): number;
+
     /**
      * The number of seconds of playback before the ad becomes skippable. -1 is
      * returned for non skippable ads or if this is unavailable.
      * @return The offset in seconds, or -1.
      */
     getSkipTimeOffset(): number;
+
     /**
      * Returns the URL associated with the survey for the given ad. Returns null
      * if unavailable.
      * @return The survey URL.
      */
-    getSurveyUrl(): string | null;
+    getSurveyUrl(): string|null;
+
     /**
      * Returns the title of this ad from the VAST response.
      * @return The title, empty if not specified.
      */
     getTitle(): string;
+
     /**
      * Gets custom parameters associated with the ad at the time of ad
      * trafficking.
@@ -136,6 +153,7 @@ declare namespace google.ima {
      *     Object if this information is not available.
      */
     getTraffickingParameters(): {[key: string]: string};
+
     /**
      * Gets custom parameters associated with the ad at the time of ad
      * trafficking. Returns a raw string version of the parsed parameters from
@@ -144,6 +162,7 @@ declare namespace google.ima {
      *     is not available.
      */
     getTraffickingParametersString(): string;
+
     /**
      * Returns the UI elements that are being displayed when this ad is played.
      * Refer to <code>google.ima.UiElements</code> for possible elements of the
@@ -151,6 +170,7 @@ declare namespace google.ima {
      * @return The UI elements being displayed.
      */
     getUiElements(): string[];
+
     /**
      * The registry associated with cataloging the UniversalAdId of the selected
      * creative for the ad.
@@ -158,18 +178,21 @@ declare namespace google.ima {
      * @deprecated Use ad.getUniversalAdIds() instead
      */
     getUniversalAdIdRegistry(): string;
+
     /**
      * The UniversalAdId of the selected creative for the ad.
      * @return Returns the id value or "unknown" if unavailable.
      * @deprecated Use ad.getUniversalAdIds() instead
      */
     getUniversalAdIdValue(): string;
+
     /**
      * The list of UniversalAdIds of the selected creative for the ad.
      * @return Returns the list of universal ad ID information that applies for
      *     this ad.
      */
     getUniversalAdIds(): UniversalAdIdInfo[];
+
     /**
      * When both the creative and the media file have been selected by the SDK,
      * this will return the bitrate for the media file as listed in the vast
@@ -177,24 +200,28 @@ declare namespace google.ima {
      * @return The bitrate for the selected media file or 0.
      */
     getVastMediaBitrate(): number;
+
     /**
      * Returns the VAST media height of the selected creative.
      * @return The VAST media height of the selected creative or 0 if none is
      *     selected.
      */
     getVastMediaHeight(): number;
+
     /**
      * Returns the VAST media width of the selected creative.
      * @return The VAST media width of the selected creative or 0 if none is
      *     selected.
      */
     getVastMediaWidth(): number;
+
     /**
      * Returns the width of the selected creative.
      * @return The width of the selected non-linear creative or 0 for a linear
      *     creative.
      */
     getWidth(): number;
+
     /**
      * Ad IDs used for wrapper ads. The IDs returned starts at the inline ad
      * (innermost) and traverses to the outermost wrapper ad. An empty array is
@@ -203,6 +230,7 @@ declare namespace google.ima {
      *     if there are no wrapper ads.
      */
     getWrapperAdIds(): string[];
+
     /**
      * Ad systems used for wrapper ads. The ad systems returned starts at the
      * inline ad and traverses to the outermost wrapper ad. An empty array is
@@ -211,6 +239,7 @@ declare namespace google.ima {
      *     array if there are no wrapper ads.
      */
     getWrapperAdSystems(): string[];
+
     /**
      * Selected creative IDs used for wrapper ads. The creative IDs returned
      * starts at the inline ad and traverses to the outermost wrapper ad. An
@@ -219,6 +248,7 @@ declare namespace google.ima {
      *     empty array if there are no wrapper ads.
      */
     getWrapperCreativeIds(): string[];
+
     /**
      * Indicates whether the ad’s current mode of operation is linear or
      * non-linear. If the value is true, it indicates that the ad is in linear
@@ -232,16 +262,19 @@ declare namespace google.ima {
      */
     isLinear(): boolean;
   }
+
   namespace AdCuePoints {
     /**
      * Cue point value representing a postroll.
      */
     let POSTROLL: number;
+
     /**
      * Cue point value representing a preroll.
      */
     let PREROLL: number;
   }
+
   /**
    * The cue point list represents a time-schedule of ad breaks. Note that
    * individual ads in the ad break are not included in the schedule.
@@ -257,6 +290,7 @@ declare namespace google.ima {
      */
     getCuePoints(): number[];
   }
+
   /**
    * <p>This class represents a container for displaying ads. The SDK will
    * automatically create structures inside the containerElement parameter
@@ -295,23 +329,25 @@ declare namespace google.ima {
      *     modify the visibility of the custom click tracking element. This
      * means that if a custom click tracking element is supplied, it must be
      *     properly displayed when the linear ad is played. You can check
-     *     ima.AdsManager.isCustomClickTrackingUsed when the
-     *     ima.AdEvent.Type.STARTED event is fired to determine whether or not
-     * to display your custom click tracking element. If appropriate for your
-     * UI, you should hide the click tracking element when the
-     *     ima.AdEvent.Type.CONTENT_RESUME_REQUESTED event fires.
+     *     google.ima.AdsManager.isCustomClickTrackingUsed when the
+     *     google.ima.AdEvent.Type.STARTED event is fired to determine whether
+     * or not to display your custom click tracking element. If appropriate for
+     * your UI, you should hide the click tracking element when the
+     *     google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED event fires.
      */
     constructor(
-      containerElement: Element,
-      videoElement?: HTMLVideoElement,
-      clickTrackingElement?: Element,
+        containerElement: Element,
+        videoElement?: HTMLVideoElement,
+        clickTrackingElement?: Element,
     );
+
     /**
      * Destroys internal state and previously created DOM elements.
      * The IMA SDK will be unloaded and no further calls to any APIs should be
      * made.
      */
     destroy(): void;
+
     /**
      * Initializes the internal video elements for playback. You must call this
      * method as a direct result of a user action, so that the browser can mark
@@ -324,6 +360,7 @@ declare namespace google.ima {
      */
     initialize(): void;
   }
+
   /**
    * AdError surfaces information to the user about whether a failure
    * occurred during ad loading or playing. The errorType accessor provides
@@ -336,6 +373,7 @@ declare namespace google.ima {
      * @return The error code, as defined in AdError.ErrorCode.
      */
     getErrorCode(): number;
+
     /**
      * Returns the Error that caused this one.
      * @return Inner error that occurred during processing, or null if this
@@ -343,17 +381,20 @@ declare namespace google.ima {
      * or an AdError, a subclass of a native error. This may return null if the
      *     error that caused this one is not available.
      */
-    getInnerError(): Error | null;
+    getInnerError(): Error|null;
+
     /**
      * Returns the message for this error.
      * @return The message for this error.
      */
     getMessage(): string;
+
     /**
      * Returns the type of this error.
      * @return The type of this error, as defined in AdError.Type.
      */
     getType(): string;
+
     /**
      * Returns the VAST error code.
      * @return If VAST error code is available, returns it, otherwise
@@ -361,6 +402,7 @@ declare namespace google.ima {
      */
     getVastErrorCode(): number;
   }
+
   namespace AdError {
     /**
      * The possible error codes raised while loading or playing ads.
@@ -368,9 +410,9 @@ declare namespace google.ima {
      * ranges:
      * - Standard VAST 3 compliant ad error codes use blocks below 1000.
      * - SDK specific error codes:
-     *     1000-1099 for high level generic errors
-     *     1100-1199 for low level generic errors
-     *     1200-1299 for video playback specific errors
+     *   - 1000-1099 for high level generic errors
+     *   - 1100-1199 for low level generic errors
+     *   - 1200-1299 for video playback specific errors
      */
     enum ErrorCode {
       /**
@@ -528,8 +570,8 @@ declare namespace google.ima {
        */
       INVALID_AD_TAG = 1013,
       /**
-       * A protected audience api error occurred. Refer to the inner error for more
-       * information. VAST error code 1014
+       * A protected audience api error occurred. Refer to the inner error for
+       * more information. VAST error code 1014
        */
       PROTECTED_AUDIENCE_API_ERROR = 1014,
       /**
@@ -572,6 +614,7 @@ declare namespace google.ima {
        */
       CONSENT_MANAGEMENT_PROVIDER_NOT_READY = 1300,
     }
+
     /**
      * The possible error types for ad loading and playing.
      */
@@ -591,6 +634,7 @@ declare namespace google.ima {
       AD_PLAY = 'adPlayError',
     }
   }
+
   /**
    * This event is raised when an error occurs when loading an ad from the
    * Google or DoubleClick servers. The types on which you can register for
@@ -601,7 +645,8 @@ declare namespace google.ima {
      * Returns the AdError that caused this event.
      * @return The AdError that caused this event.
      */
-    getError(): AdError | null;
+    getError(): AdError|null;
+
     /**
      * During ads load request it is possible to provide an object that is
      * available once the ads load is complete or fails. One possible use
@@ -613,6 +658,7 @@ declare namespace google.ima {
      */
     getUserRequestContext(): object | null;
   }
+
   /**
    * Types of AdErrorEvents
    */
@@ -624,6 +670,7 @@ declare namespace google.ima {
       AD_ERROR = 'adError',
     }
   }
+
   /**
    * This event type is raised by the ad as a notification when the ad
    * state changes and when users interact with the ad. For example, when
@@ -636,10 +683,12 @@ declare namespace google.ima {
      * @return The ad associated with the event, or null if there is no relevant
      *     ad.
      */
-    getAd(): Ad | null;
+    getAd(): Ad|null;
+
     /**
      * Allows extra data to be passed from the ad.
-     * <p>Example:
+     *
+     * Example:
      * <pre class="prettyprint">
      * <code>
      * if (event.type == google.ima.AdEvent.Type.LOG) {
@@ -649,13 +698,14 @@ declare namespace google.ima {
      *         adData['adError'].getMessage());
      *   }
      * }
-     * </code></pre></p>
+     * </code></pre>
      * @return Extra data for the event. Log events raised for error
      *     carry object of type 'google.ima.AdError' which can be accessed using
      *     'adError' key.
      */
     getAdData(): object | null;
   }
+
   namespace AdEvent {
     /**
      * Types of AdEvents
@@ -762,7 +812,7 @@ declare namespace google.ima {
       /**
        * Fires when the ad is skipped by the user.
        */
-      SKIPPED = 'skipped',
+      SKIPPED = 'skip',
       /**
        * Fires when the ad starts playing.
        */
@@ -793,6 +843,7 @@ declare namespace google.ima {
       VOLUME_MUTED = 'volumeMuted',
     }
   }
+
   /**
    * An ad may be part of a pod of ads. This object exposes metadata related to
    * that pod, such as the number of ads in the pod and ad position within the
@@ -810,6 +861,7 @@ declare namespace google.ima {
      *     one-based, for example, 1 of 2, 2 of 2, and more.
      */
     getAdPosition(): number;
+
     /**
      * Returns true if the ad is a bumper ad. Bumper ads are short linear ads
      * that can indicate to a user when the user is entering into or exiting
@@ -817,12 +869,14 @@ declare namespace google.ima {
      * @return Whether the ad is a bumper ad.
      */
     getIsBumper(): boolean;
+
     /**
      * The maximum duration of the pod in seconds. For unknown duration, -1 is
      * returned.
      * @return The maximum duration of the ads in this pod in seconds.
      */
     getMaxDuration(): number;
+
     /**
      * Client side and DAI VOD: Returns the index of the ad pod. For a preroll
      * pod, returns 0. For midrolls, returns 1, 2,..., N. For a postroll pod,
@@ -836,6 +890,7 @@ declare namespace google.ima {
      * @return The index of the pod in the ad playlist.
      */
     getPodIndex(): number;
+
     /**
      * Returns the content time offset at which the current ad pod was
      * scheduled. For pods in VOD streams with dynamically inserted ads, stream
@@ -846,6 +901,7 @@ declare namespace google.ima {
      * @return The time offset for the current ad pod.
      */
     getTimeOffset(): number;
+
     /**
      * The total number of ads contained within this pod, including bumpers.
      * Bumper ads are short linear ads that can indicate to a user when the user
@@ -866,6 +922,7 @@ declare namespace google.ima {
      */
     getTotalAds(): number;
   }
+
   /**
    * This object exposes information about the current progress as an ad is
    * playing.
@@ -875,49 +932,98 @@ declare namespace google.ima {
      * The maximum duration of the current ad break.
      */
     adBreakDuration: number;
+
     /**
      * The position in the ad break of the current ad.
      */
     adPosition: number;
+
     /**
      * The current time of the currently playing ad.
      */
     currentTime: number;
+
     /**
      * The duration of the currently playing ad.
      */
     duration: number;
+
     /**
      * The total number of ads in the current ad break.
      */
     totalAds: number;
   }
+
   /**
    * AdsLoader allows clients to request ads from ad servers. To do so, users
    * must register for the AdsManagerLoadedEvent event and then request ads.
    */
-  class AdsLoader implements ImaEventTarget {
+  class AdsLoader {
     /**
      * Constructor.
      * @param container The display container for ads.
      */
     constructor(container: AdDisplayContainer);
+
+    /**
+     * Adds a listener for ads manager loaded events.
+     * @param type The type of event to listen for.
+     * @param listener A function called each time an event of this type occurs.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
     addEventListener(
-      type: string,
-      handler: null | object,
-      capture?: boolean,
-      handlerScope?: object | null,
-    ): void;
+        type: AdsManagerLoadedEvent.Type,
+        listener: (event: AdsManagerLoadedEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Adds a listener for ad events.
+     * @param type The type of event to listen for.
+     * @param listener A function called each time an event of this type occurs.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    addEventListener(
+        type: AdEvent.Type,
+        listener: (event: AdEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Adds a listener for ad error events.
+     * @param type The type of event to listen for.
+     * @param listener A function called each time an event of this type occurs.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    addEventListener(
+        type: AdErrorEvent.Type,
+        listener: (event: AdErrorEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
     /**
      * Signals to the SDK that the content is finished. This will allow the SDK
      * to play post-roll ads, if any are loaded through ad rules.
      */
     contentComplete(): void;
+
     /**
      * Cleans up the internal state.
      */
     destroy(): void;
-    dispatchEvent(event: Event | null): boolean;
+
     /**
      * Returns the IMA SDK settings instance. To change the settings, just call
      * the methods on the instance. The changes will apply for all the ad
@@ -925,16 +1031,63 @@ declare namespace google.ima {
      * @return The settings instance.
      */
     getSettings(): ImaSdkSettings;
+
     /**
      * Returns the version of the current SDK.
      */
     getVersion(): string;
+
+    /**
+     * Removes a listener for ads manager loaded events. The listener must be
+     * equal by reference to the one previously passed to `addEventListener`.
+     * @param type The type of event for which to remove the listener.
+     * @param listener The function to remove as a listener.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
     removeEventListener(
-      type: string,
-      handler: null | object,
-      capture?: boolean,
-      handlerScope?: object | null,
-    ): void;
+        type: AdsManagerLoadedEvent.Type,
+        listener: (event: AdsManagerLoadedEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Removes a listener for ad events. The listener must be equal by reference
+     * to the one previously passed to `addEventListener`.
+     * @param type The type of event for which to remove the listener.
+     * @param listener The function to remove as a listener.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    removeEventListener(
+        type: AdEvent.Type,
+        listener: (event: AdEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Removes a listener for ad error events. The listener function must be
+     * equal by reference to the one previously passed to `addEventListener`.
+     * @param type The type of event for which to remove the listener.
+     * @param listener The function to remove as a listener.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    removeEventListener(
+        type: AdErrorEvent.Type,
+        listener: (event: AdErrorEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
     /**
      * Request ads from a server.
      * @param adsRequest AdsRequest instance containing data for the ads
@@ -947,15 +1100,51 @@ declare namespace google.ima {
       userRequestContext?: object | null,
     ): void;
   }
+
   /**
    * Provides the outer public API to the publisher and communicates with the
    * inner instance of ads manager.
    */
-  interface AdsManager extends ImaEventTarget {
+  interface AdsManager {
     /**
-     * Collapse the current ad. This is no-op for HTML5 SDK.
+     * Adds a listener for ad events.
+     * @param type The type of event to listen for.
+     * @param listener A function called each time an event of this type occurs.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    addEventListener(
+        type: AdEvent.Type,
+        listener: (event: AdEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Adds a listener for ad error events.
+     * @param type The type of event to listen for.
+     * @param listener A function called each time an event of this type occurs.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    addEventListener(
+        type: AdErrorEvent.Type,
+        listener: (event: AdErrorEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Collapse the current ad. For a non-linear ad, this hides the ad. For
+     * a VPAID ad, this sets the view mode to normal. For all other ad
+     * types, this is a no-op.
      */
     collapse(): void;
+
     /**
      * Sets required parameters for getting a reference to this AdManager
      * from the AdsManagerLoaded event.
@@ -964,14 +1153,16 @@ declare namespace google.ima {
      *     ads.
      */
     configureAdsManager(
-      content: object,
-      adsRenderingSettings?: AdsRenderingSettings | null,
-    ): void;
+        content: object,
+        adsRenderingSettings?: AdsRenderingSettings|null,
+        ): void;
+
     /**
      * Removes ad assets loaded at runtime that need to be properly removed at
      * the time of ad completion and stops the ad and all tracking.
      */
     destroy(): void;
+
     /**
      * If an ad break is currently playing, discard it and resume content.
      * Otherwise, ignore the next scheduled ad break. For example, this can be
@@ -980,15 +1171,20 @@ declare namespace google.ima {
      * ad request returned a playlist or VMAP response.
      */
     discardAdBreak(): void;
+
     /**
-     * Expand the current ad. This is no-op for HTML5 SDK.
+     * Expand the current ad. For a non-linear ad, this shows the ad. For a
+     * VPAID ad, this sets the view mode to fullscreen. For all other ad
+     * types, this is a no-op.
      */
     expand(): void;
+
     /**
      * Puts the focus on the skip button, if present. If not present, focus is
      * put on interactive elements, including icons or interactive creatives.
      */
     focus(): void;
+
     /**
      * Returns true if the ad can currently be skipped. When this value changes,
      * the <code>AdsManager</code> fires an
@@ -996,6 +1192,7 @@ declare namespace google.ima {
      * @return True if the ad can currently be skipped, false otherwise.
      */
     getAdSkippableState(): boolean;
+
     /**
      * Returns an array of offsets in seconds indicating when a scheduled ad
      * break will play. A preroll is represented by 0, and a postroll is
@@ -1004,6 +1201,7 @@ declare namespace google.ima {
      * @return List of time offsets in seconds.
      */
     getCuePoints(): number[];
+
     /**
      * Get the remaining time of the current ad that is playing. If the ad is
      * not loaded yet or has finished playing, the API would return -1.
@@ -1012,16 +1210,19 @@ declare namespace google.ima {
      *     returns -1.
      */
     getRemainingTime(): number;
+
     /**
      * Get the volume for the current ad.
      * @return The volume of the current ad, from 0 (muted) to 1 (loudest).
      */
     getVolume(): number;
+
     /**
      * Call init to initialize the ad experience on the ads manager.
      * @param width The chosen width of the ad.
      * @param height The chosen height of the ad.
-     * @param viewMode The chosen view mode.
+     * @param viewMode This value is ignored and can be omitted. Pass
+     *     `undefined` if further arguments are passed.
      * @param videoElement The video element for custom playback. This video
      *     element overrides the one provided in the AdDisplayContainer
      *     constructor. Only use this property if absolutely necessary -
@@ -1029,11 +1230,12 @@ declare namespace google.ima {
      *     the AdDisplayContainer.
      */
     init(
-      width: number,
-      height: number,
-      viewMode: ViewMode,
-      videoElement?: HTMLVideoElement | null,
-    ): void;
+        width: number,
+        height: number,
+        viewMode?: unknown,
+        videoElement?: HTMLVideoElement|null,
+        ): void;
+
     /**
      * Returns true if a custom click tracking element is being used for click
      * tracking on the current ad. Custom click tracking is only used when an
@@ -1043,6 +1245,7 @@ declare namespace google.ima {
      * @return Whether custom click tracking is used.
      */
     isCustomClickTrackingUsed(): boolean;
+
     /**
      * Returns true if a custom video element is being used to play the current
      * ad. Custom playback occurs when an optional video element is provided to
@@ -1051,30 +1254,69 @@ declare namespace google.ima {
      * @return Whether custom playback is used.
      */
     isCustomPlaybackUsed(): boolean;
+
     /**
      * Pauses the current ad that is playing. This function will be no-op when
      * a static overlay is being shown or if the ad is not loaded yet or is done
      * playing.
      */
     pause(): void;
+
+    /**
+     * Removes a listener for ad events. The listener must be equal by reference
+     * to the one previously passed to `addEventListener`.
+     * @param type The type of event for which to remove the listener.
+     * @param listener The function to remove as a listener.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    removeEventListener(
+        type: AdEvent.Type,
+        listener: (event: AdEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
+    /**
+     * Removes a listener for ad error events. The listener function must be
+     * equal by reference to the one previously passed to `addEventListener`.
+     * @param type The type of event for which to remove the listener.
+     * @param listener The function to remove as a listener.
+     * @param optCapture Deprecated and a no-op; retained for backward
+     * compatibility.
+     * @param optHandlerScope Deprecated: Listener scope object. Use arrow
+     * functions or bind listener instead.
+     */
+    removeEventListener(
+        type: AdErrorEvent.Type,
+        listener: (event: AdErrorEvent) => void,
+        optCapture?: boolean,
+        optHandlerScope?: object,
+        ): void;
+
     /**
      * Resizes the current ad.
      * @param width New ad slot width.
      * @param height New ad slot height.
-     * @param viewMode The new view mode.
+     * @param viewMode This value is ignored and should be omitted.
      */
-    resize(width: number, height: number, viewMode: ViewMode): void;
+    resize(width: number, height: number, viewMode?: unknown): void;
+
     /**
      * Resumes the current ad that is loaded and paused. This function will be
      * no-op when a static overlay is being shown or if the ad is not loaded yet
      * or is done playing.
      */
     resume(): void;
+
     /**
      * Set the volume for the current ad.
      * @param volume The volume to set, from 0 (muted) to 1 (loudest).
      */
     setVolume(volume: number): void;
+
     /**
      * Skips the current ad when <code>AdsManager.getAdSkippableState()</code>
      * is true. When called under other circumstances, skip has no effect. After
@@ -1083,17 +1325,20 @@ declare namespace google.ima {
      * skips ads if IMA does not render the 'Skip ad' button.
      */
     skip(): void;
+
     /**
      * Start playing the ads.
      *
      * Developers must call `AdDisplayContainer.initialize()` first.
      */
     start(): void;
+
     /**
      * Stop playing the ads. Calling this will get publisher back to the
      * content.
      */
     stop(): void;
+
     /**
      * Updates the ads rendering settings. This should be used specifically for
      * VMAP use cases between ad breaks when ads rendering settings such as
@@ -1104,6 +1349,7 @@ declare namespace google.ima {
       adsRenderingSettings: AdsRenderingSettings,
     ): void;
   }
+
   /**
    * This event is raised when ads are successfully loaded from the Google or
    *     DoubleClick ad servers through an AdsLoader. You can register for this
@@ -1125,13 +1371,14 @@ declare namespace google.ima {
      *     fulfills the above requirements.
      * @param adsRenderingSettings Optional settings to control the rendering of
      *     ads.
-     * @throws {!ima.AdError} if ads manager could not be created.
+     * @throws {!google.ima.AdError} if ads manager could not be created.
      * @return AdsManager that manages and plays ads.
      */
     getAdsManager(
-      contentPlayback: object,
-      adsRenderingSettings?: AdsRenderingSettings,
-    ): AdsManager;
+        contentPlayback: object,
+        adsRenderingSettings?: AdsRenderingSettings,
+        ): AdsManager;
+
     /**
      * During ads load request it is possible to provide an object that is
      *     available once the ads load is complete. One possible use case:
@@ -1141,6 +1388,7 @@ declare namespace google.ima {
      */
     getUserRequestContext(): object | null;
   }
+
   namespace AdsManagerLoadedEvent {
     /**
      * Types of AdsManagerLoadedEvents.
@@ -1152,6 +1400,7 @@ declare namespace google.ima {
       ADS_MANAGER_LOADED = 'adsManagerLoaded',
     }
   }
+
   // Use class + interface declaration merging to avoid redeclaring properties.
   // https://github.com/microsoft/TypeScript/issues/3332
   /**
@@ -1162,6 +1411,7 @@ declare namespace google.ima {
     constructor();
   }
   interface AdsRenderingSettings extends AdsRenderingSettingsInterface {}
+
   interface AdsRenderingSettingsInterface {
     /**
      * Set to false if you want to have fine grained control over the
@@ -1170,6 +1420,7 @@ declare namespace google.ima {
      * positioned in the top left corner. The default value is true.
      */
     autoAlign: boolean;
+
     /**
      * Maximum recommended bitrate. The value is in kbit/s.
      * The SDK will pick media with bitrate below the specified max, or the
@@ -1177,18 +1428,21 @@ declare namespace google.ima {
      * value, <code>-1</code>, means the SDK selects the maximum bitrate.
      */
     bitrate: number;
+
     /**
      * Enables preloading of video assets. For more info see
      * <a href="/interactive-media-ads/docs/sdks/html5/preload">our guide to
      * preloading media</a>.
      */
     enablePreloading: boolean;
+
     /**
      * Timeout (in milliseconds) when loading a video ad media file. If loading
      * takes longer than this timeout, the ad playback is canceled and the next
      * ad in the pod plays, if available. Use -1 for the default of 8 seconds.
      */
     loadVideoTimeout: number;
+
     /**
      * Only supported for linear video mime types. If specified, the SDK will
      * include media that matches the MIME type(s) specified in the list and
@@ -1197,7 +1451,8 @@ declare namespace google.ima {
      * 'video/webm', ... ] If not specified, the SDK will pick the media based
      * on player capabilities.
      */
-    mimeTypes: string[] | null;
+    mimeTypes: string[]|null;
+
     /**
      * For VMAP and ad rules playlists, only play ad breaks scheduled after this
      * time (in seconds). This setting is <em>strictly</em> after - for example,
@@ -1205,28 +1460,38 @@ declare namespace google.ima {
      * scheduled to play at 15s.
      */
     playAdsAfterTime: number;
+
     /**
-     * Specifies whether or not the SDK should restore the custom playback state
-     * after an ad break completes. This is setting is used primarily when the
-     * publisher passes in its content player to use for custom ad playback.
+     * Specifies whether the SDK should record the state of the provided video
+     * element before it is used for ads, and restore the state after the ads
+     * have completed. This is only relevant for custom playback, when the same
+     * video element is used for both ads and content. The default value is
+     * false.
      */
     restoreCustomPlaybackStateOnAdBreakComplete: boolean;
+
     /**
-     * Specifies whether the UI elements that should be displayed.
-     * The elements in this array are ignored for AdSense/AdX ads.
+     * Specifies whether to display specific IMA UI elements. For more details,
+     * see
+     * <a
+     * href="/interactive-media-ads/docs/sdks/html5/client-side/reference/js/google.ima#.UiElements">UiElements</a>.
+     * AdSense and AdX ads render their own ad UI regardless of this setting.
      */
-    uiElements: string[] | null;
+    uiElements: string[]|null;
+
     /**
      * Render linear ads with full UI styling.
      * This setting does not apply to AdSense/AdX ads or ads played in a mobile
      * context that already use full UI styling by default.
      */
     useStyledLinearAds: boolean;
+
     /**
      * Render non-linear ads with a close and recall button.
      */
     useStyledNonLinearAds: boolean;
   }
+
   // Use class + interface declaration merging to avoid redeclaring properties.
   // https://github.com/microsoft/TypeScript/issues/3332
   /**
@@ -1237,6 +1502,7 @@ declare namespace google.ima {
     constructor();
   }
   interface AdsRequest extends AdsRequestInterface {}
+
   interface AdsRequestInterface {
     /**
      * Specifies the ad tag url that is requested from the ad server.
@@ -1248,6 +1514,7 @@ declare namespace google.ima {
      * </p>
      */
     adTagUrl: string;
+
     /**
      * Specifies a VAST 2.0 document to be used as the ads response instead of
      * making a request through an ad tag url. This can be useful for debugging
@@ -1255,7 +1522,8 @@ declare namespace google.ima {
      * parameter is optional.
      * </p>
      */
-    adsResponse: string | Document | null;
+    adsResponse: string|Document|null;
+
     /**
      * Specifies the duration of the content in seconds to be shown. It is used
      * in 2 cases: 1) AdX ad targeting and 2) deciding when to preload VMAP
@@ -1264,20 +1532,23 @@ declare namespace google.ima {
      * This parameter is optional.
      * </p>
      */
-    contentDuration: number | null;
+    contentDuration: number|null;
+
     /**
      * Specifies the keywords used to describe the content to be shown. Used in
      * AdX requests. <p> This parameter is optional.
      * </p>
      */
-    contentKeywords: string[] | null;
+    contentKeywords: string[]|null;
+
     /**
      * Specifies the title of the content to be shown. Used in AdX requests.
      * <p>
      * This parameter is optional.
      * </p>
      */
-    contentTitle: string | null;
+    contentTitle: string|null;
+
     /**
      * Forces non-linear AdSense ads to render as linear fullslot. If set,
      * the content video will be paused and the non-linear text or image ad will
@@ -1285,22 +1556,25 @@ declare namespace google.ima {
      * been skipped or closed.
      */
     forceNonLinearFullSlot: boolean;
+
     /**
      * Specifies the height of the rectangular area within which a linear ad is
      * displayed. This value is used as one of the criteria for ads selection.
      * This value does not need to match actual ad's height. <p> This parameter
-     * is required.
+     * is required for linear ads.
      * </p>
      */
     linearAdSlotHeight: number;
+
     /**
-     * Specifies the width of the rectangular area within which a non linear ad
-     * is displayed. This value is used as one of the criteria for ads
-     * selection. This value does not need to match actual ad's width. <p> This
-     * parameter is required.
+     * Specifies the width of the rectangular area within which a linear ad is
+     * displayed. This value is used as one of the criteria for ads selection.
+     * This value does not need to match actual ad's width. <p> This parameter
+     * is required for linear ads.
      * </p>
      */
     linearAdSlotWidth: number;
+
     /**
      * Specifies the maximum amount of time to wait in seconds, after calling
      * requestAds, before requesting the ad tag URL. This can be used to stagger
@@ -1308,22 +1582,25 @@ declare namespace google.ima {
      * number of requests.
      */
     liveStreamPrefetchSeconds: number;
+
     /**
      * Specifies the height of the rectangular area within which a non linear ad
      * is displayed. This value is used as one of the criteria for ads
      * selection. This value does not need to match actual ad's height. <p> This
-     * parameter is required.
+     * parameter is required for non-linear ads.
      * </p>
      */
     nonLinearAdSlotHeight: number;
+
     /**
      * Specifies the width of the rectangular area within which a non linear ad
      * is displayed. This value is used as one of the criteria for ads
      * selection. This value does not need to match actual ad's width. <p> This
-     * parameter is required.
+     * parameter is required for non-linear ads.
      * </p>
      */
     nonLinearAdSlotWidth: number;
+
     /**
      * Settings object for mapping verification vendors to OMID Access Modes.
      * The keys must be values in google.ima.OmidVerificationVendor, and the
@@ -1340,6 +1617,7 @@ declare namespace google.ima {
      * mode will be used.
      */
     omidAccessModeRules: {[key: string]: string};
+
     /**
      * Specifies the full url of the page that will be included in the Google ad
      * request for targeting purposes. The url needs to be a valid url. If
@@ -1348,7 +1626,8 @@ declare namespace google.ima {
      * This parameter is optional.
      * </p>
      */
-    pageUrl: string | null;
+    pageUrl: string|null;
+
     /**
      * Notifies the SDK whether the player intends to start the content and ad
      * in response to a user action or whether it will be automatically played.
@@ -1357,6 +1636,7 @@ declare namespace google.ima {
      *     whether it will be started by a user action.
      */
     setAdWillAutoPlay(autoPlay: boolean): void;
+
     /**
      * Notifies the SDK whether the player intends to start ad while muted.
      * Changing this setting will have no impact on ad playback, but will send
@@ -1365,6 +1645,7 @@ declare namespace google.ima {
      * @param muted Whether the ad will be played while muted.
      */
     setAdWillPlayMuted(muted: boolean): void;
+
     /**
      * Notifies the SDK whether the player intends to continuously play the
      * content videos one after another similar to TV broadcast. Changing this
@@ -1375,6 +1656,7 @@ declare namespace google.ima {
      *     another continuously.
      */
     setContinuousPlayback(continuousPlayback: boolean): void;
+
     /**
      * Override for default VAST load timeout in milliseconds for a single
      * wrapper. The default timeout is 5000ms. <p> This parameter is optional.
@@ -1382,6 +1664,7 @@ declare namespace google.ima {
      */
     vastLoadTimeout: number;
   }
+
   /**
    * Represents a companion ad.
    */
@@ -1390,36 +1673,42 @@ declare namespace google.ima {
      * Returns the ad slot id for this companion.
      * @return The ad slot id for this companion.
      */
-    getAdSlotId(): string | null;
+    getAdSlotId(): string|null;
+
     /**
      * Returns the HTML content for the companion ad that can be added to the
      * publisher page.
      * @return The HTML content.
      */
     getContent(): string;
+
     /**
      * Returns the content type of the Companion Ad.
      * @return The content type of the Companion Ad. This may return
      *     null if the content type is not known (such as in the case of a VAST
      *     HTMLResource or IFrameResource).
      */
-    getContentType(): string | null;
+    getContentType(): string|null;
+
     /**
      * Returns the height of the companion in pixels.
      * @return The height of the companion in pixels.
      */
     getHeight(): number;
+
     /**
      * Returns the width of the companion in pixels.
      * @return The width of the companion in pixels.
      */
     getWidth(): number;
   }
+
   // Use class + interface declaration merging to avoid redeclaring properties.
   // https://github.com/microsoft/TypeScript/issues/3332
   /**
    * CompanionAdSelectionSettings object is used to define the selection
-   * criteria when calling the <code>ima.Ad.getCompanionAds</code> function.
+   * criteria when calling the <code>google.ima.Ad.getCompanionAds</code>
+   * function.
    */
   class CompanionAdSelectionSettings
     implements CompanionAdSelectionSettingsInterface
@@ -1427,8 +1716,9 @@ declare namespace google.ima {
     /** Constructor. */
     constructor();
   }
-  interface CompanionAdSelectionSettings
-    extends CompanionAdSelectionSettingsInterface {}
+  interface CompanionAdSelectionSettings extends
+      CompanionAdSelectionSettingsInterface {}
+
   namespace CompanionAdSelectionSettings {
     /**
      * Available choices for creative type of a companion ad. The user can
@@ -1448,6 +1738,7 @@ declare namespace google.ima {
        */
       IMAGE = 'Image',
     }
+
     /**
      * Available choices for resource type of a companion ad. The user can
      * specify any of these choices as a criterion for selecting companion ads.
@@ -1472,6 +1763,7 @@ declare namespace google.ima {
        */
       STATIC = 'Static',
     }
+
     /**
      * Available choices for size selection criteria. The user can specify any
      * of these choices for selecting companion ads.
@@ -1497,57 +1789,56 @@ declare namespace google.ima {
       SELECT_NEAR_MATCH = 'SelectNearMatch',
     }
   }
+
   interface CompanionAdSelectionSettingsInterface {
     /**
      * The companion ad slot ids to be used for matching set by the user.
      */
     adSlotIds: string[];
+
     /**
      * Creative type setting set by the user.
      */
     creativeType: string;
+
     /**
      * The near fit percent set by the user.
      */
     nearMatchPercent: number;
+
     /**
      * Resource type setting set by the user.
      */
     resourceType: string;
+
     /**
      * Size criteria setting set by the user.
      */
     sizeCriteria: string;
   }
+
   /**
    * An event raised by the IMA SDK.
    */
   interface ImaEvent {
+    /**
+     * @deprecated
+     * Use `target` instead.
+     */
     currentTarget?: object | null;
+    /**
+     * @deprecated
+     * No-op. IMA events do not have a default action.
+     */
     preventDefault(): void;
-    stopPropagation(): void;
+    /**
+     * The object on which the event was raised (and to which a listener was
+     * added).
+     */
     target?: object | null;
     type: string;
   }
-  /**
-   * An object to which listeners for IMA events can be added.
-   */
-  interface ImaEventTarget extends EventTarget {
-    // IMA event targets accept an extra optional argument (handlerScope) in
-    // addEventListener and removeEventListener compared to native EventTarget.
-    addEventListener(
-      type: string,
-      handler: null | object,
-      capture?: boolean,
-      handlerScope?: object | null,
-    ): void;
-    removeEventListener(
-      type: string,
-      handler: null | object,
-      capture?: boolean,
-      handlerScope?: object | null,
-    ): void;
-  }
+
   /**
    * This class contains SDK-wide settings.
    */
@@ -1557,54 +1848,64 @@ declare namespace google.ima {
      * @return The current value.
      */
     getCompanionBackfill(): ImaSdkSettings.CompanionBackfillMode;
+
     /**
      * Returns whether to disable custom playback on iOS 10+ browsers.
      * The default value is false.
      * @return Whether to disable custom playback.
      */
     getDisableCustomPlaybackForIOS10Plus(): boolean;
+
     /**
      * Returns an object with keys as feature flags and values as their current
      * state.
      * @return The feature flags.
      */
     getFeatureFlags(): Record<string, unknown>;
+
     /**
      * Returns the publisher provided locale.
      * @return Publisher provided locale.
      */
     getLocale(): string;
+
     /**
      * Returns the maximum number of redirects for subsequent redirects will be
      * denied.
      * @return the maximum number of redirects.
      */
     getNumRedirects(): number;
+
     /**
      * Returns the partner provided player type.
      * @return Partner player type.
      */
     getPlayerType(): string;
+
     /**
      * Returns the partner provided player version.
      * @return Partner player version.
      */
     getPlayerVersion(): string;
+
     /**
      * Returns the publisher provided id.
      * @return The publisher provided id.
      */
-    getPpid(): string | null;
+    getPpid(): string|null;
+
     /**
      * Returns whether the publisher allows cookies to be used.
      * @return Whether the publisher allows cookies to be used.
      */
     isCookiesEnabled(): boolean;
+
     /**
      * Sets whether VMAP and ad rules ad breaks are automatically played
      * @param autoPlayAdBreaks Whether to autoPlay the ad breaks.
      */
     setAutoPlayAdBreaks(autoPlayAdBreaks: boolean): void;
+
     /**
      * Sets the companion backfill mode. See the various modes
      * available in ImaSdkSettings.CompanionBackfillMode.
@@ -1614,6 +1915,7 @@ declare namespace google.ima {
      * @param mode The chosen companion backfill mode.
      */
     setCompanionBackfill(mode: ImaSdkSettings.CompanionBackfillMode): void;
+
     /**
      * Sets whether the SDK should store a Google Ad Manager cookie (GFP Cookie)
      * on the publisher's domain, as a first-party cookie. This enables
@@ -1624,10 +1926,11 @@ declare namespace google.ima {
      * parties or for other purposes. User consent and opt-outs may also disable
      * usage of first-party cookies. These will be picked up by publisher's
      * usage of an IAB compliant Consent Management Provider, if in the same
-     * frame.
+     * frame.</p>
      * @param cookiesEnabled Whether to enable the first party cookie.
      */
     setCookiesEnabled(cookiesEnabled: boolean): void;
+
     /**
      * Sets whether to disable custom playback on iOS 10+ browsers. If true, ads
      * will play inline if the content video is inline. This enables TrueView
@@ -1638,6 +1941,7 @@ declare namespace google.ima {
      * @param disable Whether or not to disable custom playback.
      */
     setDisableCustomPlaybackForIOS10Plus(disable: boolean): void;
+
     /**
      * Set the value for any feature flags. This should be set as early as
      * possible, before requesting ads. Settings will remain constant until the
@@ -1646,6 +1950,7 @@ declare namespace google.ima {
      * @param featureFlags The feature flags object.
      */
     setFeatureFlags(featureFlags: Record<string, unknown>): void;
+
     /**
      * Sets the publisher provided locale. Must be called before creating
      * AdsLoader or AdDisplayContainer. The locale specifies the language
@@ -1655,6 +1960,7 @@ declare namespace google.ima {
      * @param locale Publisher-provided locale.
      */
     setLocale(locale: string): void;
+
     /**
      * Specifies the maximum number of redirects before the subsequent redirects
      * will be denied, and the ad load aborted. The number of redirects directly
@@ -1663,51 +1969,59 @@ declare namespace google.ima {
      * @param numRedirects The maximum number of redirects.
      */
     setNumRedirects(numRedirects: number): void;
+
     /**
      * Sets the partner provided player type. This setting should be used to
      * specify the name of the player being integrated with the SDK. Player type
      * greater than 20 characters will be truncated. The player type specified
      * should be short and unique. This is an optional setting used to improve
      * SDK usability by tracking player types.
-     * <p>Example:
+     *
+     * Example:
      * <pre class="prettyprint">
      * <code>
      * settings.setPlayerType('google/gmf-player');
-     * </code></pre></p>
+     * </code></pre>
      * @param playerType The type of the partner player.
      */
     setPlayerType(playerType: string): void;
+
     /**
      * Sets the partner provided player version. This setting should be used to
      * specify the version of the partner player being integrated with the SDK.
      * Player versions greater than 20 characters will be truncated. This is an
      * optional setting used to improve SDK usability by tracking player
      * version.
-     * <p>Example:
+     *
+     * Example:
      * <pre class="prettyprint">
      * <code>
      * settings.setPlayerVersion('1.0.0');
-     * </code></pre></p>
+     * </code></pre>
      * @param playerVersion The version of the partner player.
      */
     setPlayerVersion(playerVersion: string): void;
+
     /**
      * Sets the publisher provided id.
      * @param ppid publisher provided id.
      */
     setPpid(ppid: string): void;
+
     /**
      * Session ID is a temporary random ID. It is used exclusively for
      * frequency capping. A session ID must be a UUID.
      * @param sessionId A temporary UUID used for frequency capping.
      */
     setSessionId(sessionId: string): void;
+
     /**
      * Sets whether VPAID creatives are allowed.
      * @param allowVpaid Whether to allow VPAID creatives.
      * @deprecated Use setVpaidMode.
      */
     setVpaidAllowed(allowVpaid: boolean): void;
+
     /**
      * Sets VPAID playback mode.
      * @param vpaidMode Sets how VPAID ads will be played. Default is secure
@@ -1715,6 +2029,7 @@ declare namespace google.ima {
      */
     setVpaidMode(vpaidMode: ImaSdkSettings.VpaidMode): void;
   }
+
   namespace ImaSdkSettings {
     /**
      * Defines a set of constants for the companion backfill setting.
@@ -1760,6 +2075,7 @@ declare namespace google.ima {
       ALWAYS = 'always',
       ON_MASTER_AD = 'on_master_ad',
     }
+
     /**
      * A set of constants for enabling VPAID functionality.
      */
@@ -1781,22 +2097,25 @@ declare namespace google.ima {
       INSECURE = 2,
     }
   }
+
   /**
    * Available access modes for OMID for Web, which control how much the
    * verification script can access.
    */
   enum OmidAccessMode {
     /**
-     * The verification script is sandboxed and cannot access the creative or
-     * publisher page. However, the script is loaded in such a way that it can
-     * directly confirm what publisher domain it is on.
+     * No longer supported. Access mode rules selecting DOMAIN are ignored
+     * and default to LIMITED.
+     * @deprecated Use a different access mode.
      */
     DOMAIN = 'domain',
+
     /**
      * The verification script has direct access to the creative and the
      * publisher page.
      */
     FULL = 'full',
+
     /**
      * The verification script is sandboxed and cannot access the creative
      * or publisher page, and cannot directly confirm what publisher domain it
@@ -1804,6 +2123,7 @@ declare namespace google.ima {
      */
     LIMITED = 'limited',
   }
+
   /**
    * Identifies an OMID verification vendor. Vendors are listed in alphabetical
    * order.
@@ -1823,6 +2143,7 @@ declare namespace google.ima {
     MEETRICS = 8,
     GOOGLE = 9,
   }
+
   /**
    * Enum specifying different UI elements that can be configured to be
    * displayed or hidden. These settings may be ignored for AdSense and ADX ads.
@@ -1841,6 +2162,7 @@ declare namespace google.ima {
      */
     COUNTDOWN = 'countdown',
   }
+
   /**
    * This object exposes information about the universal ad ID associated
    * with the creative, including the ad ID value and the ad ID registry.
@@ -1851,35 +2173,20 @@ declare namespace google.ima {
      * @return The ad ID registry associated with the ad ID value.
      */
     getAdIdRegistry(): string;
+
     /**
      * Returns the universal ad ID value.
      * @return The universal ad ID value.
      */
     getAdIdValue(): string;
   }
-  /**
-   * Enum specifying different VPAID view modes for ads.
-   * @memberof google.ima
-   * @deprecated
-   */
-  enum ViewMode {
-    /**
-     * Fullscreen ad view mode. Indicates to the ads manager that the publisher
-     * considers the current AdDisplayContainer arrangement as fullscreen (for
-     * example, simulated fullscreen). This does not cause the ads manager to
-     * enter fullscreen.
-     */
-    FULLSCREEN = 'fullscreen',
-    /**
-     * Normal ad view mode.
-     */
-    NORMAL = 'normal',
-  }
+
   /** Utility functions for Secure Signals. */
   namespace secureSignals {
     /** Clears all cached Secure Signals from local storage. */
-    function clearAllCache(): void;
+    export function clearAllCache(): void;
   }
+
   /** Object holding the SDK-wide settings. */
   const settings: ImaSdkSettings;
 }
