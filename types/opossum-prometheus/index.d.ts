@@ -1,9 +1,9 @@
-import type * as CircuitBreaker from 'opossum';
-import type { Registry } from 'prom-client';
+import type * as CircuitBreaker from "opossum";
+import type { Registry } from "prom-client";
 
 /**
-    * Options for configuring OpossumMetrics.
-    */
+ * Options for configuring OpossumMetrics.
+ */
 interface OpossumMetricsOptions {
     /**
      * Array of circuit breakers to monitor.
@@ -32,12 +32,11 @@ interface OpossumMetricsOptions {
  * Class for integrating Opossum circuit breakers with Prometheus metrics.
  */
 declare class OpossumMetrics {
-
     /**
      * Creates an instance of OpossumMetrics.
      * @param options - Configuration options for the metrics.
      */
-    constructor(options ?: OpossumMetricsOptions);
+    constructor(options?: OpossumMetricsOptions);
 
     /**
      * Adds a circuit breaker to be monitored.
@@ -47,4 +46,3 @@ declare class OpossumMetrics {
 }
 
 export = OpossumMetrics;
-

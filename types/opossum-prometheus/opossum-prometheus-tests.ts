@@ -7,10 +7,8 @@ const opossumPrometheus: OpossumMetrics = new OpossumMetrics({
     circuits: [{} as CircuitBreaker],
     registry: {} as Registry,
     exposePerformanceMetrics: true,
-    metricPrefix: "my_prefix_"
+    metricPrefix: "my_prefix_",
 });
-
-
 
 // $ExpectType void
 opossumPrometheus.add({} as CircuitBreaker);
