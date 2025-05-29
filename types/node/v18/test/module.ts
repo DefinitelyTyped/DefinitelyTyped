@@ -146,6 +146,14 @@ Module.Module === Module;
             };
         }
 
+        if (format === null) {
+            return {
+                format,
+                shortCircuit: true,
+                source: "...",
+            };
+        }
+
         return nextLoad(url);
     };
 
