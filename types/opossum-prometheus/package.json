@@ -6,12 +6,9 @@
         "https://github.com/nodeshift/opossum-prometheus#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "opossum": "*",
-        "prom-client":"*"
+        "@types/node": "*"
     },
     "devDependencies": {
-        "@types/opossum": "workspace:.",
         "@types/opossum-prometheus": "workspace:."
     },
     "owners": [
