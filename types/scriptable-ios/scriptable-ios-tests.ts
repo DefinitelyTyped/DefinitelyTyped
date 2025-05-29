@@ -37,6 +37,10 @@
 }
 
 {
+  // TODO: args
+}
+
+{
     // @ts-expect-error
     const cError = new Calendar();
     // $ExpectType Promise<Calendar[]>
@@ -133,6 +137,10 @@
 }
 
 {
+  // TODO: CalendarEvent
+}
+
+{
     const cb = new CallbackURL("my-app://");
     cb.addParameter("foo", "bar");
     // $ExpectType Promise<Record<string, string | number | boolean | null>>
@@ -180,6 +188,14 @@
     config.runsWithSiri;
     // $ExpectType "small" | "medium" | "large" | "extraLarge" | "accessoryRectangular" | "accessoryInline" | "accessoryCircular" | null
     config.widgetFamily;
+}
+
+{
+  // TODO: console
+}
+
+{
+  // TODO: Contact
 }
 
 {
@@ -246,6 +262,22 @@
 }
 
 {
+  // TODO: DateFormatter
+}
+
+{
+  // TODO: DatePicker
+}
+
+{
+  // TODO: Device
+}
+
+{
+  // TODO: Dictation
+}
+
+{
     // $ExpectType Promise<string[]>
     DocumentPicker.open(["public.plain-text"]);
     // $ExpectType Promise<string>
@@ -267,6 +299,10 @@
     DocumentPicker.exportData(Data.fromFile("test.bin"));
     // $ExpectType Promise<string[]>
     DocumentPicker.exportData(Data.fromFile("test.bin"), "super interesting data.bin");
+}
+
+{
+  // TODO: DrawContext
 }
 
 {
@@ -299,6 +335,18 @@
     Font.italicSystemFont(15);
     // $ExpectType Font
     Font.regularRoundedSystemFont(15);
+}
+
+{
+  // TODO: Image
+}
+
+{
+  // TODO: Keychain
+}
+
+{
+  // TODO: LinearGradient
 }
 
 {
@@ -706,6 +754,54 @@
 }
 
 {
+  // TODO: Mail
+}
+
+{
+  // TODO: Message
+}
+
+{
+  // TODO: module
+}
+
+{
+  // TODO: Notification
+}
+
+{
+  // TODO: Pasteboard
+}
+
+{
+  // TODO: Path
+}
+
+{
+  // TODO: Photos
+}
+
+{
+  // TODO: Point
+}
+
+{
+  // TODO: QuickLook
+}
+
+{
+  // TODO: Rect
+}
+
+{
+  // TODO:RecurrenceRule
+}
+
+{
+  // TODO: RelativeDateTimeFormatter
+}
+
+{
     const r = new Reminder();
     // $ExpectType Calendar
     r.calendar;
@@ -796,6 +892,14 @@
 }
 
 {
+  // TODO: Safari
+}
+
+{
+  // TODO: Script
+}
+
+{
     // @ts-expect-error
     ShareSheet.present("foobar");
     // @ts-expect-error
@@ -806,4 +910,92 @@
     ShareSheet.present(["test"]);
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([42]);
+}
+
+{
+  // TODO: Size
+}
+
+{
+  // TODO: Speech
+}
+
+{
+  // TODO: TextField
+}
+
+{
+  // TODO: Timer
+}
+
+{
+  // TODO: UITable
+}
+
+{
+  // TODO: UITableCell
+}
+
+{
+  // TODO: UITableRow
+}
+
+{
+  // TODO: URLScheme
+}
+
+{
+  // TODO: UUID
+}
+
+{
+  // TODO: WebView
+}
+
+{
+  // TODO: WidgetDate
+}
+
+{
+  // TODO: WidgetImage
+}
+
+{
+  // TODO: WidgetSpacer
+}
+
+{
+  // TODO: WidgetStack
+}
+
+{
+  // TODO: WidgetText
+}
+
+{
+  // TODO: XMLParser
+}
+
+{
+  // TODO: log
+}
+
+{
+  // TODO: logWarning
+}
+
+{
+  // TODO: logError
+}
+
+{
+  // TODO: atob
+}
+
+{
+  // TODO: btoa
+}
+
+{
+  // TODO: importModule
 }
