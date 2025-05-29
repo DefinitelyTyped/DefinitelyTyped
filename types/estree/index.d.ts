@@ -247,7 +247,7 @@ export interface FunctionDeclaration extends MaybeNamedFunctionDeclaration {
 export interface VariableDeclaration extends BaseDeclaration {
     type: "VariableDeclaration";
     declarations: VariableDeclarator[];
-    kind: "var" | "let" | "const";
+    kind: "var" | "let" | "const" | "using" | "await using";
 }
 
 export interface VariableDeclarator extends BaseNode {
