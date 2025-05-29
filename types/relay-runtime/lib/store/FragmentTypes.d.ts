@@ -11,3 +11,8 @@ export type ArrayKeyType<TData = unknown> = ReadonlyArray<KeyType<readonly TData
 export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> = KeyTypeData<
     NonNullable<TKey[number]>
 >;
+
+export type FragmentState<T> =
+    | { state: "ok"; value: T }
+    | { state: "error"; error: Error }
+    | { state: "loading" };

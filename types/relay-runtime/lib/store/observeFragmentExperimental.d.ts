@@ -1,6 +1,5 @@
-import type { GraphQLTaggedNode, IEnvironment, Observable } from "../../..";
-import type { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "../helpers";
-import type { FragmentState } from "./helpers";
+import type { GraphQLTaggedNode, IEnvironment, Observable } from "../..";
+import type { ArrayKeyType, ArrayKeyTypeData, FragmentState, KeyType, KeyTypeData } from "./FragmentTypes";
 
 /**
  * EXPERIMENTAL: This API is experimental and does not yet support all Relay

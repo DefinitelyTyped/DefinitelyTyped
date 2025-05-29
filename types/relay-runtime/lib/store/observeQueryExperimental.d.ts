@@ -1,5 +1,5 @@
-import type { GraphQLTaggedNode, IEnvironment, Observable, OperationType } from "../../..";
-import type { FragmentState } from "./helpers";
+import type { GraphQLTaggedNode, IEnvironment, Observable, OperationType } from "../..";
+import type { FragmentState } from "./FragmentTypes";
 
 /**
  * This function returns an observable that can be used to subscribe to the data

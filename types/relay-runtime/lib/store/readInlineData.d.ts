@@ -1,5 +1,5 @@
 import type { GraphQLTaggedNode } from "../query/RelayModernGraphQLTag";
-import type { KeyType, KeyTypeData } from "./helpers";
+import type { KeyType, KeyTypeData } from "./FragmentTypes";
 
 export function readInlineData<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,

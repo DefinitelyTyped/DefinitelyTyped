@@ -1,5 +1,5 @@
 import type { GraphQLTaggedNode } from "../query/RelayModernGraphQLTag";
-import type { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./helpers";
+import type { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./FragmentTypes";
 import type { FragmentType, SingularReaderSelector } from "./RelayStoreTypes";
 
 export interface ResolverContext {
