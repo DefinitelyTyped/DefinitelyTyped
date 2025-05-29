@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "layui-tests.ts",
+        "test/carousel.test.ts",
+        "test/code.test.ts",
+        "test/colorpicker.test.ts",
+        "test/element.test.ts",
+        "test/dropdown.test.ts",
+        "test/flow.test.ts",
+        "test/form.test.ts",
+        "test/jquery.test.ts",
+        "test/lay.test.ts",
+        "test/laydate.test.ts",
+        "test/layedit.test.ts",
+        "test/layer.test.ts",
+        "test/laytpl.test.ts",
+        "test/rate.test.ts",
+        "test/slider.test.ts",
+        "test/table.test.ts",
+        "test/transfer.test.ts",
+        "test/tree.test.ts",
+        "test/treeTable.test.ts",
+        "test/upload.test.ts",
+        "test/util.test.ts"
+    ]
+}
