@@ -1131,12 +1131,12 @@ type RelayFieldPayloadErrorEvent = Readonly<{
  * Union of all RelayFieldLoggerEvent types
  */
 export type RelayFieldLoggerEvent =
-| MissingExpectedDataLogEvent
-| MissingExpectedDataThrowEvent
-| MissingRequiredFieldLogEvent
-| MissingRequiredFieldThrowEvent
-| RelayResolverErrorEvent
-| RelayFieldPayloadErrorEvent;
+    | MissingExpectedDataLogEvent
+    | MissingExpectedDataThrowEvent
+    | MissingRequiredFieldLogEvent
+    | MissingRequiredFieldThrowEvent
+    | RelayResolverErrorEvent
+    | RelayFieldPayloadErrorEvent;
 
 /**
  * A handler for events related to field errors.
