@@ -1,15 +1,16 @@
-import * as CircuitBreaker from "opossum";
+import type * as CircuitBreaker from "opossum";
 import OpossumMetrics from "opossum-prometheus";
-import { Registry } from "prom-client";
+import type { Registry } from "prom-client";
 
-const circuit = new CircuitBreaker();
-const registry = new Registry();
-
+// $ExpectType OpossumMetrics
 const opossumPrometheus: OpossumMetrics = new OpossumMetrics({
-    circuits: [circuit],
-    registry: registry,
+    circuits: [{} as CircuitBreaker],
+    registry: {} as Registry,
     exposePerformanceMetrics: true,
     metricPrefix: "my_prefix_"
 });
 
-opossumPrometheus.add(circuit);
+
+
+// $ExpectType void
+opossumPrometheus.add({} as CircuitBreaker);
