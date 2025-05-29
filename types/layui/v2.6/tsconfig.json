@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "layui-src-tests.ts"
+        "layui-tests.ts"
     ]
 }
