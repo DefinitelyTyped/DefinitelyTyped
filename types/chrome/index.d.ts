@@ -293,7 +293,7 @@ declare namespace chrome {
          */
         export function isEnabled(tabId?: number): Promise<boolean>;
         export function isEnabled(callback: (isEnabled: boolean) => void): void;
-        export function isEnabled(tabId: number, callback: (isEnabled: boolean) => void): void;
+        export function isEnabled(tabId: number | undefined, callback: (isEnabled: boolean) => void): void;
 
         /**
          * Opens the extension's popup. Between Chrome 118 and Chrome 126, this is only available to policy installed extensions.
