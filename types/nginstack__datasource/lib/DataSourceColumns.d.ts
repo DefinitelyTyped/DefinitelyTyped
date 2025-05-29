@@ -12,20 +12,20 @@ declare class DataSourceColumns {
     private postProcessingInfo_;
     private newDynColumn_;
     private unshare_;
-    getLength(): number;
+    length: number;
     private importAndMixin_;
     importFields(
         classKey: number,
         prefix: string,
         opt_options?:
-            | Record<any, any>
             | {
                 includeFieldNames: string;
                 excludeFieldNames: string;
                 children: boolean;
                 onlyVisible: boolean;
                 onlyIncludedFieldNames: boolean;
-            },
+            }
+            | Record<any, any>,
     ): void;
     importVisibleFields(
         classKey: number,
@@ -53,7 +53,7 @@ declare class DataSourceColumns {
 declare namespace DataSourceColumns {
     export { DataSource, DataSourceColumnDef, IQuery };
 }
-type DataSource = import("./DataSource");
-type DataSourceColumnDef = import("./DataSourceColumnDef");
 import DataSourceColumn = require("./DataSourceColumn.js");
+type DataSourceColumnDef = import("./DataSourceColumnDef");
+type DataSource = import("./DataSource");
 type IQuery = import("@nginstack/iquery/lib/IQuery");

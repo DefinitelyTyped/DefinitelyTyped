@@ -186,6 +186,7 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
 
     /**
      * Sets the given local transformation matrix to the defined instance.
+     * Negatively scaled matrices are not supported.
      * @param instanceId The id of an instance to set the matrix of.
      * @param matrix A 4x4 matrix representing the local transformation of a single instance.
      */

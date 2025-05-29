@@ -37,9 +37,8 @@ declare module "querystring" {
             | string
             | number
             | boolean
-            | readonly string[]
-            | readonly number[]
-            | readonly boolean[]
+            | bigint
+            | ReadonlyArray<string | number | boolean | bigint>
             | null
         >
     {}

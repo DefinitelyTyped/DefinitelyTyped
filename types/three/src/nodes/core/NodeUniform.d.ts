@@ -14,22 +14,22 @@ declare class NodeUniform<TValue> {
     /**
      * Constructs a new node uniform.
      *
-     * @param {String} name - The name of the uniform.
-     * @param {String} type - The type of the uniform.
+     * @param {string} name - The name of the uniform.
+     * @param {string} type - The type of the uniform.
      * @param {UniformNode} node - An reference to the node.
      */
     constructor(name: string, type: string | null, node: UniformNode<TValue>);
     /**
      * The value of the uniform node.
      *
-     * @type {Any}
+     * @type {any}
      */
     get value(): TValue;
     set value(val: TValue);
     /**
      * The id of the uniform node.
      *
-     * @type {Number}
+     * @type {number}
      */
     get id(): number;
     /**

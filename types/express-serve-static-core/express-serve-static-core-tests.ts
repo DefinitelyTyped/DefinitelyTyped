@@ -13,6 +13,9 @@ app.listen(3000);
 app.listen(3000, () => {
     // no-op error callback
 });
+app.listen(3000, (error) => {
+    error; // $ExpectType Error | undefined
+});
 
 app.get("/:foo", req => {
     req.params.foo; // $ExpectType string
@@ -343,3 +346,6 @@ app.get("/:readonly", req => {
 
 // Starting with Express 5 RequestHandler can be async
 app.get("/async", Promise.resolve);
+
+// Starting with Express 5, app.router is the app's in-built instance of router
+app.router.stack;

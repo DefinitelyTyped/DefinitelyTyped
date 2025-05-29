@@ -1,27 +1,46 @@
 import Node from "./Node.js";
+import NodeBuilder from "./NodeBuilder.js";
+export interface MembersLayout {
+    [name: string]: string | {
+        type: string;
+        atomic?: boolean;
+    };
+}
+export interface MemberLayout {
+    name: string;
+    type: string;
+    atomic: boolean;
+}
 /**
- * {@link NodeBuilder} is going to create instances of this class during the build process
- * of nodes. They represent the final shader struct data that are going to be generated
- * by the builder. A dictionary of struct types is maintained in {@link NodeBuilder#structs}
- * for this purpose.
+ * Represents a struct type node in the node-based system.
+ * This class is used to define and manage the layout and types of struct members.
+ * It extends the base Node class and provides methods to get the length of the struct,
+ * retrieve member types, and generate the struct type for a builder.
+ *
+ * @augments Node
  */
 declare class StructTypeNode extends Node {
     static get type(): string;
-    name: string;
-    types: string[];
-    readonly isStructTypeNode: true;
+    membersLayout: MemberLayout[];
+    name: string | null;
+    readonly isStructLayoutNode: true;
     /**
-     * Constructs a new struct type node.
+     * Creates an instance of StructTypeNode.
      *
-     * @param {String} name - The name of the struct.
-     * @param {Array<String>} types - An array of types.
+     * @param {Object} membersLayout - The layout of the members for the struct.
+     * @param {?string} [name=null] - The optional name of the struct.
      */
-    constructor(name: string, types: string[]);
+    constructor(membersLayout: MembersLayout, name?: string | null);
     /**
-     * Returns the member types.
+     * Returns the length of the struct.
+     * The length is calculated by summing the lengths of the struct's members.
      *
-     * @return {Array<String>} The types.
+     * @returns {number} The length of the struct.
      */
-    getMemberTypes(): string[];
+    getLength(): number;
+    getMemberType(builder: NodeBuilder, name: string): string;
+    getNodeType(builder: NodeBuilder): string;
+    setup(builder: NodeBuilder): void;
+    generate(builder: NodeBuilder): string;
 }
 export default StructTypeNode;

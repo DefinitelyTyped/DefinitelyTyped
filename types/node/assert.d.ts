@@ -957,6 +957,18 @@ declare module "assert" {
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
         /**
+         * Tests for partial deep equality between the `actual` and `expected` parameters.
+         * "Deep" equality means that the enumerable "own" properties of child objects
+         * are recursively evaluated also by the following rules. "Partial" equality means
+         * that only properties that exist on the `expected` parameter are going to be
+         * compared.
+         *
+         * This method always passes the same test cases as `assert.deepStrictEqual()`,
+         * behaving as a super set of it.
+         * @since v22.13.0
+         */
+        function partialDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        /**
          * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
          * {@link deepEqual} will behave like {@link deepStrictEqual}.
          *
@@ -1015,6 +1027,7 @@ declare module "assert" {
                 | "deepStrictEqual"
                 | "ifError"
                 | "strict"
+                | "AssertionError"
             >
             & {
                 (value: unknown, message?: string | Error): asserts value;
@@ -1030,6 +1043,7 @@ declare module "assert" {
                 deepStrictEqual: typeof deepStrictEqual;
                 ifError: typeof ifError;
                 strict: typeof strict;
+                AssertionError: typeof AssertionError;
             };
     }
     export = assert;

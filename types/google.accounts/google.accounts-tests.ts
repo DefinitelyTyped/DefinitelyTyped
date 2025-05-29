@@ -275,3 +275,27 @@ google.accounts.id.revoke("1618033988749895", done => {
         done.error;
     }
 });
+
+// Intermediate Iframe API
+google.accounts.id.initializeIntermediate({ src: "https://example.com", done: () => {} });
+
+// Intermediate Iframe Support API
+google.accounts.id.intermediate.notifyParentClose();
+google.accounts.id.intermediate.notifyParentDone();
+google.accounts.id.intermediate.notifyParentResize(320);
+google.accounts.id.intermediate.verifyParentOrigin(
+    ["https://example.com"],
+    () => {},
+    () => {},
+);
+google.accounts.id.intermediate.verifyParentOrigin(
+    "https://example.com",
+    () => {},
+    () => {},
+);
+google.accounts.id.intermediate.verifyParentOrigin(
+    () => "https://example.com",
+    () => {},
+    () => {},
+);
+google.accounts.id.intermediate.notifyParentTapOutsideMode(false);

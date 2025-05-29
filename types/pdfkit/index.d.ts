@@ -413,6 +413,8 @@ declare namespace PDFKit.Mixins {
         columnGap?: number | undefined;
         /** The amount in PDF points (72 per inch) to indent each paragraph of text */
         indent?: number | undefined;
+        /** Whether to indent all lines of a paragraph */
+        indentAllLines?: boolean | undefined;
         /** The amount of space between each paragraph of text */
         paragraphGap?: number | undefined;
         /** The amount of space between each line of text */

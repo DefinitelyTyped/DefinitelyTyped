@@ -31,6 +31,16 @@ declare class Arborist extends EventEmitter {
     loadActual(options?: Arborist.Options): Promise<Arborist.Node>;
     loadVirtual(options?: Arborist.Options): Promise<Arborist.Node>;
     reify(options?: Arborist.ReifyOptions): Promise<Arborist.Node>;
+    /** returns an array of the actual nodes for all the workspaces */
+    workspaceNodes(tree: Arborist.Node, workspaces: string[]): Arborist.Node[];
+    /** returns a set of workspace nodes and all their deps */
+    workspaceDependencySet(
+        tree: Arborist.Node,
+        workspaces: string[],
+        includeWorkspaceRoot?: boolean,
+    ): Set<Arborist.Node>;
+    /** returns a set of root dependencies, excluding dependencies that are exclusively workspace dependencies */
+    excludeWorkspacesDependencySet(tree: Arborist.Node): Set<Arborist.Node>;
 }
 
 declare namespace Arborist {
@@ -130,6 +140,11 @@ declare namespace Arborist {
          */
         meta?: Shrinkwrap;
 
+        /** true if part of a global install */
+        get global(): boolean;
+        /** true for packages installed directly in the global node_modules folder  */
+        get globalTop(): boolean;
+
         /** Map of packages located in the node's `node_modules` folder. */
         children: Map<string, Node | Link>;
 
@@ -154,7 +169,7 @@ declare namespace Arborist {
         inventory: Inventory;
 
         /** The contents of this node's `package.json` file. */
-        readonly package: PackageJson;
+        package: PackageJson;
         /**
          * File path to this package.  If the node is a link, then this is the
          * path to the link, not to the link target.  If the node is _not_ a link,
@@ -170,9 +185,12 @@ declare namespace Arborist {
         /** A slash-normalized relative path from the root node to this node's path. */
         location: string;
         /** Whether this represents a symlink.  Always `false` for Node objects, always `true` for Link objects. */
-        isLink: boolean;
+        readonly isLink: boolean;
         /** True if this node is a root node.  (Ie, if `node.root === node`.) */
-        isRoot: boolean;
+        get isRoot(): boolean;
+        get isProjectRoot(): boolean;
+        get isRegistryDependency(): boolean;
+        ancestry(): Generator<Arborist.Node, void>;
         /**
          * The root node where we are working. If not assigned to some other
          * value, resolves to the node itself. (Ie, the root node's `root`
@@ -180,15 +198,19 @@ declare namespace Arborist {
          */
         get root(): Node;
         set root(value: Node | null);
+        get depth(): number;
         /** True if this node is the top of its tree (ie, has no `parent`, false otherwise). */
-        isTop: string;
+        get isTop(): boolean;
         /**
          * The top node in this node's tree.  This will be equal to `node.root`
          * for simple trees, but link targets will frequently be outside of (or
          * nested somewhere within) a `node_modules` hierarchy, and so will have
          * a different `top`.
          */
-        top: string;
+        get top(): Node;
+        get isFsTop(): boolean;
+        get fsTop(): Node;
+        get resolveParent(): Node;
 
         /** Indicates if this node is a dev dependency. */
         dev: boolean;
@@ -211,10 +233,17 @@ declare namespace Arborist {
 
         workspaces: Map<string, string> | null;
 
+        get binPaths(): string[];
+        get hasInstallScript(): boolean;
+        get version(): string;
+        get packageName(): string;
+
         /** The canonical spec of this package version: `name@version` */
         get pkgid(): string;
 
         get inBundle(): boolean;
+        get inDepBundle(): boolean;
+        get inShrinkwrap(): boolean;
 
         get isWorkspace(): boolean;
 
@@ -224,10 +253,19 @@ declare namespace Arborist {
         /** If this is a Link, this is the node it links to */
         target: Node;
 
-        overridden?: boolean;
+        get overridden(): boolean;
 
         /** When overrides are used, this is the virtual root */
         sourceReference?: Node;
+
+        isInStore: boolean;
+        hasShrinkwrap: boolean;
+        installLinks: boolean;
+        legacyPeerDeps: boolean;
+        tops: Set<Node>;
+        linksIn: Set<Link>;
+        dummy: boolean;
+        overrides?: OverrideSet;
 
         /** Identify the node that will be returned when code in this package runs `require(name)` */
         resolve(name: string): Node;
@@ -239,10 +277,27 @@ declare namespace Arborist {
         toJSON(): Node;
 
         explain(seen?: Node[]): Explanation;
+        isDescendentOf(node: Node): boolean;
+        getBundler(path?: Node[]): Node | null;
+        canReplaceWith(node: Node, ignorePeers?: Iterable<Node>): boolean;
+        canReplace(node: Node, ignorePeers?: Iterable<Node>): boolean;
+        /**
+         * return true if it's safe to remove this node, because anything that
+         * is depending on it would be fine with the thing that they would resolve
+         * to if it was removed, or nothing is depending on it in the first place.
+         */
+        canDedupe(preferDedupe?: boolean): boolean;
+        satisfies(requested: Edge | string): boolean;
+        matches(node: Node): boolean;
+        replaceWith(node: Node): void;
+        replace(node: Node): void;
+        assertRootOverrides(): void;
+        addEdgeOut(edge: Edge): void;
+        addEdgeIn(edge: Edge): void;
     }
 
     class Link extends Node {
-        isLink: true;
+        readonly isLink: true;
     }
 
     type DependencyProblem = "DETACHED" | "MISSING" | "PEER LOCAL" | "INVALID";
@@ -258,25 +313,28 @@ declare namespace Arborist {
          * Creates a new edge with the specified fields.  After instantiation,
          * none of the fields can be changed directly.
          */
-        constructor(fields: Pick<Edge, "from" | "type" | "name" | "spec">);
+        constructor(fields: Pick<Edge, "accept" | "from" | "type" | "name" | "spec" | "overrides">);
         /** The node that has the dependency. */
-        from: Node | null;
+        readonly from: Node | null;
         /** The type of dependency. */
-        type: SaveType;
+        readonly type: SaveType;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
-        name: string;
+        readonly name: string;
         /**
          * The specifier that is required.  This can be a version, range, tag
          * name, git url, or tarball URL.  Any specifier allowed by npm is
          * supported.
          */
-        spec: string;
+        readonly spec: string;
         /** Automatically set to the node in the tree that matches the `name` field. */
-        to: Node | null;
+        readonly to: Node | null;
+        readonly accept: string;
+        overrides?: ChildOverrideSet;
         /** True if `edge.to` satisfies the specifier. */
-        valid: boolean;
-        invalid: boolean;
-        missing: boolean;
+        get valid(): boolean;
+        get invalid(): boolean;
+        get missing(): boolean;
+        get peerLocal(): boolean;
         /**
          * A string indicating the type of error if there is a problem, or `null`
          * if it's valid.  Values, in order of precedence:
@@ -295,6 +353,13 @@ declare namespace Arborist {
         reload(hard?: boolean): void;
 
         explain(seen?: Node[]): Explanation;
+        get bundled(): boolean;
+        get prod(): boolean;
+        get dev(): boolean;
+        get optional(): boolean;
+        get peer(): boolean;
+        get rawSpec(): string;
+        detach(): void;
     }
 
     interface AuditReport extends Map<string, Vuln> {
@@ -406,6 +471,29 @@ declare namespace Arborist {
         toString(options?: ToStringOptions): string;
         save(options?: ToStringOptions): Promise<[undefined, undefined | false]>;
     }
+    type OverrideSet = RootOverrideSet | ChildOverrideSet;
+    interface BaseOverrideSet {
+        parent?: OverrideSet;
+        children: Map<string, ChildOverrideSet>;
+        getEdgeRule(edge: Edge): OverrideSet;
+        getNodeRule(edge: Node): OverrideSet;
+        getMatchingRule(edge: Node): OverrideSet | null;
+        ancestry(): Generator<OverrideSet, void>;
+        readonly isRoot: boolean;
+        get ruleset(): Map<string, ChildOverrideSet>;
+    }
+    interface RootOverrideSet extends BaseOverrideSet {
+        readonly isRoot: true;
+        parent?: undefined;
+    }
+    interface ChildOverrideSet extends BaseOverrideSet {
+        readonly isRoot: false;
+        parent: OverrideSet | ChildOverrideSet;
+        name: string;
+        key: string;
+        keySpec: string;
+        value: string;
+    }
     interface ExplicitRequest {
         from: Node;
         name: string;
@@ -418,7 +506,7 @@ declare namespace Arborist {
         add(node: Node): void;
         delete(node: Node): void;
         query(key: string, val: string | undefined): Set<Node>;
-        query(key: string): IterableIterator<Node>;
+        query(key: string): IterableIterator<string | undefined>;
         has(node: Node): boolean;
         set?(k: never, v: never): never;
     }

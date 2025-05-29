@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { Agent as BaseHTTPAgent, AgentOptions } from "http";
-import { Agent as BaseHTTPSAgent } from "https";
+import { Agent as BaseHTTPAgent, AgentOptions as BaseHTTPAgentOptions } from "http";
+import { Agent as BaseHTTPSAgent, AgentOptions as BaseHTTPSAgentOptions } from "https";
 import { Server as NetServer, Socket } from "net";
 import { Duplex, Readable, ReadableOptions, Writable, WritableOptions } from "stream";
 
@@ -697,6 +697,11 @@ export class Client extends EventEmitter {
      * the server.
      */
     openssh_forwardOutStreamLocal(socketPath: string, cb: ClientCallback): this;
+
+    /**
+     * Calls setNoDelay() on the underlying socket. Disabling Nagle's algorithm improves latency at the expense of lower throughput.
+     */
+    setNoDelay(noDelay?: boolean): this;
 }
 
 export type HostVerifier = (key: Buffer, verify: VerifyCallback) => void;
@@ -2396,7 +2401,7 @@ export interface UNIXConnectionDetails {
     socketPath: string;
 }
 
-export interface HTTPAgentOptions extends AgentOptions {
+export interface HTTPAgentOptions extends BaseHTTPAgentOptions {
     srcIP?: string;
 }
 
@@ -2404,6 +2409,10 @@ export class HTTPAgent extends BaseHTTPAgent {
     constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
 }
 
+export interface HTTPSAgentOptions extends BaseHTTPSAgentOptions {
+    srcIP?: string;
+}
+
 export class HTTPSAgent extends BaseHTTPSAgent {
-    constructor(connectCfg: ConnectConfig, agentOptions: HTTPAgentOptions);
+    constructor(connectCfg: ConnectConfig, agentOptions: HTTPSAgentOptions);
 }

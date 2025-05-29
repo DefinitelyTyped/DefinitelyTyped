@@ -194,7 +194,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers you sent which contain the item(s),
      * and an array of TradeOffer objects for offers you received which contain the item(s)
      */
-    getOffersContainingItem(
+    getOffersContainingItems(
         items: CEconItem | CEconItem[],
         includeInactive: boolean,
         callback: TradeOfferManager.OfferCallback,
@@ -208,7 +208,7 @@ declare class TradeOfferManager extends EventEmitter {
      * @param callback Called on completion with an Error on failure (null on success), an array of TradeOffer objects for offers you sent which contain the item(s),
      * and an array of TradeOffer objects for offers you received which contain the item(s)
      */
-    getOffersContainingItem(items: CEconItem | CEconItem[], callback: TradeOfferManager.OfferCallback): void;
+    getOffersContainingItems(items: CEconItem | CEconItem[], callback: TradeOfferManager.OfferCallback): void;
 
     /**
      * Immediately performs a poll. Can be used even if timed polling is disabled to poll on your own schedule. Don't worry about spamming this method,
@@ -689,6 +689,13 @@ declare namespace TradeOfferManager {
          * @param received An array of TradeOffer objects for offers we received
          */
         offerList: (filter: number, sent: TradeOffer[], received: TradeOffer[]) => void;
+
+        /**
+         * Emitted whenever TradeOfferManager detects that your web cookies have expired and need to be refreshed. When this happens, you should obtain new cookies from whichever module you initially got them from.
+         *
+         * @param err An Error object
+         */
+        sessionExpired: (err: Error) => void;
     }
 
     interface TradeOfferManagerOptions {

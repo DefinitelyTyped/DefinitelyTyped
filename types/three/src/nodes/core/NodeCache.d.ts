@@ -7,6 +7,7 @@ import NodeCode from "./NodeCode.js";
 import NodeUniform from "./NodeUniform.js";
 import NodeVar from "./NodeVar.js";
 import NodeVarying from "./NodeVarying.js";
+import StructType from "./StructType.js";
 export interface ShaderStageNodeData {
     properties?:
         | (
@@ -20,7 +21,7 @@ export interface ShaderStageNodeData {
         )
         | undefined;
     bufferAttribute?: NodeAttribute | undefined;
-    structType?: Node | undefined;
+    structType?: StructType | undefined;
     uniform?: NodeUniform<unknown> | undefined;
     variable?: NodeVar | undefined;
     varying?: NodeVarying | undefined;
@@ -50,14 +51,14 @@ declare class NodeCache {
     /**
      * Constructs a new node cache.
      *
-     * @param {NodeCache?} parent - A reference to a parent cache.
+     * @param {?NodeCache} parent - A reference to a parent cache.
      */
     constructor(parent?: NodeCache | null);
     /**
      * Returns the data for the given node.
      *
      * @param {Node} node - The node.
-     * @return {Object?} The data for the node.
+     * @return {?Object} The data for the node.
      */
     getData(node: Node): NodeData | undefined;
     getData(node: TypedArray | InterleavedBuffer | BufferAttribute): BufferAttributeData | undefined;

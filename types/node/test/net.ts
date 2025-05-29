@@ -11,6 +11,7 @@ import * as net from "node:net";
         port: 443,
         signal: abort.signal,
         timeout: 10E3,
+        blockList: new net.BlockList(),
     };
     const socket: net.Socket = net.createConnection(connectOpts, (): void => {
         // nothing
@@ -22,6 +23,7 @@ import * as net from "node:net";
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         highWaterMark: 16384,
+        blockList: new net.BlockList(),
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
@@ -31,6 +33,7 @@ import * as net from "node:net";
 
     server.listen({
         ipv6Only: true,
+        reusePort: true,
         signal: new AbortSignal(),
     });
 
@@ -60,6 +63,9 @@ import * as net from "node:net";
     });
 
     let bool: boolean;
+    let uint8array: Uint8Array = new Uint8Array(0);
+    let bufferEncoding: BufferEncoding = "utf8";
+    let str = "123";
 
     bool = _socket.connecting;
     bool = _socket.destroyed;
@@ -72,6 +78,20 @@ import * as net from "node:net";
     _socket = _socket.setEncoding("utf8");
     _socket = _socket.resume();
     _socket = _socket.resetAndDestroy();
+
+    // write callback parameter can be either null/undefined or an error
+    bool = _socket.write(uint8array, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(str, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(uint8array, bufferEncoding, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(str, bufferEncoding, (err) => {
+        if (err) { const _err: Error = err; }
+    });
 
     _socket = _socket.end();
     _socket = _socket.destroy();
@@ -125,10 +145,12 @@ import * as net from "node:net";
     let _socket: net.Socket = new net.Socket(constructorOpts);
 
     let bool = true;
-    let buffer = Buffer.from("123");
+    let buffer: Buffer = Buffer.from("123");
     let error = new Error("asd");
     let str = "123";
     let num = 123;
+    let uint8array: Uint8Array = new Uint8Array(0);
+    let bufferEncoding: BufferEncoding = "utf8";
 
     const ipcConnectOpts: net.IpcSocketConnectOpts = {
         path: "/",
@@ -174,6 +196,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.addListener("connect", () => {});
+    _socket = _socket.addListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.addListener("data", data => {
         buffer = data;
     });
@@ -199,6 +231,7 @@ import * as net from "node:net";
     /// emit
     bool = _socket.emit("close", bool);
     bool = _socket.emit("connect");
+    bool = _socket.emit("connectionAttemptFailed", str, num, num, error);
     bool = _socket.emit("data", buffer);
     bool = _socket.emit("drain");
     bool = _socket.emit("end");
@@ -213,6 +246,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.on("connect", () => {});
+    _socket = _socket.on("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.on("data", data => {
         buffer = data;
     });
@@ -240,6 +283,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.once("connect", () => {});
+    _socket = _socket.once("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.once("data", data => {
         buffer = data;
     });
@@ -267,6 +320,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.prependListener("connect", () => {});
+    _socket = _socket.prependListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.prependListener("data", data => {
         buffer = data;
     });
@@ -294,6 +357,16 @@ import * as net from "node:net";
         bool = had_error;
     });
     _socket = _socket.prependOnceListener("connect", () => {});
+    _socket = _socket.prependOnceListener("connectionAttemptFailed", (ip, port, family, error) => {
+        // $ExpectType string
+        ip;
+        // $ExpectType number
+        port;
+        // $ExpectType number
+        family;
+        // $ExpectType Error
+        error;
+    });
     _socket = _socket.prependOnceListener("data", data => {
         buffer = data;
     });
@@ -315,6 +388,20 @@ import * as net from "node:net";
     });
     _socket = _socket.prependOnceListener("ready", () => {});
     _socket = _socket.prependOnceListener("timeout", () => {});
+
+    // write callback parameter can be either null/undefined or an error
+    bool = _socket.write(uint8array, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(str, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(uint8array, bufferEncoding, (err) => {
+        if (err) { const _err: Error = err; }
+    });
+    bool = _socket.write(str, bufferEncoding, (err) => {
+        if (err) { const _err: Error = err; }
+    });
 
     _socket.destroy().destroy();
     _socket.readyState; // $ExpectType SocketReadyState
@@ -392,6 +479,18 @@ import * as net from "node:net";
 }
 
 {
+    let _server = net.createServer();
+
+    // $ExpectType Server
+    _server.getConnections((error, count) => {
+        // $ExpectType Error | null
+        error;
+        // $ExpectType number
+        count;
+    });
+}
+
+{
     const sockAddr: net.SocketAddress = new net.SocketAddress({
         address: "123.123.123.123",
         family: "ipv4",
@@ -402,6 +501,7 @@ import * as net from "node:net";
     sockAddr.family; // $ExpectType IPVersion
     sockAddr.flowlabel; // $ExpectType number
     sockAddr.port; // $ExpectType number
+    net.SocketAddress.parse("[1::1]:1234"); // $ExpectType SocketAddress | undefined
 
     const bl = new net.BlockList();
     bl.addAddress("127.0.0.1", "ipv4");
@@ -412,4 +512,5 @@ import * as net from "node:net";
     bl.addSubnet(sockAddr, 12);
     const res: boolean = bl.check("127.0.0.1", "ipv4") || bl.check(sockAddr);
     bl.rules; // $ExpectType readonly string[]
+    net.BlockList.isBlockList(bl); // $ExpectType boolean
 }

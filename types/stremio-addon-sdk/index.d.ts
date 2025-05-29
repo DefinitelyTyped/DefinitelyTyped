@@ -570,7 +570,7 @@ export interface ManifestConfig {
     /**
      * List of (string) choices for `type: "select"`
      */
-    options?: string;
+    options?: string[];
 
     /**
      * If the value is required or not. Only applies to the following types: "string", "number". (default is `false`)

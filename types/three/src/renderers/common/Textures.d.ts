@@ -75,7 +75,7 @@ declare class Textures extends DataMap<{
      * it updates the texture states representing the attachments of the framebuffer.
      *
      * @param {RenderTarget} renderTarget - The render target to update.
-     * @param {Number} [activeMipmapLevel=0] - The active mipmap level.
+     * @param {number} [activeMipmapLevel=0] - The active mipmap level.
      */
     updateRenderTarget(renderTarget: RenderTarget, activeMipmapLevel?: number): void;
     /**
@@ -104,25 +104,18 @@ declare class Textures extends DataMap<{
      * Computes the number of mipmap levels for the given texture.
      *
      * @param {Texture} texture - The texture.
-     * @param {Number} width - The texture's width.
-     * @param {Number} height - The texture's height.
-     * @return {Number} The number of mipmap levels.
+     * @param {number} width - The texture's width.
+     * @param {number} height - The texture's height.
+     * @return {number} The number of mipmap levels.
      */
     getMipLevels(texture: Texture, width: number, height: number): number;
     /**
      * Returns `true` if the given texture requires mipmaps.
      *
      * @param {Texture} texture - The texture.
-     * @return {Boolean} Whether mipmaps are required or not.
+     * @return {boolean} Whether mipmaps are required or not.
      */
     needsMipmaps(texture: Texture): boolean;
-    /**
-     * Returns `true` if the given texture is an environment map.
-     *
-     * @param {Texture} texture - The texture.
-     * @return {Boolean} Whether the given texture is an environment map or not.
-     */
-    isEnvironmentTexture(texture: Texture): boolean;
     /**
      * Frees internal resource when the given texture isn't
      * required anymore.

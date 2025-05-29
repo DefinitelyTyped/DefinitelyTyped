@@ -13,13 +13,13 @@ declare class Binding {
     /**
      * Constructs a new binding.
      *
-     * @param {String} [name=''] - The binding's name.
+     * @param {string} [name=''] - The binding's name.
      */
     constructor(name?: string);
     /**
      * Makes sure binding's resource is visible for the given shader stage.
      *
-     * @param {Number} visibility - The shader stage.
+     * @param {number} visibility - The shader stage.
      */
     setVisibility(visibility: number): void;
     /**

@@ -35,7 +35,7 @@ import RenderPipeline from "./RenderPipeline.js";
  *
  * @private
  */
-export default class RenderObject {
+declare class RenderObject {
     _nodes: Nodes;
     _geometries: Geometries;
     id: number;
@@ -107,21 +107,21 @@ export default class RenderObject {
     /**
      * Whether the clipping requires an update or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get clippingNeedsUpdate(): boolean;
     /**
      * The number of clipping planes defined in context of hardware clipping.
      *
-     * @type {Number}
+     * @type {number}
      * @readonly
      */
     get hardwareClippingPlanes(): number;
     /**
      * Returns the node builder state of this render object.
      *
-     * @return {NodeBuilderState} The node buider state.
+     * @return {NodeBuilderState} The node builder state.
      */
     getNodeBuilderState(): NodeBuilderState;
     /**
@@ -137,15 +137,22 @@ export default class RenderObject {
      */
     getBindings(): BindGroup[];
     /**
+     * Returns a binding group by group name of this render object.
+     *
+     * @param {string} name - The name of the binding group.
+     * @return {?BindGroup} The bindings.
+     */
+    getBindingGroup(name: string): BindGroup | undefined;
+    /**
      * Returns the index of the render object's geometry.
      *
-     * @return {BufferAttribute?} The index. Returns `null` for non-indexed geometries.
+     * @return {?BufferAttribute} The index. Returns `null` for non-indexed geometries.
      */
     getIndex(): BufferAttribute | null;
     /**
      * Returns the indirect buffer attribute.
      *
-     * @return {BufferAttribute?} The indirect attribute. `null` if no indirect drawing is used.
+     * @return {?BufferAttribute} The indirect attribute. `null` if no indirect drawing is used.
      */
     getIndirect(): import("./IndirectStorageBufferAttribute.js").default | null;
     /**
@@ -182,7 +189,7 @@ export default class RenderObject {
     /**
      * Returns the draw parameters for the render object.
      *
-     * @return {{vertexCount: Number, firstVertex: Number, instanceCount: Number, firstInstance: Number}} The draw parameters.
+     * @return {?{vertexCount: number, firstVertex: number, instanceCount: number, firstInstance: number}} The draw parameters.
      */
     getDrawParameters(): {
         vertexCount: number;
@@ -195,7 +202,7 @@ export default class RenderObject {
      *
      * The geometry cache key is part of the material cache key.
      *
-     * @return {String} The geometry cache key.
+     * @return {string} The geometry cache key.
      */
     getGeometryCacheKey(): string;
     /**
@@ -203,13 +210,13 @@ export default class RenderObject {
      *
      * The material cache key is part of the render object cache key.
      *
-     * @return {String} The material cache key.
+     * @return {number} The material cache key.
      */
     getMaterialCacheKey(): number;
     /**
      * Whether the geometry requires an update or not.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get needsGeometryUpdate(): boolean;
@@ -224,27 +231,28 @@ export default class RenderObject {
      * `RenderObjects.get()`. The render object's NodeMaterialObserver is then used to detect
      * a need for a refresh due to material, geometry or object related value changes.
      *
-     * TODO: Investigate if it's possible to merge boths steps so there is only a single place
+     * TODO: Investigate if it's possible to merge both steps so there is only a single place
      * that performs the 'needsUpdate' check.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @readonly
      */
     get needsUpdate(): boolean;
     /**
      * Returns the dynamic cache key which represents a key that is computed per draw command.
      *
-     * @return {String} The cache key.
+     * @return {number} The cache key.
      */
-    getDynamicCacheKey(): string;
+    getDynamicCacheKey(): number;
     /**
      * Returns the render object's cache key.
      *
-     * @return {String} The cache key.
+     * @return {number} The cache key.
      */
-    getCacheKey(): string;
+    getCacheKey(): number;
     /**
      * Frees internal resources.
      */
     dispose(): void;
 }
+export default RenderObject;

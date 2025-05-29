@@ -7,13 +7,17 @@
 declare class NodeVar {
     readonly isNodeVar: true;
     name: string;
-    type: string | null;
+    type: string;
+    readOnly: boolean;
+    count: number | null;
     /**
      * Constructs a new node variable.
      *
-     * @param {String} name - The name of the variable.
-     * @param {String} type - The type of the variable.
+     * @param {string} name - The name of the variable.
+     * @param {string} type - The type of the variable.
+     * @param {boolean} [readOnly=false] - The read-only flag.
+     * @param {?number} [count=null] - The size.
      */
-    constructor(name: string, type: string | null);
+    constructor(name: string, type: string, readOnly?: boolean, count?: number | null);
 }
 export default NodeVar;

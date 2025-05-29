@@ -227,6 +227,9 @@ doc.text("Text with null link", { align: "left" });
 doc.text("Text with null link", { align: "center" });
 doc.text("Text with null link", { align: "right" });
 doc.text("Text with null link", { align: "justify" });
+
+doc.text("Text with all lines indented", { indentAllLines: true });
+
 // @ts-expect-error
 doc.text("Text with null link", { align: "other" }); // Altought this is not an error in JS side, the inclusion of `string` did break type hints
 

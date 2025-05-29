@@ -60,7 +60,7 @@ declare class Pipelines extends DataMap<{
      * Returns a render pipeline for the given render object.
      *
      * @param {RenderObject} renderObject - The render object.
-     * @param {Array<Promise>?} [promises=null] - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
+     * @param {?Array<Promise>} [promises=null] - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
      * @return {RenderPipeline} The render pipeline.
      */
     getForRender(renderObject: RenderObject, promises?: Promise<void>[] | null): RenderPipeline;
@@ -68,7 +68,7 @@ declare class Pipelines extends DataMap<{
      * Deletes the pipeline for the given render object.
      *
      * @param {RenderObject} object - The render object.
-     * @return {Object?} The deleted dictionary.
+     * @return {?Object} The deleted dictionary.
      */
     delete(object: ComputeNode | RenderObject): never;
     /**
@@ -87,7 +87,7 @@ declare class Pipelines extends DataMap<{
      * @private
      * @param {Node} computeNode - The compute node.
      * @param {ProgrammableStage} stageCompute - The programmable stage representing the compute shader.
-     * @param {String} cacheKey - The cache key.
+     * @param {string} cacheKey - The cache key.
      * @param {Array<BindGroup>} bindings - The bindings.
      * @return {ComputePipeline} The compute pipeline.
      */
@@ -104,8 +104,8 @@ declare class Pipelines extends DataMap<{
      * @param {RenderObject} renderObject - The render object.
      * @param {ProgrammableStage} stageVertex - The programmable stage representing the vertex shader.
      * @param {ProgrammableStage} stageFragment - The programmable stage representing the fragment shader.
-     * @param {String} cacheKey - The cache key.
-     * @param {Array} promises - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
+     * @param {string} cacheKey - The cache key.
+     * @param {?Array<Promise>} promises - An array of compilation promises which is only relevant in context of `Renderer.compileAsync()`.
      * @return {ComputePipeline} The compute pipeline.
      */
     _getRenderPipeline(
@@ -121,7 +121,7 @@ declare class Pipelines extends DataMap<{
      * @private
      * @param {Node} computeNode - The compute node.
      * @param {ProgrammableStage} stageCompute - The programmable stage representing the compute shader.
-     * @return {String} The cache key.
+     * @return {string} The cache key.
      */
     _getComputeCacheKey(computeNode: ComputeNode, stageCompute: ProgrammableStage): string;
     /**
@@ -131,7 +131,7 @@ declare class Pipelines extends DataMap<{
      * @param {RenderObject} renderObject - The render object.
      * @param {ProgrammableStage} stageVertex - The programmable stage representing the vertex shader.
      * @param {ProgrammableStage} stageFragment - The programmable stage representing the fragment shader.
-     * @return {String} The cache key.
+     * @return {string} The cache key.
      */
     _getRenderCacheKey(
         renderObject: RenderObject,
@@ -149,7 +149,7 @@ declare class Pipelines extends DataMap<{
      * Releases the shader program.
      *
      * @private
-     * @param {Object} program - The shdaer program to release.
+     * @param {Object} program - The shader program to release.
      */
     _releaseProgram(program: ProgrammableStage): void;
     /**
@@ -157,7 +157,7 @@ declare class Pipelines extends DataMap<{
      *
      * @private
      * @param {Node} computeNode - The compute node.
-     * @return {Boolean} Whether the compute pipeline for the given compute node requires an update or not.
+     * @return {boolean} Whether the compute pipeline for the given compute node requires an update or not.
      */
     _needsComputeUpdate(computeNode: ComputeNode): boolean;
     /**
@@ -165,7 +165,7 @@ declare class Pipelines extends DataMap<{
      *
      * @private
      * @param {RenderObject} renderObject - The render object.
-     * @return {Boolean} Whether the render object for the given render object requires an update or not.
+     * @return {boolean} Whether the render object for the given render object requires an update or not.
      */
     _needsRenderUpdate(renderObject: RenderObject): true | void;
 }

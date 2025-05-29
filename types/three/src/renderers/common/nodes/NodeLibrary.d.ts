@@ -45,7 +45,7 @@ declare class NodeLibrary {
      * Adds a tone mapping node function for a tone mapping technique (constant).
      *
      * @param {Function} toneMappingNode - The tone mapping node function.
-     * @param {Number} toneMapping - The tone mapping.
+     * @param {number} toneMapping - The tone mapping.
      */
     addToneMapping(
         toneMappingNode: (color: NodeRepresentation, exposure: NodeRepresentation) => ShaderNodeObject<Node>,
@@ -54,8 +54,8 @@ declare class NodeLibrary {
     /**
      * Returns a tone mapping node function for a tone mapping technique (constant).
      *
-     * @param {Number} toneMapping - The tone mapping.
-     * @return {Function?} The tone mapping node function. Returns `null` if no node function is found.
+     * @param {number} toneMapping - The tone mapping.
+     * @return {?Function} The tone mapping node function. Returns `null` if no node function is found.
      */
     getToneMappingFunction(
         toneMapping: ToneMapping,
@@ -63,15 +63,15 @@ declare class NodeLibrary {
     /**
      * Returns a node material class definition for a material type.
      *
-     * @param {Sring} materialType - The material type.
-     * @return {NodeMaterial.constructor?} The node material class definition. Returns `null` if no node material is found.
+     * @param {string} materialType - The material type.
+     * @return {?NodeMaterial.constructor} The node material class definition. Returns `null` if no node material is found.
      */
     getMaterialNodeClass(materialType: string): (new() => NodeMaterial) | null;
     /**
      * Adds a node material class definition for a given material type.
      *
      * @param {NodeMaterial.constructor} materialNodeClass - The node material class definition.
-     * @param {Sring} materialClassType - The material type.
+     * @param {string} materialClassType - The material type.
      */
     addMaterial(materialNodeClass: {
         new(): NodeMaterial;
@@ -80,7 +80,7 @@ declare class NodeLibrary {
      * Returns a light node class definition for a light class definition.
      *
      * @param {Light.constructor} light - The light class definition.
-     * @return {AnalyticLightNode.constructor?} The light node class definition. Returns `null` if no light node is found.
+     * @return {?AnalyticLightNode.constructor} The light node class definition. Returns `null` if no light node is found.
      */
     getLightNodeClass(light: Light): (new(light: Light) => AnalyticLightNode<Light>) | null;
     /**
@@ -97,16 +97,16 @@ declare class NodeLibrary {
     /**
      * Adds a node class definition for the given type to the provided type library.
      *
-     * @param {Any} nodeClass - The node class definition.
-     * @param {String} type - The object type.
+     * @param {any} nodeClass - The node class definition.
+     * @param {number|string} type - The object type.
      * @param {Map} library - The type library.
      */
     addType<TNodeClass, TType>(nodeClass: TNodeClass, type: TType, library: Map<TType, TNodeClass>): void;
     /**
      * Adds a node class definition for the given class definition to the provided type library.
      *
-     * @param {Any} nodeClass - The node class definition.
-     * @param {Any} baseClass - The class definition.
+     * @param {any} nodeClass - The node class definition.
+     * @param {any} baseClass - The class definition.
      * @param {WeakMap} library - The type library.
      */
     addClass<TNodeClass, TBaseClass extends object>(

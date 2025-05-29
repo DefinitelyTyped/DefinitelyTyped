@@ -1,4 +1,5 @@
 import { Color } from "../../math/Color.js";
+import { Matrix2 } from "../../math/Matrix2.js";
 import { Matrix3 } from "../../math/Matrix3.js";
 import { Matrix4 } from "../../math/Matrix4.js";
 import { Vector2 } from "../../math/Vector2.js";
@@ -19,20 +20,20 @@ declare class Uniform<TValue> {
     /**
      * Constructs a new uniform.
      *
-     * @param {String} name - The uniform's name.
-     * @param {Any} value - The uniform's value.
+     * @param {string} name - The uniform's name.
+     * @param {any} value - The uniform's value.
      */
     constructor(name: string, value: TValue);
     /**
      * Sets the uniform's value.
      *
-     * @param {Any} value - The value to set.
+     * @param {any} value - The value to set.
      */
     setValue(value: TValue): void;
     /**
      * Returns the uniform's value.
      *
-     * @return {Any} The value.
+     * @return {any} The value.
      */
     getValue(): TValue;
 }
@@ -47,8 +48,8 @@ declare class NumberUniform extends Uniform<number> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
-     * @param {Number} value - The uniform's value.
+     * @param {string} name - The uniform's name.
+     * @param {number} value - The uniform's value.
      */
     constructor(name: string, value?: number);
 }
@@ -63,7 +64,7 @@ declare class Vector2Uniform extends Uniform<Vector2> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector2} value - The uniform's value.
      */
     constructor(name: string, value?: Vector2);
@@ -79,7 +80,7 @@ declare class Vector3Uniform extends Uniform<Vector3> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector3} value - The uniform's value.
      */
     constructor(name: string, value?: Vector3);
@@ -95,7 +96,7 @@ declare class Vector4Uniform extends Uniform<Vector4> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Vector4} value - The uniform's value.
      */
     constructor(name: string, value?: Vector4);
@@ -111,10 +112,26 @@ declare class ColorUniform extends Uniform<Color> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Color} value - The uniform's value.
      */
     constructor(name: string, value?: Color);
+}
+/**
+ * Represents a Matrix2 uniform.
+ *
+ * @private
+ * @augments Uniform
+ */
+declare class Matrix2Uniform extends Uniform<Matrix2> {
+    readonly isMatrix2Uniform: true;
+    /**
+     * Constructs a new Number uniform.
+     *
+     * @param {string} name - The uniform's name.
+     * @param {Matrix2} value - The uniform's value.
+     */
+    constructor(name: string, value?: Matrix2);
 }
 /**
  * Represents a Matrix3 uniform.
@@ -127,7 +144,7 @@ declare class Matrix3Uniform extends Uniform<Matrix3> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Matrix3} value - The uniform's value.
      */
     constructor(name: string, value?: Matrix3);
@@ -143,9 +160,18 @@ declare class Matrix4Uniform extends Uniform<Matrix4> {
     /**
      * Constructs a new Number uniform.
      *
-     * @param {String} name - The uniform's name.
+     * @param {string} name - The uniform's name.
      * @param {Matrix4} value - The uniform's value.
      */
     constructor(name: string, value?: Matrix4);
 }
-export { ColorUniform, Matrix3Uniform, Matrix4Uniform, NumberUniform, Vector2Uniform, Vector3Uniform, Vector4Uniform };
+export {
+    ColorUniform,
+    Matrix2Uniform,
+    Matrix3Uniform,
+    Matrix4Uniform,
+    NumberUniform,
+    Vector2Uniform,
+    Vector3Uniform,
+    Vector4Uniform,
+};

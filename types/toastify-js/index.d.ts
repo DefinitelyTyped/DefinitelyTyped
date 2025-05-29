@@ -1,5 +1,6 @@
 declare namespace StartToastifyInstance {
     function reposition(): void;
+    const defaults: Options;
     interface Offset {
         x: number | string;
         y: number | string;

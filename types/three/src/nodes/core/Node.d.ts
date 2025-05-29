@@ -75,19 +75,20 @@ declare class Node extends EventDispatcher<{
     _cacheKey: number | null;
     _cacheKeyVersion: number;
     global: boolean;
+    parents: boolean;
     readonly isNode: true;
     readonly id: number;
     self?: this;
     /**
      * Constructs a new node.
      *
-     * @param {String?} nodeType - The node type.
+     * @param {?string} nodeType - The node type.
      */
     constructor(nodeType?: string | null);
     /**
      * Set this property to `true` when the node should be regenerated.
      *
-     * @type {Boolean}
+     * @type {boolean}
      * @default false
      * @param {boolean} value
      */
@@ -95,7 +96,7 @@ declare class Node extends EventDispatcher<{
     /**
      * The type of the class. The value is usually the constructor name.
      *
-     * @type {String}
+     * @type {string}
      * @readonly
      */
     get type(): string | undefined;
@@ -103,7 +104,7 @@ declare class Node extends EventDispatcher<{
      * Convenient method for defining {@link Node#update}.
      *
      * @param {Function} callback - The update method.
-     * @param {String} updateType - The update type.
+     * @param {string} updateType - The update type.
      * @return {Node} A reference to this node.
      */
     onUpdate(callback: (this: this, frame: NodeFrame) => unknown, updateType: NodeUpdateType): this;
@@ -149,8 +150,8 @@ declare class Node extends EventDispatcher<{
      * Nodes might refer to other objects like materials. This method allows to dynamically update the reference
      * to such objects based on a given state (e.g. the current node frame or builder).
      *
-     * @param {Any} state - This method can be invocated in different contexts so `state` can refer to any object type.
-     * @return {Any} The updated reference.
+     * @param {any} state - This method can be invocated in different contexts so `state` can refer to any object type.
+     * @return {any} The updated reference.
      */
     updateReference(state: NodeBuilder | NodeFrame): unknown;
     /**
@@ -159,7 +160,7 @@ declare class Node extends EventDispatcher<{
      * global status.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {Boolean} Whether this node is global or not.
+     * @return {boolean} Whether this node is global or not.
      */
     isGlobal(builder: NodeBuilder): boolean;
     /**
@@ -189,14 +190,14 @@ declare class Node extends EventDispatcher<{
     /**
      * Returns the cache key for this node.
      *
-     * @param {Boolean} [force=false] - When set to `true`, a recomputation of the cache key is forced.
-     * @return {Number} The cache key of the node.
+     * @param {boolean} [force=false] - When set to `true`, a recomputation of the cache key is forced.
+     * @return {number} The cache key of the node.
      */
     getCacheKey(force?: boolean): number;
     /**
      * Generate a custom cache key for this node.
      *
-     * @return {Number} The cache key of the node.
+     * @return {number} The cache key of the node.
      */
     customCacheKey(): number;
     /**
@@ -211,7 +212,7 @@ declare class Node extends EventDispatcher<{
      * depending on their implementation.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The hash.
+     * @return {string} The hash.
      */
     getHash(builder: NodeBuilder): string;
     /**
@@ -238,14 +239,22 @@ declare class Node extends EventDispatcher<{
      * these elements.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The type of the node.
+     * @return {string} The type of the node.
      */
     getElementType(builder: NodeBuilder): "bool" | "int" | "float" | "vec2" | "vec3" | "vec4" | "uint" | null;
+    /**
+     * Returns the node member type for the given name.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @param {string} name - The name of the member.
+     * @return {string} The type of the node.
+     */
+    getMemberType(builder: NodeBuilder, name: string): string;
     /**
      * Returns the node's type.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The type of the node.
+     * @return {string} The type of the node.
      */
     getNodeType(builder: NodeBuilder): string | null;
     /**
@@ -264,7 +273,7 @@ declare class Node extends EventDispatcher<{
      * The output node must be returned in the `return` statement.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {Node?} The output node.
+     * @return {?Node} The output node.
      */
     setup(builder: NodeBuilder): unknown;
     /**
@@ -279,8 +288,8 @@ declare class Node extends EventDispatcher<{
      * This state builds the output node and returns the resulting shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {String?} output - Can be used to define the output type.
-     * @return {String?} The generated shader string.
+     * @param {?string} output - Can be used to define the output type.
+     * @return {?string} The generated shader string.
      */
     generate(builder: NodeBuilder, output?: string | null): string | null | undefined;
     /**
@@ -289,7 +298,7 @@ declare class Node extends EventDispatcher<{
      *
      * @abstract
      * @param {NodeFrame} frame - A reference to the current node frame.
-     * @return {Boolean?} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
+     * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     updateBefore(frame: NodeFrame): void;
     /**
@@ -298,7 +307,7 @@ declare class Node extends EventDispatcher<{
      *
      * @abstract
      * @param {NodeFrame} frame - A reference to the current node frame.
-     * @return {Boolean?} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
+     * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     updateAfter(frame: NodeFrame): void;
     /**
@@ -307,22 +316,24 @@ declare class Node extends EventDispatcher<{
      *
      * @abstract
      * @param {NodeFrame} frame - A reference to the current node frame.
-     * @return {Boolean?} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
+     * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     update(frame: NodeFrame): void;
     /**
-     * This method performs the build of a node. The behavior of this method as well as its return value depend
-     * on the current build stage (setup, analyze or generate).
+     * This method performs the build of a node. The behavior and return value depend on the current build stage:
+     * - **setup**: Prepares the node and its children for the build process. This process can also create new nodes. Returns the node itself or a variant.
+     * - **analyze**: Analyzes the node hierarchy for optimizations in the code generation stage. Returns `null`.
+     * - **generate**: Generates the shader code for the node. Returns the generated shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {String?} output - Can be used to define the output type.
-     * @return {String?} When this method is executed in the setup or analyze stage, `null` is returned. In the generate stage, the generated shader string.
+     * @param {?string} [output=null] - Can be used to define the output type.
+     * @return {Node|string|null} The result of the build process, depending on the build stage.
      */
-    build(builder: NodeBuilder, output?: string | null): string | null;
+    build(builder: NodeBuilder, output?: string | null): Node | string | null;
     /**
      * Returns the child nodes as a JSON object.
      *
-     * @return {Object} The serialized child objects as JSON.
+     * @return {Array<Object>} An iterable list of serialized child objects as JSON.
      */
     getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
     /**
@@ -340,7 +351,7 @@ declare class Node extends EventDispatcher<{
     /**
      * Serializes the node into the three.js JSON Object/Scene format.
      *
-     * @param {Object?} meta - An optional JSON object that already holds serialized data from other scene objects.
+     * @param {?Object} meta - An optional JSON object that already holds serialized data from other scene objects.
      * @return {Object} The serialized node.
      */
     toJSON(meta?: NodeJSONMeta | string): NodeJSONOutputData;

@@ -87,7 +87,9 @@ async function foo() {
         const imageSharedSize: number = image.SharedSize;
         const imageContainers: number = image.Containers;
         const foo = await docker5.getImage(image.Id);
-        const inspect = await foo.inspect();
+        const inspect = await foo.inspect({ manifests: true });
+        const imageDescriptor = inspect.Descriptor;
+        const imageManifests = inspect.Manifests;
         await foo.remove();
     }
 
@@ -304,6 +306,16 @@ docker.listImages({
     return images.map(image => docker.getImage(image.Id));
 });
 
+docker.listImages({
+    all: true,
+    filters: { "dangling": ["true"] },
+    manifests: true,
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
 docker.buildImage("archive.tar", { t: "imageName" }, (err, response) => {
     // NOOP
 });
@@ -327,7 +339,7 @@ docker.buildImage(
     },
 );
 
-docker.buildImage(".", { nocache: true, version: "2" }, (err, response) => {
+docker.buildImage(".", { nocache: true, version: "2", pull: true }, (err, response) => {
     // NOOP
 });
 

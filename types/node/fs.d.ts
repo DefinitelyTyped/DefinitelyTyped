@@ -198,7 +198,7 @@ declare module "fs" {
      * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
-    export class Dirent {
+    export class Dirent<Name extends string | Buffer = string> {
         /**
          * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
@@ -241,7 +241,7 @@ declare module "fs" {
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
-        name: string;
+        name: Name;
         /**
          * The base path that this `fs.Dirent` object refers to.
          * @since v20.12.0
@@ -438,57 +438,47 @@ declare module "fs" {
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "readable", listener: () => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: Buffer | string) => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "readable", listener: () => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: Buffer | string) => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "readable", listener: () => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "readable", listener: () => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "readable", listener: () => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
+        on<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
+        once<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
+        prependListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
+        prependOnceListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
     }
+
+    /**
+     * The Keys are events of the ReadStream and the values are the functions that are called when the event is emitted.
+     */
+    type ReadStreamEvents = {
+        close: () => void;
+        data: (chunk: Buffer | string) => void;
+        end: () => void;
+        error: (err: Error) => void;
+        open: (fd: number) => void;
+        pause: () => void;
+        readable: () => void;
+        ready: () => void;
+        resume: () => void;
+    } & CustomEvents;
+
+    /**
+     * string & {} allows to allow any kind of strings for the event
+     * but still allows to have auto completion for the normal events.
+     */
+    type CustomEvents = { [Key in string & {} | symbol]: (...args: any[]) => void };
+
+    /**
+     * The Keys are events of the WriteStream and the values are the functions that are called when the event is emitted.
+     */
+    type WriteStreamEvents = {
+        close: () => void;
+        drain: () => void;
+        error: (err: Error) => void;
+        finish: () => void;
+        open: (fd: number) => void;
+        pipe: (src: stream.Readable) => void;
+        ready: () => void;
+        unpipe: (src: stream.Readable) => void;
+    } & CustomEvents;
     /**
      * * Extends `stream.Writable`
      *
@@ -527,51 +517,11 @@ declare module "fs" {
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
+        on<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
+        once<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
+        prependListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
+        prependOnceListener<K extends keyof WriteStreamEvents>(event: K, listener: WriteStreamEvents[K]): this;
     }
     /**
      * Asynchronously rename file at `oldPath` to the pathname provided
@@ -631,7 +581,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -643,7 +593,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+        function __promisify__(path: PathLike, len?: number): Promise<void>;
     }
     /**
      * Truncates the file. Returns `undefined`. A file descriptor can also be
@@ -654,7 +604,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncateSync(path: PathLike, len?: number | null): void;
+    export function truncateSync(path: PathLike, len?: number): void;
     /**
      * Truncates the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -698,7 +648,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
@@ -710,7 +660,7 @@ declare module "fs" {
          * @param fd A file descriptor.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(fd: number, len?: number | null): Promise<void>;
+        function __promisify__(fd: number, len?: number): Promise<void>;
     }
     /**
      * Truncates the file descriptor. Returns `undefined`.
@@ -720,7 +670,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncateSync(fd: number, len?: number | null): void;
+    export function ftruncateSync(fd: number, len?: number): void;
     /**
      * Asynchronously changes owner and group of a file. No arguments other than a
      * possible exception are given to the completion callback.
@@ -2090,6 +2040,20 @@ declare module "fs" {
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
     ): void;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+        callback: (err: NodeJS.ErrnoException | null, files: Dirent<Buffer>[]) => void,
+    ): void;
     export namespace readdir {
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -2149,6 +2113,19 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             },
         ): Promise<Dirent[]>;
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+         */
+        function __promisify__(
+            path: PathLike,
+            options: {
+                encoding: "buffer";
+                withFileTypes: true;
+                recursive?: boolean | undefined;
+            },
+        ): Promise<Dirent<Buffer>[]>;
     }
     /**
      * Reads the contents of the directory.
@@ -2216,6 +2193,19 @@ declare module "fs" {
             recursive?: boolean | undefined;
         },
     ): Dirent[];
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdirSync(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Dirent<Buffer>[];
     /**
      * Closes the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -2369,6 +2359,20 @@ declare module "fs" {
      * @since v0.1.96
      */
     export function fsyncSync(fd: number): void;
+    export interface WriteOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `buffer.byteLength - offset`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: number | undefined | null;
+    }
     /**
      * Write `buffer` to the file specified by `fd`.
      *
@@ -2438,6 +2442,20 @@ declare module "fs" {
         callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param options An object with the following properties:
+     * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+     * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     */
+    export function write<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: WriteOptions,
+        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+    ): void;
+    /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write.
@@ -2487,6 +2505,22 @@ declare module "fs" {
             offset?: number,
             length?: number,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param options An object with the following properties:
+         * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+         * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            buffer?: TBuffer,
+            options?: WriteOptions,
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -2592,6 +2626,17 @@ declare module "fs" {
     export function read<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         options: ReadAsyncOptions<TBuffer>,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
+    ): void;
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: ReadSyncOptions,
+        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
+    ): void;
+    export function read<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
         callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
     export function read(
@@ -2723,7 +2768,7 @@ declare module "fs" {
             } & Abortable)
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2758,7 +2803,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2767,7 +2812,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     export namespace readFile {
         /**
@@ -2783,7 +2828,7 @@ declare module "fs" {
                 encoding?: null | undefined;
                 flag?: string | undefined;
             } | null,
-        ): Promise<Buffer>;
+        ): Promise<NonSharedBuffer>;
         /**
          * Asynchronously reads the entire contents of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2817,7 +2862,7 @@ declare module "fs" {
                 })
                 | BufferEncoding
                 | null,
-        ): Promise<string | Buffer>;
+        ): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the contents of the `path`.
@@ -2849,7 +2894,7 @@ declare module "fs" {
             encoding?: null | undefined;
             flag?: string | undefined;
         } | null,
-    ): Buffer;
+    ): NonSharedBuffer;
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2881,7 +2926,7 @@ declare module "fs" {
             })
             | BufferEncoding
             | null,
-    ): string | Buffer;
+    ): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions
@@ -3845,9 +3890,6 @@ declare module "fs" {
         flush?: boolean | undefined;
     }
     /**
-     * Unlike the 16 KiB default `highWaterMark` for a `stream.Readable`, the stream
-     * returned by this method has a default `highWaterMark` of 64 KiB.
-     *
      * `options` can include `start` and `end` values to read a range of bytes from
      * the file instead of the entire file. Both `start` and `end` are inclusive and
      * start counting at 0, allowed values are in the
@@ -4065,7 +4107,7 @@ declare module "fs" {
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface WriteVResult {
@@ -4110,7 +4152,7 @@ declare module "fs" {
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        position: number,
+        position: number | null,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface ReadVResult {
@@ -4314,7 +4356,7 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    interface GlobOptionsBase {
+    interface _GlobOptions<T extends Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4327,20 +4369,19 @@ declare module "fs" {
          */
         withFileTypes?: boolean | undefined;
         /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         * Function to filter out files/directories or a
+         * list of glob patterns to be excluded. If a function is provided, return
+         * `true` to exclude the item, `false` to include it.
+         * @default undefined
          */
-        exclude?: ((fileName: any) => boolean) | undefined;
+        exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent) => boolean) | undefined;
+    export interface GlobOptions extends _GlobOptions<Dirent | string> {}
+    export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptionsBase {
-        exclude?: ((fileName: string) => boolean) | undefined;
+    export interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
         withFileTypes?: false | undefined;
-    }
-    export interface GlobOptions extends GlobOptionsBase {
-        exclude?: ((fileName: Dirent | string) => boolean) | undefined;
     }
 
     /**

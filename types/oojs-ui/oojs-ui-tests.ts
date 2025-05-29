@@ -2606,7 +2606,9 @@
     // $ExpectType boolean
     OO.ui.OptionWidget.static.scrollIntoViewOnSelect;
 
-    const instance = new OO.ui.OptionWidget();
+    const instance = new OO.ui.OptionWidget({
+        selected: true,
+    });
 
     // $ExpectType boolean
     instance.isSelectable();

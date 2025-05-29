@@ -37,7 +37,7 @@ export type MaterialNodeScope =
     | typeof MaterialNode.LINE_GAP_SIZE
     | typeof MaterialNode.LINE_WIDTH
     | typeof MaterialNode.LINE_DASH_OFFSET
-    | typeof MaterialNode.POINT_WIDTH
+    | typeof MaterialNode.POINT_SIZE
     | typeof MaterialNode.DISPERSION
     | typeof MaterialNode.LIGHT_MAP
     | typeof MaterialNode.AO
@@ -77,7 +77,7 @@ export default class MaterialNode extends Node {
     static LINE_GAP_SIZE: "gapSize";
     static LINE_WIDTH: "linewidth";
     static LINE_DASH_OFFSET: "dashOffset";
-    static POINT_WIDTH: "pointWidth";
+    static POINT_SIZE: "size";
     static DISPERSION: "dispersion";
     static LIGHT_MAP: "light";
     static AO: "ao";
@@ -122,7 +122,7 @@ export const materialLineDashSize: ShaderNodeObject<MaterialNode>;
 export const materialLineGapSize: ShaderNodeObject<MaterialNode>;
 export const materialLineWidth: ShaderNodeObject<MaterialNode>;
 export const materialLineDashOffset: ShaderNodeObject<MaterialNode>;
-export const materialPointWidth: ShaderNodeObject<MaterialNode>;
+export const materialPointSize: ShaderNodeObject<MaterialNode>;
 export const materialDispersion: ShaderNodeObject<MaterialNode>;
 export const materialLightMap: ShaderNodeObject<MaterialNode>;
 export const materialAO: ShaderNodeObject<MaterialNode>;

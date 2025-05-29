@@ -1,4 +1,4 @@
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
 declare class StackNode extends Node {
@@ -15,6 +15,12 @@ declare class StackNode extends Node {
     ElseIf(boolNode: Node, method: () => void): this;
 
     Else(method: () => void): this;
+
+    Switch(expression: NodeRepresentation): this;
+
+    Case(...params: NodeRepresentation[]): this;
+
+    Default(method: () => void): this;
 
     /**
      * @deprecated Use {@link StackNode#ElseIf Else()} instead.

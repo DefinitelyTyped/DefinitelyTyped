@@ -1,15 +1,15 @@
-import { averageAngle } from "../average";
-import { differenceHueChroma } from "../difference";
-import { fixupAlpha } from "../fixup/alpha";
-import { fixupHueShorter } from "../fixup/hue";
-import { interpolatorLinear } from "../interpolate/linear";
-import { Rgb } from "../rgb/types";
-import convertLabToLch from "./convertLabToLch";
-import convertLchToLab from "./convertLchToLab";
-import parseLch from "./parseLch";
-import { Lch } from "./types";
+import { averageAngle } from "../average.js";
+import { differenceHueChroma } from "../difference.js";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { fixupHueShorter } from "../fixup/hue.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import { Rgb } from "../rgb/types.js";
+import convertLabToLch from "./convertLabToLch.js";
+import convertLchToLab from "./convertLchToLab.js";
+import parseLch from "./parseLch.js";
+import { Lch } from "./types.js";
 
-declare const definition: {
+declare const modeLch: {
     mode: "lch";
 
     toMode: {
@@ -49,4 +49,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeLch;

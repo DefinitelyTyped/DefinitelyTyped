@@ -4,7 +4,8 @@ import { InterleavedBuffer } from "../../core/InterleavedBuffer.js";
 import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribute.js";
 import InputNode from "../core/InputNode.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-/** @module BufferAttributeNode **/
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
+import BufferNode from "./BufferNode.js";
 /**
  * In earlier `three.js` versions it was only possible to define attribute data
  * on geometry level. With `BufferAttributeNode`, it is also possible to do this
@@ -40,9 +41,9 @@ declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuff
      * Constructs a new buffer attribute node.
      *
      * @param {BufferAttribute|InterleavedBuffer|TypedArray} value - The attribute data.
-     * @param {String?} [bufferType=null] - The buffer type (e.g. `'vec3'`).
-     * @param {Number} [bufferStride=0] - The buffer stride.
-     * @param {Number} [bufferOffset=0] - The buffer offset.
+     * @param {?string} [bufferType=null] - The buffer type (e.g. `'vec3'`).
+     * @param {number} [bufferStride=0] - The buffer stride.
+     * @param {number} [bufferOffset=0] - The buffer offset.
      */
     constructor(
         value: TypedArray | InterleavedBuffer | BufferAttribute,
@@ -55,7 +56,7 @@ declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuff
      * and thus the hash should be shared as well.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The hash.
+     * @return {string} The hash.
      */
     getHash(builder: NodeBuilder): string;
     /**
@@ -63,7 +64,7 @@ declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuff
      * the buffer attribute.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The node type.
+     * @return {string} The node type.
      */
     getNodeType(builder: NodeBuilder): string | null;
     /**
@@ -78,27 +79,27 @@ declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuff
      * Generates the code snippet of the buffer attribute node.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The generated code snippet.
+     * @return {string} The generated code snippet.
      */
     generate(builder: NodeBuilder): string | null | undefined;
     /**
      * Overwrites the default implementation to return a fixed value `'bufferAttribute'`.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {String} The input type.
+     * @return {string} The input type.
      */
     getInputType(): string;
     /**
      * Sets the `usage` property to the given value.
      *
-     * @param {Number} value - The usage to set.
+     * @param {number} value - The usage to set.
      * @return {BufferAttributeNode} A reference to this node.
      */
     setUsage(value: Usage): this;
     /**
      * Sets the `instanced` property to the given value.
      *
-     * @param {Number} value - The value to set.
+     * @param {boolean} value - The value to set.
      * @return {BufferAttributeNode} A reference to this node.
      */
     setInstanced(value: boolean): this;
@@ -107,11 +108,12 @@ export default BufferAttributeNode;
 /**
  * TSL function for creating a buffer attribute node.
  *
+ * @tsl
  * @function
  * @param {BufferAttribute|InterleavedBuffer|TypedArray} array - The attribute data.
- * @param {String?} [type=null] - The buffer type (e.g. `'vec3'`).
- * @param {Number} [stride=0] - The buffer stride.
- * @param {Number} [offset=0] - The buffer offset.
+ * @param {?string} [type=null] - The buffer type (e.g. `'vec3'`).
+ * @param {number} [stride=0] - The buffer stride.
+ * @param {number} [offset=0] - The buffer offset.
  * @returns {BufferAttributeNode}
  */
 export declare const bufferAttribute: (
@@ -119,16 +121,17 @@ export declare const bufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
+) => ShaderNodeObject<BufferAttributeNode>;
 /**
  * TSL function for creating a buffer attribute node but with dynamic draw usage.
  * Use this function if attribute data are updated per frame.
  *
+ * @tsl
  * @function
  * @param {BufferAttribute|InterleavedBuffer|TypedArray} array - The attribute data.
- * @param {String?} [type=null] - The buffer type (e.g. `'vec3'`).
- * @param {Number} [stride=0] - The buffer stride.
- * @param {Number} [offset=0] - The buffer offset.
+ * @param {?string} [type=null] - The buffer type (e.g. `'vec3'`).
+ * @param {number} [stride=0] - The buffer stride.
+ * @param {number} [offset=0] - The buffer offset.
  * @returns {BufferAttributeNode}
  */
 export declare const dynamicBufferAttribute: (
@@ -136,15 +139,16 @@ export declare const dynamicBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
+) => ShaderNodeObject<BufferAttributeNode>;
 /**
  * TSL function for creating a buffer attribute node but with enabled instancing
  *
+ * @tsl
  * @function
  * @param {BufferAttribute|InterleavedBuffer|TypedArray} array - The attribute data.
- * @param {String?} [type=null] - The buffer type (e.g. `'vec3'`).
- * @param {Number} [stride=0] - The buffer stride.
- * @param {Number} [offset=0] - The buffer offset.
+ * @param {?string} [type=null] - The buffer type (e.g. `'vec3'`).
+ * @param {number} [stride=0] - The buffer stride.
+ * @param {number} [offset=0] - The buffer offset.
  * @returns {BufferAttributeNode}
  */
 export declare const instancedBufferAttribute: (
@@ -152,15 +156,16 @@ export declare const instancedBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
+) => ShaderNodeObject<BufferAttributeNode>;
 /**
  * TSL function for creating a buffer attribute node but with dynamic draw usage and enabled instancing
  *
+ * @tsl
  * @function
  * @param {BufferAttribute|InterleavedBuffer|TypedArray} array - The attribute data.
- * @param {String?} [type=null] - The buffer type (e.g. `'vec3'`).
- * @param {Number} [stride=0] - The buffer stride.
- * @param {Number} [offset=0] - The buffer offset.
+ * @param {?string} [type=null] - The buffer type (e.g. `'vec3'`).
+ * @param {number} [stride=0] - The buffer stride.
+ * @param {number} [offset=0] - The buffer offset.
  * @returns {BufferAttributeNode}
  */
 export declare const instancedDynamicBufferAttribute: (
@@ -168,4 +173,9 @@ export declare const instancedDynamicBufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
+) => ShaderNodeObject<BufferAttributeNode>;
+declare module "../tsl/TSLCore.js" {
+    interface NodeElements {
+        toAttribute: <TValue>(bufferNode: BufferNode<TValue>) => ShaderNodeObject<BufferAttributeNode>;
+    }
+}

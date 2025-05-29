@@ -1779,11 +1779,6 @@ export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
     id?: string | undefined;
-    accessToken?: string | undefined;
-    minZoom?: number | undefined;
-    maxZoom?: number | undefined;
-    maxNativeZoom?: number | undefined;
-    minNativeZoom?: number | undefined;
     subdomains?: string | string[] | undefined;
     errorTileUrl?: string | undefined;
     zoomOffset?: number | undefined;
@@ -2928,7 +2923,7 @@ export class Map extends Evented {
     getPane(pane: string | HTMLElement): HTMLElement | undefined;
     getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
     getContainer(): HTMLElement;
-    whenReady(fn: () => void, context?: any): this;
+    whenReady(fn: (event: { target: Map }) => void, context?: any): this;
 
     // Methods for getting map state
     getCenter(): LatLng;

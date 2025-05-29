@@ -1,7 +1,7 @@
 import Info from "./Info.js";
 import Nodes from "./nodes/Nodes.js";
-interface AnimationContext {
-    requestAnimationFrame(callback: FrameRequestCallback, frame?: XRFrame): number;
+export interface AnimationContext {
+    requestAnimationFrame(callback: FrameRequestCallback, xrFrame?: XRFrame): number;
     cancelAnimationFrame(handle: number): void;
 }
 /**
@@ -12,8 +12,8 @@ interface AnimationContext {
 declare class Animation {
     nodes: Nodes;
     info: Info;
-    _context: AnimationContext;
-    _animationLoop: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null;
+    _context: AnimationContext | null;
+    _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     _requestId: number | null;
     /**
      * Constructs a new animation loop management component.
@@ -31,11 +31,23 @@ declare class Animation {
      */
     stop(): void;
     /**
+     * Returns the user-level animation loop.
+     *
+     * @return {?Function} The animation loop.
+     */
+    getAnimationLoop(): ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
+    /**
      * Defines the user-level animation loop.
      *
-     * @param {Function} callback - The animation loop.
+     * @param {?Function} callback - The animation loop.
      */
-    setAnimationLoop(callback: ((time: DOMHighResTimeStamp, frame?: XRFrame) => void) | null): void;
+    setAnimationLoop(callback: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null): void;
+    /**
+     * Returns the animation context.
+     *
+     * @return {Window|XRSession} The animation context.
+     */
+    getContext(): AnimationContext | null;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *

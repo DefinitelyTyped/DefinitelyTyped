@@ -69,7 +69,7 @@ declare module "buffer" {
      * @param input The input to validate.
      */
     export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
-    export const INSPECT_MAX_BYTES: number;
+    export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
     export const constants: {
@@ -114,11 +114,6 @@ declare module "buffer" {
      * @param toEnc To target encoding.
      */
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
-    export const SlowBuffer: {
-        /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
-        new(size: number): Buffer;
-        prototype: Buffer;
-    };
     /**
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
@@ -127,7 +122,7 @@ declare module "buffer" {
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer };
+    export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
     /**
      * @experimental
      */
@@ -237,7 +232,10 @@ declare module "buffer" {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-
+    export type WithImplicitCoercion<T> =
+        | T
+        | { valueOf(): T }
+        | (T extends string ? { [Symbol.toPrimitive](hint: "string"): T } : never);
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -256,11 +254,6 @@ declare module "buffer" {
             | "latin1"
             | "binary"
             | "hex";
-        type WithImplicitCoercion<T> =
-            | T
-            | {
-                valueOf(): T;
-            };
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.

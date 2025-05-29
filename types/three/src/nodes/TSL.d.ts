@@ -13,6 +13,7 @@ export * from "./core/OutputStructNode.js";
 export * from "./core/ParameterNode.js";
 export * from "./core/PropertyNode.js";
 export * from "./core/StackNode.js";
+export * from "./core/StructNode.js";
 export * from "./core/UniformGroupNode.js";
 export * from "./core/UniformNode.js";
 export * from "./core/VaryingNode.js";
@@ -132,7 +133,9 @@ export * from "./accessors/Lights.js";
 export * from "./lighting/LightingContextNode.js";
 export * from "./lighting/LightsNode.js";
 export * from "./lighting/PointLightNode.js";
+export * from "./lighting/PointShadowNode.js";
 export * from "./lighting/ShadowBaseNode.js";
+export * from "./lighting/ShadowFilterNode.js";
 export * from "./lighting/ShadowNode.js";
 
 // pmrem
@@ -141,6 +144,9 @@ export * from "./pmrem/PMREMUtils.js";
 
 // procedural
 export * from "./procedural/Checker.js";
+
+// shapes
+export * from "./shapes/Shapes.js";
 
 // materialX
 export * from "./materialx/MaterialXNodes.js";

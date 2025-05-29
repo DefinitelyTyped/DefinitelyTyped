@@ -1,5 +1,13 @@
 import * as React from "react";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": React.HTMLAttributes<unknown>;
+        }
+    }
+}
+
 const testCases = [
     <span />,
     <span accessKey="s" />,
@@ -92,6 +100,18 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    <>
+        <template>
+            <div part="base" />
+            <custom-element exportparts="nested" />
+        </template>
+    </>,
+    <link rel="expect" href="#lead-content" blocking="render" />,
+    <link rel="expect" href="#lead-content" blocking="render render" />,
+    <style blocking="render" />,
+    <style blocking="render render" />,
+    <script blocking="render" async />,
+    <script blocking="render render" async />,
 ];
 
 // Needed to check these HTML elements in event callbacks.

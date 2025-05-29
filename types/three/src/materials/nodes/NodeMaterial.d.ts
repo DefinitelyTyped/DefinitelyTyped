@@ -27,7 +27,8 @@ export interface NodeMaterialParameters extends MaterialParameters {
     geometryNode?: Node | null | undefined;
 
     depthNode?: Node | null | undefined;
-    shadowNode?: Node | null | undefined;
+    receivedShadowPositionNode?: Node | null | undefined;
+    castShadowPositionNode?: Node | null | undefined;
 
     outputNode?: Node | null | undefined;
 
@@ -59,8 +60,9 @@ declare class NodeMaterial extends Material {
     geometryNode: Node | null;
 
     depthNode: Node | null;
-    shadowPositionNode: Node | null;
-    receivedShadowNode: Node | null;
+    receivedShadowPositionNode: Node | null;
+    castShadowPositionNode: Node | null;
+    receivedShadowNode: (() => Node) | null;
     castShadowNode: Node | null;
 
     outputNode: Node | null;
@@ -68,6 +70,12 @@ declare class NodeMaterial extends Material {
 
     fragmentNode: Node | null;
     vertexNode: Node | null;
+
+    /**
+     * @deprecated ".shadowPositionNode" was renamed to ".receivedShadowPositionNode".'
+     */
+    get shadowPositionNode(): Node | null;
+    set shadowPositionNode(value: Node | null);
 
     constructor();
 
@@ -89,6 +97,7 @@ declare class NodeMaterial extends Material {
     setupOutgoingLight(): Node;
     setupLightingModel(builder: NodeBuilder): LightingModel;
     setupLighting(builder: NodeBuilder): Node;
+    setupFog(builder: NodeBuilder, outputNode: Node): Node;
     setupOutput(builder: NodeBuilder, outputNode: Node): Node;
 
     setDefaultValues(material: Material): void;

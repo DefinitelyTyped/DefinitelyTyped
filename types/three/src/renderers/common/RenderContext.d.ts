@@ -31,19 +31,19 @@ declare class RenderContext {
     viewportValue: Vector4;
     scissor: boolean;
     scissorValue: Vector4;
+    renderTarget: RenderTarget | null;
     textures: Texture[] | null;
     depthTexture: DepthTexture | null;
     activeCubeFace: number;
     sampleCount: number;
     width: number;
     height: number;
+    occlusionQueryCount: number;
+    clippingContext: ClippingContext | null;
     readonly isRenderContext: true;
-    clippingContext?: ClippingContext | undefined;
     depthClearValue?: number | undefined;
     stencilClearValue?: number | undefined;
-    renderTarget?: RenderTarget | undefined;
     activeMipmapLevel?: number | undefined;
-    occlusionQueryCount?: number | undefined;
     /**
      * Constructs a new render context.
      */
@@ -51,15 +51,17 @@ declare class RenderContext {
     /**
      * Returns the cache key of this render context.
      *
-     * @return {Number} The cache key.
+     * @return {number} The cache key.
      */
     getCacheKey(): number;
 }
 /**
- * Computes a cache key for the given render context.
+ * Computes a cache key for the given render context. This key
+ * should identify the render target state so it is possible to
+ * configure the correct attachments in the respective backend.
  *
  * @param {RenderContext} renderContext - The render context.
- * @return {Number} The cache key.
+ * @return {number} The cache key.
  */
 export declare function getCacheKey(renderContext: RenderContext): number;
 export default RenderContext;

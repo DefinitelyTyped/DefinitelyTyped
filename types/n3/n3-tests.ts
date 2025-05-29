@@ -320,6 +320,14 @@ function test_doc_storing() {
         N3.DataFactory.namedNode("http://ex.org/Dog"),
     );
     store.addQuad(
+        N3.DataFactory.namedNode("http://ex.org/Pluto"),
+        N3.DataFactory.namedNode("http://ex.org/type"),
+        // @ts-expect-error
+        [
+            N3.DataFactory.namedNode("http://ex.org/Dog"),
+        ],
+    );
+    store.addQuad(
         N3.DataFactory.quad(
             N3.DataFactory.namedNode("http://ex.org/Mickey"),
             N3.DataFactory.namedNode("http://ex.org/type"),
@@ -337,6 +345,14 @@ function test_doc_storing() {
         N3.DataFactory.namedNode("http://ex.org/Mickey"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         N3.DataFactory.namedNode("http://ex.org/Mouse"),
+    );
+    store.removeQuad(
+        N3.DataFactory.namedNode("http://ex.org/Mickey"),
+        N3.DataFactory.namedNode("http://ex.org/type"),
+        // @ts-expect-error
+        [
+            N3.DataFactory.namedNode("http://ex.org/Mouse"),
+        ],
     );
     store.removeQuad(
         N3.DataFactory.quad(
@@ -434,6 +450,23 @@ function test_doc_utility() {
     const namedNode1: RDF.NamedNode = N3Util.prefix("http://www.w3.org/2000/01/rdf-schema#")("label");
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)("rdfs")("label");
     const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)("rdfs")("label");
+
+    const term = N3.DataFactory.literal("Mickey Mouse") as RDF.Term;
+    if (N3Util.isNamedNode(term)) {
+        const namedNodeTerm: RDF.NamedNode = term;
+    }
+    if (N3Util.isBlankNode(term)) {
+        const blankNodeTerm: RDF.BlankNode = term;
+    }
+    if (N3Util.isLiteral(term)) {
+        const literalTerm: RDF.Literal = term;
+    }
+    if (N3Util.isVariable(term)) {
+        const variableTerm: RDF.Variable = term;
+    }
+    if (N3Util.isDefaultGraph(term)) {
+        const defaultGraphTerm: RDF.DefaultGraph = term;
+    }
 }
 
 function test_parser_options() {
@@ -566,6 +599,17 @@ function test_reasoner() {
     }]);
     new N3.Reasoner(store).reason(new N3.Store());
     new N3.Reasoner(store).reason(new N3.Store<RDF.BaseQuad>());
+}
+
+function test_base_iri_constructor() {
+    // Test BaseIRI constructor with various base IRIs
+    const baseIri: N3.BaseIRI = new N3.BaseIRI("http://example.org/");
+
+    // Test BaseIRI.supports static method
+    const supported1: boolean = N3.BaseIRI.supports("http://example.org/");
+
+    // Test converting absolute IRIs to relative
+    const relative1: string = baseIri.toRelative("http://example.org/path/resource");
 }
 
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");

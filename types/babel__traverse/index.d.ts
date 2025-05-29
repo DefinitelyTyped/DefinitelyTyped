@@ -746,6 +746,7 @@ export class NodePath<T = Node> {
     getAllNextSiblings(): NodePath[];
 
     get<K extends keyof T>(key: K, context?: boolean | TraversalContext): NodePathResult<T[K]>;
+    get<P extends string>(path: P, context?: boolean | TraversalContext): NodePathResult<ImplGetRecursive<T, P>>;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
@@ -1447,6 +1448,27 @@ export interface TraversalContext<S = unknown> {
     state: S;
     opts: TraverseOptions;
 }
+
+// Based on `GetFieldType`s from `@types/lodash/common/object.d.ts`:
+// dprint-ignore
+type ImplGetOfArray<T extends readonly unknown[], K extends string> =
+    K extends `${infer N extends number}` ? T[N]
+    : K extends keyof T ? T[K]
+    : never;
+
+// dprint-ignore
+type ImplGetByKey<T, K extends string>
+    = T extends readonly unknown[] ? ImplGetOfArray<T, K>
+    : K extends keyof T ? T[K]
+    : K extends `${infer N extends number}`
+        ? N extends keyof T ? T[N] : never
+    : never;
+
+// dprint-ignore
+type ImplGetRecursive<T, K extends string>
+    = K extends `${infer L}.${infer R}`
+        ? ImplGetRecursive<ImplGetByKey<T, L>, R>
+    : ImplGetByKey<T, K>;
 
 export type NodePathResult<T> =
     | (Extract<T, Node | null | undefined> extends never ? never : NodePath<Extract<T, Node | null | undefined>>)
