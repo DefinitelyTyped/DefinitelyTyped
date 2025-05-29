@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/opossum-prometheus",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/nodeshift/opossum-prometheus#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "opossum": "*",
+        "prom-client":"*"
+    },
+    "devDependencies": {
+        "@types/opossum": "workspace:.",
+        "@types/opossum-prometheus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chathu Vishwaijith",
+            "githubUsername": "iamchathu"
+        }
+    ]
+}
