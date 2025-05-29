@@ -763,10 +763,105 @@
 
 {
     // TODO: module
+
 }
 
 {
-    // TODO: Notification
+    const notification = new Notification();
+
+    // $ExpectType string
+    notification.identifier;
+    notification.identifier = "test-identifier";
+    // @ts-expect-error
+    notification.identifier = 0;
+    // @ts-expect-error
+    notification.identifier = null;
+
+    // $ExpectType string
+    notification.title;
+    notification.title = "test-title";
+    // @ts-expect-error
+    notification.title = 0;
+    // @ts-expect-error
+    notification.title = null;
+
+    // $ExpectType string
+    notification.subtitle;
+    notification.subtitle = "test-subtitle";
+    // @ts-expect-error
+    notification.subtitle = 0;
+    // @ts-expect-error
+    notification.subtitle = null;
+
+    // $ExpectType string
+    notification.body;
+    notification.body = "test-body";
+    // @ts-expect-error
+    notification.body = 0;
+    // @ts-expect-error
+    notification.body = null;
+
+    // $ExpectType number | null
+    notification.preferredContentHeight;
+    notification.preferredContentHeight = 100;
+    notification.preferredContentHeight = null;
+    // @ts-expect-error
+    notification.preferredContentHeight = "100";
+
+    // $ExpectType number | null
+    notification.badge;
+    notification.badge = 5;
+    notification.badge = null;
+    // @ts-expect-error
+    notification.badge = "5";
+
+    // $ExpectType string
+    notification.threadIdentifier;
+    notification.threadIdentifier = "test-thread";
+    // @ts-expect-error
+    notification.threadIdentifier = 0;
+    // @ts-expect-error
+    notification.threadIdentifier = null;
+
+    // $ExpectType "default" | "accept" | "alert" | "complete" | "event" | "failure" | "piano_error" | "piano_success" | "popup" | null
+    notification.sound;
+    notification.sound = "accept";
+    notification.sound = null;
+    // @ts-expect-error
+    notification.sound = 0;
+    // @ts-expect-error
+    notification.sound = "";
+
+    // $ExpectType string | null
+    notification.openURL;
+    notification.openURL = "https://example.com";
+    notification.openURL = null;
+    // @ts-expect-error
+    notification.openURL = 0;
+
+    // $ExpectType Date | null
+    notification.deliveryDate;
+    // @ts-expect-error
+    notification.deliveryDate = new Date();
+
+    // $ExpectType Date | null
+    notification.nextTriggerDate;
+    // @ts-expect-error
+    notification.nextTriggerDate = new Date();
+
+    // $ExpectType string | null
+    notification.scriptName;
+    notification.scriptName = "test-script";
+    notification.scriptName = null;
+    // @ts-expect-error
+    notification.scriptName = 0;
+
+    // $ExpectType readonly Notification.Action[]
+    notification.actions;
+    // @ts-expect-error
+    notification.actions = [];
+    // @ts-expect-error
+    notification.actions.push({} as unknown as Notification.Action);
 }
 
 {
