@@ -2184,7 +2184,7 @@ declare namespace google.ima {
   /** Utility functions for Secure Signals. */
   namespace secureSignals {
     /** Clears all cached Secure Signals from local storage. */
-    export function clearAllCache(): void;
+    function clearAllCache(): void;
   }
 
   /** Object holding the SDK-wide settings. */
