@@ -3786,7 +3786,7 @@ declare class Notification {
     /**
      * _Number to display in the app icon's badge._
      *
-     * When the value is zero, no badge is displayed. When the number is greater than zero, the number is displayed in the app icon's badge. Setting the value to null, will leave the
+     * When the number is zero, no badge is displayed. When the number is greater than zero, the number is displayed in the app icon's badge. Setting the value to null, will leave the
      * badge unchanged. The default value is null.
      * @see https://docs.scriptable.app/notification/#badge
      */
