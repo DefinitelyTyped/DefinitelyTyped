@@ -7291,6 +7291,10 @@
             "libraryName": "timezonecomplete",
             "asOfVersion": "5.5.0"
         },
+        "tinajs__tina": {
+            "libraryName": "@tinajs/tina",
+            "asOfVersion": "1.8.0"
+        },
         "tiny-secp256k1": {
             "libraryName": "tiny-secp256k1",
             "asOfVersion": "2.0.0"
