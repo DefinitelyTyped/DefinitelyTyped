@@ -154,14 +154,14 @@ declare namespace chrome {
             /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is `[255, 0, 0, 255]`. Can also be a string with a CSS value, with opaque red being `#FF0000` or `#F00`. */
             color: string | ColorArray;
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
         export interface BadgeTextDetails {
             /** Any number of characters can be passed, but only about four can fit in the space. If an empty string (`''`) is passed, the badge text is cleared. If `tabId` is specified and `text` is null, the text for the specified tab is cleared and defaults to the global badge text. */
-            text?: string;
+            text?: string | undefined;
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
         export type ColorArray = [number, number, number, number];
@@ -170,34 +170,34 @@ declare namespace chrome {
             /** The string the action should display when moused over. */
             title: string;
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
         export interface PopupDetails {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
-            tabId?: number;
+            tabId?: number | undefined;
             /** The html file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
         export interface TabIconDetails {
             /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
-            path?: string | { [index: number]: string };
+            path?: string | { [index: number]: string } | undefined;
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number;
+            tabId?: number | undefined;
             /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
-            imageData?: ImageData | { [index: number]: ImageData };
+            imageData?: ImageData | { [index: number]: ImageData } | undefined;
         }
 
         /** @since Chrome 99 */
         export interface OpenPopupOptions {
             /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
-            windowId?: number;
+            windowId?: number | undefined;
         }
 
         export interface TabDetails {
             /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
-            tabId?: number;
+            tabId?: number | undefined;
         }
 
         /**
@@ -223,7 +223,7 @@ declare namespace chrome {
          */
         export function disable(tabId?: number): Promise<void>;
         export function disable(callback: () => void): void;
-        export function disable(tabId: number, callback: () => void): void;
+        export function disable(tabId: number | undefined, callback: () => void): void;
 
         /**
          * Enables the action for a tab. By default, actions are enabled.
@@ -233,7 +233,7 @@ declare namespace chrome {
          */
         export function enable(tabId?: number): Promise<void>;
         export function enable(callback: () => void): void;
-        export function enable(tabId: number, callback: () => void): void;
+        export function enable(tabId: number | undefined, callback: () => void): void;
 
         /**
          * Gets the background color of the action.
@@ -305,7 +305,7 @@ declare namespace chrome {
          */
         export function openPopup(options?: OpenPopupOptions): Promise<void>;
         export function openPopup(callback: () => void): void;
-        export function openPopup(options: OpenPopupOptions, callback: () => void): void;
+        export function openPopup(options: OpenPopupOptions | undefined, callback: () => void): void;
 
         /**
          * Sets the background color for the badge.
