@@ -13932,7 +13932,7 @@ declare namespace chrome {
             tabId: number;
 
             /** The resource type of the request. */
-            type: ResourceType;
+            type: `${ResourceType}`;
 
             /** The URL of the request. */
             url: string;
@@ -13974,7 +13974,7 @@ declare namespace chrome {
             responseHeaders?: ModifyHeaderInfo[] | undefined;
 
             /** The type of action to perform. */
-            type: RuleActionType;
+            type: `${RuleActionType}`;
         }
 
         export interface RuleCondition {
@@ -13982,7 +13982,7 @@ declare namespace chrome {
              * Specifies whether the network request is first-party or third-party to the domain from which it originated.
              * If omitted, all requests are accepted.
              */
-            domainType?: DomainType | undefined;
+            domainType?: `${DomainType}` | undefined;
 
             /**
          * @deprecated since Chrome 101. Use initiatorDomains instead.
@@ -14069,7 +14069,7 @@ declare namespace chrome {
              * Only one of requestMethods and excludedRequestMethods should be specified.
              * If neither of them is specified, all request methods are matched.
              */
-            excludedRequestMethods?: RequestMethod[] | undefined;
+            excludedRequestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
              * List of resource types which the rule won't match.
@@ -14077,7 +14077,7 @@ declare namespace chrome {
              * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
              * If neither of them is specified, all resource types except "main_frame" are blocked.
              */
-            excludedResourceTypes?: ResourceType[] | undefined;
+            excludedResourceTypes?: `${ResourceType}`[] | undefined;
 
             /**
              * List of {@link chrome.tabs.Tab.id} which the rule should not match.
@@ -14108,7 +14108,7 @@ declare namespace chrome {
              * Note: Specifying a {@link chrome.declarativeNetRequest.RuleCondition.requestMethods} rule condition will also exclude non-HTTP(s) requests,
              * whereas specifying {@link chrome.declarativeNetRequest.RuleCondition.excludedRequestMethods} will not.
              */
-            requestMethods?: RequestMethod[];
+            requestMethods?: `${RequestMethod}`[] | undefined;
 
             /**
              * List of {@link chrome.tabs.Tab.id} which the rule should not match.
@@ -14150,7 +14150,7 @@ declare namespace chrome {
              *
              * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
              */
-            resourceTypes?: ResourceType[] | undefined;
+            resourceTypes?: `${ResourceType}`[] | undefined;
 
             /**
              * Rule does not match if the request matches any response header condition in this list (if specified). If both `excludedResponseHeaders` and `responseHeaders` are specified, then the `excludedResponseHeaders` property takes precedence.
@@ -14220,7 +14220,7 @@ declare namespace chrome {
             header: string;
 
             /** The operation to be performed on a header. */
-            operation: HeaderOperation;
+            operation: `${HeaderOperation}`;
 
             /** The new value for the header.
              * Must be specified for append and set operations.
@@ -14302,7 +14302,7 @@ declare namespace chrome {
             /** Specifies the reason why the regular expression is not supported.
              * Only provided if isSupported is false.
              */
-            reason?: UnsupportedRegexReason | undefined;
+            reason?: `${UnsupportedRegexReason}` | undefined;
         }
 
         export interface TabActionCountUpdate {
