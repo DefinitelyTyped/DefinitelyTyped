@@ -12,7 +12,7 @@ function transferTest() {
             ],
             id: "demo1", // 定义索引
             dblclick(obj) {
-              return false
+                return false;
             },
         });
         transfer.render({

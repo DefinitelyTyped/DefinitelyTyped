@@ -221,7 +221,7 @@ function tableTest() {
                         obj.del(); // 删除对应行（tr）的DOM结构，并更新缓存
                         layui.layer.close(index);
                         // 向服务端发送删除指令
-                        return undefined
+                        return undefined;
                     });
                     break;
                 case "edit":
@@ -337,7 +337,7 @@ function tableTest() {
                     obj.del(); // 删除对应行（tr）的DOM结构，并更新缓存
                     layui.layer.close(index);
                     // 向服务端发送删除指令
-                    return undefined
+                    return undefined;
                 });
             }
             case "edit": {

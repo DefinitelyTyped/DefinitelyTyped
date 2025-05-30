@@ -56,16 +56,16 @@ function layerTest() {
                 btn: ["按钮一", "按钮二", "按钮三"], // 可以无限个按钮
                 btn3: (index, layero) => {
                     // 按钮【按钮三】的回调
-                    return true
+                    return true;
                 },
             },
             (index, layero) => {
                 // 按钮【按钮一】的回调
-                return undefined
+                return undefined;
             },
             index => {
                 // 按钮【按钮二】的回调
-                return undefined
+                return undefined;
             },
         );
 
@@ -78,25 +78,25 @@ function layerTest() {
             btn: ["按钮一", "按钮二", "按钮三"],
             yes: (index, layero) => {
                 // 按钮【按钮一】的回调
-                return undefined
+                return undefined;
             },
             btn1() {
-              return undefined
+                return undefined;
             },
             btn2: (index, layero) => {
                 // 按钮【按钮二】的回调
                 // return false 开启该代码可禁止点击该按钮关闭
-                return undefined
+                return undefined;
             },
             btn3: (index, layero) => {
                 // 按钮【按钮三】的回调
                 // return false 开启该代码可禁止点击该按钮关闭
-                return undefined
+                return undefined;
             },
             cancel: () => {
                 // 右上角关闭回调
                 // return false 开启该代码可禁止点击该按钮关闭
-                return undefined
+                return undefined;
             },
             resizing: layero => {
                 console.log(layero);
@@ -123,7 +123,7 @@ function layerTest() {
                 return false;
             },
             beforeEnd(o, i, t) {
-              return undefined
+                return undefined;
             },
         });
         layer.config({
@@ -154,7 +154,7 @@ function layerTest() {
             // do something
 
             layer.close(index);
-            return undefined
+            return undefined;
         });
 
         layer.confirm(1);
@@ -163,14 +163,14 @@ function layerTest() {
             // do something
 
             layer.close(index);
-            return undefined
+            return undefined;
         });
         // eg2
         layer.confirm("is not?", (index, layero) => {
             // do something
 
             layer.close(index);
-            return undefined
+            return undefined;
         });
         layer.confirm(
             "is not?",
@@ -180,18 +180,18 @@ function layerTest() {
                 cancel: (index, layero) => {
                     console.log("点击了右上角关闭");
                     // return false  // 点击右上角叉号不能关闭
-                    return undefined
+                    return undefined;
                 },
             },
             (index, layero) => {
                 console.log("点击了下边的第一个按钮'确定'");
                 layer.close(index); // 需要手动关闭
-                return undefined
+                return undefined;
             },
             (index, layero) => {
                 console.log("点击了下边的第二个按钮'取消'");
                 // return false // 点击取消不能关闭
-                return undefined
+                return undefined;
             },
         );
         layer.confirm(
@@ -200,10 +200,10 @@ function layerTest() {
                 // do something
 
                 layer.close(index);
-                return undefined
+                return undefined;
             },
             (index, layero) => {
-              return undefined
+                return undefined;
             },
         );
         // eg1
