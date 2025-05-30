@@ -467,6 +467,18 @@ function test_doc_utility() {
     if (N3Util.isDefaultGraph(term)) {
         const defaultGraphTerm: RDF.DefaultGraph = term;
     }
+
+    N3Util.isNamedNode(null);
+    N3Util.isBlankNode(null);
+    N3Util.isLiteral(null);
+    N3Util.isVariable(null);
+    N3Util.isDefaultGraph(null);
+
+    N3Util.isNamedNode(undefined);
+    N3Util.isBlankNode(undefined);
+    N3Util.isLiteral(undefined);
+    N3Util.isVariable(undefined);
+    N3Util.isDefaultGraph(undefined);
 }
 
 function test_parser_options() {
