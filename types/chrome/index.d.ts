@@ -4,6 +4,7 @@
 
 // Helpers
 type SetRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+type SetPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 ////////////////////
 // Global object
@@ -13464,24 +13465,8 @@ declare namespace chrome {
         interface WebRequestEvent<T extends (...args: any) => void, U extends string[]>
             extends Omit<chrome.events.Event<T>, "addListener">
         {
-            addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U): void;
+            addListener(callback: T, filter: RequestFilter, extraInfoSpec?: U | undefined): void;
         }
-
-        /** How the requested resource will be used. */
-        export type ResourceType =
-            | "main_frame"
-            | "sub_frame"
-            | "stylesheet"
-            | "script"
-            | "image"
-            | "font"
-            | "object"
-            | "xmlhttprequest"
-            | "ping"
-            | "csp_report"
-            | "media"
-            | "websocket"
-            | "other";
 
         export interface AuthCredentials {
             username: string;
@@ -13490,228 +13475,324 @@ declare namespace chrome {
 
         /** An HTTP Header, represented as an object containing a key and either a value or a binaryValue. */
         export interface HttpHeader {
+            /** Name of the HTTP header. */
             name: string;
+            /** Value of the HTTP header if it can be represented by UTF-8. */
             value?: string | undefined;
+            /** Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255). */
             binaryValue?: ArrayBuffer | undefined;
         }
 
         /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
         export interface BlockingResponse {
-            /** Optional. If true, the request is cancelled. Used in onBeforeRequest, this prevents the request from being sent. */
+            /** If true, the request is cancelled. This prevents the request from being sent. This can be used as a response to the onBeforeRequest, onBeforeSendHeaders, onHeadersReceived and onAuthRequired events. */
             cancel?: boolean | undefined;
-            /**
-             * Optional.
-             * Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as data: are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method.
-             */
+            /** Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as `data:` are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method. Redirects from URLs with `ws://` and `wss://` schemes are **ignored**. */
             redirectUrl?: string | undefined;
-            /**
-             * Optional.
-             * Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return responseHeaders if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify responseHeaders for each request).
-             */
+            /** Only used as a response to the onHeadersReceived event. If set, the server is assumed to have responded with these response headers instead. Only return `responseHeaders` if you really want to modify the headers in order to limit the number of conflicts (only one extension may modify `responseHeaders` for each request). */
             responseHeaders?: HttpHeader[] | undefined;
-            /** Optional. Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials. */
+            /** Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials. */
             authCredentials?: AuthCredentials | undefined;
-            /**
-             * Optional.
-             * Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead.
-             */
+            /** Only used as a response to the onBeforeSendHeaders event. If set, the request is made with these request headers instead. */
             requestHeaders?: HttpHeader[] | undefined;
+        }
+
+        /**
+         * Contains data passed within form data. For urlencoded form it is stored as string if data is utf-8 string and as ArrayBuffer otherwise. For form-data it is ArrayBuffer. If form-data represents uploading file, it is string with filename, if the filename is provided.
+         * @since Chrome 66
+         */
+        export type FormDataItem = string | ArrayBuffer;
+
+        /** @since Chrome 70 */
+        export enum IgnoredActionType {
+            AUTH_CREDENTIALS = "auth_credentials",
+            REDIRECT = "redirect",
+            REQUEST_HEADERS = "request_headers",
+            RESPONSE_HEADERS = "response_headers",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnAuthRequiredOptions {
+            /** Specifies that the response headers should be included in the event. */
+            RESPONSE_HEADERS = "responseHeaders",
+            /** Specifies the request is blocked until the callback function returns. */
+            BLOCKING = "blocking",
+            /** Specifies that the callback function is handled asynchronously. */
+            ASYNC_BLOCKING = "asyncBlocking",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnBeforeRedirectOptions {
+            /** Specifies that the response headers should be included in the event. */
+            RESPONSE_HEADERS = "responseHeaders",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnBeforeRequestOptions {
+            /** Specifies the request is blocked until the callback function returns. */
+            BLOCKING = "blocking",
+            /** Specifies that the request body should be included in the event. */
+            REQUEST_BODY = "requestBody",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnBeforeSendHeadersOptions {
+            /** Specifies that the request header should be included in the event. */
+            REQUEST_HEADERS = "requestHeaders",
+            /** Specifies the request is blocked until the callback function returns. */
+            BLOCKING = "blocking",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnCompletedOptions {
+            /** Specifies that the response headers should be included in the event. */
+            RESPONSE_HEADERS = "responseHeaders",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnErrorOccurredOptions {
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnHeadersReceivedOptions {
+            /** Specifies the request is blocked until the callback function returns. */
+            BLOCKING = "blocking",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+            /** Specifies that the response headers should be included in the event. */
+            RESPONSE_HEADERS = "responseHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnResponseStartedOptions {
+            /** Specifies that the response headers should be included in the event. */
+            RESPONSE_HEADERS = "responseHeaders",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
+        }
+
+        /** @since Chrome 44 */
+        export enum OnSendHeadersOptions {
+            /** Specifies that the request header should be included in the event. */
+            REQUEST_HEADERS = "requestHeaders",
+            /** Specifies that headers can violate Cross-Origin Resource Sharing (CORS). */
+            EXTRA_HEADERS = "extraHeaders",
         }
 
         /** An object describing filters to apply to webRequest events. */
         export interface RequestFilter {
-            /** Optional. */
             tabId?: number | undefined;
-            /**
-             * A list of request types. Requests that cannot match any of the types will be filtered out.
-             */
-            types?: ResourceType[] | undefined;
+            /** A list of request types. Requests that cannot match any of the types will be filtered out. */
+            types?: `${ResourceType}`[] | undefined;
             /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
             urls: string[];
-
-            /** Optional. */
             windowId?: number | undefined;
         }
 
-        /**
-         * Contains data uploaded in a URL request.
-         * @since Chrome 23
-         */
+        /** @since Chrome 44 */
+        export enum ResourceType {
+            /** Specifies the resource as the main frame. */
+            MAIN_FRAME = "main_frame",
+            /** Specifies the resource as a sub frame. */
+            SUB_FRAME = "sub_frame",
+            /** Specifies the resource as a stylesheet. */
+            STYLESHEET = "stylesheet",
+            /** Specifies the resource as a script. */
+            SCRIPT = "script",
+            /** Specifies the resource as an image. */
+            IMAGE = "image",
+            /** Specifies the resource as a font. */
+            FONT = "font",
+            /** Specifies the resource as an object. */
+            OBJECT = "object",
+            /** Specifies the resource as an XMLHttpRequest. */
+            XMLHTTPREQUEST = "xmlhttprequest",
+            /** Specifies the resource as a ping. */
+            PING = "ping",
+            /** Specifies the resource as a Content Security Policy (CSP) report. */
+            CSP_REPORT = "csp_report",
+            /** Specifies the resource as a media object. */
+            MEDIA = "media",
+            /** Specifies the resource as a WebSocket. */
+            WEBSOCKET = "websocket",
+            /** Specifies the resource as a WebBundle. */
+            WEBBUNDLE = "webbundle",
+            /** Specifies the resource as a type not included in the listed types. */
+            OTHER = "other",
+        }
+
+        /** Contains data uploaded in a URL request. */
         export interface UploadData {
-            /** Optional. An ArrayBuffer with a copy of the data. */
-            bytes?: ArrayBuffer | undefined;
-            /** Optional. A string with the file's path and name. */
-            file?: string | undefined;
+            /** An ArrayBuffer with a copy of the data. */
+            bytes?: ArrayBuffer;
+            /** A string with the file's path and name. */
+            file?: string;
         }
 
-        export interface WebRequestBody {
-            /** Optional. Errors when obtaining request body data. */
-            error?: string | undefined;
+        /** The maximum number of times that `handlerBehaviorChanged` can be called per 10 minute sustained interval. `handlerBehaviorChanged` is an expensive function call that shouldn't be called often. */
+        export const MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: 20;
+
+        /** Common properties for all webRequest events (except {@link onActionIgnored}). */
+        export interface WebRequestDetails {
             /**
-             * Optional.
-             * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
+             * The UUID of the document making the request.
+             * @since Chrome 106
              */
-            formData?: { [key: string]: string[] } | undefined;
+            documentId: string;
             /**
-             * Optional.
-             * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
+             * The lifecycle the document is in.
+             * @since Chrome 106
              */
-            raw?: UploadData[] | undefined;
-        }
-
-        export interface WebAuthChallenger {
-            host: string;
-            port: number;
-        }
-
-        export interface ResourceRequest {
-            url: string;
-            /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
-            requestId: string;
-            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
+            documentLifecycle: extensionTypes.DocumentLifecycle;
+            /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
             frameId: number;
-            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-            parentFrameId: number;
-            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-            tabId: number;
             /**
-             * How the requested resource will be used.
+             * The type of frame the request occurred in.
+             * @since Chrome 106
              */
-            type: ResourceType;
-            /** The time when this signal is triggered, in milliseconds since the epoch. */
-            timeStamp: number;
-            /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+            frameType: extensionTypes.FrameType;
+            /**
+             * The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
              * @since Chrome 63
              */
-            initiator?: string | undefined;
-        }
-
-        export interface WebRequestDetails extends ResourceRequest {
+            initiator?: string;
             /** Standard HTTP method. */
             method: string;
-        }
-
-        export interface WebRequestHeadersDetails extends WebRequestDetails {
-            /** Optional. The HTTP request headers that are going to be sent out with this request. */
-            requestHeaders?: HttpHeader[] | undefined;
-            documentId: string;
-            documentLifecycle: extensionTypes.DocumentLifecycle;
-            frameType: extensionTypes.FrameType;
-            frameId: number;
-            initiator?: string | undefined;
-            parentDocumentId?: string | undefined;
+            /**
+             * The UUID of the parent document owning this frame. This is not set if there is no parent.
+             * @since Chrome 106
+             */
+            parentDocumentId?: string;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
             parentFrameId: number;
+            /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
             requestId: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
             tabId: number;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
             timeStamp: number;
-            type: ResourceType;
+            /** How the requested resource will be used. */
+            type: `${ResourceType}`;
             url: string;
         }
 
-        export interface WebRequestBodyDetails extends WebRequestDetails {
-            /**
-             * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.
-             * @since Chrome 23
-             */
-            requestBody: WebRequestBody | null;
-        }
-
-        export interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {}
-
-        export interface WebResponseDetails extends ResourceRequest {
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
-            statusLine: string;
+        export interface OnAuthRequiredDetails extends WebRequestDetails {
+            /** The server requesting authentication. */
+            challenger: {
+                host: string;
+                port: number;
+            };
+            /** True for Proxy-Authenticate, false for WWW-Authenticate. */
+            isProxy: boolean;
+            /** The authentication realm provided by the server, if there is one. */
+            realm?: string;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeader[];
+            /** The authentication scheme, e.g. Basic or Digest. */
+            scheme: string;
             /**
              * Standard HTTP status code returned by the server.
              * @since Chrome 43
              */
             statusCode: number;
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            statusLine: string;
         }
 
-        export interface WebResponseHeadersDetails extends WebResponseDetails {
-            /** Optional. The HTTP response headers that have been received with this response. */
-            responseHeaders?: HttpHeader[] | undefined;
-            method: string /** standard HTTP method i.e. GET, POST, PUT, etc. */;
-        }
-
-        export interface WebResponseCacheDetails extends WebResponseHeadersDetails {
-            /**
-             * Optional.
-             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-             */
-            ip?: string | undefined;
+        export interface OnBeforeRedirectDetails extends WebRequestDetails {
             /** Indicates if this response was fetched from disk cache. */
             fromCache: boolean;
-        }
-
-        export interface WebRedirectionResponseDetails extends WebResponseCacheDetails {
+            /** The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address. */
+            ip?: string;
             /** The new URL. */
             redirectUrl: string;
+            /** The HTTP response headers that were received along with this redirect. */
+            responseHeaders?: HttpHeader[];
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            statusLine: string;
         }
 
-        export interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
-            /** The authentication scheme, e.g. Basic or Digest. */
-            scheme: string;
-            /** The authentication realm provided by the server, if there is one. */
-            realm?: string | undefined;
-            /** The server requesting authentication. */
-            challenger: WebAuthChallenger;
-            /** True for Proxy-Authenticate, false for WWW-Authenticate. */
-            isProxy: boolean;
+        export interface OnBeforeRequestDetails
+            extends SetPartial<WebRequestDetails, "documentId" | "documentLifecycle" | "frameType">
+        {
+            /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
+            requestBody: {
+                /** Errors when obtaining request body data. */
+                error?: string;
+                /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': \['value1', 'value2'\]}. */
+                formData?: { [key: string]: FormDataItem[] };
+                /** If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array. */
+                raw?: UploadData[];
+            } | undefined;
         }
 
-        export interface WebResponseErrorDetails extends WebResponseCacheDetails {
-            /** The error description. This string is not guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. */
+        export interface OnBeforeSendHeadersDetails extends WebRequestDetails {
+            /** The HTTP request headers that are going to be sent out with this request. */
+            requestHeaders?: HttpHeader[];
+        }
+
+        export interface OnCompletedDetails extends WebRequestDetails {
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address. */
+            ip?: string;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeader[];
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            statusLine: string;
+        }
+
+        export interface OnErrorOccurredDetails extends WebRequestDetails {
+            /** The error description. This string is _not_ guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content. */
             error: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address. */
+            ip?: string;
         }
 
-        export type WebRequestBodyEvent = WebRequestEvent<
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            (details: WebRequestBodyDetails) => BlockingResponse | void,
-            string[]
-        >;
+        export interface OnHeadersReceivedDetails extends WebRequestDetails {
+            /** The HTTP response headers that have been received with this response. */
+            responseHeaders?: HttpHeader[];
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            statusLine: string;
+        }
 
-        export type WebRequestHeadersSynchronousEvent = WebRequestEvent<
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            (details: WebRequestHeadersDetails) => BlockingResponse | void,
-            string[]
-        >;
+        export interface OnResponseStartedDetails extends WebRequestDetails {
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address. */
+            ip?: string;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeader[];
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
+            statusLine: string;
+        }
 
-        export type WebRequestHeadersEvent = WebRequestEvent<
-            (details: WebRequestHeadersDetails) => void,
-            string[]
-        >;
-
-        export type _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> = WebRequestEvent<
-            (details: T) => void,
-            string[]
-        >;
-
-        export type WebResponseHeadersEvent = WebRequestEvent<
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-            (details: WebResponseHeadersDetails) => BlockingResponse | void,
-            string[]
-        >;
-
-        export type WebResponseCacheEvent = _WebResponseHeadersEvent<WebResponseCacheDetails>;
-
-        export type WebRedirectionResponseEvent = _WebResponseHeadersEvent<WebRedirectionResponseDetails>;
-
-        export type WebAuthenticationChallengeEvent = WebRequestEvent<
-            (
-                details: WebAuthenticationChallengeDetails,
-                callback?: (response: BlockingResponse) => void,
-            ) => void,
-            string[]
-        >;
-
-        export interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
-
-        /**
-         * The maximum number of times that handlerBehaviorChanged can be called per 10 minute sustained interval. handlerBehaviorChanged is an expensive function call that shouldn't be called often.
-         * @since Chrome 23
-         */
-        export var MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: number;
+        export interface OnSendHeadersDetails extends WebRequestDetails {
+            /** The HTTP request headers that have been sent out with this request. */
+            requestHeaders?: HttpHeader[];
+        }
 
         /**
          * Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often.
@@ -13720,17 +13801,39 @@ declare namespace chrome {
         export function handlerBehaviorChanged(): Promise<void>;
         export function handlerBehaviorChanged(callback: () => void): void;
 
+        export const onActionIgnored: events.Event<
+            (details: {
+                // The proposed action which was ignored.
+                action: `${IgnoredActionType}`;
+                // The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+                requestId: string;
+            }) => void
+        >;
+
         /** Fired when a request is about to occur. */
-        export const onBeforeRequest: WebRequestBodyEvent;
+        export const onBeforeRequest: WebRequestEvent<
+            (details: OnBeforeRequestDetails) => BlockingResponse | undefined,
+            `${OnBeforeRequestOptions}`[]
+        >;
 
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-        export const onBeforeSendHeaders: WebRequestHeadersSynchronousEvent;
+        export const onBeforeSendHeaders: WebRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            (details: OnBeforeSendHeadersDetails) => BlockingResponse | undefined,
+            `${OnBeforeSendHeadersOptions}`[]
+        >;
 
         /** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
-        export const onSendHeaders: WebRequestHeadersEvent;
+        export const onSendHeaders: WebRequestEvent<
+            (details: OnSendHeadersDetails) => void,
+            `${OnSendHeadersOptions}`[]
+        >;
 
         /** Fired when HTTP response headers of a request have been received. */
-        export const onHeadersReceived: WebResponseHeadersEvent;
+        export const onHeadersReceived: WebRequestEvent<
+            (details: OnHeadersReceivedDetails) => BlockingResponse | undefined,
+            `${OnHeadersReceivedOptions}`[]
+        >;
 
         /**
          * Fired when an authentication failure is received.
@@ -13740,19 +13843,39 @@ declare namespace chrome {
          *
          * Requires the `webRequestAuthProvider` permission.
          */
-        export const onAuthRequired: WebAuthenticationChallengeEvent;
+        export const onAuthRequired: WebRequestEvent<
+            (
+                details: OnAuthRequiredDetails,
+                /** @since Chrome 58 */
+                asyncCallback?: (response: BlockingResponse) => void,
+            ) => BlockingResponse | undefined,
+            `${OnAuthRequiredOptions}`[]
+        >;
+        // export const onAuthRequired: WebAuthenticationChallengeEvent;
 
         /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
-        export const onResponseStarted: WebResponseCacheEvent;
+        export const onResponseStarted: WebRequestEvent<
+            (details: OnResponseStartedDetails) => void,
+            `${OnResponseStartedOptions}`[]
+        >;
 
         /** Fired when a server-initiated redirect is about to occur. */
-        export const onBeforeRedirect: WebRedirectionResponseEvent;
+        export const onBeforeRedirect: WebRequestEvent<
+            (details: OnBeforeRedirectDetails) => void,
+            `${OnBeforeRedirectOptions}`[]
+        >;
 
         /** Fired when a request is completed. */
-        export const onCompleted: WebResponseCacheEvent;
+        export const onCompleted: WebRequestEvent<
+            (details: OnCompletedDetails) => void,
+            `${OnCompletedOptions}`[]
+        >;
 
         /** Fired when an error occurs. */
-        export const onErrorOccurred: WebResponseErrorEvent;
+        export const onErrorOccurred: WebRequestEvent<
+            (details: OnErrorOccurredDetails) => void,
+            `${OnErrorOccurredOptions}`[]
+        >;
     }
 
     ////////////////////
