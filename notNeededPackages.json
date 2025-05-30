@@ -8147,6 +8147,10 @@
             "libraryName": "zinggrid",
             "asOfVersion": "1.3.0"
         },
+        "zip.js": {
+            "libraryName": "@zip.js/zip.js",
+            "asOfVersion": "2.6.81"
+        },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",
             "asOfVersion": "0.12.0"
