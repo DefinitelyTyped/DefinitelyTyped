@@ -379,11 +379,11 @@ export interface StoreOptions {
 }
 
 export namespace Util {
-    function isNamedNode(value: RDF.Term | null): value is RDF.NamedNode;
-    function isBlankNode(value: RDF.Term | null): value is RDF.BlankNode;
-    function isLiteral(value: RDF.Term | null): value is RDF.Literal;
-    function isVariable(value: RDF.Term | null): value is RDF.Variable;
-    function isDefaultGraph(value: RDF.Term | null): value is RDF.DefaultGraph;
+    function isNamedNode(value: RDF.Term | null | undefined): value is RDF.NamedNode;
+    function isBlankNode(value: RDF.Term | null | undefined): value is RDF.BlankNode;
+    function isLiteral(value: RDF.Term | null | undefined): value is RDF.Literal;
+    function isVariable(value: RDF.Term | null | undefined): value is RDF.Variable;
+    function isDefaultGraph(value: RDF.Term | null | undefined): value is RDF.DefaultGraph;
     function inDefaultGraph(value: RDF.Quad): boolean;
     function prefix(iri: RDF.NamedNode | string, factory?: RDF.DataFactory): PrefixedToIri;
     function prefixes(
