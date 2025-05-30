@@ -4409,6 +4409,10 @@
             "libraryName": "natsort",
             "asOfVersion": "2.0.0"
         },
+        "natural": {
+            "libraryName": "natural",
+            "asOfVersion": "6.0.1"
+        },
         "naudiodon": {
             "libraryName": "naudiodon",
             "asOfVersion": "2.2.5"
