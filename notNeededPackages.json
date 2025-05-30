@@ -2577,6 +2577,10 @@
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
         },
+        "hapi__bell": {
+            "libraryName": "@hapi/bell",
+            "asOfVersion": "13.0.2"
+        },
         "hapi__boom": {
             "libraryName": "@hapi/boom",
             "asOfVersion": "9.0.0"
