@@ -303,7 +303,7 @@ declare namespace Layui {
          * @return 返回值为 true 的日期会被禁用
          * @since 2.9.8
          */
-        disabledDate?(date: Date, type: "start" | "end"): void | boolean;
+        disabledDate?(date: Date, type: "start" | "end"): undefined | boolean;
         /**
          * 设置不可选取的时间
          * @param date 当前的日期对象

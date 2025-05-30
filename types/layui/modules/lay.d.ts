@@ -251,11 +251,13 @@ declare namespace Layui {
         (window: Window): Lay<Window>;
         <T extends keyof HTMLElementTagNameMap>(selector: T): Lay<HTMLElementTagNameMap[T]>;
         <T extends keyof SVGElementTagNameMap>(selector: T): Lay<SVGElementTagNameMap[T]>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends globalThis.Element = HTMLElement>(selector: Layui.Selector): Lay<T>;
         (element: HTMLSelectElement): Lay<HTMLSelectElement>;
         <T extends globalThis.Element>(element_or_elementArray: T | ArrayLike<T>): Lay<T>;
         <T>(selection: Lay<T>): Lay<T>;
         <T extends Layui.PlainObject>(object: T): Lay<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T = HTMLElement>(): Lay<T>;
         /**
          * 版本
@@ -494,6 +496,6 @@ declare namespace Layui {
          * @param obj 对象
          * @param key 属性名
          */
-        hasOwn<O, K extends PropertyKey, V = unknown>(obj: O, key: K): obj is O & Record<K, V>;
+        hasOwn<O, K extends PropertyKey, V = unknown>(obj: O, key: K): obj is O & Record<K, V>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
     }
 }

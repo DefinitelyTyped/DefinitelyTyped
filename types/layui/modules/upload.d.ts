@@ -126,7 +126,7 @@ declare namespace Layui {
          * @since 2.9.11+ 新增支持 Promise
          * @param obj 回调参数(工具对象)
          */
-        before?(this: UploadOptionsThis, obj: UploadCallbackArg): void | MaybePromise<boolean>;
+        before?(this: UploadOptionsThis, obj: UploadCallbackArg): undefined | MaybePromise<boolean>;
         /**
          * 上传后的回调
          * @param res 服务端response json

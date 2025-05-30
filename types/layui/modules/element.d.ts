@@ -68,7 +68,7 @@ declare namespace Layui {
                 to: Omit<ElementEventParam, "elem">;
                 from: Omit<ElementEventParam, "elem">;
             },
-        ): void | boolean;
+        ): undefined | boolean;
         /**
          * tab 删除事件
          */
@@ -78,7 +78,7 @@ declare namespace Layui {
          * 返回 false 取消关闭操作
          * @since 2.9.11+
          */
-        tabBeforeDelete(this: HTMLElement, data: ElementEventParam): void | boolean;
+        tabBeforeDelete(this: HTMLElement, data: ElementEventParam): undefined | boolean;
         /**
          * 导航栏点击事件
          * @param othis 点击元素的 jQuery 对象
@@ -110,6 +110,7 @@ declare namespace Layui {
          */
         on<K extends keyof ElementEventMap>(event: `${K}(${TableFilter})`, callback: ElementEventMap[K]): void;
         on<K extends keyof ElementEventMap>(event: K, callback: ElementEventMap[K]): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         on<K extends string>(event: `${K}(${TableFilter})`, callback: AnyFn): void;
         /**
          * 用于新增一个Tab选项

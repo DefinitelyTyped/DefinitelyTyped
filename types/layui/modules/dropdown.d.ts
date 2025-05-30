@@ -155,7 +155,7 @@ declare namespace Layui {
          * @since 2.8.0 支持返回 false，阻止关闭面板
          * @since 2.9.18 支持事件对象 e 参数，e 为点击事件的事件对象
          */
-        click?(this: DropdownOptions, data: any, othis: JQuery, e: JQuery.Event): void | boolean;
+        click?(this: DropdownOptions, data: any, othis: JQuery, e: JQuery.Event): undefined | boolean;
         /**
          * 面板关闭后的回调函数
          * @param elem 当前组件绑定的目标元素对象
@@ -167,7 +167,7 @@ declare namespace Layui {
          * @param e 事件对象
          * @since 2.9.18
          */
-        onClickOutside?(this: DropdownOptions, e: Event): boolean | void;
+        onClickOutside?(this: DropdownOptions, e: Event): boolean | undefined;
     }
 
     interface DropdownReturn {

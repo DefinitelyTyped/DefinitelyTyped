@@ -6,6 +6,7 @@ declare namespace Layui {
     type ArgumentsType<T> = T extends (...args: infer U) => any ? U : never;
     type MaybeArray<T> = T | T[];
     type MaybePromise<T> = T | Promise<T> | JQuery.Deferred<T>;
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PlainObject<T = any> = {
         [key: string]: T;
     };

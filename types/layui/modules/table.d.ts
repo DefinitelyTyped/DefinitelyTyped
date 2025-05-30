@@ -947,6 +947,7 @@ declare namespace Layui {
     }
 
     type TableFilter = string;
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TableEventMap<TOptions = TableOptions, TSetRowOptions = TableSetRowCheckedOptions> = {
         toolbar(this: HTMLElement, obj: TableOnToolbar<TOptions>): void;
         sort: (this: HTMLElement, obj: TableOnSort) => void;
@@ -1162,6 +1163,7 @@ declare namespace Layui {
          */
         on<K extends keyof TableEventMap>(event: `${K}(${TableFilter})`, callback: TableEventMap[K]): void;
         on<K extends keyof TableEventMap>(event: K, callback: TableEventMap[K]): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         on<K extends string>(event: `${K}(${TableFilter})`, callback: AnyFn): void;
         /**
          * 表格重载

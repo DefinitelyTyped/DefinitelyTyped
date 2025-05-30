@@ -12,7 +12,7 @@ declare namespace Layui {
          * @param expandFlag 要展开或关闭的状态
          * @since 2.8.0
          */
-        beforeExpand?(tableId: string, trData: Record<string, any>, expandFlag: boolean): boolean | void;
+        beforeExpand?(tableId: string, trData: Record<string, any>, expandFlag: boolean): boolean | undefined;
         /**
          * 展开或关闭后的回调函数
          *
@@ -535,6 +535,7 @@ declare namespace Layui {
             event: K,
             callback: TableEventMap<TreeTableOptions, TreeTableSetRowCheckedOptions>[K],
         ): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         on<K extends string>(event: `${K}(${TableFilter})`, callback: AnyFn): void;
         /**
          * @internal

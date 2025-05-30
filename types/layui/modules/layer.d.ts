@@ -13,14 +13,14 @@ declare namespace Layui {
         index: number,
         layero: JQuery,
         that: any,
-    ) => boolean | Promise<boolean> | JQueryDeferred<boolean> | void;
+    ) => boolean | Promise<boolean> | JQueryDeferred<boolean> | undefined;
     /**
      * 点击标题栏关闭按钮的回调函数
      * @param index 当前层索引参数
      * @param layero 当前层的DOM对象
      * @param that 实例对象(2.8+)
      */
-    type LayerCallbackCancel = (index: number, layero: JQuery, that: any) => boolean | void;
+    type LayerCallbackCancel = (index: number, layero: JQuery, that: any) => boolean | undefined;
     /**
      * 弹层被关闭且销毁后的回调函数
      */
@@ -50,6 +50,7 @@ declare namespace Layui {
      * @param layero 当前层的 jQuery 对象
      */
     type LayerCallbackPrompt = (value: string, index: number, layero: JQuery) => void;
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type layerTypeMap = {
         0: "dialog";
         1: "page";
@@ -489,7 +490,7 @@ declare namespace Layui {
             layero: JQuery,
             index: number,
             that: any,
-        ): boolean | JQueryDeferred<boolean> | Promise<boolean> | void;
+        ): boolean | JQueryDeferred<boolean> | Promise<boolean> | undefined;
         /**
          * 只提供默认的一种拖拽风格
          *

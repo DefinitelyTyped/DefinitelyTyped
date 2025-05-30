@@ -65,6 +65,7 @@ function laydateTest() {
                 console.log(endDate); // 得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
             },
             disabledDate(date, type) {
+              return true
             },
             disabledTime(date) {
                 return {

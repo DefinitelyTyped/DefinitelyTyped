@@ -31,7 +31,7 @@ declare namespace Layui {
         (
             value: string,
             elem: HTMLButtonElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
-        ): string | boolean | void;
+        ): string | boolean | undefined;
     }
     interface LayFormVerifyConfig {
         [index: string]: LayFormVerifyConfigCallback | [RegExp, string];

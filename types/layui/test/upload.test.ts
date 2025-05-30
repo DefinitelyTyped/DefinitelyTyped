@@ -25,6 +25,7 @@ function uploadTest() {
                 // obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                 // this.item;
                 layui.layer.load(); // 上传loading
+                return undefined
             },
             allDone: obj => {
                 // 当文件全部被提交后，才触发

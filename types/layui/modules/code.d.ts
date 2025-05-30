@@ -151,7 +151,7 @@ declare namespace Layui {
          * @param cpoied 是否复制成功(2.9.21+)
          * @since 2.8.2
          */
-        onCopy?(code: string, cpoied: boolean): void | boolean;
+        onCopy?(code: string, cpoied: boolean): undefined | boolean;
         /**
          * 用于重新渲染 code，例如代码高亮处理
          * @param code 当前 code 内容

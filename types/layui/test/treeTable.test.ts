@@ -26,6 +26,7 @@ function treeTableTest() {
                 callback: {
                     beforeExpand(tableId, trData, expandFlag) {
                         console.log(tableId, trData, expandFlag);
+                        return true;
                     },
                     onExpand(tableId, trData, expandFlag) {
                     },

@@ -100,6 +100,7 @@ function dropdown() {
                 console.log(data); // 得到当前所点击的菜单项对应的数据
                 console.log(othis); // 得到当前所点击的菜单项 DOM 对象
                 // console.log(this.elem); // 得到当前组件绑定的原始 DOM 对象，批量绑定中常用。
+                return undefined;
             },
             ready: (elemPanel, elem) => {
                 console.log(elemPanel[0]); // 得到组件面板的 DOM 对象
