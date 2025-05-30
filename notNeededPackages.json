@@ -2229,6 +2229,10 @@
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
         },
+        "flatry": {
+            "libraryName": "flatry",
+            "asOfVersion": "1.0.13"
+        },
         "flexmonster": {
             "libraryName": "flexmonster",
             "asOfVersion": "2.8.0"
