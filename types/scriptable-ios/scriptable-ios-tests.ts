@@ -856,7 +856,7 @@
     // @ts-expect-error
     notification.scriptName = 0;
 
-    // $ExpectType readonly Notification.Action[]
+    // $ExpectType readonly Action[]
     notification.actions;
     // @ts-expect-error
     notification.actions = [];
