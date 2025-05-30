@@ -7495,6 +7495,10 @@
             "libraryName": "url-regex",
             "asOfVersion": "5.0.0"
         },
+        "url-safe-base64": {
+            "libraryName": "url-safe-base64",
+            "asOfVersion": "1.2.0"
+        },
         "url-template": {
             "libraryName": "url-template",
             "asOfVersion": "3.0.0"
