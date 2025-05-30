@@ -6,26 +6,27 @@ import type { Registry } from "prom-client";
  */
 interface OpossumMetricsOptions {
     /**
-     * Array of circuit breakers to monitor.
+     * A list or individual circuit breaker to create metrics for.
+     * @default undefined - No circuits.
      */
-    circuits?: CircuitBreaker[];
+    circuits?: CircuitBreaker[] | undefined;
 
     /**
-     * Prometheus registry to use for metrics.
+     * An existing registry to use for prometheus metrics.
+     * @default undefined  - The default prometheus registry will be used and default system metrics will be collected
      */
-    registry?: Registry;
+    registry?: Registry | undefined;
 
     /**
-     * Whether to expose performance metrics.
-     * @default false
+     * Measure the performance of breakers and report them through the registry.
+     * @default true
      */
-    exposePerformanceMetrics?: boolean;
+    exposePerformanceMetrics?: boolean | undefined;
 
     /**
-     * Prefix to add to all metric names.
-     * @default 'opossum_'
+     * Prefix for circuit breakers metrics name.
      */
-    metricPrefix?: string;
+    metricPrefix?: string | undefined;
 }
 
 /**
