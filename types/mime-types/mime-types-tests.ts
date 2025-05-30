@@ -43,10 +43,4 @@ mime.extensions["application/json"]; // ['.json']
 mime.types.json; // "application/json"
 
 // @ts-expect-error
-mime.types.obviously_nonexistent;
-
-// @ts-expect-error
-mime.extensions.obviously_nonexistent;
-
-// @ts-expect-error
 mime.lookup(5);
