@@ -4959,6 +4959,110 @@ function testPrintingMetrics() {
     chrome.printingMetrics.onPrintJobFinished.hasListeners();
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/webAuthenticationProxy
+function testWebAuthenticationProxy() {
+    chrome.webAuthenticationProxy.attach(); // $ExpectType Promise<string | undefined>
+    chrome.webAuthenticationProxy.attach((error) => { // $ExpectType void
+        error; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.attach(() => {}).then(() => {});
+
+    const createResponseDetails: chrome.webAuthenticationProxy.CreateResponseDetails = {
+        requestId: 1,
+        error: { name: "NOT_ALLOWED", message: "Not allowed" },
+        responseJson: "{}",
+    };
+
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails, () => {}).then(() => {});
+
+    const getResponseDetails: chrome.webAuthenticationProxy.GetResponseDetails = {
+        requestId: 1,
+        error: { name: "NOT_ALLOWED", message: "Not allowed" },
+        responseJson: "{}",
+    };
+
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails, () => {}).then(() => {});
+
+    const isUvpaaResponseDetails: chrome.webAuthenticationProxy.IsUvpaaResponseDetails = {
+        isUvpaa: true,
+        requestId: 1,
+    };
+
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails, () => {}).then(() => {});
+
+    chrome.webAuthenticationProxy.detach(); // $ExpectType Promise<string | undefined>
+    chrome.webAuthenticationProxy.detach((error) => { // $ExpectType void
+        error; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.detach(() => {}).then(() => {});
+
+    chrome.webAuthenticationProxy.onCreateRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onGetRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.addListener(() => {}); // $ExpectType void
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.removeListener(() => {}); // $ExpectType void
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.hasListener(() => {}); // $ExpectType boolean
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onRequestCanceled.addListener((requestId) => { // $ExpectType void
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.removeListener((requestId) => { // $ExpectType void
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.hasListener((requestId) => { // $ExpectType boolean
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/webRequest
 function testWebRequest() {
     const filter: chrome.webRequest.RequestFilter = {
