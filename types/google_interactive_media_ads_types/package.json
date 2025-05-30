@@ -3,7 +3,7 @@
     "name": "@types/google_interactive_media_ads_types",
     "nonNpm": true,
     "nonNpmDescription": "Google Interactive Media Ads HTML5 SDK",
-    "version": "1.36970.9999",
+    "version": "2.36970.9999",
     "projects": [
         "https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side"
     ],
