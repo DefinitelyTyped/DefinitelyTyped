@@ -383,6 +383,7 @@ export namespace Util {
     function isBlankNode(value: RDF.Term | null | undefined): value is RDF.BlankNode;
     function isLiteral(value: RDF.Term | null | undefined): value is RDF.Literal;
     function isVariable(value: RDF.Term | null | undefined): value is RDF.Variable;
+    function isQuad(value: RDF.Term | null | undefined): value is RDF.Quad;
     function isDefaultGraph(value: RDF.Term | null | undefined): value is RDF.DefaultGraph;
     function inDefaultGraph(value: RDF.Quad): boolean;
     function prefix(iri: RDF.NamedNode | string, factory?: RDF.DataFactory): PrefixedToIri;
