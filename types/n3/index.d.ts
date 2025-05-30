@@ -319,8 +319,8 @@ export class Store<
         object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    addQuad(quad: Q_RDF): void;
+    ): boolean;
+    addQuad(quad: Q_RDF): boolean;
     addQuads(quads: Q_RDF[]): void;
     delete(quad: InQuad): this;
     has(quad: InQuad): boolean;
@@ -331,8 +331,8 @@ export class Store<
         object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    removeQuad(quad: Q_RDF): void;
+    ): boolean;
+    removeQuad(quad: Q_RDF): boolean;
     removeQuads(quads: Q_RDF[]): void;
     remove(stream: RDF.Stream<Q_RDF>): EventEmitter;
     removeMatches(

@@ -313,13 +313,14 @@ function test_doc_blank_nodes_and_lists() {
 }
 
 function test_doc_storing() {
+    let result: boolean = false;
     const store: N3.Store = new N3.Store();
-    store.addQuad(
+    result = store.addQuad(
         N3.DataFactory.namedNode("http://ex.org/Pluto"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         N3.DataFactory.namedNode("http://ex.org/Dog"),
     );
-    store.addQuad(
+    result = store.addQuad(
         N3.DataFactory.namedNode("http://ex.org/Pluto"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         // @ts-expect-error
@@ -327,7 +328,7 @@ function test_doc_storing() {
             N3.DataFactory.namedNode("http://ex.org/Dog"),
         ],
     );
-    store.addQuad(
+    result = store.addQuad(
         N3.DataFactory.quad(
             N3.DataFactory.namedNode("http://ex.org/Mickey"),
             N3.DataFactory.namedNode("http://ex.org/type"),
@@ -341,12 +342,12 @@ function test_doc_storing() {
             N3.DataFactory.namedNode("http://ex.org/Mouse"),
         ),
     ]);
-    store.removeQuad(
+    result = store.removeQuad(
         N3.DataFactory.namedNode("http://ex.org/Mickey"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         N3.DataFactory.namedNode("http://ex.org/Mouse"),
     );
-    store.removeQuad(
+    result = store.removeQuad(
         N3.DataFactory.namedNode("http://ex.org/Mickey"),
         N3.DataFactory.namedNode("http://ex.org/type"),
         // @ts-expect-error
@@ -354,7 +355,7 @@ function test_doc_storing() {
             N3.DataFactory.namedNode("http://ex.org/Mouse"),
         ],
     );
-    store.removeQuad(
+    result = store.removeQuad(
         N3.DataFactory.quad(
             N3.DataFactory.namedNode("http://ex.org/Mickey"),
             N3.DataFactory.namedNode("http://ex.org/type"),
