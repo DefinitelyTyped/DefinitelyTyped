@@ -4498,6 +4498,84 @@ declare namespace chrome {
     }
 
     ////////////////////
+    // Extension Types
+    ////////////////////
+    /** The `chrome.extensionTypes` API contains type declarations for Chrome extensions. */
+    export namespace extensionTypes {
+        /**
+         * The origin of injected CSS.
+         * @since Chrome 66
+         */
+        export type CSSOrigin = "author" | "user";
+
+        /**
+         * The document lifecycle of the frame.
+         * @since Chrome 106
+         */
+        export type DocumentLifecycle = "prerender" | "active" | "cached" | "pending_deletion";
+
+        /**
+         * The type of frame.
+         * @since Chrome 106
+         */
+        export type FrameType = "outermost_frame" | "fenced_frame" | "sub_frame";
+
+        /** Details about the format and quality of an image. */
+        export interface ImageDetails {
+            /** The format of the resulting image. Default is `"jpeg"`. */
+            format?: ImageFormat | undefined;
+            /** When format is `"jpeg"`, controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease. */
+            quality?: number | undefined;
+        }
+
+        /**
+         * The format of an image.
+         * @since Chrome 44
+         */
+        export type ImageFormat = "jpeg" | "png";
+
+        /** Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. */
+        export interface InjectDetails {
+            /** If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame. If `true` and `frameId` is set, then the code is inserted in the selected frame and all of its child frames. */
+            allFrames?: boolean | undefined;
+            /**
+             * JavaScript or CSS code to inject.
+             *
+             * **Warning:** Be careful using the `code` parameter. Incorrect use of it may open your extension to cross site scripting attacks
+             */
+            code?: string | undefined;
+            /**
+             * The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to `"author"`.
+             * @since Chrome 66
+             */
+            cssOrigin?: CSSOrigin | undefined;
+            /** JavaScript or CSS file to inject. */
+            file?: string | undefined;
+            /**
+             * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+             * @since Chrome 50
+             */
+            frameId?: number | undefined;
+            /** If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`. */
+            matchAboutBlank?: boolean;
+            /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
+            runAt?: RunAt | undefined;
+        }
+
+        /**
+         * The soonest that the JavaScript or CSS will be injected into the tab.
+         *
+         * "document_start" : Script is injected after any files from css, but before any other DOM is constructed or any other script is run.
+         *
+         * "document_end" : Script is injected immediately after the DOM is complete, but before subresources like images and frames have loaded.
+         *
+         * "document_idle" : The browser chooses a time to inject the script between "document_end" and immediately after the `window.onload` event fires. The exact moment of injection depends on how complex the document is and how long it is taking to load, and is optimized for page load speed. Content scripts running at "document_idle" don't need to listen for the `window.onload` event; they are guaranteed to run after the DOM completes. If a script definitely needs to run after `window.onload`, the extension can check if `onload` has already fired by using the `document.readyState` property.
+         * @since Chrome 44
+         */
+        export type RunAt = "document_start" | "document_end" | "document_idle";
+    }
+
+    ////////////////////
     // File Browser Handler
     ////////////////////
     /**
@@ -8706,9 +8784,6 @@ declare namespace chrome {
         export function addListener(callback: (info: OnReceiveErrorInfo) => void): void;
     }
 
-    type DocumentLifecycle = "prerender" | "active" | "cached" | "pending_deletion";
-    type FrameType = "outermost_frame" | "fenced_frame" | "sub_frame";
-
     ////////////////////
     // Runtime
     ////////////////////
@@ -8864,7 +8939,7 @@ declare namespace chrome {
              * The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
              * @since Chrome 106
              */
-            documentLifecycle?: DocumentLifecycle | undefined;
+            documentLifecycle?: extensionTypes.DocumentLifecycle | undefined;
             /**
              * A UUID of the document that opened the connection.
              * @since Chrome 106
@@ -9698,7 +9773,7 @@ declare namespace chrome {
             js?: string[];
             matches?: string[];
             persistAcrossSessions?: boolean;
-            runAt?: "document_start" | "document_end" | "document_idle";
+            runAt?: extensionTypes.RunAt;
             world?: ExecutionWorld;
         }
 
@@ -11143,45 +11218,6 @@ declare namespace chrome {
             defaultZoomFactor?: number | undefined;
         }
 
-        export interface InjectDetails {
-            /**
-             * Optional.
-             * If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame.
-             */
-            allFrames?: boolean | undefined;
-            /**
-             * Optional. JavaScript or CSS code to inject.
-             * Warning: Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks.
-             */
-            code?: string | undefined;
-            /**
-             * Optional. The soonest that the JavaScript or CSS will be injected into the tab.
-             * One of: "document_start", "document_end", or "document_idle"
-             * @since Chrome 20
-             */
-            runAt?: string | undefined;
-            /** Optional. JavaScript or CSS file to inject. */
-            file?: string | undefined;
-            /**
-             * Optional.
-             * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
-             * @since Chrome 39
-             */
-            frameId?: number | undefined;
-            /**
-             * Optional.
-             * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
-             * @since Chrome 39
-             */
-            matchAboutBlank?: boolean | undefined;
-            /**
-             * Optional. The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
-             * One of: "author", or "user"
-             * @since Chrome 66
-             */
-            cssOrigin?: string | undefined;
-        }
-
         export interface CreateProperties {
             /** Optional. The position the tab should take in the window. The provided value will be clamped to between zero and the number of tabs in the window. */
             index?: number | undefined;
@@ -11261,19 +11297,6 @@ declare namespace chrome {
              * @since Chrome 54
              */
             autoDiscardable?: boolean | undefined;
-        }
-
-        export interface CaptureVisibleTabOptions {
-            /**
-             * Optional.
-             * When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
-             */
-            quality?: number | undefined;
-            /**
-             * Optional. The format of an image.
-             * One of: "jpeg", or "png"
-             */
-            format?: string | undefined;
         }
 
         export interface ReloadProperties {
@@ -11538,21 +11561,21 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The result of the script in every injected frame.
          */
-        export function executeScript(details: InjectDetails): Promise<any[]>;
+        export function executeScript(details: extensionTypes.InjectDetails): Promise<any[]>;
         /**
          * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called after all the JavaScript has been executed.
          * Parameter result: The result of the script in every injected frame.
          */
-        export function executeScript(details: InjectDetails, callback?: (result: any[]) => void): void;
+        export function executeScript(details: extensionTypes.InjectDetails, callback?: (result: any[]) => void): void;
         /**
          * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to run the script; defaults to the active tab of the current window.
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The result of the script in every injected frame.
          */
-        export function executeScript(tabId: number, details: InjectDetails): Promise<any[]>;
+        export function executeScript(tabId: number, details: extensionTypes.InjectDetails): Promise<any[]>;
         /**
          * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to run the script; defaults to the active tab of the current window.
@@ -11560,7 +11583,11 @@ declare namespace chrome {
          * @param callback Optional. Called after all the JavaScript has been executed.
          * Parameter result: The result of the script in every injected frame.
          */
-        export function executeScript(tabId: number, details: InjectDetails, callback?: (result: any[]) => void): void;
+        export function executeScript(
+            tabId: number,
+            details: extensionTypes.InjectDetails,
+            callback?: (result: any[]) => void,
+        ): void;
         /** Retrieves details about the specified tab. */
         export function get(tabId: number, callback: (tab: Tab) => void): void;
         /**
@@ -11735,14 +11762,17 @@ declare namespace chrome {
          * @param options Optional. Details about the format and quality of an image.
          * @return The `captureVisibleTab` method provides its result via callback or returned as a `Promise` (MV3 only). A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
          */
-        export function captureVisibleTab(options: CaptureVisibleTabOptions): Promise<string>;
+        export function captureVisibleTab(options: extensionTypes.ImageDetails): Promise<string>;
         /**
          * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
          * @param options Optional. Details about the format and quality of an image.
          * @param callback
          * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
          */
-        export function captureVisibleTab(options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+        export function captureVisibleTab(
+            options: extensionTypes.ImageDetails,
+            callback: (dataUrl: string) => void,
+        ): void;
         /**
          * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
          * @param windowId Optional. The target window. Defaults to the current window.
@@ -11751,7 +11781,7 @@ declare namespace chrome {
          */
         export function captureVisibleTab(
             windowId: number,
-            options: CaptureVisibleTabOptions,
+            options: extensionTypes.ImageDetails,
         ): Promise<string>;
         /**
          * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
@@ -11762,7 +11792,7 @@ declare namespace chrome {
          */
         export function captureVisibleTab(
             windowId: number,
-            options: CaptureVisibleTabOptions,
+            options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
         /**
@@ -11879,27 +11909,27 @@ declare namespace chrome {
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @return The `insertCSS` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function insertCSS(details: InjectDetails): Promise<void>;
+        export function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         /**
          * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(details: InjectDetails, callback: () => void): void;
+        export function insertCSS(details: extensionTypes.InjectDetails, callback: () => void): void;
         /**
          * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @return The `insertCSS` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-        export function insertCSS(tabId: number, details: InjectDetails): Promise<void>;
+        export function insertCSS(tabId: number, details: extensionTypes.InjectDetails): Promise<void>;
         /**
          * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
          * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
          * @param callback Optional. Called when all the CSS has been inserted.
          */
-        export function insertCSS(tabId: number, details: InjectDetails, callback: () => void): void;
+        export function insertCSS(tabId: number, details: extensionTypes.InjectDetails, callback: () => void): void;
         /**
          * Highlights the given tabs.
          * @since Chrome 16
@@ -12958,11 +12988,11 @@ declare namespace chrome {
             /** A UUID of the document loaded. */
             documentId: string;
             /** The lifecycle the document is in. */
-            documentLifecycle: DocumentLifecycle;
+            documentLifecycle: extensionTypes.DocumentLifecycle;
             /** True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired. */
             errorOccurred: boolean;
             /** The type of frame the navigation occurred in. */
-            frameType: FrameType;
+            frameType: extensionTypes.FrameType;
             /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
             parentDocumentId?: string | undefined;
             /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
@@ -13001,11 +13031,11 @@ declare namespace chrome {
             /** 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process. */
             frameId: number;
             /** The type of frame the navigation occurred in. */
-            frameType: FrameType;
+            frameType: extensionTypes.FrameType;
             /** A UUID of the document loaded. (This is not set for onBeforeNavigate callbacks.) */
             documentId?: string | undefined;
             /** The lifecycle the document is in. */
-            documentLifecycle: DocumentLifecycle;
+            documentLifecycle: extensionTypes.DocumentLifecycle;
             /** A UUID of the parent document owning this frame. This is not set if there is no parent. */
             parentDocumentId?: string | undefined;
             /**
@@ -13288,8 +13318,8 @@ declare namespace chrome {
             /** Optional. The HTTP request headers that are going to be sent out with this request. */
             requestHeaders?: HttpHeader[] | undefined;
             documentId: string;
-            documentLifecycle: DocumentLifecycle;
-            frameType: FrameType;
+            documentLifecycle: extensionTypes.DocumentLifecycle;
+            frameType: extensionTypes.FrameType;
             frameId: number;
             initiator?: string | undefined;
             parentDocumentId?: string | undefined;
@@ -14907,7 +14937,7 @@ declare namespace chrome {
             /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for ${ref:register}. */
             matches?: string[];
             /** Specifies when JavaScript files are injected into the web page. The preferred and default value is document_idle */
-            runAt?: RunAt;
+            runAt?: extensionTypes.RunAt;
             /** The JavaScript execution environment to run the script in. The default is `USER_SCRIPT` */
             world?: ExecutionWorld;
             /**
@@ -14940,11 +14970,6 @@ declare namespace chrome {
             /** The path of the JavaScript file to inject relative to the extension's root directory. Exactly one of file or code must be specified. */
             file?: string;
         }
-
-        /**
-         * Enum for the run-at property.
-         */
-        export type RunAt = "document_start" | "document_end" | "document_idle";
 
         /**
          * Configures the `USER_SCRIPT` execution environment.
