@@ -262,6 +262,7 @@ declare namespace braintree {
         finalize(disputeId: string): Promise<ValidatedResponse<Dispute>>;
         find(disputeId: string): Promise<Dispute>;
         removeEvidence(disputeId: string, evidenceId: string): Promise<ValidatedResponse<Dispute>>;
+        search(searchFn: any, callbackFn: (err: Error | null, disputes?: ValidatedResponse<Dispute>[]) => void): void;
         search(searchFn: any): stream.Readable;
     }
 
