@@ -6811,6 +6811,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "solverjs": {
+            "libraryName": "solverjs",
+            "asOfVersion": "4.0.3"
+        },
         "sonic-boom": {
             "libraryName": "sonic-boom",
             "asOfVersion": "2.1.0"
