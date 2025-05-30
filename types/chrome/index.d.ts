@@ -4523,9 +4523,9 @@ declare namespace chrome {
         /** Details about the format and quality of an image. */
         export interface ImageDetails {
             /** The format of the resulting image. Default is `"jpeg"`. */
-            format?: ImageFormat;
+            format?: ImageFormat | undefined;
             /** When format is `"jpeg"`, controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease. */
-            quality?: number;
+            quality?: number | undefined;
         }
 
         /**
@@ -4537,29 +4537,29 @@ declare namespace chrome {
         /** Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time. */
         export interface InjectDetails {
             /** If allFrames is `true`, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's `false` and is only injected into the top frame. If `true` and `frameId` is set, then the code is inserted in the selected frame and all of its child frames. */
-            allFrames?: boolean;
+            allFrames?: boolean | undefined;
             /**
              * JavaScript or CSS code to inject.
              *
              * **Warning:** Be careful using the `code` parameter. Incorrect use of it may open your extension to cross site scripting attacks
              */
-            code?: string;
+            code?: string | undefined;
             /**
              * The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to `"author"`.
              * @since Chrome 66
              */
-            cssOrigin?: CSSOrigin;
+            cssOrigin?: CSSOrigin | undefined;
             /** JavaScript or CSS file to inject. */
-            file?: string;
+            file?: string | undefined;
             /**
              * The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
              * @since Chrome 50
              */
-            frameId?: number;
+            frameId?: number | undefined;
             /** If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is `false`. */
             matchAboutBlank?: boolean;
             /** The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle". */
-            runAt?: RunAt;
+            runAt?: RunAt | undefined;
         }
 
         /**
@@ -8939,7 +8939,7 @@ declare namespace chrome {
              * The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
              * @since Chrome 106
              */
-            documentLifecycle?: extensionTypes.DocumentLifecycle;
+            documentLifecycle?: extensionTypes.DocumentLifecycle | undefined;
             /**
              * A UUID of the document that opened the connection.
              * @since Chrome 106
