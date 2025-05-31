@@ -4,5 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Placeholder test file.
-google.ima;
+function createAd(): google.ima.Ad {
+    throw new Error("Cannot create");
+}
+
+const ad = createAd();
+
+// $ExpectType string
+const contentType = ad.getContentType();
