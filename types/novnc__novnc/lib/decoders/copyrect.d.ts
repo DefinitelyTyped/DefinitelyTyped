@@ -1,5 +1,5 @@
 import Display from "../display";
-import Inflator from "../inflator"; // Assuming WebSock uses typeName rQ for its queue
+import Inflator from "../inflator";
 import WebSock from "../websock";
 
 export default class CopyRectDecoder {

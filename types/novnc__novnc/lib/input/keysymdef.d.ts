@@ -1,2 +1,3 @@
 declare function lookup(unicodeCodepoint: number): number;
-export default { lookup };
+declare function lookupByName(name: string): number | undefined;
+export { lookup, lookupByName };

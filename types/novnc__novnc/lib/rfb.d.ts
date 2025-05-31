@@ -9,34 +9,54 @@ export interface RFBCredentials {
 }
 
 export interface RFBOptions {
-    shared?: boolean | undefined;
-    credentials?: RFBCredentials | undefined;
-    repeaterID?: string | undefined;
-    wsProtocols?: string[] | undefined;
+    credentials?: RFBCredentials;
+    shared?: boolean;
+    repeaterID?: string;
+    wsProtocols?: string[];
+    target?: Element;
+    url?: string | WebSocket | RTCDataChannel;
 }
+
+export interface RFBConstructor {
+    new (target: Element, url: string | WebSocket | RTCDataChannel, options?: RFBOptions): RFB;
+}
+
+export enum PowerButtonAction {
+    Signal = "signal",
+    Press = "press",
+    Release = "release",
+}
+
+export interface EncodedRect {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    encoding: number;
+    data: Uint8Array;
+}
+
+export type BellCallback = (this: RFB, ev: BellEvent) => any;
+
+export type BellEvent = CustomEvent<Record<string, never>>;
+export type ConnectEvent = CustomEvent<Record<string, never>>;
+export type CredentialsRequiredEvent = CustomEvent<{ types: Array<keyof RFBCredentials> }>;
+export type DesktopNameEvent = CustomEvent<{ name: string }>;
+export type DisconnectEvent = CustomEvent<{ clean: boolean; reason?: string }>;
+export type SecurityFailureEvent = CustomEvent<{ status: number; reason?: string }>;
+export type ClipboardEvent = CustomEvent<{ text: string }>;
 
 export interface RFBCapabilities {
-    power: boolean;
+    power?: boolean;
+    [key: string]: any;
 }
 
-export interface ServerVerificationRSAInfo {
-    type: "RSA";
-    publickey: Uint8Array;
-}
-
-export type ServerVerificationEvent = CustomEvent<ServerVerificationRSAInfo>;
-export type BellEvent = CustomEvent<Record<string, never>>; // No specific detail mentioned
 export type CapabilitiesEvent = CustomEvent<{ capabilities: RFBCapabilities }>;
-export type ClipboardEvent = CustomEvent<{ text: string }>;
 export type ClippingViewportEvent = CustomEvent<boolean>;
-export type ConnectEvent = CustomEvent<Record<string, never>>; // No specific detail mentioned
-export type CredentialsRequiredEvent = CustomEvent<{ types: string[] }>;
-export type DesktopNameEvent = CustomEvent<{ name: string }>;
-export type DisconnectEvent = CustomEvent<{ clean: boolean }>;
-export type SecurityFailureEvent = CustomEvent<{ status: number; reason?: string | undefined }>;
+export type ServerVerificationEvent = CustomEvent<{ reason: string }>;
 
 export default class RFB extends EventTargetMixin {
-    constructor(target: HTMLElement, urlOrChannel: string | WebSocket | RTCDataChannel, options?: RFBOptions);
+    constructor(target: Element, url: string | WebSocket | RTCDataChannel, options?: RFBOptions);
 
     // Properties
     background: string;
@@ -51,6 +71,8 @@ export default class RFB extends EventTargetMixin {
     scaleViewport: boolean;
     showDotCursor: boolean;
     viewOnly: boolean;
+    scale: number;
+    onbell: BellCallback | null;
 
     // Methods
     disconnect(): void;
@@ -93,3 +115,6 @@ export default class RFB extends EventTargetMixin {
     removeEventListener(type: "serververification", listener: (event: ServerVerificationEvent) => void): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject): void;
 }
+
+// Remove the NoVncClient interface from here as it's in index.d.ts
+// interface NoVncClient extends RFB {}

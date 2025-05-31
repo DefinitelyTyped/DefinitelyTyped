@@ -3,17 +3,3 @@
 !**/*.d.cts
 !**/*.d.mts
 !**/*.d.*.ts
-
-# Don't publish .ts files (except index.d.ts)
-**/*.ts
-!**/*.d.ts
-
-# Don't publish test files
-*-tests.*
-!index.d.ts
-
-# Don't publish tsconfig.json
-tsconfig.json
-
-# Don't publish .eslintrc.json
-.eslintrc.json

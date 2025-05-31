@@ -1,5 +1,9 @@
 type WebsockEventType = "message" | "open" | "close" | "error";
 
+export interface WebsockOptions {
+    protocols?: string | string[];
+}
+
 export default class WebSock {
     constructor();
 
@@ -30,4 +34,9 @@ export default class WebSock {
     sQpushString(str: string): void;
     sQpushBytes(bytes: Uint8Array | number[]): void;
     flush(): void;
+
+    recvQ: Uint8Array[];
+    sendQ: Uint8Array[];
+    send(data: ArrayBuffer | ArrayBufferView | Blob | string): void;
 }
+export {};
