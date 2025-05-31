@@ -1518,6 +1518,7 @@ declare namespace Dockerode {
         Interval?: number | undefined;
         Timeout?: number | undefined;
         StartPeriod?: number | undefined;
+        StartInterval?: number | undefined;
         Retries?: number | undefined;
     }
 
