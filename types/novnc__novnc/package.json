@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/novnc/noVNC"
     ],
-    "dependencies": {
-        "dtslint": "^4.2.1"
-    },
     "devDependencies": {
         "@types/novnc__novnc": "workspace:."
     },
