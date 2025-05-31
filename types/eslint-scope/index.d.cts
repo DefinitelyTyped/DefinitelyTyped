@@ -1,5 +1,6 @@
 import * as eslint from "eslint";
 import { VisitorKeys } from "eslint-visitor-keys";
+import { Visitor, VisitorOptions } from "esrecurse";
 import * as ESTree from "estree";
 
 declare namespace EslintScope {
@@ -61,6 +62,15 @@ declare namespace EslintScope {
          */
         jsx?: boolean;
     }
+
+    type PatternVisitorCallback = (
+        pattern: ESTree.Identifier,
+        misc: {
+            topLevel: boolean;
+            rest: boolean;
+            assignments: ESTree.AssignmentPattern[];
+        },
+    ) => void;
 }
 
 /**
@@ -516,6 +526,55 @@ declare class Definition {
 }
 
 /**
+ * Visitor for destructuring patterns.
+ */
+declare class PatternVisitor extends Visitor {
+    static isPattern(node: ESTree.Node): node is
+        | ESTree.Identifier
+        | ESTree.ObjectPattern
+        | ESTree.ArrayPattern
+        | ESTree.SpreadElement
+        | ESTree.RestElement
+        | ESTree.AssignmentPattern;
+
+    constructor(
+        options: VisitorOptions | null | undefined,
+        rootPattern: ESTree.Pattern,
+        callback: EslintScope.PatternVisitorCallback,
+    );
+
+    rootPattern: ESTree.Pattern;
+
+    callback: EslintScope.PatternVisitorCallback;
+
+    assignments: ESTree.AssignmentPattern[];
+
+    rightHandNodes: ESTree.Expression[];
+
+    restElements: ESTree.RestElement[];
+
+    Identifier(pattern: ESTree.Identifier): void;
+
+    Property(pattern: ESTree.Property): void;
+
+    ArrayPattern(pattern: ESTree.ArrayPattern): void;
+
+    AssignmentPattern(pattern: ESTree.AssignmentPattern): void;
+
+    RestElement(pattern: ESTree.RestElement): void;
+
+    MemberExpression(pattern: ESTree.MemberExpression): void;
+
+    SpreadElement(pattern: ESTree.SpreadElement): void;
+
+    ArrayExpression(pattern: ESTree.SpreadElement): void;
+
+    AssignmentExpression(pattern: ESTree.AssignmentExpression): void;
+
+    CallExpression(pattern: ESTree.CallExpression): void;
+}
+
+/**
  * Analyzes the scope of an AST.
  * @param ast The ESTree-compliant AST to analyze.
  * @param options Options for scope analysis.
@@ -534,6 +593,7 @@ declare const EslintScope: {
     Scope: typeof Scope;
     ScopeManager: typeof ScopeManager;
     Variable: typeof Variable;
+    PatternVisitor: typeof PatternVisitor;
 };
 
 export = EslintScope;
