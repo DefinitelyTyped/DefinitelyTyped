@@ -259,14 +259,18 @@ import { URL } from "node:url";
     let settings: Settings = {};
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
         streamResetBurst: 1000,
         streamResetRate: 33,
-        unknownProtocolTimeout: 123,
     };
     const secureServerOptions: SecureServerOptions = { ...serverOptions, ca: "..." };
     const onRequestHandler = (request: Http2ServerRequest, response: Http2ServerResponse) => {
@@ -376,13 +380,25 @@ import { URL } from "node:url";
 
     const clientSessionOptions: ClientSessionOptions = {
         maxDeflateDynamicTableSize: 0,
-        maxReservedRemoteStreams: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        protocol: "https:",
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        maxReservedRemoteStreams: 0,
+        createConnection: (authority, option) => {
+            // $ExpectType URL
+            authority;
+            // $ExpectType SessionOptions
+            option;
+            return new Duplex();
+        },
+        protocol: "https:",
     };
     const secureClientSessionOptions: SecureClientSessionOptions = { ...clientSessionOptions, ca: "..." };
     const onConnectHandler = (session: Http2Session, socket: Socket) => {};
@@ -474,12 +490,18 @@ import { URL } from "node:url";
 
     const serverOptions: ServerOptions = {
         maxDeflateDynamicTableSize: 0,
+        maxSettings: 32,
+        maxSessionMemory: 10,
+        maxHeaderListPairs: 128,
+        maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
-        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
-        unknownProtocolTimeout: 123,
+        remoteCustomSettings: [0],
+        unknownProtocolTimeout: 100000,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
     };
 
     const http2Stream: Http2Stream = {} as any;
