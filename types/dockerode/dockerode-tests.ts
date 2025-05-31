@@ -387,6 +387,73 @@ docker.createNetwork({ Name: "networkName" }, (err, network) => {
     });
 });
 
+// Should support all network create options
+// See: https://github.com/moby/moby/blob/7ea613d780be40e08665f0fc15bf53f5993455a9/api/types/network/network.go#L23-L46
+docker.createNetwork({
+    Name: "networkName",
+    CheckDuplicate: true,
+    abortSignal: new AbortController().signal,
+    Driver: "bridge",
+    Scope: "local",
+    EnableIPv4: true,
+    EnableIPv6: true,
+    IPAM: {
+        Driver: "default",
+        Options: {
+            foo: "bar",
+        },
+        Config: [
+            {
+                Subnet: "172.28.0.0/16",
+                IPRange: "172.28.1.0/24",
+                Gateway: "172.28.0.1",
+            },
+        ],
+    },
+    Internal: true,
+    Attachable: true,
+    Ingress: true,
+    // Docker doesn't accept ConfigFrom & ConfigOnly together,
+    // but that's not dockerode's job to enforce.
+    ConfigOnly: true,
+    ConfigFrom: { Network: "configOnlyNetwork" },
+    Options: { someOption: "someValue" },
+    Labels: { someLabel: "someValue" },
+}, (err, network) => {
+    network.remove((err, data) => {
+        // NOOP
+    });
+});
+
+// Should support all network create IPAM config options
+// See: https://github.com/moby/moby/blob/5d7550e9ef36f860738af643d321a132539452af/api/types/network/ipam.go#L11-L24
+docker.createNetwork({
+    Name: "ipamNetwork",
+    IPAM: {
+        Driver: "default",
+        Config: [
+            {
+                Subnet: "172.28.0.0/16",
+                IPRange: "172.28.5.0/24",
+                Gateway: "172.28.5.254",
+                AuxiliaryAddresses: {
+                    host1: "172.28.1.5",
+                    host2: "172.28.1.6",
+                    host3: "172.28.1.7",
+                },
+            },
+        ],
+        Options: {
+            foo: "bar",
+            bar: "0",
+        },
+    },
+}, (err, network) => {
+    network.remove((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createVolume();
 
 docker.createVolume({ Name: "volumeName", abortSignal: new AbortController().signal });
