@@ -351,3 +351,13 @@ declare module "@novnc/novnc/lib/input/util" {
     function getKey(event: KeyboardEventBase): string;
     function getKeysym(event: KeyboardEventBase): number;
 }
+
+export { default } from "./lib/rfb";
+export * from "./lib/rfb";
+export * from "./lib/display";
+export * from "./lib/websock";
+export * from "./lib/util/logging";
+export * from "./lib/util/eventtarget";
+export * from "./lib/input/keyboard";
+export * from "./lib/input/keysym";
+export * from "./lib/input/keysymdef";
