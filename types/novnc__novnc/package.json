@@ -9,13 +9,18 @@
         "@types/novnc__novnc": "workspace:."
     },
     "owners": [
+                {
+            "name": "Jake Jarvis",
+            "githubUsername": "jakejarvis"
+        },
+        {
+            "name": "Maksim Ovcharik",
+            "githubUsername": "ovcharik"
+        },
         {
             "name": "Caner Çetin",
             "githubUsername": "canercetin"
-        },
-        {
-            "name": "Mattias Wallin",
-            "githubUsername": "devurandom"
         }
+
     ]
 }
