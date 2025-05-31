@@ -160,7 +160,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     }, []);
     // $ExpectType any
     anyCallback({});
-    // $ExpectType (value: string) => number
+    // $ExpectType Memoized<(value: string) => number>
     const typedCallback = React.useCallback((value: string) => {
         return Number(value);
     }, []);
@@ -267,22 +267,22 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     );
 
     // useState convenience overload
-    // default to undefined only (not that useful, but type-safe -- no {} or unknown!)
-    // $ExpectType undefined
+    // default to never only (not that useful, but type-safe -- no {} or unknown!)
+    // $ExpectType never
     React.useState()[0];
-    // $ExpectType number | undefined
+    // $ExpectType number & { readonly __memoized: unknown; }
     React.useState<number>()[0];
     // default overload
-    // $ExpectType number
+    // $ExpectType Memoized<number>
     React.useState(0)[0];
-    // $ExpectType undefined
+    // $ExpectType never
     React.useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
     // @ts-expect-error
     React.useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
-    // $ExpectType boolean
+    // $ExpectType Memoized<boolean>
     toggle;
     // make sure setState accepts a function
     setToggle(r => !r);
@@ -291,11 +291,11 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // Should not type-check since `number` will be `number` at runtime but `() => number` in the type-checker
     const [number, setNumber] = React.useState<() => number>(() => 0);
     // Should be `number`
-    // $EpectType () => number
+    // $ExpectType Memoized<() => number>
     number;
 
     const [numFunc, setNumFunc] = React.useState<() => number>(() => () => 0);
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     numFunc;
     // Undesired
     // Should not typecheck since that would update the state to `number` when the type-checker would still consider the state to be `() => number`
@@ -304,27 +304,24 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     setNumFunc(() => () => 42);
 
     // when using a function without a generic, infer the return type
-    // $ExpectType number
+    // $ExpectType Memoized<number>
     React.useState(() => 0)[0];
     // When storing a function it must be wrapped
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     React.useState<() => number>(() => () => 0)[0];
     // When storing a function, even without a generic, it must be wrapped
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     React.useState(() => () => 0)[0];
 
     // Undesired
     // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
-    // React would call the constructor causing a TypeError.
     React.useState(class {});
     // This is the correct way to store classes in state.
-    // $ExpectType typeof A
+    // $ExpectType Memoized<typeof A>
     React.useState(() => class A {})[0];
 
     const [_, setClass] = React.useState(() => class {});
     // Undesired
-    // Classes should only be accepted as a return value of state initializer/updater functions not direct input.
-    // React would call the constructor causing a TypeError,
     setClass(class {});
     setClass(() => class {});
 
@@ -358,14 +355,14 @@ function useConcurrentHooks() {
     // $ExpectType boolean
     done;
 
-    // $ExpectType boolean
+    // $ExpectType Memoized<boolean>
     const deferredToggle = React.useDeferredValue(toggle);
 
     const [func] = React.useState(() => () => 0);
 
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     func;
-    // $ExpectType () => number
+    // $ExpectType Memoized<() => number>
     const deferredFunc = React.useDeferredValue(func);
 
     class Constructor {}
@@ -673,3 +670,70 @@ function formTest() {
         );
     }
 }
+
+// $ExpectType Memoized<{ id: number }>
+const typedMemo = React.useMemo<{ id: number }>(() => {
+    return { id: 10 };
+}, []);
+// $ExpectType Memoized<{ id: number; }>
+typedMemo;
+
+// --- Memoization Checks ---
+const someObject = { value: 1 };
+const someFunction = () => {};
+// $ExpectType Memoized<{ nested: boolean }>
+const memoizedObject = React.useMemo(() => ({ nested: true }), []);
+// $ExpectType Memoized<() => void>
+const memoizedFunction = React.useCallback(() => {}, []);
+const primitiveValue = 123;
+
+// useCallback with unmemoized object dependency -> ERROR
+// @ts-expect-error
+React.useCallback(() => {}, [someObject]);
+// useCallback with unmemoized function dependency -> ERROR
+// @ts-expect-error
+React.useCallback(() => {}, [someFunction]);
+// useCallback with memoized object dependency -> OK
+// $ExpectType Memoized<() => void>
+React.useCallback(() => {}, [memoizedObject]);
+// useCallback with memoized function dependency -> OK
+// $ExpectType Memoized<() => Memoized<() => void>>
+React.useCallback(() => memoizedFunction, [memoizedFunction]);
+// useCallback with primitive dependency -> OK
+// $ExpectType Memoized<() => 123>
+React.useCallback(() => primitiveValue, [primitiveValue]);
+// useCallback with mixed dependencies -> ERROR if unmemoized present
+// @ts-expect-error
+React.useCallback(() => {}, [primitiveValue, someObject]);
+// useCallback with mixed dependencies -> OK if all memoized/primitive
+// $ExpectType Memoized<() => 123>
+React.useCallback(() => primitiveValue, [primitiveValue, memoizedObject, memoizedFunction]);
+// useCallback with non-memoized type casted object  -> OK
+// $ExpectType Memoized<() => { value: number; }>
+React.useCallback(() => someObject, [someObject as React.Memoized<typeof someObject>]);
+
+// useMemo with unmemoized object dependency -> ERROR
+// @ts-expect-error
+React.useMemo(() => 1, [someObject]);
+// useMemo with unmemoized function dependency -> ERROR
+// @ts-expect-error
+React.useMemo(() => 1, [someFunction]);
+// useMemo with memoized object dependency -> OK
+React.useMemo(() => 1, [memoizedObject]);
+// useMemo with memoized function dependency -> OK
+// $ExpectType Memoized<number>
+React.useMemo(() => 1, [memoizedFunction]);
+// useMemo with primitive dependency -> OK
+// $ExpectType Memoized<number>
+React.useMemo(() => 1, [primitiveValue]);
+// useMemo with mixed dependencies -> ERROR if unmemoized present
+// @ts-expect-error
+React.useMemo(() => 1, [primitiveValue, someObject]);
+// useMemo with mixed dependencies -> OK if all memoized/primitive
+// $ExpectType Memoized<number>
+React.useMemo(() => 1, [primitiveValue, memoizedObject, memoizedFunction]);
+
+// --- End Memoization Checks ---
+
+// $ExpectType RefObject<{ id: number }>
+const typedRef = React.useRef<{ id: number }>({ id: 10 });
