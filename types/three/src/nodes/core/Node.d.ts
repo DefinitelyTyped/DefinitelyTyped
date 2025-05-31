@@ -157,7 +157,7 @@ declare class Node extends EventDispatcher<{
     /**
      * By default this method returns the value of the {@link Node#global} flag. This method
      * can be overwritten in derived classes if an analytical way is required to determine the
-     * global status.
+     * global cache referring to the current shader-stage.
      *
      * @param {NodeBuilder} builder - The current node builder.
      * @return {boolean} Whether this node is global or not.
@@ -281,8 +281,9 @@ declare class Node extends EventDispatcher<{
      * This stage analyzes the node hierarchy and ensures descendent nodes are built.
      *
      * @param {NodeBuilder} builder - The current node builder.
+     * @param {?Node} output - The target output node.
      */
-    analyze(builder: NodeBuilder): void;
+    analyze(builder: NodeBuilder, output?: Node | null): void;
     /**
      * Represents the generate stage which is the third step of the build process, see {@link Node#build} method.
      * This state builds the output node and returns the resulting shader string.
@@ -326,10 +327,10 @@ declare class Node extends EventDispatcher<{
      * - **generate**: Generates the shader code for the node. Returns the generated shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {?string} [output=null] - Can be used to define the output type.
+     * @param {string|Node|null} [output=null] - Can be used to define the output type.
      * @return {Node|string|null} The result of the build process, depending on the build stage.
      */
-    build(builder: NodeBuilder, output?: string | null): Node | string | null;
+    build(builder: NodeBuilder, output?: string | Node | null): Node | string | null;
     /**
      * Returns the child nodes as a JSON object.
      *

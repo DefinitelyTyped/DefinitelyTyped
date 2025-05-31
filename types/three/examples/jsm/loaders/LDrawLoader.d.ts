@@ -19,11 +19,16 @@ export class LDrawLoader extends Loader<Group> {
     ): this;
 
     preloadMaterials(url: string): Promise<void>;
-    setFileMap(fileMap: Record<string, string>): void;
-    setMaterials(materials: Material[]): void;
 
     parse(text: string, path: string, onLoad: (data: Group) => void, onError?: (error: unknown) => void): void;
 
-    addMaterial(material: Material): void;
+    setMaterials(materials: Material[]): this;
+    clearMaterials(): this;
+    addMaterials(materials: Material[]): this;
+    addDefaultMaterials(): this;
+
+    setFileMap(fileMap: Record<string, string>): this;
+
+    addMaterial(material: Material): this;
     getMaterial(colourCode: string): Material | null;
 }

@@ -22,6 +22,7 @@ export interface NodeMaterialParameters extends MaterialParameters {
     backdropNode?: Node | null | undefined;
     backdropAlphaNode?: Node | null | undefined;
     alphaTestNode?: Node | null | undefined;
+    maskNode?: Node | null | undefined;
 
     positionNode?: Node | null | undefined;
     geometryNode?: Node | null | undefined;
@@ -55,6 +56,7 @@ declare class NodeMaterial extends Material {
     backdropNode: Node | null;
     backdropAlphaNode: Node | null;
     alphaTestNode: Node | null;
+    maskNode: Node | null;
 
     positionNode: Node | null;
     geometryNode: Node | null;
