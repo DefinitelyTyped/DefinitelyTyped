@@ -1,7 +1,7 @@
 import LiveReloadPlugin = require("webpack-livereload-plugin");
-import { Plugin } from "webpack";
+import { WebpackPluginInstance } from "webpack";
 
-const plugins: Plugin[] = [
+const plugins: WebpackPluginInstance[] = [
     new LiveReloadPlugin(),
     new LiveReloadPlugin({}),
     new LiveReloadPlugin({
