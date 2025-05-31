@@ -2,6 +2,14 @@
 
 import stream = require("stream");
 
+// iterator helper type for TS <5.6
+declare global {
+    interface AsyncIteratorObject<T, TReturn, TNext> {}
+}
+interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObject<T, any, any> {
+    [Symbol.asyncIterator](): StreamIterator<T>;
+}
+
 export type Callback = (err?: Error | null) => any;
 
 // see https://github.com/mafintosh/tar-stream/blob/master/headers.js
@@ -41,12 +49,12 @@ export interface Pack extends stream.Readable {
     entry(headers: Headers, callback?: Callback): stream.Writable;
     entry(headers: Headers, buffer?: string | Buffer, callback?: Callback): stream.Writable;
     finalize(): void;
-    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
+    [Symbol.asyncIterator](): StreamIterator<Buffer>;
 }
 
 export interface Entry extends stream.Readable {
     header: Headers;
-    [Symbol.asyncIterator](): AsyncIterableIterator<Buffer>;
+    [Symbol.asyncIterator](): StreamIterator<Buffer>;
 }
 
 export interface Extract extends stream.Writable {
@@ -55,7 +63,7 @@ export interface Extract extends stream.Writable {
         event: "entry",
         listener: (headers: Headers, stream: stream.PassThrough, next: (error?: unknown) => void) => void,
     ): this;
-    [Symbol.asyncIterator](): AsyncIterator<Entry>;
+    [Symbol.asyncIterator](): AsyncIterableIterator<Entry>;
 }
 
 export interface ExtractOptions extends stream.WritableOptions {
