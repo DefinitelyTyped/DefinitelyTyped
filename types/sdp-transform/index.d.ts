@@ -178,12 +178,12 @@ export interface MediaAttributes extends SharedAttributes {
     // a=maxptime
     maxptime?: number | undefined;
     // a=crypto
-    crypto?: {
+    crypto?: Array<{
         id: number;
         suite: string;
         config: string;
         sessionConfig?: string | undefined;
-    } | undefined;
+    }> | undefined;
     // a=candidate
     candidates?:
         | Array<{

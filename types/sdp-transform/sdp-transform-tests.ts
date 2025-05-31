@@ -48,3 +48,22 @@ function test_parse_simulcast_stream_list() {
         }
     }
 }
+
+function test_crypto_attribute() {
+    const session: SessionDescription = parse("");
+    session.media[0].crypto = [
+        {
+            id: 1,
+            suite: "AES_CM_128_HMAC_SHA1_80",
+            config: "inline:WVNfX19zZW1jdGwgKCkgewkyMjA7fQp9CnVubGVz|2^31|1:1",
+            sessionConfig: "UNENCRYPTED_SRTP",
+        },
+    ];
+    const sdp: string = write(session);
+    const parsed = parse(sdp);
+    const crypto = parsed.media[0].crypto![0];
+    crypto.id; // $ExpectType number
+    crypto.suite; // $ExpectType string
+    crypto.config; // $ExpectType string
+    crypto.sessionConfig; // $ExpectType string | undefined
+}
