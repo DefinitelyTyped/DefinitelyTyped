@@ -3,7 +3,9 @@
 import stream = require("stream");
 
 // iterator helper type for TS <5.6
+export {};
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface AsyncIteratorObject<T, TReturn, TNext> {}
 }
 interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObject<T, any, any> {
