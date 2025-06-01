@@ -64,7 +64,7 @@ declare enum builtins {
 }
 type TypeId = builtins;
 type TypeParser<TOid = number, TReturn = any> = (oid: TOid) => TReturn;
-type TypeFormat = 'text' | 'binary';
+type TypeFormat = "text" | "binary";
 
 export = TypeOverrides;
 declare class TypeOverrides implements CustomTypesConfig {
