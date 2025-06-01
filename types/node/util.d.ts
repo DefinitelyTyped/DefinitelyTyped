@@ -1411,7 +1411,7 @@ declare module "util" {
      * @param content The raw contents of a `.env` file.
      * @since v20.12.0
      */
-    export function parseEnv(content: string): object;
+    export function parseEnv(content: string): NodeJS.Dict<string>;
     // https://nodejs.org/docs/latest/api/util.html#foreground-colors
     type ForegroundColors =
         | "black"
