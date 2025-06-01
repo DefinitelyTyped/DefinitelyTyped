@@ -968,7 +968,7 @@ declare module "../index" {
         /**
          * @see _.pullAll
          */
-        pullAll<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList): TList;
+        pullAll<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>): TList;
     }
     interface Collection<T> {
         /**
@@ -1007,7 +1007,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList, iteratee?: ValueIteratee<TList[0]>): TList;
+        pullAllBy<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>, iteratee?: ValueIteratee<TList[0]>): TList;
         /**
          * @see _.pullAllBy
          */
@@ -1054,7 +1054,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: TList, comparator?: Comparator<TList[0]>): TList;
+        pullAllWith<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>, comparator?: Comparator<TList[0]>): TList;
         /**
          * @see _.pullAllWith
          */
