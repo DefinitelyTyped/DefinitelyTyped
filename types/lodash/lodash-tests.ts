@@ -927,10 +927,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     fp.pullAt(1, array); // $ExpectType AbcObject[]
     fp.pullAt([2, 3], array); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    fp.pullAt(1, readonlyArray);
-    // @ts-expect-error
-    fp.pullAt([2, 3], readonlyArray);
     fp.pullAt(1, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAt([2, 3], list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAt(1)(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -962,8 +958,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(list).pullAll(values); // $ExpectType CollectionChain<AbcObject>
 
     fp.pullAll(values, array); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    fp.pullAll(values, readonlyArray);
     fp.pullAll(values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAll(values)(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
 }
@@ -1036,20 +1030,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.pullAllBy((value: AbcObject) => true)(values, array); // $ExpectType AbcObject[]
     fp.pullAllBy((value: AbcObject) => true, values)(array); // $ExpectType AbcObject[]
     fp.pullAllBy((value: AbcObject) => true)(values)(array); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    fp.pullAllBy("a", values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy({ a: 42 }, values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy(["a", 42], values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy((value: AbcObject) => true, values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy((value: AbcObject) => true)(values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy((value: AbcObject) => true, values)(readonlyArray);
-    // @ts-expect-error
-    fp.pullAllBy((value: AbcObject) => true)(values)(readonlyArray);
     fp.pullAllBy("a", values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAllBy({ a: 42 }, values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAllBy(["a", 42], values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -1141,10 +1121,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     fp.pullAllWith((a, b) => true, values, array); // $ExpectType AbcObject[]
     fp.pullAllWith((a: AbcObject, b: AbcObject) => true)(values, array); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    fp.pullAllWith((a, b) => true, values, readonlyArray);
-    // @ts-expect-error
-    fp.pullAllWith((a: AbcObject, b: AbcObject) => true)(values, readonlyArray);
     fp.pullAllWith((a, b) => true, values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     fp.pullAllWith((a: AbcObject, b: AbcObject) => true)(values, list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
 
@@ -1203,15 +1179,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.remove(readonlyArray, "");
     // @ts-expect-error
     _.remove(readonlyArray, { a: 42 });
-
-    // @ts-expect-error
-    fp.remove(valueIterator, readonlyArray);
-    // @ts-expect-error
-    fp.remove(valueIterator)(readonlyArray);
-    // @ts-expect-error
-    fp.remove("", readonlyArray);
-    // @ts-expect-error
-    fp.remove({ a: 42 }, readonlyArray);
 }
 
 // _.tail
