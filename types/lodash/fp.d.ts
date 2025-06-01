@@ -240,7 +240,7 @@ declare namespace _ {
     type LodashBindKey1x1 = (key: string) => (...args: any[]) => any;
     type LodashBindKey1x2 = (object: object) => (...args: any[]) => any;
     type LodashCamelCase = (string: string) => string;
-    type LodashCapitalize = <T extends string>(string: T) => string extends T ? string : Capitalize<Lowercase<T>>;
+    type LodashCapitalize = <T extends string>(string: T) => Capitalize<Lowercase<T>>;
     type LodashCastArray = <T>(value: lodash.Many<T>) => T[];
     type LodashCeil = (n: number) => number;
     interface LodashChunk {
@@ -3506,10 +3506,8 @@ declare namespace _ {
     type LodashPullAllWith4x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => lodash.List<T1>;
     interface LodashPullAt {
         (indexes: lodash.Many<number>): LodashPullAt1x1;
-        <T>(indexes: lodash.__, array: readonly T[]): LodashPullAt1x2<T>;
-        <T>(indexes: lodash.Many<number>, array: readonly T[]): T[];
-        <T>(indexes: lodash.__, array: lodash.List<T>): LodashPullAt2x2<T>;
-        <T>(indexes: lodash.Many<number>, array: lodash.List<T>): lodash.List<T>;
+        <T>(indexes: lodash.__, array: TList extends readonly any[] ? never : TList): LodashPullAt2x2<T>;
+        <TList extends List<any>>(indexes: lodash.Many<number>, array: TList extends readonly any[] ? never : TList): TList;
     }
     interface LodashPullAt1x1 {
         <T>(array: readonly T[]): T[];
@@ -3736,9 +3734,9 @@ declare namespace _ {
     interface LodashRemove {
         <T>(predicate: lodash.ValueIteratee<T>): LodashRemove1x1<T>;
         <T>(predicate: lodash.__, array: lodash.List<T>): LodashRemove1x2<T>;
-        <T>(predicate: lodash.ValueIteratee<T>, array: lodash.List<T>): T[];
+        <TList extends lodash.List<any>>(predicate: lodash.ValueIteratee<TList[0]>, array: TList extends readonly any[] ? never : TList): TList[0][];
     }
-    type LodashRemove1x1<T> = (array: lodash.List<T>) => T[];
+    type LodashRemove1x1<TList extends lodash.List<any>> = (array: TList extends readonly any[] ? never : TList) => TList[0][];
     type LodashRemove1x2<T> = (predicate: lodash.ValueIteratee<T>) => T[];
     interface LodashRepeat {
         (n: number): LodashRepeat1x1;
