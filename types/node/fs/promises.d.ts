@@ -87,13 +87,6 @@ declare module "fs/promises" {
         highWaterMark?: number | undefined;
         flush?: boolean | undefined;
     }
-    interface ReadableWebStreamOptions {
-        /**
-         * Whether to open a normal or a `'bytes'` stream.
-         * @since v20.0.0
-         */
-        type?: "bytes" | undefined;
-    }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
         /**
@@ -244,7 +237,8 @@ declare module "fs/promises" {
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
-         * Returns a `ReadableStream` that may be used to read the files data.
+         * Returns a byte-oriented `ReadableStream` that may be used to read the file's
+         * contents.
          *
          * An error will be thrown if this method is called more than once or is called
          * after the `FileHandle` is closed or closing.
@@ -267,7 +261,7 @@ declare module "fs/promises" {
          * @since v17.0.0
          * @experimental
          */
-        readableWebStream(options?: ReadableWebStreamOptions): ReadableStream;
+        readableWebStream(): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -283,36 +277,26 @@ declare module "fs/promises" {
          * data will be a string.
          */
         readFile(
-            options?: {
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } | null,
+            options?:
+                | ({ encoding?: null | undefined } & Abortable)
+                | null,
         ): Promise<Buffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options:
-                | {
-                    encoding: BufferEncoding;
-                    flag?: OpenMode | undefined;
-                }
+                | ({ encoding: BufferEncoding } & Abortable)
                 | BufferEncoding,
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
-         * @param options An object that may contain an optional flag.
-         * If a flag is not provided, it defaults to `'r'`.
          */
         readFile(
             options?:
-                | (ObjectEncodingOptions & {
-                    flag?: OpenMode | undefined;
-                })
+                | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
                 | null,
         ): Promise<string | Buffer>;
@@ -734,6 +718,19 @@ declare module "fs/promises" {
             recursive?: boolean | undefined;
         },
     ): Promise<Dirent[]>;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a directory. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Promise<Dirent<Buffer>[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
      * fulfilled with the`linkString` upon success.

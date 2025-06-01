@@ -103,6 +103,7 @@ export { ColorManagement, ColorSpaceDefinition } from "./math/ColorManagement.js
 export * from "./math/Cylindrical.js";
 export * from "./math/Euler.js";
 export * from "./math/Frustum.js";
+export * from "./math/FrustumArray.js";
 export * from "./math/Interpolant.js";
 export * from "./math/interpolants/CubicInterpolant.js";
 export * from "./math/interpolants/DiscreteInterpolant.js";
@@ -152,6 +153,7 @@ export * from "./textures/CubeTexture.js";
 export * from "./textures/Data3DTexture.js";
 export * from "./textures/DataArrayTexture.js";
 export * from "./textures/DataTexture.js";
+export * from "./textures/DepthArrayTexture.js";
 export * from "./textures/DepthTexture.js";
 export * from "./textures/FramebufferTexture.js";
 export * from "./textures/Source.js";

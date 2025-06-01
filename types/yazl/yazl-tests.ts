@@ -22,6 +22,12 @@ zipfile.addReadStream(process.stdin, "stdin.txt", {
     mtime: new Date(),
     mode: parseInt("0100664", 8), // -rw-rw-r--
 });
+zipfile.addReadStreamLazy("stdin.txt", cb => cb(null, process.stdin));
+zipfile.addReadStreamLazy("stdin.txt", {
+    mtime: new Date(),
+    mode: parseInt("0100664", 8), // -rw-rw-r--
+}, cb => cb({}, process.stdin));
+
 zipfile.addBuffer(new Buffer("hello"), "hello.txt", {
     mtime: new Date(),
     mode: parseInt("0100664", 8), // -rw-rw-r--

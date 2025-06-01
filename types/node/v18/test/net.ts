@@ -385,6 +385,18 @@ import * as net from "node:net";
 }
 
 {
+    let _server = net.createServer();
+
+    // $ExpectType Server
+    _server.getConnections((error, count) => {
+        // $ExpectType Error | null
+        error;
+        // $ExpectType number
+        count;
+    });
+}
+
+{
     const sockAddr: net.SocketAddress = new net.SocketAddress({
         address: "123.123.123.123",
         family: "ipv4",

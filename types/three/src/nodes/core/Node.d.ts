@@ -75,6 +75,7 @@ declare class Node extends EventDispatcher<{
     _cacheKey: number | null;
     _cacheKeyVersion: number;
     global: boolean;
+    parents: boolean;
     readonly isNode: true;
     readonly id: number;
     self?: this;
@@ -319,14 +320,16 @@ declare class Node extends EventDispatcher<{
      */
     update(frame: NodeFrame): void;
     /**
-     * This method performs the build of a node. The behavior of this method as well as its return value depend
-     * on the current build stage (setup, analyze or generate).
+     * This method performs the build of a node. The behavior and return value depend on the current build stage:
+     * - **setup**: Prepares the node and its children for the build process. This process can also create new nodes. Returns the node itself or a variant.
+     * - **analyze**: Analyzes the node hierarchy for optimizations in the code generation stage. Returns `null`.
+     * - **generate**: Generates the shader code for the node. Returns the generated shader string.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @param {?string} output - Can be used to define the output type.
-     * @return {?string} When this method is executed in the setup or analyze stage, `null` is returned. In the generate stage, the generated shader string.
+     * @param {?string} [output=null] - Can be used to define the output type.
+     * @return {Node|string|null} The result of the build process, depending on the build stage.
      */
-    build(builder: NodeBuilder, output?: string | null): string | null;
+    build(builder: NodeBuilder, output?: string | null): Node | string | null;
     /**
      * Returns the child nodes as a JSON object.
      *

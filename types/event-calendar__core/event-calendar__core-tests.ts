@@ -1,25 +1,26 @@
-import Calendar from "@event-calendar/core";
+import {
+    Calendar,
+    createCalendar,
+    DayGrid,
+    destroyCalendar,
+    Interaction,
+    List,
+    ResourceTimeGrid,
+    ResourceTimeline,
+    TimeGrid,
+} from "@event-calendar/core";
+import { mount } from "svelte";
 
 const target = document.createElement("div");
+const plugins = [DayGrid, Interaction, List, ResourceTimeGrid, ResourceTimeline, TimeGrid];
 // ensure props is optional
-let cal = new Calendar({
-    target: target,
-});
-cal.destroy();
+let cal = createCalendar(target);
+destroyCalendar(cal);
 // ensure all options are marked as optional
-cal = new Calendar({
-    target: target,
-    props: {
-        plugins: [],
-        options: {},
-    },
-});
-cal.destroy();
-// exercise at least one other SvelteComponent constructor option
-cal = new Calendar({
-    target: target,
-    hydrate: true,
-});
+cal = createCalendar(target, plugins, {});
+destroyCalendar(cal);
+// Test it can be mounted as a Svelte component
+mount(Calendar, { target, props: { plugins, options: {} } });
 
 // exercise each member function
 cal.getOption("date");
@@ -28,6 +29,7 @@ cal.setOption("date", tomorrow.toISOString())
     .setOption("date", tomorrow.toISOString());
 cal.addEvent({
     id: "123",
+    allDay: true,
     start: new Date(),
     end: new Date(Date.now() + 60 * 60 * 1000),
     title: "an event",
@@ -50,7 +52,7 @@ cal.getView();
 cal.next();
 cal.prev();
 cal.unselect();
-cal.destroy();
+destroyCalendar(cal);
 
 const dateFormat: Intl.DateTimeFormatOptions = {
     month: "long",
@@ -117,137 +119,134 @@ const defaultTheme = {
     uniform: "ec-uniform",
 };
 
-const FakePlugin = { func: () => {} };
-
 // exercise each option with at least one variant
-cal = new Calendar({
-    target: target,
-    props: {
-        plugins: [FakePlugin],
-        options: {
-            allDayContent: "content",
-            allDaySlot: true,
-            buttonText: { foo: "bar" },
-            customButtons: {
-                foo: {
-                    text: "Foo",
-                    click: () => null,
-                },
-                bar: {
-                    text: "Bar",
-                    active: false,
-                    click: () => undefined,
-                },
-            },
-            date: "1997-04-12",
-            dateClick: (_info: Calendar.DateClickInfo) => {},
-            datesAboveResources: false,
-            datesSet: (_info: Calendar.DatesSetInfo) => {},
-            dayCellFormat: dateFormat,
-            dayHeaderAriaLabelFormat: dateFormat,
-            dayHeaderFormat: dateFormat,
-            dayMaxEvents: true,
-            dayPopoverFormat: dateFormat,
-            displayEventEnd: true,
-            dragScroll: true,
-            duration: { days: 7 },
-            editable: true,
-            events: [
-                { id: 123, start: new Date(Date.now()), end: new Date(Date.now() + 60 * 60 * 1000) },
-                { id: "2", start: new Date(Date.now()), end: new Date(Date.now() + 60 * 60 * 1000) },
-            ],
-            eventAllUpdated: (_info: { view: Calendar.View }) => {},
-            eventBackgroundColor: "red",
-            eventClassNames: "foo bar baz",
-            eventClick: (_info: Calendar.EventClickInfo) => {},
-            eventColor: "blue",
-            eventContent: "content",
-            eventDidMount: (_info: Calendar.EventDidMountInfo) => {},
-            eventDragMinDistance: 42,
-            eventDragStart: (_info: Calendar.EventDragInfo) => {},
-            eventDragStop: (_info: Calendar.EventDragInfo) => {},
-            eventDrop: (_info: Calendar.EventDropInfo) => {},
-            eventDurationEditable: true,
-            eventLongPressDelay: 100,
-            eventMouseEnter: (_info: Calendar.MouseEnterInfo) => {},
-            eventMouseLeave: (_info: Calendar.MouseEnterInfo) => {},
-            eventResize: (_info: Calendar.EventResizeInfo) => {},
-            eventResizeStart: (_info: Calendar.EventDuringResizeInfo) => {},
-            eventResizeStop: (_info: Calendar.EventDuringResizeInfo) => {},
-            eventSources: [
-                { url: "https://example.com", method: "GET" },
-                {
-                    events: (
-                        _info: Calendar.FetchInfo,
-                        _success: (ev: Calendar.EventInput[]) => void,
-                        _failure: (obj: object) => void,
-                    ) => {},
-                },
-                {
-                    events: async (
-                        _info: Calendar.FetchInfo,
-                    ) => [{ start: "2024-01-01 00:00:00", end: "2024-01-01 01:00:00" }],
-                },
-            ],
-            eventStartEditable: true,
-            eventTimeFormat: dateFormat,
-            eventTextColor: "yellow",
-            filterEventsWithResources: true,
-            filterResourcesWithEvents: false,
-            firstDay: 0,
-            flexibleSlotTimeLimits: true,
-            headerToolbar: {
-                start: "foo",
-                center: "bar",
-                end: "baz",
-            },
-            height: "100%",
-            hiddenDays: [2],
-            highlightedDates: ["2024-01-01", new Date()],
-            lazyFetching: true,
-            listDayFormat: dateFormat,
-            listDaySideFormat: dateFormat,
-            loading: (_isLoading: boolean) => {},
-            locale: "en-US",
-            longPressDelay: 100,
-            moreLinkContent: "content",
-            noEventsClick: (_info: Calendar.NoEventsClickInfo) => {},
-            noEventsContent: "content",
-            nowIndicator: true,
-            pointer: true,
-            resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
-            resourceLabelContent: "content",
-            resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
-            select: (info) => {
-                return (info.allDay || (info.jsEvent.target === document.body) || !!info.view.title);
-            },
-            selectable: true,
-            selectBackgroundColor: "red",
-            selectLongPressDelay: 100,
-            selectMinDistance: 10,
-            scrollTime: "05:00",
-            slotDuration: 500,
-            slotEventOverlap: true,
-            slotHeight: 24,
-            slotLabelFormat: dateFormat,
-            slotMinTime: 300,
-            slotMaxTime: "04:00:00",
-            slotWidth: 100,
-            theme: defaultTheme,
-            titleFormat: dateFormat,
-            unselect: (_info: Calendar.UnselectInfo) => {},
-            unselectAuto: true,
-            unselectCancel: "div.foo",
-            view: "resourceTimeGrid",
-            viewDidMount: (_info: { view: Calendar.View }) => {},
-            views: {
-                resourceTimeGrid: {
-                    selectMinDistance: 200,
-                },
-                list: {
-                    unselectAuto: false,
-                },
-            },
+cal = createCalendar(target, plugins, {
+    allDayContent: "content",
+    allDaySlot: true,
+    buttonText: { foo: "bar" },
+    customButtons: {
+        foo: {
+            text: "Foo",
+            click: () => null,
+        },
+        bar: {
+            text: "Bar",
+            active: false,
+            click: () => undefined,
+        },
+    },
+    date: "1997-04-12",
+    dateClick: (_info: Calendar.DateClickInfo) => {},
+    datesAboveResources: false,
+    datesSet: (_info: Calendar.DatesSetInfo) => {},
+    dayCellFormat: dateFormat,
+    dayHeaderAriaLabelFormat: dateFormat,
+    dayHeaderFormat: dateFormat,
+    dayMaxEvents: true,
+    dayPopoverFormat: dateFormat,
+    displayEventEnd: true,
+    dragConstraint: (_info: Calendar.EventDropInfo) => true,
+    dragScroll: true,
+    duration: { days: 7 },
+    editable: true,
+    events: [
+        { id: 123, start: new Date(Date.now()), end: new Date(Date.now() + 60 * 60 * 1000) },
+        { id: "2", start: new Date(Date.now()), end: new Date(Date.now() + 60 * 60 * 1000) },
+    ],
+    eventAllUpdated: (_info: { view: Calendar.View }) => {},
+    eventBackgroundColor: "red",
+    eventClassNames: "foo bar baz",
+    eventClick: (_info: Calendar.EventClickInfo) => {},
+    eventColor: "blue",
+    eventContent: "content",
+    eventDidMount: (_info: Calendar.EventDidMountInfo) => {},
+    eventDragMinDistance: 42,
+    eventDragStart: (_info: Calendar.EventDragInfo) => {},
+    eventDragStop: (_info: Calendar.EventDragInfo) => {},
+    eventDrop: (_info: Calendar.EventDropInfo) => {},
+    eventDurationEditable: true,
+    eventLongPressDelay: 100,
+    eventMouseEnter: (_info: Calendar.MouseEnterInfo) => {},
+    eventMouseLeave: (_info: Calendar.MouseEnterInfo) => {},
+    eventResize: (_info: Calendar.EventResizeInfo) => {},
+    eventResizeStart: (_info: Calendar.EventDuringResizeInfo) => {},
+    eventResizeStop: (_info: Calendar.EventDuringResizeInfo) => {},
+    eventSources: [
+        { url: "https://example.com", method: "GET" },
+        {
+            events: (
+                _info: Calendar.FetchInfo,
+                _success: (ev: Calendar.EventInput[]) => void,
+                _failure: (obj: object) => void,
+            ) => {},
+        },
+        {
+            events: async (
+                _info: Calendar.FetchInfo,
+            ) => [{ start: "2024-01-01 00:00:00", end: "2024-01-01 01:00:00" }],
+        },
+    ],
+    eventStartEditable: true,
+    eventTimeFormat: dateFormat,
+    eventTextColor: "yellow",
+    filterEventsWithResources: true,
+    filterResourcesWithEvents: false,
+    firstDay: 0,
+    flexibleSlotTimeLimits: true,
+    headerToolbar: {
+        start: "foo",
+        center: "bar",
+        end: "baz",
+    },
+    height: "100%",
+    hiddenDays: [2],
+    highlightedDates: ["2024-01-01", new Date()],
+    lazyFetching: true,
+    listDayFormat: dateFormat,
+    listDaySideFormat: dateFormat,
+    loading: (_isLoading: boolean) => {},
+    locale: "en-US",
+    longPressDelay: 100,
+    moreLinkContent: "content",
+    noEventsClick: (_info: Calendar.NoEventsClickInfo) => {},
+    noEventsContent: "content",
+    nowIndicator: true,
+    pointer: true,
+    resizeConstraint: (_info: Calendar.EventResizeInfo) => true,
+    resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
+    resourceLabelContent: "content",
+    resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
+    select: (info) => {
+        return (info.allDay || (info.jsEvent.target === document.body) || !!info.view.title);
+    },
+    selectable: true,
+    selectConstraint: (_info: Calendar.SelectInfo) => true,
+    selectBackgroundColor: "red",
+    selectLongPressDelay: 100,
+    selectMinDistance: 10,
+    scrollTime: "05:00",
+    slotDuration: 500,
+    slotEventOverlap: true,
+    slotHeight: 24,
+    slotLabelFormat: dateFormat,
+    slotLabelInterval: { minutes: 30 },
+    slotMinTime: 300,
+    slotMaxTime: "04:00:00",
+    slotWidth: 100,
+    theme: defaultTheme,
+    titleFormat: dateFormat,
+    unselect: (_info: Calendar.UnselectInfo) => {},
+    unselectAuto: true,
+    unselectCancel: "div.foo",
+    view: "resourceTimeGrid",
+    viewDidMount: (_info: { view: Calendar.View }) => {},
+    validRange: { start: "2025-01-01", end: "2025-12-31" },
+    views: {
+        resourceTimeGrid: {
+            selectMinDistance: 200,
+        },
+        list: {
+            unselectAuto: false,
         },
     },
 });

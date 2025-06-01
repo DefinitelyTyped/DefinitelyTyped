@@ -24,5 +24,5 @@ declare class DBTrackerPool {
 declare namespace DBTrackerPool {
     export { Database };
 }
-type Database = import('./Database');
 import DBTracker = require('./DBTracker.js');
+type Database = import('./Database');

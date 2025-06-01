@@ -10,7 +10,6 @@ export default class AdCreativeLinkDataMoment extends AbstractCrudObject {
     }>;
     static get Type(): Readonly<{
         fb_live_shopping: "FB_LIVE_SHOPPING";
-        ig_drops: "IG_DROPS";
         ig_live_shopping: "IG_LIVE_SHOPPING";
     }>;
 }

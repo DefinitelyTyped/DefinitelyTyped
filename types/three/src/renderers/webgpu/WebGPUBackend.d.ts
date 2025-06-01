@@ -5,6 +5,7 @@ import Backend, { BackendParameters } from "../common/Backend.js";
 
 export interface WebGPUBackendParameters extends BackendParameters {
     alpha?: boolean | undefined;
+    compatibilityMode?: boolean | undefined;
     requiredLimits?: Record<string, GPUSize64> | undefined;
     trackTimestamp?: boolean | undefined;
     device?: GPUDevice | undefined;
