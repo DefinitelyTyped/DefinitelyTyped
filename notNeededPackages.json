@@ -724,6 +724,10 @@
             "libraryName": "cheerio",
             "asOfVersion": "1.0.0"
         },
+        "chenfengyuan__vue-qrcode": {
+            "libraryName": "@chenfengyuan/vue-qrcode",
+            "asOfVersion": "2.0.0"
+        },
         "chokidar": {
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
