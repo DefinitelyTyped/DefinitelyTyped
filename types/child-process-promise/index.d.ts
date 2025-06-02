@@ -1,14 +1,16 @@
 /// <reference types="node" />
 
-import {
-    ChildProcess,
-    ExecFileOptionsWithBufferEncoding,
-    ExecFileOptionsWithOtherEncoding,
-    ExecFileOptionsWithStringEncoding,
-    ExecOptions,
-    ForkOptions,
-    SpawnOptions,
-} from "child_process";
+import { ChildProcess, ExecFileOptions, ExecOptions, ForkOptions, SpawnOptions } from "child_process";
+
+export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
+    encoding: BufferEncoding;
+}
+export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
+    encoding: "buffer" | null;
+}
+export interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
+    encoding: BufferEncoding;
+}
 
 /**
  * Simple wrapper around the child_process module that makes use of promises
@@ -43,19 +45,19 @@ export interface Options {
 
 export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding: "buffer" | null } & ExecOptions>,
+    options: Readonly<Options & { encoding: "buffer" | null } & Omit<ExecOptions, "encoding">>,
 ): ChildProcessPromise<PromiseResult<Buffer>>;
 export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding?: BufferEncoding | undefined } & ExecOptions>,
+    options: Readonly<Options & { encoding?: BufferEncoding | undefined } & Omit<ExecOptions, "encoding">>,
 ): ChildProcessPromise<PromiseResult<string>>;
 export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding?: string | undefined } & ExecOptions>,
+    options: Readonly<Options & { encoding?: string | undefined } & Omit<ExecOptions, "encoding">>,
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
 export function exec(
     command: Readonly<string>,
-    options?: Readonly<Options & ExecOptions>,
+    options?: Readonly<Options & Omit<ExecOptions, "encoding">>,
 ): ChildProcessPromise<PromiseResult<string>>;
 
 export function execFile(
