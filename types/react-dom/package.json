@@ -21,12 +21,47 @@
                 "default": "./canary.d.ts"
             }
         },
-        "./server*": {
+        "./server": {
             "types": {
                 "default": "./server.d.ts"
             }
         },
-        "./static*": {
+        "./server.browser": {
+            "types": {
+                "default": "./server.d.ts"
+            }
+        },
+        "./server.bun": {
+            "types": {
+                "default": "./server.d.ts"
+            }
+        },
+        "./server.edge": {
+            "types": {
+                "default": "./server.d.ts"
+            }
+        },
+        "./server.node": {
+            "types": {
+                "default": "./server.d.ts"
+            }
+        },
+        "./static": {
+            "types": {
+                "default": "./static.d.ts"
+            }
+        },
+        "./static.browser": {
+            "types": {
+                "default": "./static.d.ts"
+            }
+        },
+        "./static.edge": {
+            "types": {
+                "default": "./static.d.ts"
+            }
+        },
+        "./static.node": {
             "types": {
                 "default": "./static.d.ts"
             }
