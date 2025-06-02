@@ -13,5 +13,5 @@ export class NumberKeyframeTrack extends KeyframeTrack {
      * @param {Array<number>} values - A list of keyframe values.
      * @param {(InterpolateLinear|InterpolateDiscrete|InterpolateSmooth)} [interpolation] - The interpolation type.
      */
-    constructor(name: string, times: Array<number>, values: Array<number>, interpolation?: InterpolationModes);
+    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<number>, interpolation?: InterpolationModes);
 }

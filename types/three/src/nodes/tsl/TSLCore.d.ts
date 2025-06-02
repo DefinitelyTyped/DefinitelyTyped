@@ -7,8 +7,6 @@ import StackNode from "../core/StackNode.js";
 import ConvertNode from "../utils/ConvertNode.js";
 
 export interface NodeElements {
-    toGlobal: (node: Node) => Node;
-
     toStack: typeof Stack;
 
     toColor: typeof color;
@@ -248,17 +246,24 @@ interface Layout {
 
 interface ShaderNodeFn<Args extends readonly unknown[]> {
     (...args: Args): ShaderNodeObject<ShaderCallNodeInternal>;
+
     shaderNode: ShaderNodeObject<ShaderNodeInternal>;
+    id: number;
+
+    getNodeType: (builder: NodeBuilder) => string | null;
+    getCacheKey: (force?: boolean) => number;
+
     setLayout: (layout: Layout) => this;
-    once: () => this;
+
+    once: (namespace?: string | null) => this;
 }
 
-export function Fn(jsFunc: () => void): ShaderNodeFn<[]>;
+export function Fn(jsFunc: (builder: NodeBuilder) => void): ShaderNodeFn<[]>;
 export function Fn<T extends readonly unknown[]>(
-    jsFunc: (args: T) => void,
+    jsFunc: (args: T, builder: NodeBuilder) => void,
 ): ShaderNodeFn<ProxiedTuple<T>>;
 export function Fn<T extends { readonly [key: string]: unknown }>(
-    jsFunc: (args: T) => void,
+    jsFunc: (args: T, builder: NodeBuilder) => void,
 ): ShaderNodeFn<[ProxiedObject<T>]>;
 
 export const setCurrentStack: (stack: StackNode | null) => void;

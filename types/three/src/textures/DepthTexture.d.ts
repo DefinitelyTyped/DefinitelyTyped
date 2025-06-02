@@ -28,6 +28,7 @@ export class DepthTexture extends Texture {
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.NearestFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
      * @param format See {@link DepthTexture.format | .format}. Default {@link THREE.DepthFormat}
+     * @param {number} [depth=1] - The depth of the texture.
      */
     constructor(
         width: number,
@@ -40,6 +41,7 @@ export class DepthTexture extends Texture {
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
         format?: DepthTexturePixelFormat,
+        depth?: number,
     );
 
     /**
@@ -53,8 +55,8 @@ export class DepthTexture extends Texture {
      * Overridden with a record type holding width and height.
      * @override
      */
-    get image(): { width: number; height: number };
-    set image(value: { width: number; height: number });
+    get image(): { width: number; height: number; depth: number };
+    set image(value: { width: number; height: number; depth: number });
 
     /**
      * @override

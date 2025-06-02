@@ -48,6 +48,7 @@ export class CapsuleGeometry extends BufferGeometry {
         readonly height: number;
         readonly capSegments: number;
         readonly radialSegments: number;
+        readonly heightSegments: number;
     };
 
     /** @internal */
