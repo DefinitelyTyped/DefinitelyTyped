@@ -2621,6 +2621,10 @@
             "libraryName": "@hapi/iron",
             "asOfVersion": "6.0.0"
         },
+        "hapi__jwt": {
+            "libraryName": "@hapi/jwt",
+            "asOfVersion": "3.2.0"
+        },
         "hapi__lab": {
             "libraryName": "@hapi/lab",
             "asOfVersion": "22.0.0"
