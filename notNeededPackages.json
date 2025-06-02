@@ -5099,6 +5099,10 @@
             "libraryName": "pixi.js",
             "asOfVersion": "5.0.0"
         },
+        "pizzip": {
+            "libraryName": "pizzip",
+            "asOfVersion": "3.1.2"
+        },
         "pkcs11js": {
             "libraryName": "pkcs11js",
             "asOfVersion": "1.0.4"
