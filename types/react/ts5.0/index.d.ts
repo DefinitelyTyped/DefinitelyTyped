@@ -135,7 +135,7 @@ declare namespace React {
             props: P,
         ) => ReactElement<any, any> | null)
         // constructor signature must match React.Component
-        | (new(props: P) => Component<any, any>);
+        | (new(props: P, context: any) => Component<any, any>);
 
     /**
      * Created by {@link createRef}, or {@link useRef} when passed `null`.
@@ -218,7 +218,7 @@ declare namespace React {
     type ElementRef<
         C extends
             | ForwardRefExoticComponent<any>
-            | { new(props: any): Component<any> }
+            | { new(props: any, context: any): Component<any> }
             | ((props: any) => ReactElement | null)
             | keyof JSX.IntrinsicElements,
     > = ComponentRef<C>;
@@ -929,7 +929,7 @@ declare namespace React {
         static propTypes?: any;
 
         /**
-         * If using the new style context, re-declare this in your class to be the
+         * If using React Context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
          *
@@ -948,6 +948,14 @@ declare namespace React {
 
         // Keep in sync with constructor signature of JSXElementConstructor and ComponentClass.
         constructor(props: P);
+        /**
+         * @param props
+         * @param context value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+         * in `contextType`.
+         */
+        // TODO: Ideally we'd infer the constructor signatur from `contextType`.
+        // Might be hard to ship without breaking existing code.
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -1117,7 +1125,13 @@ declare namespace React {
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
-        new(props: P): Component<P, S>;
+        new(
+            props: P, /**
+             * Value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+             * in `contextType`.
+             */
+            context?: any,
+        ): Component<P, S>;
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
@@ -1157,7 +1171,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P) => T);
+        & (new(props: P, context: any) => T);
 
     //
     // Component Specs and Lifecycle
