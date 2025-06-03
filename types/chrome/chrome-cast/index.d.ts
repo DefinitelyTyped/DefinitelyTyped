@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
 declare namespace chrome {
     ////////////////////
     // Cast

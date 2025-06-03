@@ -40,5 +40,6 @@ export default class TransactableItem extends AbstractCrudObject {
         staging: "STAGING";
     }>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<TransactableItem>;
 }

@@ -29,6 +29,12 @@ parser3.push(manifest);
 parser3.end();
 parser3.manifest.custom;
 
+const segment = parser3.manifest.segments[0];
+
+if (segment && segment.key) {
+    segment.key.iv;
+}
+
 parser3.addTagMapper({
     expression: /#EXAMPLE/,
     map: () => "#NEW-TAG:123",

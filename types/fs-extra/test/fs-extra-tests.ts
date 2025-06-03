@@ -836,7 +836,7 @@ fs.readdir(path, "utf-8"); // $ExpectType Promise<string[]>
 fs.readdir(path, "buffer"); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
 fs.readdir(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer[]> || Promise<Buffer<ArrayBufferLike>[]>
 fs.readdir(path, { encoding: "utf-8" }); // $ExpectType Promise<string[]>
-fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent[]>
+fs.readdir(path, { withFileTypes: true }); // $ExpectType Promise<Dirent<string>[]>
 // $ExpectType void
 fs.readdir(path, (err, files) => {
     err; // $ExpectType ErrnoException | null
@@ -865,7 +865,7 @@ fs.readdir(path, { encoding: "utf-8" }, (err, files) => {
 // $ExpectType void
 fs.readdir(path, { withFileTypes: true }, (err, files) => {
     err; // $ExpectType ErrnoException | null
-    files; // $ExpectType Dirent[]
+    files; // $ExpectType Dirent<string>[]
 });
 
 fs.readFile(path); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>> || Promise<NonSharedBuffer>

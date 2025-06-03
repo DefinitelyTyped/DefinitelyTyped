@@ -206,6 +206,7 @@ class CalendarResource {
             onEventResize={handleEventMove}
             onDragStart={console.log}
             onDropFromOutside={console.log}
+            dragFromOutsideItem={() => getEvents()[0]}
             draggableAccessor={() => true}
             resizableAccessor={() => true}
             elementProps={{ id: "myCalendar" }}

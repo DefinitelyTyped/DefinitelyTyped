@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/base/assert" {
   /**
@@ -1748,7 +1748,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -1773,7 +1773,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -1798,7 +1798,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -1872,7 +1872,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -1944,7 +1944,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -1969,7 +1969,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2133,7 +2133,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2158,7 +2158,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2183,7 +2183,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2222,7 +2222,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2285,7 +2285,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -2310,7 +2310,7 @@ declare module "sap/base/Log" {
       sComponent?: string,
       /**
        * Callback that returns an additional support object to be logged in support mode. This function is only
-       * called if support info mode is turned on with `logSupportInfo(true)`. To avoid negative effects regarding
+       * called if support info mode is turned on via the Support Assistant. To avoid negative effects regarding
        * execution times and memory consumption, the returned object should be a simple immutable JSON object
        * with mostly static and stable content.
        */
@@ -6981,10 +6981,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * 	 - `properties` could be an array containing the property names which should be included in the new
      *     entry. Other properties defined in the entity type won't be included.
      * 	 - `properties` could be an object which includes the desired properties and the corresponding values
-     *     which should be used for the created entry.   If `properties` is not specified, all properties in
-     *     the entity type will be included in the created entry.
-     *
-     * If there are no values specified, the properties will have `undefined` values.
+     *     which should be used for the created entry.
      *
      * The `properties` can be modified via property bindings relative to the returned context instance.
      *
@@ -18377,7 +18374,9 @@ declare module "sap/ui/core/Component" {
          * the manifest will not be evaluated before the controller. It might still be loaded synchronously if declared
          * in the Component metadata. A non-empty string value will be interpreted as the URL to load the manifest
          * from. If the manifest could not be loaded from a given URL, the Promise returned by the Component.create
-         * factory rejects. A non-null object value will be interpreted as manifest content.
+         * factory rejects. A non-null object value will be interpreted as manifest content. **Note:** If a manifest
+         * is provided as URL or plain object, it must use the same major schema version as the original manifest
+         * to avoid incompatible changes in the behavior of the component.
          */
         manifest?: boolean | string | object;
         /**
@@ -36871,86 +36870,15 @@ declare module "sap/ui/core/mvc/Controller" {
      */
     static getMetadata(): Metadata;
     /**
-     * Registers a callback module, which provides code enhancements for the lifecycle and event handler functions
-     * of a specific controller. The code enhancements are returned either in sync or async mode.
-     *
-     * The extension provider module provides the `getControllerExtensions` function which returns either directly
-     * an array of objects or a Promise that returns an array of objects when it resolves. These objects are
-     * object literals defining the methods and properties of the controller in a similar way as for {@link sap.ui.core.mvc.Controller Controller }
-     * subclasses.
-     *
-     * **Example for a callback module definition (sync):**
-     * ```javascript
-     *
-     * sap.ui.define("my/custom/sync/ExtensionProvider", [], function() {
-     *   var ExtensionProvider = function() {};
-     *   ExtensionProvider.prototype.getControllerExtensions = function(sControllerName, sComponentId, bAsync) {
-     *     if (!bAsync && sControllerName == "my.own.Controller") {
-     *       // IMPORTANT: only return extensions for a specific controller
-     *       return [{
-     *         onInit: function() {
-     *           // Do something here...
-     *         },
-     *         onAfterRendering: function() {
-     *           // Do something here...
-     *         },
-     *         onButtonClick: function(oEvent) {
-     *           // Handle the button click event
-     *         }
-     *       }
-     *     }];
-     *   };
-     *   return ExtensionProvider;
-     * });
-     * ```
-     *
-     *
-     * **Example for a callback module definition (async):**
-     * ```javascript
-     *
-     * sap.ui.define("my/custom/async/ExtensionProvider", [], function() {
-     *   var ExtensionProvider = function() {};
-     *   ExtensionProvider.prototype.getControllerExtensions = function(sControllerName, sComponentId, bAsync) {
-     *     if (bAsync && sControllerName == "my.own.Controller") {
-     *       // IMPORTANT:
-     *       // only return a Promise for a specific controller since it
-     *       // requires the View/Controller and its parents to run in async
-     *       // mode!
-     *       return new Promise(function(fnResolve, fnReject) {
-     *         fnResolve([{
-     *           onInit: function() {
-     *             // Do something here...
-     *           },
-     *           onAfterRendering: function() {
-     *             // Do something here...
-     *           },
-     *           onButtonClick: function(oEvent) {
-     *             // Handle the button click event
-     *           }
-     *         }]);
-     *       }
-     *     };
-     *   };
-     *   return ExtensionProvider;
-     * });
-     * ```
-     *
-     *
-     * The lifecycle functions `onInit`, `onExit`, `onBeforeRendering` and `onAfterRendering` are added before
-     * or after the lifecycle functions of the original controller. The event handler functions, such as `onButtonClick`,
-     * are replacing the original controller's function.
-     *
-     * When using an async extension provider, you need to ensure that the view is loaded in async mode.
-     *
-     * In both cases, return `undefined` if no controller extension shall be applied.
+     * See {@link sap.ui.core.mvc.ControllerExtensionProvider.registerExtensionProvider}.
      *
      * @since 1.34.0
+     * @deprecated As of version 1.136.0. without replacement, the extension provider concept is intended for
+     * framework internal use only.
      */
     static registerExtensionProvider(
       /**
        * the module name of the extension provider
-       *
-       * See {@link sap.ui.core.mvc.Controller} for an overview of the available functions for controllers.
        */
       sExtensionProvider: string
     ): void;
@@ -40063,11 +39991,11 @@ declare module "sap/ui/core/Popup" {
       /**
        * the popup content's reference position for docking
        */
-      my?: Dock,
+      my?: Dock | keyof typeof Dock,
       /**
        * the "of" element's reference point for docking to
        */
-      at?: Dock,
+      at?: Dock | keyof typeof Dock,
       /**
        * specifies the reference element to which the given content should dock to
        */
@@ -40105,11 +40033,11 @@ declare module "sap/ui/core/Popup" {
       /**
        * the popup content's reference position for docking
        */
-      my?: Dock,
+      my?: Dock | keyof typeof Dock,
       /**
        * the "of" element's reference point for docking to
        */
-      at?: Dock,
+      at?: Dock | keyof typeof Dock,
       /**
        * specifies the reference element to which the given content should dock to
        */
@@ -40276,12 +40204,12 @@ declare module "sap/ui/core/Popup" {
       /**
        * specifies which point of the given Content should be aligned
        */
-      my: Dock,
+      my: Dock | keyof typeof Dock,
       /**
        * specifies the point of the reference element to which the given Content should be aligned
        */
       at:
-        | Dock
+        | (Dock | keyof typeof Dock)
         | {
             left: CSSSize;
 
@@ -40331,35 +40259,35 @@ declare module "sap/ui/core/Popup" {
    * This enum is part of the 'sap/ui/core/Popup' module export and must be accessed by the property 'Dock'.
    */
   enum Dock {
-    BeginBottom = "begin bottom",
+    BeginBottom = "BeginBottom",
 
-    BeginCenter = "begin center",
+    BeginCenter = "BeginCenter",
 
-    BeginTop = "begin top",
+    BeginTop = "BeginTop",
 
-    CenterBottom = "center bottom",
+    CenterBottom = "CenterBottom",
 
-    CenterCenter = "center center",
+    CenterCenter = "CenterCenter",
 
-    CenterTop = "center top",
+    CenterTop = "CenterTop",
 
-    EndBottom = "end bottom",
+    EndBottom = "EndBottom",
 
-    EndCenter = "end center",
+    EndCenter = "EndCenter",
 
-    EndTop = "end top",
+    EndTop = "EndTop",
 
-    LeftBottom = "left bottom",
+    LeftBottom = "LeftBottom",
 
-    LeftCenter = "left center",
+    LeftCenter = "LeftCenter",
 
-    LeftTop = "left top",
+    LeftTop = "LeftTop",
 
-    RightBottom = "right bottom",
+    RightBottom = "RightBottom",
 
-    RightCenter = "right center",
+    RightCenter = "RightCenter",
 
-    RightTop = "right top",
+    RightTop = "RightTop",
   }
 
   export type PositionInfo = {
@@ -71894,8 +71822,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @since 1.125.0
      *
-     * @returns A promise which is resolved without a defined result when the move is finished, or rejected
-     * in case of an error
+     * @returns A promise which is resolved without a defined result when the move is finished, or with the
+     * index for the copied node, or rejected in case of an error
      */
     move(
       /**
@@ -71903,7 +71831,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       oParameters: {
         /**
-         * Whether the node should be copied instead of moved (@experimental as of version 1.135.0)
+         * Whether the node should be copied instead of moved (@experimental as of version 1.135.0). The returned
+         * promise resolves with the index for the copied node.
          */
         copy?: boolean;
         /**
@@ -71916,7 +71845,7 @@ declare module "sap/ui/model/odata/v4/Context" {
          */
         parent: Context | null;
       }
-    ): Promise<void>;
+    ): Promise<number | undefined>;
     /**
      * Refreshes the single entity represented by this context. Use {@link #requestRefresh} if you want to wait
      * for the refresh.
@@ -73107,6 +73036,40 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       oListener?: object
     ): this;
     /**
+     * Attach event handler `fnFunction` to the 'selectionChanged' event of this binding.
+     *
+     * @since 1.136.0
+     *
+     * @returns `this` to allow method chaining
+     */
+    attachSelectionChanged(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attach event handler `fnFunction` to the 'separateReceived' event of this binding.
+     *
+     * @since 1.136.0
+     *
+     * @returns `this` to allow method chaining
+     */
+    attachSeparateReceived(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): this;
+    /**
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
      * is deselected, but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set and
      * the '$filter' or '$search' parameter is changed. In all other cases, the caller of this method needs
@@ -73332,6 +73295,40 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * The function to call when the event occurs
        */
       fnFunction: Function,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detach event handler `fnFunction` from the 'selectionChanged' event of this binding.
+     *
+     * @since 1.136.0
+     *
+     * @returns `this` to allow method chaining
+     */
+    detachSelectionChanged(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: (evt: ODataListBinding$SelectionChangedEvent) => void,
+      /**
+       * Object on which to call the given function
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detach event handler `fnFunction` from the 'separateReceived' event of this binding.
+     *
+     * @since 1.136.0
+     *
+     * @returns `this` to allow method chaining
+     */
+    detachSeparateReceived(
+      /**
+       * The function to call when the event occurs
+       */
+      fnFunction: (evt: ODataListBinding$SeparateReceivedEvent) => void,
       /**
        * Object on which to call the given function
        */

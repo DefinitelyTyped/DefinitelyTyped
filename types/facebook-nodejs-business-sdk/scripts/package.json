@@ -1,8 +1,11 @@
 {
     "private": true,
+    "scripts": {
+        "gen-types": "node gen-types.js"
+    },
     "devDependencies": {
         "@khanacademy/flow-to-ts": "^0.5.2",
-        "facebook-nodejs-business-sdk": "^20.0.0",
-        "typescript": "^4.8.4"
+        "facebook-nodejs-business-sdk": "^22.0.1",
+        "typescript": "^5.8.3"
     }
 }
