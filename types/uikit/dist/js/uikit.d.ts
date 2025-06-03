@@ -1,19 +1,3 @@
-type UIkitElement = object | HTMLElement | string;
-type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
-type UIkitNode = Node;
-
-// Option types
-export type UIkitAlign = "left" | "right" | "center";
-export type UIkitCssSelector = string;
-export type UIkitClickHoverMode = "click" | "hover" | ("click" | "hover")[];
-export type UIkitPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "left-top" | "left-center" | "left-bottom" | "right-top" | "right-center" | "right-bottom";
-export type UIkitStretch = "x" | "y" | boolean;
-
-export interface Plugin {
-    (uikit: typeof UIkit): void;
-    installed?: boolean;
-}
-
 export namespace UIkit {
     const util: {
         /** Sets up a function that will be called whenever the specified event is delivered to the target. */
@@ -33,7 +17,23 @@ export namespace UIkit {
 
     function use(plugin: Plugin): typeof UIkit;
 
+    type UIkitElement = object | HTMLElement | string;
+    type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
+    type UIkitNode = Node;
+
+    // Option types
+    type UIkitAlign = "left" | "right" | "center";
+    type UIkitCssSelector = string;
+    type UIkitClickHoverMode = "click" | "hover" | ("click" | "hover")[];
+    type UIkitPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "left-top" | "left-center" | "left-bottom" | "right-top" | "right-center" | "right-bottom";
+    type UIkitStretch = "x" | "y" | boolean;
+
     // Base classes
+    
+    interface Plugin {
+        (uikit: typeof UIkit): void;
+        installed?: boolean;
+    }
 
     interface UIkitElementBase {
         /**
@@ -83,7 +83,7 @@ export namespace UIkit {
          * @param index Accordion pane to toggle. 0 based index.
          * @param animate Suppress opening animation by passing false.
          */
-        toggle(index: string | number | UIkitNode, animate: boolean): void;
+        toggle(index: string | number | UIkitNode, animate?: boolean): void;
     }
 
     type Accordion = UIkitFunction<UIkitAccordionOptions, UIkitAccordionElement>;
@@ -117,9 +117,7 @@ export namespace UIkit {
         height?: number;
     }
 
-    type UIkitCoverElement = UIkitElementBase;
-
-    type Cover = UIkitFunction<UIkitCoverOptions, UIkitAlertElement>;
+    type Cover = UIkitFunction<UIkitCoverOptions>;
 
     // Drop, Dropdown & Dropnav base options
 
@@ -219,17 +217,7 @@ export namespace UIkit {
         dropbarAnchor?: UIkitCssSelector | undefined;
     }
 
-    interface UIkitDropnavElement extends UIkitElementBase {
-        /** Shows the dropdown. */
-        show(): void;
-        /**
-         * Hides the dropdown.
-         * @param delay Delay hiding the Dropdown.
-         */
-        hide(delay?: boolean): void;
-    }
-
-    type Dropnav = UIkitFunction<UIkitDropnavOptions, UIkitDropnavElement>;
+    type Dropnav = UIkitFunction<UIkitDropnavOptions>;
 
     // Form
 
@@ -238,9 +226,7 @@ export namespace UIkit {
         target?: UIkitCssSelector | boolean;
     }
 
-    type UIkitFormElement = UIkitElementBase;
-
-    type FormCustom = UIkitFunction<UIkitFormOptions, UIkitFormElement>;
+    type FormCustom = UIkitFunction<UIkitFormOptions>;
 
     // Grid
 
@@ -261,9 +247,7 @@ export namespace UIkit {
         parallaxJustify?: boolean;
     }
 
-    type UIkitGridElement = UIkitElementBase;
-
-    type Grid = UIkitFunction<UIkitGridOptions, UIkitGridElement>;
+    type Grid = UIkitFunction<UIkitGridOptions>;
 
     // Height match
 
@@ -277,20 +261,11 @@ export namespace UIkit {
         row?: boolean;
     }
 
-    type UIkitHeightMatchElement = UIkitElementBase;
-
-    type HeightMatch = UIkitFunction<UIkitHeightMatchOptions, UIkitHeightMatchElement>;
+    type HeightMatch = UIkitFunction<UIkitHeightMatchOptions>;
 
     // Placeholder height
 
-    interface UIkitHeightPlaceholderOptions {
-        /** Elements that should match. */
-        target?: string;
-    }
-
-    type UIkitHeightPlaceholderElement = UIkitElementBase;
-
-    type HeightPlaceholder = UIkitFunction<UIkitHeightPlaceholderOptions, UIkitHeightPlaceholderElement>;
+    type HeightPlaceholder = UIkitFunction<{}>;
 
     // Height viewport
 
@@ -307,9 +282,7 @@ export namespace UIkit {
         property?: string;
     }
 
-    type UIkitHeightViewportElement = UIkitElementBase;
-
-    type HeightViewport = UIkitFunction<UIkitHeightViewportOptions, UIkitHeightViewportElement>;
+    type HeightViewport = UIkitFunction<UIkitHeightViewportOptions>;
 
     // Icon
 
@@ -326,9 +299,9 @@ export namespace UIkit {
     }
 
     type Icon = UIkitFunction<UIkitIconOptions, UIkitIconElement> & {
-        /** Undocumented. */
+        /** Adds an icon to the library. */
         add(name: string, svg: string): void;
-        /** Undocumented. */
+        /** Adds a set of icons to the library. */
         add(contents: { [key: string]: string }): void;
     };
 
@@ -484,7 +457,7 @@ export namespace UIkit {
          * @param index Nav pane to toggle. 0 based index.
          * @param animate Suppress opening animation by passing false.
          */
-        toggle(index: string | number | UIkitNode, animate: boolean): void;
+        toggle(index: string | number | UIkitNode, animate?: boolean): void;
     }
 
     type Nav = UIkitFunction<UIkitNavOptions, UIkitNavElement>;
@@ -787,14 +760,14 @@ export namespace UIkit {
         reload?: boolean;
     }
 
-    interface UIkitCountdownElement {
+    interface UIkitCountdownElement extends UIkitElementBase {
         /** Starts the countdown. */
         start(): void;
         /** Stops the countdown. */
         stop(): void;
     }
 
-    type Countdown = (element: UIkitElement, options?: UIkitCountdownOptions) => UIkitCountdownElement;
+    type Countdown = UIkitFunction<UIkitCountdownOptions, UIkitCountdownElement>;
 
     // Filter
 
@@ -809,9 +782,7 @@ export namespace UIkit {
         duration?: number;
     }
 
-    type UIkitFilterElement = UIkitElementBase;
-
-    type Filter = (element: UIkitElement, options?: UIkitFilterOptions) => UIkitFilterElement;
+    type Filter = UIkitFunction<UIkitFilterOptions>;
 
     // Lightbox and panel options
 
@@ -905,11 +876,11 @@ export namespace UIkit {
          * Closes the notification.
          * @param immediate Transition the notification out.
          */
-        close(immediate: boolean): void;
+        close(immediate?: boolean): void;
     }
 
-    type Notification = UIkitFunction<UIkitNotificationOptions, UIkitNotificationElement> & {
-        (options: UIkitNotificationOptions | UIkitNotificationOptions["status"]): UIkitNotificationElement;
+    interface Notification {
+        (options: UIkitNotificationOptions): UIkitNotificationElement;
         (message: string, optionsOrStatus?: UIkitNotificationOptions | UIkitNotificationOptions["status"]): UIkitNotificationElement;
         /**
          * Closes all notifications.
@@ -1046,7 +1017,7 @@ export namespace UIkit {
         /** The empty list class. */
         clsEmpty?: string;
         /** The ghost's custom class. */
-        clsCustom: string;
+        clsCustom?: string;
         /** The handle selector. */
         handle?: string;
     }
@@ -1074,14 +1045,14 @@ export namespace UIkit {
         container?: string;
     }
 
-    interface UIkitTooltipElement {
+    interface UIkitTooltipElement extends UIkitElementBase {
         /** Shows the Tooltip. */
         show(): void;
         /** Hides the Tooltip. */
         hide(): void;
     }
 
-    type Tooltip = (element: UIkitElement, options?: UIkitTooltipOptions) => UIkitTooltipElement;
+    type Tooltip = UIkitFunction<UIkitTooltipOptions, UIkitTooltipElement>;
 
     // Upload
 
