@@ -44,6 +44,81 @@ export interface RegisterOptions {
     persistent: boolean;
 }
 
+export type TrackPageView =
+    | boolean
+    | "url-with-path"
+    | "url-with-path-and-query-string"
+    | "full-url";
+
+export interface AutocaptureConfig {
+    /**
+     * When set to `true`, Mixpanel will track element clicks. It will not track textContent unless `capture_text_content` is also set to `true`.
+     * @default true
+     */
+    click?: boolean;
+    /**
+     * When set to `true`, Mixpanel will track when an input is provided. It will not capture input content.
+     * @default true
+     */
+    input?: boolean;
+    /**
+     * When set, Mixpanel will collect pageviews when some components of the URL change — including UTM parameters.
+     * @default 'full-url'
+     */
+    pageview?: TrackPageView;
+    /**
+     * When set, Mixpanel will collect page scrolls at specified scroll intervals.
+     * @default true
+     */
+    scroll?: boolean;
+    /**
+     * When set to `true`, Mixpanel will track form submissions (but not submission content).
+     * @default true
+     */
+    submit?: boolean;
+    /**
+     * When set to `true`, Mixpanel will capture the textContent of any element.
+     * @default false
+     */
+    capture_text_content?: boolean;
+    /** Enables specification of additional attributes to track. */
+    capture_extra_attrs?: string[];
+    /**
+     * Establishes the scroll depth intervals which trigger `Page Scroll` event.
+     * @default [25, 50, 75, 100]
+     */
+    scroll_depth_percent_checkpoints?: number[];
+    /**
+     * When set to true, overrides `scroll_depth_percentage_checkpoints` and captures all scroll events.
+     * @default false
+     */
+    scroll_capture_all?: boolean;
+    /** Opts out specific pages from Autocapture. */
+    block_url_regexes?: RegExp[];
+    /** Opts in specific pages to Autocapture. */
+    allow_url_regexes?: RegExp[];
+    /** Opts out specific classes from Autocapture. */
+    block_selectors?: string[];
+    /** Opts in specific classes to Autocapture. */
+    allow_selectors?: string[];
+    /** Opts out specific attributes from Autocapture. */
+    block_attrs?: string[];
+    /**
+     * A user-provided function that determines whether a specific element should be
+     * tracked via Autocapture or not. The function receives the element as its first
+     * argument, and the DOM event as its second argument, and should return `true` if
+     * the element should be tracked (otherwise the element will NOT be tracked).
+     */
+    allow_element_callback?: (element: Element, event: Event) => boolean;
+    /**
+     * A user-provided function that determines whether a specific element should be
+     * blocked from tracking via Autocapture or not. The function receives the element
+     * as its first argument, and the DOM event as its second argument, and should
+     * return `true` if the element should be blocked.
+     */
+    block_element_callback?: (element: Element, event: Event) => boolean;
+}
+
 export interface Config {
     api_host: string;
     api_routes: {
@@ -76,11 +151,8 @@ export interface Config {
      */
     debug: boolean;
     track_links_timeout: number;
-    track_pageview:
-        | boolean
-        | "url-with-path"
-        | "url-with-path-and-query-string"
-        | "full-url";
+    track_pageview: TrackPageView;
+    autocapture: boolean | AutocaptureConfig;
     skip_first_touch_marketing: boolean;
     cookie_expiration: number;
     upgrade: boolean;

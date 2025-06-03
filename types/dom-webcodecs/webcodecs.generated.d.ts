@@ -318,48 +318,6 @@ declare var EncodedVideoChunk: {
     new(init: EncodedVideoChunkInit): EncodedVideoChunk;
 };
 
-/** Available only in secure contexts. */
-interface ImageDecoder {
-    readonly complete: boolean;
-    readonly completed: Promise<void>;
-    readonly tracks: ImageTrackList;
-    readonly type: string;
-    close(): void;
-    decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
-    reset(): void;
-}
-
-declare var ImageDecoder: {
-    prototype: ImageDecoder;
-    new(init: ImageDecoderInit): ImageDecoder;
-    isTypeSupported(type: string): Promise<boolean>;
-};
-
-interface ImageTrack {
-    readonly animated: boolean;
-    readonly frameCount: number;
-    readonly repetitionCount: number;
-    selected: boolean;
-}
-
-declare var ImageTrack: {
-    prototype: ImageTrack;
-    new(): ImageTrack;
-};
-
-interface ImageTrackList {
-    readonly length: number;
-    readonly ready: Promise<void>;
-    readonly selectedIndex: number;
-    readonly selectedTrack: ImageTrack | null;
-    [index: number]: ImageTrack;
-}
-
-declare var ImageTrackList: {
-    prototype: ImageTrackList;
-    new(): ImageTrackList;
-};
-
 interface VideoColorSpace {
     readonly fullRange: boolean | null;
     readonly matrix: VideoMatrixCoefficients | null;

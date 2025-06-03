@@ -1,5 +1,5 @@
-import { Color } from "../common";
+import { Rgb } from "./types.js";
 
-declare function parseHex(color: string): Color;
+declare function parseHex(color: string): Rgb | undefined;
 
 export default parseHex;

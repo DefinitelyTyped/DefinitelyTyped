@@ -6,6 +6,7 @@ inspector = 1;
 outlets = 2;
 autowatch = 1;
 jsarguments.push(1, 2, 3);
+maxclasswrap("MyExternal", "CoolStuff");
 error("This is a test error.\n");
 error("This is a", "multiple string", "error\n");
 cpost("This is cpost.\n");
@@ -404,7 +405,7 @@ post(fieldName);
 const value = mySQLResult.value(0, 0);
 post(value);
 
-const myMGraphics = new MGraphics();
+const myMGraphics = new MGraphics(23, 23);
 
 myMGraphics.autosketch = 1;
 myMGraphics.relative_coords = 1;

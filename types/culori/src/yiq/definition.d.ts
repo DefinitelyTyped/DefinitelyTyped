@@ -1,9 +1,9 @@
-import { fixupAlpha } from "../fixup/alpha";
-import { interpolatorLinear } from "../interpolate/linear";
-import convertRgbToYiq from "./convertRgbToYiq";
-import convertYiqToRgb from "./convertYiqToRgb";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
+import convertRgbToYiq from "./convertRgbToYiq.js";
+import convertYiqToRgb from "./convertYiqToRgb.js";
 
-declare const definition: {
+declare const modeYiq: {
     mode: "yiq";
 
     toMode: {
@@ -32,4 +32,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeYiq;

@@ -1,16 +1,16 @@
 {
     "private": true,
     "name": "@types/compression",
-    "version": "1.7.9999",
+    "version": "1.8.9999",
     "projects": [
         "https://github.com/expressjs/compression"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/express": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
-        "@types/compression": "workspace:.",
-        "@types/node": "*"
+        "@types/compression": "workspace:."
     },
     "owners": [
         {

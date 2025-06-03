@@ -6,6 +6,7 @@ import {
     ExchangeTrade,
     InfoResponse,
     SellFiatTrade,
+    SellProviderInfo,
     WatchSellTradeResponse,
 } from "invity-api";
 
@@ -91,4 +92,20 @@ const exchangeProviderInfo: ExchangeProviderInfo = {
     kycPolicy: "KYC is required...",
     kycPolicyType: "KYC-norefund",
     isRefundRequired: false,
+};
+
+const sellProviderInfo: SellProviderInfo = {
+    name: "example",
+    companyName: "Example",
+    logo: "example-icon.jpg",
+    type: "Fiat",
+    isActive: true,
+    tradedCoins: ["bitcoin", "ethereum"] as CryptoId[],
+    tradedFiatCurrencies: ["USD"],
+    supportedCountries: ["US"],
+    statusUrl: "https://example.com/txs/{{orderId}}",
+    supportUrl: " https://support.example.com",
+    flow: "PAYMENT_GATE",
+    isRefundAddressRequired: false,
+    lockSendAmount: false,
 };

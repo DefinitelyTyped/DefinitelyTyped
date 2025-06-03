@@ -220,6 +220,31 @@ declare module "module" {
             options?: RegisterOptions<Data>,
         ): void;
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        interface RegisterHooksOptions {
+            /**
+             * See [load hook](https://nodejs.org/docs/latest-v22.x/api/module.html#loadurl-context-nextload).
+             * @default undefined
+             */
+            load?: LoadHookSync | undefined;
+            /**
+             * See [resolve hook](https://nodejs.org/docs/latest-v22.x/api/module.html#resolvespecifier-context-nextresolve).
+             * @default undefined
+             */
+            resolve?: ResolveHookSync | undefined;
+        }
+        interface ModuleHooks {
+            /**
+             * Deregister the hook instance.
+             */
+            deregister(): void;
+        }
+        /**
+         * Register [hooks](https://nodejs.org/docs/latest-v22.x/api/module.html#customization-hooks)
+         * that customize Node.js module resolution and loading behavior.
+         * @since v22.15.0
+         * @experimental
+         */
+        function registerHooks(options: RegisterHooksOptions): ModuleHooks;
         interface StripTypeScriptTypesOptions {
             /**
              * Possible values are:
@@ -404,6 +429,14 @@ declare module "module" {
                 context?: Partial<ResolveHookContext>,
             ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
+        type ResolveHookSync = (
+            specifier: string,
+            context: ResolveHookContext,
+            nextResolve: (
+                specifier: string,
+                context?: Partial<ResolveHookContext>,
+            ) => ResolveFnOutput,
+        ) => ResolveFnOutput;
         interface LoadHookContext {
             /**
              * Export conditions of the relevant `package.json`
@@ -419,7 +452,7 @@ declare module "module" {
             importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
-            format: ModuleFormat;
+            format: string | null | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -443,6 +476,14 @@ declare module "module" {
                 context?: Partial<LoadHookContext>,
             ) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
+        type LoadHookSync = (
+            url: string,
+            context: LoadHookContext,
+            nextLoad: (
+                url: string,
+                context?: Partial<LoadHookContext>,
+            ) => LoadFnOutput,
+        ) => LoadFnOutput;
         /**
          * `path` is the resolved path for the file for which a corresponding source map
          * should be fetched.

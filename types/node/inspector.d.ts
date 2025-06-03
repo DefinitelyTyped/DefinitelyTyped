@@ -1721,6 +1721,38 @@ declare module 'inspector' {
          */
         type MonotonicTime = number;
         /**
+         * Information about the request initiator.
+         */
+        interface Initiator {
+            /**
+             * Type of this initiator.
+             */
+            type: string;
+            /**
+             * Initiator JavaScript stack trace, set for Script only.
+             * Requires the Debugger domain to be enabled.
+             */
+            stack?: Runtime.StackTrace | undefined;
+            /**
+             * Initiator URL, set for Parser type or for Script type (when script is importing module) or for SignedExchange type.
+             */
+            url?: string | undefined;
+            /**
+             * Initiator line number, set for Parser type or for Script type (when script is importing
+             * module) (0-based).
+             */
+            lineNumber?: number | undefined;
+            /**
+             * Initiator column number, set for Parser type or for Script type (when script is importing
+             * module) (0-based).
+             */
+            columnNumber?: number | undefined;
+            /**
+             * Set if another request triggered this request (e.g. preflight).
+             */
+            requestId?: RequestId | undefined;
+        }
+        /**
          * HTTP request data.
          */
         interface Request {
@@ -1751,6 +1783,10 @@ declare module 'inspector' {
              * Request data.
              */
             request: Request;
+            /**
+             * Request initiator.
+             */
+            initiator: Initiator;
             /**
              * Timestamp.
              */

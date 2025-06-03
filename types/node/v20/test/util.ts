@@ -71,6 +71,12 @@ console.log(
 console.log(
     util.styleText(["red", "green"], "text"),
 );
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
+);
 
 // util.callbackify
 class callbackifyTest {
@@ -412,9 +418,11 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {

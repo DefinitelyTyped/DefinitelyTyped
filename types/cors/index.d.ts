@@ -16,7 +16,7 @@ declare namespace e {
     }
     interface CorsOptions {
         /**
-         * @default '*''
+         * @default '*'
          */
         origin?: StaticOrigin | CustomOrigin | undefined;
         /**

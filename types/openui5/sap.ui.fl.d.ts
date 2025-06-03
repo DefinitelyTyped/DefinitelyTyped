@@ -1,4 +1,4 @@
-// For Library Version: 1.134.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -13,7 +13,9 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
   interface ControlVariantApplyAPI {
     /**
      * Activates the passed variant applicable to the passed control/component. If the Variant is not available
-     * and the backend supports lazy loading, a backend request is made to fetch the variant.
+     * and the backend supports lazy loading, a backend request is made to fetch the variant. If the flag standardVariant
+     * is set to true, the standard variant is activated and the variantReference is ignored. In this scenario
+     * the passed element must be the variant management control.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -31,6 +33,10 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
          * Reference to the variant that needs to be activated
          */
         variantReference: string;
+        /**
+         * If set to true, the standard variant is activated and the variantReference is ignored
+         */
+        standardVariant?: boolean;
       }
     ): Promise<any>;
     /**
@@ -201,7 +207,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   import { IShrinkable, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import {
+    IOverflowToolbarContent,
+    IToolbarInteractiveControl,
+  } from "sap/m/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -218,10 +227,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements
-      IShrinkable,
-      IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object
+    implements IShrinkable, IOverflowToolbarContent, IToolbarInteractiveControl
   {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -1585,6 +1591,10 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/Variant": undefined;
 
+    "sap/ui/fl/apply/_internal/flexObjects/VariantChange": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/VariantManagementChange": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/changes/DependencyHandler": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/ExtensionPointState": undefined;
@@ -1638,6 +1648,8 @@ declare namespace sap {
     "sap/ui/fl/changeHandler/BaseRename": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
+
+    "sap/ui/fl/descriptorRelated/api/DescriptorChange": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 
@@ -1750,6 +1762,8 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/Versions": undefined;
 
     "sap/ui/fl/write/api/AppVariantWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/BusinessNetworkAPI": undefined;
 
     "sap/ui/fl/write/api/ChangesWriteAPI": undefined;
 

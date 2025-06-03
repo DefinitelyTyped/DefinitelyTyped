@@ -2458,6 +2458,11 @@ declare namespace googletag {
              * services other than {@link PubAdsService}.
              */
             companyIds: number[] | null;
+            /**
+             * The response identifier is a unique identifier for the ad response. This value can be used to
+             * identify and block the ad in the [Ad Review Center (ARC)](https://support.google.com/admanager/answer/146769).
+             */
+            responseIdentifier: string | null;
         }
 
         /**

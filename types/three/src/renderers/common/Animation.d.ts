@@ -12,7 +12,7 @@ export interface AnimationContext {
 declare class Animation {
     nodes: Nodes;
     info: Info;
-    _context: AnimationContext;
+    _context: AnimationContext | null;
     _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     _requestId: number | null;
     /**
@@ -47,7 +47,7 @@ declare class Animation {
      *
      * @return {Window|XRSession} The animation context.
      */
-    getContext(): AnimationContext;
+    getContext(): AnimationContext | null;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *

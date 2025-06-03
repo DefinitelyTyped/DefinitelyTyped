@@ -7,4 +7,4 @@ Deno.mkdirSync("dir"); // $ExpectType void
 Deno.readTextFileSync("dir/file.txt"); // $ExpectType string
 Deno.readTextFileSync(new URL("./file.txt", import.meta.url)); // $ExpectType string
 new Deno.errors.NotFound(); // $ExpectType NotFound
-Deno.jupyter.broadcast("type", { "data": 6 }); // $ExpectType Promise<void>
+Deno.jupyter.broadcast("type", { "data": 5 }); // $ExpectType Promise<void>

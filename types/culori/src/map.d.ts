@@ -1,5 +1,5 @@
-import { Color, FindColorByMode, Mode } from "./common";
-import { Rgb } from "./rgb/types";
+import { Color, FindColorByMode, Mode } from "./common.js";
+import { Rgb } from "./rgb/types.js";
 
 type Channel = string;
 

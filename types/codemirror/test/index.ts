@@ -112,3 +112,10 @@ const marks = myCodeMirror.getAllMarks();
 
 // $ExpectType TextMarker<MarkerRange | Position> || TextMarker<Position | MarkerRange>
 const mark = marks[0];
+
+// Based on https://github.com/codemirror/codemirror5/blob/5.65.19/test/test.js#L384
+myCodeMirror.replaceSelection("abc", null, "dontmerge");
+myCodeMirror.operation(function() {
+    myCodeMirror.setCursor(CodeMirror.Pos(0, 0));
+    myCodeMirror.replaceSelection("abc", null, "dontmerge");
+});
