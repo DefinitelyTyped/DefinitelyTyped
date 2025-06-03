@@ -28,22 +28,22 @@
         },
         "./server.browser": {
             "types": {
-                "default": "./server.d.ts"
+                "default": "./server.browser.d.ts"
             }
         },
         "./server.bun": {
             "types": {
-                "default": "./server.d.ts"
+                "default": "./server.bun.d.ts"
             }
         },
         "./server.edge": {
             "types": {
-                "default": "./server.d.ts"
+                "default": "./server.edge.d.ts"
             }
         },
         "./server.node": {
             "types": {
-                "default": "./server.d.ts"
+                "default": "./server.node.d.ts"
             }
         },
         "./static": {
@@ -53,17 +53,17 @@
         },
         "./static.browser": {
             "types": {
-                "default": "./static.d.ts"
+                "default": "./static.browser.d.ts"
             }
         },
         "./static.edge": {
             "types": {
-                "default": "./static.d.ts"
+                "default": "./static.edge.d.ts"
             }
         },
         "./static.node": {
             "types": {
-                "default": "./static.d.ts"
+                "default": "./static.node.d.ts"
             }
         },
         "./experimental": {
