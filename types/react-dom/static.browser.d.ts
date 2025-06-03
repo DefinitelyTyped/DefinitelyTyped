@@ -1,4 +1,1 @@
-export {
-    prerender,
-    version,
-} from "./static";
+export { prerender, version } from "./static";

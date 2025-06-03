@@ -1,4 +1,1 @@
-export {
-    prerenderToNodeStream,
-    version,
-} from "./static";
+export { prerenderToNodeStream, version } from "./static";
