@@ -10,10 +10,6 @@
     },
     "owners": [
         {
-            "name": "Paystack",
-            "githubUsername": "PaystackHQ"
-        },
-        {
             "name": "Legacy",
             "githubUsername": "3m1n3nc3"
         }
