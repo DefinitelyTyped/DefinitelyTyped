@@ -994,7 +994,7 @@ declare namespace BPMNModdle {
          */
         getPropertyDescriptor(element: any, property: any): any;
         /**
-         * Returns a mapped type"s descriptor
+         * Returns a mapped type's descriptor
          */
         getTypeDescriptor(type: string): any;
     }
