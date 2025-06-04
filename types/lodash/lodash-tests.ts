@@ -782,23 +782,49 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     // $ExpectType T1[]
     _.intersectionWith([t1], [t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
     // $ExpectType Collection<T1>
     _([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
     // $ExpectType CollectionChain<T1>
     _.chain([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
 
-    fp.intersectionWith((a: T1, b: T2) => true)([t1])([t2]); // $ExpectType T1[]
+    const a1 = [t1];
+    const a2 = [t2];
+    fp.intersectionWith((a: T1, b: T1 | T2) => true)([t1])([t2]); // $ExpectType T1[]
+    // $ExpectType T1[]
+    fp.intersectionWith<T1, T2>((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    }, a1, a2);
+    // $ExpectType T1[]
+    fp.intersectionWith<T1, T2>(_, a1, a2)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
+    // $ExpectType T1[]
+    fp.intersectionWith(_, _, a2)(_, a1)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
+    // $ExpectType T1[]
+    fp.intersectionWith(_, a1)(_, a2)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
 }
 
 // _.join

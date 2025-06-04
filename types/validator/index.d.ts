@@ -662,11 +662,11 @@ declare namespace validator {
          */
         allow_leading_zeroes?: boolean | undefined;
         /**
-         * enforce integers being greater than the value provided
+         * enforce integers being less than the value provided
          */
         lt?: number | undefined;
         /**
-         * enforce integers being less than the value provided
+         * enforce integers being greater than the value provided
          */
         gt?: number | undefined;
     }

@@ -107,7 +107,7 @@ const customMode: CustomMode = {
         this.setSelected("1");
         this.setSelected(["1", "2"]);
 
-        // $ExpectType DrawFeature
+        // $ExpectType DrawFeature | undefined
         this.getFeature("1");
 
         // $ExpectType number

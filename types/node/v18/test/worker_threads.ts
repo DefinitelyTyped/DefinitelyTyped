@@ -208,3 +208,14 @@ import { createContext } from "node:vm";
         });
     }
 }
+
+// structuredClone
+{
+    structuredClone(123); // $ExpectType 123
+    structuredClone("hello"); // $ExpectType "hello"
+    structuredClone({ test: 123 }); // $ExpectType { test: number; }
+    structuredClone([{ test: 123 }]); // $ExpectType { test: number; }[]
+
+    const arrayBuffer = new ArrayBuffer(0);
+    structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
+}

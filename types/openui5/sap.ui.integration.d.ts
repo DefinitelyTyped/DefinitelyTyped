@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -6,7 +6,7 @@ declare module "sap/ui/integration/library" {
   import { ButtonType } from "sap/m/library";
 
   /**
-   * Defines the layout type of the List card attributes.
+   * Defines the layout type of the List Card attributes.
    *
    * This enum is part of the 'sap/ui/integration/library' module export and must be accessed by the property
    * 'AttributesLayoutType'.
@@ -972,7 +972,9 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Illustration size
      */
-    illustrationSize?: IllustratedMessageSize;
+    illustrationSize?:
+      | IllustratedMessageSize
+      | keyof typeof IllustratedMessageSize;
     /**
      * Title
      */

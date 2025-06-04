@@ -866,12 +866,12 @@ declare module "perf_hooks" {
          * The minimum recordable value. Must be an integer value greater than 0.
          * @default 1
          */
-        min?: number | bigint | undefined;
+        lowest?: number | bigint | undefined;
         /**
          * The maximum recordable value. Must be an integer value greater than min.
          * @default Number.MAX_SAFE_INTEGER
          */
-        max?: number | bigint | undefined;
+        highest?: number | bigint | undefined;
         /**
          * The number of accuracy digits. Must be a number between 1 and 5.
          * @default 3

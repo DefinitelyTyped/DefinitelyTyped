@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/node-red__flow-parser": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Nasser Oloumi",
-            "githubUsername": "noloumi"
-        }
-    ]
+    "owners": []
 }

@@ -360,8 +360,8 @@ optimizationService.getOptimization({
             radius: 0,
             limit: 5,
             dedupe: true,
-            bands: "band1,band2",
-            layers: "layer1,layer2",
+            bands: ["band1", "band2"],
+            layers: ["layer1", "layer2"],
         } satisfies TileQueryRequest,
     );
 

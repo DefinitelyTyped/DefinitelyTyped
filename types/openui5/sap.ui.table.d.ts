@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1917,6 +1917,9 @@ declare module "sap/ui/table/Column" {
      * Labels of the column which are displayed in the column header. Define a control for each header row in
      * the table. Use this aggregation if you want to use multiple headers per column.
      *
+     *  The {@link sap.m.plugins.ColumnAIAction ColumnAIAction} plugin is not compatible with multi
+     * labels.
+     *
      * @since 1.13.1
      */
     getMultiLabels(): Control[];
@@ -2859,6 +2862,9 @@ declare module "sap/ui/table/Column" {
     /**
      * Labels of the column which are displayed in the column header. Define a control for each header row in
      * the table. Use this aggregation if you want to use multiple headers per column.
+     *
+     *  The {@link sap.m.plugins.ColumnAIAction ColumnAIAction} plugin is not compatible with multi
+     * labels.
      *
      * @since 1.13.1
      */

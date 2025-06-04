@@ -1,4 +1,4 @@
-// For Library Version: 1.135.0
+// For Library Version: 1.136.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1908,6 +1908,20 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): this;
     /**
+     * Adds some infoSection to the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addInfoSection(
+      /**
+       * The infoSection to add; if empty, nothing is inserted
+       */
+      oInfoSection: Control
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -1963,6 +1977,15 @@ declare module "sap/f/cards/BaseHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyBannerLines(): this;
+    /**
+     * Destroys all the infoSection in the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyInfoSection(): this;
     /**
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      *
@@ -2040,6 +2063,15 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getHref(): string;
     /**
+     * Gets content of aggregation {@link #getInfoSection infoSection}.
+     *
+     * Info sections to be displayed in the header.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     */
+    getInfoSection(): Control[];
+    /**
      * Gets current value of property {@link #getStatusVisible statusVisible}.
      *
      * Defines the status text visibility.
@@ -2099,6 +2131,21 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): int;
     /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getInfoSection infoSection}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfInfoSection(
+      /**
+       * The infoSection whose index is looked for
+       */
+      oInfoSection: Control
+    ): int;
+    /**
      * Inserts a bannerLine into the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
@@ -2119,6 +2166,26 @@ declare module "sap/f/cards/BaseHeader" {
       iIndex: int
     ): this;
     /**
+     * Inserts a infoSection into the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertInfoSection(
+      /**
+       * The infoSection to insert; if empty, nothing is inserted
+       */
+      oInfoSection: Control,
+      /**
+       * The `0`-based index the infoSection should be inserted at; for a negative value of `iIndex`, the infoSection
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the infoSection
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getBannerLines bannerLines}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -2129,6 +2196,17 @@ declare module "sap/f/cards/BaseHeader" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllBannerLines(): Text[];
+    /**
+     * Removes all the controls from the aggregation {@link #getInfoSection infoSection}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllInfoSection(): Control[];
     /**
      * Removes a bannerLine from the aggregation {@link #getBannerLines bannerLines}.
      *
@@ -2143,6 +2221,20 @@ declare module "sap/f/cards/BaseHeader" {
        */
       vBannerLine: int | string | Text
     ): Text | null;
+    /**
+     * Removes a infoSection from the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns The removed infoSection or `null`
+     */
+    removeInfoSection(
+      /**
+       * The infoSection to remove or its index or id
+       */
+      vInfoSection: int | string | Control
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getDataTimestamp dataTimestamp}.
      *
@@ -2302,6 +2394,14 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      */
     target?: string | PropertyBindingInfo;
+
+    /**
+     * Info sections to be displayed in the header.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     */
+    infoSection?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the toolbar.
