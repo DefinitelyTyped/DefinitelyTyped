@@ -225,7 +225,7 @@ export enum GPUBlendFactor {
     SrcAlpha = "src-alpha",
     OneMinusSrcAlpha = "one-minus-src-alpha",
     Dst = "dst",
-    OneMinusDstColor = "one-minus-dst",
+    OneMinusDst = "one-minus-dst",
     DstAlpha = "dst-alpha",
     OneMinusDstAlpha = "one-minus-dst-alpha",
     SrcAlphaSaturated = "src-alpha-saturated",

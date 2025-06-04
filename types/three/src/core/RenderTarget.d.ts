@@ -1,27 +1,9 @@
-import {
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-    PixelFormatGPU,
-    TextureDataType,
-    Wrapping,
-} from "../constants.js";
 import { Vector4 } from "../math/Vector4.js";
 import { DepthTexture } from "../textures/DepthTexture.js";
-import { Texture } from "../textures/Texture.js";
+import { Texture, TextureParameters } from "../textures/Texture.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 
-export interface RenderTargetOptions {
-    depth?: number | undefined;
-    wrapS?: Wrapping | undefined;
-    wrapT?: Wrapping | undefined;
-    magFilter?: MagnificationTextureFilter | undefined;
-    minFilter?: MinificationTextureFilter | undefined;
-    generateMipmaps?: boolean | undefined; // true
-    format?: number | undefined; // RGBAFormat
-    type?: TextureDataType | undefined; // UnsignedByteType
-    anisotropy?: number | undefined; // 1
-    colorSpace?: string | undefined;
-    internalFormat?: PixelFormatGPU | null | undefined; // null
+export interface RenderTargetOptions extends TextureParameters {
     depthBuffer?: boolean | undefined; // true
     stencilBuffer?: boolean | undefined; // false
     resolveDepthBuffer?: boolean | undefined; // true
@@ -33,6 +15,7 @@ export interface RenderTargetOptions {
      */
     samples?: number | undefined;
     count?: number | undefined;
+    depth?: number | undefined;
     multiview?: boolean | undefined;
 }
 

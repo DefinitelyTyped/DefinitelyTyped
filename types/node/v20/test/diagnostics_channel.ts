@@ -79,6 +79,7 @@ const hasSubs = hasSubscribers("test");
     const a: number = 1;
     const b: string = "2";
 
+    // $ExpectType string
     channels.traceSync(
         function(a, b) {
             this; // $ExpectType string
@@ -92,10 +93,12 @@ const hasSubs = hasSubscribers("test");
         b,
     );
 
+    // $ExpectType string
     channels.traceSync(function() {
         return "something";
     }, { requestId: 42 });
 
+    // $ExpectType Promise<string>
     channels.tracePromise(
         async function(a, b) {
             this; // $ExpectType string
@@ -109,34 +112,32 @@ const hasSubs = hasSubscribers("test");
         b,
     );
 
+    // $ExpectType Promise<string>
     channels.tracePromise(async function() {
         return "something";
     }, { requestId: 42 });
 
     const callback = (err: unknown, result: string) => {};
 
+    // $ExpectType void
     channels.traceCallback(
-        function(arg1, callback) {
+        function(arg1, arg2, arg3, callback): void {
+            // $ExpectType number
+            arg1;
+            // $ExpectType number
+            arg2;
+            // $ExpectType string
+            arg3;
             callback(null, "result");
         },
-        1,
+        3,
         {
             requestId: 42,
         },
         "thisArg",
         42,
-        callback,
-    );
-
-    channels.traceCallback(
-        function(callback) {
-            callback(null, "result");
-        },
-        undefined,
-        {
-            requestId: 42,
-        },
-        undefined,
+        1,
+        "k",
         callback,
     );
 
