@@ -717,7 +717,7 @@ export interface Axis {
     /**
      * Ticks
      */
-    tickmode: "auto" | "linear" | "array";
+    tickmode: "auto" | "linear" | "array" | "sync";
     nticks: number;
     tick0: number | string;
     dtick: DTickValue;
