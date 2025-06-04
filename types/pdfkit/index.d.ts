@@ -481,11 +481,14 @@ declare namespace PDFKit.Mixins {
         maxHeight?: string | number;
     }
 
-    interface PDFTable {
-        /** Draw a table in PDFKit document. */
-        table(options?: TableOptions): this;
+    interface PDFTableObject {
         /** Add a row of data (null and undefined are not rendered) */
         row(data: Array<string | undefined | null | RowOptions>): this;
+    }
+
+    interface PDFTable {
+        /** Draw a table in PDFKit document. */
+        table(options?: TableOptions): PDFTableObject;
     }
 
     interface TextOptions {
