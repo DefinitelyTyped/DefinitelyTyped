@@ -207,7 +207,7 @@ doc.image(
     },
 ).text("Scale", 320, 265);
 
-// $ExpectType PDFDocument
+// $ExpectType PDFTableObject
 doc.table({
     data: [
         ["Column 1", "Column 2", "Column 3"],
@@ -215,7 +215,7 @@ doc.table({
     ],
 });
 
-// $ExpectType PDFDocument
+// $ExpectType PDFTableObject
 doc.table()
     .row(["Column 1", "Column 2", "Column 3"])
     .row(["One value goes here", "Another one here", "OK?"]);

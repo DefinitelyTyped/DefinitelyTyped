@@ -488,7 +488,9 @@ declare namespace PDFKit.Mixins {
 
     interface PDFTable {
         /** Draw a table in PDFKit document. */
-        table(options?: TableOptions): PDFTableObject;
+        table(options: TableOptions): this;
+        /** Draw a table in PDFKit document. */
+        table(): PDFTableObject;
     }
 
     interface TextOptions {
