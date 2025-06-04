@@ -465,6 +465,9 @@ function test_doc_utility() {
     if (N3Util.isVariable(term)) {
         const variableTerm: RDF.Variable = term;
     }
+    if (N3Util.isQuad(term)) {
+        const quadTerm: RDF.Quad = term;
+    }
     if (N3Util.isDefaultGraph(term)) {
         const defaultGraphTerm: RDF.DefaultGraph = term;
     }
