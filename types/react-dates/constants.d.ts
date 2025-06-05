@@ -3,7 +3,7 @@
 export const DISPLAY_FORMAT: "L";
 export const ISO_FORMAT: "YYYY-MM-DD";
 /**
- * @deprecated Use `ISO_FORMAT` instead.
+ * @deprecated Subject to be removed in the next breaking change.
  */
 export const ISO_MONTH_FORMAT: "YYYY-MM"; // from constants.js: delete this line of dead code on next breaking change
 
