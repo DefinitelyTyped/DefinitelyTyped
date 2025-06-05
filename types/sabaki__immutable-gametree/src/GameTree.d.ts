@@ -75,7 +75,6 @@ type Property =
     | "WR"
     | "WT";
 
-
 interface NodeObject<ID extends Primitive = number> {
     id: ID;
     data: Partial<Record<Property, string[]>>;
@@ -140,6 +139,6 @@ declare class GameTree<ID extends Primitive = number> {
 }
 
 declare namespace GameTree {
-    export { Draft, NodeObject , Primitive, Property};
+    export { Draft, NodeObject, Primitive, Property };
 }
 export = GameTree;
