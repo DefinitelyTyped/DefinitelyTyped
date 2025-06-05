@@ -17,9 +17,9 @@ declare namespace GorillaEngine.UI {
         refreshView(index?: number): void;
         selectAllZones(): void;
         deselectAllZones(): void;
-        selectZones(zones: Partial<Zone[]>): void;
-        addZones(zones: Partial<Zone[]>): void;
-        removeZones(zones: Partial<Zone[]>): void;
+        selectZone(zone: Partial<Zone>):void;
+        addZone(zone: Partial<Zone>): Zone;
+        removeZone(zone: Partial<Zone>): void;
     }
 
     // tslint:disable-next-line:no-empty-interface
