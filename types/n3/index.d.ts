@@ -66,6 +66,12 @@ export class DefaultGraph implements RDF.DefaultGraph {
     static subclass(type: any): void;
 }
 
+export class BaseIRI {
+    constructor(base: string);
+    static supports(base: string): boolean;
+    toRelative(iri: string): string;
+}
+
 export type Quad_Subject = NamedNode | BlankNode | Variable;
 export type Quad_Predicate = NamedNode | Variable;
 export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
@@ -310,11 +316,11 @@ export class Store<
     addQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    addQuad(quad: Q_RDF): void;
+    ): boolean;
+    addQuad(quad: Q_RDF): boolean;
     addQuads(quads: Q_RDF[]): void;
     delete(quad: InQuad): this;
     has(quad: InQuad): boolean;
@@ -322,11 +328,11 @@ export class Store<
     removeQuad(
         subject: Q_RDF["subject"],
         predicate: Q_RDF["predicate"],
-        object: Q_RDF["object"] | Array<Q_RDF["object"]>,
+        object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    removeQuad(quad: Q_RDF): void;
+    ): boolean;
+    removeQuad(quad: Q_RDF): boolean;
     removeQuads(quads: Q_RDF[]): void;
     remove(stream: RDF.Stream<Q_RDF>): EventEmitter;
     removeMatches(
@@ -336,8 +342,8 @@ export class Store<
         graph?: Term | null,
     ): EventEmitter;
     deleteGraph(graph: Q_RDF["graph"] | string): EventEmitter;
-    getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
-    readQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Iterable<OutQuad>;
+    getQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): Quad[];
+    readQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): Iterable<OutQuad>;
     match(
         subject?: Term | null,
         predicate?: Term | null,
@@ -373,11 +379,12 @@ export interface StoreOptions {
 }
 
 export namespace Util {
-    function isNamedNode(value: RDF.Term | null): boolean;
-    function isBlankNode(value: RDF.Term | null): boolean;
-    function isLiteral(value: RDF.Term | null): boolean;
-    function isVariable(value: RDF.Term | null): boolean;
-    function isDefaultGraph(value: RDF.Term | null): boolean;
+    function isNamedNode(value: RDF.Term | null | undefined): value is RDF.NamedNode;
+    function isBlankNode(value: RDF.Term | null | undefined): value is RDF.BlankNode;
+    function isLiteral(value: RDF.Term | null | undefined): value is RDF.Literal;
+    function isVariable(value: RDF.Term | null | undefined): value is RDF.Variable;
+    function isQuad(value: RDF.Term | null | undefined): value is RDF.Quad;
+    function isDefaultGraph(value: RDF.Term | null | undefined): value is RDF.DefaultGraph;
     function inDefaultGraph(value: RDF.Quad): boolean;
     function prefix(iri: RDF.NamedNode | string, factory?: RDF.DataFactory): PrefixedToIri;
     function prefixes(

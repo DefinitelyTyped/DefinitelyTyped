@@ -172,7 +172,11 @@ export class BufferGeometry<
      * You will have to call {@link dispose | .dispose}(), and create a new instance of {@link THREE.BufferGeometry | BufferGeometry}.
      * @defaultValue `{}`
      */
-    morphAttributes: Record<"position" | "normal" | "color", Array<BufferAttribute | InterleavedBufferAttribute>>;
+    morphAttributes: {
+        position?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        normal?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        color?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+    };
 
     /**
      * Used to control the morph target behavior; when set to true, the morph target data is treated as relative offsets, rather than as absolute positions/normals.

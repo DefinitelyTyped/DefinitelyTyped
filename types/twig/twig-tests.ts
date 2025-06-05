@@ -14,6 +14,7 @@ const params: twig.Parameters = {
     name: value,
     options: value,
     href: value,
+    ref: value,
     async: value,
 };
 

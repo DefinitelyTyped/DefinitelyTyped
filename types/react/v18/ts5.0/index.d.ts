@@ -12,6 +12,7 @@ type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
+type NativeInputEvent = InputEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
@@ -2250,6 +2251,10 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
+        data: string;
+    }
+
     export type ModifierKey =
         | "Alt"
         | "AltGraph"
@@ -2365,6 +2370,7 @@ declare namespace React {
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
     type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type InputEventHandler<T = Element> = EventHandler<InputEvent<T>>;
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
@@ -2422,7 +2428,7 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T> | undefined;
         onChangeCapture?: FormEventHandler<T> | undefined;
-        onBeforeInput?: FormEventHandler<T> | undefined;
+        onBeforeInput?: InputEventHandler<T> | undefined;
         onBeforeInputCapture?: FormEventHandler<T> | undefined;
         onInput?: FormEventHandler<T> | undefined;
         onInputCapture?: FormEventHandler<T> | undefined;
@@ -3428,6 +3434,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
@@ -3537,6 +3544,7 @@ declare namespace React {
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         /** @deprecated */
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -3571,6 +3579,7 @@ declare namespace React {
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        blocking?: "render" | (string & {}) | undefined;
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;

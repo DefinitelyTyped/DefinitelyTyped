@@ -341,6 +341,7 @@ declare class Renderer {
      * @return {RenderContext} The current render context.
      */
     _renderScene(scene: Scene, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
+    _setXRLayerSize(width: number, height: number): void;
     /**
      * The output pass performs tone mapping and color space conversion.
      *
@@ -676,6 +677,10 @@ declare class Renderer {
      * @return {?RenderTarget} The current output render target. Returns `null` if no output target is set.
      */
     getOutputRenderTarget(): RenderTarget<Texture> | null;
+    /**
+     * Resets the renderer to the initial state before WebXR started.
+     */
+    _resetXRState(): void;
     /**
      * Callback for {@link Renderer#setRenderObjectFunction}.
      *

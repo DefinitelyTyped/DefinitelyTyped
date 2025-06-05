@@ -1793,52 +1793,157 @@ function testBrowserAcionSetTitle() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/action
 async function testAction() {
-    await chrome.action.disable();
-    await chrome.action.enable();
-    await chrome.action.disable(0);
-    await chrome.action.enable(0);
-    await chrome.action.getBadgeBackgroundColor({});
-    await chrome.action.getBadgeText({});
-    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
-    const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
-    const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
-    await chrome.action.getPopup({});
-    await chrome.action.getTitle({});
-    await chrome.action.getUserSettings();
-    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
-    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
-    const isEnabled1: boolean = await chrome.action.isEnabled();
-    const isEnabled2: boolean = await chrome.action.isEnabled(0);
-    await chrome.action.openPopup({ windowId: 1 });
-    await chrome.action.setBadgeBackgroundColor({ color: "white" });
-    await chrome.action.setBadgeText({ text: "text1" });
-    await chrome.action.setBadgeTextColor({ color: "white" });
-    await chrome.action.setIcon({ path: { "16": "path/to/icon.png" } });
-    await chrome.action.setPopup({ popup: "popup1" });
-    await chrome.action.setTitle({ title: "title1" });
+    const tabId = 0;
 
-    chrome.action.onClicked.addListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.removeListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.hasListener((tab) => {
-        tab; // $ExpectType Tab
-    });
-    chrome.action.onClicked.hasListeners();
+    chrome.action.disable(); // $ExpectType Promise<void>
+    chrome.action.disable(tabId); // $ExpectType Promise<void>
+    chrome.action.disable(() => void 0); // $ExpectType void
+    chrome.action.disable(tabId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.disable(() => {}).then(() => {});
 
-    chrome.action.onUserSettingsChanged.addListener((change) => {
+    chrome.action.enable(); // $ExpectType Promise<void>
+    chrome.action.enable(tabId); // $ExpectType Promise<void>
+    chrome.action.enable(() => void 0); // $ExpectType void
+    chrome.action.enable(tabId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.enable(() => {}).then(() => {});
+
+    const tabDetails: chrome.action.TabDetails = { tabId };
+
+    chrome.action.getBadgeBackgroundColor(tabDetails); // $ExpectType Promise<ColorArray>
+    chrome.action.getBadgeBackgroundColor(tabDetails, (result) => { // $ExpectType void
+        result[0]; // $ExpectType number
+        result[1]; // $ExpectType number
+        result[2]; // $ExpectType number
+        result[3]; // $ExpectType number
+        // @ts-expect-error
+        result[4];
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeBackgroundColor(tabDetails, () => {}).then(() => {});
+
+    chrome.action.getBadgeText(tabDetails); // $ExpectType Promise<string>
+    chrome.action.getBadgeText(tabDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeText(tabDetails, () => {}).then(() => {});
+
+    chrome.action.getBadgeTextColor(tabDetails); // $ExpectType Promise<ColorArray>
+    chrome.action.getBadgeTextColor(tabDetails, (result) => { // $ExpectType void
+        result[0]; // $ExpectType number
+        result[1]; // $ExpectType number
+        result[2]; // $ExpectType number
+        result[3]; // $ExpectType number
+        // @ts-expect-error
+        result[4];
+    });
+    // @ts-expect-error
+    chrome.action.getBadgeTextColor(tabDetails, () => {}).then(() => {});
+
+    const popupDetails: chrome.action.PopupDetails = { tabId, popup: "index.html" };
+
+    chrome.action.getPopup(popupDetails); // $ExpectType Promise<string>
+    chrome.action.getPopup(popupDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getPopup(popupDetails, () => {}).then(() => {});
+
+    chrome.action.getTitle(popupDetails); // $ExpectType Promise<string>
+    chrome.action.getTitle(popupDetails, (result) => { // $ExpectType void
+        result; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.action.getTitle(popupDetails, () => {}).then(() => {});
+
+    chrome.action.getUserSettings(); // $ExpectType Promise<UserSettings>
+    chrome.action.getUserSettings(userSettings => { // $ExpectType void
+        userSettings.isOnToolbar; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.action.getUserSettings(() => {}).then(() => {});
+
+    chrome.action.isEnabled(); // $ExpectType Promise<boolean>
+    chrome.action.isEnabled(tabId); // $ExpectType Promise<boolean>
+    chrome.action.isEnabled((isEnabled) => { // $ExpectType void
+        isEnabled; // $ExpectType boolean
+    });
+    chrome.action.isEnabled(tabId, (isEnabled) => {
+        isEnabled; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.action.isEnabled(tabId, () => {}).then(() => {});
+
+    const openPopupOptions: chrome.action.OpenPopupOptions = { windowId: 1 };
+
+    chrome.action.openPopup(); // $ExpectType Promise<void>
+    chrome.action.openPopup(openPopupOptions); // $ExpectType Promise<void>
+    chrome.action.openPopup(() => {}); // $ExpectType void
+    chrome.action.openPopup(openPopupOptions, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.openPopup(() => {}).then(() => {});
+
+    const badgeColorDetails: chrome.action.BadgeColorDetails = { color: [0, 0, 0, 0], tabId };
+
+    chrome.action.setBadgeBackgroundColor(badgeColorDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeBackgroundColor(badgeColorDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeBackgroundColor(() => {}).then(() => {});
+
+    const badgeTextDetails: chrome.action.BadgeTextDetails = { text: "text1", tabId };
+
+    chrome.action.setBadgeText(badgeTextDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeText(badgeTextDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeText(() => {}).then(() => {});
+
+    chrome.action.setBadgeTextColor(badgeColorDetails); // $ExpectType Promise<void>
+    chrome.action.setBadgeTextColor(badgeColorDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setBadgeTextColor(() => {}).then(() => {});
+
+    const tabIconDetails: chrome.action.TabIconDetails = { path: { "16": "path/to/icon.png" }, tabId };
+
+    chrome.action.setIcon(tabIconDetails); // $ExpectType Promise<void>
+    chrome.action.setIcon(tabIconDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setIcon(() => {}).then(() => {});
+
+    chrome.action.setPopup(popupDetails); // $ExpectType Promise<void>
+    chrome.action.setPopup(popupDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setPopup(() => {}).then(() => {});
+
+    const titleDetails: chrome.action.TitleDetails = { title: "title1", tabId };
+
+    chrome.action.setTitle(titleDetails); // $ExpectType Promise<void>
+    chrome.action.setTitle(titleDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.action.setTitle(() => {}).then(() => {});
+
+    chrome.action.onClicked.addListener((tab) => { // $ExpectType void
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.removeListener((tab) => { // $ExpectType void
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListener((tab) => { // $ExpectType boolean
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListeners(); // $ExpectType boolean
+
+    chrome.action.onUserSettingsChanged.addListener((change) => { // $ExpectType void
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.removeListener((change) => {
+    chrome.action.onUserSettingsChanged.removeListener((change) => { // $ExpectType void
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.hasListener((change) => {
+    chrome.action.onUserSettingsChanged.hasListener((change) => { // $ExpectType boolean
         change; // $ExpectType UserSettingsChange
     });
-    chrome.action.onUserSettingsChanged.hasListeners();
+    chrome.action.onUserSettingsChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
@@ -2275,7 +2380,7 @@ async function testTabs() {
     const frameId = 0;
     const documentId = "id";
 
-    const windowCaptureOptions: chrome.tabs.CaptureVisibleTabOptions = {
+    const windowCaptureOptions: chrome.extensionTypes.ImageDetails = {
         quality: 100,
         format: "jpeg",
     };
@@ -2976,8 +3081,19 @@ async function testDeclarativeNetRequest() {
     // @ts-expect-error
     chrome.declarativeNetRequest.testMatchOutcome(testMatchRequestDetails, () => {}).then(() => {});
 
+    const rule: chrome.declarativeNetRequest.Rule = {
+        id: 1,
+        priority: 1,
+        action: { type: "allow", requestHeaders: [], responseHeaders: [] },
+        condition: {
+            domainType: "firstParty",
+            excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
+            excludedRequestMethods: [chrome.declarativeNetRequest.RequestMethod.POST, "get"],
+        },
+    };
+
     const updateRuleOptions: chrome.declarativeNetRequest.UpdateRuleOptions = {
-        addRules: [],
+        addRules: [rule],
         removeRuleIds: [1, 2, 3],
     };
 
@@ -3517,6 +3633,112 @@ async function testBrowsingDataForPromise() {
     await chrome.browsingData.removeCache({});
     await chrome.browsingData.removeHistory({});
     await chrome.browsingData.removeIndexedDB({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/certificateProvider
+function testCertificateProvider() {
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_MD5_SHA1 === "RSASSA_PKCS1_v1_5_MD5_SHA1";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA1 === "RSASSA_PKCS1_v1_5_SHA1";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA256 === "RSASSA_PKCS1_v1_5_SHA256";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA384 === "RSASSA_PKCS1_v1_5_SHA384";
+    chrome.certificateProvider.Algorithm.RSASSA_PKCS1_V1_5_SHA512 === "RSASSA_PKCS1_v1_5_SHA512";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA256 === "RSASSA_PSS_SHA256";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA384 === "RSASSA_PSS_SHA384";
+    chrome.certificateProvider.Algorithm.RSASSA_PSS_SHA512 === "RSASSA_PSS_SHA512";
+
+    chrome.certificateProvider.Error.GENERAL_ERROR === "GENERAL_ERROR";
+
+    chrome.certificateProvider.Hash.MD5_SHA1 === "MD5_SHA1";
+    chrome.certificateProvider.Hash.SHA1 === "SHA1";
+    chrome.certificateProvider.Hash.SHA256 === "SHA256";
+    chrome.certificateProvider.Hash.SHA384 === "SHA384";
+    chrome.certificateProvider.Hash.SHA512 === "SHA512";
+
+    chrome.certificateProvider.PinRequestErrorType.INVALID_PIN === "INVALID_PIN";
+    chrome.certificateProvider.PinRequestErrorType.INVALID_PUK === "INVALID_PUK";
+    chrome.certificateProvider.PinRequestErrorType.MAX_ATTEMPTS_EXCEEDED === "MAX_ATTEMPTS_EXCEEDED";
+    chrome.certificateProvider.PinRequestErrorType.UNKNOWN_ERROR === "UNKNOWN_ERROR";
+
+    chrome.certificateProvider.PinRequestType.PIN === "PIN";
+    chrome.certificateProvider.PinRequestType.PUK === "PUK";
+
+    const reportSignatureDetails: chrome.certificateProvider.ReportSignatureDetails = {
+        error: "GENERAL_ERROR",
+        signRequestId: 1,
+    };
+
+    chrome.certificateProvider.reportSignature(reportSignatureDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.reportSignature(reportSignatureDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.reportSignature(reportSignatureDetails, () => {}).then(() => {});
+
+    const requestPinDetails: chrome.certificateProvider.RequestPinDetails = {
+        attemptsLeft: 0,
+        errorType: "INVALID_PIN",
+        requestType: "PIN",
+        signRequestId: 0,
+    };
+
+    chrome.certificateProvider.requestPin(requestPinDetails); // $ExpectType Promise<PinResponseDetails | undefined>
+    chrome.certificateProvider.requestPin(requestPinDetails, (details) => { // $ExpectType void
+        details; // $ExpectType PinResponseDetails | undefined
+        if (!details) return;
+        details.userInput; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.certificateProvider.requestPin(requestPinDetails, () => {}).then(() => {});
+
+    const setCertificatesDetails: chrome.certificateProvider.SetCertificatesDetails = {
+        certificatesRequestId: 0,
+        clientCertificates: [{ certificateChain: [], supportedAlgorithms: [] }],
+        error: "GENERAL_ERROR",
+    };
+
+    chrome.certificateProvider.setCertificates(setCertificatesDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.setCertificates(setCertificatesDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.setCertificates(setCertificatesDetails, () => {}).then(() => {});
+
+    const stopPinRequestDetails: chrome.certificateProvider.StopPinRequestDetails = {
+        signRequestId: 0,
+        errorType: "INVALID_PIN",
+    };
+
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails); // $ExpectType Promise<void>
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.certificateProvider.stopPinRequest(stopPinRequestDetails, () => {}).then(() => {});
+
+    chrome.certificateProvider.onCertificatesUpdateRequested.addListener((request) => { // $ExpectType void
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.removeListener((request) => { // $ExpectType void
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.hasListener((request) => { // $ExpectType boolean
+        request.certificatesRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onCertificatesUpdateRequested.hasListeners(); // $ExpectType boolean
+
+    chrome.certificateProvider.onSignatureRequested.addListener((request) => { // $ExpectType void
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.removeListener((request) => { // $ExpectType void
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.hasListener((request) => { // $ExpectType boolean
+        request.algorithm; // $ExpectType "RSASSA_PKCS1_v1_5_MD5_SHA1" | "RSASSA_PKCS1_v1_5_SHA1" | "RSASSA_PKCS1_v1_5_SHA256" | "RSASSA_PKCS1_v1_5_SHA384" | "RSASSA_PKCS1_v1_5_SHA512" | "RSASSA_PSS_SHA256" | "RSASSA_PSS_SHA384" | "RSASSA_PSS_SHA512";
+        request.certificate; // $ExpectType ArrayBuffer
+        request.input; // $ExpectType ArrayBuffer
+        request.signRequestId; // $ExpectType number
+    });
+    chrome.certificateProvider.onSignatureRequested.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/commands
@@ -4843,6 +5065,110 @@ function testPrintingMetrics() {
     chrome.printingMetrics.onPrintJobFinished.hasListeners();
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/webAuthenticationProxy
+function testWebAuthenticationProxy() {
+    chrome.webAuthenticationProxy.attach(); // $ExpectType Promise<string | undefined>
+    chrome.webAuthenticationProxy.attach((error) => { // $ExpectType void
+        error; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.attach(() => {}).then(() => {});
+
+    const createResponseDetails: chrome.webAuthenticationProxy.CreateResponseDetails = {
+        requestId: 1,
+        error: { name: "NOT_ALLOWED", message: "Not allowed" },
+        responseJson: "{}",
+    };
+
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeCreateRequest(createResponseDetails, () => {}).then(() => {});
+
+    const getResponseDetails: chrome.webAuthenticationProxy.GetResponseDetails = {
+        requestId: 1,
+        error: { name: "NOT_ALLOWED", message: "Not allowed" },
+        responseJson: "{}",
+    };
+
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeGetRequest(getResponseDetails, () => {}).then(() => {});
+
+    const isUvpaaResponseDetails: chrome.webAuthenticationProxy.IsUvpaaResponseDetails = {
+        isUvpaa: true,
+        requestId: 1,
+    };
+
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails); // $ExpectType Promise<void>
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.completeIsUvpaaRequest(isUvpaaResponseDetails, () => {}).then(() => {});
+
+    chrome.webAuthenticationProxy.detach(); // $ExpectType Promise<string | undefined>
+    chrome.webAuthenticationProxy.detach((error) => { // $ExpectType void
+        error; // $ExpectType string | undefined
+    });
+    // @ts-expect-error
+    chrome.webAuthenticationProxy.detach(() => {}).then(() => {});
+
+    chrome.webAuthenticationProxy.onCreateRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onCreateRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onGetRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestDetailsJson; // $ExpectType string
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onGetRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.addListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.removeListener((requestInfo) => { // $ExpectType void
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.hasListener((requestInfo) => { // $ExpectType boolean
+        requestInfo.requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onIsUvpaaRequest.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.addListener(() => {}); // $ExpectType void
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.removeListener(() => {}); // $ExpectType void
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.hasListener(() => {}); // $ExpectType boolean
+    chrome.webAuthenticationProxy.onRemoteSessionStateChange.hasListeners(); // $ExpectType boolean
+
+    chrome.webAuthenticationProxy.onRequestCanceled.addListener((requestId) => { // $ExpectType void
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.removeListener((requestId) => { // $ExpectType void
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.hasListener((requestId) => { // $ExpectType boolean
+        requestId; // $ExpectType number
+    });
+    chrome.webAuthenticationProxy.onRequestCanceled.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/webRequest
 function testWebRequest() {
     const filter: chrome.webRequest.RequestFilter = {
@@ -4851,161 +5177,313 @@ function testWebRequest() {
         types: ["main_frame"],
         windowId: 2,
     };
-    const extraInfoSpec = ["extraHeaders"];
 
-    const blockingResponse = {
-        cancel: true,
-        redirectUrl: "https://example.com",
-        requestHeaders: [{ name: "name", value: "value" }],
+    /**
+     * Check all listeners for a webRequest event.
+     * @param event - The event to check.
+     * @param callback - The callback to check.
+     * @param extraInfoSpec - The extra info spec to check.
+     */
+    const checkWebRequestEvent = <T extends chrome.webRequest.WebRequestEvent<(...args: any) => unknown, string[]>>(
+        event: T,
+        callback: Parameters<T["addListener"]>[0],
+        extraInfoSpec: Parameters<T["addListener"]>[2],
+    ) => {
+        event.addListener(callback, filter, extraInfoSpec); // $ExpectType void
+        event.removeListener(callback); // $ExpectType void
+        event.hasListener(callback); // $ExpectType boolean
+        event.hasListeners(); // $ExpectType boolean
     };
 
     chrome.webRequest.MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES === 20;
+
+    chrome.webRequest.IgnoredActionType.AUTH_CREDENTIALS === "auth_credentials";
+    chrome.webRequest.IgnoredActionType.REDIRECT === "redirect";
+    chrome.webRequest.IgnoredActionType.REQUEST_HEADERS === "request_headers";
+    chrome.webRequest.IgnoredActionType.RESPONSE_HEADERS === "response_headers";
+
+    chrome.webRequest.OnAuthRequiredOptions.ASYNC_BLOCKING === "asyncBlocking";
+    chrome.webRequest.OnAuthRequiredOptions.BLOCKING === "blocking";
+    chrome.webRequest.OnAuthRequiredOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnAuthRequiredOptions.RESPONSE_HEADERS === "responseHeaders";
+
+    chrome.webRequest.OnBeforeRedirectOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnBeforeRedirectOptions.RESPONSE_HEADERS === "responseHeaders";
+
+    chrome.webRequest.OnBeforeRequestOptions.BLOCKING === "blocking";
+    chrome.webRequest.OnBeforeRequestOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnBeforeRequestOptions.REQUEST_BODY === "requestBody";
+
+    chrome.webRequest.OnBeforeSendHeadersOptions.BLOCKING === "blocking";
+    chrome.webRequest.OnBeforeSendHeadersOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnBeforeSendHeadersOptions.REQUEST_HEADERS === "requestHeaders";
+
+    chrome.webRequest.OnCompletedOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnCompletedOptions.RESPONSE_HEADERS === "responseHeaders";
+
+    chrome.webRequest.OnErrorOccurredOptions.EXTRA_HEADERS === "extraHeaders";
+
+    chrome.webRequest.OnHeadersReceivedOptions.BLOCKING === "blocking";
+    chrome.webRequest.OnHeadersReceivedOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnHeadersReceivedOptions.RESPONSE_HEADERS === "responseHeaders";
+
+    chrome.webRequest.OnResponseStartedOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnResponseStartedOptions.RESPONSE_HEADERS === "responseHeaders";
+
+    chrome.webRequest.OnSendHeadersOptions.EXTRA_HEADERS === "extraHeaders";
+    chrome.webRequest.OnSendHeadersOptions.REQUEST_HEADERS === "requestHeaders";
+
+    chrome.webRequest.ResourceType.CSP_REPORT === "csp_report";
+    chrome.webRequest.ResourceType.FONT === "font";
+    chrome.webRequest.ResourceType.IMAGE === "image";
+    chrome.webRequest.ResourceType.MAIN_FRAME === "main_frame";
+    chrome.webRequest.ResourceType.MEDIA === "media";
+    chrome.webRequest.ResourceType.OBJECT === "object";
+    chrome.webRequest.ResourceType.OTHER === "other";
+    chrome.webRequest.ResourceType.PING === "ping";
+    chrome.webRequest.ResourceType.SCRIPT === "script";
+    chrome.webRequest.ResourceType.STYLESHEET === "stylesheet";
+    chrome.webRequest.ResourceType.SUB_FRAME === "sub_frame";
+    chrome.webRequest.ResourceType.WEBBUNDLE === "webbundle";
+    chrome.webRequest.ResourceType.WEBSOCKET === "websocket";
+    chrome.webRequest.ResourceType.XMLHTTPREQUEST === "xmlhttprequest";
 
     chrome.webRequest.handlerBehaviorChanged(() => {}); // $ExpectType void
     chrome.webRequest.handlerBehaviorChanged(); // $ExpectType Promise<void>
     // @ts-expect-error
     chrome.webRequest.handlerBehaviorChanged(() => {}).then(() => {});
 
-    chrome.webRequest.onAuthRequired.addListener(
-        ({ frameId }, asyncCallback) => {
-            frameId; // $ExpectType number
-            if (!asyncCallback) return;
-            asyncCallback(blockingResponse); // $ExpectType void
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onAuthRequired.removeListener(({ frameId }, asyncCallback) => {
-        frameId; // $ExpectType number
-        if (!asyncCallback) return;
-        asyncCallback(blockingResponse); // $ExpectType void
+    chrome.webRequest.onActionIgnored.addListener((details) => { // $ExpectType void
+        details.action; // $ExpectType "redirect" | "request_headers" | "response_headers" | "auth_credentials"
+        details.requestId; // $ExpectType string
     });
-    chrome.webRequest.onAuthRequired.hasListener(({ frameId }, asyncCallback) => {
-        frameId; // $ExpectType number
-        if (!asyncCallback) return;
-        asyncCallback(blockingResponse); // $ExpectType void
+    chrome.webRequest.onActionIgnored.removeListener((details) => { // $ExpectType void
+        details.action; // $ExpectType "redirect" | "request_headers" | "response_headers" | "auth_credentials"
+        details.requestId; // $ExpectType string
     });
-    chrome.webRequest.onAuthRequired.hasListeners();
+    chrome.webRequest.onActionIgnored.hasListener((details) => { // $ExpectType boolean
+        details.action; // $ExpectType "redirect" | "request_headers" | "response_headers" | "auth_credentials"
+        details.requestId; // $ExpectType string
+    });
+    chrome.webRequest.onActionIgnored.hasListeners(); // $ExpectType boolean
 
-    chrome.webRequest.onBeforeRedirect.addListener(
-        ({ frameId }) => {
-            frameId; // $ExpectType number
+    const blockingResponse: chrome.webRequest.BlockingResponse = {
+        cancel: true,
+        redirectUrl: "https://example.com",
+        responseHeaders: [{ name: "name", value: "value" }],
+        authCredentials: {
+            password: "password",
+            username: "username",
         },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onBeforeRedirect.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeRedirect.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeRedirect.hasListeners();
+        requestHeaders: [{ name: "name", value: "value" }],
+    };
 
-    chrome.webRequest.onBeforeRequest.addListener(
-        ({ frameId }) => {
-            frameId; // $ExpectType number
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onBeforeRequest.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeRequest.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeRequest.hasListeners();
+    checkWebRequestEvent(chrome.webRequest.onAuthRequired, (details, asyncCallback) => {
+        details.challenger.host; // $ExpectType string
+        details.challenger.port; // $ExpectType number
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.initiator; // $ExpectType string | undefined
+        details.isProxy; // $ExpectType boolean
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.realm; // $ExpectType string | undefined
+        details.requestId; // $ExpectType string
+        details.responseHeaders?.[0].name; // $ExpectType string | undefined
+        details.responseHeaders?.[0].value; // $ExpectType string | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.scheme; // $ExpectType string
+        details.statusCode; // $ExpectType number
+        details.statusLine; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
 
-    chrome.webRequest.onBeforeSendHeaders.addListener(
+        if (!asyncCallback) return blockingResponse;
+        asyncCallback?.(blockingResponse); // $ExpectType void
+    }, ["responseHeaders", "blocking", "asyncBlocking", "extraHeaders"]);
+
+    checkWebRequestEvent(chrome.webRequest.onBeforeRedirect, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.fromCache; // $ExpectType boolean
+        details.initiator; // $ExpectType string | undefined
+        details.ip; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.redirectUrl; // $ExpectType string
+        details.requestId; // $ExpectType string
+        details.responseHeaders?.[0].name; // $ExpectType string | undefined
+        details.responseHeaders?.[0].value; // $ExpectType string | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.statusCode; // $ExpectType number
+        details.statusLine; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+    }, ["responseHeaders", "extraHeaders"]);
+
+    checkWebRequestEvent(chrome.webRequest.onBeforeRequest, (details) => {
+        details.documentId; // $ExpectType string | undefined
+        details.documentLifecycle; // $ExpectType DocumentLifecycle | undefined
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType | undefined
+        details.initiator; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestBody?.error; // $ExpectType string | undefined
+        details.requestBody?.formData; // $ExpectType { [key: string]: FormDataItem[] } | undefined
+        details.requestBody?.raw?.[0]?.bytes; // $ExpectType ArrayBuffer | undefined
+        details.requestBody?.raw?.[0]?.file; // $ExpectType string | undefined
+        details.requestId; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+
+        return blockingResponse;
+    }, ["blocking", "requestBody", "extraHeaders"]);
+
+    checkWebRequestEvent(
+        chrome.webRequest.onBeforeSendHeaders,
         (details) => {
-            details; // $ExpectType WebRequestHeadersDetails
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onBeforeSendHeaders.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeSendHeaders.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onBeforeSendHeaders.hasListeners();
+            details.documentId; // $ExpectType string
+            details.documentLifecycle; // $ExpectType DocumentLifecycle
+            details.frameId; // $ExpectType number
+            details.frameType; // $ExpectType FrameType
+            details.initiator; // $ExpectType string | undefined
+            details.method; // $ExpectType string
+            details.parentDocumentId; // $ExpectType string | undefined
+            details.parentFrameId; // $ExpectType number
+            details.requestHeaders?.[0].name; // $ExpectType string | undefined
+            details.requestHeaders?.[0].value; // $ExpectType string | undefined
+            details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+            details.requestId; // $ExpectType string
+            details.tabId; // $ExpectType number
+            details.timeStamp; // $ExpectType number
+            details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+            details.url; // $ExpectType string
 
-    chrome.webRequest.onCompleted.addListener(
-        (details) => {
-            details; // $ExpectType WebResponseCacheDetails
+            return blockingResponse;
         },
-        filter,
-        extraInfoSpec,
+        ["requestHeaders", "blocking", "extraHeaders"],
     );
-    chrome.webRequest.onCompleted.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onCompleted.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onCompleted.hasListeners();
 
-    chrome.webRequest.onErrorOccurred.addListener(
-        (details) => {
-            details; // $ExpectType WebResponseErrorDetails
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onErrorOccurred.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onErrorOccurred.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onErrorOccurred.hasListeners();
+    checkWebRequestEvent(chrome.webRequest.onCompleted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.fromCache; // $ExpectType boolean
+        details.initiator; // $ExpectType string | undefined
+        details.ip; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.responseHeaders?.[0].name; // $ExpectType string | undefined
+        details.responseHeaders?.[0].value; // $ExpectType string | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.statusCode; // $ExpectType number
+        details.statusLine; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+    }, ["responseHeaders", "extraHeaders"]);
 
-    chrome.webRequest.onHeadersReceived.addListener(
-        (details) => {
-            details; // $ExpectType WebResponseHeadersDetails
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onHeadersReceived.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onHeadersReceived.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onHeadersReceived.hasListeners();
+    checkWebRequestEvent(chrome.webRequest.onErrorOccurred, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.error; // $ExpectType string
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.fromCache; // $ExpectType boolean
+        details.initiator; // $ExpectType string | undefined
+        details.ip; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+    }, ["extraHeaders"]);
 
-    chrome.webRequest.onResponseStarted.addListener(
-        (details) => {
-            details; // $ExpectType WebResponseCacheDetails
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onResponseStarted.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onResponseStarted.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onResponseStarted.hasListeners();
+    checkWebRequestEvent(chrome.webRequest.onHeadersReceived, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.initiator; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.responseHeaders?.[0].name; // $ExpectType string | undefined
+        details.responseHeaders?.[0].value; // $ExpectType string | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.statusCode; // $ExpectType number
+        details.statusLine; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
 
-    chrome.webRequest.onSendHeaders.addListener(
-        (details) => {
-            details; // $ExpectType WebRequestHeadersDetails
-        },
-        filter,
-        extraInfoSpec,
-    );
-    chrome.webRequest.onSendHeaders.removeListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onSendHeaders.hasListener(({ frameId }) => {
-        frameId; // $ExpectType number
-    });
-    chrome.webRequest.onSendHeaders.hasListeners();
+        return blockingResponse;
+    }, ["blocking", "responseHeaders", "extraHeaders"]);
+
+    checkWebRequestEvent(chrome.webRequest.onResponseStarted, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.fromCache; // $ExpectType boolean
+        details.initiator; // $ExpectType string | undefined
+        details.ip; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestId; // $ExpectType string
+        details.responseHeaders?.[0].name; // $ExpectType string | undefined
+        details.responseHeaders?.[0].value; // $ExpectType string | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.statusCode; // $ExpectType number
+        details.statusLine; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+    }, ["responseHeaders", "extraHeaders"]);
+
+    checkWebRequestEvent(chrome.webRequest.onSendHeaders, (details) => {
+        details.documentId; // $ExpectType string
+        details.documentLifecycle; // $ExpectType DocumentLifecycle
+        details.frameId; // $ExpectType number
+        details.frameType; // $ExpectType FrameType
+        details.initiator; // $ExpectType string | undefined
+        details.method; // $ExpectType string
+        details.parentDocumentId; // $ExpectType string | undefined
+        details.parentFrameId; // $ExpectType number
+        details.requestHeaders?.[0].name; // $ExpectType string | undefined
+        details.requestHeaders?.[0].value; // $ExpectType string | undefined
+        details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.requestId; // $ExpectType string
+        details.tabId; // $ExpectType number
+        details.timeStamp; // $ExpectType number
+        details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
+        details.url; // $ExpectType string
+    }, ["requestHeaders", "extraHeaders"]);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/accessibilityFeatures
