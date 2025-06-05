@@ -588,8 +588,8 @@ export interface MenuItemProps extends TonicProps {
 }
 
 export interface MenuListProps extends TonicProps {
-    PopperComponent: ComponentType;
-    PopperProps: Record<string, unknown>;
+    PopperComponent?: ComponentType;
+    PopperProps?: Record<string, unknown>;
     TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
 }
@@ -601,6 +601,7 @@ export interface MenuToggleProps extends Omit<TonicProps, "children"> {
             state: { getMenuToggleProps: () => _ExtendedCSSProperties },
             props: _ExtendedCSSProperties,
         ) => ReactNode);
+    disabled?: boolean;
 }
 
 export interface MenuToggleIconProps extends Omit<TonicProps, "children"> {
@@ -750,6 +751,7 @@ export interface PopoverContentProps extends TonicProps {
 }
 
 export interface PopoverTriggerProps extends Omit<TonicProps, "children"> {
+    shouldWrapChildren?: boolean;
     children:
         | ReactNode
         | ((args: { getPopoverTriggerProps: () => TonicProps }) => ReactNode);
