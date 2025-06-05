@@ -977,7 +977,7 @@ export namespace UIkit {
         maxHeight?: boolean | number;
     }
 
-    interface UIkitSlidershowElement extends UIkitElementBase {
+    interface UIkitSlideshowElement extends UIkitElementBase {
         /**
          * Shows the slideshow item.
          * @param index The item to show. 0 based index.
@@ -989,7 +989,12 @@ export namespace UIkit {
         stopAutoplay(): void;
     }
 
-    type Slidershow = UIkitFunction<UIkitSlideshowOptions, UIkitSlidershowElement>;
+    type Slideshow = UIkitFunction<UIkitSlideshowOptions, UIkitSlideshowElement>;
+
+    /** @deprecated */
+    type UIkitSlidershowElement = UIkitSlideshowElement;
+    /** @deprecated */
+    type Slidershow = Slideshow;
 
     // Sortable
 
@@ -1147,7 +1152,7 @@ export namespace UIkit {
     const notification: Notification;
     const parallax: Parallax;
     const slider: Slider;
-    const slideshow: Slidershow;
+    const slideshow: Slideshow;
     const sortable: Sortable;
     const tooltip: Tooltip;
     const upload: Upload;
