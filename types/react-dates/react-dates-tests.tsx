@@ -5,7 +5,6 @@ import {
     CalendarDay,
     CalendarMonth,
     CalendarMonthGrid,
-    constants,
     DateRangePicker,
     DateRangePickerInput,
     DateRangePickerInputController,
@@ -23,6 +22,8 @@ import {
     toLocalizedDateString,
     toMomentObject,
 } from "react-dates";
+
+import * as constants from "react-dates/constants";
 
 const onlyRenderText: RenderMonthProps = {
     renderMonthText: month => month.format("MMMM"),
