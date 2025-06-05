@@ -430,8 +430,6 @@ declare namespace PDFKit.Mixins {
         defaultStyle?:
             & (number | Array<number | string> | CellStyle | ((row: number) => number | CellStyle | undefined))
             & { width?: number };
-        /** The data to render (not required, you can call .row()). This can be an iterable (async or sync) */
-        data?: Array<Array<string | CellOptions>>;
         /** Whether to show the debug lines for all the cells (default false) */
         debug?: boolean;
     }
