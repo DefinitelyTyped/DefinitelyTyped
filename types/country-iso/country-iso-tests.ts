@@ -1,4 +1,4 @@
-import { get } from 'country-iso';
+import { get } from "country-iso";
 
 // $ExpectType string[]
-const results = get(51.5074, -0.1278) 
+const results = get(51.5074, -0.1278);
