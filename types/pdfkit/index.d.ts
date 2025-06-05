@@ -436,6 +436,11 @@ declare namespace PDFKit.Mixins {
         debug?: boolean;
     }
 
+    interface TableOptionsWithData extends TableOptions {
+        /** The data to render (not required, you can call .row()). This can be an iterable (async or sync) */
+        data: Array<Array<string | CellOptions>>;
+    }
+
     interface CellOptions extends CellStyle {
         /** The value, will be cast to a string (null and undefined are not rendered but the cell is still outlined) */
         text?: string | undefined | null;
@@ -484,13 +489,15 @@ declare namespace PDFKit.Mixins {
     interface PDFTableObject {
         /** Add a row of data (null and undefined are not rendered) */
         row(data: Array<string | undefined | null | RowOptions>): this;
+        /** Indicates to the table that it is finished, allowing the table to flush its cell buffer (which should be empty unless there is rowSpans) */
+        end(): PDFDocument;
     }
 
     interface PDFTable {
         /** Draw a table in PDFKit document. */
-        table(options: TableOptions): this;
+        table(options?: TableOptions): PDFTableObject;
         /** Draw a table in PDFKit document. */
-        table(): PDFTableObject;
+        table(options: TableOptionsWithData): PDFDocument;
     }
 
     interface TextOptions {
