@@ -2816,7 +2816,12 @@ async function testTabGroup() {
 
     chrome.tabGroups.get(groupId); // $ExpectType Promise<TabGroup>
     chrome.tabGroups.get(groupId, (group) => { // $ExpectType void
-        group; // $ExpectType TabGroup
+        group.collapsed; // $ExpectType boolean
+        group.color; // $ExpectType "blue" | "cyan" | "green" | "grey" | "orange" | "pink" | "purple" | "red" | "yellow"
+        group.id; // $ExpectType number
+        group.shared; // $ExpectType boolean
+        group.title; // $ExpectType string | undefined
+        group.windowId; // $ExpectType number
     });
     // @ts-expect-error
     chrome.tabGroups.get(() => {}).then(() => {});
@@ -2835,6 +2840,7 @@ async function testTabGroup() {
 
     const queryInfo: chrome.tabGroups.QueryInfo = {
         collapsed: false,
+        shared: false,
         title: "Test",
     };
 
