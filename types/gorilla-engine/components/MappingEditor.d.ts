@@ -1,5 +1,4 @@
 declare namespace GorillaEngine.UI {
- 
     interface Zone {
         path: string;
         name: string;
@@ -15,7 +14,7 @@ declare namespace GorillaEngine.UI {
         refreshView(index?: number): void;
         selectAllZones(): void;
         deselectAllZones(): void;
-        selectZone(zone: Partial<Zone>):void;
+        selectZone(zone: Partial<Zone>): void;
         addZone(zone: Partial<Zone>): Zone;
         removeZone(zone: Partial<Zone>): void;
     }
