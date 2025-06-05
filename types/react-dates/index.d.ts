@@ -28,7 +28,11 @@ export type RenderMonthProps =
 export type AnchorDirectionShape = typeof constants.ANCHOR_LEFT | typeof constants.ANCHOR_RIGHT;
 
 // shapes/CalendarInfoPositionShape.js
-export type CalendarInfoPositionShape = typeof constants.INFO_POSITION_TOP | typeof constants.INFO_POSITION_BOTTOM | typeof constants.INFO_POSITION_BEFORE | typeof constants.INFO_POSITION_AFTER;
+export type CalendarInfoPositionShape =
+    | typeof constants.INFO_POSITION_TOP
+    | typeof constants.INFO_POSITION_BOTTOM
+    | typeof constants.INFO_POSITION_BEFORE
+    | typeof constants.INFO_POSITION_AFTER;
 
 // shapes/NavPositionShape.js
 export type NavPositionShape = typeof constants.NAV_POSITION_TOP | typeof constants.NAV_POSITION_BOTTOM;
@@ -165,7 +169,10 @@ export type OpenDirectionShape = typeof constants.OPEN_DOWN | typeof constants.O
 export type OrientationShape = typeof constants.HORIZONTAL_ORIENTATION | typeof constants.VERTICAL_ORIENTATION;
 
 // shapes/ScrollableOrientationShape.js
-export type ScrollableOrientationShape = typeof constants.HORIZONTAL_ORIENTATION | typeof constants.VERTICAL_ORIENTATION | typeof constants.VERTICAL_SCROLLABLE;
+export type ScrollableOrientationShape =
+    | typeof constants.HORIZONTAL_ORIENTATION
+    | typeof constants.VERTICAL_ORIENTATION
+    | typeof constants.VERTICAL_SCROLLABLE;
 
 // shapes/SingleDatePickerShape.js
 export type SingleDatePickerShape = RenderMonthProps & {
