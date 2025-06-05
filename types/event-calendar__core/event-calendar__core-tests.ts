@@ -165,6 +165,7 @@ cal = createCalendar(target, plugins, {
     eventDragStop: (_info: Calendar.EventDragInfo) => {},
     eventDrop: (_info: Calendar.EventDropInfo) => {},
     eventDurationEditable: true,
+    eventFilter: (_info: Calendar.EventFilterInfo) => true,
     eventLongPressDelay: 100,
     eventMouseEnter: (_info: Calendar.MouseEnterInfo) => {},
     eventMouseLeave: (_info: Calendar.MouseEnterInfo) => {},
