@@ -260,7 +260,7 @@ export interface AccordionProps extends Omit<TonicProps, "children"> {
 
 export interface AccordionContentProps extends TonicProps {
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface AccordionHeaderProps extends TonicProps {
@@ -466,12 +466,12 @@ export interface DrawerProps extends Omit<TonicProps, "children"> {
 
 export interface DrawerContentProps extends TonicProps {
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface DrawerOverlayProps extends TonicProps {
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface FlexProps extends
@@ -575,7 +575,7 @@ export interface MenuContentProps extends TonicProps {
     PopperComponent: ComponentType;
     PopperProps: Record<string, unknown>;
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface MenuGroupProps extends TonicProps {
@@ -591,7 +591,7 @@ export interface MenuListProps extends TonicProps {
     PopperComponent?: ComponentType;
     PopperProps?: Record<string, unknown>;
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface MenuToggleProps extends Omit<TonicProps, "children"> {
@@ -632,12 +632,12 @@ export interface ModalProps extends Omit<TonicProps, "children"> {
 
 export interface ModalContentProps extends TonicProps {
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface ModalOverlayProps extends TonicProps {
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
 }
 
 export interface OverflowTooltipProps extends Omit<TonicProps, "children"> {
