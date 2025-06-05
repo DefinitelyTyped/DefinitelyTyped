@@ -1121,7 +1121,7 @@ export namespace UIkit {
     const heightPlaceholder: HeightPlaceholder;
     const heightViewport: HeightViewport;
     const icon: Icon;
-    const image: Img;
+    const img: Img;
     const inverse: Inverse;
     const leader: Leader;
     const margin: Margin;

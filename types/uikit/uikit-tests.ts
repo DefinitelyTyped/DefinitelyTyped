@@ -159,8 +159,8 @@ async function testIcon() {
 }
 
 function testImage() {
-    UIkit.image(element).$destroy();
-    const component = UIkit.image(element, {dataSrc: ""});
+    UIkit.img(element).$destroy();
+    const component = UIkit.img(element, {dataSrc: ""});
 
     component.$destroy();
 }
