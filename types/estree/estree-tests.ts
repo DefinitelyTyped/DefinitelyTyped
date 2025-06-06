@@ -279,7 +279,7 @@ booleanMaybe = functionDeclaration.async;
 
 var variableDeclaration: ESTree.VariableDeclaration;
 var declarations: ESTree.VariableDeclarator[] = variableDeclaration.declarations;
-string = variableDeclaration.kind; // "var" | "let" | "const"
+string = variableDeclaration.kind; // "var" | "let" | "const" | "using" | "await using"
 
 var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
@@ -907,4 +907,15 @@ switch (exportDefaultDeclaration.declaration.type) {
 
     default:
         never = exportDefaultDeclaration.declaration;
+}
+
+switch (variableDeclaration.kind) {
+    case "var":
+    case "let":
+    case "const":
+    case "using":
+    case "await using":
+        break;
+    default:
+        never = variableDeclaration.kind;
 }

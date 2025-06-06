@@ -26,9 +26,44 @@
                 "default": "./server.d.ts"
             }
         },
+        "./server.browser": {
+            "types": {
+                "default": "./server.browser.d.ts"
+            }
+        },
+        "./server.bun": {
+            "types": {
+                "default": "./server.bun.d.ts"
+            }
+        },
+        "./server.edge": {
+            "types": {
+                "default": "./server.edge.d.ts"
+            }
+        },
+        "./server.node": {
+            "types": {
+                "default": "./server.node.d.ts"
+            }
+        },
         "./static": {
             "types": {
                 "default": "./static.d.ts"
+            }
+        },
+        "./static.browser": {
+            "types": {
+                "default": "./static.browser.d.ts"
+            }
+        },
+        "./static.edge": {
+            "types": {
+                "default": "./static.edge.d.ts"
+            }
+        },
+        "./static.node": {
+            "types": {
+                "default": "./static.node.d.ts"
             }
         },
         "./experimental": {

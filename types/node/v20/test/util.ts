@@ -62,7 +62,10 @@ util.format();
 
 util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
-util.parseEnv("HELLO=world\nHELLO=oh my\n");
+{
+    const dotenv = util.parseEnv("HELLO=world\nHELLO=oh my\n");
+    dotenv.HELLO; // $ExpectType string | undefined
+}
 
 console.log(util.styleText("red", "Error! Error!"));
 console.log(

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.17.9999",
+    "version": "20.19.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
@@ -15,7 +15,7 @@
         }
     },
     "dependencies": {
-        "undici-types": "~6.19.2"
+        "undici-types": "~6.21.0"
     },
     "devDependencies": {
         "@types/node": "workspace:."

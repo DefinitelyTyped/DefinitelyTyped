@@ -911,22 +911,21 @@ declare namespace TelegramBot {
         is_video: boolean;
         width: number;
         height: number;
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
         premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
         custom_emoji_id?: string | undefined;
+        needs_repainting?: boolean | undefined;
     }
 
     interface StickerSet {
         name: string;
         title: string;
         sticker_type: StickerType;
-        is_animated: boolean;
-        is_video: boolean;
         stickers: Sticker[];
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
     }
 
     interface CreateStickerSetOptions {
