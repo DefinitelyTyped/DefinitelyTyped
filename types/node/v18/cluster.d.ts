@@ -265,7 +265,7 @@ declare module "cluster" {
          * @since v0.7.7
          * @return A reference to `worker`.
          */
-        disconnect(): void;
+        disconnect(): this;
         /**
          * This function returns `true` if the worker is connected to its primary via its
          * IPC channel, `false` otherwise. A worker is connected to its primary after it

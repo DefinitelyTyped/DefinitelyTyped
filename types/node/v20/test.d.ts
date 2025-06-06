@@ -853,6 +853,30 @@ declare module "node:test" {
     type FunctionPropertyNames<T> = {
         [K in keyof T]: T[K] extends Function ? K : never;
     }[keyof T];
+    interface MockModuleOptions {
+        /**
+         * If false, each call to `require()` or `import()` generates a new mock module.
+         * If true, subsequent calls will return the same module mock, and the mock module is inserted into the CommonJS cache.
+         * @default false
+         */
+        cache?: boolean | undefined;
+        /**
+         * The value to use as the mocked module's default export.
+         *
+         * If this value is not provided, ESM mocks do not include a default export.
+         * If the mock is a CommonJS or builtin module, this setting is used as the value of `module.exports`.
+         * If this value is not provided, CJS and builtin mocks use an empty object as the value of `module.exports`.
+         */
+        defaultExport?: any;
+        /**
+         * An object whose keys and values are used to create the named exports of the mock module.
+         *
+         * If the mock is a CommonJS or builtin module, these values are copied onto `module.exports`.
+         * Therefore, if a mock is created with both named exports and a non-object default export,
+         * the mock will throw an exception when used as a CJS or builtin module.
+         */
+        namedExports?: object | undefined;
+    }
     /**
      * The `MockTracker` class is used to manage mocking functionality. The test runner
      * module provides a top level `mock` export which is a `MockTracker` instance.
@@ -1015,6 +1039,19 @@ declare module "node:test" {
             implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
+
+        /**
+         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, and Node.js builtin modules.
+         * Any references to the original module prior to mocking are not impacted.
+         *
+         * Only available through the [--experimental-test-module-mocks](https://nodejs.org/api/cli.html#--experimental-test-module-mocks) flag.
+         * @since v20.18.0
+         * @experimental
+         * @param specifier A string identifying the module to mock.
+         * @param options Optional configuration options for the mock module.
+         */
+        module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
@@ -1173,6 +1210,18 @@ declare module "node:test" {
          */
         restore(): void;
     }
+    /**
+     * @since v20.18.0
+     * @experimental
+     */
+    class MockModuleContext {
+        /**
+         * Resets the implementation of the mock module.
+         * @since v20.18.0
+         */
+        restore(): void;
+    }
+
     type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
 
     interface MockTimersOptions {

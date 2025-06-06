@@ -3,7 +3,10 @@ import { ConfigurableComponent } from "../../common/configuration.js";
 /**
  * Exit this page component
  */
-export class ExitThisPage extends ConfigurableComponent<ExitThisPageConfig, HTMLElement> {
+export class ExitThisPage extends ConfigurableComponent<
+    ExitThisPageConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +16,15 @@ export class ExitThisPage extends ConfigurableComponent<ExitThisPageConfig, HTML
      * Exit this page default config
      *
      * @see {@link ExitThisPageConfig}
+     * @constant
      */
     static defaults: ExitThisPageConfig;
 
     /**
      * Exit this page config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ExitThisPageConfig>}
      */
     static schema: Readonly<{
         properties: {

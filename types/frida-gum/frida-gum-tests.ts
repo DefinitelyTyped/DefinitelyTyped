@@ -135,7 +135,7 @@ const nf2 = new NativeFunction(NULL, "void", ["long", "...", "pointer"]);
 nf2(34, NULL, nf2, { handle: ptr(0xbeef) });
 
 // $ExpectType NativeFunction<number, [NativePointerValue]>
-const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["pointer"]);
+const puts = new NativeFunction(Module.getGlobalExportByName("puts"), "int", ["pointer"]);
 
 // $ExpectType NativePointer
 const message = Memory.allocUtf8String("Hello!");
@@ -150,7 +150,7 @@ puts.apply(otherPuts, [message]);
 puts(message);
 
 // $ExpectType SystemFunction<number, [NativePointerValue, number]>
-const open = new SystemFunction(Module.getExportByName(null, "open"), "int", ["pointer", "int"]);
+const open = new SystemFunction(Module.getGlobalExportByName("open"), "int", ["pointer", "int"]);
 
 const path = Memory.allocUtf8String("/etc/hosts");
 
@@ -337,77 +337,6 @@ Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
 
 // $ExpectType boolean
 Cloak.hasCurrentThread();
-
-const obj = new ObjC.Object(ptr("0x42"));
-
-// $ExpectType Object
-obj;
-
-const b = new ObjC.Block(ptr(0x1234));
-b.declare({ retType: "void", argTypes: ["int"] });
-b.declare({ types: "v12@?0i8" });
-
-Java.enumerateClassLoadersSync()
-    .forEach(classLoader => {
-        // $ExpectType ClassFactory
-        const factory = Java.ClassFactory.get(classLoader);
-        interface Props {
-            myMethod: Java.MethodDispatcher;
-            myField: Java.Field<number>;
-        }
-        // $ExpectType Wrapper<Props>
-        const MyJavaClass = factory.use<Props>("my.java.class");
-        // @ts-expect-error
-        factory.use<{ illegal: string }>("");
-        // $ExpectType string
-        MyJavaClass.$className;
-        // $ExpectType MethodDispatcher<Props>
-        MyJavaClass.myMethod;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder;
-        // $ExpectType Wrapper<Props>
-        MyJavaClass.myMethod.holder.myField.holder.myMethod.holder;
-        MyJavaClass.myMethod.implementation = function(...args) {
-            // $ExpectType MethodDispatcher<Props>
-            this.myMethod;
-            // $ExpectType Field<number, Props>
-            this.myField;
-            // $ExpectType number
-            this.myField.value;
-        };
-        // $ExpectType Wrapper<Props>
-        Java.retain(MyJavaClass);
-        interface AnotherProps {
-            anotherMethod: Java.MethodDispatcher;
-            anotherField: Java.Field<string>;
-        }
-        const MyAnotherJavaClass = factory.use<AnotherProps>("my.another.java.class");
-        // $ExpectType Wrapper<AnotherProps>
-        Java.cast(MyJavaClass, MyAnotherJavaClass);
-    });
-
-Java.perform(() => {
-    // $ExpectType void
-    Java.deoptimizeBootImage();
-
-    Java.enumerateMethods("*!*game*/i").forEach(group => {
-        const factory = Java.ClassFactory.get(group.loader);
-        group.classes.forEach(klass => {
-            const C = factory.use(klass.name);
-            klass.methods.forEach(methodName => {
-                const method: Java.MethodDispatcher = C[methodName];
-                method.implementation = function(...args) {
-                    return method.apply(this, args);
-                };
-            });
-        });
-    });
-
-    // $ExpectType Backtrace
-    Java.backtrace();
-    // $ExpectType Backtrace
-    Java.backtrace({ limit: 42 });
-});
 
 Process.enumerateThreads().forEach(t => {
     t.setHardwareBreakpoint(0, puts);

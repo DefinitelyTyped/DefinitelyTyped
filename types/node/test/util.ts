@@ -54,6 +54,15 @@ util.inspect({
 ((options?: util.InspectOptions) => util.inspect({}, options));
 ((showHidden?: boolean) => util.inspect({}, showHidden));
 
+{
+    util.diff("abc", "acb");
+    util.diff(["a", "b", "c"], ["a", "c", "b"]);
+
+    const diffEntry = util.diff([], [])[0];
+    diffEntry[0]; // $ExpectType -1 | 0 | 1
+    diffEntry[1]; // $ExpectType string
+}
+
 util.format("%s:%s", "foo");
 util.format("%s:%s", "foo", "bar", "baz");
 util.format(1, 2, 3);
@@ -62,7 +71,10 @@ util.format();
 
 util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
-util.parseEnv("HELLO=world\nHELLO=oh my\n");
+{
+    const dotenv = util.parseEnv("HELLO=world\nHELLO=oh my\n");
+    dotenv.HELLO; // $ExpectType string | undefined
+}
 
 console.log(util.styleText("red", "Error! Error!"));
 console.log(
@@ -70,6 +82,12 @@ console.log(
 );
 console.log(
     util.styleText(["red", "green"], "text"),
+);
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
 );
 
 // util.callbackify
@@ -421,9 +439,54 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    let optionConfig: util.ParseArgsOptionDescriptor;
+
+    optionConfig = {
+        type: "boolean",
+    };
+
+    optionConfig = {
+        default: "default",
+        multiple: false,
+        short: "s",
+        type: "string",
+    };
+
+    optionConfig = {
+        default: ["a", "b", "c"],
+        multiple: true,
+        type: "string",
+    };
+
+    util.parseArgs({
+        options: {
+            longOption: optionConfig,
+        },
+    });
+
+    let optionsConfig: util.ParseArgsOptionsConfig;
+
+    optionsConfig = {};
+
+    optionsConfig = {
+        longOption: optionConfig,
+    };
+
+    util.parseArgs(optionsConfig);
+}
+
+{
+    let argsType: util.ParseArgsOptionsType;
+    argsType = "boolean";
+    argsType = "string";
+}
+
+{
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {
@@ -458,7 +521,8 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
         console.log(`CallSite ${index + 1}:`);
         console.log(`Function Name: ${callSite.functionName}`);
         console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Script ID: ${callSite.scriptId}`);
         console.log(`Line Number: ${callSite.lineNumber}`);
-        console.log(`Column Number: ${callSite.column}`);
+        console.log(`Column Number: ${callSite.columnNumber}`);
     });
 }

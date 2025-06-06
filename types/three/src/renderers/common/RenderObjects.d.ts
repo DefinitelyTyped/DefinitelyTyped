@@ -56,7 +56,7 @@ declare class RenderObjects {
      * @param {LightsNode} lightsNode - The lights node.
      * @param {RenderContext} renderContext - The render context.
      * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {?string} passId - An optional ID for identifying the pass.
+     * @param {string} [passId] - An optional ID for identifying the pass.
      * @return {RenderObject} The render object.
      */
     get(
@@ -98,7 +98,7 @@ declare class RenderObjects {
      * @param {LightsNode} lightsNode - The lights node.
      * @param {RenderContext} renderContext - The render context.
      * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {?string} passId - An optional ID for identifying the pass.
+     * @param {string} [passId] - An optional ID for identifying the pass.
      * @return {RenderObject} The render object.
      */
     createRenderObject(

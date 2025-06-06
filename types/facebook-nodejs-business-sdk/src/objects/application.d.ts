@@ -50,6 +50,7 @@ export default class Application extends AbstractCrudObject {
         deauth_callback_url: "deauth_callback_url";
         default_share_mode: "default_share_mode";
         description: "description";
+        enigma_config: "enigma_config";
         financial_id: "financial_id";
         gdpv4_chrome_custom_tabs_enabled: "gdpv4_chrome_custom_tabs_enabled";
         gdpv4_enabled: "gdpv4_enabled";
@@ -158,15 +159,6 @@ export default class Application extends AbstractCrudObject {
         codeless: "CODELESS";
         eymt: "EYMT";
     }>;
-    static get LoggingSource(): Readonly<{
-        detection: "DETECTION";
-        messenger_bot: "MESSENGER_BOT";
-    }>;
-    static get LoggingTarget(): Readonly<{
-        app: "APP";
-        app_and_page: "APP_AND_PAGE";
-        page: "PAGE";
-    }>;
     static get OwnerPermissions(): Readonly<{
         develop: "DEVELOP";
         manage: "MANAGE";
@@ -225,6 +217,7 @@ export default class Application extends AbstractCrudObject {
     getIapPurchases(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getIosDialogConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getLinkedDataset(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getMessageTemplates(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createMmpAuditing(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getMobileSdkGk(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getMonetizedDigitalStoreObjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -232,8 +225,6 @@ export default class Application extends AbstractCrudObject {
     getObjectTypes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getObjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOccludesPopup(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    createPageActivity(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
-    createPaymentCurrency(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
     getPermissions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPurchases(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
@@ -244,6 +235,7 @@ export default class Application extends AbstractCrudObject {
     getSubscribedDomainsPhishing(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSubscribedDomainsPhishing(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
     deleteSubscriptions(params?: Record<string, any>): Promise<any>;
+    getSubscriptions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSubscription(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createUpload(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createWhatsAppBusinessSolution(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;

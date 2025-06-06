@@ -1,19 +1,11 @@
 declare function _exports(
     dateStr: string,
     opt_options?: {
-        format?: {
-            DDMMYYYY: number;
-            DDMM: number;
-            MMYYYY: number;
-            WWYYYY: number;
-            YYYYWW: number;
-            MMMYYYY: number;
-        };
-        rangeLimit?: {
-            START: number;
-            END: number;
-        };
+        format?: typeof DateFormat;
+        rangeLimit?: typeof Limit;
         baseDate?: Date;
     }
 ): Date;
 export = _exports;
+import DateFormat = require('./DateFormat.js');
+import Limit = require('../range/Limit.js');

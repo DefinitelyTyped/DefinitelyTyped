@@ -176,7 +176,7 @@ declare module "fs" {
      * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
-    export class Dirent {
+    export class Dirent<Name extends string | Buffer = string> {
         /**
          * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
@@ -219,7 +219,7 @@ declare module "fs" {
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
-        name: string;
+        name: Name;
         /**
          * The base path that this `fs.Dirent` object refers to.
          * @since v18.20.0
@@ -609,7 +609,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -621,7 +621,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+        function __promisify__(path: PathLike, len?: number): Promise<void>;
     }
     /**
      * Truncates the file. Returns `undefined`. A file descriptor can also be
@@ -632,7 +632,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncateSync(path: PathLike, len?: number | null): void;
+    export function truncateSync(path: PathLike, len?: number): void;
     /**
      * Truncates the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -676,7 +676,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, len: number | undefined, callback: NoParamCallback): void;
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
@@ -688,7 +688,7 @@ declare module "fs" {
          * @param fd A file descriptor.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(fd: number, len?: number | null): Promise<void>;
+        function __promisify__(fd: number, len?: number): Promise<void>;
     }
     /**
      * Truncates the file descriptor. Returns `undefined`.
@@ -698,7 +698,7 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncateSync(fd: number, len?: number | null): void;
+    export function ftruncateSync(fd: number, len?: number): void;
     /**
      * Asynchronously changes owner and group of a file. No arguments other than a
      * possible exception are given to the completion callback.
@@ -2057,6 +2057,20 @@ declare module "fs" {
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
     ): void;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+        callback: (err: NodeJS.ErrnoException | null, files: Dirent<Buffer>[]) => void,
+    ): void;
     export namespace readdir {
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -2116,6 +2130,19 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             },
         ): Promise<Dirent[]>;
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+         */
+        function __promisify__(
+            path: PathLike,
+            options: {
+                encoding: "buffer";
+                withFileTypes: true;
+                recursive?: boolean | undefined;
+            },
+        ): Promise<Dirent<Buffer>[]>;
     }
     /**
      * Reads the contents of the directory.
@@ -2183,6 +2210,19 @@ declare module "fs" {
             recursive?: boolean | undefined;
         },
     ): Dirent[];
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdirSync(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Dirent<Buffer>[];
     /**
      * Closes the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -2337,6 +2377,20 @@ declare module "fs" {
      * @since v0.1.96
      */
     export function fsyncSync(fd: number): void;
+    export interface WriteOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `buffer.byteLength - offset`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: number | undefined | null;
+    }
     /**
      * Write `buffer` to the file specified by `fd`.
      *
@@ -2403,6 +2457,20 @@ declare module "fs" {
         callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param options An object with the following properties:
+     * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+     * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     */
+    export function write<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: WriteOptions,
+        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+    ): void;
+    /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write.
@@ -2452,6 +2520,22 @@ declare module "fs" {
             offset?: number,
             length?: number,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param options An object with the following properties:
+         * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+         * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            buffer?: TBuffer,
+            options?: WriteOptions,
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -2695,7 +2779,7 @@ declare module "fs" {
             } & Abortable)
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2730,7 +2814,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2739,7 +2823,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     export namespace readFile {
         /**
@@ -2755,7 +2839,7 @@ declare module "fs" {
                 encoding?: null | undefined;
                 flag?: string | undefined;
             } | null,
-        ): Promise<Buffer>;
+        ): Promise<NonSharedBuffer>;
         /**
          * Asynchronously reads the entire contents of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2789,7 +2873,7 @@ declare module "fs" {
                 })
                 | BufferEncoding
                 | null,
-        ): Promise<string | Buffer>;
+        ): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the contents of the `path`.
@@ -2821,7 +2905,7 @@ declare module "fs" {
             encoding?: null | undefined;
             flag?: string | undefined;
         } | null,
-    ): Buffer;
+    ): NonSharedBuffer;
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2853,7 +2937,7 @@ declare module "fs" {
             })
             | BufferEncoding
             | null,
-    ): string | Buffer;
+    ): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions

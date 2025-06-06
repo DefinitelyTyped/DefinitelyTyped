@@ -12,7 +12,7 @@ export interface AnimationContext {
 declare class Animation {
     nodes: Nodes;
     info: Info;
-    _context: AnimationContext;
+    _context: AnimationContext | null;
     _animationLoop: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     _requestId: number | null;
     /**
@@ -33,13 +33,13 @@ declare class Animation {
     /**
      * Returns the user-level animation loop.
      *
-     * @return {Function} The animation loop.
+     * @return {?Function} The animation loop.
      */
     getAnimationLoop(): ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null;
     /**
      * Defines the user-level animation loop.
      *
-     * @param {Function} callback - The animation loop.
+     * @param {?Function} callback - The animation loop.
      */
     setAnimationLoop(callback: ((time: DOMHighResTimeStamp, xrFrame?: XRFrame) => void) | null): void;
     /**
@@ -47,7 +47,7 @@ declare class Animation {
      *
      * @return {Window|XRSession} The animation context.
      */
-    getContext(): AnimationContext;
+    getContext(): AnimationContext | null;
     /**
      * Defines the context in which `requestAnimationFrame()` is executed.
      *

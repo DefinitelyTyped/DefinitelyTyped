@@ -147,6 +147,7 @@ declare module "node:test" {
         export {
             after,
             afterEach,
+            assert,
             before,
             beforeEach,
             describe,
@@ -647,11 +648,12 @@ declare module "node:test" {
          */
         readonly name: string;
         /**
-         * Used to set the number of assertions and subtests that are expected to run within the test.
-         * If the number of assertions and subtests that run does not match the expected count, the test will fail.
+         * This function is used to set the number of assertions and subtests that are expected to run
+         * within the test. If the number of assertions and subtests that run does not match the
+         * expected count, the test will fail.
          *
-         * To make sure assertions are tracked, the assert functions on `context.assert` must be used,
-         * instead of importing from the `node:assert` module.
+         * > Note: To make sure assertions are tracked, `t.assert` must be used instead of `assert` directly.
+         *
          * ```js
          * test('top level test', (t) => {
          *   t.plan(2);
@@ -660,7 +662,9 @@ declare module "node:test" {
          * });
          * ```
          *
-         * When working with asynchronous code, the `plan` function can be used to ensure that the correct number of assertions are run:
+         * When working with asynchronous code, the `plan` function can be used to ensure that the
+         * correct number of assertions are run:
+         *
          * ```js
          * test('planning with streams', (t, done) => {
          *   function* generate() {
@@ -674,14 +678,35 @@ declare module "node:test" {
          *   stream.on('data', (chunk) => {
          *     t.assert.strictEqual(chunk, expected.shift());
          *   });
+         *
          *   stream.on('end', () => {
          *     done();
          *   });
          * });
          * ```
+         *
+         * When using the `wait` option, you can control how long the test will wait for the expected assertions.
+         * For example, setting a maximum wait time ensures that the test will wait for asynchronous assertions
+         * to complete within the specified timeframe:
+         *
+         * ```js
+         * test('plan with wait: 2000 waits for async assertions', (t) => {
+         *   t.plan(1, { wait: 2000 }); // Waits for up to 2 seconds for the assertion to complete.
+         *
+         *   const asyncActivity = () => {
+         *     setTimeout(() => {
+         *          *       t.assert.ok(true, 'Async assertion completed within the wait time');
+         *     }, 1000); // Completes after 1 second, within the 2-second wait time.
+         *   };
+         *
+         *   asyncActivity(); // The test will pass because the assertion is completed in time.
+         * });
+         * ```
+         *
+         * Note: If a `wait` timeout is specified, it begins counting down only after the test function finishes executing.
          * @since v22.2.0
          */
-        plan(count: number): void;
+        plan(count: number, options?: TestContextPlanOptions): void;
         /**
          * If `shouldRunOnlyTests` is truthy, the test context will only run tests that
          * have the `only` option set. Otherwise, all tests are run. If Node.js was not
@@ -754,6 +779,18 @@ declare module "node:test" {
          */
         test: typeof test;
         /**
+         * This method polls a `condition` function until that function either returns
+         * successfully or the operation times out.
+         * @since v22.14.0
+         * @param condition An assertion function that is invoked
+         * periodically until it completes successfully or the defined polling timeout
+         * elapses. Successful completion is defined as not throwing or rejecting. This
+         * function does not accept any arguments, and is allowed to return any value.
+         * @param options An optional configuration object for the polling operation.
+         * @returns Fulfilled with the value returned by `condition`.
+         */
+        waitFor<T>(condition: () => T, options?: TestContextWaitForOptions): Promise<Awaited<T>>;
+        /**
          * Each test provides its own MockTracker instance.
          */
         readonly mock: MockTracker;
@@ -782,6 +819,33 @@ declare module "node:test" {
         >
     {
         /**
+         * This function serializes `value` and writes it to the file specified by `path`.
+         *
+         * ```js
+         * test('snapshot test with default serialization', (t) => {
+         *   t.assert.fileSnapshot({ value1: 1, value2: 2 }, './snapshots/snapshot.json');
+         * });
+         * ```
+         *
+         * This function differs from `context.assert.snapshot()` in the following ways:
+         *
+         * * The snapshot file path is explicitly provided by the user.
+         * * Each snapshot file is limited to a single snapshot value.
+         * * No additional escaping is performed by the test runner.
+         *
+         * These differences allow snapshot files to better support features such as syntax
+         * highlighting.
+         * @since v22.14.0
+         * @param value A value to serialize to a string. If Node.js was started with
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * flag, the serialized value is written to
+         * `path`. Otherwise, the serialized value is compared to the contents of the
+         * existing snapshot file.
+         * @param path The file where the serialized `value` is written.
+         * @param options Optional configuration options.
+         */
+        fileSnapshot(value: any, path: string, options?: AssertSnapshotOptions): void;
+        /**
          * This function implements assertions for snapshot testing.
          * ```js
          * test('snapshot test with default serialization', (t) => {
@@ -795,8 +859,17 @@ declare module "node:test" {
          * });
          * ```
          * @since v22.3.0
+         * @param value A value to serialize to a string. If Node.js was started with
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * flag, the serialized value is written to
+         * the snapshot file. Otherwise, the serialized value is compared to the
+         * corresponding value in the existing snapshot file.
          */
         snapshot(value: any, options?: AssertSnapshotOptions): void;
+        /**
+         * A custom assertion function registered with `assert.register()`.
+         */
+        [name: string]: (...args: any[]) => void;
     }
     interface AssertSnapshotOptions {
         /**
@@ -808,6 +881,34 @@ declare module "node:test" {
          * If no serializers are provided, the test runner's default serializers are used.
          */
         serializers?: ReadonlyArray<(value: any) => any> | undefined;
+    }
+    interface TestContextPlanOptions {
+        /**
+         * The wait time for the plan:
+         * * If `true`, the plan waits indefinitely for all assertions and subtests to run.
+         * * If `false`, the plan performs an immediate check after the test function completes,
+         * without waiting for any pending assertions or subtests.
+         * Any assertions or subtests that complete after this check will not be counted towards the plan.
+         * * If a number, it specifies the maximum wait time in milliseconds
+         * before timing out while waiting for expected assertions and subtests to be matched.
+         * If the timeout is reached, the test will fail.
+         * @default false
+         */
+        wait?: boolean | number | undefined;
+    }
+    interface TestContextWaitForOptions {
+        /**
+         * The number of milliseconds to wait after an unsuccessful
+         * invocation of `condition` before trying again.
+         * @default 50
+         */
+        interval?: number | undefined;
+        /**
+         * The poll timeout in milliseconds. If `condition` has not
+         * succeeded by the time this elapses, an error occurs.
+         * @default 1000
+         */
+        timeout?: number | undefined;
     }
 
     /**
@@ -1595,6 +1696,24 @@ declare module "node:test" {
         [Symbol.dispose](): void;
     }
     /**
+     * An object whose methods are used to configure available assertions on the
+     * `TestContext` objects in the current process. The methods from `node:assert`
+     * and snapshot testing functions are available by default.
+     *
+     * It is possible to apply the same configuration to all files by placing common
+     * configuration code in a module
+     * preloaded with `--require` or `--import`.
+     * @since v22.14.0
+     */
+    namespace assert {
+        /**
+         * Defines a new assertion function with the provided name and function. If an
+         * assertion already exists with the same name, it is overwritten.
+         * @since v22.14.0
+         */
+        function register(name: string, fn: (this: TestContext, ...args: any[]) => void): void;
+    }
+    /**
      * @since v22.3.0
      */
     namespace snapshot {
@@ -1625,6 +1744,7 @@ declare module "node:test" {
     export {
         after,
         afterEach,
+        assert,
         before,
         beforeEach,
         describe,
@@ -1889,6 +2009,11 @@ interface TestDequeue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestEnqueue extends TestLocationInfo {
     /**
@@ -1899,6 +2024,11 @@ interface TestEnqueue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestFail extends TestLocationInfo {
     /**

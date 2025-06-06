@@ -18,43 +18,11 @@ type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("
 
 // Conditional type definitions for webstorage interface, which conflicts with lib.dom otherwise.
 type _Storage = typeof globalThis extends { onabort: any } ? {} : {
-    /**
-     * Returns the number of key/value pairs.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/length)
-     */
     readonly length: number;
-    /**
-     * Removes all key/value pairs, if there are any.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/clear)
-     */
     clear(): void;
-    /**
-     * Returns the current value associated with the given key, or null if the given key does not exist.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/getItem)
-     */
     getItem(key: string): string | null;
-    /**
-     * Returns the name of the nth key, or null if n is greater than or equal to the number of key/value pairs.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/key)
-     */
     key(index: number): string | null;
-    /**
-     * Removes the key/value pair with the given key, if a key/value pair with the given key exists.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/removeItem)
-     */
     removeItem(key: string): void;
-    /**
-     * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
-     *
-     * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/setItem)
-     */
     setItem(key: string, value: string): void;
     [key: string]: any;
 };
@@ -62,15 +30,8 @@ type _Storage = typeof globalThis extends { onabort: any } ? {} : {
 // #region DOMException
 type _DOMException = typeof globalThis extends { onmessage: any } ? {} : NodeDOMException;
 interface NodeDOMException extends Error {
-    /**
-     * @deprecated
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/code)
-     */
     readonly code: number;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/message) */
     readonly message: string;
-    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/name) */
     readonly name: string;
     readonly INDEX_SIZE_ERR: 1;
     readonly DOMSTRING_SIZE_ERR: 2;
@@ -130,263 +91,104 @@ interface NodeDOMExceptionConstructor {
 // #endregion DOMException
 
 declare global {
-    // Declare "static" methods in Error
-    interface ErrorConstructor {
-        /** Create .stack property on a target object */
-        captureStackTrace(targetObject: object, constructorOpt?: Function): void;
-
-        /**
-         * Optional override for formatting stack traces
-         *
-         * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-         */
-        prepareStackTrace?: ((err: Error, stackTraces: NodeJS.CallSite[]) => any) | undefined;
-
-        stackTraceLimit: number;
-    }
-
-    /*-----------------------------------------------*
-    *                                               *
-    *                   GLOBAL                      *
-    *                                               *
-    ------------------------------------------------*/
-
     var global: typeof globalThis;
 
     var process: NodeJS.Process;
     var console: Console;
 
-    interface GCFunction {
-        (options: {
-            execution?: "sync";
-            flavor?: "regular" | "last-resort";
-            type?: "major-snapshot" | "major" | "minor";
-            filename?: string;
-        }): void;
-        (options: {
-            execution: "async";
-            flavor?: "regular" | "last-resort";
-            type?: "major-snapshot" | "major" | "minor";
-            filename?: string;
-        }): Promise<void>;
-        (options?: boolean): void;
+    interface ErrorConstructor {
+        /**
+         * Creates a `.stack` property on `targetObject`, which when accessed returns
+         * a string representing the location in the code at which
+         * `Error.captureStackTrace()` was called.
+         *
+         * ```js
+         * const myObject = {};
+         * Error.captureStackTrace(myObject);
+         * myObject.stack;  // Similar to `new Error().stack`
+         * ```
+         *
+         * The first line of the trace will be prefixed with
+         * `${myObject.name}: ${myObject.message}`.
+         *
+         * The optional `constructorOpt` argument accepts a function. If given, all frames
+         * above `constructorOpt`, including `constructorOpt`, will be omitted from the
+         * generated stack trace.
+         *
+         * The `constructorOpt` argument is useful for hiding implementation
+         * details of error generation from the user. For instance:
+         *
+         * ```js
+         * function a() {
+         *   b();
+         * }
+         *
+         * function b() {
+         *   c();
+         * }
+         *
+         * function c() {
+         *   // Create an error without stack trace to avoid calculating the stack trace twice.
+         *   const { stackTraceLimit } = Error;
+         *   Error.stackTraceLimit = 0;
+         *   const error = new Error();
+         *   Error.stackTraceLimit = stackTraceLimit;
+         *
+         *   // Capture the stack trace above function b
+         *   Error.captureStackTrace(error, b); // Neither function c, nor b is included in the stack trace
+         *   throw error;
+         * }
+         *
+         * a();
+         * ```
+         */
+        captureStackTrace(targetObject: object, constructorOpt?: Function): void;
+        /**
+         * @see https://v8.dev/docs/stack-trace-api#customizing-stack-traces
+         */
+        prepareStackTrace(err: Error, stackTraces: NodeJS.CallSite[]): any;
+        /**
+         * The `Error.stackTraceLimit` property specifies the number of stack frames
+         * collected by a stack trace (whether generated by `new Error().stack` or
+         * `Error.captureStackTrace(obj)`).
+         *
+         * The default value is `10` but may be set to any valid JavaScript number. Changes
+         * will affect any stack trace captured _after_ the value has been changed.
+         *
+         * If set to a non-number value, or set to a negative number, stack traces will
+         * not capture any frames.
+         */
+        stackTraceLimit: number;
     }
 
     /**
-     * Only available if `--expose-gc` is passed to the process.
+     * Enable this API with the `--expose-gc` CLI flag.
      */
-    var gc: undefined | GCFunction;
+    var gc: NodeJS.GCFunction | undefined;
 
-    // #region borrowed
-    // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
-    /** A controller object that allows you to abort one or more DOM requests as and when desired. */
-    interface AbortController {
-        /**
-         * Returns the AbortSignal object associated with this object.
-         */
-
-        readonly signal: AbortSignal;
-        /**
-         * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
-         */
-        abort(reason?: any): void;
-    }
-
-    /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
-    interface AbortSignal extends EventTarget {
-        /**
-         * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
-         */
-        readonly aborted: boolean;
-        readonly reason: any;
-        onabort: null | ((this: AbortSignal, event: Event) => any);
-        throwIfAborted(): void;
-    }
-
-    var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T } ? T
-        : {
-            prototype: AbortController;
-            new(): AbortController;
-        };
-
-    var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T } ? T
-        : {
-            prototype: AbortSignal;
-            new(): AbortSignal;
-            abort(reason?: any): AbortSignal;
-            timeout(milliseconds: number): AbortSignal;
-            any(signals: AbortSignal[]): AbortSignal;
-        };
-    // #endregion borrowed
-
-    // #region Storage
-    /**
-     * This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage)
-     */
-    interface Storage extends _Storage {}
-
-    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
-    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
-        : {
-            prototype: Storage;
-            new(): Storage;
-        };
-
-    /**
-     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Data is stored
-     * unencrypted in the file specified by the `--localstorage-file` CLI flag.
-     * The maximum amount of data that can be stored is 10 MB.
-     * Any modification of this data outside of the Web Storage API is not supported.
-     * Enable this API with the `--experimental-webstorage` CLI flag.
-     * `localStorage` data is not stored per user or per request when used in the context
-     * of a server, it is shared across all users and requests.
-     * @since v22.4.0
-     */
-    var localStorage: Storage;
-
-    /**
-     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
-     * memory, with a storage quota of 10 MB. `sessionStorage` data persists only within
-     * the currently running process, and is not shared between workers.
-     * @since v22.4.0
-     */
-    var sessionStorage: Storage;
-    // #endregion Storage
-
-    /**
-     * @since v17.0.0
-     *
-     * Creates a deep clone of an object.
-     */
-    function structuredClone<T>(
-        value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
-
-    // #region DOMException
-    /**
-     * @since v17.0.0
-     * An abnormal event (called an exception) which occurs as a result of calling a method or accessing a property of a web API.
-     *
-     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException)
-     */
-    interface DOMException extends _DOMException {}
-
-    /**
-     * @since v17.0.0
-     *
-     * The WHATWG `DOMException` class. See [DOMException](https://developer.mozilla.org/docs/Web/API/DOMException) for more details.
-     */
-    var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
-        : NodeDOMExceptionConstructor;
-    // #endregion DOMException
-
-    /*----------------------------------------------*
-    *                                               *
-    *               GLOBAL INTERFACES               *
-    *                                               *
-    *-----------------------------------------------*/
     namespace NodeJS {
         interface CallSite {
-            /**
-             * Value of "this"
-             */
-            getThis(): unknown;
-
-            /**
-             * Type of "this" as a string.
-             * This is the name of the function stored in the constructor field of
-             * "this", if available.  Otherwise the object's [[Class]] internal
-             * property.
-             */
-            getTypeName(): string | null;
-
-            /**
-             * Current function
-             */
-            getFunction(): Function | undefined;
-
-            /**
-             * Name of the current function, typically its name property.
-             * If a name property is not available an attempt will be made to try
-             * to infer a name from the function's context.
-             */
-            getFunctionName(): string | null;
-
-            /**
-             * Name of the property [of "this" or one of its prototypes] that holds
-             * the current function
-             */
-            getMethodName(): string | null;
-
-            /**
-             * Name of the script [if this function was defined in a script]
-             */
-            getFileName(): string | undefined;
-
-            /**
-             * Current line number [if this function was defined in a script]
-             */
-            getLineNumber(): number | null;
-
-            /**
-             * Current column number [if this function was defined in a script]
-             */
             getColumnNumber(): number | null;
-
-            /**
-             * A call site object representing the location where eval was called
-             * [if this function was created using a call to eval]
-             */
+            getEnclosingColumnNumber(): number | null;
+            getEnclosingLineNumber(): number | null;
             getEvalOrigin(): string | undefined;
-
-            /**
-             * Is this a toplevel invocation, that is, is "this" the global object?
-             */
-            isToplevel(): boolean;
-
-            /**
-             * Does this call take place in code defined by a call to eval?
-             */
-            isEval(): boolean;
-
-            /**
-             * Is this call in native V8 code?
-             */
-            isNative(): boolean;
-
-            /**
-             * Is this a constructor call?
-             */
-            isConstructor(): boolean;
-
-            /**
-             * is this an async call (i.e. await, Promise.all(), or Promise.any())?
-             */
-            isAsync(): boolean;
-
-            /**
-             * is this an async call to Promise.all()?
-             */
-            isPromiseAll(): boolean;
-
-            /**
-             * returns the index of the promise element that was followed in
-             * Promise.all() or Promise.any() for async stack traces, or null
-             * if the CallSite is not an async
-             */
-            getPromiseIndex(): number | null;
-
-            getScriptNameOrSourceURL(): string;
-            getScriptHash(): string;
-
-            getEnclosingColumnNumber(): number;
-            getEnclosingLineNumber(): number;
+            getFileName(): string | null;
+            getFunction(): Function | undefined;
+            getFunctionName(): string | null;
+            getLineNumber(): number | null;
+            getMethodName(): string | null;
             getPosition(): number;
-
-            toString(): string;
+            getPromiseIndex(): number | null;
+            getScriptHash(): string;
+            getScriptNameOrSourceURL(): string | null;
+            getThis(): unknown;
+            getTypeName(): string | null;
+            isAsync(): boolean;
+            isConstructor(): boolean;
+            isEval(): boolean;
+            isNative(): boolean;
+            isPromiseAll(): boolean;
+            isToplevel(): boolean;
         }
 
         interface ErrnoException extends Error {
@@ -407,7 +209,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
@@ -434,6 +236,19 @@ declare global {
             readonly [key: string]: T | undefined;
         }
 
+        interface GCFunction {
+            (minor?: boolean): void;
+            (options: NodeJS.GCOptions & { execution: "async" }): Promise<void>;
+            (options: NodeJS.GCOptions): void;
+        }
+
+        interface GCOptions {
+            execution?: "sync" | "async" | undefined;
+            flavor?: "regular" | "last-resort" | undefined;
+            type?: "major-snapshot" | "major" | "minor" | undefined;
+            filename?: string | undefined;
+        }
+
         /** An iterable iterator returned by the Node.js API. */
         // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used IterableIterator.
         // TODO: In next major @types/node version, change default TReturn to undefined.
@@ -449,6 +264,53 @@ declare global {
         }
     }
 
+    // Global DOM types
+
+    interface DOMException extends _DOMException {}
+    var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
+        : NodeDOMExceptionConstructor;
+
+    // #region AbortController
+    interface AbortController {
+        readonly signal: AbortSignal;
+        abort(reason?: any): void;
+    }
+    var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T } ? T
+        : {
+            prototype: AbortController;
+            new(): AbortController;
+        };
+
+    interface AbortSignal extends EventTarget {
+        readonly aborted: boolean;
+        onabort: ((this: AbortSignal, ev: Event) => any) | null;
+        readonly reason: any;
+        throwIfAborted(): void;
+    }
+    var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T } ? T
+        : {
+            prototype: AbortSignal;
+            new(): AbortSignal;
+            abort(reason?: any): AbortSignal;
+            any(signals: AbortSignal[]): AbortSignal;
+            timeout(milliseconds: number): AbortSignal;
+        };
+    // #endregion AbortController
+
+    // #region Storage
+    interface Storage extends _Storage {}
+    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
+    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
+        : {
+            prototype: Storage;
+            new(): Storage;
+        };
+
+    var localStorage: Storage;
+    var sessionStorage: Storage;
+    // #endregion Storage
+
+    // #region fetch
     interface RequestInit extends _RequestInit {}
 
     function fetch(
@@ -487,9 +349,6 @@ declare global {
         : typeof import("undici-types").Headers;
 
     interface MessageEvent extends _MessageEvent {}
-    /**
-     * @since v15.0.0
-     */
     var MessageEvent: typeof globalThis extends {
         onmessage: any;
         MessageEvent: infer T;
@@ -501,11 +360,7 @@ declare global {
         : typeof import("undici-types").WebSocket;
 
     interface EventSource extends _EventSource {}
-    /**
-     * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
-     *
-     * @since v22.3.0
-     */
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;
+    // #endregion fetch
 }

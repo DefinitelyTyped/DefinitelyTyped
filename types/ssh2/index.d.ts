@@ -697,6 +697,11 @@ export class Client extends EventEmitter {
      * the server.
      */
     openssh_forwardOutStreamLocal(socketPath: string, cb: ClientCallback): this;
+
+    /**
+     * Calls setNoDelay() on the underlying socket. Disabling Nagle's algorithm improves latency at the expense of lower throughput.
+     */
+    setNoDelay(noDelay?: boolean): this;
 }
 
 export type HostVerifier = (key: Buffer, verify: VerifyCallback) => void;

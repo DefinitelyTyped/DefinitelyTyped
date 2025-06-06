@@ -1,3 +1,5 @@
+import { Vector3 } from "../math/Vector3.js";
+
 export type SerializedImage =
     | string
     | {
@@ -19,12 +21,6 @@ export class SourceJSON {
  */
 export class Source {
     /**
-     * Create a new instance of {@link Source}
-     * @param data The data definition of a texture. Default `null`
-     */
-    constructor(data: any);
-
-    /**
      * Flag to check if a given object is of type {@link Source}.
      * @remarks This is a _constant_ value
      * @defaultValue `true`
@@ -32,6 +28,12 @@ export class Source {
     readonly isSource: true;
 
     readonly id: number;
+
+    /**
+     * {@link http://en.wikipedia.org/wiki/Universally_unique_identifier | UUID} of this object instance.
+     * @remarks This gets automatically assigned and shouldn't be edited.
+     */
+    uuid: string;
 
     /**
      * The actual data of a texture.
@@ -49,23 +51,25 @@ export class Source {
     dataReady: boolean;
 
     /**
-     * When the property is set to `true`, the engine allocates the memory for the texture (if necessary) and triggers
-     * the actual texture upload to the GPU next time the source is used.
-     */
-    set needsUpdate(value: boolean);
-
-    /**
-     * {@link http://en.wikipedia.org/wiki/Universally_unique_identifier | UUID} of this object instance.
-     * @remarks This gets automatically assigned and shouldn't be edited.
-     */
-    uuid: string;
-
-    /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.
      * @remarks Expects a `Integer`
      * @defaultValue `0`
      */
     version: number;
+
+    /**
+     * Create a new instance of {@link Source}
+     * @param data The data definition of a texture. Default `null`
+     */
+    constructor(data: any);
+
+    getSize(target: Vector3): Vector3;
+
+    /**
+     * When the property is set to `true`, the engine allocates the memory for the texture (if necessary) and triggers
+     * the actual texture upload to the GPU next time the source is used.
+     */
+    set needsUpdate(value: boolean);
 
     /**
      * Convert the data {@link Source} to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.

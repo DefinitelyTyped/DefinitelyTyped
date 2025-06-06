@@ -16,6 +16,6 @@ declare class Transaction {
 declare namespace Transaction {
     export { Database, Connection };
 }
+import DataSet = require('./DataSet.js');
 type Database = import('../database/Database');
 type Connection = import('../connection/Connection');
-import DataSet = require('./DataSet.js');

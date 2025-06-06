@@ -139,7 +139,7 @@ function init() {
 
     new THREE.FileLoader().setResponseType("arraybuffer").load("textures/3d/head256x256x109.zip", data => {
         const zip = unzipSync(new Uint8Array(data as ArrayBuffer));
-        const array = new Uint8Array(zip["head256x256x109"].buffer);
+        const array = new Uint8Array(zip["head256x256x109"].buffer as ArrayBuffer);
 
         const texture = new THREE.DataArrayTexture(array, DIMENSIONS.width, DIMENSIONS.height, DIMENSIONS.depth);
         texture.format = THREE.RedFormat;

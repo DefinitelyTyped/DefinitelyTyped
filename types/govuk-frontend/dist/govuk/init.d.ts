@@ -3,6 +3,7 @@ import { type ButtonConfig } from "./components/button/button.js";
 import { type CharacterCountConfig } from "./components/character-count/character-count.js";
 import { type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
 import { type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
+import { type FileUploadConfig } from "./components/file-upload/file-upload.js";
 import { type NotificationBannerConfig } from "./components/notification-banner/notification-banner.js";
 import { type PasswordInputConfig } from "./components/password-input/password-input.js";
 
@@ -39,6 +40,11 @@ export interface Config {
      * - Exit This Page config
      */
     exitThisPage?: ExitThisPageConfig | undefined;
+
+    /**
+     * - File Upload config
+     */
+    fileUpload?: FileUploadConfig | undefined;
 
     /**
      * - Notification Banner config
@@ -125,5 +131,9 @@ export function initAll(
 export function createAll<ComponentClass extends CompatibleClass>(
     Component: ComponentClass,
     config?: ComponentConfig<ComponentClass>,
-    createAllOptions?: OnErrorCallback<ComponentClass> | Element | Document | CreateAllOptions<ComponentClass>,
+    createAllOptions?:
+        | OnErrorCallback<ComponentClass>
+        | Element
+        | Document
+        | CreateAllOptions<ComponentClass>,
 ): Array<InstanceType<ComponentClass>>;

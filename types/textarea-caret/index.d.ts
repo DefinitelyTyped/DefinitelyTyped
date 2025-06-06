@@ -1,4 +1,4 @@
-export = textarea_caret;
+export = getCaretCoordinates;
 
 interface Caret {
     top: number;
@@ -10,4 +10,6 @@ interface Options {
     debug?: boolean | undefined;
 }
 
-declare function textarea_caret(element: HTMLElement, position: number, options?: Options): Caret;
+declare function getCaretCoordinates(element: HTMLElement, position: number, options?: Options): Caret;
+
+export as namespace getCaretCoordinates;

@@ -3,7 +3,10 @@ import { ConfigurableComponent } from "../../common/configuration.js";
 /**
  * Notification Banner component
  */
-export class NotificationBanner extends ConfigurableComponent<NotificationBannerConfig, HTMLElement> {
+export class NotificationBanner extends ConfigurableComponent<
+    NotificationBannerConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +16,15 @@ export class NotificationBanner extends ConfigurableComponent<NotificationBanner
      * Notification banner default config
      *
      * @see {@link NotificationBannerConfig}
+     * @constant
      */
     static defaults: NotificationBannerConfig;
 
     /**
      * Notification banner config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<NotificationBannerConfig>}
      */
     static schema: Readonly<{
         properties: {

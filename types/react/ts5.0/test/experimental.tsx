@@ -139,41 +139,57 @@ function taintTests() {
 
 function viewTransitionTests() {
     const ViewTransition = React.unstable_ViewTransition;
+    const addTransitionType = React.unstable_addTransitionType;
 
     <ViewTransition />;
     <ViewTransition
-        className="enter-slide-in exit-fade-out update-cross-fade"
+        default="enter-slide-in exit-fade-out update-cross-fade"
         enter="slide-from-left"
         exit="slide-to-right"
-        layout="slide"
         update="none"
         share="cross-fade"
     />;
     <ViewTransition name="auto" />;
     <ViewTransition name="foo" />;
-    // autocomplete should display "auto"
-    <ViewTransition name="" />;
+    <ViewTransition
+        // autocomplete should display "auto"
+        name=""
+        // autocomplete should display "auto" | "none"
+        default=""
+    />;
+    <ViewTransition
+        // @ts-expect-error -- Either a string or an object with at least one property.
+        default={{}}
+    />;
+    <ViewTransition
+        // autocomplete should display "default" for keys, "auto" | "none" for values
+        default={{ default: "default" }}
+    />;
 
     <ViewTransition
-        onEnter={instance => {
+        onEnter={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onExit={instance => {
+        onExit={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onLayout={instance => {
+        onShare={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
+            // $ExpectType string[]
+            types;
         }}
-        onShare={instance => {
+        onUpdate={(instance, types) => {
             // $ExpectType ViewTransitionInstance
             instance;
-        }}
-        onUpdate={instance => {
-            // $ExpectType ViewTransitionInstance
-            instance;
+            // $ExpectType string[]
+            types;
         }}
     />;
 
@@ -201,16 +217,90 @@ function viewTransitionTests() {
     <ViewTransition>
         <Div />
     </ViewTransition>;
+
+    function Component() {
+        function handleNavigation() {
+            React.startTransition(() => {
+                // @ts-expect-error
+                addTransitionType();
+                // @ts-expect-error
+                addTransitionType(undefined);
+                addTransitionType("navigation");
+            });
+        }
+    }
 }
 
+// @enableGestureTransition
 function swipeTransitionTest() {
-    const useSwipeTransition = React.unstable_useSwipeTransition;
-    // $ExpectType [value: string | null, startGesture: StartGesture]
-    const [value, startGesture] = useSwipeTransition("/?a", null, "/?b");
+    const startGestureTransition = React.unstable_startGestureTransition;
 
-    const gestureProvider: {} = {};
-    // $ExpectType () => void
-    startGesture(gestureProvider);
-    // @ts-expect-error -- missing gesture provider
-    startGesture();
+    const url: string = "";
+    const [renderedUrl, optimisticNavigate] = React.useOptimistic(
+        url,
+        (state, direction) => {
+            return direction === "left" ? "/?a" : "/?b";
+        },
+    );
+
+    function onScroll() {
+        const gestureProvider: {} = {};
+        // $ExpectType () => void
+        startGestureTransition(
+            gestureProvider,
+            () => {
+                optimisticNavigate("left");
+            },
+            {
+                rangeStart: 0,
+                rangeEnd: 100,
+            },
+        );
+        // @ts-expect-error -- missing gesture provider
+        startGestureTransition();
+        // @ts-expect-error -- missing scope
+        startGestureTransition(gestureProvider);
+        // options can be omitted
+        startGestureTransition(gestureProvider, () => {});
+        // options can be empty
+        startGestureTransition(gestureProvider, () => {}, {});
+    }
+}
+
+// @enableFragmentRefs
+function fragmentRefTest() {
+    <React.Fragment
+        ref={maybeInstance => {
+            // $ExpectType FragmentInstance | null
+            maybeInstance;
+
+            // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/69022/commits/57825689c7abb50a79395d1266226cfa1b31a4e1
+            const instance = maybeInstance!;
+
+            // @ts-expect-error -- Not implemented by isomorphic renderer but react-dom.
+            instance.focus;
+
+            return () => {};
+        }}
+    >
+        <div />
+        <div />
+    </React.Fragment>;
+}
+
+// @enableActivity
+function activityTest() {
+    const Activity = React.unstable_Activity;
+
+    <Activity children="peekaboo" />;
+    <Activity children="peekaboo" mode={undefined} />;
+    <Activity children="peekaboo" mode="visible" />;
+    <Activity children="peekaboo" mode="hidden" />;
+    // @ts-expect-error -- Forgot children
+    <Activity />;
+    <Activity
+        children="peekaboo"
+        // @ts-expect-error -- Unknown mode
+        mode="not-a-mode"
+    />;
 }

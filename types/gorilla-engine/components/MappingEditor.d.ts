@@ -9,11 +9,12 @@ declare namespace GorillaEngine.UI {
         lowVel: number;
         highVel: number;
     }
-    interface MappingEditorProps extends Common, Bounds, Background {
+    interface MappingEditorProps extends Common, Bounds, Background, Clickable {
         zones?: Zone[];
         refreshView(index?: number): void;
         selectAllZones(): void;
         deselectAllZones(): void;
+        selectZone(zone: Partial<Zone>): void;
         addZone(zone: Partial<Zone>): Zone;
         removeZone(zone: Partial<Zone>): void;
     }

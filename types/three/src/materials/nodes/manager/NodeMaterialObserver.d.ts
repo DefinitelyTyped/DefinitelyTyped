@@ -2,6 +2,7 @@ import { BufferAttribute } from "../../../core/BufferAttribute.js";
 import { Matrix4 } from "../../../math/Matrix4.js";
 import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
 import NodeFrame from "../../../nodes/core/NodeFrame.js";
+import Renderer from "../../../renderers/common/Renderer.js";
 import RenderObject from "../../../renderers/common/RenderObject.js";
 import { Material } from "../../Material.js";
 declare const refreshUniforms: readonly [
@@ -11,6 +12,7 @@ declare const refreshUniforms: readonly [
     "anisotropyMap",
     "anisotropyRotation",
     "aoMap",
+    "aoMapIntensity",
     "attenuationColor",
     "attenuationDistance",
     "bumpMap",
@@ -23,8 +25,10 @@ declare const refreshUniforms: readonly [
     "dispersion",
     "displacementMap",
     "emissive",
+    "emissiveIntensity",
     "emissiveMap",
     "envMap",
+    "envMapIntensity",
     "gradientMap",
     "ior",
     "iridescence",
@@ -32,6 +36,7 @@ declare const refreshUniforms: readonly [
     "iridescenceMap",
     "iridescenceThicknessMap",
     "lightMap",
+    "lightMapIntensity",
     "map",
     "matcap",
     "metalness",
@@ -103,6 +108,13 @@ declare class NodeMaterialObserver {
      * @return {boolean} Whether the given render object is verified for the first time of this observer.
      */
     firstInitialization(renderObject: RenderObject): boolean;
+    /**
+     * Returns `true` if the current rendering produces motion vectors.
+     *
+     * @param {Renderer} renderer - The renderer.
+     * @return {boolean} Whether the current rendering produces motion vectors or not.
+     */
+    needsVelocity(renderer: Renderer): boolean;
     /**
      * Returns monitoring data for the given render object.
      *

@@ -125,27 +125,25 @@ declare module "." {
         name: string;
     }
 
+    export type ViewTransitionClassPerType = Record<"default" | (string & {}), "none" | "auto" | (string & {})>;
+    export type ViewTransitionClass = ViewTransitionClassPerType | ViewTransitionClassPerType[string];
+
     export interface ViewTransitionProps {
         children?: ReactNode | undefined;
         /**
          * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
          */
-        className?: string | undefined;
+        default?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` or its parent Component is mounted and there's no other with the same name being deleted.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        enter?: "none" | (string & {}) | undefined;
+        enter?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` or its parent Component is unmounted and there's no other with the same name being deleted.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        exit?: "none" | (string & {}) | undefined;
-        /**
-         * Combined with {@link className} there are no updates to the content inside this boundary itself but the boundary has resized or moved due to other changes to siblings.
-         * `"none"` is a special value that deactivates the view transition name under that condition.
-         */
-        layout?: "none" | (string & {}) | undefined;
+        exit?: ViewTransitionClass | undefined;
         /**
          * "auto" will automatically assign a view-transition-name to the inner DOM node.
          * That way you can add a View Transition to a Component without controlling its DOM nodes styling otherwise.
@@ -157,34 +155,30 @@ declare module "." {
         /**
          * The `<ViewTransition>` or its parent Component is mounted and there's no other `<ViewTransition>` with the same name being deleted.
          */
-        onEnter?: (instance: ViewTransitionInstance) => void;
+        onEnter?: (instance: ViewTransitionInstance, types: Array<string>) => void;
         /**
          * The `<ViewTransition>` or its parent Component is unmounted and there's no other `<ViewTransition>` with the same name being deleted.
          */
-        onExit?: (instance: ViewTransitionInstance) => void;
-        /**
-         *  There are no updates to the content inside this `<ViewTransition>` boundary itself but the boundary has resized or moved due to other changes to siblings.
-         */
-        onLayout?: (instance: ViewTransitionInstance) => void;
+        onExit?: (instance: ViewTransitionInstance, types: Array<string>) => void;
         /**
          * This `<ViewTransition>` is being mounted and another `<ViewTransition>` instance with the same name is being unmounted elsewhere.
          */
-        onShare?: (instance: ViewTransitionInstance) => void;
+        onShare?: (instance: ViewTransitionInstance, types: Array<string>) => void;
         /**
          * The content of `<ViewTransition>` has changed either due to DOM mutations or because an inner child `<ViewTransition>` has resized.
          */
-        onUpdate?: (instance: ViewTransitionInstance) => void;
+        onUpdate?: (instance: ViewTransitionInstance, types: Array<string>) => void;
         ref?: Ref<ViewTransitionInstance> | undefined;
         /**
          * Combined with {@link className} if this `<ViewTransition>` is being mounted and another instance with the same name is being unmounted elsewhere.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        share?: "none" | (string & {}) | undefined;
+        share?: ViewTransitionClass | undefined;
         /**
          * Combined with {@link className} if the content of this `<ViewTransition>` has changed either due to DOM mutations or because an inner child has resized.
          * `"none"` is a special value that deactivates the view transition name under that condition.
          */
-        update?: "none" | (string & {}) | undefined;
+        update?: ViewTransitionClass | undefined;
     }
 
     /**
@@ -196,17 +190,52 @@ declare module "." {
      */
     export const unstable_ViewTransition: ExoticComponent<ViewTransitionProps>;
 
+    export function unstable_addTransitionType(type: string): void;
+
+    // @enableGestureTransition
     // Implemented by the specific renderer e.g. `react-dom`.
     // Keep in mind that augmented interfaces merge their JSDoc so if you put
     // JSDoc here and in the renderer, the IDE will display both.
     export interface GestureProvider {}
+    export interface GestureOptions {
+        rangeStart?: number | undefined;
+        rangeEnd?: number | undefined;
+    }
+    /** */
+    export function unstable_startGestureTransition(
+        provider: GestureProvider,
+        scope: () => void,
+        options?: GestureOptions,
+    ): () => void;
 
-    export type StartGesture = (gestureProvider: GestureProvider) => () => void;
+    // @enableFragmentRefs
+    export interface FragmentInstance {}
+
+    export interface FragmentProps {
+        ref?: Ref<FragmentInstance> | undefined;
+    }
+
+    // @enableActivity
+    export interface ActivityProps {
+        /**
+         * @default "visible"
+         */
+        mode?:
+            | "hidden"
+            | "visible"
+            | undefined;
+        children: ReactNode;
+    }
 
     /** */
-    export function unstable_useSwipeTransition<Value>(
-        previous: Value,
-        current: Value,
-        next: Value,
-    ): [value: Value, startGesture: StartGesture];
+    export const unstable_Activity: ExoticComponent<ActivityProps>;
+
+    // @enableSrcObject
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_IMG_SRC_TYPES {
+        srcObject: Blob;
+    }
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_MEDIA_SRC_TYPES {
+        srcObject: Blob | MediaSource | MediaStream;
+    }
 }

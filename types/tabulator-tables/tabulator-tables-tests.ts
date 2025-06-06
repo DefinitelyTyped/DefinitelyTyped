@@ -1757,3 +1757,40 @@ table = new Tabulator("#example-table", {
 
 table.setData(table.getAjaxUrl());
 table.setData();
+
+// Testing selectableRowsCheck with data and selection verification
+const testData = [
+    { id: 1, name: "John", age: 15, active: true },
+    { id: 2, name: "Jane", age: 25, active: true },
+    { id: 3, name: "Bob", age: 35, active: false },
+];
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    data: testData,
+    selectableRows: true,
+    selectableRowsCheck: (row: RowComponent): boolean => {
+        return row.getData().age >= 18;
+    },
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name" },
+        { title: "Age", field: "age" },
+    ],
+});
+
+table.selectRow([1, 2, 3]);
+const selectedRows = table.getSelectedRows();
+console.log("Number of selected rows:", selectedRows.length); // Should be 2 (only rows with age >= 18)
+
+const headerMenuFunc = function(_e: MouseEvent, component: ColumnComponent) {
+    return [{
+        label: "Test",
+    }];
+};
+
+table = new Tabulator("#test-selectableRowsCheck", {
+    columns: [
+        { title: "ID", field: "id" },
+        { title: "Name", field: "name", headerMenu: headerMenuFunc },
+    ],
+});

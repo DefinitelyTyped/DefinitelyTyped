@@ -17,6 +17,7 @@ export * from "../gpgpu/ComputeNode.js";
 export * from "../math/ConditionalNode.js";
 export * from "../math/MathNode.js";
 export * from "../math/OperatorNode.js";
+export * from "../utils/DebugNode.js";
 export * from "../utils/Discard.js";
 export * from "../utils/RemapNode.js";
 export * from "./TSLCore.js";

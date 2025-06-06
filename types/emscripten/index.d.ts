@@ -23,6 +23,18 @@ declare namespace Emscripten {
     }
 }
 
+// Infers the type only in TypeScript environments where GPU types are available
+type MaybeGPUDevice = Navigator extends {
+    gpu: {
+        requestAdapter(...args: any[]): Promise<
+            null | {
+                requestDevice(...args: any[]): Promise<null | infer T>;
+            }
+        >;
+    };
+} ? T
+    : never;
+
 interface EmscriptenModule {
     print(str: string): void;
     printErr(str: string): void;
@@ -34,6 +46,7 @@ interface EmscriptenModule {
     onAbort: { (what: any): void };
     onRuntimeInitialized: { (): void };
     preinitializedWebGLContext: WebGLRenderingContext;
+    preinitializedWebGPUDevice: MaybeGPUDevice;
     noInitialRun: boolean;
     noExitRuntime: boolean;
     logReadFiles: boolean;

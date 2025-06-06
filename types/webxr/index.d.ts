@@ -954,7 +954,7 @@ interface XRProjectionLayer extends XRCompositionLayer {
     readonly textureWidth: number;
     readonly textureHeight: number;
     readonly textureArrayLength: number;
-    readonly ignoreDepthValues: number;
+    readonly ignoreDepthValues: boolean;
     fixedFoveation: number;
 }
 

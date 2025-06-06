@@ -1,7 +1,21 @@
-declare var Elm: ElmInstance<ShanghaiPorts>;
+declare var Elm: ElmInstance<{}, {}>;
+
+Elm.Main.init();
+
+declare var Shanghai: ElmInstance<
+    ShanghaiPorts,
+    ShanghaiFlags, // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    ["Shanghai"]
+>;
+
+interface ShanghaiFlags {
+    coordinates: [number, number];
+    incomingShip: Ship;
+    outgoingShip: string;
+}
 
 interface ShanghaiPorts {
-    coordinates: PortToElm<number[]>;
+    coordinates: PortToElm<[number, number]>;
     incomingShip: PortToElm<Ship>;
     outgoingShip: PortToElm<string>;
     totalCapacity: PortFromElm<number>;
@@ -14,7 +28,7 @@ interface Ship {
 
 // initialize the Shanghai component which keeps track of
 // shipping data in and out of the Port of Shanghai.
-var shanghai = Elm.Main.init({
+var shanghai = Shanghai.Shanghai.init({
     flags: {
         coordinates: [0, 0],
         incomingShip: { name: "", capacity: 0 },
@@ -22,7 +36,7 @@ var shanghai = Elm.Main.init({
     },
 });
 
-function logger(x: any) {
+function logger(x: number) {
     console.log(x);
 }
 shanghai.ports.totalCapacity.subscribe(logger);

@@ -18,13 +18,18 @@ export default class AdRuleHistory extends AbstractCrudObject {
         budget_not_redistributed: "BUDGET_NOT_REDISTRIBUTED";
         changed_bid: "CHANGED_BID";
         changed_budget: "CHANGED_BUDGET";
+        consolidate_asc_fragmentation: "CONSOLIDATE_ASC_FRAGMENTATION";
+        consolidate_fragmentation: "CONSOLIDATE_FRAGMENTATION";
+        convert_asc_cp_single_instance: "CONVERT_ASC_CP_SINGLE_INSTANCE";
         email: "EMAIL";
         enable_advantage_campaign_budget: "ENABLE_ADVANTAGE_CAMPAIGN_BUDGET";
         enable_advantage_plus_creative: "ENABLE_ADVANTAGE_PLUS_CREATIVE";
         enable_advantage_plus_placements: "ENABLE_ADVANTAGE_PLUS_PLACEMENTS";
         enable_autoflow: "ENABLE_AUTOFLOW";
         enable_gen_uncrop: "ENABLE_GEN_UNCROP";
+        enable_landing_page_views: "ENABLE_LANDING_PAGE_VIEWS";
         enable_music: "ENABLE_MUSIC";
+        enable_reels_placements: "ENABLE_REELS_PLACEMENTS";
         enable_semantic_based_audience_expansion: "ENABLE_SEMANTIC_BASED_AUDIENCE_EXPANSION";
         enable_shops_ads: "ENABLE_SHOPS_ADS";
         endpoint_pinged: "ENDPOINT_PINGED";

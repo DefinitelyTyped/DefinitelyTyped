@@ -10,6 +10,12 @@ import { WebGLRenderer } from "../WebGLRenderer.js";
  */
 declare class CubeRenderTarget extends WebGLCubeRenderTarget {
     readonly isCubeRenderTarget: true;
+    /**
+     * Constructs a new cube render target.
+     *
+     * @param {number} [size=1] - The size of the render target.
+     * @param {RenderTarget~Options} [options] - The configuration object.
+     */
     constructor(size?: number, options?: RenderTargetOptions);
     /**
      * Converts the given equirectangular texture to a cube map.

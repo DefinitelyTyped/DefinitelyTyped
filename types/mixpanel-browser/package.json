@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mixpanel-browser",
-    "version": "2.54.9999",
+    "version": "2.60.9999",
     "projects": [
         "https://github.com/mixpanel/mixpanel-js"
     ],

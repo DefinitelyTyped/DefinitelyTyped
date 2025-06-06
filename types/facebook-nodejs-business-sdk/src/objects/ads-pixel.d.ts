@@ -72,6 +72,7 @@ export default class AdsPixel extends AbstractCrudObject {
     static get PermittedTasks(): Readonly<{
         advertise: "ADVERTISE";
         analyze: "ANALYZE";
+        edit: "EDIT";
         upload: "UPLOAD";
     }>;
     static get Tasks(): Readonly<{
@@ -93,10 +94,10 @@ export default class AdsPixel extends AbstractCrudObject {
     getOfflineEventUploads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getOpenBridgeConfigurations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createShadowTrafficHelper(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    deleteShareDAccounts(params?: Record<string, any>): Promise<any>;
-    getShareDAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createShareDAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
-    getShareDAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteSharedAccounts(params?: Record<string, any>): Promise<any>;
+    getSharedAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSharedAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    getSharedAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<AdsPixel>;
     update(fields: string[], params?: Record<string, any>): Promise<AdsPixel>;

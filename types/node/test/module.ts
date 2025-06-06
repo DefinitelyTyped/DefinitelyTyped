@@ -47,6 +47,11 @@ Module.Module === Module;
     // $ExpectType Require
     Module.createRequire(new URL("file:///usr/lib/node"));
 
+    // $ExpectType string | undefined
+    Module.findPackageJSON("..", __filename);
+    // $ExpectType string | undefined
+    Module.findPackageJSON(new URL("../", "file:///path/to/module"));
+
     // $ExpectType boolean
     Module.isBuiltin("process");
 
@@ -199,8 +204,29 @@ Module.Module === Module;
             };
         }
 
+        if (format === null) {
+            return {
+                format,
+                shortCircuit: true,
+                source: "...",
+            };
+        }
+
         return nextLoad(url);
     };
+
+    const moduleHooks = Module.registerHooks({
+        resolve(url, context, nextResolve) {
+            return nextResolve(url, context);
+        },
+        load(url, context, nextLoad) {
+            return nextLoad(url, context);
+        },
+    });
+    moduleHooks.deregister();
+
+    // @ts-expect-error asynchronous hooks should be rejected by the synchronous API
+    Module.registerHooks({ load, resolve });
 }
 
 // Compile cache

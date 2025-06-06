@@ -1,22 +1,12 @@
-interface WindowOrWorkerGlobalScope {
-    readonly ai: AI;
-}
+// Shared infrastructure
+// https://webmachinelearning.github.io/writing-assistance-apis/#supporting
 
-interface AI {
-    readonly languageModel: AILanguageModelFactory;
-    readonly summarizer: AISummarizerFactory;
-    readonly writer: AIWriterFactory;
-    readonly rewriter: AIRewriterFactory;
-    readonly translator: AITranslatorFactory;
-    readonly languageDetector: AILanguageDetectorFactory;
-}
+interface CreateMonitor extends EventTarget {
+    ondownloadprogress: ((this: CreateMonitor, ev: ProgressEvent) => any) | null;
 
-interface AICreateMonitor extends EventTarget {
-    ondownloadprogress: ((this: AICreateMonitor, ev: DownloadProgressEvent) => any) | null;
-
-    addEventListener<K extends keyof AICreateMonitorEventMap>(
+    addEventListener<K extends keyof CreateMonitorEventMap>(
         type: K,
-        listener: (this: AICreateMonitor, ev: AICreateMonitorEventMap[K]) => any,
+        listener: (this: CreateMonitor, ev: CreateMonitorEventMap[K]) => any,
         options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
@@ -24,9 +14,9 @@ interface AICreateMonitor extends EventTarget {
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof AICreateMonitorEventMap>(
+    removeEventListener<K extends keyof CreateMonitorEventMap>(
         type: K,
-        listener: (this: AICreateMonitor, ev: AICreateMonitorEventMap[K]) => any,
+        listener: (this: CreateMonitor, ev: CreateMonitorEventMap[K]) => any,
         options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
@@ -36,346 +26,354 @@ interface AICreateMonitor extends EventTarget {
     ): void;
 }
 
-interface DownloadProgressEvent extends Event {
-    readonly loaded: number;
-    readonly total: number;
+interface CreateMonitorEventMap {
+    downloadprogress: ProgressEvent;
 }
 
-interface AICreateMonitorEventMap {
-    downloadprogress: DownloadProgressEvent;
+type CreateMonitorCallback = (monitor: CreateMonitor) => void;
+
+type Availability = "unavailable" | "downloadable" | "downloading" | "available";
+
+interface DestroyableModel {
+    destroy(): void;
 }
 
-type AICreateMonitorCallback = (monitor: AICreateMonitor) => void;
+// Prompt API
+// https://github.com/webmachinelearning/prompt-api?tab=readme-ov-file#full-api-surface-in-web-idl
 
-type AICapabilityAvailability = "readily" | "after-download" | "no";
+// todo: all tests
 
-// Language Model
-// https://github.com/explainers-by-googlers/prompt-api/#full-api-surface-in-web-idl
+declare abstract class LanguageModel extends EventTarget implements DestroyableModel {
+    static create(options?: LanguageModelCreateOptions): Promise<LanguageModel>;
+    static availability(options?: LanguageModelCreateCoreOptions): Promise<Availability>;
+    static params(): Promise<LanguageModelParams>;
 
-interface AILanguageModelFactory {
-    create(
-        options?: AILanguageModelCreateOptionsWithSystemPrompt | AILanguageModelCreateOptionsWithoutSystemPrompt,
-    ): Promise<AILanguageModel>;
-    capabilities(): Promise<AILanguageModelCapabilities>;
-}
+    prompt(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<string>;
 
-interface AILanguageModelCreateOptions {
-    signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
+    promptStreaming(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): ReadableStream<string>;
 
-    topK?: number;
-    temperature?: number;
-}
+    append(input: LanguageModelPrompt, options?: LanguageModelAppendOptions): Promise<undefined>;
 
-interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
-    systemPrompt?: string;
-    initialPrompts?: AILanguageModelPrompt[];
-}
+    measureInputUsage(input: LanguageModelPrompt, options?: LanguageModelPromptOptions): Promise<number>;
 
-interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
-    systemPrompt?: never;
-    initialPrompts?:
-        | [AILanguageModelSystemPrompt, ...AILanguageModelPrompt[]]
-        | AILanguageModelPrompt[];
-}
+    readonly inputUsage: number;
+    readonly inputQuota: number;
 
-type AILanguageModelPromptRole = "user" | "assistant";
-type AILanguageModelInitialPromptRole = "system" | AILanguageModelPromptRole;
+    onquotaoverflow: ((this: LanguageModel, ev: Event) => any) | null;
 
-interface AILanguageModelPrompt {
-    role: AILanguageModelPromptRole;
-    content: string;
-}
-
-interface AILanguageModelInitialPrompt {
-    role: AILanguageModelInitialPromptRole;
-    content: string;
-}
-
-interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
-    role: "system";
-}
-
-type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
-
-interface AILanguageModel extends EventTarget {
-    prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
-    promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
-
-    countPromptTokens(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<number>;
-    readonly maxTokens: number;
-    readonly tokensSoFar: number;
-    readonly tokensLeft: number;
+    addEventListener<K extends keyof LanguageModelEventMap>(
+        type: K,
+        listener: (this: LanguageModel, ev: LanguageModelEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof LanguageModelEventMap>(
+        type: K,
+        listener: (this: LanguageModel, ev: LanguageModelEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 
     readonly topK: number;
     readonly temperature: number;
 
-    oncontextoverflow: ((this: AILanguageModel, ev: Event) => any) | null;
-
-    addEventListener<K extends keyof AILanguageModelEventMap>(
-        type: K,
-        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions,
-    ): void;
-    addEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions,
-    ): void;
-    removeEventListener<K extends keyof AILanguageModelEventMap>(
-        type: K,
-        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
-        options?: boolean | EventListenerOptions,
-    ): void;
-    removeEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions,
-    ): void;
-
-    clone(options?: AILanguageModelCloneOptions): Promise<AILanguageModel>;
-    destroy(): void;
+    clone(options?: LanguageModelCloneOptions): Promise<LanguageModel>;
+    destroy(): undefined;
 }
 
-interface AILanguageModelEventMap {
-    contextoverflow: Event;
+interface LanguageModelEventMap {
+    quotaoverflow: Event;
 }
 
-interface AILanguageModelPromptOptions {
+interface LanguageModelParams {
+    readonly defaultTopK: number;
+    readonly maxTopK: number;
+    readonly defaultTemperature: number;
+    readonly maxTemperature: number;
+}
+
+interface LanguageModelCreateCoreOptions {
+    topK?: number;
+    temperature?: number;
+
+    expectedInputs?: LanguageModelExpected[];
+    expectedOutputs?: LanguageModelExpected[];
+}
+
+interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
+    signal?: AbortSignal;
+    monitor?: CreateMonitorCallback;
+
+    initialPrompts?:
+        | [LanguageModelSystemMessage, ...LanguageModelMessage[]]
+        | LanguageModelMessage[];
+}
+
+interface LanguageModelPromptOptions {
+    responseConstraint?: Record<string, unknown>;
     signal?: AbortSignal;
 }
 
-interface AILanguageModelCloneOptions {
+interface LanguageModelAppendOptions {
     signal?: AbortSignal;
 }
 
-interface AILanguageModelCapabilities {
-    readonly available: AICapabilityAvailability;
-    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
-
-    readonly defaultTopK: number | null;
-    readonly maxTopK: number | null;
-    readonly defaultTemperature: number | null;
-    readonly maxTemperature: number | null;
-}
-
-// Summarizer
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
-
-interface AISummarizerFactory {
-    create(options?: AISummarizerCreateOptions): Promise<AISummarizer>;
-    capabilities(): Promise<AISummarizerCapabilities>;
-}
-
-interface AISummarizerCreateOptions {
+interface LanguageModelCloneOptions {
     signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
-
-    sharedContext?: string;
-    type?: AISummarizerType;
-    format?: AISummarizerFormat;
-    length?: AISummarizerLength;
 }
 
-type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
-type AISummarizerFormat = "plain-text" | "markdown";
-type AISummarizerLength = "short" | "medium" | "long";
+interface LanguageModelExpected {
+    type: LanguageModelMessageType;
+    languages?: string[];
+}
 
-interface AISummarizer {
-    summarize(input: string, options?: AISummarizerSummarizeOptions): Promise<string>;
-    summarizeStreaming(input: string, options?: AISummarizerSummarizeOptions): ReadableStream<string>;
+type LanguageModelPrompt = LanguageModelMessage[] | string;
+
+interface LanguageModelMessage {
+    role: LanguageModelMessageRole;
+    content: LanguageModelMessageContent[] | string;
+}
+
+// Not in IDL, split up here for enforcing the system message as the first element
+interface LanguageModelSystemMessage {
+    role: LanguageModelSystemMessageRole;
+    content: LanguageModelMessageContent[] | string;
+}
+
+interface LanguageModelMessageContent {
+    type: LanguageModelMessageType;
+    value: LanguageModelMessageValue;
+}
+
+type LanguageModelMessageRole = "user" | "assistant";
+// Not in IDL, split up here for enforcing the system message as the first element
+type LanguageModelSystemMessageRole = "system";
+
+type LanguageModelMessageType = "text" | "image" | "audio";
+
+type LanguageModelMessageValue = ImageBitmapSource | AudioBuffer | BufferSource | string;
+
+// Writing Assistance APIs
+// https://webmachinelearning.github.io/writing-assistance-apis/#idl-index
+
+declare abstract class Summarizer implements DestroyableModel {
+    static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
+    static availability(options?: SummarizerCreateCoreOptions): Promise<Availability>;
+
+    summarize(input: string, options?: SummarizerSummarizeOptions): Promise<string>;
+    summarizeStreaming(input: string, options?: SummarizerSummarizeOptions): ReadableStream<string>;
 
     readonly sharedContext: string;
-    readonly type: AISummarizerType;
-    readonly format: AISummarizerFormat;
-    readonly length: AISummarizerLength;
+    readonly type: SummarizerType;
+    readonly format: SummarizerFormat;
+    readonly length: SummarizerLength;
+
+    readonly expectedInputLanguages?: ReadonlyArray<string>;
+    readonly expectedContextLanguages?: ReadonlyArray<string>;
+    readonly outputLanguage?: string;
+
+    measureInputUsage(input: string, options?: SummarizerSummarizeOptions): Promise<number>;
+
+    readonly inputQuota: number;
 
     destroy(): void;
 }
 
-interface AISummarizerSummarizeOptions {
+interface SummarizerCreateCoreOptions {
+    type?: SummarizerType;
+    format?: SummarizerFormat;
+    length?: SummarizerLength;
+
+    expectedInputLanguages?: ReadonlyArray<string>;
+    expectedContextLanguages?: ReadonlyArray<string>;
+    outputLanguage?: string;
+}
+
+interface SummarizerCreateOptions extends SummarizerCreateCoreOptions {
+    signal?: AbortSignal;
+    monitor?: CreateMonitorCallback;
+
+    sharedContext?: string;
+}
+
+interface SummarizerSummarizeOptions {
     signal?: AbortSignal;
     context?: string;
 }
 
-interface AISummarizerCapabilities {
-    readonly available: AICapabilityAvailability;
+type SummarizerType = "tldr" | "teaser" | "key-points" | "headline";
+type SummarizerFormat = "plain-text" | "markdown";
+type SummarizerLength = "short" | "medium" | "long";
 
-    supportsType(type: AISummarizerType): AICapabilityAvailability;
-    supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
-    supportsLength(length: AISummarizerLength): AICapabilityAvailability;
+declare abstract class Writer implements DestroyableModel {
+    static create(options?: WriterCreateOptions): Promise<Writer>;
+    static availability(options?: WriterCreateCoreOptions): Promise<Availability>;
 
-    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    write(input: string, options?: WriterWriteOptions): Promise<string>;
+    writeStreaming(input: string, options?: WriterWriteOptions): ReadableStream<string>;
+
+    readonly sharedContext?: string;
+    readonly tone: WriterTone;
+    readonly format: WriterFormat;
+    readonly length: WriterLength;
+
+    readonly expectedInputLanguages?: ReadonlyArray<string>;
+    readonly expectedContextLanguages?: ReadonlyArray<string>;
+    readonly outputLanguage?: string;
+
+    measureInputUsage(input: string, options?: WriterWriteOptions): Promise<number>;
+
+    readonly inputQuota: number;
+
+    destroy(): void;
 }
 
-// Writer
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
+interface WriterCreateCoreOptions {
+    tone?: WriterTone;
+    format?: WriterFormat;
+    length?: WriterLength;
 
-interface AIWriterFactory {
-    create(options?: AIWriterCreateOptions): Promise<AIWriter>;
-    capabilities(): Promise<AIWriterCapabilities>;
+    expectedInputLanguages?: string[];
+    expectedContextLanguages?: string[];
+    outputLanguage?: string;
 }
 
-interface AIWriterCreateOptions {
+interface WriterCreateOptions extends WriterCreateCoreOptions {
     signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
+    monitor?: CreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIWriterTone;
-    format?: AIWriterFormat;
-    length?: AIWriterLength;
 }
 
-type AIWriterTone = "formal" | "neutral" | "casual";
-type AIWriterFormat = "plain-text" | "markdown";
-type AIWriterLength = "short" | "medium" | "long";
+interface WriterWriteOptions {
+    context?: string;
+    signal?: AbortSignal;
+}
 
-interface AIWriter {
-    write(writingTask: string, options?: AIWriterWriteOptions): Promise<string>;
-    writeStreaming(writingTask: string, options?: AIWriterWriteOptions): ReadableStream<string>;
+type WriterTone = "formal" | "neutral" | "casual";
+type WriterFormat = "plain-text" | "markdown";
+type WriterLength = "short" | "medium" | "long";
+
+declare abstract class Rewriter implements DestroyableModel {
+    static create(options?: RewriterCreateOptions): Promise<Rewriter>;
+    static availability(options?: RewriterCreateCoreOptions): Promise<Availability>;
+
+    rewrite(input: string, options?: RewriterRewriteOptions): Promise<string>;
+    rewriteStreaming(input: string, options?: RewriterRewriteOptions): ReadableStream<string>;
 
     readonly sharedContext: string;
-    readonly tone: AIWriterTone;
-    readonly format: AIWriterFormat;
-    readonly length: AIWriterLength;
+    readonly tone: RewriterTone;
+    readonly format: RewriterFormat;
+    readonly length: RewriterLength;
+
+    readonly expectedInputLanguages?: ReadonlyArray<string>;
+    readonly expectedContextLanguages?: ReadonlyArray<string>;
+    readonly outputLanguage?: string;
+
+    measureInputUsage(input: string, options?: RewriterRewriteOptions): Promise<number>;
+
+    readonly inputQuota: number;
 
     destroy(): void;
 }
 
-interface AIWriterWriteOptions {
+interface RewriterCreateCoreOptions {
+    tone?: RewriterTone;
+    format?: RewriterFormat;
+    length?: RewriterLength;
+
+    expectedInputLanguages?: ReadonlyArray<string>;
+    expectedContextLanguages?: ReadonlyArray<string>;
+    outputLanguage?: string;
+}
+
+interface RewriterCreateOptions extends RewriterCreateCoreOptions {
     signal?: AbortSignal;
-    context?: string;
-}
-
-interface AIWriterCapabilities {
-    readonly available: AICapabilityAvailability;
-
-    supportsTone(tone: AIWriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIWriterLength): AICapabilityAvailability;
-
-    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
-}
-
-// Rewriter
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
-
-interface AIRewriterFactory {
-    create(options?: AIRewriterCreateOptions): Promise<AIRewriter>;
-    capabilities(): Promise<AIRewriterCapabilities>;
-}
-
-interface AIRewriterCreateOptions {
-    signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
+    monitor?: CreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIRewriterTone;
-    format?: AIRewriterFormat;
-    length?: AIRewriterLength;
 }
 
-type AIRewriterTone = "as-is" | "more-formal" | "more-casual";
-type AIRewriterFormat = "as-is" | "plain-text" | "markdown";
-type AIRewriterLength = "as-is" | "shorter" | "longer";
-
-interface AIRewriter {
-    rewrite(input: string, options?: AIRewriterRewriteOptions): Promise<string>;
-    rewriteStreaming(input: string, options?: AIRewriterRewriteOptions): ReadableStream<string>;
-
-    readonly sharedContext: string;
-    readonly tone: AIRewriterTone;
-    readonly format: AIRewriterFormat;
-    readonly length: AIRewriterLength;
-
-    destroy(): void;
-}
-
-interface AIRewriterRewriteOptions {
-    signal?: AbortSignal;
+interface RewriterRewriteOptions {
     context?: string;
+    signal?: AbortSignal;
 }
 
-interface AIRewriterCapabilities {
-    readonly available: AICapabilityAvailability;
+type RewriterTone = "as-is" | "more-formal" | "more-casual";
+type RewriterFormat = "as-is" | "plain-text" | "markdown";
+type RewriterLength = "as-is" | "shorter" | "longer";
 
-    supportsTone(tone: AIRewriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIRewriterLength): AICapabilityAvailability;
+// Translator and Language Detector APIs
+// https://webmachinelearning.github.io/translation-api/#idl-index
 
-    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
-}
+declare abstract class Translator implements DestroyableModel {
+    static create(options: TranslatorCreateOptions): Promise<Translator>;
+    static availability(options: TranslatorCreateCoreOptions): Promise<Availability>;
 
-// Translator
-// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+    translate(input: string, options?: TranslatorTranslateOptions): Promise<string>;
+    translateStreaming(input: string, options?: TranslatorTranslateOptions): ReadableStream<string>;
 
-interface AITranslatorFactory {
-    create(options: AITranslatorCreateOptions): Promise<AITranslator>;
-    capabilities(): Promise<AITranslatorCapabilities>;
-}
+    readonly sourceLanguage: string;
+    readonly targetLanguage: string;
 
-interface AITranslator {
-    translate(input: string, options?: AITranslatorTranslateOptions): Promise<string>;
-    translateStreaming(input: string, options?: AITranslatorTranslateOptions): ReadableStream;
+    measureInputUsage(input: string, options?: TranslatorTranslateOptions): Promise<number>;
 
-    readonly sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
-    readonly targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    readonly inputQuota: number;
 
     destroy(): void;
 }
 
-interface AITranslatorCapabilities {
-    readonly available: AICapabilityAvailability;
-
-    languagePairAvailable(
-        sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier,
-        targetLanguage: Intl.UnicodeBCP47LocaleIdentifier,
-    ): AICapabilityAvailability;
+interface TranslatorCreateCoreOptions {
+    sourceLanguage: string;
+    targetLanguage: string;
 }
 
-interface AITranslatorCreateOptions {
+interface TranslatorCreateOptions extends TranslatorCreateCoreOptions {
     signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
-
-    sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
-    targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    monitor?: CreateMonitorCallback;
 }
 
-interface AITranslatorTranslateOptions {
+interface TranslatorTranslateOptions {
     signal?: AbortSignal;
 }
 
-// Language detector
-// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+declare abstract class LanguageDetector implements DestroyableModel {
+    static create(options?: LanguageDetectorCreateOptions): Promise<LanguageDetector>;
+    static availability(options?: LanguageDetectorCreateCoreOptions): Promise<Availability>;
 
-interface AILanguageDetectorFactory {
-    create(options?: AILanguageDetectorCreateOptions): Promise<AILanguageDetector>;
-    capabilities(): Promise<AILanguageDetectorCapabilities>;
-}
+    detect(input: string, options?: LanguageDetectorDetectOptions): Promise<LanguageDetectionResult[]>;
 
-interface AILanguageDetector {
-    detect(input: string, options?: AILanguageDetectorDetectOptions): Promise<LanguageDetectionResult[]>;
+    readonly expectedInputLanguages: ReadonlyArray<string>;
+
+    measureInputUsage(input: string, options?: LanguageDetectorDetectOptions): Promise<number>;
+
+    readonly inputQuota: number;
 
     destroy(): void;
 }
 
-interface AILanguageDetectorCapabilities {
-    readonly available: AICapabilityAvailability;
-
-    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+interface LanguageDetectorCreateCoreOptions {
+    expectedInputLanguages?: string[];
 }
 
-interface AILanguageDetectorCreateOptions {
+interface LanguageDetectorCreateOptions extends LanguageDetectorCreateCoreOptions {
     signal?: AbortSignal;
-    monitor?: AICreateMonitorCallback;
+    monitor?: CreateMonitorCallback;
 }
 
-interface AILanguageDetectorDetectOptions {
+interface LanguageDetectorDetectOptions {
     signal?: AbortSignal;
 }
 
 interface LanguageDetectionResult {
-    /** null represents unknown language */
-    detectedLanguage: Intl.UnicodeBCP47LocaleIdentifier | null;
-    confidence: number;
+    detectedLanguage?: string;
+    confidence?: number;
 }

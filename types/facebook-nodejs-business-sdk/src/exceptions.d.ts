@@ -7,7 +7,7 @@ declare namespace FacebookError {
  */
 export declare class FacebookRequestError extends FacebookError {
     /**
-     * @param  {[Object}  response
+     * @param  {Object}  response
      * @param  {String}   method
      * @param  {String}   url
      * @param  {Object}   data

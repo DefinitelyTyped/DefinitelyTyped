@@ -198,6 +198,7 @@ declare module "@mapbox/mapbox-sdk/lib/classes/mapi-error" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/datasets" {
+    import * as GeoJSON from "geojson";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -316,16 +317,10 @@ declare module "@mapbox/mapbox-sdk/services/datasets" {
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/directions" {
     import * as GeoJSON from "geojson";
-    import { LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import {
-        Coordinates,
-        DirectionsApproach,
-        MapboxProfile,
-        MapiRequest,
-    } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates, DirectionsApproach, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 
     export default function Directions(config: SdkConfig | MapiClient): DirectionsService;
 
@@ -1122,6 +1117,31 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * available and applicable to a given country or area.
          */
         context: Context;
+        /**
+         * Feature id. The mapbox_id uniquely identifies a place in the Mapbox search database.
+         * Mapbox ID's are accepted in requests to the Geocoding API as a forward search, and will
+         * return the feature corresponding to that id.
+         */
+        mapbox_id: string;
+        /**
+         * Formatted string of address_number and street.
+         */
+        name: string;
+        /**
+         * The canonical or otherwise more common alias for the feature name. For example,
+         * searching for "America" will return "America" as the name, and "United States" as
+         * name_preferred.
+         */
+        name_preferred?: string;
+        /**
+         * Formatted string of result context: place region country postcode. The part of the result
+         * which comes after name.
+         */
+        place_formatted?: string;
+        /**
+         * Full formatted string of the feature, combining name_preferred and place_formatted.
+         */
+        full_address?: string;
     }
 
     interface Coordinates {
@@ -1742,7 +1762,7 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Waypoint } from "@mapbox/mapbox-sdk/services/directions";
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { DirectionsApproach, MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { MapboxProfile, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
@@ -1825,6 +1845,7 @@ declare module "@mapbox/mapbox-sdk/services/optimization" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/static" {
+    import * as GeoJSON from "geojson";
     import { AnyLayer, LngLatBoundsLike, LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
@@ -2088,7 +2109,7 @@ declare module "@mapbox/mapbox-sdk/services/styles" {
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/tilequery" {
-    import * as mapboxgl from "mapbox-gl";
+    import * as GeoJSON from "geojson";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -2104,7 +2125,9 @@ declare module "@mapbox/mapbox-sdk/services/tilequery" {
          * Get a static map image..
          * @param request
          */
-        listFeatures(request: TileQueryRequest): MapiRequest;
+        listFeatures(
+            request: TileQueryRequest,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.Point, TileQueryResponseProperty>>;
     }
 
     interface TileQueryRequest {
@@ -2132,7 +2155,27 @@ declare module "@mapbox/mapbox-sdk/services/tilequery" {
          * Queries for a specific geometry type.
          */
         geometry?: GeometryType | undefined;
+        /**
+         * An array of bands to query, rather than querying all bands.
+         * If a specified layer does not exist, it is skipped.
+         * If no bands exist, returns an empty `FeatureCollection`.
+         */
+        bands?: string[] | undefined;
+        /**
+         * An array of layers to query, rather than querying all layers.
+         * If a specified layer does not exist, it is skipped.
+         * If no layers exist, returns an empty `FeatureCollection`.
+         */
         layers?: string[] | undefined;
+    }
+
+    interface TileQueryResponseProperty {
+        tilequery: {
+            distance: number;
+            geometry: GeometryType;
+            layer: string;
+        };
+        [name: string]: any;
     }
 
     type GeometryType = "polygon" | "linestring" | "point";

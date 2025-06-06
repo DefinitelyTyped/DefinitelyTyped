@@ -51,6 +51,7 @@ export { NodeUtils };
 // utils
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
+export { default as DebugNode } from "./utils/DebugNode.js";
 export { default as EquirectUVNode } from "./utils/EquirectUVNode.js";
 export { default as FunctionOverloadingNode } from "./utils/FunctionOverloadingNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";
@@ -138,6 +139,7 @@ export { default as LightingNode } from "./lighting/LightingNode.js";
 export { default as LightProbeNode } from "./lighting/LightProbeNode.js";
 export { default as LightsNode } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
+export { default as ProjectorLightNode } from "./lighting/ProjectorLightNode.js";
 export { default as RectAreaLightNode, RectAreaLightTexturesLib } from "./lighting/RectAreaLightNode.js";
 export { default as ShadowBaseNode } from "./lighting/ShadowBaseNode.js";
 export { default as ShadowNode } from "./lighting/ShadowNode.js";

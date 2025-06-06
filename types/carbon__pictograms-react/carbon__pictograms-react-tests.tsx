@@ -3,6 +3,8 @@ import {
     AddDocument,
     AdvancedFraudProtection,
     AdvocateMask,
+    Agile,
+    AgileCoaching,
     Ai,
     AiExplainability,
     Airplane,
@@ -14,6 +16,7 @@ import {
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
+    CodeConversion,
     ContentDesign,
     Dashboard,
     DoctorPatient,
@@ -79,3 +82,6 @@ import * as React from "react";
 <MagicWand />; // $ExpectType Element
 <B2bCommerce />; // $ExpectType Element
 <MachineLearningModel />; // $ExpectType Element
+<Agile />; // $ExpectType Element
+<AgileCoaching />; // $ExpectType Element
+<CodeConversion />; // $ExpectType Element

@@ -1,4 +1,4 @@
-import { Hwb } from "./types";
+import { Hwb } from "./types.js";
 
 declare function parseHwb(color: string): Hwb | undefined;
 

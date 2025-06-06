@@ -1910,6 +1910,56 @@ declare module "process" {
                  * @since v0.8.0
                  */
                 traceDeprecation: boolean;
+                /**
+                 * An object is "refable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "refable".
+                 */
+                ref(maybeRefable: any): void;
+                /**
+                 * An object is "unrefable" if it implements the Node.js "Refable protocol".
+                 * Specifically, this means that the object implements the `Symbol.for('nodejs.ref')`
+                 * and `Symbol.for('nodejs.unref')` methods. "Ref'd" objects will keep the Node.js
+                 * event loop alive, while "unref'd" objects will not. Historically, this was
+                 * implemented by using `ref()` and `unref()` methods directly on the objects.
+                 * This pattern, however, is being deprecated in favor of the "Refable protocol"
+                 * in order to better support Web Platform API types whose APIs cannot be modified
+                 * to add `ref()` and `unref()` methods but still need to support that behavior.
+                 * @since v22.14.0
+                 * @experimental
+                 * @param maybeRefable An object that may be "unref'd".
+                 */
+                unref(maybeRefable: any): void;
+                /**
+                 * Replaces the current process with a new process.
+                 *
+                 * This is achieved by using the `execve` POSIX function and therefore no memory or other
+                 * resources from the current process are preserved, except for the standard input,
+                 * standard output and standard error file descriptor.
+                 *
+                 * All other resources are discarded by the system when the processes are swapped, without triggering
+                 * any exit or close events and without running any cleanup handler.
+                 *
+                 * This function will never return, unless an error occurred.
+                 *
+                 * This function is not available on Windows or IBM i.
+                 * @since v22.15.0
+                 * @experimental
+                 * @param file The name or path of the executable file to run.
+                 * @param args List of string arguments. No argument can contain a null-byte (`\u0000`).
+                 * @param env Environment key-value pairs.
+                 * No key or value can contain a null-byte (`\u0000`).
+                 * **Default:** `process.env`.
+                 */
+                execve?(file: string, args?: readonly string[], env?: ProcessEnv): never;
                 /* EventEmitter */
                 addListener(event: "beforeExit", listener: BeforeExitListener): this;
                 addListener(event: "disconnect", listener: DisconnectListener): this;
