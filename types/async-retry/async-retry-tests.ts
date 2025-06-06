@@ -64,4 +64,4 @@ retry(() => "hello", {
 });
 
 // $ExpectType Promise<string>
-retry<string>((bail) => bail(new Error('bye')))
+retry<string>((bail) => bail(new Error("bye")));
