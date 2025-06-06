@@ -49,7 +49,7 @@ declare namespace AsyncRetry {
      * @param bail A function you can invoke to abort the retrying (bail).
      * @param attempt The attempt number. The absolute first attempt (before any retries) is `1`.
      */
-    type RetryFunction<TRet, TErr = unknown> = (bail: (e: TErr) => void, attempt: number) => TRet | Promise<TRet>;
+    type RetryFunction<TRet, TErr = unknown> = (bail: (e: TErr) => never, attempt: number) => TRet | Promise<TRet>;
 }
 
 export = AsyncRetry;

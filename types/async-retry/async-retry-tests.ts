@@ -12,13 +12,13 @@ retry(() => Promise.resolve(1)); // $ExpectType Promise<number>
 
 // $ExpectType Promise<void>
 retry((bail, attempt) => {
-    bail; // $ExpectType (e: unknown) => void
+    bail; // $ExpectType (e: unknown) => never
     attempt; // $ExpectType number
 });
 
 // $ExpectType Promise<void>
 retry<void, Error>((bail, attempt) => { // eslint-disable-line @typescript-eslint/no-invalid-void-type
-    bail; // $ExpectType (e: Error) => void
+    bail; // $ExpectType (e: Error) => never
     attempt; // $ExpectType number
 });
 
@@ -62,3 +62,6 @@ retry(() => "hello", {
         return 42;
     },
 });
+
+// $ExpectType Promise<string>
+retry<string>((bail) => bail(new Error('bye')))
