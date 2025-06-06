@@ -207,7 +207,7 @@ doc.image(
     },
 ).text("Scale", 320, 265);
 
-// $ExpectType PDFTableObject
+// $ExpectType PDFDocument
 doc.table({
     data: [
         ["Column 1", "Column 2", "Column 3"],
