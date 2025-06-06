@@ -167,7 +167,7 @@ export namespace UIkit {
         /** The animation duration. */
         duration?: number;
         /** Define a target container via a selector to specify where the drop should be appended in the DOM. */
-        container?: boolean;
+        container?: UIkitElement | boolean;
         /** Undocumented. */
         "boundary-align"?: boolean | undefined;
     }
@@ -377,7 +377,7 @@ export namespace UIkit {
         /** Stack modals, when more than one is open. By default, the previous modal will be hidden. */
         stack?: boolean;
         /** Define a target container via a selector to specify where the modal should be appended in the DOM. Setting it to false will prevent this behavior. */
-        container?: string | boolean;
+        container?: UIkitElement | boolean;
         /** Class to add to <html> when modal is active */
         clsPage?: string;
         /** Class of the element to be considered the panel of the modal. */
@@ -502,7 +502,7 @@ export namespace UIkit {
         /** The animation duration. */
         duration?: number;
         /** Define a target container via a selector to specify where the drop should be appended in the DOM. */
-        container?: boolean;
+        container?: UIkitElement | boolean;
         /** Undocumented. */
         "boundary-align"?: boolean;
     }
@@ -523,7 +523,7 @@ export namespace UIkit {
         /** Close the off-canvas when the background is clicked. */
         bgClose?: boolean;
         /** Define a target container via a selector to specify where the off-canvas should be appended in the DOM. Setting it to false will prevent this behavior. */
-        container?: string | boolean;
+        container?: UIkitElement | boolean;
     }
 
     interface UIkitOffcanvasElement extends UIkitElementBase {
@@ -1047,7 +1047,7 @@ export namespace UIkit {
         /** The active class. */
         cls?: string;
         /** Define a target container via a selector to specify where the tooltip should be appended in the DOM. */
-        container?: string;
+        container?: UIkitElement;
     }
 
     interface UIkitTooltipElement extends UIkitElementBase {
