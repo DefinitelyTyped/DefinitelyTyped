@@ -522,7 +522,7 @@ function stream_readable_pipe_test() {
     const z = createGzip({ finishFlush: constants.Z_FINISH });
     const w = createWriteStream("file.txt.gz");
 
-    assert(typeof z.bytesRead === "number");
+    assert(typeof z.bytesWritten === "number");
     assert(typeof r.bytesRead === "number");
     assert(typeof r.path === "string");
     assert(rs.path instanceof Buffer);

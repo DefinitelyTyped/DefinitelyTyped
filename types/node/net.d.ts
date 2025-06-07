@@ -10,7 +10,7 @@
  * ```js
  * import net from 'node:net';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/net.js)
  */
 declare module "net" {
     import * as stream from "node:stream";
@@ -43,9 +43,6 @@ declare module "net" {
          */
         callback(bytesWritten: number, buffer: Uint8Array): boolean;
     }
-    // TODO: remove empty ConnectOpts placeholder at next major @types/node version.
-    /** @deprecated */
-    interface ConnectOpts {}
     interface TcpSocketConnectOpts {
         port: number;
         host?: string | undefined;
@@ -538,7 +535,7 @@ declare module "net" {
         keepAliveInitialDelay?: number | undefined;
         /**
          * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
-         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v24.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
          * @since v18.17.0, v20.1.0
          */
         highWaterMark?: number | undefined;

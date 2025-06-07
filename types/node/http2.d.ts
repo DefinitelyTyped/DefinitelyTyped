@@ -6,7 +6,7 @@
  * import http2 from 'node:http2';
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/http2.js)
  */
 declare module "http2" {
     import EventEmitter = require("node:events");
@@ -965,7 +965,10 @@ declare module "http2" {
          * * `:path` \= `/`
          * @since v8.4.0
          */
-        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+        request(
+            headers?: OutgoingHttpHeaders | readonly string[],
+            options?: ClientSessionRequestOptions,
+        ): ClientHttp2Stream;
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "origin", listener: (origins: string[]) => void): this;
         addListener(
@@ -1857,7 +1860,7 @@ declare module "http2" {
          * If there were no previous values for the header, this is equivalent to calling {@link setHeader}.
          *
          * Attempting to set a header field name or value that contains invalid characters will result in a
-         * [TypeError](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-typeerror) being thrown.
+         * [TypeError](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-typeerror) being thrown.
          *
          * ```js
          * // Returns headers including "set-cookie: a" and "set-cookie: b"

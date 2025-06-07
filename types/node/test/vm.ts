@@ -1,4 +1,3 @@
-import { inspect } from "node:util";
 import {
     compileFunction,
     constants,
@@ -175,10 +174,11 @@ import {
 
     // $ExpectType Script
     new Script(code, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -191,10 +191,11 @@ import {
     });
 
     runInThisContext(code, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -206,10 +207,11 @@ import {
     });
 
     runInContext(code, context, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -221,10 +223,11 @@ import {
     });
 
     runInNewContext(code, context, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Script
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -236,10 +239,11 @@ import {
     });
 
     compileFunction(code, ["param"], {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Function & { cachedData?: Buffer<ArrayBufferLike> | undefined; cachedDataProduced?: boolean | undefined; cachedDataRejected?: boolean | undefined; }
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -252,10 +256,11 @@ import {
 
     // $ExpectType SourceTextModule
     new SourceTextModule(code, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType SourceTextModule
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));
@@ -270,10 +275,11 @@ import {
 
     // $ExpectType Context
     createContext(context, {
-        importModuleDynamically(specifier, referrer, importAttributes) {
+        importModuleDynamically(specifier, referrer, importAttributes, phase) {
             specifier; // $ExpectType string
             referrer; // $ExpectType Context
             importAttributes; // $ExpectType ImportAttributes
+            phase; // $ExpectType "source" | "evaluation"
 
             const module = new SyntheticModule(["bar"], () => {});
             return Math.random() < 1 ? module : new Promise(res => res(module));

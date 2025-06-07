@@ -90,6 +90,7 @@ import { URL } from "node:url";
     http2Session.ref();
     http2Session.unref();
 
+    const clientHttp2Session = http2Session as ClientHttp2Session;
     const headers: OutgoingHttpHeaders = {};
     const options: ClientSessionRequestOptions = {
         endStream: true,
@@ -99,9 +100,10 @@ import { URL } from "node:url";
         waitForTrailers: true,
         signal: new AbortController().signal,
     };
-    (http2Session as ClientHttp2Session).request();
-    (http2Session as ClientHttp2Session).request(headers);
-    (http2Session as ClientHttp2Session).request(headers, options);
+    clientHttp2Session.request();
+    clientHttp2Session.request(headers);
+    clientHttp2Session.request(headers, options);
+    clientHttp2Session.request([":method", "GET", ":path", "/foobar"]);
 
     const stream: Http2Stream = {} as any;
     http2Session.setLocalWindowSize(2 ** 20);
