@@ -1,4 +1,4 @@
-import type * as CircuitBreaker from "opossum";
+import type CircuitBreaker from "opossum";
 import type { Registry } from "prom-client";
 
 /**
