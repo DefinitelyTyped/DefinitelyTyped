@@ -12,7 +12,7 @@ declare module "leaflet" {
     type TileParameters = [
         tileCoord: TileProps["tileCoord"],
         tileSize: TileProps["tileSize"],
-        options: TileProps["tileSize"],
+        options: TileProps["options"],
     ];
 
     type TileFactoryFunction<T extends Canvas.Tile | SVG.Tile> = (...args: TileParameters) => T;
