@@ -151,3 +151,14 @@ const resource = NodePerf.markResourceTiming(
     "",
 );
 resource; // $ExpectType PerformanceResourceTiming
+
+{
+    const { nodeTiming } = NodePerf;
+
+    // $ExpectType UVMetrics
+    const uvMetrics = nodeTiming.uvMetricsInfo;
+
+    uvMetrics.loopCount; // $ExpectType number
+    uvMetrics.events; // $ExpectType number
+    uvMetrics.eventsWaiting; // $ExpectType number
+}
