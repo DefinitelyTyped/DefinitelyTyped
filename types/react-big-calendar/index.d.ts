@@ -185,7 +185,7 @@ export interface ResourceHeaderProps<TResource extends object = object> {
 export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
-    children: React.JSX.Element;
+    children: React.ReactNode;
 }
 
 export interface ShowMoreProps<TEvent extends object = Event> {
