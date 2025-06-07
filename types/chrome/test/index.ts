@@ -1,3 +1,18 @@
+/**
+ * Check all listeners for a Chrome event.
+ * @param event - The event to check.
+ * @param callback - The callback to check.
+ */
+const checkChromeEvent = <T extends chrome.events.Event<(...args: any) => void>>(
+    event: T,
+    callback: Parameters<T["addListener"]>[0],
+) => {
+    event.addListener(callback); // $ExpectType void
+    event.removeListener(callback); // $ExpectType void
+    event.hasListener(callback); // $ExpectType boolean
+    event.hasListeners(); // $ExpectType boolean
+};
+
 // https://developer.chrome.com/docs/extensions/reference/api/bookmarks
 function testBookmarks() {
     chrome.bookmarks.BookmarkTreeNodeUnmodifiable.MANAGED === "managed";
