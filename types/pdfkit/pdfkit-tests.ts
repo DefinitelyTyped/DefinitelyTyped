@@ -207,6 +207,235 @@ doc.image(
     },
 ).text("Scale", 320, 265);
 
+// $ExpectType PDFDocument
+doc.table({
+    data: [
+        ["Column 1", "Column 2", "Column 3"],
+        ["One value goes here", "Another one here", "OK?"],
+    ],
+});
+
+// $ExpectType PDFTableObject
+doc.table()
+    .row(["Column 1", "Column 2", "Column 3"])
+    .row(["One value goes here", "Another one here", "OK?"]);
+
+doc.table({
+    columnStyles: [100, "*", 200, "*"],
+    data: [
+        ["width=100", "star-sized", "width=200", "star-sized"],
+        [
+            "fixed-width cells have exactly the specified width",
+            { text: "nothing interesting here", textColor: "grey" },
+            { text: "nothing interesting here", textColor: "grey" },
+            { text: "nothing interesting here", textColor: "grey" },
+        ],
+    ],
+});
+
+doc.table({
+    rowStyles: [20, 50, 70],
+    data: [
+        ["row 1 with height 20", "column B"],
+        ["row 2 with height 50", "column B"],
+        ["row 3 with height 70", "column B"],
+    ],
+});
+
+doc.table({
+    rowStyles: 40,
+    data: [
+        ["row 1", "column B"],
+        ["row 2", "column B"],
+        ["row 3", "column B"],
+    ],
+});
+
+doc.table({
+    rowStyles: (row) => (row + 1) * 25,
+    data: [
+        ["row 1", "column B"],
+        ["row 2", "column B"],
+        ["row 3", "column B"],
+    ],
+});
+
+doc.table({
+    columnStyles: [200, "*", "*"],
+    data: [
+        [{ colSpan: 2, text: "Header with Colspan = 2" }, "Header 3"],
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        [
+            {
+                rowSpan: 3,
+                text:
+                    "rowspan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor",
+            },
+            "Sample value 2",
+            "Sample value 3",
+        ],
+        ["Sample value 2", "Sample value 3"],
+        ["Sample value 2", "Sample value 3"],
+        [
+            "Sample value 1",
+            {
+                colSpan: 2,
+                rowSpan: 2,
+                text: "Both:\nrowspan and colspan\ncan be defined at the same time",
+            },
+        ],
+        ["Sample value 1"],
+    ],
+});
+
+doc.table({
+    rowStyles: { border: false },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        return i < 1 ? { border: [0, 0, 1, 0] } : { border: false };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        return i < 1
+            ? { border: [0, 0, 2, 0], borderColor: "black" }
+            : { border: [0, 0, 1, 0], borderColor: "#aaa" };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    // Set the style for all cells
+    defaultStyle: { border: 1, borderColor: "gray" },
+    // Set the style for cells based on their column
+    columnStyles: (i) => {
+        if (i === 0) return { border: { left: 2 }, borderColor: { left: "black" } };
+        if (i === 2) return { border: { right: 2 }, borderColor: { right: "black" } };
+    },
+    // Set the style for cells based on their row
+    rowStyles: (i) => {
+        if (i === 0) return { border: { top: 2 }, borderColor: { top: "black" } };
+        if (i === 3) return { border: { bottom: 2 }, borderColor: { bottom: "black" } };
+    },
+    data: [
+        ["Header 1", "Header 2", "Header 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    rowStyles: (i) => {
+        if (i % 2 === 0) return { backgroundColor: "#ccc" };
+    },
+    data: [
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+        ["Sample value 1", "Sample value 2", "Sample value 3"],
+    ],
+});
+
+doc.table({
+    data: [
+        [
+            {
+                border: [true, false, false, false],
+                backgroundColor: "#eee",
+                text: "border:\n[true, false, false, false]",
+            },
+            { border: false, backgroundColor: "#ddd", text: "border:\nfalse" },
+            { border: true, backgroundColor: "#eee", text: "border:\ntrue" },
+        ],
+        [
+            { rowSpan: 3, border: true, backgroundColor: "#eef", text: "rowSpan: 3\n\nborder:\ntrue" },
+            { border: undefined, backgroundColor: "#eee", text: "border:\nundefined (default)" },
+            {
+                border: [false, false, false, true],
+                backgroundColor: "#ddd",
+                text: "border:\n[false, false, false, true]",
+            },
+        ],
+        [
+            { colSpan: 2, border: true, backgroundColor: "#efe", text: "colSpan: 2\n\nborder:\ntrue" },
+        ],
+        [
+            { border: 0, backgroundColor: "#eee", text: "border:\n0 (same as false)" },
+            {
+                border: [false, true, true, false],
+                backgroundColor: "#ddd",
+                text: "border:\n[false, true, true, false]",
+            },
+        ],
+    ],
+});
+
+doc.table({
+    defaultStyle: { border: false, width: 60 },
+    data: [
+        ["", "column 1", "column 2", "column 3"],
+        [
+            "row 1",
+            {
+                rowSpan: 3,
+                colSpan: 3,
+                border: true,
+                backgroundColor: "#ccc",
+                text: "rowSpan: 3\ncolSpan: 3\n\nborder:\n[true, true, true, true]",
+            },
+        ],
+        ["row 2"],
+        ["row 3"],
+    ],
+});
+
+doc.table({
+    defaultStyle: { border: 1 },
+    columnStyles: { border: { right: 2 } },
+    rowStyles: { border: { bottom: 3 } },
+    data: [
+        [{ border: { left: 4 } }],
+    ],
+});
+
+doc.text("before")
+    .table({
+        data: [
+            ["Column 1", "Column 2", "Column 3"],
+            ["One value goes here", "Another one here", "OK?"],
+        ],
+    })
+    .text("after");
+
 doc.text("Scale", { align: "justify" });
 
 doc.text("Baseline - string literal", { baseline: "alphabetic" });
