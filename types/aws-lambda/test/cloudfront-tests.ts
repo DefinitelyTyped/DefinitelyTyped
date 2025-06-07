@@ -680,9 +680,7 @@ const originResponseEventRecord: CloudFrontResponseEventRecord = {
             statusDescription: "OK",
         },
     },
-}
-
-
+};
 
 const cloudFrontFunctionsEvent: CloudFrontFunctionsEvent = {
     version: "1.0",

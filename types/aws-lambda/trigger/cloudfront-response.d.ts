@@ -8,7 +8,7 @@ export interface CloudFrontResponseEventRecord {
     cf: CloudFrontEvent & {
         readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, "body">>;
         response: CloudFrontResponse;
-    }
+    };
 }
 
 /**
