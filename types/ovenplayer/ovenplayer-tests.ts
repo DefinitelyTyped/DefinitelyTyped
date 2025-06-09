@@ -199,16 +199,16 @@ player.on("playbackRateChanged", (data: { playbackRate: number }) => {
 
 player.on("metaData", (data: {
     type: string;
-    nalu: Uint8Array | Uint8Array<ArrayBuffer>;
+    nalu: Uint8Array;
     sei: {
         type: string;
         size: number;
-        payload: Uint8Array | Uint8Array<ArrayBuffer>;
+        payload: Uint8Array;
     }
     registered: boolean;
     uuid: string;
     timecode: number;
-    userdata: Uint8Array | Uint8Array<ArrayBuffer>;
+    userdata: Uint8Array;
 }) => {
     // $ExpectType string
     data.type;
