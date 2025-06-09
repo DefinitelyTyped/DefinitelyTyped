@@ -44,6 +44,8 @@ const testCalendarAppEventType = (): void => {
     const event = CalendarApp.getEventById("testevent")
     const type = event.getEventType();
     type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE
+    // @ts-expect-error
+    type == GoogleAppsScript.Calendar.EventType.STANDARD
 }
 
 
