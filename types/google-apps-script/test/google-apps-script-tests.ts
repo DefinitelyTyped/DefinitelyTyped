@@ -41,13 +41,12 @@ const postTest = (payload: object): string => {
 
 // Test CalendarApp.EventType
 const testCalendarAppEventType = (): void => {
-    const event = CalendarApp.getEventById("testevent")
+    const event = CalendarApp.getEventById("testevent");
     const type = event.getEventType();
-    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE
+    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE;
     // @ts-expect-error
-    type == GoogleAppsScript.Calendar.EventType.STANDARD
-}
-
+    type == GoogleAppsScript.Calendar.EventType.STANDARD;
+};
 
 // Advanced Services
 Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
