@@ -7,6 +7,7 @@ import OvenPlayer, {
     getPlayerList,
     OvenPlayerQuality,
     removePlayer,
+    OvenPlayerEvents
 } from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
@@ -181,34 +182,44 @@ const videoElement: HTMLVideoElement = player.getMediaElement();
 // on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
 player.on("ready", () => { });
 
-// once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
-player.once("stateChanged", data => { });
+// once(eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+player.once("stateChanged", () => { });
 
-player.on("volumeChanged", data => {
+player.on("volumeChanged", (data: { volume: number, mute: boolean }) => {
     // $ExpectType number
     data.volume;
     // $ExpectType boolean
     data.mute;
 });
 
-player.on("playbackRateChanged", data => {
+player.on("playbackRateChanged", (data: { playbackRate: number }) => {
     // $ExpectType number
     data.playbackRate;
 });
 
-player.on("metaData", data => {
+player.on("metaData", (data: {
+    type: string;
+    nalu: Uint8Array;
+    sei: {
+        type: string;
+        size: number;
+        payload: Uint8Array;
+    }
+    registered: boolean;
+    uuid: string;
+    timecode: number;
+    userdata: Uint8Array;
+}) => {
     // $ExpectType string
     data.type;
     // $ExpectType Uint8Array
     data.nalu;
-
     // $ExpectType string
     data.sei.type;
-    // $ExpectType boolean
+    // $ExpectType number
     data.sei.size;
     // $ExpectType Uint8Array
     data.sei.payload;
-
     // $ExpectType boolean
     data.registered;
     // $ExpectType string
@@ -225,7 +236,6 @@ player.off("ready");
 // remove(): void;
 player.remove();
 
-// @ts-expect-error: it's deprecated method, should throw error for newest users.
 player.setCaption({
     // you can use player.setCaption?.()
     file: "https://youtu.be/dQw4w9WgXcQ",

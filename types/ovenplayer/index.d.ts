@@ -37,62 +37,45 @@ export interface OvenPlayerConfig {
         /** @required */
         text?: string;
         font?: CSSStyleDeclaration;
-        /** @default 'top-left' */
         position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-        /** @default 2.8% */
         x?: string;
-        /** @default 5% */
         y?: string;
-        /** @default 'auto' */
         width?: string;
-        /** @default 'auto' */
         height?: string;
-        /** @defaultValue 0.7 */
         opacity?: number;
     };
-    /** @default false */
     autoStart?: boolean;
-    /** @default true */
     autoFallback?: boolean;
-    /** @default true */
     controls?: boolean;
-    /** @default false */
     loop?: boolean;
-    /** @default true */
     showBigPlayButton?: boolean;
-    /** @default true */
     disableSeekUI?: boolean;
-    /** @default false */
     showSeekControl?: boolean;
-    /** @default 10 */
     seekControlInterval?: number;
-    /** @default false */
     expandFullScreenUI?: boolean;
-    /** @default false */
     mute?: boolean;
-    /** @default true */
     timecode?: boolean;
-    /** @default 1 */
     playbackRate?: number;
-    /** @default [2, 1.5, 1, 0.5, 0.25] */
     playbackRates?: number[];
-    /** @default false */
     currentProtocolOnly?: boolean;
     tracks?: Array<Pick<OvenPlayerTrack, "file" | "kind" | "label">>;
-    /** @default 100 */
     volume?: number;
     adTagUrl?: string;
     adClient?: "googleima" | "vast";
     playlist?: OvenPlayerPlayList;
-    /** @default false */
     hidePlaylistIcon?: boolean;
     /**
-     * Set the timeout from the start of signaling until it is connected with OvenMediaEngine. `connectionTimeout` sets the maximum allowable time until a connection is established. `timeoutMaxRetry` sets the number of times the player will automatically retry the connection when the maximum allowed time has elapsed. When retrying a connection due to a timeout, the player does not display an error message. If the connection fails after retries for `timeoutMaxRetry`, the player throws a timeout error. If `timeoutMaxRetry` is set to 0, no timeout processing is performed.
+     * Set the timeout from the start of signaling until it is connected with OvenMediaEngine.
+     *  `connectionTimeout` sets the maximum allowable time until a connection is established.
+     *  `timeoutMaxRetry` sets the number of times the player will automatically retry the connection
+     *  when the maximum allowed time has elapsed. When retrying a connection due to a timeout,
+     *  the player does not display an error message.
+     *  If the connection fails after retries for `timeoutMaxRetry`,
+     *  the player throws a timeout error. If `timeoutMaxRetry` is set to 0,
+     *  no timeout processing is performed.
      */
     webrtcConfig?: {
-        /** @default 0 */
         timeoutMaxRetry?: number;
-        /** @default 10000 */
         connectionTimeout?: number;
         /**
          * Set the play out delay hint for WebRTC playback. If the browser supports it, the initial playback will be delayed by the set value.
@@ -116,26 +99,23 @@ export interface OvenPlayerConfig {
     dashConfig?: object;
     /** @required */
     sources?: OvenPlayerSource[];
-    /** 
+    /**
      * Set the poster of the player.
      */
     image?: string;
     /**
-     * @default false
      * If true, OvenPlayer will use the `double touch` event to seek the video.
      */
     doubleTapToSeek?: boolean;
     /**
-     * @default null
      * If set OvenPlayer will decode the stream and parse the stream data.
      */
     parseStream?: {
-        /** 
+        /**
          * Set to true if you want to parse the stream data.
-         * @default false 
          */
         enabled: boolean;
-    }
+    };
 }
 
 export interface OvenPlayerWebRTCStream {
@@ -216,7 +196,8 @@ export interface OvenPlayerHandler {
      */
     (eventName: "volumeChanged", callback: (eventData: OvenPlayerEvents["volumeChanged"]) => void): void;
     /**
-     * Fired when the active playlist is changed. It happens in response to, e.g., a user clicking an option in the playlist menu or a script calling `setCurrentPlaylist` or prev playlist has been completed.
+     * Fired when the active playlist is changed.
+     * It happens in response to, e.g., a user clicking an option in the playlist menu or a script calling `setCurrentPlaylist` or prev playlist has been completed.
      */
     (eventName: "playlistChanged", callback: (eventData: OvenPlayerEvents["playlistChanged"]) => void): void;
     /**
@@ -317,16 +298,22 @@ export interface OvenPlayerEvents {
             /** Raw SEI payload data (Uint8Array) */
             payload: Uint8Array;
         }
-        /** Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
-         *  If true, the following additional fields are included 
+        /**
+         * Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
+         * If true, the following additional fields are included.
          */
         registered: boolean;
-        /** (when registered=true) Unique identifier inserted by OvenMediaEngine into the SEI */
+        /**
+         * (when registered=true) Unique identifier inserted by OvenMediaEngine into the SEI.
+         */
         uuid: string;
-        /** (when registered=true) Timestamp (milliseconds) when the SEI was inserted */
+        /**
+         * (when registered=true) Timestamp (milliseconds) when the SEI was inserted.
+         */
         timecode: number;
-        /** (when registered=true) Uint8Array containing custom data. 
-         * This data should be parsed according to the application's requirements 
+        /**
+         * (when registered=true) Uint8Array containing custom data.
+         * This data should be parsed according to the application's requirements.
          */
         userdata: Uint8Array;
     };

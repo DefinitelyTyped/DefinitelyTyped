@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "node16",
+        "moduleResolution": "node",
         "lib": [
             "es6",
             "dom"
