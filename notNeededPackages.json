@@ -724,6 +724,10 @@
             "libraryName": "cheerio",
             "asOfVersion": "1.0.0"
         },
+        "chenfengyuan__vue-qrcode": {
+            "libraryName": "@chenfengyuan/vue-qrcode",
+            "asOfVersion": "2.0.0"
+        },
         "chokidar": {
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
@@ -2221,6 +2225,10 @@
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
         },
+        "flatbuffers": {
+            "libraryName": "flatbuffers",
+            "asOfVersion": "2.0.1"
+        },
         "flatbush": {
             "libraryName": "flatbush",
             "asOfVersion": "4.2.0"
@@ -2620,6 +2628,10 @@
         "hapi__iron": {
             "libraryName": "@hapi/iron",
             "asOfVersion": "6.0.0"
+        },
+        "hapi__jwt": {
+            "libraryName": "@hapi/jwt",
+            "asOfVersion": "3.2.0"
         },
         "hapi__lab": {
             "libraryName": "@hapi/lab",
@@ -5098,6 +5110,10 @@
         "pixi.js": {
             "libraryName": "pixi.js",
             "asOfVersion": "5.0.0"
+        },
+        "pizzip": {
+            "libraryName": "pizzip",
+            "asOfVersion": "3.1.2"
         },
         "pkcs11js": {
             "libraryName": "pkcs11js",

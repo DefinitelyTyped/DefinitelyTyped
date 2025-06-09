@@ -170,6 +170,13 @@ export namespace Calendar {
         view: View;
     }
 
+    interface EventFilterInfo {
+        event: Event;
+        index: number;
+        events: Event[];
+        view: View;
+    }
+
     interface EventResizeInfo {
         event: Event;
         oldEvent: Event;
@@ -320,6 +327,7 @@ export namespace Calendar {
         eventDragStop?: (info: EventDragInfo) => void;
         eventDrop?: (info: EventDropInfo) => void;
         eventDurationEditable?: boolean;
+        eventFilter?: (info: EventFilterInfo) => boolean;
         eventLongPressDelay?: number;
         eventMouseEnter?: (info: MouseEnterInfo) => void;
         eventMouseLeave?: (info: MouseEnterInfo) => void;

@@ -2258,6 +2258,11 @@ declare namespace naver.maps {
             number1: string;
             number2: string;
             coords: Coords;
+            addition0: Addition;
+            addition1: Addition;
+            addition2: Addition;
+            addition3: Addition;
+            addition4: Addition;
         }
 
         interface Area {
@@ -2276,11 +2281,6 @@ declare namespace naver.maps {
             area2: Area;
             area3: Area;
             area4: Area;
-            addition0: Addition;
-            addition1: Addition;
-            addition2: Addition;
-            addition3: Addition;
-            addition4: Addition;
         }
 
         interface ResultItem {

@@ -2,7 +2,6 @@ import {
     Accordion,
     AccordionContent,
     AccordionItem,
-    AccordionItemProps,
     AccordionToggle,
     AccordionToggleIcon,
     Box,
@@ -16,6 +15,11 @@ import {
     Input,
     LightMode,
     Link,
+    Menu,
+    MenuItem,
+    MenuList,
+    MenuToggle,
+    MenuToggleIcon,
     Modal,
     ModalBody,
     ModalContent,
@@ -404,8 +408,11 @@ const TreeApp = () => {
 
 const PopoverTest = () => {
     return (
-        <Popover>
-            <PopoverTrigger>
+        <Popover
+            disabled={false} // Use the `disabled` prop to control whether the popover will be displayed
+            trigger="hover"
+        >
+            <PopoverTrigger shouldWrapChildren>
                 <Button>Open Popover</Button>
             </PopoverTrigger>
             <PopoverContent
@@ -448,5 +455,29 @@ const AccordionApp = () => {
                 </AccordionItem>
             ))}
         </Accordion>
+    );
+};
+
+const MenuApp = () => {
+    return (
+        <Menu>
+            <MenuToggle disabled={true}>
+                {({ getMenuToggleProps }) => (
+                    <Button {...getMenuToggleProps()}>
+                        <MenuToggleIcon />
+                    </Button>
+                )}
+            </MenuToggle>
+            <MenuList
+                width="max-content"
+                PopperComponent={PopoverArrow}
+                PopperProps={{ arrowWidth: 20, arrowHeight: 20, randomProp: 123 }}
+                TransitionComponent={Box}
+                TransitionProps={{ appear: false, in: false, randomProp: 123 }}
+            >
+                <MenuItem>List item 1</MenuItem>
+                <MenuItem>List item 2</MenuItem>
+            </MenuList>
+        </Menu>
     );
 };
