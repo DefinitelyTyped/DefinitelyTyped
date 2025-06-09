@@ -77,6 +77,10 @@ const player = create("player1", {
             },
         ],
     },
+    doubleTapToSeek: true,
+    parseStream: {
+        enabled: true
+    }
 });
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
@@ -175,10 +179,10 @@ const quality: OvenPlayerQuality = {
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
 // on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
-player.on("ready", () => {});
+player.on("ready", () => { });
 
 // once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
-player.once("stateChanged", data => {});
+player.once("stateChanged", data => { });
 
 player.on("volumeChanged", data => {
     // $ExpectType number
@@ -190,6 +194,29 @@ player.on("volumeChanged", data => {
 player.on("playbackRateChanged", data => {
     // $ExpectType number
     data.playbackRate;
+});
+
+player.on("metaData", data => {
+    // $ExpectType string
+    data.type;
+    // $ExpectType Uint8Array
+    data.nalu;
+
+    // $ExpectType string
+    data.sei.type;
+    // $ExpectType boolean
+    data.sei.size;
+    // $ExpectType Uint8Array
+    data.sei.payload;
+
+    // $ExpectType boolean
+    data.registered;
+    // $ExpectType string
+    data.uuid;
+    // $ExpectType number
+    data.timecode;
+    // $ExpectType Uint8Array
+    data.userdata;
 });
 
 // off(eventName: keyof OvenPlayerEvents): void;

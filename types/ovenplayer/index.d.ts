@@ -116,7 +116,26 @@ export interface OvenPlayerConfig {
     dashConfig?: object;
     /** @required */
     sources?: OvenPlayerSource[];
+    /** 
+     * Set the poster of the player.
+     */
     image?: string;
+    /**
+     * @default false
+     * If true, OvenPlayer will use the `double touch` event to seek the video.
+     */
+    doubleTapToSeek?: boolean;
+    /**
+     * @default null
+     * If set OvenPlayer will decode the stream and parse the stream data.
+     */
+    parseStream?: {
+        /** 
+         * Set to true if you want to parse the stream data.
+         * @default false 
+         */
+        enabled: boolean;
+    }
 }
 
 export interface OvenPlayerWebRTCStream {
@@ -157,6 +176,10 @@ export interface OvenPlayerHandler {
      * It occurs when new metadata is received.
      */
     (eventName: "metaChanged", callback: (eventData: OvenPlayerEvents["metaChanged"]) => void): void;
+    /**
+     * It occurs when parseStream is enabled and new metadata is received.
+     */
+    (eventName: "metaData", callback: (eventData: OvenPlayerEvents["metaData"]) => void): void;
     /**
      * It occurs when the state of a player changes.
      */
@@ -279,6 +302,33 @@ export interface OvenPlayerEvents {
         isP2P: boolean;
         /** current source type */
         type: string;
+    };
+    metaData: {
+        /** Type of metadata, e.g. "sei" */
+        type: string;
+        /** Uint8Array containing raw Network Abstraction Layer Unit (NALU) data of the SEI */
+        nalu: Uint8Array;
+        /** SEI parsing result containing the following sub-fields: */
+        sei: {
+            /** SEI type */
+            type: string;
+            /** Payload size */
+            size: number;
+            /** Raw SEI payload data (Uint8Array) */
+            payload: Uint8Array;
+        }
+        /** Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
+         *  If true, the following additional fields are included 
+         */
+        registered: boolean;
+        /** (when registered=true) Unique identifier inserted by OvenMediaEngine into the SEI */
+        uuid: string;
+        /** (when registered=true) Timestamp (milliseconds) when the SEI was inserted */
+        timecode: number;
+        /** (when registered=true) Uint8Array containing custom data. 
+         * This data should be parsed according to the application's requirements 
+         */
+        userdata: Uint8Array;
     };
     stateChanged: {
         prevstate: OvenPlayerState;
@@ -458,6 +508,6 @@ export interface OvenPlayerTrack {
     name: string;
 }
 
-export {};
+export { };
 
 export as namespace OvenPlayer;
