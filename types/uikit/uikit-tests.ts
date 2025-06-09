@@ -54,7 +54,7 @@ function testCover() {
         height: 1,
     });
 
-    component.$destroy()
+    component.$destroy();
 }
 
 function testDrop() {
@@ -88,7 +88,7 @@ function testDropnav() {
     const component = UIkit.dropnav(element, {
         align: "center",
         mode: "click",
-        dropbar: true
+        dropbar: true,
     });
 
     component.$destroy();
@@ -109,7 +109,7 @@ function testFilter() {
 function testForm() {
     UIkit.formCustom(element).$destroy();
     const component = UIkit.formCustom(element, {
-        target: ">"
+        target: ">",
     });
 
     component.$destroy();
@@ -118,7 +118,7 @@ function testForm() {
 function testGrid() {
     UIkit.grid(element).$destroy();
     const component = UIkit.grid(element, {
-        masonry: "next"
+        masonry: "next",
     });
 
     component.$destroy();
@@ -127,7 +127,7 @@ function testGrid() {
 function testHeightMatch() {
     UIkit.heightMatch(element).$destroy();
     const component = UIkit.heightMatch(element, {
-        row: true
+        row: true,
     });
 
     component.$destroy();
@@ -135,8 +135,7 @@ function testHeightMatch() {
 
 function testHeightPlaceholder() {
     UIkit.heightPlaceholder(element).$destroy();
-    const component = UIkit.heightPlaceholder(element, {
-    });
+    const component = UIkit.heightPlaceholder(element, {});
 
     component.$destroy();
 }
@@ -152,7 +151,7 @@ function testHeightViewport() {
 
 async function testIcon() {
     UIkit.icon(element).$destroy();
-    const component = UIkit.icon(element, {icon: "facebook"});
+    const component = UIkit.icon(element, { icon: "facebook" });
 
     await component.svg.then(() => console.log("Loaded"));
     component.$destroy();
@@ -160,7 +159,7 @@ async function testIcon() {
 
 function testImage() {
     UIkit.img(element).$destroy();
-    const component = UIkit.img(element, {dataSrc: ""});
+    const component = UIkit.img(element, { dataSrc: "" });
 
     component.$destroy();
 }
@@ -196,8 +195,8 @@ function testLightbox() {
     lightbox.$destroy();
 
     UIkit.lightboxPanel(element).$destroy;
-    const panel = UIkit.lightboxPanel({delayControls: true});
-    
+    const panel = UIkit.lightboxPanel({ delayControls: true });
+
     panel.show(1);
     panel.startAutoplay();
     panel.stopAutoplay();
@@ -207,9 +206,9 @@ function testLightbox() {
 function testMargin() {
     UIkit.margin(element).$destroy();
     const component = UIkit.margin(element, {
-        margin: "uk-grid-margin"
+        margin: "uk-grid-margin",
     });
-    
+
     component.$destroy();
 }
 
@@ -271,7 +270,7 @@ function testNavbar() {
 function testNotification() {
     UIkit.notification("Hi").$destroy();
     UIkit.notification("Hi", "primary").$destroy();
-    const component = UIkit.notification("Hi", {status: "primary"});
+    const component = UIkit.notification("Hi", { status: "primary" });
 
     component.close();
     component.close(false);
@@ -295,7 +294,7 @@ function testOffCanvas() {
 
 function testParallax() {
     UIkit.parallax(element).$destroy();
-    const component = UIkit.parallax(element, {easing: 1});
+    const component = UIkit.parallax(element, { easing: 1 });
 
     component.$destroy();
 }
@@ -303,7 +302,7 @@ function testParallax() {
 function testScroll() {
     UIkit.scroll(element).$destroy();
     const component = UIkit.scroll(element, {
-        offset: 1
+        offset: 1,
     });
 
     component.scrollTo(">");
@@ -313,10 +312,10 @@ function testScroll() {
 
 function testScrollspy() {
     UIkit.scrollspy(element).$destroy();
-    const component = UIkit.scrollspy(element, {cls: "active"});
+    const component = UIkit.scrollspy(element, { cls: "active" });
 
     UIkit.scrollspyNav(element).$destroy();
-    const nav = UIkit.scrollspyNav(element, {target: ">"});
+    const nav = UIkit.scrollspyNav(element, { target: ">" });
 
     nav.$destroy();
 }
@@ -324,7 +323,7 @@ function testScrollspy() {
 function testSlider() {
     UIkit.slider(element).$destroy();
     const slider = UIkit.slider(element, {
-        autoplay: true
+        autoplay: true,
     });
 
     slider.startAutoplay();
@@ -398,9 +397,8 @@ function testToggle() {
 function testTooltip() {
     UIkit.tooltip(element).$destroy();
     const tooltip = UIkit.tooltip(element, {
-        title: "A Tooltip"
+        title: "A Tooltip",
     });
-
 
     tooltip.show();
     tooltip.hide();
@@ -423,8 +421,8 @@ function testUse() {
 
 function testUtils() {
     const handler = (e: Event) => console.log(e.target);
-    UIkit.util.on(document.body, "show", handler);    
-    UIkit.util.off(document.body, "show", handler);    
+    UIkit.util.on(document.body, "show", handler);
+    UIkit.util.off(document.body, "show", handler);
 }
 
 import Icons from "uikit/dist/js/uikit-icons";

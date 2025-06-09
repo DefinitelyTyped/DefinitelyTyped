@@ -25,11 +25,23 @@ export namespace UIkit {
     type UIkitAlign = "left" | "right" | "center";
     type UIkitCssSelector = string;
     type UIkitClickHoverMode = "click" | "hover" | ("click" | "hover")[];
-    type UIkitPosition = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "left-top" | "left-center" | "left-bottom" | "right-top" | "right-center" | "right-bottom";
+    type UIkitPosition =
+        | "top-left"
+        | "top-center"
+        | "top-right"
+        | "bottom-left"
+        | "bottom-center"
+        | "bottom-right"
+        | "left-top"
+        | "left-center"
+        | "left-bottom"
+        | "right-top"
+        | "right-center"
+        | "right-bottom";
     type UIkitStretch = "x" | "y" | boolean;
 
     // Base classes
-    
+
     interface Plugin {
         (uikit: typeof UIkit): void;
         installed?: boolean;
@@ -40,11 +52,14 @@ export namespace UIkit {
          * Destroys the component.
          * @param removeEl If true, also removes the element from the DOM.
          */
-        $destroy(removeEl?: boolean) : void;
+        $destroy(removeEl?: boolean): void;
     }
 
     /** A helper type that represents a UIkit initialization function. */
-    type UIkitFunction<TOptions extends {}, TElement extends UIkitElementBase = UIkitElementBase> = (element: UIkitElement, options?: TOptions) => TElement;
+    type UIkitFunction<TOptions extends {}, TElement extends UIkitElementBase = UIkitElementBase> = (
+        element: UIkitElement,
+        options?: TOptions,
+    ) => TElement;
 
     // Core elements
 
@@ -107,7 +122,7 @@ export namespace UIkit {
     type Alert = UIkitFunction<UIkitAlertOptions, UIkitAlertElement>;
 
     // Cover
-    
+
     interface UIkitCoverOptions {
         /** Tries to automute the iframe's video. */
         automute?: boolean;
@@ -174,7 +189,7 @@ export namespace UIkit {
 
     // Drop
 
-    type  UIkitDropOptions = UIkitDropOptionsBase;
+    type UIkitDropOptions = UIkitDropOptionsBase;
 
     interface UIkitDropElement extends UIkitElementBase {
         /** Shows the drop. */
@@ -206,9 +221,26 @@ export namespace UIkit {
 
     // Dropnav
 
-    interface UIkitDropnavOptions extends Pick<UIkitDropOptionsBase, "stretch" | "mode" | "delayShow" | "delayHide" | "boundary"
-    | "target" | "targetX" | "targetY" | "offset" | "animation" | "animateOut" | "bgScroll" | "closeOnScroll" | "duration"
-    | "container"> {
+    interface UIkitDropnavOptions extends
+        Pick<
+            UIkitDropOptionsBase,
+            | "stretch"
+            | "mode"
+            | "delayShow"
+            | "delayHide"
+            | "boundary"
+            | "target"
+            | "targetX"
+            | "targetY"
+            | "offset"
+            | "animation"
+            | "animateOut"
+            | "bgScroll"
+            | "closeOnScroll"
+            | "duration"
+            | "container"
+        >
+    {
         /** Dropdown alignment (left, right, center). */
         align?: UIkitAlign;
         /**	Enable or disable dropbar behavior. */
@@ -400,9 +432,9 @@ export namespace UIkit {
         };
     }
 
-    type  UIkitDialogResult<T = void> = Promise<T> & {
+    type UIkitDialogResult<T = void> = Promise<T> & {
         dialog: UIkitElementBase;
-    }
+    };
 
     type Modal = UIkitFunction<UIkitModalOptions, UIkitModalElement> & {
         /** Show an alert box with one button. */
@@ -428,7 +460,7 @@ export namespace UIkit {
         dialog(content: string, options?: UIkitDialogOptions): UIkitDialogResult<void>;
         /** The default button labels. */
         i18n: UIkitDialogOptions["i18n"];
-    }
+    };
 
     // Nav
 
@@ -826,7 +858,7 @@ export namespace UIkit {
         container?: string;
     }
 
-    interface UIkitLightboxPanelElement extends UIkitElementBase{
+    interface UIkitLightboxPanelElement extends UIkitElementBase {
         /**
          * Shows the Lightbox Panel and item.
          * @param index Lightbox item to show. 0 based index.
@@ -840,7 +872,7 @@ export namespace UIkit {
         stopAutoplay(): void;
     }
 
-    type LightboxPanel = (optionsOrElement: UIkitLightboxPanelOptions | UIkitElement) => UIkitLightboxPanelElement
+    type LightboxPanel = (optionsOrElement: UIkitLightboxPanelOptions | UIkitElement) => UIkitLightboxPanelElement;
 
     // Lightbox
 
@@ -881,7 +913,10 @@ export namespace UIkit {
 
     interface Notification {
         (options: UIkitNotificationOptions): UIkitNotificationElement;
-        (message: string, optionsOrStatus?: UIkitNotificationOptions | UIkitNotificationOptions["status"]): UIkitNotificationElement;
+        (
+            message: string,
+            optionsOrStatus?: UIkitNotificationOptions | UIkitNotificationOptions["status"],
+        ): UIkitNotificationElement;
         /**
          * Closes all notifications.
          * @param group The optional group to filter by.
@@ -949,10 +984,10 @@ export namespace UIkit {
     type Slider = UIkitFunction<UIkitSliderOptions, UIkitSliderElement>;
 
     // Slideshow
-    
+
     interface UIkitSlideshowOptions {
         /** Slideshow animation mode (slide, fade, scale, pull or push). */
-        animation?: "slide" |"fade" | "scale" | "pull" | "push";
+        animation?: "slide" | "fade" | "scale" | "pull" | "push";
         /** Slideshow autoplays. */
         autoplay?: boolean;
         /**	The delay between switching slides in autoplay mode. */
@@ -1119,7 +1154,7 @@ export namespace UIkit {
     const cover: Cover;
     const drop: Drop;
     const dropdown: Dropdown;
-    const dropnav : Dropnav;
+    const dropnav: Dropnav;
     const formCustom: FormCustom;
     const grid: Grid;
     const heightMatch: HeightMatch;
