@@ -199,26 +199,26 @@ player.on("playbackRateChanged", (data: { playbackRate: number }) => {
 
 player.on("metaData", (data: {
     type: string;
-    nalu: Uint8Array;
+    nalu: Uint8Array | Uint8Array<ArrayBuffer>;
     sei: {
         type: string;
         size: number;
-        payload: Uint8Array;
+        payload: Uint8Array | Uint8Array<ArrayBuffer>;
     }
     registered: boolean;
     uuid: string;
     timecode: number;
-    userdata: Uint8Array;
+    userdata: Uint8Array | Uint8Array<ArrayBuffer>;
 }) => {
     // $ExpectType string
     data.type;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     data.nalu;
     // $ExpectType string
     data.sei.type;
     // $ExpectType number
     data.sei.size;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     data.sei.payload;
     // $ExpectType boolean
     data.registered;
@@ -226,7 +226,7 @@ player.on("metaData", (data: {
     data.uuid;
     // $ExpectType number
     data.timecode;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     data.userdata;
 });
 

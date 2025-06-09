@@ -288,7 +288,7 @@ export interface OvenPlayerEvents {
         /** Type of metadata, e.g. "sei" */
         type: string;
         /** Uint8Array containing raw Network Abstraction Layer Unit (NALU) data of the SEI */
-        nalu: Uint8Array;
+        nalu: Uint8Array | Uint8Array<ArrayBuffer>;
         /** SEI parsing result containing the following sub-fields: */
         sei: {
             /** SEI type */
@@ -296,7 +296,7 @@ export interface OvenPlayerEvents {
             /** Payload size */
             size: number;
             /** Raw SEI payload data (Uint8Array) */
-            payload: Uint8Array;
+            payload: Uint8Array | Uint8Array<ArrayBuffer>;
         }
         /**
          * Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
@@ -315,7 +315,7 @@ export interface OvenPlayerEvents {
          * (when registered=true) Uint8Array containing custom data.
          * This data should be parsed according to the application's requirements.
          */
-        userdata: Uint8Array;
+        userdata: Uint8Array | Uint8Array<ArrayBuffer>;
     };
     stateChanged: {
         prevstate: OvenPlayerState;
