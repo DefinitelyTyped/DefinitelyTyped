@@ -39,11 +39,19 @@ const postTest = (payload: object): string => {
     return UrlFetchApp.fetch(url, params).getContentText();
 };
 
+// Test CalendarApp.EventType
+const testCalendarAppEventType = (): void => {
+    const event = CalendarApp.getEventById("testevent")
+    const type = event.getEventType();
+    type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE
+}
+
+
 // Advanced Services
 Slides.Presentations.Pages.getThumbnail("presentationId", "pageId");
 
 // Calendar (Advanced service)
-const createEvent = (): void => {
+const createEvent = (): GoogleAppsScript.Calendar.Schema.Event => {
     const calendarId = "primary";
     const start = new Date();
     const end = new Date();
@@ -66,6 +74,8 @@ const createEvent = (): void => {
     };
     event = Calendar.Events.insert(event, calendarId);
     Logger.log("Event ID: " + event.id);
+
+    return event;
 };
 
 // Calendar Working Locations (Advanced Service)
