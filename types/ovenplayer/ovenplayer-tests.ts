@@ -212,13 +212,13 @@ player.on("metaData", (data: {
 }) => {
     // $ExpectType string
     data.type;
-    // $ExpectType Uint8Array<ArrayBuffer>
+    // $ExpectType Uint8Array
     data.nalu;
     // $ExpectType string
     data.sei.type;
     // $ExpectType number
     data.sei.size;
-    // $ExpectType Uint8Array<ArrayBuffer>
+    // $ExpectType Uint8Array
     data.sei.payload;
     // $ExpectType boolean
     data.registered;
@@ -226,7 +226,7 @@ player.on("metaData", (data: {
     data.uuid;
     // $ExpectType number
     data.timecode;
-    // $ExpectType Uint8Array<ArrayBuffer>
+    // $ExpectType Uint8Array
     data.userdata;
 });
 
