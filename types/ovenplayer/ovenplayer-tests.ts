@@ -212,13 +212,13 @@ player.on("metaData", (data: {
 }) => {
     // $ExpectType string
     data.type;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array<ArrayBuffer>
     data.nalu;
     // $ExpectType string
     data.sei.type;
     // $ExpectType number
     data.sei.size;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array<ArrayBuffer>
     data.sei.payload;
     // $ExpectType boolean
     data.registered;
@@ -226,7 +226,7 @@ player.on("metaData", (data: {
     data.uuid;
     // $ExpectType number
     data.timecode;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array<ArrayBuffer>
     data.userdata;
 });
 
@@ -235,19 +235,6 @@ player.off("ready");
 
 // remove(): void;
 player.remove();
-
-player.setCaption({
-    // you can use player.setCaption?.()
-    file: "https://youtu.be/dQw4w9WgXcQ",
-    kind: "caption",
-    label: "label",
-});
-
-player.addCaption({
-    file: "https://youtu.be/dQw4w9WgXcQ",
-    kind: "caption",
-    label: "label",
-});
 
 // removePlayer(player: OvenPlayerInstance): void;
 removePlayer(player);
