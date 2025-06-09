@@ -25,7 +25,7 @@
 // NOTE: These definitions support Node.js and TypeScript 4.9 through 5.6.
 
 // Reference required TypeScript libs:
-/// <reference lib="es2020" />
+/// <reference lib="es2022" />
 
 // TypeScript backwards-compatibility definitions:
 /// <reference path="../compatibility/index.d.ts" />
