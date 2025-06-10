@@ -91,7 +91,7 @@ const ndOne: OneLine.OneLine = {
         // Mock implementation for loadScript
         console.log(`Loading script from: ${src} with priority: ${priority}`);
     },
-    requestAllAdUnitsWithReload: function () {
+    requestAllAdUnitsWithReload: function() {
         this.adUnitRequest([], true);
     },
 
@@ -99,7 +99,7 @@ const ndOne: OneLine.OneLine = {
      * Wrapper method to request all ad units without reload capability
      * This is equivalent to calling adUnitRequest([], false)
      */
-    requestAllAdUnits: function () {
+    requestAllAdUnits: function() {
         this.adUnitRequest([], false);
     },
 
@@ -107,7 +107,7 @@ const ndOne: OneLine.OneLine = {
      * Wrapper method to request specific ad units with reload capability
      * @param adUnitIds - Array of ad unit IDs to request
      */
-    requestSpecificAdUnitsWithReload: function (adUnitIds: string[]) {
+    requestSpecificAdUnitsWithReload: function(adUnitIds: string[]) {
         this.adUnitRequest(adUnitIds, true);
     },
 
@@ -115,7 +115,7 @@ const ndOne: OneLine.OneLine = {
      * Wrapper method to request specific ad units without reload capability
      * @param adUnitIds - Array of ad unit IDs to request
      */
-    requestSpecificAdUnits: function (adUnitIds: string[]) {
+    requestSpecificAdUnits: function(adUnitIds: string[]) {
         this.adUnitRequest(adUnitIds, false);
     },
 };
