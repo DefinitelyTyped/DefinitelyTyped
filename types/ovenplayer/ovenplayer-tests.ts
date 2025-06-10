@@ -5,9 +5,9 @@ import OvenPlayer, {
     getPlayerByContainerId,
     getPlayerByIndex,
     getPlayerList,
+    OvenPlayerEvents,
     OvenPlayerQuality,
     removePlayer,
-    OvenPlayerEvents
 } from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
@@ -80,8 +80,8 @@ const player = create("player1", {
     },
     doubleTapToSeek: true,
     parseStream: {
-        enabled: true
-    }
+        enabled: true,
+    },
 });
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
@@ -180,12 +180,12 @@ const quality: OvenPlayerQuality = {
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
 // on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
-player.on("ready", () => { });
+player.on("ready", () => {});
 
 // once(eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
-player.once("stateChanged", () => { });
+player.once("stateChanged", () => {});
 
-player.on("volumeChanged", (data: { volume: number, mute: boolean }) => {
+player.on("volumeChanged", (data: { volume: number; mute: boolean }) => {
     // $ExpectType number
     data.volume;
     // $ExpectType boolean
@@ -204,7 +204,7 @@ player.on("metaData", (data: {
         type: string;
         size: number;
         payload: Uint8Array;
-    }
+    };
     registered: boolean;
     uuid: string;
     timecode: number;

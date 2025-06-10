@@ -297,7 +297,7 @@ export interface OvenPlayerEvents {
             size: number;
             /** Raw SEI payload data (Uint8Array) */
             payload: Uint8Array;
-        }
+        };
         /**
          * Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
          * If true, the following additional fields are included.
@@ -495,6 +495,6 @@ export interface OvenPlayerTrack {
     name: string;
 }
 
-export { };
+export {};
 
 export as namespace OvenPlayer;
