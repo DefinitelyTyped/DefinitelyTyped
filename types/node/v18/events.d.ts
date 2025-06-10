@@ -109,15 +109,17 @@ declare module "events" {
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
             : any[]);
-    type EventNames<Events extends EventMap<Events>> = keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap;
-    type EventNameParam<Events extends EventMap<Events>, EventName> = EventName | EventNames<Events>;
-    type Listener<Events extends EventMap<Events>, EventName> = EventName extends
-        (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap) ?
-            | (EventName extends keyof Events ? ((...args: Events[EventName]) => void) : never)
-            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-                ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
-                : never)
-        : ((...args: any[]) => void);
+    type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
+        : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
+    type EventNameParam<Events extends EventMap<Events>, EventName> = {} extends Events ? string | symbol
+        : EventName | EventNames<Events>;
+    type Listener<Events extends EventMap<Events>, EventName> = {} extends Events ? ((...args: any[]) => void)
+        : (EventName extends (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap) ?
+                | (EventName extends keyof Events ? ((...args: Events[EventName]) => void) : never)
+                | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                    ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
+                    : never)
+            : ((...args: any[]) => void));
     /**
      * The `EventEmitter` class is defined and exposed by the `events` module:
      *
@@ -572,7 +574,7 @@ declare module "events" {
             readonly asyncResource: EventEmitterReferencingAsyncResource;
         }
 
-        export type NoEventMap = Record<string | symbol, any[]>;
+        export interface NoEventMap {}
 
         /** The events always emitted by EventEmitter itself */
         export interface EventEmitterBuiltInEventMap {
