@@ -6,7 +6,7 @@
  * ```js
  * import util from 'node:util';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -368,19 +368,6 @@ declare module "util" {
      */
     export function getSystemErrorMessage(err: number): string;
     /**
-     * The `util.log()` method prints the given `string` to `stdout` with an included
-     * timestamp.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.log('Timestamped message.');
-     * ```
-     * @since v0.3.0
-     * @deprecated Since v6.0.0 - Use a third party module instead.
-     */
-    export function log(string: string): void;
-    /**
      * Returns the `string` after replacing any surrogate code points
      * (or equivalently, any unpaired surrogate code units) with the
      * Unicode "replacement character" U+FFFD.
@@ -433,7 +420,6 @@ declare module "util" {
      * });
      * ```
      * @since v19.7.0
-     * @experimental
      * @param resource Any non-null object tied to the abortable operation and held weakly.
      * If `resource` is garbage collected before the `signal` aborts, the promise remains pending,
      * allowing Node.js to stop tracking it.
@@ -652,71 +638,6 @@ declare module "util" {
      */
     export function isArray(object: unknown): object is unknown[];
     /**
-     * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isRegExp(/some regexp/);
-     * // Returns: true
-     * util.isRegExp(new RegExp('another regexp'));
-     * // Returns: true
-     * util.isRegExp({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Deprecated
-     */
-    export function isRegExp(object: unknown): object is RegExp;
-    /**
-     * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isDate(new Date());
-     * // Returns: true
-     * util.isDate(Date());
-     * // false (without 'new' returns a String)
-     * util.isDate({});
-     * // Returns: false
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isDate} instead.
-     */
-    export function isDate(object: unknown): object is Date;
-    /**
-     * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isError(new Error());
-     * // Returns: true
-     * util.isError(new TypeError());
-     * // Returns: true
-     * util.isError({ name: 'Error', message: 'an error occurred' });
-     * // Returns: false
-     * ```
-     *
-     * This method relies on `Object.prototype.toString()` behavior. It is
-     * possible to obtain an incorrect result when the `object` argument manipulates `@@toStringTag`.
-     *
-     * ```js
-     * import util from 'node:util';
-     * const obj = { name: 'Error', message: 'an error occurred' };
-     *
-     * util.isError(obj);
-     * // Returns: false
-     * obj[Symbol.toStringTag] = 'Error';
-     * util.isError(obj);
-     * // Returns: true
-     * ```
-     * @since v0.6.0
-     * @deprecated Since v4.0.0 - Use {@link types.isNativeError} instead.
-     */
-    export function isError(object: unknown): object is Error;
-    /**
      * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and
      * `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
@@ -866,217 +787,6 @@ declare module "util" {
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export { debuglog as debug };
-    /**
-     * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBoolean(1);
-     * // Returns: false
-     * util.isBoolean(0);
-     * // Returns: false
-     * util.isBoolean(false);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'boolean'` instead.
-     */
-    export function isBoolean(object: unknown): object is boolean;
-    /**
-     * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isBuffer({ length: 0 });
-     * // Returns: false
-     * util.isBuffer([]);
-     * // Returns: false
-     * util.isBuffer(Buffer.from('hello world'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `isBuffer` instead.
-     */
-    export function isBuffer(object: unknown): object is Buffer;
-    /**
-     * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * function Foo() {}
-     * const Bar = () => {};
-     *
-     * util.isFunction({});
-     * // Returns: false
-     * util.isFunction(Foo);
-     * // Returns: true
-     * util.isFunction(Bar);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'function'` instead.
-     */
-    export function isFunction(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNull(0);
-     * // Returns: false
-     * util.isNull(undefined);
-     * // Returns: false
-     * util.isNull(null);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === null` instead.
-     */
-    export function isNull(object: unknown): object is null;
-    /**
-     * Returns `true` if the given `object` is `null` or `undefined`. Otherwise,
-     * returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNullOrUndefined(0);
-     * // Returns: false
-     * util.isNullOrUndefined(undefined);
-     * // Returns: true
-     * util.isNullOrUndefined(null);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === undefined || value === null` instead.
-     */
-    export function isNullOrUndefined(object: unknown): object is null | undefined;
-    /**
-     * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isNumber(false);
-     * // Returns: false
-     * util.isNumber(Infinity);
-     * // Returns: true
-     * util.isNumber(0);
-     * // Returns: true
-     * util.isNumber(NaN);
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'number'` instead.
-     */
-    export function isNumber(object: unknown): object is number;
-    /**
-     * Returns `true` if the given `object` is strictly an `Object`**and** not a`Function` (even though functions are objects in JavaScript).
-     * Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isObject(5);
-     * // Returns: false
-     * util.isObject(null);
-     * // Returns: false
-     * util.isObject({});
-     * // Returns: true
-     * util.isObject(() => {});
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value !== null && typeof value === 'object'` instead.
-     */
-    export function isObject(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isPrimitive(5);
-     * // Returns: true
-     * util.isPrimitive('foo');
-     * // Returns: true
-     * util.isPrimitive(false);
-     * // Returns: true
-     * util.isPrimitive(null);
-     * // Returns: true
-     * util.isPrimitive(undefined);
-     * // Returns: true
-     * util.isPrimitive({});
-     * // Returns: false
-     * util.isPrimitive(() => {});
-     * // Returns: false
-     * util.isPrimitive(/^$/);
-     * // Returns: false
-     * util.isPrimitive(new Date());
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead.
-     */
-    export function isPrimitive(object: unknown): boolean;
-    /**
-     * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isString('');
-     * // Returns: true
-     * util.isString('foo');
-     * // Returns: true
-     * util.isString(String('foo'));
-     * // Returns: true
-     * util.isString(5);
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'string'` instead.
-     */
-    export function isString(object: unknown): object is string;
-    /**
-     * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * util.isSymbol(5);
-     * // Returns: false
-     * util.isSymbol('foo');
-     * // Returns: false
-     * util.isSymbol(Symbol('foo'));
-     * // Returns: true
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `typeof value === 'symbol'` instead.
-     */
-    export function isSymbol(object: unknown): object is symbol;
-    /**
-     * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
-     *
-     * ```js
-     * import util from 'node:util';
-     *
-     * const foo = undefined;
-     * util.isUndefined(5);
-     * // Returns: false
-     * util.isUndefined(foo);
-     * // Returns: true
-     * util.isUndefined(null);
-     * // Returns: false
-     * ```
-     * @since v0.11.5
-     * @deprecated Since v4.0.0 - Use `value === undefined` instead.
-     */
-    export function isUndefined(object: unknown): object is undefined;
     /**
      * The `util.deprecate()` method wraps `fn` (which may be a function or class) in
      * such a way that it is marked as deprecated.
@@ -1321,7 +1031,7 @@ declare module "util" {
      * ```
      *
      * If there is an `original[util.promisify.custom]` property present, `promisify`
-     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v22.x/api/util.html#custom-promisified-functions).
+     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v24.x/api/util.html#custom-promisified-functions).
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
      * final argument in all cases. If `original` is not a function, `promisify()`
@@ -1481,7 +1191,7 @@ declare module "util" {
     /**
      * This function returns a formatted text considering the `format` passed
      * for printing in a terminal. It is aware of the terminal's capabilities
-     * and acts according to the configuration set via `NO_COLORS`,
+     * and acts according to the configuration set via `NO_COLOR`,
      * `NODE_DISABLE_COLORS` and `FORCE_COLOR` environment variables.
      *
      * ```js
@@ -1518,7 +1228,7 @@ declare module "util" {
      * );
      * ```
      *
-     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v22.x/api/util.html#modifiers).
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
@@ -2222,10 +1932,21 @@ declare module "util/types" {
      * ```
      *
      * For further information on `napi_create_external`, refer to
-     * [`napi_create_external()`](https://nodejs.org/docs/latest-v22.x/api/n-api.html#napi_create_external).
+     * [`napi_create_external()`](https://nodejs.org/docs/latest-v24.x/api/n-api.html#napi_create_external).
      * @since v10.0.0
      */
     function isExternal(object: unknown): boolean;
+    /**
+     * Returns `true` if the value is a built-in [`Float16Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float16Array) instance.
+     *
+     * ```js
+     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
+     * util.types.isFloat16Array(new Float16Array());  // Returns true
+     * util.types.isFloat16Array(new Float32Array());  // Returns false
+     * ```
+     * @since v24.0.0
+     */
+    function isFloat16Array(object: unknown): object is Float16Array;
     /**
      * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
      *

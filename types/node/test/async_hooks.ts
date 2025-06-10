@@ -101,6 +101,11 @@ import {
 }
 
 {
+    const asyncLocalStorage = new AsyncLocalStorage({ defaultValue: {}, name: "storage" });
+    asyncLocalStorage.name; // $ExpectType string
+}
+
+{
     // $ExpectType number
     asyncWrapProviders.NONE;
     // $ExpectType number
