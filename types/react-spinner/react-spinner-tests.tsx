@@ -7,5 +7,3 @@ const spinnerWithClass: React.JSX.Element = <Spinner className="test" />;
 
 // @ts-expect-error
 const spinnerWithInvalidDivProp: React.JSX.Element = <Spinner invalidProp="test" />;
-
-
