@@ -55,6 +55,9 @@ declare module "." {
     export type SuspenseListTailMode = "collapsed" | "hidden" | "visible";
 
     export interface SuspenseListCommonProps {
+    }
+
+    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
         /**
          * Note that SuspenseList require more than one child;
          * it is a runtime warning to provide only a single child.
@@ -62,10 +65,7 @@ declare module "." {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
-    }
-
-    interface DirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: Iterable<ReactElement> | AsyncIterable<ReactElement>;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
@@ -82,6 +82,7 @@ declare module "." {
     }
 
     interface NonDirectionalSuspenseListProps extends SuspenseListCommonProps {
+        children: ReactNode;
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */

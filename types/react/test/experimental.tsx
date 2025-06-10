@@ -35,10 +35,16 @@ function suspenseTest() {
 // @ts-expect-error -- no tail
 <React.unstable_SuspenseList revealOrder="forwards">
     <React.Suspense fallback="Loading">Content</React.Suspense>
+    <React.Suspense fallback="Loading">Content</React.Suspense>
 </React.unstable_SuspenseList>;
 
 <React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
     <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+// @ts-expect-error -- Must have more than one static child
+<React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
@@ -64,8 +70,8 @@ function suspenseTest() {
 
 function Page({ children }: { children: NonNullable<React.ReactNode> }) {
     return (
+        // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
         <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
-            {/* @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements. */}
             {children}
         </React.unstable_SuspenseList>
     );
