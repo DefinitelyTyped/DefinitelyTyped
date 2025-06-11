@@ -17,5 +17,13 @@
             "name": "Stephen Wade",
             "githubUsername": "stephenwade"
         }
-    ]
+    ],
+    "typesVersions": {
+        "<4.1": {
+            "index.d.ts": [
+                "index.ts3.d.ts"
+            ]
+        }
+    }
+
 }
