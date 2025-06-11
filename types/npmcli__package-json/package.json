@@ -18,10 +18,11 @@
             "githubUsername": "stephenwade"
         }
     ],
+    "types": "index",
     "typesVersions": {
-        "<4.1": {
-            "index.d.ts": [
-                "index.ts3.d.ts"
+        "<=4.0": {
+            "*": [
+                "ts4.0/*"
             ]
         }
     }
