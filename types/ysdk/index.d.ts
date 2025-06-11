@@ -1,120 +1,95 @@
 declare global {
     const YaGames: {
-        init(opts?: {
-            screen: {
-                fullscreen?: boolean;
-                orientation?: {
-                    value: "portrait" | "landscape";
-                    lock?: boolean;
-                };
-            };
-        }): Promise<SDK>;
+        init<TGlobalSigned extends boolean = false>(opts?: { signed?: TGlobalSigned }): Promise<SDK<TGlobalSigned>>;
     };
 }
 
-export interface SDK {
-    environment: Environment;
-
+export interface SDK<TGlobalSigned extends boolean = false> {
+    EVENTS: {
+        EXIT: 'EXIT';
+        HISTORY_BACK: 'HISTORY_BACK';
+    };
+    adv: {
+        getBannerAdvStatus(): Promise<{
+            reason?: StickyAdvError;
+            stickyAdvIsShowing: boolean;
+        }>;
+        hideBannerAdv(): Promise<{ stickyAdvIsShowing: boolean }>;
+        showBannerAdv(): Promise<{ reason?: StickyAdvError }>;
+        showFullscreenAdv(opts?: {
+            callbacks?: {
+                onClose?: (wasShown: boolean) => void;
+                onError?: (error: string) => void;
+                onOffline?: () => void;
+                onOpen?: () => void;
+            };
+        }): void;
+        showRewardedVideo(opts?: {
+            callbacks?: {
+                onCancel?: () => void;
+                onClose?: () => void;
+                onError?: (error: string) => void;
+                onOpen?: () => void;
+                onRewarded?: () => void;
+            };
+        }): void;
+    };
+    auth: {
+        openAuthDialog(): Promise<void>;
+    };
+    clipboard: {
+        writeText(text: string): void;
+    };
     deviceInfo: DeviceInfo;
-
-    features: Partial<{
-        LoadingAPI: {
-            ready(): void;
-        };
+    environment: Environment;
+    features: {
         GameplayAPI: {
             start(): void;
             stop(): void;
         };
-    }>;
-
-    clipboard: {
-        writeText(text: string): void;
-    };
-
-    screen: {
-        fullscreen: {
-            STATUS_ON: "on";
-            STATUS_OFF: "off";
-            status: "on" | "off";
-            request(): Promise<void>;
-            exit(): Promise<void>;
+        LoadingAPI: {
+            ready(): void;
         };
     };
-
-    getStorage(): Promise<SafeStorage>;
-
-    auth: {
-        openAuthDialog(): Promise<void>;
-    };
-
-    getPlayer<TSigned extends boolean = false>(opts?: {
-        signed?: TSigned;
-    }): Promise<TSigned extends true ? Signed<Player> : Player>;
-
     feedback: {
         canReview(): Promise<{
-            value: boolean;
             reason?: FeedbackError;
+            value: boolean;
         }>;
         requestReview(): Promise<{ feedbackSent: boolean }>;
     };
-
-    adv: {
-        showFullscreenAdv(opts?: {
-            callbacks?: {
-                onOpen?: () => void;
-                onClose?: (wasShown: boolean) => void;
-                onError?: (error: string) => void;
-                onOffline?: () => void;
-            };
-        }): void;
-
-        showRewardedVideo(opts?: {
-            callbacks?: {
-                onOpen?: () => void;
-                onClose?: () => void;
-                onError?: (error: string) => void;
-                onRewarded?: () => void;
-            };
-        }): void;
-
-        showBannerAdv(): Promise<{ reason?: StickyAdvError }>;
-
-        hideBannerAdv(): Promise<{ stickyAdvIsShowing: boolean }>;
-
-        getBannerAdvStatus(): Promise<{
-            stickyAdvIsShowing: boolean;
-            reason?: StickyAdvError;
-        }>;
+    leaderboards: YLeaderboards;
+    multiplayer: Multiplayer;
+    payments: Payments<TGlobalSigned>;
+    screen: {
+        fullscreen: {
+            STATUS_OFF: 'off';
+            STATUS_ON: 'on';
+            status: 'off' | 'on';
+            exit(): Promise<void>;
+            request(): Promise<void>;
+        };
     };
-
-    EVENTS: {
-        EXIT: "EXIT";
-        HISTORY_BACK: "HISTORY_BACK";
-    };
-
-    dispatchEvent(eventName: SdkEventName, detail?: any): Promise<unknown>;
-
-    onEvent(eventName: SdkEventName, listener: () => void): () => void;
-
     shortcut: {
         canShowPrompt(): Promise<{ canShow: boolean }>;
-        showPrompt(): Promise<{ outcome: "accepted" | "rejected" }>;
+        showPrompt(): Promise<{ outcome: 'accepted' | 'rejected' }>;
     };
-
-    getPayments<TSigned extends boolean = false>(opts?: { signed?: TSigned }): Promise<Payments<TSigned>>;
-
-    getLeaderboards(): Promise<Leaderboards>;
-
+    dispatchEvent(eventName: SdkEventName, detail?: object): Promise<unknown>;
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
-
+    /** @deprecated - use ysdk.leaderboards */
+    getLeaderboards(): Promise<Leaderboards>;
+    getPayments<TSigned extends boolean = false>(opts?: { signed?: TSigned }): Promise<Payments<TSigned>>;
+    getPlayer<TSigned extends boolean = false>(opts?: {
+        signed?: TSigned;
+    }): Promise<TSigned extends true ? Signed<Player> : Player>;
+    getStorage(): Promise<SafeStorage>;
     isAvailableMethod(methodName: string): Promise<boolean>;
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK event args can be of any type
+    off(event: 'game_api_pause' | 'game_api_resume', observer: (...args: any) => any): void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK event args can be of any type
+    on(event: 'game_api_pause' | 'game_api_resume', observer: (...args: any) => any): () => void;
+    onEvent(eventName: SdkEventName, listener: () => void): () => void;
     serverTime(): number;
-
-    on(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): () => void;
-
-    off(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): void;
 }
 
 interface ClientFeature {
@@ -123,11 +98,13 @@ interface ClientFeature {
 }
 
 interface GetFlagsParams {
-    defaultFlags?: Record<string, string>;
     clientFeatures?: ClientFeature[];
+    defaultFlags?: Record<string, string>;
 }
 
-type Signed<T> = T & { signature: string };
+/** When an object is passed through signature, it is not returned as itself,
+ * but instead the signature field contains an encrypted string with object fields that can be decrypted on your server */
+type Signed<T> = { signature: string };
 
 interface Environment {
     get app(): {
@@ -140,104 +117,112 @@ interface Environment {
         lang: ISO_639_1;
         tld: TopLevelDomain;
     };
-    get payload(): string | null;
+    get payload(): null | string;
+}
+
+export enum DeviceType {
+    DESKTOP = 'desktop',
+    MOBILE = 'mobile',
+    TABLET = 'tablet',
+    TV = 'tv',
 }
 
 interface DeviceInfo {
-    get type(): string;
-    isMobile(): boolean;
-    isTablet(): boolean;
     isDesktop(): boolean;
+    isMobile(): boolean;
     isTV(): boolean;
+    isTablet(): boolean;
+    get type(): DeviceType;
 }
 
 type SafeStorage = typeof window.localStorage;
 
 export interface Player {
-    getUniqueID(): string;
-    getName(): string;
-    getPhoto(size: "small" | "medium" | "large"): string;
-    getPayingStatus(): "paying" | "partially_paying" | "not_paying" | "unknown";
-    getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
-    getMode(): "lite" | "";
     getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
-    setData(data: any, flush?: boolean): Promise<void>;
+    getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
+    /** @deprecated - use isAuthorized */
+    getMode(): '' | 'lite';
+    getName(): string;
+    getPayingStatus(): 'not_paying' | 'partially_paying' | 'paying' | 'unknown';
+    getPhoto(size: 'large' | 'medium' | 'small'): string;
     getStats<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, number>>>;
-    setStats(stats: Record<string | number, number>): Promise<void>;
-    incrementStats<T extends Record<string | number, number>>(
-        stats: T,
-    ): Promise<IncrementedStats<T>>;
+    getUniqueID(): string;
+    incrementStats<T extends Record<number | string, number>>(stats: T): Promise<IncrementedStats<T>>;
+    isAuthorized(): boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- SDK data can be of any type
+    setData(data: any, flush?: boolean): Promise<void>;
+    setStats(stats: Record<number | string, number>): Promise<void>;
 }
 
 interface IncrementedStats<TStats extends Record<string, number>> {
-    stats: Record<keyof TStats, number> & Record<string | number, number>;
     newKeys: string[];
+    stats: Record<keyof TStats, number> & Record<number | string, number>;
 }
 
 export interface Purchase {
+    developerPayload?: string;
     productID: string;
     purchaseToken: string;
-    developerPayload?: string;
 }
 
 export interface Product {
-    id: string;
-    title: string;
     description: string;
+    id: string;
     imageURI: string;
-    /**
-     * @description String in format: "\<price_value\> \<currency_code\>"
-     */
     price: string;
-    priceValue: string;
     priceCurrencyCode: string;
-    getPriceCurrencyImage(size: "small" | "medium" | "svg"): string;
+    priceValue: string;
+    title: string;
+    getPriceCurrencyImage(size: 'medium' | 'small' | 'svg'): string;
 }
 
 export interface Payments<TSigned extends boolean = false> {
-    getPurchases(): Promise<TSigned extends true ? Signed<Purchase[]> : Purchase[]>;
-    getCatalog(): Promise<Product[]>;
-    purchase(opts?: {
-        id: string;
-        developerPayload?: string;
-    }): Promise<TSigned extends true ? Signed<Purchase> : Purchase>;
     consumePurchase(token: string): Promise<void>;
+    getCatalog(): Promise<Product[]>;
+    getPurchases(): Promise<TSigned extends true ? Signed<Purchase[]> : Purchase[]>;
+    purchase(opts?: {
+        developerPayload?: string;
+        id: string;
+    }): Promise<TSigned extends true ? Signed<Purchase> : Purchase>;
+}
+
+interface GetLeaderboardEntriesOpts {
+    includeUser?: boolean;
+    quantityAround?: number;
+    quantityTop?: number;
 }
 
 export interface Leaderboards {
     getLeaderboardDescription(leaderboardName: string): Promise<LeaderboardDescription>;
-
-    setLeaderboardScore(leaderboardName: string, score: number, extraData?: string): Promise<void>;
-
+    getLeaderboardEntries(leaderboardName: string, opts?: GetLeaderboardEntriesOpts): Promise<LeaderboardEntriesData>;
     /**
      * @throws {{code: string}}
      */
     getLeaderboardPlayerEntry(leaderboardName: string): Promise<LeaderboardEntry>;
+    setLeaderboardScore(leaderboardName: string, score: number, extraData?: string): Promise<void>;
+}
 
-    getLeaderboardEntries(
-        leaderboardName: string,
-        opts?: {
-            includeUser?: boolean;
-            quantityAround?: number;
-            quantityTop?: number;
-        },
-    ): Promise<LeaderboardEntriesData>;
+interface YLeaderboards {
+    getDescription(leaderboardName: string): Promise<LeaderboardDescription>;
+    getEntries(leaderboardName: string, opts?: GetLeaderboardEntriesOpts): Promise<LeaderboardEntriesData>;
+    /**
+     * @throws {{code: string}}
+     */
+    getPlayerEntry(leaderboardName: string): Promise<LeaderboardEntry>;
+    setScore(leaderboardName: string, score: number, extraData?: string): Promise<void>;
 }
 
 export interface LeaderboardEntriesData {
-    leaderboard: LeaderboardDescription;
-    ranges: Array<{ start: number; size: number }>;
-    userRank: number;
     entries: LeaderboardEntry[];
+    leaderboard: LeaderboardDescription;
+    ranges: Array<{ size: number; start: number }>;
+    userRank: number;
 }
 
 export interface LeaderboardEntry {
-    score: number;
     extraData?: string;
-    rank: number;
+    formattedScore: string;
     player: {
-        getAvatarSrc(size: "small" | "medium" | "large"): string;
-        getAvatarSrcSet(size: "small" | "medium" | "large"): string;
         lang: string;
         publicName: string;
         scopePermissions: {
@@ -245,8 +230,11 @@ export interface LeaderboardEntry {
             public_name: string;
         };
         uniqueID: string;
+        getAvatarSrc(size: 'large' | 'medium' | 'small'): string;
+        getAvatarSrcSet(size: 'large' | 'medium' | 'small'): string;
     };
-    formattedScore: string;
+    rank: number;
+    score: number;
 }
 
 export interface LeaderboardDescription {
@@ -259,112 +247,200 @@ export interface LeaderboardDescription {
                 decimal_offset: number;
             };
         };
-        type: "numberic" | "time";
+        type: 'numberic' | 'time';
     };
     name: string;
     title: Record<string, string>;
 }
 
-export type FeedbackError = "NO_AUTH" | "GAME_RATED" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
+export type FeedbackError = 'GAME_RATED' | 'NO_AUTH' | 'REVIEW_ALREADY_REQUESTED' | 'UNKNOWN';
 
-export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
+export type StickyAdvError = 'ADV_IS_NOT_CONNECTED' | 'UNKNOWN';
 
-export type SdkEventName = "EXIT" | "HISTORY_BACK";
+export type SdkEventName = 'EXIT' | 'HISTORY_BACK';
 
 export type ISO_639_1 =
-    | "af"
-    | "am"
-    | "ar"
-    | "az"
-    | "be"
-    | "bg"
-    | "bn"
-    | "ca"
-    | "cs"
-    | "da"
-    | "de"
-    | "el"
-    | "en"
-    | "es"
-    | "et"
-    | "eu"
-    | "fa"
-    | "fi"
-    | "fr"
-    | "gl"
-    | "he"
-    | "hi"
-    | "hr"
-    | "hu"
-    | "hy"
-    | "id"
-    | "is"
-    | "it"
-    | "ja"
-    | "ka"
-    | "kk"
-    | "km"
-    | "kn"
-    | "ko"
-    | "ky"
-    | "lo"
-    | "lt"
-    | "lv"
-    | "mk"
-    | "ml"
-    | "mn"
-    | "mr"
-    | "ms"
-    | "my"
-    | "ne"
-    | "nl"
-    | "no"
-    | "pl"
-    | "pt"
-    | "ro"
-    | "ru"
-    | "si"
-    | "sk"
-    | "sl"
-    | "sr"
-    | "sv"
-    | "sw"
-    | "ta"
-    | "te"
-    | "tg"
-    | "th"
-    | "tk"
-    | "tl"
-    | "tr"
-    | "uk"
-    | "ur"
-    | "uz"
-    | "vi"
-    | "zh"
-    | "zu";
+    | 'af'
+    | 'am'
+    | 'ar'
+    | 'az'
+    | 'be'
+    | 'bg'
+    | 'bn'
+    | 'ca'
+    | 'cs'
+    | 'da'
+    | 'de'
+    | 'el'
+    | 'en'
+    | 'es'
+    | 'et'
+    | 'eu'
+    | 'fa'
+    | 'fi'
+    | 'fr'
+    | 'gl'
+    | 'he'
+    | 'hi'
+    | 'hr'
+    | 'hu'
+    | 'hy'
+    | 'id'
+    | 'is'
+    | 'it'
+    | 'ja'
+    | 'ka'
+    | 'kk'
+    | 'km'
+    | 'kn'
+    | 'ko'
+    | 'ky'
+    | 'lo'
+    | 'lt'
+    | 'lv'
+    | 'mk'
+    | 'ml'
+    | 'mn'
+    | 'mr'
+    | 'ms'
+    | 'my'
+    | 'ne'
+    | 'nl'
+    | 'no'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'si'
+    | 'sk'
+    | 'sl'
+    | 'sr'
+    | 'sv'
+    | 'sw'
+    | 'ta'
+    | 'te'
+    | 'tg'
+    | 'th'
+    | 'tk'
+    | 'tl'
+    | 'tr'
+    | 'uk'
+    | 'ur'
+    | 'uz'
+    | 'vi'
+    | 'zh'
+    | 'zu';
 
 export type TopLevelDomain =
-    | "az"
-    | "by"
-    | "co.il"
-    | "com"
-    | "com.am"
-    | "com.ge"
-    | "com.tr"
-    | "ee"
-    | "fr"
-    | "kg"
-    | "kz"
-    | "lt"
-    | "lv"
-    | "md"
-    | "ru"
-    | "tj"
-    | "tm"
-    | "ua"
-    | "uz";
+    | 'az'
+    | 'by'
+    | 'co.il'
+    | 'com'
+    | 'com.am'
+    | 'com.ge'
+    | 'com.tr'
+    | 'ee'
+    | 'fr'
+    | 'kg'
+    | 'kz'
+    | 'lt'
+    | 'lv'
+    | 'md'
+    | 'ru'
+    | 'tj'
+    | 'tm'
+    | 'ua'
+    | 'uz';
 
-type Serializable = string | number | boolean | null | Serializable[] | { [key: string]: Serializable };
+type Serializable = { [key: string]: Serializable } | Serializable[] | boolean | null | number | string;
+
+export interface Multiplayer {
+    sessions: MultiplayerSessions;
+}
+
+export interface MultiplayerSessions {
+    /**
+     * Collect transactions of the current game session
+     * @param payload - fragment of information that allows to restore the game process
+     */
+    commit(payload: MultiplayerSessionsCommitPayload): void;
+
+    /**
+     * Sends a message about initialization to the parent frame. Returns an array of data about loaded sessions
+     * @param options - initialization parameters
+     * @param options.count - how many opponents sessions to load.
+     * In the value 0, the loading of opponent sessions does not occur, only the collection of data in the current game is available.
+     * @param options.isEventBased - flag for managing the process through the sdk event bus.
+     * In the value true, the opponent's transactions come in messages according to the time of their registration from the start of the game
+     * with the correction of options.maxOpponentTurnTime. At the end, the message multiplayer-sessions-finish comes.
+     * In the value false, the developer himself organizes competitions, using the data that came from the method.
+     * @param options.meta - parameters meta1-3 (ranges max-min) for sessions selection
+     * @param options.maxOpponentTurnTime - opponent turn time limit
+     * @returns array of data about loaded sessions
+     */
+    init(options?: MultiplayerSessionsInitOptions): Promise<MultiplayerSessionsOpponent[]>;
+
+    /**
+     * Called when the game is finished
+     * @param meta - numerical values of parameters meta1-3 for the saved session
+     */
+    push(meta: MultiplayerSessionsMeta): Promise<CallbackBaseMessageData>;
+}
+
+interface CallbackBaseMessageData {
+    data?: unknown;
+    error?: {
+        message: string;
+    };
+    status: 'error' | 'ok';
+}
+
+interface MultiplayerSessionsCommitPayload {
+    /** Transaction data */
+    data: Record<string, unknown>;
+    /** Transaction time */
+    time: number;
+}
+
+interface MultiplayerSessionsInitOptions {
+    /** How many opponents sessions to load */
+    count?: number;
+    /** Is using event-based process */
+    isEventBased?: boolean;
+    /** Opponent turn time limit */
+    maxOpponentTurnTime?: number;
+    /** Parameters meta1-3 (ranges max-min) for sessions selection */
+    meta?: MultiplayerSessionsMetaRanges;
+}
+
+interface MultiplayerSessionsMeta {
+    meta1: number;
+    meta2: number;
+    meta3: number;
+}
+
+interface MultiplayerSessionsMetaRanges {
+    meta1: {
+        max: number;
+        min: number;
+    };
+    meta2: {
+        max: number;
+        min: number;
+    };
+    meta3: {
+        max: number;
+        min: number;
+    };
+}
+
+interface MultiplayerSessionsOpponent {
+    /** Opponent ID */
+    id: string;
+    /** Opponent metadata */
+    meta: MultiplayerSessionsMeta;
+    /** Opponent transactions */
+    transactions: MultiplayerSessionsCommitPayload[];
+}
 
 // Disabled automatic exporting
-export {};
