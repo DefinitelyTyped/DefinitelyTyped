@@ -3601,6 +3601,10 @@
             "libraryName": "lambda-phi",
             "asOfVersion": "1.0.1"
         },
+        "lang.js": {
+            "libraryName": "lang.js",
+            "asOfVersion": "1.1.13"
+        },
         "latest-semver": {
             "libraryName": "latest-semver",
             "asOfVersion": "2.0.0"
