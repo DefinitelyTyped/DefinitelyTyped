@@ -1,4 +1,4 @@
-declare var gtag: Gtag.Gtag|undefined;
+declare var gtag: Gtag.Gtag | undefined;
 declare namespace Gtag {
     interface GtagCommands {
         config: [targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams];
