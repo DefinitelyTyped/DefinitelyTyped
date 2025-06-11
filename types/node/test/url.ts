@@ -224,7 +224,23 @@ import * as url from "node:url";
 }
 
 {
-    const urlPattern = new url.URLPattern("https://nodejs.org/docs/latest/api/*.html");
+    const urlPattern = new url.URLPattern("https://nodejs.org/docs/latest/api/*.html", { ignoreCase: false });
     urlPattern.exec("https://nodejs.org/docs/latest/api/dns.html");
     urlPattern.test("https://nodejs.org/docs/latest/api/dns.html");
+}
+
+{
+    const init: url.URLPatternInit = {
+        pathname: "../docs/latest/api/*.html",
+    };
+
+    const urlPattern = new url.URLPattern(init);
+    urlPattern.exec(init, "https://nodejs.org/about");
+    urlPattern.test(init, "https://nodejs.org/about");
+}
+
+{
+    const urlPattern = new url.URLPattern({});
+    urlPattern.exec();
+    urlPattern.test();
 }
