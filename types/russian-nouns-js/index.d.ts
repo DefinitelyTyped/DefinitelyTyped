@@ -13,7 +13,7 @@ export as namespace RussianNounsJS;
 export const Case: { [key in keyof typeof CaseEnum]: typeof CaseEnum[key] };
 
 /**
- * Gender
+ * Grammatical gender
  */
 export const Gender: { [key in keyof typeof GenderEnum]: typeof GenderEnum[key] };
 
@@ -26,16 +26,19 @@ export const CASES: Array<typeof CaseEnum[keyof typeof CaseEnum]>;
  * Интерфейс с именованными параметрами для создания лемм.
  * Если параметр — уже лемма, вернет тот же объект, а не копию.
  *
- * Леммы, которые в коде используются много раз, следует
- * конструировать через эту функцию, иначе они будут
- * неявно конструироваться на каждый вызов любой функции
- * или метода в этой библиотеке.
- *
  * @param {RussianNouns.Lemma|Object} o
- * @throws {RussianNouns.LemmaException} Ошибки из конструктора леммы.
+ * @throws {Error} Ошибки из конструктора леммы.
  * @returns {RussianNouns.Lemma} Иммутабельный объект.
  */
-export function createLemma(o: LemmaOptions): Lemma;
+export function createLemma(o: Lemma | LemmaOptions): Lemma;
+
+/**
+ * Безопасное создание леммы с минимальными накладными расходами.
+ *
+ * @param {Object} options
+ * @returns {RussianNouns.Lemma|null}
+ */
+export function createLemmaOrNull(options: LemmaOptions): Lemma | null;
 
 /**
  * Склонение существительного.
@@ -77,4 +80,4 @@ export function getDeclension(lemma: Lemma | object): number | undefined;
  */
 export function getSchoolDeclension(lemma: Lemma): number;
 
-export { Engine };
+export { Engine, Lemma };

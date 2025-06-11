@@ -44,8 +44,7 @@ function assertAllCases(
 
 
 
-// import { Engine, Case, Gender, Lemma, createLemma, createLemmaOrNull } from 'russian-nouns-js'
-import { Engine, Case, Gender, createLemma } from 'russian-nouns-js'
+import { Engine, Case, Gender, Lemma, createLemma, createLemmaOrNull } from 'russian-nouns-js'
 // import { CASES, getDeclension, getSchoolDeclension, LocativeForm } from 'russian-nouns-js'
 import { CASES, getDeclension, getSchoolDeclension } from 'russian-nouns-js'
 
@@ -63,9 +62,7 @@ result = rne.decline({ text: 'имя', gender: Gender.NEUTER }, Case.INSTRUMENTA
 assertEqualsSingleValue(result, "именем");
 
 
-// TODO
-//let coat: Lemma = createLemma({
-let coat: any = createLemma({
+let coat: Lemma = createLemma({
     text: 'пальто',
     gender: Gender.NEUTER,
     indeclinable: true
@@ -77,9 +74,7 @@ assertEqualsSingleValue(result, "пальто");
 assertEquals(getDeclension(coat), -1);
 
 
-// TODO
-// let mountain: Lemma = RussianNouns.createLemma({
-let mountain: any = createLemma({
+let mountain: Lemma = createLemma({
     text: 'гора',
     gender: Gender.FEMININE
 });
@@ -107,9 +102,7 @@ console.log('  Main functions (8) ............... OK');
 
 
 
-// TODO
-// let cringe: Lemma = createLemma({
-let cringe: any = createLemma({
+let cringe: Lemma = createLemma({
     text: 'кринж',
     gender: Gender.MASCULINE
 });
@@ -143,9 +136,7 @@ console.log('  StressDictionary (9) ............. OK');
 
 
 
-// TODO
-// let row: Lemma = createLemma({
-let row: any = createLemma({
+let row: Lemma = createLemma({
     text: 'ряд',
     gender: Gender.MASCULINE
 });
@@ -169,16 +160,20 @@ console.log('  LocativeForm (10) ................ OK');
 
 
 
-// TODO
-// assertEquals(null, createLemmaOrNull({}));
+assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
 
 (() => {
-    //let x: Lemma = createLemmaOrNull({
-    //    text: 'гора',
-    //    gender: Gender.FEMININE
-    //});
-    //
-    //assertEquals(x != null, true);
-    //assertEquals(x.text(), 'гора');
+
+    let x: Lemma | null = createLemmaOrNull({
+        text: 'гора',
+        gender: Gender.FEMININE
+    });
+
+    assertEquals(x != null, true);
+
+    if (x != null) {
+        assertEquals(x.text(), 'гора');
+    }
+
 })();
 
