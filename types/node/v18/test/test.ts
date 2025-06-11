@@ -7,11 +7,15 @@ import {
     describe,
     it,
     run,
-    type SuiteContext,
+    SuiteContext,
     test,
-    type TestContext,
+    TestContext,
 } from "node:test";
 import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
+
+// top-level export
+test satisfies typeof import("node:test");
+({} as typeof import("node:test")) satisfies typeof test;
 
 // run without options
 // $ExpectType TestsStream
@@ -132,21 +136,6 @@ test(t => {
 
 // @ts-expect-error
 test(1, () => {});
-
-test.after(() => {});
-test.afterEach(() => {});
-test.before(() => {});
-test.beforeEach(() => {});
-test.describe("describe", () => {});
-test.it("it", () => {});
-// $ExpectType MockTracker
-test.mock;
-// $ExpectType typeof test
-test.test;
-test.test.test("chained self ref", (t) => {
-    // $ExpectType typeof test
-    t.test;
-});
 
 describe("foo", () => {
     it("it", () => {});
