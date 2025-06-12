@@ -1,16 +1,5 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import {
-    after,
-    afterEach,
-    before,
-    beforeEach,
-    describe,
-    it,
-    run,
-    SuiteContext,
-    test,
-    TestContext,
-} from "node:test";
+import { after, afterEach, before, beforeEach, describe, it, run, SuiteContext, test, TestContext } from "node:test";
 import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // top-level export
