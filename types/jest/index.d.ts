@@ -113,6 +113,41 @@ interface LegacyFakeTimersConfig {
 
 declare namespace jest {
     /**
+     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
+     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
+     * within this time frame will be executed.
+     */
+    function advanceTimersByTime(msToRun: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
+    /**
+     * Advances all timers by the needed milliseconds to execute callbacks currently scheduled with `requestAnimationFrame`.
+     * `advanceTimersToNextFrame()` is a helpful way to execute code that is scheduled using `requestAnimationFrame`.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextFrame(): void;
+    /**
+     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
+     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
+     */
+    function advanceTimersToNextTimer(step?: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
+    /**
      * Disables automatic mocking in the module loader.
      */
     function autoMockOff(): typeof jest;
@@ -215,12 +250,6 @@ declare namespace jest {
      */
     function fn<T, Y extends any[], C = any>(implementation?: (this: C, ...args: Y) => T): Mock<T, Y, C>;
     /**
-     * (renamed to `createMockFromModule` in Jest 26.0.0+)
-     * Use the automatic mocking system to generate a mocked version of the given module.
-     */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function genMockFromModule<T>(moduleName: string): T;
-    /**
      * Returns `true` if test environment has been torn down.
      *
      * @example
@@ -250,6 +279,16 @@ declare namespace jest {
      * Wraps types of the `source` object with type definitions of Jest mock function.
      */
     function mocked<T>(source: T, options: { shallow: true }): MaybeMocked<T>;
+    /**
+     * Registers a callback function that is invoked whenever a mock is generated for a module.
+     * This callback is passed the module path and the newly created mock object, and must return
+     * the (potentially modified) mock object.
+     *
+     * If multiple callbacks are registered, they will be called in the order they were added.
+     * Each callback receives the result of the previous callback as the `moduleMock` parameter,
+     * making it possible to apply sequential transformations.
+     */
+    function onGenerateMock<T>(cb: (modulePath: string, moduleMock: T) => T): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -281,7 +320,10 @@ declare namespace jest {
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
-    function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
+    function retryTimes(
+        numRetries: number,
+        options?: { logErrorsBeforeRetry?: boolean; waitBeforeRetry?: number; retryImmediately?: boolean },
+    ): typeof jest;
     /**
      * Replaces property on an object with another value.
      *
@@ -328,32 +370,11 @@ declare namespace jest {
      */
     function runOnlyPendingTimersAsync(): Promise<void>;
     /**
-     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
-     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
-     * within this time frame will be executed.
+     * Indicates that the module system should never return a mocked version of
+     * the specified module when it is being imported (e.g. that it should always
+     * return the real module).
      */
-    function advanceTimersByTime(msToRun: number): void;
-    /**
-     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
-     * allowing any scheduled promise callbacks to execute _before_ running the timers.
-     *
-     * @remarks
-     * Not available when using legacy fake timers implementation.
-     */
-    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
-    /**
-     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
-     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
-     */
-    function advanceTimersToNextTimer(step?: number): void;
-    /**
-     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
-     * allowing any scheduled promise callbacks to execute _before_ running the timers.
-     *
-     * @remarks
-     * Not available when using legacy fake timers implementation.
-     */
-    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
+    function unstable_unmockModule(moduleName: string): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -651,6 +672,12 @@ declare namespace jest {
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         arrayContaining<E = any>(arr: readonly E[]): any;
         /**
+         * Validate every element of an array against a condition or type It is the
+         * inverse of `expect.arrayOf`.
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        arrayOf<E = any>(arr: E): any;
+        /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
          * expected object is not a subset of the received object. Therefore,
@@ -727,6 +754,11 @@ declare namespace jest {
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         arrayContaining<E = any>(arr: readonly E[]): any;
+        /**
+         * Validate every element of an array against a condition or type
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        arrayOf<E = any>(arr: E): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
