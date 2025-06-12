@@ -1258,6 +1258,7 @@ declare namespace validator {
         | "8"
         | "nil"
         | "max"
+        | "loose"
         | "all"
         | 1
         | 2
