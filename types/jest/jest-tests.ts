@@ -1158,32 +1158,32 @@ describe("", () => {
         // $ExpectType Promise<void>
         expect(Promise.resolve("")).resolves.toEqual("");
 
-        expect(jest.fn()).lastCalledWith();
-        expect(jest.fn()).lastCalledWith("jest");
-        expect(jest.fn()).lastCalledWith({}, {});
+        expect(jest.fn()).toHaveBeenLastCalledWith();
+        expect(jest.fn()).toHaveBeenLastCalledWith("jest");
+        expect(jest.fn()).toHaveBeenLastCalledWith({}, {});
 
-        expect(jest.fn()).lastReturnedWith("jest");
-        expect(jest.fn()).lastReturnedWith({});
-        expect(jest.fn()).lastReturnedWith();
+        expect(jest.fn()).toHaveReturnedWith("jest");
+        expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(1, "jest");
-        expect(jest.fn()).nthCalledWith(2, {});
+        expect(jest.fn()).toHaveBeenNthCalledWith(1, "jest");
+        expect(jest.fn()).toHaveBeenNthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(1, "jest");
-        expect(jest.fn()).nthReturnedWith(2, {});
-        expect(jest.fn()).nthReturnedWith(3);
+        expect(jest.fn()).toHaveNthReturnedWith(1, "jest");
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
         expect(10).toBe(10);
 
-        expect(jest.fn()).toBeCalled();
+        expect(jest.fn()).toHaveBeenCalled();
 
-        expect(jest.fn()).toBeCalledTimes(1);
+        expect(jest.fn()).toHaveBeenCalledTimes(1);
 
-        expect(jest.fn()).toBeCalledWith();
-        expect(jest.fn()).toBeCalledWith("jest");
-        expect(jest.fn()).toBeCalledWith({}, {});
+        expect(jest.fn()).toHaveBeenCalledWith();
+        expect(jest.fn()).toHaveBeenCalledWith("jest");
+        expect(jest.fn()).toHaveBeenCalledWith({}, {});
 
         // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, "two");
@@ -1344,14 +1344,14 @@ describe("", () => {
             bigIntegerOne: expect.any(BigInt),
         });
 
-        expect(jest.fn()).toReturn();
+        expect(jest.fn()).toHaveReturned();
 
-        expect(jest.fn()).toReturnTimes(0);
-        expect(jest.fn()).toReturnTimes(1);
+        expect(jest.fn()).toHaveReturnedTimes(0);
+        expect(jest.fn()).toHaveReturnedTimes(1);
 
-        expect(jest.fn()).toReturnWith("jest");
-        expect(jest.fn()).toReturnWith({});
-        expect(jest.fn()).toReturnWith();
+        expect(jest.fn()).toHaveReturnedWith("jest");
+        expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
@@ -2000,16 +2000,3 @@ test("import.meta.jest replaces the global jest in ESM", () => {
 
     importMetaJest.fn();
 });
-
-// these are deprecated and will be removed in Jest v30
-expect("abc").toBeCalled();
-expect("abc").toBeCalledTimes(0);
-expect("abc").toBeCalledWith();
-expect("abc").lastCalledWith();
-expect("abc").nthCalledWith(0);
-expect("abc").toReturn();
-expect("abc").toReturnTimes(0);
-expect("abc").toReturnWith();
-expect("abc").lastReturnedWith();
-expect("abc").nthReturnedWith(0);
-expect("abc").toThrowError();

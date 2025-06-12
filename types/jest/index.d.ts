@@ -689,7 +689,7 @@ declare namespace jest {
          */
         <T = any>(actual: T): JestMatchers<T>;
         /**
-         * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
+         * Matches anything but null or undefined. You can use it inside `toEqual` or `toHaveBeenCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
          * non-null argument:
          *
@@ -698,13 +698,13 @@ declare namespace jest {
          * test('map calls its argument with a non-null argument', () => {
          *   const mock = jest.fn();
          *   [1].map(x => mock(x));
-         *   expect(mock).toBeCalledWith(expect.anything());
+         *   expect(mock).toHaveBeenCalledWith(expect.anything());
          * });
          */
         anything(): any;
         /**
          * Matches anything that was created with the given constructor.
-         * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         * You can use it inside `toEqual` or `toHaveBeenCalledWith` instead of a literal value.
          *
          * @example
          *
@@ -715,13 +715,13 @@ declare namespace jest {
          * test('randocall calls its callback with a number', () => {
          *   const mock = jest.fn();
          *   randocall(mock);
-         *   expect(mock).toBeCalledWith(expect.any(Number));
+         *   expect(mock).toHaveBeenCalledWith(expect.any(Number));
          * });
          */
         any(classType: any): any;
         /**
          * Matches any array made up entirely of elements in the provided array.
-         * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         * You can use it inside `toEqual` or `toHaveBeenCalledWith` instead of a literal value.
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
@@ -800,46 +800,6 @@ declare namespace jest {
     // should be R extends void|Promise<void> but getting dtslint error
     interface Matchers<R, T = {}> {
         /**
-         * Ensures the last call to a mock function was provided specific args.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenLastCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        lastCalledWith<E extends any[]>(...args: E): R;
-        /**
-         * Ensure that the last call to a mock function has returned a specified value.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveLastReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        lastReturnedWith<E = any>(expected?: E): R;
-        /**
-         * Ensure that a mock function is called with specific arguments on an Nth call.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenNthCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
-        /**
-         * Ensure that the nth call to a mock function has returned a specified value.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveNthReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, expected?: E): R;
-        /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
          *
@@ -848,28 +808,6 @@ declare namespace jest {
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toBe<E = any>(expected: E): R;
-        /**
-         * Ensures that a mock function is called.
-         *
-         * @deprecated in favor of `toHaveBeenCalled`
-         */
-        toBeCalled(): R;
-        /**
-         * Ensures that a mock function is called an exact number of times.
-         *
-         * @deprecated in favor of `toHaveBeenCalledTimes`
-         */
-        toBeCalledTimes(expected: number): R;
-        /**
-         * Ensure that a mock function is called with specific arguments.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toBeCalledWith<E extends any[]>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -1099,28 +1037,6 @@ declare namespace jest {
          */
         toMatchInlineSnapshot(snapshot?: string): R;
         /**
-         * Ensure that a mock function has returned (as opposed to thrown) at least once.
-         *
-         * @deprecated in favor of `toHaveReturned`
-         */
-        toReturn(): R;
-        /**
-         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
-         *
-         * @deprecated in favor of `toHaveReturnedTimes`
-         */
-        toReturnTimes(count: number): R;
-        /**
-         * Ensure that a mock function has returned a specified value at least once.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toReturnWith<E = any>(value?: E): R;
-        /**
          * Use to test that objects have the same types as well as structure.
          *
          * Optionally, you can provide a type for the expected value via a generic.
@@ -1132,12 +1048,6 @@ declare namespace jest {
          * Used to test that a function throws when it is called.
          */
         toThrow(error?: string | Constructable | RegExp | Error): R;
-        /**
-         * If you want to test that a specific error is thrown inside a function.
-         *
-         * @deprecated in favor of `toThrow`
-         */
-        toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
