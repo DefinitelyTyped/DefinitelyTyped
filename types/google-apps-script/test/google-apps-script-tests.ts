@@ -43,10 +43,10 @@ const postTest = (payload: object): string => {
 const testCalendarAppEventType = (): void => {
     const event = CalendarApp.getEventById("testevent");
     const type = event.getEventType();
-    const birthdayType = CalendarApp.EventType.BIRTHDAY
-    birthdayType !== type
+    const birthdayType = CalendarApp.EventType.BIRTHDAY;
+    birthdayType !== type;
 
-    type !== CalendarApp.EventType.FOCUS_TIME
+    type !== CalendarApp.EventType.FOCUS_TIME;
 
     type == GoogleAppsScript.Calendar.EventType.OUT_OF_OFFICE;
     // @ts-expect-error
