@@ -196,7 +196,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
+            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
@@ -248,11 +248,6 @@ declare global {
     }
 
     // Global DOM types
-
-    function structuredClone<T>(
-        value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
 
     interface DOMException extends _DOMException {}
     var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T

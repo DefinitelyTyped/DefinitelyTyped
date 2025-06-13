@@ -107,16 +107,16 @@ context.succeed(str, anyObj);
 context.fail(error);
 context.fail(str);
 
-interface CustomEvent {
+interface CustomTEvent {
     eventString: string;
     eventBool: boolean;
 }
-interface CustomResult {
+interface CustomTResult {
     resultString: string;
     resultBool?: boolean | undefined;
 }
-type CustomHandler = AWSLambda.Handler<CustomEvent, CustomResult>;
-type CustomCallback = AWSLambda.Callback<CustomResult>;
+type CustomHandler = AWSLambda.Handler<CustomTEvent, CustomTResult>;
+type CustomCallback = AWSLambda.Callback<CustomTResult>;
 
 // Untyped handlers should work
 const untypedAsyncHandler: AWSLambda.Handler = async (event, context, cb) => {
@@ -161,13 +161,13 @@ const unsafeAsyncHandler: CustomHandler = async (event, context, cb) => {
 
 // Test safe old style still works
 const typedCallbackHandler: CustomHandler = (event, context, cb) => {
-    // $ExpectType CustomEvent
+    // $ExpectType CustomTEvent
     event;
     str = event.eventString;
     // $ExpectType Context
     context;
     str = context.functionName;
-    // $ExpectType Callback<CustomResult>
+    // $ExpectType Callback<CustomTResult>
     cb;
     cb();
     cb(null);
@@ -181,11 +181,11 @@ const typedCallbackHandler: CustomHandler = (event, context, cb) => {
 
 // Test preferred new type
 const typedAsyncHandler: CustomHandler = async (event, context, cb) => {
-    // $ExpectType CustomEvent
+    // $ExpectType CustomTEvent
     event;
     // $ExpectType Context
     context;
-    // $ExpectType Callback<CustomResult>
+    // $ExpectType Callback<CustomTResult>
     cb;
     // Can still use callback
     cb(null, { resultString: str });
@@ -197,7 +197,7 @@ const badTypedAsyncHandler: CustomHandler = async (event, context, cb) => ({ res
 
 // Test using untyped Callback type still works.
 const mixedUntypedCallbackTypedHandler: CustomHandler = (
-    event: CustomEvent,
+    event: CustomTEvent,
     context: AWSLambda.Context,
     cb: AWSLambda.Callback,
 ) => {};

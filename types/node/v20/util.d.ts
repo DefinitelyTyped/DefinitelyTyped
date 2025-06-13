@@ -1186,7 +1186,7 @@ declare module "util" {
      * @param content The raw contents of a `.env` file.
      * @since v20.12.0
      */
-    export function parseEnv(content: string): object;
+    export function parseEnv(content: string): NodeJS.Dict<string>;
     // https://nodejs.org/docs/latest/api/util.html#foreground-colors
     type ForegroundColors =
         | "black"
@@ -1865,6 +1865,18 @@ declare module "util/types" {
      * @since v10.0.0
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
+    /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
     /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *

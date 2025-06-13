@@ -325,6 +325,8 @@ naver.maps.Service.reverseGeocode(
         results[0].name;
         results[0].code;
         results[0].region;
+        results[0].land;
+        results[0].land.addition0;
 
         const v2Status = response.v2.status;
         v2Status.code;

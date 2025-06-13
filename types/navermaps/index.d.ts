@@ -1,4 +1,4 @@
-// NAVER Maps JavaScript API Version: 3.8
+// NAVER Maps JavaScript API Version: 3.9
 
 /// <reference types="geojson" />
 
@@ -2258,6 +2258,11 @@ declare namespace naver.maps {
             number1: string;
             number2: string;
             coords: Coords;
+            addition0: Addition;
+            addition1: Addition;
+            addition2: Addition;
+            addition3: Addition;
+            addition4: Addition;
         }
 
         interface Area {
@@ -2276,12 +2281,6 @@ declare namespace naver.maps {
             area2: Area;
             area3: Area;
             area4: Area;
-            land: Land;
-            addition0: Addition;
-            addition1: Addition;
-            addition2: Addition;
-            addition3: Addition;
-            addition4: Addition;
         }
 
         interface ResultItem {
@@ -2292,6 +2291,7 @@ declare namespace naver.maps {
                 mappingId: string;
             };
             region: Region;
+            land: Land;
         }
 
         interface ReverseGeocodeResponse {

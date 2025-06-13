@@ -11,6 +11,7 @@ type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
+type NativeInputEvent = InputEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
@@ -134,7 +135,7 @@ declare namespace React {
             props: P,
         ) => ReactElement<any, any> | null)
         // constructor signature must match React.Component
-        | (new(props: P) => Component<any, any>);
+        | (new(props: P, context: any) => Component<any, any>);
 
     /**
      * Created by {@link createRef}, or {@link useRef} when passed `null`.
@@ -217,7 +218,7 @@ declare namespace React {
     type ElementRef<
         C extends
             | ForwardRefExoticComponent<any>
-            | { new(props: any): Component<any> }
+            | { new(props: any, context: any): Component<any> }
             | ((props: any) => ReactElement | null)
             | keyof JSX.IntrinsicElements,
     > = ComponentRef<C>;
@@ -928,7 +929,7 @@ declare namespace React {
         static propTypes?: any;
 
         /**
-         * If using the new style context, re-declare this in your class to be the
+         * If using React Context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
          *
@@ -947,6 +948,14 @@ declare namespace React {
 
         // Keep in sync with constructor signature of JSXElementConstructor and ComponentClass.
         constructor(props: P);
+        /**
+         * @param props
+         * @param context value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+         * in `contextType`.
+         */
+        // TODO: Ideally we'd infer the constructor signatur from `contextType`.
+        // Might be hard to ship without breaking existing code.
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -1116,7 +1125,13 @@ declare namespace React {
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
-        new(props: P): Component<P, S>;
+        new(
+            props: P, /**
+             * Value of the parent {@link https://react.dev/reference/react/Component#context Context} specified
+             * in `contextType`.
+             */
+            context?: any,
+        ): Component<P, S>;
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
@@ -1156,7 +1171,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P) => T);
+        & (new(props: P, context: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -2002,6 +2017,10 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
+        data: string;
+    }
+
     export type ModifierKey =
         | "Alt"
         | "AltGraph"
@@ -2122,6 +2141,7 @@ declare namespace React {
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
     type FormEventHandler<T = Element> = EventHandler<FormEvent<T>>;
     type ChangeEventHandler<T = Element> = EventHandler<ChangeEvent<T>>;
+    type InputEventHandler<T = Element> = EventHandler<InputEvent<T>>;
     type KeyboardEventHandler<T = Element> = EventHandler<KeyboardEvent<T>>;
     type MouseEventHandler<T = Element> = EventHandler<MouseEvent<T>>;
     type TouchEventHandler<T = Element> = EventHandler<TouchEvent<T>>;
@@ -2180,7 +2200,7 @@ declare namespace React {
         // Form Events
         onChange?: FormEventHandler<T> | undefined;
         onChangeCapture?: FormEventHandler<T> | undefined;
-        onBeforeInput?: FormEventHandler<T> | undefined;
+        onBeforeInput?: InputEventHandler<T> | undefined;
         onBeforeInputCapture?: FormEventHandler<T> | undefined;
         onInput?: FormEventHandler<T> | undefined;
         onInputCapture?: FormEventHandler<T> | undefined;
@@ -3218,6 +3238,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
         fetchPriority?: "high" | "low" | "auto";
         href?: string | undefined;
@@ -3337,6 +3358,7 @@ declare namespace React {
 
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
+        blocking?: "render" | (string & {}) | undefined;
         /** @deprecated */
         charSet?: string | undefined;
         crossOrigin?: CrossOrigin;
@@ -3371,6 +3393,7 @@ declare namespace React {
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        blocking?: "render" | (string & {}) | undefined;
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;

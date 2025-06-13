@@ -42,6 +42,7 @@ const tx = paystackPop.newTransaction({
         console.log(response);
     },
     onCancel() {
+        console.log("cancelled");
     },
     onError: (error) => {
         console.log(error);
@@ -52,9 +53,20 @@ const status = tx.getStatus();
 
 console.log(status.checkoutUrl, paystackPop.isLoaded());
 
-paystackPop.resumeTransaction({
-    accessCode: "121212",
-});
+paystackPop.resumeTransaction(
+    "121212",
+    {
+        onSuccess(response) {
+            console.log(response);
+        },
+        onCancel() {
+            console.log("cancelled");
+        },
+        onError: (error) => {
+            console.log(error);
+        },
+    },
+);
 
 paystackPop.paymentRequest({
     key: "pk_test_TYooMQauvdEDq54NiTphI7jx",

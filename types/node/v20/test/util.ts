@@ -62,7 +62,10 @@ util.format();
 
 util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
-util.parseEnv("HELLO=world\nHELLO=oh my\n");
+{
+    const dotenv = util.parseEnv("HELLO=world\nHELLO=oh my\n");
+    dotenv.HELLO; // $ExpectType string | undefined
+}
 
 console.log(util.styleText("red", "Error! Error!"));
 console.log(
@@ -418,9 +421,11 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {

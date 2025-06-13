@@ -56,6 +56,11 @@ declare module "vm" {
          */
         columnOffset?: number | undefined;
     }
+    type DynamicModuleLoader<T> = (
+        specifier: string,
+        referrer: T,
+        importAttributes: ImportAttributes,
+    ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
@@ -66,10 +71,10 @@ declare module "vm" {
         /**
          * Called during evaluation of this module when `import()` is called.
          * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * This option is part of the experimental modules API. We do not recommend using it in a production environment.
+         * If `--experimental-vm-modules` isn't set, this callback will be ignored and calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.
          */
-        importModuleDynamically?:
-            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module | Promise<Module>)
-            | undefined;
+        importModuleDynamically?: DynamicModuleLoader<Script> | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
@@ -112,14 +117,26 @@ declare module "vm" {
          * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: ScriptOptions["cachedData"] | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
+        /**
+         * Called during evaluation of this module when `import()` is called.
+         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * This option is part of the experimental modules API. We do not recommend using it in a production environment.
+         * If `--experimental-vm-modules` isn't set, this callback will be ignored and calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.
+         */
+        importModuleDynamically?: DynamicModuleLoader<Script> | undefined;
     }
     interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
          */
         cachedData?: ScriptOptions["cachedData"] | undefined;
-        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
+        /**
+         * Called during evaluation of this module when `import()` is called.
+         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * This option is part of the experimental modules API. We do not recommend using it in a production environment.
+         * If `--experimental-vm-modules` isn't set, this callback will be ignored and calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.
+         */
+        importModuleDynamically?: DynamicModuleLoader<Script> | undefined;
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -139,6 +156,13 @@ declare module "vm" {
          * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
          */
         contextExtensions?: Object[] | undefined;
+        /**
+         * Called during evaluation of this module when `import()` is called.
+         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * This option is part of the experimental modules API. We do not recommend using it in a production environment.
+         * If `--experimental-vm-modules` isn't set, this callback will be ignored and calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.
+         */
+        importModuleDynamically?: DynamicModuleLoader<ReturnType<typeof compileFunction>> | undefined;
     }
     interface CreateContextOptions {
         /**
@@ -629,13 +653,12 @@ declare module "vm" {
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?:
-            | ((
-                specifier: string,
-                referrer: SourceTextModule,
-                importAttributes: ImportAttributes,
-            ) => Module | Promise<Module>)
-            | undefined;
+        /**
+         * Called during evaluation of this module when `import()` is called.
+         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * If `--experimental-vm-modules` isn't set, this callback will be ignored and calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING_FLAG`.
+         */
+        importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
     class SourceTextModule extends Module {
         /**

@@ -17,7 +17,7 @@ export interface ClientConfig {
     host?: string | undefined;
     connectionString?: string | undefined;
     keepAlive?: boolean | undefined;
-    stream?: () => stream.Duplex | stream.Duplex | undefined;
+    stream?: () => stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
@@ -46,6 +46,7 @@ export interface Defaults extends ClientConfig {
 export interface PoolConfig extends ClientConfig {
     // properties from module 'pg-pool'
     max?: number | undefined;
+    min?: number | undefined;
     idleTimeoutMillis?: number | undefined | null;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;

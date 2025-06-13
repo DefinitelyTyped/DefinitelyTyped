@@ -12,6 +12,24 @@ declare namespace OneLine {
             customParams: VideoCustomParameters,
             videoTitle?: string,
         ): string;
+        /**
+         * Wrapper method to request all ad units with reload capability
+         */
+        requestAllAdUnitsWithReload(): void;
+        /**
+         * Wrapper method to request all ad units without reload capability
+         */
+        requestAllAdUnits(): void;
+        /**
+         * Wrapper method to request specific ad units with reload capability
+         * @param adUnitIds - Array of ad unit IDs to request
+         */
+        requestSpecificAdUnitsWithReload(adUnitIds: string[]): void;
+        /**
+         * Wrapper method to request specific ad units without reload capability
+         * @param adUnitIds - Array of ad unit IDs to request
+         */
+        requestSpecificAdUnits(adUnitIds: string[]): void;
     }
     interface VideoCustomParameters {
         [key: string]: number | string | undefined;
