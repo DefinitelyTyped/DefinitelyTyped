@@ -285,6 +285,8 @@ export interface ExchangeTrade {
     receive?: CryptoId | undefined; // litecoin
 
     receiveStringAmount?: string | undefined; // "0.01"
+    /** User`s crypto address where tx should be refunded */
+    refundAddress?: string;
     fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
     receiveAddress?: string | undefined; // user's address for receive tx
     rate?: number | undefined; // 100
@@ -335,6 +337,11 @@ export interface ExchangeTrade {
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
     tradeForm?: FormResponse;
+}
+
+export interface ExchangeTradeSigned extends ExchangeTrade {
+    /** SLIP24: Nonce for payment request signature */
+    tradeSignature: string;
 }
 
 export interface ExtendedExchangeTrade extends ExchangeTrade {
@@ -536,6 +543,11 @@ export interface SellFiatTrade {
     partnerData2?: string | undefined; // arbitrary data specific for the partner
 }
 
+export interface SellFiatTradeSigned extends SellFiatTrade {
+    /** SLIP24: Signature of the trade */
+    tradeSignature: string;
+}
+
 export interface SellVoucherTradeQuoteRequest {
     cryptoCurrency?: CryptoId | undefined; // bitcoin
     language?: string | undefined; // en
@@ -589,3 +601,29 @@ export interface WatchSellTradeResponse {
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
 }
+
+export interface PaymentRequestOutput {
+    address: string;
+    amount: string;
+}
+
+export interface CreateTradeSignatureRequestSell {
+    type: "sell";
+    /** ID of the trade - `paymentId` for sell */
+    id: string;
+    nonce: string;
+    outputs: PaymentRequestOutput[];
+    memoText: string;
+}
+
+export interface CreateTradeSignatureRequestExchange {
+    type: "exchange";
+    /** ID of the trade - `orderId` for exchange */
+    id: string;
+    nonce: string;
+    outputs: PaymentRequestOutput[];
+}
+
+export type CreateTradeSignatureRequest =
+    | CreateTradeSignatureRequestSell
+    | CreateTradeSignatureRequestExchange;

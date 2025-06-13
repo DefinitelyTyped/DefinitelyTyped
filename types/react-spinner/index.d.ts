@@ -1,3 +1,3 @@
 import * as React from "react";
 
-export default class Spinner extends React.Component {}
+export default class Spinner extends React.Component<React.HTMLAttributes<HTMLDivElement>> {}

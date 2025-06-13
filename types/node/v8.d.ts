@@ -4,7 +4,7 @@
  * ```js
  * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -547,8 +547,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
-     * @experimental
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @since v18.10.0, v16.18.0
      */
     function setHeapSnapshotNearHeapLimit(limit: number): void;
@@ -774,33 +773,6 @@ declare module "v8" {
      */
     const promiseHooks: PromiseHooks;
     type StartupSnapshotCallbackFn = (args: any) => any;
-    interface StartupSnapshot {
-        /**
-         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
-         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
-         * @since v18.6.0, v16.17.0
-         */
-        addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
-         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
-         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
-         * @since v18.6.0, v16.17.0
-         */
-        addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
-         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
-         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
-         * @since v18.6.0, v16.17.0
-         */
-        setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * Returns true if the Node.js instance is run to build a snapshot.
-         * @since v18.6.0, v16.17.0
-         */
-        isBuildingSnapshot(): boolean;
-    }
     /**
      * The `v8.startupSnapshot` interface can be used to add serialization and deserialization hooks for custom startup snapshots.
      *
@@ -879,10 +851,35 @@ declare module "v8" {
      *
      * Currently the application deserialized from a user-land snapshot cannot be snapshotted again, so these APIs are only available to applications that are not deserialized from a user-land snapshot.
      *
-     * @experimental
      * @since v18.6.0, v16.17.0
      */
-    const startupSnapshot: StartupSnapshot;
+    namespace startupSnapshot {
+        /**
+         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
+         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
+         * @since v18.6.0, v16.17.0
+         */
+        function addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
+         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
+         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        function addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
+         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
+         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
+         * @since v18.6.0, v16.17.0
+         */
+        function setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Returns true if the Node.js instance is run to build a snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        function isBuildingSnapshot(): boolean;
+    }
 }
 declare module "node:v8" {
     export * from "v8";

@@ -1,11 +1,15 @@
 import {
     BuyProviderInfo,
     BuyTrade,
+    CreateTradeSignatureRequestExchange,
+    CreateTradeSignatureRequestSell,
     CryptoId,
     ExchangeProviderInfo,
     ExchangeTrade,
+    ExchangeTradeSigned,
     InfoResponse,
     SellFiatTrade,
+    SellFiatTradeSigned,
     SellProviderInfo,
     WatchSellTradeResponse,
 } from "invity-api";
@@ -18,12 +22,18 @@ const bt: BuyTrade = {
 const et: ExchangeTrade = {
     send: "bitcoin" as CryptoId,
     receive: "ethereum" as CryptoId,
+    refundAddress: "refundAddress",
     quoteId: "123",
     signData: {
         type: "eip712-typed-data",
         data: {},
     },
     status: "SIGN_DATA",
+};
+
+const ets: ExchangeTradeSigned = {
+    ...et,
+    tradeSignature: "signature",
 };
 
 const sft: SellFiatTrade = {
@@ -34,6 +44,11 @@ const sft: SellFiatTrade = {
         required: true,
         type: "number",
     },
+};
+
+const sfts: SellFiatTradeSigned = {
+    ...sft,
+    tradeSignature: "signature",
 };
 
 const wstr: WatchSellTradeResponse = {
@@ -108,4 +123,29 @@ const sellProviderInfo: SellProviderInfo = {
     flow: "PAYMENT_GATE",
     isRefundAddressRequired: false,
     lockSendAmount: false,
+};
+
+const sellSignatureRequest: CreateTradeSignatureRequestSell = {
+    type: "sell",
+    id: "123",
+    nonce: "nonce",
+    outputs: [
+        {
+            address: "address",
+            amount: "1000",
+        },
+    ],
+    memoText: "memo",
+};
+
+const exchangeSignatureRequest: CreateTradeSignatureRequestExchange = {
+    type: "exchange",
+    id: "123",
+    nonce: "nonce",
+    outputs: [
+        {
+            address: "address",
+            amount: "1000",
+        },
+    ],
 };

@@ -34,7 +34,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/vm.js)
  */
 declare module "vm" {
     import { ImportAttributes } from "node:module";
@@ -60,6 +60,7 @@ declare module "vm" {
         specifier: string,
         referrer: T,
         importAttributes: ImportAttributes,
+        phase: "source" | "evaluation",
     ) => Module | Promise<Module>;
     interface ScriptOptions extends BaseOptions {
         /**
@@ -71,7 +72,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -122,7 +124,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -137,7 +140,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Script>
@@ -165,7 +169,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<ReturnType<typeof compileFunction>>
@@ -208,7 +213,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?:
             | DynamicModuleLoader<Context>
@@ -410,9 +416,9 @@ declare module "vm" {
     }
     /**
      * If the given `contextObject` is an object, the `vm.createContext()` method will
-     * [prepare that object](https://nodejs.org/docs/latest-v22.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * [prepare that object](https://nodejs.org/docs/latest-v24.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
      * and return a reference to it so that it can be used in calls to {@link runInContext} or
-     * [`script.runInContext()`](https://nodejs.org/docs/latest-v22.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v24.x/api/vm.html#scriptrunincontextcontextifiedobject-options).
      * Inside such scripts, the global object will be wrapped by the `contextObject`, retaining all of its
      * existing properties but also having the built-in objects and functions any standard
      * [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
@@ -907,7 +913,8 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @experimental
          */
         importModuleDynamically?: DynamicModuleLoader<SourceTextModule> | undefined;
     }
@@ -1005,7 +1012,7 @@ declare module "vm" {
          * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
          * context to load the requested module.
          *
-         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v24.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          * @since v21.7.0, v20.12.0
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;

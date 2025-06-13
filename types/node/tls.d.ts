@@ -6,7 +6,7 @@
  * ```js
  * import tls from 'node:tls';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/tls.js)
  */
 declare module "tls" {
     import { X509Certificate } from "node:crypto";
@@ -797,13 +797,6 @@ declare module "tls" {
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
-    /**
-     * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
-     */
-    interface SecurePair {
-        encrypted: TLSSocket;
-        cleartext: TLSSocket;
-    }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
     interface SecureContextOptions {
         /**
@@ -1103,45 +1096,6 @@ declare module "tls" {
     ): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
-     * Creates a new secure pair object with two streams, one of which reads and writes
-     * the encrypted data and the other of which reads and writes the cleartext data.
-     * Generally, the encrypted stream is piped to/from an incoming encrypted data
-     * stream and the cleartext one is used as a replacement for the initial encrypted
-     * stream.
-     *
-     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and `encrypted` stream properties.
-     *
-     * Using `cleartext` has the same API as {@link TLSSocket}.
-     *
-     * The `tls.createSecurePair()` method is now deprecated in favor of`tls.TLSSocket()`. For example, the code:
-     *
-     * ```js
-     * pair = tls.createSecurePair(// ... );
-     * pair.encrypted.pipe(socket);
-     * socket.pipe(pair.encrypted);
-     * ```
-     *
-     * can be replaced by:
-     *
-     * ```js
-     * secureSocket = tls.TLSSocket(socket, options);
-     * ```
-     *
-     * where `secureSocket` has the same API as `pair.cleartext`.
-     * @since v0.3.2
-     * @deprecated Since v0.11.3 - Use {@link TLSSocket} instead.
-     * @param context A secure context object as returned by `tls.createSecureContext()`
-     * @param isServer `true` to specify that this TLS connection should be opened as a server.
-     * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
-     * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
-     */
-    function createSecurePair(
-        context?: SecureContext,
-        isServer?: boolean,
-        requestCert?: boolean,
-        rejectUnauthorized?: boolean,
-    ): SecurePair;
-    /**
      * `{@link createServer}` sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
      *
@@ -1197,7 +1151,7 @@ declare module "tls" {
      * the `ciphers` option of `{@link createSecureContext}`.
      *
      * Not all supported ciphers are enabled by default. See
-     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v22.x/api/tls.html#modifying-the-default-tls-cipher-suite).
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v24.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.
