@@ -2656,7 +2656,7 @@ declare module "fs" {
             buffer: TBuffer,
             offset: number,
             length: number,
-            position: number | null,
+            position: ReadPosition | null,
         ): Promise<{
             bytesRead: number;
             buffer: TBuffer;
