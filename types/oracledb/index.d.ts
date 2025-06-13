@@ -2067,7 +2067,7 @@ declare namespace OracleDB {
             | Record<
                 string,
                 {
-                    type: number;
+                    type: DbType | number;
                 }
             >
             | undefined;
