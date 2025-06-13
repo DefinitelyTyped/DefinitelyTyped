@@ -113,6 +113,41 @@ interface LegacyFakeTimersConfig {
 
 declare namespace jest {
     /**
+     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
+     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
+     * within this time frame will be executed.
+     */
+    function advanceTimersByTime(msToRun: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
+    /**
+     * Advances all timers by the needed milliseconds to execute callbacks currently scheduled with `requestAnimationFrame`.
+     * `advanceTimersToNextFrame()` is a helpful way to execute code that is scheduled using `requestAnimationFrame`.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextFrame(): void;
+    /**
+     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
+     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
+     */
+    function advanceTimersToNextTimer(step?: number): void;
+    /**
+     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
+     * allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks
+     * Not available when using legacy fake timers implementation.
+     */
+    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
+    /**
      * Disables automatic mocking in the module loader.
      */
     function autoMockOff(): typeof jest;
@@ -215,12 +250,6 @@ declare namespace jest {
      */
     function fn<T, Y extends any[], C = any>(implementation?: (this: C, ...args: Y) => T): Mock<T, Y, C>;
     /**
-     * (renamed to `createMockFromModule` in Jest 26.0.0+)
-     * Use the automatic mocking system to generate a mocked version of the given module.
-     */
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function genMockFromModule<T>(moduleName: string): T;
-    /**
      * Returns `true` if test environment has been torn down.
      *
      * @example
@@ -250,6 +279,16 @@ declare namespace jest {
      * Wraps types of the `source` object with type definitions of Jest mock function.
      */
     function mocked<T>(source: T, options: { shallow: true }): MaybeMocked<T>;
+    /**
+     * Registers a callback function that is invoked whenever a mock is generated for a module.
+     * This callback is passed the module path and the newly created mock object, and must return
+     * the (potentially modified) mock object.
+     *
+     * If multiple callbacks are registered, they will be called in the order they were added.
+     * Each callback receives the result of the previous callback as the `moduleMock` parameter,
+     * making it possible to apply sequential transformations.
+     */
+    function onGenerateMock<T>(cb: (modulePath: string, moduleMock: T) => T): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -281,7 +320,10 @@ declare namespace jest {
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
-    function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
+    function retryTimes(
+        numRetries: number,
+        options?: { logErrorsBeforeRetry?: boolean; waitBeforeRetry?: number; retryImmediately?: boolean },
+    ): typeof jest;
     /**
      * Replaces property on an object with another value.
      *
@@ -328,32 +370,11 @@ declare namespace jest {
      */
     function runOnlyPendingTimersAsync(): Promise<void>;
     /**
-     * Advances all timers by `msToRun` milliseconds. All pending macro-tasks that have been
-     * queued by `setTimeout()`, `setInterval()` and `setImmediate()`, and would be executed
-     * within this time frame will be executed.
+     * Indicates that the module system should never return a mocked version of
+     * the specified module when it is being imported (e.g. that it should always
+     * return the real module).
      */
-    function advanceTimersByTime(msToRun: number): void;
-    /**
-     * Asynchronous equivalent of `jest.advanceTimersByTime()`. It also yields to the event loop,
-     * allowing any scheduled promise callbacks to execute _before_ running the timers.
-     *
-     * @remarks
-     * Not available when using legacy fake timers implementation.
-     */
-    function advanceTimersByTimeAsync(msToRun: number): Promise<void>;
-    /**
-     * Advances all timers by the needed milliseconds so that only the next timeouts/intervals will run.
-     * Optionally, you can provide steps, so it will run steps amount of next timeouts/intervals.
-     */
-    function advanceTimersToNextTimer(step?: number): void;
-    /**
-     * Asynchronous equivalent of `jest.advanceTimersToNextTimer()`. It also yields to the event loop,
-     * allowing any scheduled promise callbacks to execute _before_ running the timers.
-     *
-     * @remarks
-     * Not available when using legacy fake timers implementation.
-     */
-    function advanceTimersToNextTimerAsync(steps?: number): Promise<void>;
+    function unstable_unmockModule(moduleName: string): typeof jest;
     /**
      * Explicitly supplies the mock object that the module system should return
      * for the specified module.
@@ -651,6 +672,12 @@ declare namespace jest {
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         arrayContaining<E = any>(arr: readonly E[]): any;
         /**
+         * Validate every element of an array against a condition or type It is the
+         * inverse of `expect.arrayOf`.
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        arrayOf<E = any>(arr: E): any;
+        /**
          * `expect.not.objectContaining(object)` matches any received object
          * that does not recursively match the expected properties. That is, the
          * expected object is not a subset of the received object. Therefore,
@@ -689,7 +716,7 @@ declare namespace jest {
          */
         <T = any>(actual: T): JestMatchers<T>;
         /**
-         * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
+         * Matches anything but null or undefined. You can use it inside `toEqual` or `toHaveBeenCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
          * non-null argument:
          *
@@ -698,13 +725,13 @@ declare namespace jest {
          * test('map calls its argument with a non-null argument', () => {
          *   const mock = jest.fn();
          *   [1].map(x => mock(x));
-         *   expect(mock).toBeCalledWith(expect.anything());
+         *   expect(mock).toHaveBeenCalledWith(expect.anything());
          * });
          */
         anything(): any;
         /**
          * Matches anything that was created with the given constructor.
-         * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         * You can use it inside `toEqual` or `toHaveBeenCalledWith` instead of a literal value.
          *
          * @example
          *
@@ -715,18 +742,23 @@ declare namespace jest {
          * test('randocall calls its callback with a number', () => {
          *   const mock = jest.fn();
          *   randocall(mock);
-         *   expect(mock).toBeCalledWith(expect.any(Number));
+         *   expect(mock).toHaveBeenCalledWith(expect.any(Number));
          * });
          */
         any(classType: any): any;
         /**
          * Matches any array made up entirely of elements in the provided array.
-         * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         * You can use it inside `toEqual` or `toHaveBeenCalledWith` instead of a literal value.
          *
          * Optionally, you can provide a type for the elements via a generic.
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         arrayContaining<E = any>(arr: readonly E[]): any;
+        /**
+         * Validate every element of an array against a condition or type
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        arrayOf<E = any>(arr: E): any;
         /**
          * Verifies that a certain number of assertions are called during a test.
          * This is often useful when testing asynchronous code, in order to
@@ -800,46 +832,6 @@ declare namespace jest {
     // should be R extends void|Promise<void> but getting dtslint error
     interface Matchers<R, T = {}> {
         /**
-         * Ensures the last call to a mock function was provided specific args.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenLastCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        lastCalledWith<E extends any[]>(...args: E): R;
-        /**
-         * Ensure that the last call to a mock function has returned a specified value.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveLastReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        lastReturnedWith<E = any>(expected?: E): R;
-        /**
-         * Ensure that a mock function is called with specific arguments on an Nth call.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenNthCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
-        /**
-         * Ensure that the nth call to a mock function has returned a specified value.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveNthReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, expected?: E): R;
-        /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
          *
@@ -848,28 +840,6 @@ declare namespace jest {
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toBe<E = any>(expected: E): R;
-        /**
-         * Ensures that a mock function is called.
-         *
-         * @deprecated in favor of `toHaveBeenCalled`
-         */
-        toBeCalled(): R;
-        /**
-         * Ensures that a mock function is called an exact number of times.
-         *
-         * @deprecated in favor of `toHaveBeenCalledTimes`
-         */
-        toBeCalledTimes(expected: number): R;
-        /**
-         * Ensure that a mock function is called with specific arguments.
-         *
-         * Optionally, you can provide a type for the expected arguments via a generic.
-         * Note that the type must be either an array or a tuple.
-         *
-         * @deprecated in favor of `toHaveBeenCalledWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toBeCalledWith<E extends any[]>(...args: E): R;
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
@@ -1099,28 +1069,6 @@ declare namespace jest {
          */
         toMatchInlineSnapshot(snapshot?: string): R;
         /**
-         * Ensure that a mock function has returned (as opposed to thrown) at least once.
-         *
-         * @deprecated in favor of `toHaveReturned`
-         */
-        toReturn(): R;
-        /**
-         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
-         *
-         * @deprecated in favor of `toHaveReturnedTimes`
-         */
-        toReturnTimes(count: number): R;
-        /**
-         * Ensure that a mock function has returned a specified value at least once.
-         *
-         * Optionally, you can provide a type for the expected value via a generic.
-         * This is particularly useful for ensuring expected objects have the right structure.
-         *
-         * @deprecated in favor of `toHaveReturnedWith`
-         */
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        toReturnWith<E = any>(value?: E): R;
-        /**
          * Use to test that objects have the same types as well as structure.
          *
          * Optionally, you can provide a type for the expected value via a generic.
@@ -1132,12 +1080,6 @@ declare namespace jest {
          * Used to test that a function throws when it is called.
          */
         toThrow(error?: string | Constructable | RegExp | Error): R;
-        /**
-         * If you want to test that a specific error is thrown inside a function.
-         *
-         * @deprecated in favor of `toThrow`
-         */
-        toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
