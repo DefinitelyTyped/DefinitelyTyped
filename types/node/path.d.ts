@@ -13,7 +13,7 @@ declare module "path/win32" {
  * ```js
  * import path from 'node:path';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/path.js)
  */
 declare module "path" {
     namespace path {

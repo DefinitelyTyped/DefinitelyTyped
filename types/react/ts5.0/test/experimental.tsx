@@ -22,18 +22,43 @@ function suspenseTest() {
     }
 }
 
+// @ts-expect-error -- no revealOrder
+<React.unstable_SuspenseList>
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.unstable_SuspenseList>;
 // Unsupported `revealOrder` triggers a runtime warning
 // @ts-expect-error
 <React.unstable_SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
 </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="backwards">
+// @ts-expect-error -- no tail
+<React.unstable_SuspenseList revealOrder="forwards">
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
-<React.unstable_SuspenseList revealOrder="forwards">
+// @ts-expect-error -- Must have more than one static child
+<React.unstable_SuspenseList revealOrder="backwards" tail="collapsed">
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="unstable_legacy-backwards" tail="collapsed">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="independent">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
+
+<React.unstable_SuspenseList revealOrder="forwards" tail="hidden">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
@@ -42,6 +67,15 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
+
+function Page({ children }: { children: NonNullable<React.ReactNode> }) {
+    return (
+        // @ts-expect-error -- Can't pass arbitrary Nodes. Must be an Element or Iterable of Elements.
+        <React.unstable_SuspenseList revealOrder="forwards" tail="collapsed">
+            {children}
+        </React.unstable_SuspenseList>
+    );
+}
 
 function useEvent() {
     // Implicit any
@@ -74,7 +108,6 @@ function useEvent() {
 
 function elementTypeTests() {
     const ReturnPromise = () => Promise.resolve("React");
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
@@ -82,9 +115,7 @@ function elementTypeTests() {
         }
     }
 
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     <ReturnPromise />;
-    // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     React.createElement(ReturnPromise);
     <RenderPromise />;
     React.createElement(RenderPromise);

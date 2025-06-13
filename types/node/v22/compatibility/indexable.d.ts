@@ -1,7 +1,4 @@
 // Polyfill for ES2022's .at() method on string/array prototypes, added to TypeScript in 4.6.
-// TODO: these methods are not used within @types/node, and should be removed at the next
-// major @types/node version; users should include the es2022 TypeScript libraries
-// if they need these features.
 
 interface RelativeIndexable<T> {
     at(index: number): T | undefined;

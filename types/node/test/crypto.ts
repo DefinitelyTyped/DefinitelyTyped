@@ -1092,6 +1092,11 @@ import { promisify } from "node:util";
     const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
     const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
     assert.equal(sharedSecret1, sharedSecret2);
+
+    crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject1 }, (err, secret) => {
+        err; // $ExpectType Error | null
+        secret; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
 }
 
 {
