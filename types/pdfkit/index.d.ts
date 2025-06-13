@@ -441,7 +441,7 @@ declare namespace PDFKit.Mixins {
 
     interface ExpandedAlign {
         x?: "left" | "center" | "right" | "justify";
-        y?: "top" | "center" |  "bottom";
+        y?: "top" | "center" | "bottom";
     }
 
     interface CellOptions extends CellStyle {

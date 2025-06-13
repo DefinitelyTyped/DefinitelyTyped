@@ -437,14 +437,14 @@ doc.text("before")
     .text("after");
 
 doc.table({
-  data: [
-    [
-      {
-        align: { x: 'center', y: 'bottom' },
-        text: 'test',
-      },
+    data: [
+        [
+            {
+                align: { x: "center", y: "bottom" },
+                text: "test",
+            },
+        ],
     ],
-  ],
 });
 
 doc.text("Scale", { align: "justify" });
