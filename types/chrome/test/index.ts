@@ -3856,6 +3856,80 @@ async function testFontSettingsForPromise() {
     await chrome.fontSettings.clearDefaultFixedFontSize({});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/gcm
+function testGcm() {
+    chrome.gcm.MAX_MESSAGE_SIZE === 4096;
+
+    const senderIds = ["id1", "id2"];
+
+    chrome.gcm.register(senderIds); // $ExpectType Promise<string>
+    chrome.gcm.register(senderIds, (registrationId) => { // $ExpectType void
+        registrationId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.gcm.register(senderIds, () => {}).then(() => {});
+
+    const message: chrome.gcm.OutgoingMessage = {
+        destinationId: "destinationId",
+        messageId: "messageId",
+        data: {
+            key: "value",
+        },
+        timeToLive: 1000,
+    };
+
+    chrome.gcm.send(message); // $ExpectType Promise<string>
+    chrome.gcm.send(message, (messageId) => { // $ExpectType void
+        messageId; // $ExpectType string
+    });
+    // @ts-expect-error
+    chrome.gcm.send(message, () => {}).then(() => {});
+
+    chrome.gcm.unregister(); // $ExpectType Promise<void>
+    chrome.gcm.unregister(() => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.gcm.unregister(senderIds, () => {}).then(() => {});
+
+    chrome.gcm.onMessage.addListener((message) => { // $ExpectType void
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.removeListener((message) => { // $ExpectType void
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.hasListener((message) => { // $ExpectType boolean
+        message.collapseKey; // $ExpectType string | undefined
+        message.data; // $ExpectType { [key: string]: unknown; }
+        message.from; // $ExpectType string | undefined
+    });
+    chrome.gcm.onMessage.hasListeners(); // $ExpectType boolean
+
+    chrome.gcm.onMessagesDeleted.addListener(() => {}); // $ExpectType void
+    chrome.gcm.onMessagesDeleted.removeListener(() => {}); // $ExpectType void
+    chrome.gcm.onMessagesDeleted.hasListener(() => {}); // $ExpectType boolean
+    chrome.gcm.onMessagesDeleted.hasListeners(); // $ExpectType boolean
+
+    chrome.gcm.onSendError.addListener((error) => { // $ExpectType void
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.removeListener((error) => { // $ExpectType void
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.hasListener((error) => { // $ExpectType boolean
+        error.details; // $ExpectType { [key: string]: unknown; }
+        error.errorMessage; // $ExpectType string
+        error.messageId; // $ExpectType string | undefined
+    });
+    chrome.gcm.onSendError.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/history
 function testHistory() {
     // @ts-expect-error
