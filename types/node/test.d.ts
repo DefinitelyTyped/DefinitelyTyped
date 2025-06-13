@@ -1800,6 +1800,7 @@ declare module "node:test" {
         test,
         test as default,
         TestContext,
+        TestContextAssert,
         todo,
     };
 }
