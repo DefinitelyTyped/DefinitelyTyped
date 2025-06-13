@@ -436,6 +436,17 @@ doc.text("before")
     })
     .text("after");
 
+doc.table({
+  data: [
+    [
+      {
+        align: { x: 'center', y: 'bottom' },
+        text: 'test',
+      },
+    ],
+  ],
+});
+
 doc.text("Scale", { align: "justify" });
 
 doc.text("Baseline - string literal", { baseline: "alphabetic" });
