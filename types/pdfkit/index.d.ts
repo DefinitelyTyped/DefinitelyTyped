@@ -439,6 +439,11 @@ declare namespace PDFKit.Mixins {
         data: Array<Array<string | CellOptions>>;
     }
 
+    interface ExpandedAlign {
+        x?: "left" | "center" | "right" | "justify";
+        y?: "top" | "center" | "bottom";
+    }
+
     interface CellOptions extends CellStyle {
         /** The value, will be cast to a string (null and undefined are not rendered but the cell is still outlined) */
         text?: string | undefined | null;
@@ -451,7 +456,7 @@ declare namespace PDFKit.Mixins {
         /** Font options for the cell */
         font?: any;
         /** The alignment of the cell text (default {x: 'left', y: 'top'}) */
-        align?: { x?: "right" | "left"; y?: "top" | "bottom" };
+        align?: "center" | ExpandedAlign;
         /** The text stroke (default 0) */
         textStroke?: number | boolean;
         /** Sets the text stroke color of the cells text (default black) */
