@@ -6,6 +6,7 @@ import {
     defaultOrderByFn,
     DefaultSortTypes,
     FilterProps,
+    FilterTypes,
     FilterValue,
     FooterProps,
     HeaderGroup,
@@ -385,7 +386,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             columns,
             data,
             defaultColumn,
-            filterTypes,
+            filterTypes: filterTypes as FilterTypes<Data>,
             // nestExpandedRows: true,
             initialState: { pageIndex: 2 },
             // updateMyData isn't part of the API, but
