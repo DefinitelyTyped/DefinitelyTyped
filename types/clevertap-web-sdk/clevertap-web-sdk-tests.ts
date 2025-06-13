@@ -81,9 +81,6 @@ clevertap.notifications.push({
     askAgainTimeInSeconds: 5,
     serviceWorkerPath: "/foo/my_sw.js", // path to your custom service worker file
 });
-clevertap.notifications.enable({
-    swPath: "/foo/my_sw.js", // path to your custom service worker file
-});
 clevertap.renderNotificationClicked({
     msgId: "232",
     kv: 1212,
@@ -162,3 +159,27 @@ const callback = () => {
 
 // Call the addOneTimeVariablesChangedCallback method
 clevertap.addOneTimeVariablesChangedCallback(callback);
+
+// Get the clevertap SDK version
+clevertap.getSDKVersion();
+
+// Enable/Disable local storage encryption
+clevertap.enableLocalStorageEncryption(true);
+
+// Check if the local storage encryption is enabled
+clevertap.isLocalStorageEncryptionEnabled();
+
+// Set the custom clevertap Id
+clevertap.createCustomIdIfValid('hello_123');
+
+// Define file type variable
+clevertap.defineFileVariable('promo_shoes');
+
+// Get the defined variables
+clevertap.getVariables();
+
+// Get the value of particular variable
+clevertap.getVariableValue('promo_shoes');
+
+// Get the details of all the qualified campaigns
+clevertap.getAllQualifiedCampaignDetails();
