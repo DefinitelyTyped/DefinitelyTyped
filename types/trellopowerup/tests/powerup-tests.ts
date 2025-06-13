@@ -308,7 +308,7 @@ t.popup({
 t.popup({
     title: "Date Popup",
     type: "date",
-    callback: (t, opts) => {
+    callback: (t: Trello.PowerUp.CallbackHandler, opts: Trello.PowerUp.PopupCallbackOptions & { date: string }) => {
         // $ExpectType string
         opts.date;
         return Promise.resolve();
