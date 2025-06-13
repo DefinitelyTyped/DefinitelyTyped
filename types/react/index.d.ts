@@ -169,14 +169,46 @@ declare namespace React {
      * @example
      *
      * ```tsx
+     * const withCleanup: RefCallback<HTMLElement> = (element) => {
+     *   // attached logic...
+     *
+     *   // Cleanup logic
+     *   return () => {
+     *     // ...
+     *   };
+     * }
+     * <div ref={withCleanup} />
+     *
+     * const withoutCleanup: RefCallback<HTMLElement | null> = (element) => {
+     *   // attached logic...
+     * }
+     * <div ref={withCleanup} />
+     * ```
+     */
+    type RefCallback<T> = (current: T) =>
+        | VoidOrUndefinedOnly
+        | (null extends T ? never : (() => VoidOrUndefinedOnly))
+        | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
+            keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
+        ];
+    /**
+     * The default shape for the callback fired whenever the ref's value changes.
+     *
+     * @template T The type of the ref's value.
+     *
+     * @see {@link https://react.dev/reference/react-dom/components/common#ref-callback React Docs}
+     *
+     * @example
+     *
+     * ```tsx
      * <div ref={(node) => console.log(node)} />
      * ```
      */
-    type RefCallback<T> = {
+    type RefCallbackDefault<T> = {
         bivarianceHack(
             instance: T | null,
         ):
-            | void
+            | VoidOrUndefinedOnly
             | (() => VoidOrUndefinedOnly)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
@@ -186,11 +218,11 @@ declare namespace React {
     /**
      * A union type of all possible shapes for React refs.
      *
-     * @see {@link RefCallback}
+     * @see {@link RefCallbackDefault}
      * @see {@link RefObject}
      */
 
-    type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
+    type Ref<T> = RefCallbackDefault<T> | RefObject<T | null> | null;
     /**
      * @deprecated Use `Ref` instead. String refs are no longer supported.
      * If you're typing a library with support for React versions with string refs, use `RefAttributes<T>['ref']` instead.
