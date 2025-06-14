@@ -1,5 +1,11 @@
 //<editor-fold defaultstate="collapsed" desc="Assertion functions">
+let anAssertionFailed: boolean = false;
+
 function assertEquals(a: any, b: any, msg?: string) {
+    if (anAssertionFailed) {
+        return;
+    }
+
     if (a !== b) {
         console.log(`Assertion error: ${a} !== ${b}`);
 
@@ -7,11 +13,16 @@ function assertEquals(a: any, b: any, msg?: string) {
             console.log(msg);
         }
 
-        process.exit(1);
+        console.log("Runtime check failed!");
+        anAssertionFailed = true;
     }
 }
 
 function assertEqualsSingleValue(array: string[], value: string) {
+    if (anAssertionFailed) {
+        return;
+    }
+
     assertEquals(array.length, 1, `len([${array}]) !== 1`);
     assertEquals(array[0], value);
 }
@@ -20,6 +31,10 @@ function assertAllCases(
     results: Array<string[]>,
     values: Array<string[] | string>
 ) {
+    if (anAssertionFailed) {
+        return;
+    }
+
     assertEquals(results.length, 7);
     assertEquals(values.length, 7);
 
@@ -36,17 +51,28 @@ function assertAllCases(
             }
         } else {
             console.log(`${value} is neither an array nor a string.`);
-            process.exit(1);
+            console.log("Runtime check failed!");
+            anAssertionFailed = true;
         }
     }
+}
+
+function report(msg: string) {
+    if (anAssertionFailed) {
+        return;
+    }
+
+    console.log(msg);
 }
 //</editor-fold>
 
 
 
-import { Engine, Case, Gender, Lemma, createLemma, createLemmaOrNull } from 'russian-nouns-js'
-import { CASES, getDeclension, getSchoolDeclension } from 'russian-nouns-js'
-import { LocativeForm, LocativeFormAttribute } from 'russian-nouns-js'
+import {
+    Engine, Case, Gender, Lemma, createLemma, createLemmaOrNull,
+    CASES, getDeclension, getSchoolDeclension,
+    LocativeForm, LocativeFormAttribute
+} from "russian-nouns-js";
 
 
 
@@ -56,10 +82,10 @@ const rne = new Engine();
 
 let result: string[];
 
-result = rne.decline({ text: 'имя', gender: Gender.NEUTER }, Case.GENITIVE);
+result = rne.decline({text: 'имя', gender: Gender.NEUTER}, Case.GENITIVE);
 assertEqualsSingleValue(result, "имени");
 
-result = rne.decline({ text: 'имя', gender: Gender.NEUTER }, Case.INSTRUMENTAL);
+result = rne.decline({text: 'имя', gender: Gender.NEUTER}, Case.INSTRUMENTAL);
 assertEqualsSingleValue(result, "именем");
 
 
@@ -80,7 +106,7 @@ let mountain: Lemma = createLemma({
     gender: Gender.FEMININE
 });
 
-let results: string[][] = CASES.map(c => {
+let results: string[][] = CASES.map(function (c: Case) {
     return rne.decline(mountain, c);
 });
 
@@ -90,7 +116,7 @@ result = rne.pluralize(mountain);
 assertEqualsSingleValue(result, "горы");
 const pluralMountain: string = result[0];
 
-results = CASES.map(c => {
+results = CASES.map(function (c: Case) {
     return rne.decline(mountain, c, pluralMountain);
 });
 
@@ -103,7 +129,7 @@ let mountainGender: Gender | undefined = mountain.getGender();
 assertEquals(mountainGender, Gender.FEMININE);
 
 
-assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
+assertEquals(null, createLemmaOrNull({text: "абвгд"}));
 
 (() => {
 
@@ -120,7 +146,7 @@ assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
 
 })();
 
-console.log('  Main functions (8) ............... OK');
+report('  Main functions (8) ............... OK');
 
 
 
@@ -161,7 +187,7 @@ assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL).length,
 assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[0], true);
 assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[1], false);
 
-console.log('  StressDictionary (9) ............. OK');
+report('  StressDictionary (9) ............. OK');
 
 
 
@@ -170,7 +196,7 @@ let row: Lemma = createLemma({
     gender: Gender.MASCULINE
 });
 
-results = CASES.map(c => {
+results = CASES.map(function (c: Case) {
     return rne.decline(row, c);
 });
 
@@ -189,5 +215,5 @@ assertEquals(
     'lf.semantics'
 );
 
-console.log('  LocativeForm (10) ................ OK');
+report('  LocativeForm (10) ................ OK');
 
