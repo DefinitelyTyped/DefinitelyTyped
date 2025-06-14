@@ -29,6 +29,7 @@ declare module "fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadPosition,
         ReadStream,
         ReadVResult,
         RmDirOptions,
@@ -69,7 +70,7 @@ declare module "fs/promises" {
          * @default `buffer.byteLength`
          */
         length?: number | null;
-        position?: number | null;
+        position?: ReadPosition | null;
     }
     interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
@@ -229,7 +230,7 @@ declare module "fs/promises" {
             buffer: T,
             offset?: number | null,
             length?: number | null,
-            position?: number | null,
+            position?: ReadPosition | null,
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(
             buffer: T,

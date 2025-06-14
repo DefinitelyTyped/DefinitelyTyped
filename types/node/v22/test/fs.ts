@@ -130,6 +130,21 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     // 2-param version using all-default options:
     fs.read(1, (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: NodeJS.ArrayBufferView) => {});
     fs.read(1, () => {});
+    // 6-param version with bigint valued position:
+    fs.read(
+        1,
+        new DataView(new ArrayBuffer(1)),
+        0,
+        1,
+        0n,
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {},
+    );
+    // 3-param version with bigint valued position:
+    fs.read(
+        1,
+        { buffer: new DataView(new ArrayBuffer(1)), offset: 0, length: 1, position: 0n },
+        (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: DataView) => {},
+    );
 }
 
 {
