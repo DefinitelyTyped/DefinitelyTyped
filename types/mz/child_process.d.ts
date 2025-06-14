@@ -1,14 +1,12 @@
 // Modified from the node.js definitions.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/child_process.d.ts
 
-import {
-    ChildProcess,
-    ExecException,
-    ExecFileOptions,
-    ExecFileOptionsWithStringEncoding,
-    ExecOptions,
-} from "child_process";
+import { ChildProcess, ExecException, ExecFileOptions, ExecOptions } from "child_process";
 export * from "child_process";
+
+export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
+    encoding: BufferEncoding;
+}
 
 export function exec(
     command: string,
@@ -16,31 +14,31 @@ export function exec(
 ): ChildProcess;
 export function exec(
     command: string,
-    options: { encoding: "buffer" | null | undefined } & ExecOptions,
+    options: { encoding: "buffer" | null | undefined } & Omit<ExecOptions, "encoding">,
     callback: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void,
 ): ChildProcess;
 export function exec(
     command: string,
-    options: ({ encoding?: BufferEncoding | undefined } & ExecOptions) | null | undefined,
+    options: ({ encoding?: BufferEncoding | undefined } & Omit<ExecOptions, "encoding">) | null | undefined,
     callback: (error: ExecException | null, stdout: string, stderr: string) => void,
 ): ChildProcess;
 export function exec(
     command: string,
-    options: ({ encoding?: string | null | undefined } & ExecOptions) | null | undefined,
+    options: ({ encoding?: string | null | undefined } & Omit<ExecOptions, "encoding">) | null | undefined,
     callback: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
 ): ChildProcess;
 
 export function exec(
     command: string,
-    options: { encoding: "buffer" | null | undefined } & ExecOptions,
+    options: { encoding: "buffer" | null | undefined } & Omit<ExecOptions, "encoding">,
 ): Promise<[Buffer, Buffer]>;
 export function exec(
     command: string,
-    options?: ({ encoding?: BufferEncoding | undefined } & ExecOptions) | null,
+    options?: ({ encoding?: BufferEncoding | undefined } & Omit<ExecOptions, "encoding">) | null,
 ): Promise<[string, string]>;
 export function exec(
     command: string,
-    options?: ({ encoding?: string | null | undefined } & ExecOptions) | null,
+    options?: ({ encoding?: string | null | undefined } & Omit<ExecOptions, "encoding">) | null,
 ): Promise<[string | Buffer, string | Buffer]>;
 
 interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
@@ -80,13 +78,13 @@ export function execFile(
     file: string,
     // `options` can't be mixed into `args`
     // tslint:disable-next-line: unified-signatures
-    options: ExecFileOptions | ExecFileOptionsWithStringEncoding,
+    options: Omit<ExecFileOptions, "encoding"> | ExecFileOptionsWithStringEncoding,
     callback: (error: Error | null, stdout: string, stderr: string) => void,
 ): ChildProcess;
 export function execFile(
     file: string,
     args: readonly string[] | null | undefined,
-    options: ExecFileOptions | ExecFileOptionsWithStringEncoding,
+    options: Omit<ExecFileOptions, "encoding"> | ExecFileOptionsWithStringEncoding,
     callback: (error: Error | null, stdout: string, stderr: string) => void,
 ): ChildProcess;
 
@@ -113,11 +111,11 @@ export function execFile(file: string, options: ExecFileOptionsWithBufferEncodin
 export function execFile(
     file: string,
     args?: string[] | null,
-    options?: ExecFileOptions | ExecFileOptionsWithStringEncoding | null,
+    options?: Omit<ExecFileOptions, "encoding"> | ExecFileOptionsWithStringEncoding | null,
 ): Promise<[string, string]>;
 export function execFile(
     file: string,
-    options?: ExecFileOptions | ExecFileOptionsWithStringEncoding | null,
+    options?: Omit<ExecFileOptions, "encoding"> | ExecFileOptionsWithStringEncoding | null,
 ): Promise<[string, string]>;
 export function execFile(
     file: string,
