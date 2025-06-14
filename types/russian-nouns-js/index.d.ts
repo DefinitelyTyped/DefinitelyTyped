@@ -4,6 +4,7 @@ import { Case as CaseEnum } from "./src/Case";
 import Engine from "./src/Engine";
 import { Gender as GenderEnum } from "./src/Gender";
 import { Lemma, LemmaOptions } from "./src/Lemma";
+import { LocativeForm, LocativeFormAttribute } from "./src/LocativeForm";
 
 export as namespace RussianNounsJS;
 
@@ -80,4 +81,4 @@ export function getDeclension(lemma: Lemma | object): number | undefined;
  */
 export function getSchoolDeclension(lemma: Lemma): number;
 
-export { Engine, Lemma };
+export { Engine, Lemma, LocativeForm, LocativeFormAttribute };

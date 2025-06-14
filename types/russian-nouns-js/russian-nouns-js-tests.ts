@@ -45,8 +45,9 @@ function assertAllCases(
 
 
 import { Engine, Case, Gender, Lemma, createLemma, createLemmaOrNull } from 'russian-nouns-js'
-// import { CASES, getDeclension, getSchoolDeclension, LocativeForm } from 'russian-nouns-js'
 import { CASES, getDeclension, getSchoolDeclension } from 'russian-nouns-js'
+import { LocativeForm, LocativeFormAttribute } from 'russian-nouns-js'
+
 
 
 const rne = new Engine();
@@ -147,16 +148,20 @@ results = CASES.map(c => {
 
 assertAllCases(results, ['ряд', 'ряда', 'ряду', 'ряд', 'рядом', 'ряде', 'ряду']);
 
-// TODO
-/*
 let rowLocativeForms: LocativeForm[] = rne.getLocativeForms(row);
 
 assertEquals(rowLocativeForms.length, 1, 'locative forms count');
 assertEquals(rowLocativeForms[0].preposition, 'в', 'lf.preposition');
-assertEquals(rowLocativeForms.word, 'ряду', 'lf.word');
+assertEquals(rowLocativeForms[0].attributes > 0, true, 'lf.semantics > 0');
+assertEquals(rowLocativeForms[0].word, 'ряду', 'lf.word');
+
+assertEquals(
+    rowLocativeForms[0].attributes,
+    LocativeFormAttribute.STRUCTURE,
+    'lf.semantics'
+);
 
 console.log('  LocativeForm (10) ................ OK');
-*/
 
 
 

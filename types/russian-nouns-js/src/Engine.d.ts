@@ -29,4 +29,13 @@ export default class Engine {
      * @returns {Array}
      */
     pluralize(lemma: LemmaOptions | Lemma): [string];
+
+    /**
+     * Возвращает формы слов с условиями их использования (там смешаны
+     * семантические классы и некоторые синтаксические обстоятельства).
+     *
+     * Экспериментальная возможность.
+     * Заточено под ед. число.
+     */
+    getLocativeForms(lemma: LemmaOptions | Lemma): [LocativeForm];
 }
