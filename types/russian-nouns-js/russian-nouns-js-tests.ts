@@ -99,6 +99,9 @@ assertAllCases(results, ['горы', 'гор', 'горам', 'горы', 'гор
 assertEquals(getDeclension(mountain), 2);
 assertEquals(getSchoolDeclension(mountain), 1);
 
+let mountainGender: Gender | undefined = mountain.getGender();
+assertEquals(mountainGender, Gender.FEMININE);
+
 
 assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
 
@@ -133,6 +136,9 @@ rne.sd.put(cringe, 'SEESESE-EEEEEE');
 result = rne.decline(cringe, Case.INSTRUMENTAL);
 assertEqualsSingleValue(result, "кринжом");
 
+assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL).length, 1);
+assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[0], true);
+
 rne.sd.put(cringe, 'SEESbSE-EEEEEE');
 result = rne.decline(cringe, Case.INSTRUMENTAL);
 assertEquals(result.length, 2);
@@ -150,6 +156,10 @@ result = rne.decline(cringe, Case.INSTRUMENTAL);
 assertEquals(result.length, 2);
 assertEquals(result[0], "кринжом");
 assertEquals(result[1], "кринжем");
+
+assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL).length, 2);
+assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[0], true);
+assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[1], false);
 
 console.log('  StressDictionary (9) ............. OK');
 

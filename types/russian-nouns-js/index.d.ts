@@ -1,27 +1,19 @@
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Case as CaseEnum } from "./src/Case";
+import { Case } from "./src/Case";
 import Engine from "./src/Engine";
-import { Gender as GenderEnum } from "./src/Gender";
+import { Gender } from "./src/Gender";
 import { Lemma, LemmaOptions } from "./src/Lemma";
 import { LocativeForm, LocativeFormAttribute } from "./src/LocativeForm";
 
 export as namespace RussianNounsJS;
 
-/**
- * Case
- */
-export const Case: { [key in keyof typeof CaseEnum]: typeof CaseEnum[key] };
+export { Case, Gender };
 
 /**
- * Grammatical gender
+ * Падежи в обычном порядке.
  */
-export const Gender: { [key in keyof typeof GenderEnum]: typeof GenderEnum[key] };
-
-/**
- * Cases
- */
-export const CASES: Array<typeof CaseEnum[keyof typeof CaseEnum]>;
+export const CASES: [Case];
 
 /**
  * Интерфейс с именованными параметрами для создания лемм.
