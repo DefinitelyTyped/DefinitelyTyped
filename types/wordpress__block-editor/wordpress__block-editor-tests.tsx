@@ -641,7 +641,7 @@ be.useCachedTruthy("HELLO");
 be.useCachedTruthy(42);
 
 // $ExpectType any[]
-be.useSettings('test');
+be.useSettings("test");
 
 // $ExpectType { updateBlockBindings(bindings: { [binding: string]: { source: string; args?: { [key: string]: unknown; } | undefined; } | undefined; }): void; removeAllBlockBindings(): void; }
 be.useBlockBindingsUtils();
