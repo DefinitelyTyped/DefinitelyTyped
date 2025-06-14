@@ -18,7 +18,6 @@ export class LocativeForm {
      */
     preposition: string;
 
-
     /**
      * Атрибуты в виде битовых флагов (часть условия применения).
      * Все выставленные в единицу флаги должны соответствовать.
@@ -32,12 +31,9 @@ export class LocativeForm {
      * Форма слова.
      */
     word: string;
-
 }
 
-
 export enum LocativeFormAttribute {
-
     /**
      * Вместилище, сосуд.
      */
@@ -113,5 +109,5 @@ export enum LocativeFormAttribute {
      * Этот флаг наверняка исчезнет в будущих релизах.
      * @deprecated
      */
-    RELIGIOUS = 16384
+    RELIGIOUS = 16384,
 }

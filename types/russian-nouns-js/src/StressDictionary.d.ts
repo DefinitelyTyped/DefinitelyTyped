@@ -1,7 +1,7 @@
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Lemma, LemmaOptions } from "./Lemma";
 import { Case } from "./Case";
+import { Lemma, LemmaOptions } from "./Lemma";
 
 export default class StressDictionary {
     constructor();
@@ -16,7 +16,7 @@ export default class StressDictionary {
      * b — оба варианта употребляются одинаково часто;
      * e — чаще на окончание;
      * E — только на окончание.
-     * 
+     *
      * @throws {Error} Если некорректный формат строки.
      */
     put(lemma: LemmaOptions | Lemma, settings: string): void;
@@ -24,5 +24,4 @@ export default class StressDictionary {
     hasStressedEndingSingular(lemma: Lemma, grCase: Case): boolean[];
 
     hasStressedEndingPlural(lemma: Lemma, grCase: Case): boolean[];
-
 }

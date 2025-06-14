@@ -2,8 +2,8 @@
 
 import { Case } from "./Case";
 import { Lemma, LemmaOptions } from "./Lemma";
-import StressDictionary from "./StressDictionary";
 import { LocativeForm } from "./LocativeForm";
+import StressDictionary from "./StressDictionary";
 
 export default class Engine {
     /**
