@@ -99,6 +99,24 @@ assertAllCases(results, ['горы', 'гор', 'горам', 'горы', 'гор
 assertEquals(getDeclension(mountain), 2);
 assertEquals(getSchoolDeclension(mountain), 1);
 
+
+assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
+
+(() => {
+
+    let x: Lemma | null = createLemmaOrNull({
+        text: 'гора',
+        gender: Gender.FEMININE
+    });
+
+    assertEquals(x != null, true);
+
+    if (x != null) {
+        assertEquals(x.text(), 'гора');
+    }
+
+})();
+
 console.log('  Main functions (8) ............... OK');
 
 
@@ -162,23 +180,4 @@ assertEquals(
 );
 
 console.log('  LocativeForm (10) ................ OK');
-
-
-
-assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
-
-(() => {
-
-    let x: Lemma | null = createLemmaOrNull({
-        text: 'гора',
-        gender: Gender.FEMININE
-    });
-
-    assertEquals(x != null, true);
-
-    if (x != null) {
-        assertEquals(x.text(), 'гора');
-    }
-
-})();
 
