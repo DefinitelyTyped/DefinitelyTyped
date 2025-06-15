@@ -8,11 +8,23 @@ declare class SteamChatRoomClient extends EventEmitter {
     constructor(user: SteamUser);
 
     // EVENTS
-    on<K extends keyof ChatEvents>(event: K, listener: (...args: ChatEvents[K]) => void): this;
-    once<K extends keyof ChatEvents>(event: K, listener: (...args: ChatEvents[K]) => void): this;
-    off<K extends keyof ChatEvents>(event: K, listener: (...args: ChatEvents[K]) => void): this;
-    removeListener<K extends keyof ChatEvents>(event: K, listener: (...args: ChatEvents[K]) => void): this;
-    removeAllListeners(event?: keyof ChatEvents): this;
+    on<K extends keyof SteamChatRoomClient.ChatEvents>(
+        event: K,
+        listener: (...args: SteamChatRoomClient.ChatEvents[K]) => void,
+    ): this;
+    once<K extends keyof SteamChatRoomClient.ChatEvents>(
+        event: K,
+        listener: (...args: SteamChatRoomClient.ChatEvents[K]) => void,
+    ): this;
+    off<K extends keyof SteamChatRoomClient.ChatEvents>(
+        event: K,
+        listener: (...args: SteamChatRoomClient.ChatEvents[K]) => void,
+    ): this;
+    removeListener<K extends keyof SteamChatRoomClient.ChatEvents>(
+        event: K,
+        listener: (...args: SteamChatRoomClient.ChatEvents[K]) => void,
+    ): this;
+    removeAllListeners(event?: keyof SteamChatRoomClient.ChatEvents): this;
 
     /**
      * Creates a new chat room group.
@@ -26,9 +38,19 @@ declare class SteamChatRoomClient extends EventEmitter {
         name?: string,
         callback?: (
             err: Error | null,
-            response: { chat_group_id: string; state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState },
+            response: {
+                chat_group_id: string;
+                state: SteamChatRoomClient.ChatRoomGroupState;
+                user_chat_state: SteamChatRoomClient.UserChatRoomGroupState;
+            },
         ) => void,
-    ): Promise<{ chat_group_id: string; state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState }>;
+    ): Promise<
+        {
+            chat_group_id: string;
+            state: SteamChatRoomClient.ChatRoomGroupState;
+            user_chat_state: SteamChatRoomClient.UserChatRoomGroupState;
+        }
+    >;
 
     /**
      * Converts an "ad-hoc" multi-user group chat into a full-fledged chat room group, which can contain multiple channels.
@@ -46,8 +68,11 @@ declare class SteamChatRoomClient extends EventEmitter {
      * @param [callback]
      */
     getGroups(
-        callback?: (err: Error | null, response: { chat_room_groups: Record<string, ChatRoomGroup> }) => void,
-    ): Promise<{ chat_room_groups: Record<string, ChatRoomGroup> }>;
+        callback?: (
+            err: Error | null,
+            response: { chat_room_groups: Record<string, SteamChatRoomClient.ChatRoomGroup> },
+        ) => void,
+    ): Promise<{ chat_room_groups: Record<string, SteamChatRoomClient.ChatRoomGroup> }>;
 
     /**
      * Set which groups are actively being chatted in by this session. It's unclear what effect this has on the chatting
@@ -57,8 +82,11 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     setSessionActiveGroups(
         groupIDs: number[] | string[] | number | string,
-        callback?: (err: Error | null, response: { chat_room_groups: Record<string, ChatRoomGroupState> }) => void,
-    ): Promise<{ chat_room_groups: Record<string, ChatRoomGroupState> }>;
+        callback?: (
+            err: Error | null,
+            response: { chat_room_groups: Record<string, SteamChatRoomClient.ChatRoomGroupState> },
+        ) => void,
+    ): Promise<{ chat_room_groups: Record<string, SteamChatRoomClient.ChatRoomGroupState> }>;
 
     /**
      * Get details from a chat group invite link.
@@ -67,8 +95,8 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getInviteLinkInfo(
         linkUrl: string,
-        callback: (err: Error | null, response: InviteLinkInfo) => void,
-    ): Promise<InviteLinkInfo>;
+        callback: (err: Error | null, response: SteamChatRoomClient.InviteLinkInfo) => void,
+    ): Promise<SteamChatRoomClient.InviteLinkInfo>;
 
     /**
      * Get the chat room group info for a clan (Steam group). Allows you to join a group chat.
@@ -77,8 +105,11 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getClanChatGroupInfo(
         clanSteamID: SteamID | string,
-        callback?: (err: Error | null, response: { chat_group_summary: ChatRoomGroupSummary }) => void,
-    ): Promise<{ chat_group_summary: ChatRoomGroupSummary }>;
+        callback?: (
+            err: Error | null,
+            response: { chat_group_summary: SteamChatRoomClient.ChatRoomGroupSummary },
+        ) => void,
+    ): Promise<{ chat_group_summary: SteamChatRoomClient.ChatRoomGroupSummary }>;
 
     /**
      * Join a chat room group.
@@ -91,9 +122,14 @@ declare class SteamChatRoomClient extends EventEmitter {
         inviteCode?: string,
         callback?: (
             err: Error | null,
-            response: { state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState },
+            response: {
+                state: SteamChatRoomClient.ChatRoomGroupState;
+                user_chat_state: SteamChatRoomClient.UserChatRoomGroupState;
+            },
         ) => void,
-    ): Promise<{ state: ChatRoomGroupState; user_chat_state: UserChatRoomGroupState }>;
+    ): Promise<
+        { state: SteamChatRoomClient.ChatRoomGroupState; user_chat_state: SteamChatRoomClient.UserChatRoomGroupState }
+    >;
 
     /**
      * Leaves a chat room group you have previously joined.
@@ -137,8 +173,8 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getGroupInviteLinks(
         groupId: number,
-        callback?: (err: Error | null, response: { invite_links: GroupInviteLinks[] }) => void,
-    ): Promise<{ invite_links: GroupInviteLinks[] }>;
+        callback?: (err: Error | null, response: { invite_links: SteamChatRoomClient.GroupInviteLinks[] }) => void,
+    ): Promise<{ invite_links: SteamChatRoomClient.GroupInviteLinks[] }>;
 
     /**
      * Revoke and delete an active invite link.
@@ -158,8 +194,8 @@ declare class SteamChatRoomClient extends EventEmitter {
         steamId: SteamID | string,
         message: string,
         options?: { chatEntryType?: SteamUser.EChatEntryType; containsBbCode?: boolean },
-        callback?: (err: Error | null, response: SentMessage) => void,
-    ): Promise<SentMessage>;
+        callback?: (err: Error | null, response: SteamChatRoomClient.SentMessage) => void,
+    ): Promise<SteamChatRoomClient.SentMessage>;
 
     /**
      * Inform a friend that you're typing a message to them.
@@ -179,8 +215,8 @@ declare class SteamChatRoomClient extends EventEmitter {
         groupId: number | string,
         chatId: number | string,
         message: string,
-        callback?: (err: Error | null, response: SentMessage) => void,
-    ): Promise<SentMessage>;
+        callback?: (err: Error | null, response: SteamChatRoomClient.SentMessage) => void,
+    ): Promise<SteamChatRoomClient.SentMessage>;
 
     /**
      * Delete one or more messages from a chat channel.
@@ -192,7 +228,7 @@ declare class SteamChatRoomClient extends EventEmitter {
     deleteChatMessages(
         groupId: number | string,
         chatId: number | string,
-        messages: Array<MessageToDelete1 | MessageToDelete2>,
+        messages: Array<SteamChatRoomClient.MessageToDelete1 | SteamChatRoomClient.MessageToDelete2>,
         callback?: (err: Error | null) => void,
     ): Promise<void>;
 
@@ -207,8 +243,8 @@ declare class SteamChatRoomClient extends EventEmitter {
         groupId: number | string,
         name: string,
         options?: { isVoiceRoom: boolean },
-        callback?: (err: Error | null, response: { chat_room: ChatRoomState }) => void,
-    ): Promise<{ chat_room: ChatRoomState }>;
+        callback?: (err: Error | null, response: { chat_room: SteamChatRoomClient.ChatRoomState }) => void,
+    ): Promise<{ chat_room: SteamChatRoomClient.ChatRoomState }>;
 
     /**
      * Rename a text/voice chat room in a group, provided you have permissions to do so.
@@ -257,8 +293,8 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getGroupBanList(
         groupId?: number | string,
-        callback?: (err: Error | null, response: { bans: Ban[] }) => void,
-    ): Promise<{ bans: Ban[] }>;
+        callback?: (err: Error | null, response: { bans: SteamChatRoomClient.Ban[] }) => void,
+    ): Promise<{ bans: SteamChatRoomClient.Ban[] }>;
 
     /**
      * Ban or unban a user from a chat room group, provided you have the appropriate permissions.
@@ -297,7 +333,10 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getActiveFriendMessageSessions(
         options?: { conversationsSince: Date | number },
-        callback?: (err: Error | null, response: { sessions: ActiveFriendMessageSession[]; timestamp: Date }) => void,
+        callback?: (
+            err: Error | null,
+            response: { sessions: SteamChatRoomClient.ActiveFriendMessageSession[]; timestamp: Date },
+        ) => void,
     ): Promise<any>;
 
     /**
@@ -308,9 +347,12 @@ declare class SteamChatRoomClient extends EventEmitter {
      */
     getFriendMessageHistory(
         friendSteamId: SteamID | string,
-        options?: GetMessageHistoryOptions,
-        callback?: (err: Error | null, response: { messages: FriendMessage[]; more_available: boolean }) => void,
-    ): Promise<{ messages: FriendMessage[]; more_available: boolean }>;
+        options?: SteamChatRoomClient.GetMessageHistoryOptions,
+        callback?: (
+            err: Error | null,
+            response: { messages: SteamChatRoomClient.FriendMessage[]; more_available: boolean },
+        ) => void,
+    ): Promise<{ messages: SteamChatRoomClient.FriendMessage[]; more_available: boolean }>;
 
     /**
      * Get message history for a chat (channel).
@@ -322,9 +364,12 @@ declare class SteamChatRoomClient extends EventEmitter {
     getChatMessageHistory(
         groupId: number | string,
         chatId: number | string,
-        options?: GetMessageHistoryOptions,
-        callback?: (err: Error | null, response: { message: ChatMessage[]; more_available: boolean }) => void,
-    ): Promise<{ message: ChatMessage[]; more_available: boolean }>;
+        options?: SteamChatRoomClient.GetMessageHistoryOptions,
+        callback?: (
+            err: Error | null,
+            response: { message: SteamChatRoomClient.ChatMessage[]; more_available: boolean },
+        ) => void,
+    ): Promise<{ message: SteamChatRoomClient.ChatMessage[]; more_available: boolean }>;
 
     /**
      * Acknowledge (mark as read) a friend message
@@ -334,272 +379,274 @@ declare class SteamChatRoomClient extends EventEmitter {
     ackFriendMessage(friendSteamId: SteamID | string, timestamp: Date | number): void;
 }
 
-// #region "Events"
-interface ChatEvents {
-    friendMessage: [message: IncomingFriendMessage];
-    friendMessageEcho: [message: IncomingFriendMessage];
-    friendTyping: [message: IncomingFriendMessage];
-    friendTypingEcho: [message: IncomingFriendMessage];
-    friendLeftConversation: [message: IncomingFriendMessage];
-    friendLeftConversationEcho: [message: IncomingFriendMessage];
-    chatMessage: [message: IncomingChatMessage];
-    chatMessagesModified: [details: ModifiedMessage[]];
-    chatRoomGroupSelfStateChange: [details: groupSelfStateChangeDetails];
-    chatRoomGroupMemberStateChange: [details: groupMemberStateChangeDetails];
-    chatRoomGroupHeaderStateChange: [details: groupHeaderStateChangeDetails];
-    chatRoomGroupRoomsChange: [details: groupRoomsStateChangeDetails];
-}
-// #endregion "Events"
+declare namespace SteamChatRoomClient {
+    // #region "Events"
+    interface ChatEvents {
+        friendMessage: [message: IncomingFriendMessage];
+        friendMessageEcho: [message: IncomingFriendMessage];
+        friendTyping: [message: IncomingFriendMessage];
+        friendTypingEcho: [message: IncomingFriendMessage];
+        friendLeftConversation: [message: IncomingFriendMessage];
+        friendLeftConversationEcho: [message: IncomingFriendMessage];
+        chatMessage: [message: IncomingChatMessage];
+        chatMessagesModified: [details: ModifiedMessage[]];
+        chatRoomGroupSelfStateChange: [details: groupSelfStateChangeDetails];
+        chatRoomGroupMemberStateChange: [details: groupMemberStateChangeDetails];
+        chatRoomGroupHeaderStateChange: [details: groupHeaderStateChangeDetails];
+        chatRoomGroupRoomsChange: [details: groupRoomsStateChangeDetails];
+    }
+    // #endregion "Events"
 
-// #region "Response Interfaces"
-interface ChatMessage {
-    sender: SteamID;
-    server_timestamp: Date;
-    ordinal: number;
-    message: string;
-    server_message: ServerMessage;
-    deleted: boolean;
-}
-
-interface FriendMessage {
-    sender: SteamID;
-    server_timestamp: Date;
-    ordinal: number;
-    message: string;
-    message_bbcode_parsed: null | Array<string | Record<string, any>>;
-}
-
-interface ActiveFriendMessageSession {
-    steamid_friend: SteamID;
-    time_last_message: Date;
-    time_last_view: Date;
-    unread_message_count: number;
-}
-
-interface Ban {
-    steamid: SteamID;
-    steamid_actor: SteamID;
-    time_banned: Date;
-    ban_reason: ""; // always empty, SteamUI doesn't support ban reasons
-}
-
-interface SentMessage {
-    modified_message: string;
-    server_timestamp: Date;
-    ordinal: number;
-}
-
-interface GroupInviteLinks {
-    invite_code: string;
-    invite_url: string;
-    steamid_creator: SteamID;
-    time_expires: Date | null;
-    chat_id: string;
-}
-
-interface InviteLinkInfo {
-    invite_code: string;
-    steamid_sender: SteamID;
-    time_expires: Date | null;
-    group_summary: ChatRoomGroupSummary;
-    time_kick_expire: Date | null;
-    banned: boolean;
-}
-// #endregion "Response Interfaces"
-
-// #region "Interfaces"
-interface ModifiedMessage {
-    chat_group_id: string;
-    chat_id: string;
-    messages: {
+    // #region "Response Interfaces"
+    interface ChatMessage {
+        sender: SteamID;
         server_timestamp: Date;
         ordinal: number;
+        message: string;
+        server_message: ServerMessage;
         deleted: boolean;
-    };
-}
+    }
 
-interface MessageToDelete1 {
-    server_timestamp: Date;
-    ordinal?: number;
-}
+    interface FriendMessage {
+        sender: SteamID;
+        server_timestamp: Date;
+        ordinal: number;
+        message: string;
+        message_bbcode_parsed: null | Array<string | Record<string, any>>;
+    }
 
-interface MessageToDelete2 {
-    timestamp: Date;
-    ordinal?: number;
-}
+    interface ActiveFriendMessageSession {
+        steamid_friend: SteamID;
+        time_last_message: Date;
+        time_last_view: Date;
+        unread_message_count: number;
+    }
 
-interface GetMessageHistoryOptions {
-    maxCount?: number;
-    wantBbcode?: boolean;
-    startTime?: Date | number;
-    startOrdinal?: number;
-    lastTime?: Date | number;
-    lastOrdinal?: number;
-}
+    interface Ban {
+        steamid: SteamID;
+        steamid_actor: SteamID;
+        time_banned: Date;
+        ban_reason: ""; // always empty, SteamUI doesn't support ban reasons
+    }
 
-interface ServerMessage {
-    message: SteamUser.EChatRoomServerMessage;
-    string_param?: string;
-    steamid_param?: SteamID;
-}
+    interface SentMessage {
+        modified_message: string;
+        server_timestamp: Date;
+        ordinal: number;
+    }
 
-interface ChatMentions {
-    mention_all: boolean;
-    mention_here: boolean;
-    mention_steamids: SteamID[];
-}
+    interface GroupInviteLinks {
+        invite_code: string;
+        invite_url: string;
+        steamid_creator: SteamID;
+        time_expires: Date | null;
+        chat_id: string;
+    }
 
-interface IncomingChatMessage {
-    chat_group_id: string;
-    chat_id: string;
-    steamid_sender: SteamID;
-    message: string;
-    message_no_bbcode: string;
-    server_timestamp: Date;
-    ordinal: number;
-    mentions: ChatMentions | null;
-    server_message: ServerMessage | null;
-    chat_name: string;
-}
+    interface InviteLinkInfo {
+        invite_code: string;
+        steamid_sender: SteamID;
+        time_expires: Date | null;
+        group_summary: ChatRoomGroupSummary;
+        time_kick_expire: Date | null;
+        banned: boolean;
+    }
+    // #endregion "Response Interfaces"
 
-interface IncomingFriendMessage {
-    steamid_friend: SteamID;
-    chat_entry_type: SteamUser.EChatEntryType;
-    from_limited_account: boolean;
-    message: string;
-    message_no_bbcode: string;
-    message_bbcode_parsed: Array<string | Record<string, any>>;
-    server_timestamp: Date;
-    ordinal: number;
-    local_echo: boolean;
-    low_priority: boolean;
-}
+    // #region "Interfaces"
+    interface ModifiedMessage {
+        chat_group_id: string;
+        chat_id: string;
+        messages: {
+            server_timestamp: Date;
+            ordinal: number;
+            deleted: boolean;
+        };
+    }
 
-interface UserChatRoomState {
-    chat_id: string;
-    time_joined: Date;
-    time_last_ack: Date | null;
-    desktop_notification_level: SteamUser.EChatRoomNotificationLevel;
-    mobile_notification_level: SteamUser.EChatRoomNotificationLevel;
-    time_last_mention: Date | null;
-    unread_indicator_muted: boolean;
-    time_first_unread: Date;
-}
+    interface MessageToDelete1 {
+        server_timestamp: Date;
+        ordinal?: number;
+    }
 
-interface UserChatRoomGroupState {
-    chat_group_id: string;
-    time_joined: Date;
-    user_chat_room_state: UserChatRoomState[];
-    desktop_notification_level: SteamUser.EChatRoomNotificationLevel;
-    mobile_notification_level: SteamUser.EChatRoomNotificationLevel;
-    time_last_group_ack: Date | null;
-    unread_indicator_muted: boolean;
-}
+    interface MessageToDelete2 {
+        timestamp: Date;
+        ordinal?: number;
+    }
 
-interface ChatRoleActions {
-    role_id: string;
-    can_create_rename_delete_channel: boolean;
-    can_kick: boolean;
-    can_ban: boolean;
-    can_invite: boolean;
-    can_change_tagline_avatar_name: boolean;
-    can_chat: boolean;
-    can_view_history: boolean;
-    can_change_group_roles: boolean;
-    can_change_user_roles: boolean;
-    can_mention_all: boolean;
-    can_set_watching_broadcast: boolean;
-}
+    interface GetMessageHistoryOptions {
+        maxCount?: number;
+        wantBbcode?: boolean;
+        startTime?: Date | number;
+        startOrdinal?: number;
+        lastTime?: Date | number;
+        lastOrdinal?: number;
+    }
 
-interface ChatRole {
-    role_id: string;
-    name: string;
-    ordinal: number;
-}
+    interface ServerMessage {
+        message: SteamUser.EChatRoomServerMessage;
+        string_param?: string;
+        steamid_param?: SteamID;
+    }
 
-interface ChatRoomGroupHeaderState {
-    chat_group_id: string;
-    chat_name: string;
-    clanid: SteamID | null;
-    steamid_owner: SteamID;
-    appid: number | null;
-    tagline: string;
-    avatar_sha: Buffer | null;
-    avatar_url: string | null;
-    default_role_id: string;
-    roles: ChatRole[];
-    role_actions: ChatRoleActions[];
-    watching_broadcast_steamid?: SteamID | null; // not sure if optional or null
-}
+    interface ChatMentions {
+        mention_all: boolean;
+        mention_here: boolean;
+        mention_steamids: SteamID[];
+    }
 
-interface ChatRoomMember {
-    steamid: SteamID;
-    state: SteamUser.EChatRoomJoinState;
-    rank: SteamUser.EChatRoomGroupRank;
-    time_kick_expire: Date | null;
-    role_ids: string[];
-}
+    interface IncomingChatMessage {
+        chat_group_id: string;
+        chat_id: string;
+        steamid_sender: SteamID;
+        message: string;
+        message_no_bbcode: string;
+        server_timestamp: Date;
+        ordinal: number;
+        mentions: ChatMentions | null;
+        server_message: ServerMessage | null;
+        chat_name: string;
+    }
 
-interface ChatRoomGroupState {
-    members: ChatRoomMember[];
-    chat_rooms: ChatRoomState[];
-    kicked: ChatRoomMember[];
-    default_chat_id: string;
-    header_state: ChatRoomGroupHeaderState;
-}
+    interface IncomingFriendMessage {
+        steamid_friend: SteamID;
+        chat_entry_type: SteamUser.EChatEntryType;
+        from_limited_account: boolean;
+        message: string;
+        message_no_bbcode: string;
+        message_bbcode_parsed: Array<string | Record<string, any>>;
+        server_timestamp: Date;
+        ordinal: number;
+        local_echo: boolean;
+        low_priority: boolean;
+    }
 
-interface ChatRoomState {
-    chat_id: string;
-    chat_name: string;
-    voice_allowed: boolean;
-    members_in_voice: SteamID[];
-    time_last_message: Date;
-    sort_order: number;
-    last_message: string;
-    steamid_last_message: SteamID;
-}
+    interface UserChatRoomState {
+        chat_id: string;
+        time_joined: Date;
+        time_last_ack: Date | null;
+        desktop_notification_level: SteamUser.EChatRoomNotificationLevel;
+        mobile_notification_level: SteamUser.EChatRoomNotificationLevel;
+        time_last_mention: Date | null;
+        unread_indicator_muted: boolean;
+        time_first_unread: Date;
+    }
 
-interface ChatRoomGroupSummary {
-    chat_rooms: ChatRoomState[];
-    top_members: SteamID[];
-    chat_group_id: string;
-    chat_group_name: string;
-    active_member_count: number;
-    active_voice_member_count: number;
-    default_chat_id: string;
-    chat_group_tagline: string;
-    appid: number | null;
-    steamid_owner: SteamID;
-    watching_broadcast_steamid?: SteamID | null; // not sure if optional or null
-    chat_group_avatar_sha: Buffer | null;
-    chat_group_avatar_url: string | null;
-}
+    interface UserChatRoomGroupState {
+        chat_group_id: string;
+        time_joined: Date;
+        user_chat_room_state: UserChatRoomState[];
+        desktop_notification_level: SteamUser.EChatRoomNotificationLevel;
+        mobile_notification_level: SteamUser.EChatRoomNotificationLevel;
+        time_last_group_ack: Date | null;
+        unread_indicator_muted: boolean;
+    }
 
-interface ChatRoomGroup {
-    group_summary: ChatRoomGroupSummary;
-}
+    interface ChatRoleActions {
+        role_id: string;
+        can_create_rename_delete_channel: boolean;
+        can_kick: boolean;
+        can_ban: boolean;
+        can_invite: boolean;
+        can_change_tagline_avatar_name: boolean;
+        can_chat: boolean;
+        can_view_history: boolean;
+        can_change_group_roles: boolean;
+        can_change_user_roles: boolean;
+        can_mention_all: boolean;
+        can_set_watching_broadcast: boolean;
+    }
 
-interface groupSelfStateChangeDetails {
-    chat_group_id: string;
-    user_action: SteamUser.EChatRoomMemberStateChange;
-    user_chat_group_state: UserChatRoomGroupState;
-    group_summary: ChatRoomGroupSummary;
-}
+    interface ChatRole {
+        role_id: string;
+        name: string;
+        ordinal: number;
+    }
 
-interface groupMemberStateChangeDetails {
-    chat_group_id: string;
-    member: ChatRoomMember;
-    change: SteamUser.EChatRoomMemberStateChange;
-}
-interface groupHeaderStateChangeDetails {
-    chat_group_id: string;
-    header_state: ChatRoomGroupHeaderState;
-}
+    interface ChatRoomGroupHeaderState {
+        chat_group_id: string;
+        chat_name: string;
+        clanid: SteamID | null;
+        steamid_owner: SteamID;
+        appid: number | null;
+        tagline: string;
+        avatar_sha: Buffer | null;
+        avatar_url: string | null;
+        default_role_id: string;
+        roles: ChatRole[];
+        role_actions: ChatRoleActions[];
+        watching_broadcast_steamid?: SteamID | null; // not sure if optional or null
+    }
 
-interface groupRoomsStateChangeDetails {
-    chat_group_id: string;
-    default_chat_id: string;
-    chat_rooms: ChatRoomState[];
-}
+    interface ChatRoomMember {
+        steamid: SteamID;
+        state: SteamUser.EChatRoomJoinState;
+        rank: SteamUser.EChatRoomGroupRank;
+        time_kick_expire: Date | null;
+        role_ids: string[];
+    }
 
-// #endregion "Interfaces"
+    interface ChatRoomGroupState {
+        members: ChatRoomMember[];
+        chat_rooms: ChatRoomState[];
+        kicked: ChatRoomMember[];
+        default_chat_id: string;
+        header_state: ChatRoomGroupHeaderState;
+    }
+
+    interface ChatRoomState {
+        chat_id: string;
+        chat_name: string;
+        voice_allowed: boolean;
+        members_in_voice: SteamID[];
+        time_last_message: Date;
+        sort_order: number;
+        last_message: string;
+        steamid_last_message: SteamID;
+    }
+
+    interface ChatRoomGroupSummary {
+        chat_rooms: ChatRoomState[];
+        top_members: SteamID[];
+        chat_group_id: string;
+        chat_group_name: string;
+        active_member_count: number;
+        active_voice_member_count: number;
+        default_chat_id: string;
+        chat_group_tagline: string;
+        appid: number | null;
+        steamid_owner: SteamID;
+        watching_broadcast_steamid?: SteamID | null; // not sure if optional or null
+        chat_group_avatar_sha: Buffer | null;
+        chat_group_avatar_url: string | null;
+    }
+
+    interface ChatRoomGroup {
+        group_summary: ChatRoomGroupSummary;
+    }
+
+    interface groupSelfStateChangeDetails {
+        chat_group_id: string;
+        user_action: SteamUser.EChatRoomMemberStateChange;
+        user_chat_group_state: UserChatRoomGroupState;
+        group_summary: ChatRoomGroupSummary;
+    }
+
+    interface groupMemberStateChangeDetails {
+        chat_group_id: string;
+        member: ChatRoomMember;
+        change: SteamUser.EChatRoomMemberStateChange;
+    }
+    interface groupHeaderStateChangeDetails {
+        chat_group_id: string;
+        header_state: ChatRoomGroupHeaderState;
+    }
+
+    interface groupRoomsStateChangeDetails {
+        chat_group_id: string;
+        default_chat_id: string;
+        chat_rooms: ChatRoomState[];
+    }
+
+    // #endregion "Interfaces"
+}
