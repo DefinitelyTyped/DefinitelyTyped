@@ -521,6 +521,30 @@ const layout = {
 
     Plotly.newPlot("myDiv", data, layout);
 })();
+
+// Plotly.newPlot (second axis)
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4, 5],
+            y: [0.45803057, 0.51208141, 0.29845217, 0.09788102, 0.2866858],
+            type: "scatter",
+            yaxis: "y",
+        },
+        {
+            x: [1, 2, 3, 4, 5],
+            y: [150.36977661, 641.21444452, 39.2096064, 546.90053751, 97.10039431],
+            type: "scatter",
+            yaxis: "y2",
+        },
+    ];
+    const layout: Partial<Layout> = {
+        yaxis: { side: "left" },
+        yaxis2: { side: "right", overlaying: "y", tickmode: "sync" },
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
