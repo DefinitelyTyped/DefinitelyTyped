@@ -20,6 +20,12 @@ declare const main: {
 
 declare namespace main {
     type SvgSelector = SVGPathElement | string;
+    type Line = Line;
+    type Circle = Circle;
+    type SemiCircle = SemiCircle;
+    type Square = Square;
+    type Path = Path;
+    type Shape = Shape;
 
     type StepFunction = (
         state: {
