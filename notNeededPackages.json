@@ -724,6 +724,10 @@
             "libraryName": "cheerio",
             "asOfVersion": "1.0.0"
         },
+        "chenfengyuan__vue-qrcode": {
+            "libraryName": "@chenfengyuan/vue-qrcode",
+            "asOfVersion": "2.0.0"
+        },
         "chokidar": {
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
@@ -2221,6 +2225,10 @@
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
         },
+        "flatbuffers": {
+            "libraryName": "flatbuffers",
+            "asOfVersion": "2.0.1"
+        },
         "flatbush": {
             "libraryName": "flatbush",
             "asOfVersion": "4.2.0"
@@ -2228,6 +2236,10 @@
         "flatpickr": {
             "libraryName": "flatpickr",
             "asOfVersion": "3.1.2"
+        },
+        "flatry": {
+            "libraryName": "flatry",
+            "asOfVersion": "1.0.13"
         },
         "flexmonster": {
             "libraryName": "flexmonster",
@@ -2577,6 +2589,10 @@
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.0"
         },
+        "hapi__bell": {
+            "libraryName": "@hapi/bell",
+            "asOfVersion": "13.0.2"
+        },
         "hapi__boom": {
             "libraryName": "@hapi/boom",
             "asOfVersion": "9.0.0"
@@ -2612,6 +2628,10 @@
         "hapi__iron": {
             "libraryName": "@hapi/iron",
             "asOfVersion": "6.0.0"
+        },
+        "hapi__jwt": {
+            "libraryName": "@hapi/jwt",
+            "asOfVersion": "3.2.0"
         },
         "hapi__lab": {
             "libraryName": "@hapi/lab",
@@ -4409,6 +4429,10 @@
             "libraryName": "natsort",
             "asOfVersion": "2.0.0"
         },
+        "natural": {
+            "libraryName": "natural",
+            "asOfVersion": "6.0.1"
+        },
         "naudiodon": {
             "libraryName": "naudiodon",
             "asOfVersion": "2.2.5"
@@ -4945,6 +4969,10 @@
             "libraryName": "parse-numeric-range",
             "asOfVersion": "1.3.0"
         },
+        "parse-package-name": {
+            "libraryName": "parse-package-name",
+            "asOfVersion": "1.0.0"
+        },
         "parse-path": {
             "libraryName": "parse-path",
             "asOfVersion": "7.1.0"
@@ -5082,6 +5110,10 @@
         "pixi.js": {
             "libraryName": "pixi.js",
             "asOfVersion": "5.0.0"
+        },
+        "pizzip": {
+            "libraryName": "pizzip",
+            "asOfVersion": "3.1.2"
         },
         "pkcs11js": {
             "libraryName": "pkcs11js",
@@ -5535,6 +5567,10 @@
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
         },
+        "rc-tooltip": {
+            "libraryName": "rc-tooltip",
+            "asOfVersion": "4.0.0"
+        },
         "rc-tree": {
             "libraryName": "rc-tree",
             "asOfVersion": "3.0.0"
@@ -5826,6 +5862,14 @@
         "react-inspector": {
             "libraryName": "react-inspector",
             "asOfVersion": "6.0.1"
+        },
+        "react-instantsearch": {
+            "libraryName": "react-instantsearch",
+            "asOfVersion": "7.0.0"
+        },
+        "react-instantsearch-core": {
+            "libraryName": "react-instantsearch-core",
+            "asOfVersion": "7.0.0"
         },
         "react-interactive": {
             "libraryName": "react-interactive",
@@ -6319,6 +6363,10 @@
             "libraryName": "refractor",
             "asOfVersion": "4.0.0"
         },
+        "registry-auth-token": {
+            "libraryName": "registry-auth-token",
+            "asOfVersion": "5.0.1"
+        },
         "rehype-react": {
             "libraryName": "rehype-react",
             "asOfVersion": "6.0.0"
@@ -6799,6 +6847,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "solverjs": {
+            "libraryName": "solverjs",
+            "asOfVersion": "4.0.3"
+        },
         "sonic-boom": {
             "libraryName": "sonic-boom",
             "asOfVersion": "2.1.0"
@@ -6889,6 +6941,10 @@
         },
         "stemmer": {
             "libraryName": "stemmer",
+            "asOfVersion": "2.0.0"
+        },
+        "storefront-ui__vue": {
+            "libraryName": "@storefront-ui/vue",
             "asOfVersion": "2.0.0"
         },
         "storybook__addon-a11y": {
@@ -7279,6 +7335,10 @@
             "libraryName": "timezonecomplete",
             "asOfVersion": "5.5.0"
         },
+        "tinajs__tina": {
+            "libraryName": "@tinajs/tina",
+            "asOfVersion": "1.8.0"
+        },
         "tiny-secp256k1": {
             "libraryName": "tiny-secp256k1",
             "asOfVersion": "2.0.0"
@@ -7466,6 +7526,10 @@
         "url-regex": {
             "libraryName": "url-regex",
             "asOfVersion": "5.0.0"
+        },
+        "url-safe-base64": {
+            "libraryName": "url-safe-base64",
+            "asOfVersion": "1.2.0"
         },
         "url-template": {
             "libraryName": "url-template",
@@ -8118,6 +8182,10 @@
         "zinggrid": {
             "libraryName": "zinggrid",
             "asOfVersion": "1.3.0"
+        },
+        "zip.js": {
+            "libraryName": "@zip.js/zip.js",
+            "asOfVersion": "2.6.81"
         },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",

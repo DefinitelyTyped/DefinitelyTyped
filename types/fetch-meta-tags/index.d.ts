@@ -6,4 +6,7 @@ export interface fetchedMeta<T extends string = string> {
     image?: string;
 }
 
-export default function fetchMeta<T extends string = string>(site: T): Promise<fetchedMeta<T>>;
+export default function fetchMeta<T extends string = string>(
+    site: T,
+    requestInit?: RequestInit,
+): Promise<fetchedMeta<T>>;

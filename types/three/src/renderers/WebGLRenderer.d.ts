@@ -202,8 +202,6 @@ export class WebGLRenderer {
 
     shadowMap: WebGLShadowMap;
 
-    pixelRatio: number;
-
     capabilities: WebGLCapabilities;
     properties: WebGLProperties;
     renderLists: WebGLRenderLists;
@@ -408,6 +406,7 @@ export class WebGLRenderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): void;
 
     readRenderTargetPixelsAsync(
@@ -418,6 +417,7 @@ export class WebGLRenderer {
         height: number,
         buffer: TypedArray,
         activeCubeFaceIndex?: number,
+        textureIndex?: number,
     ): Promise<TypedArray>;
 
     /**

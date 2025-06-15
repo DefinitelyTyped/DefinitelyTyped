@@ -12,6 +12,7 @@ type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
+type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
 // #endregion Fetch and friends
 
 // #region DOMException
@@ -251,11 +252,6 @@ declare global {
 
     // Global DOM types
 
-    function structuredClone<T>(
-        value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
-
     interface DOMException extends _DOMException {}
     var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
         : NodeDOMExceptionConstructor;
@@ -332,5 +328,8 @@ declare global {
     } ? T
         : typeof import("undici-types").MessageEvent;
 
+    interface EventSource extends _EventSource {}
+    var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
+        : typeof import("undici-types").EventSource;
     // #endregion fetch
 }

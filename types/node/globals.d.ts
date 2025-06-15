@@ -14,6 +14,7 @@ type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
 type _WebSocket = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").WebSocket;
 type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
+type _CloseEvent = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").CloseEvent;
 // #endregion Fetch and friends
 
 // Conditional type definitions for webstorage interface, which conflicts with lib.dom otherwise.
@@ -250,26 +251,17 @@ declare global {
         }
 
         /** An iterable iterator returned by the Node.js API. */
-        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used IterableIterator.
-        // TODO: In next major @types/node version, change default TReturn to undefined.
-        interface Iterator<T, TReturn = any, TNext = any> extends IteratorObject<T, TReturn, TNext> {
+        interface Iterator<T, TReturn = undefined, TNext = any> extends IteratorObject<T, TReturn, TNext> {
             [Symbol.iterator](): NodeJS.Iterator<T, TReturn, TNext>;
         }
 
         /** An async iterable iterator returned by the Node.js API. */
-        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used AsyncIterableIterator.
-        // TODO: In next major @types/node version, change default TReturn to undefined.
-        interface AsyncIterator<T, TReturn = any, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
+        interface AsyncIterator<T, TReturn = undefined, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
             [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
         }
     }
 
     // Global DOM types
-
-    function structuredClone<T>(
-        value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
 
     interface DOMException extends _DOMException {}
     var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
@@ -367,5 +359,9 @@ declare global {
     interface EventSource extends _EventSource {}
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;
+
+    interface CloseEvent extends _CloseEvent {}
+    var CloseEvent: typeof globalThis extends { onmessage: any; CloseEvent: infer T } ? T
+        : typeof import("undici-types").CloseEvent;
     // #endregion fetch
 }

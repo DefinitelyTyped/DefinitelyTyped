@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/diagnostics_channel.js)
  */
 declare module "diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
@@ -297,7 +297,12 @@ declare module "diagnostics_channel" {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runStores(): void;
+        runStores<ThisArg = any, Args extends any[] = any[], Result = any>(
+            context: ContextType,
+            fn: (this: ThisArg, ...args: Args) => Result,
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
     }
     interface TracingChannelSubscribers<ContextType extends object> {
         start: (message: ContextType) => void;
@@ -441,12 +446,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceSync<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => any,
+        traceSync<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Result;
         /**
          * Trace a promise-returning function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce an `asyncStart event` and `asyncEnd event` when a promise continuation is reached. It may also
@@ -476,12 +481,12 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return Chained from promise returned by the given function
          */
-        tracePromise<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => Promise<any>,
+        tracePromise<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Promise<Result>,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): void;
+        ): Promise<Result>;
         /**
          * Trace a callback-receiving function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce a `asyncStart event` and `asyncEnd event` around the callback execution. It may also produce an `error event` if the given function throws an error or
@@ -540,13 +545,13 @@ declare module "diagnostics_channel" {
          * @param args Optional arguments to pass to the function
          * @return The return value of the given function
          */
-        traceCallback<Fn extends (this: any, ...args: any[]) => any>(
-            fn: Fn,
+        traceCallback<ThisArg = any, Args extends any[] = any[], Result = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             position?: number,
             context?: ContextType,
-            thisArg?: any,
-            ...args: Parameters<Fn>
-        ): void;
+            thisArg?: ThisArg,
+            ...args: Args
+        ): Result;
         /**
          * `true` if any of the individual channels has a subscriber, `false` if not.
          *

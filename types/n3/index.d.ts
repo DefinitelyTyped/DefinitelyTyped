@@ -319,8 +319,8 @@ export class Store<
         object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    addQuad(quad: Q_RDF): void;
+    ): boolean;
+    addQuad(quad: Q_RDF): boolean;
     addQuads(quads: Q_RDF[]): void;
     delete(quad: InQuad): this;
     has(quad: InQuad): boolean;
@@ -331,8 +331,8 @@ export class Store<
         object: Q_RDF["object"],
         graph?: Q_RDF["graph"],
         done?: () => void,
-    ): void;
-    removeQuad(quad: Q_RDF): void;
+    ): boolean;
+    removeQuad(quad: Q_RDF): boolean;
     removeQuads(quads: Q_RDF[]): void;
     remove(stream: RDF.Stream<Q_RDF>): EventEmitter;
     removeMatches(
@@ -379,11 +379,12 @@ export interface StoreOptions {
 }
 
 export namespace Util {
-    function isNamedNode(value: RDF.Term | null): value is RDF.NamedNode;
-    function isBlankNode(value: RDF.Term | null): value is RDF.BlankNode;
-    function isLiteral(value: RDF.Term | null): value is RDF.Literal;
-    function isVariable(value: RDF.Term | null): value is RDF.Variable;
-    function isDefaultGraph(value: RDF.Term | null): value is RDF.DefaultGraph;
+    function isNamedNode(value: RDF.Term | null | undefined): value is RDF.NamedNode;
+    function isBlankNode(value: RDF.Term | null | undefined): value is RDF.BlankNode;
+    function isLiteral(value: RDF.Term | null | undefined): value is RDF.Literal;
+    function isVariable(value: RDF.Term | null | undefined): value is RDF.Variable;
+    function isQuad(value: RDF.Term | null | undefined): value is RDF.Quad;
+    function isDefaultGraph(value: RDF.Term | null | undefined): value is RDF.DefaultGraph;
     function inDefaultGraph(value: RDF.Quad): boolean;
     function prefix(iri: RDF.NamedNode | string, factory?: RDF.DataFactory): PrefixedToIri;
     function prefixes(

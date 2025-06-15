@@ -27,20 +27,13 @@ export default class ColorSpaceNode extends TempNode {
     resolveColorSpace(nodeBuilder: NodeBuilder, colorSpace: WorkingOrOutputColorSpace): string;
 }
 
-export const toOutputColorSpace: (
-    node: NodeRepresentation,
-) => ShaderNodeObject<ColorSpaceNode>;
-export const toWorkingColorSpace: (
-    node: NodeRepresentation,
-) => ShaderNodeObject<ColorSpaceNode>;
-
 export const workingToColorSpace: (
     node: NodeRepresentation,
-    colorSpace: string,
+    targetColorSpace: string,
 ) => ShaderNodeObject<ColorSpaceNode>;
 export const colorSpaceToWorking: (
     node: NodeRepresentation,
-    colorSpace: string,
+    sourceColorSpace: string,
 ) => ShaderNodeObject<ColorSpaceNode>;
 
 export const convertColorSpace: (
@@ -51,9 +44,6 @@ export const convertColorSpace: (
 
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
-        toOutputColorSpace: typeof toOutputColorSpace;
-        toWorkingColorSpace: typeof toWorkingColorSpace;
-
         workingToColorSpace: typeof workingToColorSpace;
         colorSpaceToWorking: typeof colorSpaceToWorking;
     }

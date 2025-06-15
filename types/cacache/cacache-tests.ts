@@ -11,6 +11,8 @@ cacache.ls.stream(cachePath).on("data", data => {
 
 cacache.get(cachePath, "my-thing", { memoize: true }).then(() => {});
 
+cacache.get(cachePath, "my-thing", { memoize: new Map() }).then(() => {});
+
 cacache.get.byDigest(cachePath, "sha512-BaSe64HaSh").then(() => {});
 
 cacache.get
@@ -109,4 +111,12 @@ cacache.verify(cachePath).then(() => {
     cacache.verify.lastRun(cachePath).then(lastTime => {
         console.log("cacache.verify was last called on" + lastTime);
     });
+});
+
+cacache.index.insert(cachePath, "registry.npmjs.org|cacache@1.0.0", "sha512-BaSe64HaSh").then((entry) => {
+    entry; // $ExpectType CacheObject
+});
+
+cacache.index.compact(cachePath, "registry.npmjs.org|cacache@1.0.0", (_a, _b) => true).then((entries) => {
+    entries; // $ExpectType CacheObject[]
 });

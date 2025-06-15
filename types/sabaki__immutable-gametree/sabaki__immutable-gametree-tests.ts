@@ -1,4 +1,4 @@
-import GameTree from "sabaki__immutable-gametree";
+import GameTree = require("@sabaki/immutable-gametree");
 
 const genIdString = ((id) => () => "id_" + (id++))(0);
 
@@ -7,7 +7,7 @@ const genIdString = ((id) => () => "id_" + (id++))(0);
 // ==============
 
 // $ExpectType GameTree<number>
-const tree = new GameTree();
+const tree: GameTree<number> = new GameTree<number>();
 
 // $ExpectType GameTree<string>
 new GameTree({
