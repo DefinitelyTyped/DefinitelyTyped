@@ -1,6 +1,6 @@
 /**
  * Mokapi JavaScript API
- * https://mokapi.io/docs/guides/get-started/welcome
+ * https://mokapi.io/docs/guides/welcome
  */
 
 import "./faker";
@@ -8,6 +8,8 @@ import "./global";
 import "./http";
 import "./mustache";
 import "./yaml";
+import "./encoding";
+import "./mail";
 
 /**
  * Attaches an event handler for the given event.
@@ -93,7 +95,7 @@ export function sleep(time: number | string): void;
 
 /**
  * Specifies the interval of a periodic job.
- * Interval string is a possibly signed sequence of decimal numbers, each with optional
+ * Interval string is a possibly signed sequence of decimal numbers, each with an optional
  * fraction and a unit suffix, such as "300ms", "-1.5h" or "2h45m".
  * Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
  */
@@ -120,7 +122,7 @@ export interface EventHandler {
  *   })
  * }
  */
-export type HttpEventHandler = (request: HttpRequest, response: HttpResponse) => boolean;
+export type HttpEventHandler = (request: HttpRequest, response: HttpResponse) => void | Promise<void>;
 
 /**
  * HttpRequest is an object used by HttpEventHandler that contains request-specific
@@ -134,7 +136,7 @@ export interface HttpRequest {
     /** Represents a parsed URL. */
     readonly url: Url;
 
-    /** Body contains request body specified by OpenAPI request body. */
+    /** Body contains the request body specified by OpenAPI request body. */
     readonly body: any;
 
     /** Object contains path parameters specified by OpenAPI path parameters. */
@@ -202,7 +204,7 @@ export interface Url {
  *   })
  * }
  */
-export type KafkaEventHandler = (message: KafkaEventMessage) => boolean;
+export type KafkaEventHandler = (message: KafkaEventMessage) => void | Promise<void>;
 
 /**
  * KafkaEventMessage is an object used by KafkaEventHandler that contains Kafka-specific message data.
@@ -241,7 +243,7 @@ export interface KafkaEventMessage {
  *   })
  * }
  */
-export type LdapEventHandler = (request: LdapSearchRequest, response: LdapSearchResponse) => boolean;
+export type LdapEventHandler = (request: LdapSearchRequest, response: LdapSearchResponse) => void | Promise<void>;
 
 /**
  * LdapSearchRequest is an object used by LdapEventHandler that contains request-specific data.
@@ -341,7 +343,7 @@ export enum LdapResultStatus {
     SizeLimitExceeded = 4,
 }
 
-export type SmtpEventHandler = (record: SmtpEventMessage) => boolean;
+export type SmtpEventHandler = (record: SmtpEventMessage) => void | Promise<void>;
 
 export interface SmtpEventMessage {
     server: string;
@@ -379,7 +381,7 @@ export interface DateArgs {
     /**
      * The format of the textual representation, default is RFC3339
      */
-    layout?: DateLayout;
+    layout?: DateLayout | string;
 
     /**
      * The timestamp of the date, default is current UTC time
@@ -455,3 +457,7 @@ export interface JSONObject {
 }
 
 export const RFC3339 = "RFC3339";
+
+export function patch(target: any, patch: any): any;
+
+export const Delete: unique symbol;
