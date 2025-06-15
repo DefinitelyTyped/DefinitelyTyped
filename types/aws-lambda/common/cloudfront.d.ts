@@ -9,7 +9,7 @@ export interface CloudFrontHeaders {
     [name: string]: Array<{
         key?: string | undefined;
         value: string;
-    }>;
+    }> | undefined;
 }
 
 export type CloudFrontOrigin =
