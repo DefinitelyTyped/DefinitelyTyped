@@ -788,6 +788,25 @@ test("mocks a setter", (t) => {
     }
 });
 
+test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
+});
+
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>

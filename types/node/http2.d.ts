@@ -6,7 +6,7 @@
  * import http2 from 'node:http2';
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/http2.js)
  */
 declare module "http2" {
     import EventEmitter = require("node:events");
@@ -965,7 +965,10 @@ declare module "http2" {
          * * `:path` \= `/`
          * @since v8.4.0
          */
-        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+        request(
+            headers?: OutgoingHttpHeaders | readonly string[],
+            options?: ClientSessionRequestOptions,
+        ): ClientHttp2Stream;
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "origin", listener: (origins: string[]) => void): this;
         addListener(
@@ -1223,14 +1226,66 @@ declare module "http2" {
     }
     // Http2Server
     export interface SessionOptions {
+        /**
+         * Sets the maximum dynamic table size for deflating header fields.
+         * @default 4Kib
+         */
         maxDeflateDynamicTableSize?: number | undefined;
+        /**
+         * Sets the maximum number of settings entries per `SETTINGS` frame.
+         * The minimum value allowed is `1`.
+         * @default 32
+         */
+        maxSettings?: number | undefined;
+        /**
+         * Sets the maximum memory that the `Http2Session` is permitted to use.
+         * The value is expressed in terms of number of megabytes, e.g. `1` equal 1 megabyte.
+         * The minimum value allowed is `1`.
+         * This is a credit based limit, existing `Http2Stream`s may cause this limit to be exceeded,
+         * but new `Http2Stream` instances will be rejected while this limit is exceeded.
+         * The current number of `Http2Stream` sessions, the current memory use of the header compression tables,
+         * current data queued to be sent, and unacknowledged `PING` and `SETTINGS` frames are all counted towards the current limit.
+         * @default 10
+         */
         maxSessionMemory?: number | undefined;
+        /**
+         * Sets the maximum number of header entries.
+         * This is similar to `server.maxHeadersCount` or `request.maxHeadersCount` in the `node:http` module.
+         * The minimum value is `1`.
+         * @default 128
+         */
         maxHeaderListPairs?: number | undefined;
+        /**
+         * Sets the maximum number of outstanding, unacknowledged pings.
+         * @default 10
+         */
         maxOutstandingPings?: number | undefined;
+        /**
+         * Sets the maximum allowed size for a serialized, compressed block of headers.
+         * Attempts to send headers that exceed this limit will result in
+         * a `'frameError'` event being emitted and the stream being closed and destroyed.
+         */
         maxSendHeaderBlockLength?: number | undefined;
+        /**
+         * Strategy used for determining the amount of padding to use for `HEADERS` and `DATA` frames.
+         * @default http2.constants.PADDING_STRATEGY_NONE
+         */
         paddingStrategy?: number | undefined;
+        /**
+         * Sets the maximum number of concurrent streams for the remote peer as if a `SETTINGS` frame had been received.
+         * Will be overridden if the remote peer sets its own value for `maxConcurrentStreams`.
+         * @default 100
+         */
         peerMaxConcurrentStreams?: number | undefined;
+        /**
+         * The initial settings to send to the remote peer upon connection.
+         */
         settings?: Settings | undefined;
+        /**
+         * The array of integer values determines the settings types,
+         * which are included in the `CustomSettings`-property of the received remoteSettings.
+         * Please see the `CustomSettings`-property of the `Http2Settings` object for more information, on the allowed setting types.
+         */
         remoteCustomSettings?: number[] | undefined;
         /**
          * Specifies a timeout in milliseconds that
@@ -1239,11 +1294,27 @@ declare module "http2" {
          * @default 100000
          */
         unknownProtocolTimeout?: number | undefined;
-        selectPadding?(frameLen: number, maxFrameLen: number): number;
     }
     export interface ClientSessionOptions extends SessionOptions {
+        /**
+         * Sets the maximum number of reserved push streams the client will accept at any given time.
+         * Once the current number of currently reserved push streams exceeds reaches this limit,
+         * new push streams sent by the server will be automatically rejected.
+         * The minimum allowed value is 0. The maximum allowed value is 2<sup>32</sup>-1.
+         * A negative value sets this option to the maximum allowed value.
+         * @default 200
+         */
         maxReservedRemoteStreams?: number | undefined;
+        /**
+         * An optional callback that receives the `URL` instance passed to `connect` and the `options` object,
+         * and returns any `Duplex` stream that is to be used as the connection for this session.
+         */
         createConnection?: ((authority: url.URL, option: SessionOptions) => stream.Duplex) | undefined;
+        /**
+         * The protocol to connect with, if not set in the `authority`.
+         * Value may be either `'http:'` or `'https:'`.
+         * @default 'https:'
+         */
         protocol?: "http:" | "https:" | undefined;
     }
     export interface ServerSessionOptions<
@@ -1789,7 +1860,7 @@ declare module "http2" {
          * If there were no previous values for the header, this is equivalent to calling {@link setHeader}.
          *
          * Attempting to set a header field name or value that contains invalid characters will result in a
-         * [TypeError](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-typeerror) being thrown.
+         * [TypeError](https://nodejs.org/docs/latest-v24.x/api/errors.html#class-typeerror) being thrown.
          *
          * ```js
          * // Returns headers including "set-cookie: a" and "set-cookie: b"

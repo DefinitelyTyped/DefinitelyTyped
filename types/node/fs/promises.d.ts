@@ -259,7 +259,6 @@ declare module "fs/promises" {
          * While the `ReadableStream` will read the file to completion, it will not
          * close the `FileHandle` automatically. User code must still call the`fileHandle.close()` method.
          * @since v17.0.0
-         * @experimental
          */
         readableWebStream(): ReadableStream;
         /**
@@ -1251,20 +1250,28 @@ declare module "fs/promises" {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { glob } from 'node:fs/promises';
+     *
+     * for await (const entry of glob('*.js'))
+     *   console.log(entry);
+     * ```
+     * @since v22.0.0
+     * @returns An AsyncIterator that yields the paths of files
+     * that match the pattern.
      */
-    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
+    function glob(pattern: string | readonly string[]): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithFileTypes,
     ): NodeJS.AsyncIterator<Dirent>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptionsWithoutFileTypes,
+        pattern: string | readonly string[],
+        options: GlobOptionsWithoutFileTypes,
     ): NodeJS.AsyncIterator<string>;
     function glob(
-        pattern: string | string[],
-        opt: GlobOptions,
+        pattern: string | readonly string[],
+        options: GlobOptions,
     ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {
