@@ -2149,6 +2149,10 @@
             "libraryName": "@ffmpeg-installer/ffmpeg",
             "asOfVersion": "1.1.0"
         },
+        "ffmpeg-static": {
+            "libraryName": "ffmpeg-static",
+            "asOfVersion": "5.1.0"
+        },
         "fhir-kit-client": {
             "libraryName": "fhir-kit-client",
             "asOfVersion": "1.6.7"
