@@ -776,12 +776,342 @@ async function testTabInterface() {
     tab.sessionId; // $ExpectType string | undefined
 }
 
-// https://developer.chrome.com/extensions/runtime#method-openOptionsPage
-function testOptionsPage() {
-    chrome.runtime.openOptionsPage();
-    chrome.runtime.openOptionsPage(function() {
-        // Do a thing ...
+// https://developer.chrome.com/docs/extensions/reference/api/runtime
+function testRuntime() {
+    chrome.runtime.id; // $ExpectType string
+    chrome.runtime.lastError; // $ExpectType { message?: string | undefined } | undefined
+
+    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
+    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
+    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
+    chrome.runtime.ContextType.POPUP === "POPUP";
+    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
+    chrome.runtime.ContextType.TAB === "TAB";
+
+    chrome.runtime.OnInstalledReason.CHROME_UPDATE === "chrome_update";
+    chrome.runtime.OnInstalledReason.INSTALL === "install";
+    chrome.runtime.OnInstalledReason.SHARED_MODULE_UPDATE === "shared_module_update";
+    chrome.runtime.OnInstalledReason.UPDATE === "update";
+
+    chrome.runtime.OnRestartRequiredReason.APP_UPDATE === "app_update";
+    chrome.runtime.OnRestartRequiredReason.OS_UPDATE === "os_update";
+    chrome.runtime.OnRestartRequiredReason.PERIODIC === "periodic";
+
+    chrome.runtime.PlatformArch.ARM === "arm";
+    chrome.runtime.PlatformArch.ARM64 === "arm64";
+    chrome.runtime.PlatformArch.MIPS === "mips";
+    chrome.runtime.PlatformArch.MIPS64 === "mips64";
+    chrome.runtime.PlatformArch.X86_32 === "x86-32";
+    chrome.runtime.PlatformArch.X86_64 === "x86-64";
+
+    chrome.runtime.PlatformNaclArch.ARM === "arm";
+    chrome.runtime.PlatformNaclArch.MIPS === "mips";
+    chrome.runtime.PlatformNaclArch.MIPS64 === "mips64";
+    chrome.runtime.PlatformNaclArch.X86_32 === "x86-32";
+    chrome.runtime.PlatformNaclArch.X86_64 === "x86-64";
+
+    chrome.runtime.PlatformOs.ANDROID === "android";
+    chrome.runtime.PlatformOs.CROS === "cros";
+    chrome.runtime.PlatformOs.FUCHSIA === "fuchsia";
+    chrome.runtime.PlatformOs.LINUX === "linux";
+    chrome.runtime.PlatformOs.MAC === "mac";
+    chrome.runtime.PlatformOs.OPENBSD === "openbsd";
+    chrome.runtime.PlatformOs.WIN === "win";
+
+    chrome.runtime.RequestUpdateCheckStatus.NO_UPDATE === "no_update";
+    chrome.runtime.RequestUpdateCheckStatus.THROTTLED === "throttled";
+    chrome.runtime.RequestUpdateCheckStatus.UPDATE_AVAILABLE === "update_available";
+
+    const extensionId = "abcdefghijklmnopqrstuvwxyzabcdef";
+    const application = "com.example.app";
+
+    const connectInfo: chrome.runtime.ConnectInfo = {
+        includeTlsChannelId: true,
+        name: "test",
+    };
+
+    chrome.runtime.connect(); // $ExpectType Port
+    chrome.runtime.connect(extensionId); // $ExpectType Port
+    chrome.runtime.connect(connectInfo); // $ExpectType Port
+    chrome.runtime.connect(extensionId, connectInfo); // $ExpectType Port
+
+    chrome.runtime.connectNative(application); // $ExpectType Port
+
+    chrome.runtime.getBackgroundPage(); // $ExpectType Promise<Window | undefined>
+    chrome.runtime.getBackgroundPage((backgroundPage) => { // $ExpectType void
+        backgroundPage; // $ExpectType Window | undefined
     });
+    // @ts-expect-error
+    chrome.runtime.getBackgroundPage(() => {}).then(() => {});
+
+    const filter: chrome.runtime.ContextFilter = {
+        contextIds: ["id"],
+        contextTypes: ["TAB", chrome.runtime.ContextType.BACKGROUND],
+        documentIds: ["id"],
+        documentOrigins: ["https://example.com"],
+        documentUrls: ["https://example.com/file.html"],
+        frameIds: [1],
+        incognito: true,
+        tabIds: [1],
+        windowIds: [1],
+    };
+
+    chrome.runtime.getContexts(filter); // $ExpectType Promise<ExtensionContext[]>
+    chrome.runtime.getContexts(filter, (contexts) => { // $ExpectType void
+        contexts; // $ExpectType ExtensionContext[]
+    });
+    // @ts-expect-error
+    chrome.runtime.getContexts(() => {}).then(() => {});
+
+    chrome.runtime.getManifest(); // $ExpectType Manifest
+
+    chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
+    chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
+        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+    });
+    // @ts-expect-error
+    chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});
+
+    chrome.runtime.getPlatformInfo(); // $ExpectType Promise<PlatformInfo>
+    chrome.runtime.getPlatformInfo((platformInfo) => { // $ExpectType void
+        platformInfo.arch; // $ExpectType "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
+        platformInfo.nacl_arch; // $ExpectType "arm" | "mips" | "mips64" | "x86-32" | "x86-64"
+        platformInfo.os; // $ExpectType "android" | "cros" | "fuchsia" | "linux" | "mac" | "openbsd" | "win"
+    });
+    // @ts-expect-error
+    chrome.runtime.getPlatformInfo(() => {}).then(() => {});
+
+    chrome.runtime.getURL(""); // $ExpectType string
+
+    chrome.runtime.openOptionsPage(); // $ExpectType Promise<void>
+    chrome.runtime.openOptionsPage(() => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.openOptionsPage(() => {}).then(() => {});
+
+    chrome.runtime.reload(); // $ExpectType void
+
+    chrome.runtime.requestUpdateCheck(); // $ExpectType Promise<RequestUpdateCheckResult>
+    chrome.runtime.requestUpdateCheck((status, details) => { // $ExpectType void
+        status; // $ExpectType "throttled" | "no_update" | "update_available"
+        if (details) {
+            details.version; // $ExpectType string
+        }
+    });
+    // @ts-expect-error
+    chrome.runtime.requestUpdateCheck(() => {}).then(() => {});
+
+    chrome.runtime.restart(); // $ExpectType void
+
+    chrome.runtime.restartAfterDelay(10); // $ExpectType Promise<void>
+    chrome.runtime.restartAfterDelay(10, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.restartAfterDelay(10, () => {}).then(() => {});
+
+    const message = "Hello, world!";
+
+    const options: chrome.runtime.MessageOptions = {
+        includeTlsChannelId: true,
+    };
+
+    chrome.runtime.sendMessage(message); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(extensionId, message); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(extensionId, message, options); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage(message, options); // $ExpectType Promise<any>
+    chrome.runtime.sendMessage<string, string>(message, options); // $ExpectType Promise<string>
+    chrome.runtime.sendMessage<number, number>(10, options); // $ExpectType Promise<number>
+    chrome.runtime.sendMessage(message, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(extensionId, message, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(extensionId, message, options, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage(message, options, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    chrome.runtime.sendMessage<string, string>(message, options, (response) => { // $ExpectType void
+        response; // $ExpectType string
+    });
+    chrome.runtime.sendMessage<number, number>(10, options, (response) => { // $ExpectType void
+        response; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.runtime.sendMessage(message, () => {}).then(() => {});
+
+    chrome.runtime.sendNativeMessage(application, {}); // $ExpectType Promise<any>
+    chrome.runtime.sendNativeMessage(application, {}, (response) => { // $ExpectType void
+        response; // $ExpectType any
+    });
+    // @ts-expect-error
+    chrome.runtime.sendNativeMessage(application, {}, () => {}).then(() => {});
+
+    const url = "https://example.com";
+
+    chrome.runtime.setUninstallURL(url); // $ExpectType Promise<void>
+    chrome.runtime.setUninstallURL(url, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.runtime.setUninstallURL(url, () => {}).then(() => {});
+
+    chrome.runtime.onBrowserUpdateAvailable.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onBrowserUpdateAvailable.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onBrowserUpdateAvailable.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onBrowserUpdateAvailable.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnect.addListener((port) => { // $ExpectType void
+        port.name; // $ExpectType string
+        port.onDisconnect; // $ExpectType Event<(port: Port) => void>
+        port.onMessage; // $ExpectType Event<(message: any, port: Port) => void>
+        port.sender; // $ExpectType MessageSender | undefined
+        port.disconnect(); // $ExpectType void
+        port.postMessage(""); // $ExpectType void
+    });
+    chrome.runtime.onConnect.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnect.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnect.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnectExternal.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectExternal.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onConnectNative.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onConnectNative.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onInstalled.addListener((details) => { // $ExpectType void
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.removeListener((details) => { // $ExpectType void
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.hasListener((details) => { // $ExpectType boolean
+        details.id; // $ExpectType string | undefined
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+    });
+    chrome.runtime.onInstalled.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessage.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onMessageExternal.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onRestartRequired.addListener((reason) => { // $ExpectType void
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.removeListener((reason) => { // $ExpectType void
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.hasListener((reason) => { // $ExpectType boolean
+        reason; // $ExpectType "app_update" | "os_update" | "periodic"
+    });
+    chrome.runtime.onRestartRequired.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onStartup.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onStartup.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onStartup.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onStartup.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onSuspend.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspend.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspend.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onSuspend.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onSuspendCanceled.addListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspendCanceled.removeListener(() => {}); // $ExpectType void
+    chrome.runtime.onSuspendCanceled.hasListener(() => {}); // $ExpectType boolean
+    chrome.runtime.onSuspendCanceled.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUpdateAvailable.addListener((details) => { // $ExpectType void
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.removeListener((details) => { // $ExpectType void
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.hasListener((details) => { // $ExpectType boolean
+        details.version; // $ExpectType string
+    });
+    chrome.runtime.onUpdateAvailable.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUserScriptConnect.addListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.removeListener((port) => { // $ExpectType void
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.hasListener((port) => { // $ExpectType boolean
+        port; // $ExpectType Port
+    });
+    chrome.runtime.onUserScriptConnect.hasListeners(); // $ExpectType boolean
+
+    chrome.runtime.onUserScriptMessage.addListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.removeListener((message, sender, sendResponse) => { // $ExpectType void
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.hasListener((message, sender, sendResponse) => { // $ExpectType boolean
+        message; // $ExpectType any
+        sender; // $ExpectType MessageSender
+        sendResponse(); // $ExpectType void
+    });
+    chrome.runtime.onUserScriptMessage.hasListeners(); // $ExpectType boolean
 }
 
 function testGetManifest() {
@@ -891,53 +1221,6 @@ function testGetManifest() {
             },
         ],
     };
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restart
-function testRestart() {
-    chrome.runtime.restart();
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-restartAfterDelay
-function testRestartAfterDelay() {
-    chrome.runtime.restartAfterDelay(10);
-    chrome.runtime.restartAfterDelay(10, () => {
-        console.log("This is a callback!");
-    });
-}
-
-async function testGetPlatformInfo() {
-    chrome.runtime.getPlatformInfo(platformInfo => {
-        platformInfo; // $ExpectType PlatformInfo
-
-        platformInfo.arch; // $ExpectType PlatformArch
-        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
-        platformInfo.os; // $ExpectType PlatformOs
-
-        // @ts-expect-error
-        platformInfo.arch = "invalid-arch";
-        // @ts-expect-error
-        platformInfo.nacl_arch = "invalid-nacl_arch";
-        // @ts-expect-error
-        platformInfo.os = "invalid-os";
-    });
-}
-
-async function testGetPlatformForPromise() {
-    chrome.runtime.getPlatformInfo().then(platformInfo => {
-        platformInfo; // $ExpectType PlatformInfo
-
-        platformInfo.arch; // $ExpectType PlatformArch
-        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
-        platformInfo.os; // $ExpectType PlatformOs
-
-        // @ts-expect-error
-        platformInfo.arch = "invalid-arch";
-        // @ts-expect-error
-        platformInfo.nacl_arch = "invalid-nacl_arch";
-        // @ts-expect-error
-        platformInfo.os = "invalid-os";
-    });
 }
 
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
@@ -1404,43 +1687,6 @@ function testTtsEngine() {
         uninstallOptions; // $ExpectType LanguageUninstallOptions
     });
     chrome.ttsEngine.onUninstallLanguageRequest.hasListeners(); // $ExpectType boolean
-}
-
-chrome.runtime.onInstalled.addListener((details) => {
-    details; // $ExpectType InstalledDetails
-    details.previousVersion; // $ExpectType string | undefined
-    details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
-    details.id; // $ExpectType string | undefined
-    if (details.reason === "install") { // Accept string version of enum
-        return;
-    }
-
-    // @ts-expect-error
-    details.reason = "not-real-reason";
-});
-
-function testRuntimeOnMessageAddListener() {
-    // @ts-expect-error
-    chrome.runtime.onMessage.addListener();
-    // @ts-expect-error
-    chrome.runtime.onMessage.addListener((_1, _2, _3, _4) => {});
-
-    chrome.runtime.onMessage.addListener((_, sender) => {
-        console.log(
-            sender.documentId,
-            sender.documentLifecycle,
-            sender.frameId,
-            sender.id,
-            sender.nativeApplication,
-            sender.origin,
-            sender.tab,
-            sender.tlsChannelId,
-            sender.url,
-        );
-
-        // @ts-expect-error
-        console.log(sender.documentLifecycle === "invalid_value");
-    });
 }
 
 function testDevtools() {
@@ -3163,67 +3409,6 @@ function testStorageForPromise() {
     chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(
         () => {},
     );
-}
-
-// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
-function testRuntimeGetContexts() {
-    chrome.runtime.ContextType.TAB === "TAB";
-    chrome.runtime.ContextType.POPUP === "POPUP";
-    chrome.runtime.ContextType.BACKGROUND === "BACKGROUND";
-    chrome.runtime.ContextType.OFFSCREEN_DOCUMENT === "OFFSCREEN_DOCUMENT";
-    chrome.runtime.ContextType.SIDE_PANEL === "SIDE_PANEL";
-    chrome.runtime.ContextType.DEVELOPER_TOOLS === "DEVELOPER_TOOLS";
-
-    const options = { incognito: true, tabIds: [1, 2, 3] };
-
-    chrome.runtime.getContexts(options);
-}
-
-// https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
-function testRuntimeSendMessage() {
-    const options = { includeTlsChannelId: true };
-
-    chrome.runtime.sendMessage("Hello World!").then(() => {});
-    chrome.runtime.sendMessage("Hello World!", console.log);
-    chrome.runtime.sendMessage<string>("Hello World!", console.log);
-    chrome.runtime.sendMessage<string, number>("Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("Hello World!", (num: number) => alert(num + 1));
-    chrome.runtime.sendMessage("Hello World!", options).then(() => {});
-    chrome.runtime.sendMessage("Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string>("Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string, number>("Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("Hello World!", options, (num: number) => alert(num + 1));
-
-    chrome.runtime.sendMessage("extension-id", "Hello World!").then(() => {});
-    chrome.runtime.sendMessage("extension-id", "Hello World!", console.log);
-    chrome.runtime.sendMessage<string>("extension-id", "Hello World!", console.log);
-    chrome.runtime.sendMessage<string, number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("extension-id", "Hello World!", (num: number) => alert(num + 1));
-    chrome.runtime.sendMessage("extension-id", "Hello World!", options).then(() => {});
-    chrome.runtime.sendMessage("extension-id", "Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string>("extension-id", "Hello World!", options, console.log);
-    chrome.runtime.sendMessage<string, number>("extension-id", "Hello World!", options, console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<number>("extension-id", "Hello World!", console.log);
-    // @ts-expect-error
-    chrome.runtime.sendMessage<string, boolean>("extension-id", "Hello World!", (num: number) => alert(num + 1));
-
-    chrome.runtime.sendMessage(undefined, "Hello World!", console.log);
-    chrome.runtime.sendMessage(null, "Hello World!", console.log);
-}
-
-function testRuntimeSendNativeMessage() {
-    chrome.runtime.sendNativeMessage("application", {}).then(() => {});
-    chrome.runtime.sendNativeMessage("application", {}, (num: number) => alert(num + 1));
 }
 
 function testTabsSendRequest() {
