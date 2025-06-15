@@ -143,6 +143,14 @@ declare class CleverTap {
     fetchVariables(onFetchCallback?: () => void): void;
     addVariablesChangedCallback(callback: () => void): void;
     addOneTimeVariablesChangedCallback(callback: () => void): void;
+    getSDKVersion: () => string;
+    enableLocalStorageEncryption: (value: boolean) => void;
+    isLocalStorageEncryptionEnabled: () => boolean;
+    createCustomIdIfValid: (customId: string) => void;
+    defineFileVariable: (name: string) => any;
+    getVariables: () => any;
+    getVariableValue: (arg: string) => any;
+    getAllQualifiedCampaignDetails: () => any;
 }
 
 export default CleverTap;
