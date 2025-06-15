@@ -190,6 +190,12 @@ jwt.verify(token, cert, { audience: [/urn:f[o]{2}/, "urn:bar"] }, (err, decoded)
     // if audience mismatch, err == invalid audience
 });
 
+jwt.verify(token, cert, { audience: "audience" }); // ok - string
+jwt.verify(token, cert, { audience: /audience/ }); // ok - RegExp
+jwt.verify(token, cert, { audience: ["aud1", /aud2/] }); // ok - non-empty array with mixed string/RegExp
+// @ts-expect-error
+jwt.verify(token, cert, { audience: [] }); // error - empty array not allowed
+
 // verify issuer
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, { audience: "urn:foo", issuer: "urn:issuer" }, (
@@ -198,6 +204,11 @@ jwt.verify(token, cert, { audience: "urn:foo", issuer: "urn:issuer" }, (
 ) => {
     // if issuer mismatch, err == invalid issuer
 });
+
+jwt.verify(token, cert, { issuer: "issuer" }); // ok - string
+jwt.verify(token, cert, { issuer: ["issuer1", "issuer2"] }); // ok - non-empty array
+// @ts-expect-error
+jwt.verify(token, cert, { issuer: [] }); // error - empty array not allowed
 
 // verify algorithm
 cert = fs.readFileSync("public.pem"); // get public key
