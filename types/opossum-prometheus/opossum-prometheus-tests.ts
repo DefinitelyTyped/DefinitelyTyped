@@ -1,4 +1,4 @@
-import type * as CircuitBreaker from "opossum";
+import type CircuitBreaker from "opossum";
 import OpossumMetrics from "opossum-prometheus";
 import type { Registry } from "prom-client";
 
