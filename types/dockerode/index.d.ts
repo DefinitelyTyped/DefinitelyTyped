@@ -475,11 +475,15 @@ declare namespace Dockerode {
         Name: string;
         CheckDuplicate?: boolean | undefined;
         Driver?: string | undefined;
+        Scope?: string | undefined;
+        EnableIPv4?: boolean | undefined;
+        EnableIPv6?: boolean | undefined;
+        IPAM?: IPAM | undefined;
         Internal?: boolean | undefined;
         Attachable?: boolean | undefined;
         Ingress?: boolean | undefined;
-        IPAM?: IPAM | undefined;
-        EnableIPv6?: boolean | undefined;
+        ConfigOnly?: boolean | undefined;
+        ConfigFrom?: { Network?: string } | undefined;
         Options?: { [option: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
 
@@ -499,13 +503,18 @@ declare namespace Dockerode {
         IPv6Address: string;
     }
 
-    /* tslint:disable:interface-name */
     interface IPAM {
-        Driver: string;
-        Config?: Array<{ [key: string]: string }> | undefined;
+        Driver?: string;
         Options?: { [key: string]: string } | undefined;
+        Config?:
+            | Array<{
+                Subnet?: string | undefined;
+                IPRange?: string | undefined;
+                Gateway?: string | undefined;
+                AuxiliaryAddresses?: Partial<{ [host: string]: string }> | undefined;
+            }>
+            | undefined;
     }
-    /* tslint:enable:interface-name */
 
     interface VolumeCreateOptions {
         Name?: string | undefined;
