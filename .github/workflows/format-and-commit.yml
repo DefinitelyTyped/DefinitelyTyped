@@ -40,7 +40,7 @@ jobs:
 
       - run: pnpm dprint fmt
 
-      - uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # v5.2.0
+      - uses: stefanzweifel/git-auto-commit-action@778341af668090896ca464160c2def5d1d1a3eb0 # v6.0.1
         with:
           commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
           commit_message: '🤖 dprint fmt'
