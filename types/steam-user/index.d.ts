@@ -63,7 +63,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * An object containing information about your account's email address. `null` until `emailInfo` is emitted.
      */
-    emailInfo: { adress: string; validated: boolean } | null;
+    emailInfo: { address: string; validated: boolean } | null;
 
     /**
      * An object containing information about your account's limitations. `null` until `accountLimitations` is emitted.
@@ -1000,7 +1000,7 @@ interface Events {
         facebookID: string,
         facebookName: string,
     ];
-    emailInfo: [adress: string, validated: boolean];
+    emailInfo: [address: string, validated: boolean];
     accountLimitations: [limited: boolean, communityBanned: boolean, locked: boolean, canInviteFriends: boolean];
     vacBans: [numBans: number, appids: number[]];
     wallet: [hasWallet: boolean, currency: SteamUser.ECurrencyCode, balance: number];
