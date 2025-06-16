@@ -44,6 +44,7 @@ on("ldap", (req: LdapSearchRequest, res: LdapSearchResponse) => {});
 on("http", handler, "");
 on("http", handler, {});
 on("http", handler, { tags: { foo: "bar" } });
+on("http", async () => {});
 
 // @ts-expect-error
 every(12, () => {});
@@ -58,6 +59,7 @@ every("12m", () => {}, { times: 3 });
 // @ts-expect-error
 every("12m", () => {}, { runFirstTimeImmediately: 1 });
 every("12m", () => {}, { runFirstTimeImmediately: true });
+every('', async () => {})
 
 // @ts-expect-error
 cron(12, () => {});
@@ -72,6 +74,7 @@ cron("12m", () => {}, { times: 3 });
 // @ts-expect-error
 cron("12m", () => {}, { runFirstTimeImmediately: 1 });
 cron("12m", () => {}, { runFirstTimeImmediately: true });
+cron('', async () => {});
 
 // @ts-expect-error
 env(12);
