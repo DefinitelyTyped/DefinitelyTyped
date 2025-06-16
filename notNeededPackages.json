@@ -7647,6 +7647,10 @@
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
         },
+        "vinyl-file": {
+            "libraryName": "vinyl-file",
+            "asOfVersion": "4.1.0"
+        },
         "vite-plugin-react-control-statements": {
             "libraryName": "vite-plugin-react-control-statements",
             "asOfVersion": "0.0.1"
