@@ -169,9 +169,6 @@ clevertap.enableLocalStorageEncryption(true);
 // Check if the local storage encryption is enabled
 clevertap.isLocalStorageEncryptionEnabled();
 
-// Set the custom clevertap Id
-clevertap.createCustomIdIfValid('hello_123');
-
 // Define file type variable
 clevertap.defineFileVariable('promo_shoes');
 
