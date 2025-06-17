@@ -53,6 +53,9 @@ export namespace UIkit {
          * @param removeEl If true, also removes the element from the DOM.
          */
         $destroy(removeEl?: boolean): void;
+
+        /** The HTML element to which the UIkit element is attached. */
+        readonly $el: HTMLElement;
     }
 
     /** A helper type that represents a UIkit initialization function. */

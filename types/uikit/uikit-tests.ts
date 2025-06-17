@@ -1,6 +1,20 @@
-import UIkit from "uikit";
+import UIkit, { UIkitElementBase } from "uikit";
 
 const element = document.createElement("div");
+
+function testUIkitElementBase() {
+    const component: UIkitElementBase = UIkit.alert(element, {
+        animation: true,
+        duration: 300,
+        selClose: ">",
+    });
+
+    // $ExpectError - Doesn't seem to be working...
+    // component.$el = undefined;
+
+    component.$el.classList; // $el is a HTML element
+    component.$destroy();
+}
 
 function testAccordion() {
     UIkit.accordion(element).$destroy();
