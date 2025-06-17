@@ -1987,6 +1987,19 @@ export interface Locator {
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
+     * Returns the number of elements matching the selector.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const count = await page.locator('input').count();
+     * ```
+     *
+     * @returns Promise which resolves with the number of elements matching the selector.
+     */
+    count(): Promise<number>;
+
+    /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
