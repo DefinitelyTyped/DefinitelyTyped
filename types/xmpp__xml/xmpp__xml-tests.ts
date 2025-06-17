@@ -14,7 +14,7 @@ xml.unescapeXMLText(""); // $ExpectType string
 xml.Parser.XMLError; // $ExpectType typeof XMLError
 const parser = new xml.Parser();
 const ltxParser: LtxParser = parser;
-parser.parser; // $ExpectType SaxLtx
+parser.parser; // $ExpectType Parser
 parser.root; // $ExpectType Element | null
 parser.cursor; // $ExpectType Element | null
 parser.onStartElement("el"); // $ExpectType void
