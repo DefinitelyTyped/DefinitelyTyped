@@ -73,8 +73,6 @@ import {
     createLemmaOrNull,
     Engine,
     Gender,
-    getDeclension,
-    getSchoolDeclension,
     Lemma,
     LocativeForm,
     LocativeFormAttribute,
@@ -99,7 +97,7 @@ let coat: Lemma = createLemma({
 result = rne.decline(coat, Case.GENITIVE);
 assertEqualsSingleValue(result, "пальто");
 
-assertEquals(getDeclension(coat), -1);
+assertEquals(coat.getDeclension(), -1);
 
 let mountain: Lemma = createLemma({
     text: "гора",
@@ -122,8 +120,8 @@ results = CASES.map(function(c: Case) {
 
 assertAllCases(results, ["горы", "гор", "горам", "горы", "горами", "горах", "горах"]);
 
-assertEquals(getDeclension(mountain), 2);
-assertEquals(getSchoolDeclension(mountain), 1);
+assertEquals(mountain.getDeclension(), 2);
+assertEquals(mountain.getSchoolDeclension(), 1);
 
 let mountainGender: Gender | undefined = mountain.getGender();
 assertEquals(mountainGender, Gender.FEMININE);
