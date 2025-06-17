@@ -2107,6 +2107,20 @@ export interface Locator {
     inputValue(options?: TimeoutOptions): Promise<string>;
 
     /**
+     * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const secondRow = await page.locator('tr').nth(1);
+     * ```
+     *
+     * @param index
+     * @returns Locator
+     */
+    nth(index: number): Locator;
+
+    /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
      * otherwise only the first option matching one of the passed options is selected.
      * @param values Values of options to select.
