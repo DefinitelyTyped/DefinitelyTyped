@@ -2065,6 +2065,19 @@ export interface Locator {
     fill(value: string, options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Returns locator to the first matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const firstRow = await page.locator('tr').first();
+     * ```
+     *
+     * @returns Locator.
+     */
+    first(): Locator;
+
+    /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
