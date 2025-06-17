@@ -2120,6 +2120,19 @@ export interface Locator {
     inputValue(options?: TimeoutOptions): Promise<string>;
 
     /**
+     * Returns locator to the last matching element.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const lastRow = await page.locator('tr').last();
+     * ```
+     *
+     * @returns Locator.
+     */
+    last(): Locator;
+
+    /**
      * Returns locator to the n-th matching element. It's zero based, `nth(0)` selects the first element.
      *
      * **Usage**
