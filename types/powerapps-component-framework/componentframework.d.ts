@@ -790,6 +790,7 @@ declare namespace ComponentFramework {
          * Fluent v9 theming
          */
         fluentDesignLanguage?: FluentDesignState;
+        copilot: Copilot;
     }
 
     type IEventBag = Record<string, (params?: unknown) => void>;

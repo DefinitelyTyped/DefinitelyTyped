@@ -719,6 +719,6 @@ const mcsResponseTest: ComponentFramework.MCSResponse = {
 };
 
 const copilotTest: ComponentFramework.Copilot = {
-    executeEvent: (eventName: string, eventData?: any) => Promise.resolve([mcsResponseTest]),
+    executeEvent: (eventName: string, parameters: Record<string, unknown>) => Promise.resolve([mcsResponseTest]),
     executePrompt: (promptText: string) => Promise.resolve([mcsResponseTest]),
 };
