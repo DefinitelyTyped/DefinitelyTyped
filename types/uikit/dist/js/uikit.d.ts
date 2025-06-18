@@ -751,7 +751,7 @@ export namespace UIkit {
 
     interface UIkitToggleOptions {
         /** CSS selector of the element(s) to toggle. */
-        target?: string;
+        target?: UIkitElement;
         /** Comma-separated list of trigger behaviour modes. (hover, click, media) */
         mode?: string;
         /** The class that is being toggled. Defaults to the hidden attribute. */
