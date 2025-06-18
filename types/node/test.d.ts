@@ -137,12 +137,11 @@ declare module "node:test" {
      * @param options Configuration options for the test.
      * @param fn The function under test. The first argument to this function is a {@link TestContext} object.
      * If the test uses callbacks, the callback function is passed as the second argument.
-     * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within a suite.
      */
-    function test(name?: string, fn?: TestFn): Promise<void>;
-    function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(fn?: TestFn): Promise<void>;
+    function test(name?: string, fn?: TestFn): void;
+    function test(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function test(options?: TestOptions, fn?: TestFn): void;
+    function test(fn?: TestFn): void;
     namespace test {
         export {
             after,
@@ -168,73 +167,72 @@ declare module "node:test" {
      * Defaults to the `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
      * @param options Configuration options for the suite. This supports the same options as {@link test}.
      * @param fn The suite function declaring nested tests and suites. The first argument to this function is a {@link SuiteContext} object.
-     * @return Immediately fulfilled with `undefined`.
      * @since v20.13.0
      */
-    function suite(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function suite(name?: string, fn?: SuiteFn): Promise<void>;
-    function suite(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function suite(fn?: SuiteFn): Promise<void>;
+    function suite(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+    function suite(name?: string, fn?: SuiteFn): void;
+    function suite(options?: TestOptions, fn?: SuiteFn): void;
+    function suite(fn?: SuiteFn): void;
     namespace suite {
         /**
          * Shorthand for skipping a suite. This is the same as calling {@link suite} with `options.skip` set to `true`.
          * @since v20.13.0
          */
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(name?: string, fn?: SuiteFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function skip(name?: string, fn?: SuiteFn): void;
+        function skip(options?: TestOptions, fn?: SuiteFn): void;
+        function skip(fn?: SuiteFn): void;
         /**
          * Shorthand for marking a suite as `TODO`. This is the same as calling {@link suite} with `options.todo` set to `true`.
          * @since v20.13.0
          */
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(name?: string, fn?: SuiteFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function todo(name?: string, fn?: SuiteFn): void;
+        function todo(options?: TestOptions, fn?: SuiteFn): void;
+        function todo(fn?: SuiteFn): void;
         /**
          * Shorthand for marking a suite as `only`. This is the same as calling {@link suite} with `options.only` set to `true`.
          * @since v20.13.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(name?: string, fn?: SuiteFn): Promise<void>;
-        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(fn?: SuiteFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * Alias for {@link suite}.
      *
      * The `describe()` function is imported from the `node:test` module.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(name?: string, fn?: SuiteFn): Promise<void>;
-    function describe(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+    function describe(name?: string, fn?: SuiteFn): void;
+    function describe(options?: TestOptions, fn?: SuiteFn): void;
+    function describe(fn?: SuiteFn): void;
     namespace describe {
         /**
          * Shorthand for skipping a suite. This is the same as calling {@link describe} with `options.skip` set to `true`.
          * @since v18.15.0
          */
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(name?: string, fn?: SuiteFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function skip(name?: string, fn?: SuiteFn): void;
+        function skip(options?: TestOptions, fn?: SuiteFn): void;
+        function skip(fn?: SuiteFn): void;
         /**
          * Shorthand for marking a suite as `TODO`. This is the same as calling {@link describe} with `options.todo` set to `true`.
          * @since v18.15.0
          */
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(name?: string, fn?: SuiteFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function todo(name?: string, fn?: SuiteFn): void;
+        function todo(options?: TestOptions, fn?: SuiteFn): void;
+        function todo(fn?: SuiteFn): void;
         /**
          * Shorthand for marking a suite as `only`. This is the same as calling {@link describe} with `options.only` set to `true`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(name?: string, fn?: SuiteFn): Promise<void>;
-        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(fn?: SuiteFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function only(name?: string, fn?: SuiteFn): void;
+        function only(options?: TestOptions, fn?: SuiteFn): void;
+        function only(fn?: SuiteFn): void;
     }
     /**
      * Alias for {@link test}.
@@ -242,58 +240,58 @@ declare module "node:test" {
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(name?: string, fn?: TestFn): Promise<void>;
-    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(fn?: TestFn): Promise<void>;
+    function it(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function it(name?: string, fn?: TestFn): void;
+    function it(options?: TestOptions, fn?: TestFn): void;
+    function it(fn?: TestFn): void;
     namespace it {
         /**
          * Shorthand for skipping a test. This is the same as calling {@link it} with `options.skip` set to `true`.
          */
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(name?: string, fn?: TestFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(fn?: TestFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function skip(name?: string, fn?: TestFn): void;
+        function skip(options?: TestOptions, fn?: TestFn): void;
+        function skip(fn?: TestFn): void;
         /**
          * Shorthand for marking a test as `TODO`. This is the same as calling {@link it} with `options.todo` set to `true`.
          */
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(name?: string, fn?: TestFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(fn?: TestFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function todo(name?: string, fn?: TestFn): void;
+        function todo(options?: TestOptions, fn?: TestFn): void;
+        function todo(fn?: TestFn): void;
         /**
          * Shorthand for marking a test as `only`. This is the same as calling {@link it} with `options.only` set to `true`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(name?: string, fn?: TestFn): Promise<void>;
-        function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(fn?: TestFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+        function only(name?: string, fn?: TestFn): void;
+        function only(options?: TestOptions, fn?: TestFn): void;
+        function only(fn?: TestFn): void;
     }
     /**
      * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
      * @since v20.2.0
      */
-    function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(name?: string, fn?: TestFn): Promise<void>;
-    function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(fn?: TestFn): Promise<void>;
+    function skip(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function skip(name?: string, fn?: TestFn): void;
+    function skip(options?: TestOptions, fn?: TestFn): void;
+    function skip(fn?: TestFn): void;
     /**
      * Shorthand for marking a test as `TODO`. This is the same as calling {@link test} with `options.todo` set to `true`.
      * @since v20.2.0
      */
-    function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(name?: string, fn?: TestFn): Promise<void>;
-    function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(fn?: TestFn): Promise<void>;
+    function todo(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function todo(name?: string, fn?: TestFn): void;
+    function todo(options?: TestOptions, fn?: TestFn): void;
+    function todo(fn?: TestFn): void;
     /**
      * Shorthand for marking a test as `only`. This is the same as calling {@link test} with `options.only` set to `true`.
      * @since v20.2.0
      */
-    function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(name?: string, fn?: TestFn): Promise<void>;
-    function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(fn?: TestFn): Promise<void>;
+    function only(name?: string, options?: TestOptions, fn?: TestFn): void;
+    function only(name?: string, fn?: TestFn): void;
+    function only(options?: TestOptions, fn?: TestFn): void;
+    function only(fn?: TestFn): void;
     /**
      * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
      * If the test uses callbacks, the callback function is passed as the second argument.
@@ -783,7 +781,6 @@ declare module "node:test" {
          * @param options Configuration options for the test.
          * @param fn The function under test. This first argument to this function is a {@link TestContext} object.
          * If the test uses callbacks, the callback function is passed as the second argument.
-         * @returns A {@link Promise} resolved with `undefined` once the test completes.
          */
         test: typeof test;
         /**
@@ -803,8 +800,8 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
-    interface TestContextAssert extends
-        Pick<
+    interface TestContextAssert
+        extends Pick<
             typeof import("assert"),
             | "deepEqual"
             | "deepStrictEqual"
@@ -824,8 +821,7 @@ declare module "node:test" {
             | "rejects"
             | "strictEqual"
             | "throws"
-        >
-    {
+        > {
         /**
          * This function serializes `value` and writes it to the file specified by `path`.
          *
@@ -1184,7 +1180,7 @@ declare module "node:test" {
         fn<F extends Function = NoOpFunction, Implementation extends Function = F>(
             original?: F,
             implementation?: Implementation,
-            options?: MockFunctionOptions,
+            options?: MockFunctionOptions
         ): Mock<F | Implementation>;
         /**
          * This function is used to create a mock on an existing object method. The
@@ -1222,81 +1218,62 @@ declare module "node:test" {
          * @return The mocked method. The mocked method contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
          * behavior of the mocked method.
          */
-        method<
-            MockedObject extends object,
-            MethodName extends FunctionPropertyNames<MockedObject>,
-        >(
+        method<MockedObject extends object, MethodName extends FunctionPropertyNames<MockedObject>>(
             object: MockedObject,
             methodName: MethodName,
-            options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]>
-            : never;
+            options?: MockFunctionOptions
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]> : never;
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
-            Implementation extends Function,
+            Implementation extends Function
         >(
             object: MockedObject,
             methodName: MethodName,
             implementation: Implementation,
-            options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation>
-            : never;
+            options?: MockFunctionOptions
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation> : never;
         method<MockedObject extends object>(
             object: MockedObject,
             methodName: keyof MockedObject,
-            options: MockMethodOptions,
+            options: MockMethodOptions
         ): Mock<Function>;
         method<MockedObject extends object>(
             object: MockedObject,
             methodName: keyof MockedObject,
             implementation: Function,
-            options: MockMethodOptions,
+            options: MockMethodOptions
         ): Mock<Function>;
 
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.getter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
-        getter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-        >(
+        getter<MockedObject extends object, MethodName extends keyof MockedObject>(
             object: MockedObject,
             methodName: MethodName,
-            options?: MockFunctionOptions,
+            options?: MockFunctionOptions
         ): Mock<() => MockedObject[MethodName]>;
-        getter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-            Implementation extends Function,
-        >(
+        getter<MockedObject extends object, MethodName extends keyof MockedObject, Implementation extends Function>(
             object: MockedObject,
             methodName: MethodName,
             implementation?: Implementation,
-            options?: MockFunctionOptions,
+            options?: MockFunctionOptions
         ): Mock<(() => MockedObject[MethodName]) | Implementation>;
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.setter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
-        setter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-        >(
+        setter<MockedObject extends object, MethodName extends keyof MockedObject>(
             object: MockedObject,
             methodName: MethodName,
-            options?: MockFunctionOptions,
+            options?: MockFunctionOptions
         ): Mock<(value: MockedObject[MethodName]) => void>;
-        setter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-            Implementation extends Function,
-        >(
+        setter<MockedObject extends object, MethodName extends keyof MockedObject, Implementation extends Function>(
             object: MockedObject,
             methodName: MethodName,
             implementation?: Implementation,
-            options?: MockFunctionOptions,
+            options?: MockFunctionOptions
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
 
         /**
@@ -1368,12 +1345,16 @@ declare module "node:test" {
     const mock: MockTracker;
     interface MockFunctionCall<
         F extends Function,
-        ReturnType = F extends (...args: any) => infer T ? T
-            : F extends abstract new(...args: any) => infer T ? T
+        ReturnType = F extends (...args: any) => infer T
+            ? T
+            : F extends abstract new (...args: any) => infer T
+            ? T
             : unknown,
-        Args = F extends (...args: infer Y) => any ? Y
-            : F extends abstract new(...args: infer Y) => any ? Y
-            : unknown[],
+        Args = F extends (...args: infer Y) => any
+            ? Y
+            : F extends abstract new (...args: infer Y) => any
+            ? Y
+            : unknown[]
     > {
         /**
          * An array of the arguments passed to the mock function.
@@ -1397,7 +1378,7 @@ declare module "node:test" {
          * If the mocked function is a constructor, this field contains the class being constructed.
          * Otherwise this will be `undefined`.
          */
-        target: F extends abstract new(...args: any) => any ? F : undefined;
+        target: F extends abstract new (...args: any) => any ? F : undefined;
         /**
          * The mocked function's `this` value.
          */
@@ -2274,8 +2255,8 @@ declare module "node:test/reporters" {
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
-    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
-        new(...args: ConstructorParameters<T>): InstanceType<T>;
+    interface ReporterConstructorWrapper<T extends new (...args: any[]) => Transform> {
+        new (...args: ConstructorParameters<T>): InstanceType<T>;
         (...args: ConstructorParameters<T>): InstanceType<T>;
     }
 

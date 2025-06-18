@@ -67,13 +67,13 @@ run({
 // TestsStream should be a NodeJS.ReadableStream
 run().pipe(process.stdout);
 
-test("foo", t => {
+test("foo", (t) => {
     // $ExpectType TestContext
     t;
 });
 
 test("foo", (t) => {
-    // $ExpectType Promise<void>
+    // $ExpectType void
     t.test();
 });
 
@@ -100,7 +100,7 @@ test("options with booleans", {
 
 {
     const ret = test();
-    // $ExpectType Promise<void>
+    // $ExpectType void
     ret;
 }
 
@@ -115,7 +115,7 @@ test((t, cb) => {
 });
 
 // Test the context's methods/properties
-test(undefined, undefined, t => {
+test(undefined, undefined, (t) => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
     // $ExpectType void
@@ -129,22 +129,22 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.todo();
     // $ExpectType void
-    t.after(t => {
+    t.after((t) => {
         // $ExpectType TestContext
         t;
     });
     // $ExpectType void
-    t.afterEach(t => {
+    t.afterEach((t) => {
         // $ExpectType TestContext
         t;
     });
     // $ExpectType void
-    t.beforeEach(t => {
+    t.beforeEach((t) => {
         // $ExpectType TestContext
         t;
     });
     // $ExpectType void
-    t.before(t => {
+    t.before((t) => {
         // $ExpectType TestContext
         t;
     });
@@ -162,14 +162,14 @@ test(undefined, undefined, t => {
 });
 
 // Test the subtest approach.
-test(t => {
+test((t) => {
     // $ExpectType TestContext
     t;
-    const sub = t.test("sub", {}, t => {
+    const sub = t.test("sub", {}, (t) => {
         // $ExpectType TestContext
         t;
     });
-    // $ExpectType Promise<void>
+    // $ExpectType void
     sub;
 });
 
@@ -201,21 +201,19 @@ describe("foo", () => {
 
 describe("foo", () => {
     const d = describe();
-    // $ExpectType Promise<void>
+    // $ExpectType void
     d;
 });
 
 describe("foo", async () => {
     const d = describe();
-    // $ExpectType Promise<void>
-    d;
     // $ExpectType void
-    await d;
+    d;
 });
 
 {
     const ret = describe();
-    // $ExpectType Promise<void>
+    // $ExpectType void
     ret;
 }
 
@@ -349,7 +347,7 @@ it.only("only shorthand", {
 });
 
 // Test with suite context
-describe(s => {
+describe((s) => {
     // $ExpectType SuiteContext
     s;
     // $ExpectType string
@@ -375,13 +373,13 @@ describe(1, () => {});
 it(1, () => {});
 
 // suite() signatures
-// $ExpectType Promise<void>
+// $ExpectType void
 suite();
-// $ExpectType Promise<void>
+// $ExpectType void
 suite("foo");
-// $ExpectType Promise<void>
+// $ExpectType void
 suite("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
 suite("foo", {
     concurrency: false,
     only: true,
@@ -390,22 +388,26 @@ suite("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
-suite("foo", {
-    concurrency: 5,
-    todo: "foo",
-}, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
+suite(
+    "foo",
+    {
+        concurrency: 5,
+        todo: "foo",
+    },
+    async () => {}
+);
+// $ExpectType void
 suite(() => {});
 
 // suite.skip() signatures
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.skip();
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.skip("foo");
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.skip("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.skip("foo", {
     concurrency: false,
     only: true,
@@ -413,22 +415,26 @@ suite.skip("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
-suite.skip("foo", {
-    concurrency: 5,
-    todo: "foo",
-}, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
+suite.skip(
+    "foo",
+    {
+        concurrency: 5,
+        todo: "foo",
+    },
+    async () => {}
+);
+// $ExpectType void
 suite.skip(() => {});
 
 // suite.todo() signatures
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.todo();
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.todo("foo");
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.todo("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.todo("foo", {
     concurrency: false,
     only: true,
@@ -436,22 +442,26 @@ suite.todo("foo", {
     skip: false,
     timeout: 30_000,
 });
-// $ExpectType Promise<void>
-suite.todo("foo", {
-    concurrency: 5,
-    timeout: Infinity,
-}, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
+suite.todo(
+    "foo",
+    {
+        concurrency: 5,
+        timeout: Infinity,
+    },
+    async () => {}
+);
+// $ExpectType void
 suite.todo(() => {});
 
 // suite.only() signatures
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.only();
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.only("foo");
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.only("foo", () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
 suite.only("foo", {
     concurrency: false,
     signal: new AbortController().signal,
@@ -459,12 +469,16 @@ suite.only("foo", {
     timeout: 30_000,
     todo: true,
 });
-// $ExpectType Promise<void>
-suite.only("foo", {
-    concurrency: 5,
-    todo: "foo",
-}, async () => {});
-// $ExpectType Promise<void>
+// $ExpectType void
+suite.only(
+    "foo",
+    {
+        concurrency: 5,
+        todo: "foo",
+    },
+    async () => {}
+);
+// $ExpectType void
 suite.only(() => {});
 
 // SuiteContext
@@ -884,7 +898,7 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     `${name}/${details.duration_ms}/${details.type}/${details.error}/
-                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`
                 );
                 break;
             }
@@ -913,7 +927,7 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
-                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`
                 );
                 break;
             }
@@ -922,7 +936,7 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     `${name}/${details.duration_ms}/${details.type}/
-                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`
                 );
                 break;
             }
@@ -951,7 +965,7 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     `${file ?? "<multiple>"}/${success}/${duration_ms}/
-                    ${counts.topLevel}/${counts.tests}/${counts.passed}`,
+                    ${counts.topLevel}/${counts.tests}/${counts.passed}`
                 );
                 break;
             }
@@ -1017,7 +1031,7 @@ const invalidTestContext = new TestContext();
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
 
-test("check all assertion functions are re-exported", t => {
+test("check all assertion functions are re-exported", (t) => {
     type AssertModuleExports = keyof typeof import("assert");
     const keys: keyof { [K in keyof typeof t.assert as K extends AssertModuleExports ? K : never]: any } =
         {} as Exclude<AssertModuleExports, "AssertionError" | "CallTracker" | "strict">;
@@ -1057,24 +1071,24 @@ test("planning with streams", (t: TestContext, done) => {
             t.assert.isOdd(4);
         });
     });
-    test.assert.register("context", function() {
+    test.assert.register("context", function () {
         // $ExpectType TestContext
         this;
     });
 }
 
 // Test snapshot assertion.
-test(t => {
+test((t) => {
     // $ExpectType void
     t.assert.fileSnapshot({ value1: true, value2: false }, "./snapshots/snapshot.json");
     // $ExpectType void
     t.assert.fileSnapshot({ value3: "foo", value4: "bar" }, "./snapshots/snapshot.json", {
-        serializers: [value => JSON.stringify(value)],
+        serializers: [(value) => JSON.stringify(value)],
     });
     // $ExpectType void
     t.assert.snapshot({ value1: true, value2: false });
     // $ExpectType void
-    t.assert.snapshot({ value3: "foo", value4: "bar" }, { serializers: [value => JSON.stringify(value)] });
+    t.assert.snapshot({ value3: "foo", value4: "bar" }, { serializers: [(value) => JSON.stringify(value)] });
 });
 
 // Snapshot configuration
