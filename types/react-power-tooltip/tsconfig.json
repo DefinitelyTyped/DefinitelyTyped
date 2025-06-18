@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "types": [],
+        "noEmit": true,
+        "jsx": "react",
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-power-tooltip-tests.tsx"
+    ]
+}

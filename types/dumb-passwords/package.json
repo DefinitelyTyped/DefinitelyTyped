@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dumb-passwords",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/kn9ts/dumb-passwords#readme"
+    ],
+    "devDependencies": {
+        "@types/dumb-passwords": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kevin Brown",
+            "githubUsername": "thekevinbrown"
+        }
+    ]
+}

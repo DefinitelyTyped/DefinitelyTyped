@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/auto-sni",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/dylanpiercey/auto-sni"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/auto-sni": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Wolf",
+            "githubUsername": "janwo"
+        }
+    ]
+}

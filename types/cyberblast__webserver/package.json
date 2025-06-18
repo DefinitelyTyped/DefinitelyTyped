@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cyberblast__webserver",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/cyberblast/WebServer"
+    ],
+    "dependencies": {
+        "@types/cyberblast__logger": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cyberblast__webserver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "cyberblast",
+            "githubUsername": "cyberblast"
+        }
+    ]
+}

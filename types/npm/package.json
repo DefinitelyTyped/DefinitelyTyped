@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/npm",
+    "version": "7.19.9999",
+    "projects": [
+        "https://github.com/npm/cli"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/npm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        }
+    ]
+}

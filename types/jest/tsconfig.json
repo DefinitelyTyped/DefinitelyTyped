@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "dom",
+            "es6",
+            "esnext",
+            "es2020"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "target": "es5",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "jest-tests.ts"
+    ]
+}

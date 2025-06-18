@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "esModuleInterop": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "passport-apple-tests.ts"
+    ]
+}

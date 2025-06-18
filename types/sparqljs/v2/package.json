@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sparqljs",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/RubenVerborgh/SPARQL.js"
+    ],
+    "devDependencies": {
+        "@types/sparqljs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Morozov",
+            "githubUsername": "AlexeyMz"
+        }
+    ]
+}

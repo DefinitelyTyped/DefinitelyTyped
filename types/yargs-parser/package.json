@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/yargs-parser",
+    "version": "21.0.9999",
+    "projects": [
+        "https://github.com/yargs/yargs-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/yargs-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Miles Johnson",
+            "githubUsername": "milesj"
+        }
+    ]
+}

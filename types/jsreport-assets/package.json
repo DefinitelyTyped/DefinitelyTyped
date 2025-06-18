@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jsreport-assets",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/jsreport/jsreport-assets"
+    ],
+    "dependencies": {
+        "@types/jsreport-core": "*"
+    },
+    "devDependencies": {
+        "@types/jsreport-assets": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pofider",
+            "githubUsername": "pofider"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/component-emitter",
+    "version": "1.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/component-emitter"
+    ],
+    "devDependencies": {
+        "@types/component-emitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Snider",
+            "githubUsername": "psnider"
+        }
+    ]
+}

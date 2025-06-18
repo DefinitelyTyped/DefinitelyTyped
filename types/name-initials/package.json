@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/name-initials",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ericvera/name-initials#readme"
+    ],
+    "devDependencies": {
+        "@types/name-initials": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "atlowChemi",
+            "githubUsername": "atlowChemi"
+        }
+    ]
+}

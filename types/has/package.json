@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/has",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tarruda/has"
+    ],
+    "devDependencies": {
+        "@types/has": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

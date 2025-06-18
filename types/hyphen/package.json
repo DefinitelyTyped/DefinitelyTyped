@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hyphen",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/ytiurin/hyphen"
+    ],
+    "devDependencies": {
+        "@types/hyphen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krisztián Balla",
+            "githubUsername": "krisztianb"
+        }
+    ]
+}

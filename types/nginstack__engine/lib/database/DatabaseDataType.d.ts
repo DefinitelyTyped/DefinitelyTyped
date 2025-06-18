@@ -1,0 +1,10 @@
+export const CHAR = 'char';
+export const VARCHAR = 'varchar';
+export const CLOB = 'clob';
+export const INTEGER = 'integer';
+export const BIGINT = 'bigint';
+export const NUMERIC = 'numeric';
+export const DOUBLE_PRECISION = 'double precision';
+export const TIMESTAMP = 'timestamp';
+export const TIMESTAMP_WITH_TIME_ZONE = 'timestamp with time zone';
+export const DATE = 'date';

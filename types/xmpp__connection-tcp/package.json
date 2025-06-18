@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/xmpp__connection-tcp",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/connection-tcp"
+    ],
+    "dependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__connection-tcp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

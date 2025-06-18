@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/radium",
+    "version": "0.24.9999",
+    "projects": [
+        "https://github.com/formidablelabs/radium"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/radium": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Gorbatchev",
+            "githubUsername": "alexgorbatchev"
+        },
+        {
+            "name": "Philipp Holzer",
+            "githubUsername": "nupplaphil"
+        },
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        },
+        {
+            "name": "Christopher Frewin",
+            "githubUsername": "princefishthrower"
+        }
+    ]
+}

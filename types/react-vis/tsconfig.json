@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": [
+            "es6"
+        ],
+        "module": "node16",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "target": "es6",
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "react-vis-tests.tsx"
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "files": [
+        "index.d.ts",
+        "activedirectory2-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "es2015.iterable"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

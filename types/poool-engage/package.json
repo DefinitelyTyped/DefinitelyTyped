@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/poool-engage",
+    "version": "2.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "poool-engage",
+    "projects": [
+        "https://poool.dev/fr/docs/engage/javascript"
+    ],
+    "devDependencies": {
+        "@types/poool-engage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime Da Silva",
+            "githubUsername": "maximedasilva"
+        },
+        {
+            "name": "Ugo Stephant",
+            "githubUsername": "dackmin"
+        },
+        {
+            "name": "Antoine Chassagne",
+            "githubUsername": "antoinechassagne"
+        }
+    ]
+}

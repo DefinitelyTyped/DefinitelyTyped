@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/wicg-entries-api",
+    "version": "2020.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "File and Directory Entries API",
+    "projects": [
+        "https://github.com/WICG/entries-api",
+        "https://wicg.github.io/entries-api/"
+    ],
+    "devDependencies": {
+        "@types/wicg-entries-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Henning Kasch",
+            "githubUsername": "HenningCash"
+        },
+        {
+            "name": "Ingvar Stepanyan",
+            "githubUsername": "RReverser"
+        }
+    ]
+}

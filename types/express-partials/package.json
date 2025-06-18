@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-partials",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/publicclass/express-partials"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-partials": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        }
+    ]
+}

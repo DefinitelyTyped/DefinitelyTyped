@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/launchpad",
+    "version": "0.6.9999",
+    "projects": [
+        "https://www.npmjs.com/package/launchpad"
+    ],
+    "devDependencies": {
+        "@types/launchpad": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Burns",
+            "githubUsername": "rictic"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-input-calendar",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Rudeg/react-input-calendar"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-input-calendar": "workspace:."
+    },
+    "owners": []
+}

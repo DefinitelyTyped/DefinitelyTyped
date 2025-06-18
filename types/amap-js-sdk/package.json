@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/amap-js-sdk",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-sdk",
+    "projects": [
+        "http://lbs.amap.com/api/javascript-api/summary/"
+    ],
+    "devDependencies": {
+        "@types/amap-js-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bian Zhongjie",
+            "githubUsername": "agasbzj"
+        }
+    ]
+}

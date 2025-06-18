@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object.omit",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/object.omit"
+    ],
+    "devDependencies": {
+        "@types/object.omit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        }
+    ]
+}

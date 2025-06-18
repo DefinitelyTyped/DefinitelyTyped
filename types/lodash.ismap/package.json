@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/lodash.ismap",
+    "version": "4.4.9999",
+    "projects": [
+        "https://lodash.com"
+    ],
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "devDependencies": {
+        "@types/lodash.ismap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Zengel",
+            "githubUsername": "bczengel"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ezuikit-js",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/Hikvision-Ezviz/EZUIKit-JavaScript-npm#readme"
+    ],
+    "devDependencies": {
+        "@types/ezuikit-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "daiwanxing",
+            "githubUsername": "daiwanxing"
+        }
+    ]
+}

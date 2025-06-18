@@ -1,0 +1,54 @@
+{
+    "private": true,
+    "name": "@types/dockerode",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/apocas/dockerode"
+    ],
+    "dependencies": {
+        "@types/docker-modem": "*",
+        "@types/node": "*",
+        "@types/ssh2": "*"
+    },
+    "devDependencies": {
+        "@types/dockerode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl Winkler",
+            "githubUsername": "seikho"
+        },
+        {
+            "name": "Nicolas Laplante",
+            "githubUsername": "nlaplante"
+        },
+        {
+            "name": "ByeongHun Yoo",
+            "githubUsername": "isac322"
+        },
+        {
+            "name": "Ray Fang",
+            "githubUsername": "lazarusx"
+        },
+        {
+            "name": "Marius Meisenzahl",
+            "githubUsername": "meisenzahl"
+        },
+        {
+            "name": "Rob Moran",
+            "githubUsername": "thegecko"
+        },
+        {
+            "name": "Cameron Diver",
+            "githubUsername": "CameronDiver"
+        },
+        {
+            "name": "Pascal Sthamer",
+            "githubUsername": "p4sca1"
+        },
+        {
+            "name": "Luis Rueda",
+            "githubUsername": "userlerueda"
+        }
+    ]
+}

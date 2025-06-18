@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/geoip-country",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sapics/geoip-country"
+    ],
+    "devDependencies": {
+        "@types/geoip-country": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jesse Chan",
+            "githubUsername": "jesec"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-ie-launcher",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/karma-runner/karma-ie-launcher#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-ie-launcher": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/d3-ease",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-ease/",
+        "https://d3js.org/d3-ease"
+    ],
+    "devDependencies": {
+        "@types/d3-ease": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

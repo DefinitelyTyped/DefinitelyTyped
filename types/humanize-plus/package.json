@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/humanize-plus",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/HubSpot/humanize"
+    ],
+    "devDependencies": {
+        "@types/humanize-plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        }
+    ]
+}

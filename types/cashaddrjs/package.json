@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cashaddrjs",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/bitcoincashjs/cashaddrjs#readme"
+    ],
+    "devDependencies": {
+        "@types/cashaddrjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emilio Almansi",
+            "githubUsername": "ealmansi"
+        }
+    ]
+}

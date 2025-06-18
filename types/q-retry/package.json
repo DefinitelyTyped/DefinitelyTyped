@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/q-retry",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/vilic/q-retry"
+    ],
+    "dependencies": {
+        "@types/q": "^0"
+    },
+    "devDependencies": {
+        "@types/q-retry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "VILIC VANE",
+            "githubUsername": "vilic"
+        }
+    ]
+}

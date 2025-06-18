@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/postcss-inline-svg",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/TrySound/postcss-inline-svg"
+    ],
+    "dependencies": {
+        "postcss": "^8.1.4"
+    },
+    "devDependencies": {
+        "@types/postcss-inline-svg": "workspace:."
+    },
+    "owners": []
+}

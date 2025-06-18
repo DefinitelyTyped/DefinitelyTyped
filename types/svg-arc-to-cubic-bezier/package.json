@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-arc-to-cubic-bezier",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/colinmeinke/svg-arc-to-cubic-bezier#readme"
+    ],
+    "devDependencies": {
+        "@types/svg-arc-to-cubic-bezier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fabien Caylus",
+            "githubUsername": "fcaylus"
+        }
+    ]
+}

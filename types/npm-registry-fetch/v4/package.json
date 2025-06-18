@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/npm-registry-fetch",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/npm/registry-fetch#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/node-fetch": "*",
+        "@types/npm-package-arg": "*",
+        "@types/npmlog": "*",
+        "@types/ssri": "*"
+    },
+    "devDependencies": {
+        "@types/npm-registry-fetch": "workspace:."
+    },
+    "owners": []
+}

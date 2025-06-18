@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/delegates",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tj/node-delegates"
+    ],
+    "devDependencies": {
+        "@types/delegates": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "xingyuzhe",
+            "githubUsername": "xingyuzhe"
+        }
+    ]
+}

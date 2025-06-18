@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scroll",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/michaelrhodes/scroll"
+    ],
+    "devDependencies": {
+        "@types/scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman Charugin",
+            "githubUsername": "romic"
+        }
+    ]
+}

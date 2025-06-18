@@ -1,0 +1,47 @@
+{
+    "private": true,
+    "name": "@types/async",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/caolan/async",
+        "https://caolan.github.io/async"
+    ],
+    "devDependencies": {
+        "@types/async": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Arseniy Maximov",
+            "githubUsername": "kern0"
+        },
+        {
+            "name": "Angus Fenying",
+            "githubUsername": "fenying"
+        },
+        {
+            "name": "Pascal Martin",
+            "githubUsername": "pascalmartin"
+        },
+        {
+            "name": "Etienne Rossignon",
+            "githubUsername": "erossignon"
+        },
+        {
+            "name": "Lifeng Zhu",
+            "githubUsername": "Juliiii"
+        },
+        {
+            "name": "Tümay Çeber",
+            "githubUsername": "brendtumi"
+        },
+        {
+            "name": "Andrew Pensinger",
+            "githubUsername": "apnsngr"
+        }
+    ]
+}

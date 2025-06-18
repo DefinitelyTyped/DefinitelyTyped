@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/module-deps",
+    "version": "6.2.9999",
+    "projects": [
+        "https://github.com/browserify/module-deps"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/module-deps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        }
+    ]
+}

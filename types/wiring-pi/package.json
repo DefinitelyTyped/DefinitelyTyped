@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/wiring-pi",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/eugeneware/wiring-pi"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/wiring-pi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivo Stratev",
+            "githubUsername": "NoHomey"
+        }
+    ]
+}

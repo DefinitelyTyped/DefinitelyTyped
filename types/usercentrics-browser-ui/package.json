@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/usercentrics-browser-ui",
+    "version": "3.28.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Usercentrics Consent Management Platform (CMP) Browser UI",
+    "projects": [
+        "https://usercentrics.com/docs/web/intro/"
+    ],
+    "devDependencies": {
+        "@types/usercentrics-browser-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Flo Edelmann",
+            "githubUsername": "FloEdelmann"
+        }
+    ]
+}

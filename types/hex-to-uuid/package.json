@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hex-to-uuid",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/DeRain/hex-to-uuid"
+    ],
+    "devDependencies": {
+        "@types/hex-to-uuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Queiroz",
+            "githubUsername": "pmqueiroz"
+        }
+    ]
+}

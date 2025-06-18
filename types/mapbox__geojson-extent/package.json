@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mapbox__geojson-extent",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mapbox/geojson-extent#readme"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__geojson-extent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleš Jiránek",
+            "githubUsername": "alesjiranek"
+        }
+    ]
+}

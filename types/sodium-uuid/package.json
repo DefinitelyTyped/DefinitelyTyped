@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sodium-uuid",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/sodium-uuid"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sodium-uuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

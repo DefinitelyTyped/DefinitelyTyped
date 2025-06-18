@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/custom-functions-runtime",
+    "version": "1.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "custom-functions-runtime",
+    "projects": [
+        "https://github.com/OfficeDev/office-js"
+    ],
+    "devDependencies": {
+        "@types/custom-functions-runtime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OfficeDev",
+            "githubUsername": "OfficeDev"
+        },
+        {
+            "name": "Adam Krantz",
+            "githubUsername": "akrantz"
+        },
+        {
+            "name": "David Chesnut",
+            "githubUsername": "davidchesnut"
+        },
+        {
+            "name": "Alison McKay",
+            "githubUsername": "alison-mk"
+        }
+    ]
+}

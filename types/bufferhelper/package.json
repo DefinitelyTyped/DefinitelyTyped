@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bufferhelper",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/JacksonTian/bufferhelper"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bufferhelper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

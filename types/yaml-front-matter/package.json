@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/yaml-front-matter",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/dworthen/js-yaml-front-matter#readme"
+    ],
+    "dependencies": {
+        "@types/js-yaml": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/yaml-front-matter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ZHAO Jinxiang",
+            "githubUsername": "xiaoxiangmoe"
+        }
+    ]
+}

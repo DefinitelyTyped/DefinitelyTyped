@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/htmltojsx",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/htmltojsx"
+    ],
+    "devDependencies": {
+        "@types/htmltojsx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Basarat Ali Syed",
+            "githubUsername": "basarat"
+        }
+    ]
+}

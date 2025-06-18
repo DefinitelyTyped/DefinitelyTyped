@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/re-template-tag",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rauschma/re-template-tag"
+    ],
+    "devDependencies": {
+        "@types/re-template-tag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

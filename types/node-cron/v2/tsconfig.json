@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "node-cron-tests.ts"
+    ]
+}

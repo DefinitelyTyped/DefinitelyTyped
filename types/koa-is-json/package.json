@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/koa-is-json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/koajs/is-json"
+    ],
+    "devDependencies": {
+        "@types/koa-is-json": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "HakurouKen",
+            "githubUsername": "HakurouKen"
+        }
+    ]
+}

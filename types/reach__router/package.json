@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/reach__router",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/reach/router"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/reach__router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "A.Mokhtar",
+            "githubUsername": "xMokAx"
+        },
+        {
+            "name": "Awwit",
+            "githubUsername": "awwit"
+        },
+        {
+            "name": "wroughtec",
+            "githubUsername": "wroughtec"
+        },
+        {
+            "name": "O.Jackman",
+            "githubUsername": "chilledoj"
+        },
+        {
+            "name": "Eyas",
+            "githubUsername": "Eyas"
+        }
+    ]
+}

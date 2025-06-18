@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/leapmotionts",
+    "version": "0.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "leapmotionts",
+    "projects": [
+        "https://github.com/logotype/LeapMotionTS"
+    ],
+    "devDependencies": {
+        "@types/leapmotionts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Victor Norgren",
+            "githubUsername": "logotype"
+        }
+    ]
+}

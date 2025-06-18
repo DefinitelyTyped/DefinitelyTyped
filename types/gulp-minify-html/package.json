@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-minify-html",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/murphydanger/gulp-minify-html"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-minify-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

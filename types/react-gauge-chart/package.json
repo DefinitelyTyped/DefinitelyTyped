@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-gauge-chart",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/Martin36/react-gauge-chart"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-gauge-chart": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Meir Keller",
+            "githubUsername": "meirkl"
+        }
+    ]
+}

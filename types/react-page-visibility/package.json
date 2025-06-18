@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-page-visibility",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/pgilad/react-page-visibility#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-page-visibility": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel",
+            "githubUsername": "dannycochran"
+        }
+    ]
+}

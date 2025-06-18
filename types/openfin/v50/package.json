@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/openfin",
+    "version": "50.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "OpenFin API",
+    "projects": [
+        "https://openfin.co/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/node": "*",
+        "@types/resize-observer-browser": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/openfin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Barker",
+            "githubUsername": "chrisbarker"
+        },
+        {
+            "name": "Ricardo de Pena",
+            "githubUsername": "rdepena"
+        },
+        {
+            "name": "Roma",
+            "githubUsername": "whyn07m3"
+        },
+        {
+            "name": "Li Cui",
+            "githubUsername": "licui3936"
+        },
+        {
+            "name": "Tomer Sharon",
+            "githubUsername": "tomer-openfin"
+        }
+    ]
+}

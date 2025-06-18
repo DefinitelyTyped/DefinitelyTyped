@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shell-escape",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/xxorax/node-shell-escape"
+    ],
+    "devDependencies": {
+        "@types/shell-escape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Miloslav Nenadál",
+            "githubUsername": "nenadalm"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

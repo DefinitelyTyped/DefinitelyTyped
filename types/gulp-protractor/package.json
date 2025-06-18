@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-protractor",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/mllrsohn/gulp-protractor"
+    ],
+    "dependencies": {
+        "@types/gulp": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-protractor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

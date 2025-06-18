@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/urlrouter",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/fengmk2/urlrouter"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/urlrouter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "soywiz",
+            "githubUsername": "soywiz"
+        }
+    ]
+}

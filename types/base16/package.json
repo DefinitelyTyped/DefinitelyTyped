@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/base16",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gaearon/base16-js"
+    ],
+    "devDependencies": {
+        "@types/base16": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alec Hill",
+            "githubUsername": "alechill"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

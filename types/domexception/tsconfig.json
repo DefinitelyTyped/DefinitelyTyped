@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es5"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "target": "ES5"
+    },
+    "files": [
+        "test/domexception.index.test.ts",
+        "test/domexception.webidl2js.test.ts",
+        "index.d.ts"
+    ]
+}

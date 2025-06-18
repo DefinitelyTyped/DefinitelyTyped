@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-retool",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/tryretool/react-retool#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-retool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kent Walters",
+            "githubUsername": "kentwalters"
+        },
+        {
+            "name": "Ben Baker",
+            "githubUsername": "BenjamynBaker"
+        },
+        {
+            "name": "Yehor Krasnov",
+            "githubUsername": "immortaljoker"
+        }
+    ]
+}

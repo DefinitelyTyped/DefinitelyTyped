@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ip-packet",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/mafintosh/ip-packet"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ip-packet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

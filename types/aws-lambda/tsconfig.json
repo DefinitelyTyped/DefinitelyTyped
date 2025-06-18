@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "aws-lambda-tests.ts",
+        "test/alb-tests.ts",
+        "test/api-gateway-tests.ts",
+        "test/appsync-resolver-tests.ts",
+        "test/autoscaling-tests.ts",
+        "test/cloudformation-tests.ts",
+        "test/cdk-custom-resource-tests.ts",
+        "test/cloudfront-tests.ts",
+        "test/cloudwatch-tests.ts",
+        "test/codepipeline-tests.ts",
+        "test/codebuild-tests.ts",
+        "test/codecommit-tests.ts",
+        "test/connect-contact-flow-tests.ts",
+        "test/cognito-tests.ts",
+        "test/dynamodb-tests.ts",
+        "test/eventbridge-tests.ts",
+        "test/iot-tests.ts",
+        "test/iot-authorizer-tests.ts",
+        "test/kinesis-tests.ts",
+        "test/lex-tests.ts",
+        "test/lex-v2-tests.ts",
+        "test/s3-tests.ts",
+        "test/ses-tests.ts",
+        "test/sns-tests.ts",
+        "test/sqs-tests.ts",
+        "test/msk-tests.ts",
+        "test/self-managed-kafka-tests.ts",
+        "test/secretsmanager-tests.ts",
+        "test/s3-event-notification-tests.ts",
+        "test/amplify-resolver-tests.ts"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/week",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/datetime/week"
+    ],
+    "devDependencies": {
+        "@types/week": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sindre Moen",
+            "githubUsername": "sindrenm"
+        }
+    ]
+}

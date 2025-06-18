@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/jquery.noty",
+    "version": "2.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.noty",
+    "projects": [
+        "http://needim.github.io/noty/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.noty": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron King",
+            "githubUsername": "kingdango"
+        },
+        {
+            "name": "Tim Helfensdörfer",
+            "githubUsername": "thelfensdrfer"
+        }
+    ]
+}

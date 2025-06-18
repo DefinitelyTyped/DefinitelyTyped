@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.plus",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.plus",
+    "projects": [
+        "https://developers.google.com/+/web/people/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

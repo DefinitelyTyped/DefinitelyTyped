@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/image-to-base64",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/renanbastos93/image-to-base64#readme"
+    ],
+    "devDependencies": {
+        "@types/image-to-base64": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

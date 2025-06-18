@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-imageloader",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/hzdg/react-imageloader"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-imageloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephen Jelfs",
+            "githubUsername": "stephenjelfs"
+        }
+    ]
+}

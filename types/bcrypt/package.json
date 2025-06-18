@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/bcrypt",
+    "version": "5.0.9999",
+    "projects": [
+        "https://www.npmjs.org/package/bcrypt"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Peter Harris",
+            "githubUsername": "codeanimal"
+        },
+        {
+            "name": "Ayman Nedjmeddine",
+            "githubUsername": "IOAyman"
+        },
+        {
+            "name": "David Stapleton",
+            "githubUsername": "dstapleton92"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-multi-slider",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/JackDanielsAndCode/react-native-multi-slider#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-multi-slider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Edward Sammut Alessi",
+            "githubUsername": "Slessi"
+        }
+    ]
+}

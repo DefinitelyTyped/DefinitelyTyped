@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/serialize-javascript",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/yahoo/serialize-javascript"
+    ],
+    "devDependencies": {
+        "@types/serialize-javascript": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pochodaydayup",
+            "githubUsername": "Pochodaydayup"
+        },
+        {
+            "name": "undefined-moe",
+            "githubUsername": "undefined-moe"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

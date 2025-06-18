@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/human-date",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/montanaflynn/human-date"
+    ],
+    "devDependencies": {
+        "@types/human-date": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rico Sandyca Novenza",
+            "githubUsername": "ricosandyca"
+        }
+    ]
+}

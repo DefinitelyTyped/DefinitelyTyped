@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.cleditor",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.cleditor",
+    "projects": [
+        "http://premiumsoftware.net/CLEditor"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.cleditor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffery Grajkowski",
+            "githubUsername": "pushplay"
+        }
+    ]
+}

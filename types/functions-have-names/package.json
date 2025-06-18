@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/functions-have-names",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/inspect-js/functions-have-names#readme"
+    ],
+    "devDependencies": {
+        "@types/functions-have-names": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

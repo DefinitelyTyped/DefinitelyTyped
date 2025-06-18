@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-messenger-checkbox-tests.tsx"
+    ]
+}

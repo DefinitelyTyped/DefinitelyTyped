@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/open-wc__testing-karma-bs",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/open-wc/open-wc/tree/master/packages/testing-karma-bs"
+    ],
+    "dependencies": {
+        "@types/karma": "*",
+        "@types/karma-browserstack-launcher": "*"
+    },
+    "devDependencies": {
+        "@types/lodash": "*",
+        "@types/node": "*",
+        "@types/open-wc__testing-karma-bs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

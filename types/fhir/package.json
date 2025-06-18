@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/fhir",
+    "version": "0.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "FHIR",
+    "projects": [
+        "http://hl7.org/fhir/index.html"
+    ],
+    "devDependencies": {
+        "@types/fhir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artifact Health",
+            "githubUsername": "meirgottlieb"
+        },
+        {
+            "name": "Jan Huenges",
+            "githubUsername": "jhuenges"
+        },
+        {
+            "name": "Brian Kaney",
+            "githubUsername": "bkaney"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-addons-create-fragment",
+    "version": "0.14.9999",
+    "projects": [
+        "http://facebook.github.io/react/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom-factories": "*",
+        "@types/react-addons-create-fragment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        }
+    ]
+}

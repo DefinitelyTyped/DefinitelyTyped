@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/react-css-transition-replace",
+    "version": "2.1.9999",
+    "projects": [
+        "http://marnusw.github.io/react-css-transition-replace/"
+    ],
+    "dependencies": {
+        "@types/react": "^15",
+        "@types/react-addons-css-transition-group": "*"
+    },
+    "devDependencies": {
+        "@types/react-css-transition-replace": "workspace:.",
+        "@types/react-dom": "^15"
+    },
+    "owners": [
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        }
+    ]
+}

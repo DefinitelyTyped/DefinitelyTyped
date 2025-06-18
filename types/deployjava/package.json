@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/deployjava",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "deployjava",
+    "projects": [
+        "https://www.java.com/js/deployJava.txt"
+    ],
+    "devDependencies": {
+        "@types/deployjava": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

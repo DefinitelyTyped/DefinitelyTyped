@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-decimal-number",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AndreasPizsa/parse-decimal-number"
+    ],
+    "devDependencies": {
+        "@types/parse-decimal-number": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ciarán Ingle",
+            "githubUsername": "ciaran1344"
+        }
+    ]
+}

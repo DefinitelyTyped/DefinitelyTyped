@@ -1,0 +1,21 @@
+{
+    "files": [
+        "index.d.ts",
+        "jasmine-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

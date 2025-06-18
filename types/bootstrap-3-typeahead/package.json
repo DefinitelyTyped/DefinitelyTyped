@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-3-typeahead",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/bassjobsen/Bootstrap-3-Typeahead"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-3-typeahead": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anderson Friaça",
+            "githubUsername": "AndersonFriaca"
+        }
+    ]
+}

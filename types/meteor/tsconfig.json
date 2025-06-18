@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "target": "es2015",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts",
+        "test/meteor-tests.ts",
+        "test/globals/meteor-tests.ts",
+        "test/meteor-tests-module-only.ts",
+        "test/server-render.tsx",
+        "test/react-meteor-data-tests.tsx",
+        "test/react-meteor-accounts-tests.tsx",
+        "test/meteor-mongo-tests.ts"
+    ]
+}

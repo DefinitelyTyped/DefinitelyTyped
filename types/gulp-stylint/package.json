@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/gulp-stylint",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/danielhusar/gulp-stylint"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-stylint": "workspace:."
+    },
+    "owners": []
+}

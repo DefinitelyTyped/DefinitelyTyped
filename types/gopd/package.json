@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gopd",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/gopd#readme"
+    ],
+    "devDependencies": {
+        "@types/gopd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

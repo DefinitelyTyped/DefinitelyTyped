@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/imgur-rest-api",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "imgur-rest-api",
+    "projects": [
+        "https://api.imgur.com/"
+    ],
+    "devDependencies": {
+        "@types/imgur-rest-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luke William Westby",
+            "githubUsername": "lukewestby"
+        }
+    ]
+}

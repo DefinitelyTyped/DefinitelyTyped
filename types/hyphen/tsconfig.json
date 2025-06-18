@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "hyphen-tests.ts"
+    ]
+}

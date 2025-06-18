@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/find",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/yuanchuan/find#readme"
+    ],
+    "devDependencies": {
+        "@types/find": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrey Lalev",
+            "githubUsername": "andypyrope"
+        }
+    ]
+}

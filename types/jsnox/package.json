@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jsnox",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/af/jsnox"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/jsnox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Baker",
+            "githubUsername": "stkb"
+        },
+        {
+            "name": "Dovydas Navickas",
+            "githubUsername": "DovydasNavickas"
+        }
+    ]
+}

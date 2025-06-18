@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/json-form-data",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/hyperatom/json-form-data"
+    ],
+    "devDependencies": {
+        "@types/json-form-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Ross",
+            "githubUsername": "superhawk610"
+        },
+        {
+            "name": "Kamil Socha",
+            "githubUsername": "ksocha"
+        },
+        {
+            "name": "Felix Borzik",
+            "githubUsername": "Borzik"
+        }
+    ]
+}

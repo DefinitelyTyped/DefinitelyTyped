@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/symphony-api-client-node",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/SymphonyPlatformSolutions/symphony-api-client-node"
+    ],
+    "devDependencies": {
+        "@types/symphony-api-client-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Martinsky",
+            "githubUsername": "mmartinsky"
+        }
+    ]
+}

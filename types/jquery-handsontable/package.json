@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery-handsontable",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-handsontable",
+    "projects": [
+        "http://handsontable.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-handsontable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ted John",
+            "githubUsername": "intelorca"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/microseconds",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/kamicane/microseconds"
+    ],
+    "devDependencies": {
+        "@types/microseconds": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

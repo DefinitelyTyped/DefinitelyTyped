@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/casperjs",
+    "version": "1.1.9999",
+    "projects": [
+        "http://casperjs.org/"
+    ],
+    "dependencies": {
+        "@types/phantomjs": "*"
+    },
+    "devDependencies": {
+        "@types/casperjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Uriel Chemouni",
+            "githubUsername": "urielch"
+        }
+    ]
+}

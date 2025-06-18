@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mersennetwister",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/pigulla/mersennetwister#readme"
+    ],
+    "devDependencies": {
+        "@types/mersennetwister": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klemen Slavič",
+            "githubUsername": "krofdrakula"
+        }
+    ]
+}

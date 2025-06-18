@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/markup-js",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/adammark/Markup.js"
+    ],
+    "devDependencies": {
+        "@types/markup-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eden Zimbelman",
+            "githubUsername": "zimeg"
+        }
+    ]
+}

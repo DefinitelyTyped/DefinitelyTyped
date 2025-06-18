@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/file-manager",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-file-manager#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/file-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "repository",
+            "githubUsername": "repository"
+        },
+        {
+            "name": "Joshua Jeschek",
+            "githubUsername": "joshuajeschek"
+        }
+    ]
+}

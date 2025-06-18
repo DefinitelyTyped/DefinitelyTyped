@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": []
+    },
+    "files": [
+        "connect-mongodb-session-tests.ts",
+        "index.d.ts"
+    ]
+}

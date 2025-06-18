@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ssri",
+    "version": "7.1.9999",
+    "projects": [
+        "https://github.com/zkat/ssri"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ssri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeow Li Huan",
+            "githubUsername": "huan086"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

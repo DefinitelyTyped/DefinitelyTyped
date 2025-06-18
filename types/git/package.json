@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/git",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/christkv/node-git"
+    ],
+    "devDependencies": {
+        "@types/git": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

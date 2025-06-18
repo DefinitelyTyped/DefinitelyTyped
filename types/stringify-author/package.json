@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/stringify-author",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/stringify-author"
+    ],
+    "dependencies": {
+        "@types/parse-author": "*"
+    },
+    "devDependencies": {
+        "@types/stringify-author": "workspace:."
+    },
+    "owners": []
+}

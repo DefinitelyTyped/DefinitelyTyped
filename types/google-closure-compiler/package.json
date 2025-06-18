@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/google-closure-compiler",
+    "version": "20231112.0.9999",
+    "projects": [
+        "https://github.com/chadkillingsworth/closure-compiler-npm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/grunt": "*",
+        "@types/google-closure-compiler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Martin",
+            "githubUsername": "evmar"
+        },
+        {
+            "name": "Danielle Church",
+            "githubUsername": "dmchurch"
+        }
+    ]
+}

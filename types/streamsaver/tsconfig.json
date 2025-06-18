@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "streamsaver-tests.ts"
+    ]
+}

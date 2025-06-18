@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jasmine-fixture",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/searls/jasmine-fixture"
+    ],
+    "dependencies": {
+        "@types/jasmine": "*"
+    },
+    "devDependencies": {
+        "@types/jasmine-fixture": "workspace:.",
+        "@types/jasmine-jquery": "*",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Craig Brett",
+            "githubUsername": "craigbrett17"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-html",
+    "version": "3.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/i-like-robots/chai-html"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex",
+            "githubUsername": "adjerbetian"
+        }
+    ]
+}

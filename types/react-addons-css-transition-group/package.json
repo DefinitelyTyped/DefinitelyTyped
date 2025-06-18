@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-addons-css-transition-group",
+    "version": "15.0.9999",
+    "projects": [
+        "http://facebook.github.io/react/"
+    ],
+    "dependencies": {
+        "@types/react": "^15",
+        "@types/react-addons-transition-group": "*"
+    },
+    "devDependencies": {
+        "@types/react-addons-css-transition-group": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        }
+    ]
+}

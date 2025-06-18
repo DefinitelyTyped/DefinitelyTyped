@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/dom-speech-recognition",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-speech-recognition-browser",
+    "projects": [
+        "https://wicg.github.io/speech-api/"
+    ],
+    "devDependencies": {
+        "@types/dom-speech-recognition": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradford Smith",
+            "githubUsername": "brad4d"
+        },
+        {
+            "name": "Ben Lickly",
+            "githubUsername": "blickly"
+        },
+        {
+            "name": "James Wright",
+            "githubUsername": "12wrigja"
+        }
+    ]
+}

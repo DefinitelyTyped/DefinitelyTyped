@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/promptly",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/IndigoUnited/node-promptly"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/promptly": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Spencer",
+            "githubUsername": "danrspencer"
+        },
+        {
+            "name": "Alex Ilyaev",
+            "githubUsername": "alexilyaev"
+        }
+    ]
+}

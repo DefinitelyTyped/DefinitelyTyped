@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/google.fonts",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Fonts API",
+    "projects": [
+        "https://developers.google.com/fonts/"
+    ],
+    "devDependencies": {
+        "@types/google.fonts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Marshall",
+            "githubUsername": "danmarshall"
+        }
+    ]
+}

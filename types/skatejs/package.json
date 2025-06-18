@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/skatejs",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/skatejs/skatejs"
+    ],
+    "devDependencies": {
+        "@types/skatejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Hochel",
+            "githubUsername": "Hotell"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/sparql-http-client",
+    "version": "3.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/bergos/sparql-http-client"
+    ],
+    "dependencies": {
+        "@types/rdfjs__environment": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/sparql-http-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Ludovic Muller",
+            "githubUsername": "ludovicm67"
+        }
+    ]
+}

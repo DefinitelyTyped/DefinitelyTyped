@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/babel__helper-plugin-utils",
+    "version": "7.10.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/main/packages/babel-helper-plugin-utils",
+        "https://babeljs.io/"
+    ],
+    "dependencies": {
+        "@types/babel__core": "*"
+    },
+    "devDependencies": {
+        "@types/babel__helper-plugin-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

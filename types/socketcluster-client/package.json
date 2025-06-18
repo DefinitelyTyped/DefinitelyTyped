@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/socketcluster-client",
+    "version": "19.1.9999",
+    "projects": [
+        "https://github.com/SocketCluster/socketcluster-client",
+        "http://socketcluster.io"
+    ],
+    "dependencies": {
+        "@types/ag-channel": "*",
+        "@types/async-stream-emitter": "*",
+        "@types/consumable-stream": "*",
+        "@types/sc-errors": "*",
+        "@types/socketcluster-server": "*",
+        "@types/stream-demux": "*",
+        "@types/writable-consumable-stream": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/socketcluster-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

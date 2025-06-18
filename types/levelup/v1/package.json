@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/levelup",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Level/levelup"
+    ],
+    "dependencies": {
+        "@types/leveldown": "^1",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/levelup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bret Little",
+            "githubUsername": "blittle"
+        },
+        {
+            "name": "Thiago de Arruda",
+            "githubUsername": "tarruda"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.tinyscrollbar",
+    "version": "1.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.tinyscrollbar",
+    "projects": [
+        "http://baijs.nl/tinyscrollbar/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.tinyscrollbar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christiaan Rakowski",
+            "githubUsername": "csrakowski"
+        }
+    ]
+}

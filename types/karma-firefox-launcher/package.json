@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-firefox-launcher",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/karma-runner/karma-firefox-launcher#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-firefox-launcher": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

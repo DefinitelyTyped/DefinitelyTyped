@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/auto-launch",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/Teamwork/node-auto-launch",
+        "https://github.com/4ver/node-auto-launch"
+    ],
+    "devDependencies": {
+        "@types/auto-launch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        }
+    ]
+}

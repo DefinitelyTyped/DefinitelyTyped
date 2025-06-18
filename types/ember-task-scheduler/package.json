@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ember-task-scheduler",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/BBVAEngineering/ember-task-scheduler"
+    ],
+    "dependencies": {
+        "@types/ember__service": "*"
+    },
+    "devDependencies": {
+        "@types/ember-task-scheduler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "golovkoe",
+            "githubUsername": "elenagolovko"
+        }
+    ]
+}

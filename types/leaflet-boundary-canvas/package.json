@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/leaflet-boundary-canvas",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ttungbmt/leaflet-boundary-canvas#readme"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-boundary-canvas": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TurtIeSocks",
+            "githubUsername": "TurtIeSocks"
+        }
+    ]
+}

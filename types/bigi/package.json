@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bigi",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/cryptocoinjs/bigi#readme"
+    ],
+    "devDependencies": {
+        "@types/bigi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

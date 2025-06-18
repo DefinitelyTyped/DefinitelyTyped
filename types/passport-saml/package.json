@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/passport-saml",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/bergie/passport-saml"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/passport-saml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Barth",
+            "githubUsername": "cjbarth"
+        },
+        {
+            "name": "Damian Assennato",
+            "githubUsername": "dassennato"
+        },
+        {
+            "name": "Karol Samborski",
+            "githubUsername": "ksamborski"
+        },
+        {
+            "name": "Jose Colella",
+            "githubUsername": "josecolella"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "ESNext"
+        ],
+        "target": "ESNext",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "regenerator-runtime-tests.ts",
+        "index.d.ts"
+    ]
+}

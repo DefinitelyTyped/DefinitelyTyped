@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xml-parser",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/segmentio/xml-parser"
+    ],
+    "devDependencies": {
+        "@types/xml-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Frantz",
+            "githubUsername": "mhfrantz"
+        }
+    ]
+}

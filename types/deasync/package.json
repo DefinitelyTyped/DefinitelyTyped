@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/deasync",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/abbr/deasync"
+    ],
+    "devDependencies": {
+        "@types/deasync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Rollins",
+            "githubUsername": "Sicilica"
+        }
+    ]
+}

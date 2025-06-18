@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/parallel-transform",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/mafintosh/parallel-transform"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/parallel-transform": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/platform",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/bestiejs/platform.js"
+    ],
+    "devDependencies": {
+        "@types/platform": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jake Hickman",
+            "githubUsername": "JakeH"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

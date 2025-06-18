@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-wav",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/andreasgal/node-wav"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-wav": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jameswilddev",
+            "githubUsername": "jameswilddev"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webpack-concat-plugin",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/hxlniada/webpack-concat-plugin"
+    ],
+    "dependencies": {
+        "@types/uglify-js": "*",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-concat-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

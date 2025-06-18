@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.tagsmanager",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.tagsmanager",
+    "projects": [
+        "http://welldonethings.com/tags/manager"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.tagsmanager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        }
+    ]
+}

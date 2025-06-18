@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/devexpress-web",
+    "version": "162.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "devexpress-web",
+    "projects": [
+        "http://devexpress.com/"
+    ],
+    "devDependencies": {
+        "@types/devexpress-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DevExpress Inc.",
+            "url": "http://devexpress.com/"
+        }
+    ]
+}

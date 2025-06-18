@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-unit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mattdesl/parse-unit"
+    ],
+    "devDependencies": {
+        "@types/parse-unit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

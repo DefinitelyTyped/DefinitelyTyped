@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/google.geolocation",
+    "version": "0.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google.geolocation",
+    "projects": [
+        "https://code.google.com/p/geo-location-javascript/"
+    ],
+    "devDependencies": {
+        "@types/google.geolocation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        }
+    ]
+}

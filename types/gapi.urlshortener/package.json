@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.urlshortener",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.urlshortener",
+    "projects": [
+        "https://developers.google.com/url-shortener/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.urlshortener": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank M",
+            "githubUsername": "sgtfrankieboy"
+        }
+    ]
+}

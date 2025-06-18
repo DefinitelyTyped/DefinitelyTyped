@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/super-number",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/segandiaye/super-number#readme"
+    ],
+    "devDependencies": {
+        "@types/super-number": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/evaporate",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/TTLabs/EvaporateJS"
+    ],
+    "devDependencies": {
+        "@types/evaporate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Kuklewicz",
+            "githubUsername": "kookster"
+        }
+    ]
+}

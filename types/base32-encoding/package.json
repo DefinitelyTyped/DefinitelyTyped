@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/base32-encoding",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/base32-encoding#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/base32-encoding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

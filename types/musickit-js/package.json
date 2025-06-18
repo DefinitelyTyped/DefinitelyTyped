@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/musickit-js",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "musickit-js",
+    "projects": [
+        "https://developer.apple.com/documentation/musickitjs"
+    ],
+    "devDependencies": {
+        "@types/musickit-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Devid Farinelli",
+            "githubUsername": "misterdev"
+        }
+    ]
+}

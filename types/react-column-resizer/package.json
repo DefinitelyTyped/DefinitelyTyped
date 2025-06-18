@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-column-resizer",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/nik-m2/react-column-resizer#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-column-resizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ibrahim",
+            "githubUsername": "ibrahim-13"
+        }
+    ]
+}

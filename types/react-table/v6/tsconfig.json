@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-table-tests.tsx",
+        "test/select-table-tests.tsx",
+        "test/tree-table-tests.tsx"
+    ]
+}

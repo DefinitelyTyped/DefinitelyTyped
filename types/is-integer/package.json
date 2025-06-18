@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-integer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/parshap/js-is-integer#readme"
+    ],
+    "devDependencies": {
+        "@types/is-integer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/bitwise-xor",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/czzarr/node-bitwise-xor"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bitwise-xor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

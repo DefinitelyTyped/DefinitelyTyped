@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-onclickoutside",
+    "version": "6.7.9999",
+    "projects": [
+        "https://github.com/Pomax/react-onclickoutside"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-onclickoutside": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        },
+        {
+            "name": "Boris Sergeyev",
+            "githubUsername": "surgeboris"
+        },
+        {
+            "name": "Thomas Levy",
+            "githubUsername": "NilSet"
+        }
+    ]
+}

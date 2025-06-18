@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "all.d.ts",
+        "bundled/culori.d.cts",
+        "css.d.ts",
+        "fn.d.ts",
+        "index.d.ts",
+        "require.d.ts",
+        "src/bootstrap/all.d.ts",
+        "src/bootstrap/css.d.ts",
+        "src/index.d.ts",
+        "src/index-fn.d.ts",
+
+        "test/all.test.ts",
+        "test/average.test.ts",
+        "test/blend.test.ts",
+        "test/cjs.test.cts",
+        "test/cjs.test.ts",
+        "test/clamp.test.ts",
+        "test/colorsNamed.test.ts",
+        "test/common.test.ts",
+        "test/converter.test.ts",
+        "test/convertLrgbToRgb.test.ts",
+        "test/css.test.ts",
+        "test/filterBrightness.test.ts",
+        "test/fn.test.ts",
+        "test/formatCss.test.ts",
+        "test/formatRgb.test.ts",
+        "test/mapper.test.ts",
+        "test/random.test.ts",
+        "test/useMode.test.ts"
+    ]
+}

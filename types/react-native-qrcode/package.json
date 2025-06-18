@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-qrcode",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/cssivision/react-native-qrcode"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-qrcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        }
+    ]
+}

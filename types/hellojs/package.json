@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/hellojs",
+    "version": "1.19.9999",
+    "projects": [
+        "https://adodson.com/hello.js"
+    ],
+    "devDependencies": {
+        "@types/hellojs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pavel Zika",
+            "githubUsername": "PavelPZ"
+        },
+        {
+            "name": "Mikko Vuorinen",
+            "githubUsername": "vuorinem"
+        },
+        {
+            "name": "Vincent Biret",
+            "githubUsername": "baywet"
+        },
+        {
+            "name": "Batuhan Wilhelm",
+            "githubUsername": "batuhanw"
+        }
+    ]
+}

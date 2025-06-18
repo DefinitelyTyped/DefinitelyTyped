@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rasa-webchat",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/botfront/rasa-webchat"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/rasa-webchat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Weiqiu Zheng",
+            "githubUsername": "nygmaaa"
+        }
+    ]
+}

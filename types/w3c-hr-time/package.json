@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/w3c-hr-time",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jsdom/w3c-hr-time"
+    ],
+    "devDependencies": {
+        "@types/w3c-hr-time": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timothy Gu",
+            "githubUsername": "TimothyGu"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ngeohash",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/sunng87/node-geohash"
+    ],
+    "devDependencies": {
+        "@types/ngeohash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Erik Rothoff Andersson",
+            "githubUsername": "erkie"
+        }
+    ]
+}

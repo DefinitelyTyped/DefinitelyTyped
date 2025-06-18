@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ag-request",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/ag-request#readme"
+    ],
+    "devDependencies": {
+        "@types/ag-request": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

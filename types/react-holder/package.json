@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-holder",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Moeriki/react-holder"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-holder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Isman Usoh",
+            "githubUsername": "isman-usoh"
+        }
+    ]
+}

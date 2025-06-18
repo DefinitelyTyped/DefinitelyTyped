@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pathfinding",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/qiao/PathFinding.js"
+    ],
+    "devDependencies": {
+        "@types/pathfinding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hartley Robertson",
+            "githubUsername": "hartleyrobertson"
+        }
+    ]
+}

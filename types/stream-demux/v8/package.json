@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/stream-demux",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/SocketCluster/stream-demux"
+    ],
+    "dependencies": {
+        "@types/consumable-stream": "^2",
+        "@types/writable-consumable-stream": "^3"
+    },
+    "devDependencies": {
+        "@types/stream-demux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

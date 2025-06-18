@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/needle",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/tomas/needle"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/needle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "San Chen",
+            "githubUsername": "bigsan"
+        },
+        {
+            "name": "Niklas Mollenhauer",
+            "githubUsername": "nikeee"
+        },
+        {
+            "name": "Matanel Sindilevich",
+            "githubUsername": "sindilevich"
+        },
+        {
+            "name": "Bryan Spears",
+            "githubUsername": "bryanspears"
+        }
+    ]
+}

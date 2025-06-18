@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/google-ads-scripts",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google-ads-scripts",
+    "projects": [
+        "https://developers.google.com/google-ads/scripts"
+    ],
+    "dependencies": {
+        "@types/google-apps-script": "*"
+    },
+    "devDependencies": {
+        "@types/google-ads-scripts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JJPell",
+            "githubUsername": "JJPell"
+        }
+    ]
+}

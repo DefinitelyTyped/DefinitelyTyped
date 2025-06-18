@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "strict": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ember__string-tests.ts"
+    ]
+}

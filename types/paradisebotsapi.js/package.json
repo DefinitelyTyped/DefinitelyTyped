@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/paradisebotsapi.js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ParadiseBotList/paradisebotsapi.js#readme"
+    ],
+    "devDependencies": {
+        "@types/paradisebotsapi.js": "workspace:."
+    },
+    "owners": []
+}

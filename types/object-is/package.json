@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-is",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/es-shims/object-is#readme"
+    ],
+    "devDependencies": {
+        "@types/object-is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

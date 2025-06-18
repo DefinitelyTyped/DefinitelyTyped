@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/zipcodes",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/davglass/zipcodes#readme"
+    ],
+    "devDependencies": {
+        "@types/zipcodes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brayden Lopez",
+            "githubUsername": "headdetect"
+        },
+        {
+            "name": "Dobes Vandermeer",
+            "githubUsername": "dobesv"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/postcss-sorting",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/hudochenkov/postcss-sorting"
+    ],
+    "dependencies": {
+        "postcss": "^8.4.20"
+    },
+    "devDependencies": {
+        "@types/postcss-sorting": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

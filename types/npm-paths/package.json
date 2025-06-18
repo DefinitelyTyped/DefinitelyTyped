@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/npm-paths",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/npm-paths"
+    ],
+    "devDependencies": {
+        "@types/npm-paths": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

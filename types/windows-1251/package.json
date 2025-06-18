@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/windows-1251",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/windows-1251"
+    ],
+    "devDependencies": {
+        "@types/windows-1251": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "RomanGolovanov",
+            "githubUsername": "RomanGolovanov"
+        }
+    ]
+}

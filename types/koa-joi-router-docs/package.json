@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-joi-router-docs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/o2team/koa-joi-router-docs#readme"
+    ],
+    "dependencies": {
+        "@types/koa-joi-router": "*"
+    },
+    "devDependencies": {
+        "@types/koa": "*",
+        "@types/koa-joi-router-docs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "4doge",
+            "githubUsername": "4doge"
+        }
+    ]
+}

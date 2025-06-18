@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "es2020.intl",
+            "esnext.asynciterable",
+            "dom",
+            "dom.asynciterable"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "dom-chromium-ai-tests.ts"
+    ]
+}

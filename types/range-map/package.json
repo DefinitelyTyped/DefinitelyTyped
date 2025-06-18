@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/range-map",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ashleymarkfletcher/range-map#readme"
+    ],
+    "devDependencies": {
+        "@types/range-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dallin Skinner",
+            "githubUsername": "dallinskinner"
+        }
+    ]
+}

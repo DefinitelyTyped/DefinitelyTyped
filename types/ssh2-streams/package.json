@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/ssh2-streams",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mscdex/ssh2-streams"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ssh2-streams": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ron Buckton",
+            "githubUsername": "rbuckton"
+        },
+        {
+            "name": "Leo Toneff",
+            "githubUsername": "bragle"
+        }
+    ]
+}

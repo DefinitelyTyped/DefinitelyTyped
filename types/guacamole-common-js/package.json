@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/guacamole-common-js",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/padarom/guacamole-common-js"
+    ],
+    "devDependencies": {
+        "@types/guacamole-common-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konstantin Simeonov",
+            "githubUsername": "KonstantinSimeonov"
+        },
+        {
+            "name": "Alex Vakrilov",
+            "githubUsername": "vakrilov"
+        },
+        {
+            "name": "Petar Metodiev",
+            "githubUsername": "PetarMetodiev"
+        },
+        {
+            "name": "Jon Sun",
+            "githubUsername": "Talent30"
+        },
+        {
+            "name": "Linh Nguyen",
+            "githubUsername": "linn-gith"
+        }
+    ]
+}

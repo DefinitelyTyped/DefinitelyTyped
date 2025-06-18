@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/iab-vpaid",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "iab-vpaid",
+    "projects": [
+        "https://www.iab.com/guidelines/digital-video-player-ad-interface-definition-vpaid-2-0/"
+    ],
+    "devDependencies": {
+        "@types/iab-vpaid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Angelo Di Pilla",
+            "githubUsername": "dippi"
+        }
+    ]
+}

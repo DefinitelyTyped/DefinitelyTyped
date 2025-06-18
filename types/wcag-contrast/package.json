@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/wcag-contrast",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/tmcw/wcag-contrast"
+    ],
+    "devDependencies": {
+        "@types/wcag-contrast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

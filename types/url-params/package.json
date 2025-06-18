@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/url-params",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AtenDesignGroup/url-params"
+    ],
+    "devDependencies": {
+        "@types/url-params": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Sogl",
+            "githubUsername": "danielsogl"
+        }
+    ]
+}

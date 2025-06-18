@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/path-regex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/regexps/path-regex"
+    ],
+    "devDependencies": {
+        "@types/path-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stegcloak",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/KuroLabs/stegcloak"
+    ],
+    "devDependencies": {
+        "@types/stegcloak": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Will Ockmore",
+            "githubUsername": "ktjd123"
+        }
+    ]
+}

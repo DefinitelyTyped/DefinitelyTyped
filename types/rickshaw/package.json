@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rickshaw",
+    "version": "0.0.9999",
+    "projects": [
+        "http://code.shutterstock.com/rickshaw/"
+    ],
+    "devDependencies": {
+        "@types/rickshaw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Blake Niemyjski",
+            "githubUsername": "niemyjski"
+        }
+    ]
+}

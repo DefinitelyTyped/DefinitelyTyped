@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/google-apps-script",
+    "version": "1.0.9999",
+    "projects": [
+        "https://developers.google.com/apps-script/"
+    ],
+    "devDependencies": {
+        "@types/google-apps-script": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Justin Poehnelt",
+            "githubUsername": "jpoehnelt"
+        },
+        {
+            "name": "Steve Bazyl",
+            "githubUsername": "sqrrrl"
+        },
+        {
+            "name": "Pierrick Voulet",
+            "githubUsername": "PierrickVoulet"
+        },
+        {
+            "name": "Vinay Vyas",
+            "githubUsername": "vinay-google"
+        }
+    ]
+}

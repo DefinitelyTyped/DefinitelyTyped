@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/lerna__collect-updates",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/lerna/lerna/tree/main/utils/collect-updates"
+    ],
+    "dependencies": {
+        "@types/lerna__child-process": "*",
+        "@types/lerna__package": "*",
+        "@types/lerna__package-graph": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/lerna__collect-updates": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "donmahallem",
+            "githubUsername": "donmahallem"
+        }
+    ]
+}

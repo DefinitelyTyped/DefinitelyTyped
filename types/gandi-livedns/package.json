@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/gandi-livedns",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gandi-livedns",
+    "projects": [
+        "http://doc.livedns.gandi.net/"
+    ],
+    "devDependencies": {
+        "@types/gandi-livedns": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xavier Stouder",
+            "githubUsername": "xstoudi"
+        }
+    ]
+}

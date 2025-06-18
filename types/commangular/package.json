@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/commangular",
+    "version": "0.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "commangular",
+    "projects": [
+        "http://commangular.org"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/commangular": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiraash Thawfeek",
+            "githubUsername": "hiraash"
+        }
+    ]
+}

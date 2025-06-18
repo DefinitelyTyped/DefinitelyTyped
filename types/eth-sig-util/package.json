@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eth-sig-util",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/MetaMask/eth-sig-util#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/eth-sig-util": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Kozak",
+            "githubUsername": "quezak"
+        }
+    ]
+}

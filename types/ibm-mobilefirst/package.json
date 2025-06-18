@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ibm-mobilefirst",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ibm-mobilefirst",
+    "projects": [
+        "http://www.ibm.com/software/products/en/mobilefirstfoundation"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/ibm-mobilefirst": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guillermo Ignacio Enriquez Gutierrez",
+            "githubUsername": "nacho4d"
+        }
+    ]
+}

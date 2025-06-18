@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vue-template-es2015-compiler",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/vuejs/vue-template-es2015-compiler#readme"
+    ],
+    "devDependencies": {
+        "@types/vue-template-es2015-compiler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilya Medvedev",
+            "githubUsername": "iam-medvedev"
+        }
+    ]
+}

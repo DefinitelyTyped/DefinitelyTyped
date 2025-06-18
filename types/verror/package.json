@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/verror",
+    "version": "1.10.9999",
+    "projects": [
+        "https://github.com/davepacheco/node-verror"
+    ],
+    "minimumTypeScriptVersion": "4.8",
+    "devDependencies": {
+        "@types/verror": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime Toumi-M",
+            "githubUsername": "max4t"
+        }
+    ]
+}

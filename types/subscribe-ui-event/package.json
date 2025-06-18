@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/subscribe-ui-event",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/yahoo/subscribe-ui-event#readme"
+    ],
+    "devDependencies": {
+        "@types/subscribe-ui-event": "workspace:."
+    },
+    "owners": []
+}

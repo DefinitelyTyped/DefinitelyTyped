@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/throttle-debounce",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/niksy/throttle-debounce"
+    ],
+    "devDependencies": {
+        "@types/throttle-debounce": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marek Buchar",
+            "githubUsername": "czbuchi"
+        },
+        {
+            "name": "Frank Li",
+            "githubUsername": "franklixuefei"
+        },
+        {
+            "name": "Thomas Oddsund",
+            "githubUsername": "oddsund"
+        },
+        {
+            "name": "Seiya",
+            "githubUsername": "seiyab"
+        }
+    ]
+}

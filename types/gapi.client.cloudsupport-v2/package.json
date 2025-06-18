@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.cloudsupport-v2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Cloud Support API v2",
+    "projects": [
+        "https://cloud.google.com/support/docs/apis"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.cloudsupport-v2": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.cloudsupport-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

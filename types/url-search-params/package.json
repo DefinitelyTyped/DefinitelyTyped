@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/url-search-params",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/WebReflection/url-search-params"
+    ],
+    "devDependencies": {
+        "@types/url-search-params": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick",
+            "githubUsername": "nick121212"
+        },
+        {
+            "name": "Neha",
+            "githubUsername": "nrathi"
+        }
+    ]
+}

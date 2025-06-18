@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hex-to-binary",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AVVS/hex-to-binary"
+    ],
+    "devDependencies": {
+        "@types/hex-to-binary": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GeunheeJung",
+            "githubUsername": "geunheejung"
+        }
+    ]
+}

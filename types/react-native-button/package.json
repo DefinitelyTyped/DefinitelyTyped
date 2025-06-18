@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-button",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ide/react-native-button"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-button": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mkchung",
+            "githubUsername": "mkchung"
+        }
+    ]
+}

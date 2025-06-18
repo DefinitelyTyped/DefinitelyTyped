@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/es6-shim",
+    "version": "0.31.9999",
+    "projects": [
+        "https://github.com/paulmillr/es6-shim"
+    ],
+    "devDependencies": {
+        "@types/es6-shim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ron Buckton",
+            "githubUsername": "rbuckton"
+        }
+    ]
+}

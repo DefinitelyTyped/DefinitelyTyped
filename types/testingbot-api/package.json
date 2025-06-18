@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/testingbot-api",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/testingbot/testingbot-api"
+    ],
+    "devDependencies": {
+        "@types/testingbot-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Brust",
+            "githubUsername": "timbru31"
+        }
+    ]
+}

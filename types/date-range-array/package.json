@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/date-range-array",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/davidguttman/date-range-array"
+    ],
+    "devDependencies": {
+        "@types/date-range-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Shively-Sanders",
+            "githubUsername": "sandersn"
+        }
+    ]
+}

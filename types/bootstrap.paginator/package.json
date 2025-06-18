@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/bootstrap.paginator",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "bootstrap.paginator",
+    "projects": [
+        "https://github.com/lyonlai/bootstrap-paginator"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap.paginator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "derikwhittaker",
+            "githubUsername": "derikwhittaker"
+        }
+    ]
+}

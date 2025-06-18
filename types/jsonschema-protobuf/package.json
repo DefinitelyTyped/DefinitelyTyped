@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsonschema-protobuf",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/karissa/jsonschema-protobuf"
+    ],
+    "devDependencies": {
+        "@types/jsonschema-protobuf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mo Kweon",
+            "githubUsername": "kkweon"
+        }
+    ]
+}

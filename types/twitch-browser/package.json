@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/twitch-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "twitch-browser",
+    "projects": [
+        "https://dev.twitch.tv/docs/embed/video-and-clips/"
+    ],
+    "devDependencies": {
+        "@types/twitch-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ignacio Degregori",
+            "githubUsername": "idegre"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/srp",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/mozilla/node-srp"
+    ],
+    "dependencies": {
+        "@types/bignum": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/srp": "workspace:."
+    },
+    "owners": []
+}

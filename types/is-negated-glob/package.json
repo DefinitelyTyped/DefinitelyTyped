@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-negated-glob",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-negated-glob"
+    ],
+    "devDependencies": {
+        "@types/is-negated-glob": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        }
+    ]
+}

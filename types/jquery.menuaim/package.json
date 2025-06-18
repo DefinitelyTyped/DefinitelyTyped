@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.menuaim",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.menuaim",
+    "projects": [
+        "https://github.com/kamens/jQuery-menu-aim"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.menuaim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Fonseca-Ensor",
+            "url": "http://www.robfe.com/"
+        }
+    ]
+}

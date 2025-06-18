@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/windows-script-host",
+    "version": "5.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Windows Script Host",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/9bbdkx3k.aspx"
+    ],
+    "dependencies": {
+        "@types/activex-iwshruntimelibrary": "*"
+    },
+    "devDependencies": {
+        "@types/windows-script-host": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
+}

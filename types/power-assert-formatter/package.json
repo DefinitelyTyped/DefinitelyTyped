@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/power-assert-formatter",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/twada/power-assert-formatter"
+    ],
+    "devDependencies": {
+        "@types/power-assert-formatter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

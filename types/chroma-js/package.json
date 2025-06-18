@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/chroma-js",
+    "version": "3.1.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/gka/chroma.js"
+    ],
+    "devDependencies": {
+        "@types/chroma-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Brückner",
+            "githubUsername": "invliD"
+        },
+        {
+            "name": "Marcin Pacholec",
+            "githubUsername": "mpacholec"
+        },
+        {
+            "name": "Charlie Zhuo",
+            "githubUsername": "CharlieZhuo"
+        }
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./light": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    }
+}

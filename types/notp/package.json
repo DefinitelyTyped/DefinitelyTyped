@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/notp",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/guyht/notp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/notp": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/docdown",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/jdalton/docdown#readme"
+    ],
+    "devDependencies": {
+        "@types/docdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

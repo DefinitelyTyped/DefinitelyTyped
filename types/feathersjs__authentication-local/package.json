@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/feathersjs__authentication-local",
+    "version": "1.0.9999",
+    "projects": [
+        "https://feathersjs.com"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/feathersjs__feathers": "*"
+    },
+    "devDependencies": {
+        "@types/feathersjs__authentication-local": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Lohage",
+            "githubUsername": "j2L4e"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jackrabbit",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/hunterloftis/jackrabbit"
+    ],
+    "dependencies": {
+        "@types/amqplib": "*"
+    },
+    "devDependencies": {
+        "@types/jackrabbit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elvis Adomnica",
+            "githubUsername": "elvisvoer"
+        }
+    ]
+}

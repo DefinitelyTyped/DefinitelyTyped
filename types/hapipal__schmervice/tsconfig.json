@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "target": "ES6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapipal__schmervice-tests.ts",
+        "test/organization_service.ts",
+        "test/user_service.ts"
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es5",
+            "es6"
+        ],
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "url-search-params-tests.ts"
+    ]
+}

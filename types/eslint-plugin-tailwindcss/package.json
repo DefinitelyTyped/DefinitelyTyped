@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-tailwindcss",
+    "version": "3.17.9999",
+    "projects": [
+        "https://github.com/francoismassart/eslint-plugin-tailwindcss"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-tailwindcss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seth Murphy",
+            "githubUsername": "eagerestwolf"
+        }
+    ]
+}

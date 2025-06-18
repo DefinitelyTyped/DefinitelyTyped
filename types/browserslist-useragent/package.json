@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/browserslist-useragent",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/browserslist/browserslist-useragent"
+    ],
+    "devDependencies": {
+        "@types/browserslist-useragent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nju33",
+            "githubUsername": "nju33"
+        }
+    ]
+}

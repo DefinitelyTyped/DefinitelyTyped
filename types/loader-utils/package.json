@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/loader-utils",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/webpack/loader-utils#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/loader-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gyusun Yeom",
+            "githubUsername": "Perlmint"
+        },
+        {
+            "name": "Totooria Hyperion",
+            "githubUsername": "TotooriaHyperion"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Jesse Katsumata",
+            "githubUsername": "Naturalclar"
+        }
+    ]
+}

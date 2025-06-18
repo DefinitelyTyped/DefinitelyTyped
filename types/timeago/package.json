@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/timeago",
+    "version": "1.6.9999",
+    "projects": [
+        "http://timeago.yarp.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/timeago": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christophe Coevoet",
+            "githubUsername": "stof"
+        }
+    ]
+}

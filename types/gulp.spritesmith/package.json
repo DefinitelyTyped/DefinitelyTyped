@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gulp.spritesmith",
+    "version": "6.13.9999",
+    "projects": [
+        "https://github.com/twolfson/gulp.spritesmith"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp.spritesmith": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maiko Tan",
+            "githubUsername": "MaikoTan"
+        }
+    ]
+}

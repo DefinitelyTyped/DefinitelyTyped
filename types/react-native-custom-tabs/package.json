@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-custom-tabs",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/droibit/react-native-custom-tabs"
+    ],
+    "devDependencies": {
+        "@types/react-native-custom-tabs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Phil Nova",
+            "githubUsername": "philnova"
+        }
+    ]
+}

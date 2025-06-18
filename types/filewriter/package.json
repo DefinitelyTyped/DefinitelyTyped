@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/filewriter",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "filewriter",
+    "projects": [
+        "http://www.w3.org/TR/file-writer-api/"
+    ],
+    "devDependencies": {
+        "@types/filewriter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kon",
+            "url": "http://phyzkit.net/"
+        }
+    ]
+}

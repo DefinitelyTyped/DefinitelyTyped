@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/db-stations-autocomplete",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/derhuerst/db-stations-autocomplete"
+    ],
+    "devDependencies": {
+        "@types/db-stations-autocomplete": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Freerk-Ole Zakfeld",
+            "githubUsername": "fzakfeld"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-native-config-reader",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/csath/react-native-config-reader#readme"
+    ],
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-config-reader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mkchung",
+            "githubUsername": "mkchung"
+        }
+    ]
+}

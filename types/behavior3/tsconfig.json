@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "behavior3-tests.ts"
+    ]
+}

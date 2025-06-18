@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.tools",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jQuery TOOLS",
+    "projects": [
+        "https://github.com/jquerytools/jquerytools"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.tools": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

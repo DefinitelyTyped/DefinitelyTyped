@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/activex-opendssengine",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "OpenDSS - Electric Power Distribution System Simulator",
+    "projects": [
+        "https://sourceforge.net/p/electricdss/wiki/Home/",
+        "https://github.com/durs/node-activex"
+    ],
+    "dependencies": {
+        "activex-helpers": "*",
+        "@types/activex-interop": "*"
+    },
+    "devDependencies": {
+        "@types/activex-opendssengine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Poulgrain",
+            "githubUsername": "Michaelp1994"
+        }
+    ]
+}

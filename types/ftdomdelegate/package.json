@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ftdomdelegate",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ftlabs/ftdomdelegate"
+    ],
+    "devDependencies": {
+        "@types/ftdomdelegate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Holm Nielsen",
+            "githubUsername": "dotnetnerd"
+        }
+    ]
+}

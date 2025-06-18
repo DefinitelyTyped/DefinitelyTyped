@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/shot",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/hapijs/shot"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/shot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        }
+    ]
+}

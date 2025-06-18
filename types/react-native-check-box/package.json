@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-check-box",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/crazycodeboy/react-native-check-box#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-check-box": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodolphe Lemasquerier",
+            "githubUsername": "rlemasquerier"
+        }
+    ]
+}

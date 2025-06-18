@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/swagger-ui-react",
+    "version": "5.18.9999",
+    "projects": [
+        "https://github.com/swagger-api/swagger-ui#readme"
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        }
+    },
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/swagger-ui-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "viki.green",
+            "githubUsername": "VictoriaGreen93"
+        },
+        {
+            "name": "afrkorsakow",
+            "githubUsername": "afrkorsakow"
+        },
+        {
+            "name": "David Ulrich",
+            "githubUsername": "davulrich"
+        }
+    ]
+}

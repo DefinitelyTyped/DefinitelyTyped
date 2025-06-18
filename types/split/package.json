@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/split",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dominictarr/split"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/through": "*"
+    },
+    "devDependencies": {
+        "@types/split": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcin Porębski",
+            "githubUsername": "marcinporebski"
+        }
+    ]
+}

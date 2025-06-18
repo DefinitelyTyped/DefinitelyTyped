@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/lodash",
+    "version": "4.17.9999",
+    "projects": [
+        "https://lodash.com"
+    ],
+    "devDependencies": {
+        "@types/lodash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Zengel",
+            "githubUsername": "bczengel"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        },
+        {
+            "name": "AJ Richardson",
+            "githubUsername": "aj-r"
+        },
+        {
+            "name": "e-cloud",
+            "githubUsername": "e-cloud"
+        },
+        {
+            "name": "Jack Moore",
+            "githubUsername": "jtmthf"
+        },
+        {
+            "name": "Dominique Rau",
+            "githubUsername": "DomiR"
+        },
+        {
+            "name": "William Chelman",
+            "githubUsername": "WilliamChelman"
+        }
+    ]
+}
