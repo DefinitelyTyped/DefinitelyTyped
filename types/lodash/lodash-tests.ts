@@ -6650,6 +6650,17 @@ fp.now(); // $ExpectType number
     _.chain(anything).plant({ a: 42 }); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
 }
 
+// _.reverse
+{
+    _.reverse(["a", "b", "c"]); // $ExpectType string[]
+
+    // Test that truly readonly arrays are blocked
+    const readonlyArray: readonly string[] = ["a", "b"];
+    // @ts-expect-error - should fail with readonly arrays
+    _.reverse(readonlyArray);
+
+}
+
 // _.prototype.reverse
 {
     _([42]).reverse(); // $ExpectType Collection<number>

@@ -1150,7 +1150,7 @@ declare module "../index" {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        reverse<TList extends List<any>>(array: TList extends readonly any[] ? never : TList): TList;
+        reverse<TList extends any[]>(array: TList): TList;
     }
     interface LoDashStatic {
         /**
