@@ -145,10 +145,10 @@ declare class CleverTap {
     getSDKVersion: () => string;
     enableLocalStorageEncryption: (value: boolean) => void;
     isLocalStorageEncryptionEnabled: () => boolean;
-    defineFileVariable: (name: string) => any;
-    getVariables: () => any;
-    getVariableValue: (arg: string) => any;
-    getAllQualifiedCampaignDetails: () => any;
+    defineFileVariable: (name: string) => void;
+    getVariables: () => object;
+    getVariableValue: (arg: string) => object;
+    getAllQualifiedCampaignDetails: () => Array<object> | undefined;
 }
 
 export default CleverTap;
