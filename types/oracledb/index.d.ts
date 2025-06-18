@@ -1852,7 +1852,7 @@ declare namespace OracleDB {
         retryCount?: number | undefined;
         /**
          * The number of seconds to wait before making a new connection attempt.
-         * The default value is 0.
+         * The default value is 1. Changed to 1 from 0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
          *
          * @since 6.0
@@ -1868,7 +1868,7 @@ declare namespace OracleDB {
         connectTimeout?: number | undefined;
         /**
          * The maximum number of seconds to wait to establish a connection to the database host.
-         * The default value is 60.0.
+         * The default value is 20.0. Changed to 20.0 from 60.0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
          *
          * @since 6.0
@@ -2802,11 +2802,11 @@ declare namespace OracleDB {
         retryCount?: number | undefined;
         /**
          * The number of seconds to wait before making a new connection attempt.
-         * The default value is 0.
+         * The default value is 1. Changed to 1 from 0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
          *
          * @since 6.0
-         * @default 0
+         * @default 1
          */
         retryDelay?: number | undefined;
         /**
@@ -2818,9 +2818,9 @@ declare namespace OracleDB {
         connectTimeout?: number | undefined;
         /**
          * The maximum number of seconds to wait to establish a connection to the database host.
-         * The default value is 60.0.
+         * The default value is 20.0. Changed to 20.0 from 60.0 in version 6.7
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
-         * @default 60.0
+         * @default 20.0
          * @since 6.0
          */
         transportConnectTimeout?: number | undefined;
