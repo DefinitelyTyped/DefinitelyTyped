@@ -1656,14 +1656,6 @@ import { promisify } from "node:util";
     crypto.webcrypto.CryptoKey.toString();
     // @ts-expect-error
     new crypto.webcrypto.CryptoKey(); // Illegal constructor
-
-    crypto.webcrypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
-        (out) => {
-            out.algorithm; // $ExpectType KeyAlgorithm
-            out.extractable; // $ExpectType boolean
-            out.usages; // $ExpectType KeyUsage[]
-        },
-    );
 }
 
 {
@@ -1697,7 +1689,88 @@ import { promisify } from "node:util";
     subtle.digest("SHA-384", buf); // $ExpectType Promise<ArrayBuffer>
     subtle.exportKey("jwk", key); // $ExpectType Promise<JsonWebKey>
     subtle.importKey("pkcs8", buf, { name: "RSA-PSS", hash: "SHA-1" }, false, []); // $ExpectType Promise<CryptoKey>
-    subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, false, ["deriveKey", "deriveBits"]); // $ExpectType Promise<CryptoKeyPair>
+
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        {
+            name: "RSA-OAEP",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([1, 0, 1]),
+            hash: "SHA-256",
+        },
+        true,
+        ["encrypt", "decrypt"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        {
+            name: Math.random() < 0.5 ? "RSA-PSS" : "RSASSA-PKCS1-v1_5",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([1, 0, 1]),
+            hash: "SHA-256",
+        },
+        false,
+        ["sign", "verify"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        Math.random() < 0.5 ? "Ed25519" : { name: "Ed25519" },
+        false,
+        ["sign", "verify"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        Math.random() < 0.5 ? "Ed448" : { name: "Ed448" },
+        false,
+        ["sign", "verify"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        Math.random() < 0.5 ? "X25519" : { name: "X25519" },
+        false,
+        ["deriveKey", "deriveBits"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        Math.random() < 0.5 ? "X448" : { name: "X448" },
+        false,
+        ["deriveKey", "deriveBits"],
+    );
+    // $ExpectType Promise<CryptoKeyPair>
+    subtle.generateKey(
+        { name: "ECDH", namedCurve: "P-256" },
+        false,
+        ["sign", "verify"],
+    );
+    // $ExpectType Promise<CryptoKey>;
+    subtle.generateKey(
+        {
+            name: Math.random() < 0.5 ? "AES-CBC" : Math.random() < 0.5 ? "AES-CTR" : "AES-GCM",
+            length: 2048,
+        },
+        true,
+        ["encrypt", "decrypt", "wrapKey", "unwrapKey"],
+    );
+    // $ExpectType Promise<CryptoKey>;
+    subtle.generateKey(
+        { name: "AES-KW", length: 2048 },
+        true,
+        ["wrapKey", "unwrapKey"],
+    );
+    // $ExpectType Promise<CryptoKey>;
+    subtle.generateKey(
+        { name: "HMAC", hash: "SHA-1" },
+        true,
+        ["sign", "verify"],
+    );
+    // Fallback
+    // $ExpectType Promise<CryptoKeyPair |CryptoKey>
+    subtle.generateKey(
+        { name: Math.random() < 0.5 ? "AES-KW" : "HMAC", length: 2048 },
+        true,
+        ["wrapKey", "unwrapKey"],
+    );
+
     subtle.sign({ name: "RSA-PSS", saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
     subtle.unwrapKey(
         "raw",
