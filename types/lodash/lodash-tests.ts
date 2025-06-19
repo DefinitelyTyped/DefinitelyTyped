@@ -888,6 +888,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     const array: AbcObject[] = [];
     const list: _.List<AbcObject> = [];
+    const mutableList: _.MutableList<AbcObject> = [];
 
     _.pull(array); // $ExpectType AbcObject[]
     _.pull(array, abcObject); // $ExpectType AbcObject[]
@@ -924,6 +925,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     const array: AbcObject[] = [];
     const list: _.List<AbcObject> = [];
+    const mutableList: _.MutableList<AbcObject> = [];
 
     _.pullAt(array); // $ExpectType AbcObject[]
     _.pullAt(array, 1); // $ExpectType AbcObject[]
@@ -963,6 +965,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     const array: AbcObject[] = anything;
     const list: _.List<AbcObject> = anything;
+    const mutableList: _.MutableList<AbcObject> = [];
     const values: _.List<AbcObject> = anything;
 
     _.pullAll(array); // $ExpectType AbcObject[]
@@ -994,6 +997,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     const array: AbcObject[] = anything;
     const list: _.List<AbcObject> = anything;
+    const mutableList: _.MutableList<AbcObject> = [];
     const values: _.List<AbcObject> = anything;
 
     _.pullAllBy(array); // $ExpectType AbcObject[]
@@ -1176,7 +1180,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.remove
 {
+    const array: AbcObject[] = [];
     const list: _.List<AbcObject> = [];
+    const mutableList: _.MutableList<AbcObject> = [];
+
+    _.remove(array); // $ExpectType AbcObject[]
+    _.remove(array, listIterator); // $ExpectType AbcObject[]
+    _.remove(array, ""); // $ExpectType AbcObject[]
+    _.remove(array, { a: 42 }); // $ExpectType AbcObject[]
 
     _.remove(mutableList); // $ExpectType AbcObject[]
     _.remove(mutableList, listIterator); // $ExpectType AbcObject[]
