@@ -81,9 +81,6 @@ clevertap.notifications.push({
     askAgainTimeInSeconds: 5,
     serviceWorkerPath: "/foo/my_sw.js", // path to your custom service worker file
 });
-clevertap.notifications.enable({
-    swPath: "/foo/my_sw.js", // path to your custom service worker file
-});
 clevertap.renderNotificationClicked({
     msgId: "232",
     kv: 1212,
