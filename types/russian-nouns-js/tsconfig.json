@@ -13,7 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "russian-nouns-js-tests.ts"
+        "index.d.ts"
     ]
 }
