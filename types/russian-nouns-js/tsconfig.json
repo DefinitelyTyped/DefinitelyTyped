@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,7 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "russian-nouns-js-tests.ts"
+        "index.d.ts"
     ]
 }
