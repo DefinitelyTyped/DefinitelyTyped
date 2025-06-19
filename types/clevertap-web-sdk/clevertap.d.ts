@@ -139,7 +139,7 @@ interface Variable {
     value?: VariableValue;
     type: VariableType;
     hadStarted: boolean;
-    valueChangedCallbacks: Function[];
+    valueChangedCallbacks: (() => void)[];
 }
 declare class CleverTap {
     init(accountId: string, region?: Region, targetDomain?: string, token?: string): void;

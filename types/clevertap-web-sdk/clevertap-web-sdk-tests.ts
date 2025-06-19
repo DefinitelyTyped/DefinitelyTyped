@@ -83,15 +83,15 @@ clevertap.notifications.push({
 });
 clevertap.renderNotificationClicked({
     msgId: "232",
-    kv: 1212,
-    msgCTkv: "sdsdsa",
+    kv: {'shop': 'test'},
+    msgCTkv: {'slide_no': 2},
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
 clevertap.renderNotificationViewed({
     msgId: "232",
-    kv: 1212,
-    msgCTkv: "sdsdsa",
+    kv: {'shop': 'test'},
+    msgCTkv: {'slide_no': 2},
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
