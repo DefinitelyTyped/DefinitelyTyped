@@ -1182,6 +1182,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.remove(list, ""); // $ExpectType AbcObject[]
     _.remove(list, { a: 42 }); // $ExpectType AbcObject[]
 
+    // Test mutable arrays work correctly
+    const mutableNumbers = [1, 2, 3, 4];
+    _.remove(mutableNumbers, x => x > 2); // $ExpectType number[]
+
     _(list).remove(); // $ExpectType Collection<AbcObject>
     _(list).remove(listIterator); // $ExpectType Collection<AbcObject>
     _(list).remove(""); // $ExpectType Collection<AbcObject>
@@ -1196,15 +1200,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
     fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
-
-    // @ts-expect-error
-    _.remove(readonlyArray);
-    // @ts-expect-error
-    _.remove(readonlyArray, listIterator);
-    // @ts-expect-error
-    _.remove(readonlyArray, "");
-    // @ts-expect-error
-    _.remove(readonlyArray, { a: 42 });
 }
 
 // _.tail
