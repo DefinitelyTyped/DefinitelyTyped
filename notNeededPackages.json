@@ -2149,6 +2149,10 @@
             "libraryName": "@ffmpeg-installer/ffmpeg",
             "asOfVersion": "1.1.0"
         },
+        "ffmpeg-static": {
+            "libraryName": "ffmpeg-static",
+            "asOfVersion": "5.1.0"
+        },
         "fhir-kit-client": {
             "libraryName": "fhir-kit-client",
             "asOfVersion": "1.6.7"
@@ -2596,6 +2600,10 @@
         "hapi__boom": {
             "libraryName": "@hapi/boom",
             "asOfVersion": "9.0.0"
+        },
+        "hapi__catbox": {
+            "libraryName": "@hapi/catbox",
+            "asOfVersion": "12.1.0"
         },
         "hapi__catbox-memory": {
             "libraryName": "@hapi/catbox-memory",
@@ -3600,6 +3608,10 @@
         "lambda-phi": {
             "libraryName": "lambda-phi",
             "asOfVersion": "1.0.1"
+        },
+        "lang.js": {
+            "libraryName": "lang.js",
+            "asOfVersion": "1.1.13"
         },
         "latest-semver": {
             "libraryName": "latest-semver",
@@ -6887,6 +6899,10 @@
             "libraryName": "spotify-web-api-js",
             "asOfVersion": "0.21.0"
         },
+        "sql-bricks": {
+            "libraryName": "sql-bricks",
+            "asOfVersion": "3.0.0"
+        },
         "sql-formatter": {
             "libraryName": "sql-formatter",
             "asOfVersion": "4.0.1"
@@ -7638,6 +7654,10 @@
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
+        },
+        "vinyl-file": {
+            "libraryName": "vinyl-file",
+            "asOfVersion": "4.1.0"
         },
         "vite-plugin-react-control-statements": {
             "libraryName": "vite-plugin-react-control-statements",

@@ -655,6 +655,12 @@ declare namespace google.accounts {
              * sign-in flow between your website and Google. Defaults to false.
              */
             use_fedcm_for_prompt?: boolean;
+
+            /**
+             * Allow user sign-in button and mediate the
+             * sign-in flow between your website and Google. Defaults to false.
+             */
+            use_fedcm_for_button?: boolean;
         }
 
         interface PromptMomentNotification {

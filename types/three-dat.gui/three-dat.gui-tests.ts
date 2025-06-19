@@ -28,7 +28,7 @@ gui.open();
 }
 {
     // $ExpectType GUI
-    gui.addMaterial("", new THREE.Material());
+    gui.addMaterial("", new THREE.MeshStandardMaterial());
 }
 {
     // $ExpectType GUI
