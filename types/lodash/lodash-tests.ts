@@ -401,9 +401,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     // @ts-expect-error
     _.fill(readonlyArray, abcObject, 0, 10);
 
-    _.fill(mutableList, abcObject); // $ExpectType ArrayLike<AbcObject> || MutableList<AbcObject>
-    _.fill(mutableList, abcObject, 0); // $ExpectType ArrayLike<AbcObject> || MutableList<AbcObject>
-    _.fill(mutableList, abcObject, 0, 10); // $ExpectType ArrayLike<AbcObject> || MutableList<AbcObject>
+    _.fill(mutableList, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
+    _.fill(mutableList, abcObject, 0); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
+    _.fill(mutableList, abcObject, 0, 10); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
 
     _(list).fill(abcObject); // $ExpectType Collection<AbcObject>
     _(list).fill(abcObject, 0); // $ExpectType Collection<AbcObject>
