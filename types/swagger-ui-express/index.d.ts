@@ -13,7 +13,7 @@ export interface SwaggerUiOptions {
     customCss?: string | undefined;
     customCssUrl?: string | undefined;
     customfavIcon?: string | undefined;
-    customJs?: string | undefined;
+    customJs?: string | string[] | undefined;
     customSiteTitle?: string | undefined;
     explorer?: boolean | undefined;
     isExplorer?: boolean | undefined;
@@ -35,7 +35,7 @@ export interface SwaggerUiOptions {
  * @returns an express middleware function that returns the generated HTML page.
  */
 export function setup(
-    swaggerDoc?: JsonObject,
+    swaggerDoc?: JsonObject | null,
     opts?: SwaggerUiOptions,
     options?: SwaggerOptions,
     customCss?: string,

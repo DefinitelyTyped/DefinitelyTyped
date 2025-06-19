@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.136.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -12,7 +12,10 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
    */
   interface ControlVariantApplyAPI {
     /**
-     * Activates the passed variant applicable to the passed control/component.
+     * Activates the passed variant applicable to the passed control/component. If the Variant is not available
+     * and the backend supports lazy loading, a backend request is made to fetch the variant. If the flag standardVariant
+     * is set to true, the standard variant is activated and the variantReference is ignored. In this scenario
+     * the passed element must be the variant management control.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -30,6 +33,10 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
          * Reference to the variant that needs to be activated
          */
         variantReference: string;
+        /**
+         * If set to true, the standard variant is activated and the variantReference is ignored
+         */
+        standardVariant?: boolean;
       }
     ): Promise<any>;
     /**
@@ -113,7 +120,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
    * transport request. It is not a generic utility, but part of the Variantmanament and therefore cannot
    * be used in any other application.
    *
-   * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
+   * @deprecated As of version 1.74. The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
    */
   export default class TransportDialog extends Dialog {
@@ -189,7 +196,7 @@ declare module "sap/ui/fl/transport/TransportDialog" {
   /**
    * Describes the settings that can be provided to the TransportDialog constructor.
    *
-   * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
+   * @deprecated As of version 1.74. The TransportDialog should be used only internally inside the `sap.ui.fl`
    * library.
    */
   export interface $TransportDialogSettings extends $DialogSettings {}
@@ -200,7 +207,10 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 
   import { IShrinkable, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import {
+    IOverflowToolbarContent,
+    IToolbarInteractiveControl,
+  } from "sap/m/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -217,10 +227,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements
-      IShrinkable,
-      IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object
+    implements IShrinkable, IOverflowToolbarContent, IToolbarInteractiveControl
   {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -760,7 +767,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Value of property `headerLevel`
      */
-    getHeaderLevel(): TitleLevel | keyof typeof TitleLevel;
+    getHeaderLevel(): TitleLevel;
     /**
      * Gets current value of property {@link #getInErrorState inErrorState}.
      *
@@ -852,7 +859,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Value of property `titleStyle`
      */
-    getTitleStyle(): TitleLevel | keyof typeof TitleLevel;
+    getTitleStyle(): TitleLevel;
     /**
      * Gets current value of property {@link #getUpdateVariantInURL updateVariantInURL}.
      *
@@ -1584,11 +1591,19 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/Variant": undefined;
 
+    "sap/ui/fl/apply/_internal/flexObjects/VariantChange": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/VariantManagementChange": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/changes/DependencyHandler": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/ExtensionPointState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/UIChangesState": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/communication/FLPAboutInfo": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
 
@@ -1634,6 +1649,8 @@ declare namespace sap {
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
 
+    "sap/ui/fl/descriptorRelated/api/DescriptorChange": undefined;
+
     "sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory": undefined;
 
     "sap/ui/fl/descriptorRelated/api/DescriptorInlineChangeFactory": undefined;
@@ -1662,6 +1679,8 @@ declare namespace sap {
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 
+    "sap/ui/fl/initial/api/InitialFlexAPI": undefined;
+
     "sap/ui/fl/interfaces/BaseLoadConnector": undefined;
 
     "sap/ui/fl/interfaces/Delegate": undefined;
@@ -1687,6 +1706,8 @@ declare namespace sap {
     "sap/ui/fl/variants/context/Component": undefined;
 
     "sap/ui/fl/variants/VariantManagement": undefined;
+
+    "sap/ui/fl/variants/VariantManager": undefined;
 
     "sap/ui/fl/variants/VariantModel": undefined;
 
@@ -1741,6 +1762,8 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/Versions": undefined;
 
     "sap/ui/fl/write/api/AppVariantWriteAPI": undefined;
+
+    "sap/ui/fl/write/api/BusinessNetworkAPI": undefined;
 
     "sap/ui/fl/write/api/ChangesWriteAPI": undefined;
 

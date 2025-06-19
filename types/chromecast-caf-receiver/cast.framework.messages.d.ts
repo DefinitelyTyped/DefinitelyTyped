@@ -925,6 +925,17 @@ export class ResumeSessionRequestData extends RequestData {
 }
 
 /**
+ * Custom data set by the receiver application.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RequestDataCustomData {
+}
+
+/**
  * Media event request data.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.RequestData
  */
@@ -932,11 +943,9 @@ export class RequestData {
     constructor(type: MessageType);
 
     /**
-     * Application-specific data for this request.
-     * It enables the sender and receiver to easily extend the media protocol
-     * without having to use a new namespace with custom messages.
+     * Custom data set by the receiver application.
      */
-    customData?: any;
+    customData?: RequestDataCustomData;
 
     /**
      * Id of the media session that the request applies to.

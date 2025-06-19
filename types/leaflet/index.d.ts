@@ -177,7 +177,7 @@ export function latLng(
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
-    constructor(latlngs: LatLngBoundsLiteral);
+    constructor(latlngs: LatLngExpression[]);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
     pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;
@@ -1779,11 +1779,6 @@ export function gridLayer(options?: GridLayerOptions): GridLayer;
 
 export interface TileLayerOptions extends GridLayerOptions {
     id?: string | undefined;
-    accessToken?: string | undefined;
-    minZoom?: number | undefined;
-    maxZoom?: number | undefined;
-    maxNativeZoom?: number | undefined;
-    minNativeZoom?: number | undefined;
     subdomains?: string | string[] | undefined;
     errorTileUrl?: string | undefined;
     zoomOffset?: number | undefined;
@@ -2491,7 +2486,7 @@ export interface MapOptions {
     wheelPxPerZoomLevel?: number | undefined;
 
     // Touch interaction options
-    tap?: boolean | undefined;
+    tapHold?: boolean | undefined;
     tapTolerance?: number | undefined;
     touchZoom?: Zoom | undefined;
     bounceAtZoomLimits?: boolean | undefined;
@@ -2503,9 +2498,11 @@ export interface ControlOptions {
     position?: ControlPosition | undefined;
 }
 
-export class Control extends Class {
-    static extend<T extends object>(props: T): { new(...args: any[]): T } & typeof Control;
-    constructor(options?: ControlOptions);
+export class Control<Options extends ControlOptions = ControlOptions> extends Class {
+    static extend<T extends object, Options extends ControlOptions = ControlOptions>(
+        props: T,
+    ): { new(...args: any[]): T } & typeof Control<Options>;
+    constructor(options?: Options);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
     getContainer(): HTMLElement | undefined;
@@ -2516,7 +2513,7 @@ export class Control extends Class {
     onAdd?(map: Map): HTMLElement;
     onRemove?(map: Map): void;
 
-    options: ControlOptions;
+    options: Options;
 }
 
 export namespace Control {
@@ -2903,7 +2900,7 @@ export class Map extends Evented {
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
     panBy(offset: PointExpression, options?: PanOptions): this;
-    setMaxBounds(bounds: LatLngBoundsExpression): this;
+    setMaxBounds(bounds?: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
     panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
@@ -2926,7 +2923,7 @@ export class Map extends Evented {
     getPane(pane: string | HTMLElement): HTMLElement | undefined;
     getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
     getContainer(): HTMLElement;
-    whenReady(fn: () => void, context?: any): this;
+    whenReady(fn: (event: { target: Map }) => void, context?: any): this;
 
     // Methods for getting map state
     getCenter(): LatLng;
@@ -2969,7 +2966,7 @@ export class Map extends Evented {
     dragging: Handler;
     keyboard: Handler;
     scrollWheelZoom: Handler;
-    tap?: Handler | undefined;
+    tapHold?: Handler | undefined;
     touchZoom: Handler;
     zoomControl: Control.Zoom;
 

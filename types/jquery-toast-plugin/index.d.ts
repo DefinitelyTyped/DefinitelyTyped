@@ -1,11 +1,11 @@
 /// <reference types="jquery"/>
 
 interface JQueryStatic {
-    toast(options: toastOptions): void;
+    toast(options: string | readonly string[] | toastOptions): void;
 }
 
 interface toastOptions {
-    text: string;
+    text: string | readonly string[];
     heading?: string | undefined;
     showHideTransition?: "fade" | "slide" | "plain" | undefined;
     allowToastClose?: boolean | undefined;

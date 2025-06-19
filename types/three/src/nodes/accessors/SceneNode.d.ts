@@ -12,9 +12,11 @@ declare class SceneNode extends Node {
 
     static BACKGROUND_BLURRINESS: "backgroundBlurriness";
     static BACKGROUND_INTENSITY: "backgroundIntensity";
+    static BACKGROUND_ROTATION: "backgroundRotation";
 }
 
 export default SceneNode;
 
 export const backgroundBlurriness: ShaderNodeObject<SceneNode>;
 export const backgroundIntensity: ShaderNodeObject<SceneNode>;
+export const backgroundRotation: ShaderNodeObject<SceneNode>;

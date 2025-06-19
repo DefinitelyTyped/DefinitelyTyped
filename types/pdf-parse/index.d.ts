@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export = PdfParse;
 
 declare function PdfParse(dataBuffer: Buffer, options?: PdfParse.Options): Promise<PdfParse.Result>;
@@ -13,7 +15,7 @@ declare namespace PdfParse {
         text: string;
     }
     interface Options {
-        pagerender?: ((pageData: any) => string) | undefined;
+        pagerender?: ((pageData: any) => string | Promise<string>) | undefined;
         max?: number | undefined;
         version?: Version | undefined;
     }

@@ -2,6 +2,8 @@ import fs = require("fs");
 import Sqlite = require("better-sqlite3");
 
 const err = new Sqlite.SqliteError("ok", "ok");
+const code = err.code;
+
 const result: Sqlite.RunResult = { changes: 1, lastInsertRowid: 1 };
 const options: Sqlite.Options = { fileMustExist: true, readonly: true, nativeBinding: "/some/native/binding/path" };
 const registrationOptions: Sqlite.RegistrationOptions = {
@@ -29,12 +31,30 @@ db.table("vtable_parameters", {
         yield { name: name };
     },
 });
-db.function("noop", () => {});
-db.function("noop", {
-    deterministic: true,
-    varargs: true,
-    directOnly: true,
-}, () => {});
+db.function("fn", () => {});
+db.function("fn", (a: number) => a + 123);
+db.function("fn", {}, () => {});
+db.function("fn", {}, (a: number) => a + 123);
+db.function(
+    "fn",
+    {
+        varargs: true,
+        deterministic: true,
+        safeIntegers: true,
+        directOnly: true,
+    },
+    () => {},
+);
+db.function(
+    "fn",
+    {
+        varargs: true,
+        deterministic: true,
+        safeIntegers: true,
+        directOnly: true,
+    },
+    (a: number) => a + 123,
+);
 db.aggregate("add", {
     start: 0,
     step: (t, n) => t + n,

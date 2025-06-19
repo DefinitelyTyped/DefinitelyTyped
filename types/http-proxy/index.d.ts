@@ -45,7 +45,7 @@ declare class Server<TIncomingMessage = http.IncomingMessage, TServerResponse = 
     ): void;
 
     /**
-     * Used for proxying regular HTTP(S) requests
+     * Used for proxying WS(S) requests
      * @param req - Client request.
      * @param socket - Client socket.
      * @param head - Client head.

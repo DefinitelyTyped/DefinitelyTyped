@@ -56,3 +56,11 @@ export type EndOrNext =
         Next?: never;
         End: boolean;
     };
+
+export type QueryLanguage = "JSONPath" | "JSONata";
+
+export interface AssignmentObject {
+    [variableName: string]: JsonValue;
+}
+
+export type JSONataExpression = string | JsonValue;

@@ -3,16 +3,14 @@
     "name": "@types/chrome",
     "version": "0.0.9999",
     "projects": [
-        "http://developer.chrome.com/extensions/"
+        "https://developer.chrome.com/docs/extensions"
     ],
     "dependencies": {
         "@types/filesystem": "*",
         "@types/har-format": "*"
     },
     "devDependencies": {
-        "@types/chrome": "workspace:.",
-        "@types/jquery": "*",
-        "@types/jqueryui": "*"
+        "@types/chrome": "workspace:."
     },
     "owners": [
         {
@@ -48,10 +46,6 @@
             "githubUsername": "bdbai"
         },
         {
-            "name": "pokutuna",
-            "githubUsername": "pokutuna"
-        },
-        {
             "name": "Jason Xian",
             "githubUsername": "JasonXian"
         },
@@ -74,6 +68,10 @@
         {
             "name": "Federico Brigante",
             "githubUsername": "fregante"
+        },
+        {
+            "name": "Erwan Jugand",
+            "githubUsername": "erwanjugand"
         }
     ]
 }

@@ -7,7 +7,7 @@
     "projects": [
         "https://w3c.github.io/mediacapture-transform/"
     ],
-    "minimumTypeScriptVersion": "5.7",
+    "minimumTypeScriptVersion": "5.8",
     "dependencies": {
         "@types/dom-webcodecs": "*"
     },

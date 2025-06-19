@@ -5,7 +5,7 @@ declare class Expression {
     private expression_;
     private variables_;
     private variablesLength_;
-    evaluate(parameters: { [x: string]: number }): number;
+    evaluate(parameters: Record<string, number>): number;
     private extractVariables_;
     variables(): string[];
 }

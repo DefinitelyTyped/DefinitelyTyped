@@ -6,7 +6,7 @@
         "https://github.com/zhm/node-spatialite"
     ],
     "dependencies": {
-        "@types/sqlite3": "*"
+        "@types/sqlite3": "<4"
     },
     "devDependencies": {
         "@types/spatialite": "workspace:."

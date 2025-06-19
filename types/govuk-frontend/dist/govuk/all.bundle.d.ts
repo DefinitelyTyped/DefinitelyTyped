@@ -1,10 +1,14 @@
+import { ConfigurableComponent } from "./common/configuration.js";
 import { version } from "./common/govuk-frontend-version.js";
+import { isSupported } from "./common/index.js";
+import { Component } from "./component.js";
 import { Accordion } from "./components/accordion/accordion.js";
 import { Button } from "./components/button/button.js";
 import { CharacterCount } from "./components/character-count/character-count.js";
 import { Checkboxes } from "./components/checkboxes/checkboxes.js";
 import { ErrorSummary } from "./components/error-summary/error-summary.js";
 import { ExitThisPage } from "./components/exit-this-page/exit-this-page.js";
+import { FileUpload } from "./components/file-upload/file-upload.js";
 import { Header } from "./components/header/header.js";
 import { NotificationBanner } from "./components/notification-banner/notification-banner.js";
 import { PasswordInput } from "./components/password-input/password-input.js";
@@ -21,12 +25,14 @@ declare namespace GOVUKFrontend {
 
 declare const GOVUKFrontend: {
     version: typeof version;
+    isSupported: typeof isSupported;
     Accordion: typeof Accordion;
     Button: typeof Button;
     CharacterCount: typeof CharacterCount;
     Checkboxes: typeof Checkboxes;
     ErrorSummary: typeof ErrorSummary;
     ExitThisPage: typeof ExitThisPage;
+    FileUpload: typeof FileUpload;
     Header: typeof Header;
     NotificationBanner: typeof NotificationBanner;
     PasswordInput: typeof PasswordInput;
@@ -34,6 +40,8 @@ declare const GOVUKFrontend: {
     ServiceNavigation: typeof ServiceNavigation;
     SkipLink: typeof SkipLink;
     Tabs: typeof Tabs;
+    Component: typeof Component;
+    ConfigurableComponent: typeof ConfigurableComponent;
     createAll: typeof createAll;
     initAll: typeof initAll;
 };

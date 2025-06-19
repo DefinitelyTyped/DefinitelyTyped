@@ -1,18 +1,11 @@
 "use strict";
 
-import gitRawCommits from "git-raw-commits";
+import { getRawCommits, getRawCommitsStream, GitOptions } from "git-raw-commits";
 
-declare const execOptions: gitRawCommits.ExecOptions;
-declare const gitOptions: gitRawCommits.GitOptions;
+declare const gitOptions: GitOptions;
+
+// $ExpectType AsyncGenerator<string, void, unknown>
+getRawCommits(gitOptions);
 
 // $ExpectType Readable
-gitRawCommits(gitOptions);
-
-// $ExpectType Readable
-gitRawCommits(gitOptions, execOptions);
-
-// @ts-expect-error
-gitRawCommits();
-
-// @ts-expect-error
-gitRawCommits(execOptions, gitOptions);
+getRawCommitsStream(gitOptions);

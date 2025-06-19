@@ -40,6 +40,7 @@
 /// <reference path = "components/TagEditor.d.ts" />
 /// <reference path = "components/XYPad.d.ts" />
 /// <reference path = "components/Rubberband.d.ts" />
+/// <reference path = "components/MappingEditor.d.ts" />
 
 declare namespace GorillaEngine {
     /**

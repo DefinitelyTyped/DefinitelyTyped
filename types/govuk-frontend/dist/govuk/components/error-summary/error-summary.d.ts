@@ -1,4 +1,4 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Error summary component
@@ -6,7 +6,10 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
  * Takes focus on initialisation for accessible announcement, unless disabled in
  * configuration.
  */
-export class ErrorSummary extends GOVUKFrontendComponent {
+export class ErrorSummary extends ConfigurableComponent<
+    ErrorSummaryConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -16,13 +19,15 @@ export class ErrorSummary extends GOVUKFrontendComponent {
      * Error summary default config
      *
      * @see {@link ErrorSummaryConfig}
+     * @constant
      */
     static defaults: ErrorSummaryConfig;
 
     /**
      * Error summary config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ErrorSummaryConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -33,10 +38,10 @@ export class ErrorSummary extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for error summary
+     * @param {Element | null} $root - HTML element to use for error summary
      * @param {ErrorSummaryConfig} [config] - Error summary config
      */
-    constructor($module: Element | null, config?: ErrorSummaryConfig);
+    constructor($root: Element | null, config?: ErrorSummaryConfig);
 }
 
 /**
@@ -47,5 +52,5 @@ export interface ErrorSummaryConfig {
      * - If set to `true` the error
      * summary will not be focussed when the page loads.
      */
-    disableAutoFocus?: boolean;
+    disableAutoFocus?: boolean | undefined;
 }

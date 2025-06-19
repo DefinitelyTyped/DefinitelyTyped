@@ -217,6 +217,170 @@ import { promisify } from "node:util";
 }
 
 {
+    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createCipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType Buffer<ArrayBufferLike>
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("aes-128-gcm", key, iv);
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, {});
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-gcm", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType Buffer<ArrayBufferLike>
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("aes-128-ocb", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("aes-128-ocb", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType Buffer<ArrayBufferLike>
+        cipher.getAuthTag();
+    }
+
+    {
+        let cipher = crypto.createCipheriv("chacha20-poly1305", key, iv);
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, {});
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, { authTagLength: 16 });
+        cipher = crypto.createCipheriv("chacha20-poly1305", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        // $ExpectType Buffer<ArrayBufferLike>
+        cipher.getAuthTag();
+    }
+
+    let cipher = crypto.createCipheriv("aes-128-ecb", key, iv);
+    cipher = crypto.createCipheriv("aes-128-ecb", key, iv, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .getAuthTag() does not exist
+    cipher.getAuthTag();
+}
+
+{
+    let key: crypto.CipherKey = "" as crypto.CipherKey;
+    let iv: crypto.BinaryLike = "" as crypto.BinaryLike;
+    {
+        let cipher = crypto.createDecipheriv("aes-128-ccm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-ccm", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("aes-128-gcm", key, iv);
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, {});
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-gcm", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("aes-128-ocb", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("aes-128-ocb", key, iv, {
+            authTagLength: 16,
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    {
+        let cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv);
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, {});
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, { authTagLength: 16 });
+        cipher = crypto.createDecipheriv("chacha20-poly1305", key, iv, {
+            read(size) {
+                // $ExpectType Transform
+                this;
+                // $ExpectType number
+                size;
+            },
+        });
+        cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+        cipher.setAuthTag(Buffer.from([]));
+    }
+
+    let cipher = crypto.createDecipheriv("aes-128-ecb", key, iv);
+    cipher = crypto.createDecipheriv("aes-128-ecb", key, iv, {
+        read(size) {
+            // $ExpectType Transform
+            this;
+            // $ExpectType number
+            size;
+        },
+    });
+    // @ts-expect-error - .setAAD() does not exist
+    cipher = cipher.setAAD(Buffer.from([]), { plaintextLength: 0 });
+    // @ts-expect-error - .setAuthTag() does not exist
+    cipher.setAuthTag(Buffer.from([]));
+}
+
+{
     // crypto_timingsafeequal_buffer_test
     const buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
     const buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
@@ -928,6 +1092,11 @@ import { promisify } from "node:util";
     const sharedSecret1 = crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject2 });
     const sharedSecret2 = crypto.diffieHellman({ privateKey: privateKeyObject2, publicKey: publicKeyObject1 });
     assert.equal(sharedSecret1, sharedSecret2);
+
+    crypto.diffieHellman({ privateKey: privateKeyObject1, publicKey: publicKeyObject1 }, (err, secret) => {
+        err; // $ExpectType Error | null
+        secret; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
 }
 
 {
@@ -1011,6 +1180,12 @@ import { promisify } from "node:util";
 
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
+
+    const bufS: Buffer = crypto.publicEncrypt(key, "hello");
+    const decS: Buffer = crypto.publicDecrypt(key, bufS);
+
+    const bufPS: Buffer = crypto.privateEncrypt(key, "hello");
+    const decpS: Buffer = crypto.privateDecrypt(key, bufPS);
 }
 
 // crypto.randomInt
@@ -1256,7 +1431,9 @@ import { promisify } from "node:util";
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
+    cert.validFromDate; // $ExpectType Date
     cert.validTo; // $ExpectType string
+    cert.validToDate; // $ExpectType Date
 
     const checkOpts: crypto.X509CheckOptions = {
         multiLabelWildcards: true,
@@ -1538,4 +1715,12 @@ import { promisify } from "node:util";
     );
     subtle.verify({ name: "RSASSA-PKCS1-v1_5" }, key, buf, buf); // $ExpectType Promise<boolean>
     subtle.wrapKey("spki", key, key, { name: "AES-GCM", tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
+}
+
+{
+    let keyObject!: crypto.KeyObject;
+    keyObject.toCryptoKey("EdDSA", true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "EdDSA" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: "SHA-256" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: { name: "SHA-256" } }, true, ["sign"]); // $ExpectType CryptoKey
 }

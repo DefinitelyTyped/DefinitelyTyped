@@ -4,7 +4,7 @@ import { Texture } from "../../textures/Texture.js";
 import { MeshNormalMaterialParameters } from "../MeshNormalMaterial.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
-export interface MeshBasicNodeMaterialParameters extends NodeMaterialParameters, MeshNormalMaterialParameters {
+export interface MeshNormalNodeMaterialParameters extends NodeMaterialParameters, MeshNormalMaterialParameters {
 }
 
 export default class MeshNormalNodeMaterial extends NodeMaterial {
@@ -24,5 +24,5 @@ export default class MeshNormalNodeMaterial extends NodeMaterial {
     wireframeLinewidth: number;
     flatShading: boolean;
 
-    constructor(parameters?: MeshBasicNodeMaterialParameters);
+    constructor(parameters?: MeshNormalNodeMaterialParameters);
 }

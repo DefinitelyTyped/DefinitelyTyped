@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/reactjs/react-transition-group"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/react": "*"
     },
     "devDependencies": {

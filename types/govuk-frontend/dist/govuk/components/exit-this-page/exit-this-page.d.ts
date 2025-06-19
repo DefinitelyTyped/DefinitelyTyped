@@ -1,9 +1,12 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { ConfigurableComponent } from "../../common/configuration.js";
 
 /**
  * Exit this page component
  */
-export class ExitThisPage extends GOVUKFrontendComponent {
+export class ExitThisPage extends ConfigurableComponent<
+    ExitThisPageConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -13,13 +16,15 @@ export class ExitThisPage extends GOVUKFrontendComponent {
      * Exit this page default config
      *
      * @see {@link ExitThisPageConfig}
+     * @constant
      */
     static defaults: ExitThisPageConfig;
 
     /**
      * Exit this page config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<ExitThisPageConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -30,10 +35,10 @@ export class ExitThisPage extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element that wraps the Exit This Page button
+     * @param {Element | null} $root - HTML element that wraps the Exit This Page button
      * @param {ExitThisPageConfig} [config] - Exit This Page config
      */
-    constructor($module: Element | null, config?: ExitThisPageConfig);
+    constructor($root: Element | null, config?: ExitThisPageConfig);
 }
 
 /**

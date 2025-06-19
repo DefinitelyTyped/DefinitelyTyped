@@ -1,5 +1,5 @@
-import { ShaderNodeObject, UniformNode } from "three/tsl";
-import { BoxGeometry, Mesh, NodeMaterial, Vector3 } from "three/webgpu";
+import { ShaderNodeObject } from "three/tsl";
+import { BoxGeometry, Mesh, NodeMaterial, UniformNode, Vector3 } from "three/webgpu";
 
 declare class SkyMesh extends Mesh<BoxGeometry, NodeMaterial> {
     turbidity: ShaderNodeObject<UniformNode<number>>;

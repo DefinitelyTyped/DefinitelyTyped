@@ -2136,7 +2136,7 @@ jQuery.each( objs, function( i ) {
 $.isFunction(function() {});
 ```
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     isFunction(obj: any): obj is Function;
     /**
      * Determines whether its argument represents a JavaScript number.

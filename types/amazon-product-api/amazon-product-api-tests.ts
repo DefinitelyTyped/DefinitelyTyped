@@ -19,7 +19,7 @@ let searchQuery = {
     responseGroup: "ItemAttributes,Offers,Images",
 };
 
-client.itemSearch(searchQuery).then((results) => {
+client.itemSearch(searchQuery)?.then((results) => {
     console.log(getResultCount(results) + " search results");
 }).catch(function(err) {
     console.log(err);
@@ -42,7 +42,7 @@ let lookupQuery = {
     condition: "All",
 };
 
-client.itemLookup(lookupQuery).then((results) => {
+client.itemLookup(lookupQuery)?.then((results) => {
     console.log(getResultCount(results) + " lookup results");
 }).catch(function(err) {
     console.log(err);
@@ -63,7 +63,7 @@ let lookupQueryWithItemIdArray = {
     condition: "All",
 };
 
-client.itemLookup(lookupQueryWithItemIdArray).then((results) => {
+client.itemLookup(lookupQueryWithItemIdArray)?.then((results) => {
     console.log(getResultCount(results) + " lookup results");
 }).catch(function(err) {
     console.log(err);
@@ -75,7 +75,7 @@ let nodeLookupQuery = {
     browseNodeId: "2625373011",
 };
 
-client.browseNodeLookup(nodeLookupQuery).then((results) => {
+client.browseNodeLookup(nodeLookupQuery)?.then((results) => {
     console.log(getResultCount(results) + " node lookup results");
 }).catch(function(err) {
     console.log(err);
@@ -88,6 +88,27 @@ client.browseNodeLookup(nodeLookupQuery, (err, results) => {
     }
 
     console.log(getResultCount(results) + " node lookup results");
+});
+
+// Browse Node Lookup
+
+let similarityLookupQuery = {
+    similarityType: "some type",
+};
+
+client.similarityLookup(similarityLookupQuery)?.then((results) => {
+    console.log(getResultCount(results) + " similarity lookup results");
+}).catch(function(err) {
+    console.log(err);
+});
+
+client.similarityLookup(similarityLookupQuery, (err, results) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(getResultCount(results) + " similarity lookup results");
 });
 
 function getResultCount(results: Object[]) {

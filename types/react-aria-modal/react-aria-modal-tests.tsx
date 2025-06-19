@@ -14,7 +14,9 @@ const DisplacedModal = AriaModal.renderTo("#some-id");
 </DisplacedModal>;
 
 <AriaModal
-    onExit={() => {}}
+    onExit={(event) => {
+        event; // $ExpectType MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>
+    }}
     alert={true}
     focusDialog={true}
     titleText="A top modal"
@@ -55,3 +57,25 @@ const AriaModalOnExitWithKeyboard = (
         }}
     />
 );
+
+// @ts-expect-error -- Can only put `props.titleId` or `props.titleText`, but not both
+<AriaModal titleId="" titleText="" />;
+
+// Can pass options into `props.focusTrapOptions`
+<AriaModal
+    titleId="describedby"
+    focusTrapOptions={{
+        onActivate() {},
+        onPostActivate() {},
+    }}
+/>;
+
+// @ts-expect-error
+// Cannot pass `props.focusTrapOptions.initialFocus`
+// since it is overridden by the library.
+<AriaModal titleId="describedby" focusTrapOptions={{ initialFocus() {} }} />;
+
+// @ts-expect-error
+// Cannot pass `props.focusTrapOptions.escapeDeactivates`
+// since it is overridden by the library.
+<AriaModal titleId="describedby" focusTrapOptions={{ escapeDeactivates() {} }} />;

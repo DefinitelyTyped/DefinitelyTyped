@@ -1,0 +1,33 @@
+{
+    "files": [
+        "index.d.ts",
+        "jsx-dev-runtime.d.ts",
+        "jsx-runtime.d.ts",
+        "test/index.ts",
+        "test/tsx.tsx",
+        "test/cssProperties.tsx",
+        "test/elementAttributes.tsx",
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "ES2020"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "exactOptionalPropertyTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve",
+        "paths": {
+            "react": [
+                "./index.d.ts"
+            ]
+        }
+    }
+}

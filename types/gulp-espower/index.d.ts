@@ -13,6 +13,6 @@ declare namespace espower {
     }
 }
 
-declare var espower: espower.Espower;
+declare const espower: espower.Espower;
 
 export = espower;

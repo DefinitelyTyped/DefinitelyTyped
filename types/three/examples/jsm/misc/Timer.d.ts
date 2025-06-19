@@ -4,8 +4,8 @@
  *
  * - {@link Timer} has an {@link .update()} method that updates its internal state. That makes it possible to call
  *   {@link .getDelta()} and {@link .getElapsed()} multiple times per simulation step without getting different values.
- * - The class uses the Page Visibility API to avoid large time delta values when the app is inactive (e.g. tab switched
- *   or browser hidden).
+ * - The class can make use of the Page Visibility API to avoid large time delta values when the app is inactive (e.g.
+ *   tab switched or browser hidden).
  *
  * @example
  * const timer = new Timer();
@@ -23,6 +23,17 @@
  */
 export class Timer {
     constructor();
+
+    /**
+     * Connects the timer to the given document. Calling this method is not mandatory to use the timer but enables the
+     * usage of the Page Visibility API to avoid large time delta values.
+     */
+    connect(document: Document): void;
+
+    /**
+     * Disconnects the timer from the DOM and also disables the usage of the Page Visibility API.
+     */
+    disconnect(): void;
 
     /**
      * Returns the time delta in seconds.

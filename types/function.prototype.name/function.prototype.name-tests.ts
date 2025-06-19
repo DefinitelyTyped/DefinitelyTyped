@@ -6,6 +6,8 @@ import shim from "function.prototype.name/shim";
 index(function foo() {}); // @ExpectType string
 index(function() {}); // @ExpectType string
 
+type X = ReturnType<typeof impl>; // @ExpectType string
+
 impl.call(function foo() {}); // @ExpectType string
 impl.call(function() {}); // @ExpectType string
 

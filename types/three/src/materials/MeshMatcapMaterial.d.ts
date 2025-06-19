@@ -32,11 +32,6 @@ export class MeshMatcapMaterial extends Material {
     readonly isMeshMatcapMaterial: true;
 
     /**
-     * @default 'MeshMatcapMaterial'
-     */
-    type: string;
-
-    /**
      * @default { 'MATCAP': '' }
      */
     defines: { [key: string]: any };

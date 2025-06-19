@@ -1,39 +1,65 @@
 import * as React from "react";
 
-export interface ModalImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-    /* The small image to display */
+export interface ModalImageProps {
+    /** Optional. `class` for the small preview image. */
+    className?: string | undefined;
+
+    /** Optional. `alt` for the small image and the heading text in Lightbox. */
+    alt?: string | undefined;
+
+    /** `src` for the small preview image. */
     small: string;
 
-    /* The srcset attribute for the small image */
-    smallSrcSet?: string;
+    /** Optional. `srcSet` for the small preview image. */
+    smallSrcSet?: string | undefined;
 
-    /* The medium image to display */
-    medium?: string;
+    /** Optional if `large` is defined. Image shown when zoomed out in Lightbox. */
+    medium?: string | undefined;
 
-    /* The large image to display */
-    large?: string;
+    /**	Optional if `medium` is defined. Image shown when zoomed in Lightbox. Downloadable. */
+    large?: string | undefined;
 
-    /* The alt tag for the image */
-    alt?: string;
+    /** Optional. Set to `true` to hide download-button from the Lightbox. */
+    hideDownload?: boolean | undefined;
 
-    /* Should the download button be hidden? */
-    hideDownload?: boolean;
+    /** Optional. Set to `true` to hide zoom-button from the Lightbox. */
+    hideZoom?: boolean | undefined;
 
-    /* Should the zoom button be hidden? */
-    hideZoom?: boolean;
+    /** Optional. Set to `true` to show rotate-button within the Lightbox. */
+    showRotate?: boolean | undefined;
 
-    /* Should the rotate button be shown? */
-    showRotate?: boolean;
+    /** Optional. Background color of the image shown in Lightbox. Defaults to black. Handy for transparent images. */
+    imageBackgroundColor?: string | undefined;
+}
 
-    /* The color to display in the background. */
-    imageBackgroundColor?: string;
+export interface LightboxProps {
+    /** Optional if `large` is defined. Image shown when zoomed out in Lightbox. */
+    medium?: string | undefined;
 
-    /* The class name for the modal */
-    className?: string;
+    /**	Optional if `medium` is defined. Image shown when zoomed in Lightbox. Downloadable. */
+    large?: string | undefined;
+
+    /** Optional. `alt` for the small image and the heading text in Lightbox. */
+    alt?: string | undefined;
+
+    /** Will be invoked when the Lightbox requests to be closed. */
+    onClose?: (() => void) | undefined;
+
+    /** Optional. Set to `true` to hide download-button from the Lightbox. */
+    hideDownload?: boolean | undefined;
+
+    /** Optional. Set to `true` to hide zoom-button from the Lightbox. */
+    hideZoom?: boolean | undefined;
+
+    /** Optional. Set to `true` to show rotate-button within the Lightbox. */
+    showRotate?: boolean | undefined;
+
+    /** Optional. Background color of the image shown in Lightbox. Defaults to black. Handy for transparent images. */
+    imageBackgroundColor?: string | undefined;
 }
 
 declare class ModalImage extends React.Component<ModalImageProps> {}
-declare class Lightbox extends React.Component<ModalImageProps> {}
+declare class Lightbox extends React.Component<LightboxProps> {}
 
 export default ModalImage;
 export { Lightbox };

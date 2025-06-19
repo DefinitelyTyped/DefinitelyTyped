@@ -141,7 +141,59 @@ declare module "process" {
                 TZ?: string;
             }
             interface HRTime {
+                /**
+                 * This is the legacy version of {@link process.hrtime.bigint()}
+                 * before bigint was introduced in JavaScript.
+                 *
+                 * The `process.hrtime()` method returns the current high-resolution real time in a `[seconds, nanoseconds]` tuple `Array`,
+                 * where `nanoseconds` is the remaining part of the real time that can't be represented in second precision.
+                 *
+                 * `time` is an optional parameter that must be the result of a previous `process.hrtime()` call to diff with the current time.
+                 * If the parameter passed in is not a tuple `Array`, a TypeError will be thrown.
+                 * Passing in a user-defined array instead of the result of a previous call to `process.hrtime()` will lead to undefined behavior.
+                 *
+                 * These times are relative to an arbitrary time in the past,
+                 * and not related to the time of day and therefore not subject to clock drift.
+                 * The primary use is for measuring performance between intervals:
+                 * ```js
+                 * const { hrtime } = require('node:process');
+                 * const NS_PER_SEC = 1e9;
+                 * const time = hrtime();
+                 * // [ 1800216, 25 ]
+                 *
+                 * setTimeout(() => {
+                 *   const diff = hrtime(time);
+                 *   // [ 1, 552 ]
+                 *
+                 *   console.log(`Benchmark took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds`);
+                 *   // Benchmark took 1000000552 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since 0.7.6
+                 * @legacy Use {@link process.hrtime.bigint()} instead.
+                 * @param time The result of a previous call to `process.hrtime()`
+                 */
                 (time?: [number, number]): [number, number];
+                /**
+                 * The `bigint` version of the {@link process.hrtime()} method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 *
+                 * Unlike {@link process.hrtime()}, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * ```js
+                 * import { hrtime } from 'node:process';
+                 *
+                 * const start = hrtime.bigint();
+                 * // 191051479007711n
+                 *
+                 * setTimeout(() => {
+                 *   const end = hrtime.bigint();
+                 *   // 191052633396993n
+                 *
+                 *   console.log(`Benchmark took ${end - start} nanoseconds`);
+                 *   // Benchmark took 1154389282 nanoseconds
+                 * }, 1000);
+                 * ```
+                 * @since v10.7.0
+                 */
                 bigint(): bigint;
             }
             interface ProcessReport {
@@ -457,6 +509,33 @@ declare module "process" {
                  * @since v0.7.2
                  */
                 debugPort: number;
+                /**
+                 * The `process.dlopen()` method allows dynamically loading shared objects. It is primarily used by `require()` to load C++ Addons, and
+                 * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
+                 * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
+                 *
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v20.x/api/os.html#dlopen-constants)`
+                 * documentation for details.
+                 *
+                 * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
+                 * are then accessible via `module.exports`.
+                 *
+                 * The example below shows how to load a C++ Addon, named `local.node`, that exports a `foo` function. All the symbols are loaded before the call returns, by passing the `RTLD_NOW` constant.
+                 * In this example the constant is assumed to be available.
+                 *
+                 * ```js
+                 * import { dlopen } from 'node:process';
+                 * import { constants } from 'node:os';
+                 * import { fileURLToPath } from 'node:url';
+                 *
+                 * const module = { exports: {} };
+                 * dlopen(module, fileURLToPath(new URL('local.node', import.meta.url)),
+                 *        constants.dlopen.RTLD_NOW);
+                 * module.exports.foo();
+                 * ```
+                 * @since v0.1.16
+                 */
+                dlopen(module: object, filename: string, flags?: number): void;
                 /**
                  * The `process.emitWarning()` method can be used to emit custom or application
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.

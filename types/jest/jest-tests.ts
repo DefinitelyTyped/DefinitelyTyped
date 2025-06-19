@@ -333,8 +333,9 @@ jest.autoMockOff()
     // @ts-expect-error
     .mock<{ animal: string }>("moduleName", () => ({ name: "tom" }))
     .resetModules()
+    .onGenerateMock(() => {})
     .isolateModules(() => {})
-    .retryTimes(3, { logErrorsBeforeRetry: true })
+    .retryTimes(3, { logErrorsBeforeRetry: true, waitBeforeRetry: 100, retryImmediately: true })
     .setMock("moduleName", {})
     .setMock<{}>("moduleName", {})
     .setMock<{ a: "b" }>("moduleName", { a: "b" })
@@ -348,6 +349,9 @@ jest.advanceTimersByTime(9001);
 
 // $ExpectType Promise<void>
 jest.advanceTimersByTimeAsync(9001);
+
+// $ExpectType void
+jest.advanceTimersToNextFrame();
 
 // $ExpectType void
 jest.advanceTimersToNextTimer();
@@ -578,9 +582,6 @@ mock9.mockImplementation((a: number) => Promise.resolve(a === 0));
 
 const createMockFromModule1: {} = jest.createMockFromModule("moduleName");
 const createMockFromModule2: { a: "b" } = jest.createMockFromModule<{ a: "b" }>("moduleName");
-
-const genMockModule1: {} = jest.genMockFromModule("moduleName");
-const genMockModule2: { a: "b" } = jest.genMockFromModule<{ a: "b" }>("moduleName");
 
 const isStringMock: boolean = jest.isMockFunction("foo");
 const isMockMock: boolean = jest.isMockFunction(mock1);
@@ -1158,32 +1159,26 @@ describe("", () => {
         // $ExpectType Promise<void>
         expect(Promise.resolve("")).resolves.toEqual("");
 
-        expect(jest.fn()).lastCalledWith();
-        expect(jest.fn()).lastCalledWith("jest");
-        expect(jest.fn()).lastCalledWith({}, {});
+        expect(jest.fn()).toHaveReturned();
 
-        expect(jest.fn()).lastReturnedWith("jest");
-        expect(jest.fn()).lastReturnedWith({});
-        expect(jest.fn()).lastReturnedWith();
+        expect(jest.fn()).toHaveReturnedWith("jest");
+        expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(1, "jest");
-        expect(jest.fn()).nthCalledWith(2, {});
+        expect(jest.fn()).toHaveReturnedTimes(0);
+        expect(jest.fn()).toHaveReturnedTimes(1);
 
-        expect(jest.fn()).nthReturnedWith(1, "jest");
-        expect(jest.fn()).nthReturnedWith(2, {});
-        expect(jest.fn()).nthReturnedWith(3);
+        expect(jest.fn()).toHaveNthReturnedWith(1, "jest");
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
+
+        expect(jest.fn()).toHaveLastReturnedWith("jest");
+        expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect({}).toBe({});
         expect([]).toBe([]);
         expect(10).toBe(10);
-
-        expect(jest.fn()).toBeCalled();
-
-        expect(jest.fn()).toBeCalledTimes(1);
-
-        expect(jest.fn()).toBeCalledWith();
-        expect(jest.fn()).toBeCalledWith("jest");
-        expect(jest.fn()).toBeCalledWith({}, {});
 
         // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, "two");
@@ -1239,9 +1234,6 @@ describe("", () => {
 
         expect(jest.fn()).toHaveBeenCalled();
 
-        expect(jest.fn()).toHaveBeenCalledTimes(0);
-        expect(jest.fn()).toHaveBeenCalledTimes(1);
-
         expect(jest.fn()).toHaveBeenCalledWith();
         expect(jest.fn()).toHaveBeenCalledWith("jest");
         expect(jest.fn()).toHaveBeenCalledWith({}, {});
@@ -1250,20 +1242,18 @@ describe("", () => {
         expect(jest.fn()).toHaveBeenCalledWith(1, "jest");
         expect(jest.fn()).toHaveBeenCalledWith(2, {}, {});
 
+        expect(jest.fn()).toHaveBeenCalledTimes(0);
+        expect(jest.fn()).toHaveBeenCalledTimes(1);
+
+        expect(jest.fn()).toHaveBeenNthCalledWith(1, "jest");
+        expect(jest.fn()).toHaveBeenNthCalledWith(2, {});
+
         expect(jest.fn()).toHaveBeenLastCalledWith();
         expect(jest.fn()).toHaveBeenLastCalledWith("jest");
         expect(jest.fn()).toHaveBeenLastCalledWith({}, {});
 
-        expect(jest.fn()).toHaveLastReturnedWith("jest");
-        expect(jest.fn()).toHaveLastReturnedWith({});
-        expect(jest.fn()).toHaveLastReturnedWith();
-
         expect([]).toHaveLength(0);
         expect("").toHaveLength(1);
-
-        expect(jest.fn()).toHaveNthReturnedWith(1, "jest");
-        expect(jest.fn()).toHaveNthReturnedWith(2, {});
-        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty("property");
         expect({}).toHaveProperty("property", {});
@@ -1273,15 +1263,6 @@ describe("", () => {
         expect({}).toHaveProperty(["property", "deep"], {});
         expect({}).toHaveProperty(["property", "deep"] as const);
         expect({}).toHaveProperty(["property", "deep"] as const, {});
-
-        expect(jest.fn()).toHaveReturned();
-
-        expect(jest.fn()).toHaveReturnedTimes(0);
-        expect(jest.fn()).toHaveReturnedTimes(1);
-
-        expect(jest.fn()).toHaveReturnedWith("jest");
-        expect(jest.fn()).toHaveReturnedWith({});
-        expect(jest.fn()).toHaveReturnedWith();
 
         expect("").toMatch("");
         expect("").toMatch(/foo/);
@@ -1343,15 +1324,6 @@ describe("", () => {
             functionOne: expect.any(Function),
             bigIntegerOne: expect.any(BigInt),
         });
-
-        expect(jest.fn()).toReturn();
-
-        expect(jest.fn()).toReturnTimes(0);
-        expect(jest.fn()).toReturnTimes(1);
-
-        expect(jest.fn()).toReturnWith("jest");
-        expect(jest.fn()).toReturnWith({});
-        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
@@ -1418,6 +1390,10 @@ describe("", () => {
         expect({}).toBe(expect.arrayContaining(["a", "b"] as const));
         expect(["abc"]).toBe(expect.arrayContaining(["a", "b"] as const));
 
+        expect(["apple", "banana", "cherry"]).toEqual(
+            expect.arrayOf(expect.any(String)),
+        );
+
         expect.objectContaining({});
         expect.stringMatching("foo");
         expect.stringMatching(/foo/);
@@ -1440,6 +1416,9 @@ describe("", () => {
         expect({ bar: "baz" }).toEqual(expect.not.objectContaining({ foo: "bar" }));
         expect(["Alice", "Bob", "Eve"]).toEqual(expect.not.arrayContaining(["Samantha"]));
         expect(["Alice", "Bob", "Eve"]).toEqual(expect.not.arrayContaining(["Samantha"] as const));
+        expect(["apple", 123, "cherry"]).toEqual(
+            expect.not.arrayOf(expect.any(String)),
+        );
 
         /* Miscellaneous */
 
@@ -2000,16 +1979,3 @@ test("import.meta.jest replaces the global jest in ESM", () => {
 
     importMetaJest.fn();
 });
-
-// these are deprecated and will be removed in Jest v30
-expect("abc").toBeCalled();
-expect("abc").toBeCalledTimes(0);
-expect("abc").toBeCalledWith();
-expect("abc").lastCalledWith();
-expect("abc").nthCalledWith(0);
-expect("abc").toReturn();
-expect("abc").toReturnTimes(0);
-expect("abc").toReturnWith();
-expect("abc").lastReturnedWith();
-expect("abc").nthReturnedWith(0);
-expect("abc").toThrowError();

@@ -1332,6 +1332,12 @@ export class EnvelopesApi {
         callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Envelope>;
 
+    getEnvelopeDocGenFormFields(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DocGenFormFieldResponse>;
+
     getEnvelopeDocumentHtmlDefinitions(
         accountId: string,
         envelopeId: string,
@@ -1585,6 +1591,13 @@ export class EnvelopesApi {
         optsOrCallback?: any,
         callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
+
+    updateEnvelopeDocGenFormFields(
+        accountId: string,
+        envelopeId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DocGenFormFieldResponse>;
 
     updateEnvelopeTransferRule(
         accountId: string,
@@ -17756,6 +17769,53 @@ export interface DocumentFieldsInformation {
         | undefined;
 }
 
+export interface DocGenFormFieldOption {
+    description?: string | undefined;
+    label?: string | undefined;
+    selected?: string | undefined;
+    value?: string | undefined;
+}
+
+export interface DocGenFormFieldRowValue {
+    docGenFormFieldList?: DocGenFormField[] | undefined;
+}
+
+export interface DocGenFormFieldValidation {
+    errorMessage?: string | undefined;
+    expression?: string | undefined;
+}
+
+export interface DocGenSytaxError {
+    errorCode?: string | undefined;
+    message?: string | undefined;
+    tagIdentifier?: string | undefined;
+}
+
+export interface DocGenFormField {
+    description?: string | undefined;
+    label?: string | undefined;
+    name?: string | undefined;
+    options?: DocGenFormFieldOption[] | undefined;
+    predefinedValidation?: string | undefined;
+    required?: string | undefined;
+    rowValues?: DocGenFormFieldRowValue[] | undefined;
+    type?: string | undefined;
+    validation?: DocGenFormFieldValidation[] | undefined;
+    value?: string | undefined;
+}
+
+export interface DocGenFormFields {
+    docGenDocumentStatus?: string | undefined;
+    docGenErrors?: DocGenSytaxError[] | undefined;
+    docGenFormFieldList?: DocGenFormField[] | undefined;
+    documentId?: string | undefined;
+}
+
+export interface DocGenFormFieldResponse {
+    docGenFormFields?: DocGenFormFields[] | undefined;
+    errorDetails?: ErrorDetails | undefined;
+}
+
 export interface DocumentHtmlCollapsibleDisplaySettings {
     arrowClosed?: string | undefined;
 
@@ -21538,7 +21598,6 @@ export interface EnvelopeDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -22568,7 +22627,6 @@ export interface EnvelopeRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -39770,8 +39828,7 @@ export interface Tabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    numberTabs?: // eslint-disable-next-line @typescript-eslint/ban-types
-        Number[] | undefined;
+    numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
      */
@@ -40355,7 +40412,6 @@ export interface TemplateDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -40779,7 +40835,6 @@ export interface TemplateRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -41328,7 +41383,6 @@ export interface TemplateTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.

@@ -121,6 +121,7 @@ declare class Blob {
     readonly size: number;
     slice(start?: number, end?: number): Blob;
     text(): Promise<string>;
+    arrayBuffer(): Promise<ArrayBuffer>;
 }
 
 declare class Body {

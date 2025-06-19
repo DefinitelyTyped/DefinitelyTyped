@@ -28,7 +28,7 @@ zarinpal
         if (response.status === -21) {
             console.log("Empty!");
         } else {
-            console.log(`Verified! Ref ID: ${response.RefID}`);
+            console.log(`Verified! Ref ID: ${response.refId}`);
         }
     })
     .catch(err => {

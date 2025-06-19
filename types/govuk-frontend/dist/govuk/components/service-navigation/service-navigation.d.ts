@@ -1,16 +1,16 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { Component } from "../../component.js";
 
 /**
  * Service Navigation component
  */
-export class ServiceNavigation extends GOVUKFrontendComponent {
+export class ServiceNavigation extends Component<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
     static moduleName: string;
 
     /**
-     * @param {Element | null} $module - HTML element to use for header
+     * @param {Element | null} $root - HTML element to use for header
      */
-    constructor($module: Element | null);
+    constructor($root: Element | null);
 }

@@ -1,37 +1,47 @@
-/// <reference lib="es5" />
+/// <reference lib="es6" />
 /// <reference lib="dom" />
+import type { Component } from "svelte";
 
-export default Calendar;
+export function createCalendar(
+    target: Element | Document | ShadowRoot,
+    plugins?: Calendar.Plugin[],
+    options?: Calendar.Options,
+): Calendar;
+export function destroyCalendar(calendar: Calendar): Promise<void>;
 
-declare class Calendar {
-    constructor(options: Calendar.ConstructorOptions);
-    getOption<K extends keyof Calendar.Options>(option: K): Calendar.Options[K];
-    setOption<K extends keyof Calendar.Options>(option: K, value: Calendar.Options[K]): Calendar;
+export const DayGrid: Calendar.Plugin;
+export const Interaction: Calendar.Plugin;
+export const List: Calendar.Plugin;
+export const ResourceTimeGrid: Calendar.Plugin;
+export const ResourceTimeline: Calendar.Plugin;
+export const TimeGrid: Calendar.Plugin;
+
+export const Calendar: Component<{ plugins?: Calendar.Plugin[]; options?: Calendar.Options }>;
+
+export interface Calendar {
+    getOption<K extends keyof Calendar.Options>(name: K): Calendar.Options[K];
+    setOption<K extends keyof Calendar.Options>(name: K, value: Calendar.Options[K]): Calendar;
     addEvent(event: Calendar.Event | Calendar.EventInput): Calendar.Event | null;
     getEventById(id: number | string): Calendar.Event | null;
     getEvents(): Calendar.Event[];
     removeEventById(id: number | string): Calendar;
     updateEvent(event: Calendar.Event | Calendar.EventInput): Calendar;
     refetchEvents(): Calendar;
-    dateFromPoint(clientX: number, clientY: number): Calendar.DateClickInfo | null;
-    destroy(): undefined;
+    dateFromPoint(x: number, y: number): Calendar.DateClickInfo | null;
     getView(): Calendar.View;
     next(): Calendar;
     prev(): Calendar;
     unselect(): Calendar;
 }
 
-declare namespace Calendar {
+export namespace Calendar {
     type Plugin = object;
 
     type DomEvent = GlobalEventHandlersEventMap[keyof GlobalEventHandlersEventMap];
 
-    interface ConstructorOptions {
-        target: HTMLElement;
-        props: {
-            plugins: Plugin[];
-            options: Options;
-        };
+    interface ComponentProps {
+        plugins: Plugin[];
+        options: Options;
     }
 
     type Content = string | { html: string } | { domNodes: Node[] };
@@ -59,6 +69,8 @@ declare namespace Calendar {
         title?: Content;
         eventBackgroundColor?: string;
         eventTextColor?: string;
+        extendedProps?: Record<string, unknown>;
+        children?: ResourceInput[];
     }
 
     interface Resource {
@@ -66,6 +78,7 @@ declare namespace Calendar {
         title: Content;
         eventBackgroundColor: string | undefined;
         eventTextColor: string | undefined;
+        extendedProps: Record<string, unknown>;
     }
 
     type durationHMS = string;
@@ -157,6 +170,13 @@ declare namespace Calendar {
         view: View;
     }
 
+    interface EventFilterInfo {
+        event: Event;
+        index: number;
+        events: Event[];
+        view: View;
+    }
+
     interface EventResizeInfo {
         event: Event;
         oldEvent: Event;
@@ -204,11 +224,15 @@ declare namespace Calendar {
         end: Date;
         startStr: string;
         endStr: string;
+        allDay: boolean;
+        jsEvent: DomEvent;
+        view: View;
         resource: Resource;
     }
 
     interface EventInput {
         id?: number | string;
+        allDay?: boolean;
         start: Date | isoDateTimeString;
         end: Date | isoDateTimeString;
         title?: Content;
@@ -286,6 +310,7 @@ declare namespace Calendar {
         dayMaxEvents?: boolean;
         dayPopoverFormat?: Intl.DateTimeFormatOptions | ((d: Date) => Content);
         displayEventEnd?: boolean;
+        dragConstraint?: (info: EventDropInfo) => boolean;
         dragScroll?: boolean;
         duration?: DurationInput;
         editable?: boolean;
@@ -302,6 +327,7 @@ declare namespace Calendar {
         eventDragStop?: (info: EventDragInfo) => void;
         eventDrop?: (info: EventDropInfo) => void;
         eventDurationEditable?: boolean;
+        eventFilter?: (info: EventFilterInfo) => boolean;
         eventLongPressDelay?: number;
         eventMouseEnter?: (info: MouseEnterInfo) => void;
         eventMouseLeave?: (info: MouseEnterInfo) => void;
@@ -312,6 +338,7 @@ declare namespace Calendar {
         eventStartEditable?: boolean;
         eventTimeFormat?: Intl.DateTimeFormatOptions | ((start: Date, end: Date) => Content);
         eventTextColor?: string;
+        filterEventsWithResources?: boolean;
         filterResourcesWithEvents?: boolean;
         firstDay?: dayOfWeek;
         flexibleSlotTimeLimits?: boolean | { eventFilter: (e: Event) => boolean };
@@ -334,11 +361,13 @@ declare namespace Calendar {
         noEventsContent?: Content | (() => Content);
         nowIndicator?: boolean;
         pointer?: boolean;
+        resizeConstraint?: (info: EventResizeInfo) => boolean;
         resources?: ResourceInput[];
         resourceLabelContent?: Content | ((info: ResourceLabelInfo) => Content);
         resourceLabelDidMount?: (info: ResourceDidMountInfo) => void;
         select?: (info: SelectInfo) => void;
         selectable?: boolean;
+        selectConstraint?: (info: SelectInfo) => boolean;
         selectBackgroundColor?: string;
         selectLongPressDelay?: number;
         selectMinDistance?: number;
@@ -347,6 +376,7 @@ declare namespace Calendar {
         slotEventOverlap?: boolean;
         slotHeight?: number;
         slotLabelFormat?: Intl.DateTimeFormatOptions | ((time: Date) => Content);
+        slotLabelInterval?: DurationInput;
         slotMaxTime?: DurationInput;
         slotMinTime?: DurationInput;
         slotWidth?: number;
@@ -355,6 +385,7 @@ declare namespace Calendar {
         unselect?: (info: UnselectInfo) => void;
         unselectAuto?: boolean;
         unselectCancel?: string;
+        validRange?: { start?: Date | isoDateString; end?: Date | isoDateString };
         view?: string;
         viewDidMount?: (info: { view: View }) => void;
         views?: Record<string, Options>;

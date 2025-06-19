@@ -1,5 +1,4 @@
 import {
-    ColorSpace,
     CompressedPixelFormat,
     MagnificationTextureFilter,
     Mapping,
@@ -51,7 +50,7 @@ export class CompressedTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**

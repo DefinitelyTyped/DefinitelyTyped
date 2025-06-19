@@ -53,6 +53,7 @@ export interface SDK {
 
     getPlayer<TSigned extends boolean = false>(opts?: {
         signed?: TSigned;
+        scopes?: boolean;
     }): Promise<TSigned extends true ? Signed<Player> : Player>;
 
     feedback: {
@@ -99,6 +100,9 @@ export interface SDK {
 
     dispatchEvent(eventName: SdkEventName, detail?: any): Promise<unknown>;
 
+    on(eventName: GameAPIEventName | SdkEventName, listener: () => void): () => void;
+
+    /** @deprecated */
     onEvent(eventName: SdkEventName, listener: () => void): () => void;
 
     shortcut: {
@@ -276,6 +280,8 @@ export interface LeaderboardDescription {
 export type FeedbackError = "NO_AUTH" | "GAME_RATED" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
 
 export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
+
+export type GameAPIEventName = "game_api_pause" | "game_api_resume";
 
 export type SdkEventName = "EXIT" | "HISTORY_BACK";
 

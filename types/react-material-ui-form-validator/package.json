@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/material-ui": "*",
-        "@types/react": "*"
+        "@types/react": "^18"
     },
     "devDependencies": {
         "@types/react-material-ui-form-validator": "workspace:."

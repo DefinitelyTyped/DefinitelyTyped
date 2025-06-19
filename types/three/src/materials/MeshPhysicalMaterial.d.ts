@@ -63,11 +63,6 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     defines: { [key: string]: any };
 
     /**
-     * @default 'MeshPhysicalMaterial'
-     */
-    type: string;
-
-    /**
      * @default 0
      */
     anisotropyRotation?: number;

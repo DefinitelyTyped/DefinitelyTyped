@@ -1,6 +1,6 @@
 import { Camera, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3 } from "three";
 
-type TransformControlsMode = "translate" | "rotate" | "scale";
+export type TransformControlsMode = "translate" | "rotate" | "scale";
 
 export interface TransformControlsEventMap {
     /**
@@ -38,6 +38,12 @@ export interface TransformControlsEventMap {
     "showX-changed": { value: unknown };
     "showY-changed": { value: unknown };
     "showZ-changed": { value: unknown };
+    "minX-changed": { value: unknown };
+    "maxX-changed": { value: unknown };
+    "minY-changed": { value: unknown };
+    "maxY-changed": { value: unknown };
+    "minZ-changed": { value: unknown };
+    "maxZ-changed": { value: unknown };
     "worldPosition-changed": { value: unknown };
     "worldPositionStart-changed": { value: unknown };
     "worldQuaternion-changed": { value: unknown };
@@ -86,6 +92,12 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
     rotationSnap: number | null;
 
     /**
+     * By default, 3D objects are continuously scaled. If you set this property to a numeric value, you can define in
+     * which steps the 3D object should be scaled. Default is `null`.
+     */
+    scaleSnap: number | null;
+
+    /**
      * Defines in which coordinate space transformations should be performed. Possible values are "world" and "local".
      * Default is `world`.
      */
@@ -115,6 +127,36 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
      * Whether or not the z-axis helper should be visible. Default is `true`.
      */
     showZ: boolean;
+
+    /**
+     * The minimum allowed X position during translation. Default is `-Infinity`.
+     */
+    minx: number;
+
+    /**
+     * The maximum allowed X position during translation. Default is `Infinity`.
+     */
+    maxX: number;
+
+    /**
+     * The minimum allowed Y position during translation. Default is `-Infinity`.
+     */
+    minY: number;
+
+    /**
+     * The maximum allowed Y position during translation. Default is `Infinity`.
+     */
+    maxY: number;
+
+    /**
+     * The minimum allowed Z position during translation. Default is `-Infinity`.
+     */
+    minZ: number;
+
+    /**
+     * The maximum allowed Z position during translation. Default is `Infinity`.
+     */
+    maxZ: number;
 
     /**
      * Creates a new instance of TransformControls.
@@ -206,6 +248,8 @@ declare class TransformControlsRoot extends Object3D {
     controls: TransformControls;
 
     constructor(controls: TransformControls);
+
+    dispose(): void;
 }
 
 declare class TransformControlsGizmo extends Object3D {

@@ -62,7 +62,10 @@ util.format();
 
 util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
-util.parseEnv("HELLO=world\nHELLO=oh my\n");
+{
+    const dotenv = util.parseEnv("HELLO=world\nHELLO=oh my\n");
+    dotenv.HELLO; // $ExpectType string | undefined
+}
 
 console.log(util.styleText("red", "Error! Error!"));
 console.log(
@@ -70,6 +73,12 @@ console.log(
 );
 console.log(
     util.styleText(["red", "green"], "text"),
+);
+console.log(
+    util.styleText("blue", "text", { validateStream: false }),
+);
+console.log(
+    util.styleText("yellow", "text", { stream: process.stdout }),
 );
 
 // util.callbackify
@@ -270,7 +279,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -322,6 +331,7 @@ access("file/that/does/not/exist", (err) => {
             x: { type: "string", multiple: true },
         },
     });
+
     // $ExpectType (string | boolean)[] | undefined
     result.values.x;
     // $ExpectType string | boolean | undefined
@@ -345,6 +355,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
     // $ExpectType boolean | undefined
     result.values.alpha; // false
 }
@@ -355,11 +369,21 @@ access("file/that/does/not/exist", (err) => {
         args: ["--no-alpha"],
         options: {
             alpha: { type: "boolean", default: true },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
         },
         allowNegative: true,
     });
-    // $ExpectType boolean | undefined
+
+    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean
     result.values.alpha; // false
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
 }
 
 {
@@ -371,6 +395,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean[] | undefined; }
+    result.values;
+
     // $ExpectType boolean[] | undefined
     result.values.alpha; // [false, true, false]
 }
@@ -384,14 +412,20 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
     // $ExpectType boolean | undefined
     result.values.alpha; // true
 }
 
 {
-    const controller: AbortController = util.transferableAbortController();
-    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
-    util.aborted(signal, {}).then(() => {});
+    const controller = util.transferableAbortController();
+    structuredClone(controller.signal, { transfer: [controller.signal] });
+
+    const signal = util.transferableAbortSignal(new AbortController().signal);
+    structuredClone(signal, { transfer: [signal] });
 }
 
 {

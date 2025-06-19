@@ -22,6 +22,7 @@ interface AbcObject {
 
 const abcObject: AbcObject = anything;
 const array: AbcObject[] | null | undefined = anything;
+const readonlyArray: readonly AbcObject[] = anything;
 const list: _.List<AbcObject> | null | undefined = anything;
 const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
 const numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
@@ -391,6 +392,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.fill(array, abcObject); // $ExpectType AbcObject[]
     _.fill(array, abcObject, 0); // $ExpectType AbcObject[]
     _.fill(array, abcObject, 0, 10); // $ExpectType AbcObject[]
+
+    // @ts-expect-error
+    _.fill(readonlyArray, abcObject);
+    // @ts-expect-error
+    _.fill(readonlyArray, abcObject, 0);
+    // @ts-expect-error
+    _.fill(readonlyArray, abcObject, 0, 10);
 
     _.fill(list, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.fill(list, abcObject, 0); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -782,23 +790,49 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     // $ExpectType T1[]
     _.intersectionWith([t1], [t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
     // $ExpectType Collection<T1>
     _([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
     // $ExpectType CollectionChain<T1>
     _.chain([t1]).intersectionWith([t2], (a, b) => {
         a; // $ExpectType T1
-        b; // $ExpectType T2
+        b; // $ExpectType T1 | T2
         return true;
     });
 
-    fp.intersectionWith((a: T1, b: T2) => true)([t1])([t2]); // $ExpectType T1[]
+    const a1 = [t1];
+    const a2 = [t2];
+    fp.intersectionWith((a: T1, b: T1 | T2) => true)([t1])([t2]); // $ExpectType T1[]
+    // $ExpectType T1[]
+    fp.intersectionWith<T1, T2>((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    }, a1, a2);
+    // $ExpectType T1[]
+    fp.intersectionWith<T1, T2>(_, a1, a2)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
+    // $ExpectType T1[]
+    fp.intersectionWith(_, _, a2)(_, a1)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
+    // $ExpectType T1[]
+    fp.intersectionWith(_, a1)(_, a2)((a, b) => {
+        a; // $ExpectType T1;
+        b; // $ExpectType T1 | T2
+        return true;
+    });
 }
 
 // _.join
@@ -857,6 +891,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pull(array); // $ExpectType AbcObject[]
     _.pull(array, abcObject); // $ExpectType AbcObject[]
     _.pull(array, abcObject, abcObject, abcObject); // $ExpectType AbcObject[]
+    // @ts-expect-error
+    _.pull(readonlyArray);
+    // @ts-expect-error
+    _.pull(readonlyArray, abcObject);
+    // @ts-expect-error
+    _.pull(readonlyArray, abcObject, abcObject, abcObject);
     _.pull(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pull(list, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pull(list, abcObject, abcObject, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -887,6 +927,12 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pullAt(array); // $ExpectType AbcObject[]
     _.pullAt(array, 1); // $ExpectType AbcObject[]
     _.pullAt(array, [2, 3], 4); // $ExpectType AbcObject[]
+    // @ts-expect-error
+    _.pullAt(readonlyArray);
+    // @ts-expect-error
+    _.pullAt(readonlyArray, 1);
+    // @ts-expect-error
+    _.pullAt(readonlyArray, [2, 3], 4);
     _.pullAt(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, 1); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, [2, 3], 4); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -920,6 +966,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.pullAll(array); // $ExpectType AbcObject[]
     _.pullAll(array, values); // $ExpectType AbcObject[]
+    // @ts-expect-error
+    _.pullAll(readonlyArray);
+    // @ts-expect-error
+    _.pullAll(readonlyArray, values);
     _.pullAll(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAll(list, values); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
 
@@ -952,6 +1002,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         value; // $ExpectType AbcObject
         return [];
     });
+
+    // @ts-expect-error
+    _.pullAllBy(readonlyArray);
+    // @ts-expect-error
+    _.pullAllBy(readonlyArray, values, "a");
 
     _.pullAllBy(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAllBy(list, values); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -1046,6 +1101,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         b; // $ExpectType AbcObject
         return true;
     });
+    // @ts-expect-error
+    _.pullAllWith(readonlyArray);
+    // @ts-expect-error
+    _.pullAllWith(readonlyArray, values);
     _.pullAllWith(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAllWith(list, values, (a, b) => {
@@ -1137,11 +1196,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
     fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
+
+    // @ts-expect-error
+    _.remove(readonlyArray);
+    // @ts-expect-error
+    _.remove(readonlyArray, listIterator);
+    // @ts-expect-error
+    _.remove(readonlyArray, "");
+    // @ts-expect-error
+    _.remove(readonlyArray, { a: 42 });
 }
 
 // _.tail
 {
     _.tail(list); // $ExpectType AbcObject[]
+    _.tail([1, 2, 3] as const); // $ExpectType [2, 3]
+    _.tail([1, 2, 3] as [1, 2, 3]); // $ExpectType [2, 3]
+
     _(list).tail(); // $ExpectType Collection<AbcObject>
     _.chain(list).tail(); // $ExpectType CollectionChain<AbcObject>
     fp.tail(list); // $ExpectType AbcObject[]
@@ -2749,6 +2820,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.map
 {
+    _.map([] as AbcObject[]); // $ExpectType AbcObject[]
+    _.map([] as AbcObject[], (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return 0;
+    });
     _.map(list);  // $ExpectType AbcObject[]
     // $ExpectType number[]
     _.map(list, (value, index, collection) => {
@@ -2782,6 +2860,21 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.map(list, { a: 42 });  // $ExpectType boolean[]
     _.map(dictionary, { a: 42 });  // $ExpectType boolean[]
     _.map(numericDictionary, { a: 42 });  // $ExpectType boolean[]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value.toString());  // $ExpectType [string, string, string]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value || "a");  // $ExpectType [number | "a", number | "a", number | "a"]
+    _.map([-1, -2, -3] as [number, number, number], (value, index, collection) => {
+        value; // $ExpectType number
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType [number, number, number]
+        return 0;
+    });
+    _.map([-1, -2, -3] as const, (value) => value.toString()) // $ExpectType readonly [string, string, string];
+    _.map([-1, -2, -3] as const, (value, index, collection) => {
+        value; // $ExpectType -1 | -2 | -3
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType readonly [-1, -2, -3]
+        return 0;
+    });
 
     _(list).map(); // $ExpectType Collection<AbcObject>
     // $ExpectType Collection<number>
@@ -5039,7 +5132,7 @@ fp.now(); // $ExpectType number
     fp.random(1, 2); // $ExpectType number
     fp.random(1)(2); // $ExpectType number
 
-    _.map([5, 5], _.random); // $ExpectType number[]
+    _.map([5, 5], _.random); // $ExpectType [number, number]
 }
 
 /**********
@@ -5182,17 +5275,19 @@ fp.now(); // $ExpectType number
     fp.merge(obj, s1); // $ExpectType { a: string; } & { b: number; }
     fp.merge(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 
-    _.mergeWith(obj, s1, customizer); // $ExpectType { a: string; } & { b: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, customizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
-    _.mergeWith(obj, s1, s2, s3, s4, s5, customizer);
-    _(obj).mergeWith(s1, customizer); // $ExpectType Object<{ a: string; } & { b: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    _.chain(obj).mergeWith(s1, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, customizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
-    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, customizer);
-    fp.mergeWith(customizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
-    fp.mergeWith(customizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
+    const mergeWithCustomizer = (objectValue: any, sourceValue: any, key: string, object: any, source: any, stack: any) => 1;
+
+    _.mergeWith(obj, s1, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType { a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }
+    _.mergeWith(obj, s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType Object<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    _.chain(obj).mergeWith(s1, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, mergeWithCustomizer); // $ExpectType ObjectChain<{ a: string; } & { b: number; } & { c: number; } & { d: number; } & { e: number; }>
+    _.chain(obj).mergeWith(s1, s2, s3, s4, s5, mergeWithCustomizer);
+    fp.mergeWith(mergeWithCustomizer, obj, s1); // $ExpectType { a: string; } & { b: number; }
+    fp.mergeWith(mergeWithCustomizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 }
 
 // _.create
@@ -6605,10 +6700,27 @@ fp.now(); // $ExpectType number
 
 // _.capitalize
 {
-    _.capitalize("fred"); // $ExpectType string
-    _("fred").capitalize(); // $ExpectType string
-    _.chain("fred").capitalize(); // $ExpectType StringChain<string>
-    fp.capitalize("fred"); // $ExpectType string
+    _.capitalize("fred"); // $ExpectType "Fred"
+    _.capitalize("FRED"); // $ExpectType "Fred"
+    _.capitalize("fred" as string); // $ExpectType string
+    // @ts-expect-error cannot assign non string type
+    _.capitalize(123);
+
+    _("fred").capitalize(); // $ExpectType "Fred"
+    _("FRED").capitalize(); // $ExpectType "Fred"
+    _("fred" as string).capitalize(); // $ExpectType string
+    _(123).capitalize(); // $ExpectType never
+
+    _.chain("fred").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("FRED").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("fred" as string).capitalize(); // $ExpectType StringChain<string>
+    _.chain(123).capitalize(); // $ExpectType StringChain<never>
+
+    fp.capitalize("fred"); // $ExpectType "Fred"
+    fp.capitalize("FRED"); // $ExpectType "Fred"
+    fp.capitalize("fred" as string); // $ExpectType string
+    // @ts-expect-error cannot assign non string type
+    fp.capitalize(123);
 }
 
 // _.deburr
@@ -6806,7 +6918,7 @@ fp.now(); // $ExpectType number
     fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
-    _.map(["abc", "def"], _.split); // $ExpectType string[][]
+    _.map(["abc", "def"], _.split); // $ExpectType [string[], string[]]
 }
 
 // _.startCase
@@ -6850,6 +6962,8 @@ fp.now(); // $ExpectType number
     _("").template(options); // $ExpectType TemplateExecutor
     _.chain("").template(); // $ExpectType FunctionChain<TemplateExecutor>
     _.chain("").template(options); // $ExpectType FunctionChain<TemplateExecutor>
+    _.template("", {escape: null, evaluate: null, interpolate: / /}); // $ExpectType TemplateExecutor
+    _.template("", {escape: null, evaluate: / /, interpolate: null}); // $ExpectType TemplateExecutor
 
     const result2 = fp.template("");
     result2(); // $ExpectType string
@@ -6885,7 +6999,7 @@ fp.now(); // $ExpectType number
     fp.trimChars(" ", "  abc  "); // $ExpectType string
     fp.trimChars(" ")("  abc  "); // $ExpectType string
 
-    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType string[]
+    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType [string, string]
 }
 
 // _.trimEnd
@@ -6973,7 +7087,7 @@ fp.now(); // $ExpectType number
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]
 
-    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType string[][]
+    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType [string[], string[]]
 }
 
 /********
@@ -7339,8 +7453,8 @@ fp.now(); // $ExpectType number
     fp.rangeRight(1, 11); // $ExpectType number[]
     fp.rangeRight(1)(11); // $ExpectType number[]
 
-    _.map([5, 5], _.range); // $ExpectType number[][]
-    _.map([5, 5], _.rangeRight); // $ExpectType number[][]
+    _.map([5, 5], _.range); // $ExpectType [number[], number[]]
+    _.map([5, 5], _.rangeRight); // $ExpectType [number[], number[]]
 }
 
 // _.runInContext

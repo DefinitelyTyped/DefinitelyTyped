@@ -4,9 +4,9 @@ import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 declare class ConditionalNode extends Node {
     condNode: Node;
     ifNode: Node;
-    elseNode: Node;
+    elseNode: Node | null;
 
-    constructor(condNode: Node, ifNode: Node, elseNode: Node);
+    constructor(condNode: Node, ifNode: Node, elseNode?: Node | null);
 }
 
 export default ConditionalNode;
@@ -14,7 +14,7 @@ export default ConditionalNode;
 export const select: (
     condNode: NodeRepresentation,
     ifNode: NodeRepresentation,
-    elseNode: NodeRepresentation,
+    elseNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<Node>;
 
 declare module "../tsl/TSLCore.js" {
@@ -29,7 +29,7 @@ declare module "../tsl/TSLCore.js" {
 export const cond: (
     condNode: NodeRepresentation,
     ifNode: NodeRepresentation,
-    elseNode: NodeRepresentation,
+    elseNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<Node>;
 
 declare module "../tsl/TSLCore.js" {

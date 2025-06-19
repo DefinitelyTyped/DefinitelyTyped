@@ -194,6 +194,22 @@ GM_xmlhttpRequest({
     },
 });
 
+// PUT request
+GM_xmlhttpRequest({
+    method: "PUT",
+    url: "http://www.example.net/resource",
+    data: "key1=value1&key2=value2",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
+});
+
+// DELETE request
+GM_xmlhttpRequest({
+    method: "DELETE",
+    url: "http://www.example.net/resource",
+});
+
 // All options
 interface RequestContext {
     form: {

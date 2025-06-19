@@ -5,6 +5,7 @@ import { LineDashedMaterialParameters } from "../LineDashedMaterial.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
 export interface Line2NodeMaterialParameters extends NodeMaterialParameters, LineDashedMaterialParameters {
+    worldUnits?: boolean | undefined;
     dashed?: boolean | undefined;
 }
 

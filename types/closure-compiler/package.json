@@ -10,8 +10,16 @@
     },
     "owners": [
         {
-            "name": "Martin Probst",
-            "githubUsername": "mprobst"
+            "name": "Bradford Smith",
+            "githubUsername": "brad4d"
+        },
+        {
+            "name": "Ben Lickly",
+            "githubUsername": "blickly"
+        },
+        {
+            "name": "James Wright",
+            "githubUsername": "12wrigja"
         }
     ]
 }

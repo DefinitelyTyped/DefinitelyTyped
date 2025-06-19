@@ -84,6 +84,7 @@ declare var moduleDeclaration: ESTree.ModuleDeclaration;
 declare var moduleSpecifier: ESTree.ModuleSpecifier;
 declare var importDeclaration: ESTree.ImportDeclaration;
 declare var importSpecifier: ESTree.ImportSpecifier;
+declare var importAttribute: ESTree.ImportAttribute;
 declare var importDefaultSpecifier: ESTree.ImportDefaultSpecifier;
 declare var importNamespaceSpecifier: ESTree.ImportNamespaceSpecifier;
 declare var exportNamedDeclaration: ESTree.ExportNamedDeclaration;
@@ -261,6 +262,11 @@ if (memberExpressionOrCallExpression.type === "MemberExpression") {
     expressionOrSpread = callExpression.arguments[0];
 }
 
+// ImportExpression
+var importExpression: ESTree.ImportExpression;
+expression = importExpression.source;
+expressionMaybe = importExpression.options;
+
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
@@ -273,7 +279,7 @@ booleanMaybe = functionDeclaration.async;
 
 var variableDeclaration: ESTree.VariableDeclaration;
 var declarations: ESTree.VariableDeclarator[] = variableDeclaration.declarations;
-string = variableDeclaration.kind; // "var" | "let" | "const"
+string = variableDeclaration.kind; // "var" | "let" | "const" | "using" | "await using"
 
 var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
@@ -286,6 +292,7 @@ classDeclaration.id = null;
 
 var identifierOrLiteral: ESTree.Identifier | ESTree.Literal;
 identifierOrLiteral = importSpecifier.imported;
+identifierOrLiteral = importAttribute.key;
 identifierOrLiteral = exportSpecifier.local;
 identifierOrLiteral = exportSpecifier.exported;
 var identifierOrLiteralOrNull: ESTree.Identifier | ESTree.Literal | null;
@@ -900,4 +907,15 @@ switch (exportDefaultDeclaration.declaration.type) {
 
     default:
         never = exportDefaultDeclaration.declaration;
+}
+
+switch (variableDeclaration.kind) {
+    case "var":
+    case "let":
+    case "const":
+    case "using":
+    case "await using":
+        break;
+    default:
+        never = variableDeclaration.kind;
 }

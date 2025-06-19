@@ -53,6 +53,7 @@ import { TabGroups as ImportedTabGroups } from "./namespaces/tabGroups";
 import { Tabs as ImportedTabs } from "./namespaces/tabs";
 import { Theme as ImportedTheme } from "./namespaces/theme";
 import { TopSites as ImportedTopSites } from "./namespaces/topSites";
+import { Trial as ImportedTrial } from "./namespaces/trial";
 import { Types as ImportedTypes } from "./namespaces/types";
 import { UserScripts as ImportedUserScripts } from "./namespaces/userScripts";
 import { WebNavigation as ImportedWebNavigation } from "./namespaces/webNavigation";
@@ -390,12 +391,17 @@ declare namespace Browser {
     const topSites: TopSites.Static;
 
     /**
+     * Permissions: "trialML"
+     */
+    const trial: Trial.Static;
+
+    /**
      * Contains types used by other schemas.
      */
     const types: Types.Static;
 
     /**
-     * Permissions: "manifest:user_scripts"
+     * Permissions: "manifest:user_scripts", "userScripts"
      */
     const userScripts: UserScripts.Static;
 
@@ -752,12 +758,17 @@ declare namespace Browser {
         topSites: TopSites.Static;
 
         /**
+         * Permissions: "trialML"
+         */
+        trial: Trial.Static;
+
+        /**
          * Contains types used by other schemas.
          */
         types: Types.Static;
 
         /**
-         * Permissions: "manifest:user_scripts"
+         * Permissions: "manifest:user_scripts", "userScripts"
          */
         userScripts: UserScripts.Static;
 
@@ -835,6 +846,7 @@ declare namespace Browser {
     export import Tabs = ImportedTabs;
     export import Theme = ImportedTheme;
     export import TopSites = ImportedTopSites;
+    export import Trial = ImportedTrial;
     export import Types = ImportedTypes;
     export import UserScripts = ImportedUserScripts;
     export import WebNavigation = ImportedWebNavigation;

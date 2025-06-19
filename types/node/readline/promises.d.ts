@@ -1,10 +1,14 @@
 /**
  * @since v17.0.0
- * @experimental
  */
 declare module "readline/promises" {
-    import { AsyncCompleter, Completer, Direction, Interface as _Interface, ReadLineOptions } from "node:readline";
     import { Abortable } from "node:events";
+    import {
+        CompleterResult,
+        Direction,
+        Interface as _Interface,
+        ReadLineOptions as _ReadLineOptions,
+    } from "node:readline";
     /**
      * Instances of the `readlinePromises.Interface` class are constructed using the `readlinePromises.createInterface()` method. Every instance is associated with a
      * single `input` `Readable` stream and a single `output` `Writable` stream.
@@ -111,6 +115,13 @@ declare module "readline/promises" {
          */
         rollback(): this;
     }
+    type Completer = (line: string) => CompleterResult | Promise<CompleterResult>;
+    interface ReadLineOptions extends Omit<_ReadLineOptions, "completer"> {
+        /**
+         * An optional function used for Tab autocompletion.
+         */
+        completer?: Completer | undefined;
+    }
     /**
      * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface` instance.
      *
@@ -140,7 +151,7 @@ declare module "readline/promises" {
     function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
-        completer?: Completer | AsyncCompleter,
+        completer?: Completer,
         terminal?: boolean,
     ): Interface;
     function createInterface(options: ReadLineOptions): Interface;

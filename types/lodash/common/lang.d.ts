@@ -1,5 +1,5 @@
 import _ = require("../index");
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers, @typescript-eslint/no-unsafe-function-type
 type GlobalFunction = Function;
 declare module "../index" {
     type FunctionBase = GlobalFunction;

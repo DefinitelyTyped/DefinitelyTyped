@@ -81,3 +81,12 @@ const a = new A();
 v8.queryObjects(A); // $ExpectType number | string[]
 v8.queryObjects(A, { format: "count" }); // $ExpectType number
 v8.queryObjects(A, { format: "summary" }); // $ExpectType string[]
+
+v8.deserialize(Buffer.from([0]));
+v8.deserialize(new Uint8Array());
+v8.deserialize(new DataView(new ArrayBuffer(1)));
+
+// @ts-expect-error ArrayBuffer is not a valid deserialize parameter
+v8.deserialize(new ArrayBuffer(1));
+// @ts-expect-error String is not a valid deserialize parameter
+v8.deserialize("Hello World!");

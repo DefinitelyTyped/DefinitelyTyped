@@ -127,8 +127,9 @@ declare class AdmZip {
      *   for a directory.
      * @param comment Comment to add to the entry.
      * @param attr Attribute to add to the entry.
+     * @return The entry corresponding to one which was just added.
      */
-    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): void;
+    addFile(entryName: string, content: Buffer, comment?: string, attr?: number): AdmZip.IZipEntry;
     /**
      * Returns an array of `IZipEntry` objects representing the files and folders
      * inside the archive.

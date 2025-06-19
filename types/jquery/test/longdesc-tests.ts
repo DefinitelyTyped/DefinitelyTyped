@@ -1,13 +1,4 @@
-// tslint:disable:ban-types
-// tslint:disable:no-var-keyword
-// tslint:disable:object-literal-shorthand
-// tslint:disable:one-variable-per-declaration
-// tslint:disable:only-arrow-functions
-// tslint:disable:prefer-const
-// tslint:disable:prefer-for-of
-// tslint:disable:prefer-template
-// tslint:disable:triple-equals
-
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 function longdesc() {
     function add_0() {
         $("p").add("div").addClass("widget");

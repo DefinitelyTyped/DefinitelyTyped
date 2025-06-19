@@ -304,6 +304,21 @@ declare namespace TelegramBot {
         is_flexible?: boolean | undefined;
     }
 
+    interface CreateInvoiceLinkOptions {
+        provider_data?: string | undefined;
+        photo_url?: string | undefined;
+        photo_size?: number | undefined;
+        photo_width?: number | undefined;
+        photo_height?: number | undefined;
+        need_name?: boolean | undefined;
+        need_phone_number?: boolean | undefined;
+        need_email?: boolean | undefined;
+        need_shipping_address?: boolean | undefined;
+        send_phone_number_to_provider?: boolean | undefined;
+        send_email_to_provider?: boolean | undefined;
+        is_flexible?: boolean | undefined;
+    }
+
     interface CopyMessageOptions extends SendBasicOptions {
         caption?: string | undefined;
         parse_mode?: ParseMode | undefined;
@@ -896,22 +911,21 @@ declare namespace TelegramBot {
         is_video: boolean;
         width: number;
         height: number;
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
         premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
         custom_emoji_id?: string | undefined;
+        needs_repainting?: boolean | undefined;
     }
 
     interface StickerSet {
         name: string;
         title: string;
         sticker_type: StickerType;
-        is_animated: boolean;
-        is_video: boolean;
         stickers: Sticker[];
-        thumb?: PhotoSize | undefined;
+        thumbnail?: PhotoSize | undefined;
     }
 
     interface CreateStickerSetOptions {
@@ -1975,6 +1989,16 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         prices: readonly TelegramBot.LabeledPrice[],
         options?: TelegramBot.SendInvoiceOptions,
     ): Promise<TelegramBot.Message>;
+
+    createInvoiceLink(
+        title: string,
+        description: string,
+        payload: string,
+        providerToken: string,
+        currency: string,
+        prices: readonly TelegramBot.LabeledPrice[],
+        options?: TelegramBot.CreateInvoiceLinkOptions,
+    ): Promise<string>;
 
     answerShippingQuery(
         shippingQueryId: string,

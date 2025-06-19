@@ -21,11 +21,6 @@ export class LineBasicMaterial extends Material {
     readonly isLineBasicMaterial: true;
 
     /**
-     * @default 'LineBasicMaterial'
-     */
-    type: string;
-
-    /**
      * @default 0xffffff
      */
     color: Color;

@@ -2,7 +2,7 @@ import React from "react";
 import { createFragmentContainer, graphql, QueryRenderer } from "react-relay";
 import { createMockEnvironment, MockPayloadGenerator, unwrapContainer } from "relay-test-utils";
 
-// @ExpectType MockEnvironment
+// $ExpectType RelayMockEnvironment
 const environment = createMockEnvironment();
 
 environment.mock.resolveMostRecentOperation(operation => {

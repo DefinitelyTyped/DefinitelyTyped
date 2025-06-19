@@ -27,4 +27,16 @@ import subsetFont = require("subset-font");
         // @ts-expect-error
         targetFormat: "eot",
     });
+
+    const variationAxes = await subsetFont(mySfntFontBuffer, "1234", {
+        variationAxes: {
+            wght: 200,
+            GRAD: { min: -50, max: 50, default: 25 },
+            slnt: { min: -9, max: 0 },
+        },
+    });
+
+    const noLayoutClosure = await subsetFont(mySfntFontBuffer, "1234", {
+        noLayoutClosure: true,
+    });
 })();

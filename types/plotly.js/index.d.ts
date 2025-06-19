@@ -1,9 +1,9 @@
-import { BoxPlotData, BoxPlotMarker } from "./lib/traces/box";
-import { CandlestickData } from "./lib/traces/candlestick";
-import { OhlcData } from "./lib/traces/ohlc";
-import { PieData } from "./lib/traces/pie";
-import { SankeyData } from "./lib/traces/sankey";
-import { ViolinData } from "./lib/traces/violin";
+import { BoxPlotData, BoxPlotMarker } from "./lib/box";
+import { CandlestickData } from "./lib/candlestick";
+import { OhlcData } from "./lib/ohlc";
+import { PieData } from "./lib/pie";
+import { SankeyData } from "./lib/sankey";
+import { ViolinData } from "./lib/violin";
 
 export as namespace Plotly;
 export { BoxPlotData, CandlestickData, OhlcData, PieData, SankeyData, ViolinData };
@@ -406,23 +406,52 @@ export function animate(
     opts?: Partial<AnimationOpts>,
 ): Promise<void>;
 
+export interface ValidateResult {
+    code: string;
+    container: "data" | "layout";
+    trace: number | null;
+    path: string | (string | number)[];
+    astr: string;
+    msg: string;
+}
+export function validate(data: Data[], layout: Partial<Layout>): ValidateResult[];
+export function setPlotConfig(config: Partial<Config>): void;
+
+export type TemplateFigure = Root | { data: Data[]; layout: Partial<Layout> };
+export function makeTemplate(figure: TemplateFigure): Template;
+
+export interface ValidateTemplateResult {
+    code: string;
+    index?: number;
+    traceType?: string;
+    templateCount?: number;
+    dataCount?: number;
+    path?: string;
+    templateitemname?: string;
+    msg: string;
+}
+export function validateTemplate(figure: TemplateFigure, template: Template): ValidateTemplateResult[];
+
 // Layout
 export interface Layout {
     colorway: string[];
-    title:
-        | string
-        | Partial<{
-            text: string;
-            font: Partial<Font>;
-            xref: "container" | "paper";
-            yref: "container" | "paper";
-            x: number;
-            y: number;
-            xanchor: "auto" | "left" | "center" | "right";
-            yanchor: "auto" | "top" | "middle" | "bottom";
-            pad: Partial<Padding>;
-        }>;
-    titlefont: Partial<Font>;
+    title: Partial<{
+        text: string;
+        font: Partial<Font>;
+        xref: "container" | "paper";
+        yref: "container" | "paper";
+        x: number;
+        y: number;
+        xanchor: "auto" | "left" | "center" | "right";
+        yanchor: "auto" | "top" | "middle" | "bottom";
+        pad: Partial<Padding>;
+        subtitle:
+            | string
+            | Partial<{
+                text: string;
+                font: Partial<Font>;
+            }>;
+    }>;
     autosize: boolean;
     showlegend: boolean;
     paper_bgcolor: Color;
@@ -454,6 +483,12 @@ export interface Layout {
     hoverdistance: number;
     hoverlabel: Partial<HoverLabel>;
     calendar: Calendar;
+
+    // these are just the most common nested property updates that you might
+    // want to pass to Plotly.relayout - *any* dotted property path through the
+    // normal nested structure is valid here, and enumerating them all including
+    // all possible [n] array indices would be infeasible (if it weren't for the
+    // array indices, the pure a.b.c bit might be doable with conditional types)
     "xaxis.range": [Datum, Datum];
     "xaxis.range[0]": Datum;
     "xaxis.range[1]": Datum;
@@ -464,15 +499,27 @@ export interface Layout {
     "xaxis.type": AxisType;
     "xaxis.autorange": boolean;
     "yaxis.autorange": boolean;
-    "xaxis.title": string;
-    "yaxis.title": string;
+    "xaxis.title": Partial<DataTitle>;
+    "yaxis.title": Partial<DataTitle>;
     ternary: {}; // TODO
     geo: {}; // TODO
     mapbox: Partial<Mapbox>;
     subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
-    dragmode: "zoom" | "pan" | "select" | "lasso" | "orbit" | "turntable" | false;
+    dragmode:
+        | "zoom"
+        | "pan"
+        | "select"
+        | "lasso"
+        | "drawclosedpath"
+        | "drawopenpath"
+        | "drawline"
+        | "drawrect"
+        | "drawcircle"
+        | "orbit"
+        | "turntable"
+        | false;
     orientation: number;
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
@@ -646,12 +693,7 @@ export interface Axis {
      * Individual pieces can override this.
      */
     color: Color;
-    title: string | Partial<DataTitle>;
-    /**
-     * Former `titlefont` is now the sub-attribute `font` of `title`.
-     * To customize title font properties, please use `title.font` now.
-     */
-    titlefont: Partial<Font>;
+    title: Partial<DataTitle>;
     type: AxisType;
     autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
     autorangeoptions: Partial<AutoRangeOptions>;
@@ -923,7 +965,6 @@ export interface LayoutAxis extends Axis {
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
-    autotick: boolean;
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
@@ -1216,7 +1257,6 @@ export interface ErrorOptions {
     color: Color;
     thickness: number;
     width: number;
-    opacity: number;
 }
 
 export type ErrorBar =
@@ -1250,7 +1290,6 @@ export type PlotType =
     | "funnel"
     | "funnelarea"
     | "heatmap"
-    | "heatmapgl"
     | "histogram"
     | "histogram2d"
     | "histogram2dcontour"
@@ -1262,7 +1301,6 @@ export type PlotType =
     | "parcats"
     | "parcoords"
     | "pie"
-    | "pointcloud"
     | "sankey"
     | "scatter"
     | "scatter3d"
@@ -1298,10 +1336,8 @@ export type Color =
     | Array<string | number | undefined | null>
     | Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
-export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 
-// Bar Scatter
 export interface PlotData {
     type: PlotType;
     x: Datum[] | Datum[][] | TypedArray;
@@ -1404,6 +1440,7 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    hoverongaps: boolean;
     xhoverformat: string;
     yhoverformat: string;
     zhoverformat: string;
@@ -1462,7 +1499,6 @@ export interface PlotData {
     delta: Partial<Delta>;
     gauge: Partial<Gauge>;
     number: Partial<PlotNumber>;
-    transforms: DataTransform[];
     orientation: "v" | "h";
     width: number | number[];
     boxmean: boolean | "sd";
@@ -1526,50 +1562,15 @@ export interface PlotData {
     }>;
     autocontour: boolean;
     ncontours: number;
+    maxdepth: number;
     uirevision: string | number;
     uid: string;
 }
 
-/**
- * These interfaces are based on attribute descriptions in
- * https://github.com/plotly/plotly.js/tree/9d6144304308fc3007f0facf2535d38ea3e9b26c/src/transforms
- */
-export interface TransformStyle {
-    target: number | string | number[] | string[];
-    value: Partial<PlotData>;
-}
-
-export interface TransformAggregation {
-    target: string;
-    func?:
-        | "count"
-        | "sum"
-        | "avg"
-        | "median"
-        | "mode"
-        | "rms"
-        | "stddev"
-        | "min"
-        | "max"
-        | "first"
-        | "last"
-        | undefined;
-    funcmode?: "sample" | "population" | undefined;
-    enabled?: boolean | undefined;
-}
-
-export interface Transform {
-    type: "aggregate" | "filter" | "groupby" | "sort";
-    enabled: boolean;
-    target: number | string | number[] | string[];
-    operation: string;
-    aggregations: TransformAggregation[];
-    preservegaps: boolean;
-    groups: string | number[] | string[];
-    nameformat: string;
-    styles: TransformStyle[];
-    value: any;
-    order: "ascending" | "descending";
+export interface ColorBarTitle {
+    text: string;
+    font: Partial<Font>;
+    side: "right" | "top" | "bottom";
 }
 
 export interface ColorBar {
@@ -1611,9 +1612,7 @@ export interface ColorBar {
     exponentformat: "none" | "e" | "E" | "power" | "SI" | "B";
     showexponent: "all" | "first" | "last" | "none";
     minexponent: number;
-    title: string;
-    titlefont: Font;
-    titleside: "right" | "top" | "bottom";
+    title: Partial<ColorBarTitle>;
     tickvalssrc: any;
     ticktextsrc: any;
 }
@@ -1863,9 +1862,6 @@ export interface Config {
      */
     logging: boolean | 0 | 1 | 2;
 
-    /** Set global transform to be applied to all traces with no specification needed */
-    globalTransforms: any[];
-
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
 
@@ -1947,7 +1943,7 @@ export interface Label {
 
 export interface LegendTitle {
     font: Partial<Font>;
-    side: "top" | "left" | "top left";
+    side: "top" | "left" | "top left" | "top center" | "top right";
     text: string;
 }
 
@@ -2717,8 +2713,9 @@ interface TraceModule {
     moduleType: "trace";
     name: string;
     categories: string[];
-    meta: Record<string, unknown>;
-    [key: string]: unknown;
+    meta: {
+        description: string;
+    };
 }
 
 interface LocaleModule {
@@ -2728,19 +2725,9 @@ interface LocaleModule {
     format: Record<string, unknown>;
 }
 
-interface TransformModule {
-    moduleType: "transform";
-    name: string;
-    transform: any;
-    calcTransform: any;
-    attributes: Record<string, unknown>;
-    supplyDefaults: any;
-}
-
 interface ComponentModule {
     moduleType: "component";
     name: string;
-    [key: string]: unknown;
 }
 
 interface ApiMethodModule {
@@ -2749,4 +2736,4 @@ interface ApiMethodModule {
     fn: any;
 }
 
-type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;
+type PlotlyModule = TraceModule | LocaleModule | ComponentModule | ApiMethodModule;
