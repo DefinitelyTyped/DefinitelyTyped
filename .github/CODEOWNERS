@@ -708,7 +708,7 @@
 /types/bull-arena/                                      @levibostian @gtpan77
 /types/bumblebee-hotword/                               @sheunglaili
 /types/bump-regex/                                      @silkentrance
-/types/bun/                                             @Jarred-Sumner @electroid @paperclover @robobun @dylan-conway @nektro @RiskyMH @alii
+/types/bun/                                             @Jarred-Sumner @electroid @robobun @dylan-conway @nektro @RiskyMH @alii
 /types/bundle-id/                                       @LeoDog896
 /types/bundle-name/                                     @LeoDog896
 /types/bunnymq/                                         @cyrilschumacher
@@ -1139,6 +1139,7 @@
 /types/counterpart/                                     @santiagodoldan
 /types/country-data/                                    @biltongza @mikemaccana
 /types/country-flag-icons/                              @peterblazejewicz
+/types/country-iso/                                     @TylerWon
 /types/country-list/                                    @iRoachie @Kimahriman
 /types/country-list/v1/                                 @iRoachie
 /types/country-list-js/                                 @digorydoo
@@ -3599,7 +3600,7 @@
 /types/jcof/                                            @MatyiFKBT
 /types/jconv/                                           @thany
 /types/jdataview/                                       @RReverser
-/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @pawfa @gerkindev @domdomegg @mrazauskas
+/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @pawfa @gerkindev @domdomegg
 /types/jest-axe/                                        @erbridge
 /types/jest-dev-server/                                 @ifiokjr @UziTech
 /types/jest-environment-puppeteer/                      @ifiokjr
@@ -5169,6 +5170,7 @@
 /types/node/                                            @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
 /types/node/v18/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @SimonSchick @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v20/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
+/types/node/v22/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
 /types/node-7z/                                         @erkie @colin969
 /types/node-abi/                                        @ffflorian
 /types/node-apple-receipt-verify/                       @serinuntius
