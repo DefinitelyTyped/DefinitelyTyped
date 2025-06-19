@@ -8,8 +8,8 @@ interface Privacy extends Array<any> {
     push(...privacyArr: PrivacyData[]): 0;
 }
 
-type EventName = string;
-type EventData = Record<string, string | number | boolean | Date | null | undefined>;
+type EventDataValue = string | number | boolean | Date | null | undefined;
+type EventData = Record<string, EventDataValue | EventDataValue[] | Record<string, EventDataValue>[]>;
 interface EventDetails {
     firstTime: Date;
     lastTime: Date;
