@@ -8,7 +8,7 @@ const locator = pnp.findPackageLocator("/foo");
 if (locator !== null) {
     const info = pnp.getPackageInformation(locator);
     if (info !== null) {
-        info.packageDependencies; // $ExpectType Map<string, string>
+        info.packageDependencies; // $ExpectType Map<string, string | [string, string]>
     }
 }
 
