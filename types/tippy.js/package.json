@@ -2,8 +2,6 @@
     "private": true,
     "name": "@types/tippy.js",
     "version": "6.3.9999",
-    "nonNpm": true,
-    "nonNpmDescription": "A simple and beautiful javascript dialog library",
     "projects": [
         "https://github.com/atomiks/tippyjs"
     ],
