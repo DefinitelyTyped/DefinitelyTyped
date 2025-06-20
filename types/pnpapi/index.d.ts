@@ -21,7 +21,10 @@ export const VERSIONS: { std: number; [key: string]: number };
 
 export const topLevel: { name: null; reference: null };
 
-export function getPackageInformation(locator: PackageLocator): PackageInformation;
+export function getLocator(name: string, reference: string): PackageLocator;
+export function getDependencyTreeRoots(): PackageLocator[];
+export function getAllLocators(): PackageLocator[];
+export function getPackageInformation(locator: PackageLocator): PackageInformation | null;
 export function findPackageLocator(location: string): PackageLocator | null;
 
 export function resolveToUnqualified(
@@ -29,12 +32,16 @@ export function resolveToUnqualified(
     issuer: string | null,
     opts?: { considerBuiltins?: boolean | undefined },
 ): string | null;
+
 export function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] | undefined }): string;
+
 export function resolveRequest(
     request: string,
     issuer: string | null,
     opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined },
 ): string | null;
+
+export function resolveVirtual(path: string): string;
 
 export function setup(): void;
 
