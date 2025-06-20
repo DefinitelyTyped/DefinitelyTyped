@@ -1,4 +1,4 @@
-import { fake, findByName, JSONSchema, ROOT_NAME, Request, Schema } from "mokapi/faker";
+import { fake, findByName, JSONSchema, Request, ROOT_NAME, Schema } from "mokapi/faker";
 
 // @ts-expect-error
 fake();
@@ -110,9 +110,9 @@ node.children.push({
 node.children.push({
     name: "foo",
     fake: (r: Request) => {
-        r.path[0] === 'foo';
+        r.path[0] === "foo";
         r.schema.type === "integer";
-        return 'foo';
+        return "foo";
     },
 });
 node.children.unshift({

@@ -459,7 +459,7 @@ export interface JSONObject {
 /**
  * Specifies the date-time format defined in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339).
  * This constant can be used when defining or validating datetime strings.
- * 
+ *
  * @example
  * const date = new Date().toISOString()
  * if (isValidDate(date, RFC3339)) {
@@ -471,24 +471,24 @@ export const RFC3339 = "RFC3339";
 /**
  * Applies a patch object to a target object. Only properties that are explicitly defined in the patch
  * are applied. This includes nested objects. Properties marked with `Delete` will be removed.
- * 
+ *
  * This function is especially useful when working with generated mock data in Mokapi that you want to override
  * or refine with specific values.
- * 
+ *
  * https://mokapi.io/docs/javascript-api/mokapi/patch
- * 
+ *
  * @param target The original object or value to be patched.
  * @param patch The patch object or value. Only defined values are applied; undefined values are ignored. Use `Delete` to remove fields.
  * @returns A new object or value with the patch applied.
- * 
+ *
  * @example
  * const result = patch({ name: "foo", age: 42 }, { name: "bar" })
  * // result: { name: "bar", age: 42 }
- * 
+ *
  * @example
  * const result = patch({ name: "foo", meta: { version: 1 } }, { meta: { version: 2 } })
  * // result: { name: "foo", meta: { version: 2 } }
- * 
+ *
  * @example
  * const result = patch({ name: "foo", age: 42 }, { age: Delete })
  * // result: { name: "foo" }
@@ -497,14 +497,14 @@ export function patch(target: any, patch: any): any;
 
 /**
  * Special marker used with the `patch` function to indicate a property should be removed.
- * 
+ *
  * When used as a value inside a patch object, the corresponding property will be deleted
  * from the result.
- * 
+ *
  * This is useful when refining or overriding mock data in a script while keeping validation logic intact.
- * 
+ *
  * https://mokapi.io/docs/javascript-api/mokapi/patch#delete
- * 
+ *
  * @example
  * const result = patch({ name: "foo", age: 42 }, { age: Delete })
  * // result: { name: "foo" }

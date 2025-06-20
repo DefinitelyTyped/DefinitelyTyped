@@ -156,7 +156,7 @@ export interface Request {
      * This allows for interdependent data generation — for example, creating an email
      * address using a previously generated first and last name.
      */
-    context: Context
+    context: Context;
 }
 
 /**
@@ -166,7 +166,7 @@ export interface Context {
     /**
      * A map of names to previously generated values.
      */
-    values: { [name: string]: any }
+    values: { [name: string]: any };
 }
 
 /**
