@@ -1,4 +1,4 @@
-namespace Tippy {
+declare namespace Tippy {
     interface Tippy {
         id: number;
         popper: HTMLElement;
@@ -51,7 +51,7 @@ namespace Tippy {
         /**
          * You can update any prop after the instance has been created. Pass an object of new props in.
          */
-        setProps(props: Props);
+        setProps(props: Props): void;
 
         /**
          * Programmatically show the tippy at any time.
