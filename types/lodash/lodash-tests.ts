@@ -1182,6 +1182,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.remove(list, ""); // $ExpectType AbcObject[]
     _.remove(list, { a: 42 }); // $ExpectType AbcObject[]
 
+    // Test mutable arrays work correctly
+    const mutableNumbers = [1, 2, 3, 4];
+    _.remove(mutableNumbers, x => x > 2); // $ExpectType number[]
+
     _(list).remove(); // $ExpectType Collection<AbcObject>
     _(list).remove(listIterator); // $ExpectType Collection<AbcObject>
     _(list).remove(""); // $ExpectType Collection<AbcObject>
@@ -1196,15 +1200,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
     fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
-
-    // @ts-expect-error
-    _.remove(readonlyArray);
-    // @ts-expect-error
-    _.remove(readonlyArray, listIterator);
-    // @ts-expect-error
-    _.remove(readonlyArray, "");
-    // @ts-expect-error
-    _.remove(readonlyArray, { a: 42 });
 }
 
 // _.tail
@@ -6648,6 +6643,17 @@ fp.now(); // $ExpectType number
     _.chain(anything).plant(42); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
     _.chain(anything).plant([""]); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
     _.chain(anything).plant({ a: 42 }); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
+}
+
+// _.reverse
+{
+    _.reverse(["a", "b", "c"]); // $ExpectType string[]
+
+    // Test that truly readonly arrays are blocked
+    const readonlyArray: readonly string[] = ["a", "b"];
+    // @ts-expect-error - should fail with readonly arrays
+    _.reverse(readonlyArray);
+
 }
 
 // _.prototype.reverse

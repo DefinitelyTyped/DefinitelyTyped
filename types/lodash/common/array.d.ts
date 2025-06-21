@@ -1116,7 +1116,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, predicate?: ListIteratee<TList[0]>): TList[0][];
+        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
     }
     interface Collection<T> {
         /**
@@ -1150,7 +1150,7 @@ declare module "../index" {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        reverse<TList extends List<any>>(array: TList extends readonly any[] ? never : TList): TList;
+        reverse<TList extends any[]>(array: TList): TList;
     }
     interface LoDashStatic {
         /**
