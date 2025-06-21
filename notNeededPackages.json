@@ -6627,6 +6627,10 @@
             "libraryName": "selfsigned",
             "asOfVersion": "2.1.0"
         },
+        "semantic-release": {
+            "libraryName": "semantic-release",
+            "asOfVersion": "21.1.0"
+        },
         "semver-diff": {
             "libraryName": "semver-diff",
             "asOfVersion": "3.0.0"
