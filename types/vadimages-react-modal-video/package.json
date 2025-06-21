@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vadimages-react-modal-video",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/mihailShumilov/vadimages-react-modal-video"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-modal-video": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julián Bovone",
+            "githubUsername": "jbovone"
+        }
+    ]
+}
