@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/svg-pan-zoom",
+    "version": "3.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "JavaScript library that enables panning and zooming of an SVG in an HTML document, with mouse events or custom JavaScript hooks",
+    "projects": [
+        "https://github.com/bumbu/svg-pan-zoom"
+    ],
+    "devDependencies": {
+        "@types/svg-pan-zoom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DonaldDuck313",
+            "githubUsername": "DonaldDuck313"
+        }
+    ]
+}
