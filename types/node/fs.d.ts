@@ -322,6 +322,18 @@ declare module "fs" {
          * @since v12.12.0
          */
         readSync(): Dirent | null;
+        /**
+         * An alias for `dir.close()`.
+         * @since v24.1.0
+         * @experimental
+         */
+        [Symbol.dispose](): void;
+        /**
+         * An alias for `dir.closeSync()`.
+         * @since v24.1.0
+         * @experimental
+         */
+        [Symbol.asyncDispose](): void;
     }
     /**
      * Class: fs.StatWatcher
@@ -4354,7 +4366,7 @@ declare module "fs" {
          * Current working directory.
          * @default process.cwd()
          */
-        cwd?: string | undefined;
+        cwd?: string | URL | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
