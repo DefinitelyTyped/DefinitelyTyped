@@ -17,8 +17,8 @@ declare function execStringCallback(err: cp.ExecException | null, stdout: string
 declare function execBufferCallback(err: cp.ExecException | null, stdout: Buffer, stderr: Buffer): void;
 
 declare const command: string;
-declare const stringEncoding: BufferEncoding;
-declare const bufferEncoding: "buffer" | null | undefined;
+declare const stringEncoding: BufferEncoding | undefined;
+declare const bufferEncoding: "buffer" | null;
 declare const anyEncoding: string | null | undefined;
 
 declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | undefined;
