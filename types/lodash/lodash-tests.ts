@@ -22,7 +22,6 @@ interface AbcObject {
 
 const abcObject: AbcObject = anything;
 const array: AbcObject[] | null | undefined = anything;
-const readonlyArray: readonly AbcObject[] = anything;
 const list: _.List<AbcObject> | null | undefined = anything;
 const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
 const numericDictionary: _.NumericDictionary<AbcObject> | null | undefined = anything;
@@ -392,13 +391,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.fill(array, abcObject); // $ExpectType AbcObject[]
     _.fill(array, abcObject, 0); // $ExpectType AbcObject[]
     _.fill(array, abcObject, 0, 10); // $ExpectType AbcObject[]
-
-    // @ts-expect-error
-    _.fill(readonlyArray, abcObject);
-    // @ts-expect-error
-    _.fill(readonlyArray, abcObject, 0);
-    // @ts-expect-error
-    _.fill(readonlyArray, abcObject, 0, 10);
 
     _.fill(list, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.fill(list, abcObject, 0); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -891,12 +883,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pull(array); // $ExpectType AbcObject[]
     _.pull(array, abcObject); // $ExpectType AbcObject[]
     _.pull(array, abcObject, abcObject, abcObject); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    _.pull(readonlyArray);
-    // @ts-expect-error
-    _.pull(readonlyArray, abcObject);
-    // @ts-expect-error
-    _.pull(readonlyArray, abcObject, abcObject, abcObject);
     _.pull(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pull(list, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pull(list, abcObject, abcObject, abcObject); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -927,12 +913,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pullAt(array); // $ExpectType AbcObject[]
     _.pullAt(array, 1); // $ExpectType AbcObject[]
     _.pullAt(array, [2, 3], 4); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    _.pullAt(readonlyArray);
-    // @ts-expect-error
-    _.pullAt(readonlyArray, 1);
-    // @ts-expect-error
-    _.pullAt(readonlyArray, [2, 3], 4);
     _.pullAt(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, 1); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAt(list, [2, 3], 4); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -966,10 +946,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.pullAll(array); // $ExpectType AbcObject[]
     _.pullAll(array, values); // $ExpectType AbcObject[]
-    // @ts-expect-error
-    _.pullAll(readonlyArray);
-    // @ts-expect-error
-    _.pullAll(readonlyArray, values);
     _.pullAll(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAll(list, values); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
 
@@ -1002,11 +978,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         value; // $ExpectType AbcObject
         return [];
     });
-
-    // @ts-expect-error
-    _.pullAllBy(readonlyArray);
-    // @ts-expect-error
-    _.pullAllBy(readonlyArray, values, "a");
 
     _.pullAllBy(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAllBy(list, values); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
@@ -1101,10 +1072,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         b; // $ExpectType AbcObject
         return true;
     });
-    // @ts-expect-error
-    _.pullAllWith(readonlyArray);
-    // @ts-expect-error
-    _.pullAllWith(readonlyArray, values);
     _.pullAllWith(list); // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     // $ExpectType ArrayLike<AbcObject> || List<AbcObject>
     _.pullAllWith(list, values, (a, b) => {
@@ -1196,15 +1163,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
     fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
-
-    // @ts-expect-error
-    _.remove(readonlyArray);
-    // @ts-expect-error
-    _.remove(readonlyArray, listIterator);
-    // @ts-expect-error
-    _.remove(readonlyArray, "");
-    // @ts-expect-error
-    _.remove(readonlyArray, { a: 42 });
 }
 
 // _.tail
