@@ -864,7 +864,7 @@ function managingRefs() {
     // ref cleanup
     const ref: React.RefCallback<HTMLDivElement> = current => {
         // Should be non-nullable
-        // $ExpectType HTMLDivElement | null
+        // $ExpectType HTMLDivElement
         current;
         return function refCleanup() {
         };
@@ -893,4 +893,68 @@ function managingRefs() {
             };
         }}
     />;
+    // ref cleanup, with explicit React.RefCallback, non-nullable
+    {
+        let ref: React.RefCallback<HTMLDivElement>;
+
+        ref = current => {
+            // $ExpectType HTMLDivElement
+            current;
+            return function refCleanup() {
+            };
+        };
+
+        ref = current => {
+            // $ExpectType HTMLDivElement
+            current;
+        };
+
+        <div ref={ref} />;
+    }
+    // ref cleanup, with explicit React.RefCallback, nullable
+    {
+        let ref: React.RefCallback<HTMLDivElement | null>;
+
+        ref = current => {
+            // $ExpectType HTMLDivElement | null
+            current;
+        };
+
+        // @ts-expect-error - With a cleanup callback as return value, element can never be null
+        ref = current => {
+            // $ExpectType HTMLDivElement | null
+            current;
+            return () => {
+            };
+        };
+
+        <div ref={ref} />;
+    }
+    // ref cleanup, with inline ref
+    {
+        <div
+            ref={current => {
+                // Should be non-nullable
+                // $ExpectType HTMLDivElement | null
+                current;
+                return function refCleanup() {
+                };
+            }}
+        />;
+        <div
+            // @ts-expect-error ref cleanup does not accept arguments
+            ref={current => {
+                // @ts-expect-error
+                return function refCleanup(implicitAny) {
+                };
+            }}
+        />;
+        <div
+            // @ts-expect-error ref cleanup does not accept arguments
+            ref={current => {
+                return function refCleanup(neverPassed: string) {
+                };
+            }}
+        />;
+    }
 }
