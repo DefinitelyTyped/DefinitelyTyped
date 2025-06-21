@@ -8,16 +8,15 @@ interface Privacy extends Array<any> {
     push(...privacyArr: PrivacyData[]): 0;
 }
 
-type EventName = string;
-type EventData = object;
-type EventNameOrData = EventName | EventData;
+type EventDataValue = string | number | boolean | Date | null | undefined;
+type EventData = Record<string, EventDataValue | EventDataValue[] | Record<string, EventDataValue>[]>;
 interface EventDetails {
     firstTime: Date;
     lastTime: Date;
     count: number;
 }
-interface EventHandler extends Array<any> {
-    push(evtName: string, ...evtNameOrData: EventNameOrData[]): 0;
+interface EventHandler {
+    push(evtName: string, evtData?: EventData): number;
     getDetails(evtName: string): EventDetails | undefined;
 }
 interface SiteData {
@@ -30,20 +29,20 @@ interface SiteData {
     Age?: string | number;
     DOB?: string | number | Date;
     Phone?: string | number;
-    [key: string]: any;
+    [key: string]: string | number | boolean | Date | null | undefined;
 }
 interface ProfileData {
     Site?: SiteData;
-    Facebook?: object;
-    "Google Plus"?: object;
+    Facebook?: string | number | boolean | Date | null | undefined;
+    "Google Plus"?: string | number | boolean | Date | null | undefined;
 }
 interface ProfileHandler extends Array<any> {
-    push(...profileData: ProfileData[]): 0;
-    getAttribute(profileName: string): any;
+    push(...profileData: ProfileData[]): number;
+    getAttribute(profileName: string): string | number | boolean | Date | null | undefined;
 }
 
 interface UserLoginHandler extends Array<any> {
-    push(...profileData: ProfileData[]): 0;
+    push(...profileData: ProfileData[]): number;
     clear(): void;
 }
 interface NotificationData {
@@ -65,7 +64,7 @@ interface NotificationData {
     apnsWebPushServiceUrl?: string;
 }
 interface NotificationHandler extends Array<any> {
-    push(notificationData: NotificationData): 0;
+    push(notificationData: NotificationData): number;
     push(
         titleText: string,
         bodyText: string,
@@ -74,8 +73,7 @@ interface NotificationHandler extends Array<any> {
         okButtonColor?: string,
         skipDialog?: boolean,
         askAgainTimeInSeconds?: number,
-    ): 0;
-    enable(options?: { swPath: string }): void;
+    ): number;
 }
 interface User {
     getTotalVisits(): number | undefined;
@@ -85,6 +83,10 @@ interface Session {
     getTimeElapsed(): number | undefined;
     getPageCount(): number | undefined;
 }
+interface CampaignDetail {
+    wzrk_id: string;
+    [key: string]: any;
+}
 interface notificationCallbackData {
     msgContent: string;
     msgId: string;
@@ -93,9 +95,51 @@ interface CustomNotificationEvent {
     msgId: string;
     pivotId?: string;
     wzrk_slideNo?: number;
-    // evtData?: any;
-    kv?: any;
-    msgCTkv?: any;
+    kv?: Record<string, string | number | boolean>;
+    msgCTkv?: Record<string, string | number | boolean>;
+}
+
+// Inbox Interfaces
+interface InboxMessageButton {
+    [key: string]: string | number | boolean | undefined;
+}
+interface InboxMessageDisplay {
+    [key: string]: string | number | boolean | undefined;
+}
+interface InboxMessageContent {
+    title: string;
+    description: string;
+    onClickUrl?: string;
+    openUrlInNewTab?: boolean;
+    buttons?: InboxMessageButton[];
+}
+interface InboxMessage {
+    id: string;
+    date: number;
+    viewed: number;
+    templateType?: string;
+    type: number;
+    tags: string[];
+    enableTags?: boolean;
+    display: InboxMessageDisplay;
+    msg: InboxMessageContent[];
+    wzrk_ttl: number;
+    wzrk_id: string;
+    wzrk_pivot?: string;
+}
+type InboxMessagesCollection = Record<string, InboxMessage>;
+
+// Variable Interfaces
+type VariableType = "string" | "number" | "boolean" | "file" | "object";
+type VariableValue = string | number | boolean | Record<string, any>;
+
+interface Variable {
+    name: string;
+    defaultValue?: VariableValue;
+    value?: VariableValue;
+    type: VariableType;
+    hadStarted: boolean;
+    valueChangedCallbacks: (() => void)[];
 }
 declare class CleverTap {
     init(accountId: string, region?: Region, targetDomain?: string, token?: string): void;
@@ -132,17 +176,24 @@ declare class CleverTap {
     markReadInboxMessagesForIds: (messageIds: string[]) => void;
     markReadInboxMessage: (messageId: string) => void;
     deleteInboxMessage: (messageId: string) => void;
-    getInboxMessageForId: (messageId: string) => void;
-    getUnreadInboxMessages: () => any;
-    getAllInboxMessages: () => any;
+    getInboxMessageForId: (messageId: string) => InboxMessage | undefined;
+    getUnreadInboxMessages: () => InboxMessagesCollection;
+    getAllInboxMessages: () => InboxMessagesCollection;
     getInboxMessageUnreadCount: () => number | undefined;
     getInboxMessageCount: () => number | undefined;
     getLocation: (lat: number, lng: number) => void;
-    defineVariable: (name: string, defaultValue: string | number | boolean) => any;
+    defineVariable: (name: string, defaultValue: VariableValue) => Variable;
     syncVariables(onSyncSuccess?: () => void, onSyncFailure?: (error: Error) => void): Promise<void>;
     fetchVariables(onFetchCallback?: () => void): void;
     addVariablesChangedCallback(callback: () => void): void;
     addOneTimeVariablesChangedCallback(callback: () => void): void;
+    getSDKVersion: () => string;
+    enableLocalStorageEncryption: (value: boolean) => void;
+    isLocalStorageEncryptionEnabled: () => boolean;
+    defineFileVariable: (name: string) => Variable;
+    getVariables: () => Record<string, VariableValue>;
+    getVariableValue: (name: string) => VariableValue | undefined;
+    getAllQualifiedCampaignDetails: () => CampaignDetail[] | undefined;
 }
 
 export default CleverTap;
