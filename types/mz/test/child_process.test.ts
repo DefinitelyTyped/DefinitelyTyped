@@ -18,7 +18,7 @@ declare function execBufferCallback(err: cp.ExecException | null, stdout: Buffer
 
 declare const command: string;
 declare const stringEncoding: BufferEncoding;
-declare const bufferEncoding: "buffer" | null | undefined;
+declare const bufferEncoding: "buffer" | null;
 declare const anyEncoding: string | null | undefined;
 
 declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | undefined;
@@ -42,8 +42,8 @@ declare const unknownEncodingObject: { encoding: typeof anyEncoding } | null | u
     cp.exec(command, unknownEncodingObject); // $ExpectType Promise<[string | Buffer, string | Buffer]> || Promise<[string | Buffer<ArrayBufferLike>, string | Buffer<ArrayBufferLike>]>
 }
 
-declare function execFileStringCallback(err: Error | null, stdout: string, stderr: string): void;
-declare function execFileBufferCallback(err: Error | null, stdout: Buffer, stderr: Buffer): void;
+declare function execFileStringCallback(err: cp.ExecFileException | null, stdout: string, stderr: string): void;
+declare function execFileBufferCallback(err: cp.ExecFileException | null, stdout: Buffer, stderr: Buffer): void;
 
 declare const args: string[] | null | undefined;
 
@@ -65,13 +65,13 @@ declare const args: string[] | null | undefined;
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
     cp.execFile(command, { encoding: anyEncoding }, (err, stdout, stderr) => {
-        err; // $ExpectType Error | null
+        err; // $ExpectType ExecFileException | null
         stdout; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
         stderr; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     });
 
     cp.execFile(command, args, { encoding: anyEncoding }, (err, stdout, stderr) => {
-        err; // $ExpectType Error | null
+        err; // $ExpectType ExecFileException | null
         stdout; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
         stderr; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     });
@@ -82,13 +82,13 @@ declare const args: string[] | null | undefined;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     cp.execFile(command, unknownEncodingObject, (err, stdout, stderr) => {
-        err; // $ExpectType Error | null
+        err; // $ExpectType ExecFileException | null
         stdout; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
         stderr; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     });
 
     cp.execFile(command, args, unknownEncodingObject, (err, stdout, stderr) => {
-        err; // $ExpectType Error | null
+        err; // $ExpectType ExecFileException | null
         stdout; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
         stderr; // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     });
