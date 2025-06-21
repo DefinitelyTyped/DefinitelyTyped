@@ -4948,6 +4948,54 @@ function testPower() {
     chrome.power.reportActivity(() => {}).then(() => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/platformKeys
+function testPlatformKeys() {
+    chrome.platformKeys.ClientCertificateType.ECDSA_SIGN === "ecdsaSign";
+    chrome.platformKeys.ClientCertificateType.RAS_SIGN === "rasSign";
+
+    const arrayBuffer = new ArrayBuffer(0);
+
+    chrome.platformKeys.getKeyPair(arrayBuffer, {}, (publicKey, privateKey) => { // $ExpectType void
+        publicKey; // $ExpectType CryptoKey
+        privateKey; // $ExpectType CryptoKey | null
+    });
+
+    chrome.platformKeys.getKeyPairBySpki(arrayBuffer, {}, (publicKey, privateKey) => { // $ExpectType void
+        publicKey; // $ExpectType CryptoKey
+        privateKey; // $ExpectType CryptoKey | null
+    });
+
+    const selectDetails: chrome.platformKeys.SelectDetails = {
+        clientCerts: [],
+        interactive: true,
+        request: {
+            certificateAuthorities: [],
+            certificateTypes: ["ecdsaSign", chrome.platformKeys.ClientCertificateType.RAS_SIGN],
+        },
+    };
+
+    chrome.platformKeys.selectClientCertificates(selectDetails); // Promise<Match[]>
+    chrome.platformKeys.selectClientCertificates(selectDetails, matches => { // $ExpectType void
+        matches; // $ExpectType Match[]
+    });
+    // @ts-expect-error
+    chrome.platformKeys.selectClientCertificates(selectDetails, () => {}).then(() => {});
+
+    chrome.platformKeys.subtleCrypto(); // $ExpectType SubtleCrypto | undefined
+
+    const verificationDetails: chrome.platformKeys.VerificationDetails = {
+        hostname: "",
+        serverCertificateChain: [],
+    };
+
+    chrome.platformKeys.verifyTLSServerCertificate(verificationDetails); // $ExpectType Promise<VerificationResult>
+    chrome.platformKeys.verifyTLSServerCertificate(verificationDetails, (result) => { // $ExpectType void
+        result; // $ExpectType VerificationResult
+    });
+    // @ts-expect-error
+    chrome.platformKeys.verifyTLSServerCertificate(verificationDetails, () => {}).then(() => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/printing
 function testPrinting() {
     chrome.printing.MAX_GET_PRINTER_INFO_CALLS_PER_MINUTE === 20;
