@@ -550,17 +550,70 @@ DOM.div(htmlAttr);
 DOM.span(htmlAttr);
 DOM.input(htmlAttr);
 
+// Trusted types-related tests.
 declare const window: Window;
 const trustedTypes = window.trustedTypes!;
+const trustedTypesPolicy = trustedTypes.createPolicy("react-test", {
+    createScript: (s) => s,
+    createScriptURL: (s) => s,
+});
 const trustedHtml = trustedTypes.emptyHTML;
+const trustedScript = trustedTypesPolicy.createScript("");
+const trustedScriptURL = trustedTypesPolicy.createScriptURL("");
 
 const trustedTypesHTMLAttr: React.HTMLProps<HTMLElement> = {
     dangerouslySetInnerHTML: {
         __html: trustedHtml,
     },
 };
-DOM.div(trustedTypesHTMLAttr);
-DOM.span(trustedTypesHTMLAttr);
+React.createElement("div", trustedTypesHTMLAttr);
+React.createElement("span", trustedTypesHTMLAttr);
+
+// Test Trusted Types specific attributes
+const trustedTypesIframeAttr: React.IframeHTMLAttributes<HTMLIFrameElement> = {
+    srcDoc: trustedHtml,
+};
+React.createElement("iframe", trustedTypesIframeAttr);
+
+const trustedTypesScriptAttr: React.ScriptHTMLAttributes<HTMLScriptElement> = {
+    src: trustedScriptURL,
+};
+React.createElement("script", trustedTypesScriptAttr);
+
+const trustedTypesSvgAAttr: React.SVGAttributes<SVGElement> = {
+    href: trustedScriptURL,
+    xlinkHref: trustedScriptURL,
+};
+React.createElement(
+    "svg",
+    null,
+    React.createElement("a", trustedTypesSvgAAttr),
+);
+
+const trustedTypesSvgUseAttr: React.SVGAttributes<SVGUseElement> = {
+    href: trustedScriptURL,
+    xlinkHref: trustedScriptURL,
+};
+React.createElement(
+    "svg",
+    null,
+    React.createElement("use", trustedTypesSvgUseAttr),
+);
+
+// Ensure string types still work
+const stringIframeAttr: React.IframeHTMLAttributes<HTMLIFrameElement> = {
+    srcDoc: "<iframe>content</iframe>",
+};
+React.createElement("iframe", stringIframeAttr);
+const stringScriptAttr: React.ScriptHTMLAttributes<HTMLScriptElement> = {
+    src: "script.js",
+};
+React.createElement("script", stringScriptAttr);
+const stringSvgAAttr: React.SVGAttributes<SVGElement> = {
+    href: "link.svg",
+    xlinkHref: "link.svg",
+};
+React.createElement("svg", null, React.createElement("a", stringSvgAAttr));
 
 DOM.svg(
     {
