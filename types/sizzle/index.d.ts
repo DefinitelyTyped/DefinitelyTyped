@@ -3,6 +3,13 @@ export as namespace Sizzle;
 declare const Sizzle: SizzleStatic;
 export = Sizzle;
 
+// For users who don't have "dom" types
+/* eslint-disable @typescript-eslint/no-empty-interface */
+interface Document {}
+interface DocumentFragment {}
+interface Element {}
+/* eslint-enable @typescript-eslint/no-empty-interface */
+
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
     <TArrayLike extends ArrayLike<Element>>(
