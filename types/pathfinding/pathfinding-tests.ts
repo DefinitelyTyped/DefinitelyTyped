@@ -11,10 +11,9 @@ var node = grid.getNodeAt(0, 0);
 
 var finder = new PF.AStarFinder();
 
-
 var finder = new PF.AStarFinder({
     allowDiagonal: true,
-    dontCrossCorners: true
+    dontCrossCorners: true,
 });
 
 var finder = new PF.AStarFinder({
