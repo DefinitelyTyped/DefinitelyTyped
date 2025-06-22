@@ -67,6 +67,14 @@ declare namespace google.ima {
         ): CompanionAd[];
 
         /**
+         * Returns the content type of the currently selected creative,
+         * or empty string if no creative is selected or the content type is unavailable.
+         * For linear ads, the content type is only going to be available after the START event,
+         * when the media file is selected.
+         * @return the content type of the currently selected creative
+         */
+        getContentType(): string;
+        /**
          * Returns the ISCI (Industry Standard Commercial Identifier) code for an
          * ad, or empty string if the code is unavailable. This is the Ad-ID of the
          * creative in the VAST response.

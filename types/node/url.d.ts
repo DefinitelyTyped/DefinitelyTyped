@@ -791,8 +791,17 @@ declare module "url" {
     class URLPattern {
         constructor(input: string | URLPatternInit, baseURL: string, options?: URLPatternOptions);
         constructor(input?: string | URLPatternInit, options?: URLPatternOptions);
-        exec(input: string | URLPatternInit, baseURL?: string): URLPatternResult | null;
-        test(input: string | URLPatternInit, baseURL?: string): boolean;
+        exec(input?: string | URLPatternInit, baseURL?: string): URLPatternResult | null;
+        readonly hasRegExpGroups: boolean;
+        readonly hash: string;
+        readonly hostname: string;
+        readonly password: string;
+        readonly pathname: string;
+        readonly port: string;
+        readonly protocol: string;
+        readonly search: string;
+        test(input?: string | URLPatternInit, baseURL?: string): boolean;
+        readonly username: string;
     }
     interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
         [Symbol.iterator](): URLSearchParamsIterator<T>;

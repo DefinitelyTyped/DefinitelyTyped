@@ -342,7 +342,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T>(array: List<any> | null | undefined, value: T): List<T>;
+        fill<T, AnyList extends List<any>>(array: AnyList extends readonly any[] ? never : AnyList | null | undefined, value: T): List<T>;
         /**
          * @see _.fill
          */
@@ -350,7 +350,7 @@ declare module "../index" {
         /**
          * @see _.fill
          */
-        fill<T, U>(array: List<U> | null | undefined, value: T, start?: number, end?: number): List<T | U>;
+        fill<T, UList extends List<any>>(array: UList extends readonly any[] ? never : UList | null | undefined, value: T, start?: number, end?: number): List<T | UList[0]>;
     }
     interface Collection<T> {
         /**
@@ -932,7 +932,7 @@ declare module "../index" {
         /**
          * @see _.pull
          */
-        pull<T>(array: List<T>, ...values: T[]): List<T>;
+        pull<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, ...values: TList[0][]): TList;
     }
     interface Collection<T> {
         /**
@@ -968,7 +968,7 @@ declare module "../index" {
         /**
          * @see _.pullAll
          */
-        pullAll<T>(array: List<T>, values?: List<T>): List<T>;
+        pullAll<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>): TList;
     }
     interface Collection<T> {
         /**
@@ -1007,7 +1007,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T>(array: List<T>, values?: List<T>, iteratee?: ValueIteratee<T>): List<T>;
+        pullAllBy<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>, iteratee?: ValueIteratee<TList[0]>): TList;
         /**
          * @see _.pullAllBy
          */
@@ -1015,7 +1015,7 @@ declare module "../index" {
         /**
          * @see _.pullAllBy
          */
-        pullAllBy<T1, T2>(array: List<T1>, values: List<T2>, iteratee: ValueIteratee<T1 | T2>): List<T1>;
+        pullAllBy<T1List extends List<any>, T2>(array: T1List extends readonly any[] ? never : T1List, values: List<T2>, iteratee: ValueIteratee<T1List[0] | T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1054,7 +1054,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T>(array: List<T>, values?: List<T>, comparator?: Comparator<T>): List<T>;
+        pullAllWith<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, values?: List<TList[0]>, comparator?: Comparator<TList[0]>): TList;
         /**
          * @see _.pullAllWith
          */
@@ -1062,7 +1062,7 @@ declare module "../index" {
         /**
          * @see _.pullAllWith
          */
-        pullAllWith<T1, T2>(array: List<T1>, values: List<T2>, comparator: Comparator2<T1, T2>): List<T1>;
+        pullAllWith<T1List extends List<any>, T2>(array: T1List extends readonly any[] ? never : T1List, values: List<T2>, comparator: Comparator2<T1List[0], T2>): T1List;
     }
     interface Collection<T> {
         /**
@@ -1091,7 +1091,7 @@ declare module "../index" {
         /**
          * @see _.pullAt
          */
-        pullAt<T>(array: List<T>, ...indexes: Array<Many<number>>): List<T>;
+        pullAt<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, ...indexes: Array<Many<number>>): TList;
     }
     interface Collection<T> {
         /**
@@ -1116,7 +1116,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the new array of removed elements.
          */
-        remove<T>(array: List<T>, predicate?: ListIteratee<T>): T[];
+        remove<TList extends List<any>>(array: TList extends readonly any[] ? never : TList, predicate?: ListIteratee<TList[0]>): TList[0][];
     }
     interface Collection<T> {
         /**
@@ -1150,7 +1150,7 @@ declare module "../index" {
          * console.log(array);
          * // => [3, 2, 1]
          */
-        reverse<TList extends List<any>>(array: TList): TList;
+        reverse<TList extends List<any>>(array: TList extends readonly any[] ? never : TList): TList;
     }
     interface LoDashStatic {
         /**

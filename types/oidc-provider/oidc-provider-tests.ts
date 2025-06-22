@@ -449,6 +449,7 @@ const provider = new oidc.Provider("https://op.example.com", {
                     metadata.client_id.substring(0);
                 },
             },
+            issueRegistrationAccessToken: true,
             idFactory() {
                 return "foo";
             },
