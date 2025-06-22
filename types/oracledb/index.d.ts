@@ -1642,6 +1642,8 @@ declare namespace OracleDB {
 
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
+        /** Registration ID of affected registration. */
+        regId: bigint;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
         type: number;
     }
@@ -2065,7 +2067,7 @@ declare namespace OracleDB {
             | Record<
                 string,
                 {
-                    type: number;
+                    type: DbType | number;
                 }
             >
             | undefined;

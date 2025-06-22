@@ -15,9 +15,15 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(...messages: any[]): void;
-declare function cpost(...message: any[]): void;
-declare function post(...message: any[]): void;
+
+// See https://cycling74.com/forums/any-plans-to-update-support-for-recent-versions-of-js#reply-67264ffa39a940001350f9ab
+declare function maxclasswrap(external_name: string, javascript_class_name: string): void;
+declare function error(message?: any): void;
+declare function error(...messages: any): void;
+declare function cpost(args?: any): void;
+declare function cpost(...args: any): void;
+declare function post(args?: any): void;
+declare function post(...args: any): void;
 /**
  * Sends a message to the named Max object.
  * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
@@ -1270,6 +1276,12 @@ declare class Maxobj {
     understands(message: string): boolean;
 
     /**
+     * Returns an Array value containing the current value(s) of the (UI) object.
+     * A single value would be returned by "...()[0]"
+     */
+    getvalueof(): any;
+
+    /**
      * Returns an Array value containing the names of available attributes for the object.
      */
     getattrnames(): string[];
@@ -1277,12 +1289,19 @@ declare class Maxobj {
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
      */
-    getattr(attribute_name: string): unknown;
+    getattr(attrname: string): number | number[] | string;
+
+    /*
+     * Gets the value of an attribute's attribute
+     * V8 ONLY!
+     */
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
 
     /**
      * Sets the value of the attribute specified by attribute_name.
+     * C'74 docs say value is number | number[] | string but it definitely isn't and can take variadic inputs
      */
-    setattr(attribute_name: string, anything: unknown): void;
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Returns an Array value containing the names of available attributes for the object's box.
@@ -1442,8 +1461,20 @@ declare class Patcher {
 
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     * C74 docs say that this is a string[] but that is definitely incorrect!
      */
-    getattr(attribute_name: string): unknown;
+    getattr(attrname: string): number | number[] | string;
+
+    /**
+     * Get the value of a specified patcher attribute's attribute
+     * V8 ONLY!
+     */
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     */
+    setattr(attrname: string, ...value: any[]): void;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.
@@ -1622,7 +1653,7 @@ declare class Task {
      * Repeat a task function. The optional number argument specifies the number of repetitions. If the argument is not present or is negative, the task repeats until it is cancelled. The optional
      * initialdelay argument sets the delay in milliseconds until the first iteration. See documentation for an example.
      */
-    repeat(times: number): void;
+    repeat(n?: number, initialdelay?: number): void;
 
     /**
      * Run the task once, right now. Equivalent to calling the task function with its arguments.
@@ -1818,7 +1849,7 @@ declare function refresh(): void;
  * https://docs.cycling74.com/max8/vignettes/jsmgraphics
  */
 declare class MGraphics {
-    constructor();
+    constructor(width: number, height: number);
 
     /**
      * When autosketch is set to 1, the drawing commands will immediately be drawn without waiting a drawing execution command. While this is convenient, it is less flexible than working with

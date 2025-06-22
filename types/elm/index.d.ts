@@ -1,9 +1,19 @@
-interface ElmInstance<P = {}> {
-    Main: ElmMain<P>;
-}
+type ElmInstance<
+    P,
+    F,
+    Entrypoints extends string[] =
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        ["Main"],
+> = NestedEntrypoints<Entrypoints, P, F>;
 
-interface ElmMain<P> {
-    init(options: { node?: Node | undefined; flags?: any }): ElmApp<P>;
+type NestedEntrypoints<Entrypoints extends string[], P, F> = Entrypoints extends [
+    infer First extends string,
+    ...infer Rest extends string[],
+] ? { [K in First]: NestedEntrypoints<Rest, P, F> }
+    : ElmMain<P, F>;
+
+interface ElmMain<P, F> {
+    init(options?: { node?: Node | undefined; flags: F } | undefined): ElmApp<P>;
 }
 
 interface ElmApp<P> {

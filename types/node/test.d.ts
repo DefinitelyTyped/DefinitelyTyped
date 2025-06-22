@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -321,8 +321,16 @@ declare module "node:test" {
          */
         concurrency?: number | boolean | undefined;
         /**
+         * Specifies the current working directory to be used by the test runner.
+         * Serves as the base path for resolving files according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
+         * @since v23.0.0
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
          * An array containing the list of files to run. If omitted, files are run according to the
-         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
@@ -335,7 +343,7 @@ declare module "node:test" {
         /**
          * An array containing the list of glob patterns to match test files.
          * This option cannot be used together with `files`. If omitted, files are run according to the
-         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * [test runner execution model](https://nodejs.org/docs/latest-v24.x/api/test.html#test-runner-execution-model).
          * @since v22.6.0
          */
         globPatterns?: readonly string[] | undefined;
@@ -416,7 +424,7 @@ declare module "node:test" {
          */
         shard?: TestShard | undefined;
         /**
-         * enable [code coverage](https://nodejs.org/docs/latest-v22.x/api/test.html#collecting-code-coverage) collection.
+         * enable [code coverage](https://nodejs.org/docs/latest-v24.x/api/test.html#collecting-code-coverage) collection.
          * @since v22.10.0
          * @default false
          */
@@ -648,11 +656,12 @@ declare module "node:test" {
          */
         readonly name: string;
         /**
-         * Used to set the number of assertions and subtests that are expected to run within the test.
-         * If the number of assertions and subtests that run does not match the expected count, the test will fail.
+         * This function is used to set the number of assertions and subtests that are expected to run
+         * within the test. If the number of assertions and subtests that run does not match the
+         * expected count, the test will fail.
          *
-         * To make sure assertions are tracked, the assert functions on `context.assert` must be used,
-         * instead of importing from the `node:assert` module.
+         * > Note: To make sure assertions are tracked, `t.assert` must be used instead of `assert` directly.
+         *
          * ```js
          * test('top level test', (t) => {
          *   t.plan(2);
@@ -661,7 +670,9 @@ declare module "node:test" {
          * });
          * ```
          *
-         * When working with asynchronous code, the `plan` function can be used to ensure that the correct number of assertions are run:
+         * When working with asynchronous code, the `plan` function can be used to ensure that the
+         * correct number of assertions are run:
+         *
          * ```js
          * test('planning with streams', (t, done) => {
          *   function* generate() {
@@ -675,14 +686,35 @@ declare module "node:test" {
          *   stream.on('data', (chunk) => {
          *     t.assert.strictEqual(chunk, expected.shift());
          *   });
+         *
          *   stream.on('end', () => {
          *     done();
          *   });
          * });
          * ```
+         *
+         * When using the `wait` option, you can control how long the test will wait for the expected assertions.
+         * For example, setting a maximum wait time ensures that the test will wait for asynchronous assertions
+         * to complete within the specified timeframe:
+         *
+         * ```js
+         * test('plan with wait: 2000 waits for async assertions', (t) => {
+         *   t.plan(1, { wait: 2000 }); // Waits for up to 2 seconds for the assertion to complete.
+         *
+         *   const asyncActivity = () => {
+         *     setTimeout(() => {
+         *          *       t.assert.ok(true, 'Async assertion completed within the wait time');
+         *     }, 1000); // Completes after 1 second, within the 2-second wait time.
+         *   };
+         *
+         *   asyncActivity(); // The test will pass because the assertion is completed in time.
+         * });
+         * ```
+         *
+         * Note: If a `wait` timeout is specified, it begins counting down only after the test function finishes executing.
          * @since v22.2.0
          */
-        plan(count: number): void;
+        plan(count: number, options?: TestContextPlanOptions): void;
         /**
          * If `shouldRunOnlyTests` is truthy, the test context will only run tests that
          * have the `only` option set. Otherwise, all tests are run. If Node.js was not
@@ -813,7 +845,7 @@ declare module "node:test" {
          * highlighting.
          * @since v22.14.0
          * @param value A value to serialize to a string. If Node.js was started with
-         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
          * flag, the serialized value is written to
          * `path`. Otherwise, the serialized value is compared to the contents of the
          * existing snapshot file.
@@ -836,7 +868,7 @@ declare module "node:test" {
          * ```
          * @since v22.3.0
          * @param value A value to serialize to a string. If Node.js was started with
-         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--test-update-snapshots)
+         * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--test-update-snapshots)
          * flag, the serialized value is written to
          * the snapshot file. Otherwise, the serialized value is compared to the
          * corresponding value in the existing snapshot file.
@@ -857,6 +889,20 @@ declare module "node:test" {
          * If no serializers are provided, the test runner's default serializers are used.
          */
         serializers?: ReadonlyArray<(value: any) => any> | undefined;
+    }
+    interface TestContextPlanOptions {
+        /**
+         * The wait time for the plan:
+         * * If `true`, the plan waits indefinitely for all assertions and subtests to run.
+         * * If `false`, the plan performs an immediate check after the test function completes,
+         * without waiting for any pending assertions or subtests.
+         * Any assertions or subtests that complete after this check will not be counted towards the plan.
+         * * If a number, it specifies the maximum wait time in milliseconds
+         * before timing out while waiting for expected assertions and subtests to be matched.
+         * If the timeout is reached, the test will fail.
+         * @default false
+         */
+        wait?: boolean | number | undefined;
     }
     interface TestContextWaitForOptions {
         /**
@@ -1254,10 +1300,43 @@ declare module "node:test" {
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
 
         /**
-         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, and Node.js builtin modules.
-         * Any references to the original module prior to mocking are not impacted.
+         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
+         * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
+         * order to enable module mocking, Node.js must be started with the
+         * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-module-mocks)
+         * command-line flag.
          *
-         * Only available through the [--experimental-test-module-mocks](https://nodejs.org/api/cli.html#--experimental-test-module-mocks) flag.
+         * The following example demonstrates how a mock is created for a module.
+         *
+         * ```js
+         * test('mocks a builtin module in both module systems', async (t) => {
+         *   // Create a mock of 'node:readline' with a named export named 'fn', which
+         *   // does not exist in the original 'node:readline' module.
+         *   const mock = t.mock.module('node:readline', {
+         *     namedExports: { fn() { return 42; } },
+         *   });
+         *
+         *   let esmImpl = await import('node:readline');
+         *   let cjsImpl = require('node:readline');
+         *
+         *   // cursorTo() is an export of the original 'node:readline' module.
+         *   assert.strictEqual(esmImpl.cursorTo, undefined);
+         *   assert.strictEqual(cjsImpl.cursorTo, undefined);
+         *   assert.strictEqual(esmImpl.fn(), 42);
+         *   assert.strictEqual(cjsImpl.fn(), 42);
+         *
+         *   mock.restore();
+         *
+         *   // The mock is restored, so the original builtin module is returned.
+         *   esmImpl = await import('node:readline');
+         *   cjsImpl = require('node:readline');
+         *
+         *   assert.strictEqual(typeof esmImpl.cursorTo, 'function');
+         *   assert.strictEqual(typeof cjsImpl.cursorTo, 'function');
+         *   assert.strictEqual(esmImpl.fn, undefined);
+         *   assert.strictEqual(cjsImpl.fn, undefined);
+         * });
+         * ```
          * @since v22.3.0
          * @experimental
          * @param specifier A string identifying the module to mock.
@@ -1452,7 +1531,6 @@ declare module "node:test" {
      * The `MockTracker` provides a top-level `timers` export
      * which is a `MockTimers` instance.
      * @since v20.4.0
-     * @experimental
      */
     class MockTimers {
         /**
@@ -1971,6 +2049,11 @@ interface TestDequeue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestEnqueue extends TestLocationInfo {
     /**
@@ -1981,6 +2064,11 @@ interface TestEnqueue extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The test type. Either `'suite'` or `'test'`.
+     * @since v22.15.0
+     */
+    type: "suite" | "test";
 }
 interface TestFail extends TestLocationInfo {
     /**
@@ -2165,7 +2253,7 @@ interface TestSummary {
  * import test from 'node:test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";
@@ -2221,12 +2309,10 @@ declare module "node:test/reporters" {
     }
     /**
      * The `lcov` reporter outputs test coverage when used with the
-     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-coverage) flag.
      * @since v22.0.0
      */
-    // TODO: change the export to a wrapper function once node@0db38f0 is merged (breaking change)
-    // const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
-    const lcov: LcovReporter;
+    const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
 
     export { dot, junit, lcov, spec, tap, TestEvent };
 }

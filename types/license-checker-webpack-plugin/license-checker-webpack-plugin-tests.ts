@@ -11,6 +11,7 @@ new LicenseCheckerWebpackPlugin({
         "querystring-es3@0.2.1": { licenseName: "MIT" },
     },
     emitError: true,
+    // $ExpectType string
     outputWriter: path.resolve(__dirname, "customTemplate.ejs"),
     outputFilename: "ThirdPartyNotices.txt",
 });
@@ -18,9 +19,18 @@ new LicenseCheckerWebpackPlugin({
 // $ExpectType LicenseCheckerWebpackPlugin
 new LicenseCheckerWebpackPlugin({
     filter: /.*/,
+    // $ExpectType ({ dependencies }: OutputWriterArgs) => string
     outputWriter: ({ dependencies }) => {
         dependencies; // $ExpectType Dependency[]
         return dependencies.map(d => `${d.name} - v${d.version} - ${d.author}\n${d.licenseName}`).join("\n");
+    },
+});
+
+// $ExpectType LicenseCheckerWebpackPlugin
+new LicenseCheckerWebpackPlugin({
+    // $ExpectType ({ dependencies }: OutputWriterArgs) => Promise<string>
+    outputWriter: async ({ dependencies }) => {
+        return dependencies.map(d => d.name).join("\n");
     },
 });
 

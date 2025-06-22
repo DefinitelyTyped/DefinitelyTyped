@@ -141,6 +141,26 @@ declare namespace fetch {
         fetchRetryMaxtimeout?: number | undefined;
     }
 
+    interface FetchRetryObjectOptions {
+        /**
+         * The "retries" config for `retry` to use when fetching packages from
+         * the registry.
+         */
+        retries?: number | undefined;
+        /**
+         * The "factor" config for `retry` to use when fetching packages.
+         */
+        factor?: number | undefined;
+        /**
+         * The "minTimeout" config for `retry` to use when fetching packages.
+         */
+        minTimeout?: number | undefined;
+        /**
+         * The "maxTimeout" config for `retry` to use when fetching packages.
+         */
+        maxTimeout?: number | undefined;
+    }
+
     /**
      * Extra options:
      *
@@ -391,7 +411,7 @@ declare namespace fetch {
          * Single-object configuration for request retry settings. If passed in,
          * will override individually-passed `fetchRetry*` settings.
          */
-        retry?: Partial<FetchRetryOptions> | undefined;
+        retry?: Partial<FetchRetryObjectOptions> | undefined;
         /**
          * Associate an operation with a scope for a scoped registry. This
          * option can force lookup of scope-specific registries and

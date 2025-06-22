@@ -8,8 +8,9 @@ declare class Session {
     createKeyLicense: number;
     scriptURI: string | number;
     startupScriptsExecuted: boolean;
-    application: DBKey;
+    application: number;
     realm: string;
+    runtime: string;
     scope: string;
     clientId: string;
     trackingId: string;
@@ -33,5 +34,4 @@ declare class Session {
     executeStartupScripts(): void;
     hasRequest(): boolean;
 }
-import DBKey = require('../dbkey/DBKey.js');
 import AuthToken = require('../security/AuthToken.js');

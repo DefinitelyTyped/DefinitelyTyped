@@ -15,6 +15,8 @@ const massUnits = convert().possibilities("mass");
 const distanceUnits = convert().from("m").possibilities();
 const kgDescription = convert().describe("kg");
 const lengthUnitDescriptions = convert().list("length");
+const clDescription = convert().describe("cl");
+const dlDescription = convert().describe("dl");
 
 const kgAbbr: string = kgDescription.abbr;
 const kgMeasure: string = kgDescription.measure;

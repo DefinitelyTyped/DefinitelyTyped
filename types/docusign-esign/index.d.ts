@@ -1592,6 +1592,13 @@ export class EnvelopesApi {
         callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
 
+    updateEnvelopeDocGenFormFields(
+        accountId: string,
+        envelopeId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DocGenFormFieldResponse>;
+
     updateEnvelopeTransferRule(
         accountId: string,
         envelopeTransferRuleId: string,

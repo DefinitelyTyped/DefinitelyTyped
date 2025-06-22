@@ -912,4 +912,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     fd.appendFile("test", { signal: new AbortSignal(), encoding: "utf-8" });
     // @ts-expect-error
     fd.appendFile("test", { mode: 0o777, flush: true, flag: "a" });
+
+    fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
+    // @ts-expect-error
+    fd.readFile({ encoding: "utf-8", flag: "r" });
 });

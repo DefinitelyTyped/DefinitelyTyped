@@ -10,9 +10,12 @@
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
     },
     "files": [
+        "index.d.cts",
+        "index.d.mts",
         "index.d.ts",
         "eslint-scope-tests.ts"
     ]

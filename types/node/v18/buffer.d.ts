@@ -68,7 +68,7 @@ declare module "buffer" {
      * @param input The input to validate.
      */
     export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
-    export const INSPECT_MAX_BYTES: number;
+    export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
     export const constants: {
@@ -112,7 +112,7 @@ declare module "buffer" {
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer };
+    export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
     /**
      * @experimental
      */

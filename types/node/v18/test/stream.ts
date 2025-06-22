@@ -731,7 +731,7 @@ async function testTransferringStreamWithPostMessage() {
     // $ExpectType Promise<void>
     byobReader.cancel("reason");
 
-    // $ExpectType Promise<undefined>
+    // $ExpectType Promise<void>
     byobReader.closed;
 
     // $ExpectType Promise<ReadableStreamReadResult<Uint8Array<ArrayBuffer>>>

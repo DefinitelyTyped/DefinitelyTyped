@@ -79,6 +79,11 @@ export const bitXor: (a: NodeRepresentation, b: NodeRepresentation) => ShaderNod
 export const shiftLeft: (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
 export const shiftRight: (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
 
+export const incrementBefore: (a: NodeRepresentation) => ShaderNodeObject<Node>;
+export const decrementBefore: (a: NodeRepresentation) => ShaderNodeObject<Node>;
+export const increment: (a: NodeRepresentation) => ShaderNodeObject<Node>;
+export const decrement: (a: NodeRepresentation) => ShaderNodeObject<Node>;
+
 declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         add: typeof add;
@@ -102,6 +107,10 @@ declare module "../tsl/TSLCore.js" {
         bitXor: typeof bitXor;
         shiftLeft: typeof shiftLeft;
         shiftRight: typeof shiftRight;
+        incrementBefore: typeof incrementBefore;
+        decrementBefore: typeof decrement;
+        increment: typeof increment;
+        decrement: typeof decrement;
     }
 }
 

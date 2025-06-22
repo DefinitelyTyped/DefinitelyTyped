@@ -2147,9 +2147,3 @@ export function should(): Chai.Should;
 export function Should(): Chai.Should;
 export const assert: Chai.AssertStatic;
 export const expect: Chai.ExpectStatic;
-
-declare global {
-    interface Object {
-        should: Chai.Assertion;
-    }
-}

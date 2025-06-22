@@ -1,5 +1,7 @@
-import { Color } from "./common";
+import { Color } from "./common.js";
 
-export function luminance(color: Color | string): number;
+declare function wcagLuminance(color: Color | string): number;
 
-export function contrast(colorA: Color | string, colorB: Color | string): number;
+declare function wcagContrast(colorA: Color | string, colorB: Color | string): number;
+
+export { wcagContrast, wcagLuminance };

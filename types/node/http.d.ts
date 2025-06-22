@@ -37,7 +37,7 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/http.js)
  */
 declare module "http" {
     import * as stream from "node:stream";
@@ -48,6 +48,7 @@ declare module "http" {
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
+        "accept-encoding"?: string | undefined;
         "accept-language"?: string | undefined;
         "accept-patch"?: string | undefined;
         "accept-ranges"?: string | undefined;
@@ -94,6 +95,10 @@ declare module "http" {
         range?: string | undefined;
         referer?: string | undefined;
         "retry-after"?: string | undefined;
+        "sec-fetch-site"?: string | undefined;
+        "sec-fetch-mode"?: string | undefined;
+        "sec-fetch-user"?: string | undefined;
+        "sec-fetch-dest"?: string | undefined;
         "sec-websocket-accept"?: string | undefined;
         "sec-websocket-extensions"?: string | undefined;
         "sec-websocket-key"?: string | undefined;
@@ -207,7 +212,7 @@ declare module "http" {
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
+        headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         hints?: LookupOptions["hints"];
         host?: string | null | undefined;
         hostname?: string | null | undefined;
@@ -270,6 +275,13 @@ declare module "http" {
          */
         connectionsCheckingInterval?: number | undefined;
         /**
+         * Sets the timeout value in milliseconds for receiving the complete HTTP headers from the client.
+         * See {@link Server.headersTimeout} for more information.
+         * @default 60000
+         * @since 18.0.0
+         */
+        headersTimeout?: number | undefined;
+        /**
          * Optionally overrides all `socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
          * This affects `highWaterMark` property of both `IncomingMessage` and `ServerResponse`.
          * Default: @see stream.getDefaultHighWaterMark().
@@ -297,6 +309,13 @@ declare module "http" {
          */
         noDelay?: boolean | undefined;
         /**
+         * If set to `true`, it forces the server to respond with a 400 (Bad Request) status code
+         * to any HTTP/1.1 request message that lacks a Host header (as mandated by the specification).
+         * @default true
+         * @since 20.0.0
+         */
+        requireHostHeader?: boolean | undefined;
+        /**
          * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
          * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
          * @default false
@@ -314,6 +333,12 @@ declare module "http" {
          * If the header's value is an array, the items will be joined using `; `.
          */
         uniqueHeaders?: Array<string | string[]> | undefined;
+        /**
+         * If set to `true`, an error is thrown when writing to an HTTP response which does not have a body.
+         * @default false
+         * @since v18.17.0, v20.2.0
+         */
+        rejectNonStandardBodyWrites?: boolean | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -1480,7 +1505,7 @@ declare module "http" {
      * });
      * ```
      *
-     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v22.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
+     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v24.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
      *
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
