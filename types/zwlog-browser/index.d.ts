@@ -85,7 +85,7 @@ interface zwlog {
         /**
          * 用户从进入到离开当前页面的时长
          */
-        Page_duration?: number
+        Page_duration?: number;
         /**
          * 页面 ID
          * @deprecated
