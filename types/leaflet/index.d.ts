@@ -1807,6 +1807,14 @@ export class TileLayer extends GridLayer {
     options: TileLayerOptions;
 }
 
+ interface Evented {
+    on(type: 'tileload', fn: (e: TileEvent) => void, context?: any): this;
+    on(type: 'tileunload', fn: (e: TileEvent) => void, context?: any): this;
+    on(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+
+}
+
+
 export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
 
 export namespace TileLayer {
