@@ -1,6 +1,6 @@
 # Definitely Typed
 
-> 高品質な TypeScript の型定義用レポジトリ
+> 高品質な TypeScript の型定義用リポジトリ
 
 _この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)・[イタリア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)でも閲覧できます！_
 
@@ -8,13 +8,13 @@ _[管理マニュアルへのリンク](./docs/admin.md)_
 
 ## 現在のステータス
 
-このセクションではレポジトリと公開プロセスの稼働状況を追跡できます。
+このセクションではリポジトリと公開プロセスの稼働状況を追跡できます。
 PR やパッケージに何か不具合がある場合は、これらが役に立つかもしれません。
 
-- 直近のビルドの[型チェックと Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) が正常終了したか: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-- 次バージョンの TypeScript 上で全パッケージの型チェックと Lint が正常終了したか: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-- 1時間以内に全パッケージが [npm に公開](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)されているか: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-- Definitely Typed 上で [typescript-bot](https://github.com/typescript-bot) がアクティブかどうか: [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- 直近のビルドの[型チェックと Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) が正常終了したか: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
+- 次バージョンの TypeScript 上で全パッケージの型チェックと Lint が正常終了したか: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
+- 1時間以内に全パッケージが [npm に公開](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)されているか: [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
+- Definitely Typed 上で [typescript-bot](https://github.com/typescript-bot) がアクティブかどうか: [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
 - 現在の[運用基盤のステータス更新](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 掲載されているもので何かが正常ではなかったり、結果が失敗になっているものがある場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript)までご連絡ください。
@@ -56,7 +56,7 @@ npm install --save-dev @types/node
 <summary>古いバージョンの TypeScript</summary>
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
-たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
+例えば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることを確認できます。
 
 | タグ   | バージョン |
 | ------ | ---------- |
@@ -70,9 +70,9 @@ npm install --save-dev @types/node
 
 #### TypeScript 1.x系
 
-- このレポジトリの `master` ブランチから手動でダウンロードして、開発しているプロジェクトに配置してください。
+- このリポジトリの `master` ブランチから手動でダウンロードして、開発しているプロジェクトに配置してください。
 - ~~[Typings](https://github.com/typings/typings)~~ （Typings は非推奨になったので、他の方式を使用すること）
-- ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ （NuGet 上の DefinitelyTyped の公開は終了したので、他の方式を使用すること）
+- ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ （NuGet 上の Definitely Typed の公開は終了したので、他の方式を使用すること）
 
 手動で[リファレンス](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)を追加する必要があります。
 
@@ -118,9 +118,9 @@ declare module "libname" {
 
 変更・新規作成したパッケージを試し終えたら、 Definitely Typed で共有しましょう。
 
-まず、このレポジトリを[フォーク](https://guides.github.com/activities/forking/)し、 [node](https://nodejs.org/) をインストールし、 `npm install` を実行します。
+まず、このリポジトリを[フォーク](https://guides.github.com/activities/forking/)し、 [node](https://nodejs.org/) をインストールし、 `npm install` を実行します。
 
-DefinitelyTyped への大量の PR を全てセルフサービス方式で処理するために bot を導入しています。詳しい方法と理由については[こちら](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)<small>（英語）</small>で確認できます。下図は DefinitelyTyped への PR のライフサイクルを簡単に示したものです。
+Definitely Typed への大量の PR を全てセルフサービス方式で処理するために bot を導入しています。詳しい方法と理由については[こちら](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)<small>（英語）</small>で確認できます。下図は Definitely Typed への PR のライフサイクルを簡単に示したものです。
 
 <img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
@@ -133,7 +133,7 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 自分に関連する型パッケージのみを含む、より管理しやすいクローンを作成するには、gitの [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout)、[`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt)、および [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) の機能を使用できます。これにより、クローン時間が短縮され、gitのパフォーマンスが向上します。
 
-> :warning: これには最小限の[gitバージョン2.27.0](https://git-scm.com/downloads)が必要ですが、これはほとんどのマシンのデフォルトよりも新しいバージョンです。より複雑な手順が古いバージョンで利用可能ですが、このガイドではカバーされていません。
+> :warning: これには[gitバージョン2.27.0](https://git-scm.com/downloads)以上である必要がありますが、これはほとんどのマシンのデフォルトよりも新しいバージョンです。より複雑な手順により古いバージョンでも利用可能ですが、このガイドではカバーされていません。
 
 1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
    - `--sparse` はスパースチェックアウトファイルを初期化し、ワーキングディレクトリがリポジトリのルートにあるファイルのみで開始されます。
@@ -158,7 +158,7 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 もし、あなたがライブラリの作者で、そのライブラリが TypeScript で書かれている場合は、 Definitely Typed で型定義を公開するのではなく、ライブラリのパッケージ自体に[自動生成された型定義ファイルをバンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)してください。
 
 npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
-npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
+npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージと競合しないか確認してください。
 （`npm info <my-package>` コマンドで、 `<my-package>` パッケージが存在するかどうか確認できます。）
 
 型定義パッケージは次のような構造にする必要があります:
@@ -182,16 +182,16 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
+`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。
 
 - `<typingsPackageName>`: 削除したいディレクトリ名。
-- `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
+- `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンと合わせる必要があります。
 - `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
 `pnpm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
 エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
-たとえば下記のようになります:
+例えば下記のようになります:
 
 ```json
 {
@@ -216,8 +216,8 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 #### 命名
 
-もし、npmパッケージの型定義を追加する場合、同じ名前のディレクトリを作成してください。
-もし、型定義を追加するパッケージがnpmに存在しない場合、選択する名前がnpmのパッケージ名と競合しないことを確認してください。
+npmパッケージの型定義を追加する場合、同じ名前のディレクトリを作成してください。
+型定義を追加するパッケージがnpmに存在しない場合、選択する名前がnpmのパッケージ名と競合しないことを確認してください。
 （`npm info <my-package>` を使用して `<my-package>` パッケージの存在を確認できます。）
 
 npmに存在しないパッケージが既存のnpmパッケージと競合する場合、名前の末尾に `-browser` を追加して `<my-package>-browser` を取得してみてください。
@@ -256,7 +256,7 @@ const result = twoslash("//")
 
 もしどこからテストコードを書き始めればよいかわからないときは、そのモジュールの README に書かれてるサンプルをテストするコードから始めるのがよいでしょう。
 
-レポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#テストの実行)することができます。
+リポジトリのルートで `npm test <テストしたいパッケージ名>` を実行すると、このコマンドはファイルが変更された状態でテストを実行するので、[変更を検証](#テストの実行)することができます。
 
 式が与えられた型であるか確認するには `$ExpectType` を、コンパイルエラーになるかを確認するには `@ts-expect-error` をそれぞれ使います。 例:
 
@@ -309,7 +309,7 @@ const enum Enum { // eslint-disable-line no-const-enum
 > import Component from "./component";
 > ```
 >
-> `index.d.ts` のインポートのコンパイル時の有効性は、ユーザーが継承しないコンパイル設定に依存しているため、DefinitelyTypedでこのパターンを使用すると、ユーザーに自分自身のコンパイル設定を変更させることが必要になり、それがランタイム用に正しくないかもしれません。代わりに、広範な、設定に依存しない互換性を確保するために、CJSエクスポート用のCJSインポートを書く必要があります：
+> `index.d.ts` のインポートのコンパイル時の有効性は、ユーザーが継承しないコンパイル設定に依存しているため、Definitely Typedでこのパターンを使用すると、ユーザーに自分自身のコンパイル設定を変更させることが必要になり、それがランタイム用に正しくないかもしれません。代わりに、広範な、設定に依存しない互換性を確保するために、CJSエクスポート用のCJSインポートを書く必要があります：
 >
 > ```ts
 > // index.d.ts
@@ -320,14 +320,14 @@ const enum Enum { // eslint-disable-line no-const-enum
 #### `package.json`
 
 通常、これは必要ありません。
-DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの外部に依存しないパッケージ用に `package.json` を作成します。
+Definitely Typedのパッケージパブリッシャーは、Definitely Typedの外部に依存しないパッケージ用に `package.json` を作成します。
 `package.json` は、他の `@types` パッケージでない依存関係を指定するために含めることができます。
 [Pikadayが良い例です。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 独自の `package.json` を書く場合でも、依存関係のみを指定できます。 `"description"` などの他のフィールドは許可されていません。
 また、依存関係を [許可されたパッケージのリスト](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt) に追加する必要があります。
 このリストは人間によって更新され、`@types` パッケージが悪意のあるパッケージに依存しないようにする機会を提供します。
 
-まれなケースでは、`@types` パッケージが削除され、ソースパッケージによって提供される型に置き換えられ、かつ古い削除された `@types` パッケージに依存する必要がある場合、`@types` パッケージへの依存関係を追加することができます。
+稀なケースでは、`@types` パッケージが削除され、ソースパッケージによって提供される型に置き換えられ、かつ古い削除された `@types` パッケージに依存する必要がある場合、`@types` パッケージへの依存関係を追加することができます。
 許可されたパッケージのリストに追加する際に、人間のメンテナーが何が起こっているかを理解できるように説明することを忘れないでください。
 
 独自の package.json を作成する第二の理由は、ESモジュールを指定することです。
@@ -340,11 +340,11 @@ DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの�
 }
 ```
 
-これは、実装パッケージのpackage.jsonに`exports`がある場合にも適用される。
+これは、実装パッケージのpackage.jsonに`exports`がある場合にも適用されます。
 
 #### `OTHER_FILES.txt`
 
-もしファイルが `index.d.ts` でテストされていないし、参照されていない場合、それを `OTHER_FILES.txt` というファイルに追加してください。このファイルは、1行に1つのファイルを含む、型定義パッケージに含める必要のある他のファイルのリストです。
+もしファイルが `index.d.ts` でテストされておらず、参照されていない場合、それを `OTHER_FILES.txt` というファイルに追加してください。このファイルは、1行に1つのファイルを含む、型定義パッケージに含める必要のある他のファイルのリストです。
 
 #### よくある間違い
 
@@ -366,7 +366,7 @@ DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの�
   タイプパラメータが受け入れられる例: `function id<T>(value: T): T;`。
   タイプパラメータが受け入れられない例: `function parseJson<T>(json: string): T;`。
   例外: `new Map<string, number>()` は問題ありません。
-- 型 `Function` と `Object` を使用するのはほとんどの場合良いアイデアではありません。99%の場合、より具体的な型を指定できます。関数の場合は [(x: number) => number](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) など、オブジェクトの場合は `{ x: number, y: number }` を指定できます。型について全く確実な情報がない場合は、[`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) を選択すべきです。型について唯一知られている情報が「何らかのオブジェクトである」という場合は、型 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) を使用し、`Object` や `{ [key: string]: any }` を使用しないでください。
+- 型 `Function` と `Object` を使用するのはほとんどの場合良いアイデアではありません。99%の場合、より具体的な型を指定できます。関数の場合は [(x: number) => number](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) など、オブジェクトの場合は `{ x: number, y: number }` を指定できます。型について確実な情報が全くない場合は、[`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) を選択すべきです。型について唯一知られている情報が「何らかのオブジェクトである」という場合は、型 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) を使用し、`Object` や `{ [key: string]: any }` を使用しないでください。
 - `var foo: string | any`:
   `any` がユニオン型で使用される場合、結果の型は依然として `any` です。そのため、この型注釈の `string` 部分は有用に見えるかもしれませんが、実際には単に `any` を使用するよりも追加の型チェックを提供しません。
   意図に応じて、受け入れ可能な代替手段は `any`、`string`、または `string | object` などが考えられます。
@@ -400,7 +400,7 @@ Definitely TypedはGitHubで最もアクティブなリポジトリの1つです
 
 ## よくある質問
 
-#### 厳密には、このレポジトリと npm 上の `@types` パッケージはどう関係していますか？
+#### 厳密には、このリポジトリと npm 上の `@types` パッケージはどう関係していますか？
 
 [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 npm の `@types` スコープに公開してくれています。
 
@@ -412,7 +412,7 @@ Definitely TypedはGitHubで最もアクティブなリポジトリの1つです
 
 > モジュールの型定義のみの変更で、対応するテストもきちんと変更されている PR は早くマージされる
 
-通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 DefinitelyTyped のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や DefinitelyTyped のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [Pull Request Status Board](https://github.com/orgs/DefinitelyTyped/projects/1) で進捗を確認できます。
+通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 Definitely Typed のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や Definitely Typed のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [Pull Request Status Board](https://github.com/orgs/DefinitelyTyped/projects/1) で進捗を確認できます。
 
 #### 非常に人気のあるプロジェクトへの変更を提出したい場合、なぜ異なる扱いを受けるのですか？
 
@@ -448,7 +448,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 #### マッチするパッケージがない型定義はどうなるのですか？
 
-ソースのJavaScriptコードがまったくない場合、たとえばヘルパータイプや仕様のための型を作成している場合、それらの型はDefinitely Typedではなく、自分自身で公開すべきです。
+ソースのJavaScriptコードが全くない場合、例えばヘルパータイプや仕様のための型を作成している場合、それらの型はDefinitely Typedではなく、自分自身で公開すべきです。
 なぜなら、`@types`パッケージは既存のJavaScriptコードに対する型を提供することを意図しており、直接インポートされることを想定していないからです。
 つまり、`import type { ... } from "@types/foo"`のように使用されるDefinitely Typedパッケージを作成すべきではありません。
 また、`foo`がインストールされていない場合に`import type { ... } from "foo"`を書くことも期待されていません。
@@ -464,7 +464,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 > error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
 
-このエラーは、同じ名前の空の名前空間を関数の宣言と一緒におくことで抑制できますが、この慣例は避けるべきです。
+このエラーは、同じ名前の空の名前空間を関数の宣言と一緒に置くことで抑制できますが、この慣例は避けるべきです。
 この件についてはよく [Stack Overflow の回答](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this)が引用されています。
 
 `import foo = require("foo");` 構文を使ってモジュールをインポートするほうが適切でしょう。
@@ -526,7 +526,7 @@ npm パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 #### デフォルトでは TypeScript に存在しない DOM API を追加したいです。
 
 それは [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme) に含めるものかもしれないので、そちらの方針を確認してください。
-該当するウェブ標準の仕様がまだ草稿段階なら、このレポジトリに含められます。
+該当するウェブ標準の仕様がまだ草稿段階なら、このリポジトリに含められます。
 型定義パッケージ名は `dom-` から始まるようにし、型定義ヘッダーの "Project" リンクに仕様書へのリンクを張ってください。
 仕様書が草稿から脱すると、パッケージは Definitely Typed から削除され、対応する `@types` パッケージは非推奨となります。
 
@@ -615,7 +615,7 @@ TypeScript ハンドブックには、[型定義を書くにあたっての一�
 
 型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 _global_ テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 _module_ テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 `big.js` の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
 
-両方のテストファイルで、型定義に対する完全なテストを行う必要はありません &mdash; _global_ テストファイルではグローバルな要素にアクセスできるかのみをテストし、 _module_ テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
+両方のテストファイルで、型定義に対する完全なテストを行う必要はありません &mdash; _global_ テストファイルではグローバルな要素にアクセスできるかのみをテストし、 _module_ テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでも構いません。
 
 #### スコープ付きパッケージについてはどうすればよいですか？
 

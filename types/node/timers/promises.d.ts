@@ -11,7 +11,7 @@
  * } from 'node:timers/promises';
  * ```
  * @since v15.0.0
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/timers/promises.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/timers/promises.js)
  */
 declare module "timers/promises" {
     import { TimerOptions } from "node:timers";

@@ -10,7 +10,7 @@ parser.end();
 const parsedManifest = parser.manifest.playlists?.[0].contentProtection?.["com.apple.fps.1_0"]?.attributes.resoltion;
 
 const parser2 = new Parser({
-    url: "https://exmaple.com/video.m3u8?param_a=34&param_b=abc",
+    uri: "https://exmaple.com/video.m3u8?param_a=34&param_b=abc",
     mainDefinitions: {
         param_c: "def",
     },
@@ -28,6 +28,12 @@ parser3.addParser({
 parser3.push(manifest);
 parser3.end();
 parser3.manifest.custom;
+
+const segment = parser3.manifest.segments[0];
+
+if (segment && segment.key) {
+    segment.key.iv;
+}
 
 parser3.addTagMapper({
     expression: /#EXAMPLE/,

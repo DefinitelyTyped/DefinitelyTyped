@@ -23,5 +23,5 @@ declare class MultipartFormData {
 declare namespace MultipartFormData {
     export { MultipartFormDataReader };
 }
-type MultipartFormDataReader = import('./MultipartFormDataReader');
 import MultipartFormDataOptions = require('./MultipartFormDataOptions.js');
+type MultipartFormDataReader = import('./MultipartFormDataReader');

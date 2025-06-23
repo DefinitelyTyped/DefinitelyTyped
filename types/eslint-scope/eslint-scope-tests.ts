@@ -1,43 +1,111 @@
-import * as eslint from "eslint";
 import * as eslintScope from "eslint-scope";
+import type { AnalyzeOptions } from "eslint-scope";
+import * as espree from "espree";
 import * as estree from "estree";
 
-declare const program: estree.Program;
-declare const scope: eslintScope.Scope;
-declare const variable: eslintScope.Variable;
-declare const reference: eslintScope.Reference;
+const code = `
+function example() {
+  let x = 1;
+  console.log(x);
+}
+`;
 
-const manager1: eslintScope.ScopeManager = eslintScope.analyze(
-    program,
+const ast = espree.parse(code, { ecmaVersion: 2022, sourceType: "module" }) as estree.Program;
+
+// $ExpectType ScopeManager
+const scopeManager = eslintScope.analyze(
+    ast,
     {
-        directive: false,
-        ecmaVersion: 2018,
-        fallback(node) {
-            return Object.keys(node);
-        },
-        ignoreEval: true,
-        impliedStrict: true,
-        nodejsScope: true,
-        optimistic: true,
+        ecmaVersion: 2022,
         sourceType: "module",
-    },
-);
-const manager2: eslintScope.ScopeManager = eslintScope.analyze(
-    program,
-    {
-        ecmaVersion: 5,
-        ignoreEval: false,
-        impliedStrict: false,
+        ignoreEval: true,
         nodejsScope: false,
-        optimistic: false,
-        sourceType: "script",
-    },
+        impliedStrict: false,
+        childVisitorKeys: null,
+        fallback: "iteration",
+    } satisfies AnalyzeOptions,
 );
-const manager3: eslintScope.ScopeManager = eslintScope.analyze(program);
 
-const managerInterface = manager1; // $ExpectType ScopeManager
-const scopeInterface = scope; // $ExpectType Scope
-const variableInterface = variable; // $ExpectType Variable
-const referenceInterface = reference; // $ExpectType Reference
+// $ExpectType GlobalScope
+scopeManager.globalScope;
+// $ExpectType Scope<Variable<Reference>, Reference>[]
+scopeManager.scopes;
 
-scope.references[0].resolved?.scope; // $ExpectType Scope | undefined
+// $ExpectType Scope<Variable<Reference>, Reference> | null
+const scope = scopeManager.acquire(ast);
+
+// $ExpectType Scope<Variable<Reference>, Reference> | null
+scopeManager.release(ast);
+
+if (scope) {
+    // $ExpectType "function" | "module" | "block" | "catch" | "class" | "for" | "function-expression-name" | "global" | "switch" | "with" | "TDZ"
+    scope.type;
+    // $ExpectType boolean
+    scope.isStrict;
+    // $ExpectType Scope<Variable<Reference>, Reference> | null
+    scope.upper;
+    // $ExpectType Scope<Variable<Reference>, Reference>
+    scope.variableScope;
+    // $ExpectType Variable<Reference>[]
+    scope.variables;
+    // $ExpectType Reference[]
+    scope.references;
+    // $ExpectType Scope<Variable<Reference>, Reference>[]
+    scope.childScopes;
+    // $ExpectType Node
+    scope.block;
+    // $ExpectType boolean
+    scope.functionExpressionScope;
+    // $ExpectType Reference[]
+    scope.implicit.left;
+    // $ExpectType Map<string, Variable>
+    scope.set;
+    // $ExpectType Reference[]
+    scope.through;
+}
+
+const variable = scope?.variables[0];
+if (variable) {
+    // $ExpectType string
+    variable.name;
+    // $ExpectType Scope<Variable<Reference>, Reference>
+    variable.scope;
+    // $ExpectType Identifier[]
+    variable.identifiers;
+    // $ExpectType Reference[]
+    variable.references;
+    // $ExpectType Definition[]
+    variable.defs;
+}
+
+const reference = scope?.references[0];
+if (reference) {
+    // $ExpectType Identifier
+    reference.identifier;
+    // $ExpectType Variable<Reference> | null
+    reference.resolved;
+    // $ExpectType () => boolean
+    reference.isWrite;
+    // $ExpectType () => boolean
+    reference.isRead;
+    // $ExpectType Scope<Variable<Reference>, Reference>
+    reference.from;
+}
+
+const definition = variable?.defs[0];
+if (definition) {
+    // $ExpectType "CatchClause" | "TDZ" | "ClassName" | "FunctionName" | "ImplicitGlobalVariable" | "ImportBinding" | "Parameter" | "Variable"
+    definition.type;
+    // $ExpectType Identifier
+    definition.name;
+    // $ExpectType ImportDeclaration | VariableDeclaration | null
+    definition.parent;
+}
+
+// $ExpectType GlobalScope
+const globalScope = scopeManager.globalScope;
+// $ExpectType 'global'
+globalScope.type;
+
+// $ExpectType ScopeManager
+eslintScope.analyze(ast);

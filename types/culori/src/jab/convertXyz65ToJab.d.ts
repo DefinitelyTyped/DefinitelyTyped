@@ -1,5 +1,5 @@
-import { Xyz65 } from "../xyz65/types";
-import { Jab } from "./types";
+import { Xyz65 } from "../xyz65/types.js";
+import { Jab } from "./types.js";
 
 declare function convertXyz65ToJab(color: Omit<Xyz65, "mode">): Jab;
 

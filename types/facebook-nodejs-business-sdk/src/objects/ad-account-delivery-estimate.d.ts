@@ -13,6 +13,7 @@ export default class AdAccountDeliveryEstimate extends AbstractCrudObject {
         targeting_optimization_types: "targeting_optimization_types";
     }>;
     static get OptimizationGoal(): Readonly<{
+        advertiser_siloed_value: "ADVERTISER_SILOED_VALUE";
         ad_recall_lift: "AD_RECALL_LIFT";
         app_installs: "APP_INSTALLS";
         app_installs_and_offsite_conversions: "APP_INSTALLS_AND_OFFSITE_CONVERSIONS";
@@ -32,6 +33,7 @@ export default class AdAccountDeliveryEstimate extends AbstractCrudObject {
         offsite_conversions: "OFFSITE_CONVERSIONS";
         page_likes: "PAGE_LIKES";
         post_engagement: "POST_ENGAGEMENT";
+        profile_and_page_engagement: "PROFILE_AND_PAGE_ENGAGEMENT";
         profile_visit: "PROFILE_VISIT";
         quality_call: "QUALITY_CALL";
         quality_lead: "QUALITY_LEAD";

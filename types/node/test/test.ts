@@ -36,6 +36,7 @@ run({
 // $ExpectType TestsStream
 run({
     concurrency: 1,
+    cwd: "/home/nodejs",
     files: ["test-file-name.js"],
     signal: new AbortController().signal,
     timeout: 100,
@@ -840,10 +841,10 @@ spec();
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
-lcov();
-// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
+// $ExpectType LcovReporter
 new lcov();
+// $ExpectType LcovReporter
+lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
@@ -1002,6 +1003,12 @@ test("waitFor()", (t) => {
     t.waitFor(() => true);
     // $ExpectType Promise<boolean>
     t.waitFor(async () => true);
+});
+
+test("test plan options", (t) => {
+    t.plan(1, { wait: true });
+    t.plan(1, { wait: false });
+    t.plan(1, { wait: 1000 });
 });
 
 // @ts-expect-error Should not be able to instantiate a TestContext

@@ -52,14 +52,13 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
  */
 declare module "worker_threads" {
-    import { Blob } from "node:buffer";
     import { Context } from "node:vm";
     import { EventEmitter } from "node:events";
     import { EventLoopUtilityFunction } from "node:perf_hooks";
     import { FileHandle } from "node:fs/promises";
     import { Readable, Writable } from "node:stream";
+    import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { X509Certificate } from "node:crypto";
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
@@ -88,7 +87,16 @@ declare module "worker_threads" {
     interface WorkerPerformance {
         eventLoopUtilization: EventLoopUtilityFunction;
     }
-    type TransferListItem = ArrayBuffer | MessagePort | FileHandle | X509Certificate | Blob;
+    type Transferable =
+        | ArrayBuffer
+        | MessagePort
+        | AbortSignal
+        | FileHandle
+        | ReadableStream
+        | WritableStream
+        | TransformStream;
+    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
+    type TransferListItem = Transferable;
     /**
      * Instances of the `worker.MessagePort` class represent one end of an
      * asynchronous, two-way communications channel. It can be used to transfer
@@ -173,7 +181,7 @@ declare module "worker_threads" {
          * behind this API, see the `serialization API of the node:v8 module`.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -260,7 +268,7 @@ declare module "worker_threads" {
         /**
          * Additional data to send in the first worker message.
          */
-        transferList?: TransferListItem[] | undefined;
+        transferList?: Transferable[] | undefined;
         /**
          * @default true
          */
@@ -408,7 +416,25 @@ declare module "worker_threads" {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        postMessage(value: any, transferList?: readonly Transferable[]): void;
+        /**
+         * Sends a value to another worker, identified by its thread ID.
+         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+         * @param value The value to send.
+         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+         * @since v20.19.0
+         */
+        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+        postMessageToThread(
+            threadId: number,
+            value: any,
+            transferList: readonly Transferable[],
+            timeout?: number,
+        ): Promise<void>;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has
@@ -649,7 +675,7 @@ declare module "worker_threads" {
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
      * for the `key` will be deleted.
      */
-    function setEnvironmentData(key: Serializable, value: Serializable): void;
+    function setEnvironmentData(key: Serializable, value?: Serializable): void;
 
     import {
         BroadcastChannel as _BroadcastChannel,
@@ -657,6 +683,10 @@ declare module "worker_threads" {
         MessagePort as _MessagePort,
     } from "worker_threads";
     global {
+        function structuredClone<T>(
+            value: T,
+            options?: { transfer?: Transferable[] },
+        ): T;
         /**
          * `BroadcastChannel` class is a global reference for `import { BroadcastChannel } from 'node:worker_threads'`
          * https://nodejs.org/api/globals.html#broadcastchannel

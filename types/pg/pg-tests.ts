@@ -1,8 +1,18 @@
 import { connect } from "net";
 import * as pg from "pg";
-import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import {
+    Client,
+    Connection,
+    CustomTypesConfig,
+    DatabaseError,
+    defaults,
+    Pool,
+    QueryArrayConfig,
+    TypeOverrides as TypeOverridesNamed,
+    types,
+} from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { NoticeMessage } from "pg-protocol/dist/messages.js";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
@@ -207,6 +217,15 @@ customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+const customTypeOverridesFromNamed = new TypeOverridesNamed();
+customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
+
+client.connection.once("rowDescription", () => {
+    console.log("client connection rowDescription event");
+});
+// @ts-expect-error – connection is readonly
+client.connection = new Connection();
 
 // pg.Pool
 // https://node-postgres.com/apis/pool

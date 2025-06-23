@@ -14,12 +14,13 @@
     },
     "files": [
         "index.d.ts",
-        "mokapi-tests.ts",
+        "test/mokapi-tests.ts",
         "test/faker-test.ts",
         "test/global-test.ts",
         "test/http-test.ts",
         "test/kafka-test.ts",
         "test/mustache-test.ts",
-        "test/yaml-test.ts"
+        "test/yaml-test.ts",
+        "test/encoding-test.ts"
     ]
 }

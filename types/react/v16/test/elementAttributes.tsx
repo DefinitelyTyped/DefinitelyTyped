@@ -72,4 +72,10 @@ const testCases = [
             <custom-element exportparts="nested" />
         </template>
     </>,
+    <link rel="expect" href="#lead-content" blocking="render" />,
+    <link rel="expect" href="#lead-content" blocking="render render" />,
+    <style blocking="render" />,
+    <style blocking="render render" />,
+    <script blocking="render" async />,
+    <script blocking="render render" async />,
 ];

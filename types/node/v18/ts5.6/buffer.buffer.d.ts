@@ -153,6 +153,7 @@ declare module "buffer" {
              * @param encoding The encoding of `string`. **Default:** `'utf8'`.
              */
             from(string: WithImplicitCoercion<string>, encoding?: BufferEncoding): Buffer;
+            from(arrayOrString: WithImplicitCoercion<ArrayLike<number> | string>): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer
@@ -442,6 +443,8 @@ declare module "buffer" {
              */
             subarray(start?: number, end?: number): Buffer;
         }
+        type NonSharedBuffer = Buffer;
+        type AllowSharedBuffer = Buffer;
     }
     /** @deprecated Use `Buffer.allocUnsafeSlow()` instead. */
     var SlowBuffer: {

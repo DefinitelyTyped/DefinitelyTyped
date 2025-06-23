@@ -32,6 +32,9 @@ import ReactDOM = require("./canary");
 
 export {};
 
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
 declare module "." {
 }
 
@@ -69,5 +72,15 @@ declare module "react" {
             listener: EventListener,
             optionsOrUseCapture?: Parameters<Element["removeEventListener"]>[2],
         ): void;
+    }
+}
+
+declare module "./client" {
+    type TransitionIndicatorCleanup = () => VoidOrUndefinedOnly;
+    interface RootOptions {
+        onDefaultTransitionIndicator?: (() => void | TransitionIndicatorCleanup) | undefined;
+    }
+    interface HydrationOptions {
+        onDefaultTransitionIndicator?: (() => void | TransitionIndicatorCleanup) | undefined;
     }
 }

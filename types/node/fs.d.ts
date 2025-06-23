@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -198,7 +198,7 @@ declare module "fs" {
      * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
-    export class Dirent {
+    export class Dirent<Name extends string | Buffer = string> {
         /**
          * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
@@ -241,18 +241,12 @@ declare module "fs" {
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
-        name: string;
+        name: Name;
         /**
-         * The base path that this `fs.Dirent` object refers to.
-         * @since v20.12.0
+         * The path to the parent directory of the file this `fs.Dirent` object refers to.
+         * @since v20.12.0, v18.20.0
          */
         parentPath: string;
-        /**
-         * Alias for `dirent.parentPath`.
-         * @since v20.1.0
-         * @deprecated Since v20.12.0
-         */
-        path: string;
     }
     /**
      * A class representing a directory stream.
@@ -2040,6 +2034,20 @@ declare module "fs" {
         },
         callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
     ): void;
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdir(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+        callback: (err: NodeJS.ErrnoException | null, files: Dirent<Buffer>[]) => void,
+    ): void;
     export namespace readdir {
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -2099,6 +2107,19 @@ declare module "fs" {
                 recursive?: boolean | undefined;
             },
         ): Promise<Dirent[]>;
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+         */
+        function __promisify__(
+            path: PathLike,
+            options: {
+                encoding: "buffer";
+                withFileTypes: true;
+                recursive?: boolean | undefined;
+            },
+        ): Promise<Dirent<Buffer>[]>;
     }
     /**
      * Reads the contents of the directory.
@@ -2166,6 +2187,19 @@ declare module "fs" {
             recursive?: boolean | undefined;
         },
     ): Dirent[];
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options Must include `withFileTypes: true` and `encoding: 'buffer'`.
+     */
+    export function readdirSync(
+        path: PathLike,
+        options: {
+            encoding: "buffer";
+            withFileTypes: true;
+            recursive?: boolean | undefined;
+        },
+    ): Dirent<Buffer>[];
     /**
      * Closes the file descriptor. No arguments other than a possible exception are
      * given to the completion callback.
@@ -2319,6 +2353,20 @@ declare module "fs" {
      * @since v0.1.96
      */
     export function fsyncSync(fd: number): void;
+    export interface WriteOptions {
+        /**
+         * @default 0
+         */
+        offset?: number | undefined;
+        /**
+         * @default `buffer.byteLength - offset`
+         */
+        length?: number | undefined;
+        /**
+         * @default null
+         */
+        position?: number | undefined | null;
+    }
     /**
      * Write `buffer` to the file specified by `fd`.
      *
@@ -2388,6 +2436,20 @@ declare module "fs" {
         callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param options An object with the following properties:
+     * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+     * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     */
+    export function write<TBuffer extends NodeJS.ArrayBufferView>(
+        fd: number,
+        buffer: TBuffer,
+        options: WriteOptions,
+        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+    ): void;
+    /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write.
@@ -2437,6 +2499,22 @@ declare module "fs" {
             offset?: number,
             length?: number,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param options An object with the following properties:
+         * * `offset` The part of the buffer to be written. If not supplied, defaults to `0`.
+         * * `length` The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * * `position` The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            buffer?: TBuffer,
+            options?: WriteOptions,
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -2572,7 +2650,7 @@ declare module "fs" {
             buffer: TBuffer,
             offset: number,
             length: number,
-            position: number | null,
+            position: ReadPosition | null,
         ): Promise<{
             bytesRead: number;
             buffer: TBuffer;
@@ -2684,7 +2762,7 @@ declare module "fs" {
             } & Abortable)
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2719,7 +2797,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2728,7 +2806,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     export namespace readFile {
         /**
@@ -2744,7 +2822,7 @@ declare module "fs" {
                 encoding?: null | undefined;
                 flag?: string | undefined;
             } | null,
-        ): Promise<Buffer>;
+        ): Promise<NonSharedBuffer>;
         /**
          * Asynchronously reads the entire contents of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2778,7 +2856,7 @@ declare module "fs" {
                 })
                 | BufferEncoding
                 | null,
-        ): Promise<string | Buffer>;
+        ): Promise<string | NonSharedBuffer>;
     }
     /**
      * Returns the contents of the `path`.
@@ -2810,7 +2888,7 @@ declare module "fs" {
             encoding?: null | undefined;
             flag?: string | undefined;
         } | null,
-    ): Buffer;
+    ): NonSharedBuffer;
     /**
      * Synchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2842,7 +2920,7 @@ declare module "fs" {
             })
             | BufferEncoding
             | null,
-    ): string | Buffer;
+    ): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions
@@ -4116,7 +4194,6 @@ declare module "fs" {
      * blob.stream();
      * ```
      * @since v19.8.0
-     * @experimental
      */
     export function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
 
@@ -4302,13 +4379,23 @@ declare module "fs" {
 
     /**
      * Retrieves the files matching the specified pattern.
+     *
+     * ```js
+     * import { glob } from 'node:fs';
+     *
+     * glob('*.js', (err, matches) => {
+     *   if (err) throw err;
+     *   console.log(matches);
+     * });
+     * ```
+     * @since v22.0.0
      */
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4316,7 +4403,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4324,7 +4411,7 @@ declare module "fs" {
         ) => void,
     ): void;
     export function glob(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
         callback: (
             err: NodeJS.ErrnoException | null,
@@ -4332,19 +4419,25 @@ declare module "fs" {
         ) => void,
     ): void;
     /**
-     * Retrieves the files matching the specified pattern.
+     * ```js
+     * import { globSync } from 'node:fs';
+     *
+     * console.log(globSync('*.js'));
+     * ```
+     * @since v22.0.0
+     * @returns paths of files that match the pattern.
      */
-    export function globSync(pattern: string | string[]): string[];
+    export function globSync(pattern: string | readonly string[]): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithFileTypes,
     ): Dirent[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptionsWithoutFileTypes,
     ): string[];
     export function globSync(
-        pattern: string | string[],
+        pattern: string | readonly string[],
         options: GlobOptions,
     ): Dirent[] | string[];
 }

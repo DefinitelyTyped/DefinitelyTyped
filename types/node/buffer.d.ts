@@ -46,7 +46,7 @@ type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : impo
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/buffer.js)
  */
 declare module "buffer" {
     import { BinaryLike } from "node:crypto";
@@ -69,7 +69,7 @@ declare module "buffer" {
      * @param input The input to validate.
      */
     export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
-    export const INSPECT_MAX_BYTES: number;
+    export let INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
     export const constants: {
@@ -118,11 +118,10 @@ declare module "buffer" {
      * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
      * a prior call to `URL.createObjectURL()`.
      * @since v16.7.0
-     * @experimental
      * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
      */
     export function resolveObjectURL(id: string): Blob | undefined;
-    export { Buffer };
+    export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
     /**
      * @experimental
      */
