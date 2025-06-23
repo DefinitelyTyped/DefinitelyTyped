@@ -6,7 +6,7 @@
         "https://mobx.js.org/"
     ],
     "dependencies": {
-        "eslint": "^9.29.0"
+        "eslint": "^9.0.0"
     },
     "devDependencies": {
         "@types/eslint-plugin-mobx": "workspace:."
