@@ -4911,7 +4911,7 @@ declare namespace OracleDB {
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getNetworkServiceNames
      */
-    function getNetworkServiceNames(configDir?: string): Promise<string>;
+    function getNetworkServiceNames(configDir?: string): Promise<string[]>;
 }
 
 export = OracleDB;
