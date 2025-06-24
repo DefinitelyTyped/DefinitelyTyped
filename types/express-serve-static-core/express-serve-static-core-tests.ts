@@ -349,3 +349,15 @@ app.get("/async", Promise.resolve);
 
 // Starting with Express 5, app.router is the app's in-built instance of router
 app.router.stack;
+
+// return custom typed response
+app.get<never, { foo: string }>("/void", (req, res) => {
+
+    return res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
+});
+
+// return void type
+app.get<never, void>("/response", (req, res) => {
+
+    return res.send("Ok").end(); // $ExpectType Response<void, Record<string, any>, number>
+});
