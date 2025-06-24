@@ -32,18 +32,14 @@ declare module "http2" {
         ":scheme"?: string | undefined;
     }
     // Http2Stream
-    export interface StreamPriorityOptions {
-        exclusive?: boolean | undefined;
-        parent?: number | undefined;
-        weight?: number | undefined;
-        silent?: boolean | undefined;
-    }
     export interface StreamState {
         localWindowSize?: number | undefined;
         state?: number | undefined;
         localClose?: number | undefined;
         remoteClose?: number | undefined;
+        /** @deprecated */
         sumDependencyWeight?: number | undefined;
+        /** @deprecated */
         weight?: number | undefined;
     }
     export interface ServerStreamResponseOptions {
@@ -151,10 +147,9 @@ declare module "http2" {
          */
         close(code?: number, callback?: () => void): void;
         /**
-         * Updates the priority for this `Http2Stream` instance.
-         * @since v8.4.0
+         * @deprecated Priority signaling is no longer supported in Node.js.
          */
-        priority(options: StreamPriorityOptions): void;
+        priority(options: unknown): void;
         /**
          * ```js
          * import http2 from 'node:http2';
@@ -395,7 +390,7 @@ declare module "http2" {
         ): void;
         pushStream(
             headers: OutgoingHttpHeaders,
-            options?: StreamPriorityOptions,
+            options?: Pick<ClientSessionRequestOptions, "exclusive" | "parent">,
             callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void,
         ): void;
         /**
@@ -629,7 +624,6 @@ declare module "http2" {
         endStream?: boolean | undefined;
         exclusive?: boolean | undefined;
         parent?: number | undefined;
-        weight?: number | undefined;
         waitForTrailers?: boolean | undefined;
         signal?: AbortSignal | undefined;
     }

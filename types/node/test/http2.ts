@@ -96,7 +96,6 @@ import { URL } from "node:url";
         endStream: true,
         exclusive: true,
         parent: 0,
-        weight: 0,
         waitForTrailers: true,
         signal: new AbortController().signal,
     };
@@ -154,13 +153,6 @@ import { URL } from "node:url";
     const destroyed: boolean = http2Stream.destroyed;
     const id: number | undefined = http2Stream.id;
     const pending: boolean = http2Stream.pending;
-
-    http2Stream.priority({
-        exclusive: true,
-        parent: 0,
-        weight: 0,
-        silent: true,
-    });
 
     const sesh: Http2Session | undefined = http2Stream.session;
 
