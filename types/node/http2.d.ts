@@ -1288,6 +1288,14 @@ declare module "http2" {
          * @default 100000
          */
         unknownProtocolTimeout?: number | undefined;
+        /**
+         * If `true`, it turns on strict leading
+         * and trailing whitespace validation for HTTP/2 header field names and values
+         * as per [RFC-9113](https://www.rfc-editor.org/rfc/rfc9113.html#section-8.2.1).
+         * @since v24.2.0
+         * @default true
+         */
+        strictFieldWhitespaceValidation?: boolean | undefined;
     }
     export interface ClientSessionOptions extends SessionOptions {
         /**
