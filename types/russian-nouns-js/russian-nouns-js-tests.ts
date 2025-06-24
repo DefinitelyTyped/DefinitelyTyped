@@ -1,29 +1,12 @@
 // <editor-fold defaultstate="collapsed" desc="Assertion functions">
-let anAssertionFailed: boolean = false;
-
-function assertEquals(a: any, b: any, msg?: string) {
-    if (anAssertionFailed) {
-        return;
-    }
-
+function assertEquals(a: any, b: any) {
     if (a !== b) {
-        console.log(`Assertion error: ${a} !== ${b}`);
-
-        if (msg) {
-            console.log(msg);
-        }
-
-        console.log("Runtime check failed!");
-        anAssertionFailed = true;
+        throw new Error(`${a} !== ${b}`);
     }
 }
 
 function assertEqualsSingleValue(array: string[], value: string) {
-    if (anAssertionFailed) {
-        return;
-    }
-
-    assertEquals(array.length, 1, `len([${array}]) !== 1`);
+    assertEquals(array.length, 1);
     assertEquals(array[0], value);
 }
 
@@ -31,10 +14,6 @@ function assertAllCases(
     results: Array<string[]>,
     values: Array<string[] | string>,
 ) {
-    if (anAssertionFailed) {
-        return;
-    }
-
     assertEquals(results.length, 7);
     assertEquals(values.length, 7);
 
@@ -44,25 +23,13 @@ function assertAllCases(
 
         if (typeof value === "string") {
             assertEqualsSingleValue(result, value);
-        } else if (value instanceof Array) {
-            assertEquals(result.length, value.length, "Incorrect length.");
+        } else {
+            assertEquals(result.length, value.length);
             for (let j = 0; j < value.length; j++) {
                 assertEquals(result[j], value[j]);
             }
-        } else {
-            console.log(`${value} is neither an array nor a string.`);
-            console.log("Runtime check failed!");
-            anAssertionFailed = true;
         }
     }
-}
-
-function report(msg: string) {
-    if (anAssertionFailed) {
-        return;
-    }
-
-    console.log(msg);
 }
 // </editor-fold>
 
@@ -141,7 +108,7 @@ assertEquals(null, createLemmaOrNull({ text: "абвгд" }));
     }
 })();
 
-report("  Main functions (8) ............... OK");
+console.log("  Main functions (8) ............... OK");
 
 let cringe: Lemma = createLemma({
     text: "кринж",
@@ -180,7 +147,7 @@ assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL).length,
 assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[0], true);
 assertEquals(rne.sd.hasStressedEndingSingular(cringe, Case.INSTRUMENTAL)[1], false);
 
-report("  StressDictionary (9) ............. OK");
+console.log("  StressDictionary (9) ............. OK");
 
 let row: Lemma = createLemma({
     text: "ряд",
@@ -195,15 +162,10 @@ assertAllCases(results, ["ряд", "ряда", "ряду", "ряд", "рядом
 
 let rowLocativeForms: LocativeForm[] = rne.getLocativeForms(row);
 
-assertEquals(rowLocativeForms.length, 1, "locative forms count");
-assertEquals(rowLocativeForms[0].preposition, "в", "lf.preposition");
-assertEquals(rowLocativeForms[0].attributes > 0, true, "lf.semantics > 0");
-assertEquals(rowLocativeForms[0].word, "ряду", "lf.word");
+assertEquals(rowLocativeForms.length, 1);
+assertEquals(rowLocativeForms[0].preposition, "в");
+assertEquals(rowLocativeForms[0].word, "ряду");
+assertEquals(rowLocativeForms[0].attributes > 0, true);
+assertEquals(rowLocativeForms[0].attributes, LocativeFormAttribute.STRUCTURE);
 
-assertEquals(
-    rowLocativeForms[0].attributes,
-    LocativeFormAttribute.STRUCTURE,
-    "lf.semantics",
-);
-
-report("  LocativeForm (10) ................ OK");
+console.log("  LocativeForm (10) ................ OK");
