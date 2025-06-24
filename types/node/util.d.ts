@@ -431,8 +431,8 @@ declare module "util" {
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
      * passed that alter the result.
-     * `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
-     * an identifiable tag for an inspected value.
+     * `util.inspect()` will use the constructor's name and/or `Symbol.toStringTag`
+     * property to make an identifiable tag for an inspected value.
      *
      * ```js
      * class Foo {
