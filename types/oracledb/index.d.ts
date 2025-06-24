@@ -1973,6 +1973,51 @@ declare namespace OracleDB {
          * The database user name. Can be a simple user name or a proxy of the form alison[fred]. See the Client Access Through a Proxy section in the Oracle Call Interface manual for more details about proxy authentication.
          */
         username?: string | undefined;
+        /**
+         * The name of the driver that is used by the client to connect to Oracle Database.
+         * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+         * This optional property overrides the `oracledb.driverName` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        driverName?: string;
+        /**
+         * The name of the host machine from where the connection originates.
+         * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.machine` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        machine?: string;
+        /**
+         * The name of the operating system user that initiates the database connection.
+         * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.osUser` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        osUser?: string;
+        /**
+         * The name of the program connecting to the database.
+         * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.program` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        program?: string;
+        /**
+         * The name of the terminal from where the connection originates.
+         * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.terminal` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        terminal?: string;
     }
 
     interface DBError extends Error {
@@ -2976,6 +3021,51 @@ declare namespace OracleDB {
          * @since 6.5.1
          */
         privilege?: number | undefined;
+        /**
+         * The name of the driver that is used by the client to connect to Oracle Database.
+         * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+         * This optional property overrides the `oracledb.driverName` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        driverName?: string;
+        /**
+         * The name of the host machine from where the connection originates.
+         * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.machine` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        machine?: string;
+        /**
+         * The name of the operating system user that initiates the database connection.
+         * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.osUser` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        osUser?: string;
+        /**
+         * The name of the program connecting to the database.
+         * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.program` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        program?: string;
+        /**
+         * The name of the terminal from where the connection originates.
+         * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+         * This optional property overrides the `oracledb.terminal` property.
+         * This property can only be used in the node-oracledb Thin mode.
+         * 
+         * @since 6.7.0
+         */
+        terminal?: string;        
     }
 
     /**
@@ -4759,6 +4849,69 @@ declare namespace OracleDB {
         isEnabled(): boolean | undefined;
     }
     const traceHandler: traceHandler;
+
+    /**
+     * This property is a string that specifies the name of the driver used by the client to connect to Oracle Database.
+     * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `o`racledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.driverName
+     */
+    let driverName: string;
+
+    /**
+     * This property is a string that specifies the name of the host machine where the connection originates.
+     * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     *
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.machine
+     */
+    let machine: string;
+
+    /**
+     * This property is a string that specifies the name of the operating system user that initiates the database connection.
+     * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     * 
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.osUser
+     */
+    let osUser: string;
+
+    /**
+     * This property is a string that specifies the name of the program connecting to the database.
+     * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     * 
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.program
+     */
+    let program: string;
+
+    /**
+     * This property is a string that specifies the name of the terminal from where the connection originates.
+     * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
+     * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
+     * This property can only be used in the node-oracledb Thin mode.
+     * 
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.terminal
+     */
+    let terminal: string;
+
+    /**
+     * Returns a list of TNS Aliases, also known as Network Service Names, defined in the `tnsnames.ora` file which is inside the directory that is specified in the `configDir` property or the `TNS_ADMIN` environment variable if `configDir` is not specified.
+     * If a `tnsnames.ora` file does not exist, then an exception is raised.
+     * 
+     * @since 6.7.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getNetworkServiceNames
+     */
+    function getNetworkServiceNames(configDir?: string): Promise<string>;
 }
 
 export = OracleDB;
