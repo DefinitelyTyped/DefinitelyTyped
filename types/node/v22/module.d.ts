@@ -491,6 +491,33 @@ declare module "module" {
          * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
          */
         function findSourceMap(path: string): SourceMap | undefined;
+        interface SetSourceMapsSupportOptions {
+            /**
+             * If enabling the support for files in `node_modules`.
+             * @default false
+             */
+            nodeModules?: boolean | undefined;
+            /**
+             * If enabling the support for generated code from `eval` or `new Function`.
+             * @default false
+             */
+            generatedCode?: boolean | undefined;
+        }
+        /**
+         * This function enables or disables the [Source Map v3](https://tc39.es/ecma426/) support for
+         * stack traces.
+         *
+         * It provides same features as launching Node.js process with commandline options
+         * `--enable-source-maps`, with additional options to alter the support for files
+         * in `node_modules` or generated codes.
+         *
+         * Only source maps in JavaScript files that are loaded after source maps has been
+         * enabled will be parsed and loaded. Preferably, use the commandline options
+         * `--enable-source-maps` to avoid losing track of source maps of modules loaded
+         * before this API call.
+         * @since v22.14.0
+         */
+        function setSourceMapsSupport(enabled: boolean, options?: SetSourceMapsSupportOptions): void;
         interface SourceMapConstructorOptions {
             /**
              * @since v21.0.0, v20.5.0
