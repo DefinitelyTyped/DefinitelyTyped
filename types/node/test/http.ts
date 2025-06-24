@@ -370,6 +370,11 @@ import * as url from "node:url";
     agent.on("free", () => {});
     agent.once("free", () => {});
     agent.emit("free");
+
+    agent.createConnection({ port: 1234 });
+    agent.getName({ host: 'for', port: 1234, localAddress: 'bar', family: 4 });
+    agent.reuseSocket(new stream.Duplex(), new http.ClientRequest(''));
+    agent.keepSocketAlive(new stream.Duplex());
 }
 
 {

@@ -44,7 +44,7 @@ declare module "http" {
     import { URL } from "node:url";
     import { EventEmitter } from "node:events";
     import { LookupOptions } from "node:dns";
-    import { LookupFunction, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
+    import { LookupFunction, NetConnectOpts, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -1538,6 +1538,43 @@ declare module "http" {
          * @since v0.11.4
          */
         destroy(): void;
+
+        /**
+         * Produces a socket/stream to be used for HTTP requests.
+         * By default, this function is the same as net.createConnection(). However, custom agents may override this method in case greater flexibility is desired.
+         * A socket/stream can be supplied in one of two ways: by returning the socket/stream from this function, or by passing the socket/stream to callback.
+         * This method is guaranteed to return an instance of the <net.Socket> class, a subclass of <stream.Duplex>, unless the user specifies a socket type other than <net.Socket>.
+         *
+         * @since v0.11.4
+         */
+        createConnection(options: NetConnectOpts, callback?: (err: Error | undefined, stream: stream.Duplex) => void): stream.Duplex;
+
+        /**
+         * Called when socket is detached from a request and could be persisted by the Agent.
+         * This method can be overridden by a particular Agent subclass. If this method returns a falsy value, the socket will be destroyed instead of persisting it for use with the next request.
+         *
+         * @since v8.1.0
+         */
+        keepSocketAlive(socket: stream.Duplex): void;
+
+        /**
+         * Called when socket is attached to request after being persisted because of the keep-alive options.
+         * This method can be overridden by a particular Agent subclass.
+         *
+         * @since v8.1.0
+         */
+        reuseSocket(socket: stream.Duplex, request: ClientRequest): void;
+
+        /**
+         * Get a unique name for a set of request options, to determine whether a connection can be reused.
+         * For an HTTP agent, this returns host:port:localAddress or host:port:localAddress:family. For an HTTPS agent, the name includes the CA, cert, ciphers, and other HTTPS/TLS-specific options that determine socket reusability.
+         */
+        getName(options?: {
+            host: string;
+            port: number;
+            localAddress: string;
+            family?: 4 | 6 | undefined
+        }): string;
     }
     const METHODS: string[];
     const STATUS_CODES: {
