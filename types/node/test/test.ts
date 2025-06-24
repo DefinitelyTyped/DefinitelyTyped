@@ -944,6 +944,10 @@ class TestReporter extends Transform {
                 // event doesn't have any data
                 callback(null);
                 break;
+            case "test:watch:restarted":
+                // event doesn't have any data
+                callback(null);
+                break;
             default:
                 callback(null);
         }
