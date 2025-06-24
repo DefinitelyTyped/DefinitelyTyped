@@ -1449,6 +1449,21 @@ declare module "http" {
          */
         scheduling?: "fifo" | "lifo" | undefined;
     }
+    interface AgentGetNameOptions {
+        /**
+         * A domain name or IP address of the server to issue the request to
+         */
+        host?: string | undefined;
+        /**
+         * Port of remote server
+         */
+        port?: number | undefined;
+        /**
+         * Local interface to bind for network connections when issuing the request
+         */
+        localAddress?: string | undefined;
+        family?: 4 | 6 | undefined;
+    }
     /**
      * An `Agent` is responsible for managing connection persistence
      * and reuse for HTTP clients. It maintains a queue of pending requests
@@ -1599,7 +1614,7 @@ declare module "http" {
          */
         createConnection(
             options: NetConnectOpts,
-            callback?: (err: Error | undefined, stream: stream.Duplex) => void,
+            callback?: (err: Error | null, stream: stream.Duplex) => void,
         ): stream.Duplex;
         /**
          * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
@@ -1640,12 +1655,7 @@ declare module "http" {
          * @since v0.11.4
          * @param options A set of options providing information for name generation
          */
-        getName(options?: {
-            host: string;
-            port: number;
-            localAddress: string;
-            family?: 4 | 6 | undefined;
-        }): string;
+        getName(options?: AgentGetNameOptions): string;
     }
     const METHODS: string[];
     const STATUS_CODES: {
