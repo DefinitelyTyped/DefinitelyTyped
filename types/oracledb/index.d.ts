@@ -1978,7 +1978,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
          * This optional property overrides the `oracledb.driverName` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         driverName?: string;
@@ -1987,7 +1987,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.machine` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         machine?: string;
@@ -1996,7 +1996,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.osUser` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         osUser?: string;
@@ -2005,7 +2005,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.program` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         program?: string;
@@ -2014,7 +2014,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.terminal` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         terminal?: string;
@@ -3026,7 +3026,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `CLIENT_DRIVER` column of the `V$SESSION_CONNECT_INFO` view.
          * This optional property overrides the `oracledb.driverName` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         driverName?: string;
@@ -3035,7 +3035,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `MACHINE` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.machine` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         machine?: string;
@@ -3044,7 +3044,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.osUser` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         osUser?: string;
@@ -3053,7 +3053,7 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.program` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
         program?: string;
@@ -3062,10 +3062,10 @@ declare namespace OracleDB {
          * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
          * This optional property overrides the `oracledb.terminal` property.
          * This property can only be used in the node-oracledb Thin mode.
-         * 
+         *
          * @since 6.7.0
          */
-        terminal?: string;        
+        terminal?: string;
     }
 
     /**
@@ -4876,7 +4876,7 @@ declare namespace OracleDB {
      * This is equivalent to the value in the `OSUSER` column of the `V$SESSION` view.
      * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
      * This property can only be used in the node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.osUser
      */
@@ -4887,7 +4887,7 @@ declare namespace OracleDB {
      * This is equivalent to the value in the `PROGRAM` column of the `V$SESSION` view.
      * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
      * This property can only be used in the node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.program
      */
@@ -4898,7 +4898,7 @@ declare namespace OracleDB {
      * This is equivalent to the value in the `TERMINAL` column of the `V$SESSION` view.
      * This property may be overridden in the `oracledb.createPool()` call and when getting a standalone connection from `oracledb.getConnection()`.
      * This property can only be used in the node-oracledb Thin mode.
-     * 
+     *
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.terminal
      */
@@ -4907,7 +4907,7 @@ declare namespace OracleDB {
     /**
      * Returns a list of TNS Aliases, also known as Network Service Names, defined in the `tnsnames.ora` file which is inside the directory that is specified in the `configDir` property or the `TNS_ADMIN` environment variable if `configDir` is not specified.
      * If a `tnsnames.ora` file does not exist, then an exception is raised.
-     * 
+     *
      * @since 6.7.0
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getNetworkServiceNames
      */
