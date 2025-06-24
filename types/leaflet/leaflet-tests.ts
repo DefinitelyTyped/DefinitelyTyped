@@ -184,7 +184,21 @@ layerOptions = {
 
 const popupOptions: L.PopupOptions = {};
 
+let popup;
+popup = L.popup(latLng);
+popup = L.popup(latLng, popupOptions);
+popup = L.popup();
+popup = L.popup(popupOptions);
+popup = L.popup(popupOptions, layer);
+
 const tooltipOptions: L.TooltipOptions = {};
+
+let tooltip;
+tooltip = L.tooltip(latLng);
+tooltip = L.tooltip(latLng, tooltipOptions);
+tooltip = L.tooltip();
+tooltip = L.tooltip(tooltipOptions);
+tooltip = L.tooltip(tooltipOptions, layer);
 
 let zoomPanOptions: L.ZoomPanOptions = {};
 zoomPanOptions = {
