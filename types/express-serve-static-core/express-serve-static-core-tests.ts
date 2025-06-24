@@ -351,13 +351,13 @@ app.get("/async", Promise.resolve);
 app.router.stack;
 
 // return custom typed response
-app.get<never, { foo: string }>("/void", (req, res) => {
+app.get<never, { foo: string }>("/response", (req, res) => {
 
     return res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
 });
 
 // return void type
-app.get<never, void>("/response", (req, res) => {
+app.get("/void", (req, res) => {
 
     return res.send("Ok").end(); // $ExpectType Response<void, Record<string, any>, number>
 });
