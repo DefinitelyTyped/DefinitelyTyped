@@ -2108,6 +2108,7 @@ declare module "util/types" {
      * console.log(myError instanceof Error); // true
      * ```
      * @since v10.0.0
+     * @deprecated The `util.types.isNativeError` API is deprecated. Please use `Error.isError` instead.
      */
     function isNativeError(object: unknown): object is Error;
     /**
