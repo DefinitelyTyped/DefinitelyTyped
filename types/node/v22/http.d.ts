@@ -1570,42 +1570,83 @@ declare module "http" {
          * @since v0.11.4
          */
         destroy(): void;
-
         /**
-         * Produces a socket/stream to be used for HTTP requests.
-         * By default, this function is the same as net.createConnection(). However, custom agents may override this method in case greater flexibility is desired.
-         * A socket/stream can be supplied in one of two ways: by returning the socket/stream from this function, or by passing the socket/stream to callback.
-         * This method is guaranteed to return an instance of the <net.Socket> class, a subclass of <stream.Duplex>, unless the user specifies a socket type other than <net.Socket>.
+         * Destroy any sockets that are currently in use by the agent.
          *
+         * It is usually not necessary to do this. However, if using an
+         * agent with `keepAlive` enabled, then it is best to explicitly shut down
+         * the agent when it is no longer needed. Otherwise,
+         * sockets might stay open for quite a long time before the server
+         * terminates them.
          * @since v0.11.4
          */
-        createConnection(options: NetConnectOpts, callback?: (err: Error | undefined, stream: stream.Duplex) => void): stream.Duplex;
-
+        destroy(): void;
         /**
-         * Called when socket is detached from a request and could be persisted by the Agent.
-         * This method can be overridden by a particular Agent subclass. If this method returns a falsy value, the socket will be destroyed instead of persisting it for use with the next request.
+         * Produces a socket/stream to be used for HTTP requests.
          *
+         * By default, this function is the same as `net.createConnection()`. However,
+         * custom agents may override this method in case greater flexibility is desired.
+         *
+         * A socket/stream can be supplied in one of two ways: by returning the
+         * socket/stream from this function, or by passing the socket/stream to `callback`.
+         *
+         * This method is guaranteed to return an instance of the `net.Socket` class,
+         * a subclass of `stream.Duplex`, unless the user specifies a socket
+         * type other than `net.Socket`.
+         *
+         * `callback` has a signature of `(err, stream)`.
+         * @since v0.11.4
+         * @param options Options containing connection details. Check `createConnection` for the format of the options
+         * @param callback Callback function that receives the created socket
+         */
+        createConnection(
+            options: NetConnectOpts,
+            callback?: (err: Error | undefined, stream: stream.Duplex) => void,
+        ): stream.Duplex;
+        /**
+         * Called when `socket` is detached from a request and could be persisted by the`Agent`. Default behavior is to:
+         *
+         * ```js
+         * socket.setKeepAlive(true, this.keepAliveMsecs);
+         * socket.unref();
+         * return true;
+         * ```
+         *
+         * This method can be overridden by a particular `Agent` subclass. If this
+         * method returns a falsy value, the socket will be destroyed instead of persisting
+         * it for use with the next request.
+         *
+         * The `socket` argument can be an instance of `net.Socket`, a subclass of `stream.Duplex`.
          * @since v8.1.0
          */
         keepSocketAlive(socket: stream.Duplex): void;
-
         /**
-         * Called when socket is attached to request after being persisted because of the keep-alive options.
-         * This method can be overridden by a particular Agent subclass.
+         * Called when `socket` is attached to `request` after being persisted because of
+         * the keep-alive options. Default behavior is to:
          *
+         * ```js
+         * socket.ref();
+         * ```
+         *
+         * This method can be overridden by a particular `Agent` subclass.
+         *
+         * The `socket` argument can be an instance of `net.Socket`, a subclass of `stream.Duplex`.
          * @since v8.1.0
          */
         reuseSocket(socket: stream.Duplex, request: ClientRequest): void;
-
         /**
-         * Get a unique name for a set of request options, to determine whether a connection can be reused.
-         * For an HTTP agent, this returns host:port:localAddress or host:port:localAddress:family. For an HTTPS agent, the name includes the CA, cert, ciphers, and other HTTPS/TLS-specific options that determine socket reusability.
+         * Get a unique name for a set of request options, to determine whether a
+         * connection can be reused. For an HTTP agent, this returns`host:port:localAddress` or `host:port:localAddress:family`. For an HTTPS agent,
+         * the name includes the CA, cert, ciphers, and other HTTPS/TLS-specific options
+         * that determine socket reusability.
+         * @since v0.11.4
+         * @param options A set of options providing information for name generation
          */
         getName(options?: {
             host: string;
             port: number;
             localAddress: string;
-            family?: 4 | 6 | undefined
+            family?: 4 | 6 | undefined;
         }): string;
     }
     const METHODS: string[];
