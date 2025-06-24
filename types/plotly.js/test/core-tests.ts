@@ -36,13 +36,17 @@ const layout = {
         subtitle: "Annual sales growth between 1999 and 2002",
     },
     xaxis: {
-        title: "Year",
+        title: {
+            text: "Year",
+        },
         showgrid: false,
         zeroline: false,
         tickangle,
     },
     yaxis: {
-        title: "Percent",
+        title: {
+            text: "Percent",
+        },
         showline: false,
     },
     uirevision: "true",
@@ -71,7 +75,7 @@ const layout = {
         opacity: 0.6,
         meanline: { visible: true },
     } as ViolinData;
-    Plotly.newPlot(graphDiv, [violinTrace], { title: "Sales growth" });
+    Plotly.newPlot(graphDiv, [violinTrace], { title: { text: "Sales growth" } });
 
     const candlestickTrace: Partial<CandlestickData> = {
         x: [
@@ -247,7 +251,7 @@ const layout = {
         type: "candlestick",
         xaxis: "x",
     };
-    Plotly.newPlot(graphDiv, [candlestickTrace], { title: "Stock price" });
+    Plotly.newPlot(graphDiv, [candlestickTrace], { title: { text: "Stock price" } });
 })();
 (() => {
     const data: Array<Partial<SankeyData>> = [
@@ -272,7 +276,9 @@ const layout = {
         },
     ];
     const layout = {
-        title: "Basic Sankey",
+        title: {
+            text: "Basic Sankey",
+        },
         font: {
             size: 10,
         },
@@ -289,7 +295,7 @@ const layout = {
             type: "scatter",
         } as ScatterData,
     ];
-    const layout2 = { title: "Revenue" };
+    const layout2 = { title: { text: "Revenue" } };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 
@@ -424,7 +430,9 @@ const layout = {
     ];
 
     const layout = {
-        title: "Global Emissions 1990-2011",
+        title: {
+            text: "Global Emissions 1990-2011",
+        },
         annotations: [
             {
                 font: {
@@ -509,6 +517,30 @@ const layout = {
     const layout = {
         height: 700,
         width: 700,
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+// Plotly.newPlot (second axis)
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4, 5],
+            y: [0.45803057, 0.51208141, 0.29845217, 0.09788102, 0.2866858],
+            type: "scatter",
+            yaxis: "y",
+        },
+        {
+            x: [1, 2, 3, 4, 5],
+            y: [150.36977661, 641.21444452, 39.2096064, 546.90053751, 97.10039431],
+            type: "scatter",
+            yaxis: "y2",
+        },
+    ];
+    const layout: Partial<Layout> = {
+        yaxis: { side: "left" },
+        yaxis2: { side: "right", overlaying: "y", tickmode: "sync" },
     };
 
     Plotly.newPlot("myDiv", data, layout);
@@ -612,7 +644,9 @@ const layout = {
 // update only values within nested objects
 (() => {
     const update: Partial<Layout> = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         "xaxis.range": [0, 5], // updates the xaxis range
         "yaxis.range[1]": 15, // updates the end of the yaxis range
     };
@@ -624,7 +658,9 @@ const layout = {
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -638,7 +674,9 @@ const layout = {
         type: "bar",
     };
     const layout_update: Partial<Layout> = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         barmode: "stack",
         barnorm: "fraction",
         bargap: 0,

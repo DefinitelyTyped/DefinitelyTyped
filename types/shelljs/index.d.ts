@@ -827,6 +827,53 @@ export interface ExecOutputReturnValue {
     stderr: string;
 }
 
+/**
+ * Executes the given command synchronously. This is intended as an easier
+ * alternative for `exec()`], with better security around globbing, comamnd
+ * injection, and variable expansion. This is guaranteed to only run one
+ * external command, and won't give special treatment for any shell characters
+ * (ex. this treats `|` as a literal character, not as a shell pipeline).
+ *
+ * By default, this performs globbing on all platforms, but you can disable this
+ * with `set('-f')`.
+ *
+ * This **does not** support asynchronous mode. If you need asynchronous
+ * command execution, check out [execa](https://www.npmjs.com/package/execa) or
+ * the node builtin `child_process.execFile()` instead.
+ *
+ * @param arg1 Command to run.
+ * @param args Any number of arguments of arguments. If the last argument given
+ * 	           is an object, it will be created as a `CmdOptions` object.
+ */
+export const cmd: CmdFunction;
+
+export interface CmdFunction {
+    (arg1: string, ...args: [...string[], string | CmdOptions]): ShellString;
+}
+
+export interface CmdOptions {
+    /**
+     * Change the current working directory only for this `cmd()` invocation.
+     *
+     * @default process.cwd()
+     */
+    cwd?: string;
+
+    /**
+     * Raise or decrease the default buffer size for stdout/stderr.
+     *
+     * @default 20,971,520 (or 20 * 1024 * 1024)
+     */
+    maxBuffer?: number;
+
+    /**
+     * Change the default timeout.
+     *
+     * @default 0
+     */
+    timeout?: number;
+}
+
 export interface ShellReturnValue extends ExecOutputReturnValue {
     /**
      * Analogous to the redirection operator `>` in Unix, but works with JavaScript strings

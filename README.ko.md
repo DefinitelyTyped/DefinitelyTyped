@@ -13,10 +13,10 @@ _[관리자 설명서](./docs/admin.md) 링크_
 저장소 및 퍼블리싱 과정의 상태를 표시합니다.
 기여자분들이 작성한 PR 또는 패키지에 문제가 발생했을 경우 이 표시를 보면 도움이 될 수 있습니다.
 
-- 최신 빌드가 [타입 체크/린트](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-- 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-- 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-- [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- 최신 빌드가 [타입 체크/린트](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 과정을 깔끔하게 통과했습니다: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
+- 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
+- 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)되었습니다: [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
+- [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다: [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
 
 상태 표시가 비정상이거나 고장 표시가 발생하면 [Definitely Typed Discord 채널](https://discord.gg/typescript)에서 이 문제를 알려주세요.
 

@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type AtomicMethod =
@@ -13,10 +12,11 @@ export type AtomicMethod =
     | typeof AtomicFunctionNode.ATOMIC_OR
     | typeof AtomicFunctionNode.ATOMIC_XOR;
 
-declare class AtomicFunctionNode extends TempNode {
+declare class AtomicFunctionNode extends Node {
     method: AtomicMethod;
     pointerNode: Node;
     valueNode: Node;
+    parents: boolean;
 
     constructor(method: AtomicMethod, pointerNode: Node, valueNode: Node);
 

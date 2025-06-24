@@ -1100,9 +1100,16 @@ declare namespace Deno {
         /** If at least one bench has `only` set to true, only run benches that have
          * `only` set to `true` and fail the bench suite. */
         only?: boolean;
-        /** Number of iterations to perform. */
+        /** Number of iterations to perform.
+         * @remarks When the benchmark is very fast, this will only be used as a
+         * suggestion in order to get a more accurate measurement.
+         */
         n?: number;
-        /** Number of warmups to do before running the benchmark. */
+        /** Number of warmups to do before running the benchmark.
+         * @remarks A warmup will always be performed even if this is `0` in order to
+         * determine the speed of the benchmark in order to improve the measurement. When
+         * the benchmark is very fast, this will be used as a suggestion.
+         */
         warmup?: number;
         /** Ensure the bench case does not prematurely cause the process to exit,
          * for example via a call to {@linkcode Deno.exit}.
@@ -1972,8 +1979,7 @@ declare namespace Deno {
          * @category File System
          */
         utimeSync(atime: number | Date, mtime: number | Date): void;
-        /** **UNSTABLE**: New API, yet to be vetted.
-         *
+        /**
          * Checks if the file resource is a TTY (terminal).
          *
          * ```ts
@@ -1983,8 +1989,7 @@ declare namespace Deno {
          * ```
          */
         isTerminal(): boolean;
-        /** **UNSTABLE**: New API, yet to be vetted.
-         *
+        /**
          * Set TTY to be under raw mode or not. In raw mode, characters are read and
          * returned as is, without being processed. All special processing of
          * characters by the terminal is disabled, including echoing input
@@ -4220,6 +4225,7 @@ declare namespace Deno {
             | "aix"
             | "solaris"
             | "illumos";
+        standalone: boolean;
         /** The computer vendor that the Deno CLI was built for. */
         vendor: string;
         /** Optional environment flags that were set for this build of Deno CLI. */
@@ -5012,6 +5018,25 @@ declare namespace Deno {
     }
 
     /**
+     * Options that can be passed to `Deno.serve` to create a server listening on
+     * a VSOCK socket.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category HTTP Server
+     */
+    export interface ServeVsockOptions extends ServeOptions<Deno.VsockAddr> {
+        /** The transport to use. */
+        transport?: "vsock";
+
+        /** The context identifier to use. */
+        cid: number;
+
+        /** The port to use. */
+        port: number;
+    }
+
+    /**
      * @category HTTP Server
      */
     export interface ServeInit<Addr extends Deno.Addr = Deno.Addr> {
@@ -5113,6 +5138,60 @@ declare namespace Deno {
     ): HttpServer<Deno.UnixAddr>;
     /** Serves HTTP requests with the given option bag and handler.
      *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * You can specify an object with the cid and port options for the VSOCK interface.
+     *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * ```ts
+     * Deno.serve(
+     *   { cid: -1, port: 3000 },
+     *   (_req) => new Response("Hello, world")
+     * );
+     * ```
+     *
+     * You can stop the server with an {@linkcode AbortSignal}. The abort signal
+     * needs to be passed as the `signal` option in the options bag. The server
+     * aborts when the abort signal is aborted. To wait for the server to close,
+     * await the promise returned from the `Deno.serve` API.
+     *
+     * ```ts
+     * const ac = new AbortController();
+     *
+     * const server = Deno.serve(
+     *    { signal: ac.signal, cid: -1, port: 3000 },
+     *    (_req) => new Response("Hello, world")
+     * );
+     * server.finished.then(() => console.log("Server closed"));
+     *
+     * console.log("Closing server...");
+     * ac.abort();
+     * ```
+     *
+     * By default `Deno.serve` prints the message `Listening on cid:port`.
+     * If you want to change this behavior, you can specify a custom `onListen`
+     * callback.
+     *
+     * ```ts
+     * Deno.serve({
+     *   onListen({ cid, port }) {
+     *     console.log(`Server started at ${cid}:${port}`);
+     *     // ... more info specific to your server ..
+     *   },
+     *   cid: -1,
+     *   port: 3000,
+     * }, (_req) => new Response("Hello, world"));
+     * ```
+     *
+     * @category HTTP Server
+     */
+    export function serve(
+        options: ServeVsockOptions,
+        handler: ServeHandler<Deno.VsockAddr>,
+    ): HttpServer<Deno.VsockAddr>;
+    /** Serves HTTP requests with the given option bag and handler.
+     *
      * You can specify an object with a port and hostname option, which is the
      * address to listen on. The default is port `8000` on hostname `"0.0.0.0"`.
      *
@@ -5198,6 +5277,37 @@ declare namespace Deno {
     export function serve(
         options: ServeUnixOptions & ServeInit<Deno.UnixAddr>,
     ): HttpServer<Deno.UnixAddr>;
+    /** Serves HTTP requests with the given option bag.
+     *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * You can specify an object with the cid and port options for the VSOCK interface.
+     *
+     * ```ts
+     * const ac = new AbortController();
+     *
+     * const server = Deno.serve({
+     *   cid: -1,
+     *   port: 3000,
+     *   handler: (_req) => new Response("Hello, world"),
+     *   signal: ac.signal,
+     *   onListen({ cid, port }) {
+     *     console.log(`Server started at ${cid}:${port}`);
+     *   },
+     * });
+     * server.finished.then(() => console.log("Server closed"));
+     *
+     * console.log("Closing server...");
+     * ac.abort();
+     * ```
+     *
+     * @category HTTP Server
+     */
+    export function serve(
+        options: ServeVsockOptions & ServeInit<Deno.VsockAddr>,
+    ): HttpServer<Deno.VsockAddr>;
     /** Serves HTTP requests with the given option bag.
      *
      * You can specify an object with a port and hostname option, which is the
@@ -5290,7 +5400,7 @@ declare namespace Deno {
     /**
      * @category FFI
      */
-    export const brand: unique symbol;
+    const brand: unique symbol;
 
     /**
      * @category FFI
@@ -5943,6 +6053,8 @@ declare namespace Deno {
          * @default {false}
          */
         allowHost?: boolean;
+        /** Sets the local address where the socket will connect from. */
+        localAddress?: string;
     }
 
     /**
@@ -6023,35 +6135,39 @@ interface GPUObjectDescriptorBase {
 
 /** @category GPU */
 declare class GPUSupportedLimits {
-    maxTextureDimension1D?: number;
-    maxTextureDimension2D?: number;
-    maxTextureDimension3D?: number;
-    maxTextureArrayLayers?: number;
-    maxBindGroups?: number;
-    maxBindingsPerBindGroup?: number;
-    maxDynamicUniformBuffersPerPipelineLayout?: number;
-    maxDynamicStorageBuffersPerPipelineLayout?: number;
-    maxSampledTexturesPerShaderStage?: number;
-    maxSamplersPerShaderStage?: number;
-    maxStorageBuffersPerShaderStage?: number;
-    maxStorageTexturesPerShaderStage?: number;
-    maxUniformBuffersPerShaderStage?: number;
-    maxUniformBufferBindingSize?: number;
-    maxStorageBufferBindingSize?: number;
-    minUniformBufferOffsetAlignment?: number;
-    minStorageBufferOffsetAlignment?: number;
-    maxVertexBuffers?: number;
-    maxBufferSize?: number;
-    maxVertexAttributes?: number;
-    maxVertexBufferArrayStride?: number;
-    maxColorAttachments?: number;
-    maxColorAttachmentBytesPerSample?: number;
-    maxComputeWorkgroupStorageSize?: number;
-    maxComputeInvocationsPerWorkgroup?: number;
-    maxComputeWorkgroupSizeX?: number;
-    maxComputeWorkgroupSizeY?: number;
-    maxComputeWorkgroupSizeZ?: number;
-    maxComputeWorkgroupsPerDimension?: number;
+    readonly maxTextureDimension1D: number;
+    readonly maxTextureDimension2D: number;
+    readonly maxTextureDimension3D: number;
+    readonly maxTextureArrayLayers: number;
+    readonly maxBindGroups: number;
+    // TODO(@crowlKats): support max_bind_groups_plus_vertex_buffers
+    readonly maxBindGroupsPlusVertexBuffers?: number;
+    readonly maxBindingsPerBindGroup: number;
+    readonly maxDynamicUniformBuffersPerPipelineLayout: number;
+    readonly maxDynamicStorageBuffersPerPipelineLayout: number;
+    readonly maxSampledTexturesPerShaderStage: number;
+    readonly maxSamplersPerShaderStage: number;
+    readonly maxStorageBuffersPerShaderStage: number;
+    readonly maxStorageTexturesPerShaderStage: number;
+    readonly maxUniformBuffersPerShaderStage: number;
+    readonly maxUniformBufferBindingSize: number;
+    readonly maxStorageBufferBindingSize: number;
+    readonly minUniformBufferOffsetAlignment: number;
+    readonly minStorageBufferOffsetAlignment: number;
+    readonly maxVertexBuffers: number;
+    readonly maxBufferSize: number;
+    readonly maxVertexAttributes: number;
+    readonly maxVertexBufferArrayStride: number;
+    // TODO(@crowlKats): support max_inter_stage_shader_variables
+    readonly maxInterStageShaderVariables?: number;
+    readonly maxColorAttachments: number;
+    readonly maxColorAttachmentBytesPerSample: number;
+    readonly maxComputeWorkgroupStorageSize: number;
+    readonly maxComputeInvocationsPerWorkgroup: number;
+    readonly maxComputeWorkgroupSizeX: number;
+    readonly maxComputeWorkgroupSizeY: number;
+    readonly maxComputeWorkgroupSizeZ: number;
+    readonly maxComputeWorkgroupsPerDimension: number;
 }
 
 /** @category GPU */
@@ -6080,9 +6196,40 @@ declare class GPUAdapterInfo {
     readonly description: string;
     readonly subgroupMinSize: number;
     readonly subgroupMaxSize: number;
+    readonly isFallbackAdapter: boolean;
 }
 
-/** @category GPU */
+/**
+ * The entry point to WebGPU in Deno, accessed via the global navigator.gpu property.
+ *
+ * @example
+ * ```ts
+ * // Basic WebGPU initialization in Deno
+ * const gpu = navigator.gpu;
+ * if (!gpu) {
+ *   console.error("WebGPU not supported in this Deno environment");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Request an adapter (physical GPU device)
+ * const adapter = await gpu.requestAdapter();
+ * if (!adapter) {
+ *   console.error("Couldn't request WebGPU adapter");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Get the preferred format for canvas rendering
+ * // Useful when working with canvas in browser/Deno environments
+ * const preferredFormat = gpu.getPreferredCanvasFormat();
+ * console.log(`Preferred canvas format: ${preferredFormat}`);
+ *
+ * // Create a device with default settings
+ * const device = await adapter.requestDevice();
+ * console.log("WebGPU device created successfully");
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPU {
     requestAdapter(
         options?: GPURequestAdapterOptions,
@@ -6099,12 +6246,47 @@ interface GPURequestAdapterOptions {
 /** @category GPU */
 type GPUPowerPreference = "low-power" | "high-performance";
 
-/** @category GPU */
+/**
+ * Represents a physical GPU device that can be used to create a logical GPU device.
+ *
+ * @example
+ * ```ts
+ * // Request an adapter with specific power preference
+ * const adapter = await navigator.gpu.requestAdapter({
+ *   powerPreference: "high-performance"
+ * });
+ *
+ * if (!adapter) {
+ *   console.error("WebGPU not supported or no appropriate adapter found");
+ *   Deno.exit(1);
+ * }
+ *
+ * // Check adapter capabilities
+ * if (adapter.features.has("shader-f16")) {
+ *   console.log("Adapter supports 16-bit shader operations");
+ * }
+ *
+ * console.log(`Maximum buffer size: ${adapter.limits.maxBufferSize} bytes`);
+ *
+ * // Get adapter info (vendor, device, etc.)
+ * console.log(`GPU Vendor: ${adapter.info.vendor}`);
+ * console.log(`GPU Device: ${adapter.info.device}`);
+ *
+ * // Request a logical device with specific features and limits
+ * const device = await adapter.requestDevice({
+ *   requiredFeatures: ["shader-f16"],
+ *   requiredLimits: {
+ *     maxStorageBufferBindingSize: 128 * 1024 * 1024, // 128MB
+ *   }
+ * });
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUAdapter {
     readonly features: GPUSupportedFeatures;
     readonly limits: GPUSupportedLimits;
     readonly info: GPUAdapterInfo;
-    readonly isFallbackAdapter: boolean;
 
     requestDevice(descriptor?: GPUDeviceDescriptor): Promise<GPUDevice>;
 }
@@ -6162,7 +6344,30 @@ type GPUFeatureName =
     | "shader-primitive-index"
     | "shader-early-depth-test";
 
-/** @category GPU */
+/**
+ * The primary interface for interacting with a WebGPU device.
+ *
+ * @example
+ * ```ts
+ * // Request a GPU adapter from the browser/Deno
+ * const adapter = await navigator.gpu.requestAdapter();
+ * if (!adapter) throw new Error("WebGPU not supported");
+ *
+ * // Request a device from the adapter
+ * const device = await adapter.requestDevice();
+ *
+ * // Create a buffer on the GPU
+ * const buffer = device.createBuffer({
+ *   size: 128,
+ *   usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
+ * });
+ *
+ * // Use device.queue to submit commands
+ * device.queue.writeBuffer(buffer, 0, new Uint8Array([1, 2, 3, 4]));
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUDevice extends EventTarget implements GPUObjectBase {
     label: string;
 
@@ -6213,7 +6418,35 @@ declare class GPUDevice extends EventTarget implements GPUObjectBase {
     createQuerySet(descriptor: GPUQuerySetDescriptor): GPUQuerySet;
 }
 
-/** @category GPU */
+/**
+ * Represents a block of memory allocated on the GPU.
+ *
+ * @example
+ * ```ts
+ * // Create a buffer that can be used as a vertex buffer and can be written to
+ * const vertexBuffer = device.createBuffer({
+ *   label: "Vertex Buffer",
+ *   size: vertices.byteLength,
+ *   usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+ * });
+ *
+ * // Write data to the buffer
+ * device.queue.writeBuffer(vertexBuffer, 0, vertices);
+ *
+ * // Example of creating a mapped buffer for CPU access
+ * const stagingBuffer = device.createBuffer({
+ *   size: data.byteLength,
+ *   usage: GPUBufferUsage.MAP_WRITE | GPUBufferUsage.COPY_SRC,
+ *   mappedAtCreation: true,
+ * });
+ *
+ * // Copy data to the mapped buffer
+ * new Uint8Array(stagingBuffer.getMappedRange()).set(data);
+ * stagingBuffer.unmap();
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUBuffer implements GPUObjectBase {
     label: string;
 
@@ -6271,7 +6504,35 @@ declare class GPUMapMode {
     static WRITE: 0x0002;
 }
 
-/** @category GPU */
+/**
+ * Represents a texture (image) in GPU memory.
+ *
+ * @example
+ * ```ts
+ * // Create a texture to render to
+ * const texture = device.createTexture({
+ *   label: "Output Texture",
+ *   size: { width: 640, height: 480 },
+ *   format: "rgba8unorm",
+ *   usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING,
+ * });
+ *
+ * // Get a view of the texture (needed for most operations)
+ * const textureView = texture.createView();
+ *
+ * // When the texture is no longer needed
+ * texture.destroy();
+ *
+ * // Example: Creating a depth texture
+ * const depthTexture = device.createTexture({
+ *   size: { width: 640, height: 480 },
+ *   format: "depth24plus",
+ *   usage: GPUTextureUsage.RENDER_ATTACHMENT,
+ * });
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUTexture implements GPUObjectBase {
     label: string;
 
@@ -6631,9 +6892,44 @@ interface GPUPipelineErrorInit {
 /** @category GPU */
 type GPUPipelineErrorReason = "validation" | "internal";
 
-/** @category GPU */
+/**
+ * Represents a compiled shader module that can be used to create graphics or compute pipelines.
+ *
+ * @example
+ * ```ts
+ * // Create a shader module using WGSL (WebGPU Shading Language)
+ * const shaderModule = device.createShaderModule({
+ *   label: "My Shader",
+ *   code: `
+ *     @vertex
+ *     fn vertexMain(@location(0) pos: vec2f) -> @builtin(position) vec4f {
+ *       return vec4f(pos, 0.0, 1.0);
+ *     }
+ *
+ *     @fragment
+ *     fn fragmentMain() -> @location(0) vec4f {
+ *       return vec4f(1.0, 0.0, 0.0, 1.0); // red color
+ *     }
+ *   `
+ * });
+ *
+ * // Can optionally check for compilation errors/warnings
+ * const compilationInfo = await shaderModule.getCompilationInfo();
+ * for (const message of compilationInfo.messages) {
+ *   console.log(`${message.type}: ${message.message} at ${message.lineNum}:${message.linePos}`);
+ * }
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUShaderModule implements GPUObjectBase {
     label: string;
+
+    /**
+     * Returns compilation messages for this shader module,
+     * which can include errors, warnings and info messages.
+     */
+    getCompilationInfo(): Promise<GPUCompilationInfo>;
 }
 
 /** @category GPU */
@@ -6898,7 +7194,50 @@ declare class GPUCommandBuffer implements GPUObjectBase {
 /** @category GPU */
 interface GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {}
 
-/** @category GPU */
+/**
+ * Used to record GPU commands for later execution by the GPU.
+ *
+ * @example
+ * ```ts
+ * // Create a command encoder
+ * const commandEncoder = device.createCommandEncoder({
+ *   label: "Main Command Encoder"
+ * });
+ *
+ * // Record a copy from one buffer to another
+ * commandEncoder.copyBufferToBuffer(
+ *   sourceBuffer, 0, // Source buffer and offset
+ *   destinationBuffer, 0, // Destination buffer and offset
+ *   sourceBuffer.size // Size to copy
+ * );
+ *
+ * // Begin a compute pass to execute a compute shader
+ * const computePass = commandEncoder.beginComputePass();
+ * computePass.setPipeline(computePipeline);
+ * computePass.setBindGroup(0, bindGroup);
+ * computePass.dispatchWorkgroups(32, 1, 1); // Run 32 workgroups
+ * computePass.end();
+ *
+ * // Begin a render pass to draw to a texture
+ * const renderPass = commandEncoder.beginRenderPass({
+ *   colorAttachments: [{
+ *     view: textureView,
+ *     clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+ *     loadOp: "clear",
+ *     storeOp: "store"
+ *   }]
+ * });
+ * renderPass.setPipeline(renderPipeline);
+ * renderPass.draw(3, 1, 0, 0); // Draw a triangle
+ * renderPass.end();
+ *
+ * // Finish encoding and submit to GPU
+ * const commandBuffer = commandEncoder.finish();
+ * device.queue.submit([commandBuffer]);
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUCommandEncoder implements GPUObjectBase {
     label: string;
 
@@ -7267,7 +7606,48 @@ interface GPURenderBundleEncoderDescriptor extends GPURenderPassLayout {
     stencilReadOnly?: boolean;
 }
 
-/** @category GPU */
+/**
+ * Represents a queue to submit commands to the GPU.
+ *
+ * @example
+ * ```ts
+ * // Get a queue from the device (each device has a default queue)
+ * const queue = device.queue;
+ *
+ * // Write data to a buffer
+ * const buffer = device.createBuffer({
+ *   size: data.byteLength,
+ *   usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.STORAGE
+ * });
+ * queue.writeBuffer(buffer, 0, data);
+ *
+ * // Submit command buffers to the GPU for execution
+ * const commandBuffer = commandEncoder.finish();
+ * queue.submit([commandBuffer]);
+ *
+ * // Wait for all submitted operations to complete
+ * await queue.onSubmittedWorkDone();
+ *
+ * // Example: Write data to a texture
+ * const texture = device.createTexture({
+ *   size: { width: 256, height: 256 },
+ *   format: "rgba8unorm",
+ *   usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST
+ * });
+ *
+ * const data = new Uint8Array(256 * 256 * 4); // RGBA data
+ * // Fill data with your texture content...
+ *
+ * queue.writeTexture(
+ *   { texture },
+ *   data,
+ *   { bytesPerRow: 256 * 4 },
+ *   { width: 256, height: 256 }
+ * );
+ * ```
+ *
+ * @category GPU
+ */
 declare class GPUQueue implements GPUObjectBase {
     label: string;
 
@@ -7400,6 +7780,7 @@ interface GPUCanvasConfiguration {
     colorSpace?: "srgb" | "display-p3";
     alphaMode?: GPUCanvasAlphaMode;
 }
+
 /** @category GPU */
 interface GPUCanvasContext {
     configure(configuration: GPUCanvasConfiguration): undefined;
@@ -7421,8 +7802,18 @@ declare namespace Deno {
         path: string;
     }
 
+    /**
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     * @category Network
+     */
+    export interface VsockAddr {
+        transport: "vsock";
+        cid: number;
+        port: number;
+    }
+
     /** @category Network */
-    export type Addr = NetAddr | UnixAddr;
+    export type Addr = NetAddr | UnixAddr | VsockAddr;
 
     /** A generic network listener for stream-oriented protocols.
      *
@@ -7468,6 +7859,14 @@ declare namespace Deno {
      * @category Network
      */
     export type UnixListener = Listener<UnixConn, UnixAddr>;
+
+    /** Specialized listener that accepts VSOCK connections.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category Network
+     */
+    export type VsockListener = Listener<VsockConn, VsockAddr>;
 
     /** @category Network */
     export interface Conn<A extends Addr = Addr> extends Disposable {
@@ -7625,6 +8024,38 @@ declare namespace Deno {
         options: UnixListenOptions & { transport: "unix" },
     ): UnixListener;
 
+    /** Options which can be set when opening a VSOCK listener via
+     * {@linkcode Deno.listen}.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * @category Network
+     */
+    export interface VsockListenOptions {
+        cid: number;
+        port: number;
+    }
+
+    /** Listen announces on the local transport address.
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * The VSOCK address family facilitates communication between virtual machines and the host they are running on: https://man7.org/linux/man-pages/man7/vsock.7.html
+     *
+     * ```ts
+     * const listener = Deno.listen({ cid: -1, port: 80, transport: "vsock" })
+     * ```
+     *
+     * Requires `allow-net` permission.
+     *
+     * @tags allow-net
+     * @category Network
+     */
+    // deno-lint-ignore adjacent-overload-signatures
+    export function listen(
+        options: VsockListenOptions & { transport: "vsock" },
+    ): VsockListener;
+
     /**
      * Provides certified key material from strings. The key material is provided in
      * `PEM`-format (Privacy Enhanced Mail, https://www.rfc-editor.org/rfc/rfc1422) which can be identified by having
@@ -7691,7 +8122,10 @@ declare namespace Deno {
          *
          * @default {"127.0.0.1"} */
         hostname?: string;
+        /** The transport layer protocol to use. */
         transport?: "tcp";
+        /** An {@linkcode AbortSignal} to close the tcp connection. */
+        signal?: AbortSignal;
     }
 
     /**
@@ -7751,6 +8185,41 @@ declare namespace Deno {
      */
     // deno-lint-ignore adjacent-overload-signatures
     export function connect(options: UnixConnectOptions): Promise<UnixConn>;
+
+    /**
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     * @category Network
+     */
+    export interface VsockConnectOptions {
+        transport: "vsock";
+        cid: number;
+        port: number;
+    }
+
+    /** @category Network */
+    export interface VsockConn extends Conn<VsockAddr> {}
+
+    /** Connects to the hostname (default is "127.0.0.1") and port on the named
+     * transport (default is "tcp"), and resolves to the connection (`Conn`).
+     *
+     * @experimental **UNSTABLE**: New API, yet to be vetted.
+     *
+     * ```ts
+     * const conn1 = await Deno.connect({ port: 80 });
+     * const conn2 = await Deno.connect({ hostname: "192.0.2.1", port: 80 });
+     * const conn3 = await Deno.connect({ hostname: "[2001:db8::1]", port: 80 });
+     * const conn4 = await Deno.connect({ hostname: "golang.org", port: 80, transport: "tcp" });
+     * const conn5 = await Deno.connect({ path: "/foo/bar.sock", transport: "unix" });
+     * const conn6 = await Deno.connect({ cid: -1, port: 80, transport: "vsock" });
+     * ```
+     *
+     * Requires `allow-net` permission for "tcp" and "vsock", and `allow-read` for "unix".
+     *
+     * @tags allow-net, allow-read
+     * @category Network
+     */
+    // deno-lint-ignore adjacent-overload-signatures
+    export function connect(options: VsockConnectOptions): Promise<VsockConn>;
 
     /** @category Network */
     export interface ConnectTlsOptions {
@@ -8278,7 +8747,7 @@ declare namespace Deno {
      *
      *  | system            | winHandle     | displayHandle   |
      *  | ----------------- | ------------- | --------------- |
-     *  | "cocoa" (macOS)   | `NSView*`     | -               |
+     *  | "cocoa" (macOS)   | -             | `NSView*`       |
      *  | "win32" (Windows) | `HWND`        | `HINSTANCE`     |
      *  | "x11" (Linux)     | Xlib `Window` | Xlib `Display*` |
      *  | "wayland" (Linux) | `wl_surface*` | `wl_display*`   |
@@ -9618,7 +10087,7 @@ declare namespace Deno {
          * @category Linter
          * @experimental
          */
-        export interface FixData {
+        export interface Fix {
             range: Range;
             text?: string;
         }
@@ -9628,14 +10097,14 @@ declare namespace Deno {
          * @experimental
          */
         export interface Fixer {
-            insertTextAfter(node: Node, text: string): FixData;
-            insertTextAfterRange(range: Range, text: string): FixData;
-            insertTextBefore(node: Node, text: string): FixData;
-            insertTextBeforeRange(range: Range, text: string): FixData;
-            remove(node: Node): FixData;
-            removeRange(range: Range): FixData;
-            replaceText(node: Node, text: string): FixData;
-            replaceTextRange(range: Range, text: string): FixData;
+            insertTextAfter(node: Node, text: string): Fix;
+            insertTextAfterRange(range: Range, text: string): Fix;
+            insertTextBefore(node: Node, text: string): Fix;
+            insertTextBeforeRange(range: Range, text: string): Fix;
+            remove(node: Node): Fix;
+            removeRange(range: Range): Fix;
+            replaceText(node: Node, text: string): Fix;
+            replaceTextRange(range: Range, text: string): Fix;
         }
 
         /**
@@ -9647,7 +10116,7 @@ declare namespace Deno {
             range?: Range;
             message: string;
             hint?: string;
-            fix?(fixer: Fixer): FixData | Iterable<FixData>;
+            fix?(fixer: Fixer): Fix | Iterable<Fix>;
         }
 
         /**
@@ -9761,21 +10230,12 @@ declare namespace Deno {
          * @category Linter
          * @experimental
          */
-        export interface Fix {
-            range: Range;
-            text?: string;
-        }
-
-        /**
-         * @category Linter
-         * @experimental
-         */
         export interface Diagnostic {
             id: string;
             message: string;
             hint?: string;
             range: Range;
-            fix?: Fix;
+            fix?: Fix[];
         }
 
         /**
@@ -9812,6 +10272,7 @@ declare namespace Deno {
             imported: Identifier | StringLiteral;
             local: Identifier;
             importKind: "type" | "value";
+            parent: ExportAllDeclaration | ExportNamedDeclaration | ImportDeclaration;
         }
 
         /**
@@ -9822,6 +10283,7 @@ declare namespace Deno {
             type: "ImportDefaultSpecifier";
             range: Range;
             local: Identifier;
+            parent: ImportDeclaration;
         }
 
         /**
@@ -9832,6 +10294,7 @@ declare namespace Deno {
             type: "ImportNamespaceSpecifier";
             range: Range;
             local: Identifier;
+            parent: ImportDeclaration;
         }
 
         /**
@@ -9843,6 +10306,11 @@ declare namespace Deno {
             range: Range;
             key: Identifier | Literal;
             value: Literal;
+            parent:
+                | ExportAllDeclaration
+                | ExportNamedDeclaration
+                | ImportDeclaration
+                | TSImportType;
         }
 
         /**
@@ -9861,6 +10329,7 @@ declare namespace Deno {
                 | ImportSpecifier
             >;
             attributes: ImportAttribute[];
+            parent: Node;
         }
 
         /**
@@ -9881,6 +10350,7 @@ declare namespace Deno {
                 | TSTypeAliasDeclaration
                 | VariableDeclaration;
             exportKind: "type" | "value";
+            parent: BlockStatement | Program | TSModuleBlock;
         }
 
         /**
@@ -9905,6 +10375,7 @@ declare namespace Deno {
                 | null;
             source: StringLiteral | null;
             attributes: ImportAttribute[];
+            parent: BlockStatement | Program | TSModuleBlock;
         }
 
         /**
@@ -9918,6 +10389,7 @@ declare namespace Deno {
             exported: Identifier | null;
             source: StringLiteral;
             attributes: ImportAttribute[];
+            parent: Node;
         }
 
         /**
@@ -9928,6 +10400,7 @@ declare namespace Deno {
             type: "TSNamespaceExportDeclaration";
             range: Range;
             id: Identifier;
+            parent: Node;
         }
 
         /**
@@ -9940,6 +10413,7 @@ declare namespace Deno {
             importKind: "type" | "value";
             id: Identifier;
             moduleReference: Identifier | TSExternalModuleReference | TSQualifiedName;
+            parent: Node;
         }
 
         /**
@@ -9950,6 +10424,7 @@ declare namespace Deno {
             type: "TSExternalModuleReference";
             range: Range;
             expression: StringLiteral;
+            parent: Node;
         }
 
         /**
@@ -9962,6 +10437,7 @@ declare namespace Deno {
             exportKind: "type" | "value";
             exported: Identifier | StringLiteral;
             local: Identifier | StringLiteral;
+            parent: ExportNamedDeclaration;
         }
 
         /**
@@ -9975,6 +10451,7 @@ declare namespace Deno {
             declare: boolean;
             kind: "let" | "var" | "const" | "await using" | "using";
             declarations: VariableDeclarator[];
+            parent: Node;
         }
 
         /**
@@ -9989,6 +10466,7 @@ declare namespace Deno {
             id: ArrayPattern | ObjectPattern | Identifier;
             init: Expression | null;
             definite: boolean;
+            parent: VariableDeclaration;
         }
 
         /**
@@ -10027,6 +10505,11 @@ declare namespace Deno {
             returnType: TSTypeAnnotation | undefined;
             body: BlockStatement | null;
             params: Parameter[];
+            parent:
+                | BlockStatement
+                | ExportDefaultDeclaration
+                | ExportNamedDeclaration
+                | Program;
         }
 
         /**
@@ -10060,6 +10543,7 @@ declare namespace Deno {
                 | TSAsExpression
                 | TSNonNullExpression
                 | TSTypeAssertion;
+            parent: Node;
         }
 
         /**
@@ -10099,6 +10583,7 @@ declare namespace Deno {
                 | null;
             implements: TSClassImplements[];
             body: ClassBody;
+            parent: Node;
         }
 
         /**
@@ -10142,6 +10627,7 @@ declare namespace Deno {
             typeParameters: TSTypeParameterDeclaration | undefined;
             implements: TSClassImplements[];
             body: ClassBody;
+            parent: Node;
         }
 
         /**
@@ -10164,6 +10650,7 @@ declare namespace Deno {
                 | TSAbstractPropertyDefinition
                 | TSIndexSignature
             >;
+            parent: ClassDeclaration | ClassExpression;
         }
 
         /**
@@ -10175,6 +10662,7 @@ declare namespace Deno {
             type: "StaticBlock";
             range: Range;
             body: Statement[];
+            parent: ClassBody;
         }
 
         // Stage 1 Proposal:
@@ -10197,6 +10685,7 @@ declare namespace Deno {
             decorators: Decorator[];
             key: Expression | Identifier | NumberLiteral | StringLiteral;
             value: Expression | null;
+            parent: ClassBody;
         }
 
         /**
@@ -10214,9 +10703,15 @@ declare namespace Deno {
             static: boolean;
             accessibility: Accessibility | undefined;
             decorators: Decorator[];
-            key: Expression | Identifier | NumberLiteral | StringLiteral;
+            key:
+                | Expression
+                | Identifier
+                | NumberLiteral
+                | StringLiteral
+                | PrivateIdentifier;
             value: Expression | null;
             typeAnnotation: TSTypeAnnotation | undefined;
+            parent: ClassBody;
         }
 
         /**
@@ -10242,6 +10737,7 @@ declare namespace Deno {
                 | StringLiteral
                 | Expression;
             value: FunctionExpression | TSEmptyBodyFunctionExpression;
+            parent: ClassBody;
         }
 
         /**
@@ -10252,6 +10748,20 @@ declare namespace Deno {
             type: "BlockStatement";
             range: Range;
             body: Statement[];
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10262,6 +10772,20 @@ declare namespace Deno {
         export interface DebuggerStatement {
             type: "DebuggerStatement";
             range: Range;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10275,6 +10799,20 @@ declare namespace Deno {
             range: Range;
             object: Expression;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10286,6 +10824,20 @@ declare namespace Deno {
             type: "ReturnStatement";
             range: Range;
             argument: Expression | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10298,6 +10850,20 @@ declare namespace Deno {
             range: Range;
             label: Identifier;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10319,6 +10885,20 @@ declare namespace Deno {
             type: "BreakStatement";
             range: Range;
             label: Identifier | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10330,6 +10910,20 @@ declare namespace Deno {
             type: "ContinueStatement";
             range: Range;
             label: Identifier | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10344,6 +10938,20 @@ declare namespace Deno {
             test: Expression;
             consequent: Statement;
             alternate: Statement | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10356,6 +10964,20 @@ declare namespace Deno {
             range: Range;
             discriminant: Expression;
             cases: SwitchCase[];
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10368,6 +10990,7 @@ declare namespace Deno {
             range: Range;
             test: Expression | null;
             consequent: Statement[];
+            parent: SwitchStatement;
         }
 
         /**
@@ -10380,6 +11003,20 @@ declare namespace Deno {
             type: "ThrowStatement";
             range: Range;
             argument: Expression;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10392,6 +11029,20 @@ declare namespace Deno {
             range: Range;
             test: Expression;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10404,6 +11055,20 @@ declare namespace Deno {
             range: Range;
             test: Expression;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10418,6 +11083,20 @@ declare namespace Deno {
             test: Expression | null;
             update: Expression | null;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10431,6 +11110,20 @@ declare namespace Deno {
             left: Expression | VariableDeclaration;
             right: Expression;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10445,6 +11138,20 @@ declare namespace Deno {
             left: Expression | VariableDeclaration;
             right: Expression;
             body: Statement;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10456,6 +11163,20 @@ declare namespace Deno {
             type: "ExpressionStatement";
             range: Range;
             expression: Expression;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10469,6 +11190,20 @@ declare namespace Deno {
             block: BlockStatement;
             handler: CatchClause | null;
             finalizer: BlockStatement | null;
+            parent:
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -10481,6 +11216,7 @@ declare namespace Deno {
             range: Range;
             param: ArrayPattern | ObjectPattern | Identifier | null;
             body: BlockStatement;
+            parent: TryStatement;
         }
 
         /**
@@ -10492,6 +11228,7 @@ declare namespace Deno {
             type: "ArrayExpression";
             range: Range;
             elements: Array<Expression | SpreadElement>;
+            parent: Node;
         }
 
         /**
@@ -10503,6 +11240,7 @@ declare namespace Deno {
             type: "ObjectExpression";
             range: Range;
             properties: Array<Property | SpreadElement>;
+            parent: Node;
         }
 
         /**
@@ -10539,6 +11277,7 @@ declare namespace Deno {
                 | "/";
             left: Expression | PrivateIdentifier;
             right: Expression;
+            parent: Node;
         }
 
         /**
@@ -10552,6 +11291,7 @@ declare namespace Deno {
             operator: "&&" | "??" | "||";
             left: Expression;
             right: Expression;
+            parent: Node;
         }
 
         /**
@@ -10570,6 +11310,7 @@ declare namespace Deno {
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
             body: BlockStatement;
+            parent: Node;
         }
 
         /**
@@ -10587,6 +11328,7 @@ declare namespace Deno {
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
             body: BlockStatement | Expression;
+            parent: Node;
         }
 
         /**
@@ -10597,6 +11339,7 @@ declare namespace Deno {
         export interface ThisExpression {
             type: "ThisExpression";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -10607,6 +11350,7 @@ declare namespace Deno {
         export interface Super {
             type: "Super";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -10619,6 +11363,7 @@ declare namespace Deno {
             range: Range;
             operator: "!" | "+" | "~" | "-" | "delete" | "typeof" | "void";
             argument: Expression;
+            parent: Node;
         }
 
         /**
@@ -10632,6 +11377,7 @@ declare namespace Deno {
             callee: Expression;
             typeArguments: TSTypeParameterInstantiation | undefined;
             arguments: Array<Expression | SpreadElement>;
+            parent: Node;
         }
 
         /**
@@ -10644,6 +11390,7 @@ declare namespace Deno {
             range: Range;
             source: Expression;
             options: Expression | null;
+            parent: Node;
         }
 
         /**
@@ -10658,6 +11405,7 @@ declare namespace Deno {
             callee: Expression;
             typeArguments: TSTypeParameterInstantiation | null;
             arguments: Array<Expression | SpreadElement>;
+            parent: Node;
         }
 
         /**
@@ -10671,6 +11419,7 @@ declare namespace Deno {
             prefix: boolean;
             operator: "++" | "--";
             argument: Expression;
+            parent: Node;
         }
 
         /**
@@ -10700,6 +11449,7 @@ declare namespace Deno {
                 | "/=";
             left: Expression;
             right: Expression;
+            parent: Node;
         }
 
         /**
@@ -10713,6 +11463,7 @@ declare namespace Deno {
             test: Expression;
             consequent: Expression;
             alternate: Expression;
+            parent: Node;
         }
 
         /**
@@ -10727,6 +11478,7 @@ declare namespace Deno {
             computed: boolean;
             object: Expression;
             property: Expression | Identifier | PrivateIdentifier;
+            parent: Node;
         }
 
         /**
@@ -10741,6 +11493,7 @@ declare namespace Deno {
                 | CallExpression
                 | MemberExpression
                 | TSNonNullExpression;
+            parent: Node;
         }
 
         /**
@@ -10752,6 +11505,7 @@ declare namespace Deno {
             type: "SequenceExpression";
             range: Range;
             expressions: Expression[];
+            parent: Node;
         }
 
         /**
@@ -10764,6 +11518,7 @@ declare namespace Deno {
             range: Range;
             quasis: TemplateElement[];
             expressions: Expression[];
+            parent: Node;
         }
 
         /**
@@ -10777,6 +11532,7 @@ declare namespace Deno {
             tail: boolean;
             raw: string;
             cooked: string;
+            parent: TemplateLiteral | TSTemplateLiteralType;
         }
 
         /**
@@ -10790,6 +11546,7 @@ declare namespace Deno {
             tag: Expression;
             typeArguments: TSTypeParameterInstantiation | undefined;
             quasi: TemplateLiteral;
+            parent: Node;
         }
 
         /**
@@ -10802,6 +11559,7 @@ declare namespace Deno {
             range: Range;
             delegate: boolean;
             argument: Expression | null;
+            parent: Node;
         }
 
         /**
@@ -10813,6 +11571,7 @@ declare namespace Deno {
             type: "AwaitExpression";
             range: Range;
             argument: Expression;
+            parent: Node;
         }
 
         /**
@@ -10825,6 +11584,7 @@ declare namespace Deno {
             range: Range;
             meta: Identifier;
             property: Identifier;
+            parent: Node;
         }
 
         /**
@@ -10839,6 +11599,7 @@ declare namespace Deno {
             name: string;
             optional: boolean;
             typeAnnotation: TSTypeAnnotation | undefined;
+            parent: Node;
         }
 
         /**
@@ -10850,6 +11611,13 @@ declare namespace Deno {
             type: "PrivateIdentifier";
             range: Range;
             name: string;
+            parent:
+                | TSAbstractPropertyDefinition
+                | TSPropertySignature
+                | PropertyDefinition
+                | MethodDefinition
+                | BinaryExpression
+                | MemberExpression;
         }
 
         /**
@@ -10862,6 +11630,7 @@ declare namespace Deno {
             range: Range;
             left: ArrayPattern | ObjectPattern | Identifier;
             right: Expression;
+            parent: Node;
         }
 
         /**
@@ -10883,6 +11652,7 @@ declare namespace Deno {
                 | RestElement
                 | null
             >;
+            parent: Node;
         }
 
         /**
@@ -10896,6 +11666,7 @@ declare namespace Deno {
             optional: boolean;
             typeAnnotation: TSTypeAnnotation | undefined;
             properties: Array<Property | RestElement>;
+            parent: Node;
         }
 
         /**
@@ -10914,6 +11685,7 @@ declare namespace Deno {
                 | MemberExpression
                 | ObjectPattern
                 | RestElement;
+            parent: Node;
         }
 
         /**
@@ -10924,6 +11696,11 @@ declare namespace Deno {
             type: "SpreadElement";
             range: Range;
             argument: Expression;
+            parent:
+                | ArrayExpression
+                | CallExpression
+                | NewExpression
+                | ObjectExpression;
         }
 
         /**
@@ -10945,6 +11722,7 @@ declare namespace Deno {
                 | Identifier
                 | Expression
                 | TSEmptyBodyFunctionExpression;
+            parent: ObjectExpression | ObjectPattern;
         }
 
         /**
@@ -10963,6 +11741,7 @@ declare namespace Deno {
             raw: string;
             bigint: string;
             value: bigint;
+            parent: Node;
         }
 
         /**
@@ -10975,6 +11754,7 @@ declare namespace Deno {
             range: Range;
             raw: "false" | "true";
             value: boolean;
+            parent: Node;
         }
 
         /**
@@ -10992,6 +11772,7 @@ declare namespace Deno {
             range: Range;
             raw: string;
             value: number;
+            parent: Node;
         }
 
         /**
@@ -11004,6 +11785,7 @@ declare namespace Deno {
             range: Range;
             raw: "null";
             value: null;
+            parent: Node;
         }
 
         /**
@@ -11021,6 +11803,7 @@ declare namespace Deno {
             range: Range;
             raw: string;
             value: string;
+            parent: Node;
         }
 
         /**
@@ -11041,6 +11824,7 @@ declare namespace Deno {
                 pattern: string;
             };
             value: RegExp | null;
+            parent: Node;
         }
 
         /**
@@ -11065,6 +11849,12 @@ declare namespace Deno {
             type: "JSXIdentifier";
             range: Range;
             name: string;
+            parent:
+                | JSXNamespacedName
+                | JSXOpeningElement
+                | JSXAttribute
+                | JSXClosingElement
+                | JSXMemberExpression;
         }
 
         /**
@@ -11077,6 +11867,11 @@ declare namespace Deno {
             range: Range;
             namespace: JSXIdentifier;
             name: JSXIdentifier;
+            parent:
+                | JSXOpeningElement
+                | JSXAttribute
+                | JSXClosingElement
+                | JSXMemberExpression;
         }
 
         /**
@@ -11087,6 +11882,7 @@ declare namespace Deno {
         export interface JSXEmptyExpression {
             type: "JSXEmptyExpression";
             range: Range;
+            parent: JSXAttribute | JSXElement | JSXFragment;
         }
 
         /**
@@ -11100,6 +11896,7 @@ declare namespace Deno {
             openingElement: JSXOpeningElement;
             closingElement: JSXClosingElement | null;
             children: JSXChild[];
+            parent: Node;
         }
 
         /**
@@ -11117,6 +11914,7 @@ declare namespace Deno {
                 | JSXNamespacedName;
             attributes: Array<JSXAttribute | JSXSpreadAttribute>;
             typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: JSXElement;
         }
 
         /**
@@ -11133,6 +11931,7 @@ declare namespace Deno {
                 | JSXExpressionContainer
                 | Literal
                 | null;
+            parent: JSXOpeningElement;
         }
 
         /**
@@ -11144,6 +11943,7 @@ declare namespace Deno {
             type: "JSXSpreadAttribute";
             range: Range;
             argument: Expression;
+            parent: JSXOpeningElement;
         }
 
         /**
@@ -11159,6 +11959,7 @@ declare namespace Deno {
                 | JSXIdentifier
                 | JSXMemberExpression
                 | JSXNamespacedName;
+            parent: JSXElement;
         }
 
         /**
@@ -11173,6 +11974,7 @@ declare namespace Deno {
             openingFragment: JSXOpeningFragment;
             closingFragment: JSXClosingFragment;
             children: JSXChild[];
+            parent: Node;
         }
 
         /**
@@ -11183,6 +11985,7 @@ declare namespace Deno {
         export interface JSXOpeningFragment {
             type: "JSXOpeningFragment";
             range: Range;
+            parent: JSXFragment;
         }
 
         /**
@@ -11193,6 +11996,7 @@ declare namespace Deno {
         export interface JSXClosingFragment {
             type: "JSXClosingFragment";
             range: Range;
+            parent: JSXFragment;
         }
 
         /**
@@ -11204,6 +12008,7 @@ declare namespace Deno {
             type: "JSXExpressionContainer";
             range: Range;
             expression: Expression | JSXEmptyExpression;
+            parent: JSXAttribute | JSXElement | JSXFragment;
         }
 
         /**
@@ -11216,6 +12021,7 @@ declare namespace Deno {
             range: Range;
             raw: string;
             value: string;
+            parent: JSXElement | JSXFragment;
         }
 
         /**
@@ -11231,6 +12037,7 @@ declare namespace Deno {
                 | JSXMemberExpression
                 | JSXNamespacedName;
             property: JSXIdentifier;
+            parent: JSXOpeningElement | JSXClosingElement;
         }
 
         /**
@@ -11255,6 +12062,22 @@ declare namespace Deno {
             kind: "global" | "module" | "namespace";
             id: Identifier | Literal | TSQualifiedName;
             body: TSModuleBlock | undefined;
+            parent:
+                | ExportDefaultDeclaration
+                | ExportNamedDeclaration
+                | Program
+                | StaticBlock
+                | BlockStatement
+                | WithStatement
+                | LabeledStatement
+                | IfStatement
+                | SwitchCase
+                | WhileStatement
+                | DoWhileStatement
+                | ForStatement
+                | ForInStatement
+                | ForOfStatement
+                | TSModuleBlock;
         }
 
         /**
@@ -11274,6 +12097,7 @@ declare namespace Deno {
                 | TSImportEqualsDeclaration
                 | TSNamespaceExportDeclaration
             >;
+            parent: TSModuleDeclaration;
         }
 
         /**
@@ -11285,6 +12109,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: ClassDeclaration | ClassExpression;
         }
 
         /**
@@ -11302,6 +12127,7 @@ declare namespace Deno {
             kind: "method";
             key: Expression | Identifier | NumberLiteral | StringLiteral;
             value: FunctionExpression | TSEmptyBodyFunctionExpression;
+            parent: Node;
         }
 
         /**
@@ -11328,6 +12154,7 @@ declare namespace Deno {
                 | StringLiteral;
             typeAnnotation: TSTypeAnnotation | undefined;
             value: Expression | null;
+            parent: ClassBody;
         }
 
         /**
@@ -11346,6 +12173,11 @@ declare namespace Deno {
             typeParameters: TSTypeParameterDeclaration | undefined;
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
+            parent:
+                | MethodDefinition
+                | Property
+                | TSAbstractMethodDefinition
+                | TSParameterProperty;
         }
 
         /**
@@ -11366,6 +12198,12 @@ declare namespace Deno {
                 | ObjectPattern
                 | Identifier
                 | RestElement;
+            parent:
+                | ArrowFunctionExpression
+                | FunctionDeclaration
+                | FunctionExpression
+                | TSDeclareFunction
+                | TSEmptyBodyFunctionExpression;
         }
 
         /**
@@ -11378,6 +12216,7 @@ declare namespace Deno {
             typeParameters: TSTypeParameterDeclaration | undefined;
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
         }
 
         /**
@@ -11398,6 +12237,7 @@ declare namespace Deno {
                 | NumberLiteral
                 | StringLiteral;
             typeAnnotation: TSTypeAnnotation | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
         }
 
         /**
@@ -11415,6 +12255,7 @@ declare namespace Deno {
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
             typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: Node;
         }
 
         /**
@@ -11431,6 +12272,7 @@ declare namespace Deno {
             const: boolean;
             id: Identifier;
             body: TSEnumBody;
+            parent: Node;
         }
 
         /**
@@ -11442,6 +12284,7 @@ declare namespace Deno {
             type: "TSEnumBody";
             range: Range;
             members: TSEnumMember[];
+            parent: TSEnumDeclaration;
         }
 
         /**
@@ -11457,6 +12300,7 @@ declare namespace Deno {
                 | NumberLiteral
                 | StringLiteral;
             initializer: Expression | undefined;
+            parent: TSEnumBody;
         }
 
         /**
@@ -11468,6 +12312,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11478,6 +12323,18 @@ declare namespace Deno {
             type: "TSTypeParameterInstantiation";
             range: Range;
             params: TypeNode[];
+            parent:
+                | ClassExpression
+                | NewExpression
+                | CallExpression
+                | TaggedTemplateExpression
+                | JSXOpeningElement
+                | TSClassImplements
+                | TSInstantiationExpression
+                | TSInterfaceHeritage
+                | TSTypeQuery
+                | TSTypeReference
+                | TSImportType;
         }
 
         /**
@@ -11491,6 +12348,7 @@ declare namespace Deno {
             id: Identifier;
             typeParameters: TSTypeParameterDeclaration | undefined;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11502,6 +12360,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11513,6 +12372,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11524,6 +12384,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeArguments: TSTypeParameterInstantiation;
+            parent: Node;
         }
 
         /**
@@ -11534,6 +12395,7 @@ declare namespace Deno {
             type: "TSNonNullExpression";
             range: Range;
             expression: Expression;
+            parent: Node;
         }
 
         /**
@@ -11543,6 +12405,7 @@ declare namespace Deno {
         export interface TSThisType {
             type: "TSThisType";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11557,6 +12420,7 @@ declare namespace Deno {
             extends: TSInterfaceHeritage[];
             typeParameters: TSTypeParameterDeclaration | undefined;
             body: TSInterfaceBody;
+            parent: Node;
         }
 
         /**
@@ -11573,6 +12437,7 @@ declare namespace Deno {
                 | TSMethodSignature
                 | TSPropertySignature
             >;
+            parent: TSInterfaceDeclaration;
         }
 
         /**
@@ -11585,6 +12450,7 @@ declare namespace Deno {
             typeParameters: TSTypeParameterDeclaration | undefined;
             params: Parameter[];
             returnType: TSTypeAnnotation;
+            parent: TSInterfaceBody | TSTypeLiteral;
         }
 
         /**
@@ -11603,6 +12469,7 @@ declare namespace Deno {
             returnType: TSTypeAnnotation | undefined;
             params: Parameter[];
             typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: TSInterfaceBody | TSTypeLiteral;
         }
 
         /**
@@ -11614,6 +12481,7 @@ declare namespace Deno {
             range: Range;
             expression: Expression;
             typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: TSInterfaceBody;
         }
 
         /**
@@ -11627,6 +12495,7 @@ declare namespace Deno {
             static: boolean;
             parameters: Parameter[];
             typeAnnotation: TSTypeAnnotation | undefined;
+            parent: ClassBody | TSInterfaceBody | TSTypeLiteral;
         }
 
         /**
@@ -11637,6 +12506,7 @@ declare namespace Deno {
             type: "TSUnionType";
             range: Range;
             types: TypeNode[];
+            parent: Node;
         }
 
         /**
@@ -11647,6 +12517,7 @@ declare namespace Deno {
             type: "TSIntersectionType";
             range: Range;
             types: TypeNode[];
+            parent: Node;
         }
 
         /**
@@ -11657,6 +12528,7 @@ declare namespace Deno {
             type: "TSInferType";
             range: Range;
             typeParameter: TSTypeParameter;
+            parent: Node;
         }
 
         /**
@@ -11668,6 +12540,7 @@ declare namespace Deno {
             range: Range;
             operator: "keyof" | "readonly" | "unique";
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11679,6 +12552,7 @@ declare namespace Deno {
             range: Range;
             indexType: TypeNode;
             objectType: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11691,6 +12565,7 @@ declare namespace Deno {
         export interface TSAnyKeyword {
             type: "TSAnyKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11700,6 +12575,7 @@ declare namespace Deno {
         export interface TSUnknownKeyword {
             type: "TSUnknownKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11709,6 +12585,7 @@ declare namespace Deno {
         export interface TSNumberKeyword {
             type: "TSNumberKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11718,6 +12595,7 @@ declare namespace Deno {
         export interface TSObjectKeyword {
             type: "TSObjectKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11727,6 +12605,7 @@ declare namespace Deno {
         export interface TSBooleanKeyword {
             type: "TSBooleanKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11736,6 +12615,7 @@ declare namespace Deno {
         export interface TSBigIntKeyword {
             type: "TSBigIntKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11745,6 +12625,7 @@ declare namespace Deno {
         export interface TSStringKeyword {
             type: "TSStringKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11754,6 +12635,7 @@ declare namespace Deno {
         export interface TSSymbolKeyword {
             type: "TSSymbolKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11763,6 +12645,7 @@ declare namespace Deno {
         export interface TSVoidKeyword {
             type: "TSVoidKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11772,6 +12655,7 @@ declare namespace Deno {
         export interface TSUndefinedKeyword {
             type: "TSUndefinedKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11781,6 +12665,7 @@ declare namespace Deno {
         export interface TSNullKeyword {
             type: "TSNullKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11790,6 +12675,7 @@ declare namespace Deno {
         export interface TSNeverKeyword {
             type: "TSNeverKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11799,6 +12685,7 @@ declare namespace Deno {
         export interface TSIntrinsicKeyword {
             type: "TSIntrinsicKeyword";
             range: Range;
+            parent: Node;
         }
 
         /**
@@ -11809,6 +12696,7 @@ declare namespace Deno {
             type: "TSRestType";
             range: Range;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11822,6 +12710,7 @@ declare namespace Deno {
             extendsType: TypeNode;
             trueType: TypeNode;
             falseType: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11837,6 +12726,7 @@ declare namespace Deno {
             typeAnnotation: TypeNode | undefined;
             constraint: TypeNode;
             key: Identifier;
+            parent: Node;
         }
 
         /**
@@ -11847,6 +12737,7 @@ declare namespace Deno {
             type: "TSLiteralType";
             range: Range;
             literal: Literal | TemplateLiteral | UnaryExpression | UpdateExpression;
+            parent: Node;
         }
 
         /**
@@ -11858,6 +12749,7 @@ declare namespace Deno {
             range: Range;
             quasis: TemplateElement[];
             types: TypeNode[];
+            parent: Node;
         }
 
         /**
@@ -11874,6 +12766,7 @@ declare namespace Deno {
                 | TSMethodSignature
                 | TSPropertySignature
             >;
+            parent: Node;
         }
 
         /**
@@ -11884,6 +12777,7 @@ declare namespace Deno {
             type: "TSOptionalType";
             range: Range;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11894,6 +12788,7 @@ declare namespace Deno {
             type: "TSTypeAnnotation";
             range: Range;
             typeAnnotation: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11904,6 +12799,7 @@ declare namespace Deno {
             type: "TSArrayType";
             range: Range;
             elementType: TypeNode;
+            parent: Node;
         }
 
         /**
@@ -11915,6 +12811,7 @@ declare namespace Deno {
             range: Range;
             exprName: Identifier | ThisExpression | TSQualifiedName | TSImportType;
             typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: Node;
         }
 
         /**
@@ -11926,6 +12823,7 @@ declare namespace Deno {
             range: Range;
             typeName: Identifier | ThisExpression | TSQualifiedName;
             typeArguments: TSTypeParameterInstantiation | undefined;
+            parent: Node;
         }
 
         /**
@@ -11938,6 +12836,7 @@ declare namespace Deno {
             asserts: boolean;
             parameterName: Identifier | TSThisType;
             typeAnnotation: TSTypeAnnotation | undefined;
+            parent: Node;
         }
 
         /**
@@ -11948,6 +12847,7 @@ declare namespace Deno {
             type: "TSTupleType";
             range: Range;
             elementTypes: TypeNode[];
+            parent: Node;
         }
 
         /**
@@ -11960,6 +12860,7 @@ declare namespace Deno {
             label: Identifier;
             elementType: TypeNode;
             optional: boolean;
+            parent: Node;
         }
 
         /**
@@ -11970,6 +12871,7 @@ declare namespace Deno {
             type: "TSTypeParameterDeclaration";
             range: Range;
             params: TSTypeParameter[];
+            parent: Node;
         }
 
         /**
@@ -11985,6 +12887,7 @@ declare namespace Deno {
             name: Identifier;
             constraint: TypeNode | null;
             default: TypeNode | null;
+            parent: TSInferType | TSMappedType | TSTypeParameterDeclaration;
         }
 
         /**
@@ -11997,6 +12900,7 @@ declare namespace Deno {
             argument: TypeNode;
             qualifier: Identifier | ThisExpression | TSQualifiedName | null;
             typeArguments: TSTypeParameterInstantiation | null;
+            parent: Node;
         }
 
         /**
@@ -12007,6 +12911,7 @@ declare namespace Deno {
             type: "TSExportAssignment";
             range: Range;
             expression: Expression;
+            parent: Node;
         }
 
         /**
@@ -12019,6 +12924,7 @@ declare namespace Deno {
             params: Parameter[];
             returnType: TSTypeAnnotation | undefined;
             typeParameters: TSTypeParameterDeclaration | undefined;
+            parent: Node;
         }
 
         /**
@@ -12030,6 +12936,7 @@ declare namespace Deno {
             range: Range;
             left: Identifier | ThisExpression | TSQualifiedName;
             right: Identifier;
+            parent: Node;
         }
 
         /**
@@ -12216,6 +13123,40 @@ declare namespace Deno {
             | TSTypeAnnotation
             | TSTypeParameterDeclaration
             | TSTypeParameter;
+
+        export {}; // only export exports
+    }
+
+    /**
+     * The webgpu namespace provides additional APIs that the WebGPU specification
+     * does not specify.
+     *
+     * @category GPU
+     * @experimental
+     */
+    export namespace webgpu {
+        /**
+         * Starts a frame capture.
+         *
+         * This API is useful for debugging issues related to graphics, and makes
+         * the captured data available to RenderDoc or XCode
+         * (or other software for debugging frames)
+         *
+         * @category GPU
+         * @experimental
+         */
+        export function deviceStartCapture(device: GPUDevice): void;
+        /**
+         * Stops a frame capture.
+         *
+         * This API is useful for debugging issues related to graphics, and makes
+         * the captured data available to RenderDoc or XCode
+         * (or other software for debugging frames)
+         *
+         * @category GPU
+         * @experimental
+         */
+        export function deviceStopCapture(device: GPUDevice): void;
 
         export {}; // only export exports
     }

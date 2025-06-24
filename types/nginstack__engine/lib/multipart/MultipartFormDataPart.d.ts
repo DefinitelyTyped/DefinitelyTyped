@@ -25,5 +25,5 @@ declare class MultipartFormDataPart {
 declare namespace MultipartFormDataPart {
     export { File, MultipartFormDataReader };
 }
-type MultipartFormDataReader = import('./MultipartFormDataReader');
 type File = import('../io/File');
+type MultipartFormDataReader = import('./MultipartFormDataReader');

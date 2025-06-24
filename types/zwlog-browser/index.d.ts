@@ -79,16 +79,23 @@ interface zwlog {
         miniAppId: string;
         /**
          * IRS 服务侧应用 appname,
+         * @deprecated
          */
-        miniAppName: string;
+        miniAppName?: string;
+        /**
+         * 用户从进入到离开当前页面的时长
+         */
+        Page_duration?: number;
         /**
          * 页面 ID
+         * @deprecated
          */
-        pageId: string;
+        pageId?: string;
         /**
          * 页面名称
+         * @deprecated
          */
-        pageName: string;
+        pageName?: string;
         /**
          * 页面启动到加载完成的时间
          */
@@ -98,9 +105,9 @@ interface zwlog {
          */
         t0: number;
         /**
-         * 用户登录状态（01:未登录/ 02:单点登录）
+         * IRS服务侧应用appid
          */
-        log_status: "01" | "02";
+        log_status: string;
     }) => void;
     /**
      * 令箭日志

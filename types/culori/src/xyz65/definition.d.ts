@@ -1,13 +1,13 @@
-import convertRgbToXyz65 from "./convertRgbToXyz65";
-import convertXyz65ToRgb from "./convertXyz65ToRgb";
+import convertRgbToXyz65 from "./convertRgbToXyz65.js";
+import convertXyz65ToRgb from "./convertXyz65ToRgb.js";
 
-import convertXyz50ToXyz65 from "./convertXyz50ToXyz65";
-import convertXyz65ToXyz50 from "./convertXyz65ToXyz50";
+import convertXyz50ToXyz65 from "./convertXyz50ToXyz65.js";
+import convertXyz65ToXyz50 from "./convertXyz65ToXyz50.js";
 
-import { fixupAlpha } from "../fixup/alpha";
-import { interpolatorLinear } from "../interpolate/linear";
+import { fixupAlpha } from "../fixup/alpha.js";
+import { interpolatorLinear } from "../interpolate/linear.js";
 
-declare const definition: {
+declare const modeXyz65: {
     mode: "xyz65";
 
     toMode: {
@@ -39,4 +39,4 @@ declare const definition: {
     };
 };
 
-export default definition;
+export default modeXyz65;

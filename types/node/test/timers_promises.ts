@@ -22,13 +22,13 @@ setTimeout(123);
 // $ExpectType Promise<void>
 setTimeout();
 
-// $ExpectType AsyncIterator<string, any, any>
+// $ExpectType AsyncIterator<string, undefined, any>
 setInterval(123, "asd", opts);
-// $ExpectType AsyncIterator<string, any, any>
+// $ExpectType AsyncIterator<string, undefined, any>
 setInterval(123, "asd");
-// $ExpectType AsyncIterator<void, any, any>
+// $ExpectType AsyncIterator<void, undefined, any>
 setInterval(123);
-// $ExpectType AsyncIterator<void, any, any>
+// $ExpectType AsyncIterator<void, undefined, any>
 setInterval();
 
 // $ExpectType Promise<void>

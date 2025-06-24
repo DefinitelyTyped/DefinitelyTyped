@@ -1150,16 +1150,11 @@ declare namespace Xrm {
          * Gets an attribute matching attributeName.
          * @param T An Attribute type.
          * @param attributeNameOrIndex Name of the attribute.
-         * @returns The attribute.
-         */
-        getAttribute<T extends Attributes.Attribute>(attributeNameOrIndex: string | number): T | null;
-
-        /**
-         * Gets an attribute by name or index.
-         * @param attributeNameOrIndex Name of the attribute or the attribute index.
          * @returns The attribute or null if attribute does not exist.
          */
-        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute | null;
+        getAttribute<T extends Attributes.Attribute = Attributes.Attribute>(
+            attributeNameOrIndex: string | number,
+        ): T | null;
 
         /**
          * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
@@ -2611,9 +2606,14 @@ declare namespace Xrm {
             | StringAttributeFormat;
 
         /**
+         * Possible attribute values that can be set or retrieved from an attribute.
+         */
+        type AttributeValues = string | number | number[] | boolean | Date | LookupValue[] | OptionSetValue;
+
+        /**
          * Interface for an Entity attribute.
          */
-        interface Attribute<T = any> {
+        interface Attribute<T extends AttributeValues = AttributeValues> {
             /**
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
