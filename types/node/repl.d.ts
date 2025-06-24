@@ -123,6 +123,12 @@ declare module "repl" {
          */
         action: REPLCommandAction;
     }
+    interface REPLServerSetupHistoryOptions {
+        filePath?: string | undefined;
+        size?: number | undefined;
+        removeHistoryDuplicates?: boolean | undefined;
+        onHistoryFileLoaded?: ((err: Error | null, repl: REPLServer) => void) | undefined;
+    }
     /**
      * Instances of `repl.REPLServer` are created using the {@link start} method
      * or directly using the JavaScript `new` keyword.
@@ -316,7 +322,11 @@ declare module "repl" {
          * @param historyPath the path to the history file
          * @param callback called when history writes are ready or upon error
          */
-        setupHistory(path: string, callback: (err: Error | null, repl: this) => void): void;
+        setupHistory(historyPath: string, callback: (err: Error | null, repl: this) => void): void;
+        setupHistory(
+            historyConfig?: REPLServerSetupHistoryOptions,
+            callback?: (err: Error | null, repl: this) => void,
+        ): void;
         /**
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`
