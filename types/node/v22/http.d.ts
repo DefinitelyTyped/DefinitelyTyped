@@ -1586,17 +1586,6 @@ declare module "http" {
          */
         destroy(): void;
         /**
-         * Destroy any sockets that are currently in use by the agent.
-         *
-         * It is usually not necessary to do this. However, if using an
-         * agent with `keepAlive` enabled, then it is best to explicitly shut down
-         * the agent when it is no longer needed. Otherwise,
-         * sockets might stay open for quite a long time before the server
-         * terminates them.
-         * @since v0.11.4
-         */
-        destroy(): void;
-        /**
          * Produces a socket/stream to be used for HTTP requests.
          *
          * By default, this function is the same as `net.createConnection()`. However,
