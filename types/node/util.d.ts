@@ -1172,6 +1172,7 @@ declare module "util" {
         | "hidden"
         | "inverse"
         | "italic"
+        | "none"
         | "overlined"
         | "reset"
         | "strikethrough"
@@ -1227,6 +1228,8 @@ declare module "util" {
      *   util.styleText(['red', 'green'], 'text'), // green
      * );
      * ```
+     *
+     * The special format value `none` applies no additional styling to the text.
      *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
