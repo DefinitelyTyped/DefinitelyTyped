@@ -738,11 +738,11 @@ export const version6_7Tests = async (): Promise<void> => {
     const s1: string[] = await oracledb.getNetworkServiceNames();
     const s2: string[] = await oracledb.getNetworkServiceNames('/tnsnames.ora');
 
-    oracledb.machine = 'test';
-    oracledb.osUser = 'test';
-    oracledb.program = 'test';
-    oracledb.terminal = 'test';
-    oracledb.driverName = 'test';
+    defaultOracledb.machine = 'test';
+    defaultOracledb.osUser = 'test';
+    defaultOracledb.program = 'test';
+    defaultOracledb.terminal = 'test';
+    defaultOracledb.driverName = 'test';
     
     await oracledb.getConnection({
         user: "test",
