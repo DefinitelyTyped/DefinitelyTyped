@@ -27,12 +27,12 @@ import { MessageChannel as NodeMC } from "node:worker_threads";
 function simplified_stream_ctor_test() {
     new Readable({
         construct(cb) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             // $ExpectType number
             size;
@@ -600,11 +600,14 @@ addAbortSignal(new AbortSignal(), new Readable());
 {
     const web = new ReadableStream();
 
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web);
 
+    // $ExpectType Readable<number>
+    Readable.fromWeb<number>(web);
+
     // Handles subset of ReadableOptions param
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web, { objectMode: true });
 
     // When the param includes unsupported ReadableOptions
@@ -708,10 +711,10 @@ async function testTransferringStreamWithPostMessage() {
     // checking the type definitions for the events on the Duplex class and subclasses
     const transform = new Transform();
     transform.on("pipe", (src) => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     }).once("unpipe", (src) => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     }).addListener("data", (chunk) => {
         // $ExpectType any

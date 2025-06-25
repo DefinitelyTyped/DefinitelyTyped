@@ -65,22 +65,22 @@ declare module "stream" {
         /**
          * @since v0.9.4
          */
-        class Readable extends Stream implements NodeJS.ReadableStream {
+        class Readable<T = any> extends Stream implements NodeJS.ReadableStream {
             /**
              * A utility method for creating Readable Streams out of iterators.
              * @since v12.3.0, v10.17.0
              * @param iterable Object implementing the `Symbol.asyncIterator` or `Symbol.iterator` iterable protocol. Emits an 'error' event if a null value is passed.
              * @param options Options provided to `new stream.Readable([options])`. By default, `Readable.from()` will set `options.objectMode` to `true`, unless this is explicitly opted out by setting `options.objectMode` to `false`.
              */
-            static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
+            static from<T = any>(iterable: Iterable<T> | AsyncIterable<T>, options?: ReadableOptions): Readable<T>;
             /**
              * A utility method for creating a `Readable` from a web `ReadableStream`.
              * @since v17.0.0
              */
-            static fromWeb(
+            static fromWeb<T = any>(
                 readableStream: streamWeb.ReadableStream,
                 options?: Pick<ReadableOptions, "encoding" | "highWaterMark" | "objectMode" | "signal">,
-            ): Readable;
+            ): Readable<T>;
             /**
              * A utility method for creating a web `ReadableStream` from a `Readable`.
              * @since v17.0.0
@@ -461,7 +461,7 @@ declare module "stream" {
              * @param fn a function to map over every chunk in the stream. Async or not.
              * @returns a stream mapped with the function *fn*.
              */
-            map(fn: (data: any, options?: Pick<ArrayOptions, "signal">) => any, options?: ArrayOptions): Readable;
+            map<U>(fn: (data: T, options?: Pick<ArrayOptions, "signal">) => U, options?: ArrayOptions): Readable<U>;
             /**
              * This method allows filtering the stream. For each chunk in the stream the *fn* function will be called
              * and if it returns a truthy value, the chunk will be passed to the result stream.
@@ -470,10 +470,18 @@ declare module "stream" {
              * @param fn a function to filter chunks from the stream. Async or not.
              * @returns a stream filtered with the predicate *fn*.
              */
-            filter(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
+            filter<U extends T>(
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => data is U,
                 options?: ArrayOptions,
-            ): Readable;
+            ): Readable<U>;
+            filter<U>(
+                fn: (data: unknown, options?: Pick<ArrayOptions, "signal">) => data is U,
+                options?: ArrayOptions,
+            ): Readable<U>;
+            filter(
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
+                options?: ArrayOptions,
+            ): Readable<T>;
             /**
              * This method allows iterating a stream. For each chunk in the stream the *fn* function will be called.
              * If the *fn* function returns a promise - that promise will be `await`ed.
@@ -490,7 +498,7 @@ declare module "stream" {
              * @returns a promise for when the stream has finished.
              */
             forEach(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => void | Promise<void>,
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => void | Promise<void>,
                 options?: ArrayOptions,
             ): Promise<void>;
             /**
@@ -501,7 +509,7 @@ declare module "stream" {
              * @since v17.5.0
              * @returns a promise containing an array with the contents of the stream.
              */
-            toArray(options?: Pick<ArrayOptions, "signal">): Promise<any[]>;
+            toArray(options?: Pick<ArrayOptions, "signal">): Promise<T[]>;
             /**
              * This method is similar to `Array.prototype.some` and calls *fn* on each chunk in the stream
              * until the awaited return value is `true` (or any truthy value). Once an *fn* call on a chunk
@@ -512,7 +520,7 @@ declare module "stream" {
              * @returns a promise evaluating to `true` if *fn* returned a truthy value for at least one of the chunks.
              */
             some(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
                 options?: ArrayOptions,
             ): Promise<boolean>;
             /**
@@ -525,14 +533,18 @@ declare module "stream" {
              * @returns a promise evaluating to the first chunk for which *fn* evaluated with a truthy value,
              * or `undefined` if no element was found.
              */
-            find<T>(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => data is T,
+            find<U extends T>(
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => data is U,
+                options?: ArrayOptions,
+            ): Promise<U | undefined>;
+            find<U>(
+                fn: (data: unknown, options?: Pick<ArrayOptions, "signal">) => data is U,
+                options?: ArrayOptions,
+            ): Promise<U | undefined>;
+            find(
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
                 options?: ArrayOptions,
             ): Promise<T | undefined>;
-            find(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
-                options?: ArrayOptions,
-            ): Promise<any>;
             /**
              * This method is similar to `Array.prototype.every` and calls *fn* on each chunk in the stream
              * to check if all awaited return values are truthy value for *fn*. Once an *fn* call on a chunk
@@ -543,7 +555,7 @@ declare module "stream" {
              * @returns a promise evaluating to `true` if *fn* returned a truthy value for every one of the chunks.
              */
             every(
-                fn: (data: any, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
+                fn: (data: T, options?: Pick<ArrayOptions, "signal">) => boolean | Promise<boolean>,
                 options?: ArrayOptions,
             ): Promise<boolean>;
             /**
@@ -556,28 +568,28 @@ declare module "stream" {
              * @param fn a function to map over every chunk in the stream. May be async. May be a stream or generator.
              * @returns a stream flat-mapped with the function *fn*.
              */
-            flatMap(fn: (data: any, options?: Pick<ArrayOptions, "signal">) => any, options?: ArrayOptions): Readable;
+            flatMap<U>(fn: (data: T, options?: Pick<ArrayOptions, "signal">) => U, options?: ArrayOptions): Readable<U>;
             /**
              * This method returns a new stream with the first *limit* chunks dropped from the start.
              * @since v17.5.0
              * @param limit the number of chunks to drop from the readable.
              * @returns a stream with *limit* chunks dropped from the start.
              */
-            drop(limit: number, options?: Pick<ArrayOptions, "signal">): Readable;
+            drop(limit: number, options?: Pick<ArrayOptions, "signal">): Readable<T>;
             /**
              * This method returns a new stream with the first *limit* chunks.
              * @since v17.5.0
              * @param limit the number of chunks to take from the readable.
              * @returns a stream with *limit* chunks taken.
              */
-            take(limit: number, options?: Pick<ArrayOptions, "signal">): Readable;
+            take(limit: number, options?: Pick<ArrayOptions, "signal">): Readable<T>;
             /**
              * This method returns a new stream with chunks of the underlying stream paired with a counter
              * in the form `[index, chunk]`. The first index value is `0` and it increases by 1 for each chunk produced.
              * @since v17.5.0
              * @returns a stream of indexed pairs.
              */
-            asIndexedPairs(options?: Pick<ArrayOptions, "signal">): Readable;
+            asIndexedPairs(options?: Pick<ArrayOptions, "signal">): Readable<T>;
             /**
              * This method calls *fn* on each chunk of the stream in order, passing it the result from the calculation
              * on the previous element. It returns a promise for the final value of the reduction.
@@ -592,16 +604,16 @@ declare module "stream" {
              * @param initial the initial value to use in the reduction.
              * @returns a promise for the final value of the reduction.
              */
-            reduce<T = any>(
-                fn: (previous: any, data: any, options?: Pick<ArrayOptions, "signal">) => T,
+            reduce<U = T>(
+                fn: (previous: U, data: T, options?: Pick<ArrayOptions, "signal">) => U,
                 initial?: undefined,
                 options?: Pick<ArrayOptions, "signal">,
-            ): Promise<T>;
-            reduce<T = any>(
-                fn: (previous: T, data: any, options?: Pick<ArrayOptions, "signal">) => T,
-                initial: T,
+            ): Promise<U>;
+            reduce<U = any>(
+                fn: (previous: U, data: T, options?: Pick<ArrayOptions, "signal">) => U,
+                initial: U,
                 options?: Pick<ArrayOptions, "signal">,
-            ): Promise<T>;
+            ): Promise<U>;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             /**
              * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'` event (unless `emitClose` is set to `false`). After this call, the readable

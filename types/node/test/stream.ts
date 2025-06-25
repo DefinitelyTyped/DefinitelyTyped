@@ -28,12 +28,12 @@ import { MessageChannel as NodeMC } from "node:worker_threads";
 function simplified_stream_ctor_test() {
     new Readable({
         construct(cb) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             cb();
         },
         read(size) {
-            // $ExpectType Readable
+            // $ExpectType Readable<any>
             this;
             // $ExpectType number
             size;
@@ -605,11 +605,14 @@ addAbortSignal(new AbortSignal(), new Readable());
 {
     const web = new ReadableStream();
 
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web);
 
+    // $ExpectType Readable<number>
+    Readable.fromWeb<number>(web);
+
     // Handles subset of ReadableOptions param
-    // $ExpectType Readable
+    // $ExpectType Readable<any>
     Readable.fromWeb(web, { objectMode: true });
 
     // When the param includes unsupported ReadableOptions
@@ -675,7 +678,7 @@ addAbortSignal(new AbortSignal(), new Readable());
 }
 
 function testReadableReduce() {
-    const readable = Readable.from([]);
+    const readable = Readable.from([1, 2, 3]);
     // $ExpectType Promise<number>
     readable.reduce((prev, data) => prev * data);
     // $ExpectType Promise<number>
@@ -687,11 +690,42 @@ function testReadableReduce() {
 }
 
 function testReadableFind() {
-    const readable = Readable.from([]);
-    // $ExpectType Promise<any>
+    const readable = Readable.from([1]);
+    // $ExpectType Promise<number | undefined>
     readable.find(Boolean);
     // $ExpectType Promise<any[] | undefined>
     readable.find(Array.isArray);
+    // $ExpectType Promise<number | undefined>
+    readable.find(x => x > 2);
+}
+
+function testReadableMap() {
+    // $ExpectType Readable<number>
+    const readable = Readable.from([1, 2, 3]);
+    // $ExpectType Readable<string>
+    readable.map(i => i.toString());
+}
+
+function testReadableFilter() {
+    // $ExpectType Readable<number>
+    const readable = Readable.from([1, 2, 3]);
+    // $ExpectType Readable<number>
+    readable.filter(i => i > 2);
+}
+
+function testReadableMixedTypes() {
+    // $ExpectType Readable<string | number | boolean>
+    const readable = Readable.from(["a", 1, true]);
+
+    // $ExpectType Readable<number>
+    readable.filter(function(value): value is number {
+        return typeof value === "number";
+    });
+
+    // $ExpectType Readable<boolean>
+    readable.filter(function(value): value is boolean {
+        return typeof value === "boolean";
+    });
 }
 
 async function testReadableStream() {
@@ -788,10 +822,10 @@ async function testTransferringStreamWithPostMessage() {
     // checking the type definitions for the events on the Duplex class and subclasses
     const transform = new Transform();
     transform.on("pipe", (src) => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     }).once("unpipe", (src) => {
-        // $ExpectType Readable
+        // $ExpectType Readable<any>
         src;
     }).addListener("data", (chunk) => {
         // $ExpectType any
