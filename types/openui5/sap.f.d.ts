@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.136.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -33,7 +33,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.AvatarColor} and only kept for compatibility reasons.
    *
    * @since 1.69
-   * @deprecated (since 1.73) - Use the {@link sap.m.AvatarColor} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.AvatarColor} instead.
    */
   export type AvatarColor = AvatarColor1;
 
@@ -43,7 +43,6 @@ declare module "sap/f/library" {
    * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'AvatarGroupType'.
    *
    * @since 1.73
-   * @experimental (since 1.73)
    */
   export enum AvatarGroupType {
     /**
@@ -63,7 +62,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.AvatarImageFitType} and only kept for compatibility reasons.
    *
    * @since 1.46
-   * @deprecated (since 1.73) - Use the {@link sap.m.AvatarImageFitType} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.AvatarImageFitType} instead.
    */
   export type AvatarImageFitType = AvatarImageFitType1;
 
@@ -73,7 +72,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.AvatarShape} and only kept for compatibility reasons.
    *
    * @since 1.46
-   * @deprecated (since 1.73) - Use the {@link sap.m.AvatarShape} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.AvatarShape} instead.
    */
   export type AvatarShape = AvatarShape1;
 
@@ -83,7 +82,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.AvatarSize} and only kept for compatibility reasons.
    *
    * @since 1.46
-   * @deprecated (since 1.73) - Use the {@link sap.m.AvatarSize} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.AvatarSize} instead.
    */
   export type AvatarSize = AvatarSize1;
 
@@ -93,7 +92,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.AvatarType} and only kept for compatibility reasons.
    *
    * @since 1.46
-   * @deprecated (since 1.73) - Use the {@link sap.m.AvatarType} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.AvatarType} instead.
    */
   export type AvatarType = AvatarType1;
 
@@ -120,8 +119,8 @@ declare module "sap/f/library" {
    * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'DynamicPageTitleArea'.
    *
    * @since 1.50
-   * @deprecated (since 1.54) - Consumers of the {@link sap.f.DynamicPageTitle} control should now use the
-   * `areaShrinkRatio` property instead of the `primaryArea` property.
+   * @deprecated As of version 1.54. Consumers of the {@link sap.f.DynamicPageTitle} control should now use
+   * the `areaShrinkRatio` property instead of the `primaryArea` property.
    */
   export enum DynamicPageTitleArea {
     /**
@@ -169,12 +168,32 @@ declare module "sap/f/library" {
   }
 
   /**
+   * Interface for controls suitable for the `items` aggregation of `{@link sap.f.GridContainer}`.
+   *
+   * Classes implementing this interface should use the accessibility role provided by the `sap.f.IGridContainerItem.getGridItemRole`
+   * method.
+   *
+   * @since 1.134
+   */
+  export interface IGridContainerItem {
+    __implements__sap_f_IGridContainerItem: boolean;
+
+    /**
+     * Returns the accessibility role for the `sap.f.GridContainer` item.
+     *
+     *
+     * @returns The accessibility role for the `sap.f.GridContainer` item
+     */
+    getGridItemRole(): string;
+  }
+
+  /**
    * Available `Illustration` sizes for the {@link sap.f.IllustratedMessage} control.
    *
    * This is an alias for {@link sap.m.IllustratedMessageSize} and only kept for compatibility reasons.
    *
    * @since 1.88
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessageSize} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustratedMessageSize} instead.
    */
   export type IllustratedMessageSize = IllustratedMessageSize1;
 
@@ -184,7 +203,7 @@ declare module "sap/f/library" {
    * This is an alias for {@link sap.m.IllustratedMessageType} and only kept for compatibility reasons.
    *
    * @since 1.88
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessageType} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustratedMessageType} instead.
    */
   export type IllustratedMessageType = IllustratedMessageType1;
 
@@ -192,8 +211,6 @@ declare module "sap/f/library" {
    * Interface for controls suitable for the `additionalContent` aggregation of `{@link sap.f.ShellBar}`.
    *
    * @since 1.63
-   * @experimental (since 1.63) - that provides only limited functionality. Also, it can be removed in future
-   * versions.
    */
   export interface IShellBar {
     __implements__sap_f_IShellBar: boolean;
@@ -412,6 +429,24 @@ declare module "sap/f/library" {
        */
       End = "End",
     }
+    /**
+     * Different options for the semantic role in controls that implement the {@link sap.f.ICard} interface.
+     *
+     * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'cards.SemanticRole'.
+     *
+     * @since 1.131
+     * @experimental
+     */
+    enum SemanticRole {
+      /**
+       * The card has interactive elements.
+       */
+      ListItem = "ListItem",
+      /**
+       * The card has no interactive elements.
+       */
+      Region = "Region",
+    }
   }
 
   export namespace dnd {
@@ -453,7 +488,7 @@ declare module "sap/f/Avatar" {
    * or if there's a non-Latin character present, a default image placeholder will be created.
    *
    * @since 1.46
-   * @deprecated (since 1.73) - Use the {@link sap.m.Avatar} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.Avatar} instead.
    */
   export default class Avatar extends Avatar1 {
     /**
@@ -532,7 +567,7 @@ declare module "sap/f/Avatar" {
   /**
    * Describes the settings that can be provided to the Avatar constructor.
    *
-   * @deprecated (since 1.73) - Use the {@link sap.m.Avatar} instead.
+   * @deprecated As of version 1.73. Use the {@link sap.m.Avatar} instead.
    */
   export interface $AvatarSettings extends $AvatarSettings1 {}
 }
@@ -790,7 +825,7 @@ declare module "sap/f/AvatarGroup" {
      *
      * @returns Value of property `avatarDisplaySize`
      */
-    getAvatarDisplaySize(): AvatarSize | keyof typeof AvatarSize;
+    getAvatarDisplaySize(): AvatarSize;
     /**
      * Gets current value of property {@link #getGroupType groupType}.
      *
@@ -801,7 +836,7 @@ declare module "sap/f/AvatarGroup" {
      *
      * @returns Value of property `groupType`
      */
-    getGroupType(): AvatarGroupType | keyof typeof AvatarGroupType;
+    getGroupType(): AvatarGroupType;
     /**
      * Gets content of aggregation {@link #getItems items}.
      *
@@ -1370,9 +1405,7 @@ declare module "sap/f/Card" {
      *
      * @returns Value of property `headerPosition`
      */
-    getHeaderPosition():
-      | cards.HeaderPosition
-      | keyof typeof cards.HeaderPosition;
+    getHeaderPosition(): cards.HeaderPosition;
     /**
      * Sets the aggregated {@link #getContent content}.
      *
@@ -1446,9 +1479,11 @@ declare module "sap/f/Card" {
 declare module "sap/f/CardBase" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ICard } from "sap/f/library";
+  import { ICard, IGridContainerItem, cards } from "sap/f/library";
 
   import { IBadge } from "sap/m/library";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1459,9 +1494,13 @@ declare module "sap/f/CardBase" {
   /**
    * A base class for controls that represent a container with a predefined header and content.
    */
-  export default class CardBase extends Control implements ICard, IBadge {
+  export default class CardBase
+    extends Control
+    implements ICard, IBadge, IGridContainerItem
+  {
     __implements__sap_f_ICard: boolean;
     __implements__sap_m_IBadge: boolean;
+    __implements__sap_f_IGridContainerItem: boolean;
     /**
      * Constructor for a new `CardBase`.
      *
@@ -1525,6 +1564,90 @@ declare module "sap/f/CardBase" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.CardBase` itself.
+     *
+     * Fired when action is added on card level. *Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`
+     * or the control is placed inside a `sap.f.GridContainer`.
+     *
+     * @experimental As of version 1.131.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.CardBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.CardBase` itself.
+     *
+     * Fired when action is added on card level. *Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem`
+     * or the control is placed inside a `sap.f.GridContainer`.
+     *
+     * @experimental As of version 1.131.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.CardBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.CardBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @experimental As of version 1.131.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @experimental As of version 1.131.
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
      * Returns the DOM Element that should get the focus.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -1532,6 +1655,13 @@ declare module "sap/f/CardBase" {
      * @returns Returns the DOM Element that should get the focus
      */
     getFocusDomRef(): Element;
+    /**
+     * Returns the accessibility role for the `sap.f.GridContainer` item.
+     *
+     *
+     * @returns The accessibility role for the `sap.f.GridContainer` item
+     */
+    getGridItemRole(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
@@ -1543,6 +1673,19 @@ declare module "sap/f/CardBase" {
      * @returns Value of property `height`
      */
     getHeight(): CSSSize;
+    /**
+     * Gets current value of property {@link #getSemanticRole semanticRole}.
+     *
+     * Defines the accessibility role of the control. *Note:** When the control is placed inside a `sap.f.GridContainer`,
+     * its accessibility role is overridden by the accessibility role specified by the `sap.f.GridContainer`.
+     *
+     * Default value is `Region`.
+     *
+     * @experimental As of version 1.131.
+     *
+     * @returns Value of property `semanticRole`
+     */
+    getSemanticRole(): cards.SemanticRole;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -1571,6 +1714,26 @@ declare module "sap/f/CardBase" {
        * New value for property `height`
        */
       sHeight?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSemanticRole semanticRole}.
+     *
+     * Defines the accessibility role of the control. *Note:** When the control is placed inside a `sap.f.GridContainer`,
+     * its accessibility role is overridden by the accessibility role specified by the `sap.f.GridContainer`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Region`.
+     *
+     * @experimental As of version 1.131.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSemanticRole(
+      /**
+       * New value for property `semanticRole`
+       */
+      sSemanticRole?: cards.SemanticRole | keyof typeof cards.SemanticRole
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -1604,17 +1767,59 @@ declare module "sap/f/CardBase" {
      * Defines the height of the card.
      */
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the accessibility role of the control.
+     *
+     * **Note:** When the control is placed inside a `sap.f.GridContainer`, its accessibility role is overridden
+     * by the accessibility role specified by the `sap.f.GridContainer`.
+     *
+     * @experimental As of version 1.131.
+     */
+    semanticRole?:
+      | (cards.SemanticRole | keyof typeof cards.SemanticRole)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Fired when action is added on card level.
+     *
+     * **Note**: Can be used only if `semanticRole` is `sap.f.cards.SemanticRole.ListItem` or the control is
+     * placed inside a `sap.f.GridContainer`.
+     *
+     * @experimental As of version 1.131.
+     */
+    press?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the CardBase#press event.
+   *
+   * @experimental As of version 1.131.
+   */
+  export interface CardBase$PressEventParameters {}
+
+  /**
+   * Event object of the CardBase#press event.
+   *
+   * @experimental As of version 1.131.
+   */
+  export type CardBase$PressEvent = Event<
+    CardBase$PressEventParameters,
+    CardBase
+  >;
 }
 
 declare module "sap/f/cards/BaseHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { IBar, WrappingType } from "sap/m/library";
+
   import Text from "sap/m/Text";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import Event from "sap/ui/base/Event";
 
-  import { WrappingType } from "sap/m/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
@@ -1624,7 +1829,8 @@ declare module "sap/f/cards/BaseHeader" {
   /**
    * Provides basic functionality for header controls that can be used in sap.f.Card
    */
-  export default abstract class BaseHeader extends Control {
+  export default abstract class BaseHeader extends Control implements IBar {
+    __implements__sap_m_IBar: boolean;
     /**
      * Constructor for a new `BaseHeader`.
      *
@@ -1691,7 +1897,7 @@ declare module "sap/f/cards/BaseHeader" {
      * Adds some bannerLine to the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1702,30 +1908,131 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): this;
     /**
+     * Adds some infoSection to the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addInfoSection(
+      /**
+       * The infoSection to add; if empty, nothing is inserted
+       */
+      oInfoSection: Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.BaseHeader` itself.
+     *
+     * Fires when the user presses the control.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.BaseHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys all the bannerLines in the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyBannerLines(): this;
     /**
+     * Destroys all the infoSection in the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyInfoSection(): this;
+    /**
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      *
      * @since 1.86
-     * @experimental (since 1.86)
+     * @experimental As of version 1.86.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.BaseHeader`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
     /**
      * Gets content of aggregation {@link #getBannerLines bannerLines}.
      *
      * Show as a banner in the header area. Use for example for system info and application shortcut.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     getBannerLines(): Text[];
     /**
@@ -1740,7 +2047,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `empty string`.
      *
-     * @experimental (since 1.89) - this feature is experimental and the API may change.
+     * @experimental As of version 1.89. this feature is experimental and the API may change.
      *
      * @returns Value of property `dataTimestamp`
      */
@@ -1750,11 +2057,20 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Defines the href which the header should open. If set - the header will act and render as a link.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      *
      * @returns Value of property `href`
      */
     getHref(): string;
+    /**
+     * Gets content of aggregation {@link #getInfoSection infoSection}.
+     *
+     * Info sections to be displayed in the header.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     */
+    getInfoSection(): Control[];
     /**
      * Gets current value of property {@link #getStatusVisible statusVisible}.
      *
@@ -1762,7 +2078,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `true`.
      *
-     * @experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental As of version 1.116. this feature is experimental and the API may change.
      *
      * @returns Value of property `statusVisible`
      */
@@ -1772,7 +2088,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Defines the target for the case when `href` is given.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      *
      * @returns Value of property `target`
      */
@@ -1783,7 +2099,7 @@ declare module "sap/f/cards/BaseHeader" {
      * Defines the toolbar.
      *
      * @since 1.86
-     * @experimental (since 1.86)
+     * @experimental As of version 1.86.
      */
     getToolbar(): Control;
     /**
@@ -1794,17 +2110,17 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `Normal`.
      *
-     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     * @experimental As of version 1.122. this feature is experimental and the API may change.
      *
      * @returns Value of property `wrappingType`
      */
-    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    getWrappingType(): WrappingType;
     /**
      * Checks for the provided `sap.m.Text` in the aggregation {@link #getBannerLines bannerLines}. and returns
      * its index if found or -1 otherwise.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -1815,10 +2131,25 @@ declare module "sap/f/cards/BaseHeader" {
       oBannerLine: Text
     ): int;
     /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getInfoSection infoSection}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfInfoSection(
+      /**
+       * The infoSection whose index is looked for
+       */
+      oInfoSection: Control
+    ): int;
+    /**
      * Inserts a bannerLine into the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1835,21 +2166,52 @@ declare module "sap/f/cards/BaseHeader" {
       iIndex: int
     ): this;
     /**
+     * Inserts a infoSection into the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertInfoSection(
+      /**
+       * The infoSection to insert; if empty, nothing is inserted
+       */
+      oInfoSection: Control,
+      /**
+       * The `0`-based index the infoSection should be inserted at; for a negative value of `iIndex`, the infoSection
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the infoSection
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getBannerLines bannerLines}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllBannerLines(): Text[];
     /**
+     * Removes all the controls from the aggregation {@link #getInfoSection infoSection}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllInfoSection(): Control[];
+    /**
      * Removes a bannerLine from the aggregation {@link #getBannerLines bannerLines}.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns The removed bannerLine or `null`
      */
@@ -1859,6 +2221,20 @@ declare module "sap/f/cards/BaseHeader" {
        */
       vBannerLine: int | string | Text
     ): Text | null;
+    /**
+     * Removes a infoSection from the aggregation {@link #getInfoSection infoSection}.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     *
+     * @returns The removed infoSection or `null`
+     */
+    removeInfoSection(
+      /**
+       * The infoSection to remove or its index or id
+       */
+      vInfoSection: int | string | Control
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getDataTimestamp dataTimestamp}.
      *
@@ -1873,7 +2249,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `empty string`.
      *
-     * @experimental (since 1.89) - this feature is experimental and the API may change.
+     * @experimental As of version 1.89. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1890,7 +2266,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1909,7 +2285,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `true`.
      *
-     * @experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental As of version 1.116. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1926,7 +2302,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1940,7 +2316,7 @@ declare module "sap/f/cards/BaseHeader" {
      * Sets the aggregated {@link #getToolbar toolbar}.
      *
      * @since 1.86
-     * @experimental (since 1.86)
+     * @experimental As of version 1.86.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1960,7 +2336,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `Normal`.
      *
-     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     * @experimental As of version 1.122. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1983,14 +2359,14 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Will be shown as a relative time like "5 minutes ago".
      *
-     * @experimental (since 1.89) - this feature is experimental and the API may change.
+     * @experimental As of version 1.89. this feature is experimental and the API may change.
      */
     dataTimestamp?: string | PropertyBindingInfo;
 
     /**
      * Defines the status text visibility.
      *
-     * @experimental (since 1.116) - this feature is experimental and the API may change.
+     * @experimental As of version 1.116. this feature is experimental and the API may change.
      */
     statusVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -1998,7 +2374,7 @@ declare module "sap/f/cards/BaseHeader" {
      * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
      * texts of the header.
      *
-     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     * @experimental As of version 1.122. this feature is experimental and the API may change.
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
@@ -2008,22 +2384,30 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Defines the href which the header should open. If set - the header will act and render as a link.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      */
     href?: string | PropertyBindingInfo;
 
     /**
      * Defines the target for the case when `href` is given.
      *
-     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     * @experimental As of version 1.122. Do not use this feature outside of sap.ui.integration.widgets.Card.
      */
     target?: string | PropertyBindingInfo;
+
+    /**
+     * Info sections to be displayed in the header.
+     *
+     * @since 1.136
+     * @experimental As of version 1.136.
+     */
+    infoSection?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines the toolbar.
      *
      * @since 1.86
-     * @experimental (since 1.86)
+     * @experimental As of version 1.86.
      */
     toolbar?: Control;
 
@@ -2031,18 +2415,43 @@ declare module "sap/f/cards/BaseHeader" {
      * Show as a banner in the header area. Use for example for system info and application shortcut.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     bannerLines?: Text[] | Text | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Fires when the user presses the control.
+     */
+    press?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the BaseHeader#press event.
+   */
+  export interface BaseHeader$PressEventParameters {}
+
+  /**
+   * Event object of the BaseHeader#press event.
+   */
+  export type BaseHeader$PressEvent = Event<
+    BaseHeader$PressEventParameters,
+    BaseHeader
+  >;
 }
 
 declare module "sap/f/cards/CardBadgeCustomData" {
+  import {
+    default as CustomData,
+    $CustomDataSettings,
+  } from "sap/ui/core/CustomData";
+
   import { URI } from "sap/ui/core/library";
 
-  import Metadata from "sap/ui/base/Metadata";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CardBadgeVisibilityMode } from "sap/f/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
    * Contains a single key/value pair of custom data attached to an `Element`.
@@ -2051,9 +2460,20 @@ declare module "sap/f/cards/CardBadgeCustomData" {
    *
    * @since 1.128
    */
-  export default class CardBadgeCustomData
-    extends /* was: sap..ui.core.CustomData */ Object
-  {
+  export default class CardBadgeCustomData extends CustomData {
+    /**
+     * Constructor for a new `CardBadgeCustomData` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $CardBadgeCustomDataSettings
+    );
     /**
      * Constructor for a new `CardBadgeCustomData` element.
      *
@@ -2069,14 +2489,14 @@ declare module "sap/f/cards/CardBadgeCustomData" {
       /**
        * Initial settings for the new element
        */
-      mSettings?: object
+      mSettings?: $CardBadgeCustomDataSettings
     );
 
     /**
      * Creates a new subclass of class sap.f.cards.CardBadgeCustomData with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap..ui.core.CustomData.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.CustomData.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -2102,7 +2522,7 @@ declare module "sap/f/cards/CardBadgeCustomData" {
      *
      * @returns Metadata object describing this class
      */
-    static getMetadata(): Metadata;
+    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getAnnouncementText announcementText}.
      *
@@ -2150,9 +2570,7 @@ declare module "sap/f/cards/CardBadgeCustomData" {
      *
      * @returns Value of property `visibilityMode`
      */
-    getVisibilityMode():
-      | CardBadgeVisibilityMode
-      | keyof typeof CardBadgeVisibilityMode;
+    getVisibilityMode(): CardBadgeVisibilityMode;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -2263,6 +2681,50 @@ declare module "sap/f/cards/CardBadgeCustomData" {
       bVisible?: boolean
     ): this;
   }
+  /**
+   * Describes the settings that can be provided to the CardBadgeCustomData constructor.
+   */
+  export interface $CardBadgeCustomDataSettings extends $CustomDataSettings {
+    /**
+     * Icon URI. This may be either an icon font or image path.
+     *
+     * @since 1.128
+     */
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Describes the corresponding visibility mode, see also {@link sap.f.CardBadgeVisibilityMode}.
+     *
+     * @since 1.128
+     */
+    visibilityMode?:
+      | (CardBadgeVisibilityMode | keyof typeof CardBadgeVisibilityMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the color of the badge. The allowed values are from the enum type `sap.ui.core.IndicationColor`.
+     * Additionally values from `sap.ui.core.ValueState` can be used, but this is not recommended by design
+     * guidelines.
+     *
+     * @since 1.128
+     */
+    state?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the cards badge visibility.
+     *
+     * @since 1.128
+     */
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines text which will is overriding default announcement.
+     *
+     * @since 1.128
+     */
+    announcementText?: string | PropertyBindingInfo;
+  }
 }
 
 declare module "sap/f/cards/Header" {
@@ -2273,13 +2735,13 @@ declare module "sap/f/cards/Header" {
 
   import { cards } from "sap/f/library";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
 
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -2365,71 +2827,6 @@ declare module "sap/f/cards/Header" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
      *
@@ -2450,26 +2847,13 @@ declare module "sap/f/cards/Header" {
       }
     ): void;
     /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
-    /**
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
      * Defines an alt text for the avatar or icon.
      *
      * Default value is `empty string`.
      *
-     * @experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental As of version 1.81. this feature is experimental and the API may change.
      *
      * @returns Value of property `iconAlt`
      */
@@ -2481,11 +2865,11 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `Transparent`.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      *
      * @returns Value of property `iconBackgroundColor`
      */
-    getIconBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
+    getIconBackgroundColor(): AvatarColor;
     /**
      * Gets current value of property {@link #getIconDisplayShape iconDisplayShape}.
      *
@@ -2496,7 +2880,19 @@ declare module "sap/f/cards/Header" {
      *
      * @returns Value of property `iconDisplayShape`
      */
-    getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    getIconDisplayShape(): AvatarShape;
+    /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType;
     /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
@@ -2515,11 +2911,11 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `S`.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      *
      * @returns Value of property `iconSize`
      */
-    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    getIconSize(): AvatarSize;
     /**
      * Gets current value of property {@link #getIconSrc iconSrc}.
      *
@@ -2538,7 +2934,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `true`.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      *
      * @returns Value of property `iconVisible`
      */
@@ -2572,7 +2968,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `2`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Value of property `subtitleMaxLines`
      */
@@ -2595,7 +2991,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `3`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Value of property `titleMaxLines`
      */
@@ -2609,7 +3005,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `empty string`.
      *
-     * @experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental As of version 1.81. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2628,7 +3024,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `Transparent`.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2657,6 +3053,25 @@ declare module "sap/f/cards/Header" {
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
     ): this;
     /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
+    ): this;
+    /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
      *
      * Defines the initials of the icon.
@@ -2683,7 +3098,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `S`.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2720,7 +3135,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `true`.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2775,7 +3190,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `2`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2812,7 +3227,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `3`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2841,7 +3256,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Limits the number of lines for the title.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      */
     titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -2853,7 +3268,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Limits the number of lines for the subtitle.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      */
     subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -2883,14 +3298,14 @@ declare module "sap/f/cards/Header" {
     /**
      * Defines an alt text for the avatar or icon.
      *
-     * @experimental (since 1.81) - this feature is experimental and the API may change.
+     * @experimental As of version 1.81. this feature is experimental and the API may change.
      */
     iconAlt?: string | PropertyBindingInfo;
 
     /**
      * Defines a background color for the avatar or icon.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      */
     iconBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
@@ -2900,14 +3315,14 @@ declare module "sap/f/cards/Header" {
     /**
      * Defines whether the card icon is visible.
      *
-     * @experimental (since 1.83) - this feature is experimental and the API may change.
+     * @experimental As of version 1.83. this feature is experimental and the API may change.
      */
     iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the size of the icon.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      */
     iconSize?:
       | (AvatarSize | keyof typeof AvatarSize)
@@ -2915,20 +3330,15 @@ declare module "sap/f/cards/Header" {
       | `{${string}}`;
 
     /**
-     * Fires when the user presses the control.
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
      */
-    press?: (oEvent: Event) => void;
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
-
-  /**
-   * Parameters of the Header#press event.
-   */
-  export interface Header$PressEventParameters {}
-
-  /**
-   * Event object of the Header#press event.
-   */
-  export type Header$PressEvent = Event<Header$PressEventParameters, Header>;
 }
 
 declare module "sap/f/cards/loading/PlaceholderBaseRenderer" {
@@ -2985,8 +3395,6 @@ declare module "sap/f/cards/NumericHeader" {
 
   import NumericSideIndicator from "sap/f/cards/NumericSideIndicator";
 
-  import Event from "sap/ui/base/Event";
-
   import Control from "sap/ui/core/Control";
 
   import { ValueState, URI } from "sap/ui/core/library";
@@ -2994,6 +3402,8 @@ declare module "sap/f/cards/NumericHeader" {
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -3100,56 +3510,9 @@ declare module "sap/f/cards/NumericHeader" {
       oSideIndicator: NumericSideIndicator
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
-    /**
      * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
      *
-     * @experimental (since 1.124)
+     * @experimental As of version 1.124.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3161,24 +3524,6 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySideIndicators(): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
     /**
      * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
      * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
@@ -3200,19 +3545,6 @@ declare module "sap/f/cards/NumericHeader" {
       }
     ): void;
     /**
-     * Fires event {@link #event:press press} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    firePress(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
-    /**
      * Gets current value of property {@link #getDetails details}.
      *
      * Additional text which adds more details to what is shown in the numeric header.
@@ -3228,7 +3560,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `1`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Value of property `detailsMaxLines`
      */
@@ -3241,11 +3573,11 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `None`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `detailsState`
      */
-    getDetailsState(): ValueState | keyof typeof ValueState;
+    getDetailsState(): ValueState;
     /**
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
@@ -3254,7 +3586,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconAlt`
      */
@@ -3267,11 +3599,11 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `Transparent`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconBackgroundColor`
      */
-    getIconBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
+    getIconBackgroundColor(): AvatarColor;
     /**
      * Gets current value of property {@link #getIconDisplayShape iconDisplayShape}.
      *
@@ -3280,11 +3612,23 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `Circle`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconDisplayShape`
      */
-    getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    getIconDisplayShape(): AvatarShape;
+    /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType;
     /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
@@ -3293,7 +3637,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconInitials`
      */
@@ -3305,11 +3649,11 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `S`.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      *
      * @returns Value of property `iconSize`
      */
-    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    getIconSize(): AvatarSize;
     /**
      * Gets current value of property {@link #getIconSrc iconSrc}.
      *
@@ -3318,7 +3662,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconSrc`
      */
@@ -3331,7 +3675,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `true`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Value of property `iconVisible`
      */
@@ -3341,7 +3685,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Micro Chart
      *
-     * @experimental (since 1.124)
+     * @experimental As of version 1.124.
      */
     getMicroChart(): Control;
     /**
@@ -3405,9 +3749,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * @returns Value of property `sideIndicatorsAlignment`
      */
-    getSideIndicatorsAlignment():
-      | cards.NumericHeaderSideIndicatorsAlignment
-      | keyof typeof cards.NumericHeaderSideIndicatorsAlignment;
+    getSideIndicatorsAlignment(): cards.NumericHeaderSideIndicatorsAlignment;
     /**
      * Gets current value of property {@link #getState state}.
      *
@@ -3415,12 +3757,12 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `"Neutral"`.
      *
-     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.64. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * @returns Value of property `state`
      */
-    getState(): ValueColor | keyof typeof ValueColor;
+    getState(): ValueColor;
     /**
      * Gets current value of property {@link #getStatusText statusText}.
      *
@@ -3448,7 +3790,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `2`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Value of property `subtitleMaxLines`
      */
@@ -3469,7 +3811,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `3`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Value of property `titleMaxLines`
      */
@@ -3484,7 +3826,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * @returns Value of property `trend`
      */
-    getTrend(): DeviationIndicator | keyof typeof DeviationIndicator;
+    getTrend(): DeviationIndicator;
     /**
      * Gets current value of property {@link #getUnitOfMeasurement unitOfMeasurement}.
      *
@@ -3571,7 +3913,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `1`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3591,7 +3933,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `None`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3611,7 +3953,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3631,7 +3973,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `Transparent`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3651,7 +3993,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `Circle`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3660,6 +4002,25 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `iconDisplayShape`
        */
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
@@ -3671,7 +4032,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3690,7 +4051,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `S`.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3710,7 +4071,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `empty string`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3730,7 +4091,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Default value is `true`.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3743,7 +4104,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Sets the aggregated {@link #getMicroChart microChart}.
      *
-     * @experimental (since 1.124)
+     * @experimental As of version 1.124.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3854,7 +4215,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `"Neutral"`.
      *
-     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.64. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -3908,7 +4269,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `2`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3943,7 +4304,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `3`.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4006,7 +4367,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the title.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      */
     titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4018,7 +4379,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the subtitle.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      */
     subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4031,7 +4392,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines the shape of the icon.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconDisplayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
@@ -4042,7 +4403,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines the icon source.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
@@ -4050,7 +4411,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines the initials of the icon.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconInitials?: string | PropertyBindingInfo;
 
@@ -4058,7 +4419,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines an alt text for the avatar or icon.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconAlt?: string | PropertyBindingInfo;
 
@@ -4066,7 +4427,7 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines a background color for the avatar or icon.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
@@ -4077,17 +4438,27 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines whether the card icon is visible.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the size of the icon.
      *
-     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     * @experimental As of version 1.119. this feature is experimental and the API may change.
      */
     iconSize?:
       | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
+     */
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -4132,7 +4503,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * The semantic color which represents the state of the main number indicator.
      *
-     * @experimental (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.64. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      */
     state?:
@@ -4149,7 +4520,7 @@ declare module "sap/f/cards/NumericHeader" {
      * The semantic color which represents the state of the details text.
      *
      * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
+     * @experimental As of version 1.118. For usage only by Work Zone.
      */
     detailsState?:
       | (ValueState | keyof typeof ValueState)
@@ -4159,7 +4530,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the details.
      *
-     * @experimental (since 1.101)
+     * @experimental As of version 1.101.
      */
     detailsMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4187,28 +4558,10 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Micro Chart
      *
-     * @experimental (since 1.124)
+     * @experimental As of version 1.124.
      */
     microChart?: Control;
-
-    /**
-     * Fires when the user presses the control.
-     */
-    press?: (oEvent: Event) => void;
   }
-
-  /**
-   * Parameters of the NumericHeader#press event.
-   */
-  export interface NumericHeader$PressEventParameters {}
-
-  /**
-   * Event object of the NumericHeader#press event.
-   */
-  export type NumericHeader$PressEvent = Event<
-    NumericHeader$PressEventParameters,
-    NumericHeader
-  >;
 }
 
 declare module "sap/f/cards/NumericSideIndicator" {
@@ -4304,12 +4657,12 @@ declare module "sap/f/cards/NumericSideIndicator" {
      *
      * Default value is `"None"`.
      *
-     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.95. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * @returns Value of property `state`
      */
-    getState(): ValueColor | keyof typeof ValueColor;
+    getState(): ValueColor;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -4349,7 +4702,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
      *
      * Default value is `"None"`.
      *
-     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.95. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -4407,7 +4760,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
     /**
      * The semantic color which represents the state of the side indicator.
      *
-     * @experimental (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * @experimental As of version 1.95. Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
      */
     state?:
@@ -4860,9 +5213,7 @@ declare module "sap/f/DynamicPage" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign():
-      | PageBackgroundDesign
-      | keyof typeof PageBackgroundDesign;
+    getBackgroundDesign(): PageBackgroundDesign;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -5559,9 +5910,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `contentRole`
      */
-    getContentRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getContentRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getFooterLabel footerLabel}.
      *
@@ -5586,9 +5935,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `footerRole`
      */
-    getFooterRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getFooterRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getHeaderContentLabel headerContentLabel}.
      *
@@ -5626,9 +5973,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `headerRole`
      */
-    getHeaderRole():
-      | AccessibleLandmarkRole
-      | keyof typeof AccessibleLandmarkRole;
+    getHeaderRole(): AccessibleLandmarkRole;
     /**
      * Gets current value of property {@link #getRootLabel rootLabel}.
      *
@@ -5653,7 +5998,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * @returns Value of property `rootRole`
      */
-    getRootRole(): AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole;
+    getRootRole(): AccessibleLandmarkRole;
     /**
      * Sets a new value for property {@link #getContentLabel contentLabel}.
      *
@@ -6052,7 +6397,7 @@ declare module "sap/f/DynamicPageHeader" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -6604,7 +6949,7 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets content of aggregation {@link #getBreadcrumbs breadcrumbs}.
      *
@@ -6688,7 +7033,7 @@ declare module "sap/f/DynamicPageTitle" {
      * Default value is `Begin`.
      *
      * @since 1.50
-     * @deprecated (since 1.54) - Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
+     * @deprecated As of version 1.54. Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
      * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
      * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
      * reduced.
@@ -6701,7 +7046,7 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * @returns Value of property `primaryArea`
      */
-    getPrimaryArea(): DynamicPageTitleArea | keyof typeof DynamicPageTitleArea;
+    getPrimaryArea(): DynamicPageTitleArea;
     /**
      * Gets content of aggregation {@link #getSnappedContent snappedContent}.
      *
@@ -7116,7 +7461,7 @@ declare module "sap/f/DynamicPageTitle" {
      * Default value is `Begin`.
      *
      * @since 1.50
-     * @deprecated (since 1.54) - Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
+     * @deprecated As of version 1.54. Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
      * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
      * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
      * reduced.
@@ -7172,7 +7517,7 @@ declare module "sap/f/DynamicPageTitle" {
      * **Note:** The primary area is shrinking at lower rate, remaining visible as much as it can.
      *
      * @since 1.50
-     * @deprecated (since 1.54) - Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
+     * @deprecated As of version 1.54. Please use the `areaShrinkRatio` property instead. The value of `areaShrinkRatio`
      * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
      * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
      * reduced.
@@ -8585,7 +8930,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * @returns Value of property `backgroundDesign`
      */
-    getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
+    getBackgroundDesign(): BackgroundDesign;
     /**
      * Gets content of aggregation {@link #getBeginColumnPages beginColumnPages}.
      *
@@ -8704,7 +9049,7 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * @returns Value of property `layout`
      */
-    getLayout(): LayoutType | keyof typeof LayoutType;
+    getLayout(): LayoutType;
     /**
      * Returns the maximum number of columns that can be displayed at once based on the control width
      *
@@ -11611,6 +11956,9 @@ declare module "sap/f/GridContainer" {
    * All rows have the same height and all columns have the same width. Their sizes can be configured with
    * the use of the `layout` aggregation and `{@link sap.f.GridContainerSettings}`.
    *
+   * **Note:** To ensure better keyboard and accessibility support, child items should implement `sap.f.IGridContainerItem`
+   * interface.
+   *
    * Usage:
    *
    * When to use
@@ -13818,7 +14166,7 @@ declare module "sap/f/IllustratedMessage" {
    * or are omitted in the different breakpoint sizes (XS, S, M, L).
    *
    * @since 1.88
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessage} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustratedMessage} instead.
    */
   export default class IllustratedMessage extends IllustratedMessage1 {
     /**
@@ -13893,7 +14241,7 @@ declare module "sap/f/IllustratedMessage" {
   /**
    * Describes the settings that can be provided to the IllustratedMessage constructor.
    *
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessage} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustratedMessage} instead.
    */
   export interface $IllustratedMessageSettings
     extends $IllustratedMessageSettings1 {}
@@ -13913,7 +14261,7 @@ declare module "sap/f/Illustration" {
    * To build a Symbol ID, all of the `Illustration` properties must be populated with data.
    *
    * @since 1.88
-   * @deprecated (since 1.98) - Use the {@link sap.m.Illustration} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.Illustration} instead.
    */
   export default class Illustration extends Illustration1 {
     /**
@@ -13988,7 +14336,7 @@ declare module "sap/f/Illustration" {
   /**
    * Describes the settings that can be provided to the Illustration constructor.
    *
-   * @deprecated (since 1.98) - Use the {@link sap.m.Illustration} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.Illustration} instead.
    */
   export interface $IllustrationSettings extends $IllustrationSettings1 {}
 }
@@ -14012,12 +14360,12 @@ declare module "sap/f/IllustrationPool" {
    * {@link sap.m.IllustrationPool#sap.m.IllustrationPool.loadRestOfTheAssets loadRestOfTheAssets} API.
    *
    * @since 1.88
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustrationPool} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustrationPool} instead.
    */
   interface IllustrationPool {}
   const IllustrationPool: IllustrationPool;
   /**
-   * @deprecated (since 1.98) - Use the {@link sap.m.IllustrationPool} instead.
+   * @deprecated As of version 1.98. Use the {@link sap.m.IllustrationPool} instead.
    */
   export default IllustrationPool;
 }
@@ -18656,10 +19004,10 @@ declare module "sap/f/semantic/SemanticPage" {
      * Default value is `Begin`.
      *
      * @since 1.52
-     * @deprecated (since 1.58) - Please use the `titleAreaShrinkRatio` property instead. The value of `titleAreaShrinkRatio`
-     * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
-     * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
-     * reduced.
+     * @deprecated As of version 1.58. Please use the `titleAreaShrinkRatio` property instead. The value of
+     * `titleAreaShrinkRatio` must be set in `Heading:Content:Actions` format where Heading, Content and Actions
+     * are numbers greater than or equal to 0. The greater value a section has the faster it shrinks when the
+     * screen size is being reduced.
      *
      * `titlePrimaryArea=Begin` can be achieved by setting a low number for the Heading area to `titleAreaShrinkRatio`,
      * for example `1:1.6:1.6`.
@@ -18669,9 +19017,7 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * @returns Value of property `titlePrimaryArea`
      */
-    getTitlePrimaryArea():
-      | DynamicPageTitleArea
-      | keyof typeof DynamicPageTitleArea;
+    getTitlePrimaryArea(): DynamicPageTitleArea;
     /**
      * Gets content of aggregation {@link #getTitleSnappedContent titleSnappedContent}.
      *
@@ -19707,10 +20053,10 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** The primary area is shrinking at a lower rate, remaining visible as long as it can.
      *
      * @since 1.52
-     * @deprecated (since 1.58) - Please use the `titleAreaShrinkRatio` property instead. The value of `titleAreaShrinkRatio`
-     * must be set in `Heading:Content:Actions` format where Heading, Content and Actions are numbers greater
-     * than or equal to 0. The greater value a section has the faster it shrinks when the screen size is being
-     * reduced.
+     * @deprecated As of version 1.58. Please use the `titleAreaShrinkRatio` property instead. The value of
+     * `titleAreaShrinkRatio` must be set in `Heading:Content:Actions` format where Heading, Content and Actions
+     * are numbers greater than or equal to 0. The greater value a section has the faster it shrinks when the
+     * screen size is being reduced.
      *
      * `titlePrimaryArea=Begin` can be achieved by setting a low number for the Heading area to `titleAreaShrinkRatio`,
      * for example `1:1.6:1.6`.
@@ -20615,8 +20961,6 @@ declare module "sap/f/ShellBar" {
 
   import { IBar } from "sap/m/library";
 
-  import { IToolHeader } from "sap/tnt/library";
-
   import { BarContexts } from "sap/m/BarInPageEnabler";
 
   import { URI } from "sap/ui/core/library";
@@ -20655,13 +20999,9 @@ declare module "sap/f/ShellBar" {
    *
    * @since 1.63
    */
-  export default class ShellBar
-    extends Control
-    implements IShellBar, IBar, IToolHeader
-  {
+  export default class ShellBar extends Control implements IShellBar, IBar {
     __implements__sap_f_IShellBar: boolean;
     __implements__sap_m_IBar: boolean;
-    __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new `ShellBar`.
      *
@@ -22240,7 +22580,7 @@ declare module "sap/f/SidePanel" {
    * content can be added to the action item's `content` aggregation, or can be added or changed later.
    *
    * Each click/tap fires an event, and in the event handler specific content can be added/changed to the
-   * `content` aggregation of the clicked/tapped action item or data can be retreived from the same aggregation
+   * `content` aggregation of the clicked/tapped action item or data can be retrieved from the same aggregation
    * depending on the state of the action item.
    *
    * If the side content is displayed, there is automatically generated header of the side content which contains
@@ -22581,7 +22921,7 @@ declare module "sap/f/SidePanel" {
      *
      * @returns Value of property `sidePanelPosition`
      */
-    getSidePanelPosition(): SidePanelPosition | keyof typeof SidePanelPosition;
+    getSidePanelPosition(): SidePanelPosition;
     /**
      * Gets current value of property {@link #getSidePanelResizable sidePanelResizable}.
      *

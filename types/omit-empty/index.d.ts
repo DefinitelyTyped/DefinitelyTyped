@@ -2,5 +2,5 @@ interface OmitOptions {
     omitZero?: boolean | undefined;
 }
 
-declare function omitEmpty(obj: object, options?: OmitOptions): object;
-export default omitEmpty;
+declare function omitEmpty<T extends object>(obj: T, options?: OmitOptions): Partial<T>;
+export = omitEmpty;

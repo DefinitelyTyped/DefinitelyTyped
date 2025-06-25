@@ -29,11 +29,6 @@ export class MeshNormalMaterial extends Material {
     readonly isMeshNormalMaterial: true;
 
     /**
-     * @default 'MeshNormalMaterial'
-     */
-    type: string;
-
-    /**
      * @default null
      */
     bumpMap: Texture | null;

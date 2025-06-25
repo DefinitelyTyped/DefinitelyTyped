@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/no-single-declare-module": "off",
         "@typescript-eslint/adjacent-overload-signatures": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }

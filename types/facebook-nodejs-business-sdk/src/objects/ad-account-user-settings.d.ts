@@ -7,11 +7,14 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
     static get Fields(): Readonly<{
         acf_should_opt_out_video_adjustments: "acf_should_opt_out_video_adjustments";
         aco_sticky_settings: "aco_sticky_settings";
+        actions_quick_view_created: "actions_quick_view_created";
+        active_ads_quick_view_created: "active_ads_quick_view_created";
         ad_account: "ad_account";
         ad_object_export_format: "ad_object_export_format";
         auto_review_video_caption: "auto_review_video_caption";
         campaign_overview_columns: "campaign_overview_columns";
         column_suggestion_status: "column_suggestion_status";
+        conditional_formatting_rules: "conditional_formatting_rules";
         default_account_overview_agegender_metrics: "default_account_overview_agegender_metrics";
         default_account_overview_location_metrics: "default_account_overview_location_metrics";
         default_account_overview_metrics: "default_account_overview_metrics";
@@ -21,13 +24,17 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
         draft_mode_enabled: "draft_mode_enabled";
         export_deleted_items_with_delivery: "export_deleted_items_with_delivery";
         export_summary_row: "export_summary_row";
+        had_delivery_quick_view_created: "had_delivery_quick_view_created";
         has_seen_groups_column_flexing_experience: "has_seen_groups_column_flexing_experience";
+        has_seen_instagram_column_flexing_experience: "has_seen_instagram_column_flexing_experience";
         has_seen_leads_column_flexing_experience: "has_seen_leads_column_flexing_experience";
         has_seen_shops_ads_metrics_onboarding_tour: "has_seen_shops_ads_metrics_onboarding_tour";
         has_seen_shops_column_flexing_experience: "has_seen_shops_column_flexing_experience";
         hidden_optimization_tips: "hidden_optimization_tips";
         id: "id";
         is_3p_auth_setting_set: "is_3p_auth_setting_set";
+        is_ads_manager_footer_row_preference_set: "is_ads_manager_footer_row_preference_set";
+        is_ads_manager_footer_row_shown: "is_ads_manager_footer_row_shown";
         is_text_variation_nux_close: "is_text_variation_nux_close";
         last_used_columns: "last_used_columns";
         last_used_pe_filters: "last_used_pe_filters";
@@ -49,6 +56,7 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
         should_default_instagram_profile_card_optimization: "should_default_instagram_profile_card_optimization";
         should_default_text_swapping_optimization: "should_default_text_swapping_optimization";
         should_logout_of_3p_sourcing: "should_logout_of_3p_sourcing";
+        should_show_shops_ads_metrics_onboarding_tour: "should_show_shops_ads_metrics_onboarding_tour";
         show_archived_data: "show_archived_data";
         show_text_variation_nux_tooltip: "show_text_variation_nux_tooltip";
         syd_campaign_trends_activemetric: "syd_campaign_trends_activemetric";

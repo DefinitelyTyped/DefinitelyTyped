@@ -11,6 +11,6 @@ export default class SpriteSheetUVNode extends Node {
 
 export const spritesheetUV: (
     countNode: NodeRepresentation,
-    uvNode?: NodeRepresentation,
-    frameNode?: NodeRepresentation,
+    uvNode: NodeRepresentation | null,
+    frameNode: NodeRepresentation | null,
 ) => ShaderNodeObject<SpriteSheetUVNode>;

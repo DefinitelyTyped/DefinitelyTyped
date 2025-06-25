@@ -1,5 +1,4 @@
 import reactCookies = require("react-cookies");
-import cookie = require("cookie");
 import express = require("express");
 
 reactCookies.load("token");
@@ -13,7 +12,7 @@ reactCookies.loadAll(false);
 reactCookies.select(/\btest(er|ing|ed|s)?\b/g);
 reactCookies.select();
 
-const options: cookie.CookieSerializeOptions = {
+const options: reactCookies.SerializeOptions = {
     path: "/",
     expires: new Date(),
     maxAge: 200,

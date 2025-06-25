@@ -1,4 +1,5 @@
 import express = require("express");
+import { CipherKey } from "crypto";
 import { EventEmitter } from "events";
 
 declare global {
@@ -39,22 +40,24 @@ declare function session(options?: session.SessionOptions): express.RequestHandl
 declare namespace session {
     interface SessionOptions {
         /**
-         * This is the secret used to sign the session cookie. This can be either a string for a single secret, or an array of multiple secrets.
-         * If an array of secrets is provided, **only the first element will be used to sign** the session ID cookie,
-         *   while **all the elements will be considered when verifying the signature** in requests.
-         * The secret itself should be not easily parsed by a human and would best be a random set of characters
+         * This is the secret used to sign the session ID cookie.
+         * The secret can be any type of value that is supported by Node.js `crypto.createHmac` (like a string or a Buffer).
+         * This can be either a single secret, or an array of multiple secrets.
+         * If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests.
+         * The secret itself should be not easily parsed by a human and would best be a random set of characters.
          *
-         * Best practices may include:
-         * - The use of environment variables to store the secret, ensuring the secret itself does not exist in your repository.
-         * - Periodic updates of the secret, while ensuring the previous secret is in the array.
+         * A best practice may include:
+         * * The use of environment variables to store the secret, ensuring the secret itself does not exist in your repository.
+         * * Periodic updates of the secret, while ensuring the previous secret is in the array.
          *
          * Using a secret that cannot be guessed will reduce the ability to hijack a session to only guessing the session ID (as determined by the `genid` option).
          *
          * Changing the secret value will invalidate all existing sessions.
-         * In order to rotate the secret without invalidating sessions, provide an array of secrets,
-         *   with the new secret as first element of the array, and including previous secrets as the later elements.
+         * In order to rotate the secret without invalidating sessions, provide an array of secrets, with the new secret as first element of the array, and including previous secrets as the later elements.
+         *
+         * Note HMAC-256 is used to sign the session ID. For this reason, the secret should contain at least 32 bytes of entropy.
          */
-        secret: string | string[];
+        secret: CipherKey | CipherKey[];
 
         /**
          * Function to call to generate a new session ID. Provide a function that returns a string that will be used as a session ID.

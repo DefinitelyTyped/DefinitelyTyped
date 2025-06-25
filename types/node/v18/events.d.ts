@@ -280,7 +280,7 @@ declare module "events" {
             emitter: NodeJS.EventEmitter,
             eventName: string,
             options?: StaticEventEmitterOptions,
-        ): AsyncIterableIterator<any>;
+        ): NodeJS.AsyncIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
@@ -369,7 +369,7 @@ declare module "events" {
          * ```
          * @since v15.4.0
          * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
-         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * @param eventTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
@@ -657,7 +657,7 @@ declare module "events" {
                 setMaxListeners(n: number): this;
                 /**
                  * Returns the current max listener value for the `EventEmitter` which is either
-                 * set by `emitter.setMaxListeners(n)` or defaults to {@link defaultMaxListeners}.
+                 * set by `emitter.setMaxListeners(n)` or defaults to {@link EventEmitter.defaultMaxListeners}.
                  * @since v1.0.0
                  */
                 getMaxListeners(): number;

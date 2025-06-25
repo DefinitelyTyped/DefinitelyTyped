@@ -62,8 +62,15 @@ declare namespace BetterSqlite3 {
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
-        function(name: string, cb: (...params: unknown[]) => unknown): this;
-        function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
+        function(
+            name: string,
+            cb: (...params: any[]) => any,
+        ): this;
+        function(
+            name: string,
+            options: Database.RegistrationOptions,
+            cb: (...params: any[]) => any,
+        ): this;
         aggregate<T>(
             name: string,
             options: Database.RegistrationOptions & {
@@ -87,17 +94,18 @@ declare namespace BetterSqlite3 {
         new(filename?: string | Buffer, options?: Database.Options): Database;
         (filename?: string, options?: Database.Options): Database;
         prototype: Database;
-
-        SqliteError: typeof SqliteError;
+        SqliteError: SqliteErrorType;
     }
 }
 
-declare class SqliteError extends Error {
+declare class SqliteErrorClass extends Error {
     name: string;
     message: string;
     code: string;
     constructor(message: string, code: string);
 }
+
+type SqliteErrorType = typeof SqliteErrorClass;
 
 declare namespace Database {
     interface RunResult {
@@ -138,7 +146,7 @@ declare namespace Database {
         progress: (info: BackupMetadata) => number;
     }
 
-    type SqliteError = typeof SqliteError;
+    type SqliteError = SqliteErrorType;
     type Statement<BindParameters extends unknown[] | {} = unknown[], Result = unknown> = BindParameters extends
         unknown[] ? BetterSqlite3.Statement<BindParameters, Result>
         : BetterSqlite3.Statement<[BindParameters], Result>;

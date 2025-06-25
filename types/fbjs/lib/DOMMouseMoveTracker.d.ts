@@ -7,7 +7,7 @@
  * call releaseMouseMoves since mousemove is expensive to listen to.
  */
 declare class DOMMouseMoveTracker {
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     constructor(onMove: Function, onMoveEnd: Function, domNode: HTMLElement);
     /**
      * This is to set up the listeners for listening to mouse move

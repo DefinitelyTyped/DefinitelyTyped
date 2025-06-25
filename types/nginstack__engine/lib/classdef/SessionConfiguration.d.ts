@@ -15,6 +15,7 @@ declare class SessionConfiguration {
     application: DBKey | number;
     clientTrackingEnabled: boolean;
     sessionTrackingEnabled: boolean;
+    loginAuditingEnabled: boolean;
     duplicate(): SessionConfiguration;
 }
 declare namespace SessionConfiguration {

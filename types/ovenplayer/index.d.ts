@@ -1,12 +1,15 @@
-interface OvenPlayer {
-    debug(debug: boolean): boolean;
-    generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-    create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
-    getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-    getPlayerByIndex(index: number): OvenPlayerInstance | null;
-    getPlayerList(): OvenPlayerInstance[];
-    removePlayer(player: OvenPlayerInstance): void;
-}
+export function debug(debug: boolean): boolean;
+export function generateWebrtcUrls(
+    sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[],
+): OvenPlayerSource[];
+export function create(
+    container: string,
+    config: OvenPlayerConfig,
+): OvenPlayerInstance;
+export function getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
+export function getPlayerByIndex(index: number): OvenPlayerInstance | null;
+export function getPlayerList(): OvenPlayerInstance[];
+export function removePlayer(player: OvenPlayerInstance): void;
 
 interface OvenPlayerPlayListItem {
     title?: string;
@@ -17,15 +20,15 @@ interface OvenPlayerPlayListItem {
     tracks?: Array<Pick<OvenPlayerTrack, "file" | "kind" | "label">>;
 }
 
-type OvenPlayerPlayList = OvenPlayerPlayListItem[];
+export type OvenPlayerPlayList = OvenPlayerPlayListItem[];
 
-interface OvenPlayerIceServer {
+export interface OvenPlayerIceServer {
     urls: string[];
     username?: string;
     credential?: string;
 }
 
-interface OvenPlayerConfig {
+export interface OvenPlayerConfig {
     aspectRatio?: string;
     title?: string;
     waterMark?: {
@@ -34,62 +37,45 @@ interface OvenPlayerConfig {
         /** @required */
         text?: string;
         font?: CSSStyleDeclaration;
-        /** @default 'top-left' */
         position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-        /** @default 2.8% */
         x?: string;
-        /** @default 5% */
         y?: string;
-        /** @default 'auto' */
         width?: string;
-        /** @default 'auto' */
         height?: string;
-        /** @defaultValue 0.7 */
         opacity?: number;
     };
-    /** @default false */
     autoStart?: boolean;
-    /** @default true */
     autoFallback?: boolean;
-    /** @default true */
     controls?: boolean;
-    /** @default false */
     loop?: boolean;
-    /** @default true */
     showBigPlayButton?: boolean;
-    /** @default true */
     disableSeekUI?: boolean;
-    /** @default false */
     showSeekControl?: boolean;
-    /** @default 10 */
     seekControlInterval?: number;
-    /** @default false */
     expandFullScreenUI?: boolean;
-    /** @default false */
     mute?: boolean;
-    /** @default true */
     timecode?: boolean;
-    /** @default 1 */
     playbackRate?: number;
-    /** @default [2, 1.5, 1, 0.5, 0.25] */
     playbackRates?: number[];
-    /** @default false */
     currentProtocolOnly?: boolean;
     tracks?: Array<Pick<OvenPlayerTrack, "file" | "kind" | "label">>;
-    /** @default 100 */
     volume?: number;
     adTagUrl?: string;
     adClient?: "googleima" | "vast";
     playlist?: OvenPlayerPlayList;
-    /** @default false */
     hidePlaylistIcon?: boolean;
     /**
-     * Set the timeout from the start of signaling until it is connected with OvenMediaEngine. `connectionTimeout` sets the maximum allowable time until a connection is established. `timeoutMaxRetry` sets the number of times the player will automatically retry the connection when the maximum allowed time has elapsed. When retrying a connection due to a timeout, the player does not display an error message. If the connection fails after retries for `timeoutMaxRetry`, the player throws a timeout error. If `timeoutMaxRetry` is set to 0, no timeout processing is performed.
+     * Set the timeout from the start of signaling until it is connected with OvenMediaEngine.
+     *  `connectionTimeout` sets the maximum allowable time until a connection is established.
+     *  `timeoutMaxRetry` sets the number of times the player will automatically retry the connection
+     *  when the maximum allowed time has elapsed. When retrying a connection due to a timeout,
+     *  the player does not display an error message.
+     *  If the connection fails after retries for `timeoutMaxRetry`,
+     *  the player throws a timeout error. If `timeoutMaxRetry` is set to 0,
+     *  no timeout processing is performed.
      */
     webrtcConfig?: {
-        /** @default 0 */
         timeoutMaxRetry?: number;
-        /** @default 10000 */
         connectionTimeout?: number;
         /**
          * Set the play out delay hint for WebRTC playback. If the browser supports it, the initial playback will be delayed by the set value.
@@ -113,17 +99,33 @@ interface OvenPlayerConfig {
     dashConfig?: object;
     /** @required */
     sources?: OvenPlayerSource[];
+    /**
+     * Set the poster of the player.
+     */
     image?: string;
+    /**
+     * If true, OvenPlayer will use the `double touch` event to seek the video.
+     */
+    doubleTapToSeek?: boolean;
+    /**
+     * If set OvenPlayer will decode the stream and parse the stream data.
+     */
+    parseStream?: {
+        /**
+         * Set to true if you want to parse the stream data.
+         */
+        enabled: boolean;
+    };
 }
 
-interface OvenPlayerWebRTCStream {
+export interface OvenPlayerWebRTCStream {
     host: string;
     application: string;
     stream: string;
     label?: string;
 }
 
-interface OvenPlayerSource {
+export interface OvenPlayerSource {
     type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
     file: string;
     label?: string;
@@ -132,7 +134,7 @@ interface OvenPlayerSource {
     sectionEnd?: number;
 }
 
-type OvenPlayerState =
+export type OvenPlayerState =
     | "idle"
     | "complete"
     | "paused"
@@ -145,7 +147,7 @@ type OvenPlayerState =
     | "adPaused"
     | "adComplete";
 
-interface OvenPlayerHandler {
+export interface OvenPlayerHandler {
     /**
      * Player initialization complete. And you can use API methods.
      */
@@ -154,6 +156,10 @@ interface OvenPlayerHandler {
      * It occurs when new metadata is received.
      */
     (eventName: "metaChanged", callback: (eventData: OvenPlayerEvents["metaChanged"]) => void): void;
+    /**
+     * It occurs when parseStream is enabled and new metadata is received.
+     */
+    (eventName: "metaData", callback: (eventData: OvenPlayerEvents["metaData"]) => void): void;
     /**
      * It occurs when the state of a player changes.
      */
@@ -165,7 +171,10 @@ interface OvenPlayerHandler {
     /**
      * Fired when the playback rate has been changed
      */
-    (eventName: "playbackRateChanged", callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void): void;
+    (
+        eventName: "playbackRateChanged",
+        callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void,
+    ): void;
     /**
      * Fired after a seek has been requested either by scrubbing the control bar or through the API.
      */
@@ -187,7 +196,8 @@ interface OvenPlayerHandler {
      */
     (eventName: "volumeChanged", callback: (eventData: OvenPlayerEvents["volumeChanged"]) => void): void;
     /**
-     * Fired when the active playlist is changed. It happens in response to, e.g., a user clicking an option in the playlist menu or a script calling `setCurrentPlaylist` or prev playlist has been completed.
+     * Fired when the active playlist is changed.
+     * It happens in response to, e.g., a user clicking an option in the playlist menu or a script calling `setCurrentPlaylist` or prev playlist has been completed.
      */
     (eventName: "playlistChanged", callback: (eventData: OvenPlayerEvents["playlistChanged"]) => void): void;
     /**
@@ -197,7 +207,10 @@ interface OvenPlayerHandler {
     /**
      * Fired when the active quality level is changed. It happens in response to, e.g., a user clicking an option in the quality menu or a script calling `setCurrentQuality`.
      */
-    (eventName: "qualityLevelChanged", callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void): void;
+    (
+        eventName: "qualityLevelChanged",
+        callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void,
+    ): void;
     /**
      * Fired when VTTCue is changed.
      */
@@ -261,7 +274,7 @@ interface OvenPlayerHandler {
     (eventName: "error", callback: (eventData: OvenPlayerEvents["error"]) => void): void;
 }
 
-interface OvenPlayerEvents {
+export interface OvenPlayerEvents {
     ready: undefined;
     metaChanged: {
         /** Current media's duration (In seconds) */
@@ -270,6 +283,39 @@ interface OvenPlayerEvents {
         isP2P: boolean;
         /** current source type */
         type: string;
+    };
+    metaData: {
+        /** Type of metadata, e.g. "sei" */
+        type: string;
+        /** Uint8Array containing raw Network Abstraction Layer Unit (NALU) data of the SEI */
+        nalu: Uint8Array;
+        /** SEI parsing result containing the following sub-fields: */
+        sei: {
+            /** SEI type */
+            type: string;
+            /** Payload size */
+            size: number;
+            /** Raw SEI payload data (Uint8Array) */
+            payload: Uint8Array;
+        };
+        /**
+         * Indicates whether the SEI was generated in the format defined by OvenMediaEngine.
+         * If true, the following additional fields are included.
+         */
+        registered: boolean;
+        /**
+         * (when registered=true) Unique identifier inserted by OvenMediaEngine into the SEI.
+         */
+        uuid: string;
+        /**
+         * (when registered=true) Timestamp (milliseconds) when the SEI was inserted.
+         */
+        timecode: number;
+        /**
+         * (when registered=true) Uint8Array containing custom data.
+         * This data should be parsed according to the application's requirements.
+         */
+        userdata: Uint8Array;
     };
     stateChanged: {
         prevstate: OvenPlayerState;
@@ -368,7 +414,7 @@ interface OvenPlayerEvents {
     };
 }
 
-interface OvenPlayerInstance {
+export interface OvenPlayerInstance {
     getVersion(): string;
     getConfig(): OvenPlayerConfig;
     getContainerElement(): HTMLDivElement;
@@ -420,7 +466,7 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
-interface OvenPlayerQuality {
+export interface OvenPlayerQuality {
     bitrate: string;
     height: number;
     index: number;
@@ -428,7 +474,7 @@ interface OvenPlayerQuality {
     width: number;
 }
 
-interface OvenPlayerBrowser {
+export interface OvenPlayerBrowser {
     browser: string;
     browserMajorVersion: number;
     browserVersion: string;
@@ -440,7 +486,7 @@ interface OvenPlayerBrowser {
     ua: string;
 }
 
-interface OvenPlayerTrack {
+export interface OvenPlayerTrack {
     file: string;
     kind: string;
     label: string;
@@ -449,22 +495,6 @@ interface OvenPlayerTrack {
     name: string;
 }
 
-export {
-    OvenPlayerBrowser,
-    OvenPlayerConfig,
-    OvenPlayerEvents,
-    OvenPlayerHandler,
-    OvenPlayerIceServer,
-    OvenPlayerInstance,
-    OvenPlayerPlayList,
-    OvenPlayerQuality,
-    OvenPlayerSource,
-    OvenPlayerState,
-    OvenPlayerTrack,
-    OvenPlayerWebRTCStream,
-};
-
-declare const OvenPlayer: OvenPlayer;
+export {};
 
 export as namespace OvenPlayer;
-export default OvenPlayer;

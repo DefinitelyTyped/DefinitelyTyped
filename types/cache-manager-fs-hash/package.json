@@ -6,7 +6,7 @@
         "https://github.com/rolandstarke/node-cache-manager-fs-hash#readme"
     ],
     "dependencies": {
-        "@types/cache-manager": "*"
+        "@types/cache-manager": "<4"
     },
     "devDependencies": {
         "@types/cache-manager-fs-hash": "workspace:."

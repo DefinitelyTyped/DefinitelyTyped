@@ -1,4 +1,4 @@
-declare const _default: {
+declare const FindUnusedSassVariables: {
     /**
      * Returns an object with `unused` and `total`.
      * `unused` has the array of unused variables and `total` has the sum of all variables in the files
@@ -12,11 +12,20 @@ declare const _default: {
 };
 
 export interface Options {
-    /** Array of strings of the variables to ignore, e.g. `['$my-var', '$my-second-var']` */
+    /**
+     * Array of strings of the variables to ignore, e.g. `['$my-var', '$my-second-var']`
+     * @default []
+     */
     ignore?: string[] | undefined;
-    /** Array of strings of files to ignore, e.g. `['./file-with-unused-vars.scss', '**\/_variables.scss']`. */
+    /**
+     * Array of strings of files to ignore, e.g. `['./file-with-unused-vars.scss', '**\/_variables.scss']`.
+     * @default []
+     */
     ignoreFiles?: string[] | undefined;
-    /** Array of file extensions to search for unused variables in. e.g. `['scss']` */
+    /**
+     * Array of file extensions to search for unused variables in. e.g. `['scss']`
+     * @default ['scss']
+     */
     fileExtensions?: string[] | undefined;
 }
 
@@ -27,4 +36,4 @@ export interface Results {
     readonly total: number;
 }
 
-export default _default;
+export default FindUnusedSassVariables;

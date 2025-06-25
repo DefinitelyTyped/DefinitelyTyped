@@ -5,8 +5,8 @@
     "projects": [
         "https://reactjs.org"
     ],
-    "dependencies": {
-        "@types/react": "^17"
+    "peerDependencies": {
+        "@types/react": "^17.0.0"
     },
     "devDependencies": {
         "@types/react-dom": "workspace:."

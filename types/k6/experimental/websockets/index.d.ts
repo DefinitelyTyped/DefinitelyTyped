@@ -37,8 +37,9 @@ export class WebSocket {
 
     /**
      * The type of binary data being transmitted over the connection.
+     * @default "blob"
      */
-    readonly binaryType: BinaryType;
+    binaryType: BinaryType;
 
     /**
      * The Websocket constructor returns a newly created WebSocket object.
@@ -56,7 +57,7 @@ export class WebSocket {
      *
      * @param data - the data to send to the server
      */
-    send(data: string | ArrayBuffer | Blob): void;
+    send(data: string | ArrayBuffer | Blob | ArrayBufferView): void;
 
     /**
      * Bind event names to event handlers to be executed when their

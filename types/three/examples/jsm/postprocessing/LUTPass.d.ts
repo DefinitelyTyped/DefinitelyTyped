@@ -9,5 +9,5 @@ export interface LUTPassParameters {
 export class LUTPass extends ShaderPass {
     lut?: DataTexture | Data3DTexture;
     intensity?: number;
-    constructor(params: LUTPassParameters);
+    constructor(params?: LUTPassParameters);
 }

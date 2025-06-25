@@ -31,8 +31,8 @@ interface AudioDecoderInit {
 }
 
 interface AudioDecoderSupport {
-    config: AudioDecoderConfig;
-    supported: boolean;
+    config?: AudioDecoderConfig;
+    supported?: boolean;
 }
 
 interface AudioEncoderConfig {
@@ -48,8 +48,8 @@ interface AudioEncoderInit {
 }
 
 interface AudioEncoderSupport {
-    config: AudioEncoderConfig;
-    supported: boolean;
+    config?: AudioEncoderConfig;
+    supported?: boolean;
 }
 
 interface AvcEncoderConfig {
@@ -192,7 +192,7 @@ interface VideoFrameInit {
 
 interface AudioData {
     readonly duration: number;
-    readonly format: AudioSampleFormat;
+    readonly format: AudioSampleFormat | null;
     readonly numberOfChannels: number;
     readonly numberOfFrames: number;
     readonly sampleRate: number;
@@ -208,15 +208,40 @@ declare var AudioData: {
     new(init: AudioDataInit): AudioData;
 };
 
+interface AudioDecoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface AudioDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: AudioDecoder, ev: Event) => any) | null;
     close(): void;
     configure(config: AudioDecoderConfig): void;
     decode(chunk: EncodedAudioChunk): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof AudioDecoderEventMap>(
+        type: K,
+        listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof AudioDecoderEventMap>(
+        type: K,
+        listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var AudioDecoder: {
@@ -225,15 +250,40 @@ declare var AudioDecoder: {
     isConfigSupported(config: AudioDecoderConfig): Promise<AudioDecoderSupport>;
 };
 
+interface AudioEncoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface AudioEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: AudioEncoder, ev: Event) => any) | null;
     close(): void;
     configure(config: AudioEncoderConfig): void;
     encode(data: AudioData): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof AudioEncoderEventMap>(
+        type: K,
+        listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof AudioEncoderEventMap>(
+        type: K,
+        listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var AudioEncoder: {
@@ -268,48 +318,6 @@ declare var EncodedVideoChunk: {
     new(init: EncodedVideoChunkInit): EncodedVideoChunk;
 };
 
-/** Available only in secure contexts. */
-interface ImageDecoder {
-    readonly complete: boolean;
-    readonly completed: Promise<void>;
-    readonly tracks: ImageTrackList;
-    readonly type: string;
-    close(): void;
-    decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
-    reset(): void;
-}
-
-declare var ImageDecoder: {
-    prototype: ImageDecoder;
-    new(init: ImageDecoderInit): ImageDecoder;
-    isTypeSupported(type: string): Promise<boolean>;
-};
-
-interface ImageTrack {
-    readonly animated: boolean;
-    readonly frameCount: number;
-    readonly repetitionCount: number;
-    selected: boolean;
-}
-
-declare var ImageTrack: {
-    prototype: ImageTrack;
-    new(): ImageTrack;
-};
-
-interface ImageTrackList {
-    readonly length: number;
-    readonly ready: Promise<void>;
-    readonly selectedIndex: number;
-    readonly selectedTrack: ImageTrack | null;
-    [index: number]: ImageTrack;
-}
-
-declare var ImageTrackList: {
-    prototype: ImageTrackList;
-    new(): ImageTrackList;
-};
-
 interface VideoColorSpace {
     readonly fullRange: boolean | null;
     readonly matrix: VideoMatrixCoefficients | null;
@@ -323,15 +331,40 @@ declare var VideoColorSpace: {
     new(init?: VideoColorSpaceInit): VideoColorSpace;
 };
 
+interface VideoDecoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface VideoDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: VideoDecoder, ev: Event) => any) | null;
     close(): void;
     configure(config: VideoDecoderConfig): void;
     decode(chunk: EncodedVideoChunk): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof VideoDecoderEventMap>(
+        type: K,
+        listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof VideoDecoderEventMap>(
+        type: K,
+        listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var VideoDecoder: {
@@ -340,15 +373,40 @@ declare var VideoDecoder: {
     isConfigSupported(config: VideoDecoderConfig): Promise<VideoDecoderSupport>;
 };
 
+interface VideoEncoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface VideoEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
     close(): void;
+    ondequeue: ((this: VideoEncoder, ev: Event) => any) | null;
     configure(config: VideoEncoderConfig): void;
     encode(frame: VideoFrame, options?: VideoEncoderEncodeOptions): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof VideoEncoderEventMap>(
+        type: K,
+        listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof VideoEncoderEventMap>(
+        type: K,
+        listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var VideoEncoder: {
@@ -402,12 +460,12 @@ interface WebCodecsErrorCallback {
 
 // type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
 // type BitrateMode = "constant" | "variable";
-type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
+// type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
 // type AlphaOption = "discard" | "keep";
-type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
+// type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
 // type AvcBitstreamFormat = "annexb" | "avc";
 // type CodecState = "closed" | "configured" | "unconfigured";
-type EncodedAudioChunkType = "delta" | "key";
+// type EncodedAudioChunkType = "delta" | "key";
 // type EncodedVideoChunkType = "delta" | "key";
 type HardwarePreference = "no-preference" | "prefer-hardware" | "prefer-software";
 // type LatencyMode = "quality" | "realtime";

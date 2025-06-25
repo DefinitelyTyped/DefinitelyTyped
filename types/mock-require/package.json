@@ -1,15 +1,13 @@
 {
     "private": true,
     "name": "@types/mock-require",
-    "version": "2.0.9999",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/boblauer/mock-require"
     ],
-    "dependencies": {
-        "@types/node": "*"
-    },
     "devDependencies": {
-        "@types/mock-require": "workspace:."
+        "@types/mock-require": "workspace:.",
+        "@types/node": "*"
     },
     "owners": []
 }

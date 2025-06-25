@@ -41,9 +41,9 @@ declare global {
 
     interface FontFaceSet extends Set<FontFace>, EventTarget {
         // events for when loading state changes
-        onloading: ((this: FontFaceSet, event: Event) => any) | null;
-        onloadingdone: ((this: FontFaceSet, event: Event) => any) | null;
-        onloadingerror: ((this: FontFaceSet, event: Event) => any) | null;
+        onloading: ((this: FontFaceSet, event: FontFaceSetLoadEvent) => any) | null;
+        onloadingdone: ((this: FontFaceSet, event: FontFaceSetLoadEvent) => any) | null;
+        onloadingerror: ((this: FontFaceSet, event: FontFaceSetLoadEvent) => any) | null;
 
         // EventTarget
         addEventListener<K extends keyof FontFaceSetCallbackMap>(

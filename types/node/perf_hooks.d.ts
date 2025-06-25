@@ -27,7 +27,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/perf_hooks.js)
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
@@ -116,6 +116,20 @@ declare module "perf_hooks" {
     class PerformanceMeasure extends PerformanceEntry {
         readonly entryType: "measure";
     }
+    interface UVMetrics {
+        /**
+         * Number of event loop iterations.
+         */
+        readonly loopCount: number;
+        /**
+         * Number of events that have been processed by the event handler.
+         */
+        readonly events: number;
+        /**
+         * Number of events that were waiting to be processed when the event provider was called.
+         */
+        readonly eventsWaiting: number;
+    }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -166,6 +180,16 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly nodeStart: number;
+        /**
+         * This is a wrapper to the `uv_metrics_info` function.
+         * It returns the current set of event loop metrics.
+         *
+         * It is recommended to use this property inside a function whose execution was
+         * scheduled using `setImmediate` to avoid collecting metrics before finishing all
+         * operations scheduled during the current loop iteration.
+         * @since v22.8.0, v20.18.0
+         */
+        readonly uvMetricsInfo: UVMetrics;
         /**
          * The high resolution millisecond timestamp at which the V8 platform was
          * initialized.
@@ -570,6 +594,11 @@ declare module "perf_hooks" {
                     buffered?: boolean | undefined;
                 },
         ): void;
+        /**
+         * @since v16.0.0
+         * @returns Current list of entries stored in the performance observer, emptying it out.
+         */
+        takeRecords(): PerformanceEntry[];
     }
     /**
      * Provides detailed network timing data regarding the loading of an application's resources.
@@ -837,12 +866,12 @@ declare module "perf_hooks" {
          * The minimum recordable value. Must be an integer value greater than 0.
          * @default 1
          */
-        min?: number | bigint | undefined;
+        lowest?: number | bigint | undefined;
         /**
          * The maximum recordable value. Must be an integer value greater than min.
          * @default Number.MAX_SAFE_INTEGER
          */
-        max?: number | bigint | undefined;
+        highest?: number | bigint | undefined;
         /**
          * The number of accuracy digits. Must be a number between 1 and 5.
          * @default 3
@@ -866,7 +895,7 @@ declare module "perf_hooks" {
     global {
         /**
          * `PerformanceEntry` is a global reference for `import { PerformanceEntry } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceentry
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performanceentry
          * @since v19.0.0
          */
         var PerformanceEntry: typeof globalThis extends {
@@ -876,7 +905,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceEntry;
         /**
          * `PerformanceMark` is a global reference for `import { PerformanceMark } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemark
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performancemark
          * @since v19.0.0
          */
         var PerformanceMark: typeof globalThis extends {
@@ -886,7 +915,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceMark;
         /**
          * `PerformanceMeasure` is a global reference for `import { PerformanceMeasure } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemeasure
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performancemeasure
          * @since v19.0.0
          */
         var PerformanceMeasure: typeof globalThis extends {
@@ -896,7 +925,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceMeasure;
         /**
          * `PerformanceObserver` is a global reference for `import { PerformanceObserver } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserver
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performanceobserver
          * @since v19.0.0
          */
         var PerformanceObserver: typeof globalThis extends {
@@ -906,7 +935,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceObserver;
         /**
          * `PerformanceObserverEntryList` is a global reference for `import { PerformanceObserverEntryList } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserverentrylist
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performanceobserverentrylist
          * @since v19.0.0
          */
         var PerformanceObserverEntryList: typeof globalThis extends {
@@ -916,7 +945,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceObserverEntryList;
         /**
          * `PerformanceResourceTiming` is a global reference for `import { PerformanceResourceTiming } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceresourcetiming
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performanceresourcetiming
          * @since v19.0.0
          */
         var PerformanceResourceTiming: typeof globalThis extends {
@@ -926,7 +955,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceResourceTiming;
         /**
          * `performance` is a global reference for `import { performance } from 'node:perf_hooks'`
-         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performance
+         * @see https://nodejs.org/docs/latest-v24.x/api/globals.html#performance
          * @since v16.0.0
          */
         var performance: typeof globalThis extends {

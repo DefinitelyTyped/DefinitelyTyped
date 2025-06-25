@@ -1,4 +1,4 @@
-import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
+import { configOverride, ConfigurableComponent } from "../../common/configuration.js";
 import { type TranslationPluralForms } from "../../i18n.js";
 
 /**
@@ -11,7 +11,10 @@ import { type TranslationPluralForms } from "../../i18n.js";
  * You can configure the message to only appear after a certain percentage
  * of the available characters/words has been entered.
  */
-export class CharacterCount extends GOVUKFrontendComponent {
+export class CharacterCount extends ConfigurableComponent<
+    CharacterCountConfig,
+    HTMLElement
+> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -21,13 +24,15 @@ export class CharacterCount extends GOVUKFrontendComponent {
      * Character count default config
      *
      * @see {@link CharacterCountConfig}
+     * @constant
      */
     static defaults: CharacterCountConfig;
 
     /**
      * Character count config schema
      *
-     * @satisfies {Schema}
+     * @constant
+     * @satisfies {Schema<CharacterCountConfig>}
      */
     static schema: Readonly<{
         properties: {
@@ -44,17 +49,36 @@ export class CharacterCount extends GOVUKFrontendComponent {
                 type: "number";
             };
         };
-        anyOf: Array<{
-            required: string[];
-            errorMessage: string;
-        }>;
+        anyOf: (
+            | {
+                required: "maxwords"[];
+                errorMessage: string;
+            }
+            | {
+                required: "maxlength"[];
+                errorMessage: string;
+            }
+        )[];
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for character count
+     * @param {Element | null} $root - HTML element to use for character count
      * @param {CharacterCountConfig} [config] - Character count config
      */
-    constructor($module: Element | null, config?: CharacterCountConfig);
+    constructor($root: Element | null, config?: CharacterCountConfig);
+
+    /**
+     * Character count config override
+     *
+     * To ensure data-attributes take complete precedence, even if they change
+     * the type of count, we need to reset the `maxlength` and `maxwords` from
+     * the JavaScript config.
+     *
+     * @internal
+     * @param {CharacterCountConfig} datasetConfig - configuration specified by dataset
+     * @returns {CharacterCountConfig} - configuration to override by dataset
+     */
+    [configOverride](datasetConfig: CharacterCountConfig): CharacterCountConfig;
 }
 
 /**

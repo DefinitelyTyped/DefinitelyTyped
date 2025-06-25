@@ -30,11 +30,15 @@ import * as url from "node:url";
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    // TODO: add test for all remaining options
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        headersTimeout: 50000,
+        requireHostHeader: false,
+        rejectNonStandardBodyWrites: false,
     }, reqListener);
 
     server.close();
@@ -48,7 +52,13 @@ import * as url from "node:url";
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
-    server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server.setTimeout().setTimeout(1000);
+    server.setTimeout((socket) => {
+        socket; // $ExpectType Socket
+    });
+    server.setTimeout(100, (socket) => {
+        socket; // $ExpectType Socket
+    });
     server.closeIdleConnections(); // $ExpectType void
     server.closeAllConnections(); // $ExpectType void
 }
@@ -209,6 +219,8 @@ import * as url from "node:url";
     res.setHeader("Content-Type", "text/plain")
         .setHeader("Return-Type", "this")
         .appendHeader("Content-Type", "text/html");
+    res.setHeaders(new Headers({ foo: "bar" }));
+    res.setHeaders(new Map([["foo", "bar"]]));
     const bool: boolean = res.hasHeader("Content-Type");
     const headers: string[] = res.getHeaderNames();
     const headerValue: string[] | undefined = incoming.headersDistinct["content-type"];
@@ -375,6 +387,9 @@ import * as url from "node:url";
     http.request(new url.URL("http://www.example.com"), opts);
     http.get(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
     http.request(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
+
+    http.request("http://www.example.com/xyz", { headers: ["extra", "header"] });
+    http.request("http://www.example.com/xyz", { headers: { extra: "header" } });
 }
 
 {
@@ -502,7 +517,7 @@ import * as url from "node:url";
     let _req = new http.IncomingMessage(new net.Socket());
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
-    let _head = Buffer.from("");
+    let _head: Buffer = Buffer.from("");
     let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {

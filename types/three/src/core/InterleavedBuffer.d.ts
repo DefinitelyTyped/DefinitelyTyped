@@ -86,6 +86,18 @@ export class InterleavedBuffer {
     uuid: string;
 
     /**
+     * A callback function that is executed after the Renderer has transferred the geometry data to the GPU.
+     */
+    onUploadCallback: () => void;
+
+    /**
+     * Sets the value of the {@link onUploadCallback} property.
+     * @see {@link onUploadCallback}
+     * @param callback function that is executed after the Renderer has transferred the geometry data to the GPU.
+     */
+    onUpload(callback: () => void): this;
+
+    /**
      * Calls {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set}( {@link value}, {@link offset} )
      * on the {@link BufferAttribute.array | array}.
      * @param value The source `TypedArray`.

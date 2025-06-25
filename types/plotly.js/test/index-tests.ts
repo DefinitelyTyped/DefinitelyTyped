@@ -6,7 +6,9 @@ const graphDiv = "#test";
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 // combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
-// https://plotly.com/javascript/2d-density-plots/
+// https://plotly.com/javascript/2d-density-plots/, but with transforms removed as they
+// no longer exist in Plotly v3 (it's up to you to massage the data set before passing
+// it to Plotly, rather than letting Plotly do the transform for you).
 
 (() => {
     const testrows = [
@@ -74,35 +76,6 @@ const graphDiv = "#test";
             },
         },
         type: "scatter",
-        transforms: [
-            {
-                type: "filter",
-                target: unpack(testrows, "year"),
-                operation: "=",
-                value: "2002",
-            },
-            {
-                type: "groupby",
-                nameformat: `%{group}`,
-                groups: unpack(testrows, "continent"),
-                styles: [
-                    { target: "Asia", value: { marker: { color: "red" } } },
-                    { target: "Europe", value: { marker: { color: "blue" } } },
-                    { target: "Americas", value: { marker: { color: "orange" } } },
-                    { target: "Africa", value: { marker: { color: "green" } } },
-                    { target: "Oceania", value: { marker: { color: "purple" } } },
-                ],
-            },
-            {
-                type: "aggregate",
-                groups: unpack(testrows, "continent"),
-                aggregations: [
-                    { target: "x", func: "avg" },
-                    { target: "y", func: "avg" },
-                    { target: "marker.size", func: "sum" },
-                ],
-            },
-        ],
         width: 2,
     } as PlotData;
     const trace2 = {
@@ -128,15 +101,21 @@ const graphDiv = "#test";
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
-        title: "Gapminder",
+        title: {
+            text: "Gapminder",
+        },
         xaxis: {
-            title: "Life Expectancy",
+            title: {
+                text: "Life Expectancy",
+            },
             domain: [0, 0.85],
             showgrid: false,
             zeroline: false,
         },
         yaxis: {
-            title: "GDP per Cap",
+            title: {
+                text: "GDP per Cap",
+            },
             showline: false,
             domain: [0, 0.85],
             showgrid: false,
@@ -165,7 +144,7 @@ const graphDiv = "#test";
             type: "scatter",
         } as PlotData,
     ];
-    const layout2 = { title: "Revenue" };
+    const layout2 = { title: { text: "Revenue" } };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 (() => {
@@ -303,7 +282,7 @@ const graphDiv = "#test";
         itemsizing: "constant",
         itemwidth: 50,
         orientation: "h",
-        title: { font: { size: 15 }, side: "top", text: "Legend Title" },
+        title: { font: { size: 15 }, side: "top right", text: "Legend Title" },
         tracegroupgap: 15,
         traceorder: "reversed+grouped",
         valign: "bottom",
@@ -313,7 +292,13 @@ const graphDiv = "#test";
         yanchor: "top",
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: "January 2013 Sales Report", template, modebar, legend };
+    const layout: Partial<Layout> = {
+        showlegend: true,
+        title: { text: "January 2013 Sales Report" },
+        template,
+        modebar,
+        legend,
+    };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -407,14 +392,16 @@ const graphDiv = "#test";
             name: "group A",
         },
         {
-            y: y.map(e => e + 1),
+            y: y.map((e) => e + 1),
             x,
             type: "box",
             name: "group B",
         },
     ];
     const layout: Partial<Layout> = {
-        title: "Grouped Box Plot",
+        title: {
+            text: "Grouped Box Plot",
+        },
         boxmode: "overlay",
     };
 
@@ -425,7 +412,56 @@ const graphDiv = "#test";
     const data: Array<Partial<PlotData>> = [
         {
             colorbar: {
-                title: "Test",
+                title: {
+                    text: "Test",
+                    font: { size: 20, color: "#666" },
+                    side: "top",
+                },
+                orientation: "v",
+                thicknessmode: "pixels",
+                thickness: 30,
+                lenmode: "fraction",
+                len: 1,
+                x: 1.02,
+                xref: "paper",
+                xanchor: "left",
+                xpad: 10,
+                y: 0.5,
+                yref: "paper",
+                yanchor: "middle",
+                ypad: 10,
+                outlinecolor: "#000000",
+                outlinewidth: 1,
+                bordercolor: "#000000",
+                borderwidth: 0,
+                bgcolor: "rgba(0,0,0,0)",
+                tickmode: "auto",
+                nticks: 0,
+                tick0: 0,
+                dtick: 1,
+                tickvals: [],
+                ticktext: [],
+                ticks: "",
+                ticklabeloverflow: "hide past div",
+                ticklabelposition: "outside",
+                ticklen: 5,
+                tickwidth: 1,
+                tickcolor: "#000000",
+                ticklabelstep: 1,
+                showticklabels: true,
+                labelalias: "labelalias",
+                tickfont: { size: 10, color: "#666" },
+                tickangle: "auto",
+                tickformat: "",
+                tickformatstops: [],
+                tickprefix: "",
+                showtickprefix: "all",
+                ticksuffix: "",
+                showticksuffix: "all",
+                separatethousands: false,
+                exponentformat: "B",
+                minexponent: 3,
+                showexponent: "all",
             },
             locationmode: "ISO-3",
             locations: ["USA", "NLD"],
@@ -436,7 +472,9 @@ const graphDiv = "#test";
     ];
     const layout: Partial<Layout> = {
         showlegend: true,
-        title: "World Map",
+        title: {
+            text: "World Map",
+        },
         geo: {
             projection: { type: "Mercator" },
             showcoastlines: true,
@@ -577,7 +615,9 @@ const graphDiv = "#test";
 // update only values within nested objects
 (() => {
     const update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
         "xaxis.range": [0, 5], // updates the xaxis range
         "yaxis.range[1]": 15, // updates the end of the yaxis range
     } as Layout;
@@ -589,7 +629,9 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -620,7 +662,9 @@ const graphDiv = "#test";
         marker: { color: "red" },
     };
     const layout_update = {
-        title: "some new title", // updates the title
+        title: { // updates the title
+            text: "some new title",
+        },
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -710,7 +754,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then(dataUrl => {
+    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then((dataUrl) => {
         // use the dataUrl
     });
 })();
@@ -765,7 +809,7 @@ function rand() {
             type: "scatter",
         },
     ]);
-    myPlot.on("plotly_click", data => {
+    myPlot.on("plotly_click", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -780,7 +824,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_hover", data => {
+    myPlot.on("plotly_hover", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -795,7 +839,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_unhover", data => {
+    myPlot.on("plotly_unhover", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -810,7 +854,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_selected", data => {
+    myPlot.on("plotly_selected", (data) => {
         const x = [] as Datum[];
         const y = [] as Datum[];
         const N = 1000;
@@ -820,7 +864,7 @@ function rand() {
         const colors = [] as string[];
         for (let i = 0; i < N; i++) colors.push(color1Light);
 
-        data.points.forEach(pt => {
+        data.points.forEach((pt) => {
             x.push(pt.x);
             y.push(pt.y);
             colors[pt.pointNumber] = color1;
@@ -843,7 +887,7 @@ function rand() {
         );
     });
 
-    myPlot.on("plotly_relayout", eventdata => {
+    myPlot.on("plotly_relayout", (eventdata) => {
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
@@ -852,7 +896,7 @@ function rand() {
         eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on("plotly_relayouting", eventdata => {
+    myPlot.on("plotly_relayouting", (eventdata) => {
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
@@ -861,7 +905,7 @@ function rand() {
         eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on("plotly_restyle", data => {
+    myPlot.on("plotly_restyle", (data) => {
         console.log("restyling");
     });
 
@@ -871,7 +915,7 @@ function rand() {
         Plotly.restyle("myDiv", update);
     });
 
-    myPlot.on("plotly_beforeplot", event => {
+    myPlot.on("plotly_beforeplot", (event) => {
         console.log("plotting");
         const okToPlot = true;
         return okToPlot;
@@ -881,31 +925,31 @@ function rand() {
         console.log("done plotting");
     });
 
-    myPlot.on("plotly_animatingframe", event => {
+    myPlot.on("plotly_animatingframe", (event) => {
         console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
     });
 
-    myPlot.on("plotly_legendclick", event => {
+    myPlot.on("plotly_legendclick", (event) => {
         console.log("clicked on legend");
         const clickVal = true;
         return clickVal;
     });
 
-    myPlot.on("plotly_legenddoubleclick", event => {
+    myPlot.on("plotly_legenddoubleclick", (event) => {
         console.log("dbl clicked on legend");
         const dblClickVal = true;
         return dblClickVal;
     });
 
-    myPlot.on("plotly_sliderchange", event => {
+    myPlot.on("plotly_sliderchange", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on("plotly_sliderstart", event => {
+    myPlot.on("plotly_sliderstart", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y}`);
     });
 
-    myPlot.on("plotly_sliderend", event => {
+    myPlot.on("plotly_sliderend", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
@@ -958,7 +1002,7 @@ function rand() {
         },
     ]);
 
-    sunburst.on("plotly_sunburstclick", event => {
+    sunburst.on("plotly_sunburstclick", (event) => {
         console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
 
         const point = event.points[0];
@@ -1111,39 +1155,44 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Plotly.animate as per https://plot.ly/javascript/animations/
 (() => {
-    Plotly.animate("myDiv", {
-        data: [{ y: [Math.random(), Math.random(), Math.random()] }],
-        traces: [0],
-        layout: {},
-    }, {
-        transition: {
-            duration: 500,
-            easing: "cubic-in-out",
+    Plotly.animate(
+        "myDiv",
+        {
+            data: [{ y: [Math.random(), Math.random(), Math.random()] }],
+            traces: [0],
+            layout: {},
         },
-        frame: {
-            duration: 500,
+        {
+            transition: {
+                duration: 500,
+                easing: "cubic-in-out",
+            },
+            frame: {
+                duration: 500,
+            },
         },
-    });
+    );
 
     var min = 0.45 * Math.random();
     var max = 0.55 + 0.45 * Math.random();
-    Plotly.animate("myDiv", {
-        layout: {
-            xaxis: { range: [min, max] },
-            yaxis: { range: [min, max] },
+    Plotly.animate(
+        "myDiv",
+        {
+            layout: {
+                xaxis: { range: [min, max] },
+                yaxis: { range: [min, max] },
+            },
         },
-    }, {
-        transition: {
-            duration: 500,
-            easing: "cubic-in-out",
+        {
+            transition: {
+                duration: 500,
+                easing: "cubic-in-out",
+            },
         },
-    });
+    );
 
     Plotly.animate("myDiv", ["frame1", "frame2"], {
-        frame: [
-            { duration: 1500 },
-            { duration: 500 },
-        ],
+        frame: [{ duration: 1500 }, { duration: 500 }],
         transition: [
             { duration: 800, easing: "elastic-in" },
             { duration: 100, easing: "cubic-in" },
@@ -1151,23 +1200,29 @@ function rand() {
         mode: "afterall",
     });
 
-    Plotly.animate("myDiv", {
-        data: [{ x: [], y: [] }],
-    }, {
-        transition: {
-            duration: 0,
+    Plotly.animate(
+        "myDiv",
+        {
+            data: [{ x: [], y: [] }],
         },
-        frame: {
-            duration: 0,
-            redraw: false,
+        {
+            transition: {
+                duration: 0,
+            },
+            frame: {
+                duration: 0,
+                redraw: false,
+            },
         },
-    });
+    );
 
     var ids = ["1", "2", "3", "4", "5", "6"];
 
-    Plotly.animate("myDiv", [{
-        data: [{ ids: ids }],
-    }]);
+    Plotly.animate("myDiv", [
+        {
+            data: [{ ids: ids }],
+        },
+    ]);
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -1194,21 +1249,13 @@ function rand() {
     // taken from https://plotly.com/python/reference/layout/yaxis/
     const regexXAxis = /^x([2-9]|[1-9][0-9]+)?( domain)?$/;
 
-    if (
-        !validXAxes.every(str => (
-            regexXAxis.test(str)
-        ))
-    ) {
+    if (!validXAxes.every((str) => regexXAxis.test(str))) {
         throw new Error(
             "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
         );
     }
 
-    if (
-        !invalidXAxes.every(str => (
-            !regexXAxis.test(str)
-        ))
-    ) {
+    if (!invalidXAxes.every((str) => !regexXAxis.test(str))) {
         throw new Error(
             "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
         );
@@ -1235,23 +1282,102 @@ function rand() {
     // taken from https://plotly.com/python/reference/layout/yaxis/
     const regexYAxis = /^y([2-9]|[1-9][0-9]+)?( domain)?$/;
 
-    if (
-        !validYAxes.every(str => (
-            regexYAxis.test(str)
-        ))
-    ) {
+    if (!validYAxes.every((str) => regexYAxis.test(str))) {
         throw new Error(
             "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
         );
     }
 
-    if (
-        !invalidYAxes.every(str => (
-            !regexXAxis.test(str)
-        ))
-    ) {
+    if (!invalidYAxes.every((str) => !regexXAxis.test(str))) {
         throw new Error(
             "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
         );
     }
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Layout.dragmode
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawclosedpath",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawopenpath",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawline",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawrect",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawcircle",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
 })();

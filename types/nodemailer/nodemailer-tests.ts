@@ -1720,23 +1720,50 @@ function mime_funcs_test() {
 // mime-node
 
 function mime_node_test() {
-    const mb = new MimeNode("text/plain", {
-        normalizeHeaderKey: key => key.toUpperCase(),
-    });
+    let mb: MimeNode;
+
+    // constructor
+    {
+        mb = new MimeNode();
+
+        mb = new MimeNode("text/plain");
+
+        mb = new MimeNode("text/plain", {});
+
+        mb = new MimeNode("text/plain", {
+            rootNode: mb,
+            parentNode: mb,
+            filename: "filename",
+            hostname: "hostname",
+            baseBoundary: "baseBoundary",
+            keepBcc: true,
+            newline: "win",
+            normalizeHeaderKey: key => key.toUpperCase(),
+            boundaryPrefix: "boundaryPrefix",
+            disableFileAccess: true,
+            disableUrlAccess: true,
+        });
+
+        mb = new MimeNode("text/plain", { textEncoding: "B" });
+        mb = new MimeNode("text/plain", { textEncoding: "Q" });
+    }
 
     const child = mb.createChild("multipart/mixed");
-    mb.appendChild(child);
-    child.replace(child);
+    mb = mb.appendChild(child);
+    mb = child.replace(child);
 
-    mb.setHeader("key", "value");
-    const value: string = mb.getHeader("key");
+    mb = mb.setHeader("key", "value");
 
-    mb.addHeader({
+    // $ExpectType string
+    mb.getHeader("key");
+
+    mb = mb.addHeader("key", "value1");
+    mb = mb.addHeader({
         key: "value4",
         key2: "value5",
     });
 
-    mb.setHeader([
+    mb = mb.setHeader([
         {
             key: "key",
             value: "value2",
@@ -1747,18 +1774,153 @@ function mime_node_test() {
         },
     ]);
 
-    mb.setHeader("key", ["value1", "value2", "value3"]);
+    mb = mb.setHeader("key", ["value1", "value2", "value3"]);
 
-    mb.setContent("abc");
+    mb = mb.setContent("abc");
 
-    mb.build((err, msg) => {
-        const msgAsString: string = msg.toString();
+    // $ExpectType void
+    mb.build((err, buf) => {
+        // $ExpectType Error | null
+        err;
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        buf;
     });
 
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+    mb.build();
+
+    // $ExpectType string
+    mb.getTransferEncoding();
+
+    // $ExpectType string
+    mb.buildHeaders();
+
+    {
+        // $ExpectType Readable
+        mb.createReadStream();
+
+        const options: stream.ReadableOptions = {};
+        // $ExpectType Readable
+        mb.createReadStream(options);
+    }
+
+    // $ExpectType void
+    mb.transform(new stream.Transform());
+
+    // $ExpectType void
     mb.processFunc(input => {
-        const isReadable: boolean = input.readable;
+        // $ExpectType Readable
+        input;
         return input;
     });
+
+    {
+        const outputStream = new stream.Readable();
+        const options: stream.ReadableOptions = {};
+
+        // $ExpectType void
+        mb.stream(outputStream, options, err => {
+            // $ExpectType Error | null | undefined
+            err;
+        });
+    }
+
+    {
+        let envelope: Mail.Envelope = {};
+        mb = mb.setEnvelope(envelope);
+    }
+
+    {
+        const addresses = mb.getAddresses();
+
+        // $ExpectType string[] | undefined
+        addresses.bcc;
+        // $ExpectType string[] | undefined
+        addresses.cc;
+        // $ExpectType string[] | undefined
+        addresses.from;
+        // $ExpectType string[] | undefined
+        addresses["reply-to"];
+        // $ExpectType string[] | undefined
+        addresses.sender;
+        // $ExpectType string[] | undefined
+        addresses.to;
+    }
+
+    {
+        const envelope = mb.getEnvelope();
+
+        // $ExpectType string | false
+        envelope.from;
+        // $ExpectType string[]
+        envelope.to;
+    }
+
+    // $ExpectType string
+    mb.messageId();
+
+    {
+        mb = mb.setRaw("raw");
+        mb = mb.setRaw(Buffer.from(""));
+        mb = mb.setRaw(new stream.Readable());
+    }
+
+    // $ExpectType string
+    mb.baseBoundary;
+
+    // $ExpectType string | false | undefined
+    mb.boundary;
+
+    // $ExpectType string
+    mb.boundaryPrefix;
+
+    // $ExpectType MimeNode[]
+    mb.childNodes;
+
+    // $ExpectType string | Buffer | Readable | undefined || string | Buffer<ArrayBufferLike> | Readable | undefined
+    mb.content;
+
+    // $ExpectType string | undefined
+    mb.contentType;
+
+    // $ExpectType Date
+    mb.date;
+
+    // $ExpectType boolean
+    mb.disableFileAccess;
+
+    // $ExpectType boolean
+    mb.disableUrlAccess;
+
+    // $ExpectType string | undefined
+    mb.filename;
+
+    // $ExpectType string | undefined
+    mb.hostname;
+
+    // $ExpectType boolean
+    mb.keepBcc;
+
+    // $ExpectType boolean | undefined
+    mb.multipart;
+
+    // $ExpectType string | undefined
+    mb.newline;
+
+    // $ExpectType number
+    mb.nodeCounter;
+
+    // $ExpectType ((key: string) => string) | undefined
+    mb.normalizeHeaderKey;
+
+    // $ExpectType MimeNode | undefined
+    mb.parentNode;
+
+    // $ExpectType MimeNode
+    mb.rootNode;
+
+    // $ExpectType "B" | "Q" | ""
+    mb.textEncoding;
 }
 
 // mime-types

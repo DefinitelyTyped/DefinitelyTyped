@@ -5,7 +5,7 @@ declare class Resources extends Map<string, unknown> {
     get<TArgs extends unknown[]>(key: string, callback?: ((...args: TArgs) => void) | null, ...params: TArgs): unknown;
 }
 
-export const global: Resources;
+export const ScriptableNodeResources: Resources;
 
 declare class ScriptableNode extends Node {
     codeNode: Node | null;
@@ -17,6 +17,6 @@ declare class ScriptableNode extends Node {
 export default ScriptableNode;
 
 export const scriptable: (
-    codeNode?: NodeRepresentation | null,
+    codeNode: NodeRepresentation,
     parameters?: Record<string, unknown>,
 ) => ShaderNodeObject<ScriptableNode>;

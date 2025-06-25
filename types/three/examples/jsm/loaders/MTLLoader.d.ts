@@ -38,8 +38,8 @@ export class MTLLoader extends Loader<MTLLoader.MaterialCreator> {
 }
 
 export interface MaterialInfo {
-    ks?: number[] | undefined;
     kd?: number[] | undefined;
+    ks?: number[] | undefined;
     ke?: number[] | undefined;
     map_kd?: string | undefined;
     map_ks?: string | undefined;
@@ -47,6 +47,7 @@ export interface MaterialInfo {
     norm?: string | undefined;
     map_bump?: string | undefined;
     bump?: string | undefined;
+    disp?: string | undefined;
     map_d?: string | undefined;
     ns?: number | undefined;
     d?: number | undefined;

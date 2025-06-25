@@ -61,7 +61,7 @@ export interface ShaderMaterialJSON extends MaterialJSON {
     defines?: Record<string, unknown>;
 
     vertexShader: string;
-    ragmentShader: string;
+    fragmentShader: string;
 
     lights: boolean;
     clipping: boolean;
@@ -78,11 +78,6 @@ export class ShaderMaterial extends Material {
      * @defaultValue `true`
      */
     readonly isShaderMaterial: true;
-
-    /**
-     * @default 'ShaderMaterial'
-     */
-    type: string;
 
     /**
      * @default {}

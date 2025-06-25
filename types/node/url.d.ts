@@ -5,7 +5,7 @@
  * ```js
  * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/url.js)
  */
 declare module "url" {
     import { Blob as NodeBlob } from "node:buffer";
@@ -420,14 +420,12 @@ declare module "url" {
          * Threads, `Blob` objects registered within one Worker will not be available
          * to other workers or the main thread.
          * @since v16.7.0
-         * @experimental
          */
         static createObjectURL(blob: NodeBlob): string;
         /**
          * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
          * ID that isn't registered will silently fail.
          * @since v16.7.0
-         * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
         static revokeObjectURL(id: string): void;
@@ -757,6 +755,57 @@ declare module "url" {
          */
         toJSON(): string;
     }
+    interface URLPatternComponentResult {
+        input: string;
+        groups: Record<string, string | undefined>;
+    }
+    interface URLPatternInit {
+        protocol?: string;
+        username?: string;
+        password?: string;
+        hostname?: string;
+        port?: string;
+        pathname?: string;
+        search?: string;
+        hash?: string;
+        baseURL?: string;
+    }
+    interface URLPatternOptions {
+        ignoreCase?: boolean;
+    }
+    interface URLPatternResult {
+        inputs: (string | URLPatternInit)[];
+        protocol: URLPatternComponentResult;
+        username: URLPatternComponentResult;
+        password: URLPatternComponentResult;
+        hostname: URLPatternComponentResult;
+        port: URLPatternComponentResult;
+        pathname: URLPatternComponentResult;
+        search: URLPatternComponentResult;
+        hash: URLPatternComponentResult;
+    }
+    /**
+     * @since v23.8.0
+     * @experimental
+     */
+    class URLPattern {
+        constructor(input: string | URLPatternInit, baseURL: string, options?: URLPatternOptions);
+        constructor(input?: string | URLPatternInit, options?: URLPatternOptions);
+        exec(input?: string | URLPatternInit, baseURL?: string): URLPatternResult | null;
+        readonly hasRegExpGroups: boolean;
+        readonly hash: string;
+        readonly hostname: string;
+        readonly password: string;
+        readonly pathname: string;
+        readonly port: string;
+        readonly protocol: string;
+        readonly search: string;
+        test(input?: string | URLPatternInit, baseURL?: string): boolean;
+        readonly username: string;
+    }
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.iterator](): URLSearchParamsIterator<T>;
+    }
     /**
      * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
@@ -827,7 +876,7 @@ declare module "url" {
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): URLSearchParamsIterator<[string, string]>;
         /**
          * Iterates over each name-value pair in the query and invokes the given function.
          *
@@ -881,7 +930,7 @@ declare module "url" {
          * //   foo
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): URLSearchParamsIterator<string>;
         /**
          * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
@@ -931,37 +980,33 @@ declare module "url" {
         /**
          * Returns an ES6 `Iterator` over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): URLSearchParamsIterator<string>;
+        [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
     }
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
+    import {
+        URL as _URL,
+        URLPattern as _URLPattern,
+        URLPatternInit as _URLPatternInit,
+        URLPatternResult as _URLPatternResult,
+        URLSearchParams as _URLSearchParams,
+    } from "url";
     global {
-        interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
-        interface Global {
-            URL: typeof _URL;
-            URLSearchParams: typeof _URLSearchParams;
-        }
-        /**
-         * `URL` class is a global reference for `import { URL } from 'url'`
-         * https://nodejs.org/api/url.html#the-whatwg-url-api
-         * @since v10.0.0
-         */
         var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer T;
         } ? T
             : typeof _URL;
-        /**
-         * `URLSearchParams` class is a global reference for `import { URLSearchParams } from 'node:url'`
-         * https://nodejs.org/api/url.html#class-urlsearchparams
-         * @since v10.0.0
-         */
+        interface URLSearchParams extends _URLSearchParams {}
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer T;
         } ? T
             : typeof _URLSearchParams;
+        interface URLPatternInit extends _URLPatternInit {}
+        interface URLPatternResult extends _URLPatternResult {}
+        interface URLPattern extends _URLPattern {}
+        var URLPattern: typeof _URLPattern;
     }
 }
 declare module "node:url" {

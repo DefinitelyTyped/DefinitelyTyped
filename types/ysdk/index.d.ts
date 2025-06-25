@@ -43,16 +43,58 @@ export interface SDK<TGlobalSigned extends boolean = false> {
         writeText(text: string): void;
     };
     deviceInfo: DeviceInfo;
+<<<<<<< HEAD
     environment: Environment;
     features: {
+=======
+
+    features: {
+        LoadingAPI: {
+            ready(): void;
+        };
+>>>>>>> dt/master
         GameplayAPI: {
             start(): void;
             stop(): void;
         };
+<<<<<<< HEAD
         LoadingAPI: {
             ready(): void;
         };
     };
+=======
+        GamesAPI: {
+            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
+        };
+    };
+
+    clipboard: {
+        writeText(text: string): void;
+    };
+
+    screen: {
+        fullscreen: {
+            STATUS_ON: "on";
+            STATUS_OFF: "off";
+            status: "on" | "off";
+            request(): Promise<void>;
+            exit(): Promise<void>;
+        };
+    };
+
+    getStorage(): Promise<SafeStorage>;
+
+    auth: {
+        openAuthDialog(): Promise<void>;
+    };
+
+    getPlayer<TSigned extends boolean = false>(opts?: {
+        signed?: TSigned;
+        scopes?: boolean;
+    }): Promise<TSigned extends true ? Signed<Player> : Player>;
+
+>>>>>>> dt/master
     feedback: {
         canReview(): Promise<{
             reason?: FeedbackError;
@@ -72,6 +114,22 @@ export interface SDK<TGlobalSigned extends boolean = false> {
             request(): Promise<void>;
         };
     };
+<<<<<<< HEAD
+=======
+
+    EVENTS: {
+        EXIT: "EXIT";
+        HISTORY_BACK: "HISTORY_BACK";
+    };
+
+    dispatchEvent(eventName: SdkEventName, detail?: any): Promise<unknown>;
+
+    on(eventName: GameAPIEventName | SdkEventName, listener: () => void): () => void;
+
+    /** @deprecated */
+    onEvent(eventName: SdkEventName, listener: () => void): () => void;
+
+>>>>>>> dt/master
     shortcut: {
         canShowPrompt(): Promise<{ canShow: boolean }>;
         showPrompt(): Promise<{ outcome: 'accepted' | 'rejected' }>;
@@ -92,6 +150,17 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     on(event: 'game_api_pause' | 'game_api_resume', observer: (...args: any) => any): () => void;
     onEvent(eventName: SdkEventName, listener: () => void): () => void;
     serverTime(): number;
+<<<<<<< HEAD
+=======
+}
+
+interface Game {
+    appID: string;
+    title: string;
+    url: string;
+    coverURL: string;
+    iconURL: string;
+>>>>>>> dt/master
 }
 
 interface ClientFeature {
@@ -259,7 +328,13 @@ export type FeedbackError = 'GAME_RATED' | 'NO_AUTH' | 'REVIEW_ALREADY_REQUESTED
 
 export type StickyAdvError = 'ADV_IS_NOT_CONNECTED' | 'UNKNOWN';
 
+<<<<<<< HEAD
 export type SdkEventName = 'EXIT' | 'HISTORY_BACK';
+=======
+export type GameAPIEventName = "game_api_pause" | "game_api_resume";
+
+export type SdkEventName = "EXIT" | "HISTORY_BACK";
+>>>>>>> dt/master
 
 export type ISO_639_1 =
     | 'af'

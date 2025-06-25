@@ -3,7 +3,7 @@
     "name": "@types/webostvjs",
     "version": "1.2.9999",
     "projects": [
-        "https://webostv.developer.lge.com/api/webostvjs/intro-webostvjs/"
+        "https://webostv.developer.lge.com/develop/references/webostvjs-introduction"
     ],
     "devDependencies": {
         "@types/webostvjs": "workspace:."

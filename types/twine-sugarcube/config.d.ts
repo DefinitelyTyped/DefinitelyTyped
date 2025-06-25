@@ -157,6 +157,7 @@ export interface ConfigAPI {
          *         return "description";
          *     }
          * };
+         * @deprecated 2.37.0 in favor of Config.saves.descriptions
          */
         descriptions: true | { [x: string]: string } | DescriptionHandler | null;
         /**
@@ -341,7 +342,7 @@ export interface ConfigAPI {
          * 	}
          * };
          */
-        descriptions: (saveType: SaveType) => string | null;
+        descriptions: (saveType: SaveType) => string | null | undefined;
 
         /**
          * Sets the story ID associated with saves.

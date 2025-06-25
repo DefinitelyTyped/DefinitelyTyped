@@ -1,22 +1,11 @@
-import { ReadStreamOptions } from "fs-capacitor";
-import { GraphQLScalarType } from "graphql";
-import { IncomingMessage, ServerResponse } from "node:http";
-import { Readable } from "node:stream";
+import type { ReadStreamOptions } from "fs-capacitor";
+import type { IncomingMessage, ServerResponse } from "node:http";
+import type { Readable } from "node:stream";
 
 export interface ProcessRequestOptions {
     maxFieldSize?: number | undefined;
     maxFileSize?: number | undefined;
     maxFiles?: number | undefined;
-}
-
-// We are keeping this type just to avoid breaking changes, but it should be removed on the next major release.
-export type UploadOptions = ProcessRequestOptions;
-
-// We are keeping this interface just to avoid breaking changes, but it should be removed on the next major release.
-export interface GraphQLOperation {
-    query: string;
-    operationName?: null | string | undefined;
-    variables?: null | unknown | undefined;
 }
 
 export default function processRequest(
@@ -31,8 +20,6 @@ export default function processRequest(
         [key: string]: unknown;
     }>
 >;
-
-export type GraphQLUpload = GraphQLScalarType<any, any>;
 
 export interface FileUpload {
     filename: string;

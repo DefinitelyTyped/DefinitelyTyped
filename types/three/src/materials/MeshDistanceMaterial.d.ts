@@ -24,11 +24,6 @@ export class MeshDistanceMaterial extends Material {
     readonly isMeshDistanceMaterial: true;
 
     /**
-     * @default 'MeshDistanceMaterial'
-     */
-    type: string;
-
-    /**
      * @default null
      */
     map: Texture | null;
@@ -52,11 +47,6 @@ export class MeshDistanceMaterial extends Material {
      * @default 0
      */
     displacementBias: number;
-
-    /**
-     * @default false
-     */
-    fog: boolean;
 
     setValues(parameters: MeshDistanceMaterialParameters): void;
 }

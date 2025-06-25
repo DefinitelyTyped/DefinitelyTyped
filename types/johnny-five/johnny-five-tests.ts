@@ -6,6 +6,10 @@ board.on("connect", () => {});
 
 board
     .on("ready", () => {
+        board.i2cConfig();
+        board.sysexResponse(0x39, (data) => {});
+        board.sysexCommand([0x39]);
+
         board.pinMode(13, five.Pin.OUTPUT);
         board.pinMode(13, 0);
         const pin = new five.Pin(13);
@@ -75,6 +79,14 @@ board
         escs.throttle(80);
 
         escs.forEach(item => item.brake());
+
+        // Expander + virtual board
+        const expander = new five.Expander("MCP23017");
+        const virtual = new five.Board.Virtual(expander);
+        new five.Led({
+            board: virtual,
+            pin: 2,
+        });
 
         new five.Motion(7);
 

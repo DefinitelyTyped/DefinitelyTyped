@@ -1,9 +1,9 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-invalid-void-type": "off"
     }

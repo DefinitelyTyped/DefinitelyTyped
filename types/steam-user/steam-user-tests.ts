@@ -101,8 +101,15 @@ user.getProductInfo([730], [420])
 user.getProductChanges(0)
     .then(response => {
         void response.currentChangeNumber;
+        void response.appChanges.length;
+        void response.packageChanges.length;
     })
     .catch(err => console.error(err));
+
+user.getProductChanges(0, (err, currentChangeNumber, appChanges, packageChanges) => {
+    void appChanges.length;
+    void packageChanges.length;
+});
 
 const owned = user.getOwnedApps();
 console.log(owned);
@@ -292,3 +299,13 @@ user.activateAuthSessionTickets(730, [Buffer.alloc(42), Buffer.alloc(43)]);
 user.activateAuthSessionTickets(730, Buffer.alloc(44));
 // $ExpectType Promise<UserOwnedApps>
 user.getUserOwnedApps(new SteamID("76561197960287930"));
+
+user.on("appUpdate", (appid, data) => {
+    // $ExpectType AppInfo
+    data;
+});
+
+user.on("packageUpdate", (packageid, data) => {
+    // $ExpectType PackageInfo
+    data;
+});

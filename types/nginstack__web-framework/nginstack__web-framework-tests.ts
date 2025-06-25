@@ -64,7 +64,6 @@ grid.definitionClass; // $ExpectType number | null
 grid.definitionName; // $ExpectType number | null
 grid.column; // $ExpectType number
 grid.breakLine; // $ExpectType boolean
-grid.cssClass; // $ExpectType any
 grid.width; // $ExpectType string
 grid.confirmDelete; // $ExpectType boolean
 grid.confirmCancel; // $ExpectType boolean
@@ -109,8 +108,6 @@ grid.persist(); // $ExpectType number
 grid.write(); // $ExpectType void
 grid.userKeyToValidatePermissions; // $ExpectType number
 grid.validateFieldPermissions; // $ExpectType boolean
-grid.scroll("action"); // $ExpectType void
-grid.duplicateRecord(); // $ExpectType void
 grid.lookup(gridField); // $ExpectType void
 grid.expand("nodeValue"); // $ExpectType void
 grid.colapse("nodeValue"); // $ExpectType void
@@ -118,6 +115,6 @@ grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility("field"); // $ExpectType void
 
 function getVersion(): string {
-    return "71.0.256";
+    return "72.0.12";
 }
 getVersion(); // $ExpectType string

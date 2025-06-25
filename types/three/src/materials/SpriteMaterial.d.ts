@@ -21,11 +21,6 @@ export class SpriteMaterial extends Material {
     readonly isSpriteMaterial: true;
 
     /**
-     * @default 'SpriteMaterial'
-     */
-    type: string;
-
-    /**
      * @default new THREE.Color( 0xffffff )
      */
     color: Color;

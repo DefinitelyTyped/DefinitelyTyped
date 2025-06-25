@@ -17,11 +17,6 @@ export class LineDashedMaterial extends LineBasicMaterial {
     readonly isLineDashedMaterial: true;
 
     /**
-     * @default 'LineDashedMaterial'
-     */
-    type: string;
-
-    /**
      * @default 1
      */
     scale: number;

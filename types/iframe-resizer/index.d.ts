@@ -1,12 +1,26 @@
 declare namespace iframeResizer {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameObject {
+        /** Remove the iFrame from the page. */
         close(): void;
 
+        /** Move to anchor in iFrame. */
         moveToAnchor(anchor: string): void;
 
+        /**
+         * Detach event listeners from iFrame. This is option allows Virtual DOMs to remove an
+         * iFrame tag. It should not normally be required.
+         */
+        removeListeners(): void;
+
+        /** Tell the iFrame to resize itself. */
         resize(): void;
 
+        /**
+         * Send data to the containing page, message can be any data type that can be serialized
+         * into JSON. The targetOrigin option is used to restrict where the message is sent to,
+         * in case your iFrame navigates away to another domain.
+         */
         sendMessage(
             message: any,
             targetOrigin?: string,
@@ -106,30 +120,53 @@ declare namespace iframeResizer {
          */
         tolerance?: number | undefined;
         /**
+         * Set the number of milliseconds after which a warning is logged if the iFrame has not responded.
+         * Set to 0 to supress warning messages of this type.
+         */
+        warningTimeout?: number | undefined;
+        /**
          * Width calculation method.
          */
         widthCalculationMethod?: WidthCalculationMethod | undefined;
 
         /**
          * Called when iFrame is closed via parentIFrame.close() or iframe.iframeResizer.close() methods.
+         * eturning false will prevent the iFrame from closing.
          */
-        closedCallback?(iframeId: string): void;
+        onClose?(iframeId: string): void;
 
         /**
-         * Initial setup callback function.
+         * Called after iFrame is closed via parentIFrame.close() or iframe.iFrameResizer.close() methods.
          */
-        initCallback?(iframe: IFrameComponent): void;
+        onClosed?(iframeId: string): void;
+
+        /**
+         * Called after initial setup.
+         */
+        onInit?(iframe: IFrameComponent): void;
 
         /**
          * Receive message posted from iFrame with the parentIFrame.sendMessage() method.
          */
-        messageCallback?(data: IFrameMessageData): void;
+        onMessage?(data: IFrameMessageData): void;
 
         /**
-         * Function called after iFrame resized. Passes in messageData object containing the iFrame, height, width
-         * and the type of event that triggered the iFrame to resize.
+         * Function called after the mouse enters the iframe. Passes messageData object containing
+         * the iFrame, screenX, screenY and the type of event that triggered the callback.
          */
-        resizedCallback?(data: IFrameResizedData): void;
+        onMouseEnter?(data: IFrameResizedData): void;
+
+        /**
+         * Function called after the mouse leaves the iframe. Passes messageData object containing
+         * the iFrame, screenX, screenY and the type of event that triggered the callback.
+         */
+        onMouseLeave?(data: IFrameResizedData): void;
+
+        /**
+         * Function called after iFrame resized. Passes messageData object containing the iFrame,
+         * height, width and the type of event that triggered the iFrame to resize.
+         */
+        onResized?(data: IFrameResizedData): void;
 
         /**
          * Called before the page is repositioned after a request from the iFrame, due to either an in page link,
@@ -137,7 +174,7 @@ declare namespace iframeResizer {
          * If this callback function returns false, it will stop the library from repositioning the page, so that
          * you can implement your own animated page scrolling instead.
          */
-        scrollCallback?(data: IFrameScrollData): boolean;
+        onScroll?(data: IFrameScrollData): boolean;
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -151,12 +188,12 @@ declare namespace iframeResizer {
         /**
          * Receive message posted from the parent page with the iframe.iFrameResizer.sendMessage() method.
          */
-        messageCallback?(message: any): void;
+        onMessage?(message: any): void;
 
         /**
          * This function is called once iFrame-Resizer has been initialized after receiving a call from the parent page.
          */
-        readyCallback?(): void;
+        onReady?(): void;
 
         /**
          * These option can be used to override the option set in the parent page

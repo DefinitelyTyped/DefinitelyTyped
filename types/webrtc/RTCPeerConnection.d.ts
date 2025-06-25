@@ -81,7 +81,7 @@ interface RTCIceParameters {
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicerole
-type RTCIceRole = "controlled" | "controlling" | "unknown";
+// type RTCIceRole = "controlled" | "controlling" | "unknown";
 
 interface RTCIceTransportEventMap {
     "gatheringstatechange": Event;
@@ -127,7 +127,7 @@ interface RTCIceTransport extends EventTarget {
 }
 
 interface RTCDtlsTransportEventMap {
-    "error": Event;
+    "error": RTCErrorEvent;
     "statechange": Event;
 }
 
@@ -137,7 +137,7 @@ interface RTCDtlsTransport extends EventTarget {
     readonly iceTransport: RTCIceTransport;
     readonly state: RTCDtlsTransportState;
     getRemoteCertificates(): ArrayBuffer[];
-    onerror: DtlsTransportEventHandler<Event>;
+    onerror: DtlsTransportEventHandler<RTCErrorEvent>;
     onstatechange: DtlsTransportEventHandler<Event>;
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(
         type: K,

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vue3-json-viewer",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/qiuquanwu/vue3-json-viewer"
+    ],
+    "dependencies": {
+        "vue": "^3.2.0"
+    },
+    "devDependencies": {
+        "@types/vue3-json-viewer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "String10",
+            "githubUsername": "String10"
+        }
+    ]
+}

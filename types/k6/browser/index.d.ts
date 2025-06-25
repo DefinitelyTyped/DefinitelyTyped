@@ -163,6 +163,8 @@ export type ElementClickOptions = ElementHandlePointerOptions & {
     position?: { x: number; y: number };
 };
 
+export type FrameCheckOptions = ElementClickOptions;
+
 export interface KeyboardModifierOptions {
     /**
      * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
@@ -391,19 +393,17 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = "raf" | "mutation" | "interval";
+export type PollingMethod = number | "raf" | "mutation";
 
 export interface PollingOptions {
     /**
-     * Polling method to use.
-     * @default 'raf'
+     * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
+     * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+     * will be called when a change is made to the DOM tree. If `polling` is
+     * a number, then it is treated as an interval in milliseconds at which
+     * the function would be executed. Defaults to `raf`.
      */
-    polling?: "raf" | "mutation" | "interval";
-
-    /**
-     * Polling interval in milliseconds if `polling` is set to `interval`.
-     */
-    interval?: number;
+    polling?: PollingMethod;
 }
 
 export interface ElementStateFilter {
@@ -937,6 +937,65 @@ export interface ConsoleMessage {
 }
 
 /**
+ * {@link MetricMessage} objects are dispatched by page via the
+ * `page.on('metric')` event. For each metric that it measured and emitted for
+ * the page, k6 browser delivers it to the registered handlers.
+ *
+ * ```js
+ * // Listen for all metric messages in the page and call its tag method to
+ * // tag matching URLs with the new tag name.
+ * page.on('metric', (metric) => {
+ *   metric.tag({
+ *     name: 'test',
+ *     matches: [
+ *       {url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/, method: 'GET'},
+ *     ]
+ *   });
+ * });
+ * ```
+ */
+export interface MetricMessage {
+    /**
+     * tag will match the given `tagMatch.matches` with the current metric's URL
+     * and name tags. When a match is found it will use `tagMatch.name` to replace
+     * the existing URL and name tag values.
+     *
+     * Doing this helps group metrics with different URL and name tags that, in
+     * fact, reference the same resource, allowing for correlation over time and
+     * reducing the cardinality of the metrics.
+     * @param tagMatch
+     */
+    tag(tagMatch: {
+        /**
+         * The name value that replaces the current metric's URL and name
+         * tag values, if a match is found. Required, and must not be an
+         * empty string.
+         */
+        name: string;
+
+        /**
+         * An array of objects containing the matchers which will be used
+         * to match against the current metric's URL and name tags.
+         * Required.
+         */
+        matches: Array<{
+            /**
+             * The regular expression used to find matches in the current
+             * metric's URL and name tags. Required.
+             */
+            url: RegExp;
+
+            /**
+             * Used to match the metric's method tag. It's optional, and when
+             * it's not set it will group all metrics regardless of the method
+             * tag.
+             */
+            method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT";
+        }>;
+    }): void;
+}
+
+/**
  * {@link Cookie} represents a cookie in a {@link BrowserContext}.
  *
  * @see
@@ -1334,6 +1393,14 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: ElementClickOptions & StrictnessOptions): Promise<void>;
+
+    /**
      * Sets the file input element's value to the specified files.
      *
      * To work with local files on the file system, use the experimental
@@ -1577,6 +1644,15 @@ export interface Frame {
      * @returns A promise that resolves to the HTTP response object.
      */
     goto(url: string, options?: NavigationOptions): Promise<Response | null>;
+
+    /**
+     * Checks or unchecks the input checkbox element.
+     * @param selector A selector to search for an element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(selector: string, checked: boolean, options?: FrameCheckOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Replace the entire HTML document content.
@@ -2028,6 +2104,14 @@ export interface Locator {
         values: string | string[] | { value?: string; label?: string; index?: number },
         options?: ElementHandleOptions,
     ): Promise<string[]>;
+
+    /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: FrameCheckOptions): Promise<void>;
 
     /**
      * Press a single key on the keyboard or a combination of keys.
@@ -2928,6 +3012,61 @@ export interface Page {
     on(event: "console", listener: (consoleMessage: ConsoleMessage) => void): void;
 
     /**
+     * page.on('metric') will register a background handler that will listen out
+     * for metrics that are measured and emitted for the page.
+     *
+     * When a {@link MetricMessage} is received by the handler, it can be used to
+     * group different metrics tagged with URL and name so that a correlation can
+     * be found and to reduce the cardinality of the metrics.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Listen for all metric messages in the page and call its tag method to
+     * // tag matching URLs with the new tag name.
+     * page.on('metric', (metric) => {
+     *   metric.tag({
+     *     name: 'test',
+     *     matches: [
+     *       {url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/, method: 'GET'},
+     *     ]
+     *   });
+     * });
+     * ```
+     */
+    on(event: "metric", listener: (metricMessage: MetricMessage) => void): void;
+
+    /**
+     * Registers a handler function to listen for the network requests that
+     * the page makes. The handler will receive an instance of {@link Request},
+     * which includes information about the request.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('request', request => {
+     *   console.log(request.url());
+     * });
+     * ```
+     */
+    on(event: "request", listener: (request: Request) => void): void;
+
+    /**
+     * Registers a handler function to listen for the network responses that the
+     * page receives. The handler will receive an instance of {@link Response},
+     * which includes information about the response.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('response', response => {
+     *   console.log(response.url());
+     * });
+     * ```
+     */
+    on(event: "response", listener: (response: Response) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
@@ -3065,6 +3204,15 @@ export interface Page {
             fullPage?: boolean;
         } & ScreenshotOptions,
     ): Promise<ArrayBuffer>;
+
+    /**
+     * Checks or unchecks the input checkbox element.
+     * @param selector A selector to search for an element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(selector: string, checked: boolean, options?: FrameCheckOptions & StrictnessOptions): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.
@@ -3359,7 +3507,7 @@ export interface Page {
      * **Usage**
      *
      * ```js
-     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * import { browser, networkProfiles } from 'k6/browser';
      * ... // redacted
      *   const context = browser.newContext();
      *   const page = context.newPage();
@@ -3516,11 +3664,12 @@ export interface Page {
         options?: {
             /**
              * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
-             * `requestAnimationFrame` callback. If `polling` is a number, then it is
-             * treated as an interval in milliseconds at which the function would be
-             * executed. Defaults to `raf`.
+             * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+             * will be called when a change is made to the DOM tree. If `polling` is
+             * a number, then it is treated as an interval in milliseconds at which
+             * the function would be executed. Defaults to `raf`.
              */
-            polling?: number | "raf";
+            polling?: PollingMethod;
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is

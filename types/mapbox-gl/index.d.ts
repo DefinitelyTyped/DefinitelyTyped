@@ -1962,6 +1962,7 @@ declare namespace mapboxgl {
 
     type Alignment = "map" | "viewport" | "auto";
 
+    /** @see https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker-parameters */
     export interface MarkerOptions {
         /** DOM element to use as a marker. The default is a light blue, droplet-shaped SVG marker */
         element?: HTMLElement | undefined;
@@ -1977,6 +1978,9 @@ declare namespace mapboxgl {
 
         /** The color to use for the default marker if options.element is not provided. The default is light blue (#3FB1CE). */
         color?: string | undefined;
+
+        /** Space-separated CSS class names to add to marker element. */
+        className?: string | undefined;
 
         /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean | undefined;

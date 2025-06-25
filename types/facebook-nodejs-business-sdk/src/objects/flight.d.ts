@@ -9,6 +9,16 @@ export default class Flight extends AbstractCrudObject {
         applinks: "applinks";
         category_specific_fields: "category_specific_fields";
         currency: "currency";
+        custom_label_0: "custom_label_0";
+        custom_label_1: "custom_label_1";
+        custom_label_2: "custom_label_2";
+        custom_label_3: "custom_label_3";
+        custom_label_4: "custom_label_4";
+        custom_number_0: "custom_number_0";
+        custom_number_1: "custom_number_1";
+        custom_number_2: "custom_number_2";
+        custom_number_3: "custom_number_3";
+        custom_number_4: "custom_number_4";
         description: "description";
         destination_airport: "destination_airport";
         destination_city: "destination_city";
@@ -21,6 +31,11 @@ export default class Flight extends AbstractCrudObject {
         origin_airport: "origin_airport";
         origin_city: "origin_city";
         price: "price";
+        product_priority_0: "product_priority_0";
+        product_priority_1: "product_priority_1";
+        product_priority_2: "product_priority_2";
+        product_priority_3: "product_priority_3";
+        product_priority_4: "product_priority_4";
         sanitized_images: "sanitized_images";
         tags: "tags";
         unit_price: "unit_price";
@@ -39,8 +54,8 @@ export default class Flight extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOverrideDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Flight>;
     update(fields: string[], params?: Record<string, any>): Promise<Flight>;

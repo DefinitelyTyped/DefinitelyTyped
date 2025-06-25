@@ -2,6 +2,13 @@
     "private": true,
     "name": "@types/html-escaper",
     "version": "3.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "default": "./index.d.cts"
+        }
+    },
     "projects": [
         "https://github.com/WebReflection/html-escaper"
     ],

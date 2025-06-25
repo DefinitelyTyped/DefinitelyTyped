@@ -54,20 +54,25 @@ declare namespace __ParcelModuleApi {
     type __Require1 = (id: string) => any;
     type __Require2 = <T>(id: string) => T;
     type RequireLambda = __Require1 & __Require2;
+
+    namespace __NodeGlobalInterfacePolyfill {
+        type Module = NodeJS.Process extends { version: string } ? {} : NodeJS.Module;
+        type Require = NodeJS.Process extends { version: string } ? {} : NodeJS.Require;
+    }
 }
-
-interface NodeRequire extends __ParcelModuleApi.RequireFunction {}
-
-declare var require: NodeRequire;
-
-interface NodeModule extends __ParcelModuleApi.Module {}
-
-declare var module: NodeModule;
 
 /**
  * Declare process variable
  */
 declare namespace NodeJS {
+    interface Module extends __ParcelModuleApi.Module {}
     interface Process extends __ParcelModuleApi.NodeProcess {}
+    interface Require extends __ParcelModuleApi.RequireFunction {}
 }
+
+interface NodeModule extends __ParcelModuleApi.__NodeGlobalInterfacePolyfill.Module {}
+interface NodeRequire extends __ParcelModuleApi.__NodeGlobalInterfacePolyfill.Require {}
+
+declare var module: NodeJS.Module;
 declare var process: NodeJS.Process;
+declare var require: NodeJS.Require;

@@ -61,6 +61,9 @@ button.off(element); // $ExpectType void
 
 // Character Count
 characterCount.DEFAULT_STATUS_LABEL; // $ExpectType string
+characterCount.FORM_GROUP_ERROR_CLASS; // $ExpectType string
+characterCount.LABEL_ERROR_CLASS; // $ExpectType string
+characterCount.INPUT_ERROR_CLASS; // $ExpectType string
 characterCount.MESSAGE_INVALID_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_SR_ONLY_CLASS; // $ExpectType string
@@ -338,7 +341,7 @@ import("@uswds/uswds").then((imports) => {
         component.off(element); // $ExpectType void
     });
 });
-import("@uswds/uswds/src/js/components").then((imports) => {
+import("@uswds/uswds/src/js/components/index.js").then((imports) => {
     Object.keys(components).forEach((key) => {
         const component = imports[key as ComponentKey];
         component.on(); // $ExpectType void

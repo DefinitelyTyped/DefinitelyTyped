@@ -1,5 +1,16 @@
-import { TempNode, TextureNode, UniformNode, Vector2, Vector3 } from "three/tsl";
-import { BufferGeometry, Color, ColorRepresentation, Mesh, NodeMaterial, Texture } from "three/webgpu";
+import {
+    BufferGeometry,
+    Color,
+    ColorRepresentation,
+    Mesh,
+    NodeMaterial,
+    TempNode,
+    Texture,
+    TextureNode,
+    UniformNode,
+    Vector2,
+    Vector3,
+} from "three/webgpu";
 
 export interface WaterMeshOptions {
     normalMap0: Texture;

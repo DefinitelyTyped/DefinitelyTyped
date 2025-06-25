@@ -114,7 +114,7 @@ export interface ArgumentOptions {
     const?: any;
     default?: any;
     // type may be a string (primitive) or a Function (constructor)
-    type?: string | Function | undefined; // eslint-disable-line @typescript-eslint/ban-types
+    type?: string | Function | undefined; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
     choices?: string | string[] | undefined;
     required?: boolean | undefined;
     help?: string | undefined;

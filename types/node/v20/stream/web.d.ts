@@ -97,7 +97,7 @@ declare module "stream/web" {
         signal?: AbortSignal;
     }
     interface ReadableStreamGenericReader {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         cancel(reason?: any): Promise<void>;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
@@ -166,6 +166,9 @@ declare module "stream/web" {
     interface ReadableStreamErrorCallback {
         (reason: any): void | PromiseLike<void>;
     }
+    interface ReadableStreamAsyncIterator<T> extends NodeJS.AsyncIterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.asyncIterator](): ReadableStreamAsyncIterator<T>;
+    }
     /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
@@ -176,8 +179,8 @@ declare module "stream/web" {
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
-        values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
-        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
+        values(options?: { preventCancel?: boolean }): ReadableStreamAsyncIterator<R>;
+        [Symbol.asyncIterator](): ReadableStreamAsyncIterator<R>;
     }
     const ReadableStream: {
         prototype: ReadableStream;
@@ -202,7 +205,12 @@ declare module "stream/web" {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader) */
     interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
         /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/read) */
-        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        read<T extends ArrayBufferView>(
+            view: T,
+            options?: {
+                min?: number;
+            },
+        ): Promise<ReadableStreamReadResult<T>>;
         /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/releaseLock) */
         releaseLock(): void;
     }
@@ -299,9 +307,9 @@ declare module "stream/web" {
      * sink.
      */
     interface WritableStreamDefaultWriter<W = any> {
-        readonly closed: Promise<undefined>;
+        readonly closed: Promise<void>;
         readonly desiredSize: number | null;
-        readonly ready: Promise<undefined>;
+        readonly ready: Promise<void>;
         abort(reason?: any): Promise<void>;
         close(): Promise<void>;
         releaseLock(): void;

@@ -1,4 +1,14 @@
-import OvenPlayer, { OvenPlayerQuality } from "ovenplayer";
+import OvenPlayer, {
+    create,
+    debug,
+    generateWebrtcUrls,
+    getPlayerByContainerId,
+    getPlayerByIndex,
+    getPlayerList,
+    OvenPlayerEvents,
+    OvenPlayerQuality,
+    removePlayer,
+} from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
@@ -8,17 +18,17 @@ document.body.appendChild(playerContainer1);
 // interface OvenPlayerWebRTCStream and interface OvenPlayerSource
 
 // debug(debug: boolean): boolean;
-const debug: boolean = OvenPlayer.debug(true);
+const debugEnabled: boolean = debug(true);
 
 // generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-const webrtcSources1 = OvenPlayer.generateWebrtcUrls({
+const webrtcSources1 = generateWebrtcUrls({
     host: "ws://host:port",
     application: "app",
     stream: "stream_1080",
     label: "WebRTC 1080P",
 });
 
-const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
+const webrtcSources2 = generateWebrtcUrls([
     {
         host: "ws://host:port",
         application: "app",
@@ -28,7 +38,7 @@ const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
 ]);
 
 // create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
-const player = OvenPlayer.create("player1", {
+const player = create("player1", {
     mute: true,
     playbackRates: [1, 2, 3, 3],
     waterMark: {
@@ -68,16 +78,20 @@ const player = OvenPlayer.create("player1", {
             },
         ],
     },
+    doubleTapToSeek: true,
+    parseStream: {
+        enabled: true,
+    },
 });
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-const playerInstance1 = OvenPlayer.getPlayerByContainerId("player");
+const playerInstance1 = getPlayerByContainerId("player");
 
 // getPlayerByIndex(index: number): OvenPlayerInstance | null;
-const playerInstance2 = OvenPlayer.getPlayerByIndex(0);
+const playerInstance2 = getPlayerByIndex(0);
 
 // getPlayerList(): OvenPlayerInstance[];
-OvenPlayer.getPlayerList();
+getPlayerList();
 
 // test interface OvenPlayerInstance
 
@@ -168,19 +182,52 @@ const videoElement: HTMLVideoElement = player.getMediaElement();
 // on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
 player.on("ready", () => {});
 
-// once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
-player.once("stateChanged", data => {});
+// once(eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+player.once("stateChanged", () => {});
 
-player.on("volumeChanged", data => {
+player.on("volumeChanged", (data: { volume: number; mute: boolean }) => {
     // $ExpectType number
     data.volume;
     // $ExpectType boolean
     data.mute;
 });
 
-player.on("playbackRateChanged", data => {
+player.on("playbackRateChanged", (data: { playbackRate: number }) => {
     // $ExpectType number
     data.playbackRate;
+});
+
+player.on("metaData", (data: {
+    type: string;
+    nalu: Uint8Array;
+    sei: {
+        type: string;
+        size: number;
+        payload: Uint8Array;
+    };
+    registered: boolean;
+    uuid: string;
+    timecode: number;
+    userdata: Uint8Array;
+}) => {
+    // $ExpectType string
+    data.type;
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    data.nalu;
+    // $ExpectType string
+    data.sei.type;
+    // $ExpectType number
+    data.sei.size;
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    data.sei.payload;
+    // $ExpectType boolean
+    data.registered;
+    // $ExpectType string
+    data.uuid;
+    // $ExpectType number
+    data.timecode;
+    // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    data.userdata;
 });
 
 // off(eventName: keyof OvenPlayerEvents): void;
@@ -189,19 +236,14 @@ player.off("ready");
 // remove(): void;
 player.remove();
 
-// @ts-expect-error: it's deprecated method, should throw error for newest users.
-player.setCaption({
-    // you can use player.setCaption?.()
-    file: "https://youtu.be/dQw4w9WgXcQ",
-    kind: "caption",
-    label: "label",
-});
-
-player.addCaption({
-    file: "https://youtu.be/dQw4w9WgXcQ",
-    kind: "caption",
-    label: "label",
-});
-
 // removePlayer(player: OvenPlayerInstance): void;
-OvenPlayer.removePlayer(player);
+removePlayer(player);
+
+// test named import type overlap
+OvenPlayer.create === create;
+OvenPlayer.debug === debug;
+OvenPlayer.generateWebrtcUrls === generateWebrtcUrls;
+OvenPlayer.getPlayerByContainerId === getPlayerByContainerId;
+OvenPlayer.getPlayerByIndex === getPlayerByIndex;
+OvenPlayer.getPlayerList === getPlayerList;
+OvenPlayer.removePlayer === removePlayer;

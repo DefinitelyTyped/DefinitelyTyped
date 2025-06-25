@@ -36,3 +36,11 @@ pxtorem({ minPixelValue: "2" });
 pxtorem({ exclude: "file" });
 // @ts-expect-error
 pxtorem({ exclude: 2 });
+
+pxtorem({ rootValue: () => 16 });
+// @ts-expect-error
+pxtorem({ rootValue: () => "16px" });
+
+pxtorem({ unit: "px" });
+// @ts-expect-error
+pxtorem({ unit: 0 });

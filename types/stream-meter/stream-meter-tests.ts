@@ -1,9 +1,14 @@
-import meter = require("stream-meter");
+import process from "node:process";
+import meter, { StreamMeter, StreamMeterConstruct } from "stream-meter";
 
-var m: meter.StreamMeter = meter();
+// $ExpectType StreamMeterConstruct
+meter;
+
+// $ExpectType StreamMeter
+let m = meter();
 process.stdin.pipe(m).pipe(process.stdout);
 
-var bytes: number;
+let bytes: number;
 bytes = m.bytes;
 bytes = m.maxBytes;
 m.on("error", () => {});
@@ -11,8 +16,7 @@ m.on("error", () => {});
 // with argument
 m = meter(129);
 
-// stream-meter support following constructing
-// but i cannot declare such object in typescript
-
-// m = new meter();
-// m = new meter(123);
+// $ExpectType StreamMeter
+m = new meter();
+// $ExpectType StreamMeter
+m = new meter(123);

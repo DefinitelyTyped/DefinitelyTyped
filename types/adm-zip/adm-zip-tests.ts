@@ -53,7 +53,9 @@ new AdmZip();
 new AdmZip(undefined, { method: Constants.DEFLATED });
 
 // add file directly
-zip.addFile("test.txt", new Buffer("inner content of the file"), "entry comment goes here");
+const addedEntry = zip.addFile("test.txt", new Buffer("inner content of the file"), "entry comment goes here");
+console.log("added", addedEntry.name);
+processZipEntry(addedEntry);
 // add local file
 zip.addLocalFile("/home/me/some_picture.png");
 // get everything as a buffer

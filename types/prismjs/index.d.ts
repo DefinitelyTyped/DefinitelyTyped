@@ -151,12 +151,10 @@ export namespace util {
     /** Determine the type of the object */
     function type(o: null): "Null";
     function type(o: undefined): "Undefined";
-    // tslint:disable:ban-types
-    function type(o: boolean | Boolean): "Boolean";
-    function type(o: number | Number): "Number";
-    function type(o: string | String): "String";
-    function type(o: Function): "Function";
-    // tslint:enable:ban-types
+    function type(o: boolean | Boolean): "Boolean"; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    function type(o: number | Number): "Number"; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    function type(o: string | String): "String"; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
+    function type(o: Function): "Function"; // eslint-disable-line @typescript-eslint/no-wrapper-object-types
     function type(o: RegExp): "RegExp";
     function type(o: any[]): "Array";
     function type(o: any): string;
