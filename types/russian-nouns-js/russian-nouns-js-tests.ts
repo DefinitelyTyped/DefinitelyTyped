@@ -12,6 +12,8 @@ import {
 
 const rne = new Engine();
 
+let num: number;
+let str: string;
 let result: string[];
 let results: string[][];
 
@@ -27,7 +29,7 @@ let coat: Lemma = createLemma({
 
 result = rne.decline(coat, Case.GENITIVE);
 
-coat.getDeclension();
+num = coat.getDeclension();
 
 let mountain: Lemma = createLemma({
     text: "гора",
@@ -45,9 +47,6 @@ const pluralMountain: string = result[0];
 results = CASES.map(function(c: Case) {
     return rne.decline(mountain, c, pluralMountain);
 });
-
-let num: number;
-let str: string;
 
 num = mountain.getDeclension();
 num = mountain.getSchoolDeclension();
