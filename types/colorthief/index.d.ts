@@ -18,7 +18,7 @@ declare namespace ColorThief {
          * For getColor(), this is internally set to 5
          */
         colorCount?: number;
-        
+
         /**
          * Quality/speed trade-off (1 = highest quality, 10 = default)
          * Higher numbers are faster but may miss colors

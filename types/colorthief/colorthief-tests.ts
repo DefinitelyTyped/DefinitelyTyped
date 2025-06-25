@@ -2,11 +2,11 @@
 // This file should compile without errors when the types are correct
 
 // Import the ColorThief class for testing
-import ColorThief from 'colorthief';
+import ColorThief from "colorthief";
 
 // Browser version tests
 const colorThief = new ColorThief();
-const img = document.createElement('img');
+const img = document.createElement("img");
 
 // Test getColor method
 const dominantColor: ColorThief.RGBColor = colorThief.getColor(img);
@@ -17,25 +17,31 @@ const palette: ColorThief.RGBColor[] = colorThief.getPalette(img);
 const paletteWithOptions: ColorThief.RGBColor[] = colorThief.getPalette(img, 8, 5);
 
 // Test callback-based methods with proper typing
-colorThief.getColorFromUrl('https://example.com/image.jpg', (color: ColorThief.RGBColor, source: HTMLImageElement | string) => {
-    console.log('Color:', color);
-    console.log('Source:', source);
+colorThief.getColorFromUrl(
+    "https://example.com/image.jpg",
+    (color: ColorThief.RGBColor, source: HTMLImageElement | string) => {
+        console.log("Color:", color);
+        console.log("Source:", source);
+    },
+);
+
+colorThief.getImageData("https://example.com/image.jpg", (dataUrl: string) => {
+    console.log("Data URL:", dataUrl);
 });
 
-colorThief.getImageData('https://example.com/image.jpg', (dataUrl: string) => {
-    console.log('Data URL:', dataUrl);
-});
-
-colorThief.getColorAsync('https://example.com/image.jpg', (color: ColorThief.RGBColor, source: HTMLImageElement | string) => {
-    console.log('Async Color:', color);
-    console.log('Source:', source);
-});
+colorThief.getColorAsync(
+    "https://example.com/image.jpg",
+    (color: ColorThief.RGBColor, source: HTMLImageElement | string) => {
+        console.log("Async Color:", color);
+        console.log("Source:", source);
+    },
+);
 
 // Type checking - these should be valid types
 const rgbColor: ColorThief.RGBColor = [255, 128, 0];
 const options: ColorThief.Options = {
     colorCount: 5,
-    quality: 8
+    quality: 8,
 };
 
 // Callback type checking
@@ -45,7 +51,7 @@ const colorCallback: ColorThief.ColorCallback = (color: ColorThief.RGBColor, sou
 };
 
 const imageDataCallback: ColorThief.ImageDataCallback = (dataUrl: string) => {
-    console.log('Received data URL:', dataUrl);
+    console.log("Received data URL:", dataUrl);
 };
 
 // Test array destructuring
