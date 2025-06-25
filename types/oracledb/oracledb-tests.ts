@@ -734,23 +734,22 @@ export const version6Tests = async (): Promise<void> => {
 };
 
 export const version6_7Tests = async (): Promise<void> => {
-    
     const s1: string[] = await oracledb.getNetworkServiceNames();
-    const s2: string[] = await oracledb.getNetworkServiceNames('/tnsnames.ora');
+    const s2: string[] = await oracledb.getNetworkServiceNames("/tnsnames.ora");
 
-    defaultOracledb.machine = 'test';
-    defaultOracledb.osUser = 'test';
-    defaultOracledb.program = 'test';
-    defaultOracledb.terminal = 'test';
-    defaultOracledb.driverName = 'test';
-    
+    defaultOracledb.machine = "test";
+    defaultOracledb.osUser = "test";
+    defaultOracledb.program = "test";
+    defaultOracledb.terminal = "test";
+    defaultOracledb.driverName = "test";
+
     await oracledb.getConnection({
         user: "test",
-        machine: 'test',
-        osUser: 'test',
-        program: 'test',
-        terminal: 'test',
-        driverName: 'test',
+        machine: "test",
+        osUser: "test",
+        program: "test",
+        terminal: "test",
+        driverName: "test",
     });
 
     await oracledb.createPool({
@@ -765,10 +764,10 @@ export const version6_7Tests = async (): Promise<void> => {
         poolTimeout: 60,
         queueTimeout: 60000,
         user: DB_USER,
-        machine: 'test',
-        osUser: 'test',
-        program: 'test',
-        terminal: 'test',
-        driverName: 'test',
+        machine: "test",
+        osUser: "test",
+        program: "test",
+        terminal: "test",
+        driverName: "test",
     });
 };
