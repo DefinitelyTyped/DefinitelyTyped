@@ -732,3 +732,43 @@ export const version6Tests = async (): Promise<void> => {
         user: DB_USER,
     });
 };
+
+export const version6_7Tests = async (): Promise<void> => {
+    
+    const s1: string[] = await oracledb.getNetworkServiceNames();
+    const s2: string[] = await oracledb.getNetworkServiceNames('/tnsnames.ora');
+
+    oracledb.machine = 'test';
+    oracledb.osUser = 'test';
+    oracledb.program = 'test';
+    oracledb.terminal = 'test';
+    oracledb.driverName = 'test';
+    
+    await oracledb.getConnection({
+        user: "test",
+        machine: 'test',
+        osUser: 'test',
+        program: 'test',
+        terminal: 'test',
+        driverName: 'test',
+    });
+
+    await oracledb.createPool({
+        connectString: DB_CONNECTION_STRING,
+        privilege: oracledb.SYSDBA,
+        homogeneous: true,
+        password: DB_PASSWORD,
+        poolIncrement: 1,
+        poolMax: 5,
+        poolMin: 3,
+        poolPingInterval: 60,
+        poolTimeout: 60,
+        queueTimeout: 60000,
+        user: DB_USER,
+        machine: 'test',
+        osUser: 'test',
+        program: 'test',
+        terminal: 'test',
+        driverName: 'test',
+    });
+};
