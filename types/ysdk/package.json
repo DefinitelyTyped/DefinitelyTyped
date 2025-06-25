@@ -1,12 +1,11 @@
 {
     "name": "@types/ysdk",
-    "version": "1.1.0",
+    "version": "1.1.9999",
     "private": true,
-    "engines": {
-        "node": "22.16.0"
-    },
     "dependencies": {},
-    "devDependencies": {},
+    "devDependencies": {
+        "@types/ysdk": "workspace:."
+    },
     "owners": [
         {
             "name": "Yandex Games Plugins",
@@ -14,5 +13,8 @@
         }
     ],
     "nonNpm": true,
-    "nonNpmDescription": "TypeScript type definitions for Yandex.Games SDK"
+    "nonNpmDescription": "TypeScript type definitions for Yandex.Games SDK",
+    "projects": [
+        "https://yandex.ru/dev/games/doc/en/"
+    ]
 }
