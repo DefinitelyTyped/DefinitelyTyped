@@ -28,7 +28,6 @@ export interface SDK<TGlobalSigned extends boolean = false> {
         }): void;
         showRewardedVideo(opts?: {
             callbacks?: {
-                onCancel?: () => void;
                 onClose?: () => void;
                 onError?: (error: string) => void;
                 onOpen?: () => void;
