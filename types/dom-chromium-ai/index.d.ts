@@ -104,6 +104,7 @@ interface LanguageModelCreateCoreOptions {
 
     expectedInputs?: LanguageModelExpected[];
     expectedOutputs?: LanguageModelExpected[];
+    tools?: LanguageModelTool[];
 }
 
 interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
@@ -132,6 +133,17 @@ interface LanguageModelCloneOptions {
 interface LanguageModelExpected {
     type: LanguageModelMessageType;
     languages?: string[];
+}
+
+interface LanguageModelTool {
+    name: string;
+    description: string;
+    inputSchema: object;
+    execute: LanguageModelToolFunction;
+}
+
+interface LanguageModelToolFunction {
+    (...args: any[]): Promise<string>;
 }
 
 type LanguageModelPrompt = LanguageModelMessage[] | string;
