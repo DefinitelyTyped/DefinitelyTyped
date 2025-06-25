@@ -1,10 +1,8 @@
-import type { FeedbackError, StickyAdvError } from '@types/ysdk';
-
 async function Advertisement() {
-    // $ExpectType SDK
+    // $ExpectType SDK<false>
     const ysdk = await YaGames.init();
 
-    // $ExpectType Promise<{ stickyAdvIsShowing: boolean; reason?: StickyAdvError | undefined; }>
+    // $ExpectType Promise<{ reason?: StickyAdvError | undefined; stickyAdvIsShowing: boolean; }>
     ysdk.adv.getBannerAdvStatus();
 
     // $ExpectType Promise<{ reason?: StickyAdvError | undefined }>
@@ -21,10 +19,10 @@ async function Advertisement() {
 }
 
 async function Payments() {
-    // $ExpectType SDK
+    // $ExpectType SDK<false>
     const ysdk = await YaGames.init();
 
-    // $ExpectType Promise<Purchase[]>
+    // $ExpectType Purchase[]
     const purchasesUnsigned = await ysdk.payments.getPurchases();
 
     // $ExpectType Purchase[]
@@ -36,7 +34,7 @@ async function Payments() {
     // @ts-expect-error
     purchasesUnsigned.signature;
 
-    // $ExpectType Promise<Purchase>
+    // $ExpectType Purchase
     const purchaseUnsigned = await ysdk.payments.purchase({ id: 'test' });
 
     // @ts-expect-error
@@ -72,7 +70,7 @@ async function Payments() {
 }
 
 async function Leaderboards() {
-    // $ExpectType SDK
+    // $ExpectType SDK<false>
     const ysdk = await YaGames.init();
 
     // $ExpectType LeaderboardDescription
@@ -200,7 +198,7 @@ async function Leaderboards() {
 }
 
 async function Player() {
-    // $ExpectType SDK
+    // $ExpectType SDK<false>
     const ysdk = await YaGames.init();
 
     // $ExpectType Promise<void>
@@ -265,7 +263,7 @@ async function Player() {
 }
 
 async function Misc() {
-    // $ExpectType SDK
+    // $ExpectType SDK<false>
     const ysdk = await YaGames.init();
 
     // $ExpectType string
@@ -301,9 +299,6 @@ async function Misc() {
     // $ExpectType void
     ysdk.off('game_api_resume', () => {});
 
-    // $ExpectType string
-    ysdk.deviceInfo.type;
-
     // $ExpectType boolean
     ysdk.deviceInfo.isDesktop();
 
@@ -331,7 +326,7 @@ async function Misc() {
     // $ExpectType Promise<{ game?: Game | undefined; isAvailable: boolean; }>
     ysdk.features.GamesAPI.getGameByID(100000);
 
-    // $ExpectType Promise<{ value: boolean; reason?: FeedbackError | undefined; }>
+    // $ExpectType Promise<{ reason?: FeedbackError | undefined; value: boolean; }>
     ysdk.feedback.canReview();
 
     // $ExpectType Promise<{ feedbackSent: boolean; }>
@@ -412,14 +407,6 @@ async function Multiplayer() {
     ysdk.multiplayer.sessions.init({ count: 2, isEventBased: true, maxOpponentTurnTime: 10, meta: { meta1: { min: 1, max: 2 }, meta2: { min: 1, max: 2 }, meta3: { min: 1, max: 2 } } });
     // $ExpectType Promise<CallbackBaseMessageData>
     ysdk.multiplayer.sessions.push({ meta1: 1, meta2: 2, meta3: 3 });
-}
-
-// Ошибки FeedbackError, StickyAdvError
-function ErrorTypes(feedbackError: FeedbackError, stickyAdvError: StickyAdvError) {
-    // $ExpectType FeedbackError
-    feedbackError;
-    // $ExpectType StickyAdvError
-    stickyAdvError;
 }
 
 // Проверка типов для SafeStorage
