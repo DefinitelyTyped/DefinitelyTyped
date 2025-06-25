@@ -8,6 +8,8 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     EVENTS: {
         EXIT: 'EXIT';
         HISTORY_BACK: 'HISTORY_BACK';
+        ACCOUNT_SELECTION_DIALOG_OPENED: 'ACCOUNT_SELECTION_DIALOG_OPENED';
+        ACCOUNT_SELECTION_DIALOG_CLOSED: 'ACCOUNT_SELECTION_DIALOG_CLOSED';
     };
     adv: {
         getBannerAdvStatus(): Promise<{
