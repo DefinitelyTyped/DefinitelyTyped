@@ -1,5 +1,5 @@
 declare global {
-    const YaGames: {
+    export const YaGames: {
         init<TGlobalSigned extends boolean = false>(opts?: { signed?: TGlobalSigned }): Promise<SDK<TGlobalSigned>>;
     };
 }
@@ -51,6 +51,10 @@ export interface SDK<TGlobalSigned extends boolean = false> {
         LoadingAPI: {
             ready(): void;
         };
+        GamesAPI: {
+            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
+        };
     };
     feedback: {
         canReview(): Promise<{
@@ -93,21 +97,29 @@ export interface SDK<TGlobalSigned extends boolean = false> {
     serverTime(): number;
 }
 
-interface ClientFeature {
+export interface ClientFeature {
     name: string;
     value: string;
 }
 
-interface GetFlagsParams {
+export interface GetFlagsParams {
     clientFeatures?: ClientFeature[];
     defaultFlags?: Record<string, string>;
 }
 
+export interface Game {
+    appID: string;
+    title: string;
+    url: string;
+    coverURL: string;
+    iconURL: string;
+}
+
 /** When an object is passed through signature, it is not returned as itself,
  * but instead the signature field contains an encrypted string with object fields that can be decrypted on your server */
-type Signed<T> = { signature: string };
+export type Signed<T> = { signature: string };
 
-interface Environment {
+export interface Environment {
     get app(): {
         id: string;
     };
@@ -128,7 +140,7 @@ export enum DeviceType {
     TV = 'tv',
 }
 
-interface DeviceInfo {
+export interface DeviceInfo {
     isDesktop(): boolean;
     isMobile(): boolean;
     isTV(): boolean;
@@ -136,7 +148,7 @@ interface DeviceInfo {
     get type(): DeviceType;
 }
 
-type SafeStorage = typeof window.localStorage;
+export type SafeStorage = typeof window.localStorage;
 
 export interface Player {
     getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
@@ -155,7 +167,7 @@ export interface Player {
     setStats(stats: Record<number | string, number>): Promise<void>;
 }
 
-interface IncrementedStats<TStats extends Record<string, number>> {
+export interface IncrementedStats<TStats extends Record<string, number>> {
     newKeys: string[];
     stats: Record<keyof TStats, number> & Record<number | string, number>;
 }
@@ -187,7 +199,7 @@ export interface Payments<TSigned extends boolean = false> {
     }): Promise<TSigned extends true ? Signed<Purchase> : Purchase>;
 }
 
-interface GetLeaderboardEntriesOpts {
+export interface GetLeaderboardEntriesOpts {
     includeUser?: boolean;
     quantityAround?: number;
     quantityTop?: number;
@@ -203,7 +215,7 @@ export interface Leaderboards {
     setLeaderboardScore(leaderboardName: string, score: number, extraData?: string): Promise<void>;
 }
 
-interface YLeaderboards {
+export interface YLeaderboards {
     getDescription(leaderboardName: string): Promise<LeaderboardDescription>;
     getEntries(leaderboardName: string, opts?: GetLeaderboardEntriesOpts): Promise<LeaderboardEntriesData>;
     /**
@@ -353,7 +365,7 @@ export type TopLevelDomain =
     | 'ua'
     | 'uz';
 
-type Serializable = { [key: string]: Serializable } | Serializable[] | boolean | null | number | string;
+export type Serializable = { [key: string]: Serializable } | Serializable[] | boolean | null | number | string;
 
 export interface Multiplayer {
     sessions: MultiplayerSessions;
@@ -388,7 +400,7 @@ export interface MultiplayerSessions {
     push(meta: MultiplayerSessionsMeta): Promise<CallbackBaseMessageData>;
 }
 
-interface CallbackBaseMessageData {
+export interface CallbackBaseMessageData {
     data?: unknown;
     error?: {
         message: string;
@@ -396,14 +408,14 @@ interface CallbackBaseMessageData {
     status: 'error' | 'ok';
 }
 
-interface MultiplayerSessionsCommitPayload {
+export interface MultiplayerSessionsCommitPayload {
     /** Transaction data */
     data: Record<string, unknown>;
     /** Transaction time */
     time: number;
 }
 
-interface MultiplayerSessionsInitOptions {
+export interface MultiplayerSessionsInitOptions {
     /** How many opponents sessions to load */
     count?: number;
     /** Is using event-based process */
@@ -414,13 +426,13 @@ interface MultiplayerSessionsInitOptions {
     meta?: MultiplayerSessionsMetaRanges;
 }
 
-interface MultiplayerSessionsMeta {
+export interface MultiplayerSessionsMeta {
     meta1: number;
     meta2: number;
     meta3: number;
 }
 
-interface MultiplayerSessionsMetaRanges {
+export interface MultiplayerSessionsMetaRanges {
     meta1: {
         max: number;
         min: number;
@@ -435,7 +447,7 @@ interface MultiplayerSessionsMetaRanges {
     };
 }
 
-interface MultiplayerSessionsOpponent {
+export interface MultiplayerSessionsOpponent {
     /** Opponent ID */
     id: string;
     /** Opponent metadata */
@@ -443,5 +455,3 @@ interface MultiplayerSessionsOpponent {
     /** Opponent transactions */
     transactions: MultiplayerSessionsCommitPayload[];
 }
-
-// Disabled automatic exporting

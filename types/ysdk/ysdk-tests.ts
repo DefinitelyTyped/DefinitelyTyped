@@ -1,4 +1,4 @@
-import type { FeedbackError, StickyAdvError } from './index';
+import type { FeedbackError, StickyAdvError } from '@types/ysdk';
 
 async function Advertisement() {
     // $ExpectType SDK
