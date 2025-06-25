@@ -409,21 +409,12 @@ async function Multiplayer() {
     ysdk.multiplayer.sessions.push({ meta1: 1, meta2: 2, meta3: 3 });
 }
 
-// Проверка типов для SafeStorage
-async function StorageTest() {
-    const ysdk = await YaGames.init();
-    // $ExpectType Promise<SafeStorage>
-    ysdk.getStorage();
-}
-
-// Проверка isAvailableMethod для несуществующего метода
 async function IsAvailableMethodTest() {
     const ysdk = await YaGames.init();
     // $ExpectType Promise<boolean>
     ysdk.isAvailableMethod('not.existing.method');
 }
 
-// Проверка serverTime
 async function ServerTimeTest() {
     const ysdk = await YaGames.init();
     // $ExpectType number

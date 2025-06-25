@@ -1,5 +1,5 @@
 declare global {
-    export const YaGames: {
+    const YaGames: {
         init<TGlobalSigned extends boolean = false>(opts?: { signed?: TGlobalSigned }): Promise<SDK<TGlobalSigned>>;
     };
 }
@@ -117,7 +117,7 @@ export interface Game {
 
 /** When an object is passed through signature, it is not returned as itself,
  * but instead the signature field contains an encrypted string with object fields that can be decrypted on your server */
-export type Signed<T> = { signature: string };
+export interface Signed<T> { signature: string }
 
 export interface Environment {
     get app(): {
