@@ -26,19 +26,19 @@ clevertap.event.push("Charged", {
         {
             "Category": "Books",
             "Book name": "The Millionaire next door",
-            "Quantity": 1
+            "Quantity": 1,
         },
         {
             "Category": "Books",
             "Book name": "Achieving inner zen",
-            "Quantity": 1
+            "Quantity": 1,
         },
         {
             "Category": "Books",
             "Book name": "Chuck it, let's do it",
-            "Quantity": 5
-        }
-    ]
+            "Quantity": 5,
+        },
+    ],
 });
 const productViewedDetails = clevertap.event.getDetails("Product viewed");
 // each of the below mentioned fields are optional
@@ -105,15 +105,15 @@ clevertap.notifications.push({
 });
 clevertap.renderNotificationClicked({
     msgId: "232",
-    kv: {'shop': 'test'},
-    msgCTkv: {'slide_no': 2},
+    kv: { "shop": "test" },
+    msgCTkv: { "slide_no": 2 },
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
 clevertap.renderNotificationViewed({
     msgId: "232",
-    kv: {'shop': 'test'},
-    msgCTkv: {'slide_no': 2},
+    kv: { "shop": "test" },
+    msgCTkv: { "slide_no": 2 },
     pivotId: "asdasasd",
     wzrk_slideNo: 232323,
 });
@@ -192,13 +192,13 @@ clevertap.enableLocalStorageEncryption(true);
 clevertap.isLocalStorageEncryptionEnabled();
 
 // Define file type variable
-clevertap.defineFileVariable('promo_shoes');
+clevertap.defineFileVariable("promo_shoes");
 
 // Get the defined variables
 clevertap.getVariables();
 
 // Get the value of particular variable
-clevertap.getVariableValue('promo_shoes');
+clevertap.getVariableValue("promo_shoes");
 
 // Get the details of all the qualified campaigns
 clevertap.getAllQualifiedCampaignDetails();
