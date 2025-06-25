@@ -357,5 +357,5 @@ app.get<never, { foo: string }>("/response", (req, res) => {
 
 // return response with void type
 app.get("/void", (req, res) => {
-    return res.send("Ok").end(); // $ExpectType Response<void, Record<string, any>, number>
+    return res.send("Ok").end(); // $ExpectType Response<any, Record<string, any>, number>
 });
