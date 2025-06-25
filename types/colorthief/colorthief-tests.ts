@@ -2,7 +2,7 @@
 // This file should compile without errors when the types are correct
 
 // Import the ColorThief class for testing
-import ColorThief from 'color-thief';
+import ColorThief from 'colorthief';
 
 // Browser version tests
 const colorThief = new ColorThief();
