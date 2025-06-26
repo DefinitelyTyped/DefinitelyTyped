@@ -1956,34 +1956,80 @@ export interface Font {
 }
 
 export interface Edits {
+    /**
+     * Determines if the main anchor of the annotation is editable.
+     * The main anchor corresponds to the text (if no arrow) or the arrow (which drags the whole thing leaving the arrow length & direction unchanged).
+     * @default false
+     */
     annotationPosition: boolean;
+
+    /**
+     * Has only an effect for annotations with arrows. Enables changing the length and direction of the arrow.
+     * @default false
+     */
     annotationTail: boolean;
+
+    /**
+     * Enables editing annotation text.
+     * @default false
+     */
     annotationText: boolean;
+
+    /**
+     * Enables editing axis title text.
+     * @default false
+     */
     axisTitleText: boolean;
+
+    /**
+     * Enables moving colorbars.
+     * @default false
+     */
     colorbarPosition: boolean;
+
+    /**
+     * Enables editing colorbar title text.
+     * @default false
+     */
     colorbarTitleText: boolean;
+
+    /**
+     * Enables moving the legend.
+     * @default false
+     */
     legendPosition: boolean;
+
+    /**
+     * Enables editing the trace name fields from the legend.
+     * @default false
+     */
     legendText: boolean;
+
+    /**
+     * Enables moving shapes.
+     * @default false
+     */
     shapePosition: boolean;
+
+    /**
+     * Enables editing the global layout title.
+     * @default false
+     */
     titleText: boolean;
 }
 
 export interface Config {
-    /** override the defaults for the toImageButton */
-    toImageButtonOptions: Partial<{
-        filename: string;
-        scale: number;
-        format: "png" | "svg" | "jpeg" | "webp";
-        height: number;
-        width: number;
-    }>;
-
-    /** no interactivity, for export or image generation */
+    /**
+     * Determines whether the graphs are interactive or not.
+     * If *false*, no interactivity, for export or image generation.
+     * @default false
+     */
     staticPlot: boolean;
 
     /**
      * Determines whether math should be typeset or not,
      * when MathJax (either v2 or v3) is present on the page.
+     * @default true
      */
     typesetMath: boolean;
 
@@ -1994,59 +2040,133 @@ export interface Config {
      */
     plotlyServerURL: string;
 
-    /** we can edit titles, move annotations, etc */
+    /**
+     * Determines whether the graph is editable or not.
+     * Sets all pieces of `edits` unless a separate `edits` config item overrides individual parts.
+     * @default false
+     */
     editable: boolean;
+
+    /**
+     * Configuration for editable features.
+     */
     edits: Partial<Edits>;
 
-    /** DO autosize once regardless of layout.autosize (use default width or height values otherwise) */
+    /**
+     * Enables moving selections.
+     * @default true
+     */
+    editSelection: boolean;
+
+    /**
+     * Determines whether the graphs are plotted with respect to layout.autosize:true and infer its container size.
+     * @default false
+     */
     autosizable: boolean;
 
-    /** set the length of the undo/redo queue */
-    queueLength: number;
+    /**
+     * Determines whether to change the layout size when window is resized.
+     * In v3, this option will be removed and will always be true.
+     * @default false
+     */
+    responsive: boolean;
 
-    /** if we DO autosize, do we fill the container or the screen? */
+    /**
+     * When `layout.autosize` is turned on, determines whether the graph fills the container (the default) or the screen (if set to *true*).
+     * @default false
+     */
     fillFrame: boolean;
 
-    /** if we DO autosize, set the frame margins in percents of plot size */
+    /**
+     * When `layout.autosize` is turned on, set the frame margins in fraction of the graph size.
+     * @default 0
+     */
     frameMargins: number;
 
-    /** mousewheel or two-finger scroll zooms the plot */
-    scrollZoom: boolean;
+    /**
+     * Determines whether mouse wheel or two-finger scroll zooms is enable.
+     * Turned on by default for gl3d, geo, mapbox and map subplots (as these subplot types do not have zoombox via pan),
+     * but turned off by default for cartesian subplots.
+     * Set `scrollZoom` to *false* to disable scrolling for all subplots.
+     * @default 'gl3d+geo+map'
+     */
+    scrollZoom: string | boolean;
 
-    /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
+    /**
+     * Sets the double click interaction mode.
+     * Has an effect only in cartesian plots.
+     * If *false*, double click is disable.
+     * If *reset*, double click resets the axis ranges to their initial values.
+     * If *autosize*, double click set the axis ranges to their autorange values.
+     * If *reset+autosize*, the odd double clicks resets the axis ranges to their initial values and even double clicks set the axis ranges to their autorange values.
+     * @default 'reset+autosize'
+     */
     doubleClick: "reset+autosize" | "reset" | "autosize" | false;
 
-    /** sets the delay for registering a double-click in ms */
+    /**
+     * Sets the delay for registering a double-click in ms.
+     * This is the time interval (in ms) between first mousedown and 2nd mouseup to constitute a double-click.
+     * This setting propagates to all on-subplot double clicks (except for geo, mapbox and map) and on-legend double clicks.
+     * @default 300
+     */
     doubleClickDelay: number;
 
-    /** new users see some hints about interactivity */
-    showTips: boolean;
-
-    /** enable axis pan/zoom drag handles */
+    /**
+     * Set to *false* to omit cartesian axis pan/zoom drag handles.
+     * @default true
+     */
     showAxisDragHandles: boolean;
 
-    /** enable direct range entry at the pan/zoom drag points (drag handles must be enabled above) */
+    /**
+     * Set to *false* to omit direct range entry at the pan/zoom drag points, note that `showAxisDragHandles` must be enabled to have an effect.
+     * @default true
+     */
     showAxisRangeEntryBoxes: boolean;
 
-    /** link to open this plot in plotly */
+    /**
+     * Determines whether or not tips are shown while interacting with the resulting graphs.
+     * @default true
+     */
+    showTips: boolean;
+
+    /**
+     * Determines whether a link to Chart Studio Cloud is displayed at the bottom right corner of resulting graphs.
+     * Use with `sendData` and `linkText`.
+     * @default false
+     */
     showLink: boolean;
 
-    /** if we show a link, does it contain data or just link to a plotly file? */
-    sendData: boolean;
-
-    /** text appearing in the sendData link */
+    /**
+     * Sets the text appearing in the `showLink` link.
+     * @default 'Edit chart'
+     */
     linkText: string;
 
-    /** false or function adding source(s) to linkText <text> */
-    showSources: boolean;
+    /**
+     * If *showLink* is true, does it contain data just link to a Chart Studio Cloud file?
+     * @default true
+     */
+    sendData: boolean;
 
-    /** display the mode bar (true, false, or 'hover') */
+    /**
+     * Adds a source-displaying function to show sources on the resulting graphs.
+     * @default false
+     */
+    showSources: false | ((gd: PlotlyHTMLElement) => void | Promise<void>);
+
+    /**
+     * Determines the mode bar display mode.
+     * If *true*, the mode bar is always visible.
+     * If *false*, the mode bar is always hidden.
+     * If *hover*, the mode bar is visible while the mouse cursor is on the graph container.
+     * @default "hover"
+     */
     displayModeBar: "hover" | boolean;
 
     /**
      * Should we include a ModeBar button, labeled "Edit in Chart Studio",
-     * that sends this chart to chart-studio.plotly.com (formerly plot.ly)
-     * or another plotly server as specified by `plotlyServerURL` for editing, export, etc?
+     * that sends this chart to chart-studio.plotly.com (formerly plot.ly) or another plotly server
+     * as specified by `plotlyServerURL` for editing, export, etc?
      * Prior to version 1.43.0 this button was included by default, now it is opt-in using this flag.
      * Note that this button can (depending on `plotlyServerURL` being set) send your data to an external server.
      * However that server does not persist your data until you arrive at the Chart Studio and explicitly click "Save".
@@ -2056,84 +2176,150 @@ export interface Config {
 
     /**
      * Same as `showSendToCloud`, but use a pencil icon instead of a floppy-disk.
-     * Note that if both `showSendToCloud` and `showEditInChartStudio` are turned, only `showEditInChartStudio` will be honored.
+     * Note that if both `showSendToCloud` and `showEditInChartStudio` are turned,
+     * only `showEditInChartStudio` will be honored.
      * @default false
      */
     showEditInChartStudio: boolean;
 
-    /** remove mode bar button by name (see ./components/modebar/buttons.js for the list of names) */
+    /**
+     * Remove mode bar buttons by name.
+     * See ./components/modebar/buttons.js for the list of names.
+     * @default []
+     */
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
-    /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
+    /**
+     * Add mode bar button using config objects.
+     * See ./components/modebar/buttons.js for list of arguments.
+     * To enable predefined modebar buttons e.g. shape drawing, hover and spikelines,
+     * simply provide their string name(s). This could include:
+     * *v1hovermode*, *hoverclosest*, *hovercompare*, *togglehover*, *togglespikelines*,
+     * *drawline*, *drawopenpath*, *drawclosedpath*, *drawcircle*, *drawrect* and *eraseshape*.
+     * Please note that these predefined buttons will only be shown if they are compatible
+     * with all trace types used in a graph.
+     * @default []
+     */
     modeBarButtonsToAdd: ModeBarButtonAny[];
 
     /**
-     * fully custom mode bar buttons as nested array, where the outer
-     * arrays represents button groups, and the inner arrays have
-     * buttons config objects or names of default buttons
-     * (see ./components/modebar/buttons.js for more info)
+     * Define fully custom mode bar buttons as nested array,
+     * where the outer arrays represents button groups, and
+     * the inner arrays have buttons config objects or names of default buttons.
+     * See ./components/modebar/buttons.js for more info.
+     * @default false
      */
     modeBarButtons: ModeBarButtonAny[][] | false;
 
-    /** add the plotly logo on the end of the mode bar */
+    /**
+     * Statically override options for toImage modebar button
+     * allowed keys are format, filename, width, height, scale
+     * @default {}
+     */
+    toImageButtonOptions: Partial<{
+        filename: string;
+        scale: number;
+        format: "png" | "svg" | "jpeg" | "webp";
+        height: number;
+        width: number;
+    }>;
+
+    /**
+     * Determines whether or not the plotly logo is displayed on the end of the mode bar.
+     * @default true
+     */
     displaylogo: boolean;
 
-    /** increase the pixel ratio for Gl plot images */
+    /**
+     * Watermark the images with the company's logo.
+     * @default false
+     */
+    watermark: boolean;
+
+    /**
+     * Set the pixel ratio during WebGL image export.
+     * @default 2
+     */
     plotGlPixelRatio: number;
 
     /**
-     * function to add the background color to a different container
-     * or 'opaque' to ensure there's white behind it
+     * Set function to add the background color (i.e. `layout.paper_color`) to a different container.
+     * This function take the graph div as first argument and the current background color as second argument.
+     * Alternatively, set to string *opaque* to ensure there is white behind it.
+     * @default "transparent"
      */
     setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | "opaque" | "transparent";
 
-    /** URL to topojson files used in geo charts */
+    /**
+     * Set the URL to topojson used in geo charts.
+     * By default, the topojson files are fetched from cdn.plot.ly.
+     * For example, set this option to: <path-to-plotly.js>/dist/topojson/
+     * to render geographical feature using the topojson files that ship with the plotly.js module.
+     * @default 'https://cdn.plot.ly/'
+     */
     topojsonURL: string;
 
     /**
-     * Mapbox access token (required to plot mapbox trace types)
-     * If using an Mapbox Atlas server, set this option to '',
-     * so that plotly.js won't attempt to authenticate to the public Mapbox server.
+     * Mapbox access token (required to plot mapbox trace types).
+     * If using an Mapbox Atlas server, set this option to '' so that plotly.js won't attempt to authenticate to the public Mapbox server.
+     * @default null
      */
-    mapboxAccessToken: string;
+    mapboxAccessToken: string | null;
 
     /**
-     * Turn all console logging on or off (errors will be thrown)
-     * This should ONLY be set via Plotly.setPlotConfig
+     * Turn all console logging on or off (errors will be thrown).
+     * This should ONLY be set via Plotly.setPlotConfig.
+     * Available levels:
+     * 0: no logs
+     * 1: warnings and errors, but not informational messages
+     * 2: verbose logs
+     * @default 1
      */
-    logging: boolean | 0 | 1 | 2;
+    logging: 0 | 1 | 2;
 
-    /** Which localization should we use? Should be a string like 'en' or 'en-US' */
+    /**
+     * Set on-graph logging (notifier) level.
+     * This should ONLY be set via Plotly.setPlotConfig.
+     * Available levels:
+     * 0: no on-graph logs
+     * 1: warnings and errors, but not informational messages
+     * 2: verbose logs
+     * @default 0
+     */
+    notifyOnLogging: 0 | 1 | 2;
+
+    /**
+     * Sets the length of the undo/redo queue.
+     * @default 0
+     */
+    queueLength: number;
+
+    /**
+     * Which localization should we use? Should be a string like 'en' or 'en-US'.
+     * @default 'en-US'
+     */
     locale: string;
 
     /**
      * Localization definitions
-     * Locales can be provided either here (specific to one chart) or globally
-     * by registering them as modules.
+     * Locales can be provided either here (specific to one chart) or globally by registering them as modules.
      * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
      * {
-     *     da: {
-     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
-     *         format: {months: [...], shortMonths: [...]}
-     *     },
-     *     ...
+     *   da: {
+     *     dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *     format: {months: [...], shortMonths: [...]}
+     *   },
+     *   ...
      * }
      * All parts are optional. When looking for translation or format fields, we
-     * look first for an exact match in a config locale, then in a registered
-     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
-     * and try each (config, registry) again. The final fallback for translation
-     * is untranslated (which is US English) and for formats is the base English
-     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
-     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
-     * for our automatic number formatting, but can be used in custom formats.
+     * look first for an exact match in a config locale, then in a registered module.
+     * If those fail, we strip off any regionalization ('en-US' -> 'en') and try each (config, registry) again.
+     * The final fallback for translation is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY instead of MM/DD/YYYY).
+     * Currently `grouping` and `currency` are ignored for our automatic number formatting, but can be used in custom formats.
+     * @default {}
      */
-    locales: {};
-
-    /** Make the chart responsive to window size */
-    responsive: boolean;
-
-    /** Watermark the images with the company's logo */
-    watermark: boolean;
+    locales: Record<string, { dictionary?: Record<string, string>; format?: Record<string, any> }>;
 }
 
 // Components
