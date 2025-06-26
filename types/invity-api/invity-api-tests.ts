@@ -156,4 +156,4 @@ const exchangeTradeQuoteRequest: ConfirmExchangeTradeRequest = {
     receiveAddress: "receiveAddress",
     refundAddress: "refundAddress",
     approvalFlow: true,
-}
+};
