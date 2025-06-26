@@ -641,7 +641,7 @@ interface CustomText {
      * @default 'An error occurred while fetching your WhatsApp linking information. Please try again.'
      */
     whatsappLinkingError?: string;
-    
+
     /**
      * @default 'Unable to load image'
      */

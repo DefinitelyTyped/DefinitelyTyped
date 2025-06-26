@@ -5,7 +5,7 @@ declare namespace Smooch {
      * The version of the Smooch Web Messenger
      */
     const VERSION: string;
-    
+
     /**
      * Initializes the Smooch widget in the web page using the specified options. It returns a promise that will resolve when the Web Messenger is ready. Note that except on and off, all methods needs
      * to be called after a successful init.
@@ -292,124 +292,139 @@ declare namespace Smooch {
      * This event triggers when the business stops typing. The associated conversation is passed in the argument.
      */
     function on(event: "typing:stop", callback: (data: ConversationData) => void): void;
-    
+
     /**
      * Removes an event listener previously added with the on method.
      */
     function off(event: "ready", callback: () => void): void;
     function off(event: "ready"): void;
-    
+
     /**
      * This event triggers when the widget is destroyed.
      */
     function off(event: "destroy", callback: () => void): void;
     function off(event: "destroy"): void;
-    
+
     /**
      * This event triggers when a participant is added to a conversation
      */
-    function off(event: "participant:added", callback: (participant: ConversationParticipant, data: ConversationData) => void): void;
+    function off(
+        event: "participant:added",
+        callback: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
     function off(event: "participant:added"): void;
-    
+
     /**
      * This event triggers when a participant is removed from a conversation
      */
-    function off(event: "participant:removed", callback: (participant: ConversationParticipant, data: ConversationData) => void): void;
+    function off(
+        event: "participant:removed",
+        callback: (participant: ConversationParticipant, data: ConversationData) => void,
+    ): void;
     function off(event: "participant:removed"): void;
-    
+
     /**
      * This event triggers when a conversation is added
      */
-    function off(event: "conversation:added", callback: (participants: ConversationParticipant[], data: ConversationData) => void): void;
+    function off(
+        event: "conversation:added",
+        callback: (participants: ConversationParticipant[], data: ConversationData) => void,
+    ): void;
     function off(event: "conversation:added"): void;
-    
+
     /**
      * This event triggers when a participant in a sdkGroup chat reads a message
      */
-    function off(event: "conversation:read", callback: (payload: ConversationReadEventPayload, data: ConversationData) => void): void;
+    function off(
+        event: "conversation:read",
+        callback: (payload: ConversationReadEventPayload, data: ConversationData) => void,
+    ): void;
     function off(event: "conversation:read"): void;
-    
+
     /**
      * This event triggers when a conversation is removed
      */
     function off(event: "conversation:removed", callback: (data: ConversationData) => void): void;
     function off(event: "conversation:removed"): void;
-    
+
     /**
      * This event triggers when the user receives a message
      */
     function off(event: "message:received", callback: (message: Message, data: ConversationData) => void): void;
     function off(event: "message:received"): void;
-    
+
     /**
      * This event triggers when the user sends a message
      */
     function off(event: "message:sent", callback: (message: Message, data: ConversationData) => void): void;
     function off(event: "message:sent"): void;
-    
+
     /**
      * This event triggers when a message was added to the conversation
      */
     function off(event: "message", callback: (message: Message, data: ConversationData) => void): void;
     function off(event: "message"): void;
-    
+
     /**
      * This event triggers when the number of unread messages changes
      */
     function off(event: "unreadCount", callback: (unreadCount: number, data: ConversationData) => void): void;
     function off(event: "unreadCount"): void;
-    
+
     /**
      * This event triggers when the widget is opened
      */
     function off(event: "widget:opened", callback: () => void): void;
     function off(event: "widget:opened"): void;
-    
+
     /**
      * This event triggers when the widget is closed
      */
     function off(event: "widget:closed", callback: () => void): void;
     function off(event: "widget:closed"): void;
-    
+
     /**
      * This event triggers when the codes emits debug information
      */
     function off(event: "log:debug", callback: (e: DebugLog) => void): void;
     function off(event: "log:debug"): void;
-    
+
     /**
      * This event triggers when an active connection has been established for the first time,
      * or when the connection has been re-established after a `disconnected` or `reconnecting` event.
      */
     function off(event: "connected", callback: (data: ConversationData) => void): void;
     function off(event: "connected"): void;
-    
+
     /**
      * This event triggers when an active connection is lost
      * While disconnected, the client will not be able to receive messages or load a conversation
      */
     function off(event: "disconnected", callback: (data: ConversationData) => void): void;
     function off(event: "disconnected"): void;
-    
+
     /**
      * This event triggers when an active connection is lost and there is an attempt to reconnect
      * While reconnecting, the client will not be able to receive messages or load a conversation
      */
     function off(event: "reconnecting", callback: (data: ConversationData) => void): void;
     function off(event: "reconnecting"): void;
-    
+
     /**
      * This event triggers when the business starts typing. The associated conversation is passed in the argument.
      */
-    function off(event: "typing:start", callback: (data: ConversationData & { avatarUrl: string; name: string }) => void): void;
+    function off(
+        event: "typing:start",
+        callback: (data: ConversationData & { avatarUrl: string; name: string }) => void,
+    ): void;
     function off(event: "typing:start"): void;
-    
+
     /**
      * This event triggers when the business stops typing. The associated conversation is passed in the argument.
      */
     function off(event: "typing:stop", callback: (data: ConversationData) => void): void;
     function off(event: "typing:stop"): void;
-    
+
     /**
      * Removes all event listeners for all events.
      */
