@@ -705,7 +705,7 @@ declare module "module" {
              * if (import.meta.main) main();
              * // `foo` can be imported from another module without possible side-effects from `main` 
              * ```
-             * @since v24.3.0
+             * @since v24.2.0
              */
             main: boolean;
         }
