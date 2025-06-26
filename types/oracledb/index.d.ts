@@ -309,36 +309,41 @@ declare namespace OracleDB {
     }
 
     type TypedArray = Float32Array | Float64Array | Int8Array | Uint8Array | Uint32Array;
+    
     interface SparseVectorInputObject {
         numDimensions: number;
         indices: Array<number> | Uint32Array;
         values: Array<number> | TypedArray;
     }
-    type sparseVectorType = SparseVectorInputObject | Array<number> | TypedArray |object | string;
-    interface SparseVectorJSON {
 
-    }
-    /**
-     * This class represents an object that accepts one of the following types in its constructor: typed array, JavaScript array, object, or string.
-     * 
-     * @since 6.8
-     */
-    class SparseVector {
-        constructor(input?: sparseVectorType);
+    type SparseVectorType = SparseVectorInputObject | Array<number> | string | TypedArray;
 
-        get indices(): Uint32Array;
-        get values(): TypedArray;
-        get numDimensions(): number;
-
-        toJSON(): SparseVectorJSON;
-        dense(): TypedArray | null;
-
-        // Static factory method
-        static create(sparseValue: {
-            numDimensions: number;
-            indices: number[] | Uint32Array;
-            values: number[] | TypedArray;
-        }): SparseVector;
+    class SparseVector<T extends TypedArray = Float64Array> {
+        /**
+         * This property is a JavaScript array or a 32-bit unsigned integer (Uint32Array) TypedArray that specifies the indices (zero-based) of non-zero values in the vector.
+         * 
+         * @since 6.8
+         */
+        indices?: Array<number> | Uint32Array | undefined;
+        /**
+         * This property is an integer that specifies the number of dimensions of the vector.
+         * 
+         * @since 6.8
+         */
+        numDimensions?: number | undefined;
+        /**
+         * This property is a JavaScript array or TypedArray that specifies the non-zero values stored in the vector.
+         * 
+         * @since 6.8
+         */
+        values?: Array<number> | TypedArray | undefined;
+        /**
+         * Converts a sparse vector to a dense vector and returns a TypedArray of 8-bit signed integers, 32-bit floating-point numbers,
+         * or 64-bit floating-point numbers depending on the storage format of the sparse vector column’s non-zero values in Oracle Database.
+         * 
+         * @since 6.8
+         */
+        dense(): T | undefined;
     }
 
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
