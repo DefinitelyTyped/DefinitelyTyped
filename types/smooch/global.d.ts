@@ -16,6 +16,15 @@ interface InitOptions {
      */
     authCode?: string;
     /**
+     * Region identifier for the Sunshine Conversations service. Use 'eu-1' for European Union region.
+     */
+    region?: string;
+    /**
+     * For licensed Zendesk customers, specifies the URL where the config request is sent.
+     * Example: 'https://<subdomain>.zendesk.com/sc/'
+     */
+    configBaseUrl?: string;
+    /**
      * Locale used for date formatting using the <language>-<COUNTRY> format. Language codes can be found [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) and country codes
      * [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      * Note 1: The country part is optional, and if a country is either not recognized or supported, it will fallback to using the generic language. If the language isn't supported, it will
@@ -118,6 +127,11 @@ interface InitOptions {
      * @default true
      */
     canUserSeeConversationList?: boolean;
+    /**
+     * Allows users to create multiple conversations using the createConversation method or via the conversation list's New Conversation button.
+     * @default false
+     */
+    canUserCreateMoreConversations?: boolean;
 }
 
 interface CustomColors {
@@ -627,6 +641,11 @@ interface CustomText {
      * @default 'An error occurred while fetching your WhatsApp linking information. Please try again.'
      */
     whatsappLinkingError?: string;
+    
+    /**
+     * @default 'Unable to load image'
+     */
+    unableToLoadImage?: string;
 }
 
 interface MenuItems {
