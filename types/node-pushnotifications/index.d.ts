@@ -32,6 +32,11 @@ declare namespace PushNotifications {
             /** GCM or FCM token */
             id?: string | undefined;
         } | undefined;
+        /** Firebase Cloud Messaging  */
+        fcm?: {
+            /** FCM token */
+            id?: string | undefined;
+        } | undefined;
         /** Apple Push Notifications */
         apn?: {
             /** APN Token */
@@ -185,7 +190,7 @@ declare namespace PushNotifications {
         /** ADM */
         consolidationKey?: string | undefined;
     }
-    type MethodValue = "apn" | "gcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
+    type MethodValue = "apn" | "gcm" | "fcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
     interface Message {
         regId: string;
         originalRegId?: string | undefined;
