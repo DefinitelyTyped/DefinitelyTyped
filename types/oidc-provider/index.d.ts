@@ -1079,6 +1079,7 @@ export interface Configuration {
                         | undefined;
                     idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
                     secretFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+                    issueRegistrationAccessToken?: IssueRegistrationAccessTokenFunction | boolean | undefined;
                 }
                 | undefined;
 
@@ -1086,7 +1087,6 @@ export interface Configuration {
                 | {
                     enabled?: boolean | undefined;
                     rotateRegistrationAccessToken?: RotateRegistrationAccessTokenFunction | boolean | undefined;
-                    issueRegistrationAccessToken?: IssueRegistrationAccessTokenFunction | boolean | undefined;
                 }
                 | undefined;
 

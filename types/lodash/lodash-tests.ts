@@ -22,7 +22,6 @@ interface AbcObject {
 
 const abcObject: AbcObject = anything;
 const array: AbcObject[] | null | undefined = anything;
-const readonlyArray: readonly AbcObject[] = anything;
 const list: _.List<AbcObject> | null | undefined = anything;
 const mutableList: _.MutableList<AbcObject> | null | undefined = anything;
 const dictionary: _.Dictionary<AbcObject> | null | undefined = anything;
@@ -893,6 +892,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pull(array); // $ExpectType AbcObject[]
     _.pull(array, abcObject); // $ExpectType AbcObject[]
     _.pull(array, abcObject, abcObject, abcObject); // $ExpectType AbcObject[]
+
     // @ts-expect-error
     _.pull(readonlyArray);
     // @ts-expect-error
@@ -930,6 +930,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.pullAt(array); // $ExpectType AbcObject[]
     _.pullAt(array, 1); // $ExpectType AbcObject[]
     _.pullAt(array, [2, 3], 4); // $ExpectType AbcObject[]
+
     // @ts-expect-error
     _.pullAt(readonlyArray);
     // @ts-expect-error
@@ -1208,15 +1209,6 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
     fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
-
-    // @ts-expect-error
-    _.remove(readonlyArray);
-    // @ts-expect-error
-    _.remove(readonlyArray, listIterator);
-    // @ts-expect-error
-    _.remove(readonlyArray, "");
-    // @ts-expect-error
-    _.remove(readonlyArray, { a: 42 });
 }
 
 // _.tail

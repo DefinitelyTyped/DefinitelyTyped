@@ -1,6 +1,7 @@
 import {
     BuyProviderInfo,
     BuyTrade,
+    ConfirmExchangeTradeRequest,
     CreateTradeSignatureRequestExchange,
     CreateTradeSignatureRequestSell,
     CryptoId,
@@ -148,4 +149,11 @@ const exchangeSignatureRequest: CreateTradeSignatureRequestExchange = {
             amount: "1000",
         },
     ],
+};
+
+const exchangeTradeQuoteRequest: ConfirmExchangeTradeRequest = {
+    trade: et,
+    receiveAddress: "receiveAddress",
+    refundAddress: "refundAddress",
+    approvalFlow: true,
 };

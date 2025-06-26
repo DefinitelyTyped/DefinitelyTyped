@@ -1,6 +1,7 @@
 import {
     cron,
     date,
+    Delete,
     env,
     every,
     HttpEventHandler,
@@ -12,48 +13,38 @@ import {
     LdapSearchRequest,
     LdapSearchResponse,
     on,
+    patch,
     sleep,
+    SmtpEventHandler,
+    SmtpEventMessage,
 } from "mokapi";
 
-const handler = () => {
-    return false;
-};
+const handler = () => {};
 
 // @ts-expect-error
 on("foo");
-// @ts-expect-error
 on("http", () => {});
+// @ts-expect-error
 on("http", (): boolean => {
     return false;
 });
 // @ts-expect-error
-on("http", (s: string): boolean => {
-    return false;
-});
-on("http", (req: HttpRequest, res: HttpResponse): boolean => {
-    return false;
-});
-on("kafka", (): boolean => {
-    return false;
-});
+on("http", (s: string) => {});
+on("http", (req: HttpRequest, res: HttpResponse) => {});
+on("kafka", () => {});
 // @ts-expect-error
-on("kafka", (s: string): boolean => {
-    return false;
-});
-on("ldap", (): boolean => {
-    return false;
-});
+on("kafka", (s: string) => {});
+on("ldap", () => {});
 // @ts-expect-error
 on("ldap", (s: string): boolean => {
     return false;
 });
-on("ldap", (req: LdapSearchRequest, res: LdapSearchResponse): boolean => {
-    return false;
-});
+on("ldap", (req: LdapSearchRequest, res: LdapSearchResponse) => {});
 // @ts-expect-error
 on("http", handler, "");
 on("http", handler, {});
 on("http", handler, { tags: { foo: "bar" } });
+on("http", async () => {});
 
 // @ts-expect-error
 every(12, () => {});
@@ -68,6 +59,7 @@ every("12m", () => {}, { times: 3 });
 // @ts-expect-error
 every("12m", () => {}, { runFirstTimeImmediately: 1 });
 every("12m", () => {}, { runFirstTimeImmediately: true });
+every("", async () => {});
 
 // @ts-expect-error
 cron(12, () => {});
@@ -82,6 +74,7 @@ cron("12m", () => {}, { times: 3 });
 // @ts-expect-error
 cron("12m", () => {}, { runFirstTimeImmediately: 1 });
 cron("12m", () => {}, { runFirstTimeImmediately: true });
+cron("", async () => {});
 
 // @ts-expect-error
 env(12);
@@ -102,7 +95,7 @@ const d1: int = date();
 const d2: string = date();
 date({});
 // @ts-expect-error
-date({ layout: "foo" });
+date({ layout: 123 });
 date({ layout: "DateOnly" });
 // @ts-expect-error
 date({ timestamp: "123" });
@@ -113,29 +106,16 @@ sleep({});
 sleep(12);
 sleep("1s");
 
-// @ts-expect-error
 let h: HttpEventHandler = () => {};
-h = () => {
-    return false;
-};
+h = () => {};
 // @ts-expect-error
-h = (s: string) => {
-    return false;
-};
+h = (s: string) => {};
 // @ts-expect-error
-h = (s: LdapSearchRequest) => {
-    return false;
-};
-h = (req: HttpRequest) => {
-    return false;
-};
+h = (s: LdapSearchRequest) => {};
+h = (req: HttpRequest) => {};
 // @ts-expect-error
-h = (req: HttpRequest, s: string) => {
-    return false;
-};
-h = (req: HttpRequest, res: HttpResponse) => {
-    return false;
-};
+h = (req: HttpRequest, s: string) => {};
+h = (req: HttpRequest, res: HttpResponse) => {};
 h = (req: HttpRequest, res: HttpResponse) => {
     // @ts-expect-error
     res.statusCode = "200";
@@ -153,8 +133,6 @@ h = (req: HttpRequest, res: HttpResponse) => {
     res.headers.foo = 12;
     res.headers.foo = "bar";
     res.headers["Content-Type"] = "application/json";
-
-    return false;
 };
 
 on("http", function(request, response) {
@@ -167,24 +145,21 @@ on("http", function(request, response) {
                     if (request.key === "foo") {
                         if (request.operationId === "time") {
                             response.body = date();
-                            return true;
                         }
                     }
                 }
             }
         }
     }
-    return false;
 });
 
-// @ts-expect-error
 let kafka: KafkaEventHandler = () => {};
-// @ts-expect-error
 kafka = (r: KafkaEventMessage) => {};
+// @ts-expect-error
 kafka = (r: KafkaEventMessage): boolean => {
     return false;
 };
-kafka = (record: KafkaEventMessage): boolean => {
+kafka = (record: KafkaEventMessage) => {
     // @ts-expect-error
     record.offset = 12;
     // @ts-expect-error
@@ -198,29 +173,19 @@ kafka = (record: KafkaEventMessage): boolean => {
     record.headers = {};
     record.headers = null;
     record.headers = { foo: "bar" };
-
-    return false;
 };
 
-// @ts-expect-error
 let ldap: LdapEventHandler = () => {};
+// @ts-expect-error
 ldap = () => {
     return false;
 };
 // @ts-expect-error
-ldap = (s: string) => {
-    return false;
-};
-ldap = (req: LdapSearchRequest) => {
-    return false;
-};
+ldap = (s: string) => {};
+ldap = (req: LdapSearchRequest) => {};
 // @ts-expect-error
-h = (req: LdapSearchRequest, s: string) => {
-    return false;
-};
-ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
-    return false;
-};
+h = (req: LdapSearchRequest, s: string) => {};
+ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {};
 ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
     // @ts-expect-error
     res.results = "";
@@ -236,6 +201,109 @@ ldap = (req: LdapSearchRequest, res: LdapSearchResponse) => {
     // @ts-expect-error
     res.message = 12;
     res.message = "";
+};
 
+let smtp: SmtpEventHandler = () => {};
+// @ts-expect-error
+smtp = () => {
     return false;
 };
+// @ts-expect-error
+smtp = (s: string) => {};
+smtp = (msg: SmtpEventMessage) => {};
+// @ts-expect-error
+h = (msg: SmtpEventMessage, s: string) => {};
+smtp = (msg: SmtpEventMessage) => {
+    msg.server = "";
+    // @ts-expect-error
+    msg.sender = "";
+    // @ts-expect-error
+    msg.sender = {};
+    msg.sender = { address: "" };
+    msg.sender = { name: "", address: "" };
+
+    // @ts-expect-error
+    msg.from = "";
+    // @ts-expect-error
+    msg.from = {};
+    msg.from = [];
+    msg.from = [{ address: "" }];
+    msg.from = [{ name: "", address: "" }];
+
+    // @ts-expect-error
+    msg.to = "";
+    // @ts-expect-error
+    msg.to = {};
+    msg.to = [];
+    msg.to = [{ address: "" }];
+    msg.to = [{ name: "", address: "" }];
+
+    // @ts-expect-error
+    msg.replyTo = "";
+    // @ts-expect-error
+    msg.replyTo = {};
+    msg.replyTo = [];
+    msg.replyTo = [{ address: "" }];
+    msg.replyTo = [{ name: "", address: "" }];
+
+    // @ts-expect-error
+    msg.cc = "";
+    // @ts-expect-error
+    msg.cc = {};
+    msg.cc = [];
+    msg.cc = [{ address: "" }];
+    msg.cc = [{ name: "", address: "" }];
+
+    // @ts-expect-error
+    msg.bcc = "";
+    // @ts-expect-error
+    msg.bcc = {};
+    msg.bcc = [];
+    msg.bcc = [{ address: "" }];
+    msg.bcc = [{ name: "", address: "" }];
+
+    msg.messageId = "";
+    // @ts-expect-error
+    msg.messageId = 12;
+
+    msg.inReplyTo = "";
+    // @ts-expect-error
+    msg.inReplyTo = 12;
+
+    msg.time = new Date();
+    // @ts-expect-error
+    msg.time = "";
+
+    msg.subject = "";
+    // @ts-expect-error
+    msg.subject = 12;
+
+    msg.contentType = "";
+    // @ts-expect-error
+    msg.contentType = 12;
+
+    msg.encoding = "";
+    // @ts-expect-error
+    msg.encoding = 12;
+
+    msg.body = "";
+    // @ts-expect-error
+    msg.body = 12;
+
+    // @ts-expect-error
+    msg.attachments = {};
+    msg.attachments = [];
+    // @ts-expect-error
+    msg.attachments = [{}];
+    msg.attachments = [{
+        name: "",
+        contentType: "",
+        data: new Uint8Array(2),
+    }];
+};
+
+const i: number = patch(1, 2);
+patch({ x: 1 }, { y: 1 });
+patch({ x: 1 }, { x: Delete });
+patch([1, 2], [3, 4]);
+patch([1, 2], [undefined, Delete]);

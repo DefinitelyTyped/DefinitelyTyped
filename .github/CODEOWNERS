@@ -3127,7 +3127,6 @@
 /types/hapi__b64/                                       @ffflorian
 /types/hapi__basic/                                     @AJamesPhillips @saboya @lenovouser
 /types/hapi__call/                                      @saboya @nokel81
-/types/hapi__catbox/                                    @jasonswearingen @AJamesPhillips @saboya @lenovouser
 /types/hapi__catbox-memcached/                          @btmorex
 /types/hapi__content/                                   @nokel81
 /types/hapi__cookie/                                    @lenovouser @SimonSchick
@@ -4140,7 +4139,6 @@
 /types/lambda-rate-limiter/                             @bendingbender
 /types/lambda-tester/                                   @ivank @HajoAhoMantila @msuntharesan
 /types/lambda-wrapper/                                  @Gaelan
-/types/lang.js/                                         @LiquidPL
 /types/langdetect/                                      @SaidTorres3
 /types/langmap/                                         @grabofus @remcohaszing
 /types/langs/                                           @orgads
@@ -5876,7 +5874,7 @@
 /types/power-assert/                                    @vvakame @ChristianMurphy
 /types/power-assert-formatter/                          @vvakame
 /types/power-radix/                                     @peterblazejewicz
-/types/powerapps-component-framework/                   @jopursle @kaushikkaul @rarattay @OliverDumrique @CoPrez @pjramirez-ms @Alex-MSFT @mikepenaMS
+/types/powerapps-component-framework/                   @jopursle @kaushikkaul @rarattay @OliverDumrique @CoPrez @pjramirez-ms @Alex-MSFT
 /types/powerbi-visuals-tools/                           @zBritva @Microsoft
 /types/pqclean/                                         @tniessen
 /types/pragma/                                          @e6nlaq
@@ -7018,7 +7016,7 @@
 /types/runes/                                           @viralpickaxe
 /types/runmd/                                           @peterblazejewicz
 /types/rusha/                                           @jacoscaz
-/types/russian-nouns-js/                                @RusAnonym
+/types/russian-nouns-js/                                @RusAnonym @georgy7
 /types/rx/                                              @Igorbek
 /types/rx-angular/                                      @mickdelaney
 /types/rx-core/                                         @Igorbek @mizunashi-mana
@@ -7493,7 +7491,6 @@
 /types/sprintf/                                         @soywiz @BendingBender
 /types/sprintf-js/                                      @jasonswearingen @BendingBender @cdagli
 /types/spritesmith/                                     @Zenoo
-/types/sql-bricks/                                      @adn05 @paleo
 /types/sql-tagged-template-literal/                     @yoursunny
 /types/sql-template/                                    @q42jaap
 /types/sql.js/                                          @ffflorian @pastelmind
@@ -7960,6 +7957,7 @@
 /types/trayballoon/                                     @korve
 /types/treeify/                                         @mike-north
 /types/treeverse/                                       @HugoMendes98
+/types/trellopowerup/                                   @tatablack
 /types/tress/                                           @sindilevich
 /types/triangle-wasm/                                   @danikaze
 /types/trianglify/                                      @unindented @fdaciuk @mxthevs
@@ -8239,7 +8237,6 @@
 /types/vinyl/                                           @vvakame @thorn0
 /types/vinyl/v0/                                        @vvakame
 /types/vinyl-buffer/                                    @tkQubo
-/types/vinyl-file/                                      @cleanchedFist
 /types/vinyl-fs/                                        @vvakame @remisery @TeamworkGuy2
 /types/vinyl-fs/v0/                                     @vvakame @remisery
 /types/vinyl-fs/v1/                                     @vvakame @remisery
