@@ -6939,6 +6939,11 @@ declare namespace chrome {
             installType: string;
             /** The version of this extension, app, or theme. */
             version: string;
+            /**
+             * The version name of this extension, app, or theme if the manifest specified one.
+             * @since Chrome 50
+             */
+            versionName?: string;
             /** The extension's unique identifier. */
             id: string;
             /**
