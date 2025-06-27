@@ -6539,6 +6539,10 @@
             "libraryName": "router5",
             "asOfVersion": "5.0.0"
         },
+        "rrdir": {
+            "libraryName": "rrdir",
+            "asOfVersion": "13.1.0"
+        },
         "rrule": {
             "libraryName": "rrule",
             "asOfVersion": "2.2.9"
