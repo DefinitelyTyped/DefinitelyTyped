@@ -3549,6 +3549,10 @@
             "libraryName": "@keyv/sqlite",
             "asOfVersion": "3.0.1"
         },
+        "kii-cloud-sdk": {
+            "libraryName": "kii-cloud-sdk",
+            "asOfVersion": "3.0.0"
+        },
         "kiwicom__orbit-design-tokens": {
             "libraryName": "@kiwicom/orbit-design-tokens",
             "asOfVersion": "1.5.2"
