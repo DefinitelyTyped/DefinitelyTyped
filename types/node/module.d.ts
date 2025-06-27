@@ -626,7 +626,7 @@ declare module "module" {
             /**
              * The directory name of the current module.
              *
-             * This is the same as the ``path.dirname()` of the `import.meta.filename`.
+             * This is the same as the `path.dirname()` of the `import.meta.filename`.
              *
              * > **Caveat**: only present on `file:` modules.
              * @since v21.2.0, v20.11.0
