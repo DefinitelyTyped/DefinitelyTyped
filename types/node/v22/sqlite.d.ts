@@ -577,6 +577,66 @@ declare module "node:sqlite" {
          */
         readonly sourceSQL: string;
     }
+    interface BackupOptions {
+        /**
+         * Name of the source database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html)
+         * @default 'main'
+         */
+        source?: string | undefined;
+        /**
+         * Name of the target database. This can be `'main'` (the default primary database) or any other
+         * database that have been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html)
+         * @default 'main'
+         */
+        target?: string | undefined;
+        /**
+         * Number of pages to be transmitted in each batch of the backup.
+         * @default 100
+         */
+        rate?: number | undefined;
+        /**
+         * Callback function that will be called with the number of pages copied and the total number of
+         * pages.
+         */
+        progress?: ((progressInfo: BackupProgressInfo) => void) | undefined;
+    }
+    interface BackupProgressInfo {
+        totalPages: number;
+        remainingPages: number;
+    }
+    /**
+     * This method makes a database backup. This method abstracts the
+     * [`sqlite3_backup_init()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupinit),
+     * [`sqlite3_backup_step()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupstep)
+     * and [`sqlite3_backup_finish()`](https://www.sqlite.org/c3ref/backup_finish.html#sqlite3backupfinish) functions.
+     *
+     * The backed-up database can be used normally during the backup process. Mutations coming from the same connection - same
+     * `DatabaseSync` - object will be reflected in the backup right away. However, mutations from other connections will cause
+     * the backup process to restart.
+     *
+     * ```js
+     * import { backup, DatabaseSync } from 'node:sqlite';
+     *
+     * const sourceDb = new DatabaseSync('source.db');
+     * const totalPagesTransferred = await backup(sourceDb, 'backup.db', {
+     *   rate: 1, // Copy one page at a time.
+     *   progress: ({ totalPages, remainingPages }) => {
+     *     console.log('Backup in progress', { totalPages, remainingPages });
+     *   },
+     * });
+     *
+     * console.log('Backup completed', totalPagesTransferred);
+     * ```
+     * @since v22.16.0
+     * @param sourceDb The database to backup. The source database must be open.
+     * @param path The path where the backup will be created. If the file already exists,
+     * the contents will be overwritten.
+     * @param options Optional configuration for the backup. The
+     * following properties are supported:
+     * @returns A promise that resolves when the backup is completed and rejects if an error occurs.
+     */
+    function backup(sourceDb: DatabaseSync, path: string | Buffer | URL, options?: BackupOptions): Promise<void>;
     /**
      * @since v22.13.0
      */
