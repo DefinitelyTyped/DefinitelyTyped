@@ -5979,6 +5979,10 @@
             "libraryName": "react-native-draggable-flatlist",
             "asOfVersion": "2.0.0"
         },
+        "react-native-drawer-layout": {
+            "libraryName": "react-native-drawer-layout",
+            "asOfVersion": "3.0.0"
+        },
         "react-native-elements": {
             "libraryName": "react-native-elements",
             "asOfVersion": "0.18.0"
