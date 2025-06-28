@@ -394,6 +394,38 @@ declare module "node:sqlite" {
          */
         close(): void;
     }
+    interface StatementColumnMetadata {
+        /**
+         * The unaliased name of the column in the origin
+         * table, or `null` if the column is the result of an expression or subquery.
+         * This property is the result of [`sqlite3_column_origin_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        column: string | null;
+        /**
+         * The unaliased name of the origin database, or
+         * `null` if the column is the result of an expression or subquery. This
+         * property is the result of [`sqlite3_column_database_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        database: string | null;
+        /**
+         * The name assigned to the column in the result set of a
+         * `SELECT` statement. This property is the result of
+         * [`sqlite3_column_name()`](https://www.sqlite.org/c3ref/column_name.html).
+         */
+        name: string;
+        /**
+         * The unaliased name of the origin table, or `null` if
+         * the column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_table_name()`](https://www.sqlite.org/c3ref/column_database_name.html).
+         */
+        table: string | null;
+        /**
+         * The declared data type of the column, or `null` if the
+         * column is the result of an expression or subquery. This property is the
+         * result of [`sqlite3_column_decltype()`](https://www.sqlite.org/c3ref/column_decltype.html).
+         */
+        type: string | null;
+    }
     interface StatementResultingChanges {
         /**
          * The number of rows modified, inserted, or deleted by the most recently completed `INSERT`, `UPDATE`, or `DELETE` statement.
@@ -438,6 +470,14 @@ declare module "node:sqlite" {
             namedParameters: Record<string, SQLInputValue>,
             ...anonymousParameters: SQLInputValue[]
         ): Record<string, SQLOutputValue>[];
+        /**
+         * This method is used to retrieve information about the columns returned by the
+         * prepared statement.
+         * @since v22.16.0
+         * @returns An array of objects. Each object corresponds to a column
+         * in the prepared statement, and contains the following properties:
+         */
+        columns(): StatementColumnMetadata[];
         /**
          * The source SQL text of the prepared statement with parameter
          * placeholders replaced by the values that were used during the most recent
