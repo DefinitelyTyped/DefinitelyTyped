@@ -1480,7 +1480,7 @@ declare module "util" {
     /**
      * This function returns a formatted text considering the `format` passed
      * for printing in a terminal. It is aware of the terminal's capabilities
-     * and acts according to the configuration set via `NO_COLORS`,
+     * and acts according to the configuration set via `NO_COLOR`,
      * `NODE_DISABLE_COLORS` and `FORCE_COLOR` environment variables.
      *
      * ```js
