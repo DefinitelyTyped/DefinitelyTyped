@@ -1,14 +1,17 @@
 {
-    "private": true,
-    "name": "@types/mathieuc__tradingview",
-    "version": "0.0.9999",
-    "projects": [
-        "https://github.com/Mathieu2301/TradingView-API"
-    ],
-    "owners": [
-        {
-            "name": "Fırat Özden",
-            "githubUsername": "fir4tozden"
-        }
-    ]
+  "private": true,
+  "name": "@types/mathieuc__tradingview",
+  "version": "0.0.9999",
+  "projects": [
+    "https://github.com/Mathieu2301/TradingView-API"
+  ],
+  "owners": [
+    {
+      "name": "Fırat Özden",
+      "githubUsername": "fir4tozden"
+    }
+  ],
+  "devDependencies": {
+    "@types/mathieuc__tradingview": "workspace:."
+  }
 }
