@@ -261,6 +261,15 @@ declare module "node:sqlite" {
          */
         enableLoadExtension(allow: boolean): void;
         /**
+         * This method is a wrapper around [`sqlite3_db_filename()`](https://sqlite.org/c3ref/db_filename.html)
+         * @since v22.16.0
+         * @param dbName Name of the database. This can be `'main'` (the default primary database) or any other
+         * database that has been added with [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html) **Default:** `'main'`.
+         * @returns The location of the database file. When using an in-memory database,
+         * this method returns null.
+         */
+        location(dbName?: string): string | null;
+        /**
          * This method allows one or more SQL statements to be executed without returning
          * any results. This method is useful when executing SQL statements read from a
          * file. This method is a wrapper around [`sqlite3_exec()`](https://www.sqlite.org/c3ref/exec.html).
