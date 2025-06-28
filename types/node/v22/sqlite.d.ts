@@ -166,6 +166,31 @@ declare module "node:sqlite" {
          */
         varargs?: boolean | undefined;
     }
+    interface AggregateOptions<T extends SQLInputValue = SQLInputValue> extends FunctionOptions {
+        /**
+         * The identity value for the aggregation function. This value is used when the aggregation
+         * function is initialized. When a `Function` is passed the identity will be its return value.
+         */
+        start: T | (() => T);
+        /**
+         * The function to call for each row in the aggregation. The
+         * function receives the current state and the row value. The return value of
+         * this function should be the new state.
+         */
+        step: (accumulator: T, ...args: SQLOutputValue[]) => T;
+        /**
+         * The function to call to get the result of the
+         * aggregation. The function receives the final state and should return the
+         * result of the aggregation.
+         */
+        result?: ((accumulator: T) => SQLInputValue) | undefined;
+        /**
+         * When this function is provided, the `aggregate` method will work as a window function.
+         * The function receives the current state and the dropped row value. The return value of this function should be the
+         * new state.
+         */
+        inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
+    }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
      * exposed by this class execute synchronously.
@@ -181,6 +206,38 @@ declare module "node:sqlite" {
          * @param options Configuration options for the database connection.
          */
         constructor(path: string | Buffer | URL, options?: DatabaseSyncOptions);
+        /**
+         * Registers a new aggregate function with the SQLite database. This method is a wrapper around
+         * [`sqlite3_create_window_function()`](https://www.sqlite.org/c3ref/create_function.html).
+         *
+         * When used as a window function, the `result` function will be called multiple times.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * db.exec(`
+         *   CREATE TABLE t3(x, y);
+         *   INSERT INTO t3 VALUES ('a', 4),
+         *                         ('b', 5),
+         *                         ('c', 3),
+         *                         ('d', 8),
+         *                         ('e', 1);
+         * `);
+         *
+         * db.aggregate('sumint', {
+         *   start: 0,
+         *   step: (acc, value) => acc + value,
+         * });
+         *
+         * db.prepare('SELECT sumint(y) as total FROM t3').get(); // { total: 21 }
+         * ```
+         * @since v22.16.0
+         * @param name The name of the SQLite function to create.
+         * @param options Function configuration settings.
+         */
+        aggregate(name: string, options: AggregateOptions): void;
+        aggregate<T extends SQLInputValue>(name: string, options: AggregateOptions<T>): void;
         /**
          * Closes the database connection. An exception is thrown if the database is not
          * open. This method is a wrapper around [`sqlite3_close_v2()`](https://www.sqlite.org/c3ref/close.html).
