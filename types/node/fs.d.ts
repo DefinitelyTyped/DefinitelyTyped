@@ -323,15 +323,17 @@ declare module "fs" {
          */
         readSync(): Dirent | null;
         /**
-         * An alias for `dir.close()`.
+         * Calls `dir.close()` if the directory handle is open, and returns a promise that
+         * fulfills when disposal is complete.
+         * @since v24.1.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
+        /**
+         * Calls `dir.closeSync()` if the directory handle is open, and returns
+         * `undefined`.
          * @since v24.1.0
          */
         [Symbol.dispose](): void;
-        /**
-         * An alias for `dir.closeSync()`.
-         * @since v24.1.0
-         */
-        [Symbol.asyncDispose](): void;
     }
     /**
      * Class: fs.StatWatcher
