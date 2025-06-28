@@ -2226,6 +2226,19 @@ declare module "util/types" {
      */
     function isExternal(object: unknown): boolean;
     /**
+     * Returns `true` if the value is a built-in `Float16Array` instance.
+     *
+     * ```js
+     * util.types.isFloat16Array(new ArrayBuffer());  // Returns false
+     * util.types.isFloat16Array(new Float16Array());  // Returns true
+     * util.types.isFloat16Array(new Float32Array());  // Returns false
+     * ```
+     * @since v22.16.0
+     */
+    // This does NOT return a type predicate in v22.x.
+    // The Float16Array feature does not yet exist in this version of Node.js.
+    function isFloat16Array(object: unknown): boolean;
+    /**
      * Returns `true` if the value is a built-in [`Float32Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) instance.
      *
      * ```js
