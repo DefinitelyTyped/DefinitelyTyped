@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@types/mathieuc__tradingview",
-  "version": "0.0.9999",
+  "version": "3.5",
   "projects": [
     "https://github.com/Mathieu2301/TradingView-API"
   ],
