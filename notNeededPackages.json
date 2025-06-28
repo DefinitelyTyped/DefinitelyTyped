@@ -5955,6 +5955,10 @@
             "libraryName": "react-native-appsflyer",
             "asOfVersion": "5.1.2"
         },
+        "react-native-auth0": {
+            "libraryName": "react-native-auth0",
+            "asOfVersion": "3.0.0"
+        },
         "react-native-calendars": {
             "libraryName": "react-native-calendars",
             "asOfVersion": "1.1267.0"
