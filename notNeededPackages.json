@@ -7499,6 +7499,10 @@
             "libraryName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
             "asOfVersion": "4.0.0"
         },
+        "umzug": {
+            "libraryName": "umzug",
+            "asOfVersion": "3.0.0"
+        },
         "unbox-primitive": {
             "libraryName": "unbox-primitive",
             "asOfVersion": "1.1.0"
