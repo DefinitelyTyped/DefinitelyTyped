@@ -197,7 +197,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[
     const buf: Buffer = Buffer.allocUnsafeSlow(10);
 }
 
-// Class Method byteLenght
+// Class Method byteLength
 {
     let len: number;
     len = Buffer.byteLength("foo");
@@ -366,6 +366,14 @@ b.fill("a").fill("b");
     b = a.readBigUint64LE(123);
     b = a.readBigUInt64BE(123);
     b = a.readBigUint64BE(123);
+}
+
+{
+    const buf = Buffer.allocUnsafe(5);
+    buf.fill("a");
+    buf.fill("aazz", "hex");
+    buf.fill("aazz", 1, "hex");
+    buf.fill("aazz", 1, 2, "hex");
 }
 
 (async () => {
