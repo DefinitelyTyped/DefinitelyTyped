@@ -431,7 +431,6 @@ declare module "events" {
          * }
          * ```
          * @since v20.5.0
-         * @experimental
          * @return Disposable that removes the `abort` listener.
          */
         static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;

@@ -1566,13 +1566,11 @@ declare module "process" {
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
-                 * @experimental
                  */
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
                  * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v22.x/api/process.html#processavailablememory) for more information.
-                 * @experimental
                  * @since v20.13.0
                  */
                 availableMemory(): number;

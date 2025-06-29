@@ -623,34 +623,67 @@ declare module "module" {
     global {
         interface ImportMeta {
             /**
-             * The directory name of the current module. This is the same as the `path.dirname()` of the `import.meta.filename`.
-             * **Caveat:** only present on `file:` modules.
+             * The directory name of the current module.
+             *
+             * This is the same as the `path.dirname()` of the `import.meta.filename`.
+             *
+             * > **Caveat**: only present on `file:` modules.
+             * @since v21.2.0, v20.11.0
              */
             dirname: string;
             /**
-             * The full absolute path and filename of the current module, with symlinks resolved.
+             * The full absolute path and filename of the current module, with
+             * symlinks resolved.
+             *
              * This is the same as the `url.fileURLToPath()` of the `import.meta.url`.
-             * **Caveat:** only local modules support this property. Modules not using the `file:` protocol will not provide it.
+             *
+             * > **Caveat** only local modules support this property. Modules not using the
+             * > `file:` protocol will not provide it.
+             * @since v21.2.0, v20.11.0
              */
             filename: string;
             /**
              * The absolute `file:` URL of the module.
+             *
+             * This is defined exactly the same as it is in browsers providing the URL of the
+             * current module file.
+             *
+             * This enables useful patterns such as relative file loading:
+             *
+             * ```js
+             * import { readFileSync } from 'node:fs';
+             * const buffer = readFileSync(new URL('./data.proto', import.meta.url));
+             * ```
              */
             url: string;
             /**
-             * Provides a module-relative resolution function scoped to each module, returning
-             * the URL string.
+             * `import.meta.resolve` is a module-relative resolution function scoped to
+             * each module, returning the URL string.
              *
-             * Second `parent` parameter is only used when the `--experimental-import-meta-resolve`
-             * command flag enabled.
+             * ```js
+             * const dependencyAsset = import.meta.resolve('component-lib/asset.css');
+             * // file:///app/node_modules/component-lib/asset.css
+             * import.meta.resolve('./dep.js');
+             * // file:///app/dep.js
+             * ```
              *
-             * @since v20.6.0
+             * All features of the Node.js module resolution are supported. Dependency
+             * resolutions are subject to the permitted exports resolutions within the package.
              *
-             * @param specifier The module specifier to resolve relative to `parent`.
-             * @param parent The absolute parent module URL to resolve from.
-             * @returns The absolute (`file:`) URL string for the resolved module.
+             * **Caveats**:
+             *
+             * * This can result in synchronous file-system operations, which
+             *   can impact performance similarly to `require.resolve`.
+             * * This feature is not available within custom loaders (it would
+             *   create a deadlock).
+             * @since v13.9.0, v12.16.0
+             * @param specifier The module specifier to resolve relative to the
+             * current module.
+             * @param parent An optional absolute parent module URL to resolve from.
+             * **Default:** `import.meta.url`
+             * @returns The absolute URL string that the specifier would resolve to.
              */
-            resolve(specifier: string, parent?: string | URL | undefined): string;
+            resolve(specifier: string, parent?: string | URL): string;
         }
         namespace NodeJS {
             interface Module {

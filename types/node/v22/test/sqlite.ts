@@ -1,10 +1,11 @@
-import { constants, DatabaseSync, StatementSync } from "node:sqlite";
+import { backup, constants, DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
     const database = new DatabaseSync(":memory:", { open: false });
     database.open();
     database.isOpen; // $ExpectType boolean
+    database.isTransaction; // $ExpectType boolean
 
     database.exec(`
     CREATE TABLE data(
@@ -12,6 +13,7 @@ import { TextEncoder } from "node:util";
         value TEXT
     ) STRICT
     `);
+    database.location("data"); // $ExpectType string | null
 
     database.function(
         "COUNT_ARGS",
@@ -21,10 +23,27 @@ import { TextEncoder } from "node:util";
         },
     );
 
+    database.aggregate(
+        "LAST",
+        {
+            start: null,
+            step: (previous, current) => current,
+        },
+    );
+    database.aggregate<number>(
+        "COUNT_NUMBERS",
+        {
+            step: (count, value) => count + (typeof value === "number" ? 1 : 0),
+            start: () => 0,
+            result: (count) => count,
+        },
+    );
+
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
     insert.setAllowUnknownNamedParameters(true);
+    insert.columns(); // $ExpectType StatementColumnMetadata[]
     insert.run(1, 42, 3.14159, "foo", new TextEncoder().encode("a☃b☃c"));
     insert.run(2, null, null, null, null);
     insert.run(3, Number(8), Number(2.718), String("bar"), Buffer.from("x☃y☃"));
@@ -95,4 +114,20 @@ import { TextEncoder } from "node:util";
             return constants.SQLITE_CHANGESET_ABORT;
         },
     });
+}
+
+{
+    const db = new DatabaseSync(":memory:");
+
+    // $ExpectType Promise<void>
+    backup(
+        db,
+        "/var/lib/sqlite/backup",
+        {
+            source: "main",
+            target: "backup",
+            rate: 250,
+            progress: (progressInfo) => console.log(`${progressInfo.remainingPages}/${progressInfo.totalPages}`),
+        },
+    );
 }
