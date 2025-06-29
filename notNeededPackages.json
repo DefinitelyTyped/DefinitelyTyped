@@ -5307,6 +5307,10 @@
             "libraryName": "private-ip",
             "asOfVersion": "2.3.3"
         },
+        "proj4": {
+            "libraryName": "proj4",
+            "asOfVersion": "2.19.0"
+        },
         "prosemirror-changeset": {
             "libraryName": "prosemirror-changeset",
             "asOfVersion": "2.2.0"
