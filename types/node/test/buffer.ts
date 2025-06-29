@@ -367,10 +367,11 @@ result = b.write("asd", 123, 123, "hex");
 
 {
     const buf = Buffer.allocUnsafe(5);
-    buf.fill("a");
-    buf.fill("aazz", "hex");
-    buf.fill("aazz", 1, "hex");
-    buf.fill("aazz", 1, 2, "hex");
+    let result: Buffer;
+    result = buf.fill("a");
+    result = buf.fill("aazz", "hex");
+    result = buf.fill("aazz", 1, "hex");
+    result = buf.fill("aazz", 1, 2, "hex");
 }
 
 (async () => {
