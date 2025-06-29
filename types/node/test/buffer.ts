@@ -243,9 +243,6 @@ result = b.write("asd", "hex");
 result = b.write("asd", 123, "hex");
 result = b.write("asd", 123, 123, "hex");
 
-// fill returns the input buffer.
-b.fill("a").fill("b");
-
 {
     const buffer = new Buffer("123");
     let index: number;
