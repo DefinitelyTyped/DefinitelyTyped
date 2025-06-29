@@ -365,16 +365,14 @@ result = b.write("asd", 123, 123, "hex");
     result = buf.fill("aazz", 1, "hex");
     result = buf.fill("aazz", 1, 2, "hex");
 
-    result = buf.fill(1);
-    result = buf.fill(1234, "hex");
-    result = buf.fill(1234, 1, "hex");
-    result = buf.fill(1234, 1, 2, "hex");
+    result = buf.fill(1234);
+    result = buf.fill(1234, 1);
+    result = buf.fill(1234, 1, 2);
 
     const target = Buffer.allocUnsafe(0);
     result = buf.fill(target);
-    result = buf.fill(target, "hex");
-    result = buf.fill(target, 1, "hex");
-    result = buf.fill(target, 1, 2, "hex");
+    result = buf.fill(target, 1);
+    result = buf.fill(target, 1, 2);
 }
 
 (async () => {
