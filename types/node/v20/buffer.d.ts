@@ -1702,10 +1702,9 @@ declare module "buffer" {
              * @param [encoding='utf8'] The encoding for `value` if `value` is a string.
              * @return A reference to `buf`.
              */
-            fill(value: Uint8Array | number, offset?: number, end?: number): this;
-            fill(value: string, offset?: number, end?: number, encoding?: BufferEncoding): this;
-            fill(value: string, offset: number, encoding: BufferEncoding): this;
-            fill(value: string, encoding: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, offset: number, encoding: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, encoding: BufferEncoding): this;
             /**
              * If `value` is:
              *
