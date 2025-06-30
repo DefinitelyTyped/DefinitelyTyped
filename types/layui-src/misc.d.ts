@@ -478,8 +478,8 @@ declare namespace Layui {
         /**
          * 设置弹出时的遮罩。
          * @since 2.8
-         * @value number 表示为遮罩透明度，如0.3
-         * @value [number, string] 同时设置透明度和背景颜色，如：[0.3, '#000']
+         * @description value - {number} 表示为遮罩透明度，如0.3
+         * @description value {[number, string]} 同时设置透明度和背景颜色，如：[0.3, '#000']
          */
         shade?: number | [number, string]
         /**
@@ -490,8 +490,8 @@ declare namespace Layui {
         /**
          * 设置触发点击事件的菜单范围。
          * @since 2.8
-         * @value "all" - 即代表父子菜单均可触发事件
-         * @value default - 默认无需设置，即父级菜单不触发事件
+         * @description value "all" - 即代表父子菜单均可触发事件
+         * @description value default - 默认无需设置，即父级菜单不触发事件
          */
         clickScope?: "all";
 
@@ -720,8 +720,8 @@ declare namespace Layui {
         /**
          * 指定触发加载的方向
          * @since 2.9.7
-         * @value bottom 滚动容器底部触发加载
-         * @value top 滚动容器顶部触发加载
+         * @description value bottom 滚动容器底部触发加载
+         * @description value top 滚动容器顶部触发加载
          */
         direction?: "bottom" | "top";
         /**
@@ -1261,8 +1261,8 @@ declare namespace Layui {
         zIndex?: number;
         /**
          * @since 2.8
-         * @value number 遮罩透明度
-         * @value [number, string] 遮罩透明度，同时指定遮罩的颜色，如：[0.3, '#000']
+         * @description value number 遮罩透明度
+         * @description value [number, string] 遮罩透明度，同时指定遮罩的颜色，如：[0.3, '#000']
          */
         shade: number | [number, string];
         /**
@@ -1298,8 +1298,8 @@ declare namespace Layui {
         /**
          * 用于标注节假日及补班日。
          * @since 2.7
-         * @value [LayDateValue[], LayDateValue[]] - [法定节假日, 补班日]
-         * @value (ymd: : { [K in "year" | "month" | "date"]: number }, render: ((datesOrType: [LayDateValue[], LayDateValue[]] | "holidays" | "workdays") => void) ) => void - 自定义
+         * @description value [LayDateValue[], LayDateValue[]] - [法定节假日, 补班日]
+         * @description value (ymd: : { [K in "year" | "month" | "date"]: number }, render: ((datesOrType: [LayDateValue[], LayDateValue[]] | "holidays" | "workdays") => void) ) => void - 自定义
          */
         holidays?: [LayDateValue[], LayDateValue[]] | ((ymd: DateParam, render: ((datesOrType: [LayDateValue[], LayDateValue[]] | "holidays" | "workdays") => void) ) => void);
         /**
