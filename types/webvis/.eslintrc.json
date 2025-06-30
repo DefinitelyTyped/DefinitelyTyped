@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "jsdoc/check-tag-names": ["error", {
+            "definedTags": ["valueType", "hidden", "experimental", "remarks", "typeParam"]
+        }],
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off"
+    }
+}
