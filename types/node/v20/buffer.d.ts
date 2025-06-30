@@ -1703,6 +1703,8 @@ declare module "buffer" {
              * @return A reference to `buf`.
              */
             fill(value: string | Uint8Array | number, offset?: number, end?: number, encoding?: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, offset: number, encoding: BufferEncoding): this;
+            fill(value: string | Uint8Array | number, encoding: BufferEncoding): this;
             /**
              * If `value` is:
              *
