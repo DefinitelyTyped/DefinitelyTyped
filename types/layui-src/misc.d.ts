@@ -523,7 +523,7 @@ declare namespace Layui {
          * @since 2.9.18
          * @param event
          */
-        onClickOutside?: (event: JQuery.ClickEvent) => false | void;
+        onClickOutside?: (event: JQuery.ClickEvent) => void | false;
     }
 
     /**
