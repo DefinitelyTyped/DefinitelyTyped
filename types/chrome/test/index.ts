@@ -5351,8 +5351,12 @@ function testWebRequest() {
         details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
         details.url; // $ExpectType string
 
-        if (!asyncCallback) return blockingResponse;
+        if (!asyncCallback) return;
         asyncCallback?.(blockingResponse); // $ExpectType void
+    }, ["responseHeaders", "asyncBlocking", "extraHeaders"]);
+
+    checkWebRequestEvent(chrome.webRequest.onAuthRequired, () => {
+        return blockingResponse;
     }, ["responseHeaders", "blocking", "asyncBlocking", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onBeforeRedirect, (details) => {
@@ -5397,7 +5401,9 @@ function testWebRequest() {
         details.timeStamp; // $ExpectType number
         details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
         details.url; // $ExpectType string
+    }, ["requestBody", "extraHeaders"]);
 
+    checkWebRequestEvent(chrome.webRequest.onBeforeRequest, () => {
         return blockingResponse;
     }, ["blocking", "requestBody", "extraHeaders"]);
 
@@ -5420,11 +5426,13 @@ function testWebRequest() {
             details.timeStamp; // $ExpectType number
             details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
             details.url; // $ExpectType string
-
-            return blockingResponse;
         },
-        ["requestHeaders", "blocking", "extraHeaders"],
+        ["requestHeaders", "extraHeaders"],
     );
+
+    checkWebRequestEvent(chrome.webRequest.onBeforeSendHeaders, () => {
+        return blockingResponse;
+    }, ["blocking", "requestHeaders", "extraHeaders"]);
 
     checkWebRequestEvent(chrome.webRequest.onCompleted, (details) => {
         details.documentId; // $ExpectType string
@@ -5487,7 +5495,9 @@ function testWebRequest() {
         details.timeStamp; // $ExpectType number
         details.type; // $ExpectType "main_frame" | "sub_frame" | "stylesheet" | "script" | "image" | "font" | "object" | "xmlhttprequest" | "ping" | "csp_report" | "media" | "websocket" | "webbundle" | "other";
         details.url; // $ExpectType string
+    }, ["responseHeaders", "extraHeaders"]);
 
+    checkWebRequestEvent(chrome.webRequest.onHeadersReceived, () => {
         return blockingResponse;
     }, ["blocking", "responseHeaders", "extraHeaders"]);
 
