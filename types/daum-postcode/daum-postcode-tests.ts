@@ -35,6 +35,7 @@ new daum.Postcode({
     hideEngBtn: false,
     hideMapBtn: false,
     maxSuggestItems: 10,
+    minWidth: 300,
     onclose: () => {},
     oncomplete: () => {},
     onresize: () => {},
