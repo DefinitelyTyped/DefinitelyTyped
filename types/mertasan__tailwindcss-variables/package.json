@@ -6,7 +6,7 @@
         "https://github.com/mertasan/tailwindcss-variables#readme"
     ],
     "dependencies": {
-        "tailwindcss": ">=3.2.0"
+        "tailwindcss": "^3.2.0"
     },
     "devDependencies": {
         "@types/mertasan__tailwindcss-variables": "workspace:."

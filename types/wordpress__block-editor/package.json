@@ -6,7 +6,7 @@
         "https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/wordpress__blocks": "*",
         "@wordpress/data": "^9.13.0",
         "@wordpress/components": "^27.2.0",

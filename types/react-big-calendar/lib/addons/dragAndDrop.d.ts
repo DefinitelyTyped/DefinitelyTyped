@@ -22,6 +22,7 @@ export interface OnDragStartArgs<TEvent> {
 export interface DragFromOutsideItemArgs {
     start: stringOrDate;
     end: stringOrDate;
+    resource?: string | number;
     allDay: boolean;
 }
 
@@ -31,7 +32,7 @@ export interface withDragAndDropProps<TEvent extends object = Event, TResource e
     onDragStart?: ((args: OnDragStartArgs<TEvent>) => void) | undefined;
     onDragOver?: ((event: React.DragEvent) => void) | undefined;
     onDropFromOutside?: ((args: DragFromOutsideItemArgs) => void) | undefined;
-    dragFromOutsideItem?: (() => keyof TEvent | ((event: TEvent) => Date)) | undefined;
+    dragFromOutsideItem?: (() => TEvent) | undefined;
     draggableAccessor?: keyof TEvent | ((event: TEvent) => boolean) | undefined;
     resizableAccessor?: keyof TEvent | ((event: TEvent) => boolean) | undefined;
     selectable?: true | false | "ignoreEvents" | undefined;

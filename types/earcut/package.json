@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/earcut",
-    "version": "2.1.9999",
+    "type": "module",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/mapbox/earcut#readme"
     ],

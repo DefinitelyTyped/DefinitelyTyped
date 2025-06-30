@@ -5,8 +5,11 @@ async function test() {
     const inputs = cloudClient.createDefaultInputs(latestVersion);
     inputs.setInput("do it", false);
     const animation = await cloudClient.startAnimation(inputs, "my-div");
-    animation.setSpeed(1);
-    animation.callFunction("experiment.root.setValue", [6]);
+    await animation.setSpeed(1);
+    await animation.callFunction("experiment.root.setValue", [6]);
+    await animation.pause();
+    const state = await animation.getState();
+    console.assert(state === "PAUSED");
 
     const modelRun = await cloudClient.createSimulation(inputs);
     await modelRun.run();

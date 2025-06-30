@@ -20,7 +20,7 @@ helper.toPolylines();
 const { entities } = helper.parsed!;
 
 // $ExpectType PointEntityData[]
-const points = entities.filter(entity => entity.TYPE === "POINT") as Entities.Point[];
+const points = entities.filter(entity => entity.type === "POINT") as Entities.Point[];
 
 // $ExpectType PolylineEntityData[]
-const polylines = entities.filter(entity => entity.TYPE === "POLYLINE") as Entities.Polyline[];
+const polylines = entities.filter(entity => entity.type === "POLYLINE") as Entities.Polyline[];

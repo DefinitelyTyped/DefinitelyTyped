@@ -187,18 +187,16 @@ export interface FormSubmission {
     submitter?: HTMLButtonElement | HTMLInputElement;
 }
 export type FormSubmissionResult =
-    | { success: boolean; fetchResponse: FetchResponse }
-    | { success: false; error: Error };
+    & { formSubmission: FormSubmission }
+    & (
+        | { success: true; error: undefined; fetchResponse: FetchResponse }
+        | { success: false; error?: Error; fetchResponse?: FetchResponse }
+    );
 
 export type TurboSubmitStartEvent = CustomEvent<{
     formSubmission: FormSubmission;
 }>;
-export type TurboSubmitEndEvent = CustomEvent<
-    & { formSubmission: FormSubmission }
-    & {
-        [K in keyof FormSubmissionResult]?: FormSubmissionResult[K];
-    }
->;
+export type TurboSubmitEndEvent = CustomEvent<FormSubmissionResult>;
 
 export type TurboFrameMissingEvent = CustomEvent<{
     response: Response;
@@ -219,6 +217,11 @@ export type TurboFetchRequestErrorEvent = CustomEvent<{
     request: FetchRequest;
     error: Error;
 }>;
+
+export interface TurboElementTagNameMap {
+    "turbo-frame": FrameElement;
+    "turbo-stream": StreamElement;
+}
 
 export interface TurboElementEventMap {
     "turbo:before-frame-render": TurboBeforeFrameRenderEvent;
@@ -247,6 +250,7 @@ export interface TurboGlobalEventHandlersEventMap extends TurboElementEventMap {
 
 declare global {
     /* eslint-disable @typescript-eslint/no-empty-interface */
+    interface HTMLElementTagNameMap extends TurboElementTagNameMap {}
     interface ElementEventMap extends TurboElementEventMap {}
     interface GlobalEventHandlersEventMap extends TurboGlobalEventHandlersEventMap {}
     /* eslint-enable @typescript-eslint/no-empty-interface */

@@ -59,7 +59,7 @@ export namespace Event {
      *
      * @param target The object that dispatched the event.
      */
-    type TargetListener = (event: Event, target: Target) => void;
+    export type TargetListener = (event: Event, target: Target) => void;
 
     /**
      * An object which can dispatch {@link Event} objects. Listeners
@@ -101,5 +101,44 @@ export namespace Event {
          * this function, along with the dispatching Event.Target.
          */
         onEach(types: string[], listener: TargetListener): void;
+
+        /**
+         * Unregisters a listener that was previously registered with
+         * {@link Guacamole.Event.Target#on on()} or
+         * {@link Guacamole.Event.Target#onEach onEach()}. If no such listener was
+         * registered, this function has no effect. If multiple copies of the same
+         * listener were registered, the first listener still registered will be
+         * removed.
+         *
+         * @param type The unique name of the event type handled by the listener being
+         * removed.
+         *
+         * @param listener The listener function previously provided to {@link Guacamole.Event.Target#on on()}
+         * or {@link Guacamole.Event.Target#onEach onEach()}.
+         *
+         * @returns true if the specified listener was removed, false otherwise.
+         */
+        off(type: string, listener: TargetListener): boolean;
+
+        /**
+         * Unregisters listeners that were previously registered with
+         * {@link Guacamole.Event.Target#on on()} or
+         * {@link Guacamole.Event.Target#onEach onEach()}. If no such listeners
+         * were registered, this function has no effect. If multiple copies of the
+         * same listener were registered for the same event type, the first
+         * listener still registered will be removed.
+         * <p>
+         * Invoking this function is equivalent to manually invoking
+         * {@link Guacamole.Event.Target#off off()} for each of the provided types.
+         *
+         * @param types The unique names of the event types handled by the listeners being
+         * removed.
+         *
+         * @param listener The listener function previously provided to {@link Guacamole.Event.Target#on on()}
+         * or {@link Guacamole.Event.Target#onEach onEach()}.
+         *
+         * @returns true if any of the specified listeners were removed, false otherwise.
+         */
+        offEach(types: string[], listener: TargetListener): boolean;
     }
 }

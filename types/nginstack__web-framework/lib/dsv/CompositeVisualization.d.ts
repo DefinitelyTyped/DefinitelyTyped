@@ -7,7 +7,6 @@ declare class CompositeVisualization {
     private autoCreateFilters_;
     adjustItemHeadersAndFooters: boolean;
     canExport: boolean;
-    private cssExtractor_;
     private addSlot_;
     private handleItemHeadersAndFooters_;
     getExportableData(): Array<{

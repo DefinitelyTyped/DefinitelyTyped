@@ -13,7 +13,6 @@ declare class FormDialogField {
     assignListeners(): void;
     on(): never;
     private write;
-    private _stringify;
 }
 declare namespace FormDialogField {
     export { Field };

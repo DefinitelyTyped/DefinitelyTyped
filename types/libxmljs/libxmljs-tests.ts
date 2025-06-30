@@ -98,7 +98,7 @@ doc.validationErrors[0].line;
 
 // text accessors on node.
 const element = libxmljs.parseXmlString("<root><child>Hello <name>user1</name></child></root>").get("//child");
-const node = element?.childNodes()?.at(0);
+const node = element?.childNodes()?.[0];
 if (node) {
     console.log(node.text()); // prints "Hello"
 

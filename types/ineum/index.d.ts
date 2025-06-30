@@ -39,7 +39,7 @@ declare function ineum(
 ): void;
 declare function ineum(
     command: "reportEvent",
-    name: string,
+    eventName: string,
     opts?: {
         duration?: number | undefined;
         timestamp?: number | undefined;
@@ -49,6 +49,7 @@ declare function ineum(
         meta?: {
             [key: string]: string | number | boolean;
         } | undefined;
+        customMetric?: number | undefined;
     },
 ): void;
 

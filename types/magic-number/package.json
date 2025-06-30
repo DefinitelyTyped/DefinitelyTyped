@@ -1,13 +1,12 @@
 {
     "private": true,
     "name": "@types/magic-number",
-    "version": "0.0.9999",
+    "version": "0.1.9999",
     "projects": [
         "https://github.com/stpettersens/node-magic-number"
     ],
     "devDependencies": {
-        "@types/magic-number": "workspace:.",
-        "@types/node": "*"
+        "@types/magic-number": "workspace:."
     },
     "owners": [
         {

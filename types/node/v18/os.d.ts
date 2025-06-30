@@ -382,6 +382,13 @@ declare module "os" {
             const WSA_E_CANCELLED: number;
             const WSAEREFUSED: number;
         }
+        namespace dlopen {
+            const RTLD_LAZY: number;
+            const RTLD_NOW: number;
+            const RTLD_GLOBAL: number;
+            const RTLD_LOCAL: number;
+            const RTLD_DEEPBIND: number;
+        }
         namespace priority {
             const PRIORITY_LOW: number;
             const PRIORITY_BELOW_NORMAL: number;

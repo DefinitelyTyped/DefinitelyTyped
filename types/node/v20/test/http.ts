@@ -30,11 +30,15 @@ import * as url from "node:url";
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
+    // TODO: add test for all remaining options
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,
         keepAliveTimeout: 100,
+        headersTimeout: 50000,
+        requireHostHeader: false,
+        rejectNonStandardBodyWrites: false,
     }, reqListener);
 
     server.close();
@@ -48,7 +52,13 @@ import * as url from "node:url";
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
-    server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server.setTimeout().setTimeout(1000);
+    server.setTimeout((socket) => {
+        socket; // $ExpectType Socket
+    });
+    server.setTimeout(100, (socket) => {
+        socket; // $ExpectType Socket
+    });
     server.closeIdleConnections(); // $ExpectType void
     server.closeAllConnections(); // $ExpectType void
 }
@@ -355,6 +365,26 @@ import * as url from "node:url";
     agent.on("free", () => {});
     agent.once("free", () => {});
     agent.emit("free");
+
+    agent.getName({ host: "for", port: 1234, localAddress: "bar", family: 4 });
+
+    // ensure direct call and override
+    agent.createConnection({ port: 1234 });
+    agent.createConnection = function createConnection(options, callback) {
+        return new stream.Duplex(options);
+    };
+
+    // ensure direct call and override
+    agent.keepSocketAlive(new stream.Duplex());
+    agent.keepSocketAlive = function keepSocketAlive(socket) {
+        socket.isPaused();
+    };
+
+    // ensure direct call and override
+    agent.reuseSocket(new stream.Duplex(), new http.ClientRequest(""));
+    agent.reuseSocket = function reuseSocket(socket, request) {
+        socket.isPaused();
+    };
 }
 
 {
@@ -377,6 +407,9 @@ import * as url from "node:url";
     http.request(new url.URL("http://www.example.com"), opts);
     http.get(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
     http.request(new url.URL("http://www.example.com/xyz"), opts, (res: http.IncomingMessage): void => {});
+
+    http.request("http://www.example.com/xyz", { headers: ["extra", "header"] });
+    http.request("http://www.example.com/xyz", { headers: { extra: "header" } });
 }
 
 {
@@ -504,7 +537,7 @@ import * as url from "node:url";
     let _req = new http.IncomingMessage(new net.Socket());
     let _res = new http.ServerResponse(_req);
     let _err = new Error();
-    let _head = Buffer.from("");
+    let _head: Buffer = Buffer.from("");
     let _bool = true;
 
     server = server.addListener("checkContinue", (req, res) => {

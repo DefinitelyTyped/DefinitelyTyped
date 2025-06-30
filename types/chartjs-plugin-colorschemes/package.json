@@ -6,7 +6,7 @@
         "https://nagix.github.io/chartjs-plugin-colorschemes"
     ],
     "dependencies": {
-        "@types/chart.js": "*"
+        "@types/chart.js": "< 3"
     },
     "devDependencies": {
         "@types/chartjs-plugin-colorschemes": "workspace:."

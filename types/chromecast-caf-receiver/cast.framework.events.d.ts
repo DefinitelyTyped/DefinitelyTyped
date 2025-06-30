@@ -140,6 +140,15 @@ export enum DetailedErrorCode {
     GENERIC = 999,
 }
 
+/**
+ * The error severity. Follows the same naming scheme and numbering as Shaka Player.
+ * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
+ */
+export enum ErrorSeverity {
+    RECOVERABLE = 1,
+    CRITICAL = 2,
+}
+
 export type EndedReason = "END_OF_STREAM" | "ERROR" | "STOPPED" | "INTERRUPTED" | "SKIPPED" | "BREAK_SWITCH";
 
 /**
@@ -447,7 +456,7 @@ export class BitrateChangedEvent extends Event {
  * Event data for @see{@link EventType.ERROR} event.
  */
 export class ErrorEvent extends Event {
-    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason);
+    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason, severity?: ErrorSeverity);
 
     /**
      * An error code representing the cause of the error.
@@ -463,6 +472,11 @@ export class ErrorEvent extends Event {
      * Optional error reason.
      */
     reason?: ErrorReason | undefined;
+
+    /**
+     * Optional error severity.
+     */
+    severity?: ErrorSeverity | undefined;
 }
 
 /**

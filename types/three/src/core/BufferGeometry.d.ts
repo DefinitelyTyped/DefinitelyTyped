@@ -173,7 +173,9 @@ export class BufferGeometry<
      * @defaultValue `{}`
      */
     morphAttributes: {
-        [name: string]: Array<BufferAttribute | InterleavedBufferAttribute>; // TODO Replace for 'Record<>'
+        position?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        normal?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
+        color?: Array<BufferAttribute | InterleavedBufferAttribute> | undefined;
     };
 
     /**

@@ -4,25 +4,42 @@ export = PropTypes;
 declare namespace PropTypes {
     type ReactComponentLike =
         | string
-        | ((props: any, context?: any) => any)
-        | (new(props: any, context?: any) => any);
+        | ((props: any) => any)
+        | (new(props: any, context: any) => any);
 
     interface ReactElementLike {
         type: ReactComponentLike;
-        props: any;
+        props: unknown;
         key: string | null;
     }
 
     interface ReactNodeArray extends Iterable<ReactNodeLike> {}
+
+    /**
+     * @internal Use `Awaited<ReactNodeLike>` instead
+     */
+    // Helper type to enable `Awaited<ReactNodeLike>`.
+    // Must be a copy of the non-thenables of `ReactNodeLike`.
+    type AwaitedReactNodeLike =
+        | ReactElementLike
+        | string
+        | number
+        | bigint
+        | ReactNodeArray
+        | boolean
+        | null
+        | undefined;
 
     type ReactNodeLike =
         | ReactElementLike
         | ReactNodeArray
         | string
         | number
+        | bigint
         | boolean
         | null
-        | undefined;
+        | undefined
+        | Promise<AwaitedReactNodeLike>;
 
     const nominalTypeHack: unique symbol;
 

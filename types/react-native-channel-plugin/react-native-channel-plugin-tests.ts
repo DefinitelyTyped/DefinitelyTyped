@@ -60,6 +60,9 @@ ChannelIO.openChat(null, null);
 // If support bot is enabled, open support bot instead.
 ChannelIO.openChat(null, "123");
 
+// Open workflow with id "123"
+ChannelIO.openWorkflow("123");
+
 // Only send event name
 ChannelIO.track("EVENT_NAME");
 

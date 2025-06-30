@@ -36,6 +36,7 @@ export default class Ad extends AbstractCrudObject {
         issues_info: "issues_info";
         last_updated_by_app_id: "last_updated_by_app_id";
         name: "name";
+        placement: "placement";
         preview_shareable_link: "preview_shareable_link";
         priority: "priority";
         recommendations: "recommendations";

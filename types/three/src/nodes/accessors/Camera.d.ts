@@ -4,6 +4,7 @@ import { Vector3 } from "../../math/Vector3.js";
 import UniformNode from "../core/UniformNode.js";
 import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
+export const cameraIndex: ShaderNodeObject<UniformNode<number>>;
 export const cameraNear: ShaderNodeObject<UniformNode<number>>;
 export const cameraFar: ShaderNodeObject<UniformNode<number>>;
 export const cameraProjectionMatrix: ShaderNodeObject<UniformNode<Matrix4>>;

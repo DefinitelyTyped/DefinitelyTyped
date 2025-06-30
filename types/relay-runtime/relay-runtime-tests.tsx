@@ -12,12 +12,14 @@ import {
     fetchQuery,
     FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRefetchMetadata,
     getRequest,
     graphql,
     isPromise,
     LiveState,
     Network,
     PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -33,7 +35,9 @@ import {
     suspenseSentinel,
     Variables,
 } from "relay-runtime";
+import { observeFragment, observeQuery, waitForFragmentData } from "relay-runtime/experimental";
 
+import type { HandlerProvider } from "relay-runtime/lib/handlers/RelayDefaultHandlerProvider";
 import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
 
 const source = new RecordSource();
@@ -84,8 +88,33 @@ const network = Network.create(fetchFunction);
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// Handler Provider
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const handlerProvider: HandlerProvider = (handle: string) => {
+    switch (handle) {
+        // Augment (or remove from) this list:
+        case "connection":
+            return ConnectionHandler;
+            // case 'viewer':
+            //     // ViewerHandler is special-cased and does not have an `update` method
+            //     return ViewerHandler;
+        case "custom":
+            return {
+                update(store, fieldPayload) {
+                    // Implementation
+                },
+            };
+    }
+    throw new Error(`handlerProvider: No handler provided for ${handle}`);
+};
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Environment
 // ~~~~~~~~~~~~~~~~~~~~~
+
+// Minimal
+new Environment({ network });
 
 const isServer = false;
 
@@ -176,34 +205,24 @@ const environment = new Environment({
         }
     },
     relayFieldLogger: arg => {
-        if (arg.kind === "missing_field.log") {
+        if (arg.kind === "missing_required_field.log") {
             console.log(arg.fieldPath, arg.owner);
-        } else if (arg.kind === "missing_field.throw") {
+        } else if (arg.kind === "missing_required_field.throw") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "relay_resolver.error") {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "relay_field_payload.error"
+        } else if (arg.kind === "relay_field_payload.error") {
+            arg.kind;
             console.log(arg.fieldPath, arg.owner, arg.error);
+        } else if (arg.kind === "missing_expected_data.throw") {
+            arg.kind;
+            console.log(arg.fieldPath, arg.owner, arg.handled);
+        } else {
+            arg.kind; // $ExpectType "missing_expected_data.log"
+            console.log(arg.fieldPath, arg.owner);
         }
     },
 });
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// Handler Provider
-// ~~~~~~~~~~~~~~~~~~~~~
-
-function handlerProvider(handle: any) {
-    switch (handle) {
-        // Augment (or remove from) this list:
-        case "connection":
-            return ConnectionHandler;
-            // case 'viewer':
-            //     // ViewerHandler is special-cased and does not have an `update` method
-            //     return ViewerHandler;
-    }
-    throw new Error(`handlerProvider: No handler provided for ${handle}`);
-}
 
 // Updatable fragment.
 interface UserFragment_updatable$data {
@@ -370,6 +389,10 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
     },
 };
 
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
+
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -419,7 +442,7 @@ const node: ConcreteRequest = (function() {
                 },
             ],
         },
-    ];
+    ] as const;
     return {
         kind: "Request",
         fragment: {
@@ -444,7 +467,7 @@ const node: ConcreteRequest = (function() {
             text: "query FooQuery {\n  __typename\n}\n",
             metadata: {},
         },
-    };
+    } as const;
 })();
 /* tslint:enable:only-arrow-functions no-var-keyword prefer-const */
 
@@ -639,6 +662,12 @@ const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
+
+__internal.fetchQueryDeduped(
+    environment,
+    operation.request.identifier,
+    () => environment.execute({ operation }),
+);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
@@ -890,4 +919,132 @@ export function handleResult<T, E>(result: Result<T, E>) {
     } else {
         const errors: readonly E[] = result.errors;
     }
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// Metadata
+// ~~~~~~~~~~~~~~~~~~
+
+const refetchMetadata: {
+    fragmentRefPathInResponse: readonly (string | number)[];
+    identifierInfo:
+        | {
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
+        | null
+        | undefined;
+    refetchableRequest: ConcreteRequest;
+    refetchMetadata: {
+        operation: string | ConcreteRequest;
+        fragmentPathInResult: string[];
+        identifierInfo?:
+            | {
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
+            | null
+            | undefined;
+    };
+} = getRefetchMetadata(node.fragment, "getRefetchMetadata()");
+
+// ~~~~~~~~~~~~~~~~~~~
+// waitForFragmentData
+// ~~~~~~~~~~~~~~~~~~~
+
+async function waitForFragmentDataTest(userKey: UserComponent_user$key) {
+    const { name, profile_picture: { uri } } = await waitForFragmentData(
+        environment,
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    );
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// observeFragment
+// ~~~~~~~~~~~~~~~~~~
+
+function observeFragmentTest(userKey: UserComponent_user$key) {
+    const subscription = observeFragment(
+        environment,
+        graphql`
+            fragment UserComponent_user on User {
+                name
+                profile_picture(scale: 2) {
+                    uri
+                }
+            }
+        `,
+        userKey,
+    ).subscribe({
+        next: (result) => {
+            switch (result.state) {
+                case "loading":
+                    break;
+                case "error":
+                    const error: Error = result.error;
+                    break;
+                case "ok":
+                    const name: string = result.value.name;
+                    break;
+            }
+        },
+    });
+
+    subscription.unsubscribe();
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// observeQuery
+// ~~~~~~~~~~~~~~~~~~
+
+interface AppQueryVariables {
+    id: string;
+}
+
+interface AppQueryResponse {
+    readonly user: {
+        readonly name: string;
+    };
+}
+
+interface AppQuery {
+    readonly response: AppQueryResponse;
+    readonly variables: AppQueryVariables;
+}
+
+function observeQueryTest() {
+    const subscription = observeQuery<AppQuery>(
+        environment,
+        graphql`
+            query AppQuery($id: ID!) {
+                user(id: $id) {
+                    name
+                }
+            }
+        `,
+        { id: "12345" },
+    ).subscribe({
+        next: (result) => {
+            switch (result.state) {
+                case "loading":
+                    break;
+                case "error":
+                    const error: Error = result.error;
+                    break;
+                case "ok":
+                    const name: string = result.value.user.name;
+                    break;
+            }
+        },
+    });
+
+    subscription.unsubscribe();
 }

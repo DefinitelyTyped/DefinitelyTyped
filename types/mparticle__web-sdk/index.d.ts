@@ -23,6 +23,12 @@ export interface MPConfiguration {
     cookieDomain?: string | undefined;
     customFlags?: SDKEventCustomFlags | undefined;
     sideloadedKits?: MPForwarder[];
+    v1SecureServiceUrl?: string | undefined;
+    v2SecureServiceUrl?: string | undefined;
+    v3SecureServiceUrl?: string | undefined;
+    configUrl?: string | undefined;
+    identityUrl?: string | undefined;
+    aliasUrl?: string | undefined;
     /**
      * @warning only change workspaceToken if you are absolutely sure you know what you are doing
      */
@@ -515,27 +521,27 @@ export interface User {
 export type UserAttributesValue = string | number | boolean | null;
 export type AllUserAttributes = Record<string, UserAttributesValue | UserAttributesValue[]>;
 export interface UserIdentities {
-    customerid?: string | undefined;
-    email?: string | undefined;
-    other?: string | undefined;
-    other2?: string | undefined;
-    other3?: string | undefined;
-    other4?: string | undefined;
-    other5?: string | undefined;
-    other6?: string | undefined;
-    other7?: string | undefined;
-    other8?: string | undefined;
-    other9?: string | undefined;
-    other10?: string | undefined;
-    mobile_number?: string | undefined;
-    phone_number_2?: string | undefined;
-    phone_number_3?: string | undefined;
-    facebook?: string | undefined;
-    facebookcustomaudienceid?: string | undefined;
-    google?: string | undefined;
-    twitter?: string | undefined;
-    microsoft?: string | undefined;
-    yahoo?: string | undefined;
+    customerid?: string | null;
+    email?: string | null;
+    other?: string | null;
+    other2?: string | null;
+    other3?: string | null;
+    other4?: string | null;
+    other5?: string | null;
+    other6?: string | null;
+    other7?: string | null;
+    other8?: string | null;
+    other9?: string | null;
+    other10?: string | null;
+    mobile_number?: string | null;
+    phone_number_2?: string | null;
+    phone_number_3?: string | null;
+    facebook?: string | null;
+    facebookcustomaudienceid?: string | null;
+    google?: string | null;
+    twitter?: string | null;
+    microsoft?: string | null;
+    yahoo?: string | null;
 }
 
 interface Cart {

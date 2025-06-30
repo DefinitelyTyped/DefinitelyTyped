@@ -4,7 +4,7 @@
  * ```js
  * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -113,6 +113,87 @@ declare module "v8" {
      * @since v1.0.0
      */
     function getHeapStatistics(): HeapInfo;
+    /**
+     * It returns an object with a structure similar to the
+     * [`cppgc::HeapStatistics`](https://v8docs.nodesource.com/node-22.4/d7/d51/heap-statistics_8h_source.html)
+     * object. See the [V8 documentation](https://v8docs.nodesource.com/node-22.4/df/d2f/structcppgc_1_1_heap_statistics.html)
+     * for more information about the properties of the object.
+     *
+     * ```js
+     * // Detailed
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 152,
+     *   space_statistics: [
+     *     {
+     *       name: 'NormalPageSpace0',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace1',
+     *       committed_size_bytes: 131072,
+     *       resident_size_bytes: 131072,
+     *       used_size_bytes: 152,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace2',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'NormalPageSpace3',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *     {
+     *       name: 'LargePageSpace',
+     *       committed_size_bytes: 0,
+     *       resident_size_bytes: 0,
+     *       used_size_bytes: 0,
+     *       page_stats: [{}],
+     *       free_list_stats: {},
+     *     },
+     *   ],
+     *   type_names: [],
+     *   detail_level: 'detailed',
+     * });
+     * ```
+     *
+     * ```js
+     * // Brief
+     * ({
+     *   committed_size_bytes: 131072,
+     *   resident_size_bytes: 131072,
+     *   used_size_bytes: 128864,
+     *   space_statistics: [],
+     *   type_names: [],
+     *   detail_level: 'brief',
+     * });
+     * ```
+     * @since v22.15.0
+     * @param detailLevel **Default:** `'detailed'`. Specifies the level of detail in the returned statistics.
+     * Accepted values are:
+     * * `'brief'`:  Brief statistics contain only the top-level
+     * allocated and used
+     * memory statistics for the entire heap.
+     * * `'detailed'`: Detailed statistics also contain a break
+     * down per space and page, as well as freelist statistics
+     * and object type histograms.
+     */
+    function getCppHeapStatistics(detailLevel?: "brief" | "detailed"): object;
     /**
      * Returns statistics about the V8 heap spaces, i.e. the segments which make up
      * the V8 heap. Neither the ordering of heap spaces, nor the availability of a
@@ -320,6 +401,39 @@ declare module "v8" {
      */
     function getHeapCodeStatistics(): HeapCodeStatistics;
     /**
+     * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
+     * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;
+     * otherwise, it returns false.
+     *
+     * If this method returns false, that does not mean that the string contains some characters not in `Latin-1/ISO-8859-1`.
+     * Sometimes a `Latin-1` string may also be represented as `UTF16`.
+     *
+     * ```js
+     * const { isStringOneByteRepresentation } = require('node:v8');
+     *
+     * const Encoding = {
+     *   latin1: 1,
+     *   utf16le: 2,
+     * };
+     * const buffer = Buffer.alloc(100);
+     * function writeString(input) {
+     *   if (isStringOneByteRepresentation(input)) {
+     *     buffer.writeUint8(Encoding.latin1);
+     *     buffer.writeUint32LE(input.length, 1);
+     *     buffer.write(input, 5, 'latin1');
+     *   } else {
+     *     buffer.writeUint8(Encoding.utf16le);
+     *     buffer.writeUint32LE(input.length * 2, 1);
+     *     buffer.write(input, 5, 'utf16le');
+     *   }
+     * }
+     * writeString('hello');
+     * writeString('你好');
+     * ```
+     * @since v23.10.0, v22.15.0
+     */
+    function isStringOneByteRepresentation(content: string): boolean;
+    /**
      * @since v8.0.0
      */
     class Serializer {
@@ -445,7 +559,7 @@ declare module "v8" {
      * @since v8.0.0
      * @param buffer A buffer returned by {@link serialize}.
      */
-    function deserialize(buffer: NodeJS.TypedArray): any;
+    function deserialize(buffer: NodeJS.ArrayBufferView): any;
     /**
      * The `v8.takeCoverage()` method allows the user to write the coverage started by `NODE_V8_COVERAGE` to disk on demand. This method can be invoked multiple
      * times during the lifetime of the process. Each time the execution counter will
@@ -466,8 +580,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
-     * @experimental
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @since v18.10.0, v16.18.0
      */
     function setHeapSnapshotNearHeapLimit(limit: number): void;
@@ -693,33 +806,6 @@ declare module "v8" {
      */
     const promiseHooks: PromiseHooks;
     type StartupSnapshotCallbackFn = (args: any) => any;
-    interface StartupSnapshot {
-        /**
-         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
-         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
-         * @since v18.6.0, v16.17.0
-         */
-        addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
-         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
-         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
-         * @since v18.6.0, v16.17.0
-         */
-        addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
-         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
-         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
-         * @since v18.6.0, v16.17.0
-         */
-        setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
-        /**
-         * Returns true if the Node.js instance is run to build a snapshot.
-         * @since v18.6.0, v16.17.0
-         */
-        isBuildingSnapshot(): boolean;
-    }
     /**
      * The `v8.startupSnapshot` interface can be used to add serialization and deserialization hooks for custom startup snapshots.
      *
@@ -798,10 +884,35 @@ declare module "v8" {
      *
      * Currently the application deserialized from a user-land snapshot cannot be snapshotted again, so these APIs are only available to applications that are not deserialized from a user-land snapshot.
      *
-     * @experimental
      * @since v18.6.0, v16.17.0
      */
-    const startupSnapshot: StartupSnapshot;
+    namespace startupSnapshot {
+        /**
+         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
+         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
+         * @since v18.6.0, v16.17.0
+         */
+        function addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
+         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
+         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        function addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
+         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
+         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
+         * @since v18.6.0, v16.17.0
+         */
+        function setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Returns true if the Node.js instance is run to build a snapshot.
+         * @since v18.6.0, v16.17.0
+         */
+        function isBuildingSnapshot(): boolean;
+    }
 }
 declare module "node:v8" {
     export * from "v8";

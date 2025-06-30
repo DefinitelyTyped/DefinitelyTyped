@@ -16,6 +16,10 @@ export const schemeAccent: readonly string[];
  */
 export const schemeDark2: readonly string[];
 /**
+ * An array of ten categorical colors represented as RGB hexadecimal strings.
+ */
+export const schemeObservable10: readonly string[];
+/**
  * An array of twelve categorical colors represented as RGB hexadecimal strings.
  */
 export const schemePaired: readonly string[];

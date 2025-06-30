@@ -7,15 +7,16 @@ declare class UniformArrayElementNode extends ArrayElementNode {
     constructor(arrayBuffer: Node, indexNode: Node);
 }
 
-declare class UniformArrayNode extends BufferNode {
+declare class UniformArrayNode extends BufferNode<unknown[]> {
     array: unknown[];
     elementType: string | null;
+    paddedType: string;
 
     readonly isArrayBufferNode: true;
 
     constructor(value: unknown[], elementType?: string | null);
 
-    getElementLength(): number;
+    getPaddedType(): string;
 
     element(indexNode: NodeRepresentation): ShaderNodeObject<UniformArrayElementNode>;
 }

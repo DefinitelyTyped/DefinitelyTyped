@@ -167,7 +167,7 @@ export namespace SidebarAction {
         /**
          * Toggles the extension sidebar in the active window.
          */
-        toggle(): void;
+        toggle(): Promise<void>;
 
         /**
          * Checks whether the sidebar action is open.

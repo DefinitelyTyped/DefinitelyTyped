@@ -27,8 +27,42 @@ export type BBox = [number, number, number, number] | [number, number, number, n
  * Array should contain between two and three elements.
  * The previous GeoJSON specification allowed more elements (e.g., which could be used to represent M values),
  * but the current specification only allows X, Y, and (optionally) Z to be defined.
+ *
+ * Note: the type will not be narrowed down to `[number, number] | [number, number, number]` due to
+ * marginal benefits and the large impact of breaking change.
+ *
+ * See previous discussions on the type narrowing:
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/pull/21590|Nov 2017}
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67773|Dec 2023}
+ * - {@link https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/71441| Dec 2024}
+ *
+ * One can use a
+ * {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates|user-defined type guard that returns a type predicate}
+ * to determine if a position is a 2D or 3D position.
+ *
+ * @example
+ * import type { Position } from 'geojson';
+ *
+ * type StrictPosition = [x: number, y: number] | [x: number, y: number, z: number]
+ *
+ * function isStrictPosition(position: Position): position is StrictPosition {
+ *   return position.length === 2 || position.length === 3
+ * };
+ *
+ * let position: Position = [-116.91, 45.54];
+ *
+ * let x: number;
+ * let y: number;
+ * let z: number | undefined;
+ *
+ * if (isStrictPosition(position)) {
+ *   // `tsc` would throw an error if we tried to destructure a fourth parameter
+ * 	 [x, y, z] = position;
+ * } else {
+ * 	 throw new TypeError("Position is not a 2D or 3D point");
+ * }
  */
-export type Position = number[]; // [number, number] | [number, number, number];
+export type Position = number[];
 
 /**
  * The base GeoJSON object.
@@ -60,7 +94,10 @@ export interface GeoJsonObject {
 /**
  * Union of GeoJSON objects.
  */
-export type GeoJSON = Geometry | Feature | FeatureCollection;
+export type GeoJSON<G extends Geometry | null = Geometry, P = GeoJsonProperties> =
+    | G
+    | Feature<G, P>
+    | FeatureCollection<G, P>;
 
 /**
  * Geometry object.

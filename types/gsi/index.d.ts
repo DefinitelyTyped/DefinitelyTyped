@@ -175,7 +175,7 @@ declare namespace google.accounts.id {
      * @param parent The parent element onto which to mount the Sign In With Google button.
      * @param options Button configuration options.
      */
-    function renderButton(parent: string, options: GsiButtonConfiguration): void;
+    function renderButton(parent: HTMLElement, options: GsiButtonConfiguration): void;
 
     /**
      * When the user signs out of your website, you need to call the method google.accounts.id.disableAutoSelect to record the status in cookies. This prevents a UX dead loop.

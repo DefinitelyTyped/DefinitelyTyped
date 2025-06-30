@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { Provider, ProviderProps } from "react-redux";
 import { reducer as toastrReducer, toastr } from "react-redux-toastr";
 import ReduxToastr from "react-redux-toastr";
 import { AnyAction, combineReducers, legacy_createStore } from "redux";

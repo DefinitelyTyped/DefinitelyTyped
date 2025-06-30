@@ -1,7 +1,7 @@
 /**
  * HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
  * separate module.
- * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/https.js)
+ * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/https.js)
  */
 declare module "https" {
     import { Duplex } from "node:stream";
@@ -16,12 +16,13 @@ declare module "https" {
         & http.RequestOptions
         & tls.SecureContextOptions
         & {
-            checkServerIdentity?: typeof tls.checkServerIdentity | undefined;
+            checkServerIdentity?:
+                | ((hostname: string, cert: tls.DetailedPeerCertificate) => Error | undefined)
+                | undefined;
             rejectUnauthorized?: boolean | undefined; // Defaults to true
             servername?: string | undefined; // SNI TLS Extension
         };
     interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
-        rejectUnauthorized?: boolean | undefined;
         maxCachedSessions?: number | undefined;
     }
     /**

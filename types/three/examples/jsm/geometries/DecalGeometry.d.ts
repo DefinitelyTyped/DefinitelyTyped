@@ -1,7 +1,7 @@
 import { BufferGeometry, Euler, Mesh, Vector3 } from "three";
 
 declare class DecalGeometry extends BufferGeometry {
-    constructor(mesh: Mesh, position: Vector3, orientation: Euler, size: Vector3);
+    constructor(mesh?: Mesh, position?: Vector3, orientation?: Euler, size?: Vector3);
 }
 
 declare class DecalVertex {

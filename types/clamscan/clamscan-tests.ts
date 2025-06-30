@@ -13,6 +13,7 @@ const fakeVirusUrl = "https://secure.eicar.org/eicar.com.txt";
             bypassTest: true,
             host: "localhost",
             port: 3310,
+            tls: false,
         },
     });
     // $ExpectType string

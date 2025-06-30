@@ -31,7 +31,8 @@ declare namespace picomatch {
     type Glob = string | string[];
 
     interface Matcher {
-        (test: string): boolean;
+        (test: string, returnObject?: false | undefined): boolean;
+        (test: string, returnObject: true): Result;
     }
 
     interface MatcherWithState extends Matcher {
@@ -125,7 +126,7 @@ declare namespace picomatch {
         /**
          * Limit the max length of the input string. An error is thrown if the input string is longer than this value.
          */
-        maxLength?: boolean | undefined;
+        maxLength?: number | undefined;
         /**
          * Disable brace matching, so that `{a,b}` and `{1..3}` would be treated as literal characters.
          */

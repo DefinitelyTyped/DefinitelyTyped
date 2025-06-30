@@ -1,3 +1,3 @@
 export = isarray;
 
-declare function isarray(p0: any): boolean;
+declare function isarray(value: unknown): value is unknown[];

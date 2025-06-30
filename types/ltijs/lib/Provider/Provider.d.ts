@@ -92,7 +92,8 @@ declare class Provider {
 
     registerPlatform(config: PlatformConfig): Promise<Platform | false>;
 
-    getPlatform(url: string): Promise<Platform | false>;
+    getPlatform(url: string): Promise<Platform[] | false>;
+    getPlatform(url: string, clientId: string): Promise<Platform | false>;
 
     deletePlatform(url: string, clientId: string): Promise<boolean>;
 

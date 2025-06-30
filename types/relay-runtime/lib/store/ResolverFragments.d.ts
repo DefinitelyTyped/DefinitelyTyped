@@ -1,17 +1,6 @@
 import type { GraphQLTaggedNode } from "../query/RelayModernGraphQLTag";
+import type { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./FragmentTypes";
 import type { FragmentType, SingularReaderSelector } from "./RelayStoreTypes";
-
-export type KeyType<TData = unknown> = Readonly<{
-    " $data"?: TData | undefined;
-    " $fragmentSpreads": FragmentType;
-}>;
-
-export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[" $data"];
-
-export type ArrayKeyType<TData = unknown> = ReadonlyArray<KeyType<readonly TData[]> | null>;
-export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> = KeyTypeData<
-    NonNullable<TKey[number]>
->;
 
 export interface ResolverContext {
     getDataForResolverFragment: (
