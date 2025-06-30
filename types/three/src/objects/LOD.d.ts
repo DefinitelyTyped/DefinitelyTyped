@@ -87,7 +87,7 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
      * Otherwise `false`.
      * @param distance Distance of the level to delete.
      */
-    removeLabel(distance: number): boolean;
+    removeLevel(distance: number): boolean;
 
     /**
      * Get the currently active {@link LOD} level

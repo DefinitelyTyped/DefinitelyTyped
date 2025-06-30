@@ -1,5 +1,5 @@
 /**
- * A copy of ColorAdjustmentNode.js coverted to typescript
+ * A copy of ColorAdjustmentNode.js converted to typescript
  *
  * It was chosen because it is short and nicely shows interaction
  * between ShaderNode a normal node.
