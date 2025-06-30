@@ -143,6 +143,9 @@ declare module "stream/web" {
     interface TransformerTransformCallback<I, O> {
         (chunk: I, controller: TransformStreamDefaultController<O>): void | PromiseLike<void>;
     }
+    interface TransformerCancelCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
     interface UnderlyingByteSource {
         autoAllocateChunkSize?: number;
         cancel?: ReadableStreamErrorCallback;
@@ -261,6 +264,7 @@ declare module "stream/web" {
         readableType?: undefined;
         start?: TransformerStartCallback<O>;
         transform?: TransformerTransformCallback<I, O>;
+        cancel?: TransformerCancelCallback;
         writableType?: undefined;
     }
     interface TransformStream<I = any, O = any> {
