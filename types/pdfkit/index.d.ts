@@ -710,6 +710,10 @@ declare namespace PDFKit.Mixins {
     }
 
     interface PDFOutline {
+        /**
+         * The root outline
+         */
+        outline: PDFKit.PDFOutline;
         initOutline(): void;
         endOutline(): void;
     }
@@ -843,26 +847,37 @@ declare namespace PDFKit {
         new(options?: PDFDocumentOptions): PDFDocument;
 
         addPage(options?: PDFDocumentOptions): PDFDocument;
+        continueOnNewPage(options?: PDFDocumentOptions): PDFDocument;
         bufferedPageRange(): { start: number; count: number };
         switchToPage(n?: number): PDFPage;
         flushPages(): void;
+
+        // See https://opensource.adobe.com/dc-acrobat-sdk-docs/library/pdfmark/pdfmark_Actions.html#view-destinations.
+        // If `fitType` is missing, this method wll be invoked with (name, 'XYZ', null, null, null).
+        addNamedDestination(name: string): void;
+        addNamedDestination(name: string, fitType: "Fit"): void;
+        addNamedDestination(name: string, fitType: "FitB"): void;
+        addNamedDestination(name: string, fitType: "FitBH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitBV", left: number): void;
+        addNamedDestination(name: string, fitType: "FitH", top: number): void;
+        addNamedDestination(name: string, fitType: "FitR", x1: number, y1: number, x2: number, y2: number): void;
+        addNamedDestination(name: string, fitType: "FitV", left: number): void;
+        addNamedDestination(
+            name: string,
+            fitType: "XYZ",
+            left: number | null,
+            top: number | null,
+            zoom: number | null,
+        ): void;
+        addNamedDestination(name: string, fitType: string, ...args: number[]): void;
+
+        addNamedEmbeddedFile(name: string, ref: PDFKitReference): void;
+        addNamedJavaScript(name: string, js: string): void;
+
         ref(data: {}): PDFKitReference;
         addContent(data: any): PDFDocument;
-        /**
-         * Deprecated
-         */
-        write(fileName: string, fn: any): void;
-        /**
-         * Deprecated. Throws exception
-         */
-        output(fn: any): void;
         end(): void;
         toString(): string;
-
-        /**
-         * The root outline
-         */
-        outline: PDFOutline;
     }
 }
 
