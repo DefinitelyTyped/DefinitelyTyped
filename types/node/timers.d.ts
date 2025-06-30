@@ -60,7 +60,6 @@ declare module "timers" {
                 /**
                  * Cancels the immediate. This is similar to calling `clearImmediate()`.
                  * @since v20.5.0, v18.18.0
-                 * @experimental
                  */
                 [Symbol.dispose](): void;
                 _onImmediate(...args: any[]): void;
@@ -141,7 +140,6 @@ declare module "timers" {
                 /**
                  * Cancels the timeout.
                  * @since v20.5.0, v18.18.0
-                 * @experimental
                  */
                 [Symbol.dispose](): void;
                 _onTimeout(...args: any[]): void;

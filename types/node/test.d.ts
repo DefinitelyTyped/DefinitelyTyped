@@ -491,6 +491,7 @@ declare module "node:test" {
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         addListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         addListener(event: "test:watch:drained", listener: () => void): this;
+        addListener(event: "test:watch:restarted", listener: () => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
         emit(event: "test:coverage", data: TestCoverage): boolean;
         emit(event: "test:complete", data: TestComplete): boolean;
@@ -505,6 +506,7 @@ declare module "node:test" {
         emit(event: "test:stdout", data: TestStdout): boolean;
         emit(event: "test:summary", data: TestSummary): boolean;
         emit(event: "test:watch:drained"): boolean;
+        emit(event: "test:watch:restarted"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         on(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -519,6 +521,7 @@ declare module "node:test" {
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
         on(event: "test:summary", listener: (data: TestSummary) => void): this;
         on(event: "test:watch:drained", listener: () => void): this;
+        on(event: "test:watch:restarted", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         once(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -533,6 +536,7 @@ declare module "node:test" {
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
         once(event: "test:summary", listener: (data: TestSummary) => void): this;
         once(event: "test:watch:drained", listener: () => void): this;
+        once(event: "test:watch:restarted", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         prependListener(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -547,6 +551,7 @@ declare module "node:test" {
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         prependListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependListener(event: "test:watch:drained", listener: () => void): this;
+        prependListener(event: "test:watch:restarted", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         prependOnceListener(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -561,6 +566,7 @@ declare module "node:test" {
         prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         prependOnceListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependOnceListener(event: "test:watch:drained", listener: () => void): this;
+        prependOnceListener(event: "test:watch:restarted", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
     /**
@@ -1831,6 +1837,14 @@ interface DiagnosticData extends TestLocationInfo {
      * The nesting level of the test.
      */
     nesting: number;
+    /**
+     * The severity level of the diagnostic message.
+     * Possible values are:
+     * * `'info'`: Informational messages.
+     * * `'warn'`: Warnings.
+     * * `'error'`: Errors.
+     */
+    level: "info" | "warn" | "error";
 }
 interface TestCoverage {
     /**
@@ -2271,7 +2285,8 @@ declare module "node:test/reporters" {
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
         | { type: "test:summary"; data: TestSummary }
-        | { type: "test:watch:drained"; data: undefined };
+        | { type: "test:watch:drained"; data: undefined }
+        | { type: "test:watch:restarted"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
