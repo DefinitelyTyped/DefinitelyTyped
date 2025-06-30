@@ -1031,13 +1031,6 @@ test("planning with streams", (t: TestContext, done) => {
 });
 
 // Test custom assertion functions.
-// extend the TestContextAssert interface so we have correct typing
-declare module "node:test" {
-    interface TestContextAssert {
-        isOdd(value: number): void;
-    }
-}
-
 {
     test.assert.register("isOdd", (n: number) => {
         assert.strictEqual(n % 2, 1);
@@ -1054,6 +1047,17 @@ declare module "node:test" {
         this;
     });
 }
+
+// Verify that TestContextAssert can be augmented with custom definitions.
+declare module "node:test" {
+    interface TestContextAssert {
+        custom(value: "yay!"): void;
+    }
+}
+test(t => {
+    // $ExpectType (value: "yay!") => void
+    t.assert.custom;
+});
 
 // Test snapshot assertion.
 test(t => {

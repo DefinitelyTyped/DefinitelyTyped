@@ -1047,6 +1047,17 @@ test("planning with streams", (t: TestContext, done) => {
     });
 }
 
+// Verify that TestContextAssert can be augmented with custom definitions.
+declare module "node:test" {
+    interface TestContextAssert {
+        custom(value: "yay!"): void;
+    }
+}
+test(t => {
+    // $ExpectType (value: "yay!") => void
+    t.assert.custom;
+});
+
 // Test snapshot assertion.
 test(t => {
     // $ExpectType void
