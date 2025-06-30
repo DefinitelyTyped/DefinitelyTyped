@@ -137,6 +137,7 @@ const sellSignatureRequest: CreateTradeSignatureRequestSell = {
         },
     ],
     memoText: "memo",
+    sendSlip44: 0,
 };
 
 const exchangeSignatureRequest: CreateTradeSignatureRequestExchange = {
@@ -149,6 +150,8 @@ const exchangeSignatureRequest: CreateTradeSignatureRequestExchange = {
             amount: "1000",
         },
     ],
+    sendSlip44: 0,
+    receiveSlip44: 2,
 };
 
 const exchangeTradeQuoteRequest: ConfirmExchangeTradeRequest = {
