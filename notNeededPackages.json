@@ -4265,6 +4265,10 @@
             "libraryName": "mini-html-webpack-plugin",
             "asOfVersion": "3.0.0"
         },
+        "minimatch": {
+            "libraryName": "minimatch",
+            "asOfVersion": "6.0.0"
+        },
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
