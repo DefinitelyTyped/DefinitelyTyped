@@ -638,6 +638,15 @@ declare module "node-forge" {
 
         function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): CertificateSigningRequest;
 
+        /**
+         * Converts a DistinguishedName (subject or issuer) to an ASN.1 object.
+         *
+         * @param dn the DistinguishedName object containing certificate attributes.
+         *
+         * @return the asn1 representation of a DistinguishedName.
+         */
+        function distinguishedNameToAsn1(dn: { attributes: ReadonlyArray<CertificateField> }): asn1.Asn1;
+
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
         function certificationRequestToAsn1(cert: CertificateSigningRequest): asn1.Asn1;
