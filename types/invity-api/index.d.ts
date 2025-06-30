@@ -613,6 +613,7 @@ export interface CreateTradeSignatureRequestSell {
     /** ID of the trade - `paymentId` for sell */
     id: string;
     nonce: string;
+    sendSlip44: number;
     outputs: PaymentRequestOutput[];
     memoText: string;
 }
@@ -622,6 +623,8 @@ export interface CreateTradeSignatureRequestExchange {
     /** ID of the trade - `orderId` for exchange */
     id: string;
     nonce: string;
+    sendSlip44: number;
+    receiveSlip44: number;
     outputs: PaymentRequestOutput[];
 }
 
