@@ -1864,8 +1864,9 @@ declare namespace braintree {
         threeDSecurePassThru?:
             | {
                 cavv?: string | undefined;
+                dsTransactionId?: string | undefined;
                 eciFlag: string;
-                threeDSecureVision?: string | undefined;
+                threeDSecureVersion?: string | undefined;
                 xid?: string | undefined;
             }
             | undefined;
