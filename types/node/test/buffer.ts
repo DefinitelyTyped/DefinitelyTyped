@@ -434,7 +434,7 @@ const c: NodeJS.TypedArray = new Buffer(123);
     readable.destroyed;
     const writable: Writable = new Writable({
         write(chunk, _, cb) {
-            cb();
+            cb?.();
         },
     });
     readable.pipe(writable);

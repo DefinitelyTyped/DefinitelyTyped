@@ -242,7 +242,7 @@ declare module "net" {
          * If the connection was successful, then the last address is the one that the socket is currently connected to.
          * @since v19.4.0
          */
-        readonly autoSelectFamilyAttemptedAddresses: string[];
+        autoSelectFamilyAttemptedAddresses: string[];
         /**
          * This property shows the number of characters buffered for writing. The buffer
          * may contain strings whose length after encoding is not yet known. So this number

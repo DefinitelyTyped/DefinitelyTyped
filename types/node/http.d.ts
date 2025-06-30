@@ -1031,7 +1031,7 @@ declare module "http" {
          * The request method.
          * @since v0.1.97
          */
-        method: string;
+        method: string | null;
         /**
          * The request path.
          * @since v0.4.0
@@ -1404,14 +1404,14 @@ declare module "http" {
          * The 3-digit HTTP response status code. E.G. `404`.
          * @since v0.1.1
          */
-        statusCode?: number | undefined;
+        statusCode?: number | undefined | null;
         /**
          * **Only valid for response obtained from {@link ClientRequest}.**
          *
          * The HTTP response status message (reason phrase). E.G. `OK` or `Internal Server Error`.
          * @since v0.11.10
          */
-        statusMessage?: string | undefined;
+        statusMessage?: string | undefined | null;
         /**
          * Calls `destroy()` on the socket that received the `IncomingMessage`. If `error` is provided, an `'error'` event is emitted on the socket and `error` is passed
          * as an argument to any listeners on the event.

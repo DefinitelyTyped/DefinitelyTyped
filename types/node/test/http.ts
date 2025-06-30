@@ -327,7 +327,7 @@ import * as url from "node:url";
     req.path = "/";
 
     // method
-    const method: string = req.method;
+    const method: string | null = req.method;
 
     // maxHeadersCount
     const maxHeadersCount: number = req.maxHeadersCount;

@@ -58,9 +58,9 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType BufferEncoding
+            // $ExpectType BufferEncoding | undefined
             enc;
-            // $ExpectType (error?: Error | null | undefined) => void
+            // $ExpectType ((error?: Error | null | undefined) => void) | undefined
             cb;
         },
         writev(chunks, cb) {
@@ -106,9 +106,9 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType BufferEncoding
+            // $ExpectType BufferEncoding | undefined
             enc;
-            // $ExpectType (error?: Error | null | undefined) => void
+            // $ExpectType ((error?: Error | null | undefined) => void) | undefined
             cb;
         },
         writev(chunks, cb) {
@@ -156,9 +156,9 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType any
             chunk;
-            // $ExpectType BufferEncoding
+            // $ExpectType BufferEncoding | undefined
             enc;
-            // $ExpectType (error?: Error | null | undefined) => void
+            // $ExpectType ((error?: Error | null | undefined) => void) | undefined
             cb;
         },
         writev(chunks, cb) {
@@ -544,6 +544,9 @@ function stream_duplex_allowHalfOpen_test() {
     d.allowHalfOpen = true;
 }
 
+class CustomWritable extends Writable {}
+
+addAbortSignal(new AbortSignal(), new CustomWritable());
 addAbortSignal(new AbortSignal(), new Readable());
 
 {
