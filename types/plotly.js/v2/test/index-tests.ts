@@ -3,6 +3,139 @@ import { Config, Datum, Layout, newPlot, PlotData, Template, XAxisName, YAxisNam
 
 const graphDiv = "#test";
 
+const config: Partial<Config> = {
+    staticPlot: false,
+    typesetMath: true,
+    plotlyServerURL: "fake-server-url",
+    editable: true,
+    edits: {
+        annotationPosition: true,
+        annotationTail: true,
+        annotationText: true,
+        axisTitleText: true,
+        colorbarPosition: true,
+        colorbarTitleText: true,
+        legendPosition: true,
+        legendText: true,
+        shapePosition: true,
+        titleText: true,
+    },
+    editSelection: true,
+    autosizable: true,
+    responsive: true,
+    fillFrame: false,
+    frameMargins: 0.1,
+    scrollZoom: "gl3d+geo+map",
+    doubleClick: "reset+autosize",
+    doubleClickDelay: 300,
+    showAxisDragHandles: true,
+    showAxisRangeEntryBoxes: true,
+    showTips: true,
+    showLink: true,
+    linkText: "Edit in Chart Studio",
+    sendData: true,
+    showSources: (gd) => {
+        // $ExpectType PlotlyHTMLElement
+        gd;
+    },
+    displayModeBar: "hover",
+    showSendToCloud: true,
+    showEditInChartStudio: false,
+    modeBarButtonsToRemove: [
+        "lasso2d",
+        "select2d",
+        "sendDataToCloud",
+    ],
+    modeBarButtonsToAdd: [
+        "togglespikelines",
+        "togglehover",
+        {
+            name: "customButton",
+            title: "Custom Action",
+            icon: {
+                width: 1000,
+                height: 1000,
+                path: "M500 500 L600 600 L400 600 Z",
+                ascent: 850,
+                descent: 150,
+                name: "customIcon",
+                transform: "matrix(1 0 0 -1 0 850)",
+            },
+            gravity: "top",
+            click: (gd, ev) => {
+                // $ExpectType PlotlyHTMLElement
+                gd;
+                // $ExpectType MouseEvent
+                ev;
+            },
+            attr: "customAttr",
+            val: "initialValue",
+            toggle: true,
+        },
+    ],
+    modeBarButtons: [
+        [
+            {
+                name: "save",
+                title: "Save Plot",
+                icon: {
+                    width: 857.1,
+                    height: 1000,
+                    path: "fake-plot-path",
+                    ascent: 850,
+                    transform: "matrix(1 0 0 -1 0 850)",
+                },
+                click: (gd, ev) => {
+                    // $ExpectType PlotlyHTMLElement
+                    gd;
+                    // $ExpectType MouseEvent
+                    ev;
+                },
+                attr: "saveState",
+                val: null,
+                toggle: false,
+            },
+            "zoom2d",
+            "pan2d",
+        ],
+        ["toImage"],
+    ],
+    toImageButtonOptions: {
+        format: "png",
+        filename: "plot_export",
+        height: 600,
+        width: 800,
+        scale: 2,
+    },
+    displaylogo: true,
+    watermark: false,
+    plotGlPixelRatio: 2,
+    setBackground: (gd, bgColor) => {
+        // $ExpectType PlotlyHTMLElement
+        gd;
+        // $ExpectType string
+        bgColor;
+    },
+    topojsonURL: "fake-topo-json-URL",
+    mapboxAccessToken: "fake-token",
+    logging: 1,
+    notifyOnLogging: 0,
+    queueLength: 10,
+    locale: "en-US",
+    locales: {
+        "en-US": {
+            dictionary: {
+                "Reset axes": "Reset Axes",
+                "Download plot": "Download Plot",
+            },
+            format: {
+                months: ["January", "February"],
+                shortMonths: ["Jan", "Feb"],
+            },
+        },
+    },
+};
+
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
 // combination of https://plotly.com/javascript/multiple-transforms/#all-transforms and
@@ -314,55 +447,6 @@ const graphDiv = "#test";
     };
 
     const layout: Partial<Layout> = { showlegend: true, title: "January 2013 Sales Report", template, modebar, legend };
-    const config: Partial<Config> = {
-        modeBarButtons: [
-            [
-                {
-                    name: "save",
-                    title: "Download plot data",
-                    icon: {
-                        width: 857.1,
-                        height: 1000,
-                        path:
-                            "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                            + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                            + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
-                        ascent: 850,
-                        transform: "matrix(1 0 0 -1 0 850)",
-                    },
-                    click: (gd, ev) => console.log("Download data"),
-                },
-                "pan2d",
-                "zoom2d",
-            ],
-            ["toImage"],
-        ],
-        // mix strings from ModeBarDefaultButtons and custom button added as ModeBarButton interface
-        modeBarButtonsToAdd: [
-            "togglespikelines",
-            "togglehover",
-            "hovercompare",
-            "hoverclosest",
-            "v1hovermode",
-            {
-                name: "save",
-                title: "Download plot data",
-                icon: {
-                    width: 857.1,
-                    height: 1000,
-                    path:
-                        "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                        + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                        + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
-                    ascent: 850,
-                    transform: "matrix(1 0 0 -1 0 850)",
-                },
-                click: (gd, ev) => console.log("Download data"),
-            },
-        ],
-        setBackground: "transparent",
-        watermark: false,
-    };
     Plotly.newPlot("myDiv", data, layout, config);
 })();
 (() => {
@@ -1148,10 +1232,6 @@ function rand() {
         dragmode: "zoom",
         mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
         margin: { r: 0, t: 0, b: 0, l: 0 },
-    };
-
-    const config: Partial<Config> = {
-        modeBarButtonsToRemove: ["resetViewMapbox", "zoomInMapbox", "zoomOutMapbox"],
     };
 
     Plotly.newPlot("myDiv", data, layout);
