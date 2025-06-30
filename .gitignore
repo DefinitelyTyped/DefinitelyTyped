@@ -45,6 +45,10 @@ npm-debug.log
 !.vscode/settings.template.json
 .history
 
+# bun
+bun.lock*
+bunfig.toml
+
 # yarn
 yarn.lock
 
