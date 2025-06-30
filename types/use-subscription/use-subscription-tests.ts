@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useMemo } from "react";
 import { Subscription, useSubscription } from "use-subscription";
 
@@ -11,7 +12,7 @@ function EventDispatcherExample({ input }: { input: HTMLInputElement }) {
                 return () => input.removeEventListener("change", callback);
             },
         }),
-        [input],
+        [input as React.Memoized<HTMLInputElement>],
     );
 
     // $ExpectType string
