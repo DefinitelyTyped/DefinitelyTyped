@@ -1,9 +1,10 @@
 {
     "private": true,
     "name": "@types/layui-src",
-    "version": "2.6.9999",
+    "version": "2.11.9999",
     "projects": [
-        "https://github.com/sentsin/layui/releases/tag/v2.6.8"
+        "https://github.com/sentsin/layui/releases/tag/v2.6.8",
+        "https://github.com/layui/layui/releases/tag/v2.11.4"
     ],
     "devDependencies": {
         "@types/jquery": "*",
@@ -13,6 +14,10 @@
         {
             "name": "javabitar",
             "githubUsername": "javabitar"
+        },
+        {
+            "name": "jiang",
+            "githubUsername": "jiang-ruo"
         }
     ]
 }

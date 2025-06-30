@@ -129,6 +129,12 @@ declare namespace Layui {
          * @default 'click'
          */
         trigger?: string;
+        /**
+         * 轮播切换后的回调函数
+         * @since 2.7
+         * @param obj
+         */
+        change?: (obj: CarouselItem) => void;
     }
 
     interface CarouselItem {
@@ -212,6 +218,22 @@ declare namespace Layui {
         events(): void;
     }
 
+    interface CarouselRenderer {
+
+        /**
+         * 轮播实例重载
+         * @param options
+         */
+        reload(options: CarouselOption): void;
+
+        /**
+         * 轮播切换到特定下标
+         * @since 2.8
+         * @param index
+         */
+        goto(index: number): void;
+    }
+
     // https://www.layui.com/doc/modules/carousel.html
     // carousel 是 layui 2.0 版本中新增的全新模块，主要适用于跑马灯/轮播等交互场景。
     //   它并非单纯地为焦点图而生，准确地说，它可以满足任何类型内容的轮播式切换操作，
@@ -225,7 +247,7 @@ declare namespace Layui {
         /**
          * 核心入口
          */
-        render(options: CarouselOption): object;
+        render(options: CarouselOption): CarouselRenderer;
 
         /**
          * 绑定切换事件
@@ -320,6 +342,17 @@ declare namespace Layui {
          * 颜色选择后的回调
          */
         done?(this: ColorPickerOption, color: string): void;
+
+        /**
+         * 取消颜色选择的回调函数，一般点击非颜色选择面板区域触发。
+         * @since 2.8
+         */
+        cancel?: (color: string) => void;
+        /**
+         * 颜色选择面板被关闭后即触发。
+         * @since 2.8
+         */
+        close?: (color: string) => void;
     }
 
     // https://www.layui.com/doc/modules/colorpicker.html
@@ -366,6 +399,11 @@ declare namespace Layui {
          */
         type?: string;
         /**
+         * 菜单项是否禁用状态
+         * @since 2.8
+         */
+        disabled?: boolean;
+        /**
          * 子级菜单数据项。参数同父级，可无限嵌套。  默认：[]
          */
         child?: any[];
@@ -395,6 +433,11 @@ declare namespace Layui {
          */
         trigger?: string;
         /**
+         * 下拉面板打开后，再次点击目标元素时是否关闭该面板。
+         * @since 2.9.18
+         */
+        closeOnClick?: boolean;
+        /**
          * 是否初始即显示组件面板 默认：false
          */
         show?: boolean;
@@ -410,6 +453,10 @@ declare namespace Layui {
          * 是否初始展开子菜单 默认：true
          */
         isSpreadItem?: boolean;
+        /**
+         * 是否开启手风琴效果
+         */
+        accordion?: boolean;
         /**
          * 延迟关闭的毫秒数。当 trigger 为 hover 时才生效 默认：300
          */
@@ -429,10 +476,30 @@ declare namespace Layui {
          */
         templet?: string;
         /**
+         * 设置弹出时的遮罩。
+         * @since 2.8
+         * @value number 表示为遮罩透明度，如0.3
+         * @value [number, string] 同时设置透明度和背景颜色，如：[0.3, '#000']
+         */
+        shade?: number | [number, string]
+        /**
          * 自定义组件内容，从而替代默认的菜单结构
          */
         content?: string;
 
+        /**
+         * 设置触发点击事件的菜单范围。
+         * @since 2.8
+         * @value "all" - 即代表父子菜单均可触发事件
+         * @value default - 默认无需设置，即父级菜单不触发事件
+         */
+        clickScope?: "all";
+
+        /**
+         * 自定义 data 数据源中常用的字段名称。
+         * @since 2.8.14
+         */
+        customName?: {[K in string]: keyof DropDownOptionData}
         /**
          * 组件成功弹出后的回调，并返回两个参数
          * @param [elemPanel]  弹出的面板
@@ -444,6 +511,19 @@ declare namespace Layui {
          * 菜单项被点击时的回调，并返回两个参数
          */
         click?(data: any, othis: JQuery): void;
+
+        /**
+         * 面板关闭后的回调函数。
+         * @since 2.9.7
+         * @param elem
+         */
+        close?: (elem: JQuery) => void;
+        /**
+         * 点击 dropdown 外部时的回调函数，返回 false 可阻止关闭。
+         * @since 2.9.18
+         * @param event
+         */
+        onClickOutside?: (event: JQuery.ClickEvent) => false | void;
     }
 
     /**
@@ -485,6 +565,27 @@ declare namespace Layui {
          * 核心入口
          */
         render(options: DropDownOption): DropDownModule;
+
+        /**
+         * 仅重载数据或内容
+         * @since 2.8
+         * @param id
+         * @param options
+         */
+        reloadData(id: string, options: DropDownOptionForReload): DropDownModule;
+
+        /**
+         * 关闭对应的组件面板
+         * @param id
+         */
+        close(id: string): void;
+
+        /**
+         * 打开对应的组件面板
+         * @since 2.8
+         * @param id
+         */
+        open(id: string): void;
     }
 
     interface TabOption {
@@ -598,6 +699,11 @@ declare namespace Layui {
          */
         isAuto?: boolean;
         /**
+         * 设置「加载更多」按钮的文本
+         * @since 2.9.11
+         */
+        moreText?: string;
+        /**
          * 用于显示末页内容，可传入任意HTML字符。默认为：没有更多了
          */
         end?: string;
@@ -611,6 +717,13 @@ declare namespace Layui {
          * 与底部的临界距离，默认50。即当滚动条与底部产生该距离时，触发加载。注意：只有在isAuto为true时有效。
          */
         mb?: number;
+        /**
+         * 指定触发加载的方向
+         * @since 2.9.7
+         * @value bottom 滚动容器底部触发加载
+         * @value top 滚动容器顶部触发加载
+         */
+        direction?: "bottom" | "top";
         /**
          * 到达临界点触发加载的回调。信息流最重要的一个存在。携带两个参数：page, next
          */
@@ -673,6 +786,12 @@ declare namespace Layui {
 
     // https://www.layui.com/doc/element/form.html
     // https://www.layui.com/doc/modules/form.html
+    interface FormSetOptions {
+        /**
+         * 设置 input 框的 autocomplete 属性初始值
+         */
+        autocomplete?: string;
+    }
     /**
      * 表单 - 页面元素
      */
@@ -750,6 +869,26 @@ declare namespace Layui {
          * @param [config] 验证参数
          */
         verify(config: LayFormVerifyConfig): Form;
+
+        /**
+         *
+         * @param elem: string - 元素选择器
+         * @param elem: JQuery - jQuery 对象
+         * @returns 验证通过，该方法将返回 true，否则返回 false
+         */
+        validate(elem: JQuery | string): boolean;
+
+        /**
+         * @since 2.7
+         * @param filter - 表单域容器的 lay-filter 属性值
+         * @param callback - 执行提交事件后的回调函数
+         */
+        submit(filter: string, callback: (data: LayFormData) => void): void;
+
+        /**
+         * 设置 form 组件全局配置项。
+         */
+        set(options: FormSetOptions): void;
     }
 
     interface LAY extends Omit<any[], "find"> {
@@ -986,6 +1125,8 @@ declare namespace Layui {
         seconds?: number;
     }
 
+    type LayDateValue = string | number | Date | Date[];
+
     interface DateOption {
         /**
          * 绑定的元素 ，选择的值会填充该元素
@@ -996,9 +1137,23 @@ declare namespace Layui {
          */
         type?: "year" | "month" | "date" | "time" | "datetime";
         /**
+         * 设定实例唯一索引，以便用于其他方法对例进行相关操作。若该属性未设置，则默认从 elem 属性绑定的元素中的 id 属性值中获取。
+         */
+        id?: string;
+        /**
          * 开启左右面板范围选择
          */
         range?: string | boolean | any[];
+        /**
+         * 是否开启日期范围选择时的区间联动标注模式，该模式必须开启 range 属性才能生效。日期范围默认采用的是左右面板独立选择模式，设置该属性后，将采用左右面板联动选择模式。
+         * @since 2.8
+         */
+        rangeLinked?: boolean;
+        /**
+         * 是否开启全面板，即日期和时间显示在同一面板。 当 type: 'datetime' 且未设置 range 属性时生效。
+         * @since 2.8
+         */
+        fullPanel?: boolean;
         /**
          * 自定义格式 默认值：yyyy-MM-dd  实例： 'yyyy年MM月dd日'    <br/>&nbsp;
          *    yyyy    年份，至少四位数。如果不足四位，则前面补零    <br/>&nbsp;
@@ -1017,6 +1172,12 @@ declare namespace Layui {
 
         format?: string;
         /**
+         * 仅用于格式化日期显示的格式，不影响日期值
+         * @since 2.9.9
+         * @param value
+         */
+        formatToDisplay?: (value: string) => string;
+        /**
          * 初始值  ""|new Date()|20180115
          */
         value?: string | Date | number;
@@ -1027,6 +1188,16 @@ declare namespace Layui {
          *   用于控制是否自动向元素填充初始值（需配合 value 参数使用）
          */
         isInitValue?: boolean;
+        /**
+         * 用于开启面板左侧的快捷选择栏。其值配置规则如下：
+         * @since 2.8
+         */
+        shortcuts?: LayDateValue | Array<{text: string, value: LayDateValue | (() => LayDateValue)}> | (() => LayDateValue | Array<{text: string, value: LayDateValue | (() => LayDateValue)}>);
+        /**
+         * 设置起始周。0 即代表从周日开始。
+         * @since 2.7
+         */
+        weekStart?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
         /**
          * 是否开启选择值预览    <br/>&nbsp;
          *   用于控制是否显示当前结果的预览（type 为 datetime 时不开启）
@@ -1049,6 +1220,26 @@ declare namespace Layui {
 
         max?: string | number;
         /**
+         * 用于设置不可选取的日期。
+         * @since 2.9.8
+         * @param date - 当前的日期对象
+         * @param type - 面板类型，'start'/'end'
+         * @returns 返回值为 true 的日期会被禁用
+         */
+        disabledDate?: (date: Date, type: "start" | "end") => boolean;
+        /**
+         * 用于设置不可选取的时间
+         * @since 2.9.8
+         * @param date - 当前的日期对象
+         * @param type - 面板类型，'start'/'end'
+         * @returns 数组中指定的时间会被禁用
+         */
+        disabledTime?: (date: Date, type: "start" | "end") => {
+            hours: () => number[],
+            minutes: (hour: number) => number[],
+            seconds: (hour: number, minute: number) => number[]
+        };
+        /**
          * 自定义弹出控件的事件  默认值：focus，如果绑定的元素非输入框，则默认事件为：click
          */
         trigger?: string;
@@ -1069,6 +1260,12 @@ declare namespace Layui {
          */
         zIndex?: number;
         /**
+         * @since 2.8
+         * @value number 遮罩透明度
+         * @value [number, string] 遮罩透明度，同时指定遮罩的颜色，如：[0.3, '#000']
+         */
+        shade: number | [number, string];
+        /**
          *  是否显示底部栏
          */
         showBottom?: boolean;
@@ -1076,6 +1273,12 @@ declare namespace Layui {
          * 工具按钮   默认值：['clear', 'now', 'confirm']
          */
         btns?: Array<"clear" | "now" | "confirm">;
+        /**
+         * 是否在选中目标值时即自动确认。
+         * 当开启 range 属性时，该属性无效。
+         * @since 2.8
+         */
+        autoConfirm?: boolean;
         /**
          * 语言 内置了两种语言版本：cn（中文版）、en（国际版，即英文版） ，默认值：cn
          */
@@ -1092,6 +1295,21 @@ declare namespace Layui {
          * 标注重要日子  实例:{'0-0-31':'月末'} 比如2月bug
          */
         mark?: { [key: string]: string };
+        /**
+         * 用于标注节假日及补班日。
+         * @since 2.7
+         * @value [LayDateValue[], LayDateValue[]] - [法定节假日, 补班日]
+         * @value (ymd: : { [K in "year" | "month" | "date"]: number }, render: ((datesOrType: [LayDateValue[], LayDateValue[]] | "holidays" | "workdays") => void) ) => void - 自定义
+         */
+        holidays?: [LayDateValue[], LayDateValue[]] | ((ymd: DateParam, render: ((datesOrType: [LayDateValue[], LayDateValue[]] | "holidays" | "workdays") => void) ) => void);
+        /**
+         * 自定义单元格内容。
+         * @since 2.9.9
+         * @param ymd
+         * @param render
+         * @param info - 不知道是啥，后续补充
+         */
+        cellRender?: (ymd: DateParam, render: (elem: string | HTMLElement | JQuery) => void, info: any) => void;
 
         eventElem?: string | HTMLElement | JQuery;
 
@@ -1142,6 +1360,40 @@ declare namespace Layui {
          */
 
         path: string;
+
+        /**
+         * 在对应的 laydate 组件面板上弹出提示层。
+         * @since 2.8
+         * @param id
+         * @param DateOption - {<br/>
+         *   content - 提示内容<br/>
+         *   ms - 提示层自动消失所需的毫秒数<br/>
+         * }
+         */
+        hint(id: string, options: {content: string, ms: number}): void;
+
+        /**
+         * 该方法用于获取 laydate 对应 id 的渲染实例，以获得该实例对应的成员属性
+         * @since 2.8
+         * @param id
+         * @return 获取组件对应的渲染实例。
+         */
+        getInst(id: string): object;
+
+        /**
+         * 对目标元素解除当前实例的绑定。
+         * 该方法用于对目标元素对应的实例的绑定完全解除，即触发元素事件时，不再执行组件渲染。
+         * @since 2.8
+         * @param id
+         */
+        unbind(id: string): void;
+
+        /**
+         * 关闭日期面板。
+         * @since 2.7
+         * @param id
+         */
+        close(id: string): string;
 
         /**
          * 获取指定年月的最后一天

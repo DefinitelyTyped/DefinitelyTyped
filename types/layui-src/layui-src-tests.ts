@@ -259,12 +259,20 @@ function carousel() {
         carousel.config.nothing;
 
         // 建造实例
-        carousel.render({
+        const inst = carousel.render({
             elem: "#test1",
             width: "100%", // 设置容器宽度
             arrow: "always", // 始终显示箭头
             anim: "updown", // 切换动画方式
+            change: (obj) => {
+                console.log(obj.index);
+                console.log(obj.prevIndex);
+                console.log(obj.item);
+                obj.item.length;
+            }
         });
+        inst.reload({elem: "#test1"});
+        inst.goto(1);
         carousel.reload({
             elem: "#test1",
             width: "100%", // 设置容器宽度
@@ -310,6 +318,12 @@ function colorpicker() {
             elem: "#test1",
             predefine: true,
             colors: ["#F00", "#0F0", "#00F", "rgb(255, 69, 0)", "rgba(255, 69, 0, 0.5)"],
+            cancel: (value) => {
+                console.log(value); // 当前颜色值
+            },
+            close: (value) => {
+                console.log(value); // 当前颜色值
+            }
         });
         colorpicker.render({
             elem: "#test1",
