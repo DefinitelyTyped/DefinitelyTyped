@@ -124,12 +124,12 @@ interface LiferayOAuth2Client {
     /**
      * Get the client home page URL
      */
-    homePageURL?: string
+    homePageURL?: string;
 
     /**
      * Get the redirect URIs
      */
-    redirectURIs?: string[]
+    redirectURIs?: string[];
 
     /**
      * Get the token URL, which is used to exchange the authorization code for an access token
@@ -140,14 +140,14 @@ interface LiferayOAuth2Client {
      * Get or request a valid access token
      * This method will check the local storage for a valid access token or requests a new one through the _createIframe function.
      */
-    _getOrRequestToken(): Promise<LiferayTokenResponse>
+    _getOrRequestToken(): Promise<LiferayTokenResponse>;
 }
 
 interface LiferayTokenResponse {
     /**
      * The access token that can be used to authenticate requests
      */
-    access_token: string
+    access_token: string;
 
     /**
      * The type of the access token, usually "Bearer
