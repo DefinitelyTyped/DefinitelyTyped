@@ -909,7 +909,7 @@
 /types/cleave.js/                                       @clentfort @jasongi-at-sportsbet @sashashakun
 /types/clerk.io/                                        @madsenmm @andershagbard
 /types/clevertap/                                       @droyson
-/types/clevertap-web-sdk/                               @sinhaayush7 @KambleSonam @kkyusuftk @darshanclevertap
+/types/clevertap-web-sdk/                               @KambleSonam @singhkunal2050 @kkyusuftk @darshanclevertap
 /types/cli/                                             @kayahr
 /types/cli-box/                                         @athasach
 /types/cli-color/                                       @OpportunityLiu
@@ -981,6 +981,7 @@
 /types/colorguard/                                      @MysteryBlokHed
 /types/colormap/                                        @ruxpendp
 /types/colornames/                                      @blturner
+/types/colorthief/                                      @sillyangel
 /types/colresizable/                                    @gilleswaeber
 /types/columnify/                                       @garyking
 /types/com.wikitude.phonegap.wikitudeplugin/            @zbarbuto
@@ -1866,6 +1867,7 @@
 /types/eslint-config-prettier/                          @JoshuaKGoldberg
 /types/eslint-plugin-jsx-a11y/                          @eagerestwolf @ljharb
 /types/eslint-plugin-markdown/                          @JounQin
+/types/eslint-plugin-mobx/                              @MysteryBlokHed
 /types/eslint-plugin-mocha/                             @rhysd
 /types/eslint-plugin-prettier/                          @ikatyang @JounQin
 /types/eslint-plugin-security/                          @rhysd
@@ -3125,7 +3127,6 @@
 /types/hapi-decorators/                                 @kenhowardpdx
 /types/hapi-server-session/                             @btmorex
 /types/hapi__b64/                                       @ffflorian
-/types/hapi__basic/                                     @AJamesPhillips @saboya @lenovouser
 /types/hapi__call/                                      @saboya @nokel81
 /types/hapi__catbox-memcached/                          @btmorex
 /types/hapi__content/                                   @nokel81
@@ -5165,7 +5166,7 @@
 /types/noble/                                           @swook @shantanubhadoria @lukel99 @bioball @keton @thegecko @claytonkucera
 /types/noble-mac/                                       @swook @shantanubhadoria @lukel99 @bioball @keton @thegecko
 /types/nodal/                                           @charrondev
-/types/node/                                            @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
+/types/node/                                            @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334 @anonrig
 /types/node/v18/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @SimonSchick @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v20/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v22/                                        @Microsoft @jkomyno @alvis @r3nya @btoueg @smac89 @touffy @DeividasBakanas @eyqs @Hannes-Magnusson-CK @hoo29 @kjin @ajafff @islishude @mwiktorczyk @mohsen1 @galkin @parambirs @eps1lon @ThomasdenH @WilcoBakker @wwwy3y3 @samuela @kuehlein @bhongy @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
@@ -5917,7 +5918,6 @@
 /types/progressbar/                                     @atd-schubert
 /types/progressbar.js/                                  @peterblazejewicz
 /types/progressjs/                                      @zaneli
-/types/proj4/                                           @DenisCarriere @BendingBender
 /types/proj4leaflet/                                    @BendingBender
 /types/project-name/                                    @ajilo297
 /types/project-name-generator/                          @peterblazejewicz
@@ -6993,7 +6993,6 @@
 /types/rr-notifications/                                @RobbieGM
 /types/rrc/                                             @DeividasBakanas
 /types/rrdiagram-js/                                    @muaz-32
-/types/rrdir/                                           @anyone-developer
 /types/rrdtool/                                         @filiptypjeu
 /types/rsmq-worker/                                     @MugeSo
 /types/rsocket-core/                                    @adrianhopebailie @olegdokuka
@@ -7172,8 +7171,6 @@
 /types/selenium-webdriver/v2/                           @BillArmstrong @Kuniwak @cnishina
 /types/selenium-webdriver/v3/                           @BillArmstrong @Kuniwak @cnishina @SupernaviX @bendxn @oddui
 /types/selrond__knit/                                   @ChocolateLoverRaj
-/types/semantic-release/                                @lgaticaq @djcsdy @peterblazejewicz
-/types/semantic-release/v17/                            @lgaticaq @djcsdy @peterblazejewicz
 /types/semantic-release__error/                         @alexandermendes @BendingBender
 /types/semantic-ui/                                     @leonard-thieu
 /types/semantic-ui-accordion/                           @leonard-thieu
@@ -7825,7 +7822,6 @@
 /types/textarea-caret/                                  @shiftkey
 /types/textdiff-create/                                 @ensconced
 /types/textdiff-patch/                                  @ensconced
-/types/textextensions/                                  @BendingBender
 /types/textract/                                        @lal12
 /types/textversionjs/                                   @aaronosher
 /types/tg-ads-mediation__ads-cdn/                       @barinbritva
@@ -8167,6 +8163,7 @@
 /types/uuid/v7/                                         @iamolivinius @felipeochoa @cjbarth @LinusU @ctavan
 /types/uuid-1345/                                       @mugeso
 /types/uuid-browser/                                    @forivall
+/types/uuid-encoder/                                    @mvhenten
 /types/uuid-js/                                         @mhegazy
 /types/uuid-parse/                                      @screendriver
 /types/uuid-readable/                                   @ffflorian
@@ -8644,7 +8641,7 @@
 /types/youtube-captions-scraper/                        @oof2win2
 /types/youtube-dl/                                      @bsurai @moshfeu @NotWoods
 /types/youtube-player/                                  @jurca
-/types/ysdk/                                            @koteelok
+/types/ysdk/                                            @yandex-games-plugins
 /types/yt-player/                                       @troeggla
 /types/yt-search/                                       @cherryblossom000
 /types/yui/                                             @giabao
